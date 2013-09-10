@@ -92,7 +92,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		
 	}
 	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa a��o aqui. Ou então deixar em branco, para comportamento padr�o */
+	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
 	@Override
 	protected void quandoNovo() {
 		getCurrentBean().setConfirmado(false);
@@ -169,7 +169,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 
 	public void alteraFormBaseadoEmColaborador(Colaborador colaborador) {
 		if(isNovo()){
-			//dados padr�o primeiro cadastro
+			//dados padrão primeiro cadastro
 			getCurrentBean().setDataCadastro(new Date());
 			Pessoa p = colaborador.getPessoa();
 			PessoaFisica pf = pessoaDAO.getPessoaFisica(p.getId());

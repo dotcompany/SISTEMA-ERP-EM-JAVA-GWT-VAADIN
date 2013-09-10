@@ -466,7 +466,7 @@ public class ContratoFormView extends CustomComponent {
 				null);
 
 		tabSheet_2.addTab(previsaoFaturamentoSubForm,
-				"Previs�o de Faturamento", null);
+				"Previsão de Faturamento", null);
 		
 		
 

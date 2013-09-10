@@ -174,7 +174,7 @@ public class EmpresaFormView extends CustomComponent {
 		
 		// txtRazaoSocial
 		txtRazaoSocial = new TextField();
-		txtRazaoSocial.setCaption("Raz�o Social");
+		txtRazaoSocial.setCaption("Razão Social");
 		txtRazaoSocial.setImmediate(false);
 		txtRazaoSocial.setWidth("400px");
 		txtRazaoSocial.setHeight("-1px");

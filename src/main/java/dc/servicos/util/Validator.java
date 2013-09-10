@@ -2,7 +2,7 @@ package dc.servicos.util;
 
 
 /**
- * Classe utilit�ria com m�dotos de valida��o.
+ * Classe utilit�ria com m�dotos de validação.
  * @author douglasrehem
  *
  */
@@ -13,7 +13,7 @@ public class Validator {
 	}
 	
 	/**
-	 * M�todo utilit�rio de valida��o de String.
+	 * M�todo utilit�rio de validação de String.
 	 * @param value Valor para ser validado.
 	 * @return Retorna <code>true</code> se estiver preenchido ou <code>false</code> se for null ou vazio
 	 */
@@ -30,7 +30,7 @@ public class Validator {
 	}
 	
 	/**
-	 * M�todo utilit�rio de valida��o de Números.
+	 * M�todo utilit�rio de validação de Números.
 	 * @param value Valor para ser validado.
 	 * @return Retorna <code>true</code> se for um Número v�lido ou <code>false</code> se 
 	 * for inválido ou em branco
@@ -55,7 +55,7 @@ public class Validator {
 	}
 	
 	/**
-	 * M�todo utilit�rio de valida��o de Objetos.
+	 * M�todo utilit�rio de validação de Objetos.
 	 * @param value Valor para ser validado.
 	 * @return Retorna <code>true</code> se Não for null ou <code>false</code> se 
 	 * for null.

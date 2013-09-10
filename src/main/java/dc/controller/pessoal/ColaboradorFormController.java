@@ -256,7 +256,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getCmbSindicato().setValue(currentBean.getIdSindicato());
 		
 		
-		/* Configura combo NIVEL FORMA��O */
+		/* Configura combo NIVEL FORMAção */
 		ManyToOneComboModel<NivelFormacao> modelnivel = new ManyToOneComboModel<NivelFormacao>() {
 			
 			@Override

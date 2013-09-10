@@ -70,7 +70,7 @@ public class SpedPis4316FormController extends CRUDFormController<SpedPis4316> {
 		subView.getDtFimVigencia().setValue(currentBean.getFimVigencia());
 	}
 	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa a��o aqui. Ou então deixar em branco, para comportamento padr�o */
+	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
 	@Override
 	protected void quandoNovo() {
 		

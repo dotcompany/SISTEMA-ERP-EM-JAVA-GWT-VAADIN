@@ -150,7 +150,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	/*
-	 * Classes que estendem CRUDFormController devem implementar valida�oes para
+	 * Classes que estendem CRUDFormController devem implementar validaãoes para
 	 * salvar(novo e alterar) nesse metodo
 	 */
 	protected abstract boolean validaSalvar();

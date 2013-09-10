@@ -64,8 +64,8 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	}
 
 	/*
-	 * Callback para quando novo foi acionado. Colocar programa��o customizada
-	 * para essa a��o aqui. Ou ent�o deixar em branco, para comportamento padr�o
+	 * Callback para quando novo foi acionado. Colocar programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
 	 */
 	@Override
 	protected void quandoNovo() {
