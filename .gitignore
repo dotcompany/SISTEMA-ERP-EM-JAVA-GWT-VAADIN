@@ -1,6 +1,10 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+.gradle
+.settings
+.project
+bin/
+build/
+c:/
+d:/
+src/main/webapp/VAADIN/widgetsets/
+src/main/webapp/VAADIN/gwt-unitCache/
+.classpath
