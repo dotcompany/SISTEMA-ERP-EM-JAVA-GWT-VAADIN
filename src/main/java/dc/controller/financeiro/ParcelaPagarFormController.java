@@ -9,32 +9,30 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.DocumentoOrigem;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.util.Validator;
-import dc.visao.financeiro.DocumentoOrigemFormView;
+import dc.entidade.financeiro.ParcelaPagar;
+import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.visao.financeiro.ParcelaPagarFormView;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class DocumentoOrigemFormController extends CRUDFormController<DocumentoOrigem> {
+public class ParcelaPagarFormController extends CRUDFormController<ParcelaPagar> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DocumentoOrigemFormView subView;
+	private ParcelaPagarFormView subView;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoorigemDAO;
+	private ParcelaPagarDAO parcelaPagarDAO;
 
-	private DocumentoOrigem currentBean;
+	private ParcelaPagar currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Documento Origem";
+		return "Parcela Pagar";
 	}
 
 	@Override
@@ -46,8 +44,8 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-			documentoorigemDAO.saveOrUpdate(currentBean);
+			//currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+			parcelaPagarDAO.saveOrUpdate(currentBean);
 			mensagemSalvoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,13 +54,13 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = documentoorigemDAO.find(id);
+		currentBean = parcelaPagarDAO.find(id);
 		subView.preencheForm(currentBean);
 	}
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
 	 */
 	@Override
 	protected void quandoNovo() {
@@ -71,7 +69,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void initSubView() {
-		subView = new DocumentoOrigemFormView();
+		subView = new ParcelaPagarFormView();
 
 	}
 
@@ -81,12 +79,12 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new DocumentoOrigem();
+		currentBean = new ParcelaPagar();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		documentoorigemDAO.deleteAllByIds(ids);
+		parcelaPagarDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
 
@@ -96,7 +94,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
+		/*if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
@@ -109,7 +107,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 		if (!Validator.validateString(subView.getTxtSiglaDocumento().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtSiglaDocumento(), "Não pode ficar em branco");
 			valido = false;
-		}
+		}*/
 		
 		return valido;
 	}
@@ -121,6 +119,6 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "documentoorigemForm";
+		return "parcelaPagamento";
 	}
 }

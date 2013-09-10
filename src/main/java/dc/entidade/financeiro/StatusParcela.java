@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,6 +19,9 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
+import dc.entidade.framework.Empresa;
+
 /**
 *
 * @author Wesley Jr
@@ -24,7 +29,7 @@ import org.hibernate.search.annotations.Indexed;
 *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
 *no nosso Banco de Dados 
 ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, est� diferente do mapeamento do T2Ti.
+* e mudamos, está diferente do mapeamento do T2Ti.
 * *
 * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
 * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
@@ -46,12 +51,22 @@ public class StatusParcela implements Serializable {
     private Integer id;
     
     @Column(name = "DESCRICAO")
+    @Caption(value="Descrição")
     private String descricao;
     
     @Lob
     @Type(type="text")
     @Column(name = "PROCEDIMENTO")
+    @Caption(value="Procedimento")
     private String procedimento;
+
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Empresa empresa;
+    
+    @Caption(value="Situação")
+    @Column(name = "SITUACAO")
+    private String situacao;
 
     public StatusParcela() {
     }
@@ -106,8 +121,24 @@ public class StatusParcela implements Serializable {
 
     @Override
     public String toString() {
-        return "com.t2tierp.contasapagar.java.StatusParcela[id=" + id + "]";
+        return "StatusParcela[id=" + id + "]";
     }
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 
 }
 

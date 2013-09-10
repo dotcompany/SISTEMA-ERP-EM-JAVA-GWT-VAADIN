@@ -9,32 +9,32 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.DocumentoOrigem;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.util.Validator;
-import dc.visao.financeiro.DocumentoOrigemFormView;
+import dc.control.validator.Validator;
+import dc.entidade.financeiro.StatusParcela;
+import dc.servicos.dao.financeiro.StatusParcelaDAO;
+import dc.visao.financeiro.StatusParcelaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class DocumentoOrigemFormController extends CRUDFormController<DocumentoOrigem> {
+public class StatusParcelaFormController extends CRUDFormController<StatusParcela> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DocumentoOrigemFormView subView;
+	private StatusParcelaFormView subView;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoorigemDAO;
+	private StatusParcelaDAO statusParcelaDAO;
 
-	private DocumentoOrigem currentBean;
+	private StatusParcela currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Documento Origem";
+		return "Status Parcela";
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 		subView.preencheBean(currentBean);
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-			documentoorigemDAO.saveOrUpdate(currentBean);
+			statusParcelaDAO.saveOrUpdate(currentBean);
 			mensagemSalvoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,13 +56,13 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = documentoorigemDAO.find(id);
+		currentBean = statusParcelaDAO.find(id);
 		subView.preencheForm(currentBean);
 	}
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
 	 */
 	@Override
 	protected void quandoNovo() {
@@ -71,7 +71,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void initSubView() {
-		subView = new DocumentoOrigemFormView();
+		subView = new StatusParcelaFormView();
 
 	}
 
@@ -81,16 +81,15 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new DocumentoOrigem();
+		currentBean = new StatusParcela();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		documentoorigemDAO.deleteAllByIds(ids);
+		statusParcelaDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
 
-	
 	@Override
 	protected boolean validaSalvar() {
 
@@ -100,17 +99,20 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
+
+		if (!Validator.validateString(subView.getTxtProcedimento().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtProcedimento(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
-		if (!Validator.validateString(subView.getTxtSiglaDocumento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSiglaDocumento(), "Não pode ficar em branco");
+		String situacao = subView.getTxtSituacao().getValue();
+		if (!Validator.validateString(subView.getTxtSituacao().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtSituacao(), "Não pode ficar em branco");
 			valido = false;
+		} else if (situacao.equals("01") || situacao.equals("02") || situacao.equals("03") || situacao.equals("04")) {
+			valido = false;
+			adicionarErroDeValidacao(subView.getTxtSituacao(), "O código informado para a situação não pode ser cadastrado.");
 		}
-		
+
 		return valido;
 	}
 
@@ -121,6 +123,6 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "documentoorigemForm";
+		return "statusParcelaForm";
 	}
 }

@@ -1,7 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,103 +21,102 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.framework.AbstractModel;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, est� diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "natureza_financeira")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class NaturezaFinanceira implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Field
-    @Caption("Classificação")
-    @Column(name = "CLASSIFICACAO")
-    private String classificacao;
-    
-    @Field
-    @Caption("Descricao")
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    
-    @Column(name="TIPO")
-    @Caption(value="Tipo")
-    private String tipo;
-    
-    @Caption(value="Aplicação")
-    @Column(name="APLICACAO", length = 255)
-    private String aplicacao;
-    
-    @Caption(value="Aparece à Pagar")
-    @Column(name="APARECE_A_PAGAR")
-    private String aparecePagar;
-    
-    @Caption(value="Aparece à Receber")
-    @Column(name="APARECE_A_RECEBER")
-    private String apareceReceber;
-    
-    @Caption(value="Plano Natureza Financeira")
-    @JoinColumn(name = "ID_PLANO_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private PlanoNaturezaFinanceira planoNaturezaFinanceira;
-    
-    @Caption(value="Conta Contábil")
-    @JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ContabilConta contabilconta;
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class NaturezaFinanceira extends AbstractModel<Integer> {
 
-    public NaturezaFinanceira() {
-    }
+	private static final long serialVersionUID = 1L;
 
-    public NaturezaFinanceira(Integer id) {
-        this.id = id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Classificação")
+	@Column(name = "CLASSIFICACAO")
+	private String classificacao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Descricao")
+	@Column(name = "DESCRICAO")
+	private String descricao;
 
-    public String getClassificacao() {
-        return classificacao;
-    }
+	@Column(name = "TIPO")
+	@Caption(value = "Tipo")
+	private String tipo;
 
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
-    }
+	@Caption(value = "Aplicação")
+	@Column(name = "APLICACAO", length = 255)
+	private String aplicacao;
 
-    public String getDescricao() {
-        return descricao;
-    }
+	@Caption(value = "Aparece à Pagar")
+	@Column(name = "APARECE_A_PAGAR")
+	private String aparecePagar;
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    
-    public String getTipo() {
+	@Caption(value = "Aparece à Receber")
+	@Column(name = "APARECE_A_RECEBER")
+	private String apareceReceber;
+
+	@Caption(value = "Plano Natureza Financeira")
+	@JoinColumn(name = "ID_PLANO_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private PlanoNaturezaFinanceira planoNaturezaFinanceira;
+
+	@Caption(value = "Conta Contábil")
+	@JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private ContabilConta contabilconta;
+
+	public NaturezaFinanceira() {
+	}
+
+	public NaturezaFinanceira(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getClassificacao() {
+		return classificacao;
+	}
+
+	public void setClassificacao(String classificacao) {
+		this.classificacao = classificacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getTipo() {
 		return tipo;
 	}
 
@@ -152,36 +149,39 @@ public class NaturezaFinanceira implements Serializable {
 	}
 
 	@Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof NaturezaFinanceira == false) return false;
-    	if (this == object) return true;
-    	final NaturezaFinanceira other = (NaturezaFinanceira) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof NaturezaFinanceira == false)
+			return false;
+		if (this == object)
+			return true;
+		final NaturezaFinanceira other = (NaturezaFinanceira) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
-    /**
-     * @return the planoNaturezaFinanceira
-     */
-    public PlanoNaturezaFinanceira getPlanoNaturezaFinanceira() {
-        return planoNaturezaFinanceira;
-    }
+	/**
+	 * @return the planoNaturezaFinanceira
+	 */
+	public PlanoNaturezaFinanceira getPlanoNaturezaFinanceira() {
+		return planoNaturezaFinanceira;
+	}
 
-    /**
-     * @param planoNaturezaFinanceira the planoNaturezaFinanceira to set
-     */
-    public void setPlanoNaturezaFinanceira(PlanoNaturezaFinanceira planoNaturezaFinanceira) {
-        this.planoNaturezaFinanceira = planoNaturezaFinanceira;
-    }
+	/**
+	 * @param planoNaturezaFinanceira
+	 *            the planoNaturezaFinanceira to set
+	 */
+	public void setPlanoNaturezaFinanceira(PlanoNaturezaFinanceira planoNaturezaFinanceira) {
+		this.planoNaturezaFinanceira = planoNaturezaFinanceira;
+	}
 
 	public ContabilConta getContabilconta() {
 		return contabilconta;
@@ -190,7 +190,5 @@ public class NaturezaFinanceira implements Serializable {
 	public void setContabilconta(ContabilConta contabilconta) {
 		this.contabilconta = contabilconta;
 	}
-    
 
 }
-

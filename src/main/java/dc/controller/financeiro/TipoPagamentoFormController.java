@@ -9,32 +9,32 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.DocumentoOrigem;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.util.Validator;
-import dc.visao.financeiro.DocumentoOrigemFormView;
+import dc.control.validator.Validator;
+import dc.entidade.financeiro.TipoPagamento;
+import dc.servicos.dao.financeiro.TipoPagamentoDAO;
+import dc.visao.financeiro.TipoPagamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class DocumentoOrigemFormController extends CRUDFormController<DocumentoOrigem> {
+public class TipoPagamentoFormController extends CRUDFormController<TipoPagamento> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DocumentoOrigemFormView subView;
+	private TipoPagamentoFormView subView;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoorigemDAO;
+	private TipoPagamentoDAO tipoPagamentoDAO;
 
-	private DocumentoOrigem currentBean;
+	private TipoPagamento currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Documento Origem";
+		return "Tipo Pagamento";
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 		subView.preencheBean(currentBean);
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-			documentoorigemDAO.saveOrUpdate(currentBean);
+			tipoPagamentoDAO.saveOrUpdate(currentBean);
 			mensagemSalvoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,13 +56,13 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = documentoorigemDAO.find(id);
+		currentBean = tipoPagamentoDAO.find(id);
 		subView.preencheForm(currentBean);
 	}
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
 	 */
 	@Override
 	protected void quandoNovo() {
@@ -71,7 +71,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void initSubView() {
-		subView = new DocumentoOrigemFormView();
+		subView = new TipoPagamentoFormView();
 
 	}
 
@@ -81,16 +81,15 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new DocumentoOrigem();
+		currentBean = new TipoPagamento();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		documentoorigemDAO.deleteAllByIds(ids);
+		tipoPagamentoDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
 
-	
 	@Override
 	protected boolean validaSalvar() {
 
@@ -100,17 +99,16 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
+
+		String tipo = subView.getTxtTipo().getValue();
+		if (!Validator.validateString(subView.getTxtTipo().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtTipo(), "Não pode ficar em branco");
 			valido = false;
-		}
-		
-		if (!Validator.validateString(subView.getTxtSiglaDocumento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSiglaDocumento(), "Não pode ficar em branco");
+		} else if (tipo.equals("01") || tipo.equals("02") || tipo.equals("03")) {
 			valido = false;
+			adicionarErroDeValidacao(subView.getTxtTipo(), "O código informado para o tipo não pode ser cadastrado.");
 		}
-		
+
 		return valido;
 	}
 
@@ -121,6 +119,6 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "documentoorigemForm";
+		return "tipoPagamentoForm";
 	}
 }

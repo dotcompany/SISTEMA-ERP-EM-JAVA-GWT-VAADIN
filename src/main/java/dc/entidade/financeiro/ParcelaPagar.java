@@ -1,6 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,6 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 
 /**
 *
@@ -34,7 +34,7 @@ import dc.anotacoes.Caption;
 *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
 *no nosso Banco de Dados 
 ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, est� diferente do mapeamento do T2Ti.
+* e mudamos, está diferente do mapeamento do T2Ti.
 * *
 * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
 * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
@@ -46,7 +46,7 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ParcelaPagar implements Serializable {
+public class ParcelaPagar extends AbstractModel<Integer> {
 	
     private static final long serialVersionUID = 1L;
     
@@ -101,7 +101,15 @@ public class ParcelaPagar implements Serializable {
     @JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private LancamentoPagar lancamentoPagar;
-
+   
+    @Column(name = "NUMERO_PARCELA")
+    private Integer numeroParcela;
+    
+    @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ContaCaixa contaCaixa;
+   
+    
     public ParcelaPagar() {
     }
 
@@ -250,6 +258,24 @@ public class ParcelaPagar implements Serializable {
     public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
         this.lancamentoPagar = lancamentoPagar;
     }
+
+	public Integer getNumeroParcela() {
+		return numeroParcela;
+	}
+
+	public void setNumeroParcela(Integer numeroParcela) {
+		this.numeroParcela = numeroParcela;
+	}
+
+	public ContaCaixa getContaCaixa() {
+		return contaCaixa;
+	}
+
+	public void setContaCaixa(ContaCaixa contaCaixa) {
+		this.contaCaixa = contaCaixa;
+	}
+	
+	
 
 }
 
