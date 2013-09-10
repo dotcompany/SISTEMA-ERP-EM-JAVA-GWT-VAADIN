@@ -486,14 +486,14 @@ public class CadastroPessoa extends CustomComponent {
 		tabSheet_16.setImmediate(false);
 		tabSheet_16.setWidth("100.0%");
 		tabSheet_16.setHeight("100.0%");
-		tabSheet_15.addTab(tabSheet_16, "Inscrilção Estadual", null);
+		tabSheet_15.addTab(tabSheet_16, "Inscrição Estadual", null);
 		
 		// tabSheet_17
 		tabSheet_17 = new TabSheet();
 		tabSheet_17.setImmediate(false);
 		tabSheet_17.setWidth("-1px");
 		tabSheet_17.setHeight("-1px");
-		tabSheet_15.addTab(tabSheet_17, "Endereão", null);
+		tabSheet_15.addTab(tabSheet_17, "Endereço", null);
 		
 		// tabSheet_18
 		tabSheet_18 = new TabSheet();

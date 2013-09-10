@@ -139,7 +139,7 @@ public class EsqueciMinhaSenhaView extends ExternalView {
 
         
         final TextField emailTextField = new TextField();
-        emailTextField.setCaption("Digite o endereão de e-mail utilizado para acesso ao DotCompanyERP");
+        emailTextField.setCaption("Digite o Endereço de e-mail utilizado para acesso ao DotCompanyERP");
         fields.addComponent(emailTextField);
 ;        
         final Button btnNewPassword = new Button("Envie-me instru��es para cadastrar uma nova senha");
@@ -159,7 +159,7 @@ public class EsqueciMinhaSenhaView extends ExternalView {
             @Override
             public void buttonClick(ClickEvent event) {
             	if(emailTextField.getValue() == null || emailTextField.getValue().trim() == "" ){
-            		showErrorMessage("Preencha o seu endereão de e-mail para envio do link de nova senha");
+            		showErrorMessage("Preencha o seu Endereço de e-mail para envio do link de nova senha");
             	}else{
             		controller.enviaEmail(emailTextField.getValue());
             	}
