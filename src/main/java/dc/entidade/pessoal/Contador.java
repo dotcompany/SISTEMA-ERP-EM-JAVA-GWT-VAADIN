@@ -1,0 +1,248 @@
+package dc.entidade.pessoal;
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.UF;
+/**
+ *
+ * @author Wesley Jr
+ * 
+ */
+ 
+@Entity
+@Table(name = "contador")
+@XmlRootElement
+@Indexed
+@Analyzer(impl=BrazilianAnalyzer.class)
+public class Contador extends AbstractModel<Integer> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contador_id_seq")
+	@SequenceGenerator(name = "contador_id_seq", sequenceName = "contador_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	private Integer id;
+    
+    @Field
+    @Caption("Inscricao CRC")
+    @Column(name = "INSCCRICAO_CRC", length = 50)
+    private String inscricaoCrc;
+    
+    @Field
+    @Caption("Uf CRC")
+    @Column(name="UF_CRC")
+    private String ufCrc;
+    
+    @Field
+    @Caption("Telefone")
+    @Column(name="FONE", length = 50)
+    private String fone;
+    
+    @Field
+    @Caption("Fax")
+    @Column(name="FAX")
+    private String fax;
+    
+    @Field
+    @Caption("Logradouro")
+    @Column(name="LOGRADOURO", length = 100)
+    private String logradouro;
+    
+    @Field
+    @Caption("Numero")
+    @Column(name="NUMERO", length=50)
+    private String numero;
+    
+    @Field
+    @Caption("Complemento")
+    @Column(name="complemento", length= 100)
+    private String complemento;
+    
+    @Field
+    @Caption("Bairro")
+    @Column(name="BAIRRO", length=100)
+    private String bairro;
+    
+    @Field
+    @Caption("Cidade")
+    @Column(name="CIDADE", length= 100)
+    private String cidade;
+    
+    @Field
+    @Caption("Cep")
+    @Column(name="CEP", length=50)
+    private String cep;
+    
+    @Field
+    @Caption("Municipio IBGE")
+    @Column(name="MUNICIPIO_IBGE", length= 100)
+    private Integer municipioIBGE;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name="UF", referencedColumnName = "ID")
+    private UF uf;
+    
+    @Field
+    @Caption("Email")
+    @Column(name="EMAIL", length=100)
+    private String email;
+    
+    @JoinColumn(name = "ID_Pessoa", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Pessoa idPessoa;
+
+    public Contador() {
+    }
+
+    public Contador(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public String getInscricaoCrc() {
+		return inscricaoCrc;
+	}
+
+	public void setInscricaoCrc(String inscricaoCrc) {
+		this.inscricaoCrc = inscricaoCrc;
+	}
+
+	public String getUfCrc() {
+		return ufCrc;
+	}
+
+	public void setUfCrc(String ufCrc) {
+		this.ufCrc = ufCrc;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public Integer getMunicipioIBGE() {
+		return municipioIBGE;
+	}
+
+	public void setMunicipioIBGE(Integer municipioIBGE) {
+		this.municipioIBGE = municipioIBGE;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Pessoa getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Pessoa idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+	public UF getUf() {
+		return uf;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	@Override
+    public String toString() {
+    	return ToStringBuilder.reflectionToString(this);
+    }
+}
+

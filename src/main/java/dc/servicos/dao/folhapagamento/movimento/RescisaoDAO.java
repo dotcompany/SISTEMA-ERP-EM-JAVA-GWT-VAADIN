@@ -1,0 +1,60 @@
+package dc.servicos.dao.folhapagamento.movimento;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import dc.entidade.folhapagamento.movimento.RescisaoEntity;
+import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
+@Repository
+@SuppressWarnings("unchecked")
+public class RescisaoDAO extends AbstractCrudDAO<RescisaoEntity> {
+
+	@Override
+	protected Class<RescisaoEntity> getEntityClass() {
+		return RescisaoEntity.class;
+	}
+
+	@Transactional
+	public List<RescisaoEntity> listarTodos() {
+		try {
+			String sql = "FROM RescisaoEntity ent WHERE (1 = 1)";
+
+			List<RescisaoEntity> auxLista = super.getSession().createQuery(sql)
+					.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<RescisaoEntity>();
+		}
+	}
+
+	@Transactional
+	public List<RescisaoEntity> procuraNomeContendo(String query) {
+		try {
+			String sql = "FROM RescisaoEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+
+			List<RescisaoEntity> auxLista = super.getSession().createQuery(sql)
+					.setParameter("q", "%" + query + "%").list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<RescisaoEntity>();
+		}
+	}
+
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "Colaborador", "Data da demissão",
+				"Data do pagamento", "Motivo" };
+	}
+
+}

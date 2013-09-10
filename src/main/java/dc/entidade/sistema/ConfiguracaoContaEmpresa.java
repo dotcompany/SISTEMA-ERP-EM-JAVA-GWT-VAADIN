@@ -1,0 +1,113 @@
+package dc.entidade.sistema;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.sun.istack.logging.Logger;
+
+import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
+import dc.entidade.framework.FmModulo;
+import dc.entidade.geral.Usuario;
+
+@Entity
+@Table(name = "configuracao_conta_empresa")
+@XmlRootElement
+public class ConfiguracaoContaEmpresa extends AbstractModel<Integer> implements Serializable{
+
+
+	private static final long serialVersionUID = -4401209508896666278L;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    
+	@OneToOne()
+	private ContaEmpresa conta;
+    
+    @Field()
+    @Caption("Pergunta 1")
+    @Column(name = "pergunta_1" )
+    private String pergunta1;
+    
+    @Field()
+    @Caption("Pergunta 2")
+    @Column(name = "pergunta_2" )
+    private String pergunta2;
+ 
+    @ManyToMany(fetch=FetchType.EAGER)
+    //@Cascade({org.hibernate.annotations.CascadeType.DETACH})
+	private List<FmModulo> modulos;
+
+    private static Logger logger = Logger.getLogger(ConfiguracaoContaEmpresa.class);
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public ContaEmpresa getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaEmpresa conta) {
+		this.conta = conta;
+	}
+
+	public String getPergunta1() {
+		return pergunta1;
+	}
+
+	public void setPergunta1(String pergunta1) {
+		this.pergunta1 = pergunta1;
+	}
+
+	public String getPergunta2() {
+		return pergunta2;
+	}
+
+	public void setPergunta2(String pergunta2) {
+		this.pergunta2 = pergunta2;
+	}
+
+	public List<FmModulo> getModulos() {
+		return modulos;
+	}
+
+	public void setModulos(List<FmModulo> modulos) {
+		this.modulos = modulos;
+	}
+
+
+
+
+
+
+    
+	
+}
