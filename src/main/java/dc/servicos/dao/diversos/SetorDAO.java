@@ -1,5 +1,6 @@
 package dc.servicos.dao.diversos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,8 @@ public class SetorDAO extends AbstractCrudDAO<Setor> {
 
 	@Transactional
 	public List<Setor> procuraNomeContendo(String query) {
-		return getSession().createQuery("from Setor where nome like :q").setParameter("q", "%" + query + "%").list();
+		return getSession().createQuery("from Setor where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -44,17 +46,22 @@ public class SetorDAO extends AbstractCrudDAO<Setor> {
 
 	@Transactional
 	public List<Setor> listarTodos() {
-		String sql = "FROM Setor ent WHERE (1 = 1)";
+		try {
+			String sql = "FROM Setor ent WHERE (1 = 1)";
 
-		List auxLista = super.getSession().createQuery(sql).list();
+			List auxLista = super.getSession().createQuery(sql).list();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<Setor>();
+		}
 	}
-	
+
 	@Transactional
 	public List<Setor> query(String q) {
-		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from Setor where lower(nome) like :q").setParameter("q", q).list();
+		q = "%" + q.toLowerCase() + "%";
+		return getSession().createQuery("from Setor where lower(nome) like :q")
+				.setParameter("q", q).list();
 	}
 
 }
