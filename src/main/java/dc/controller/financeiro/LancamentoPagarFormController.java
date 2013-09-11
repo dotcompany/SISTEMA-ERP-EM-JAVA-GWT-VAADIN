@@ -168,7 +168,11 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 		}
 		final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
-		parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
+		List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
+		if(dados != null){
+			parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
+		}
+		
 		if (parcelasPagar != null && parcelasPagar.isEmpty()) {
 			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
 					"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não", new ConfirmDialog.Listener() {

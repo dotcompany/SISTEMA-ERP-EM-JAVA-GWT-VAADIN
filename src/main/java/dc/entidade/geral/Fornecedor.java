@@ -52,51 +52,51 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DESDE")
-    private Date desde;
-    @Column(name = "OPTANTE_SIMPLES_NACIONAL")
-    private String optanteSimplesNacional;
-    @Column(name = "LOCALIZACAO")
-    private String localizacao;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATA_CADASTRO")
-    private Date dataCadastro;
-    @Column(name = "SOFRE_RETENCAO")
-    private String sofreRetencao;
-    @Column(name = "CHEQUE_NOMINAL_A")
-    private String chequeNominalA;
-    @Column(name = "OBSERVACAO")
-    private String observacao;
-    @Column(name = "CONTA_REMETENTE")
-    private String contaRemetente;
-    @Column(name = "PRAZO_MEDIO_ENTREGA")
-    private BigDecimal prazoMedioEntrega;
-    @Column(name = "GERA_FATURAMENTO")
-    private String geraFaturamento;
-    @Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
-    private Integer numDiasPrimeiroVencimento;
-    @Column(name = "NUM_DIAS_INTERVALO")
-    private Integer numDiasIntervalo;
-    @Column(name = "QUANTIDADE_PARCELAS")
-    private Integer quantidadeParcelas;
-    @JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private SituacaoForCli situacaoForCli;
-    @JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private AtividadeForCli atividadeForCli;
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Pessoa pessoa;
-    @JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-    @ManyToOne
-    private ContabilConta contabilConta;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DESDE")
+	private Date desde;
+	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
+	private String optanteSimplesNacional;
+	@Column(name = "LOCALIZACAO")
+	private String localizacao;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_CADASTRO")
+	private Date dataCadastro;
+	@Column(name = "SOFRE_RETENCAO")
+	private String sofreRetencao;
+	@Column(name = "CHEQUE_NOMINAL_A")
+	private String chequeNominalA;
+	@Column(name = "OBSERVACAO")
+	private String observacao;
+	@Column(name = "CONTA_REMETENTE")
+	private String contaRemetente;
+	@Column(name = "PRAZO_MEDIO_ENTREGA")
+	private BigDecimal prazoMedioEntrega;
+	@Column(name = "GERA_FATURAMENTO")
+	private String geraFaturamento;
+	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
+	private Integer numDiasPrimeiroVencimento;
+	@Column(name = "NUM_DIAS_INTERVALO")
+	private Integer numDiasIntervalo;
+	@Column(name = "QUANTIDADE_PARCELAS")
+	private Integer quantidadeParcelas;
+	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private SituacaoForCli situacaoForCli;
+	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private AtividadeForCli atividadeForCli;
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Pessoa pessoa;
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
+	@ManyToOne
+	private ContabilConta contabilConta;
 
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
@@ -108,25 +108,26 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	public Fornecedor(Integer id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * Metodo transient para exibir nas views. Composto do id + nome da pessoa
+	 * 
 	 * @return
 	 * @author cjalmeida
 	 */
 	@Transient
 	public String getCaption() {
-		
+
 		Object id = this.id;
 		if (id == null) {
 			id = "";
 		}
-		
+
 		String nome = "";
 		if (getPessoa() != null && getPessoa().getNome() != null) {
 			nome = getPessoa().getNome();
 		}
-		
+
 		return "[" + id + "] " + nome;
 	}
 
