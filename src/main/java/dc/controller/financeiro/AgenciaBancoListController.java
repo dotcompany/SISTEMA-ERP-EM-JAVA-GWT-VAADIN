@@ -17,7 +17,7 @@ import dc.visao.framework.geral.CRUDListController;
 /*
  * Nessa classe temos a Extensão da classe principal que é crudListController
  * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O m�todo do Button pesquisar, pegando um valor. e também ele pega algumas informações
+ * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
  * da classe FormController
  *
 */

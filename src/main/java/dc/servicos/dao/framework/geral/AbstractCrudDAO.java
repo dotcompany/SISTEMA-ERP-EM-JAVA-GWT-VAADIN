@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 * @author Wesley Jr
 /*
  *Classe onde é Abstract, temos nela alguns métodos do Save, do pesquisar também, onde
- *aqui est� um pouco da l�gica do pesquisar que utilizamos dentro da Tela, para pegarmos
+ *aqui está um pouco da lógica do pesquisar que utilizamos dentro da Tela, para pegarmos
  *informações! 
  * 
  
