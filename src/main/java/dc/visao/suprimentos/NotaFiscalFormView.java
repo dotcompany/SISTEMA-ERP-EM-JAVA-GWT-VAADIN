@@ -143,6 +143,7 @@ public class NotaFiscalFormView extends CustomComponent  {
 		buildAbaNFEReferenciada();
 		buildAbaEntregaRetirada();
 		buildAbaProdutos();
+		buildAbaLoteProduto();
 		buildAbaTransporte();
 		buildAbaCobranca();
 		buildAbaLote();
@@ -406,7 +407,7 @@ public class NotaFiscalFormView extends CustomComponent  {
 				try {
 
 					if(upload!=null && upload.getContentAsStream()!=null) {
-                         input = upload.getContentAsStream();
+						input = upload.getContentAsStream();
 						String temp = System.getProperty("java.io.tmpdir");
 						file = new File(temp+"//nfe.xml");
 						OutputStream output = new FileOutputStream(file);
@@ -436,58 +437,74 @@ public class NotaFiscalFormView extends CustomComponent  {
 				Ide ide = nfe.getNFe().getInfNFe().getIde();
 				InfAdic infAdic = nfe.getNFe().getInfNFe().getInfAdic();
 				txtChaveAcesso.setValue(nfe.getProtNFe().getInfProt().getChNFe());
-				tipoOperacao.setValue(TIPO_OPERACAO.getTipoOperacao(ide.getTpNF()));
-				txtNumero.setValue(ide.getNNF());
-				txtModelo.setValue(ide.getMod());
-				txtSerie.setValue(ide.getSerie());
+				
+				if(ide!=null){
+					tipoOperacao.setValue(TIPO_OPERACAO.getTipoOperacao(ide.getTpNF()));
+					txtNumero.setValue(ide.getNNF());
+					txtModelo.setValue(ide.getMod());
+					txtSerie.setValue(ide.getSerie());
 
-				natureza.setValue(ide.getNatOp());
-				horaEntradaSaida.setValue(ide.getHSaiEnt());
-				dataEntradaSaida.setValue(converteData(ide.getDSaiEnt()));
-				dataEmissao.setValue(converteData(ide.getDEmi()));
-				formaPagamento.setValue(FORMA_PAGAMENTO.getFormaPagamento(ide.getIndPag()));
-				formaEmissao.setValue(FORMA_EMISSAO.getFormaEmissao(ide.getTpEmis()));
-				tipoDanfe.setValue(TIPO_DANFE.getTipoDanfe(ide.getTpImp()));
-				finalidadeEmissao.setValue(FINALIDADE_EMISSAO.getFinalidadeEmissao(ide.getFinNFe()));
+					natureza.setValue(ide.getNatOp());
+					horaEntradaSaida.setValue(ide.getHSaiEnt());
+					dataEntradaSaida.setValue(converteData(ide.getDSaiEnt()));
+					dataEmissao.setValue(converteData(ide.getDEmi()));
+					formaPagamento.setValue(FORMA_PAGAMENTO.getFormaPagamento(ide.getIndPag()));
+					formaEmissao.setValue(FORMA_EMISSAO.getFormaEmissao(ide.getTpEmis()));
+					tipoDanfe.setValue(TIPO_DANFE.getTipoDanfe(ide.getTpImp()));
+					finalidadeEmissao.setValue(FINALIDADE_EMISSAO.getFinalidadeEmissao(ide.getFinNFe()));	
+				}
+				
+				
 				infoContrib.setNullRepresentation(" ");
 				infoFisco.setNullRepresentation(" ");
-				infoContrib.setValue(infAdic.getInfCpl());
-				infoFisco.setValue(infAdic.getInfAdFisco());
-				ICMSTot icms = nfe.getNFe().getInfNFe().getTotal().getICMSTot();
+				
+				if(infAdic!=null){
+					infoContrib.setValue(infAdic.getInfCpl());
+					infoFisco.setValue(infAdic.getInfAdFisco());	
+				}
 
-				baseICMS.setValue(icms.getVBC());
-				valorICMS.setValue(icms.getVICMS());
-				baseICMSST.setValue(icms.getVBCST());
-				valorICMSST.setValue(icms.getVST());
-				totalCofins.setValue(icms.getVCOFINS());
-				totalProdutos.setValue(icms.getVProd());
-				valorFrete.setValue(icms.getVFrete());
-				valorSeguro.setValue(icms.getVSeg());
-				outrasDespesas.setValue(icms.getVOutro());
-				valorTotalPIS.setValue(icms.getVPIS());
-				descontos.setValue(icms.getVDesc());
-				totalNota.setValue(icms.getVNF());
+				ICMSTot icms = nfe.getNFe().getInfNFe().getTotal().getICMSTot();
+				if(icms!=null){
+					baseICMS.setValue(icms.getVBC());
+					valorICMS.setValue(icms.getVICMS());
+					baseICMSST.setValue(icms.getVBCST());
+					valorICMSST.setValue(icms.getVST());
+					totalCofins.setValue(icms.getVCOFINS());
+					totalProdutos.setValue(icms.getVProd());
+					valorFrete.setValue(icms.getVFrete());
+					valorSeguro.setValue(icms.getVSeg());
+					outrasDespesas.setValue(icms.getVOutro());
+					valorTotalPIS.setValue(icms.getVPIS());
+					descontos.setValue(icms.getVDesc());
+					totalNota.setValue(icms.getVNF());
+
+				}
+
 			}
 
 			public void importarEmitente(){
 				Emit emitente = nfe.getNFe().getInfNFe().getEmit();
 				TEnderEmi endereco = emitente.getEnderEmit();
-				cpfCnpjEm.setValue(emitente.getCNPJ());
-				razaoEm.setValue(emitente.getXNome());
-				fantasiaEm.setValue(emitente.getXFant());
-
-				getCep().setValue(endereco.getCEP());
-				getLogradouro().setValue(endereco.getXLgr());
-				getNumero().setValue(endereco.getNro());
-				getComplemento().setValue(endereco.getXCpl());
-				getBairro().setValue(endereco.getXBairro());
-				getTelefone().setValue(endereco.getFone());
-				getCodigoMunicipio().setValue(endereco.getCMun());
-				getCidade().setValue(endereco.getXMun());
-				getUf().setValue(endereco.getUF().value());
-				getInscricao().setValue(emitente.getIE());
-				getCrt().setValue(CRT.getCRT(emitente.getCRT()));
-
+				
+				if(emitente!=null){
+					cpfCnpjEm.setValue(emitente.getCNPJ());
+					razaoEm.setValue(emitente.getXNome());
+					fantasiaEm.setValue(emitente.getXFant());	
+					getInscricao().setValue(emitente.getIE());
+					getCrt().setValue(CRT.getCRT(emitente.getCRT()));
+				}
+				
+				if(endereco!=null){
+					getCep().setValue(endereco.getCEP());
+					getLogradouro().setValue(endereco.getXLgr());
+					getNumero().setValue(endereco.getNro());
+					getComplemento().setValue(endereco.getXCpl());
+					getBairro().setValue(endereco.getXBairro());
+					getTelefone().setValue(endereco.getFone());
+					getCodigoMunicipio().setValue(endereco.getCMun());
+					getCidade().setValue(endereco.getXMun());
+					getUf().setValue(endereco.getUF().value());	
+				}
 
 			}
 
@@ -496,14 +513,20 @@ public class NotaFiscalFormView extends CustomComponent  {
 
 				try{
 					List<TNFe.InfNFe.Det> produtos = nfe.getNFe().getInfNFe().getDet();	
-					List<Produto> lista = new ArrayList<Produto>();
-					for(Det d : produtos){
-						Produto p =  new Produto();
-						p.setDescricao(d.getProd().getXProd());
-						lista.add(p);
-					}
+					
+					if(produtos!=null){
+						List<Produto> lista = new ArrayList<Produto>();
+						for(Det d : produtos){
+							Produto p =  new Produto();
+							p.setDescricao(d.getProd().getXProd());
+							lista.add(p);
+						}
 
-					produtoSubForm.fillWith(lista);
+						produtoSubForm.fillWith(lista);	
+					}
+					
+					
+					
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -1535,6 +1558,10 @@ public class NotaFiscalFormView extends CustomComponent  {
 
 	public void setRntcVeiculo(TextField rntcVeiculo) {
 		this.rntcVeiculo = rntcVeiculo;
+	}
+	
+	public void buildAbaLoteProduto(){
+		subForms.addTab(null, "Lote de Produto", null);
 	}
 
 	public void buildAbaTransporte(){
