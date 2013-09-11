@@ -245,11 +245,11 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 	}
 
 	protected T getNovo() {
-		throw new UnsupportedOperationException("Implementar este m�todo!");
+		throw new UnsupportedOperationException("Implementar este Método!");
 	}
 
 	protected void getRemoverSelecionados(List<T> values) {
-		throw new UnsupportedOperationException("Implementar este m�todo!");
+		throw new UnsupportedOperationException("Implementar este Método!");
 	}
 
 	public void fillWith(List<T> dados) {

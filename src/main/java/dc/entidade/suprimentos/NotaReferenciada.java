@@ -36,7 +36,7 @@ public class NotaReferenciada extends AbstractModel<Integer> {
 	@Column(name="codigo_uf")
 	Integer uf;
 	
-	@Caption("Ano/M�s")
+	@Caption("Ano/Mês")
 	@Column(name="ano_mes")
 	Integer anoMes;
 

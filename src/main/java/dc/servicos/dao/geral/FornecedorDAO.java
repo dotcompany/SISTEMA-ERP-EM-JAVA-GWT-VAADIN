@@ -1,5 +1,6 @@
 package dc.servicos.dao.geral;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -22,11 +23,15 @@ public class FornecedorDAO extends AbstractCrudDAO<Fornecedor> {
 
 	@Transactional
 	public List<Fornecedor> listarTodos() {
-		String sql = "FROM Fornecedor ent WHERE (1 = 1)";
+		try {
+			String sql = "FROM Fornecedor ent WHERE (1 = 1)";
 
-		List auxLista = super.getSession().createQuery(sql).list();
+			List auxLista = super.getSession().createQuery(sql).list();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<Fornecedor>();
+		}
 	}
 
 }

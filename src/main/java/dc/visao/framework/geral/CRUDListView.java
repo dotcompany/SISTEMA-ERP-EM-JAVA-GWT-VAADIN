@@ -15,7 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Tela (DESIGN), onde tem todos os botıes nessa classe
+ * Nessa classe temos a Tela (DESIGN), onde tem todos os bot√µes nessa classe
  * 
  *
 */
