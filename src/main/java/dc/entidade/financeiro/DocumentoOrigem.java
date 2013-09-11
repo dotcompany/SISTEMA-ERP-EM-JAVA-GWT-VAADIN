@@ -104,7 +104,7 @@ public class DocumentoOrigem implements Serializable {
 
     @Override
     public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
+    	return codigo;
     }
 
 	public String getCodigo() {

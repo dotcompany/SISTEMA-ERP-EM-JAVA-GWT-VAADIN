@@ -3,6 +3,7 @@ package dc.controller.financeiro;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -99,7 +100,6 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	protected void initSubView() {
 		subView = new LancamentoPagarFormView(this);
 
-
 		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
 			/**
@@ -167,8 +167,9 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		if (contaCaixa == null || contaCaixa.getId() == null) {
 			throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 		}
-		final List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
-		if (!parcelasPagar.isEmpty()) {
+		final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+		parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
+		if (parcelasPagar != null && parcelasPagar.isEmpty()) {
 			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
 					"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não", new ConfirmDialog.Listener() {
 
@@ -185,7 +186,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 					});
 		}
 		subView.getParcelasSubForm().removeAllItems();
-		
+
 		subView.preencheBean(currentBean);
 		LancamentoPagar lancamentoPagar = currentBean;
 		ParcelaPagar parcelaPagar;

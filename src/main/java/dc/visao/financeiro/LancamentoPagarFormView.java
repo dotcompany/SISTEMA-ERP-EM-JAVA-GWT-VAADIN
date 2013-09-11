@@ -28,6 +28,7 @@ import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.geral.Fornecedor;
 import dc.visao.financeiro.converters.NaturezaFinanceiraConverter;
+import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -149,12 +150,17 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 		txQuantidadeParcela = ComponentUtil.builNumericField("Quantidade Parcelas");
 		fields.addComponent(txQuantidadeParcela, 3, 2);
+		txQuantidadeParcela.setConverter(new IntegerConverter());
 
 		txIntervaloParcela = ComponentUtil.builNumericField("Intervalos Parcelas");
 		fields.addComponent(txIntervaloParcela, 4, 2);
+		txIntervaloParcela.setConverter(new IntegerConverter());
 
 		dtPrimeiroVencimento = ComponentUtil.buildPopupDateField("Primeiro Vencimento");
 		fields.addComponent(dtPrimeiroVencimento, 5, 2);
+		
+		btnGerarParcelas = new Button("Gerar Parcelas");
+		fields.addComponent(btnGerarParcelas, 0 , 3);
 
 		return fields;
 	}
@@ -227,8 +233,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 	private Component buildSubFormParcelas() {
 
 		parcelasLayout = new VerticalLayout();
-		btnGerarParcelas = new Button("Gerar Parcelas");
-		parcelasLayout.addComponent(btnGerarParcelas);
+		
 
 		cbContaCaixa = ComponentUtil.buildComboBox("Conta Caixa");
 		//cbContaCaixa.setConverter(new ContaCaixaConverter());
@@ -286,10 +291,6 @@ public class LancamentoPagarFormView extends CustomComponent {
 				controller.removerParcelaPagar(values);
 			}
 		};
-
-		setBtnGerarParcelas(new Button("Gerar Contrato"));
-		getBtnGerarParcelas().setVisible(false);
-
 		parcelasLayout.addComponent(this.parcelasSubForm);
 
 		return parcelasLayout;
@@ -302,10 +303,23 @@ public class LancamentoPagarFormView extends CustomComponent {
 		currentBean.setPagamentoCompartilhado(((SimNao) cbPagamentoCompartilhado.getValue()).getCodigo());
 		currentBean.setValorAPagar((BigDecimal) txValorPagar.getConvertedValue());
 		currentBean.setValorTotal((BigDecimal) txValorTotal.getConvertedValue());
+		currentBean.setIntervaloEntreParcelas((Integer) txIntervaloParcela.getConvertedValue());
+		currentBean.setNumeroDocumento(txNumeroDocumento.getValue());
+		currentBean.setQuantidadeParcela((Integer) txQuantidadeParcela.getConvertedValue());
+
 
 	}
 
 	public void preencheForm(LancamentoPagar currentBean) {
+		cbFornecedor.setValue(currentBean.getFornecedor( ));
+		dtLancamento.setValue(currentBean.getDataLancamento());
+		cbDocumentoOrigem.setValue(currentBean.getDocumentoOrigem());
+		cbPagamentoCompartilhado.setValue(SimNao.getSimNao( currentBean.getPagamentoCompartilhado( )));
+		txValorPagar.setConvertedValue(currentBean.getValorAPagar( ));
+		txValorTotal.setConvertedValue(currentBean.getValorTotal());
+		txIntervaloParcela.setConvertedValue(currentBean.getIntervaloEntreParcelas());
+		txNumeroDocumento.setValue(currentBean.getNumeroDocumento());
+		txQuantidadeParcela.setConvertedValue(currentBean.getQuantidadeParcela());
 
 	}
 
