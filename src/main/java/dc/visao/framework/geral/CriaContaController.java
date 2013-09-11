@@ -46,7 +46,7 @@ public class CriaContaController implements Serializable, ViewController {
 	public void criarConta(ContaEmpresa c){
 		currentBean = c;
 		boolean saved = false;
-		logger.info("Conta empresa, tentativa de cria��o");
+		logger.info("Conta empresa, tentativa de criação");
 		logger.info(String.valueOf(c) + c.getNome() + c.getEmail());
 		try{
 			currentBean.getEmpresa().setRazaoSocial(currentBean.getEmpresa().getNomeFantasia());

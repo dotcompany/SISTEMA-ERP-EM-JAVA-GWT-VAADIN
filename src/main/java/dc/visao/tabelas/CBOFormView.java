@@ -115,7 +115,7 @@ public class CBOFormView extends CustomComponent {
 		
 		// txtObservacao
 		txtObservacao = new TextField();
-		txtObservacao.setCaption("Ibserva��o");
+		txtObservacao.setCaption("Observação");
 		txtObservacao.setImmediate(false);
 		txtObservacao.setWidth("440px");
 		txtObservacao.setHeight("-1px");

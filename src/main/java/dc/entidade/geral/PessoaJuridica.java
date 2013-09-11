@@ -81,7 +81,7 @@ public class PessoaJuridica implements Serializable {
     private String suframa;
     
     @Field
-    @Caption("Raz�o Social")
+    @Caption("Razão Social")
     @Column(name = "RAZAO_SOCIAL", length=255)
     private String razaoSocial;
     

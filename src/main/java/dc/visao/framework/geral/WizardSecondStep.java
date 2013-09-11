@@ -29,7 +29,7 @@ public class WizardSecondStep  extends BaseWizardStep{
 	@Override
 	protected void fillMainPanel(VerticalLayout mainPanel) {
 		// TODO Auto-generated method stub
-		Label question = new Label("Que tipo de notas fiscais eletr�nicas (NF-e) voc� precisa emitir?");
+		Label question = new Label("Que tipo de notas fiscais eletr�nicas (NF-e) Você precisa emitir?");
         question.setSizeUndefined();
         question.addStyleName("h4");
         
@@ -40,7 +40,7 @@ public class WizardSecondStep  extends BaseWizardStep{
          
         group.addItem("Apenas de produto (NF-e)");
         group.addItem("não vou emitir notas fiscais eletr�nicas por esse sistema");
-        group.addItem("Usarei o sistema somente para emiss�o de NF-e");
+        group.addItem("Usarei o sistema somente para emissão de NF-e");
         mainPanel.addComponent(group);
 		
 

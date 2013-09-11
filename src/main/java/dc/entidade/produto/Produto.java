@@ -194,9 +194,9 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	 * Mapeamento SubGrupo-Produto
 	 * @author wesley Junior
 	 **/
-	@JoinColumn(name = "ID_SUB_GRUPO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private SubGrupoProduto subGrupo;
+//	@JoinColumn(name = "ID_SUB_GRUPO",insertable = true, updatable = true)
+//	@Fetch(FetchMode.JOIN)
+//	private SubGrupoProduto subGrupo;
 
 	/** 
 	*Mapeamento Unidade-Produto
@@ -563,13 +563,13 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public SubGrupoProduto getSubGrupo() {
-		return subGrupo;
-	}
-
-	public void setSubGrupo(SubGrupoProduto subGrupo) {
-		this.subGrupo = subGrupo;
-	}
+//	public SubGrupoProduto getSubGrupo() {
+//		return subGrupo;
+//	}
+//
+//	public void setSubGrupo(SubGrupoProduto subGrupo) {
+//		this.subGrupo = subGrupo;
+//	}
 
 	/*public UnidadeProduto getUnidade() {
 		return unidade;

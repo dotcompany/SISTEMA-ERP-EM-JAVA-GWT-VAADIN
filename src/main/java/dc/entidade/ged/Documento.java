@@ -83,7 +83,7 @@ public class Documento implements Serializable {
 	private Date dataFimVigencia;
 
 	@Field
-	@Caption("Data exclus�o")
+	@Caption("Data exclusão")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_EXCLUSAO")
 	private Date dataExclusao;

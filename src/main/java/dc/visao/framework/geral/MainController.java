@@ -38,7 +38,7 @@ import dc.visao.spring.SecuritySessionProvider;
  * Nessa classe é a classe principal.
  * Essa classe seria como se fosse o DesktopApp, onde nela colocamos as informações do Menu Principal
  * Colocamos as Telas que queremos que abra no Browser na Tela Principal.
- * Tem o Modelo de implementa��o do Menu com as Telas.
+ * Tem o Modelo de implementação do Menu com as Telas.
  *
 */
 

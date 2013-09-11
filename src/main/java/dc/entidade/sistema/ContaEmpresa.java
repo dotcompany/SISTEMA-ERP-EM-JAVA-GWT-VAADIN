@@ -55,7 +55,7 @@ public class ContaEmpresa extends AbstractModel<Integer> implements Serializable
     @Caption("E-mail")
     @Column(name = "email" )
     @javax.validation.constraints.NotNull(message="Não pode estar vazio")
-    @Pattern(regexp = ".+@.+\\.[a-z]+",message= "Endere�o de e-mail inválido")
+    @Pattern(regexp = ".+@.+\\.[a-z]+",message= "Endereço de e-mail inválido")
     private String email;
     
     @Field()

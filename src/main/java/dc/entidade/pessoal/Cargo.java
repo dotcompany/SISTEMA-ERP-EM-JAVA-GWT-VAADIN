@@ -77,7 +77,7 @@ public class Cargo extends AbstractModel<Integer> implements Serializable {
     @Column(name = "SALARIO", precision = 11, scale = 2)
     private Double salario;
     
-    // Campos CBO_1994 e CBO_2002 não s�o relacionamentos. S�o os pr�prios Códigos CBO.
+    // Campos CBO_1994 e CBO_2002 não são relacionamentos. São os pr�prios Códigos CBO.
     
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "CBO_1994",insertable = true, updatable = true, referencedColumnName="codigo_1994")
