@@ -142,7 +142,7 @@ public class EsqueciMinhaSenhaView extends ExternalView {
         emailTextField.setCaption("Digite o Endereço de e-mail utilizado para acesso ao DotCompanyERP");
         fields.addComponent(emailTextField);
 ;        
-        final Button btnNewPassword = new Button("Envie-me instru��es para cadastrar uma nova senha");
+        final Button btnNewPassword = new Button("Envie-me instruções para cadastrar uma nova senha");
         btnNewPassword.addStyleName("default");
         fields.addComponent(btnNewPassword);
         fields.setComponentAlignment(btnNewPassword, Alignment.BOTTOM_LEFT);

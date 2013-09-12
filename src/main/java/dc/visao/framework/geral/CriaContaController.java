@@ -86,12 +86,12 @@ public class CriaContaController implements Serializable, ViewController {
 		ContaEmpresa c = dao.findByEmail(currentBean.getEmail());
 		
 		if(u != null || c!= null){
-			view.showErrorMessage("E-mail j� é utilizado por outro Usuário do sistema.");
+			view.showErrorMessage("E-mail já é utilizado por outro Usuário do sistema.");
 			return false;
 		}else{
 			Empresa emp = empresaDao.findByCNPJ(currentBean.getEmpresa().getCnpj());
 			if(emp != null){
-				view.showErrorMessage("CNPJ j� é utilizado por outro Usuário do sistema.");
+				view.showErrorMessage("CNPJ já é utilizado por outro Usuário do sistema.");
 				return false;
 			}
 		}

@@ -37,7 +37,7 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 	
 	@Override
 	protected String getNome() {
-		return "M�dulo";
+		return "Módulo";
 	}
 
 	@Override

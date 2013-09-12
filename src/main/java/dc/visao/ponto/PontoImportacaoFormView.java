@@ -101,8 +101,8 @@ public class PontoImportacaoFormView extends CustomComponent {
 		tabSheet.setImmediate(true);
 		tabSheet.setSizeFull();
 
-		tabSheet.addTab(buildSubFormAFD(), "Marca��es no arquivo", null);
-		tabSheet.addTab(buildSubFormPontoMarcacao(), "Marca��es inclu�das", null);
+		tabSheet.addTab(buildSubFormAFD(), "Marcações no arquivo", null);
+		tabSheet.addTab(buildSubFormPontoMarcacao(), "Marcações incluídas", null);
 		tabSheet.addTab(buildSubFormPontoFechamentoJornada(), "Fechamento Jornada", null);
 
 		return tabSheet;

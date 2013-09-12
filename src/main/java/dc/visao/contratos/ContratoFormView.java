@@ -439,7 +439,7 @@ public class ContratoFormView extends CustomComponent {
 
 		// txaObservacoes
 		txaObservacoes = new TextArea();
-		txaObservacoes.setCaption("Observa��es");
+		txaObservacoes.setCaption("Observações");
 		txaObservacoes.setImmediate(false);
 		txaObservacoes.setWidth("339px");
 		txaObservacoes.setHeight("-1px");

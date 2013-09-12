@@ -9,7 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contém
+ * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contÃ©m
  * tudo que ela precisa ter
  *
 */

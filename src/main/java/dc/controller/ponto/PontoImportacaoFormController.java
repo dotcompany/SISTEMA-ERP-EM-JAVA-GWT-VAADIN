@@ -481,7 +481,7 @@ public class PontoImportacaoFormController extends BlankFormController {
 						marcacoes.get(i).setSituacaoRegistro("Colaborador está sem o Código da turma cadastrada!");
 					} else {
 						marcacoes.get(i).setColaborador(colaborador);
-						// Verifica se o registro j� foi armazenado no
+						// Verifica se o registro já foi armazenado no
 						// banco de dados
 						PontoMarcacao marc = pontoMarcacaoDAO.getPontoMarcacao(colaborador, relogio, marcacoes.get(i)
 								.getDataMarcacao(), marcacoes.get(i).getHoraMarcacao());
@@ -570,7 +570,7 @@ public class PontoImportacaoFormController extends BlankFormController {
 		}
 
 		/*
-		 * transforma as Marca��es que foram feitas na tela em AFD para serem
+		 * transforma as Marcações que foram feitas na tela em AFD para serem
 		 * utilizadas no fechamentos
 		 */
 		List<PontoMarcacao> marcacoes = subView.getPontoMarcacaoSubForm().getDados();

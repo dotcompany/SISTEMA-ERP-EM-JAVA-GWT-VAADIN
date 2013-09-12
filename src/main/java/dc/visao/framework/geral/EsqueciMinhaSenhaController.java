@@ -44,7 +44,7 @@ public class EsqueciMinhaSenhaController implements Serializable, ViewController
 			if(c!= null){
 				String url = generateTokenizedURL(c);
 				try {
-					sender.send(email, "Instruções para obter nova senha - DotCompanyERP", "Clique <a href=\"" +  url + "\"> aqui</a> para cadastrar uma nova senha para sua conta no DotCompanyERP.</br>",true);
+					sender.send(email, "InstruÃ§Ãµes para obter nova senha - DotCompanyERP", "Clique <a href=\"" +  url + "\"> aqui</a> para cadastrar uma nova senha para sua conta no DotCompanyERP.</br>",true);
 				} catch (Exception e) {
 					showOkMessage=false;
 					view.showErrorMessage("Problemas ao enviar e-mail");

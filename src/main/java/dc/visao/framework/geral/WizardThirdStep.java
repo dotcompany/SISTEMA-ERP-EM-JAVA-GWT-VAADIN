@@ -57,7 +57,7 @@ public class WizardThirdStep extends BaseWizardStep implements Serializable{
 				return false;
 			}
 		}else{
-			showErrorMessage("Selecione ao menos um m�dulo para prosseguir");
+			showErrorMessage("Selecione ao menos um Módulo para prosseguir");
 			return false;
 		}
 	}

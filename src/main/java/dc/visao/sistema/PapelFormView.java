@@ -35,7 +35,7 @@ import dc.entidade.framework.PapelMenu;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela cont�m
+ * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contém
  * tudo que ela precisa ter
  *
 */
@@ -102,7 +102,7 @@ public class PapelFormView extends CustomComponent {
         
         buildTable(controller.getCurrentBean());
         
-        this.comboModulos = new ComboBox("M�dulo",new ArrayList<>());
+        this.comboModulos = new ComboBox("Módulo",new ArrayList<>());
         this.comboModulos.setItemCaptionPropertyId("caption");
         this.comboModulos.setNullSelectionAllowed(false);
         

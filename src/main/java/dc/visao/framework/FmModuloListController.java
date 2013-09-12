@@ -36,7 +36,7 @@ public class FmModuloListController extends CRUDListController<FmModulo> {
 
 	@Override
 	protected String getTitulo() {
-		return "Módulo";
+		return "MÃ³dulo";
 	}
 
 	@Override
