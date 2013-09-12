@@ -84,8 +84,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	@SuppressWarnings("unused")
 	protected void actionSalvar() {
 		
-		currentBean.setRazaoSocial(subView.getTxtRazaoSocial().getValue());
-		currentBean.setNomeFantasia(subView.getTxtNomeFantasia().getValue());
+		//currentBean.setRazaoSocial(subView.getTxtRazaoSocial().getValue());
+		//currentBean.setNomeFantasia(subView.getTxtNomeFantasia().getValue());
 		
 		try{
 			empresaDAO.saveOrUpdate(currentBean);
@@ -99,10 +99,10 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	private void carregarCombos() {
 		/*subView.carregaComboMatrix(matrizDAO
 				.getAll(Matriz.class));*/
-		subView.carregaComboContador(contadorDAO
-				.getAll(Contador.class));
-		subView.carregaComboSindicato(sindicatoDAO
-				.getAll(Sindicato.class));
+		//subView.carregaComboContador(contadorDAO
+		//		.getAll(Contador.class));
+		//subView.carregaComboSindicato(sindicatoDAO
+		//		.getAll(Sindicato.class));
 		/*subView.carregaComboFpas(FpasDAO
 				.getAll(Fpas.class)); */
 		}
@@ -111,8 +111,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	protected void carregar(Serializable id) {
 		carregarCombos();
 		currentBean = empresaDAO.find(id);
-		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
-		subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
+		//subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
+		//subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
 	}
 
 	@Override
