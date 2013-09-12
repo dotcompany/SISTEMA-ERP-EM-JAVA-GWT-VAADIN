@@ -11,7 +11,6 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
-import dc.entidade.framework.Fpas;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.pessoal.Contador;
@@ -51,7 +50,7 @@ import dc.visao.framework.geral.CRUDFormController;
 @Scope("prototype")
 public class EmpresaFormController extends CRUDFormController<Empresa> {
 
-    EmpresaFormView subView;
+    private  EmpresaFormView subView;
 
 	@Autowired
 	private EmpresaDAO empresaDAO;
@@ -81,7 +80,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	}
 
 	@Override
-	@SuppressWarnings("unused")
 	protected void actionSalvar() {
 		
 		currentBean.setRazaoSocial(subView.getTxtRazaoSocial().getValue());
@@ -169,15 +167,12 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	
 	@Override
 	protected boolean validaSalvar() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

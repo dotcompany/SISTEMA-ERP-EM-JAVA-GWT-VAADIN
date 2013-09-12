@@ -22,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 /**
  *
  * @author Wesley Jr
@@ -41,7 +42,7 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class MarcaProduto implements Serializable {
+public class MarcaProduto extends AbstractModel<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     

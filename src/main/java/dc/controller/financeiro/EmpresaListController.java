@@ -27,10 +27,10 @@ import dc.visao.framework.geral.CRUDListController;
 public class EmpresaListController extends CRUDListController<Empresa> {
 
 	@Autowired
-	EmpresaDAO dao;
+	private EmpresaDAO dao;
 
 	@Autowired
-	EmpresaFormController empresaFormController;
+	private EmpresaFormController empresaFormController;
 
 	@Override
 	protected String[] getColunas() {
