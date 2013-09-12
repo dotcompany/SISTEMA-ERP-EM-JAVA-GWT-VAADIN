@@ -175,6 +175,7 @@ public class AfastamentoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -192,7 +193,7 @@ public class AfastamentoFormView extends CustomComponent {
 		pdfDataFim.setImmediate(false);
 		pdfDataFim.setWidth("-1px");
 		pdfDataFim.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataFim, 0, 3);
+		gridLayout_1.addComponent(pdfDataFim, 1, 1);
 
 		// tfDiasAfastado
 		tfDiasAfastado = new TextField();
@@ -201,7 +202,7 @@ public class AfastamentoFormView extends CustomComponent {
 		tfDiasAfastado.setImmediate(false);
 		tfDiasAfastado.setWidth("175px");
 		tfDiasAfastado.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiasAfastado, 0, 5);
+		gridLayout_1.addComponent(tfDiasAfastado, 0, 2);
 
 		// cbColaborador
 		cbColaborador = new ComboBox();
@@ -210,7 +211,7 @@ public class AfastamentoFormView extends CustomComponent {
 		cbColaborador.setWidth("160px");
 		cbColaborador.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbColaborador, 0, 7);
+		gridLayout_1.addComponent(cbColaborador, 1, 2);
 
 		// cbTipoAfastamento
 		cbTipoAfastamento = new ComboBox();
@@ -219,7 +220,7 @@ public class AfastamentoFormView extends CustomComponent {
 		cbTipoAfastamento.setWidth("160px");
 		cbTipoAfastamento.setHeight("-1px");
 		cbTipoAfastamento.setRequired(true);
-		gridLayout_1.addComponent(cbTipoAfastamento, 0, 9);
+		gridLayout_1.addComponent(cbTipoAfastamento, 0, 3);
 
 		return gridLayout_1;
 	}
