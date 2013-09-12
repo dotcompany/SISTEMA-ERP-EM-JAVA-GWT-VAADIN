@@ -56,7 +56,7 @@ public class EstadoConservacaoDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Tipo", "Nome", "Descrição" };
+		return new String[] { "Código", "Nome", "Descrição" };
 	}
 
 }

@@ -1,5 +1,6 @@
 package dc.controller.patrimonio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,14 @@ public class TaxaDepreciacaoListController extends
 
 	@Override
 	protected List<TaxaDepreciacaoEntity> pesquisa(String valor) {
-		List<TaxaDepreciacaoEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<TaxaDepreciacaoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<TaxaDepreciacaoEntity>();
+		}
 	}
 
 	@Override
@@ -82,9 +87,13 @@ public class TaxaDepreciacaoListController extends
 
 	@Override
 	protected List<TaxaDepreciacaoEntity> pesquisaDefault() {
-		List<TaxaDepreciacaoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<TaxaDepreciacaoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<TaxaDepreciacaoEntity>();
+		}
 	}
 
 }
