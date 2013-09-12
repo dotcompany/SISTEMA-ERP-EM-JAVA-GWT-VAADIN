@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.LancamentoPagar;
-import dc.servicos.dao.financeiro.LancamentoPagarDAO;
+import dc.entidade.financeiro.TipoPagamento;
+import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoPagarListController extends CRUDListController<LancamentoPagar> {
+public class TipoPagamentoListController extends CRUDListController<TipoPagamento> {
 
 	/**
 	 * 
@@ -21,42 +21,41 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private LancamentoPagarDAO dao;
+	private TipoPagamentoDAO dao;
 
 	@Autowired
-	private LancamentoPagarFormController lancamentoPagarFormController;
+	private TipoPagamentoFormController tipoPagamentoFormController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "pagamentoCompartilhado", "valorTotal", "valorAPagar", "dataLancamento", "imagemDocumento", "documentoOrigem",
-				"fornecedor" };
+		return new String[] { "tipo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super LancamentoPagar> getEntityClass() {
-		return LancamentoPagar.class;
+	protected Class<? super TipoPagamento> getEntityClass() {
+		return TipoPagamento.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Lançamento à Pagar";
+		return "Tipo Pagamento";
 	}
 
 	@Override
-	protected List<LancamentoPagar> pesquisa(String valor) {
+	protected List<TipoPagamento> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<LancamentoPagar> getFormController() {
-		return lancamentoPagarFormController;
+	protected CRUDFormController<TipoPagamento> getFormController() {
+		return tipoPagamentoFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaLancamentoPagars";
+		return "listaTipoPagamentos";
 	}
 
 	@Override
@@ -67,8 +66,8 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<LancamentoPagar> pesquisaDefault() {
-		return (List<LancamentoPagar>) dao.getAll(getEntityClass());
+	protected List<TipoPagamento> pesquisaDefault() {
+		return (List<TipoPagamento>) dao.getAll(getEntityClass());
 	}
 
 }

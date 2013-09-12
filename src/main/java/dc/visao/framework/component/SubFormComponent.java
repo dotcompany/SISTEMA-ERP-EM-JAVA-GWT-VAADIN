@@ -306,5 +306,9 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		return dados;
 	}
 
+	public void removeAllItems() {
+		container.removeAllItems();
+	}
+
 }
 

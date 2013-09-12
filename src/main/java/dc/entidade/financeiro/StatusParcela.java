@@ -5,10 +5,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +19,9 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
+
+import dc.anotacoes.Caption;
+import dc.entidade.framework.Empresa;
 
 /**
 *
@@ -46,12 +52,22 @@ public class StatusParcela implements Serializable {
     private Integer id;
     
     @Column(name = "DESCRICAO")
+    @Caption(value="Descrição")
     private String descricao;
     
     @Lob
     @Type(type="text")
     @Column(name = "PROCEDIMENTO")
+    @Caption(value="Procedimento")
     private String procedimento;
+
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    private Empresa empresa;
+    
+    @Caption(value="Situação")
+    @Column(name = "SITUACAO")
+    private String situacao;
 
     public StatusParcela() {
     }
@@ -106,8 +122,24 @@ public class StatusParcela implements Serializable {
 
     @Override
     public String toString() {
-        return "com.t2tierp.contasapagar.java.StatusParcela[id=" + id + "]";
+        return "StatusParcela[id=" + id + "]";
     }
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 
 }
 

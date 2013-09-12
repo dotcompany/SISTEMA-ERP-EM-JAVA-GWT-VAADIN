@@ -2,9 +2,12 @@ package dc.entidade.financeiro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +26,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -47,162 +53,238 @@ import dc.entidade.geral.Fornecedor;
 @Table(name = "lancamento_pagar")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class LancamentoPagar implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "PAGAMENTO_COMPARTILHADO")
-    private String pagamentoCompartilhado;
-    
-    @Field
-    @Caption("Valor Total")
-    @Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
-    private BigDecimal valorTotal;
-    
-    @Column(name = "VALOR_A_PAGAR", precision = 14, scale = 0)
-    private BigDecimal valorAPagar;
-    
-    @Column(name = "DATA_LANCAMENTO")
-    @Temporal(TemporalType.DATE)
-    private Date dataLancamento;
-    
-    @Lob
-    @Type(type="text")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "IMAGEM_DOCUMENTO")
-    private String imagemDocumento;
-    
-    @JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private DocumentoOrigem documentoOrigem;
-    
-    @JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private NaturezaFinanceira naturezaFinanceira;
-    
-    @JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Fornecedor fornecedor;
+	private static final long serialVersionUID = 1L;
 
-    public LancamentoPagar() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-    public LancamentoPagar(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "PAGAMENTO_COMPARTILHADO")
+	private String pagamentoCompartilhado;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Valor Total")
+	@Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
+	private BigDecimal valorTotal;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "VALOR_A_PAGAR", precision = 14, scale = 0)
+	@Caption(value = "Valor à Pagar")
+	private BigDecimal valorAPagar;
 
-    public String getPagamentoCompartilhado() {
-        return pagamentoCompartilhado;
-    }
+	@Caption(value = "Data Lançamento")
+	@Column(name = "DATA_LANCAMENTO")
+	@Temporal(TemporalType.DATE)
+	private Date dataLancamento;
 
-    public void setPagamentoCompartilhado(String pagamentoCompartilhado) {
-        this.pagamentoCompartilhado = pagamentoCompartilhado;
-    }
+	@Lob
+	@Type(type = "text")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "IMAGEM_DOCUMENTO")
+	@Caption(value = "Imagem Documento")
+	private String imagemDocumento;
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
+	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	@Caption(value = "Documento Origem")
+	private DocumentoOrigem documentoOrigem;
 
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
+	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	@Caption(value = "Fornecedor")
+	private Fornecedor fornecedor;
 
-    public BigDecimal getValorAPagar() {
-        return valorAPagar;
-    }
+	@Caption(value = "Quantidade Parcela")
+	@Column(name = "QUANTIDADE_PARCELA")
+	private Integer quantidadeParcela;
 
-    public void setValorAPagar(BigDecimal valorAPagar) {
-        this.valorAPagar = valorAPagar;
-    }
+	@Caption(value = "Número Documento")
+	@Column(name = "NUMERO_DOCUMENTO")
+	private String numeroDocumento;
 
-    public Date getDataLancamento() {
-        return dataLancamento;
-    }
+	@Caption(value = "Primeiro Vencimento")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "PRIMEIRO_VENCIMENTO")
+	private Date primeiroVencimento;
 
-    public void setDataLancamento(Date dataLancamento) {
-        this.dataLancamento = dataLancamento;
-    }
+	@Caption(value = "Código Módulo Lcto.")
+	@Column(name = "CODIGO_MODULO_LCTO")
+	private String codigoModuloLcto;
 
-    public String getImagemDocumento() {
-        return imagemDocumento;
-    }
+	@Caption(value = "Intervalo Entre Parcelas")
+	@Column(name = "INTERVALO_ENTRE_PARCELAS")
+	private Integer intervaloEntreParcelas;
+	
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
 
-    public void setImagemDocumento(String imagemDocumento) {
-        this.imagemDocumento = imagemDocumento;
-    }
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public LancamentoPagar() {
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof LancamentoPagar == false) return false;
-    	if (this == object) return true;
-    	final LancamentoPagar other = (LancamentoPagar) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	public LancamentoPagar(Integer id) {
+		this.id = id;
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    /**
-     * @return the documentoOrigem
-     */
-    public DocumentoOrigem getDocumentoOrigem() {
-        return documentoOrigem;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    /**
-     * @param documentoOrigem the documentoOrigem to set
-     */
-    public void setDocumentoOrigem(DocumentoOrigem documentoOrigem) {
-        this.documentoOrigem = documentoOrigem;
-    }
+	public String getPagamentoCompartilhado() {
+		return pagamentoCompartilhado;
+	}
 
-    /**
-     * @return the naturezaFinanceira
-     */
-    public NaturezaFinanceira getNaturezaFinanceira() {
-        return naturezaFinanceira;
-    }
+	public void setPagamentoCompartilhado(String pagamentoCompartilhado) {
+		this.pagamentoCompartilhado = pagamentoCompartilhado;
+	}
 
-    /**
-     * @param naturezaFinanceira the naturezaFinanceira to set
-     */
-    public void setNaturezaFinanceira(NaturezaFinanceira naturezaFinanceira) {
-        this.naturezaFinanceira = naturezaFinanceira;
-    }
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
 
-    /**
-     * @return the fornecedor
-     */
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 
-    /**
-     * @param fornecedor the fornecedor to set
-     */
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
+	public BigDecimal getValorAPagar() {
+		return valorAPagar;
+	}
+
+	public void setValorAPagar(BigDecimal valorAPagar) {
+		this.valorAPagar = valorAPagar;
+	}
+
+	public Date getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public void setDataLancamento(Date dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+
+	public String getImagemDocumento() {
+		return imagemDocumento;
+	}
+
+	public void setImagemDocumento(String imagemDocumento) {
+		this.imagemDocumento = imagemDocumento;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof LancamentoPagar == false)
+			return false;
+		if (this == object)
+			return true;
+		final LancamentoPagar other = (LancamentoPagar) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	/**
+	 * @return the documentoOrigem
+	 */
+	public DocumentoOrigem getDocumentoOrigem() {
+		return documentoOrigem;
+	}
+
+	/**
+	 * @param documentoOrigem
+	 *            the documentoOrigem to set
+	 */
+	public void setDocumentoOrigem(DocumentoOrigem documentoOrigem) {
+		this.documentoOrigem = documentoOrigem;
+	}
+
+	/**
+	 * @return the fornecedor
+	 */
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	/**
+	 * @param fornecedor
+	 *            the fornecedor to set
+	 */
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public Integer getQuantidadeParcela() {
+		return quantidadeParcela;
+	}
+
+	public void setQuantidadeParcela(Integer quantidadeParcela) {
+		this.quantidadeParcela = quantidadeParcela;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+
+	public Date getPrimeiroVencimento() {
+		return primeiroVencimento;
+	}
+
+	public void setPrimeiroVencimento(Date primeiroVencimento) {
+		this.primeiroVencimento = primeiroVencimento;
+	}
+
+	public String getCodigoModuloLcto() {
+		return codigoModuloLcto;
+	}
+
+	public void setCodigoModuloLcto(String codigoModuloLcto) {
+		this.codigoModuloLcto = codigoModuloLcto;
+	}
+
+	public Integer getIntervaloEntreParcelas() {
+		return intervaloEntreParcelas;
+	}
+
+	public void setIntervaloEntreParcelas(Integer intervaloEntreParcelas) {
+		this.intervaloEntreParcelas = intervaloEntreParcelas;
+	}
+
+	public void addParcelaPagar(ParcelaPagar parcela) {
+		parcela.setLancamentoPagar(this);
+		this.parcelasPagar.add(parcela);
+	}
+
+	public void removeParcelaPagar(ParcelaPagar parcela) {
+		parcela.setLancamentoPagar(null);
+		parcelasPagar.remove(parcela);
+		
+	}
+
+	public List<ParcelaPagar> getParcelasPagar() {
+		return parcelasPagar;
+	}
+
+	public void setParcelasPagar(List<ParcelaPagar> parcelasPagar) {
+		this.parcelasPagar = parcelasPagar;
+	}
 }

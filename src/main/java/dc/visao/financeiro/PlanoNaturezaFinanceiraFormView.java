@@ -13,7 +13,7 @@ import dc.visao.framework.util.ComponentUtil;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela cont�m
+ * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contém
  * tudo que ela precisa ter
  *
 */

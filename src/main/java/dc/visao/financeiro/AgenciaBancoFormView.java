@@ -396,7 +396,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		
 		// txtMunicipio
 		txtMunicipio = new TextField();
-		txtMunicipio.setCaption("Munic�pio");
+		txtMunicipio.setCaption("Município");
 		txtMunicipio.setImmediate(false);
 		txtMunicipio.setWidth("313px");
 		txtMunicipio.setHeight("-1px");
