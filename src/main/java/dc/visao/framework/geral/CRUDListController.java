@@ -32,6 +32,7 @@ import com.vaadin.ui.Table.ColumnGenerator;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.PapelMenu;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -168,8 +169,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	protected void actionCriarNovo() {
-		getFormController().init();
+		criaNovo();
 		mainController.showTaskableContent(getFormController());
+	}
+
+	public void criaNovo() {
+		getFormController().init();
 		getFormController().criarNovo();
 	}
 
@@ -213,6 +218,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	protected abstract CRUDFormController<E> getFormController();
+	
+	public CRUDFormController<E> getPublicFormController(){
+		return getFormController();
+	}
 
 	protected void actionPesquisa() {
 		selected.clear();
@@ -271,7 +280,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
 		// configuração do Container
 		BeanQueryFactory queryFactory = null ;
-		if(isMultiEmpresa()){
+		if(isMultiEmpresa(getEntityClass())){
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 		}else{
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);	
@@ -282,7 +291,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getId());
+		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -329,13 +338,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	}
 	
-	//Override se for listagem filtrada por ContaEmpresa. Default false no inicio para facilitar migracao
-	protected boolean isMultiEmpresa() {
-		return false;
+	private boolean isMultiEmpresa(Object o) {
+		    return o instanceof AbstractMultiEmpresaModel;
 	}
 
+
 	protected AbstractCrudDAO getMainDao() {
-		// TODO Auto-generated method stub
 		return genericDAO;
 	}
 

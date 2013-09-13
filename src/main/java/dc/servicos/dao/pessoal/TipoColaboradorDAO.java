@@ -39,10 +39,12 @@ public class TipoColaboradorDAO extends AbstractCrudDAO<TipoColaborador>{
 		return new String[] {"nome", "descricao"};
 	}
 	
-	@Transactional
+	/*@Transactional
 	public List<TipoColaborador> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from TipoColaborador where lower(nome) like :q").setParameter("q", q).list();
-	}
+		List<TipoColaborador> listaTipos = getSession().createQuery("from TipoColaborador where lower(nome) like :q").setParameter("q", q).list();
+		return listaTipos;
+		
+	}*/
 
 }

@@ -7,15 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.server.Page;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
+import dc.controller.diversos.EstadoListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.Sindicato;
+import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.UF;
+import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Cargo;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.pessoal.SituacaoColaborador;
@@ -30,20 +40,32 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.pessoal.TipoColaboradorDAO;
+import dc.servicos.dao.sistema.PapelDAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.CRUDListController;
+import dc.visao.framework.geral.ControllerAcesso;
+import dc.visao.framework.geral.MainController;
 import dc.visao.pessoal.ColaboradorFormView;
+import dc.visao.spring.SecuritySessionProvider;
 
 
 @Controller
 @Scope("prototype")
 public class ColaboradorFormController extends CRUDFormController<Colaborador> {
+	
+	@Autowired
+	private MainController mainController;
 
 	private  ColaboradorFormView subView;
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
+	
+	@Autowired
+	private PapelDAO daoPapel;
 	
 	@Autowired
 	private PessoaDAO pessoaDAO;
@@ -101,7 +123,16 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	@Override
 	protected void initSubView() {
 		subView = new ColaboradorFormView();
+
+		/* Configura combo Pessoa */
+		//DefaultManyToOneComboModel<Pessoa> model= new DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
+		//subView.getCmbPessoa().setModel(model);
 		
+		DefaultManyToOneComboModel<TipoColaborador> modelTipo = new DefaultManyToOneComboModel(TipoColaboradorListController.class,tipoColaboradorDAO,mainController,daoPapel);
+		subView.getCmbTipoColaborador().setModel(modelTipo);
+		
+		DefaultManyToOneComboModel<UF> modelUf= new DefaultManyToOneComboModel(EstadoListController.class,tipoColaboradorDAO,mainController,daoPapel);
+		subView.getCmbUf().setModel(modelUf);
 	}
 
 	@Override
@@ -124,69 +155,10 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getTxtConta().setValue(currentBean.getPagamentoConta());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 		
-		/* Configura combo Pessoa */
-		ManyToOneComboModel<Pessoa> model = new ManyToOneComboModel<Pessoa>() {
-			
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-			
-			@Override
-			public List<Pessoa> getResultado(String q) {
-				return pessoaDAO.query(q);
-			}
-			
-			@Override
-			public Class<Pessoa> getEntityClass() {
-				return Pessoa.class;
-			}
-			
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(Pessoa value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-				
-			}
-		};
-		subView.getCmbPessoa().setModel(model);
 		subView.getCmbPessoa().setValue(currentBean.getPessoa());
 		
 		
-		/* Configura combo Tipo COLABORADOR */
-		ManyToOneComboModel<TipoColaborador> modeltipo = new ManyToOneComboModel<TipoColaborador>() {
-			
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-			
-			@Override
-			public List<TipoColaborador> getResultado(String q) {
-				return tipoColaboradorDAO.query(q);
-			}
-			
-			@Override
-			public Class<TipoColaborador> getEntityClass() {
-				return TipoColaborador.class;
-			}
-			
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
 
-			@Override
-			public void onEditar(TipoColaborador value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-				
-			}
-		};
-		subView.getCmbTipoColaborador().setModel(modeltipo);
 		subView.getCmbTipoColaborador().setValue(currentBean.getIdTipoColaborador());
 		
 		
@@ -386,38 +358,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		};
 		subView.getCmbSetor().setModel(modelsetor);
 		subView.getCmbSetor().setValue(currentBean.getIdSetor());
-		
-		
-		/* Configura combo UF */
-		ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
-			
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-			
-			@Override
-			public List<UF> getResultado(String q) {
-				return ufDAO.query(q);
-			}
-			
-			@Override
-			public Class<UF> getEntityClass() {
-				return UF.class;
-			}
-			
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
 
-			@Override
-			public void onEditar(UF value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-				
-			}
-		};
-		subView.getCmbUf().setModel(modeluf);
 		subView.getCmbUf().setValue(currentBean.getCtpsUf());
 		
 

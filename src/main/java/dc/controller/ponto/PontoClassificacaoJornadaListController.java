@@ -20,11 +20,8 @@ public class PontoClassificacaoJornadaListController extends CRUDListController<
 	 */
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	PontoClassificacaoJornadaDAO dao;@Override
-	protected void actionCriarNovo() {
-		// TODO Auto-generated method stub
-		super.actionCriarNovo();
-	}
+	PontoClassificacaoJornadaDAO dao;
+	
 
 	@Autowired
 	PontoClassificacaoJornadaFormController pontoClassificacaoJornadaFormController;

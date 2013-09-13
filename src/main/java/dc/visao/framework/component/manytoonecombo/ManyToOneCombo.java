@@ -53,11 +53,16 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
-			if (q != null && q.length() >= 3) {
+			if (q != null && q.length() >= 2) {
 				removeAllItems();
 
 				// Adiciona os itens filtrados
-				addAll(wrapValues(model.getResultado(q)));
+				if(model != null){
+					List l = model.getResultado(q);
+					if(l!= null && l.size() > 0){
+						addAll(wrapValues(l));
+					}
+				}
 
 				// Adiciona "criar novo"
 				createItemValue = new ItemValue();
@@ -170,7 +175,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("unchecked")
 	public T getValue() {
-		return ((ItemValue)cmbResult.getValue()).getBean();
+		if(cmbResult != null && cmbResult.getValue() != null){
+			return ((ItemValue)cmbResult.getValue()).getBean();	
+		}else{
+			return null;
+		}
+		
 	}
 
 	private HorizontalLayout buildMainLayout() {
