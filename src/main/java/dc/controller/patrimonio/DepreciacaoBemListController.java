@@ -65,6 +65,8 @@ public class DepreciacaoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<DepreciacaoBemEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class DepreciacaoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<DepreciacaoBemEntity>();
 		}
 	}

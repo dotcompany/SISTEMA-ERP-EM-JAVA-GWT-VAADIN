@@ -63,6 +63,8 @@ public class BemListController extends CRUDListController<BemEntity> {
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<BemEntity>();
 		}
 	}
@@ -90,6 +92,8 @@ public class BemListController extends CRUDListController<BemEntity> {
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<BemEntity>();
 		}
 	}
