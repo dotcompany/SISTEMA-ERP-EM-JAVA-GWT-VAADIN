@@ -94,7 +94,7 @@ public class EstadoConservacaoFormController extends
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

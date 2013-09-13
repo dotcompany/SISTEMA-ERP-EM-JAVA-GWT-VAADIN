@@ -50,7 +50,7 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 		currentBean.setNome(subView.getTxtNome().getValue());
 		try{
 			sefipDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

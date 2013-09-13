@@ -2,6 +2,8 @@ package dc.visao.framework.component.manytoonecombo;
 
 import java.util.List;
 
+import com.vaadin.ui.ComboBox;
+
 
 public interface ManyToOneComboModel<T> {
 	
@@ -14,4 +16,6 @@ public interface ManyToOneComboModel<T> {
 	List<T> getResultado(String q);
 
 	void onEditar(T value);
+	
+	
 }

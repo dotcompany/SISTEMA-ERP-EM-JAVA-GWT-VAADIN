@@ -83,7 +83,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

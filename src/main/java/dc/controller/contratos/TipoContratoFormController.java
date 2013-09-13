@@ -82,7 +82,7 @@ public class TipoContratoFormController extends CRUDFormController<TipoContrato>
 		currentBean.setDescricao(descricao);
 		try {
 			tipoContratoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -112,7 +112,7 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 		subView.preencheBean(currentBean);
 		try {
 			pontoAbonoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -75,7 +75,7 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

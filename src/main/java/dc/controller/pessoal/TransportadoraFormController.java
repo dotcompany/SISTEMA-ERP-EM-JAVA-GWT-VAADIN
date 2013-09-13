@@ -146,7 +146,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 			transportadoraDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

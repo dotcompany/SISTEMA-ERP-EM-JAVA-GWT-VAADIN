@@ -78,7 +78,7 @@ public class AgenciaBancoFormController extends
 		currentBean.setNumero(subView.getTxtNumero().getValue());
 		try {
 			agenciaDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

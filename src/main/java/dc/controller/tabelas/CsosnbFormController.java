@@ -52,7 +52,7 @@ public class CsosnbFormController extends CRUDFormController<Csosnb> {
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			csosnbDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

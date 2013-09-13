@@ -69,7 +69,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 		currentBean.setMunicipio(municipio);
 		try{
 			cepDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

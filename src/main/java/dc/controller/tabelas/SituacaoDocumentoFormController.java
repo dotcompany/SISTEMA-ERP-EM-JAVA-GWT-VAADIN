@@ -51,7 +51,7 @@ public class SituacaoDocumentoFormController extends CRUDFormController<Situacao
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		try{
 			situacaoDocumentoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

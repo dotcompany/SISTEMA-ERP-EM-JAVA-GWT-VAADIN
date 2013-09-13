@@ -101,7 +101,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 		try {
 			contaCaixaDAO.saveOrUpdate(currentBean);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

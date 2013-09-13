@@ -52,7 +52,7 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			csosnaDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

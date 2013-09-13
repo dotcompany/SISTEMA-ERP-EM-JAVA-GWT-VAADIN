@@ -10,10 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
 
 import dc.controller.pessoal.TipoColaboradorListController;
 import dc.entidade.framework.PapelMenu;
@@ -32,12 +29,14 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		private Class ctrlClass;
 		private MainController mainController;		
 		private PapelDAO daoPapel;
+		private int modalSize = 2;
+		private ManyToOneCombo<T> combo;
 		
 		public static final int FULL_SIZE_MODAL = 1;
 		public static final int MEDIUM_SIZE_MODAL = 2;
 		public static final int SMALL_SIZE_MODAL = 3;
 		
-		private int modalSize = 2;
+		
 		
 		public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao,MainController mainController,PapelDAO daoPapel){
 			this.dao = dao;
@@ -47,14 +46,15 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		}
 		
 		public void setModalSize(int modalSizeType){
-			this.modalSize = modalSizeType;
+			this.modalSize  = modalSizeType;
 		}
 
 		@Override
 		public void onCriarNovo(String filter) {
 			Notification.show("Selecionado Criar Novo: " + filter);
-			Window w = new Window();
+			
 			CRUDListController<TipoColaborador> ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
+			
 			 Usuario u = SecuritySessionProvider.getUsuario();
 			 
 			if(ctrl instanceof ControllerAcesso){
@@ -67,23 +67,18 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				}
 				
 			}
+			ctrl.addSaveListener(new ModalWindowSaveListener<T>(){
+
+				@Override
+				public void onSave(T object) {
+					combo.setValue(object);
+				}
+				
+				
+			});
+			ctrl.openOnNewWindow(modalSize);
 			ctrl.getPublicFormController().criarNovo();
-			w.setContent((Component) ctrl.getPublicFormController().getView());
 			
-			w.center();
-			if(modalSize != 1 && modalSize != 2){
-				w.setWidth("70%");
-				w.setHeight("80%");	
-			}else if (modalSize == 1){
-				w.setWidth("100%");
-				w.setHeight("100%");	
-			}else{
-				w.setWidth("35%");
-				w.setHeight("40%");
-			}
-			
-			w.setModal(true);
-			UI.getCurrent().addWindow(w);
 		}
 		
 		@Override
@@ -176,6 +171,10 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
                } else {
                        return null;
                }
+		   }
+		   
+		   public void setCombo(ManyToOneCombo<T> manyToOneCombo){
+			   this.combo = manyToOneCombo;
 		   }
              
 	

@@ -28,6 +28,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.Table.ColumnGenerator;
 
 import dc.anotacoes.AnotacoesUtil;
@@ -37,6 +39,7 @@ import dc.entidade.framework.PapelMenu;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -71,6 +74,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	@Autowired
 	private GenericListDAO genericDAO;
 	
+	
+	private Window window = null;
+	private ModalWindowSaveListener saveListener;
+			
 	@PostConstruct
 	protected void init() {
 		getFormController().setListController(this);
@@ -219,9 +226,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	protected abstract CRUDFormController<E> getFormController();
 	
-	public CRUDFormController<E> getPublicFormController(){
-		return getFormController();
-	}
 
 	protected void actionPesquisa() {
 		selected.clear();
@@ -409,6 +413,50 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public void setReadOnly(boolean readonly) {
 		view.getBtnCriar().setVisible(!readonly);
 		view.getBtnRemover().setVisible(!readonly);
+	}
+
+	public void closeWindow() {
+		// TODO Auto-generated method stub
+		window.close();
+		window = null;
+	}
+	
+	public void openOnNewWindow(int modalSize){
+		window = new Window();
+		window.setContent((Component) getFormController().getView());
+		
+		window.center();
+		if(modalSize != 1 && modalSize != 2){
+			window.setWidth("70%");
+			window.setHeight("80%");	
+		}else if (modalSize == 1){
+			window.setWidth("100%");
+			window.setHeight("100%");	
+		}else{
+			window.setWidth("35%");
+			window.setHeight("40%");
+		}
+		
+		window.setModal(true);
+		UI.getCurrent().addWindow(window);
+	}
+
+	public boolean isOnSeparateWindow() {
+		return window != null;
+	}
+
+	public CRUDFormController<E> getPublicFormController() {
+		return getFormController();
+	}
+
+	public void addSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
+		saveListener = modalWindowSaveListener;
+		
+	}
+
+	public void notifySaved(E obj) {
+		// TODO Auto-generated method stub
+		saveListener.onSave(obj);
 	}
 
 }

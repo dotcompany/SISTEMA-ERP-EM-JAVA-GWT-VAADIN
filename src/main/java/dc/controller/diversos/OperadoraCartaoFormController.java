@@ -60,7 +60,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 		currentBean.setFone2(fone2);
 		try{
 			operadoraDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

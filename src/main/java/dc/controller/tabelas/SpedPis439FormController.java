@@ -53,7 +53,7 @@ public class SpedPis439FormController extends CRUDFormController<SpedPis439> {
 		subView.getDtInicioVigencia().setValue(currentBean.getInicioVigencia());
 		try{
 			spedPis439DAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

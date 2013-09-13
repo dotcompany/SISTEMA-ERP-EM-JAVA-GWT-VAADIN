@@ -95,7 +95,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 			contadorDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

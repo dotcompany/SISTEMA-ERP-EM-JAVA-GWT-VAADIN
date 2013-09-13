@@ -44,7 +44,7 @@ public class TesteFormController extends CRUDFormController<Teste> {
 		currentBean.setDescricao(descricao);
 		try{
 			testeDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

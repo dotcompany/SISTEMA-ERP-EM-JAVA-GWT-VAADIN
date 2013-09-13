@@ -50,7 +50,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			baseCreditoPisDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

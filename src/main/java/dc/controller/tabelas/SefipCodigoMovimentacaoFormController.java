@@ -52,7 +52,7 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
 		try{
 			sefipCodigoMovimentacaoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

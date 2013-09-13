@@ -52,7 +52,7 @@ public class CstCofinsFormController extends CRUDFormController<CstCofins> {
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		try{
 			cstCofinsDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

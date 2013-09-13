@@ -21,7 +21,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 
 import dc.framework.DcConstants;
 
@@ -58,8 +57,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	private boolean active;
 
 	private String id;
-
-	private boolean taskable = true;
 
 	@PostConstruct
 	public void init() {
@@ -117,20 +114,22 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				if(isTaskable()){
+				if(!isOnSeparateWindow()){
 					mainController.showTaskableContent(CRUDFormController.this);	
 				}
 				
 				criarNovo();
 
 			}
+
+
 		});
 
 		view.getBtnCancelar().addClickListener(new ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if(isTaskable()){
+				if(!isOnSeparateWindow()){
 					mainController.removeTask(CRUDFormController.this, false);
 					mainController.showTaskableContent((Task) listController);	
 				}else{
@@ -145,17 +144,18 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		});
 	}
 	
-	private void close() {
+	private boolean isOnSeparateWindow() {
 		// TODO Auto-generated method stub
-		
-	}
-	private boolean isTaskable() {
-		return taskable;
+		return listController.isOnSeparateWindow();
 	}
 	
-	private void setTaskable(boolean task) {
-		this.taskable = task;
+	
+	private void close() {
+		// TODO Auto-generated method stub
+		listController.closeWindow();
 	}
+	
+	
 
 	protected boolean isFullSized() {
 		// TODO Auto-generated method stub
@@ -209,7 +209,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		quandoNovo();
 	}
 
-	public void mensagemSalvoOK() {
+	public void notifiyFrameworkSaveOK(E obj) {
+		listController.notifySaved(obj);
 		new Notification("Gravado!", "Registro gravado com sucesso",
 				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
 				.getCurrent());

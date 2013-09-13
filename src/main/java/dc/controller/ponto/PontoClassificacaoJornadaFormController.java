@@ -85,7 +85,7 @@ public class PontoClassificacaoJornadaFormController extends CRUDFormController<
 			Empresa empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoClassificacaoJornadaDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

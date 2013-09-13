@@ -72,7 +72,7 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 			situacaoColaboradorDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

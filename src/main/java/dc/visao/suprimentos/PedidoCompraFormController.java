@@ -69,7 +69,7 @@ public class PedidoCompraFormController extends CRUDFormController<PedidoCompra>
 			currentBean.setTipoFrete((String) subView.getOptTipoFrete().getValue());
 			currentBean.setFormaPagamento((String) subView.getOptFormaPagto().getValue());
 			pedidoCompraDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

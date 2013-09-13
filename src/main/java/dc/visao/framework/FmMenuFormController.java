@@ -45,7 +45,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 			currentBean.setControllerClass(subView.getTxtController()
 					.getValue());
 			fmDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

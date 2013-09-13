@@ -51,7 +51,7 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			cstPisDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

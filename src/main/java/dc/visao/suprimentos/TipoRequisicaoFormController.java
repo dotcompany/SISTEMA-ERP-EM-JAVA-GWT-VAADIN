@@ -43,7 +43,7 @@ public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisi
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setIdEmpresa(1);
 			tipoRequisicaoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

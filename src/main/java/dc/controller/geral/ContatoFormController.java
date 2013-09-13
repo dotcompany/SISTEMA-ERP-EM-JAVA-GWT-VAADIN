@@ -49,7 +49,7 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		currentBean.setFoneCelular(foneCelular);
 		try{
 			contatoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

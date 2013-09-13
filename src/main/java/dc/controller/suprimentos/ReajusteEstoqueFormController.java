@@ -66,7 +66,7 @@ extends CRUDFormController<ReajusteEstoque>{
 					.getValue()).getCodigo());
 			currentBean.setColaborador(buscaColaborador());
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

@@ -133,6 +133,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		
 		DefaultManyToOneComboModel<UF> modelUf= new DefaultManyToOneComboModel(EstadoListController.class,tipoColaboradorDAO,mainController,daoPapel);
 		subView.getCmbUf().setModel(modelUf);
+		
 	}
 
 	@Override
@@ -395,7 +396,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			colaboradorDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

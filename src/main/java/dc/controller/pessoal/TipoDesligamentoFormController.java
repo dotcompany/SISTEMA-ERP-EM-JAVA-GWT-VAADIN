@@ -67,7 +67,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 			tipoDesligamentoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

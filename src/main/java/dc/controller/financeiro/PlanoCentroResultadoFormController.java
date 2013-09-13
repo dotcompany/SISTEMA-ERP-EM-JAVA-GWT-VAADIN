@@ -53,7 +53,7 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 		currentBean.setDataInclusao(subView.getDtDataInclusao().getValue());
 		try {
 			planocentroresultadoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -99,7 +99,7 @@ public class PontoRelogioFormController extends CRUDFormController<PontoRelogio>
 			Empresa empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoRelogioDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

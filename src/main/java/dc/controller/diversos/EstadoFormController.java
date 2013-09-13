@@ -63,7 +63,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		currentBean.setSigla(sigla);
 		try{
 			estadoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

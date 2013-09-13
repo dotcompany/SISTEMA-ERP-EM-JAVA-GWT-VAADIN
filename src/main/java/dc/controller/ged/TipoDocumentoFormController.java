@@ -82,7 +82,7 @@ public class TipoDocumentoFormController extends CRUDFormController<TipoDocument
 		currentBean.setTamanhoMaximo(new BigDecimal(tamanhoMaximo));
 		try {
 			tipoDocumentoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

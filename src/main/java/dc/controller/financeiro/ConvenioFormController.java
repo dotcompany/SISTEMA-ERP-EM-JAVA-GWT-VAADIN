@@ -69,7 +69,7 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		currentBean.setCep(cep);
 		try{
 			convenioDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

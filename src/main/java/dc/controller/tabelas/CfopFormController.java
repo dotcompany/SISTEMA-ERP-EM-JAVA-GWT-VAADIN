@@ -48,7 +48,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
 		try {
 			cfopDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

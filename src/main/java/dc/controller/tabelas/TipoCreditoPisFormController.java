@@ -50,7 +50,7 @@ public class TipoCreditoPisFormController extends CRUDFormController<TipoCredito
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			tipoCreditoPisDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

@@ -75,7 +75,7 @@ public class AtividadeForCliFormController extends CRUDFormController<AtividadeF
 			atividadeForCliDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

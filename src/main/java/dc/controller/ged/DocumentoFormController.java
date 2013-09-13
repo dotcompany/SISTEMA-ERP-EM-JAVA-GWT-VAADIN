@@ -202,7 +202,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 			gravarAnexo(currentBean);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 			subView.getUpArquivo().setValue(null);
 			subView.atualizaMiniatura(currentBean.getDocumentos());
 		} catch (Exception ex) {

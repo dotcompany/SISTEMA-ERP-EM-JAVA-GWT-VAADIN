@@ -96,7 +96,7 @@ public class PontoBancoHorasFormController extends
 		subView.preencheBean(currentBean);
 		try {
 			pontoBancoHorasDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

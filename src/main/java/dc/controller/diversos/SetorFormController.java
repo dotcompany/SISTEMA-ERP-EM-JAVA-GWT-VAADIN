@@ -75,7 +75,7 @@ public class SetorFormController extends CRUDFormController<Setor> {
 			setorDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

@@ -55,7 +55,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 		currentBean.setUrl(subView.getTxtURL().getValue());
 		try{
 			bancoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

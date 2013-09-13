@@ -48,7 +48,7 @@ public class TipoPagamentoFormController extends CRUDFormController<TipoPagament
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			tipoPagamentoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

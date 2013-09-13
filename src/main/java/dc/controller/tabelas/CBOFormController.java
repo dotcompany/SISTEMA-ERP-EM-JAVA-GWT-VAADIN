@@ -52,7 +52,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		try{
 			cboDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

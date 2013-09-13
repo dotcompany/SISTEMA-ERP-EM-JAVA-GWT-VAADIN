@@ -104,7 +104,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -68,7 +68,7 @@ public class PlanoNaturezaFinanceiraFormController extends CRUDFormController<Pl
 		currentBean.setEmpresa(empresa);
 		try {
 			planoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

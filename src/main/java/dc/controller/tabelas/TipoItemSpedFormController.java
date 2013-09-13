@@ -51,7 +51,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			tipoItemSepedDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

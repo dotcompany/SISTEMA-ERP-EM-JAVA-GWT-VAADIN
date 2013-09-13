@@ -51,7 +51,7 @@ public class SefipCodigoRecolhimentoFormController extends CRUDFormController<Se
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
 		try{
 			sefipCodigoRecolhimentoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

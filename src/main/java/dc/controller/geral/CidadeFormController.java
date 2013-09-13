@@ -47,7 +47,7 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 		currentBean.setNome(nome);
 		try{
 			cidadeDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

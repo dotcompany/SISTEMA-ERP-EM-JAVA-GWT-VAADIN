@@ -310,7 +310,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		try {
 			clienteDAO.saveOrUpdate(currentBean);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

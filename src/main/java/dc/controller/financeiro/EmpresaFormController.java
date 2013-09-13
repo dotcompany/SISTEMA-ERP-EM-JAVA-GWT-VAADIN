@@ -87,7 +87,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		
 		try{
 			empresaDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

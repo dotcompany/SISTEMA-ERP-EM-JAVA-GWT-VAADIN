@@ -72,7 +72,7 @@ public class TipoRelacionamentoFormController extends CRUDFormController<TipoRel
 			tipoRelacionamentoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

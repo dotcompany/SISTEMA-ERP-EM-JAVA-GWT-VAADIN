@@ -71,7 +71,7 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try {
 			tipoColaboradorDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

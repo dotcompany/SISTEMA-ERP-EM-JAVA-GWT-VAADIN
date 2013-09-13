@@ -52,7 +52,7 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		try{
 			cstIcmsADAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

@@ -123,7 +123,7 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		
 		try {
 			talonarioChequeDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

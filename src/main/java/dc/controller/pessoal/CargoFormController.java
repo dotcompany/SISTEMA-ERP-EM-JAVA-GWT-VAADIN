@@ -86,7 +86,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 			cargoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

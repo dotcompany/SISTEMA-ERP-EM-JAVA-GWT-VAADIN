@@ -72,7 +72,7 @@ public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissao>
 			tipoAdmissaoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

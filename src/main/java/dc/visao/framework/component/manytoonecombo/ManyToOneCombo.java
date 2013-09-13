@@ -237,6 +237,10 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	public void setModel(ManyToOneComboModel<T> model) {
 		this.model = model;
+		if(model instanceof DefaultManyToOneComboModel){
+			((DefaultManyToOneComboModel)this.model).setCombo(this);	
+		}
+		
 	}
 
 

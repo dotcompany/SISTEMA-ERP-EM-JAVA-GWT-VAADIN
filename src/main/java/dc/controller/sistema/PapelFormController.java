@@ -63,7 +63,7 @@ public class PapelFormController extends CRUDFormController<Papel> {
 	protected void actionSalvar() {
 		try{
 			papelDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro("Problemas ao salvar registro");
 			e.printStackTrace();

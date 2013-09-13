@@ -56,7 +56,7 @@ public class IndiceEconomicoFormController extends CRUDFormController<IndiceEcon
 		currentBean.setSigla(sigla);
 		try{
 			indiceDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

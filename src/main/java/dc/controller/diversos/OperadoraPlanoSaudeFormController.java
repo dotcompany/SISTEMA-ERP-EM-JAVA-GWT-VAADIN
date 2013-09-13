@@ -115,7 +115,7 @@ public class OperadoraPlanoSaudeFormController extends CRUDFormController<Operad
 			operadoraPlanoSaudeDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 
