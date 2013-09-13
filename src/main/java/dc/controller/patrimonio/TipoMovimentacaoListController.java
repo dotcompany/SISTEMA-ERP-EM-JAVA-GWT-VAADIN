@@ -65,6 +65,8 @@ public class TipoMovimentacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<TipoMovimentacaoEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class TipoMovimentacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<TipoMovimentacaoEntity>();
 		}
 	}

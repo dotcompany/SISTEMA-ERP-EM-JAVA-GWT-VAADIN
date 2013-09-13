@@ -65,6 +65,8 @@ public class ApoliceSeguroListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<ApoliceSeguroEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class ApoliceSeguroListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<ApoliceSeguroEntity>();
 		}
 	}
