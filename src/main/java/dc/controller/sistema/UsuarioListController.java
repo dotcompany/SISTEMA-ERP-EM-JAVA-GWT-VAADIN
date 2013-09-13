@@ -20,7 +20,7 @@ import dc.visao.spring.SecuritySessionProvider;
 /*
  * Nessa classe temos a Extensão da classe principal que é crudListController
  * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O m�todo do Button pesquisar, pegando um valor. e também ele pega algumas informações
+ * O método do Button pesquisar, pegando um valor. e também ele pega algumas informações
  * da classe FormController
  *
 */
@@ -81,12 +81,6 @@ public class UsuarioListController extends CRUDListController<Usuario>{
 	protected List<Usuario> pesquisaDefault() {
 		// TODO Auto-generated method stub
 		return (List<Usuario>) dao.getAll(Usuario.class);
-	}
-	
-	@Override
-	protected boolean isMultiEmpresa() {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 	

@@ -62,7 +62,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 			return dao.fullTextSearch(searchTerm,arg0,arg1);	
 		}else{
 			logger.info("null or empty search term, loading all..");
-			return dao.getAllPagedByConta(pojoClass,idConta,arg0,arg1);
+			return dao.getAllPagedByEmpresa(pojoClass,idConta,arg0,arg1);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 		if(searchTerm != null && !searchTerm.trim().isEmpty()){
 			size = dao.fullTextSearchCount(searchTerm);	
 		}else{
-			size = dao.countByConta(pojoClass,idConta);
+			size = dao.countByEmpresa(pojoClass,idConta);
 		}
 		
 		logger.info("query result set size:" + size);

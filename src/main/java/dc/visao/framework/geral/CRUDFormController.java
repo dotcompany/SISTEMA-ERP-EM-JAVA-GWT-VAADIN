@@ -21,6 +21,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 
 import dc.framework.DcConstants;
 
@@ -57,6 +58,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	private boolean active;
 
 	private String id;
+
+	private boolean taskable = true;
 
 	@PostConstruct
 	public void init() {
@@ -114,7 +117,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				mainController.showTaskableContent(CRUDFormController.this);
+				if(isTaskable()){
+					mainController.showTaskableContent(CRUDFormController.this);	
+				}
+				
 				criarNovo();
 
 			}
@@ -124,10 +130,31 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				mainController.removeTask(CRUDFormController.this, false);
-				mainController.showTaskableContent((Task) listController);
+				if(isTaskable()){
+					mainController.removeTask(CRUDFormController.this, false);
+					mainController.showTaskableContent((Task) listController);	
+				}else{
+					close();
+				}
+				
 			}
+
+			
+
+			
 		});
+	}
+	
+	private void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	private boolean isTaskable() {
+		return taskable;
+	}
+	
+	private void setTaskable(boolean task) {
+		this.taskable = task;
 	}
 
 	protected boolean isFullSized() {

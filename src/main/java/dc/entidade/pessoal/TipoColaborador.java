@@ -22,6 +22,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
 *
@@ -51,15 +53,17 @@ public class TipoColaborador implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
+    @ComboCode
     private Integer id;
     
     @Field
     @Caption("Nome")
     @Column(name = "NOME")
+    @ComboValue
     private String nome;
     
     @Lob
-    @Field
+    @Field()
     @Caption("Descricao")
     @Type(type="text")
     @Basic(fetch=javax.persistence.FetchType.LAZY)

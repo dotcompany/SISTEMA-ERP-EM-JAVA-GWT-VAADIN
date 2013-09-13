@@ -16,12 +16,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 
 @Entity
 @Table(name = "PONTO_BANCO_HORAS")
-public class PontoBancoHoras implements Serializable {
+public class PontoBancoHoras extends AbstractMultiEmpresaModel<Integer>{
 
     private static final long serialVersionUID = 1L;
     @Id
