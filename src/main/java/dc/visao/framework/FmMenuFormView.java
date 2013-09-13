@@ -21,7 +21,7 @@ import dc.entidade.framework.FmModulo;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contém
+ * Nessa classe temos a Tela (DESIGN), onde criamos o campos que a Tela contÃ©m
  * tudo que ela precisa ter
  *
 */
@@ -62,7 +62,7 @@ public class FmMenuFormView extends CustomComponent {
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
 	private static final String FILHO_MENU = "Filho de Menu";
-	private static final String FILHO_MODULO = "Filho de Módulo";
+	private static final String FILHO_MODULO = "Filho de MÃ³dulo";
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -198,7 +198,7 @@ public class FmMenuFormView extends CustomComponent {
 		
 		// comboModulos
 		comboModulos = new ComboBox();
-		comboModulos.setCaption("Módulo Pai");
+		comboModulos.setCaption("MÃ³dulo Pai");
 		comboModulos.setImmediate(false);
 		comboModulos.setWidth("-1px");
 		comboModulos.setHeight("-1px");

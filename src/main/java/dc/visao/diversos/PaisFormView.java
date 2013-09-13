@@ -86,7 +86,7 @@ public class PaisFormView extends CustomComponent {
 		
 		// txtNomeIngles
 		txtNomeIngles = new TextField();
-		txtNomeIngles.setCaption("Nome Inglês");
+		txtNomeIngles.setCaption("Nome InglÃªs");
 		txtNomeIngles.setImmediate(false);
 		txtNomeIngles.setWidth("380px");
 		txtNomeIngles.setHeight("-1px");

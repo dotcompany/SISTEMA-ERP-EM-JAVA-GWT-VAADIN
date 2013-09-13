@@ -138,7 +138,7 @@ public class ConfirmacaoContaView extends VerticalLayout implements View {
         explanationaArea.addStyleName("labels");
         loginPanel.addComponent(explanationaArea);
         
-        Label expText = new Label("Esse é seu primeiro login e sua conta ainda não est� confirmada. Por favor, altere a sua senha para realizar a confirma��o");
+        Label expText = new Label("Esse é seu primeiro login e sua conta ainda não está confirmada. Por favor, altere a sua senha para realizar a confirmação");
         //expText.setSizeUndefined();
         
         explanationaArea.addComponent(expText);

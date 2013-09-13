@@ -1,5 +1,6 @@
 package dc.controller.patrimonio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,16 @@ public class EstadoConservacaoListController extends
 
 	@Override
 	protected List<EstadoConservacaoEntity> pesquisa(String valor) {
-		List<EstadoConservacaoEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<EstadoConservacaoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<EstadoConservacaoEntity>();
+		}
 	}
 
 	@Override
@@ -83,9 +90,15 @@ public class EstadoConservacaoListController extends
 
 	@Override
 	protected List<EstadoConservacaoEntity> pesquisaDefault() {
-		List<EstadoConservacaoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<EstadoConservacaoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<EstadoConservacaoEntity>();
+		}
 	}
 
 }

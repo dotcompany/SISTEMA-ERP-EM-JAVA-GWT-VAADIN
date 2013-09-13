@@ -69,7 +69,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 		subView.getTxtURL().setValue(currentBean.getUrl());	
 	}
 	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa a��o aqui. Ou então deixar em branco, para comportamento padr�o */
+	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
 	@Override
 	protected void quandoNovo() {
 		

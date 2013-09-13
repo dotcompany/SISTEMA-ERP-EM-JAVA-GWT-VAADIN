@@ -29,8 +29,8 @@ import dc.framework.DcConstants;
  * 
  * @author Wesley Jr /* Nessa classe temos a configuração da Tela, todos os
  *         controllers. Essa é a classe principal. Temos a configuração dos
- *         Bot�es SALVAR, CRIAR Tem o m�todo também do CARREGAR, que pega as
- *         informações contida na Tela, que est� salvo no Banco de Dados
+ *         botões SALVAR, CRIAR Tem o Método também do CARREGAR, que pega as
+ *         informações contida na Tela, que está salvo no Banco de Dados
  * 
  */
 
@@ -177,7 +177,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	/*
-	 * Classes que estendem CRUDFormController devem implementar valida�oes para
+	 * Classes que estendem CRUDFormController devem implementar validaãoes para
 	 * salvar(novo e alterar) nesse metodo
 	 */
 	protected abstract boolean validaSalvar();

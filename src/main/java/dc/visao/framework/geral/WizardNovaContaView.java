@@ -100,7 +100,7 @@ public class WizardNovaContaView extends ExternalView implements View,Serializab
         labels.setMargin(true);
         labels.addStyleName("labels");
         mainPanel.addComponent(labels);
-        Label welcome = new Label("Ol� " + nomeUsuario + ", vamos agora configurar o DotCompany ERP. Para isso responda as perguntas a seguir");
+        Label welcome = new Label("Olá " + nomeUsuario + ", vamos agora configurar o DotCompany ERP. Para isso responda as perguntas a seguir");
         welcome.setSizeUndefined();
         welcome.addStyleName("h4");
         labels.addComponent(welcome);

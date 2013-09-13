@@ -27,7 +27,15 @@ public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
 
 	@Transactional
 	public List<Colaborador> listaTodos() {
-		return getSession().createQuery("from Colaborador").list();
+		try {
+			String sql = "FROM Colaborador ent WHERE (1 = 1)";
+
+			List auxLista = super.getSession().createQuery(sql).list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<Colaborador>();
+		}
 	}
 
 	@Transactional

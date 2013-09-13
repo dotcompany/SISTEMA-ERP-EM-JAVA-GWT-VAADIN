@@ -114,7 +114,7 @@ public class LookupComponent<ID, T> extends CustomComponent {
 	@SuppressWarnings({"serial","unchecked"})
 	public BeanContainer<ID, T> createContainer(Class<T> classContainer) {
 		if (container != null) {
-			throw new IllegalArgumentException("O container j· foi instanciado!");
+			throw new IllegalArgumentException("O container j√° foi instanciado!");
 		}
 		container = new BeanContainer<>(classContainer);
 		container.setBeanIdResolver(new BeanIdResolver<ID, T>() {

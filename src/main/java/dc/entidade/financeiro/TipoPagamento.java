@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.Empresa;
 
 /**
 *
@@ -28,7 +31,7 @@ import dc.anotacoes.Caption;
 *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
 *no nosso Banco de Dados 
 ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, est� diferente do mapeamento do T2Ti.
+* e mudamos, está diferente do mapeamento do T2Ti.
 * *
 * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
 * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
@@ -53,6 +56,15 @@ public class TipoPagamento implements Serializable {
     @Caption("Descricao")
     @Column(name = "DESCRICAO")
     private String descricao;
+    
+    @Field
+    @Column(name = "TIPO")
+    @Caption("Tipo")
+    private String tipo;
+
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Empresa empresa;
 
     public TipoPagamento() {
     }
@@ -94,6 +106,22 @@ public class TipoPagamento implements Serializable {
     public String toString() {
     	return ToStringBuilder.reflectionToString(this);
     }
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 }
 

@@ -57,7 +57,7 @@ public class WizardThirdStep extends BaseWizardStep implements Serializable{
 				return false;
 			}
 		}else{
-			showErrorMessage("Selecione ao menos um m�dulo para prosseguir");
+			showErrorMessage("Selecione ao menos um Módulo para prosseguir");
 			return false;
 		}
 	}
@@ -71,7 +71,7 @@ public class WizardThirdStep extends BaseWizardStep implements Serializable{
 	
 	@Override
 	protected void fillMainPanel(VerticalLayout mainPanel) {
-		Label question = new Label("Quais os Módulos voc� gostaria de utilizar inicialmente?");
+		Label question = new Label("Quais os Módulos Você gostaria de utilizar inicialmente?");
         question.setSizeUndefined();
         question.addStyleName("h4");
         mainPanel.addComponent(question);

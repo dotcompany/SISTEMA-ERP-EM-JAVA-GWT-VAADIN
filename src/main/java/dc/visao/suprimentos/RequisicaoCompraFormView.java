@@ -109,7 +109,7 @@ public class RequisicaoCompraFormView extends CustomComponent {
 		fields.addComponent(lblId, 0, 0);
 
 		// cmbTipoRequisicao
-		cmbTipoRequisicao = ComponentUtil.buildComboBox("Tipo de Requisi�ao");
+		cmbTipoRequisicao = ComponentUtil.buildComboBox("Tipo de Requisição");
 		fields.addComponent(cmbTipoRequisicao, 1, 0);
 
 		// lkpRequisitante
@@ -118,7 +118,7 @@ public class RequisicaoCompraFormView extends CustomComponent {
 
 		// calDataRequisicao
 		calDataRequisicao = new PopupDateField();
-		calDataRequisicao.setCaption("Data Requisi�ao");
+		calDataRequisicao.setCaption("Data Requisição");
 		calDataRequisicao.setImmediate(false);
 		fields.addComponent(calDataRequisicao, 5, 0);
 

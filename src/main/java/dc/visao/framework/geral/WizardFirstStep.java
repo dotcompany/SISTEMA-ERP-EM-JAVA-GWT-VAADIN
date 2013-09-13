@@ -19,7 +19,7 @@ public class WizardFirstStep extends BaseWizardStep{
 
 	@Override
 	protected void fillMainPanel(VerticalLayout mainPanel) {
-		Label question = new Label("Que tipo de notas fiscais eletr�nicas (NF-e) voc� precisa emitir?");
+		Label question = new Label("Que tipo de notas fiscais eletr�nicas (NF-e) Você precisa emitir?");
         question.setSizeUndefined();
         question.addStyleName("h4");
         
@@ -27,12 +27,12 @@ public class WizardFirstStep extends BaseWizardStep{
         
         group = new OptionGroup("");
          
-        group.addItem("Automa��o Comercial");
+        group.addItem("Automação Comercial");
         group.addItem("Lojas");
         group.addItem("Distribuidora");
         group.addItem("Com�rcio e serviço");
         group.addItem("serviço");
-        group.addItem("Confec��o");
+        group.addItem("Confecção");
         group.addItem("Industria");
         group.addItem("Industria e com�rcio");
         group.addItem("Centro automotivo");
@@ -41,7 +41,7 @@ public class WizardFirstStep extends BaseWizardStep{
         group.addItem("Moto Pe�as");
         group.addItem("Conserto de Ve�culos pesados");
         group.addItem("Personalizado");
-        group.addItem("Loca��o");
+        group.addItem("Locação");
         group.addItem("Outros");
         mainPanel.addComponent(group);
 		

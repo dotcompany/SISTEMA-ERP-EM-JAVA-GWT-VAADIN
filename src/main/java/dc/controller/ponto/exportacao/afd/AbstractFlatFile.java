@@ -110,7 +110,7 @@ public abstract class AbstractFlatFile {
 
     /**
      * <p>
-     * L� um arquivo do layout da instancia.
+     * lá um arquivo do layout da instancia.
      * </p>
      *
      * @param lines
@@ -134,7 +134,7 @@ public abstract class AbstractFlatFile {
 
     /**
      * <p>
-     * L� um arquivo do layout da instancia com enconding UTF-8.
+     * lá um arquivo do layout da instancia com enconding UTF-8.
      * </p>
      *
      * @param file
@@ -158,7 +158,7 @@ public abstract class AbstractFlatFile {
 
     /**
      * <p>
-     * L� um arquivo do layout da instancia.
+     * lá um arquivo do layout da instancia.
      * </p>
      *
      * @param file

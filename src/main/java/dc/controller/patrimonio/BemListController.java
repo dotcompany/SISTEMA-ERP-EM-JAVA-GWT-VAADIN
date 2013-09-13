@@ -1,5 +1,6 @@
 package dc.controller.patrimonio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,15 @@ public class BemListController extends CRUDListController<BemEntity> {
 
 	@Override
 	protected List<BemEntity> pesquisa(String valor) {
-		List<BemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<BemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<BemEntity>();
+		}
 	}
 
 	@Override
@@ -80,9 +87,15 @@ public class BemListController extends CRUDListController<BemEntity> {
 
 	@Override
 	protected List<BemEntity> pesquisaDefault() {
-		List<BemEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<BemEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<BemEntity>();
+		}
 	}
 
 }

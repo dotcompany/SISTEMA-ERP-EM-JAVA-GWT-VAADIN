@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,12 +22,10 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.pessoal.AtividadeForCli;
@@ -39,7 +36,7 @@ import dc.entidade.pessoal.SituacaoForCli;
  * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, est� diferente do mapeamento do T2Ti. * Colocamos também
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
@@ -60,70 +57,46 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "ID")
 	private Integer id;
-
-	@Column(name = "DESDE")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "DESDE")
 	private Date desde;
-
 	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
 	private String optanteSimplesNacional;
-
 	@Column(name = "LOCALIZACAO")
 	private String localizacao;
-
-	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_CADASTRO")
 	private Date dataCadastro;
-
 	@Column(name = "SOFRE_RETENCAO")
 	private String sofreRetencao;
-
 	@Column(name = "CHEQUE_NOMINAL_A")
 	private String chequeNominalA;
-
-	@Lob
-	@Field
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Caption("Observacao")
-	@Type(type = "text")
 	@Column(name = "OBSERVACAO")
 	private String observacao;
-
-	@Lob
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Type(type = "text")
-	@Column(name = "OBSERVACOES")
-	private String Observacoes;
-
 	@Column(name = "CONTA_REMETENTE")
 	private String contaRemetente;
-
-	@Column(name = "PRAZO_MEDIO_ENTREGA", precision = 14, scale = 0)
+	@Column(name = "PRAZO_MEDIO_ENTREGA")
 	private BigDecimal prazoMedioEntrega;
-
 	@Column(name = "GERA_FATURAMENTO")
-	private Character geraFaturamento;
-
-	@Column(name = "NUMERO_DIAS_PRIMEIRO_VENCIMENTO")
-	private Integer numeroDiasPrimeiroVencimento;
-
-	@Column(name = "NUMERO_DIAS_INTERVALO")
-	private Integer numeroDiasIntervalo;
-
+	private String geraFaturamento;
+	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
+	private Integer numDiasPrimeiroVencimento;
+	@Column(name = "NUM_DIAS_INTERVALO")
+	private Integer numDiasIntervalo;
 	@Column(name = "QUANTIDADE_PARCELAS")
 	private Integer quantidadeParcelas;
-
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private SituacaoForCli situacaoForCli;
-
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Pessoa pessoa;
-
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private AtividadeForCli atividadeForCli;
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Pessoa pessoa;
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
+	@ManyToOne
+	private ContabilConta contabilConta;
 
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
@@ -135,25 +108,26 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	public Fornecedor(Integer id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * Metodo transient para exibir nas views. Composto do id + nome da pessoa
+	 * 
 	 * @return
 	 * @author cjalmeida
 	 */
 	@Transient
 	public String getCaption() {
-		
+
 		Object id = this.id;
 		if (id == null) {
 			id = "";
 		}
-		
+
 		String nome = "";
 		if (getPessoa() != null && getPessoa().getNome() != null) {
 			nome = getPessoa().getNome();
 		}
-		
+
 		return "[" + id + "] " + nome;
 	}
 
@@ -211,14 +185,6 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	public void setChequeNominalA(String chequeNominalA) {
 		this.chequeNominalA = chequeNominalA;
-	}
-
-	public String getObservacoes() {
-		return Observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		Observacoes = observacoes;
 	}
 
 	/**
@@ -297,31 +263,6 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 		this.prazoMedioEntrega = prazoMedioEntrega;
 	}
 
-	public Character getGeraFaturamento() {
-		return geraFaturamento;
-	}
-
-	public void setGeraFaturamento(Character geraFaturamento) {
-		this.geraFaturamento = geraFaturamento;
-	}
-
-	public Integer getNumeroDiasPrimeiroVencimento() {
-		return numeroDiasPrimeiroVencimento;
-	}
-
-	public void setNumeroDiasPrimeiroVencimento(
-			Integer numeroDiasPrimeiroVencimento) {
-		this.numeroDiasPrimeiroVencimento = numeroDiasPrimeiroVencimento;
-	}
-
-	public Integer getNumeroDiasIntervalo() {
-		return numeroDiasIntervalo;
-	}
-
-	public void setNumeroDiasIntervalo(Integer numeroDiasIntervalo) {
-		this.numeroDiasIntervalo = numeroDiasIntervalo;
-	}
-
 	public Integer getQuantidadeParcelas() {
 		return quantidadeParcelas;
 	}
@@ -351,6 +292,38 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	@Override
 	public String toString() {
 		return this.pessoa.getNome();
+	}
+
+	public String getGeraFaturamento() {
+		return geraFaturamento;
+	}
+
+	public void setGeraFaturamento(String geraFaturamento) {
+		this.geraFaturamento = geraFaturamento;
+	}
+
+	public Integer getNumDiasPrimeiroVencimento() {
+		return numDiasPrimeiroVencimento;
+	}
+
+	public void setNumDiasPrimeiroVencimento(Integer numDiasPrimeiroVencimento) {
+		this.numDiasPrimeiroVencimento = numDiasPrimeiroVencimento;
+	}
+
+	public Integer getNumDiasIntervalo() {
+		return numDiasIntervalo;
+	}
+
+	public void setNumDiasIntervalo(Integer numDiasIntervalo) {
+		this.numDiasIntervalo = numDiasIntervalo;
+	}
+
+	public ContabilConta getContabilConta() {
+		return contabilConta;
+	}
+
+	public void setContabilConta(ContabilConta contabilConta) {
+		this.contabilConta = contabilConta;
 	}
 
 }

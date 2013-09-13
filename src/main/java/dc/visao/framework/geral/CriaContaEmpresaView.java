@@ -204,7 +204,7 @@ public class CriaContaEmpresaView extends ExternalView {
             @Override
             public void buttonClick(ClickEvent event) {
             	if(boxTermos.getValue() == false){
-            		showErrorMessage("Voc� deve aceitar os termos de uso para prosseguir na cria��o de conta");
+            		showErrorMessage("Você deve aceitar os termos de uso para prosseguir na criação de conta");
             	}else{
             		try {
     					binder.commit();

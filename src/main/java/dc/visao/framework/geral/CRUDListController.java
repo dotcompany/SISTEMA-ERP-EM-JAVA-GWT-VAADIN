@@ -45,7 +45,7 @@ import dc.visao.spring.SecuritySessionProvider;
 /*
  * Nessa classe temos a Classe principal que é abstract, onde implementa o Controller e pega
  * um Component.
- * Nessa tela temos as informações de todos os Bot�es a configuração deles
+ * Nessa tela temos as informações de todos os botões a configuração deles
  * SALVAR, PESQUISAR E CRIAR
  * Onde temos a configuração deles, o que cada botão faz!
  * Temos a configuração da Tabela, pois pegamos informações da Tela CRUDListView

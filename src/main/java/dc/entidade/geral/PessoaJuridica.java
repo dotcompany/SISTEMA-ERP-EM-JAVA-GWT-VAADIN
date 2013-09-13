@@ -33,7 +33,7 @@ import dc.anotacoes.Caption;
 *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
 *no nosso Banco de Dados 
 ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, est� diferente do mapeamento do T2Ti.
+* e mudamos, está diferente do mapeamento do T2Ti.
 * *
 * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
 * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
@@ -81,7 +81,7 @@ public class PessoaJuridica implements Serializable {
     private String suframa;
     
     @Field
-    @Caption("Raz�o Social")
+    @Caption("Razão Social")
     @Column(name = "RAZAO_SOCIAL", length=255)
     private String razaoSocial;
     

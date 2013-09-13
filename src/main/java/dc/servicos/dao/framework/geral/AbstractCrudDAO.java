@@ -2,7 +2,6 @@ package dc.servicos.dao.framework.geral;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -29,13 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gwt.dev.util.collect.HashSet;
-import com.itextpdf.text.log.SysoLogger;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.visao.spring.DCWebApplicationListener;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -43,7 +40,8 @@ import dc.visao.spring.SecuritySessionProvider;
 * @author Wesley Jr
 /*
  *Classe onde é Abstract, temos nela alguns métodos do Save, do pesquisar também, onde
- *aqui está um pouco da lágica do pesquisar que utilizamos dentro da Tela, para pegarmos
+ *aqui está um pouco da lógica do pesquisar que utilizamos dentro da Tela, para pegarmos
+
  *informações! 
  * 
  

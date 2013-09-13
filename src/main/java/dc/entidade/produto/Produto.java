@@ -11,27 +11,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.tributario.GrupoTributario;
 
 /**
  * 
  * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, est� diferente do mapeamento do T2Ti. * Colocamos também
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
@@ -48,19 +50,19 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_id_seq")
+	@SequenceGenerator(name = "produto_id_seq", sequenceName = "produto_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
 	private Integer id;
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "ID_SUB_GRUPO", nullable = false) private int idSubGrupo;
-	 * 
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "ID_UNIDADE", nullable = false) private int idUnidade;
-	 */
+	
+	@Basic(optional = false)
+	@Column(name = "ID_SUB_GRUPO", nullable = false) 
+	private int idSubGrupo;
+	 
+	@Basic(optional = false) 
+	@Column(name = "ID_UNIDADE_PRODUTO", nullable = false) 
+	private int idUnidade;
 
 	@Field
 	@Caption("Gtin")
@@ -194,29 +196,29 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	 * Mapeamento SubGrupo-Produto
 	 * @author wesley Junior
 	 **/
-	@JoinColumn(name = "ID_SUB_GRUPO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private SubGrupoProduto subGrupo;
+	/*@JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private SubGrupoProduto idSubGrupo;*/
 
 	/** 
 	*Mapeamento Unidade-Produto
 	*@author wesley Junior
 	**/
-	/*@JoinColumn(name = "ID_UNIDADE",insertable = true, updatable = true)
+	/*@JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private UnidadeProduto unidade;
+	private UnidadeProduto unidade;*/
 	
-	@JoinColumn(name = "ID_MARCA_PRODUTO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private MarcaProduto marcaProduto;
+	/*@JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+	private MarcaProduto idMarcaProduto;*/
 	
-	@JoinColumn(name = "ID_ALMOXARIFADO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
 	private Almoxarifado idAlmoxarifado;
 	
-	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private GrupoTributario idGrupoTributario;*/
+	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+	private GrupoTributario idGrupoTributario;
 
 	public Produto() {
 	}
@@ -563,28 +565,45 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public SubGrupoProduto getSubGrupo() {
-		return subGrupo;
+	
+	/*public SubGrupoProduto getIdSubGrupo() {
+		return idSubGrupo;
 	}
 
-	public void setSubGrupo(SubGrupoProduto subGrupo) {
-		this.subGrupo = subGrupo;
-	}
-
+	public void setIdSubGrupo(SubGrupoProduto idSubGrupo) {
+		this.idSubGrupo = idSubGrupo;
+	}*/
+	
 	/*public UnidadeProduto getUnidade() {
 		return unidade;
+	}*/
+
+	public int getIdUnidade() {
+		return idUnidade;
 	}
 
-	public void setUnidade(UnidadeProduto unidade) {
+	public void setIdUnidade(int idUnidade) {
+		this.idUnidade = idUnidade;
+	}
+
+	public int getIdSubGrupo() {
+		return idSubGrupo;
+	}
+
+	public void setIdSubGrupo(int idSubGrupo) {
+		this.idSubGrupo = idSubGrupo;
+	}
+
+	/*public void setUnidade(UnidadeProduto unidade) {
 		this.unidade = unidade;
 	}
-	public MarcaProduto getMarcaProduto() {
-		return marcaProduto;
+	/*public MarcaProduto getIdMarcaProduto() {
+		return idMarcaProduto;
 	}
 
-	public void setMarcaProduto(MarcaProduto marcaProduto) {
-		this.marcaProduto = marcaProduto;
-	}
+	public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
+		this.idMarcaProduto = idMarcaProduto;
+	}*/
 
 	public Almoxarifado getIdAlmoxarifado() {
 		return idAlmoxarifado;
@@ -600,7 +619,7 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 
 	public void setIdGrupoTributario(GrupoTributario idGrupoTributario) {
 		this.idGrupoTributario = idGrupoTributario;
-	}*/
+	}
 
 	@Override
 	public String toString() {

@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.framework.Papel;
 import dc.entidade.geral.Usuario;
-import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.sistema.UsuarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-import dc.visao.spring.SecuritySessionProvider;
 
 /**
 *
@@ -20,7 +17,7 @@ import dc.visao.spring.SecuritySessionProvider;
 /*
  * Nessa classe temos a Extensão da classe principal que é crudListController
  * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O método do Button pesquisar, pegando um valor. e também ele pega algumas informações
+ * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
  * da classe FormController
  *
 */

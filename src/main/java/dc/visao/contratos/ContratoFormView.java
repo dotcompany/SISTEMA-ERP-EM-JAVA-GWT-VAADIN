@@ -439,7 +439,7 @@ public class ContratoFormView extends CustomComponent {
 
 		// txaObservacoes
 		txaObservacoes = new TextArea();
-		txaObservacoes.setCaption("Observa��es");
+		txaObservacoes.setCaption("Observações");
 		txaObservacoes.setImmediate(false);
 		txaObservacoes.setWidth("339px");
 		txaObservacoes.setHeight("-1px");
@@ -466,7 +466,7 @@ public class ContratoFormView extends CustomComponent {
 				null);
 
 		tabSheet_2.addTab(previsaoFaturamentoSubForm,
-				"Previs�o de Faturamento", null);
+				"Previsão de Faturamento", null);
 		
 		
 

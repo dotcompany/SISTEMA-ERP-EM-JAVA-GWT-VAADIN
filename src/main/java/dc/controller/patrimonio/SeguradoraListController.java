@@ -1,5 +1,6 @@
 package dc.controller.patrimonio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,16 @@ public class SeguradoraListController extends
 
 	@Override
 	protected List<SeguradoraEntity> pesquisa(String valor) {
-		List<SeguradoraEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<SeguradoraEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<SeguradoraEntity>();
+		}
 	}
 
 	@Override
@@ -81,9 +89,15 @@ public class SeguradoraListController extends
 
 	@Override
 	protected List<SeguradoraEntity> pesquisaDefault() {
-		List<SeguradoraEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<SeguradoraEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<SeguradoraEntity>();
+		}
 	}
 
 }
