@@ -147,7 +147,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 	protected boolean validaSalvar() {
 		if(subView.getTxtCep().getValue() ==  null || subView.getTxtCep().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtCep(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtCep(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

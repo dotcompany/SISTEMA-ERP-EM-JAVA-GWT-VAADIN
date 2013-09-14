@@ -9,7 +9,7 @@
 
 	<http security="none" pattern="/favicon.ico" />
 	<http security="none" pattern="/VAADIN/**" />
-	<http security="none" pattern="/criarConta/**" />
+	<http security="none" pattern="/criarconta/**" />
 	<http security="none" pattern="/esqueciMinhaSenha/**" />
 	<http security="none" pattern="/APP/**" />
 	

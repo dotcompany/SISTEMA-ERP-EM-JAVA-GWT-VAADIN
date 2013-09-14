@@ -33,7 +33,7 @@ public class TipoRelacionamentoFormController extends CRUDFormController<TipoRel
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 			valido = false;
 		}
 

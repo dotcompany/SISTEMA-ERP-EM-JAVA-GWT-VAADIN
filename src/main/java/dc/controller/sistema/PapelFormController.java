@@ -114,7 +114,7 @@ public class PapelFormController extends CRUDFormController<Papel> {
 			List<PapelMenu> fs = subView.getPapelMenus();
 			papel.setPapelMenus(fs);
 			if (papel.getNome() == null || papel.getNome().isEmpty()) {
-				adicionarErroDeValidacao(subView.getTxtNome(), "não pode ficar em branco");
+				adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 				retornoValidacao = false;
 			}
 			if (papel.getPapelMenus() == null || papel.getPapelMenus().isEmpty()) {
