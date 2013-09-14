@@ -25,7 +25,7 @@ CRUDListController<TipoNotaFiscal>{
 	
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"modelo"};
+		return new String[] {"modelo","serie","nome","descricao"};
 	}
 
 	@Override
