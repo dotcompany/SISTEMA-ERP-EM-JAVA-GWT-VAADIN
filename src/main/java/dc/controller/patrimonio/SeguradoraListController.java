@@ -65,6 +65,8 @@ public class SeguradoraListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<SeguradoraEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class SeguradoraListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<SeguradoraEntity>();
 		}
 	}

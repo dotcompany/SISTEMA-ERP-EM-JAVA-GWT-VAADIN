@@ -65,6 +65,8 @@ public class DocumentoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<DocumentoBemEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class DocumentoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<DocumentoBemEntity>();
 		}
 	}

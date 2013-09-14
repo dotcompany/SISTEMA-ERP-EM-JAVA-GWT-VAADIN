@@ -66,6 +66,8 @@ public class MovimentacaoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<MovimentacaoBemEntity>();
 		}
 	}
@@ -93,6 +95,8 @@ public class MovimentacaoBemListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<MovimentacaoBemEntity>();
 		}
 	}

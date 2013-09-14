@@ -64,6 +64,8 @@ public class GrupoBemListController extends CRUDListController<GrupoBemEntity> {
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<GrupoBemEntity>();
 		}
 	}
@@ -91,6 +93,8 @@ public class GrupoBemListController extends CRUDListController<GrupoBemEntity> {
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<GrupoBemEntity>();
 		}
 	}

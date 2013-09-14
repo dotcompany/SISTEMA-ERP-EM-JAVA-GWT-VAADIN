@@ -65,6 +65,8 @@ public class TaxaDepreciacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<TaxaDepreciacaoEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class TaxaDepreciacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<TaxaDepreciacaoEntity>();
 		}
 	}

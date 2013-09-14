@@ -44,7 +44,8 @@ public class EstadoConservacaoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "codigo", "nome", "descricao" };
+		return new String[] { "codigo", "nome", "descricao",
+				"empresa.nomeFantasia" };
 	}
 
 	@Override
@@ -65,6 +66,8 @@ public class EstadoConservacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<EstadoConservacaoEntity>();
 		}
 	}
@@ -92,6 +95,8 @@ public class EstadoConservacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<EstadoConservacaoEntity>();
 		}
 	}
