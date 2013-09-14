@@ -3,18 +3,27 @@ package dc.controller.comercial;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.suprimentos.ReajusteEstoque;
+import dc.visao.comercial.TipoNotaFiscalFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
+@Controller
+@Scope("prototype")
 public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFiscal> {
+	
+	TipoNotaFiscal currentBean;
+	
+	TipoNotaFiscalFormView subView;
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
+		return "tipoNotaForm";
 	}
 
 	@Override
@@ -25,13 +34,13 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected void criarNovoBean() {
-		// TODO Auto-generated method stub
+		currentBean = new TipoNotaFiscal();
 		
 	}
 
 	@Override
 	protected void initSubView() {
-		// TODO Auto-generated method stub
+		subView = new TipoNotaFiscalFormView(this);
 		
 	}
 
@@ -55,14 +64,12 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected Component getSubView() {
-		// TODO Auto-generated method stub
-		return null;
+		return subView;
 	}
 
 	@Override
 	protected String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Tipo de Nota Fiscal";
 	}
 
 	@Override

@@ -212,7 +212,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			            			table.refreshRowCache();
 			            			}catch (Exception e){
 			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem depend�ncia com outros registros.");
+			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
 			            			}
 			                } 
 			            }

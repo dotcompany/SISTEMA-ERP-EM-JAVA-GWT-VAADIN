@@ -117,7 +117,7 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	protected boolean validaSalvar() {
 		if(subView.getTxtLogradouro().getValue() ==  null || subView.getTxtLogradouro().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtLogradouro(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtLogradouro(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

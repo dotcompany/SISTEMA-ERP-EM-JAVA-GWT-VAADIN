@@ -12,6 +12,8 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 
 @Entity
@@ -26,12 +28,16 @@ public class TipoNotaFiscal extends AbstractModel<Integer> {
 	@SequenceGenerator(name = "tnf", sequenceName = "tipo_nota_fiscal_id_seq", allocationSize = 1)
 	private Integer id;
 	
+	@Caption("Modelo")
 	String modelo;
 	
+	@Caption("Série")
 	String serie;
 	
+	@Caption("Nome")
 	String nome;
 	
+	@Caption("Descrição")
 	String descricao;
 	
 	String template;

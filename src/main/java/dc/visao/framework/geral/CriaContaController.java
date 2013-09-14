@@ -43,7 +43,7 @@ public class CriaContaController implements Serializable, ViewController {
 	
 	public static Logger logger = Logger.getLogger(CriaContaController.class);
 	
-	public void criarConta(ContaEmpresa c){
+	public void criarconta(ContaEmpresa c){
 		currentBean = c;
 		boolean saved = false;
 		logger.info("Conta empresa, tentativa de criação");
