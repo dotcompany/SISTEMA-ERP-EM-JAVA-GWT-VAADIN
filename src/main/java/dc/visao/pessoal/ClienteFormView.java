@@ -9,7 +9,7 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscal;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
@@ -578,7 +578,7 @@ public class ClienteFormView extends CustomComponent {
 		this.cmbContaContabil = cmbContaContabil;
 	}
 
-	public ManyToOneCombo<OperacaoFiscal> getCmbOperacaoFiscal() {
+	public ManyToOneCombo<dc.entidade.tributario.OperacaoFiscal> getCmbOperacaoFiscal() {
 		return cmbOperacaoFiscal;
 	}
 
