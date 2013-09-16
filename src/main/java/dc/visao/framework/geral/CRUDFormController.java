@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.navigator.View;
 import com.vaadin.server.Page;
@@ -24,7 +25,6 @@ import com.vaadin.ui.TextField;
 
 import dc.entidade.framework.AbstractModel;
 import dc.framework.DcConstants;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
  * 
@@ -59,6 +59,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	private boolean active;
 
 	private String id;
+
+	private boolean newAttemptOpen;
 
 	@PostConstruct
 	public void init() {
@@ -134,14 +136,18 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if(!isOnSeparateWindow()){
-					mainController.removeTask(CRUDFormController.this, false);
-					mainController.showTaskableContent((Task) listController);	
+				if(!hasNewAttemptOpen()){
+					closeFormTaskOrWindow();	
 				}else{
-					close();
+					confirmClose();
 				}
 				
+				
 			}
+
+			
+
+			
 
 			
 
@@ -149,14 +155,39 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		});
 	}
 	
+	private void closeFormTaskOrWindow() {
+		if(!isOnSeparateWindow()){
+			mainController.removeTask(CRUDFormController.this, false);
+			mainController.showTaskableContent((Task) listController);	
+		}else{
+			close();
+		}
+	}
+	
+	public void confirmClose() {
+		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?", "Você não salvou nenhuma de suas alterações.",
+		        "Sim", "Não", new ConfirmDialog.Listener() {
+		            public void onClose(ConfirmDialog dialog) {
+		            	if (dialog.isConfirmed()) {
+		            		newAttemptOpen = false;
+		            		closeFormTaskOrWindow();
+		            	}
+		            }
+		        });
+	}
+	
 	private boolean isOnSeparateWindow() {
-		// TODO Auto-generated method stub
 		return listController.isOnSeparateWindow();
 	}
 	
 	
 	private void close() {
-		listController.closeWindow();
+		if(hasNewAttemptOpen()){
+			confirmClose();
+		}else{
+			listController.closeWindow();	
+		}
+		
 	}
 	
 	
@@ -198,6 +229,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	public void criarNovo() {
+		this.newAttemptOpen = true;
 		this.novo = true;
 		novo();
 	}
@@ -218,6 +250,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	public void notifiyFrameworkSaveOK(E obj) {
+		newAttemptOpen  = false;
 		listController.notifySaved(obj);
 		new Notification("Gravado!", "Registro gravado com sucesso",
 				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
@@ -311,5 +344,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void setModuleId(String id) {
 		// nothing yet
 	}
+	
+	public boolean hasNewAttemptOpen(){
+		return this.newAttemptOpen;
+	}
+	
 
 }

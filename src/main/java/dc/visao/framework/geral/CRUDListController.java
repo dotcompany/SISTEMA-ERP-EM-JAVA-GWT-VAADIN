@@ -31,6 +31,8 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Table.ColumnGenerator;
+import com.vaadin.ui.Window.CloseEvent;
+import com.vaadin.ui.Window.CloseListener;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
@@ -416,13 +418,25 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	public void closeWindow() {
-		// TODO Auto-generated method stub
 		window.close();
 		window = null;
 	}
 	
 	public void openOnNewWindow(int modalSize){
-		window = new Window();
+		window = new Window(){
+			
+			private static final long serialVersionUID = 1L;
+
+				public void close() {
+			         if(getFormController().hasNewAttemptOpen()){
+			           getFormController().confirmClose();  
+			         } else{
+			        	 super.close();
+			         }
+			     };
+			     
+		};
+			     
 		window.setContent((Component) getFormController().getView());
 		
 		window.center();
@@ -438,7 +452,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		}
 		
 		window.setModal(true);
+		
 		UI.getCurrent().addWindow(window);
+		
 	}
 
 	public boolean isOnSeparateWindow() {

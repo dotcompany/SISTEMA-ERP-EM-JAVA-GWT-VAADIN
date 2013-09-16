@@ -46,7 +46,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		
 		public void setModalSize(int modalSizeType){
 			this.modalSize  = modalSizeType;
-		}
+		}	
 
 		@Override
 		public void onCriarNovo(String filter) {
@@ -77,7 +77,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 			});
 			ctrl.openOnNewWindow(modalSize);
 			ctrl.getPublicFormController().criarNovo();
-			
 		}
 		
 		@Override
