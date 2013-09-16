@@ -65,7 +65,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 		DefaultManyToOneComboModel<CBO> modelCBO= new DefaultManyToOneComboModel(CBOListController.class,cboDAO,mainController);
 		DefaultManyToOneComboModel<CBO> modelCBO2= new DefaultManyToOneComboModel(CBOListController.class,cboDAO,mainController);
 		subView.getCmbCBO1994().setModel(modelCBO);
-		subView.getCmbCBO2002().setModel(modelCBO);
+		subView.getCmbCBO2002().setModel(modelCBO2);
 		//subView.InitCbs(cboDAO.listaTodos());
 		
 	}
