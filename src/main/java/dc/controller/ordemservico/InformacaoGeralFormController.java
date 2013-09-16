@@ -58,7 +58,7 @@ public class InformacaoGeralFormController extends CRUDFormController<Object> {
 	protected void actionSalvar() {
 		try {
 
-			mensagemSalvoOK();
+			//notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 

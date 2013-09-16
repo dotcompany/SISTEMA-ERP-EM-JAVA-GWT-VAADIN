@@ -88,7 +88,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
 			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		}catch(Exception e){
 			mensagemErro("Erro!!");
 			e.printStackTrace();

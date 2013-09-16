@@ -22,7 +22,9 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
+import dc.entidade.framework.AbstractModel;
 import dc.framework.DcConstants;
+import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
  * 
@@ -116,9 +118,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 				init();
 				if(!isOnSeparateWindow()){
 					mainController.showTaskableContent(CRUDFormController.this);	
+				}else{
+					listController.showOnWindow(view);
+					criarNovo();	
 				}
 				
-				criarNovo();
+				
 
 			}
 
@@ -151,14 +156,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	
 	
 	private void close() {
-		// TODO Auto-generated method stub
 		listController.closeWindow();
 	}
 	
 	
 
 	protected boolean isFullSized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -166,7 +169,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	 * Utilizado para limpar validacoes nos componentes VAADIN
 	 */
 	protected void limpaValidacoes() {
-		// TODO Auto-generated method stub
 		Iterator<String> it = validatableComponents.keySet().iterator();
 		while (it.hasNext()) {
 			String key = it.next();
@@ -201,6 +203,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	protected abstract void carregar(Serializable id);
+	
+	public void load(AbstractModel<Serializable> model){
+		if(model != null){
+			carregar(model.getId());	
+		}
+	}
 
 	protected abstract void actionSalvar();
 

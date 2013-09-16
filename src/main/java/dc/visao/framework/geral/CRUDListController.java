@@ -455,8 +455,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	public void notifySaved(E obj) {
-		// TODO Auto-generated method stub
-		saveListener.onSave(obj);
+		if(saveListener != null){
+			saveListener.onSave(obj);
+		}
+	}
+
+	public void showOnWindow(Component c) {
+		window.setContent(c);
+		
 	}
 
 }

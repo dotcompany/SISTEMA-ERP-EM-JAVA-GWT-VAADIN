@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.ws.rs.ApplicationPath;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -22,6 +23,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 
 
@@ -51,12 +54,14 @@ public class CBO extends AbstractModel<Integer> implements Serializable {
     @Field
     @Caption("Codigo")
     @Column(name="Codigo", length = 50)
+    @ComboCode
     private String codigo;
     
     
     @Field
     @Caption("Nome")
     @Column(name = "NOME", length = 50)
+    @ComboValue
     private String nome;
     
     @Lob

@@ -57,8 +57,7 @@ public class LaudoTecnicoFormController extends CRUDFormController<Object> {
 	@Override
 	protected void actionSalvar() {
 		try {
-
-			mensagemSalvoOK();
+			//notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -64,8 +64,6 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
 	
-	@Autowired
-	private PapelDAO daoPapel;
 	
 	@Autowired
 	private PessoaDAO pessoaDAO;
@@ -128,10 +126,10 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		//DefaultManyToOneComboModel<Pessoa> model= new DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
 		//subView.getCmbPessoa().setModel(model);
 		
-		DefaultManyToOneComboModel<TipoColaborador> modelTipo = new DefaultManyToOneComboModel(TipoColaboradorListController.class,tipoColaboradorDAO,mainController,daoPapel);
+		DefaultManyToOneComboModel<TipoColaborador> modelTipo = new DefaultManyToOneComboModel(TipoColaboradorListController.class,tipoColaboradorDAO,mainController);
 		subView.getCmbTipoColaborador().setModel(modelTipo);
 		
-		DefaultManyToOneComboModel<UF> modelUf= new DefaultManyToOneComboModel(EstadoListController.class,tipoColaboradorDAO,mainController,daoPapel);
+		DefaultManyToOneComboModel<UF> modelUf= new DefaultManyToOneComboModel(EstadoListController.class,tipoColaboradorDAO,mainController);
 		subView.getCmbUf().setModel(modelUf);
 		
 	}

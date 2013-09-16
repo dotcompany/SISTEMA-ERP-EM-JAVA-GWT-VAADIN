@@ -240,7 +240,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		if(model instanceof DefaultManyToOneComboModel){
 			((DefaultManyToOneComboModel)this.model).setCombo(this);	
 		}
-		
 	}
 
 

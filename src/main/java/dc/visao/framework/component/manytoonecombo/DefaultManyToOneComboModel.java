@@ -1,5 +1,6 @@
 package dc.visao.framework.component.manytoonecombo;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -12,12 +13,12 @@ import java.util.Map;
 
 import com.vaadin.ui.Notification;
 
-import dc.controller.pessoal.TipoColaboradorListController;
+
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.TipoColaborador;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.sistema.PapelDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
 import dc.visao.framework.geral.MainController;
@@ -28,7 +29,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		private AbstractCrudDAO<T> dao;
 		private Class ctrlClass;
 		private MainController mainController;		
-		private PapelDAO daoPapel;
 		private int modalSize = 2;
 		private ManyToOneCombo<T> combo;
 		
@@ -38,9 +38,8 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		
 		
 		
-		public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao,MainController mainController,PapelDAO daoPapel){
-			this.dao = dao;
-			this.daoPapel = daoPapel; 
+		public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao,MainController mainController){
+			this.dao = dao; 
 			this.ctrlClass = controllerClass;
 			this.mainController = mainController;
 		}
@@ -62,7 +61,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				if(u.getAdministrador()){
 					ctrlAcesso.setAcessoLiberado();
 				}else{
-					PapelMenu pf = daoPapel.getPapelMenuByPapelAndMenuControllerClass(u.getPapel().getId(),TipoColaboradorListController.class.toString());
+					PapelMenu pf = mainController.getDaoPapel().getPapelMenuByPapelAndMenuControllerClass(u.getPapel().getId(),ctrlClass.toString());
 					ctrlAcesso.setPapelMenu(pf);	
 				}
 				
@@ -150,7 +149,32 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		@Override
 		public void onEditar(T value) {
-			Notification.show("Selecionado Editar: " + value);
+			Notification.show("Selecionado Editar");
+			CRUDListController<TipoColaborador> ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
+			
+			 Usuario u = SecuritySessionProvider.getUsuario();
+			 
+			if(ctrl instanceof ControllerAcesso){
+				ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;
+				if(u.getAdministrador()){
+					ctrlAcesso.setAcessoLiberado();
+				}else{
+					PapelMenu pf = mainController.getDaoPapel().getPapelMenuByPapelAndMenuControllerClass(u.getPapel().getId(),ctrlClass.toString());
+					ctrlAcesso.setPapelMenu(pf);	
+				}
+				
+			}
+			ctrl.addSaveListener(new ModalWindowSaveListener<T>(){
+
+				@Override
+				public void onSave(T object) {
+					combo.setValue(object);
+				}
+				
+				
+			});
+			ctrl.openOnNewWindow(modalSize);
+			ctrl.getPublicFormController().load((AbstractModel<Serializable>) value);
 			
 		}
 		

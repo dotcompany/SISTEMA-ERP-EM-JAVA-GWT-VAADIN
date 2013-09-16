@@ -82,7 +82,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 			currentBean.setOrigemMercadoria(((ORIGEM_MERCADORIA)subView.getOrigemMercadoria().getValue()).getCodigo());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		}catch(Exception e){
 			mensagemErro("Erro!!");
 			e.printStackTrace();

@@ -97,7 +97,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 			currentBean.setOrigemMercadoria(origem);
 			currentBean.setObservacao(obs);
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		}catch(ErroValidacaoException e){
 			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){

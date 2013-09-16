@@ -32,7 +32,7 @@ public class CBOListController extends CRUDListController<CBO>{
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo1994","nome", "observacao"};
+		return new String[] {"codigo","nome", "observacao"};
 	}
 
 	@Override

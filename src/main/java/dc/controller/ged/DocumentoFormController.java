@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.server.FileResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Link;
-import com.vaadin.ui.Notification;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.ged.Documento;
@@ -27,8 +26,9 @@ import dc.servicos.dao.ged.TipoDocumentoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 import dc.visao.ged.DocumentoFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -45,6 +45,9 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Autowired
 	private DocumentoDAO documentoDAO;
+	
+	@Autowired
+	private MainController mainController;
 
 	@Autowired
 	private TipoDocumentoDAO tipoDocumentoDAO;
@@ -129,6 +132,10 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	@Override
 	protected void initSubView() {
 		subView = new DocumentoFormView();
+
+		DefaultManyToOneComboModel<TipoDocumento> model= new DefaultManyToOneComboModel(TipoDocumentoListController.class,tipoDocumentoDAO,mainController);
+		subView.getCmbTipoDocumento().setModel(model);
+		
 	}
 
 	@Override

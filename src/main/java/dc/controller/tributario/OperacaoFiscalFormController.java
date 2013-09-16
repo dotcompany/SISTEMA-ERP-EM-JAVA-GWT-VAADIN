@@ -101,7 +101,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 			currentBean.setObservacao(subView.getObservacao().getValue());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(currentBean);
 		}catch(ErroValidacaoException e){
 			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){

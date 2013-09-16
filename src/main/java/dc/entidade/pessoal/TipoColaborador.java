@@ -22,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -45,7 +46,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoColaborador implements Serializable {
+public class TipoColaborador extends AbstractModel<Integer> {
 	
     private static final long serialVersionUID = 1L;
     
@@ -103,22 +104,6 @@ public class TipoColaborador implements Serializable {
         this.descricao = descricao;
     }
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
-
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof TipoColaborador == false) return false;
-    	if (this == object) return true;
-    	final TipoColaborador other = (TipoColaborador) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
-
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+   
 
 }
