@@ -40,6 +40,16 @@ public class PapelDAO extends AbstractCrudDAO<Papel>{
 				" where pm.papel.id= :papel_id and pm.menu.id = :menu_id ";
 		return (PapelMenu)  getSession().createQuery(hQ).setInteger("papel_id",idPapel).setInteger("menu_id",idMenu).uniqueResult();		
 	}
+	
+	@Transactional
+	public dc.entidade.framework.PapelMenu getPapelMenuByPapelAndMenuControllerClass(Integer idPapel, String controllerClass) {
+		logger.info("Calling getPapelMenuByPapelAndMenuController query...");
+		logger.info("Papel: " + idPapel);
+		logger.info("Controller: " + controllerClass);
+		String hQ = "select pm from PapelMenu as pm " +
+				" where pm.papel.id= :papel_id and pm.menu.controllerClass= :controllerName";
+		return (PapelMenu)  getSession().createQuery(hQ).setInteger("papel_id",idPapel).setString("controllerClass",controllerClass).uniqueResult();		
+	}
 
 	@Transactional
 	public List<PapelMenu> getPapelMenusOrdered(Papel p) {

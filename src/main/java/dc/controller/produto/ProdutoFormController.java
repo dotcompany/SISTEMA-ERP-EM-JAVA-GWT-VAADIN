@@ -10,11 +10,15 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
+import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.produto.Produto;
 import dc.entidade.produto.SubGrupoProduto;
+import dc.entidade.produto.UnidadeProduto;
+import dc.entidade.tributario.GrupoTributario;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
 import dc.servicos.dao.produto.MarcaProdutoDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
+import dc.servicos.dao.produto.SubGrupoProdutoDAO;
 import dc.servicos.dao.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.util.Validator;
@@ -46,6 +50,9 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 	
 	@Autowired
 	private GrupoTributarioDAO grupoTributarioDAO;
+	
+	@Autowired
+	private SubGrupoProdutoDAO subGrupoProdutoDAO;
 	
 	private Produto currentBean;
 
@@ -116,7 +123,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			}
 		};
 		subView.getCmbSubGrupoProduto().setModel(modelsub);
-		subView.getCmbSubGrupoProduto().setValue(currentBean.getSubGrupo());*/
+		subView.getCmbSubGrupoProduto().setValue(currentBean.getIdSubGrupo());*/
 		
 		/* Configura combo Unidade Produto */
 		/*ManyToOneComboModel<UnidadeProduto> model = new ManyToOneComboModel<UnidadeProduto>() {
@@ -181,11 +188,11 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			}
 		};
 		subView.getCmbMarcaProduto().setModel(modelmarca);
-		subView.getCmbMarcaProduto().setValue(currentBean.getMarcaProduto());*/
+		subView.getCmbMarcaProduto().setValue(currentBean.getIdMarcaProduto());*/
 		
 		
 		/* Configura combo Almoxarifadooooo */
-		/*ManyToOneComboModel<Almoxarifado> modelalmoxarifado = new ManyToOneComboModel<Almoxarifado>() {
+          ManyToOneComboModel<Almoxarifado> modelalmoxarifado = new ManyToOneComboModel<Almoxarifado>() {
 
 			@Override
 			public void onCriarNovo(String filter) {
@@ -214,11 +221,11 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			}
 		};
 		subView.getCmbAlmoxarifado().setModel(modelalmoxarifado);
-		subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());*/
+		subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
 		
 		
 		/* Configura combo Grupo Tributárioooo*/
-		/*ManyToOneComboModel<GrupoTributario> modelgrupo = new ManyToOneComboModel<GrupoTributario>() {
+		ManyToOneComboModel<GrupoTributario> modelgrupo = new ManyToOneComboModel<GrupoTributario>() {
 
 			@Override
 			public void onCriarNovo(String filter) {
@@ -247,7 +254,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			}
 		};
 		subView.getCmbGrupoTributario().setModel(modelgrupo);
-		subView.getCmbGrupoTributario().setValue(currentBean.getIdGrupoTributario());*/
+		subView.getCmbGrupoTributario().setValue(currentBean.getIdGrupoTributario());
 	}
 
 	@Override
@@ -260,7 +267,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			produtoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

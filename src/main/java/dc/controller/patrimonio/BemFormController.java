@@ -195,7 +195,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

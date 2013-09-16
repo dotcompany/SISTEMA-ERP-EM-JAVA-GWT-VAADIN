@@ -73,7 +73,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 			ContaEmpresa conta = SecuritySessionProvider.getUsuario().getConta();
 			currentBean.setConta(conta);
 			usuarioDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro("Problemas ao salvar registro");
 			e.printStackTrace();

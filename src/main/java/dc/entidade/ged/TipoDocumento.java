@@ -20,6 +20,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -27,7 +28,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoDocumento implements Serializable{
+public class TipoDocumento extends AbstractModel<Integer> implements Serializable{
 	 private static final long serialVersionUID = 1L;
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)

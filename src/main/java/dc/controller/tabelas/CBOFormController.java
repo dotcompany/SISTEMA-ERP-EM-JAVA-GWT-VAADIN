@@ -52,7 +52,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		try{
 			cboDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 	protected boolean validaSalvar() {
 		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

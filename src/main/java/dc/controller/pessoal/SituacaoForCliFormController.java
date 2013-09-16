@@ -75,7 +75,7 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 			situacaoForCliDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

@@ -21,6 +21,11 @@ public class TipoNotaFiscalFormView extends CustomComponent {
 	private GridLayout fields;
 	
 	private TextField txtModelo;
+	
+	private TextField txtSerie;
+	
+	private TextField txtNome;
+	
 
 	public TipoNotaFiscalFormView(TipoNotaFiscalFormController controller) {
 		this.controller = controller;
@@ -56,6 +61,12 @@ public class TipoNotaFiscalFormView extends CustomComponent {
 		
 		txtModelo = ComponentUtil.buildTextField("Modelo");
 		fields.addComponent(txtModelo,0,0);
+		
+		txtSerie = ComponentUtil.buildTextField("Série");
+		fields.addComponent(txtModelo,1,0);
+		
+		txtNome = ComponentUtil.buildTextField("Nome");
+		fields.addComponent(txtModelo,2,0);
         return fields;
 	}
 }

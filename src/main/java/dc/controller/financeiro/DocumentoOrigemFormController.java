@@ -48,7 +48,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			documentoorigemDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -84,7 +84,7 @@ public class NCMFormController extends CRUDFormController<NCM> {
 			ncmDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

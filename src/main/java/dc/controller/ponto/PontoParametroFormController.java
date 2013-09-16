@@ -123,7 +123,7 @@ public class PontoParametroFormController extends CRUDFormController<PontoParame
 			Empresa empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoParametroDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

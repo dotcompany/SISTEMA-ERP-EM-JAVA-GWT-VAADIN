@@ -52,7 +52,7 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
 		try{
 			sefipCodigoMovimentacaoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 	protected boolean validaSalvar() {
 		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

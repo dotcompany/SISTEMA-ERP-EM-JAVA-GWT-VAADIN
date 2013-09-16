@@ -61,7 +61,7 @@ public class RequisicaoCompraFormController extends
 			currentBean.setDataRequisicao(subView.getCalDataRequisicao()
 					.getValue());
 			requisicaoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

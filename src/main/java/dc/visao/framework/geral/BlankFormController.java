@@ -139,7 +139,7 @@ public abstract class BlankFormController extends ControllerTask implements Cont
 
 	protected boolean estaVazio(TextField txtField) {
 		if (txtField.getValue() == null || txtField.getValue().isEmpty()) {
-			adicionarErroDeValidacao(txtField, "não pode ficar em branco");
+			adicionarErroDeValidacao(txtField, "Não pode ficar em Branco!");
 			return true;
 		}
 

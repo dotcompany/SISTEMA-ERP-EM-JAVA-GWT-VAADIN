@@ -148,7 +148,7 @@ public class ContratoSolicitacaoServicoFormController extends
 	protected void actionSalvar() {
 		subView.preencherObjeto(currentBean);
 		contratoSolicitacaoServicoDAO.saveOrUpdate(currentBean);
-		mensagemSalvoOK();
+		notifiyFrameworkSaveOK(this.currentBean);
 
 	}
 

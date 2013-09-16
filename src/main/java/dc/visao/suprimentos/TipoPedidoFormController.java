@@ -42,7 +42,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			tipoPedidoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

@@ -83,7 +83,7 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 		
 		try {
 			chequeDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

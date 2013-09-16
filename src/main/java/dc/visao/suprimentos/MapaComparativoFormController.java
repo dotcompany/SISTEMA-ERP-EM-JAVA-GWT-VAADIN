@@ -97,7 +97,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 			}
 			
 			cotacaoDao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

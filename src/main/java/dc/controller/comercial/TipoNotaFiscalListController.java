@@ -3,12 +3,16 @@ package dc.controller.comercial;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
+@Component
+@Scope("prototype")
 public class TipoNotaFiscalListController
 extends
 CRUDListController<TipoNotaFiscal>{
@@ -21,7 +25,7 @@ CRUDListController<TipoNotaFiscal>{
 	
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"modelo"};
+		return new String[] {"modelo","serie","nome","descricao"};
 	}
 
 	@Override

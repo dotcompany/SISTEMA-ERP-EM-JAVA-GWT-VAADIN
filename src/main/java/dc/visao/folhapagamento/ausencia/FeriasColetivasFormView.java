@@ -179,6 +179,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -194,7 +195,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		pdfDataFim.setImmediate(false);
 		pdfDataFim.setWidth("-1px");
 		pdfDataFim.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataFim, 0, 3);
+		gridLayout_1.addComponent(pdfDataFim, 1, 1);
 
 		// tfDiasGozo
 		tfDiasGozo = new TextField();
@@ -202,7 +203,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		tfDiasGozo.setImmediate(false);
 		tfDiasGozo.setWidth("175px");
 		tfDiasGozo.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiasGozo, 0, 5);
+		gridLayout_1.addComponent(tfDiasGozo, 0, 2);
 
 		// pdfAbonoPecuniarioInicio
 		pdfAbonoPecuniarioInicio = new PopupDateField();
@@ -210,7 +211,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		pdfAbonoPecuniarioInicio.setImmediate(false);
 		pdfAbonoPecuniarioInicio.setWidth("-1px");
 		pdfAbonoPecuniarioInicio.setHeight("-1px");
-		gridLayout_1.addComponent(pdfAbonoPecuniarioInicio, 0, 7);
+		gridLayout_1.addComponent(pdfAbonoPecuniarioInicio, 1, 2);
 
 		// pdfAbonoPecuniarioFim
 		pdfAbonoPecuniarioFim = new PopupDateField();
@@ -218,7 +219,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		pdfAbonoPecuniarioFim.setImmediate(false);
 		pdfAbonoPecuniarioFim.setWidth("-1px");
 		pdfAbonoPecuniarioFim.setHeight("-1px");
-		gridLayout_1.addComponent(pdfAbonoPecuniarioFim, 0, 9);
+		gridLayout_1.addComponent(pdfAbonoPecuniarioFim, 0, 3);
 
 		// tfDiasAbono
 		tfDiasAbono = new TextField();
@@ -226,7 +227,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		tfDiasAbono.setImmediate(false);
 		tfDiasAbono.setWidth("175px");
 		tfDiasAbono.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiasAbono, 0, 11);
+		gridLayout_1.addComponent(tfDiasAbono, 1, 3);
 
 		// pdfDataPagamento
 		pdfDataPagamento = new PopupDateField();
@@ -234,7 +235,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		pdfDataPagamento.setImmediate(false);
 		pdfDataPagamento.setWidth("-1px");
 		pdfDataPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataPagamento, 0, 13);
+		gridLayout_1.addComponent(pdfDataPagamento, 0, 4);
 
 		return gridLayout_1;
 	}

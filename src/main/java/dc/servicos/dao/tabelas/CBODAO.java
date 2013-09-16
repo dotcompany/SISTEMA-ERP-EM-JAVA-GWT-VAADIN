@@ -37,7 +37,7 @@ public class CBODAO extends AbstractCrudDAO<CBO>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo1994","nome", "observacao"};
+		return new String[] {"codigo","nome", "observacao"};
 	}
 
 

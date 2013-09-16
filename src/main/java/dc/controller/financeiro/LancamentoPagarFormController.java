@@ -96,7 +96,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 
 			try {
 				lancamentoPagarDAO.saveOrUpdate(currentBean);
-				mensagemSalvoOK();
+				notifiyFrameworkSaveOK(this.currentBean);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

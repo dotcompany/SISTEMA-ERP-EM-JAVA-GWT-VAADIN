@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
 
@@ -32,19 +34,22 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    
-    
-    @Column(name = "DESCRICAO")
+  
+    @Caption("Descrição")
     private String descricao;
+    
     @Column(name = "ORIGEM_MERCADORIA")
     private String origemMercadoria;
     
-    @Column(name = "OBSERVACAO")
     private String observacao;
     
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Empresa empresa;
+    
+    @Transient
+    @Caption("Origem da Mercadoria")
+    private String origemString;
 
     public GrupoTributario() {
     }
@@ -92,7 +97,29 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
 
     @Override
     public String toString() {
-        return "com.t2tierp.tributacao.java.TributGrupoTributarioVO[id=" + id + "]";
+        return descricao;
     }
+
+	public String getOrigemString() {
+		switch (new Integer(origemMercadoria)) {
+		case 0:
+			origemString = "NACIONAL";
+			break;
+		case 1:
+			origemString = "ESTRANGEIRA";
+			break;
+
+		default:
+			origemString = " ";
+			break;
+		}
+		return origemString;
+	}
+
+	public void setOrigemString(String origemString) {
+		this.origemString = origemString;
+	}
+    
+    
 
 }

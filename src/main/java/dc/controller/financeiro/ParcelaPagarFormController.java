@@ -46,7 +46,7 @@ public class ParcelaPagarFormController extends CRUDFormController<ParcelaPagar>
 		try {
 			//currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			parcelaPagarDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

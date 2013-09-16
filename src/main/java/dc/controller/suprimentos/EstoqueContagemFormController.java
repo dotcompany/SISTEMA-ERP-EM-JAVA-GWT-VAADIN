@@ -69,7 +69,7 @@ public class EstoqueContagemFormController extends
 	protected void actionSalvar() {
 		try {
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

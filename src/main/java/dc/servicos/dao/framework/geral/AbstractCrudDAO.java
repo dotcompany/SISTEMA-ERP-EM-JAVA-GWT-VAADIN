@@ -1,9 +1,18 @@
 package dc.servicos.dao.framework.geral;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,12 +27,21 @@ import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gwt.dev.util.collect.HashSet;
+import com.sun.istack.logging.Logger;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+import dc.visao.spring.SecuritySessionProvider;
+
 /**
 *
 * @author Wesley Jr
 /*
  *Classe onde é Abstract, temos nela alguns métodos do Save, do pesquisar também, onde
  *aqui está um pouco da lógica do pesquisar que utilizamos dentro da Tela, para pegarmos
+
  *informações! 
  * 
  
@@ -37,6 +55,46 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
+	
+	private String comboValue; 
+	private String comboCode ;
+	
+	public static Logger logger = Logger.getLogger(AbstractCrudDAO.class);
+	@PostConstruct
+	public void init(){
+		configureDefaultComboFields();
+		Class entityClass = getEntityClass();
+		if(entityClass != null){
+			configureComboFields(entityClass);	
+		}
+		
+	}
+
+	private void configureDefaultComboFields() {
+		String[] defaultSearchFields = getDefaultSearchFields();
+		if(defaultSearchFields != null && defaultSearchFields.length != 0 ){
+			comboValue = defaultSearchFields[0];
+			comboCode = defaultSearchFields[0];	
+		}
+	}
+
+	private void configureComboFields(Class entityClass) {
+		logger.info("combo config for class: " + entityClass);
+		java.lang.reflect.Field[] entityFields = entityClass.getDeclaredFields();
+		logger.info("fields.." + entityFields);
+		logger.info("fields..length: " + entityFields.length);
+		for(Field f : entityFields){
+			logger.info("Field: " + f);
+			if (f.getAnnotation(ComboCode.class) != null){
+				comboCode = f.getName();
+			}
+			if (f.getAnnotation(ComboValue.class) != null){
+				comboValue = f.getName();
+			}
+		}
+		logger.info("combo config code: " + comboCode);
+		logger.info("combo config value: " + comboValue);
+	}
 
 	protected abstract Class<T> getEntityClass();
 
@@ -57,6 +115,10 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public void save(T obj){
+		if (obj instanceof AbstractMultiEmpresaModel) {
+			AbstractMultiEmpresaModel a = (AbstractMultiEmpresaModel) obj;
+			a.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		}
 		sessionFactory.getCurrentSession().save(obj);
 	}
 
@@ -86,9 +148,13 @@ public abstract class AbstractCrudDAO<T> {
 	
 	@Transactional
 	public <T> void saveOrUpdate(final T o) {
+		if (o instanceof AbstractMultiEmpresaModel) {
+			AbstractMultiEmpresaModel a = (AbstractMultiEmpresaModel) o;
+			a.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		}
 		sessionFactory.getCurrentSession().saveOrUpdate(o);
 	}
-	
+		    
 	@Transactional
 	public <T> List<T> getAll(final Class<T> type) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -119,6 +185,29 @@ public abstract class AbstractCrudDAO<T> {
 					.list();
 	}
 	
+	
+	@Transactional
+	public List<T> comboTextSearch(String value, String[] searchFields) {
+		List<T> resultSet = new ArrayList<T>();
+		FullTextSession fullTextSession = getFullTextSession();
+	    Set nostopwords = new HashSet();  
+	    Analyzer an = new StandardAnalyzer(Version.LUCENE_31, nostopwords);
+	    String[] fields = {comboCode,comboValue};
+	    MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31,fields, an);     
+	    try {
+			org.apache.lucene.search.Query luceneQuery = parser.parse(value+"*");
+			resultSet= fullTextSession.createFullTextQuery(luceneQuery, getEntityClass())
+					.setMaxResults(DEFAULT_PAGE_SIZE)
+					.list();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	    
+	    return resultSet;
+			
+			
+	}
+	
 
 	protected abstract String[] getDefaultSearchFields();
 
@@ -135,7 +224,9 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public int fullTextSearchCount(String searchValue) {
 		FullTextSession fullTextSession = getFullTextSession();
+		
 		QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+		
 			org.apache.lucene.search.Query query = qb
 			  .keyword().fuzzy()
 			  .onFields(getSearchFields())
@@ -143,7 +234,6 @@ public abstract class AbstractCrudDAO<T> {
 			  .createQuery();
 
 			return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();
-
 	}
 	
 	public String[] getSearchFields(){
@@ -180,19 +270,19 @@ public abstract class AbstractCrudDAO<T> {
 	}
 	
 	@Transactional
-	public List<Serializable> getAllPagedByConta(Class pojoClass,
-			Integer idConta, int start, int pageSize) {
+	public List<Serializable> getAllPagedByEmpresa(Class pojoClass,
+			Integer idEmpresa, int start, int pageSize) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(pojoClass);
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(pageSize); 
-		criteria.add(Restrictions.eq("conta.id", idConta));
+		criteria.add(Restrictions.eq("empresa.id", idEmpresa));
 		List result = criteria.list();
 		return result;
 	}
 	
 	@Transactional
-	public int countByConta(Class c,Integer idConta) {
-		List l =  sessionFactory.getCurrentSession().createCriteria(c).add(Restrictions.eq("conta.id", idConta)).setProjection(Projections.rowCount()).list();
+	public int countByEmpresa(Class c,Integer idEmpresa) {
+		List l =  sessionFactory.getCurrentSession().createCriteria(c).add(Restrictions.eq("empresa.id", idEmpresa)).setProjection(Projections.rowCount()).list();
 		return Integer.valueOf(l.get(0).toString());
 	}
 

@@ -51,7 +51,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
 			tipoItemSepedDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -94,7 +94,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 	protected boolean validaSalvar() {
 		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

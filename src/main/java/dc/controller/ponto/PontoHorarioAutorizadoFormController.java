@@ -155,7 +155,7 @@ public class PontoHorarioAutorizadoFormController extends
 		subView.preencheBean(currentBean);
 		try {
 			pontoHorarioAutorizadoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

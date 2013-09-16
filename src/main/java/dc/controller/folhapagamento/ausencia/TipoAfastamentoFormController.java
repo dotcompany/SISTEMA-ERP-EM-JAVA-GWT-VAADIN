@@ -93,7 +93,7 @@ public class TipoAfastamentoFormController extends
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

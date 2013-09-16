@@ -91,7 +91,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

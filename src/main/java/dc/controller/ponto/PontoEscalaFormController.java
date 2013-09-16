@@ -120,7 +120,7 @@ public class PontoEscalaFormController extends CRUDFormController<PontoEscala> {
 		subView.preencheBean(currentBean);
 		try {
 			pontoEscalaDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

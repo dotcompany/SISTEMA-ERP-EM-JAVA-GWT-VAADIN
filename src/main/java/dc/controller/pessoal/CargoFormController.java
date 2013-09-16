@@ -9,12 +9,16 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.tabelas.CBOListController;
 import dc.entidade.pessoal.Cargo;
+import dc.entidade.pessoal.TipoColaborador;
 import dc.entidade.tabelas.CBO;
 import dc.servicos.dao.pessoal.CargoDAO;
 import dc.servicos.dao.tabelas.CBODAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 import dc.visao.pessoal.CargoFormView;
 
 
@@ -30,6 +34,10 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	@Autowired
 	private CBODAO cboDAO;
 	
+	
+	@Autowired
+	private MainController mainController;
+	
 	private Cargo currentBean;
 
 	@Override
@@ -38,7 +46,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -54,8 +62,11 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	@Override
 	protected void initSubView() {
 		subView = new CargoFormView();
-		
-		subView.InitCbs(cboDAO.listaTodos());
+		DefaultManyToOneComboModel<CBO> modelCBO= new DefaultManyToOneComboModel(CBOListController.class,cboDAO,mainController);
+		DefaultManyToOneComboModel<CBO> modelCBO2= new DefaultManyToOneComboModel(CBOListController.class,cboDAO,mainController);
+		subView.getCmbCBO1994().setModel(modelCBO);
+		subView.getCmbCBO2002().setModel(modelCBO);
+		//subView.InitCbs(cboDAO.listaTodos());
 		
 	}
 
@@ -86,7 +97,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 			cargoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

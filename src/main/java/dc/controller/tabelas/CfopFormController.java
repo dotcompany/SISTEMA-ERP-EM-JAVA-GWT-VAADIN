@@ -48,7 +48,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
 		try {
 			cfopDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 			// erro para o campo que esta sendo validado
 
 			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 
 			return false;
 		}

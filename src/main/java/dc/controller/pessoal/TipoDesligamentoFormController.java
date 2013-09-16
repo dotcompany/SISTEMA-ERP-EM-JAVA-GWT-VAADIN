@@ -33,7 +33,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 			valido = false;
 		}
 		return valido;
@@ -67,7 +67,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 			tipoDesligamentoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

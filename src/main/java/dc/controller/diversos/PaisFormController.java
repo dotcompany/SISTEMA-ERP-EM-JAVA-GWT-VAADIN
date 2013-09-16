@@ -58,7 +58,7 @@ public class PaisFormController extends CRUDFormController<Pais> {
 		currentBean.setSigla3(subView.getTxtSigla3().getValue());
 		try{
 			paisDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.framework.Papel;
 import dc.entidade.geral.Usuario;
-import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.sistema.UsuarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-import dc.visao.spring.SecuritySessionProvider;
 
 /**
 *
@@ -81,12 +78,6 @@ public class UsuarioListController extends CRUDListController<Usuario>{
 	protected List<Usuario> pesquisaDefault() {
 		// TODO Auto-generated method stub
 		return (List<Usuario>) dao.getAll(Usuario.class);
-	}
-	
-	@Override
-	protected boolean isMultiEmpresa() {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 	

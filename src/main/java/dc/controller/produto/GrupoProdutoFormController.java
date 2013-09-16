@@ -75,7 +75,7 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoProduto>
 			grupoProdutoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

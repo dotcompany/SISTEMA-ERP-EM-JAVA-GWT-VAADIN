@@ -1561,7 +1561,8 @@ public class NotaFiscalFormView extends CustomComponent  {
 	}
 	
 	public void buildAbaLoteProduto(){
-		subForms.addTab(null, "Lote de Produto", null);
+		VerticalLayout l = new VerticalLayout();
+		subForms.addTab(l, "Lote de Produto", null);
 	}
 
 	public void buildAbaTransporte(){

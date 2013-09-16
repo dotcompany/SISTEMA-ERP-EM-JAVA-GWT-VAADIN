@@ -459,10 +459,10 @@ public class ContratoFormView extends CustomComponent {
 		historicoReajustesSubForm = buildHistoricoReajustesSubForm();
 		previsaoFaturamentoSubForm = buildPrevisaoFaturamentoSubForm();
 
-		tabSheet_2.addTab(historicoFaturamentoSubForm, "Hist�rico Faturamento",
+		tabSheet_2.addTab(historicoFaturamentoSubForm, "Histórico Faturamento",
 				null);
 
-		tabSheet_2.addTab(historicoReajustesSubForm, "Hist�rico de Reajustes",
+		tabSheet_2.addTab(historicoReajustesSubForm, "Histórico de Reajustes",
 				null);
 
 		tabSheet_2.addTab(previsaoFaturamentoSubForm,

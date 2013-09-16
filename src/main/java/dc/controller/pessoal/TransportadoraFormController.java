@@ -45,7 +45,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtObservacao(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 			valido = false;
 		}
 		return valido;
@@ -146,7 +146,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 			transportadoraDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

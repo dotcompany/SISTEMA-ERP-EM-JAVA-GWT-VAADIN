@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.navigator.View;
 import com.vaadin.server.Page;
@@ -22,6 +23,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
+import dc.entidade.framework.AbstractModel;
 import dc.framework.DcConstants;
 
 /**
@@ -57,6 +59,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	private boolean active;
 
 	private String id;
+
+	private boolean newAttemptOpen;
 
 	@PostConstruct
 	public void init() {
@@ -114,24 +118,81 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				mainController.showTaskableContent(CRUDFormController.this);
-				criarNovo();
+				if(!isOnSeparateWindow()){
+					mainController.showTaskableContent(CRUDFormController.this);	
+				}else{
+					listController.showOnWindow(view);
+					criarNovo();	
+				}
+				
+				
 
 			}
+
+
 		});
 
 		view.getBtnCancelar().addClickListener(new ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				mainController.removeTask(CRUDFormController.this, false);
-				mainController.showTaskableContent((Task) listController);
+				if(!hasNewAttemptOpen()){
+					closeFormTaskOrWindow();	
+				}else{
+					confirmClose();
+				}
+				
+				
 			}
+
+			
+
+			
+
+			
+
+			
 		});
 	}
+	
+	private void closeFormTaskOrWindow() {
+		if(!isOnSeparateWindow()){
+			mainController.removeTask(CRUDFormController.this, false);
+			mainController.showTaskableContent((Task) listController);	
+		}else{
+			close();
+		}
+	}
+	
+	public void confirmClose() {
+		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?", "Você não salvou nenhuma de suas alterações.",
+		        "Sim", "Não", new ConfirmDialog.Listener() {
+		            public void onClose(ConfirmDialog dialog) {
+		            	if (dialog.isConfirmed()) {
+		            		newAttemptOpen = false;
+		            		closeFormTaskOrWindow();
+		            	}
+		            }
+		        });
+	}
+	
+	private boolean isOnSeparateWindow() {
+		return listController.isOnSeparateWindow();
+	}
+	
+	
+	private void close() {
+		if(hasNewAttemptOpen()){
+			confirmClose();
+		}else{
+			listController.closeWindow();	
+		}
+		
+	}
+	
+	
 
 	protected boolean isFullSized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -139,7 +200,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	 * Utilizado para limpar validacoes nos componentes VAADIN
 	 */
 	protected void limpaValidacoes() {
-		// TODO Auto-generated method stub
 		Iterator<String> it = validatableComponents.keySet().iterator();
 		while (it.hasNext()) {
 			String key = it.next();
@@ -169,11 +229,18 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	public void criarNovo() {
+		this.newAttemptOpen = true;
 		this.novo = true;
 		novo();
 	}
 
 	protected abstract void carregar(Serializable id);
+	
+	public void load(AbstractModel<Serializable> model){
+		if(model != null){
+			carregar(model.getId());	
+		}
+	}
 
 	protected abstract void actionSalvar();
 
@@ -182,7 +249,9 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		quandoNovo();
 	}
 
-	public void mensagemSalvoOK() {
+	public void notifiyFrameworkSaveOK(E obj) {
+		newAttemptOpen  = false;
+		listController.notifySaved(obj);
 		new Notification("Gravado!", "Registro gravado com sucesso",
 				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
 				.getCurrent());
@@ -275,5 +344,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void setModuleId(String id) {
 		// nothing yet
 	}
+	
+	public boolean hasNewAttemptOpen(){
+		return this.newAttemptOpen;
+	}
+	
 
 }

@@ -75,7 +75,7 @@ public class MarcaProdutoFormController extends CRUDFormController<MarcaProduto>
 			marcaProdutoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

@@ -28,14 +28,20 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.Table.ColumnGenerator;
+import com.vaadin.ui.Window.CloseEvent;
+import com.vaadin.ui.Window.CloseListener;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.PapelMenu;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -70,6 +76,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	@Autowired
 	private GenericListDAO genericDAO;
 	
+	
+	private Window window = null;
+	private ModalWindowSaveListener saveListener;
+			
 	@PostConstruct
 	protected void init() {
 		getFormController().setListController(this);
@@ -168,8 +178,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	protected void actionCriarNovo() {
-		getFormController().init();
+		criaNovo();
 		mainController.showTaskableContent(getFormController());
+	}
+
+	public void criaNovo() {
+		getFormController().init();
 		getFormController().criarNovo();
 	}
 
@@ -200,7 +214,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			            			table.refreshRowCache();
 			            			}catch (Exception e){
 			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem depend�ncia com outros registros.");
+			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
 			            			}
 			                } 
 			            }
@@ -213,6 +227,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	protected abstract CRUDFormController<E> getFormController();
+	
 
 	protected void actionPesquisa() {
 		selected.clear();
@@ -271,7 +286,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
 		// configuração do Container
 		BeanQueryFactory queryFactory = null ;
-		if(isMultiEmpresa()){
+		if(isMultiEmpresa(getEntityClass())){
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 		}else{
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);	
@@ -282,7 +297,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getId());
+		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -329,13 +344,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	}
 	
-	//Override se for listagem filtrada por ContaEmpresa. Default false no inicio para facilitar migracao
-	protected boolean isMultiEmpresa() {
-		return false;
+	private boolean isMultiEmpresa(Object o) {
+		    return o instanceof AbstractMultiEmpresaModel;
 	}
 
+
 	protected AbstractCrudDAO getMainDao() {
-		// TODO Auto-generated method stub
 		return genericDAO;
 	}
 
@@ -401,6 +415,70 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public void setReadOnly(boolean readonly) {
 		view.getBtnCriar().setVisible(!readonly);
 		view.getBtnRemover().setVisible(!readonly);
+	}
+
+	public void closeWindow() {
+		window.close();
+		window = null;
+	}
+	
+	public void openOnNewWindow(int modalSize){
+		window = new Window(){
+			
+			private static final long serialVersionUID = 1L;
+
+				public void close() {
+			         if(getFormController().hasNewAttemptOpen()){
+			           getFormController().confirmClose();  
+			         } else{
+			        	 super.close();
+			         }
+			     };
+			     
+		};
+			     
+		window.setContent((Component) getFormController().getView());
+		
+		window.center();
+		if(modalSize != 1 && modalSize != 2){
+			window.setWidth("70%");
+			window.setHeight("80%");	
+		}else if (modalSize == 1){
+			window.setWidth("100%");
+			window.setHeight("100%");	
+		}else{
+			window.setWidth("35%");
+			window.setHeight("40%");
+		}
+		
+		window.setModal(true);
+		
+		UI.getCurrent().addWindow(window);
+		
+	}
+
+	public boolean isOnSeparateWindow() {
+		return window != null;
+	}
+
+	public CRUDFormController<E> getPublicFormController() {
+		return getFormController();
+	}
+
+	public void addSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
+		saveListener = modalWindowSaveListener;
+		
+	}
+
+	public void notifySaved(E obj) {
+		if(saveListener != null){
+			saveListener.onSave(obj);
+		}
+	}
+
+	public void showOnWindow(Component c) {
+		window.setContent(c);
+		
 	}
 
 }

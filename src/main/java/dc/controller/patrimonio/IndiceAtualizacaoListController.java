@@ -65,6 +65,8 @@ public class IndiceAtualizacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<IndiceAtualizacaoEntity>();
 		}
 	}
@@ -92,6 +94,8 @@ public class IndiceAtualizacaoListController extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<IndiceAtualizacaoEntity>();
 		}
 	}

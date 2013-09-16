@@ -1,8 +1,6 @@
 package dc.servicos.dao.suprimentos;
 
-import java.io.Serializable;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import dc.entidade.suprimentos.ContagemEstoque;

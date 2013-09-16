@@ -56,7 +56,7 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 		currentBean.setPodeFracionar(subView.getCbPodeFracionar().toString());
 		try{
 			unidadeProdutoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}

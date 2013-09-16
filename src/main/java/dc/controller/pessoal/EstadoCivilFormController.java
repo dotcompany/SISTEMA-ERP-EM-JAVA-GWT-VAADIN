@@ -75,7 +75,7 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 			estadoCivilDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

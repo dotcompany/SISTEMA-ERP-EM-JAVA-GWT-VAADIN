@@ -53,7 +53,7 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 			String vViewName = subView.getTxtViewName().getValue() ;
 			currentBean.setViewName(vViewName);
 			fmDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

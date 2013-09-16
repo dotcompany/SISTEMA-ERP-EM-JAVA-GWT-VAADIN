@@ -157,7 +157,7 @@ public class PontoHorarioFormController extends CRUDFormController<PontoHorario>
 			Empresa empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoHorarioDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

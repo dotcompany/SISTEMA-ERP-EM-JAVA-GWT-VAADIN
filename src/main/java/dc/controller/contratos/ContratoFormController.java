@@ -354,7 +354,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		try {
 			contratoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

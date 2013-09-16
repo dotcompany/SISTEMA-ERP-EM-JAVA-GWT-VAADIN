@@ -53,7 +53,7 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 		subView.preencheBean(currentBean);
 		try {
 			centroresultadoDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

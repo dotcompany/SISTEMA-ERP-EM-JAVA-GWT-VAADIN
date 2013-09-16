@@ -54,7 +54,7 @@ public class SpedPis4315FormController extends CRUDFormController<SpedPis4315> {
 		subView.getDtInicioVigencia().setValue(currentBean.getInicioVigencia());
 		try{
 			spedPis4315DAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -99,7 +99,7 @@ public class SpedPis4315FormController extends CRUDFormController<SpedPis4315> {
 	protected boolean validaSalvar() {
 		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
 			return false;
 		}
 		return true;

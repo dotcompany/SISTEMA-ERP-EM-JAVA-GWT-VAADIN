@@ -141,7 +141,7 @@ extends CRUDFormController<NotaFiscal>{
 			salvarTransporte();
 			salvarFatura();
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

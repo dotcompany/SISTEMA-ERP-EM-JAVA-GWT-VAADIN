@@ -51,7 +51,7 @@ public class CriaContaEmpresaView extends ExternalView {
 
 	private static final String MEDIUM_WIDTH = "30%";
 
-	public static final String PATH = "criarConta";
+	public static final String PATH = "criarconta";
 	
 	public static Logger logger = Logger.getLogger(CriaContaEmpresaView.class);
 
@@ -210,7 +210,7 @@ public class CriaContaEmpresaView extends ExternalView {
     					binder.commit();
     					ContaEmpresa c= binder.getItemDataSource().getBean();
     					loginPanel.removeComponent(error);
-    	            	controller.criarConta(c);
+    	            	controller.criarconta(c);
     				} catch (CommitException e) {
     					// TODO Auto-generated catch block
     					loginPanel.removeComponent(error);
@@ -241,7 +241,7 @@ public class CriaContaEmpresaView extends ExternalView {
 		cnpjField.setRequired(true);
 		cnpjField.setNullRepresentation("");
 		cnpjField.setValidationVisible(false);
-		cnpjField.setRequiredError("não pode ficar em branco");
+		cnpjField.setRequiredError("Não pode ficar em Branco!");
 		cnpjField.setWidth(MEDIUM_WIDTH);
         fields.addComponent(cnpjField);
 	}
@@ -251,14 +251,14 @@ public class CriaContaEmpresaView extends ExternalView {
 		senhaPwdField.setNullRepresentation("");
 		senhaPwdField.setRequired(true);
 		senhaPwdField.setValidationVisible(false);
-		senhaPwdField.setRequiredError("não pode ficar em branco");
+		senhaPwdField.setRequiredError("Não pode ficar em Branco!");
 		senhaPwdField.setWidth(MEDIUM_WIDTH);
         fields.addComponent(senhaPwdField);
 	}
 
 	private void buildTxtField(VerticalLayout fields, TextField nomeTextField) {
 		nomeTextField.setRequired(true);
-		nomeTextField.setRequiredError("não pode ficar em branco");
+		nomeTextField.setRequiredError("Não pode ficar em Branco!");
 		nomeTextField.setValidationVisible(false);
         nomeTextField.setWidth(MEDIUM_WIDTH);
         fields.addComponent(nomeTextField);

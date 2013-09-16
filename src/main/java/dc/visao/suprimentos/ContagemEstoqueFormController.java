@@ -81,7 +81,7 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 			currentBean.setData(subView.getDataContagem().getValue());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		}catch(Exception e){
 			mensagemErro("Erro!!");
 			e.printStackTrace();

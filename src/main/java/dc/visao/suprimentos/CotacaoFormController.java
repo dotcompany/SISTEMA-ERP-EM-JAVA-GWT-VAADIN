@@ -54,7 +54,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
 			currentBean.setSituacao("A");
 			cotacaoDao.saveOrUpdate(currentBean);
-			mensagemSalvoOK();	
+			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			mensagemErro(e.getMessage());
 			e.printStackTrace();

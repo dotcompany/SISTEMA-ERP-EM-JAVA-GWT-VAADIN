@@ -68,7 +68,7 @@ public class AlmoxarifadoFormController extends CRUDFormController<Almoxarifado>
 			almoxarifadoDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

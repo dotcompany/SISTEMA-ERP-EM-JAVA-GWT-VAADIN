@@ -33,7 +33,7 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(),
-					"não pode ficar em branco");
+					"Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -72,7 +72,7 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 			situacaoColaboradorDAO.saveOrUpdate(currentBean);
 
 
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 

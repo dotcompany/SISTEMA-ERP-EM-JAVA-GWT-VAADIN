@@ -55,7 +55,7 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 
 		try {
 			naturezafinanceiraDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
