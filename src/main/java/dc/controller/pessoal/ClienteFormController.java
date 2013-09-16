@@ -11,13 +11,13 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscal;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.SituacaoForCli;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.geral.OperacaoFiscalDAO;
+import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;

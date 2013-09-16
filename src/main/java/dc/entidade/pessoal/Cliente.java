@@ -30,7 +30,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.geral.OperacaoFiscal;
 import dc.entidade.geral.Pessoa;
 
 /**
@@ -139,7 +138,7 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_OPERACAO_FISCAL",insertable = true, updatable = true)
     @Fetch(FetchMode.JOIN)
-    private OperacaoFiscal operacaoFiscal;
+    private dc.entidade.tributario.OperacaoFiscal operacaoFiscal;
 
     public Cliente() {
     }
@@ -296,12 +295,15 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 		this.contabilConta = contabilConta;
 	}
 
-	public OperacaoFiscal getOperacaoFiscal() {
+	public dc.entidade.tributario.OperacaoFiscal getOperacaoFiscal() {
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(
+			dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
+
+	
 	
 }
