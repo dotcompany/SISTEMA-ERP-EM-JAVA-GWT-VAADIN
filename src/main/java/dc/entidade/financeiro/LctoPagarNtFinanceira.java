@@ -40,7 +40,7 @@ public class LctoPagarNtFinanceira extends AbstractModel<Integer>{
     private Date dataInclusao;
     @Column(name = "VALOR")
     private BigDecimal valor;
-    @JoinColumn(name = "ID_FIN_LANCAMENTO_PAGAR", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private LancamentoPagar lancamentoPagar;
     @JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
@@ -107,4 +107,49 @@ public class LctoPagarNtFinanceira extends AbstractModel<Integer>{
         return "com.t2tierp.financeiro.java.FinLctoPagarNtFinanceira[id=" + id + "]";
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((dataInclusao == null) ? 0 : dataInclusao.hashCode());
+		result = prime * result + ((lancamentoPagar == null) ? 0 : lancamentoPagar.hashCode());
+		result = prime * result + ((naturezaFinanceira == null) ? 0 : naturezaFinanceira.hashCode());
+		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LctoPagarNtFinanceira other = (LctoPagarNtFinanceira) obj;
+		if (dataInclusao == null) {
+			if (other.dataInclusao != null)
+				return false;
+		} else if (!dataInclusao.equals(other.dataInclusao))
+			return false;
+		if (lancamentoPagar == null) {
+			if (other.lancamentoPagar != null)
+				return false;
+		} else if (!lancamentoPagar.equals(other.lancamentoPagar))
+			return false;
+		if (naturezaFinanceira == null) {
+			if (other.naturezaFinanceira != null)
+				return false;
+		} else if (!naturezaFinanceira.equals(other.naturezaFinanceira))
+			return false;
+		if (valor == null) {
+			if (other.valor != null)
+				return false;
+		} else if (!valor.equals(other.valor))
+			return false;
+		return true;
+	}
+
+    
+    
 }

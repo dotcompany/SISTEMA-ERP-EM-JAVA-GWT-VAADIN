@@ -19,11 +19,17 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LctoPagarNtFinanceira;
+import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
+import dc.entidade.financeiro.StatusParcela;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
+import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.financeiro.LancamentoPagarFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -57,6 +63,15 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	@Autowired
 	private FornecedorDAO fornecedorDAO;
 
+	@Autowired
+	private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
+
+	@Autowired
+	private DocumentoOrigemDAO documentoOrigemDAO;
+
+	@Autowired
+	private StatusParcelaDAO statusParcelaDAO;
+
 	@Override
 	protected String getNome() {
 		return "Lançamento à Pagar";
@@ -71,19 +86,28 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 
-		try {
-			lancamentoPagarDAO.saveOrUpdate(currentBean);
-			mensagemSalvoOK();
-		} catch (Exception e) {
-			e.printStackTrace();
+		StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+		if (statusParcela == null) {
+			mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
+		} else {
+			for (ParcelaPagar p : currentBean.getParcelasPagar()) {
+				p.setStatusParcela(statusParcela);
+			}
+
+			try {
+				lancamentoPagarDAO.saveOrUpdate(currentBean);
+				mensagemSalvoOK();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = lancamentoPagarDAO.find(id);
-		subView.preencheComboContaCaixa(contaCaixaDAO.listaTodos());
-		subView.preencheComboFornecedores(fornecedorDAO.listarTodos());
+		preencheCombos();
 		subView.preencheForm(currentBean);
 	}
 
@@ -113,7 +137,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 					gerarParcelas();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					mensagemErro("Erro ao gerar parcelas");
+					mensagemErro(e.getMessage());
 				}
 
 			}
@@ -127,8 +151,13 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new LancamentoPagar();
+		preencheCombos();
+	}
+
+	private void preencheCombos() {
 		subView.preencheComboContaCaixa(contaCaixaDAO.listaTodos());
 		subView.preencheComboFornecedores(fornecedorDAO.listarTodos());
+		subView.preencheComboDocumentoOrigem(documentoOrigemDAO.listaTodos());
 	}
 
 	@Override
@@ -143,7 +172,37 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 
 		boolean valido = true;
 
+		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
+		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
+			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			valido = false;
+		}
+		
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(), "Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+			//valido = false;
+		}
+
+	
 		return valido;
+	}
+
+	private BigDecimal getTotalParcelaPagar(List<ParcelaPagar> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValor());
+		}
+		return total;
+	}
+
+	private BigDecimal getTotalNaturezaFinanceira(List<LctoPagarNtFinanceira> naturezasFinanceiras) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < naturezasFinanceiras.size(); i++) {
+			total = total.add(naturezasFinanceiras.get(i).getValor());
+		}
+		return total;
 	}
 
 	@Override
@@ -163,17 +222,17 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	}
 
 	public void gerarParcelas() throws Exception {
-		ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
+		final ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
 		if (contaCaixa == null || contaCaixa.getId() == null) {
 			throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 		}
 		final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 		List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
-		if(dados != null){
+		if (dados != null) {
 			parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
 		}
-		
-		if (parcelasPagar != null && parcelasPagar.isEmpty()) {
+
+		if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
 			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
 					"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não", new ConfirmDialog.Listener() {
 
@@ -185,10 +244,17 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 						public void onClose(ConfirmDialog dialog) {
 							if (dialog.isConfirmed()) {
 								excluiParcelas(parcelasPagar);
+								geraParcelas(contaCaixa, parcelasPagar);
 							}
 						}
 					});
+		} else {
+			geraParcelas(contaCaixa, parcelasPagar);
 		}
+
+	}
+
+	private void geraParcelas(ContaCaixa contaCaixa, final List<ParcelaPagar> parcelasPagar) {
 		subView.getParcelasSubForm().removeAllItems();
 
 		subView.preencheBean(currentBean);
@@ -221,18 +287,13 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			}
 
 			parcelasPagar.add(parcelaPagar);
-			// finLancamentoPagarDetalhe.getGridControlParcelaPagar().getListTableModel().addObject(parcelaPagar);
+		}
+
+		for (ParcelaPagar p : parcelasPagar) {
+			novoParcelaPagar(p);
 		}
 
 		subView.getParcelasSubForm().fillWith(parcelasPagar);
-
-		/*
-		 * if (finLancamentoPagarDetalhe.getFormLancamentoPagar().getMode() ==
-		 * Consts.READONLY) {
-		 * finLancamentoPagarDetalhe.getFormLancamentoPagar().
-		 * setMode(Consts.EDIT); }
-		 */
-
 	}
 
 	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
@@ -241,11 +302,16 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		for (int i = 0; i < persistentObjects.size(); i++) {
 			parcelaPagarDAO.delete(persistentObjects.get(i));
 		}
+		parcelasPagar.clear();
 	}
 
 	public ParcelaPagar novoParcelaPagar() {
-
 		ParcelaPagar parcela = new ParcelaPagar();
+		return novoParcelaPagar(parcela);
+	}
+
+	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {
+
 		currentBean.addParcelaPagar(parcela);
 
 		return parcela;
@@ -256,6 +322,22 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			currentBean.removeParcelaPagar(value);
 		}
 
+	}
+
+	public LctoPagarNtFinanceira novoLctoPagarNtFinanceira() {
+		LctoPagarNtFinanceira lctoPagarNtFinanceira = currentBean.addLctoPagarNtFinanceira();
+		return lctoPagarNtFinanceira;
+	}
+
+	public void removerLctoPagarNtFinanceira(List<LctoPagarNtFinanceira> values) {
+		for (LctoPagarNtFinanceira value : values) {
+			currentBean.removeLctoPagarNtFinanceira(value);
+		}
+
+	}
+
+	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
+		return naturezaFinanceiraDAO.listaTodos();
 	}
 
 }

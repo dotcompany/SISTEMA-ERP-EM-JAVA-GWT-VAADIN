@@ -6,7 +6,7 @@ import com.vaadin.data.util.converter.Converter;
 
 import dc.entidade.financeiro.NaturezaFinanceira;
 
-public class NaturezaFinanceiraConverter implements Converter<String, NaturezaFinanceira> {
+public class NaturezaFinanceiraConverter implements Converter<Object, NaturezaFinanceira> {
 
 	/**
 	 * 
@@ -14,14 +14,14 @@ public class NaturezaFinanceiraConverter implements Converter<String, NaturezaFi
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public NaturezaFinanceira convertToModel(String value, Class<? extends NaturezaFinanceira> targetType, Locale locale)
+	public NaturezaFinanceira convertToModel(Object value, Class<? extends NaturezaFinanceira> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		// TODO Verificar
 		return null;
 	}
 
 	@Override
-	public String convertToPresentation(NaturezaFinanceira value, Class<? extends String> targetType, Locale locale)
+	public String convertToPresentation(NaturezaFinanceira value, Class<? extends Object> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		// TODO Auto-generated method stub
 		return value.getTipo();
@@ -34,9 +34,9 @@ public class NaturezaFinanceiraConverter implements Converter<String, NaturezaFi
 	}
 
 	@Override
-	public Class<String> getPresentationType() {
+	public Class<Object> getPresentationType() {
 		// TODO Auto-generated method stub
-		return String.class;
+		return Object.class;
 	}
 
 }

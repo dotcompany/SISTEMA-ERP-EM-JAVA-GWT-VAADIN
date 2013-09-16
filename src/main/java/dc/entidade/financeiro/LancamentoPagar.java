@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,18 +38,16 @@ import dc.anotacoes.Caption;
 import dc.entidade.geral.Fornecedor;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "lancamento_pagar")
 @XmlRootElement
@@ -118,11 +117,14 @@ public class LancamentoPagar implements Serializable {
 	@Caption(value = "Intervalo Entre Parcelas")
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	private Integer intervaloEntreParcelas;
-	
-	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
 
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<LctoPagarNtFinanceira> LctoPagarNtFinanceiras = new ArrayList<>();
 
 	public LancamentoPagar() {
 	}
@@ -277,7 +279,7 @@ public class LancamentoPagar implements Serializable {
 	public void removeParcelaPagar(ParcelaPagar parcela) {
 		parcela.setLancamentoPagar(null);
 		parcelasPagar.remove(parcela);
-		
+
 	}
 
 	public List<ParcelaPagar> getParcelasPagar() {
@@ -287,4 +289,26 @@ public class LancamentoPagar implements Serializable {
 	public void setParcelasPagar(List<ParcelaPagar> parcelasPagar) {
 		this.parcelasPagar = parcelasPagar;
 	}
+
+	public void removeLctoPagarNtFinanceira(LctoPagarNtFinanceira value) {
+		this.LctoPagarNtFinanceiras.remove(value);
+		value.setLancamentoPagar(null);
+	}
+
+	public LctoPagarNtFinanceira addLctoPagarNtFinanceira() {
+		LctoPagarNtFinanceira lctoPagarNtFinanceira = new LctoPagarNtFinanceira();
+		lctoPagarNtFinanceira.setLancamentoPagar(this);
+		this.LctoPagarNtFinanceiras.add(lctoPagarNtFinanceira);
+
+		return lctoPagarNtFinanceira;
+	}
+
+	public List<LctoPagarNtFinanceira> getLctoPagarNtFinanceiras() {
+		return LctoPagarNtFinanceiras;
+	}
+
+	public void setLctoPagarNtFinanceiras(List<LctoPagarNtFinanceira> lctoPagarNtFinanceiras) {
+		LctoPagarNtFinanceiras = lctoPagarNtFinanceiras;
+	}
+
 }

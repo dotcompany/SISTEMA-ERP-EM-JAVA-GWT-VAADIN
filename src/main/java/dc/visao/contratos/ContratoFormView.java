@@ -284,7 +284,7 @@ public class ContratoFormView extends CustomComponent {
 
 		// absoluteLayout_5
 		absoluteLayout_5 = buildAbsoluteLayout_5();
-		tabSheet_1.addTab(absoluteLayout_5, "Dados B�sicos", null);
+		tabSheet_1.addTab(absoluteLayout_5, "Dados Básicos", null);
 
 		// absoluteLayout_2
 		absoluteLayout_2 = buildAbsoluteLayout_2();

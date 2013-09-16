@@ -2,11 +2,13 @@ package dc.servicos.dao.financeiro;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.financeiro.ParcelaPagamento;
+import dc.entidade.financeiro.StatusParcela;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -27,6 +29,16 @@ public class StatusParcelaDAO extends AbstractCrudDAO<StatusParcela>{
 	
 	protected String[] getDefaultSearchFields() {
 		return new String[] {};
+	}
+
+	@Transactional
+	public StatusParcela findBySituacao(String situacao) {
+		Criteria criteria = getSession().createCriteria(StatusParcela.class);
+        criteria.add(Restrictions.eq("situacao", situacao));
+        StatusParcela statusParcela = (StatusParcela) criteria.uniqueResult();
+        
+        return statusParcela;
+		
 	}
 	
 
