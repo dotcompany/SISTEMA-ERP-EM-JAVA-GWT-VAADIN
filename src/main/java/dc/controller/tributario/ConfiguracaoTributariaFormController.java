@@ -11,35 +11,44 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
+import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.framework.exception.ErroValidacaoException;
+import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
+import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
+import dc.visao.tributario.ConfiguracaoTributariaFormView;
 import dc.visao.tributario.GrupoTributarioFormView;
 import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioFormController extends CRUDFormController<GrupoTributario> {
+public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributaria> {
 
-	GrupoTributarioFormView subView;
+	ConfiguracaoTributariaFormView subView;
 
 	@Autowired
-	GrupoTributarioDAO dao;
+	ConfiguracaoTributariaDAO dao;
 
+	@Autowired
+	GrupoTributarioDAO grupoTributarioDAO;
 
+	@Autowired
+	OperacaoFiscalDAO operacaoFiscalDAO;
 
-	GrupoTributario currentBean;
+	ConfiguracaoTributaria currentBean;
 
 	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
 
 	@Override
 	public String getViewIdentifier() {
-		return "grupoTributarioForm";
+
+		return "ConfiguracaoTributariaForm";
 	}
 
 	@Override
@@ -54,20 +63,18 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new GrupoTributario();
+		currentBean = new ConfiguracaoTributaria();
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new GrupoTributarioFormView(this);
+		subView = new ConfiguracaoTributariaFormView(this);
 
 	}
 
-	@Override
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
-		subView.preencherForm(currentBean);
 	}
 
 	public Empresa empresaAtual(){
@@ -77,29 +84,11 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	@Override
 	protected void actionSalvar() {
 		try{
-
-			String descricao = subView.getDescricao().getValue(); 
-			String origem = "";
-			String obs = subView.getObservacao().getValue();
-
-			if(!(Validator.validateString(descricao))) 
-				throw new ErroValidacaoException("Informe o Campo Descrição");
-
-			if(!(Validator.validateObject(subView.getCmbOrigemMercadoria().getValue()))) {
-				throw new ErroValidacaoException("Informe o Campo Origem da Mercadoria");
-			}
-			else{
-				origem = ((ORIGEM_MERCADORIA)(subView.getCmbOrigemMercadoria().getValue())).getCodigo();
-			}
-
 			currentBean.setEmpresa(empresaAtual());
-			currentBean.setDescricao(descricao);
-			currentBean.setOrigemMercadoria(origem);
-			currentBean.setObservacao(obs);
+			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
+			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
 			dao.saveOrUpdate(currentBean);
 			mensagemSalvoOK();
-		}catch(ErroValidacaoException e){
-			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
 			mensagemErro("Erro!!");
 			e.printStackTrace();
@@ -123,7 +112,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 
 	@Override
 	protected String getNome() {
-		return "Grupo Tributário";
+		return "Configuracao Tributaria";
 	}
 
 	@Override
@@ -142,10 +131,13 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 		return true;
 	}
 
-   public List<GrupoTributario> trazerTodos(){
-	   return dao.listaTodos();
-   }
+	public List<GrupoTributario> trazerGrupos(){
+		return grupoTributarioDAO.listaTodos();
+	}
 
+	public List<OperacaoFiscal> trazerOperacoes(){
+		return operacaoFiscalDAO.listaTodos();
+	}
 
 
 }

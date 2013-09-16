@@ -33,7 +33,7 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	private Empresa empresa;
-	
+		
 	@Caption("CFOP")
 	Integer cfop;
 	
@@ -93,6 +93,11 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	@Override
+	public String toString() {
+		return  descricao ;
 	}
 
 	

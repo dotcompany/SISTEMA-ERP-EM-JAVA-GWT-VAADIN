@@ -97,7 +97,7 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
 
     @Override
     public String toString() {
-        return "com.t2tierp.tributacao.java.TributGrupoTributarioVO[id=" + id + "]";
+        return descricao;
     }
 
 	public String getOrigemString() {
