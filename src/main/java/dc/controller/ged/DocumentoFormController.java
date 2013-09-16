@@ -199,7 +199,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setPalavraChave(subView.getTxtPalavraChave().getValue());
 		currentBean.setDataFimVigencia(subView.getDtFimVigencia().getValue());
-		/*currentBean.setTipoDocumento((TipoDocumento) subView.getCmbTipoDocumento().getValue());*/
+		currentBean.setTipoDocumento((TipoDocumento) subView.getCmbTipoDocumento().getValue());
 		currentBean.setPodeAlterar(subView.getCkbPodeAlterar().getValue());
 		currentBean.setPodeExcluir(subView.getCkbPodeExcluir().getValue());
 		currentBean.setAssinado(false);

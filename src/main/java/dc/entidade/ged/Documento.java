@@ -92,10 +92,10 @@ public class Documento implements Serializable {
 	@ManyToOne(optional = false)
 	private Empresa empresa;
 
-	/*@Caption("Tipo Documento")
+	@Caption("Tipo Documento")
 	@JoinColumn(name = "ID_GED_TIPO_DOCUMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private TipoDocumento tipoDocumento;*/
+	private TipoDocumento tipoDocumento;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_DOCUMENTO")
@@ -250,6 +250,10 @@ public class Documento implements Serializable {
 		} else if (!palavraChave.equals(other.palavraChave))
 			return false;
 		return true;
+	}
+
+	public void setTipoDocumento(TipoDocumento value) {
+		this.tipoDocumento = value;
 	}
 	
 	
