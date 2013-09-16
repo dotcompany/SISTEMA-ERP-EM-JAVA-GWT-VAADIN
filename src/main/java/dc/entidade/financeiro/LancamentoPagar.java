@@ -64,6 +64,7 @@ public class LancamentoPagar implements Serializable {
 	private Integer id;
 
 	@Column(name = "PAGAMENTO_COMPARTILHADO")
+	@Caption("Pagamento Compartilhado")
 	private String pagamentoCompartilhado;
 
 	@Field

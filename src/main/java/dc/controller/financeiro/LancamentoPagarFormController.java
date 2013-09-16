@@ -31,6 +31,7 @@ import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoPagarFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -179,13 +180,71 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
 		}
-		
+
 		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(), "Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-			//valido = false;
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+			valido = false;
 		}
 
-	
+		valido = valido && validaCampos();
+
+		return valido;
+	}
+
+	private boolean validaCampos() {
+		
+		boolean valido = true;
+		
+		if (!Validator.validateNumber(subView.getTxIntervaloParcela().getValue())) {
+			adicionarErroDeValidacao(subView.getTxIntervaloParcela(), "Número inválido");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbDocumentoOrigem().getValue())) {
+			adicionarErroDeValidacao(subView.getCbDocumentoOrigem(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
+			adicionarErroDeValidacao(subView.getCbFornecedor(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbPagamentoCompartilhado().getValue())) {
+			adicionarErroDeValidacao(subView.getCbPagamentoCompartilhado(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getDtLancamento().getValue())) {
+			adicionarErroDeValidacao(subView.getDtLancamento(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getDtPrimeiroVencimento().getValue())) {
+			adicionarErroDeValidacao(subView.getDtPrimeiroVencimento(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxIntervaloParcela().getValue())) {
+			adicionarErroDeValidacao(subView.getTxIntervaloParcela(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxQuantidadeParcela().getValue())) {
+			adicionarErroDeValidacao(subView.getTxQuantidadeParcela(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxValorPagar().getConvertedValue().toString())) {
+			adicionarErroDeValidacao(subView.getTxValorPagar(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxValorPagar().getConvertedValue().toString())) {
+			adicionarErroDeValidacao(subView.getTxValorTotal(), "Não pode ficar em branco");
+			valido = false;
+		}
 		return valido;
 	}
 
@@ -222,34 +281,39 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	}
 
 	public void gerarParcelas() throws Exception {
-		final ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
-		if (contaCaixa == null || contaCaixa.getId() == null) {
-			throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
-		}
-		final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
-		List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
-		if (dados != null) {
-			parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
-		}
 
-		if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-					"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não", new ConfirmDialog.Listener() {
+		if (validaCampos()) {
+			final ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
+			if (contaCaixa == null || contaCaixa.getId() == null) {
+				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
+			}
+			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+			List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
+			if (dados != null) {
+				parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
+			}
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
+				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						new ConfirmDialog.Listener() {
 
-						public void onClose(ConfirmDialog dialog) {
-							if (dialog.isConfirmed()) {
-								excluiParcelas(parcelasPagar);
-								geraParcelas(contaCaixa, parcelasPagar);
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public void onClose(ConfirmDialog dialog) {
+								if (dialog.isConfirmed()) {
+									excluiParcelas(parcelasPagar);
+									geraParcelas(contaCaixa, parcelasPagar);
+								}
 							}
-						}
-					});
-		} else {
-			geraParcelas(contaCaixa, parcelasPagar);
+						});
+			} else {
+				geraParcelas(contaCaixa, parcelasPagar);
+			}
+
 		}
 
 	}
@@ -260,7 +324,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		subView.preencheBean(currentBean);
 		LancamentoPagar lancamentoPagar = currentBean;
 		ParcelaPagar parcelaPagar;
-		Date dataEmissão = new Date();
+		Date dataEmissao = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(lancamentoPagar.getPrimeiroVencimento());
 		BigDecimal valorParcela = lancamentoPagar.getValorAPagar().divide(BigDecimal.valueOf(lancamentoPagar.getQuantidadeParcela()),
@@ -271,7 +335,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			parcelaPagar = new ParcelaPagar();
 			parcelaPagar.setContaCaixa(contaCaixa);
 			parcelaPagar.setNumeroParcela(i + 1);
-			parcelaPagar.setDataEmissao(dataEmissão);
+			parcelaPagar.setDataEmissao(dataEmissao);
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, lancamentoPagar.getIntervaloEntreParcelas());
 			}

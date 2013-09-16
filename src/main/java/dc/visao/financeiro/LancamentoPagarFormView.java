@@ -145,10 +145,10 @@ public class LancamentoPagarFormView extends CustomComponent {
 		dtLancamento = ComponentUtil.buildPopupDateField("Data Lançamento");
 		fields.addComponent(dtLancamento, 0, 2);
 
-		txValorTotal = ComponentUtil.buildNumberField("Valor Total");
+		txValorTotal = ComponentUtil.buildCurrencyField("Valor Total");
 		fields.addComponent(txValorTotal, 1, 2);
 
-		txValorPagar = ComponentUtil.buildNumberField("Valor à Pagar");
+		txValorPagar = ComponentUtil.buildCurrencyField("Valor à Pagar");
 		fields.addComponent(txValorPagar, 2, 2);
 
 		txQuantidadeParcela = ComponentUtil.builNumericField("Quantidade Parcelas");
@@ -291,7 +291,12 @@ public class LancamentoPagarFormView extends CustomComponent {
 							DateField dateField = new DateField();
 							dateField.setSizeFull();
 							return dateField;
-						} else if ("contaCaixa".equals(propertyId)) {
+						}
+						else if ("valor".equals(propertyId)) {
+							return ComponentUtil.buildCurrencyField(null);
+						}
+						
+						else if ("contaCaixa".equals(propertyId)) {
 							TextField contaCaixaText = ComponentUtil.buildTextField(null);
 
 							contaCaixaText.setConverter(new Converter<String, ContaCaixa>() {
@@ -359,6 +364,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 	public void preencheBean(LancamentoPagar currentBean) {
 		currentBean.setFornecedor((Fornecedor) cbFornecedor.getValue());
 		currentBean.setDataLancamento(dtLancamento.getValue());
+		currentBean.setPrimeiroVencimento(dtPrimeiroVencimento.getValue());
 		currentBean.setDocumentoOrigem((DocumentoOrigem) cbDocumentoOrigem.getValue());
 		currentBean.setPagamentoCompartilhado(((SimNao) cbPagamentoCompartilhado.getValue()).getCodigo());
 		currentBean.setValorAPagar((BigDecimal) txValorPagar.getConvertedValue());
@@ -371,6 +377,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 	public void preencheForm(LancamentoPagar currentBean) {
 		cbFornecedor.setValue(currentBean.getFornecedor());
 		dtLancamento.setValue(currentBean.getDataLancamento());
+		dtPrimeiroVencimento.setValue(currentBean.getPrimeiroVencimento());
 		cbDocumentoOrigem.setValue(currentBean.getDocumentoOrigem());
 		cbPagamentoCompartilhado.setValue(SimNao.getSimNao(currentBean.getPagamentoCompartilhado()));
 		txValorPagar.setConvertedValue(currentBean.getValorAPagar());
