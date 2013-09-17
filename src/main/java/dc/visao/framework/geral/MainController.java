@@ -243,6 +243,7 @@ public class MainController implements ViewDisplay,Serializable {
 		}
 		
 		if(changed){
+			showMenu(builder.buildMenuPanel(task.getModuleId(), this));
 			showContent((Component) taskView,false);
 			view.updateBar(contentManager.getMainTasks(),contentManager.getNonMainTasks(),this);	
 		}
