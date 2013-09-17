@@ -270,6 +270,7 @@ public class RescisaoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(30);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataDemissao
 		pdfDataDemissao = new PopupDateField();
@@ -285,7 +286,7 @@ public class RescisaoFormView extends CustomComponent {
 		pdfDataPagamento.setImmediate(false);
 		pdfDataPagamento.setWidth("-1px");
 		pdfDataPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataPagamento, 0, 3);
+		gridLayout_1.addComponent(pdfDataPagamento, 1, 1);
 
 		// tfMotivo
 		tfMotivo = new TextField();
@@ -294,7 +295,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfMotivo.setWidth("175px");
 		tfMotivo.setHeight("-1px");
 		tfMotivo.setRequired(true);
-		gridLayout_1.addComponent(tfMotivo, 0, 5);
+		gridLayout_1.addComponent(tfMotivo, 0, 2);
 
 		// pdfDataAvisoPrevio
 		pdfDataAvisoPrevio = new PopupDateField();
@@ -302,7 +303,7 @@ public class RescisaoFormView extends CustomComponent {
 		pdfDataAvisoPrevio.setImmediate(false);
 		pdfDataAvisoPrevio.setWidth("-1px");
 		pdfDataAvisoPrevio.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataAvisoPrevio, 0, 7);
+		gridLayout_1.addComponent(pdfDataAvisoPrevio, 1, 2);
 
 		// tfDiasAvisoPrevio
 		tfDiasAvisoPrevio = new TextField();
@@ -310,7 +311,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfDiasAvisoPrevio.setImmediate(false);
 		tfDiasAvisoPrevio.setWidth("175px");
 		tfDiasAvisoPrevio.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiasAvisoPrevio, 0, 9);
+		gridLayout_1.addComponent(tfDiasAvisoPrevio, 0, 3);
 
 		// tfComprovouNovoEmprego
 		tfComprovouNovoEmprego = new TextField();
@@ -318,7 +319,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfComprovouNovoEmprego.setImmediate(false);
 		tfComprovouNovoEmprego.setWidth("175px");
 		tfComprovouNovoEmprego.setHeight("-1px");
-		gridLayout_1.addComponent(tfComprovouNovoEmprego, 0, 11);
+		gridLayout_1.addComponent(tfComprovouNovoEmprego, 1, 3);
 
 		// tfDispensouEmpregado
 		tfDispensouEmpregado = new TextField();
@@ -326,7 +327,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfDispensouEmpregado.setImmediate(false);
 		tfDispensouEmpregado.setWidth("175px");
 		tfDispensouEmpregado.setHeight("-1px");
-		gridLayout_1.addComponent(tfDispensouEmpregado, 0, 13);
+		gridLayout_1.addComponent(tfDispensouEmpregado, 0, 4);
 
 		// tfPensaoAlimenticia
 		tfPensaoAlimenticia = new TextField();
@@ -334,7 +335,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfPensaoAlimenticia.setImmediate(false);
 		tfPensaoAlimenticia.setWidth("-1px");
 		tfPensaoAlimenticia.setHeight("-1px");
-		gridLayout_1.addComponent(tfPensaoAlimenticia, 0, 15);
+		gridLayout_1.addComponent(tfPensaoAlimenticia, 1, 4);
 
 		// tfPensaoAlimenticiaFgts
 		tfPensaoAlimenticiaFgts = new TextField();
@@ -342,7 +343,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfPensaoAlimenticiaFgts.setImmediate(false);
 		tfPensaoAlimenticiaFgts.setWidth("-1px");
 		tfPensaoAlimenticiaFgts.setHeight("-1px");
-		gridLayout_1.addComponent(tfPensaoAlimenticiaFgts, 0, 17);
+		gridLayout_1.addComponent(tfPensaoAlimenticiaFgts, 0, 5);
 
 		// tfFgtsValorRescisao
 		tfFgtsValorRescisao = new TextField();
@@ -350,7 +351,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfFgtsValorRescisao.setImmediate(false);
 		tfFgtsValorRescisao.setWidth("-1px");
 		tfFgtsValorRescisao.setHeight("-1px");
-		gridLayout_1.addComponent(tfFgtsValorRescisao, 0, 19);
+		gridLayout_1.addComponent(tfFgtsValorRescisao, 1, 5);
 
 		// tfFgtsSaldoBanco
 		tfFgtsSaldoBanco = new TextField();
@@ -358,7 +359,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfFgtsSaldoBanco.setImmediate(false);
 		tfFgtsSaldoBanco.setWidth("-1px");
 		tfFgtsSaldoBanco.setHeight("-1px");
-		gridLayout_1.addComponent(tfFgtsSaldoBanco, 0, 21);
+		gridLayout_1.addComponent(tfFgtsSaldoBanco, 0, 6);
 
 		// tfFgtsComplementoSaldo
 		tfFgtsComplementoSaldo = new TextField();
@@ -366,7 +367,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfFgtsComplementoSaldo.setImmediate(false);
 		tfFgtsComplementoSaldo.setWidth("-1px");
 		tfFgtsComplementoSaldo.setHeight("-1px");
-		gridLayout_1.addComponent(tfFgtsComplementoSaldo, 0, 23);
+		gridLayout_1.addComponent(tfFgtsComplementoSaldo, 1, 6);
 
 		// tfFgtsCodigoAfastamento
 		tfFgtsCodigoAfastamento = new TextField();
@@ -374,7 +375,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfFgtsCodigoAfastamento.setImmediate(false);
 		tfFgtsCodigoAfastamento.setWidth("-1px");
 		tfFgtsCodigoAfastamento.setHeight("-1px");
-		gridLayout_1.addComponent(tfFgtsCodigoAfastamento, 0, 25);
+		gridLayout_1.addComponent(tfFgtsCodigoAfastamento, 0, 7);
 
 		// tfFgtsCodigoSaque
 		tfFgtsCodigoSaque = new TextField();
@@ -382,7 +383,7 @@ public class RescisaoFormView extends CustomComponent {
 		tfFgtsCodigoSaque.setImmediate(false);
 		tfFgtsCodigoSaque.setWidth("-1px");
 		tfFgtsCodigoSaque.setHeight("-1px");
-		gridLayout_1.addComponent(tfFgtsCodigoSaque, 0, 27);
+		gridLayout_1.addComponent(tfFgtsCodigoSaque, 1, 7);
 
 		// cbColaborador
 		cbColaborador = new ComboBox();
@@ -391,10 +392,14 @@ public class RescisaoFormView extends CustomComponent {
 		cbColaborador.setWidth("137px");
 		cbColaborador.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbColaborador, 0, 29);
+		gridLayout_1.addComponent(cbColaborador, 0, 8);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbColaborador(List<Colaborador> lista) {
 		BeanItemContainer<Colaborador> bic = new BeanItemContainer<Colaborador>(
