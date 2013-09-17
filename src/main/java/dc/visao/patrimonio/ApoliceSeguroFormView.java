@@ -241,7 +241,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		pdfDataContratacao.setImmediate(false);
 		pdfDataContratacao.setWidth("-1px");
 		pdfDataContratacao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataContratacao, 0, 3);
+		gridLayout_1.addComponent(pdfDataContratacao, 1, 1);
 
 		// pdfDataVencimento
 		pdfDataVencimento = new PopupDateField();
@@ -249,7 +249,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		pdfDataVencimento.setImmediate(false);
 		pdfDataVencimento.setWidth("-1px");
 		pdfDataVencimento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataVencimento, 0, 5);
+		gridLayout_1.addComponent(pdfDataVencimento, 0, 2);
 
 		// tfValorPremio
 		tfValorPremio = new TextField();
@@ -259,7 +259,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		tfValorPremio.setImmediate(false);
 		tfValorPremio.setWidth("175px");
 		tfValorPremio.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorPremio, 0, 7);
+		gridLayout_1.addComponent(tfValorPremio, 1, 2);
 
 		// tfValorSegurado
 		tfValorSegurado = new TextField();
@@ -269,7 +269,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		tfValorSegurado.setImmediate(false);
 		tfValorSegurado.setWidth("175px");
 		tfValorSegurado.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorSegurado, 0, 9);
+		gridLayout_1.addComponent(tfValorSegurado, 0, 3);
 
 		// tfObservacao
 		tfObservacao = new TextField();
@@ -279,7 +279,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		tfObservacao.setImmediate(false);
 		tfObservacao.setWidth("175px");
 		tfObservacao.setHeight("-1px");
-		gridLayout_1.addComponent(tfObservacao, 0, 11);
+		gridLayout_1.addComponent(tfObservacao, 1, 3);
 
 		// tfImagem
 		tfImagem = new TextField();
@@ -289,7 +289,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		tfImagem.setImmediate(false);
 		tfImagem.setWidth("-1px");
 		tfImagem.setHeight("-1px");
-		gridLayout_1.addComponent(tfImagem, 0, 13);
+		gridLayout_1.addComponent(tfImagem, 0, 4);
 
 		// cbBem
 		cbBem = new ComboBox();
@@ -298,7 +298,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		cbBem.setWidth("175px");
 		cbBem.setHeight("-1px");
 		cbBem.setRequired(true);
-		gridLayout_1.addComponent(cbBem, 0, 15);
+		gridLayout_1.addComponent(cbBem, 1, 4);
 
 		// cbSeguradora
 		cbSeguradora = new ComboBox();
@@ -307,7 +307,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		cbSeguradora.setWidth("137px");
 		cbSeguradora.setHeight("-1px");
 		cbSeguradora.setRequired(true);
-		gridLayout_1.addComponent(cbSeguradora, 0, 17);
+		gridLayout_1.addComponent(cbSeguradora, 0, 5);
 
 		return gridLayout_1;
 	}
