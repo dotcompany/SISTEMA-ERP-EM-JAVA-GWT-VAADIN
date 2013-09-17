@@ -16,8 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -55,12 +57,14 @@ public class CBO extends AbstractModel<Integer> implements Serializable {
     @Caption("Codigo")
     @Column(name="Codigo", length = 50)
     @ComboCode
+    @Analyzer(definition= "dc_combo_analyzer")
     private String codigo;
     
     
     @Field
     @Caption("Nome")
     @Column(name = "NOME", length = 50)
+    @Analyzer(definition= "dc_combo_analyzer")
     @ComboValue
     private String nome;
     

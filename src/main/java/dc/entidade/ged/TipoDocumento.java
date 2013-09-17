@@ -1,6 +1,7 @@
 package dc.entidade.ged;
 
 import java.io.Serializable;
+import org.hibernate.search.*;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
@@ -15,9 +16,14 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+
+
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Norms;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
@@ -37,12 +43,12 @@ public class TipoDocumento extends AbstractModel<Integer> implements Serializabl
 	    private Integer id;
 	    
 	    @Column(name = "NOME")
+	    @Analyzer(definition= "dc_combo_analyzer")
 	    @Field
 	    @Caption("Nome")
 	    private String nome;
 	    
 	    @Column(name = "TAMANHO_MAXIMO")
-	    @Field
 	    @Caption("Tamanho Maximo")
 	    private BigDecimal tamanhoMaximo;
 	    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")

@@ -8,9 +8,14 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.porotype.iconfont.FontAwesome.Icon;
+import com.sun.istack.logging.Logger;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -20,6 +25,8 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
+
+import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @SuppressWarnings("serial")
 public class ManyToOneCombo<T> extends CustomComponent {
@@ -35,6 +42,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	public static int ITEM_TYPE_BEAN = 0;
 	public static int ITEM_TYPE_CREATE = 1;
+	
+	public static Logger logger = Logger.getLogger(ManyToOneCombo.class);
 
 	public ManyToOneCombo() {
 		buildMainLayout();
@@ -77,22 +86,40 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("serial")
 	private void setupActions() {
-
+		
 		createItemValue = new ItemValue();
 		createItemValue.setType(ITEM_TYPE_CREATE);
 
 		cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
 		cmbResult.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		cmbResult.setItemCaptionPropertyId("caption");
-
+		
 		cmbResult.addValueChangeListener(new ValueChangeListener() {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
+				logger.info("value change");
 				selectSpecialItem();
 			}
 		});
+		
+		cmbResult.addItemSetChangeListener(new ItemSetChangeListener() {
+			
+			@Override
+			public void containerItemSetChange(ItemSetChangeEvent event) {
+				// TODO Auto-generated method stub
+				logger.info("item set change");
+				
+			}
+		});
 
+		cmbResult.addBlurListener(new BlurListener() {
+			
+			@Override
+			public void blur(BlurEvent event) {
+				logger.info("blur on combo");
+			}
+		});
 
 		btnEdit.addClickListener(new ClickListener() {
 
@@ -102,6 +129,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					model.onEditar(getValue());
 			}
 		});
+		
+	
 
 
 	}
@@ -153,6 +182,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("unchecked")
 	protected void selectSpecialItem() {
+		logger.info("select special item...");
 		ItemValue val = (ItemValue) cmbResult.getValue();
 		if (val == null) return;
 		if (val.getType() == ITEM_TYPE_BEAN) return;
