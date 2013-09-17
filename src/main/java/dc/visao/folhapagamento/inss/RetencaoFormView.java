@@ -149,6 +149,7 @@ public class RetencaoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfValorMensal
 		tfValorMensal = new TextField();
@@ -157,7 +158,7 @@ public class RetencaoFormView extends CustomComponent {
 		tfValorMensal.setImmediate(false);
 		tfValorMensal.setWidth("175px");
 		tfValorMensal.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorMensal, 0, 2);
+		gridLayout_1.addComponent(tfValorMensal, 0, 1);
 
 		// tfValor13
 		tfValor13 = new TextField();
@@ -166,7 +167,7 @@ public class RetencaoFormView extends CustomComponent {
 		tfValor13.setImmediate(false);
 		tfValor13.setWidth("175px");
 		tfValor13.setHeight("-1px");
-		gridLayout_1.addComponent(tfValor13, 0, 4);
+		gridLayout_1.addComponent(tfValor13, 1, 1);
 
 		// cbInss
 		cbInss = new ComboBox();
@@ -174,7 +175,7 @@ public class RetencaoFormView extends CustomComponent {
 		cbInss.setImmediate(false);
 		cbInss.setWidth("-1px");
 		cbInss.setHeight("-1px");
-		gridLayout_1.addComponent(cbInss, 0, 6);
+		gridLayout_1.addComponent(cbInss, 0, 2);
 
 		// cbServico
 		cbServico = new ComboBox();
@@ -182,10 +183,14 @@ public class RetencaoFormView extends CustomComponent {
 		cbServico.setImmediate(false);
 		cbServico.setWidth("-1px");
 		cbServico.setHeight("-1px");
-		gridLayout_1.addComponent(cbServico, 0, 8);
+		gridLayout_1.addComponent(cbServico, 1, 2);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbInss(List<InssEntity> lista) {
 		BeanItemContainer<InssEntity> bic = new BeanItemContainer<InssEntity>(

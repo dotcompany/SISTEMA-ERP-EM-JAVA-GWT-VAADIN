@@ -138,6 +138,7 @@ public class ValeTransporteFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfQuantidade
 		tfQuantidade = new TextField();
@@ -153,7 +154,7 @@ public class ValeTransporteFormView extends CustomComponent {
 		cbColaborador.setImmediate(false);
 		cbColaborador.setWidth("-1px");
 		cbColaborador.setHeight("-1px");
-		gridLayout_1.addComponent(cbColaborador, 0, 3);
+		gridLayout_1.addComponent(cbColaborador, 1, 1);
 
 		// cbColaborador
 		cbTransporteItinerario = new ComboBox();
@@ -161,10 +162,14 @@ public class ValeTransporteFormView extends CustomComponent {
 		cbTransporteItinerario.setImmediate(false);
 		cbTransporteItinerario.setWidth("-1px");
 		cbTransporteItinerario.setHeight("-1px");
-		gridLayout_1.addComponent(cbColaborador, 0, 5);
+		gridLayout_1.addComponent(cbColaborador, 0, 2);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbColaborador(List<Colaborador> lista) {
 		BeanItemContainer<Colaborador> bic = new BeanItemContainer<Colaborador>(

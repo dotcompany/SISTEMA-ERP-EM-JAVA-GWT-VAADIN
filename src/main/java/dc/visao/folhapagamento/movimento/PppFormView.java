@@ -126,6 +126,7 @@ public class PppFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfObservacao
 		tfObservacao = new TextField();
@@ -141,10 +142,14 @@ public class PppFormView extends CustomComponent {
 		cbColaborador.setImmediate(false);
 		cbColaborador.setWidth("-1px");
 		cbColaborador.setHeight("-1px");
-		gridLayout_1.addComponent(cbColaborador, 0, 3);
+		gridLayout_1.addComponent(cbColaborador, 1, 1);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbColaborador(List<Colaborador> lista) {
 		BeanItemContainer<Colaborador> bic = new BeanItemContainer<Colaborador>(

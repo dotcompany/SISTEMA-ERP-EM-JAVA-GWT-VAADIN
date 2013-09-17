@@ -116,7 +116,7 @@ public class AlterarSenhaView extends ExternalView{
 			
 			if(invalidToken){
 				btnChangePassword.setDisableOnClick(true);
-				showErrorMessage("Url Inv�lida. Pe�a novamente o recadastramento de senha via p�gina \"Esque�i minha Senha\" ");
+				showErrorMessage("Url Inválida. Peça novamente o recadastramento de senha via página \"Esqueci minha Senha\" ");
 			}
 		
 	}

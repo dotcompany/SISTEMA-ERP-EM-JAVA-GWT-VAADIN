@@ -182,6 +182,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfCompetencia
 		tfCompetencia = new TextField();
@@ -198,7 +199,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfSalarioAtual.setImmediate(false);
 		tfSalarioAtual.setWidth("175px");
 		tfSalarioAtual.setHeight("-1px");
-		gridLayout_1.addComponent(tfSalarioAtual, 0, 3);
+		gridLayout_1.addComponent(tfSalarioAtual, 1, 1);
 
 		// tfPercentualAumento
 		tfPercentualAumento = new TextField();
@@ -206,7 +207,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfPercentualAumento.setImmediate(false);
 		tfPercentualAumento.setWidth("175px");
 		tfPercentualAumento.setHeight("-1px");
-		gridLayout_1.addComponent(tfPercentualAumento, 0, 5);
+		gridLayout_1.addComponent(tfPercentualAumento, 0, 2);
 
 		// tfSalarioNovo
 		tfSalarioNovo = new TextField();
@@ -214,7 +215,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfSalarioNovo.setImmediate(false);
 		tfSalarioNovo.setWidth("175px");
 		tfSalarioNovo.setHeight("-1px");
-		gridLayout_1.addComponent(tfSalarioNovo, 0, 7);
+		gridLayout_1.addComponent(tfSalarioNovo, 1, 2);
 
 		// tfValidoAPartir
 		tfValidoAPartir = new TextField();
@@ -222,7 +223,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfValidoAPartir.setImmediate(false);
 		tfValidoAPartir.setWidth("-1px");
 		tfValidoAPartir.setHeight("-1px");
-		gridLayout_1.addComponent(tfValidoAPartir, 0, 9);
+		gridLayout_1.addComponent(tfValidoAPartir, 0, 3);
 
 		// tfMotivo
 		tfMotivo = new TextField();
@@ -230,7 +231,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfMotivo.setImmediate(false);
 		tfMotivo.setWidth("-1px");
 		tfMotivo.setHeight("-1px");
-		gridLayout_1.addComponent(tfMotivo, 0, 11);
+		gridLayout_1.addComponent(tfMotivo, 1, 3);
 
 		// cbColaborador
 		cbColaborador = new ComboBox();
@@ -239,7 +240,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		cbColaborador.setWidth("160px");
 		cbColaborador.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbColaborador, 0, 13);
+		gridLayout_1.addComponent(cbColaborador, 0, 4);
 
 		return gridLayout_1;
 	}

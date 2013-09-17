@@ -150,6 +150,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -166,7 +167,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		tfBeneficiario.setImmediate(false);
 		tfBeneficiario.setWidth("175px");
 		tfBeneficiario.setHeight("-1px");
-		gridLayout_1.addComponent(tfBeneficiario, 0, 3);
+		gridLayout_1.addComponent(tfBeneficiario, 1, 1);
 
 		// cbColaborador
 		cbColaborador = new ComboBox();
@@ -175,7 +176,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		cbColaborador.setWidth("160px");
 		cbColaborador.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbColaborador, 0, 5);
+		gridLayout_1.addComponent(cbColaborador, 0, 2);
 
 		// cbOperadoraPlanoSaude
 		cbOperadoraPlanoSaude = new ComboBox();
@@ -184,7 +185,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		cbOperadoraPlanoSaude.setWidth("160px");
 		cbOperadoraPlanoSaude.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbOperadoraPlanoSaude, 0, 7);
+		gridLayout_1.addComponent(cbOperadoraPlanoSaude, 1, 2);
 
 		return gridLayout_1;
 	}

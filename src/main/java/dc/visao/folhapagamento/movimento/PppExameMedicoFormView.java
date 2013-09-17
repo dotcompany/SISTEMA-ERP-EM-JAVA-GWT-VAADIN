@@ -171,6 +171,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataUltimo
 		pdfDataUltimo = new PopupDateField();
@@ -186,7 +187,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
-		gridLayout_1.addComponent(tfTipo, 0, 3);
+		gridLayout_1.addComponent(tfTipo, 1, 1);
 
 		// tfNatureza
 		tfNatureza = new TextField();
@@ -194,7 +195,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfNatureza.setImmediate(false);
 		tfNatureza.setWidth("175px");
 		tfNatureza.setHeight("-1px");
-		gridLayout_1.addComponent(tfNatureza, 0, 5);
+		gridLayout_1.addComponent(tfNatureza, 0, 2);
 
 		// tfTipo
 		tfExame = new TextField();
@@ -202,7 +203,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfExame.setImmediate(false);
 		tfExame.setWidth("175px");
 		tfExame.setHeight("-1px");
-		gridLayout_1.addComponent(tfExame, 0, 7);
+		gridLayout_1.addComponent(tfExame, 1, 2);
 
 		// tfIndicacaoResultados
 		tfIndicacaoResultados = new TextField();
@@ -210,7 +211,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfIndicacaoResultados.setImmediate(false);
 		tfIndicacaoResultados.setWidth("175px");
 		tfIndicacaoResultados.setHeight("-1px");
-		gridLayout_1.addComponent(tfIndicacaoResultados, 0, 9);
+		gridLayout_1.addComponent(tfIndicacaoResultados, 0, 3);
 
 		// cbPpp
 		cbPpp = new ComboBox();
@@ -218,10 +219,14 @@ public class PppExameMedicoFormView extends CustomComponent {
 		cbPpp.setImmediate(false);
 		cbPpp.setWidth("-1px");
 		cbPpp.setHeight("-1px");
-		gridLayout_1.addComponent(cbPpp, 0, 11);
+		gridLayout_1.addComponent(cbPpp, 1, 3);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbPpp(List<PppEntity> lista) {
 		BeanItemContainer<PppEntity> bic = new BeanItemContainer<PppEntity>(

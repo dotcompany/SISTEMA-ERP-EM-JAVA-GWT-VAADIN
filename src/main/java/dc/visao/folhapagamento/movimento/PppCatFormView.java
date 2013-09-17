@@ -149,6 +149,7 @@ public class PppCatFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfNumeroCat
 		tfNumeroCat = new TextField();
@@ -164,7 +165,7 @@ public class PppCatFormView extends CustomComponent {
 		pdfDataAfastamento.setImmediate(false);
 		pdfDataAfastamento.setWidth("-1px");
 		pdfDataAfastamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataAfastamento, 0, 3);
+		gridLayout_1.addComponent(pdfDataAfastamento, 1, 1);
 
 		// pdfDataRegistro
 		pdfDataRegistro = new PopupDateField();
@@ -172,7 +173,7 @@ public class PppCatFormView extends CustomComponent {
 		pdfDataRegistro.setImmediate(false);
 		pdfDataRegistro.setWidth("-1px");
 		pdfDataRegistro.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataRegistro, 0, 5);
+		gridLayout_1.addComponent(pdfDataRegistro, 0, 2);
 
 		// cbPpp
 		cbPpp = new ComboBox();
@@ -180,10 +181,14 @@ public class PppCatFormView extends CustomComponent {
 		cbPpp.setImmediate(false);
 		cbPpp.setWidth("-1px");
 		cbPpp.setHeight("-1px");
-		gridLayout_1.addComponent(cbPpp, 0, 7);
+		gridLayout_1.addComponent(cbPpp, 1, 2);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbPpp(List<PppEntity> lista) {
 		BeanItemContainer<PppEntity> bic = new BeanItemContainer<PppEntity>(
