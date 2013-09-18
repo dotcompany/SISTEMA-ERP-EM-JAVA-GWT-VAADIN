@@ -28,6 +28,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -35,7 +36,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Documento implements Serializable {
+public class Documento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -88,9 +89,6 @@ public class Documento implements Serializable {
 	@Column(name = "DATA_EXCLUSAO")
 	private Date dataExclusao;
 
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
 
 	@Caption("Tipo Documento")
 	@JoinColumn(name = "ID_GED_TIPO_DOCUMENTO", referencedColumnName = "ID")
@@ -194,13 +192,6 @@ public class Documento implements Serializable {
 		this.documentos = documentos;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
 	
 	@Override
 	public String toString() {

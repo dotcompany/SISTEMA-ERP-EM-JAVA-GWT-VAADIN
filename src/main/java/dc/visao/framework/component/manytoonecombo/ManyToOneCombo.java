@@ -131,8 +131,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		});
 		
 	
-
-
 	}
 
 	@SuppressWarnings("serial")

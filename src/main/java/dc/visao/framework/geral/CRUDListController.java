@@ -297,7 +297,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		conf.put("id_empresa",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -344,8 +344,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	}
 	
-	private boolean isMultiEmpresa(Object o) {
-		    return o instanceof AbstractMultiEmpresaModel;
+	private boolean isMultiEmpresa(Class c) {
+			return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
 	}
 
 

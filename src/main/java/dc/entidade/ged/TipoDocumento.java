@@ -27,6 +27,7 @@ import org.hibernate.search.annotations.Norms;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -34,7 +35,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoDocumento extends AbstractModel<Integer> implements Serializable{
+public class TipoDocumento extends AbstractMultiEmpresaModel<Integer> implements Serializable{
 	 private static final long serialVersionUID = 1L;
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,9 +52,8 @@ public class TipoDocumento extends AbstractModel<Integer> implements Serializabl
 	    @Column(name = "TAMANHO_MAXIMO")
 	    @Caption("Tamanho Maximo")
 	    private BigDecimal tamanhoMaximo;
-	    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	    @ManyToOne(optional = false)
-	    private Empresa empresa;
+
+	    
 
 	    public TipoDocumento() {
 	    }
@@ -81,15 +81,6 @@ public class TipoDocumento extends AbstractModel<Integer> implements Serializabl
 	    public void setTamanhoMaximo(BigDecimal tamanhoMaximo) {
 	        this.tamanhoMaximo = tamanhoMaximo;
 	    }
-	    
-	    public Empresa getEmpresa() {
-	        return empresa;
-	    }
-
-	    public void setEmpresa(Empresa empresa) {
-	        this.empresa = empresa;
-	    }
-	    
 	    
 	    @Override
 	    public String toString() {

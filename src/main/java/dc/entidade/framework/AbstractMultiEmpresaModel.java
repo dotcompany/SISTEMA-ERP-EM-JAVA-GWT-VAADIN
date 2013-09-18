@@ -15,7 +15,6 @@ public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 
 	@OneToOne()
 	@JoinColumn(name = "id_empresa")
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	private Empresa empresa;
 
 	public Empresa getEmpresa() {
