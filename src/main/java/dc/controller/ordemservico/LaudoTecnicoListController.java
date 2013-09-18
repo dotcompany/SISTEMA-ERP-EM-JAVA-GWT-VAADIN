@@ -1,11 +1,14 @@
 package dc.controller.ordemservico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.entidade.ordemservico.LaudoTecnicoEntity;
+import dc.servicos.dao.ordemservico.LaudoTecnicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -17,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LaudoTecnicoListController extends CRUDListController<Object> {
+public class LaudoTecnicoListController extends
+		CRUDListController<LaudoTecnicoEntity> {
 
 	/**
 	 * 
@@ -27,6 +31,9 @@ public class LaudoTecnicoListController extends CRUDListController<Object> {
 	/**
 	 * DAO'S
 	 */
+
+	@Autowired
+	private LaudoTecnicoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -41,8 +48,8 @@ public class LaudoTecnicoListController extends CRUDListController<Object> {
 	}
 
 	@Override
-	protected Class<? super Object> getEntityClass() {
-		return Object.class;
+	protected Class<? super LaudoTecnicoEntity> getEntityClass() {
+		return LaudoTecnicoEntity.class;
 	}
 
 	@Override
@@ -51,13 +58,21 @@ public class LaudoTecnicoListController extends CRUDListController<Object> {
 	}
 
 	@Override
-	protected List<Object> pesquisa(String valor) {
+	protected List<LaudoTecnicoEntity> pesquisa(String valor) {
+		try {
+			List<LaudoTecnicoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return null;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<LaudoTecnicoEntity>();
+		}
 	}
 
 	@Override
-	protected CRUDFormController<Object> getFormController() {
+	protected CRUDFormController<LaudoTecnicoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -73,9 +88,16 @@ public class LaudoTecnicoListController extends CRUDListController<Object> {
 	}
 
 	@Override
-	protected List<Object> pesquisaDefault() {
+	protected List<LaudoTecnicoEntity> pesquisaDefault() {
+		try {
+			List<LaudoTecnicoEntity> auxLista = this.pDAO.listarTodos();
 
-		return null;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<LaudoTecnicoEntity>();
+		}
 	}
 
 }
