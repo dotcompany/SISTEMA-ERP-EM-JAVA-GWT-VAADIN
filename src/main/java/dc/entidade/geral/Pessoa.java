@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,10 +47,9 @@ public class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pes")
+	@SequenceGenerator(name = "pes", sequenceName = "pessoa_id_seq", allocationSize = 1)
+	private Integer id;
     
     @Field
     @Caption("Nome")

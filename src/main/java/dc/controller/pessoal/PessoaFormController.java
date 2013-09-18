@@ -16,6 +16,7 @@ import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.PessoaFormView;
+import dc.visao.pessoal.TipoPessoa;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
@@ -28,8 +29,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Autowired
 	PessoaDAO dao;
 	
-	
-
 	Pessoa currentBean;
 
 	@Override
@@ -40,7 +39,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
 		
 		
 		return valido;
@@ -70,6 +68,11 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void actionSalvar() {
 		try{
+			TipoPessoa tpPessoa = (TipoPessoa)subView.getCmbTipoPessoa().getValue();
+			currentBean.setNome(subView.getTxtNome().getValue());
+			currentBean.setTipo(tpPessoa.getCodigo());
+			currentBean.setEmail(subView.getTxtEmail().getValue());
+			currentBean.setSite(subView.getTxtSite().getValue());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		}catch(Exception e){
@@ -77,10 +80,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 			e.printStackTrace();
 		}
 		
-
 	}
 
-	
 
 	@Override
 	protected void quandoNovo() {
