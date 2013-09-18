@@ -12,6 +12,8 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -189,14 +191,19 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public List<T> comboTextSearch(String value, String[] searchFields) {
 		List<T> resultSet = new ArrayList<T>();
+		value = value.trim();
 		FullTextSession fullTextSession = getFullTextSession();
-	    Set nostopwords = new HashSet();  
-	    Analyzer an = new StandardAnalyzer(Version.LUCENE_31, nostopwords);
+	    Analyzer an = fullTextSession.getSearchFactory().getAnalyzer("dc_combo_analyzer");
 	    String[] fields = {comboCode,comboValue};
-	    MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31,fields, an);     
+	    BooleanQuery booleanQuery = new BooleanQuery();
+		
+	    MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31,fields, an); 
 	    try {
-			org.apache.lucene.search.Query luceneQuery = parser.parse(value+"*");
-			resultSet= fullTextSession.createFullTextQuery(luceneQuery, getEntityClass())
+	    	org.apache.lucene.search.Query luceneQuery = parser.parse(value);
+	    	org.apache.lucene.search.Query luceneQuery2 = parser.parse(value+"*");
+	    	booleanQuery.add(luceneQuery, Occur.SHOULD);
+			booleanQuery.add(luceneQuery2, Occur.SHOULD);	
+			resultSet= fullTextSession.createFullTextQuery(booleanQuery, getEntityClass())
 					.setMaxResults(DEFAULT_PAGE_SIZE)
 					.list();
 		} catch (ParseException e) {

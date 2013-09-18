@@ -436,7 +436,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			     };
 			     
 		};
-			     
+		
+		
+	
 		window.setContent((Component) getFormController().getView());
 		
 		window.center();
