@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,25 +20,22 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractModel;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "parcela_pagamento")
 @XmlRootElement
@@ -54,48 +50,50 @@ public class ParcelaPagamento extends AbstractModel<Integer> {
 	@Basic(optional = false)
 	@Column(name = "ID")
 	private Integer id;
-
-	@Column(name = "DATA_PAGAMENTO")
+	
 	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_PAGAMENTO")
 	private Date dataPagamento;
-
-	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
+	
+	@Column(name = "TAXA_JURO")
 	private BigDecimal taxaJuro;
-
-	@Column(name = "TAXA_MULTA", precision = 14, scale = 0)
+	
+	@Column(name = "TAXA_MULTA")
 	private BigDecimal taxaMulta;
-
-	@Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
+	
+	@Column(name = "TAXA_DESCONTO")
 	private BigDecimal taxaDesconto;
-
-	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
+	
+	@Column(name = "VALOR_JURO")
 	private BigDecimal valorJuro;
-
-	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
+	
+	@Column(name = "VALOR_MULTA")
 	private BigDecimal valorMulta;
-
-	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
+	
+	@Column(name = "VALOR_DESCONTO")
 	private BigDecimal valorDesconto;
-
-	@Column(name = "VALOR_PAGO", precision = 14, scale = 0)
+	
+	@Column(name = "VALOR_PAGO")
 	private BigDecimal valorPago;
-
-	@Lob
-	@Type(type = "text")
+	
 	@Column(name = "HISTORICO")
 	private String historico;
-
-	@JoinColumn(name = "ID_PARCELA_PAGAR", referencedColumnName = "ID")
+	
+	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ParcelaPagar parcelaPagar;
-
-	@JoinColumn(name = "ID_CHEQUE_EMITIDO", referencedColumnName = "ID")
-	@ManyToOne(optional = true)
+	
+	@JoinColumn(name = "ID_FIN_CHEQUE_EMITIDO", referencedColumnName = "ID")
+	@ManyToOne
 	private ChequeEmitido chequeEmitido;
-
-	@JoinColumn(name = "ID_TIPO_PAGAMENTO", referencedColumnName = "ID")
+	
+	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private TipoPagamento tipoPagamento;
+	
+	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private ContaCaixa contaCaixa;
 
 	public ParcelaPagamento() {
 	}
@@ -247,6 +245,14 @@ public class ParcelaPagamento extends AbstractModel<Integer> {
 	 */
 	public void setParcelaPagar(ParcelaPagar parcelaPagar) {
 		this.parcelaPagar = parcelaPagar;
+	}
+
+	public ContaCaixa getContaCaixa() {
+		return contaCaixa;
+	}
+
+	public void setContaCaixa(ContaCaixa contaCaixa) {
+		this.contaCaixa = contaCaixa;
 	}
 
 }
