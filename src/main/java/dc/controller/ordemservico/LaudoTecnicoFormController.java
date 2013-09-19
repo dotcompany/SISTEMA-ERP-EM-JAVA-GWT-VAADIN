@@ -3,11 +3,14 @@ package dc.controller.ordemservico;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.LaudoTecnicoEntity;
+import dc.servicos.dao.ordemservico.LaudoTecnicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.LaudoTecnicoFormView;
 
@@ -19,7 +22,8 @@ import dc.visao.ordemservico.LaudoTecnicoFormView;
 
 @Controller
 @Scope("prototype")
-public class LaudoTecnicoFormController extends CRUDFormController<Object> {
+public class LaudoTecnicoFormController extends
+		CRUDFormController<LaudoTecnicoEntity> {
 
 	/**
 	 * 
@@ -32,16 +36,23 @@ public class LaudoTecnicoFormController extends CRUDFormController<Object> {
 	 * DAO'S
 	 */
 
+	@Autowired
+	private LaudoTecnicoDAO pDAO;
+
 	/**
 	 * ENTITIES
 	 */
+
+	private LaudoTecnicoEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
 	public LaudoTecnicoFormController() {
-
+		if (this.pEntity == null) {
+			this.pEntity = new LaudoTecnicoEntity();
+		}
 	}
 
 	@Override
@@ -57,7 +68,7 @@ public class LaudoTecnicoFormController extends CRUDFormController<Object> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			//notifiyFrameworkSaveOK(currentBean);
+			// notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -116,7 +127,6 @@ public class LaudoTecnicoFormController extends CRUDFormController<Object> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-
 			mensagemRemovidoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,7 +138,6 @@ public class LaudoTecnicoFormController extends CRUDFormController<Object> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-
 		return true;
 	}
 
