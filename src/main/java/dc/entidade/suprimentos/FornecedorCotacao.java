@@ -19,6 +19,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 
 /**
@@ -27,11 +28,11 @@ import dc.entidade.geral.Fornecedor;
  */
 @Entity
 @Table(name = "compra_fornecedor_cotacao")
-public class FornecedorCotacao extends AbstractModel<Integer> {
+public class FornecedorCotacao extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne

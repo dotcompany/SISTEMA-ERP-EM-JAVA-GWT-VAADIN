@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 /**
@@ -20,11 +21,11 @@ import dc.entidade.framework.AbstractModel;
  */
 @Entity
 @Table(name="compra_req_cotacao_detalhe")
-public class RequisicaoCotacaoDetalhe extends AbstractModel<Integer> {
+public class RequisicaoCotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name="quantidade_cotada")
