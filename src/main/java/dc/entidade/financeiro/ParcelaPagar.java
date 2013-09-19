@@ -58,53 +58,67 @@ public class ParcelaPagar extends AbstractModel<Integer> {
     
     @Column(name = "DATA_EMISSAO")
     @Temporal(TemporalType.DATE)
+    @Caption(value="Data Emissão")
     private Date dataEmissao;
     
+    @Caption(value="Data Vencimento")
     @Column(name = "DATA_VENCIMENTO")
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
     
+    @Caption(value="Desconto Até")
     @Column(name = "DESCONTO_ATE")
     @Temporal(TemporalType.DATE)
     private Date descontoAte;
     
+    @Caption(value="Sofre Retencao")
     @Column(name = "SOFRE_RETENCAO")
     private String sofreRetencao;
     
     @Field
-    @Caption("Valor")
+    @Caption(value="Valor")
     @Column(name = "VALOR")
     private BigDecimal valor;
     
+    @Caption(value="Taxa Juro")
     @Column(name = "TAXA_JURO", precision = 14, scale = 0)
     private BigDecimal taxaJuro;
     
+    @Caption(value="Taxa Multa")
     @Column(name = "TAXA_MULTA", precision = 14, scale = 0)
     private BigDecimal taxaMulta;
     
+    @Caption(value="Taxa Desconto")
     @Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
     private BigDecimal taxaDesconto;
     
+    @Caption(value="Valor Juro")
     @Column(name = "VALOR_JURO", precision = 14, scale = 0)
     private BigDecimal valorJuro;
     
+    @Caption(value="Valor Multa")
     @Column(name = "VALOR_MULTA", precision = 14, scale = 0)
     private BigDecimal valorMulta;
     
+    @Caption(value="Valor Desconto")
     @Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
     private BigDecimal valorDesconto;
     
+    @Caption(value="Status Parcela")
     @JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private StatusParcela statusParcela;
     
+    @Caption(value="Lançamento à Pagar")
     @JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private LancamentoPagar lancamentoPagar;
    
+    @Caption(value="Número Parcela")
     @Column(name = "NUMERO_PARCELA")
     private Integer numeroParcela;
-    
+   
+    @Caption(value="Conta Caixa")
     @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ContaCaixa contaCaixa;

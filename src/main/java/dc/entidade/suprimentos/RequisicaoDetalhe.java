@@ -24,7 +24,7 @@ import dc.entidade.produto.Produto;
 public class RequisicaoDetalhe extends AbstractModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne

@@ -24,7 +24,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 	private ParcelaPagarDAO dao;
 
 	@Autowired
-	private ParcelaPagarFormController parcelaPagarFormController;
+	private ParcelaPagamentoFormController parcelaPagamentoFormController;
 
 	@Override
 	protected String[] getColunas() {
@@ -48,7 +48,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	protected CRUDFormController<ParcelaPagar> getFormController() {
-		return parcelaPagarFormController;
+		return parcelaPagamentoFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao

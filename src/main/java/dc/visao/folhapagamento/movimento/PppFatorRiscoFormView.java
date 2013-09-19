@@ -270,6 +270,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(30);
+		gridLayout_1.setColumns(3);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -285,7 +286,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		pdfDataTermino.setImmediate(false);
 		pdfDataTermino.setWidth("-1px");
 		pdfDataTermino.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 3);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 1);
 
 		// tfTipo
 		tfTipo = new TextField();
@@ -293,7 +294,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 5);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 2);
 
 		// tfFatorRisco
 		tfFatorRisco = new TextField();
@@ -301,7 +302,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfFatorRisco.setImmediate(false);
 		tfFatorRisco.setWidth("175px");
 		tfFatorRisco.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 7);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 2);
 
 		// tfIntensidade
 		tfIntensidade = new TextField();
@@ -309,7 +310,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfIntensidade.setImmediate(false);
 		tfIntensidade.setWidth("175px");
 		tfIntensidade.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 9);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 3);
 
 		// tfTecnicaUtilizada
 		tfTecnicaUtilizada = new TextField();
@@ -317,7 +318,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfTecnicaUtilizada.setImmediate(false);
 		tfTecnicaUtilizada.setWidth("175px");
 		tfTecnicaUtilizada.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 11);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 3);
 
 		// tfEpcEficaz
 		tfEpcEficaz = new TextField();
@@ -325,7 +326,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfEpcEficaz.setImmediate(false);
 		tfEpcEficaz.setWidth("175px");
 		tfEpcEficaz.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 13);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 4);
 
 		// tfEpiEficaz
 		tfEpiEficaz = new TextField();
@@ -333,7 +334,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfEpiEficaz.setImmediate(false);
 		tfEpiEficaz.setWidth("175px");
 		tfEpiEficaz.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 15);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 4);
 
 		// tfCaEpi
 		tfCaEpi = new TextField();
@@ -341,7 +342,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfCaEpi.setImmediate(false);
 		tfCaEpi.setWidth("175px");
 		tfCaEpi.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 17);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 5);
 
 		// tfAtendimentoNr061
 		tfAtendimentoNr061 = new TextField();
@@ -349,7 +350,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr061.setImmediate(false);
 		tfAtendimentoNr061.setWidth("175px");
 		tfAtendimentoNr061.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 19);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 5);
 
 		// tfAtendimentoNr062
 		tfAtendimentoNr062 = new TextField();
@@ -357,7 +358,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr062.setImmediate(false);
 		tfAtendimentoNr062.setWidth("175px");
 		tfAtendimentoNr062.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 21);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 6);
 
 		// tfAtendimentoNr063
 		tfAtendimentoNr063 = new TextField();
@@ -365,7 +366,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr063.setImmediate(false);
 		tfAtendimentoNr063.setWidth("175px");
 		tfAtendimentoNr063.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 23);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 6);
 
 		// tfAtendimentoNr064
 		tfAtendimentoNr064 = new TextField();
@@ -373,7 +374,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr064.setImmediate(false);
 		tfAtendimentoNr064.setWidth("175px");
 		tfAtendimentoNr064.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 25);
+		gridLayout_1.addComponent(pdfDataTermino, 0, 7);
 
 		// tfAtendimentoNr065
 		tfAtendimentoNr065 = new TextField();
@@ -381,10 +382,14 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr065.setImmediate(false);
 		tfAtendimentoNr065.setWidth("175px");
 		tfAtendimentoNr065.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataTermino, 0, 27);
+		gridLayout_1.addComponent(pdfDataTermino, 1, 7);
 
 		return gridLayout_1;
 	}
+
+	/**
+	 * COMBOS
+	 */
 
 	public void carregarCmbPpp(List<PppEntity> lista) {
 		BeanItemContainer<PppEntity> bic = new BeanItemContainer<PppEntity>(

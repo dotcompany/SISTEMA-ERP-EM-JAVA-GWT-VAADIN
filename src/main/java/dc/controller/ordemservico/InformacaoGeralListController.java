@@ -1,11 +1,14 @@
 package dc.controller.ordemservico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.entidade.ordemservico.InformacaoGeralEntity;
+import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -17,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class InformacaoGeralListController extends CRUDListController<Object> {
+public class InformacaoGeralListController extends
+		CRUDListController<InformacaoGeralEntity> {
 
 	/**
 	 * 
@@ -27,6 +31,9 @@ public class InformacaoGeralListController extends CRUDListController<Object> {
 	/**
 	 * DAO'S
 	 */
+
+	@Autowired
+	private InformacaoGeralDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -51,13 +58,21 @@ public class InformacaoGeralListController extends CRUDListController<Object> {
 	}
 
 	@Override
-	protected List<Object> pesquisa(String valor) {
+	protected List<InformacaoGeralEntity> pesquisa(String valor) {
+		try {
+			List<InformacaoGeralEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return null;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<InformacaoGeralEntity>();
+		}
 	}
 
 	@Override
-	protected CRUDFormController<Object> getFormController() {
+	protected CRUDFormController<InformacaoGeralEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -73,9 +88,16 @@ public class InformacaoGeralListController extends CRUDListController<Object> {
 	}
 
 	@Override
-	protected List<Object> pesquisaDefault() {
+	protected List<InformacaoGeralEntity> pesquisaDefault() {
+		try {
+			List<InformacaoGeralEntity> auxLista = this.pDAO.listarTodos();
 
-		return null;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<InformacaoGeralEntity>();
+		}
 	}
 
 }

@@ -16,6 +16,7 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.server.Page.UriFragmentChangedEvent;
 import com.vaadin.server.Page.UriFragmentChangedListener;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
@@ -80,41 +81,34 @@ public class MainUI extends UI implements ErrorHandler {
     @Override
     public void error(com.vaadin.server.ErrorEvent event)
     {
-        // connector event
-        if (event.getThrowable().getCause() instanceof AccessDeniedException)
-        {
-            AccessDeniedException accessDeniedException = (AccessDeniedException) event.getThrowable().getCause();
-            Notification.show(accessDeniedException.getMessage(), Notification.Type.ERROR_MESSAGE);
+    	  Label label = new Label();
+          label.setWidth(-1, Unit.PERCENTAGE);
 
-            setContent(null);
-            return;
-        }
-
-        // Error on page load. Now it doesn't work. User sees standard error page.
-        if (event.getThrowable() instanceof AccessDeniedException)
-        {
-            AccessDeniedException exception = (AccessDeniedException) event.getThrowable();
-
-            Label label = new Label(exception.getMessage());
-            label.setWidth(-1, Unit.PERCENTAGE);
-
-            Link goToMain = new Link("Ir para a home", new ExternalResource("/"));
-
-            VerticalLayout layout = new VerticalLayout();
-            layout.addComponent(label);
-            layout.addComponent(goToMain);
-            layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
-            layout.setComponentAlignment(goToMain, Alignment.MIDDLE_CENTER);
+        // Find the final cause
+        VerticalLayout layout = new VerticalLayout();
+        layout.addComponent(label);
+     
+        layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 
             VerticalLayout mainLayout = new VerticalLayout();
             mainLayout.setSizeFull();
             mainLayout.addComponent(layout);
             mainLayout.setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
 
-            setContent(mainLayout);
-            Notification.show(exception.getMessage(), Notification.Type.ERROR_MESSAGE);
-            return;
-        }
+
+        setContent(mainLayout);
+        String cause = "<b>Erro:</b><br/>";
+        for (Throwable t = event.getThrowable(); t != null;
+             t = t.getCause())
+            if (t.getCause() == null) // We're at final cause
+                cause += t.getClass().getName() + "<br/>";
+        
+        // Display the error message in a custom fashion
+        layout.addComponent(new Label(cause, ContentMode.HTML));
+           	
+
+            setContent(layout);
+        
 
         DefaultErrorHandler.doDefault(event);
     }

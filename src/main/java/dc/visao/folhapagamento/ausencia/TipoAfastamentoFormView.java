@@ -133,6 +133,7 @@ public class TipoAfastamentoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfCodigo
 		tfCodigo = new TextField();
@@ -150,7 +151,7 @@ public class TipoAfastamentoFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("175px");
 		tfNome.setHeight("-1px");
-		gridLayout_1.addComponent(tfNome, 0, 3);
+		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfDescricao
 		tfDescricao = new TextField();
@@ -159,7 +160,7 @@ public class TipoAfastamentoFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("175px");
 		tfDescricao.setHeight("-1px");
-		gridLayout_1.addComponent(tfDescricao, 0, 5);
+		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		return gridLayout_1;
 	}

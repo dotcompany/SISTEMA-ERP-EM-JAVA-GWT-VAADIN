@@ -176,6 +176,7 @@ public class EventoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfCodigo
 		tfCodigo = new TextField();
@@ -193,7 +194,7 @@ public class EventoFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("175px");
 		tfNome.setHeight("-1px");
-		gridLayout_1.addComponent(tfNome, 0, 3);
+		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfDescricao
 		tfDescricao = new TextField();
@@ -202,7 +203,7 @@ public class EventoFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("175px");
 		tfDescricao.setHeight("-1px");
-		gridLayout_1.addComponent(tfDescricao, 0, 5);
+		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		// tfTipo
 		tfTipo = new TextField();
@@ -211,7 +212,7 @@ public class EventoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
-		gridLayout_1.addComponent(tfTipo, 0, 7);
+		gridLayout_1.addComponent(tfTipo, 1, 2);
 
 		// tfUnidade
 		tfUnidade = new TextField();
@@ -220,7 +221,7 @@ public class EventoFormView extends CustomComponent {
 		tfUnidade.setImmediate(false);
 		tfUnidade.setWidth("175px");
 		tfUnidade.setHeight("-1px");
-		gridLayout_1.addComponent(tfUnidade, 0, 9);
+		gridLayout_1.addComponent(tfUnidade, 0, 3);
 
 		// tfBaseCalculo
 		tfBaseCalculo = new TextField();
@@ -229,7 +230,7 @@ public class EventoFormView extends CustomComponent {
 		tfBaseCalculo.setImmediate(false);
 		tfBaseCalculo.setWidth("175px");
 		tfBaseCalculo.setHeight("-1px");
-		gridLayout_1.addComponent(tfBaseCalculo, 0, 11);
+		gridLayout_1.addComponent(tfBaseCalculo, 1, 3);
 
 		// tfTaxa
 		tfTaxa = new TextField();
@@ -238,7 +239,7 @@ public class EventoFormView extends CustomComponent {
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("175px");
 		tfTaxa.setHeight("-1px");
-		gridLayout_1.addComponent(tfTaxa, 0, 13);
+		gridLayout_1.addComponent(tfTaxa, 0, 4);
 
 		return gridLayout_1;
 	}

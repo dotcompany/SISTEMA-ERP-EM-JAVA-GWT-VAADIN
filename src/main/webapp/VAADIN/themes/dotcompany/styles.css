@@ -5062,92 +5062,98 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .dotcompany .v-window {
-	-webkit-animation: fade-in 160ms ease-out;
-	-moz-animation: fade-in 160ms ease-out;
-	-ms-animation: fade-in 160ms ease-out;
-	-o-animation: fade-in 160ms ease-out;
-	animation: fade-in 160ms ease-out;
-	opacity: 1;
-	-webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	background: transparent;
 }
 
-.dotcompany .v-shadow-window {
-	display: none;
+.dotcompany .v-window-wrap {
+	border: 1px solid #808386;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-.v-ie8 .dotcompany .v-shadow-window {
-	display: block;
-}
-
-.dotcompany .v-window-closebox:before {
-	font-family: arial, sans-serif;
-	content: "\00D7";
-}
-
-.dotcompany .v-window-closebox {
-	background: #343638;
-	color: #ddd;
-	font-size: 16px;
-	font-weight: normal;
-	line-height: 20px;
-	text-align: center;
-	width: 20px;
-	height: 20px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	top: 10px;
-	right: 10px;
-}
-
-.dotcompany .v-window-closebox:hover {
-	color: #fff;
-}
-
-.dotcompany .v-window-closebox:active {
-	color: #ddd;
-	background: #000;
-}
-
-.dotcompany .v-window-modalitycurtain {
-	opacity: 0.7;
-	filter: alpha(opacity=70);
-	background: #353637;
-	background: -moz-radial-gradient(center, ellipse cover, #4c4d4e 0%, #1b1c1c 100%);
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #4c4d4e), color-stop(100%, #1b1c1c));
-	background: -webkit-radial-gradient(center, ellipse cover, #4c4d4e 0%, #1b1c1c 100%);
-	background: -o-radial-gradient(center, ellipse cover, #4c4d4e 0%, #1b1c1c 100%);
-	background: -ms-radial-gradient(center, ellipse cover, #4c4d4e 0%, #1b1c1c 100%);
+.v-sa .dotcompany .v-window-wrap, .v-op .dotcompany .v-window-wrap {
+	border-color: rgba(0, 0, 0, 0.2);
 }
 
 .dotcompany .v-window-outerheader {
-	padding: 0.5em 20px;
-	height: 1.7em;
-	font-weight: 300;
-	font-size: 20px;
+	padding: 12px 52px 0 14px;
+	height: 37px;
+	background: black repeat-x;
+	background-image: url(components/img/header-bg.png);/** sprite-ref: verticals; sprite-alignment: repeat */
 }
 
 .dotcompany .v-window-header {
-	font-weight: inherit;
-}
-
-.dotcompany .dialog.v-window {
-	color: #a6a9aa;
-	font-size: 13px;
-}
-
-.dotcompany .dialog.v-window .v-window-header {
-	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: normal;
 	color: #fff;
-	font-size: 16px;
-	font-weight: 400;
+	text-shadow: #000 0 -1px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
 }
 
-.dotcompany .v-window .footer {
-	background: #eee;
-	border-top: 1px solid #e0e0e0;
+.dotcompany .v-window-error .v-window-header {
+	padding-left: 13px;
+	background: transparent url(common/icons/error.png) no-repeat 0 50%;
+}
+
+.dotcompany .v-window-resizebox {
+	width: 15px;
+	height: 15px;
+	cursor: se-resize;
+	background: transparent;
+	background-image: url(components/img/resize.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-footer {
+	background-color: white;
+	background-repeat: repeat-x;
+	background-image: url(components/img/footer-bg.png);/** sprite-ref: verticals; sprite-alignment: repeat */
+	height: 15px;
+}
+
+.dotcompany .v-window-closebox {
+	top: 12px;
+	right: 10px;
+	width: 15px;
+	height: 16px;
+	background: transparent;
+	background-image: url(components/img/close.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-closebox:hover {
+	background-image: url(components/img/close-hover.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-closebox:active {
+	background-image: url(components/img/close-pressed.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-maximizebox, .dotcompany .v-window-restorebox {
+	top: 12px;
+	right: 28px;
+	width: 15px;
+	height: 16px;
+	background: transparent;
+}
+
+.dotcompany .v-window-maximizebox, .dotcompany .v-window-maximizebox:hover, .dotcompany .v-window-maximizebox:active {
+	background-image: url(components/img/maximize.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-restorebox, .dotcompany .v-window-restorebox:hover, .dotcompany .v-window-restorebox:active {
+	background-image: url(components/img/restore.png);/** sprite-ref: verticals */
+}
+
+.dotcompany .v-window-contents {
+	background: #fff;
+}
+
+.dotcompany .v-window-modalitycurtain {
+	background: #56595b;
 }
 
 .dotcompany .v-datefield {

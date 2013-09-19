@@ -121,6 +121,7 @@ public class ServicoFormView extends CustomComponent {
 		gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		// tfCodigo
 		tfCodigo = new TextField();
@@ -130,7 +131,7 @@ public class ServicoFormView extends CustomComponent {
 		tfCodigo.setImmediate(false);
 		tfCodigo.setWidth("-1px");
 		tfCodigo.setHeight("-1px");
-		gridLayout_1.addComponent(tfCodigo, 0, 2);
+		gridLayout_1.addComponent(tfCodigo, 0, 1);
 
 		// tfNome
 		tfNome = new TextField();
@@ -140,7 +141,7 @@ public class ServicoFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("-1px");
 		tfNome.setHeight("-1px");
-		gridLayout_1.addComponent(tfNome, 0, 4);
+		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		return gridLayout_1;
 	}

@@ -1,15 +1,26 @@
 package dc.entidade.framework;
-
 import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 import org.springframework.data.domain.Persistable;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
+@AnalyzerDef(name="dc_combo_analyzer",
+tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+filters = {
+        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class)
+})
 public abstract class AbstractModel<ID extends Serializable> implements Persistable<ID> {
 
 	@Transient

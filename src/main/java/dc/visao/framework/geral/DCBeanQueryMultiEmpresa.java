@@ -57,12 +57,12 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm =  (String) getQueryConfiguration().get("search");
 		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
-		Integer idConta =  (Integer) getQueryConfiguration().get("conta_id");
+		Integer idEmpresa =  (Integer) getQueryConfiguration().get("id_empresa");
 		if(searchTerm != null && !searchTerm.trim().isEmpty()){
 			return dao.fullTextSearch(searchTerm,arg0,arg1);	
 		}else{
 			logger.info("null or empty search term, loading all..");
-			return dao.getAllPagedByEmpresa(pojoClass,idConta,arg0,arg1);
+			return dao.getAllPagedByEmpresa(pojoClass,idEmpresa,arg0,arg1);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm =  (String) getQueryConfiguration().get("search");
 		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
-		Integer idConta =  (Integer) getQueryConfiguration().get("conta_id");
+		Integer idConta =  (Integer) getQueryConfiguration().get("id_empresa");
 		int size = 0;
 		if(searchTerm != null && !searchTerm.trim().isEmpty()){
 			size = dao.fullTextSearchCount(searchTerm);	

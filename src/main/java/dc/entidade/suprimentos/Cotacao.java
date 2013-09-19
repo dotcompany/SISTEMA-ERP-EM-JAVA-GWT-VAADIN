@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +20,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="compra_cotacao")
-public class Cotacao implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Cotacao extends AbstractMultiEmpresaModel<Integer> {
+	
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Caption("Id")
 	private Integer id;
 
