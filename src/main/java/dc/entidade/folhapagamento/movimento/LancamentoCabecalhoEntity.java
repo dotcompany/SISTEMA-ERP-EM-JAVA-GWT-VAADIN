@@ -1,0 +1,147 @@
+package dc.entidade.folhapagamento.movimento;
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
+import dc.entidade.pessoal.Colaborador;
+
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
+@Entity
+@Table(name = "folha_lancamento_cabecalho")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class LancamentoCabecalhoEntity extends AbstractModel<Integer> implements
+		Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_lancamento_cabecalho_id_seq")
+	@SequenceGenerator(name = "folha_lancamento_cabecalho_id_seq", sequenceName = "folha_lancamento_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	private Integer id;
+
+	@Column(name = "competencia")
+	@Field
+	@Caption("Competência")
+	private String competencia = "";
+
+	@Column(name = "tipo")
+	@Field
+	@Caption("Tipo")
+	private String tipo = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/* id_colaborador integer NOT NULL, */
+
+	@ManyToOne
+	@JoinColumn(name = "id_colaborador", nullable = false)
+	@Caption("Colaborador")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Colaborador colaborador;
+
+	/* id_empresa integer NOT NULL, */
+
+	@ManyToOne
+	@JoinColumn(name = "id_empresa", nullable = false)
+	@Caption("Empresa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Empresa empresa;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public LancamentoCabecalhoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCompetencia() {
+		return competencia;
+	}
+
+	public void setCompetencia(String competencia) {
+		this.competencia = (competencia == null ? "" : competencia
+				.toUpperCase());
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+	}
+
+	public Colaborador getColaborador() {
+		return colaborador;
+	}
+
+	public void setColaborador(Colaborador colaborador) {
+		this.colaborador = colaborador;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+}
