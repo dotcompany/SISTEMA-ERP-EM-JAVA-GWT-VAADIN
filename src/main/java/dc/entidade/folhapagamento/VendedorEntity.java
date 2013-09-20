@@ -1,13 +1,16 @@
 package dc.entidade.folhapagamento;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,6 +20,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.framework.AbstractModel;
 
 /**
@@ -46,6 +50,15 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 	private Integer id;
 
 	/**
+	 * @autor Gutemberg A. Da Silva
+	 * 
+	 * @module FOLHAPAGAMENTO
+	 */
+
+	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
+	private List<LancamentoComissaoEntity> lancamentoComissaoList;
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -64,6 +77,15 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
+		return lancamentoComissaoList;
+	}
+
+	public void setLancamentoComissaoList(
+			List<LancamentoComissaoEntity> lancamentoComissaoList) {
+		this.lancamentoComissaoList = lancamentoComissaoList;
 	}
 
 	/**
