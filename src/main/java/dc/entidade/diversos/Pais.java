@@ -20,6 +20,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.ComboValue;
 
 /***
 *
@@ -48,21 +49,29 @@ public class Pais implements Serializable {
     @Field
     @Caption("Nome En")
     @Column(name = "NOME_EN", length = 100)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String nomeEn;
     
     @Field
     @Caption("Nome PTBR")
     @Column(name = "NOME_PTBR", length = 100)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String nomePtbr;
     
     @Field
     @Caption("Sigla 2")
     @Column(name = "SIGLA2", length = 2)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String sigla2;
     
     @Field
     @Caption("Sigla 3")
     @Column(name = "SIGLA3", length = 3)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String sigla3;
 
     public Pais() {

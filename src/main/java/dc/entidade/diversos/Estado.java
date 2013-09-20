@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboValue;
 
 /**
 *
@@ -58,11 +59,15 @@ public class Estado extends AbstractModel<Integer> implements Serializable {
     @Field
     @Caption("Sigla")
     @Column(name = "SIGLA", length = 2)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String sigla;
     
     @Field
     @Caption("Nome")
     @Column(name = "NOME", length = 50)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String nome;
     
     @Column(name = "CODIGO_IBGE")

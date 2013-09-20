@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.UF;
 
 /**
@@ -58,22 +59,36 @@ public class Cep extends AbstractModel<Integer> implements Serializable {
     @Field
     @Caption("Cep")
     @Column(name = "CEP", length = 8)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String cep;
     
     @Field
     @Caption("Logradouro")
     @Column(name = "LOGRADOURO", length = 60)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String logradouro;
     
     @Field
     @Caption("Complemento")    
     @Column(name = "COMPLEMENTO", length = 60)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String complemento;
     
+    @Field
+    @Caption("Bairro")
     @Column(name = "BAIRRO", length = 60)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String bairro;
     
+    @Field
+    @Caption("Municipio")
     @Column(name = "MUNICIPIO", length = 60)
+    @Analyzer(definition= "dc_combo_analyzer")
+    @ComboValue
     private String municipio;
     
     @Column(name = "UF")
