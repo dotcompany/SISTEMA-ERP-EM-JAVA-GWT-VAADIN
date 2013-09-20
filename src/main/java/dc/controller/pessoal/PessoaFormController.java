@@ -102,7 +102,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected String getNome() {
-		return "Contagem Estoque";
+		return "Pessoa";
 	}
 
 	@Override
