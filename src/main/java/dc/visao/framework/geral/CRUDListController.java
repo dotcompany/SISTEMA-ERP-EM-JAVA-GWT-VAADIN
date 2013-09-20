@@ -471,6 +471,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		saveListener = modalWindowSaveListener;
 		
 	}
+	
+	public Table getTable(){
+		return table;
+	}
 
 	public void notifySaved(E obj) {
 		if(saveListener != null){
