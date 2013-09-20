@@ -44,6 +44,7 @@ import dc.entidade.folhapagamento.cadastro.ParametroEntity;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
@@ -271,6 +272,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<LancamentoComissaoEntity> lancamentoComissaoList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoDetalheEntity> lancamentoDetalheList;
 
 	/**
 	 * CONSTRUTOR
@@ -638,6 +642,15 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setLancamentoComissaoList(
 			List<LancamentoComissaoEntity> lancamentoComissaoList) {
 		this.lancamentoComissaoList = lancamentoComissaoList;
+	}
+
+	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
+		return lancamentoDetalheList;
+	}
+
+	public void setLancamentoDetalheList(
+			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+		this.lancamentoDetalheList = lancamentoDetalheList;
 	}
 
 	public Contato addContato(Contato contato) {

@@ -1,15 +1,18 @@
 package dc.entidade.folhapagamento.movimento;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -82,6 +85,13 @@ public class LancamentoCabecalhoEntity extends AbstractModel<Integer> implements
 	private Empresa empresa;
 
 	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
+	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -133,6 +143,15 @@ public class LancamentoCabecalhoEntity extends AbstractModel<Integer> implements
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
+		return lancamentoDetalheList;
+	}
+
+	public void setLancamentoDetalheList(
+			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+		this.lancamentoDetalheList = lancamentoDetalheList;
 	}
 
 	/**

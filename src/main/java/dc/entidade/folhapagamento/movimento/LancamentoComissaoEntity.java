@@ -93,6 +93,10 @@ public class LancamentoComissaoEntity extends AbstractModel<Integer> implements
 	private Empresa empresa;
 
 	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
