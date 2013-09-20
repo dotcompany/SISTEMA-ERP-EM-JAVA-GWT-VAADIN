@@ -90,6 +90,10 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Empresa empresa;
+    
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Pessoa pessoa;
 
     public Contato() {
     }
@@ -166,6 +170,16 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
 	public void setFoneCelular(String foneCelular) {
 		this.foneCelular = foneCelular;
 	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
+	
 
 }
 

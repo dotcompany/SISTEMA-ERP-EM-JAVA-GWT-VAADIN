@@ -87,7 +87,7 @@ public class WizardThirdStep extends BaseWizardStep implements Serializable{
         sample.setNullSelectionAllowed(true);
         sample.setMultiSelect(true);
         sample.setImmediate(true);
-        sample.setLeftColumnCaption("Módulos dispon�veis");
+        sample.setLeftColumnCaption("Módulos disponíveis");
         sample.setRightColumnCaption("Módulos escolhidos");
         mainPanel.addComponent(sample);
 

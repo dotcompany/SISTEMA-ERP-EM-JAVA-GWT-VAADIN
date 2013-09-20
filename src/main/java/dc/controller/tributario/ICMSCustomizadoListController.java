@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import dc.entidade.suprimentos.ContagemEstoque;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
