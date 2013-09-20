@@ -288,7 +288,7 @@ public class PessoaFormView extends CustomComponent {
     	cmbTipoPessoa.setRequired(true);
     	cmbTipoPessoa.setImmediate(true);
     	cmbTipoPessoa.addValueChangeListener(new Property.ValueChangeListener() {
-			@Override
+			@Override 
 			public void valueChange(ValueChangeEvent event) {
 				TipoPessoa p = (TipoPessoa)event.getProperty().getValue();
 				if(p.getCodigo().equals(FISICA)){
