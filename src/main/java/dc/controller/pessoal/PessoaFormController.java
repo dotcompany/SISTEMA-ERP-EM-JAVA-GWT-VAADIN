@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Contato;
 import dc.entidade.geral.Pessoa;
 
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -122,6 +123,12 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 	
 
+	 public Contato novoContato(){
+		 Contato c = new Contato();
+		 currentBean.adicionarContato(c);
+		 return c;
+	 }
+	 
 	
 	
 
