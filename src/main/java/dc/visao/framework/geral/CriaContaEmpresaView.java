@@ -161,7 +161,7 @@ public class CriaContaEmpresaView extends ExternalView {
         TextField empresaTextField = (TextField) binder.buildAndBind("Nome da sua Empresa", "empresa.nomeFantasia");
         buildTxtField(fields, empresaTextField);
         
-        
+        // modelo de mascara
         //03.847.655/0001-98
         MaskedTextField cnpjMaskedField = new MaskedTextField("CNPJ", "##.###.###/####-##");
         cnpjMaskedField.setMaskClientOnly(true);
