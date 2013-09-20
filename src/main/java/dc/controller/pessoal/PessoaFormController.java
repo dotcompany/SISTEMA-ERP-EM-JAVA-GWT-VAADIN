@@ -86,7 +86,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void quandoNovo() {
 		try{
-			//subView.filPessoaDetalhesSubForm(currentBean.getContagemDetalhes());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
