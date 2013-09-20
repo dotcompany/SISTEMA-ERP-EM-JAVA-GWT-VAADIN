@@ -43,6 +43,7 @@ import dc.entidade.folhapagamento.cadastro.EventoEntity;
 import dc.entidade.folhapagamento.cadastro.ParametroEntity;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
@@ -203,9 +204,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<GrupoBemEntity> grupoBemList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
-
 	/**
 	 * @autor Wesley Júnior
 	 * 
@@ -267,6 +265,12 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<InssEntity> inssList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoComissaoEntity> lancamentoComissaoList;
 
 	/**
 	 * CONSTRUTOR
@@ -576,15 +580,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.grupoBemList = grupoBemList;
 	}
 
-	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
-		return lancamentoCabecalhoList;
-	}
-
-	public void setLancamentoCabecalhoList(
-			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
-		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
-	}
-
 	public List<TipoAfastamentoEntity> getTipoAfastamentoList() {
 		return tipoAfastamentoList;
 	}
@@ -625,6 +620,24 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setInssList(List<InssEntity> inssList) {
 		this.inssList = inssList;
+	}
+
+	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
+		return lancamentoCabecalhoList;
+	}
+
+	public void setLancamentoCabecalhoList(
+			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
+	}
+
+	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
+		return lancamentoComissaoList;
+	}
+
+	public void setLancamentoComissaoList(
+			List<LancamentoComissaoEntity> lancamentoComissaoList) {
+		this.lancamentoComissaoList = lancamentoComissaoList;
 	}
 
 	public Contato addContato(Contato contato) {
