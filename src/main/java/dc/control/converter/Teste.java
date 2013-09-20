@@ -1,7 +1,6 @@
 package dc.control.converter;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
+import dc.controller.patrimonio.ApoliceSeguroFormController;
 import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.visao.patrimonio.ApoliceSeguroFormView;
 
@@ -72,21 +72,21 @@ public class Teste {
 
 							System.out.println("--------");
 
-							//if (atributoSubview.getType().isAssignableFrom(
-							//		comboBoxType)) {
-							//	ComboBox cb = ((ComboBox) atributoSubview
-							//			.get(subview));
+							// if (atributoSubview.getType().isAssignableFrom(
+							// comboBoxType)) {
+							// ComboBox cb = ((ComboBox) atributoSubview
+							// .get(subview));
 
-							//	String tipoEntityClasse = tipoEntity;
-							//	Class<?> clazz = Class
-							//			.forName(tipoEntityClasse);
-							//	Object newValue = clazz.cast(cb.getValue());
+							// String tipoEntityClasse = tipoEntity;
+							// Class<?> clazz = Class
+							// .forName(tipoEntityClasse);
+							// Object newValue = clazz.cast(cb.getValue());
 
-							//	atributoEntity.set(entity, newValue);
+							// atributoEntity.set(entity, newValue);
 
-							//	System.out.println("PPPPPPPPPPP: "
-							//			+ atributoEntity.get(entity));
-							//}
+							// System.out.println("PPPPPPPPPPP: "
+							// + atributoEntity.get(entity));
+							// }
 
 							if (atributoSubview.getType().isAssignableFrom(
 									textFieldType)) {
@@ -105,7 +105,7 @@ public class Teste {
 								Class<?> clazz = Class
 										.forName(tipoEntityClasse);
 								Object newValue = clazz.cast(cb.getValue());
-								
+
 								System.out.println(">>>>>" + newValue);
 
 								if (tipoEntity.equals("java.lang.Double")) {
@@ -114,7 +114,7 @@ public class Teste {
 											.parseDouble((String) newValue)));
 								} else {
 									atributoEntity.set(entity, newValue);
-									
+
 									break;
 								}
 
@@ -122,7 +122,7 @@ public class Teste {
 										+ atributoEntity.get(entity));
 							}
 
-							//break;
+							// break;
 
 							// System.out.println("-- " + nomeEntity + " : "
 							// + tipoEntity);
@@ -269,51 +269,99 @@ public class Teste {
 		}
 	}
 
-	public static void subviewToEntity(ApoliceSeguroEntity p1) {
+	/*
+	 * public static void subviewToEntity(ApoliceSeguroEntity p1) { try {
+	 * Class<?> myType = Long.TYPE;
+	 * 
+	 * Class<?> classe = p1.getClass();
+	 * 
+	 * System.out.println("A classe " + classe.getSimpleName() +
+	 * " possui os atributos:");
+	 * 
+	 * for (Field atributo : classe.getDeclaredFields()) {
+	 * System.out.println("-------------");
+	 * 
+	 * System.out.println("nome atributo = " + atributo.getName());
+	 * System.out.println("membro da classe = " + atributo.getDeclaringClass());
+	 * System.out.println("tipo = " + atributo.getType());
+	 * 
+	 * if (atributo.getType().isAssignableFrom(integerType)) {
+	 * System.out.println("><><><><> inteiro"); }
+	 * 
+	 * if (atributo.getType().isAssignableFrom(stringClass)) {
+	 * System.out.println("><><><><> string"); }
+	 * 
+	 * atributo.setAccessible(true); System.out.println("valor rrrr  = " +
+	 * atributo.get(p1)); // Object value = field.get(instance);
+	 * 
+	 * int mod = atributo.getModifiers(); System.out.println("modificadores = "
+	 * + Modifier.toString(mod)); } } catch (Exception e) { e.printStackTrace();
+	 * } }
+	 */
+
+	/**
+	 * SUBVIEW > ENTITY
+	 * 
+	 * @param subview
+	 * @param entity
+	 */
+	public static Object subviewToEntity(Object entity, Object subview) {
 		try {
-			Class<?> myType = Long.TYPE;
+			Class<?> classeEntity = entity.getClass();
 
-			Class<?> classe = p1.getClass();
+			Object obj = classeEntity.newInstance();
 
-			System.out.println("A classe " + classe.getSimpleName()
-					+ " possui os atributos:");
+			Class<?> classeSubview = subview.getClass();
 
-			for (Field atributo : classe.getDeclaredFields()) {
-				System.out.println("-------------");
+			for (Field atrEntity : classeEntity.getDeclaredFields()) {
+				if (atrEntity
+						.isAnnotationPresent(dc.control.converter.RunField.class)) {
+					String mapaSubview = atrEntity
+							.getAnnotation(RunField.class).mappedName();
 
-				System.out.println("nome atributo = " + atributo.getName());
-				System.out.println("membro da classe = "
-						+ atributo.getDeclaringClass());
-				System.out.println("tipo = " + atributo.getType());
+					String nomeSubview = atrEntity.getName();
+					String tipoSubview = atrEntity.getType().getName();
 
-				if (atributo.getType().isAssignableFrom(integerType)) {
-					System.out.println("><><><><> inteiro");
+					Field msgField = classeEntity.getDeclaredField(nomeSubview);
+					msgField.setAccessible(true);
+
+					if (tipoSubview.equals("java.lang.Double")) {
+						msgField.set(obj, new Double(10000));
+					} else if (tipoSubview.equals("java.lang.String")) {
+						String s = "" + mapaSubview.charAt(0);
+						s = s.toUpperCase();
+						mapaSubview = mapaSubview.replaceFirst(
+								"" + mapaSubview.charAt(0), s);
+						mapaSubview = "tf" + mapaSubview;
+
+						Field f = classeSubview.getDeclaredField(mapaSubview);
+						f.setAccessible(true);
+
+						TextField t = ((TextField) f.get(subview));
+
+						msgField.set(obj, t.getValue());
+					}
 				}
-
-				if (atributo.getType().isAssignableFrom(stringClass)) {
-					System.out.println("><><><><> string");
-				}
-
-				atributo.setAccessible(true);
-				System.out.println("valor rrrr  = " + atributo.get(p1));
-				// Object value = field.get(instance);
-
-				int mod = atributo.getModifiers();
-				System.out.println("modificadores = " + Modifier.toString(mod));
 			}
+
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return null;
 	}
 
 	public static void main(String[] args) {
-		ApoliceSeguroFormView p1 = new ApoliceSeguroFormView(null);
-		
-		p1.getTfImagem().setValue("teste");;
-		
+		ApoliceSeguroFormView p1 = new ApoliceSeguroFormView(
+				new ApoliceSeguroFormController());
+
+		p1.getTfImagem().setValue("teste");
+		;
+
 		ApoliceSeguroEntity p2 = new ApoliceSeguroEntity();
 
-		Teste.entityToSubview(p1, p2);
+		Teste.subviewToEntity(p2, p1);
 
 	}
 
