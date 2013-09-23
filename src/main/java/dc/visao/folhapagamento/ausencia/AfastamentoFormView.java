@@ -127,7 +127,7 @@ public class AfastamentoFormView extends CustomComponent {
 		panel_1 = new Panel();
 		panel_1.setImmediate(false);
 		panel_1.setWidth("100.0%");
-		panel_1.setHeight("100.0%");
+		// panel_1.setHeight("100.0%");
 
 		// verticalLayout_2
 		verticalLayout_2 = buildVerticalLayout_2();
