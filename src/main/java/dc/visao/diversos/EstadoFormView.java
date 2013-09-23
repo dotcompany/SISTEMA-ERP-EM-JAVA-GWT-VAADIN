@@ -80,7 +80,7 @@ public class EstadoFormView extends CustomComponent {
 		verticalLayout_1.setSpacing(true);
 		
 		// cmbPais
-		cmbPais = new ManyToOneCombo<>();
+		cmbPais = new ManyToOneCombo<Pais>();
 		cmbPais.setCaption("País");
 		cmbPais.setImmediate(false);
 		cmbPais.setWidth("600px");

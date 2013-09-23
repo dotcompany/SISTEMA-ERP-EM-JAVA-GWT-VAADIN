@@ -78,7 +78,7 @@ public class OperadoraPlanoSaudeFormView extends CustomComponent {
 		
 		// cmbContabilConta
 		
-		cmbContabilConta = new ManyToOneCombo<>();
+		cmbContabilConta = new ManyToOneCombo<ContabilConta>();
 		cmbContabilConta.setCaption("Contabil Conta");
 		cmbContabilConta.setImmediate(false);
 		cmbContabilConta.setWidth("640px");

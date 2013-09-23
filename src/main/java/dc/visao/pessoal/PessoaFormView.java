@@ -11,6 +11,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TabSheet;
@@ -68,9 +69,13 @@ public class PessoaFormView extends CustomComponent {
 
 	ComboBox cmbTipoRegime,cmbCrt;
 
-	Panel panelRG;
+	Panel panelRG,panelReservista;
 
-	TextField txtNumeroRG,txtEmissorRG;
+	TextField txtNumeroRG,txtEmissorRG,txtOrgaoEmissor;
+
+	TextField txtNumeroReservista;
+
+	ComboBox cmbCategoriaReservista;
 
 	PopupDateField dataEmissaoRG;
 
@@ -129,32 +134,23 @@ public class PessoaFormView extends CustomComponent {
 
 		mainLayout.addComponent(subForms);
 		mainLayout.setExpandRatio(subForms, 2);
-
-
 	}
 
 	public void buildAbaInformacoes(){
 
-		//		VerticalLayout l = new VerticalLayout();
-		//		layout.addComponent(panelFisica);
-
 		subForms = new TabSheet();
-
 		subForms.addTab(montaLayoutFisica(), "Informações do Tipo de Pessoa", null);
 
 	}
-
 
 	public void buildAbaContatos(){
 
 		TabSheet aba = buildContatosSubForm();
 		GridLayout layout = new GridLayout(1,1);
 		layout.setImmediate(false);
-		layout.setWidth("100.0%");
-		layout.setHeight("100.0%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
-		layout.setSizeFull();
+		layout.setSizeUndefined();
 		layout.addComponent(aba);
 		subForms.addTab(layout, "Contatos", null);
 	}
@@ -206,6 +202,7 @@ public class PessoaFormView extends CustomComponent {
 		layoutFisica.setMargin(true);
 		layoutFisica.setSpacing(true);
 		layoutFisica.setSizeFull();
+		layoutFisica.setHeight("500.0%");
 
 		txtCpf = new TextField("CPF");
 		txtNascimento = ComponentUtil.buildPopupDateField("Data Nascimento");
@@ -220,30 +217,51 @@ public class PessoaFormView extends CustomComponent {
 		txtNomeMae = ComponentUtil.buildTextField("Nome da Mãe");
 
 		panelRG = new Panel("RG");
-		panelRG.setWidth("80.0%");
+		panelRG.setSizeFull();
+		panelRG.setWidth("400.0%");
+		panelRG.setHeight("100.0%");
 		GridLayout layoutRG = new GridLayout(8, 7);
 		layoutRG.setMargin(true);
 		layoutRG.setSpacing(true);
 
 		txtNumeroRG  = ComponentUtil.buildTextField("Número");
 		txtEmissorRG = ComponentUtil.buildTextField("Emissor");
+		txtOrgaoEmissor = ComponentUtil.buildTextField("Órgão Emissor");
 		layoutRG.addComponent(txtNumeroRG,0,0);
 		layoutRG.addComponent(txtEmissorRG,1,0);
+		layoutRG.addComponent(txtOrgaoEmissor,2,0);
 		panelRG.setContent(layoutRG);
 
-		layoutFisica.addComponent(txtCpf,0,0);
-		layoutFisica.addComponent(txtNascimento,1,0);
-		layoutFisica.addComponent(cmbRaca,2,0);
-		layoutFisica.addComponent(cmbEstadoCivil,3,0);
-		layoutFisica.addComponent(cmbTipoSanguineo,4,0);
+		layoutFisica.addComponent(txtCpf,0,0,1,0);
+		layoutFisica.addComponent(txtNascimento,2,0);
+		layoutFisica.addComponent(cmbRaca,3,0);
+		layoutFisica.addComponent(cmbEstadoCivil,4,0);
+		layoutFisica.addComponent(cmbTipoSanguineo,5,0);
 
-		layoutFisica.addComponent(txtNaturalidade,0,1,2,1);
-		layoutFisica.addComponent(txtNacionalidade,3,1,5,1);
+		layoutFisica.addComponent(txtNaturalidade,0,1,1,1);
+		layoutFisica.addComponent(txtNacionalidade,2,1,3,1);
 
-		layoutFisica.addComponent(txtNomePai,0,2,2,2);
-		layoutFisica.addComponent(txtNomeMae,3,2,5,2);
+		layoutFisica.addComponent(txtNomePai,0,2,1,2);
+		layoutFisica.addComponent(txtNomeMae,2,2,3,2);
 
 		layoutFisica.addComponent(panelRG,0,3);
+
+		panelReservista = new Panel("Reservista");
+		panelReservista.setSizeFull();
+		panelReservista.setWidth("400.0%");
+		panelReservista.setHeight("100.0%");
+
+		GridLayout layoutReservista = new GridLayout(8, 7);
+		layoutReservista.setMargin(true);
+		layoutReservista.setSpacing(true);
+		layoutReservista.setSizeFull();
+
+		txtNumeroReservista = ComponentUtil.buildTextField("Número");
+		cmbCategoriaReservista = ComponentUtil.buildComboBox("Categoria");
+		layoutReservista.addComponent(txtNumeroReservista,0,0);
+		layoutReservista.addComponent(cmbCategoriaReservista,1,0);
+		panelReservista.setContent(layoutReservista);
+		layoutFisica.addComponent(panelReservista,0,4);
 		return layoutFisica;
 	}
 
@@ -325,12 +343,27 @@ public class PessoaFormView extends CustomComponent {
 		});
 
 		fields.addComponent(cmbTipoPessoa,3,0);
+		
+		
 
 		txtEmail = ComponentUtil.buildTextField("Email");
+		txtEmail.setHeight("30");
 		fields.addComponent(txtEmail,0,1,2,1);
 
 		txtSite = ComponentUtil.buildTextField("Site");
+		txtSite.setHeight("30");
 		fields.addComponent(txtSite,3,1);
+		
+		OptionGroup group = new OptionGroup("");
+		group.setMultiSelect(true);
+		group.addItem("Cliente");
+		group.addItem("Fornecedor");
+		group.addItem("Colaborador");
+		group.addItem("Convênio");
+		group.addItem("Contador");
+		group.addItem("Transportadora");
+		fields.addComponent(group,5,1);
+		
 
 		return fields;
 

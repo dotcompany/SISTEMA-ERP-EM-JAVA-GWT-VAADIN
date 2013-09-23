@@ -10,23 +10,26 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
+import dc.controller.geral.UFListController;
 import dc.entidade.diversos.Cep;
 import dc.entidade.geral.UF;
 import dc.servicos.dao.diversos.CepDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.diversos.CepFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 
 /**
 *
 * @author Wesley Jr
 /*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no Banco de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
+ * Nessa classe ela pega a classe principal que Ã© o CRUD, que tem todos os controllers
+ * da Tela, onde quando extendemos herdamos os mÃ©todos que temos na tela principal.
+ * Temos o botÃ£o Novo que Ã© para Criar uma nova Tela, para adicionar informaÃ§Ãµes
+ * novas, e dentro temos o Button Salvar que Ã© para salvar as informaÃ§Ãµes no Banco de Dados
+ * Temos o carregar tambÃ©m que Ã© para pegar as informaÃ§Ãµes que desejarmos quando
  * formos pesquisar na Tela.
  *
 */
@@ -44,6 +47,8 @@ public class CepFormController extends CRUDFormController<Cep> {
 	private UFDAO ufDAO;
 
 	private Cep currentBean;
+	
+	private MainController mainController;
 	
 	@Override
 	protected String getNome() {
@@ -86,7 +91,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 		subView.getTxtBairro().setValue(currentBean.getBairro());
 		subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
 		
-		/* Configura combo PAÍS */
+		/* Configura combo PAÃ�S */
 		ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
 
 			@Override
@@ -119,7 +124,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 		subView.getCmbUf().setValue(currentBean.getUf());
 	}
 	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
 	@Override
 	protected void quandoNovo() {
 		
@@ -128,6 +133,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 	@Override
 	protected void initSubView() {
 		subView = new CepFormView();
+		DefaultManyToOneComboModel<UF> modeluf= new DefaultManyToOneComboModel(UFListController . class , ufDAO , mainController );
 	}
 
 	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
@@ -147,7 +153,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 	protected boolean validaSalvar() {
 		if(subView.getTxtCep().getValue() ==  null || subView.getTxtCep().getValue().isEmpty()){
 			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtCep(),"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtCep(),"NÃ£o pode ficar em Branco!");
 			return false;
 		}
 		return true;

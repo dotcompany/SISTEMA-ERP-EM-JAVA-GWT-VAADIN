@@ -16,9 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,13 +36,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.Sindicato;
 import dc.entidade.financeiro.type.EmpresaType;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
 import dc.entidade.folhapagamento.cadastro.ParametroEntity;
 import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
@@ -52,7 +52,6 @@ import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
-import dc.entidade.pessoal.Contador;
 import dc.entidade.sistema.ContaEmpresa;
 
 /**
@@ -205,41 +204,47 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<GrupoBemEntity> grupoBemList;
-	
-	
+
 	/**
 	 * @autor Wesley Júnior
 	 * 
 	 * @module ADMINISTRATIVO
 	 */
-	
+
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Contato> contato = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
-	/*@ManyToOne
-	@JoinColumn(name = "ID_MATRIZ" , referencedColumnName = "ID")
-	private List<Matriz> matriz;
-	
 
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_CONTADOR",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-	private Contador contador;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_SINDICATO_PATRONAL",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-	private Sindicato sindicato;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_FPAS",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-	private Fpas fpas;*/
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "ID_MATRIZ" , referencedColumnName = "ID") private
+	 * List<Matriz> matriz;
+	 * 
+	 * 
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "ID_CONTADOR",insertable = true, updatable = true)
+	 * 
+	 * @Fetch(FetchMode.JOIN) private Contador contador;
+	 * 
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "ID_SINDICATO_PATRONAL",insertable = true, updatable =
+	 * true)
+	 * 
+	 * @Fetch(FetchMode.JOIN) private Sindicato sindicato;
+	 * 
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "ID_FPAS",insertable = true, updatable = true)
+	 * 
+	 * @Fetch(FetchMode.JOIN) private Fpas fpas;
+	 */
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -261,6 +266,15 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<InssEntity> inssList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoComissaoEntity> lancamentoComissaoList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<LancamentoDetalheEntity> lancamentoDetalheList;
 
 	/**
 	 * CONSTRUTOR
@@ -611,58 +625,78 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setInssList(List<InssEntity> inssList) {
 		this.inssList = inssList;
 	}
-	
-	public Contato addContato(
-		   Contato contato) {
-		getContato().add(contato); 
+
+	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
+		return lancamentoCabecalhoList;
+	}
+
+	public void setLancamentoCabecalhoList(
+			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
+	}
+
+	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
+		return lancamentoComissaoList;
+	}
+
+	public void setLancamentoComissaoList(
+			List<LancamentoComissaoEntity> lancamentoComissaoList) {
+		this.lancamentoComissaoList = lancamentoComissaoList;
+	}
+
+	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
+		return lancamentoDetalheList;
+	}
+
+	public void setLancamentoDetalheList(
+			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+		this.lancamentoDetalheList = lancamentoDetalheList;
+	}
+
+	public Contato addContato(Contato contato) {
+		getContato().add(contato);
 		contato.setEmpresa(this);
 
 		return contato;
 	}
 
-	public Contato removeContato(
-		   Contato contato) {
+	public Contato removeContato(Contato contato) {
 		getContato().remove(contato);
 		contato.setEmpresa(null);
 
 		return contato;
 	}
-	
+
 	public List<Contato> getContato() {
 		return contato;
 	}
 
-	public void setContato(
-			List<Contato> contato) {
+	public void setContato(List<Contato> contato) {
 		this.contato = contato;
 	}
 
-	
-	public Endereco addEndereco(
-			Endereco enderecos) {
-			getEnderecos().add(enderecos); 
-			enderecos.setEmpresa(this);
+	public Endereco addEndereco(Endereco enderecos) {
+		getEnderecos().add(enderecos);
+		enderecos.setEmpresa(this);
 
-			return enderecos;
-		}
+		return enderecos;
+	}
 
-		public Endereco removeEndereco(
-				Endereco enderecos) {
-			getEnderecos().remove(enderecos);
-			enderecos.setEmpresa(null);
+	public Endereco removeEndereco(Endereco enderecos) {
+		getEnderecos().remove(enderecos);
+		enderecos.setEmpresa(null);
 
-			return enderecos;
-		}
-		
-		public List<Endereco> getEnderecos() {
-			return enderecos;
-		}
+		return enderecos;
+	}
 
-		public void setEndereco(
-				List<Endereco> enderecos) {
-			this.enderecos = enderecos;
-		}
-		
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEndereco(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	// /**
 	// * HASH E EQUALS
 	// */
@@ -685,41 +719,30 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	// return EqualsBuilder.reflectionEquals(this, other);
 	// }
 
-	/*public List<Matriz> getMatriz() {
-			return matriz;
-		}
+	/*
+	 * public List<Matriz> getMatriz() { return matriz; }
+	 * 
+	 * public void setMatriz(List<Matriz> matriz) { this.matriz = matriz; }
+	 */
 
-		public void setMatriz(List<Matriz> matriz) {
-			this.matriz = matriz;
-		}*/
-		
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/*public Contador getContador() {
-		return contador;
-	}
-
-	public void setContador(Contador contador) {
-		this.contador = contador;
-	}
-
-	public Sindicato getSindicato() {
-		return sindicato;
-	}
-
-	public void setSindicato(Sindicato sindicato) {
-		this.sindicato = sindicato;
-	}
-
-	/*public Fpas getFpas() {
-		return fpas;
-	}
-
-	public void setFpas(Fpas fpas) {
-		this.fpas = fpas;
-	}*/
+	/*
+	 * public Contador getContador() { return contador; }
+	 * 
+	 * public void setContador(Contador contador) { this.contador = contador; }
+	 * 
+	 * public Sindicato getSindicato() { return sindicato; }
+	 * 
+	 * public void setSindicato(Sindicato sindicato) { this.sindicato =
+	 * sindicato; }
+	 * 
+	 * /*public Fpas getFpas() { return fpas; }
+	 * 
+	 * public void setFpas(Fpas fpas) { this.fpas = fpas; }
+	 */
 
 }

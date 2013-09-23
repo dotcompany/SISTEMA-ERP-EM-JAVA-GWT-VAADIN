@@ -33,6 +33,7 @@ import dc.entidade.financeiro.Sindicato;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
@@ -272,6 +273,9 @@ public class Colaborador extends AbstractModel<Integer> implements Serializable 
 
 	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
 	private List<HistoricoSalarialEntity> historicoSalarialList;
+
+	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
+	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
 
 	/**
 	 * ********************************************************
@@ -706,6 +710,15 @@ public class Colaborador extends AbstractModel<Integer> implements Serializable 
 	public void setHistoricoSalarialList(
 			List<HistoricoSalarialEntity> historicoSalarialList) {
 		this.historicoSalarialList = historicoSalarialList;
+	}
+
+	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
+		return lancamentoCabecalhoList;
+	}
+
+	public void setLancamentoCabecalhoList(
+			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
 	}
 
 	public ContabilConta getIdContaContabil() {
