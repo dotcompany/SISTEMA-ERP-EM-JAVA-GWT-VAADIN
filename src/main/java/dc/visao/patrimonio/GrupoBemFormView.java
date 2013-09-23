@@ -177,8 +177,9 @@ public class GrupoBemFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setHeight("100.0%");
+		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
+		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
 		gridLayout_1.setColumns(3);
 
@@ -190,6 +191,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfCodigoHistorico.setWidth("160px");
 		tfCodigoHistorico.setHeight("-1px");
 		tfCodigoHistorico.setRequired(true);
+		tfCodigoHistorico.setSizeFull();
 		gridLayout_1.addComponent(tfCodigoHistorico, 0, 1);
 
 		// tfContaDespesaDepreciacao
@@ -201,6 +203,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfContaDespesaDepreciacao.setWidth("160px");
 		tfContaDespesaDepreciacao.setHeight("-1px");
 		tfContaDespesaDepreciacao.setRequired(true);
+		tfContaDespesaDepreciacao.setSizeFull();
 		gridLayout_1.addComponent(tfContaDespesaDepreciacao, 1, 1);
 
 		// tfContaDepreciacaoAcumulada
@@ -212,6 +215,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfContaDepreciacaoAcumulada.setWidth("160px");
 		tfContaDepreciacaoAcumulada.setHeight("-1px");
 		tfContaDepreciacaoAcumulada.setRequired(true);
+		tfContaDepreciacaoAcumulada.setSizeFull();
 		gridLayout_1.addComponent(tfContaDepreciacaoAcumulada, 0, 2);
 
 		// tfContaAtivoImobilizado
@@ -222,6 +226,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfContaAtivoImobilizado.setWidth("160px");
 		tfContaAtivoImobilizado.setHeight("-1px");
 		tfContaAtivoImobilizado.setRequired(true);
+		tfContaAtivoImobilizado.setSizeFull();
 		gridLayout_1.addComponent(tfContaAtivoImobilizado, 1, 2);
 
 		// tfNome
@@ -232,6 +237,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
 		tfNome.setRequired(true);
+		tfNome.setSizeFull();
 		gridLayout_1.addComponent(tfNome, 0, 3);
 
 		// tfCodigo
@@ -242,6 +248,7 @@ public class GrupoBemFormView extends CustomComponent {
 		tfCodigo.setWidth("160px");
 		tfCodigo.setHeight("-1px");
 		tfCodigo.setRequired(true);
+		tfCodigo.setSizeFull();
 		gridLayout_1.addComponent(tfCodigo, 1, 3);
 
 		return gridLayout_1;

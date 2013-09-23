@@ -155,8 +155,9 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setHeight("100.0%");
+		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
+		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
 		gridLayout_1.setColumns(3);
 
@@ -167,6 +168,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		tfNcm.setImmediate(false);
 		tfNcm.setWidth("160px");
 		tfNcm.setHeight("-1px");
+		tfNcm.setSizeFull();
 		gridLayout_1.addComponent(tfNcm, 0, 1);
 
 		// tfBem
@@ -176,6 +178,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		tfBem.setImmediate(false);
 		tfBem.setWidth("160px");
 		tfBem.setHeight("-1px");
+		tfBem.setSizeFull();
 		gridLayout_1.addComponent(tfBem, 1, 1);
 
 		// tfTaxa
@@ -185,6 +188,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("160px");
 		tfTaxa.setHeight("-1px");
+		tfTaxa.setSizeFull();
 		gridLayout_1.addComponent(tfTaxa, 0, 2);
 
 		// tfVida
@@ -194,6 +198,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		tfVida.setImmediate(false);
 		tfVida.setWidth("160px");
 		tfVida.setHeight("-1px");
+		tfVida.setSizeFull();
 		gridLayout_1.addComponent(tfVida, 1, 2);
 
 		return gridLayout_1;
