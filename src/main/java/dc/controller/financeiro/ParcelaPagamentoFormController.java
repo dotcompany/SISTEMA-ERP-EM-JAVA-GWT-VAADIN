@@ -11,14 +11,20 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
+import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
+import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -39,6 +45,10 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	private ParcelaPagamentoDAO parcelaPagamentoDAO;
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
+	@Autowired
+	private TipoPagamentoDAO tipoPagamentoDAO;
+	@Autowired
+	private ContaCaixaDAO contaCaixaDAO;
 
 	private ParcelaPagamento currentBean;
 
@@ -54,11 +64,98 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new ParcelaPagamento();
+		preencheCombos();
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new ParcelaPagamentoFormView(this);
+
+		subView.getBtnEfetuaPagamento().addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				efetuaPagamento();
+			}
+		});
+
+		subView.getBtnExcluiPagamento().addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				excluiPagamento();
+			}
+		});
+
+		subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaTotalPago();
+
+			}
+		});
+
+		subView.getTxTaxaMulta().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaTotalPago();
+			}
+		});
+
+		subView.getTxTaxaDesconto().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaTotalPago();
+			}
+		});
+		
+		subView.getDtDataPagamento().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaTotalPago();
+			}
+		});
+		
+		subView.getTxValorJuro().setEnabled(false);
+		subView.getTxValorMulta().setEnabled(false);
+		subView.getTxValorDesconto().setEnabled(false);
+		subView.getTxValorPago().setEnabled(false);
+		subView.getDtDataVencimento().setEnabled(false);
+		subView.getTxValorPagar().setEnabled(false);
 	}
 
 	@Override
@@ -72,7 +169,16 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		currentBean.setContaCaixa(parcelaPagar.getContaCaixa());
 		currentBean.setValorPago(parcelaPagar.getValor());
 
+		preencheCombos();
 		subView.preencheForm(currentBean);
+		subView.fillParcelaPagamentosSubForm(parcelaPagamentoDAO.buscaPorParcelaPagar(parcelaPagar));
+		calculaTotalPago();
+	}
+
+	private void preencheCombos() {
+		subView.preencheComboTipoBaixa();
+		subView.preencheComboTipoPagamento(tipoPagamentoDAO.listaTodos());
+		subView.preencheComboContaCaixa(contaCaixaDAO.listaTodos());
 	}
 
 	@Override
@@ -99,7 +205,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	@Override
 	protected String getNome() {
-		return "Ponto Abono";
+		return "Pagamento Parcela";
 	}
 
 	@Override
@@ -162,6 +268,8 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		}
 
 		pagamento.setValorPago(pagamento.getParcelaPagar().getValor().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+		
+		subView.preencheForm(currentBean);
 	}
 
 	public void efetuaPagamento() {
@@ -208,7 +316,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		parcelaPagamentoDAO.save(parcelaPagamento);
 
 		StatusParcela statusParcela = null;
-		if (tipoBaixa.equals("T")) {
+		if ("T".equalsIgnoreCase(tipoBaixa)) {
 			statusParcela = statusParcelaDAO.findBySituacao("02");
 		} else {
 			statusParcela = statusParcelaDAO.findBySituacao("03");
