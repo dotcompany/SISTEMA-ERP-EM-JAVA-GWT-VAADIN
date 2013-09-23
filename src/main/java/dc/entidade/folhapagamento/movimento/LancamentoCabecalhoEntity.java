@@ -1,4 +1,4 @@
-package dc.entidade.folhapagamento.cadastro;
+package dc.entidade.folhapagamento.movimento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,9 +24,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
+import dc.entidade.pessoal.Colaborador;
 
 /**
  * 
@@ -35,11 +35,11 @@ import dc.entidade.framework.Empresa;
  */
 
 @Entity
-@Table(name = "folha_evento")
+@Table(name = "folha_lancamento_cabecalho")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EventoEntity extends AbstractModel<Integer> implements
+public class LancamentoCabecalhoEntity extends AbstractModel<Integer> implements
 		Serializable {
 
 	/**
@@ -49,49 +49,32 @@ public class EventoEntity extends AbstractModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_evento_id_seq")
-	@SequenceGenerator(name = "folha_evento_id_seq", sequenceName = "folha_evento_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_lancamento_cabecalho_id_seq")
+	@SequenceGenerator(name = "folha_lancamento_cabecalho_id_seq", sequenceName = "folha_lancamento_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
 
-	@Column(name = "codigo")
+	@Column(name = "competencia")
 	@Field
-	@Caption("Código")
-	private String codigo = "";
-
-	@Column(name = "nome")
-	@Field
-	@Caption("Nome")
-	private String nome = "";
-
-	@Column(name = "descricao")
-	@Field
-	@Caption("Descrição")
-	private String descricao = "";
+	@Caption("Competência")
+	private String competencia = "";
 
 	@Column(name = "tipo")
 	@Field
 	@Caption("Tipo")
 	private String tipo = "";
 
-	@Column(name = "unidade")
-	@Field
-	@Caption("Unidade")
-	private String unidade = "";
-
-	@Column(name = "base_calculo")
-	@Field
-	@Caption("Base de cálculo")
-	private String baseCalculo = "";
-
-	@Column(name = "taxa")
-	@Field
-	@Caption("Taxa")
-	private Double taxa = new Double(0.0);
-
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	/* id_colaborador integer NOT NULL, */
+
+	@ManyToOne
+	@JoinColumn(name = "id_colaborador", nullable = false)
+	@Caption("Colaborador")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Colaborador colaborador;
 
 	/* id_empresa integer NOT NULL, */
 
@@ -102,7 +85,7 @@ public class EventoEntity extends AbstractModel<Integer> implements
 	private Empresa empresa;
 
 	/**
-	 * LIST
+	 * REFERENCIA - LIST
 	 */
 
 	@OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
@@ -112,7 +95,7 @@ public class EventoEntity extends AbstractModel<Integer> implements
 	 * CONSTRUTOR
 	 */
 
-	public EventoEntity() {
+	public LancamentoCabecalhoEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -129,28 +112,13 @@ public class EventoEntity extends AbstractModel<Integer> implements
 		this.id = id;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getCompetencia() {
+		return competencia;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = (codigo == null ? "" : codigo.toUpperCase());
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = (nome == null ? "" : nome.toUpperCase());
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
+	public void setCompetencia(String competencia) {
+		this.competencia = (competencia == null ? "" : competencia
+				.toUpperCase());
 	}
 
 	public String getTipo() {
@@ -161,29 +129,12 @@ public class EventoEntity extends AbstractModel<Integer> implements
 		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
-	public String getUnidade() {
-		return unidade;
+	public Colaborador getColaborador() {
+		return colaborador;
 	}
 
-	public void setUnidade(String unidade) {
-		this.unidade = (unidade == null ? "" : unidade.toUpperCase());
-	}
-
-	public String getBaseCalculo() {
-		return baseCalculo;
-	}
-
-	public void setBaseCalculo(String baseCalculo) {
-		this.baseCalculo = (baseCalculo == null ? "" : baseCalculo
-				.toUpperCase());
-	}
-
-	public Double getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(Double taxa) {
-		this.taxa = taxa;
+	public void setColaborador(Colaborador colaborador) {
+		this.colaborador = colaborador;
 	}
 
 	public Empresa getEmpresa() {
@@ -192,6 +143,15 @@ public class EventoEntity extends AbstractModel<Integer> implements
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
+		return lancamentoDetalheList;
+	}
+
+	public void setLancamentoDetalheList(
+			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+		this.lancamentoDetalheList = lancamentoDetalheList;
 	}
 
 	/**

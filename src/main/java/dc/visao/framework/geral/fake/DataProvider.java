@@ -177,7 +177,7 @@ public class DataProvider {
         m6.score = 37;
         Movie m7 = new Movie("Valor agregado ", "","","", rd, ct);
         m7.score = 5;
-        Movie m8 = new Movie("Produtos pr�prios", "","","", rd, ct);
+        Movie m8 = new Movie("Produtos próprios", "","","", rd, ct);
         m8.score = 43;
         
         movies.add(m);

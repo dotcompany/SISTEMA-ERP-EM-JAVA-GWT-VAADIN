@@ -52,9 +52,11 @@ public class GrupoTributarioFormView extends CustomComponent {
 
 
 		descricao = ComponentUtil.buildTextField("Descrição");
+		descricao.setRequired(true);
 		fields.addComponent(descricao, 0, 0,3,0);
 
 		cmbOrigemMercadoria = new ComboBox("Origem Mercadoria");
+		cmbOrigemMercadoria.setRequired(true);
 		carregarOrigemMercadoria();
 		fields.addComponent(cmbOrigemMercadoria,4,0);
 

@@ -10,14 +10,17 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
+import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
 import dc.servicos.util.Validator;
 import dc.visao.diversos.OperadoraPlanoSaudeFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 
 
 @Controller
@@ -33,6 +36,8 @@ public class OperadoraPlanoSaudeFormController extends CRUDFormController<Operad
 	private ContabilContaDAO contabilContaDAO;
 	
 	private OperadoraPlanoSaude currentBean;
+	
+	private MainController mainController;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -62,6 +67,7 @@ public class OperadoraPlanoSaudeFormController extends CRUDFormController<Operad
 	@Override
 	protected void initSubView() {
 		subView = new OperadoraPlanoSaudeFormView();
+		DefaultManyToOneComboModel<ContabilConta> model= new DefaultManyToOneComboModel(ContabilContaListController . class , contabilContaDAO , mainController);
 		
 	}
 	

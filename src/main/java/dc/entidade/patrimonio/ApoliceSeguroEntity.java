@@ -53,7 +53,7 @@ public class ApoliceSeguroEntity extends AbstractModel<Integer> implements
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_apolice_seguro_id_seq")
 	@SequenceGenerator(name = "patrim_apolice_seguro_id_seq", sequenceName = "patrim_apolice_seguro_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@RunField(mappedName = "id")
+	// @RunField(mappedName = "id")
 	private Integer id;
 
 	@Column(name = "numero")

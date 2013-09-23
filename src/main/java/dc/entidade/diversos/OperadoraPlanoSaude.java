@@ -27,6 +27,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -56,11 +57,15 @@ public class OperadoraPlanoSaude extends AbstractModel<Integer> implements Seria
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
+	@Analyzer(definition= "dc_combo_analyzer")
+	@ComboValue
 	private String nome;
 
 	@Field
 	@Caption("Registro ANS")
 	@Column(name = "REGISTRO_ANS", length = 100)
+	@Analyzer(definition= "dc_combo_analyzer")
+	@ComboValue
 	private String registroAns;
 
 	@ManyToOne(optional = false)

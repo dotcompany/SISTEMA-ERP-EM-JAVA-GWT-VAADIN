@@ -1,12 +1,14 @@
-package dc.controller.tributario;
-
+package dc.controller.pessoal;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import dc.entidade.tributario.ICMSCustomizado;
+
+import dc.entidade.geral.Pessoa;
+import dc.entidade.suprimentos.ContagemEstoque;
+import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -14,28 +16,28 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoListController extends CRUDListController<ICMSCustomizado>
+public class PessoaListController extends CRUDListController<Pessoa>
 {
 
 	@Autowired
-	ContagemEstoqueDAO dao;
+	PessoaDAO dao;
 
 	@Autowired
-	ICMSCustomizadoFormController formController;
+	PessoaFormController formController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"descricao","origemMercadoria"};
+		return new String[] {"nome"};
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "ICMS Customizado";
+		return "Pessoa";
 	}
 
 	@Override
-	protected List<ICMSCustomizado> pesquisa(String valor) {
-		return null;
+	protected List<Pessoa> pesquisa(String valor) {
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -44,18 +46,18 @@ public class ICMSCustomizadoListController extends CRUDListController<ICMSCustom
 	}
 
 	@Override
-	protected CRUDFormController<ICMSCustomizado> getFormController() {
+	protected CRUDFormController<Pessoa> getFormController() {
 		return formController;
 	}
 
 	@Override
-	protected Class<? super ICMSCustomizado> getEntityClass() {
-		return ICMSCustomizado.class;
+	protected Class<? super Pessoa> getEntityClass() {
+		return Pessoa.class;
 	}
 
 
 	@Override
-	protected List<ICMSCustomizado> pesquisaDefault() {
+	protected List<Pessoa> pesquisaDefault() {
 
 		/*List<ContagemEstoque> lista = new ArrayList<>();
 		try{
