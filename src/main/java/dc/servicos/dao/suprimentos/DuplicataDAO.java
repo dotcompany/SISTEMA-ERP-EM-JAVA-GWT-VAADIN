@@ -17,7 +17,7 @@ public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> {
 
 
 	@Override
-	protected Class<NfeDuplicata> getEntityClass() {
+	public Class<NfeDuplicata> getEntityClass() {
 		return NfeDuplicata.class;
 	}
 

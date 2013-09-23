@@ -15,7 +15,7 @@ public class TransporteItinerarioDAO extends
 		AbstractCrudDAO<TransporteItinerarioEntity> {
 
 	@Override
-	protected Class<TransporteItinerarioEntity> getEntityClass() {
+	public Class<TransporteItinerarioEntity> getEntityClass() {
 		return TransporteItinerarioEntity.class;
 	}
 

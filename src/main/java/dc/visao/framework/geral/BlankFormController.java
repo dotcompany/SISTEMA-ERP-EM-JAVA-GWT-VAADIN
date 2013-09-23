@@ -163,4 +163,9 @@ public abstract class BlankFormController extends ControllerTask implements Cont
 	public String getControllerTitle() {
 		return this.getNome();
 	}
+	
+	@Override
+	public void dispose(){
+		
+	}
 }

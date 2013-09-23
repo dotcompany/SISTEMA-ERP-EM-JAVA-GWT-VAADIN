@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NCMDAO extends AbstractCrudDAO<NCM>{
 
 	@Override
-	protected Class<NCM> getEntityClass() {
+	public Class<NCM> getEntityClass() {
 		return NCM.class;
 	}
 

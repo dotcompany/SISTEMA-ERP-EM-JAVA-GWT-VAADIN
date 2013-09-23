@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 
 	@Override
-	protected Class<NaturezaFinanceira> getEntityClass() {
+	public Class<NaturezaFinanceira> getEntityClass() {
 		return NaturezaFinanceira.class;
 	}
 		

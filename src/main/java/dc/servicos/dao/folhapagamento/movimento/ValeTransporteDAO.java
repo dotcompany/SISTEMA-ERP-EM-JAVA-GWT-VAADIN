@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ValeTransporteDAO extends AbstractCrudDAO<ValeTransporteEntity> {
 
 	@Override
-	protected Class<ValeTransporteEntity> getEntityClass() {
+	public Class<ValeTransporteEntity> getEntityClass() {
 		return ValeTransporteEntity.class;
 	}
 

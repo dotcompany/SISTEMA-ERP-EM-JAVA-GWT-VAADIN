@@ -19,6 +19,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
@@ -98,7 +99,7 @@ public abstract class AbstractCrudDAO<T> {
 		logger.info("combo config value: " + comboValue);
 	}
 
-	protected abstract Class<T> getEntityClass();
+	public abstract Class<T> getEntityClass();
 
 	@Transactional
 	public Session getSession() {
@@ -162,6 +163,13 @@ public abstract class AbstractCrudDAO<T> {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 		return crit.list();
+	}
+	
+	@Transactional
+	public <T> List<T> getAllForCombo(final Class<T> type) {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria crit = session.createCriteria(type);
+		return crit.addOrder(Order.asc(comboValue)).list();
 	}
 	
 	@Transactional

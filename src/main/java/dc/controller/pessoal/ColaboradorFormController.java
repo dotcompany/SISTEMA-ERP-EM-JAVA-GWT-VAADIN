@@ -189,6 +189,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
 			}
+
+			@Override
+			public List<SituacaoColaborador> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbSituacaoColaborador().setModel(modelsituacao);
 		subView.getCmbSituacaoColaborador().setValue(currentBean.getIdSituacaoColaborador());
@@ -221,6 +227,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public void onEditar(Sindicato value) {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
+			}
+
+			@Override
+			public List<Sindicato> getAll() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		subView.getCmbSindicato().setModel(modelsindicato);
@@ -255,6 +267,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
 			}
+
+			@Override
+			public List<NivelFormacao> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbNivelFormacao().setModel(modelnivel);
 		subView.getCmbNivelFormacao().setValue(currentBean.getIdNivelFormacao());
@@ -287,6 +305,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public void onEditar(Cargo value) {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
+			}
+
+			@Override
+			public List<Cargo> getAll() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		subView.getCmbCargo().setModel(modelcargo);
@@ -321,6 +345,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				Notification.show("Selecionado Editar: " + value.getClassificacao());
 				
 			}
+
+			@Override
+			public List<ContabilConta> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbContaContabil().setModel(modelconta);
 		subView.getCmbContaContabil().setValue(currentBean.getIdContaContabil());
@@ -353,6 +383,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public void onEditar(Setor value) {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
+			}
+
+			@Override
+			public List<Setor> getAll() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		subView.getCmbSetor().setModel(modelsetor);

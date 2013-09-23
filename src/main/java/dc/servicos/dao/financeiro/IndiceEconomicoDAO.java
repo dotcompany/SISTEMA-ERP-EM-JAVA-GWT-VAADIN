@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomico>{
 
 	@Override
-	protected Class<IndiceEconomico> getEntityClass() {
+	public Class<IndiceEconomico> getEntityClass() {
 		return IndiceEconomico.class;
 	}
 

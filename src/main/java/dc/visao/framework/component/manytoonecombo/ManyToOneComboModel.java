@@ -16,6 +16,8 @@ public interface ManyToOneComboModel<T> {
 	List<T> getResultado(String q);
 
 	void onEditar(T value);
+
+	List<T> getAll();
 	
 	
 }

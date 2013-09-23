@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SefipCodigoRecolhimentoDAO extends AbstractCrudDAO<SefipCodigoRecolhimento>{
 
 	@Override
-	protected Class<SefipCodigoRecolhimento> getEntityClass() {
+	public Class<SefipCodigoRecolhimento> getEntityClass() {
 		return SefipCodigoRecolhimento.class;
 	}
 	

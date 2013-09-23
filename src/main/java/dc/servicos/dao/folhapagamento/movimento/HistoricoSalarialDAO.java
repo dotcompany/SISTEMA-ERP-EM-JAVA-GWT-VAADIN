@@ -21,7 +21,7 @@ public class HistoricoSalarialDAO extends
 		AbstractCrudDAO<HistoricoSalarialEntity> {
 
 	@Override
-	protected Class<HistoricoSalarialEntity> getEntityClass() {
+	public Class<HistoricoSalarialEntity> getEntityClass() {
 		return HistoricoSalarialEntity.class;
 	}
 

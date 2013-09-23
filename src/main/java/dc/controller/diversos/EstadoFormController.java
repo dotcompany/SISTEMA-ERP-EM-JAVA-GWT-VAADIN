@@ -106,6 +106,12 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 				Notification.show("Selecionado Editar: " + value.getNomeEn());
 
 			}
+
+			@Override
+			public List<Pais> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbPais().setModel(modelpais);
 		subView.getCmbPais().setValue(currentBean.getPaisId());

@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PlanoSaudeDAO extends AbstractCrudDAO<PlanoSaudeEntity> {
 
 	@Override
-	protected Class<PlanoSaudeEntity> getEntityClass() {
+	public Class<PlanoSaudeEntity> getEntityClass() {
 		return PlanoSaudeEntity.class;
 	}
 

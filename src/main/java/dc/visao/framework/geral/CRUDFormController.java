@@ -349,5 +349,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		return this.newAttemptOpen;
 	}
 	
+	@Override
+	public void dispose(){
+		view = null;
+		validatableComponents = null;
+		listController = null;
+	}
+	
 
 }

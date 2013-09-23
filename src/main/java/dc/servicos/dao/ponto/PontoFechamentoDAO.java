@@ -18,7 +18,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoFechamentoDAO extends AbstractCrudDAO<PontoFechamentoJornada> {
 
 	@Override
-	protected Class<PontoFechamentoJornada> getEntityClass() {
+	public Class<PontoFechamentoJornada> getEntityClass() {
 		return PontoFechamentoJornada.class;
 	}
 

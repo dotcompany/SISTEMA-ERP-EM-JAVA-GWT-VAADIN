@@ -18,7 +18,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class DocumentoDAO extends AbstractCrudDAO<Documento>{
 
 	@Override
-	protected Class<Documento> getEntityClass() {
+	public Class<Documento> getEntityClass() {
 		return Documento.class;
 	}
 

@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CsosnbDAO extends AbstractCrudDAO<Csosnb>{
 
 	@Override
-	protected Class<Csosnb> getEntityClass() {
+	public Class<Csosnb> getEntityClass() {
 		return Csosnb.class;
 	}
 	

@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivil>{
 
 	@Override
-	protected Class<EstadoCivil> getEntityClass() {
+	public Class<EstadoCivil> getEntityClass() {
 		return EstadoCivil.class;
 	}
 

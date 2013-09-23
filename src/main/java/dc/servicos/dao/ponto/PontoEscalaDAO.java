@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoEscalaDAO extends AbstractCrudDAO<PontoEscala> {
 
 	@Override
-	protected Class<PontoEscala> getEntityClass() {
+	public Class<PontoEscala> getEntityClass() {
 		return PontoEscala.class;
 	}
 

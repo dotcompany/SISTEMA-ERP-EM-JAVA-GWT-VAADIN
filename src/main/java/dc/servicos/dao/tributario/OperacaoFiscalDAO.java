@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class OperacaoFiscalDAO extends AbstractCrudDAO<OperacaoFiscal> {
 
 	@Override
-	protected Class<OperacaoFiscal> getEntityClass() {
+	public Class<OperacaoFiscal> getEntityClass() {
 		return OperacaoFiscal.class;
 	}
 

@@ -21,7 +21,7 @@ public class PapelDAO extends AbstractCrudDAO<Papel>{
 	public static Logger logger = Logger.getLogger(PapelDAO.class);
 	
 	@Override
-	protected Class<Papel> getEntityClass() {
+	public Class<Papel> getEntityClass() {
 		return Papel.class;
 	}
 	

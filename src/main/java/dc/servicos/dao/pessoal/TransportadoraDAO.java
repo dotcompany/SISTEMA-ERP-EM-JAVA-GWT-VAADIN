@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class TransportadoraDAO extends AbstractCrudDAO<Transportadora>{
 
 	@Override
-	protected Class<Transportadora> getEntityClass() {
+	public Class<Transportadora> getEntityClass() {
 		return Transportadora.class;
 	}
 

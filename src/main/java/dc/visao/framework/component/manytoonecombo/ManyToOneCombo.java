@@ -26,8 +26,6 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-
 @SuppressWarnings("serial")
 public class ManyToOneCombo<T> extends CustomComponent {
 
@@ -48,15 +46,18 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public ManyToOneCombo() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-
-		setupActions();
+	
+		
 	}
+	
+	
 
 	@SuppressWarnings("serial")
 	class FilteredBeanItemContainer extends BeanItemContainer<ItemValue> {
 
 		public FilteredBeanItemContainer() throws IllegalArgumentException {
 			super(ItemValue.class);
+			this.addAll(wrapValues(getModel().getAll()));
 		}
 
 		@Override
@@ -79,6 +80,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				createItemValue.setCaption("Criar novo: " + q);
 				createItemValue.setFilter(q);
 				addItem(createItemValue);
+			}else{
+				removeAllItems();
+				addAll(wrapValues(model.getAll()));
 			}
 		}
 
@@ -268,6 +272,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		if(model instanceof DefaultManyToOneComboModel){
 			((DefaultManyToOneComboModel)this.model).setCombo(this);	
 		}
+		setupActions();
 	}
 
 

@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ConfiguracaoTributariaDAO extends AbstractCrudDAO<ConfiguracaoTributaria> {
 
 	@Override
-	protected Class<ConfiguracaoTributaria> getEntityClass() {
+	public Class<ConfiguracaoTributaria> getEntityClass() {
 		return ConfiguracaoTributaria.class;
 	}
 

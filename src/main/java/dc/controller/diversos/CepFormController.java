@@ -114,6 +114,12 @@ public class CepFormController extends CRUDFormController<Cep> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 
 			}
+
+			@Override
+			public List<UF> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbUf().setModel(modeluf);
 		subView.getCmbUf().setValue(currentBean.getUf());

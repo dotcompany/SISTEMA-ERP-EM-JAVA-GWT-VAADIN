@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CidadeDAO extends AbstractCrudDAO<Cidade>{
 
 	@Override
-	protected Class<Cidade> getEntityClass() {
+	public Class<Cidade> getEntityClass() {
 		return Cidade.class;
 	}
 	

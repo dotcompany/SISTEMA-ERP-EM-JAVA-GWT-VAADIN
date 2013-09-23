@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ParametroDAO extends AbstractCrudDAO<ParametroEntity> {
 
 	@Override
-	protected Class<ParametroEntity> getEntityClass() {
+	public Class<ParametroEntity> getEntityClass() {
 		return ParametroEntity.class;
 	}
 

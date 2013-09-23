@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CepDAO extends AbstractCrudDAO<Cep>{
 
 	@Override
-	protected Class<Cep> getEntityClass() {
+	public Class<Cep> getEntityClass() {
 		return Cep.class;
 	}
 	

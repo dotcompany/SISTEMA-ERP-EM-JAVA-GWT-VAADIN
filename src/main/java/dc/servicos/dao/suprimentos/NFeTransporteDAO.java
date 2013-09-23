@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NFeTransporteDAO extends AbstractCrudDAO<NFeTransporte> {
 	
 	@Override
-	protected Class<NFeTransporte> getEntityClass() {
+	public Class<NFeTransporte> getEntityClass() {
 		return NFeTransporte.class;
 	}
 

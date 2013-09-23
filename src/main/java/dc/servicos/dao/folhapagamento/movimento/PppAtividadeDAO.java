@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PppAtividadeDAO extends AbstractCrudDAO<PppAtividadeEntity> {
 
 	@Override
-	protected Class<PppAtividadeEntity> getEntityClass() {
+	public Class<PppAtividadeEntity> getEntityClass() {
 		return PppAtividadeEntity.class;
 	}
 

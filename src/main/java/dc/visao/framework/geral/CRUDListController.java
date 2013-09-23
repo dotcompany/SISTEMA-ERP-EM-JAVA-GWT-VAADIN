@@ -70,11 +70,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	@Autowired
 	private MainController mainController;
-	private PapelMenu papelMenu;
-	private boolean acessoLiberado = false;
 	
 	@Autowired
 	private GenericListDAO genericDAO;
+	
+	private PapelMenu papelMenu;
+	private boolean acessoLiberado = false;
+	
+	
 	
 	
 	private Window window = null;
@@ -481,6 +484,13 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public void showOnWindow(Component c) {
 		window.setContent(c);
 		
+	}
+	
+	@Override
+	public void dispose(){
+		view = null;
+		table = null;
+		saveListener = null;
 	}
 
 }

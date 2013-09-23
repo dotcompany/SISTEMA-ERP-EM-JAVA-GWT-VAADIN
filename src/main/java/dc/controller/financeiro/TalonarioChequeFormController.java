@@ -111,6 +111,12 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 				Notification.show("Selecionado Editar: " + value.getNome());
 
 			}
+
+			@Override
+			public List<ContaCaixa> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 		subView.getCmbContaCaixa().setModel(model);
 		subView.getCmbContaCaixa().setValue(currentBean.getContaCaixa());

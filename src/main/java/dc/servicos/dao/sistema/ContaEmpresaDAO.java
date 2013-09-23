@@ -15,7 +15,7 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa>{
 	
 	
 	@Override
-	protected Class<ContaEmpresa> getEntityClass() {
+	public Class<ContaEmpresa> getEntityClass() {
 		// TODO Auto-generated method stub
 		return ContaEmpresa.class;
 	}

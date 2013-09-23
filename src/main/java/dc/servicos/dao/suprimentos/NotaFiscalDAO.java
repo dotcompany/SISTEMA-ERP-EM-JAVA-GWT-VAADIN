@@ -15,7 +15,7 @@ public class NotaFiscalDAO
 extends AbstractCrudDAO<NotaFiscal>{
 	
 	@Override
-	protected Class<NotaFiscal> getEntityClass() {
+	public Class<NotaFiscal> getEntityClass() {
 		return NotaFiscal.class;
 	}
 

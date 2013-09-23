@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CargoDAO extends AbstractCrudDAO<Cargo>{
 
 	@Override
-	protected Class<Cargo> getEntityClass() {
+	public Class<Cargo> getEntityClass() {
 		return Cargo.class;
 	}
 	

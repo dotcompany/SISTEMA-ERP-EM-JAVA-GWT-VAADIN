@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class TipoNotaFiscalDAO extends AbstractCrudDAO<TipoNotaFiscal> {
 
 	@Override
-	protected Class<TipoNotaFiscal> getEntityClass() {
+	public Class<TipoNotaFiscal> getEntityClass() {
 		return TipoNotaFiscal.class;
 	}
 

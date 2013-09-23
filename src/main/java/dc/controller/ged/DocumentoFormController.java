@@ -133,7 +133,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	protected void initSubView() {
 		subView = new DocumentoFormView();
 
-		DefaultManyToOneComboModel<TipoDocumento> model= new DefaultManyToOneComboModel(TipoDocumentoListController.class,tipoDocumentoDAO,mainController);
+		DefaultManyToOneComboModel<TipoDocumento> model= new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class,tipoDocumentoDAO,mainController);
 		subView.getCmbTipoDocumento().setModel(model);
 		
 	}

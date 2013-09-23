@@ -15,7 +15,7 @@ public class TipoMovimentacaoDAO extends
 		AbstractCrudDAO<TipoMovimentacaoEntity> {
 
 	@Override
-	protected Class<TipoMovimentacaoEntity> getEntityClass() {
+	public Class<TipoMovimentacaoEntity> getEntityClass() {
 		return TipoMovimentacaoEntity.class;
 	}
 

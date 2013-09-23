@@ -25,7 +25,7 @@ import dc.entidade.pessoal.Cargo;
 public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 
 	@Override
-	protected Class<Empresa> getEntityClass() {
+	public Class<Empresa> getEntityClass() {
 		return Empresa.class;
 	}
 
