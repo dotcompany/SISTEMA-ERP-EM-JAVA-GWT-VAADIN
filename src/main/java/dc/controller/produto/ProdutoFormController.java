@@ -225,6 +225,12 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbAlmoxarifado().setModel(modelalmoxarifado);
 		subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
@@ -263,6 +269,12 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			public List<GrupoTributario> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbGrupoTributario().setModel(modelgrupo);

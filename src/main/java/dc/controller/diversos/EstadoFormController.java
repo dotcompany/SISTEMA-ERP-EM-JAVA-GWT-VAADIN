@@ -116,6 +116,12 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbPais().setModel(modelpais);
 		subView.getCmbPais().setValue(currentBean.getPaisId());

@@ -117,6 +117,12 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbContaCaixa().setModel(model);
 		subView.getCmbContaCaixa().setValue(currentBean.getContaCaixa());

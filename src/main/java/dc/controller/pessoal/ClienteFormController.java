@@ -164,6 +164,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbPessoa().setModel(model);
 		subView.getCmbPessoa().setValue(currentBean.getPessoa());
@@ -202,6 +208,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			public List<SituacaoForCli> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbSituacao().setModel(modelsituacao);
@@ -242,6 +254,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbAtividade().setModel(modelatividade);
 		subView.getCmbAtividade().setValue(currentBean.getAtividadeForCli());
@@ -281,6 +299,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbContaContabil().setModel(modelconta);
 		subView.getCmbContaContabil().setValue(currentBean.getContabilConta());
@@ -319,6 +343,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			public List<OperacaoFiscal> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbOperacaoFiscal().setModel(modeloperacao);

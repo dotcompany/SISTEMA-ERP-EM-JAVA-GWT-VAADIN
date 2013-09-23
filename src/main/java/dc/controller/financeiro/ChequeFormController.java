@@ -131,6 +131,12 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		
 		subView.getCmbTalonarioCheque().setModel(model);

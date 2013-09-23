@@ -18,6 +18,8 @@ public interface ManyToOneComboModel<T> {
 	void onEditar(T value);
 
 	List<T> getAll();
+
+	void onAdvancedSearch();
 	
 	
 }

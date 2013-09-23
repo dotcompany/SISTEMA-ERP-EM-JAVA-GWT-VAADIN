@@ -195,6 +195,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbSituacaoColaborador().setModel(modelsituacao);
 		subView.getCmbSituacaoColaborador().setValue(currentBean.getIdSituacaoColaborador());
@@ -233,6 +239,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public List<Sindicato> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbSindicato().setModel(modelsindicato);
@@ -273,6 +285,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbNivelFormacao().setModel(modelnivel);
 		subView.getCmbNivelFormacao().setValue(currentBean.getIdNivelFormacao());
@@ -311,6 +329,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public List<Cargo> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbCargo().setModel(modelcargo);
@@ -351,6 +375,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbContaContabil().setModel(modelconta);
 		subView.getCmbContaContabil().setValue(currentBean.getIdContaContabil());
@@ -389,6 +419,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 			public List<Setor> getAll() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbSetor().setModel(modelsetor);

@@ -17,7 +17,7 @@ import com.vaadin.ui.Notification;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.TipoColaborador;
+
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
@@ -76,7 +76,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				
 				
 			});
-			ctrl.openOnNewWindow(modalSize);
+			ctrl.openOnNewWindow(modalSize,CRUDListController.WINDOW_FORM);
 			ctrl.getPublicFormController().criarNovo();
 		}
 		
@@ -149,7 +149,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		@Override
 		public void onEditar(T value) {
 			Notification.show("Selecionado Editar");
-			CRUDListController<TipoColaborador> ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
+			CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 			
 			 Usuario u = SecuritySessionProvider.getUsuario();
 			 
@@ -172,7 +172,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				
 				
 			});
-			ctrl.openOnNewWindow(modalSize);
+			ctrl.openOnNewWindow(modalSize,CRUDListController.WINDOW_FORM);
 			ctrl.getPublicFormController().load((AbstractModel<Serializable>) value);
 			
 		}
@@ -202,7 +202,41 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		@Override
 		public List<T> getAll() {
-			return dao.getAllForCombo(this.getEntityClass());
+			return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		}
+
+		@Override
+		public void onAdvancedSearch() {
+
+			Notification.show("Selecionado Busca avançada");
+			CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
+			
+			 Usuario u = SecuritySessionProvider.getUsuario();
+			 
+			if(ctrl instanceof ControllerAcesso){
+				ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;
+				if(u.getAdministrador()){
+					ctrlAcesso.setAcessoLiberado();
+				}else{
+					PapelMenu pf = mainController.getDaoPapel().getPapelMenuByPapelAndMenuControllerClass(u.getPapel().getId(),ctrlClass.toString());
+					ctrlAcesso.setPapelMenu(pf);	
+				}
+				
+			}
+			
+			ctrl.addSelectionListener(new ModalWindowSelectionListener<T>(){
+
+				@Override
+				public void onSelect(T object) {
+					combo.setValue(object);
+				}
+				
+				
+			});
+			
+			ctrl.openOnNewWindow(modalSize,CRUDListController.WINDOW_LIST);
+			
+			
 		}
              
 	

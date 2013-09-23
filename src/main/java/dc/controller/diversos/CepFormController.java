@@ -125,6 +125,12 @@ public class CepFormController extends CRUDFormController<Cep> {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbUf().setModel(modeluf);
 		subView.getCmbUf().setValue(currentBean.getUf());

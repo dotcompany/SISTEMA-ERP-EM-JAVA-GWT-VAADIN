@@ -166,11 +166,19 @@ public abstract class AbstractCrudDAO<T> {
 	}
 	
 	@Transactional
-	public <T> List<T> getAllForCombo(final Class<T> type) {
+	public <T> List<T> getAllForCombo(final Class<T> type,int idEmpresa) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
+		if(isMultiEmpresa(type)){
+			crit.add(Restrictions.eq("empresa.id", idEmpresa));
+		}
+		
 		return crit.addOrder(Order.asc(comboValue)).list();
 	}
+	
+	private boolean isMultiEmpresa(Class c) {
+		return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
+	}	
 	
 	@Transactional
 	public List<T> fullTextSearch(String valor) {

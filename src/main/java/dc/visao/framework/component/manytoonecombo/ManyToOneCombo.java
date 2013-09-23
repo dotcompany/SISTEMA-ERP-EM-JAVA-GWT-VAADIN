@@ -26,6 +26,8 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
+import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
+
 @SuppressWarnings("serial")
 public class ManyToOneCombo<T> extends CustomComponent {
 
@@ -34,12 +36,14 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	private Button btnEdit;
 	private ComboBox cmbResult;
 	private ItemValue createItemValue;
+	private ItemValue searchItemValue;
 
 	private ManyToOneComboModel<T> model;
 	private String filterString;
 
 	public static int ITEM_TYPE_BEAN = 0;
 	public static int ITEM_TYPE_CREATE = 1;
+	public static int ITEM_TYPE_SEARCH = 2;
 	
 	public static Logger logger = Logger.getLogger(ManyToOneCombo.class);
 
@@ -55,6 +59,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	@SuppressWarnings("serial")
 	class FilteredBeanItemContainer extends BeanItemContainer<ItemValue> {
 
+		
+
 		public FilteredBeanItemContainer() throws IllegalArgumentException {
 			super(ItemValue.class);
 			this.addAll(wrapValues(getModel().getAll()));
@@ -65,6 +71,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			String q = filterString;
 			if (q != null && q.length() >= 2) {
 				removeAllItems();
+				
+				searchItemValue = new ItemValue();
+				searchItemValue.setType(ITEM_TYPE_SEARCH);
+				searchItemValue.setCaption("Pesquisa avançada");
+				searchItemValue.setFilter(q);
+				addItem(searchItemValue);
 
 				// Adiciona os itens filtrados
 				if(model != null){
@@ -191,6 +203,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		if (val.getType() == ITEM_TYPE_CREATE) {
 			model.onCriarNovo(val.getFilter());
+		}else if(val.getType() == ITEM_TYPE_SEARCH){
+			model.onAdvancedSearch();
 		}
 	}
 
