@@ -509,6 +509,7 @@ public class BemFormView extends CustomComponent {
 		tfNumeroNb.setImmediate(false);
 		tfNumeroNb.setWidth("160px");
 		tfNumeroNb.setHeight("-1px");
+		tfNumeroNb.setSizeFull();
 		gridLayout_1.addComponent(tfNumeroNb, 0, 1);
 
 		// tfDescricao
@@ -517,6 +518,7 @@ public class BemFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
 		gridLayout_1.addComponent(tfDescricao, 1, 1);
 
 		// tfNome
@@ -525,7 +527,8 @@ public class BemFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
-		gridLayout_1.addComponent(tfNome, 0, 2);
+		tfNome.setSizeFull();
+		gridLayout_1.addComponent(tfNome, 2, 1);
 
 		// tfNumeroSerie
 		tfNumeroSerie = new TextField();
@@ -533,7 +536,8 @@ public class BemFormView extends CustomComponent {
 		tfNumeroSerie.setImmediate(false);
 		tfNumeroSerie.setWidth("160px");
 		tfNumeroSerie.setHeight("-1px");
-		gridLayout_1.addComponent(tfNumeroSerie, 1, 2);
+		tfNumeroSerie.setSizeFull();
+		gridLayout_1.addComponent(tfNumeroSerie, 0, 2);
 
 		// pdfDataAquisicao
 		pdfDataAquisicao = new PopupDateField();
@@ -541,7 +545,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataAquisicao.setImmediate(false);
 		pdfDataAquisicao.setWidth("160px");
 		pdfDataAquisicao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataAquisicao, 0, 3);
+		gridLayout_1.addComponent(pdfDataAquisicao, 1, 2);
 
 		// pdfDataAceite
 		pdfDataAceite = new PopupDateField();
@@ -549,7 +553,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataAceite.setImmediate(false);
 		pdfDataAceite.setWidth("160px");
 		pdfDataAceite.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataAceite, 1, 3);
+		gridLayout_1.addComponent(pdfDataAceite, 2, 2);
 
 		// pdfDataCadastro
 		pdfDataCadastro = new PopupDateField();
