@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.context.annotation.Scope;
+import org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
+import org.vaadin.hhe.nanoscrollpanel.gwt.client.GwtNanoScrollPanel;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
@@ -43,6 +43,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.framework.FmModulo;
 import dc.entidade.geral.Usuario;
+import dc.visao.framework.component.ScrollBarLayout;
 import dc.visao.framework.geral.fake.DashboardView;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -85,7 +86,7 @@ public class MainView extends CssLayout implements View {
             {
                 setSizeFull();
                 addStyleName("main-view");
-                addComponent(new VerticalLayout() {
+                addComponent(new VerticalLayout()  {
                     // Sidebar
                     {
                         addStyleName("sidebar");
@@ -116,11 +117,21 @@ public class MainView extends CssLayout implements View {
                         addComponent(homeLinkLayout);
 
                         // SidebarMenu
-                        addComponent(sideBarMenu);
+                        
+                        //NanoScrollPanel nPanel = new NanoScrollPanel();
+                 	    //nPanel.setSizeFull();
+                 	   // nPanel.setWidth("100%");
+                        //nPanel.setHeight("40px");
+                      //  nPanel.
+                 	    //nPanel.flashScrollbar();
+                 	   // nPanel.setPreventPageScrolling(true); 
+                 	   // nPanel.setContent(sideBarMenu);
+                 	    addComponent(sideBarMenu);
+                        //addComponent(nPanel);
                         setExpandRatio(sideBarMenu, 1);
 
                         // User menu
-                        addComponent(new VerticalLayout() {
+                        addComponent( new VerticalLayout() {
                             {
                                 setSizeUndefined();
                                 addStyleName("user");
@@ -242,9 +253,12 @@ public class MainView extends CssLayout implements View {
             	rightSide.setHeight("100%");
                 addComponent(rightSide);
                 setExpandRatio(rightSide, 1);
+             
             }
         });
 
+       
+        
         sideBarMenu.removeAllComponents();
         
         sideBarMenu.addStyleName("menu");

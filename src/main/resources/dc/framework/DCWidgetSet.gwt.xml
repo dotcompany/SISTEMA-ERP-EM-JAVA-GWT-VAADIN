@@ -10,6 +10,7 @@
 	<inherits name="com.vaadin.addon.charts.Widgetset" />
 	<inherits name="com.vaadin.addon.timeline.gwt.TimelineWidgetSet" />
 	<inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
+	<inherits name="org.vaadin.hhe.nanoscrollpanel.gwt.NanoScrollPanelWidgetset" />
 	<inherits name="org.vaadin.easyuploads.Widgetset" />
 	<inherits name="org.vaadin.tepi.imageviewer.widgetset.ImageViewerWidgetset" />
 	<inherits name="org.vaadin.peter.imagescaler.ImageScalerWidgetset" />
