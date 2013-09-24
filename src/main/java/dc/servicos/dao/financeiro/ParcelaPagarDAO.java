@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar>{
 
 	@Override
-	protected Class<ParcelaPagar> getEntityClass() {
+	public Class<ParcelaPagar> getEntityClass() {
 		return ParcelaPagar.class;
 	}
 

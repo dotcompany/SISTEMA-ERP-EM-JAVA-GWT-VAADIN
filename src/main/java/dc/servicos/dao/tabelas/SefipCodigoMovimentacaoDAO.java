@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SefipCodigoMovimentacaoDAO extends AbstractCrudDAO<SefipCodigoMovimentacao>{
 
 	@Override
-	protected Class<SefipCodigoMovimentacao> getEntityClass() {
+	public Class<SefipCodigoMovimentacao> getEntityClass() {
 		return SefipCodigoMovimentacao.class;
 	}
 	

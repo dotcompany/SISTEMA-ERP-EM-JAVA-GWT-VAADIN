@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class UFDAO extends AbstractCrudDAO<UF>{
 	
 	@Override
-	protected Class<UF> getEntityClass() {
+	public Class<UF> getEntityClass() {
 		return UF.class;
 	}
 	

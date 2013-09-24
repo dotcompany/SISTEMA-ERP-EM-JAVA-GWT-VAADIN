@@ -21,7 +21,7 @@ public class FeriasPeriodoAquisitivoDAO extends
 		AbstractCrudDAO<FeriasPeriodoAquisitivoEntity> {
 
 	@Override
-	protected Class<FeriasPeriodoAquisitivoEntity> getEntityClass() {
+	public Class<FeriasPeriodoAquisitivoEntity> getEntityClass() {
 		return FeriasPeriodoAquisitivoEntity.class;
 	}
 

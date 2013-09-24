@@ -15,7 +15,7 @@ public class NotaReferenciadaDAO
 extends AbstractCrudDAO<NotaReferenciada>{
 	
 	@Override
-	protected Class<NotaReferenciada> getEntityClass() {
+	public Class<NotaReferenciada> getEntityClass() {
 		return NotaReferenciada.class;
 	}
 

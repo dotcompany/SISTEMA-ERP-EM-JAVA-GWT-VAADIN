@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CentroResultadoDAO extends AbstractCrudDAO<CentroResultado>{
 
 	@Override
-	protected Class<CentroResultado> getEntityClass() {
+	public Class<CentroResultado> getEntityClass() {
 		return CentroResultado.class;
 	}
 	

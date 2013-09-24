@@ -158,6 +158,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
 			}
+
+			@Override
+			public List<Pessoa> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbPessoa().setModel(model);
 		subView.getCmbPessoa().setValue(currentBean.getPessoa());
@@ -189,6 +201,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			@Override
 			public void onEditar(SituacaoForCli value) {
 				Notification.show("Selecionado Editar: " + value.getNome());
+				
+			}
+
+			@Override
+			public List<SituacaoForCli> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
 				
 			}
 		};
@@ -224,6 +248,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
 			}
+
+			@Override
+			public List<AtividadeForCli> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbAtividade().setModel(modelatividade);
 		subView.getCmbAtividade().setValue(currentBean.getAtividadeForCli());
@@ -257,6 +293,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 				Notification.show("Selecionado Editar: " + value.getClassificacao());
 				
 			}
+
+			@Override
+			public List<ContabilConta> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbContaContabil().setModel(modelconta);
 		subView.getCmbContaContabil().setValue(currentBean.getContabilConta());
@@ -288,6 +336,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			@Override
 			public void onEditar(OperacaoFiscal value) {
 				Notification.show("Selecionado Editar: " + value.getDescricao());
+				
+			}
+
+			@Override
+			public List<OperacaoFiscal> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
 				
 			}
 		};

@@ -20,4 +20,6 @@ public interface Task {
 	
 	public void setTaskInstanceId(String id) ;
 
+	public void dispose();
+
 }

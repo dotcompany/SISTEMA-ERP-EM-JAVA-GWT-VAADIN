@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoBancoHorasDAO extends AbstractCrudDAO<PontoBancoHoras> {
 
 	@Override
-	protected Class<PontoBancoHoras> getEntityClass() {
+	public Class<PontoBancoHoras> getEntityClass() {
 		return PontoBancoHoras.class;
 	}
 

@@ -15,7 +15,7 @@ public class GenericListDAO extends AbstractCrudDAO<Serializable> {
 	}
 	
 	@Override
-	protected Class<Serializable> getEntityClass() {
+	public Class<Serializable> getEntityClass() {
 		// TODO Auto-generated method stub
 		return pojoClass;
 	}

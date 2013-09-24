@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SindicatoDAO extends AbstractCrudDAO<Sindicato>{
 
 	@Override
-	protected Class<Sindicato> getEntityClass() {
+	public Class<Sindicato> getEntityClass() {
 		return Sindicato.class;
 	}
 

@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoRelogioDAO extends AbstractCrudDAO<PontoRelogio> {
 
 	@Override
-	protected Class<PontoRelogio> getEntityClass() {
+	public Class<PontoRelogio> getEntityClass() {
 		return PontoRelogio.class;
 	}
 

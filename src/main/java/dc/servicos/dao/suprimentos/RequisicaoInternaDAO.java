@@ -18,7 +18,7 @@ public class RequisicaoInternaDAO
 extends AbstractCrudDAO<RequisicaoInterna>{
 
 	@Override
-	protected Class<RequisicaoInterna> getEntityClass() {
+	public Class<RequisicaoInterna> getEntityClass() {
 		return RequisicaoInterna.class;
 	}
 

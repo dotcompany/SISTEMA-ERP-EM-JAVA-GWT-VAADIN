@@ -42,6 +42,7 @@ import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
+import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -63,6 +64,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public static Logger logger = Logger.getLogger(CRUDListController.class);
 	private static final Object CUSTOM_SELECT_ID = "Selecionar";
 	private static final int PAGE_SIZE = 100;
+	public static final int WINDOW_LIST = 1;
+	public static final int WINDOW_FORM = 2;
 	CRUDListView view;
 	private Table table;
 
@@ -70,17 +73,19 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	@Autowired
 	private MainController mainController;
-	private PapelMenu papelMenu;
-	private boolean acessoLiberado = false;
 	
 	
 	
 	@Autowired
 	private GenericListDAO genericDAO;
 	
+	private PapelMenu papelMenu;
+	private boolean acessoLiberado = false;
+	
 	
 	private Window window = null;
 	private ModalWindowSaveListener saveListener;
+	private ModalWindowSelectionListener windowSelectionListener;
 			
 	@PostConstruct
 	protected void init() {
@@ -174,10 +179,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	protected void actionAbrir(Object object) {
 		if(object == null){				
 			getFormController().mensagemAtencao("Escolha um registro para abrir");
-		}else{
-			Serializable id = (Serializable) object;
-			mainController.showTaskableContent( getFormController());
-			getFormController().mostrar(id);		
+		}else{Serializable id = (Serializable) object;
+			if(isOnSeparateWindow()){
+				notifySelected((E) genericDAO.find(id));
+			}else{
+				mainController.showTaskableContent( getFormController());
+				getFormController().mostrar(id);	
+			}
+					
 		}
 
 	}
@@ -429,24 +438,34 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		window = null;
 	}
 	
-	public void openOnNewWindow(int modalSize){
+	public void openOnNewWindow(int modalSize, final int mode){
 		window = new Window(){
 			
 			private static final long serialVersionUID = 1L;
 
 				public void close() {
-			         if(getFormController().hasNewAttemptOpen()){
-			           getFormController().confirmClose();  
-			         } else{
-			        	 super.close();
-			         }
+					if(mode == WINDOW_FORM){
+						if(getFormController().hasNewAttemptOpen()){
+					           getFormController().confirmClose();  
+					         } else{
+					        	 super.close();
+					         }	
+					}else{
+						super.close();
+					}
+			        
 			     };
 			     
 		};
 		
 		
-	
-		window.setContent((Component) getFormController().getView());
+		if(mode == WINDOW_FORM){
+			window.setContent((Component) getFormController().getView());	
+		}else if(mode == WINDOW_LIST){
+			window.setContent((Component) getView());
+		}
+		
+		
 		
 		window.center();
 		if(modalSize != 1 && modalSize != 2){
@@ -476,7 +495,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	public void addSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
 		saveListener = modalWindowSaveListener;
-		
+	}
+	
+	public void addSelectionListener(ModalWindowSelectionListener listener) {
+		windowSelectionListener = listener;
 	}
 	
 	public Table getTable(){
@@ -488,10 +510,23 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			saveListener.onSave(obj);
 		}
 	}
+	public void notifySelected(E obj) {
+		if(windowSelectionListener != null){
+			windowSelectionListener.onSelect(obj);
+			this.closeWindow();
+		}
+	}
 
 	public void showOnWindow(Component c) {
 		window.setContent(c);
 		
+	}
+	
+	@Override
+	public void dispose(){
+		view = null;
+		table = null;
+		saveListener = null;
 	}
 
 }

@@ -143,8 +143,9 @@ public class TipoAquisicaoFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setHeight("100.0%");
+		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
+		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
 		gridLayout_1.setColumns(3);
 
@@ -155,6 +156,7 @@ public class TipoAquisicaoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("160px");
 		tfTipo.setHeight("-1px");
+		tfTipo.setSizeFull();
 		gridLayout_1.addComponent(tfTipo, 0, 1);
 
 		// tfNome
@@ -164,6 +166,7 @@ public class TipoAquisicaoFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
+		tfNome.setSizeFull();
 		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfDescricao
@@ -173,6 +176,7 @@ public class TipoAquisicaoFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
 		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		return gridLayout_1;

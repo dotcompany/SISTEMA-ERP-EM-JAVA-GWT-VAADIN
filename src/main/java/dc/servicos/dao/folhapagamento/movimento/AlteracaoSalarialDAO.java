@@ -21,7 +21,7 @@ public class AlteracaoSalarialDAO extends
 		AbstractCrudDAO<AlteracaoSalarialEntity> {
 
 	@Override
-	protected Class<AlteracaoSalarialEntity> getEntityClass() {
+	public Class<AlteracaoSalarialEntity> getEntityClass() {
 		return AlteracaoSalarialEntity.class;
 	}
 

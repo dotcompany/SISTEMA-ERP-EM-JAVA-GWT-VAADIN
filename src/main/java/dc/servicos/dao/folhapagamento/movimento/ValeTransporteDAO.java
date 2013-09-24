@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ValeTransporteDAO extends AbstractCrudDAO<ValeTransporteEntity> {
 
 	@Override
-	protected Class<ValeTransporteEntity> getEntityClass() {
+	public Class<ValeTransporteEntity> getEntityClass() {
 		return ValeTransporteEntity.class;
 	}
 
@@ -41,7 +41,7 @@ public class ValeTransporteDAO extends AbstractCrudDAO<ValeTransporteEntity> {
 	@Transactional
 	public List<ValeTransporteEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM ValeTransporteEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM ValeTransporteEntity ent WHERE (1 = 1) AND ent.colaborador.matricula LIKE :q";
 
 			List<ValeTransporteEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,7 +54,7 @@ public class ValeTransporteDAO extends AbstractCrudDAO<ValeTransporteEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Número", "Bem", "Seguradora" };
+		return new String[] { "Quantidade", "Colaborador" };
 	}
 
 }

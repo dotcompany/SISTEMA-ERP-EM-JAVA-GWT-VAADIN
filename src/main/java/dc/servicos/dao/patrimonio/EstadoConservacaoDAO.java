@@ -15,7 +15,7 @@ public class EstadoConservacaoDAO extends
 		AbstractCrudDAO<EstadoConservacaoEntity> {
 
 	@Override
-	protected Class<EstadoConservacaoEntity> getEntityClass() {
+	public Class<EstadoConservacaoEntity> getEntityClass() {
 		return EstadoConservacaoEntity.class;
 	}
 

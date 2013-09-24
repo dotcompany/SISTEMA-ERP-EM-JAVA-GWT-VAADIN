@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PppExameMedicoDAO extends AbstractCrudDAO<PppExameMedicoEntity> {
 
 	@Override
-	protected Class<PppExameMedicoEntity> getEntityClass() {
+	public Class<PppExameMedicoEntity> getEntityClass() {
 		return PppExameMedicoEntity.class;
 	}
 

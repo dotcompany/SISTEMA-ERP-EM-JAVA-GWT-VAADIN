@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class LancamentoDAO extends AbstractCrudDAO<LancamentoEntity> {
 
 	@Override
-	protected Class<LancamentoEntity> getEntityClass() {
+	public Class<LancamentoEntity> getEntityClass() {
 		return LancamentoEntity.class;
 	}
 

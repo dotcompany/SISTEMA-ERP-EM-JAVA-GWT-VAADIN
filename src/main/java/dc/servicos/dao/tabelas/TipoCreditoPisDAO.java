@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class TipoCreditoPisDAO extends AbstractCrudDAO<TipoCreditoPis>{
 
 	@Override
-	protected Class<TipoCreditoPis> getEntityClass() {
+	public Class<TipoCreditoPis> getEntityClass() {
 		return TipoCreditoPis.class;
 	}
 	

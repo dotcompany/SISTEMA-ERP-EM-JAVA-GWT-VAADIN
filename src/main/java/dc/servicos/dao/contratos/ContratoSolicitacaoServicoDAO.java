@@ -10,7 +10,7 @@ public class ContratoSolicitacaoServicoDAO extends
 		AbstractCrudDAO<ContratoSolicitacaoServico> {
 
 	@Override
-	protected Class<ContratoSolicitacaoServico> getEntityClass() {
+	public Class<ContratoSolicitacaoServico> getEntityClass() {
 		return ContratoSolicitacaoServico.class;
 	}
 

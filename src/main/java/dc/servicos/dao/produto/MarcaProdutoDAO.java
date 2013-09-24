@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class MarcaProdutoDAO extends AbstractCrudDAO<MarcaProduto>{
 
 	@Override
-	protected Class<MarcaProduto> getEntityClass() {
+	public Class<MarcaProduto> getEntityClass() {
 		return MarcaProduto.class;
 	}
 

@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ICMSCustomizadoDAO extends AbstractCrudDAO<ICMSCustomizado> {
 
 	@Override
-	protected Class<ICMSCustomizado> getEntityClass() {
+	public Class<ICMSCustomizado> getEntityClass() {
 		return ICMSCustomizado.class;
 	}
 

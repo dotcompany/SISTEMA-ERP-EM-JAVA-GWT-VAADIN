@@ -20,7 +20,7 @@ public class OperadoraPlanoSaudeDAO extends
 		AbstractCrudDAO<OperadoraPlanoSaude> {
 
 	@Override
-	protected Class<OperadoraPlanoSaude> getEntityClass() {
+	public Class<OperadoraPlanoSaude> getEntityClass() {
 		return OperadoraPlanoSaude.class;
 	}
 

@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CBODAO extends AbstractCrudDAO<CBO>{
 
 	@Override
-	protected Class<CBO> getEntityClass() {
+	public Class<CBO> getEntityClass() {
 		return CBO.class;
 	}
 	

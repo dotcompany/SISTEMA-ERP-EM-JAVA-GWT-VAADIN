@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SituacaoColaboradorDAO extends AbstractCrudDAO<SituacaoColaborador>{
 
 	@Override
-	protected Class<SituacaoColaborador> getEntityClass() {
+	public Class<SituacaoColaborador> getEntityClass() {
 		return SituacaoColaborador.class;
 	}
 

@@ -17,7 +17,7 @@ public class CupomVinculadoDAO
 extends AbstractCrudDAO<CupomVinculado>{
 
 	@Override
-	protected Class<CupomVinculado> getEntityClass() {
+	public Class<CupomVinculado> getEntityClass() {
 		return CupomVinculado.class;
 	}
 

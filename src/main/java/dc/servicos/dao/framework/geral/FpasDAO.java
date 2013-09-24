@@ -23,7 +23,7 @@ import dc.entidade.framework.Fpas;
 public class FpasDAO extends AbstractCrudDAO<Fpas> {
 
 	@Override
-	protected Class<Fpas> getEntityClass() {
+	public Class<Fpas> getEntityClass() {
 		return Fpas.class;
 	}
 

@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NFEmitenteDAO extends AbstractCrudDAO<NotaFiscalEmitente> {
 
 	@Override
-	protected Class<NotaFiscalEmitente> getEntityClass() {
+	public Class<NotaFiscalEmitente> getEntityClass() {
 		return NotaFiscalEmitente.class;
 	}
 

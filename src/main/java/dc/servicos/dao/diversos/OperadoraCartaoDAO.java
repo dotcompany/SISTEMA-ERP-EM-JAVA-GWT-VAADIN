@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class OperadoraCartaoDAO extends AbstractCrudDAO<OperadoraCartao>{
 
 	@Override
-	protected Class<OperadoraCartao> getEntityClass() {
+	public Class<OperadoraCartao> getEntityClass() {
 		return OperadoraCartao.class;
 	}
 

@@ -12,10 +12,13 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+
 import dc.entidade.financeiro.Banco;
 import dc.entidade.geral.UF;
+import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
-public class AgenciaBancoFormView extends CustomComponent {
+
+public class AgenciaBancoFormView extends  CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -338,7 +341,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtLogradouro.setImmediate(false);
 		txtLogradouro.setWidth("520px");
 		txtLogradouro.setHeight("-1px");
-		txtLogradouro.setRequired(true);
+		txtLogradouro.setRequired(false);
 		verticalLayout_1.addComponent(txtLogradouro);
 		
 		return verticalLayout_1;
@@ -360,7 +363,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtNumero.setImmediate(false);
 		txtNumero.setWidth("-1px");
 		txtNumero.setHeight("-1px");
-		txtNumero.setRequired(true);
+		txtNumero.setRequired(false);
 		horizontalLayout_3.addComponent(txtNumero);
 		
 		// txtBairro
@@ -369,7 +372,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtBairro.setImmediate(false);
 		txtBairro.setWidth("373px");
 		txtBairro.setHeight("-1px");
-		txtBairro.setRequired(true);
+		txtBairro.setRequired(false);
 		horizontalLayout_3.addComponent(txtBairro);
 		
 		return horizontalLayout_3;
@@ -391,7 +394,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtCep.setImmediate(false);
 		txtCep.setWidth("-1px");
 		txtCep.setHeight("-1px");
-		txtCep.setRequired(true);
+		txtCep.setRequired(false);
 		horizontalLayout_4.addComponent(txtCep);
 		
 		// txtMunicipio
@@ -400,7 +403,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtMunicipio.setImmediate(false);
 		txtMunicipio.setWidth("313px");
 		txtMunicipio.setHeight("-1px");
-		txtMunicipio.setRequired(true);
+		txtMunicipio.setRequired(false);
 		horizontalLayout_4.addComponent(txtMunicipio);
 		
 		// cmbUF
@@ -469,7 +472,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		txtaObservacao.setImmediate(false);
 		txtaObservacao.setWidth("540px");
 		txtaObservacao.setHeight("-1px");
-		txtaObservacao.setRequired(true);
+		txtaObservacao.setRequired(false);
 		horizontalLayout_6.addComponent(txtaObservacao);
 		
 		return horizontalLayout_6;

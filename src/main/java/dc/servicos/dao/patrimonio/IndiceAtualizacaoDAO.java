@@ -15,7 +15,7 @@ public class IndiceAtualizacaoDAO extends
 		AbstractCrudDAO<IndiceAtualizacaoEntity> {
 
 	@Override
-	protected Class<IndiceAtualizacaoEntity> getEntityClass() {
+	public Class<IndiceAtualizacaoEntity> getEntityClass() {
 		return IndiceAtualizacaoEntity.class;
 	}
 

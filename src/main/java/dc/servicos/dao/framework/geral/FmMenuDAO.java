@@ -20,7 +20,7 @@ import dc.entidade.framework.FmModulo;
 public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 
 	@Override
-	protected Class<FmMenu> getEntityClass() {
+	public Class<FmMenu> getEntityClass() {
 		return FmMenu.class;
 	}
 	

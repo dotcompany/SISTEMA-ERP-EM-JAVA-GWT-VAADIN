@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class BemDAO extends AbstractCrudDAO<BemEntity> {
 
 	@Override
-	protected Class<BemEntity> getEntityClass() {
+	public Class<BemEntity> getEntityClass() {
 		return BemEntity.class;
 	}
 

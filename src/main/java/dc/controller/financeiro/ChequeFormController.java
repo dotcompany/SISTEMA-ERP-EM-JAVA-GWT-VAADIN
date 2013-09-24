@@ -125,6 +125,18 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 				Notification.show("Selecionado Editar: " + value.getTalao());
 
 			}
+
+			@Override
+			public List<TalonarioCheque> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		
 		subView.getCmbTalonarioCheque().setModel(model);

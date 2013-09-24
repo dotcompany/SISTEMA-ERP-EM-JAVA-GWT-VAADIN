@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PedidoCompraDAO extends AbstractCrudDAO<PedidoCompra>{
 
 		@Override
-		protected Class<PedidoCompra> getEntityClass() {
+		public Class<PedidoCompra> getEntityClass() {
 			return PedidoCompra.class;
 		}
 		

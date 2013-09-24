@@ -20,6 +20,9 @@ public abstract class ControllerTask implements Task {
 	@Override
 	public abstract Controller getController();
 	
+	@Override
+	public abstract void dispose();
+	
 
 	@Override
 	public Task getParent(){

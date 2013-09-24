@@ -26,7 +26,7 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable>{
 
 	public static Logger logger = Logger.getLogger(SearchIndexerDAO.class);
 	@Override
-	protected Class<Serializable> getEntityClass() {
+	public Class<Serializable> getEntityClass() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -124,6 +124,18 @@ public class AgenciaBancoFormController extends
 				Notification.show("Selecionado Editar: " + value.getNome());
 
 			}
+
+			@Override
+			public List<Banco> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		//subView.getCmbBanco().setModel(model);
 		//subView.getCmbBanco().setValue(currentBean.getBanco());

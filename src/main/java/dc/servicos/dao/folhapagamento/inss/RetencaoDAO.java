@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class RetencaoDAO extends AbstractCrudDAO<RetencaoEntity> {
 
 	@Override
-	protected Class<RetencaoEntity> getEntityClass() {
+	public Class<RetencaoEntity> getEntityClass() {
 		return RetencaoEntity.class;
 	}
 
