@@ -10,13 +10,16 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 
+import dc.controller.geral.UFListController;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.Banco;
+import dc.entidade.geral.UF;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.AgenciaBancoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -67,7 +70,6 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNomee().getValue());
 		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
 		currentBean.setBairro(subView.getTxtBairro().getValue());
@@ -76,6 +78,7 @@ public class AgenciaBancoFormController extends
 		currentBean.setGerente(subView.getTxtGerente().getValue());
 		currentBean.setTelefone(subView.getTxtTelefone().getValue());
 		currentBean.setNumero(subView.getTxtNumero().getValue());
+
 		try {
 			agenciaDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
@@ -98,7 +101,6 @@ public class AgenciaBancoFormController extends
 
 		/* Configura combo BANCOOOOO */
 		ManyToOneComboModel<Banco> model = new ManyToOneComboModel<Banco>() {
-
 			@Override
 			public void onCriarNovo(String filter) {
 				Notification.show("Selecionado Criar Novo: " + filter);
@@ -134,11 +136,11 @@ public class AgenciaBancoFormController extends
 			@Override
 			public void onAdvancedSearch() {
 				// TODO Auto-generated method stub
-				
+
 			}
 		};
-		//subView.getCmbBanco().setModel(model);
-		//subView.getCmbBanco().setValue(currentBean.getBanco());
+		// subView.getCmbBanco().setModel(model);
+		// subView.getCmbBanco().setValue(currentBean.getBanco());
 
 		/* Configura combo UF */
 		/*
@@ -161,8 +163,7 @@ public class AgenciaBancoFormController extends
 		 * subView.getCmbUF().setValue(currentBean.getUf());
 		 */
 
-		subView.getCmbUF().setValue(currentBean.getUf());
-
+		// subView.getCmbUF().setValue(currentBean.getUf());
 	}
 
 	/*
@@ -176,9 +177,20 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void initSubView() {
-		subView = new AgenciaBancoFormView();
+		this.subView = new AgenciaBancoFormView();
 
-		subView.InitCbs(bancoDAO.listaTodos(), ufDAO.listaTodos());
+		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
+				BancoListController.class, this.bancoDAO,
+				super.getMainController());
+
+		this.subView.getCmbBanco().setModel(modelBanco);
+
+		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
+				UFListController.class, this.ufDAO, super.getMainController());
+
+		this.subView.getCmbUF().setModel(modelUf);
+
+		// subView.InitCbs(bancoDAO.listaTodos(), ufDAO.listaTodos());
 	}
 
 	/*

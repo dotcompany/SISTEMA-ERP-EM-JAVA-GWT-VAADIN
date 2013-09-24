@@ -21,100 +21,104 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
-
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
-@Table(name="banco")
+@Table(name = "banco")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Banco extends AbstractModel<Integer> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "NOME")
-    @Field
-    @Caption("Nome")
-    private String nome;
-    
-    
-    @Column(name = "URL")
-    @Field
-    @Caption("URL")
-    private String url;
-    
-    public Banco() {
-    }
 
-    public Banco(Integer id) {
-        this.id = id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "NOME")
+	@Field
+	@Caption("Nome")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "URL")
+	@Field
+	@Caption("URL")
+	private String url;
 
-    public String getNome() {
-        return nome;
-    }
+	public Banco() {
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Banco(Integer id) {
+		this.id = id;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof Banco == false) return false;
-    	if (this == object) return true;
-    	final Banco other = (Banco) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Banco == false)
+			return false;
+		if (this == object)
+			return true;
+		final Banco other = (Banco) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 	public void setAgenciaBanco(AgenciaBanco value) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Object getAgenciaBanco() {

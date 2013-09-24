@@ -118,17 +118,14 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				if(!isOnSeparateWindow()){
-					mainController.showTaskableContent(CRUDFormController.this);	
-				}else{
+				if (!isOnSeparateWindow()) {
+					mainController.showTaskableContent(CRUDFormController.this);
+				} else {
 					listController.showOnWindow(view);
-					criarNovo();	
+					criarNovo();
 				}
-				
-				
 
 			}
-
 
 		});
 
@@ -136,61 +133,51 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if(!hasNewAttemptOpen()){
-					closeFormTaskOrWindow();	
-				}else{
+				if (!hasNewAttemptOpen()) {
+					closeFormTaskOrWindow();
+				} else {
 					confirmClose();
 				}
-				
-				
+
 			}
 
-			
-
-			
-
-			
-
-			
 		});
 	}
-	
+
 	private void closeFormTaskOrWindow() {
-		if(!isOnSeparateWindow()){
+		if (!isOnSeparateWindow()) {
 			mainController.removeTask(CRUDFormController.this, false);
-			mainController.showTaskableContent((Task) listController);	
-		}else{
+			mainController.showTaskableContent((Task) listController);
+		} else {
 			close();
 		}
 	}
-	
+
 	public void confirmClose() {
-		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?", "Você não salvou nenhuma de suas alterações.",
-		        "Sim", "Não", new ConfirmDialog.Listener() {
-		            public void onClose(ConfirmDialog dialog) {
-		            	if (dialog.isConfirmed()) {
-		            		newAttemptOpen = false;
-		            		closeFormTaskOrWindow();
-		            	}
-		            }
-		        });
+		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?",
+				"Você não salvou nenhuma de suas alterações.", "Sim", "Não",
+				new ConfirmDialog.Listener() {
+					public void onClose(ConfirmDialog dialog) {
+						if (dialog.isConfirmed()) {
+							newAttemptOpen = false;
+							closeFormTaskOrWindow();
+						}
+					}
+				});
 	}
-	
+
 	private boolean isOnSeparateWindow() {
 		return listController.isOnSeparateWindow();
 	}
-	
-	
+
 	private void close() {
-		if(hasNewAttemptOpen()){
+		if (hasNewAttemptOpen()) {
 			confirmClose();
-		}else{
-			listController.closeWindow();	
+		} else {
+			listController.closeWindow();
 		}
-		
+
 	}
-	
-	
 
 	protected boolean isFullSized() {
 		return false;
@@ -235,10 +222,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	protected abstract void carregar(Serializable id);
-	
-	public void load(AbstractModel<Serializable> model){
-		if(model != null){
-			carregar(model.getId());	
+
+	public void load(AbstractModel<Serializable> model) {
+		if (model != null) {
+			carregar(model.getId());
 		}
 	}
 
@@ -250,7 +237,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	public void notifiyFrameworkSaveOK(E obj) {
-		newAttemptOpen  = false;
+		newAttemptOpen = false;
 		listController.notifySaved(obj);
 		new Notification("Gravado!", "Registro gravado com sucesso",
 				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
@@ -344,17 +331,20 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void setModuleId(String id) {
 		// nothing yet
 	}
-	
-	public boolean hasNewAttemptOpen(){
+
+	public boolean hasNewAttemptOpen() {
 		return this.newAttemptOpen;
 	}
-	
+
 	@Override
-	public void dispose(){
+	public void dispose() {
 		view = null;
 		validatableComponents = null;
 		listController = null;
 	}
-	
+
+	protected MainController getMainController() {
+		return mainController;
+	}
 
 }
