@@ -1,7 +1,6 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +17,11 @@ import org.vaadin.addons.lazyquerycontainer.LazyQueryView;
 import org.vaadin.addons.lazyquerycontainer.NestingBeanItem;
 import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.dialogs.DefaultConfirmDialogFactory;
+import org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
+import org.vaadin.hhe.nanoscrollpanel.gwt.client.GwtNanoScrollPanel;
 
 import com.sun.istack.logging.Logger;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
@@ -28,11 +30,9 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Table.ColumnGenerator;
-import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.Window.CloseListener;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
@@ -49,13 +49,13 @@ import dc.visao.spring.SecuritySessionProvider;
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Classe principal que é abstract, onde implementa o Controller e pega
+ * Nessa classe temos a Classe principal que � abstract, onde implementa o Controller e pega
  * um Component.
- * Nessa tela temos as informações de todos os botões a configuração deles
+ * Nessa tela temos as informa��es de todos os bot�es a configura��o deles
  * SALVAR, PESQUISAR E CRIAR
- * Onde temos a configuração deles, o que cada botão faz!
- * Temos a configuração da Tabela, pois pegamos informações da Tela CRUDListView
- * Temos a configuração do Container também.
+ * Onde temos a configura��o deles, o que cada bot�o faz!
+ * Temos a configura��o da Tabela, pois pegamos informa��es da Tela CRUDListView
+ * Temos a configura��o do Container tamb�m.
  *
 */
 
@@ -74,6 +74,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	@Autowired
 	private MainController mainController;
 	
+	
+	
 	@Autowired
 	private GenericListDAO genericDAO;
 	
@@ -87,6 +89,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			
 	@PostConstruct
 	protected void init() {
+		
+		
+		
 		getFormController().setListController(this);
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
@@ -200,10 +205,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		final List ids = Arrays.asList(selected.keySet().toArray());
 		final List values = Arrays.asList(selected.values().toArray());
 		if(ids.isEmpty()){
-			getFormController().mensagemAtencao("Nenhum registro selecionado para remoção");
+			getFormController().mensagemAtencao("Nenhum registro selecionado para remo��o");
 		}else{
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
-			        "Sim", "Não", new ConfirmDialog.Listener() {
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remo��o", "Voc� tem certeza? Isso apagar� os registros selecionados e N�o poder� ser revertido.",
+			        "Sim", "N�o", new ConfirmDialog.Listener() {
 
 			            public void onClose(ConfirmDialog dialog) {
 			                if (dialog.isConfirmed()) {
@@ -223,7 +228,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			            			table.refreshRowCache();
 			            			}catch (Exception e){
 			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
+			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo N�o tem depend�ncia com outros registros.");
 			            			}
 			                } 
 			            }
@@ -293,7 +298,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
-		// configuração do Container
+		
+		// configura��o do Container
 		BeanQueryFactory queryFactory = null ;
 		if(isMultiEmpresa(getEntityClass())){
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
@@ -306,7 +312,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("id_empresa",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -327,7 +333,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			else
 				table.setColumnHeader(prop, prop);
 
-			// verifica se é uma propriedade de um objeto dentro do bean
+			// verifica se � uma propriedade de um objeto dentro do bean
 			if (prop.contains(".")) {
 				//container.addNestedContainerProperty(prop);
 			}
@@ -347,14 +353,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		
 		table.setVisibleColumns(allCollumns);
 		table.setSizeFull();
-
+		
+	
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 
 	}
 	
-	private boolean isMultiEmpresa(Class c) {
-			return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
+	private boolean isMultiEmpresa(Object o) {
+		    return o instanceof AbstractMultiEmpresaModel;
 	}
 
 
@@ -492,6 +499,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	
 	public void addSelectionListener(ModalWindowSelectionListener listener) {
 		windowSelectionListener = listener;
+	}
+	
+	public Table getTable(){
+		return table;
 	}
 
 	public void notifySaved(E obj) {

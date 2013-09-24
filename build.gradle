@@ -41,6 +41,7 @@ dependencies {
 
 		 
 		 compile files('libs/maskedtextfield-0.1.4.jar')
+		 //compile files('libs/nanoscrollpanel-1.1.7.jar')
 		  
 		 compile('org.vaadin.addon:confirmdialog:2.0.4'){
      		//excluding a particular transitive dependency:
@@ -86,6 +87,14 @@ dependencies {
          
          //compile 'org.vaadin.addons:canvas:2.0'
          compile 'org.vaadin.addons:popupbutton:2.2.0'
+         
+          compile ('org.vaadin.addons:nanoscrollpanel:1.1.7'){
+   			exclude module: 'vaadin' //by artifact name
+   			exclude module: 'vaadin-server' //by artifact name
+   			exclude module: 'vaadin-client' //by artifact name
+   			exclude module: 'vaadin-client-compiled' //by artifact name
+   			exclude module: 'vaadin-themes' //by artifact name
+   		}
 
 		// dependencies		
 		compile 'org.hibernate:hibernate-entitymanager:4.2.5.Final'
