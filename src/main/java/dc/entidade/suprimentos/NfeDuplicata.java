@@ -36,7 +36,7 @@ public class NfeDuplicata extends AbstractModel<Integer> {
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_duplicata_id_seq", allocationSize = 1)
 	private Integer id;
 	
-	@Caption("Número")
+	@Caption("NÃºmero")
 	String numero;
 	
 	@Caption("Data Vencimento")
