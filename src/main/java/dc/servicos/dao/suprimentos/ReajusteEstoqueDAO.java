@@ -9,7 +9,7 @@ public class ReajusteEstoqueDAO
 extends AbstractCrudDAO<ReajusteEstoque>{
 
 	@Override
-	protected Class<ReajusteEstoque> getEntityClass() {
+	public Class<ReajusteEstoque> getEntityClass() {
 		return ReajusteEstoque.class;
 	}
 

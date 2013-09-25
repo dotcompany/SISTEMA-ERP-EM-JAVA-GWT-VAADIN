@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class TipoDesligamentoDAO extends AbstractCrudDAO<TipoDesligamento>{
 
 	@Override
-	protected Class<TipoDesligamento> getEntityClass() {
+	public Class<TipoDesligamento> getEntityClass() {
 		return TipoDesligamento.class;
 	}
 

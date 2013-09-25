@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class LaudoTecnicoDAO extends AbstractCrudDAO<LaudoTecnicoEntity> {
 
 	@Override
-	protected Class<LaudoTecnicoEntity> getEntityClass() {
+	public Class<LaudoTecnicoEntity> getEntityClass() {
 		return LaudoTecnicoEntity.class;
 	}
 

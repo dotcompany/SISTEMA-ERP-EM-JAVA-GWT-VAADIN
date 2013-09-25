@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NFeLocalEntregaDAO extends AbstractCrudDAO<NfeLocalEntrega> {
 	
 	@Override
-	protected Class<NfeLocalEntrega> getEntityClass() {
+	public Class<NfeLocalEntrega> getEntityClass() {
 		return NfeLocalEntrega.class;
 	}
 

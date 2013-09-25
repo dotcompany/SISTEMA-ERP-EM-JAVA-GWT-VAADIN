@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoParametroDAO extends AbstractCrudDAO<PontoParametro> {
 
 	@Override
-	protected Class<PontoParametro> getEntityClass() {
+	public Class<PontoParametro> getEntityClass() {
 		return PontoParametro.class;
 	}
 

@@ -147,7 +147,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setHeight("100.0%");
+		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setRows(20);
 		gridLayout_1.setColumns(3);

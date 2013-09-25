@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PppFatorRiscoDAO extends AbstractCrudDAO<PppFatorRiscoEntity> {
 
 	@Override
-	protected Class<PppFatorRiscoEntity> getEntityClass() {
+	public Class<PppFatorRiscoEntity> getEntityClass() {
 		return PppFatorRiscoEntity.class;
 	}
 

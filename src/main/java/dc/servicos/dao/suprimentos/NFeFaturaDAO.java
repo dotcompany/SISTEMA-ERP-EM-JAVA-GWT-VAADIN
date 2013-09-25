@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NFeFaturaDAO extends AbstractCrudDAO<NfeFatura> {
 
 	@Override
-	protected Class<NfeFatura> getEntityClass() {
+	public Class<NfeFatura> getEntityClass() {
 		return NfeFatura.class;
 	}
 

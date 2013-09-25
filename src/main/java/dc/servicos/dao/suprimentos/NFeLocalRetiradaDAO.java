@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NFeLocalRetiradaDAO extends AbstractCrudDAO<NfeLocalRetirada> {
 	
 	@Override
-	protected Class<NfeLocalRetirada> getEntityClass() {
+	public Class<NfeLocalRetirada> getEntityClass() {
 		return NfeLocalRetirada.class;
 	}
 

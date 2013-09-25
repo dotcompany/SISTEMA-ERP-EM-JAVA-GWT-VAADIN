@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SpedPis4310DAO extends AbstractCrudDAO<SpedPis4310>{
 
 	@Override
-	protected Class<SpedPis4310> getEntityClass() {
+	public Class<SpedPis4310> getEntityClass() {
 		return SpedPis4310.class;
 	}
 	

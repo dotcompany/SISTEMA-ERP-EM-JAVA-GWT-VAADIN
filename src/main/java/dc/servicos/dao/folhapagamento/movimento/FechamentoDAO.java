@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 
 	@Override
-	protected Class<FechamentoEntity> getEntityClass() {
+	public Class<FechamentoEntity> getEntityClass() {
 		return FechamentoEntity.class;
 	}
 

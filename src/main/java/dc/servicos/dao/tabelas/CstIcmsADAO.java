@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CstIcmsADAO extends AbstractCrudDAO<CstIcmsA>{
 
 	@Override
-	protected Class<CstIcmsA> getEntityClass() {
+	public Class<CstIcmsA> getEntityClass() {
 		return CstIcmsA.class;
 	}
 	

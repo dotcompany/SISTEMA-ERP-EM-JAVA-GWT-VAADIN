@@ -20,7 +20,7 @@ public class UsuarioDAO extends AbstractCrudDAO<Usuario>{
 	Logger log = LoggerFactory.getLogger(UsuarioDAO.class);
 	
 	@Override
-	protected Class<Usuario> getEntityClass() {
+	public Class<Usuario> getEntityClass() {
 		return Usuario.class;
 	}
 	

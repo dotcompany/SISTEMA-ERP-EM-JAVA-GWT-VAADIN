@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class GuiaAcumuladaDAO extends AbstractCrudDAO<GuiaAcumuladaEntity> {
 
 	@Override
-	protected Class<GuiaAcumuladaEntity> getEntityClass() {
+	public Class<GuiaAcumuladaEntity> getEntityClass() {
 		return GuiaAcumuladaEntity.class;
 	}
 

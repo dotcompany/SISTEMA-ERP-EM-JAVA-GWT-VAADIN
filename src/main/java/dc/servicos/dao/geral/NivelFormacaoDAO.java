@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacao>{
 
 	@Override
-	protected Class<NivelFormacao> getEntityClass() {
+	public Class<NivelFormacao> getEntityClass() {
 		return NivelFormacao.class;
 	}
 	

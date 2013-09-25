@@ -43,7 +43,7 @@ public class ValeTransporteListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "numero", "bem.nome", "seguradora.nome" };
+		return new String[] { "quantidade", "colaborador.matricula" };
 	}
 
 	@Override

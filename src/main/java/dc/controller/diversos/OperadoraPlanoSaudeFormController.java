@@ -106,6 +106,18 @@ public class OperadoraPlanoSaudeFormController extends CRUDFormController<Operad
 						Notification.show("Selecionado Editar: " + value.getClassificacao());
 						
 					}
+
+					@Override
+					public List<ContabilConta> getAll() {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public void onAdvancedSearch() {
+						// TODO Auto-generated method stub
+						
+					}
 				};
 				subView.getCmbContabilConta().setModel(model);
 				subView.getCmbContabilConta().setValue(currentBean.getContabilConta());

@@ -97,6 +97,18 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 				Notification.show("Selecionado Editar: " + value.getNome());
 				
 			}
+
+			@Override
+			public List<Pessoa> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbPessoa().setModel(model);
 		subView.getCmbPessoa().setValue(currentBean.getPessoa());
@@ -128,6 +140,18 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 			@Override
 			public void onEditar(ContabilConta value) {
 				Notification.show("Selecionado Editar: " + value.getClassificacao());
+				
+			}
+
+			@Override
+			public List<ContabilConta> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
 				
 			}
 		};

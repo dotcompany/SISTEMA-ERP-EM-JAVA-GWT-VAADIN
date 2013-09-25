@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PaisDAO extends AbstractCrudDAO<Pais>{
 
 	@Override
-	protected Class<Pais> getEntityClass() {
+	public Class<Pais> getEntityClass() {
 		return Pais.class;
 	}
 

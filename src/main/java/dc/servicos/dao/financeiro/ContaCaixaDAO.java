@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ContaCaixaDAO extends AbstractCrudDAO<ContaCaixa>{
 
 	@Override
-	protected Class<ContaCaixa> getEntityClass() {
+	public Class<ContaCaixa> getEntityClass() {
 		return ContaCaixa.class;
 	}
 		

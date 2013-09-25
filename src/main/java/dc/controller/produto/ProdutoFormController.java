@@ -219,6 +219,18 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 				Notification.show("Selecionado Editar: " + value.getNome());
 
 			}
+
+			@Override
+			public List<Almoxarifado> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
+			}
 		};
 		subView.getCmbAlmoxarifado().setModel(modelalmoxarifado);
 		subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
@@ -251,6 +263,18 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			public void onEditar(GrupoTributario value) {
 				Notification.show("Selecionado Editar: " + value.getDescricao());
 
+			}
+
+			@Override
+			public List<GrupoTributario> getAll() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void onAdvancedSearch() {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		subView.getCmbGrupoTributario().setModel(modelgrupo);

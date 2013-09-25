@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SubGrupoProdutoDAO extends AbstractCrudDAO<SubGrupoProduto>{
 
 	@Override
-	protected Class<SubGrupoProduto> getEntityClass() {
+	public Class<SubGrupoProduto> getEntityClass() {
 		return SubGrupoProduto.class;
 	}
 

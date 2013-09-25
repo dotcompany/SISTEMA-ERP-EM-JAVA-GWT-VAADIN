@@ -20,7 +20,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class FeriasColetivasDAO extends AbstractCrudDAO<FeriasColetivasEntity> {
 
 	@Override
-	protected Class<FeriasColetivasEntity> getEntityClass() {
+	public Class<FeriasColetivasEntity> getEntityClass() {
 		return FeriasColetivasEntity.class;
 	}
 

@@ -17,6 +17,8 @@ import com.vaadin.client.ui.window.WindowConnector;
 import com.vaadin.server.widgetsetutils.ConnectorBundleLoaderFactory;
 import com.vaadin.shared.ui.Connect.LoadStyle;
 
+import dc.org.vaadin.hhe.nanoscrollpanel.gwt.client.connector.NanoScrollPanelConnector;
+
 public class OptimizedConnectorBundleLoaderFactory extends
         ConnectorBundleLoaderFactory {
     private Set<String> eagerConnectors = new HashSet<String>();
@@ -31,6 +33,7 @@ public class OptimizedConnectorBundleLoaderFactory extends
         eagerConnectors.add(PanelConnector.class.getName());
         eagerConnectors.add(LabelConnector.class.getName());
         eagerConnectors.add(WindowConnector.class.getName());
+        eagerConnectors.add(NanoScrollPanelConnector.class.getName());
     }
 
     @Override

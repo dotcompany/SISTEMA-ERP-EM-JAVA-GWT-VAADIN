@@ -63,7 +63,7 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo>{
 	public static Logger logger = Logger.getLogger(FmModuloDAO.class.getName());
 
 	@Override
-	protected Class<FmModulo> getEntityClass() {
+	public Class<FmModulo> getEntityClass() {
 		return FmModulo.class;
 	}
 	

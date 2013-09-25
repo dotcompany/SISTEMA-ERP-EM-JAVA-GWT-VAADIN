@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ConvenioDAO extends AbstractCrudDAO<Convenio>{
 
 	@Override
-	protected Class<Convenio> getEntityClass() {
+	public Class<Convenio> getEntityClass() {
 		return Convenio.class;
 	}
 	

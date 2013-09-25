@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SeguradoraDAO extends AbstractCrudDAO<SeguradoraEntity> {
 
 	@Override
-	protected Class<SeguradoraEntity> getEntityClass() {
+	public Class<SeguradoraEntity> getEntityClass() {
 		return SeguradoraEntity.class;
 	}
 

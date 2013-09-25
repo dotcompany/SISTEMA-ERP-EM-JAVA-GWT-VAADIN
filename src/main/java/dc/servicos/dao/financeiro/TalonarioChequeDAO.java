@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class TalonarioChequeDAO extends AbstractCrudDAO<TalonarioCheque> {
 
 	@Override
-	protected Class<TalonarioCheque> getEntityClass() {
+	public Class<TalonarioCheque> getEntityClass() {
 		return TalonarioCheque.class;
 	}
 

@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class CotacaoDAO extends AbstractCrudDAO<Cotacao>{
 
 		@Override
-		protected Class<Cotacao> getEntityClass() {
+		public Class<Cotacao> getEntityClass() {
 			return Cotacao.class;
 		}
 		

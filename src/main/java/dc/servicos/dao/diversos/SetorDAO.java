@@ -25,7 +25,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SetorDAO extends AbstractCrudDAO<Setor> {
 
 	@Override
-	protected Class<Setor> getEntityClass() {
+	public Class<Setor> getEntityClass() {
 		return Setor.class;
 	}
 

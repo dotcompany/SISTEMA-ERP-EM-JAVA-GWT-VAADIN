@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PontoClassificacaoJornadaDAO extends AbstractCrudDAO<PontoClassificacaoJornada> {
 
 	@Override
-	protected Class<PontoClassificacaoJornada> getEntityClass() {
+	public Class<PontoClassificacaoJornada> getEntityClass() {
 		return PontoClassificacaoJornada.class;
 	}
 

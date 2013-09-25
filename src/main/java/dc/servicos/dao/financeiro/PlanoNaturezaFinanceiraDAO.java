@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFinanceira> {
 	
 	@Override
-	protected Class<PlanoNaturezaFinanceira> getEntityClass() {
+	public Class<PlanoNaturezaFinanceira> getEntityClass() {
 		return PlanoNaturezaFinanceira.class;
 	}
 	

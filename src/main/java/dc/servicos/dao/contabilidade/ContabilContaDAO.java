@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ContabilContaDAO extends AbstractCrudDAO<ContabilConta> {
 
 	@Override
-	protected Class<ContabilConta> getEntityClass() {
+	public Class<ContabilConta> getEntityClass() {
 		// TODO Auto-generated method stub
 		return ContabilConta.class;
 	}

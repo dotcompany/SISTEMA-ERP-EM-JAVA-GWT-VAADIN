@@ -1,7 +1,6 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +27,9 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Table.ColumnGenerator;
-import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.Window.CloseListener;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
@@ -42,19 +39,20 @@ import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
+import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
 *
 * @author Wesley Jr
 /*
- * Nessa classe temos a Classe principal que é abstract, onde implementa o Controller e pega
+ * Nessa classe temos a Classe principal que � abstract, onde implementa o Controller e pega
  * um Component.
- * Nessa tela temos as informações de todos os botões a configuração deles
+ * Nessa tela temos as informa��es de todos os bot�es a configura��o deles
  * SALVAR, PESQUISAR E CRIAR
- * Onde temos a configuração deles, o que cada botão faz!
- * Temos a configuração da Tabela, pois pegamos informações da Tela CRUDListView
- * Temos a configuração do Container também.
+ * Onde temos a configura��o deles, o que cada bot�o faz!
+ * Temos a configura��o da Tabela, pois pegamos informa��es da Tela CRUDListView
+ * Temos a configura��o do Container tamb�m.
  *
 */
 
@@ -63,6 +61,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public static Logger logger = Logger.getLogger(CRUDListController.class);
 	private static final Object CUSTOM_SELECT_ID = "Selecionar";
 	private static final int PAGE_SIZE = 100;
+	public static final int WINDOW_LIST = 1;
+	public static final int WINDOW_FORM = 2;
 	CRUDListView view;
 	private Table table;
 
@@ -70,18 +70,25 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	@Autowired
 	private MainController mainController;
-	private PapelMenu papelMenu;
-	private boolean acessoLiberado = false;
+	
+	
 	
 	@Autowired
 	private GenericListDAO genericDAO;
 	
+	private PapelMenu papelMenu;
+	private boolean acessoLiberado = false;
+	
 	
 	private Window window = null;
 	private ModalWindowSaveListener saveListener;
+	private ModalWindowSelectionListener windowSelectionListener;
 			
 	@PostConstruct
 	protected void init() {
+		
+		
+		
 		getFormController().setListController(this);
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
@@ -169,10 +176,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	protected void actionAbrir(Object object) {
 		if(object == null){				
 			getFormController().mensagemAtencao("Escolha um registro para abrir");
-		}else{
-			Serializable id = (Serializable) object;
-			mainController.showTaskableContent( getFormController());
-			getFormController().mostrar(id);		
+		}else{Serializable id = (Serializable) object;
+			if(isOnSeparateWindow()){
+				notifySelected((E) genericDAO.find(id));
+			}else{
+				mainController.showTaskableContent( getFormController());
+				getFormController().mostrar(id);	
+			}
+					
 		}
 
 	}
@@ -191,10 +202,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		final List ids = Arrays.asList(selected.keySet().toArray());
 		final List values = Arrays.asList(selected.values().toArray());
 		if(ids.isEmpty()){
-			getFormController().mensagemAtencao("Nenhum registro selecionado para remoção");
+			getFormController().mensagemAtencao("Nenhum registro selecionado para remo��o");
 		}else{
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
-			        "Sim", "Não", new ConfirmDialog.Listener() {
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remo��o", "Voc� tem certeza? Isso apagar� os registros selecionados e N�o poder� ser revertido.",
+			        "Sim", "N�o", new ConfirmDialog.Listener() {
 
 			            public void onClose(ConfirmDialog dialog) {
 			                if (dialog.isConfirmed()) {
@@ -214,7 +225,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			            			table.refreshRowCache();
 			            			}catch (Exception e){
 			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
+			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo N�o tem depend�ncia com outros registros.");
 			            			}
 			                } 
 			            }
@@ -284,7 +295,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
-		// configuração do Container
+		
+		// configura��o do Container
 		BeanQueryFactory queryFactory = null ;
 		if(isMultiEmpresa(getEntityClass())){
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
@@ -297,7 +309,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("id_empresa",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -318,7 +330,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			else
 				table.setColumnHeader(prop, prop);
 
-			// verifica se é uma propriedade de um objeto dentro do bean
+			// verifica se � uma propriedade de um objeto dentro do bean
 			if (prop.contains(".")) {
 				//container.addNestedContainerProperty(prop);
 			}
@@ -338,14 +350,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		
 		table.setVisibleColumns(allCollumns);
 		table.setSizeFull();
-
+		
+	
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 
 	}
 	
-	private boolean isMultiEmpresa(Class c) {
-			return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
+	private boolean isMultiEmpresa(Object o) {
+		    return o instanceof AbstractMultiEmpresaModel;
 	}
 
 
@@ -422,24 +435,34 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		window = null;
 	}
 	
-	public void openOnNewWindow(int modalSize){
+	public void openOnNewWindow(int modalSize, final int mode){
 		window = new Window(){
 			
 			private static final long serialVersionUID = 1L;
 
 				public void close() {
-			         if(getFormController().hasNewAttemptOpen()){
-			           getFormController().confirmClose();  
-			         } else{
-			        	 super.close();
-			         }
+					if(mode == WINDOW_FORM){
+						if(getFormController().hasNewAttemptOpen()){
+					           getFormController().confirmClose();  
+					         } else{
+					        	 super.close();
+					         }	
+					}else{
+						super.close();
+					}
+			        
 			     };
 			     
 		};
 		
 		
-	
-		window.setContent((Component) getFormController().getView());
+		if(mode == WINDOW_FORM){
+			window.setContent((Component) getFormController().getView());	
+		}else if(mode == WINDOW_LIST){
+			window.setContent((Component) getView());
+		}
+		
+		
 		
 		window.center();
 		if(modalSize != 1 && modalSize != 2){
@@ -469,7 +492,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	public void addSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
 		saveListener = modalWindowSaveListener;
-		
+	}
+	
+	public void addSelectionListener(ModalWindowSelectionListener listener) {
+		windowSelectionListener = listener;
+	}
+	
+	public Table getTable(){
+		return table;
 	}
 
 	public void notifySaved(E obj) {
@@ -477,10 +507,23 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			saveListener.onSave(obj);
 		}
 	}
+	public void notifySelected(E obj) {
+		if(windowSelectionListener != null){
+			windowSelectionListener.onSelect(obj);
+			this.closeWindow();
+		}
+	}
 
 	public void showOnWindow(Component c) {
 		window.setContent(c);
 		
+	}
+	
+	@Override
+	public void dispose(){
+		view = null;
+		table = null;
+		saveListener = null;
 	}
 
 }

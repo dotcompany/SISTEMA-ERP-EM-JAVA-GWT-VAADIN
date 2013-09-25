@@ -21,8 +21,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "uf")
@@ -30,45 +30,49 @@ import dc.entidade.framework.AbstractModel;
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class UF extends AbstractModel<Integer> implements Serializable {
-	
-private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
-    
-    @Column(name="ID_PAIS", nullable = false)
-    private Integer idPais;
-    
-    @Field
-    @Caption("Nome")
-    @Column(name = "NOME", length = 50)
-    private String nome;
-    
-    @Field
-    @Caption("Sigla")
-    @Column(name="SIGLA", length = 2)
-    private String sigla;
-    
-    @Column(name="CODIGO_IBGE", nullable = false)
-    private Integer codigoIbge;
-    
-    public UF() {
-    }
 
-    public UF(Integer id) {
-        this.id = id;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "ID_PAIS", nullable = false)
+	private Integer idPais;
+
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 50)
+	private String nome;
+
+	@Field
+	@Caption("Sigla")
+	@Column(name = "SIGLA", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String sigla;
+
+	@Column(name = "CODIGO_IBGE", nullable = false)
+	private Integer codigoIbge;
+
+	public UF() {
+	}
+
+	public UF(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getIdPais() {
 		return idPais;
@@ -101,24 +105,25 @@ private static final long serialVersionUID = 1L;
 	public void setCodigoIbge(Integer codigoIbge) {
 		this.codigoIbge = codigoIbge;
 	}
-    
+
 	@Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof UF == false) return false;
-    	if (this == object) return true;
-    	final UF other = (UF) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof UF == false)
+			return false;
+		if (this == object)
+			return true;
+		final UF other = (UF) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }
-

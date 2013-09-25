@@ -155,8 +155,9 @@ public class MovimentacaoBemFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setHeight("100.0%");
+		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
+		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
 		gridLayout_1.setColumns(3);
 
@@ -169,23 +170,6 @@ public class MovimentacaoBemFormView extends CustomComponent {
 		cbBem.setRequired(true);
 		gridLayout_1.addComponent(cbBem, 0, 1);
 
-		// tfResponsavel
-		tfResponsavel = new TextField();
-		tfResponsavel.setCaption("Responsável:");
-		tfResponsavel.setNullRepresentation("");
-		tfResponsavel.setImmediate(false);
-		tfResponsavel.setWidth("160px");
-		tfResponsavel.setHeight("-1px");
-		gridLayout_1.addComponent(tfResponsavel, 1, 1);
-
-		// pdfDataMovimentacao
-		pdfDataMovimentacao = new PopupDateField();
-		pdfDataMovimentacao.setCaption("Data de movimentação:");
-		pdfDataMovimentacao.setImmediate(false);
-		pdfDataMovimentacao.setWidth("160px");
-		pdfDataMovimentacao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataMovimentacao, 0, 2);
-
 		// cbTipoMovimentacao
 		cbTipoMovimentacao = new ComboBox();
 		cbTipoMovimentacao.setCaption("Tipo de movimentação:");
@@ -193,7 +177,25 @@ public class MovimentacaoBemFormView extends CustomComponent {
 		cbTipoMovimentacao.setWidth("160px");
 		cbTipoMovimentacao.setHeight("-1px");
 		cbTipoMovimentacao.setRequired(true);
-		gridLayout_1.addComponent(cbTipoMovimentacao, 1, 2);
+		gridLayout_1.addComponent(cbTipoMovimentacao, 1, 1);
+
+		// tfResponsavel
+		tfResponsavel = new TextField();
+		tfResponsavel.setCaption("Responsável:");
+		tfResponsavel.setNullRepresentation("");
+		tfResponsavel.setImmediate(false);
+		tfResponsavel.setWidth("160px");
+		tfResponsavel.setHeight("-1px");
+		tfResponsavel.setSizeFull();
+		gridLayout_1.addComponent(tfResponsavel, 0, 2);
+
+		// pdfDataMovimentacao
+		pdfDataMovimentacao = new PopupDateField();
+		pdfDataMovimentacao.setCaption("Data de movimentação:");
+		pdfDataMovimentacao.setImmediate(false);
+		pdfDataMovimentacao.setWidth("160px");
+		pdfDataMovimentacao.setHeight("-1px");
+		gridLayout_1.addComponent(pdfDataMovimentacao, 1, 2);
 
 		return gridLayout_1;
 	}

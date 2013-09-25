@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class SefipCategoriaTrabalhoDAO extends AbstractCrudDAO<SefipCategoriaTrabalho>{
 
 	@Override
-	protected Class<SefipCategoriaTrabalho> getEntityClass() {
+	public Class<SefipCategoriaTrabalho> getEntityClass() {
 		return SefipCategoriaTrabalho.class;
 	}
 	

@@ -6,7 +6,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ContagemEstoqueDetalheDAO extends AbstractCrudDAO<ContagemEstoqueDetalhe> {
 
 	@Override
-	protected Class<ContagemEstoqueDetalhe> getEntityClass() {
+	public Class<ContagemEstoqueDetalhe> getEntityClass() {
 		return ContagemEstoqueDetalhe.class;
 	}
 

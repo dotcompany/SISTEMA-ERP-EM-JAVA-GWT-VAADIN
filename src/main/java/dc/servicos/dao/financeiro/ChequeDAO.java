@@ -26,7 +26,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class ChequeDAO extends AbstractCrudDAO<Cheque>{
 
 	@Override
-	protected Class<Cheque> getEntityClass() {
+	public Class<Cheque> getEntityClass() {
 		return Cheque.class;
 	}
 	

@@ -151,6 +151,7 @@ public class TaskContentManager  implements Serializable{
 
 	public void removeTask(Task task) {
 		if (tasks.contains(task)){
+			task.dispose();
 			tasks.remove(task);
 			this.releaseIdentifier(task);
 			if((activeTask == null || task.equals(activeTask)) && !tasks.isEmpty()){
@@ -188,6 +189,9 @@ public class TaskContentManager  implements Serializable{
 	}
 
 	public void removeAll() {
+		for(Task t: tasks){
+			t.dispose();
+		}
 		this.taskIDS = new HashMap<String,TaskIDGenerator>();
 		this.tasks.clear();
 		this.activeTask = null;

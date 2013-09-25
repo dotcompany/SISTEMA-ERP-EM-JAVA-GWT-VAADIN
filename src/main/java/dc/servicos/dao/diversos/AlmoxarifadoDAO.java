@@ -21,7 +21,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class AlmoxarifadoDAO extends AbstractCrudDAO<Almoxarifado>{
 
 	@Override
-	protected Class<Almoxarifado> getEntityClass() {
+	public Class<Almoxarifado> getEntityClass() {
 		return Almoxarifado.class;
 	}
 
