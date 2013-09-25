@@ -129,10 +129,6 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtPercentualRateio().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtPercentualRateio(), "Não pode ficar em branco");
-			valido = false;
-		}
 
 		if (!Validator.validateObject(subView.getCbPlanoCentroResultado().getValue())) {
 			adicionarErroDeValidacao(subView.getCbPlanoCentroResultado(), "Não pode ficar em branco");

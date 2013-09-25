@@ -3,7 +3,9 @@ package dc.controller.financeiro;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,10 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
+		subView.getCbTipoPagamento();
+		subView.getCbContaCaixa();
+		subView.getDtDataPagamento();
+
 		return valido;
 	}
 
@@ -97,59 +103,11 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			}
 		});
 
-		subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+		subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
+		subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
+		subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
+		subView.getDtDataPagamento().addBlurListener(new CalculaTotalPagoBlurListener());
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				calculaTotalPago();
-
-			}
-		});
-
-		subView.getTxTaxaMulta().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				calculaTotalPago();
-			}
-		});
-
-		subView.getTxTaxaDesconto().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				calculaTotalPago();
-			}
-		});
-		
-		subView.getDtDataPagamento().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				calculaTotalPago();
-			}
-		});
-		
 		subView.getTxValorJuro().setEnabled(false);
 		subView.getTxValorMulta().setEnabled(false);
 		subView.getTxValorDesconto().setEnabled(false);
@@ -242,10 +200,8 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			dataVencimento.setTime(pagamento.getParcelaPagar().getDataVencimento());
 			if (dataVencimento.before(dataPagamento)) {
 				long diasAtraso = (dataPagamento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
-				// valorJuro = valor * ((taxaJuro / 30) / 100) * diasAtraso
-				pagamento.setValorJuro(pagamento.getParcelaPagar().getValor()
-						.multiply(pagamento.getTaxaJuro().divide(BigDecimal.valueOf(30), RoundingMode.HALF_DOWN))
-						.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN).multiply(BigDecimal.valueOf(diasAtraso)));
+
+				pagamento.setValorJuro(calculaJuros(pagamento, diasAtraso));
 				valorJuro = pagamento.getValorJuro();
 			}
 		}
@@ -268,34 +224,44 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		}
 
 		pagamento.setValorPago(pagamento.getParcelaPagar().getValor().add(valorJuro).add(valorMulta).subtract(valorDesconto));
-		
+
 		subView.preencheForm(currentBean);
+	}
+
+	private BigDecimal calculaJuros(ParcelaPagamento pagamento, long diasAtraso) {
+		// valorJuro = valor * ((taxaJuro / 30) / 100) * diasAtraso
+		BigDecimal juros = pagamento.getParcelaPagar().getValor().multiply(pagamento.getTaxaJuro().setScale(5).divide(BigDecimal.valueOf(30.0), 5))
+				.divide(BigDecimal.valueOf(100), 5).multiply(BigDecimal.valueOf(diasAtraso));
+
+		return juros.setScale(2, RoundingMode.HALF_DOWN);
 	}
 
 	public void efetuaPagamento() {
 
-		calculaTotalPago();
-		ParcelaPagamento pagamento = currentBean;
-		pagamento.setChequeEmitido(null);
-		if (pagamento.getTipoPagamento().getTipo().equals("02")) {
-			// FinSelecionaChequeGrid chequeGrid = new
-			// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
-			// chequeGrid.setVisible(true);
-			// if (!chequeGrid.cancelado) {
-			// pagamento.setFinChequeEmitido(chequeGrid.getChequeEmitido());
-			// } else {
-			// JOptionPane.showMessageDialog(finParcelaPagamentoDetalhe,
-			// "É necessário informar um cheque para este tipo de pagamento.",
-			// "Informação do Sistema", JOptionPane.ERROR_MESSAGE);
-			// return;
-			// }
-		}
+		if (validaSalvar()) {
+			calculaTotalPago();
+			ParcelaPagamento pagamento = currentBean;
+			pagamento.setChequeEmitido(null);
+			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
+				// FinSelecionaChequeGrid chequeGrid = new
+				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
+				// chequeGrid.setVisible(true);
+				// if (!chequeGrid.cancelado) {
+				// pagamento.setFinChequeEmitido(chequeGrid.getChequeEmitido());
+				// } else {
+				// JOptionPane.showMessageDialog(finParcelaPagamentoDetalhe,
+				// "É necessário informar um cheque para este tipo de pagamento.",
+				// "Informação do Sistema", JOptionPane.ERROR_MESSAGE);
+				// return;
+				// }
+			}
 
-		try {
-			salvaPagamento();
-		} catch (Exception e) {
-			mensagemErro(e.getMessage());
-			e.printStackTrace();
+			try {
+				salvaPagamento();
+			} catch (Exception e) {
+				mensagemErro(e.getMessage());
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -329,29 +295,46 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
 		parcelaPagar.setStatusParcela(statusParcela);
 		parcelaPagarDAO.saveOrUpdate(parcelaPagar);
+		
+		List<ParcelaPagamento> dados = subView.getPagamentosSubForm().getDados();
+		dados.add(parcelaPagamento);
+		subView.getPagamentosSubForm().removeAllItems();
+		subView.fillParcelaPagamentosSubForm(dados);
 	}
 
 	public void excluiPagamento() {
+		Collection<ParcelaPagamento> selectedItens = subView.getPagamentosSubForm().getSelectedItens();
+		
+		Collection<ParcelaPagamento> deletedItens = new ArrayList<ParcelaPagamento>();
 
-		subView.preencheBean(currentBean);
-		// pegar o objeto da grid
+		for (ParcelaPagamento parcelaPagamento : selectedItens) {
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
 
-		StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			if (statusParcela == null) {
+				mensagemErro("Status de parcela não cadastrado. Entre em contato com a Software House");
+			} else {
+				ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
+				parcelaPagar.setStatusParcela(statusParcela);
 
-		if (statusParcela == null) {
-			mensagemErro("Status de parcela não cadastrado. Entre em contato com a Software House");
-		} else {
-			ParcelaPagar parcelaPagar = currentBean.getParcelaPagar();
-			parcelaPagar.setStatusParcela(statusParcela);
+				parcelaPagarDAO.saveOrUpdate(parcelaPagar);
+				parcelaPagamentoDAO.delete(parcelaPagamento);
+				deletedItens.add(parcelaPagamento);
 
-			parcelaPagarDAO.saveOrUpdate(parcelaPagar);
-			parcelaPagamentoDAO.delete(currentBean);
+				mensagemAtencao("Pagamento excluído com sucesso!");
 
-			// finParcelaPagamentoDetalhe.getForm1().setMode(Consts.READONLY);
-			// finParcelaPagamentoDetalhe.getForm1().reload();
-			mensagemAtencao("Pagamento excluído com sucesso!");
-
+			}
 		}
+		
+		subView.getPagamentosSubForm().removeItens(deletedItens);
 
+	}
+
+	private class CalculaTotalPagoBlurListener implements BlurListener {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void blur(BlurEvent event) {
+			calculaTotalPago();
+		}
 	}
 }

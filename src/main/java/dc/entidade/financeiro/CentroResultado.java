@@ -33,9 +33,6 @@ public class CentroResultado implements Serializable {
     @Column(name = "DESCRICAO")
     @Caption(value="Descrição")
     private String descricao;
-    @Column(name = "PERCENTUAL_RATEIO")
-    @Caption(value="Percentual de rateio")
-    private Double percentualRateio;
     @Column(name = "SOFRE_RATEIO")
     @Caption(value="Sofre Rateio")
     private String sofreRateio;
@@ -82,10 +79,6 @@ public class CentroResultado implements Serializable {
         this.descricao = descricao;
     }
 
-    public Double getPercentualRateio() {
-        return percentualRateio;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -122,8 +115,4 @@ public class CentroResultado implements Serializable {
         this.planoCentroResultado = planoCentroResultado;
     }
 
-	public void setPercentualRateio(Double convertedValue) {
-		this.percentualRateio = convertedValue;
-		
-	}	
 }

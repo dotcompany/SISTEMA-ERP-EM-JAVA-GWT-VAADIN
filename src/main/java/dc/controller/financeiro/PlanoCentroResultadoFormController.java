@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.PlanoCentroResultado;
+import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Usuario;
 import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.PlanoCentroResultadoFormView;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -51,6 +54,9 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 		currentBean.setMascara(subView.getTxtMascara().getValue().toString());
 		currentBean.setNiveis((BigDecimal) subView.getTxtNiveis().getConvertedValue());
 		currentBean.setDataInclusao(subView.getDtDataInclusao().getValue());
+		Usuario usuario = SecuritySessionProvider.getUsuario();
+		Empresa empresa = usuario.getConta().getEmpresa();
+		currentBean.setEmpresa(empresa);
 		try {
 			planocentroresultadoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);

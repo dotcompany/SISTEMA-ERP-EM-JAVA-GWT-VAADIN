@@ -213,16 +213,15 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 									if (dialog.isConfirmed()) {
 										try {
 											getRemoverSelecionados(new ArrayList<>(values));
-											for (T t : values) {
-												table.removeItem(t.getId());
-												table.removeItem(t.getUuid().getMostSignificantBits());
-											}
+											removeItens( values );
 											selected.clear();
 										} catch (Exception e) {
 											mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
 										}
 									}
 								}
+
+								
 							});
 				}
 			}
@@ -308,6 +307,21 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 
 	public void removeAllItems() {
 		container.removeAllItems();
+	}
+	
+	public void removeItens(final Collection<T> values ) {
+		
+		for (T t : values) {
+			table.removeItem(t.getId());
+			table.removeItem(t.getUuid().getMostSignificantBits());
+		}
+	}
+	
+	public Collection<T> getSelectedItens()
+	{
+		final Collection<T> values = selected.values();
+		
+		return values;
 	}
 
 }

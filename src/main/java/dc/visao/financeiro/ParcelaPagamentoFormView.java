@@ -24,6 +24,7 @@ import dc.controller.financeiro.ParcelaPagamentoFormController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.TipoPagamento;
+import dc.visao.financeiro.converters.TipoPagamentoConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -122,7 +123,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		pagamentosSubForm = buildSubFormParcelaPagamento();
 		mainLayout.addComponent(pagamentosSubForm);
 
-		// mainLayout.setExpandRatio(pagamentosSubForm, 1.0f);
+		mainLayout.setExpandRatio(pagamentosSubForm, 1.0f);
 
 		return mainLayout;
 	}
@@ -138,7 +139,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		fields.setSpacing(true);
 
 		pagamentoButtons = buildPagamentoButtons();
-		fields.addComponent(pagamentoButtons, 0, 0, 4, 0);
+		fields.addComponent(pagamentoButtons, 0, 0, 2, 0);
 
 		cbTipoBaixa = ComponentUtil.buildComboBox("Tipo Baixa");
 		fields.addComponent(cbTipoBaixa, 0, 1);
@@ -210,8 +211,8 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		String[] atributos = new String[] { "tipoPagamento", "dataPagamento", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto",
 				"valorDesconto", "valorPago", "historico" };
 
-		String[] headers = new String[] { "tipoPagamento", "dataPagamento", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto",
-				"valorDesconto", "valorPago", "historico" };
+		String[] headers = new String[] { "Tipo Pagamento", "Data Pagamento", "Taxa Juro", "Valor Juro", "Taxa Multa", "Valor Multa", "Taxa Desconto",
+				"Valor Desconto", "Valor Pago", "Histórico" };
 
 		this.pagamentosSubForm = new SubFormComponent<ParcelaPagamento, Integer>(ParcelaPagamento.class, atributos, headers) {
 
@@ -231,15 +232,48 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 					 */
 					private static final long serialVersionUID = 1L;
 
+					@SuppressWarnings("rawtypes")
 					@Override
 					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
 
 						if ("dataPagamento".equals(propertyId)) {
 							DateField dateField = new DateField();
 							dateField.setSizeFull();
+							dateField.setEnabled(false);
 							return dateField;
+						} else if ("tipoPagamento".equals(propertyId)) {
+							TextField field = ComponentUtil.buildTextField(null);
+							field.setConverter(new TipoPagamentoConverter());
+							field.setEnabled(false);
+							return field;
+						} else if ("taxaJuro".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("taxaMulta".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("taxaDesconto".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorJuro".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorMulta".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorDesconto".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
 						} else {
-							return ComponentUtil.buildTextField(null);
+							Field field = ComponentUtil.buildTextField(null);
+							field.setEnabled(false);
+							return field;
 						}
 					}
 
