@@ -77,9 +77,13 @@ public class ContabilConta extends AbstractModel<Integer> implements
 	private Integer id;
 
 	@Column(name = "CLASSIFICACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String classificacao;
 
 	@Column(name = "TIPO", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Field
@@ -90,30 +94,48 @@ public class ContabilConta extends AbstractModel<Integer> implements
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INCLUSAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
 
 	@Column(name = "SITUACAO", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String situacao;
 
 	@Column(name = "NATUREZA", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String natureza;
 
 	@Column(name = "PATRIMONIO_RESULTADO", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String patrimonioResultado;
 
 	@Column(name = "LIVRO_CAIXA", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String livroCaixa;
 
 	@Column(name = "DFC", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String dfc;
 
 	@Column(name = "ORDEM")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ordem;
 
 	@Column(name = "CODIGO_REDUZIDO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoReduzido;
 
 	@Column(name = "CODIGO_EFD", columnDefinition = "bpchar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoEfd;
 
 	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")

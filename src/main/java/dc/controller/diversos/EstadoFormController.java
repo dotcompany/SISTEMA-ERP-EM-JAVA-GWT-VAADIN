@@ -18,37 +18,40 @@ import dc.visao.diversos.EstadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.framework.geral.MainController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe ela pega a classe principal que Ã© o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os mÃ©todos que temos na tela principal.
- * Temos o botÃ£o Novo que Ã© para Criar uma nova Tela, para adicionar informaÃ§Ãµes
- * novas, e dentro temos o Button Salvar que Ã© para salvar as informaÃ§Ãµes no Banco de Dados
- * Temos o carregar tambÃ©m que Ã© para pegar as informaÃ§Ãµes que desejarmos quando
- * formos pesquisar na Tela.
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe ela pega a classe principal que Ã© o CRUD,
+ *         que tem todos os controllers da Tela, onde quando extendemos herdamos
+ *         os mÃ©todos que temos na tela principal. Temos o botÃ£o Novo que Ã©
+ *         para Criar uma nova Tela, para adicionar informaÃ§Ãµes novas, e
+ *         dentro temos o Button Salvar que Ã© para salvar as informaÃ§Ãµes no
+ *         Banco de Dados Temos o carregar tambÃ©m que Ã© para pegar as
+ *         informaÃ§Ãµes que desejarmos quando formos pesquisar na Tela.
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class EstadoFormController extends CRUDFormController<Estado> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	EstadoFormView subView;
-	
+
 	@Autowired
 	private EstadoDAO estadoDAO;
-	
+
 	@Autowired
 	private PaisDAO paisDAO;
 
 	private Estado currentBean;
-	
-	private MainController mainController;
-	
+
+	// private MainController mainController;
+
 	@Override
 	protected String getNome() {
 		return "Estado";
@@ -59,29 +62,27 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		String sigla = subView.getTxtSigla().getValue();
 		currentBean.setNome(nome);
 		currentBean.setSigla(sigla);
-		try{
+
+		try {
 			estadoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = estadoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtSigla().setValue(currentBean.getSigla());	
-		
-		
+		subView.getTxtSigla().setValue(currentBean.getSigla());
+
 		/* Configura combo PAÃ�S */
 		ManyToOneComboModel<Pais> modelpais = new ManyToOneComboModel<Pais>() {
 
@@ -108,7 +109,6 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 			@Override
 			public void onEditar(Pais value) {
 				Notification.show("Selecionado Editar: " + value.getNomeEn());
-
 			}
 
 			@Override
@@ -120,26 +120,41 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 			@Override
 			public void onAdvancedSearch() {
 				// TODO Auto-generated method stub
-				
 			}
 		};
+
 		subView.getCmbPais().setModel(modelpais);
 		subView.getCmbPais().setValue(currentBean.getPaisId());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new EstadoFormView();
-		DefaultManyToOneComboModel<Pais> modelpais= new DefaultManyToOneComboModel(PaisListController . class , paisDAO , mainController);
+		// DefaultManyToOneComboModel<Pais> modelpais= new
+		// DefaultManyToOneComboModel(PaisListController . class , paisDAO ,
+		// mainController);
+
+		DefaultManyToOneComboModel<Pais> modelBanco = new DefaultManyToOneComboModel<Pais>(
+				PaisListController.class, this.paisDAO,
+				super.getMainController());
+
+		this.subView.getCmbPais().setModel(modelBanco);
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Estado();
@@ -147,25 +162,30 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 estadoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		estadoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"NÃ£o pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"NÃ£o pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

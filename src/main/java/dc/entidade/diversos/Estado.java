@@ -21,98 +21,100 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
 @Table(name = "estado")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Estado extends AbstractModel<Integer> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "PAIS_ID",referencedColumnName = "ID")
-    private Pais paisId;
-    
-    @Field
-    @Caption("Sigla")
-    @Column(name = "SIGLA", length = 2)
-    @Analyzer(definition= "dc_combo_analyzer")
-    @ComboValue
-    private String sigla;
-    
-    @Field
-    @Caption("Nome")
-    @Column(name = "NOME", length = 50)
-    @Analyzer(definition= "dc_combo_analyzer")
-    @ComboValue
-    private String nome;
-    
-    @Column(name = "CODIGO_IBGE")
-    private Integer codigoIbge;
 
-    public Estado() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public Estado(Integer id) {
-        this.id = id;
-    }
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "PAIS_ID", referencedColumnName = "ID")
+	private Pais paisId;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Sigla")
+	@Column(name = "SIGLA", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String sigla;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
-    public String getSigla() {
-        return sigla;
-    }
+	@Column(name = "CODIGO_IBGE")
+	private Integer codigoIbge;
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
+	public Estado() {
 
-    public String getNome() {
-        return nome;
-    }
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Estado(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getCodigoIbge() {
-        return codigoIbge;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setCodigoIbge(Integer codigoIbge) {
-        this.codigoIbge = codigoIbge;
-    }
-    
-    public Pais getPaisId() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getCodigoIbge() {
+		return codigoIbge;
+	}
+
+	public void setCodigoIbge(Integer codigoIbge) {
+		this.codigoIbge = codigoIbge;
+	}
+
+	public Pais getPaisId() {
 		return paisId;
 	}
 
@@ -121,8 +123,8 @@ public class Estado extends AbstractModel<Integer> implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }
