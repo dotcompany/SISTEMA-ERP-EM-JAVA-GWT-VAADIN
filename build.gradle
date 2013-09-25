@@ -89,11 +89,11 @@ dependencies {
          compile 'org.vaadin.addons:popupbutton:2.2.0'
          
           compile ('org.vaadin.addons:nanoscrollpanel:1.1.7'){
-   			exclude module: 'vaadin' //by artifact name
-   			exclude module: 'vaadin-server' //by artifact name
-   			exclude module: 'vaadin-client' //by artifact name
-   			exclude module: 'vaadin-client-compiled' //by artifact name
-   			exclude module: 'vaadin-themes' //by artifact name
+   		//	exclude module: 'vaadin' //by artifact name
+   		//	exclude module: 'vaadin-server' //by artifact name
+   		//	exclude module: 'vaadin-client' //by artifact name
+   		//	exclude module: 'vaadin-client-compiled' //by artifact name
+   		//	exclude module: 'vaadin-themes' //by artifact name
    		}
 
 		// dependencies		
