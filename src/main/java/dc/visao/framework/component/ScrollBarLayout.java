@@ -1,6 +1,6 @@
 package dc.visao.framework.component;
 
-import org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
+import dc.org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.VerticalLayout;

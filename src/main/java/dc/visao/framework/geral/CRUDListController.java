@@ -17,11 +17,8 @@ import org.vaadin.addons.lazyquerycontainer.LazyQueryView;
 import org.vaadin.addons.lazyquerycontainer.NestingBeanItem;
 import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.dialogs.DefaultConfirmDialogFactory;
-import org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
-import org.vaadin.hhe.nanoscrollpanel.gwt.client.GwtNanoScrollPanel;
 
 import com.sun.istack.logging.Logger;
-import com.vaadin.annotations.Widgetset;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;

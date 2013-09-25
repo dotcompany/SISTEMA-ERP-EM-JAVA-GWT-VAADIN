@@ -3,8 +3,6 @@ package dc.framework;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.vaadin.hhe.nanoscrollpanel.gwt.client.connector.NanoScrollPanelConnector;
-
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.vaadin.client.ui.button.ButtonConnector;
 import com.vaadin.client.ui.csslayout.CssLayoutConnector;
@@ -18,6 +16,8 @@ import com.vaadin.client.ui.ui.UIConnector;
 import com.vaadin.client.ui.window.WindowConnector;
 import com.vaadin.server.widgetsetutils.ConnectorBundleLoaderFactory;
 import com.vaadin.shared.ui.Connect.LoadStyle;
+
+import dc.org.vaadin.hhe.nanoscrollpanel.gwt.client.connector.NanoScrollPanelConnector;
 
 public class OptimizedConnectorBundleLoaderFactory extends
         ConnectorBundleLoaderFactory {
