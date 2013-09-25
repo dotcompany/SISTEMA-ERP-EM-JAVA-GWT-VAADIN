@@ -87,6 +87,7 @@ dependencies {
          //compile 'org.vaadin.addons:canvas:2.0'
          compile 'org.vaadin.addons:popupbutton:2.2.0'
          
+         
         
 		// dependencies		
 		compile 'org.hibernate:hibernate-entitymanager:4.2.5.Final'
