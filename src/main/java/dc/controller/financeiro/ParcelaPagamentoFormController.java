@@ -295,7 +295,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
 		parcelaPagar.setStatusParcela(statusParcela);
 		parcelaPagarDAO.saveOrUpdate(parcelaPagar);
-		
+
 		List<ParcelaPagamento> dados = subView.getPagamentosSubForm().getDados();
 		dados.add(parcelaPagamento);
 		subView.getPagamentosSubForm().removeAllItems();
@@ -304,7 +304,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	public void excluiPagamento() {
 		Collection<ParcelaPagamento> selectedItens = subView.getPagamentosSubForm().getSelectedItens();
-		
+
 		Collection<ParcelaPagamento> deletedItens = new ArrayList<ParcelaPagamento>();
 
 		for (ParcelaPagamento parcelaPagamento : selectedItens) {
@@ -319,14 +319,13 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 				parcelaPagarDAO.saveOrUpdate(parcelaPagar);
 				parcelaPagamentoDAO.delete(parcelaPagamento);
 				deletedItens.add(parcelaPagamento);
-
-				mensagemAtencao("Pagamento excluído com sucesso!");
-
 			}
 		}
-		
-		subView.getPagamentosSubForm().removeItens(deletedItens);
 
+		if (!deletedItens.isEmpty()) {
+			mensagemAtencao("Pagamento excluído com sucesso!");
+			subView.getPagamentosSubForm().removeItens(deletedItens);
+		}
 	}
 
 	private class CalculaTotalPagoBlurListener implements BlurListener {

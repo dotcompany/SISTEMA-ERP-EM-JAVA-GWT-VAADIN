@@ -314,6 +314,8 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		for (T t : values) {
 			table.removeItem(t.getId());
 			table.removeItem(t.getUuid().getMostSignificantBits());
+			container.removeItem(t);
+			dados.remove(t);
 		}
 	}
 	

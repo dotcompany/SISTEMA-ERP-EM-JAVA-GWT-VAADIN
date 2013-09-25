@@ -67,9 +67,8 @@ public class CentroResultadoFormView extends CustomComponent {
 
 		// comboBox_2
 		cbPlanoCentroResultado = ComponentUtil.buildComboBox("Plano Centro Resultado");
-		cbPlanoCentroResultado.setWidth("-1px");
-		cbPlanoCentroResultado.setHeight("-1px");
 		cbPlanoCentroResultado.setItemCaptionPropertyId("nome");
+		cbPlanoCentroResultado.setWidth("70%");
 		mainLayout.addComponent(cbPlanoCentroResultado, 0, 0);
 
 		// optSofreRateio

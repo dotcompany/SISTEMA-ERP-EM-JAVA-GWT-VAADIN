@@ -28,7 +28,8 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "dataEmissao" };
+		return new String[] { "tipoPagamento", "dataPagamento", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto",
+				"valorDesconto", "valorPago", "historico" };
 	}
 
 	@Override

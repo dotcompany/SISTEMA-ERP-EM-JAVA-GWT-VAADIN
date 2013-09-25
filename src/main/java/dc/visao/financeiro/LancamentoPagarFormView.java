@@ -127,7 +127,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		fields.setHeight("-1px");
 		fields.setMargin(false);
 		fields.setSpacing(true);
-		fields.setRows(6);
+		fields.setRows(7);
 		fields.setColumns(6);
 
 		cbFornecedor = ComponentUtil.buildComboBox("Fornecedor");
@@ -162,8 +162,13 @@ public class LancamentoPagarFormView extends CustomComponent {
 		dtPrimeiroVencimento = ComponentUtil.buildPopupDateField("Primeiro Vencimento");
 		fields.addComponent(dtPrimeiroVencimento, 5, 2);
 
+		cbContaCaixa = ComponentUtil.buildComboBox("Conta Caixa");
+		cbContaCaixa.setHeight("-1px");
+		cbContaCaixa.setWidth("200px");
+		fields.addComponent(cbContaCaixa, 0, 3);
+
 		btnGerarParcelas = new Button("Gerar Parcelas");
-		fields.addComponent(btnGerarParcelas, 0, 3);
+		fields.addComponent(btnGerarParcelas, 0, 4);
 
 		return fields;
 	}
@@ -255,11 +260,6 @@ public class LancamentoPagarFormView extends CustomComponent {
 		parcelasLayout.setMargin(false);
 		parcelasLayout.setSpacing(true);
 
-		cbContaCaixa = ComponentUtil.buildComboBox("Conta Caixa");
-		cbContaCaixa.setHeight("-1px");
-		cbContaCaixa.setWidth("200px");
-		parcelasLayout.addComponent(cbContaCaixa);
-
 		String[] atributos = new String[] { "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao", "valor",
 				"taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto" };
 
@@ -284,6 +284,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 						 */
 					private static final long serialVersionUID = 1L;
 
+					@SuppressWarnings("rawtypes")
 					@Override
 					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
 
@@ -291,11 +292,10 @@ public class LancamentoPagarFormView extends CustomComponent {
 							DateField dateField = new DateField();
 							dateField.setSizeFull();
 							return dateField;
-						}
-						else if ("valor".equals(propertyId)) {
+						} else if ("valor".equals(propertyId)) {
 							return ComponentUtil.buildCurrencyField(null);
 						}
-						
+
 						else if ("contaCaixa".equals(propertyId)) {
 							TextField contaCaixaText = ComponentUtil.buildTextField(null);
 
@@ -332,6 +332,34 @@ public class LancamentoPagarFormView extends CustomComponent {
 							contaCaixaText.setReadOnly(true);
 							return contaCaixaText;
 
+						} else if ("taxaJuro".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("taxaMulta".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("taxaDesconto".equals(propertyId)) {
+							Field field = ComponentUtil.buildPercentageField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorJuro".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorMulta".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorDesconto".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						} else if ("valorPago".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
 						} else {
 							return ComponentUtil.buildTextField(null);
 						}

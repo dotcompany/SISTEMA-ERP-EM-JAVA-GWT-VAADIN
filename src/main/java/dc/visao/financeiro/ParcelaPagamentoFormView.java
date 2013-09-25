@@ -139,7 +139,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		fields.setSpacing(true);
 
 		pagamentoButtons = buildPagamentoButtons();
-		fields.addComponent(pagamentoButtons, 0, 0, 2, 0);
+		fields.addComponent(pagamentoButtons, 0, 0, 1, 0);
 
 		cbTipoBaixa = ComponentUtil.buildComboBox("Tipo Baixa");
 		fields.addComponent(cbTipoBaixa, 0, 1);
@@ -270,7 +270,11 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 							Field field = ComponentUtil.buildCurrencyField(null);
 							field.setEnabled(false);
 							return field;
-						} else {
+						}else if ("valorPago".equals(propertyId)) {
+							Field field = ComponentUtil.buildCurrencyField(null);
+							field.setEnabled(false);
+							return field;
+						}  else {
 							Field field = ComponentUtil.buildTextField(null);
 							field.setEnabled(false);
 							return field;
