@@ -66,6 +66,7 @@ public class Banco extends AbstractModel<Integer> implements Serializable {
 	private String url;
 
 	public Banco() {
+
 	}
 
 	public Banco(Integer id) {
@@ -105,9 +106,12 @@ public class Banco extends AbstractModel<Integer> implements Serializable {
 	public boolean equals(Object object) {
 		if (object instanceof Banco == false)
 			return false;
+
 		if (this == object)
 			return true;
+
 		final Banco other = (Banco) object;
+
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
 

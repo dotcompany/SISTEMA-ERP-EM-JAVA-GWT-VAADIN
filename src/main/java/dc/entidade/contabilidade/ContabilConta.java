@@ -15,228 +15,259 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-* <p>Title: T2Ti ERP</p>
-* <p>Description:  VO relacionado a tabela [CONTABIL_CONTA]</p>
-*
-* <p>The MIT License</p>
-*
-* <p>Copyright: Copyright (C) 2010 T2Ti.COM
-*
-* Permission is hereby granted, free of charge, to any person
-* obtaining a copy of this software and associated documentation
-* files (the "Software"), to deal in the Software without
-* restriction, including without limitation the rights to use,
-* copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the
-* Software is furnished to do so, subject to the following
-* conditions:
-*
-* The above copyright notice and this permission notice shall be
-* included in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-* OTHER DEALINGS IN THE SOFTWARE.
-*
-*        The author may be contacted at:
-*            t2ti.com@gmail.com</p>
-*
-* @author Claudio de Barros (t2ti.com@gmail.com)
-* @version 1.0
-*/
+ * <p>
+ * Title: T2Ti ERP
+ * </p>
+ * <p>
+ * Description: VO relacionado a tabela [CONTABIL_CONTA]
+ * </p>
+ * 
+ * <p>
+ * The MIT License
+ * </p>
+ * 
+ * <p>
+ * Copyright: Copyright (C) 2010 T2Ti.COM
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * The author may be contacted at: t2ti.com@gmail.com
+ * </p>
+ * 
+ * @author Claudio de Barros (t2ti.com@gmail.com)
+ * @version 1.0
+ */
 @Entity
 @Table(name = "CONTABIL_CONTA")
-public class ContabilConta implements Serializable {
+public class ContabilConta extends AbstractModel<Integer> implements
+		Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Column(name = "CLASSIFICACAO")
-    private String classificacao;
-    @Column(name = "TIPO", columnDefinition="bpchar")
-    private String tipo;
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATA_INCLUSAO")
-    private Date dataInclusao;
-    @Column(name = "SITUACAO", columnDefinition="bpchar")
-    private String situacao;
-    @Column(name = "NATUREZA", columnDefinition="bpchar")
-    private String natureza;
-    @Column(name = "PATRIMONIO_RESULTADO", columnDefinition="bpchar")
-    private String patrimonioResultado;
-    @Column(name = "LIVRO_CAIXA", columnDefinition="bpchar")
-    private String livroCaixa;
-    @Column(name = "DFC", columnDefinition="bpchar")
-    private String dfc;
-    @Column(name = "ORDEM")
-    private String ordem;
-    @Column(name = "CODIGO_REDUZIDO")
-    private String codigoReduzido;
-    @Column(name = "CODIGO_EFD", columnDefinition="bpchar")
-    private String codigoEfd;
-    @JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private PlanoContaRefSped planoContaRefSped;
-    @JoinColumn(name = "ID_PLANO_CONTA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private PlanoConta planoConta;
-    @JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-    @ManyToOne
-    private ContabilConta contabilConta;
+	private static final long serialVersionUID = 1L;
 
-    public ContabilConta() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "CLASSIFICACAO")
+	private String classificacao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "TIPO", columnDefinition = "bpchar")
+	private String tipo;
 
-    public String getClassificacao() {
-        return classificacao;
-    }
+	@Field
+	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_INCLUSAO")
+	private Date dataInclusao;
 
-    public String getTipo() {
-        return tipo;
-    }
+	@Column(name = "SITUACAO", columnDefinition = "bpchar")
+	private String situacao;
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+	@Column(name = "NATUREZA", columnDefinition = "bpchar")
+	private String natureza;
 
-    public String getDescricao() {
-        return descricao;
-    }
+	@Column(name = "PATRIMONIO_RESULTADO", columnDefinition = "bpchar")
+	private String patrimonioResultado;
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	@Column(name = "LIVRO_CAIXA", columnDefinition = "bpchar")
+	private String livroCaixa;
 
-    public Date getDataInclusao() {
-        return dataInclusao;
-    }
+	@Column(name = "DFC", columnDefinition = "bpchar")
+	private String dfc;
 
-    public void setDataInclusao(Date dataInclusao) {
-        this.dataInclusao = dataInclusao;
-    }
+	@Column(name = "ORDEM")
+	private String ordem;
 
-    public String getSituacao() {
-        return situacao;
-    }
+	@Column(name = "CODIGO_REDUZIDO")
+	private String codigoReduzido;
 
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
+	@Column(name = "CODIGO_EFD", columnDefinition = "bpchar")
+	private String codigoEfd;
 
-    public String getNatureza() {
-        return natureza;
-    }
+	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private PlanoContaRefSped planoContaRefSped;
 
-    public void setNatureza(String natureza) {
-        this.natureza = natureza;
-    }
+	@JoinColumn(name = "ID_PLANO_CONTA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private PlanoConta planoConta;
 
-    public String getPatrimonioResultado() {
-        return patrimonioResultado;
-    }
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
+	@ManyToOne
+	private ContabilConta contabilConta;
 
-    public void setPatrimonioResultado(String patrimonioResultado) {
-        this.patrimonioResultado = patrimonioResultado;
-    }
+	public ContabilConta() {
 
-    public String getLivroCaixa() {
-        return livroCaixa;
-    }
+	}
 
-    public void setLivroCaixa(String livroCaixa) {
-        this.livroCaixa = livroCaixa;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getDfc() {
-        return dfc;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setDfc(String dfc) {
-        this.dfc = dfc;
-    }
+	public String getClassificacao() {
+		return classificacao;
+	}
 
-    public String getOrdem() {
-        return ordem;
-    }
+	public void setClassificacao(String classificacao) {
+		this.classificacao = classificacao;
+	}
 
-    public void setOrdem(String ordem) {
-        this.ordem = ordem;
-    }
+	public String getTipo() {
+		return tipo;
+	}
 
-    public String getCodigoReduzido() {
-        return codigoReduzido;
-    }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-    public void setCodigoReduzido(String codigoReduzido) {
-        this.codigoReduzido = codigoReduzido;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public String getCodigoEfd() {
-        return codigoEfd;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public void setCodigoEfd(String codigoEfd) {
-        this.codigoEfd = codigoEfd;
-    }
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
 
-    public PlanoContaRefSped getPlanoContaRefSped() {
-        return planoContaRefSped;
-    }
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
 
-    public void setPlanoContaRefSped(PlanoContaRefSped planoContaRefSped) {
-        this.planoContaRefSped = planoContaRefSped;
-    }
+	public String getSituacao() {
+		return situacao;
+	}
 
-    public PlanoConta getPlanoConta() {
-        return planoConta;
-    }
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 
-    public void setPlanoConta(PlanoConta planoConta) {
-        this.planoConta = planoConta;
-    }
+	public String getNatureza() {
+		return natureza;
+	}
 
-    public ContabilConta getContabilConta() {
-        return contabilConta;
-    }
+	public void setNatureza(String natureza) {
+		this.natureza = natureza;
+	}
 
-    public void setContabilConta(ContabilConta contabilConta) {
-        this.contabilConta = contabilConta;
-    }
+	public String getPatrimonioResultado() {
+		return patrimonioResultado;
+	}
 
+	public void setPatrimonioResultado(String patrimonioResultado) {
+		this.patrimonioResultado = patrimonioResultado;
+	}
 
-    @Override
-    public String toString() {
-    	if(codigoReduzido == null)
-    	{
-    		return descricao;
-    	}
-    	
-        return codigoReduzido;
-    }
+	public String getLivroCaixa() {
+		return livroCaixa;
+	}
+
+	public void setLivroCaixa(String livroCaixa) {
+		this.livroCaixa = livroCaixa;
+	}
+
+	public String getDfc() {
+		return dfc;
+	}
+
+	public void setDfc(String dfc) {
+		this.dfc = dfc;
+	}
+
+	public String getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(String ordem) {
+		this.ordem = ordem;
+	}
+
+	public String getCodigoReduzido() {
+		return codigoReduzido;
+	}
+
+	public void setCodigoReduzido(String codigoReduzido) {
+		this.codigoReduzido = codigoReduzido;
+	}
+
+	public String getCodigoEfd() {
+		return codigoEfd;
+	}
+
+	public void setCodigoEfd(String codigoEfd) {
+		this.codigoEfd = codigoEfd;
+	}
+
+	public PlanoContaRefSped getPlanoContaRefSped() {
+		return planoContaRefSped;
+	}
+
+	public void setPlanoContaRefSped(PlanoContaRefSped planoContaRefSped) {
+		this.planoContaRefSped = planoContaRefSped;
+	}
+
+	public PlanoConta getPlanoConta() {
+		return planoConta;
+	}
+
+	public void setPlanoConta(PlanoConta planoConta) {
+		this.planoConta = planoConta;
+	}
+
+	public ContabilConta getContabilConta() {
+		return contabilConta;
+	}
+
+	public void setContabilConta(ContabilConta contabilConta) {
+		this.contabilConta = contabilConta;
+	}
+
+	@Override
+	public String toString() {
+		if (codigoReduzido == null) {
+			return descricao;
+		}
+
+		return codigoReduzido;
+	}
 
 	@Override
 	public int hashCode() {
@@ -276,7 +307,5 @@ public class ContabilConta implements Serializable {
 			return false;
 		return true;
 	}
-    
-    
 
 }

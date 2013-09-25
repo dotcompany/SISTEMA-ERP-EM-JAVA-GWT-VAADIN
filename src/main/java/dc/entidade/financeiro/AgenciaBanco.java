@@ -8,9 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +22,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /*Autor: Wesley Junior*/
 /*
@@ -43,245 +43,251 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class AgenciaBanco extends AbstractModel<Integer> implements Serializable {
-	
-	 private static final long serialVersionUID = 1L;
-	 
-	    @Id
-		@Column(name = "ID", nullable = false)
-		@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financeiro_id_seq")
-		@SequenceGenerator(name = "financeiro_id_seq", sequenceName = "financeiro_id_seq", allocationSize = 1, initialValue = 0)
-		@Basic(optional = false)
-		private Integer id;
-	    /*
-	    @Basic(optional = false)
-	    @Column(name = "CEP_ID", nullable = false)
-	    private int cepId;
-	    @Basic(optional = false)
-	    @Column(name = "BANCO_ID", nullable = false)
-	    private int bancoId;
-	     */
-	    
-	    @Column(name = "ID_BANCO")
-	    private Integer idBanco;
-	    
-	    @Field
-		@Caption("Codigo")
-	    @Column(name = "CODIGO")
-	    private Integer codigo;
-	    
-	    @Field
-	    @Caption("Nome")
-	    @Column(name = "NOME", length = 100)
-	    private String nome;
-	    
-	    @Field
-	    @Caption("Logradouro")
-	    @Column(name = "LOGRADOURO", length = 100)
-	    private String logradouro;
-	    
-	    @Field
-		@Caption("Numero")
-	    @Column(name = "NUMERO", length = 10)
-	    private String numero;
-	    
-	    @Field
-		@Caption("Cep")
-	    @Column(name = "CEP", length = 10)
-	    private String cep;
-	    
-	    @Field
-		@Caption("Bairro")
-	    @Column(name = "BAIRRO", length = 60)
-	    private String bairro;
-	    
-	    @Field
-		@Caption("Municipio")
-	    @Column(name = "MUNICIPIO", length = 60)
-	    private String municipio;
-	    
-	    @Field
-		@Caption("Uf")
-	    @Column(name = "UF")
-	    private String  uf;
-	    
-	    @Field
-		@Caption("Telefone")
-	    @Column(name = "TELEFONE", length = 10)
-	    private String telefone;
-	    
-	    @Field
-		@Caption("Gerente")
-	    @Column(name = "GERENTE", length = 30)
-	    private String gerente;
-	    
-	    @Field
-		@Caption("Contato")
-	    @Column(name = "CONTATO", length = 30)
-	    private String contato;
-	    
-	    @Field
-		@Caption("Observacao")
-	    @Lob
-	    @Column(name = "OBSERVACAO")
-	    @Basic(fetch=javax.persistence.FetchType.LAZY)
-	    @Type(type="text")
-	    private String observacao;
+public class AgenciaBanco extends AbstractModel<Integer> implements
+		Serializable {
 
-	   /* @Caption("Banco")
-	    @ManyToOne(optional = false)
-	    @JoinColumn(name = "BANCO_ID",referencedColumnName = "ID")
-	    private Banco banco;
-	    
-	    /*@Caption("Cep Id")
-	    @ManyToOne(optional = false)
-	    @JoinColumn(name = "CEP_ID", referencedColumnName = "ID")
-	    private Cep cepId;*/
+	private static final long serialVersionUID = 1L;
 
-	    public AgenciaBanco() {
-	    }
+	@Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financeiro_id_seq")
+	@SequenceGenerator(name = "financeiro_id_seq", sequenceName = "financeiro_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "CEP_ID", nullable = false) private int cepId;
+	 * 
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "BANCO_ID", nullable = false) private int bancoId;
+	 */
 
-	    public AgenciaBanco(Integer id) {
-	        this.id = id;
-	    }
+	@Column(name = "ID_BANCO")
+	private Integer idBanco;
 
-	    @Override
-	    public Integer getId() {
-	        return id;
-	    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "CODIGO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigo;
 
-	    public void setId(Integer id) {
-	        this.id = id;
-	    }
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 100)
+	private String nome;
 
-	    public Integer getCodigo() {
-	        return codigo;
-	    }
+	@Field
+	@Caption("Logradouro")
+	@Column(name = "LOGRADOURO", length = 100)
+	private String logradouro;
 
-	    public void setCodigo(Integer codigo) {
-	        this.codigo = codigo;
-	    }
+	@Field
+	@Caption("Numero")
+	@Column(name = "NUMERO", length = 10)
+	private String numero;
 
-	    public String getNome() {
-	        return nome;
-	    }
+	@Field
+	@Caption("Cep")
+	@Column(name = "CEP", length = 10)
+	private String cep;
 
-	    public void setNome(String nome) {
-	        this.nome = nome;
-	    }
+	@Field
+	@Caption("Bairro")
+	@Column(name = "BAIRRO", length = 60)
+	private String bairro;
 
-	    public String getTelefone() {
-	        return telefone;
-	    }
+	@Field
+	@Caption("Municipio")
+	@Column(name = "MUNICIPIO", length = 60)
+	private String municipio;
 
-	    public void setTelefone(String telefone) {
-	        this.telefone = telefone;
-	    }
+	@Field
+	@Caption("Uf")
+	@Column(name = "UF")
+	private String uf;
 
-	    public String getGerente() {
-	        return gerente;
-	    }
+	@Field
+	@Caption("Telefone")
+	@Column(name = "TELEFONE", length = 10)
+	private String telefone;
 
-	    public void setGerente(String gerente) {
-	        this.gerente = gerente;
-	    }
+	@Field
+	@Caption("Gerente")
+	@Column(name = "GERENTE", length = 30)
+	private String gerente;
 
-	    public String getContato() {
-	        return contato;
-	    }
+	@Field
+	@Caption("Contato")
+	@Column(name = "CONTATO", length = 30)
+	private String contato;
 
-	    public void setContato(String contato) {
-	        this.contato = contato;
-	    }
+	@Field
+	@Caption("Observacao")
+	@Lob
+	@Column(name = "OBSERVACAO")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Type(type = "text")
+	private String observacao;
 
-	    public String getObservacao() {
-			return observacao;
-		}
+	/*
+	 * @Caption("Banco")
+	 * 
+	 * @ManyToOne(optional = false)
+	 * 
+	 * @JoinColumn(name = "BANCO_ID",referencedColumnName = "ID") private Banco
+	 * banco;
+	 * 
+	 * /*@Caption("Cep Id")
+	 * 
+	 * @ManyToOne(optional = false)
+	 * 
+	 * @JoinColumn(name = "CEP_ID", referencedColumnName = "ID") private Cep
+	 * cepId;
+	 */
 
-		public void setObservacao(String observacao) {
-			this.observacao = observacao;
-		}
-		
-		public String getLogradouro() {
-			return logradouro;
-		}
+	public AgenciaBanco() {
 
-		public void setLogradouro(String logradouro) {
-			this.logradouro = logradouro;
-		}
+	}
 
-		public String getNumero() {
-			return numero;
-		}
+	public AgenciaBanco(Integer id) {
+		this.id = id;
+	}
 
-		public void setNumero(String numero) {
-			this.numero = numero;
-		}
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-		public String getCep() {
-			return cep;
-		}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-		public void setCep(String cep) {
-			this.cep = cep;
-		}
+	public Integer getCodigo() {
+		return codigo;
+	}
 
-		public String getBairro() {
-			return bairro;
-		}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
 
-		public void setBairro(String bairro) {
-			this.bairro = bairro;
-		}
+	public String getNome() {
+		return nome;
+	}
 
-		public String getMunicipio() {
-			return municipio;
-		}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-		public void setMunicipio(String municipio) {
-			this.municipio = municipio;
-		}
+	public String getTelefone() {
+		return telefone;
+	}
 
-		public String getUf() {
-			return uf;
-		}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-		public void setUf(String uf) {
-			this.uf = uf;
-		}
-		
-		
-/*		public Cep getCepId() {
-			return cepId;
-		}
+	public String getGerente() {
+		return gerente;
+	}
 
-		public void setCepId(Cep cepId) {
-			this.cepId = cepId;
-		}*/
+	public void setGerente(String gerente) {
+		this.gerente = gerente;
+	}
 
-	   /* @Override
-	    public int hashCode() {
-			return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-	    }
+	public String getContato() {
+		return contato;
+	}
 
-	    @Override
-	    public boolean equals(Object object) {
-	    	if (object instanceof AgenciaBanco == false) return false;
-	    	if (this == object) return true;
-	    	final AgenciaBanco other = (AgenciaBanco) object;
-	    	return EqualsBuilder.reflectionEquals(this, other);
-	    }*/
+	public void setContato(String contato) {
+		this.contato = contato;
+	}
 
-	   /* public Banco getBanco() {
-			return banco;
-		}
+	public String getObservacao() {
+		return observacao;
+	}
 
-		public void setBanco(Banco banco) {
-			this.banco = banco;
-		}*/
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 
-		@Override
-	    public String toString() {
-	        return ToStringBuilder.reflectionToString(this);
-	    }
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	/*
+	 * public Cep getCepId() { return cepId; }
+	 * 
+	 * public void setCepId(Cep cepId) { this.cepId = cepId; }
+	 */
+
+	/*
+	 * @Override public int hashCode() { return
+	 * HashCodeBuilder.reflectionHashCode(this, new String[] {"id"}); }
+	 * 
+	 * @Override public boolean equals(Object object) { if (object instanceof
+	 * AgenciaBanco == false) return false; if (this == object) return true;
+	 * final AgenciaBanco other = (AgenciaBanco) object; return
+	 * EqualsBuilder.reflectionEquals(this, other); }
+	 */
+
+	/*
+	 * public Banco getBanco() { return banco; }
+	 * 
+	 * public void setBanco(Banco banco) { this.banco = banco; }
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }
