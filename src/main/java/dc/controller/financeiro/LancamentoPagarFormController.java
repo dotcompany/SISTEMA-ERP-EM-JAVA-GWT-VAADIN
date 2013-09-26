@@ -171,7 +171,12 @@ public class LancamentoPagarFormController extends
 
 		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(
 				DocumentoOrigemListController.class, this.documentoOrigemDAO,
-				super.getMainController());
+				super.getMainController()){
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
 
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 	}
