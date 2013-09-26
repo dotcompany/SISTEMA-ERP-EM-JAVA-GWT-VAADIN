@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -33,7 +36,8 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoDesligamento implements Serializable {
+public class TipoDesligamento extends AbstractModel<Integer> implements
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,17 +45,22 @@ public class TipoDesligamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
 	@Lob
 	@Field
 	@Caption("Descricao")
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	public TipoDesligamento() {
+
 	}
 
 	public TipoDesligamento(Integer id) {
@@ -65,7 +74,7 @@ public class TipoDesligamento implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -73,23 +82,25 @@ public class TipoDesligamento implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	@Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof TipoDesligamento == false) return false;
-    	if (this == object) return true;
-    	final TipoDesligamento other = (TipoDesligamento) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof TipoDesligamento == false)
+			return false;
+		if (this == object)
+			return true;
+		final TipoDesligamento other = (TipoDesligamento) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
-	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

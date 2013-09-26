@@ -15,16 +15,21 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.TipoColaboradorFormView;
 
-
 @Controller
 @Scope("prototype")
-public class TipoColaboradorFormController extends CRUDFormController<TipoColaborador> {
+public class TipoColaboradorFormController extends
+		CRUDFormController<TipoColaborador> {
 
-	private  TipoColaboradorFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private TipoColaboradorFormView subView;
 
 	@Autowired
 	private TipoColaboradorDAO tipoColaboradorDAO;
-	
+
 	private TipoColaborador currentBean;
 
 	@Override
@@ -42,25 +47,24 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new TipoColaborador();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new TipoColaboradorFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = tipoColaboradorDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
@@ -69,18 +73,18 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
+
 		try {
 			tipoColaboradorDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -90,28 +94,29 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		tipoColaboradorDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "tipoColaboradorForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }

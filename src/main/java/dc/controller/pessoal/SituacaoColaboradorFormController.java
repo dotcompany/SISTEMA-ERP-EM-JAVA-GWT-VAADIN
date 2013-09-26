@@ -15,16 +15,21 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.SituacaoColaboradorFormView;
 
-
 @Controller
 @Scope("prototype")
-public class SituacaoColaboradorFormController extends CRUDFormController<SituacaoColaborador> {
+public class SituacaoColaboradorFormController extends
+		CRUDFormController<SituacaoColaborador> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private SituacaoColaboradorFormView subView;
 
 	@Autowired
 	private SituacaoColaboradorDAO situacaoColaboradorDAO;
-	
+
 	private SituacaoColaborador currentBean;
 
 	@Override
@@ -39,23 +44,21 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SituacaoColaborador();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new SituacaoColaboradorFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = situacaoColaboradorDAO.find(id);
-		
+
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
@@ -63,25 +66,22 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			situacaoColaboradorDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -91,28 +91,29 @@ public class SituacaoColaboradorFormController extends CRUDFormController<Situac
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		situacaoColaboradorDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "situacaoColaboradorForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }

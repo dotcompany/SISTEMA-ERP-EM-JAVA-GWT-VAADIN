@@ -15,16 +15,20 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.EstadoCivilFormView;
 
-
 @Controller
 @Scope("prototype")
 public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 
-	private  EstadoCivilFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private EstadoCivilFormView subView;
 
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
-	
+
 	private EstadoCivil currentBean;
 
 	@Override
@@ -42,49 +46,45 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new EstadoCivil();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new EstadoCivilFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = estadoCivilDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			estadoCivilDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -94,28 +94,29 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		estadoCivilDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "estadoCivilForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }

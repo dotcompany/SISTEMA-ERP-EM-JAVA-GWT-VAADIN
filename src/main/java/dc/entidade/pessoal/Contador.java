@@ -22,114 +22,146 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
+
 /**
- *
+ * 
  * @author Wesley Jr
  * 
  */
- 
+
 @Entity
 @Table(name = "contador")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Contador extends AbstractModel<Integer> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
 	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contador_id_seq")
 	@SequenceGenerator(name = "contador_id_seq", sequenceName = "contador_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Inscricao CRC")
-    @Column(name = "INSCCRICAO_CRC", length = 50)
-    private String inscricaoCrc;
-    
-    @Field
-    @Caption("Uf CRC")
-    @Column(name="UF_CRC")
-    private String ufCrc;
-    
-    @Field
-    @Caption("Telefone")
-    @Column(name="FONE", length = 50)
-    private String fone;
-    
-    @Field
-    @Caption("Fax")
-    @Column(name="FAX")
-    private String fax;
-    
-    @Field
-    @Caption("Logradouro")
-    @Column(name="LOGRADOURO", length = 100)
-    private String logradouro;
-    
-    @Field
-    @Caption("Numero")
-    @Column(name="NUMERO", length=50)
-    private String numero;
-    
-    @Field
-    @Caption("Complemento")
-    @Column(name="complemento", length= 100)
-    private String complemento;
-    
-    @Field
-    @Caption("Bairro")
-    @Column(name="BAIRRO", length=100)
-    private String bairro;
-    
-    @Field
-    @Caption("Cidade")
-    @Column(name="CIDADE", length= 100)
-    private String cidade;
-    
-    @Field
-    @Caption("Cep")
-    @Column(name="CEP", length=50)
-    private String cep;
-    
-    @Field
-    @Caption("Municipio IBGE")
-    @Column(name="MUNICIPIO_IBGE", length= 100)
-    private Integer municipioIBGE;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name="UF", referencedColumnName = "ID")
-    private UF uf;
-    
-    @Field
-    @Caption("Email")
-    @Column(name="EMAIL", length=100)
-    private String email;
-    
-    @JoinColumn(name = "ID_Pessoa", referencedColumnName = "ID")
+
+	@Field
+	@Caption("Inscricao CRC")
+	@Column(name = "INSCCRICAO_CRC", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inscricaoCrc;
+
+	@Field
+	@Caption("Uf CRC")
+	@Column(name = "UF_CRC")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String ufCrc;
+
+	@Field
+	@Caption("Telefone")
+	@Column(name = "FONE", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fone;
+
+	@Field
+	@Caption("Fax")
+	@Column(name = "FAX")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fax;
+
+	@Field
+	@Caption("Logradouro")
+	@Column(name = "LOGRADOURO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String logradouro;
+
+	@Field
+	@Caption("Numero")
+	@Column(name = "NUMERO", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numero;
+
+	@Field
+	@Caption("Complemento")
+	@Column(name = "complemento", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String complemento;
+
+	@Field
+	@Caption("Bairro")
+	@Column(name = "BAIRRO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String bairro;
+
+	@Field
+	@Caption("Cidade")
+	@Column(name = "CIDADE", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cidade;
+
+	@Field
+	@Caption("Cep")
+	@Column(name = "CEP", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cep;
+
+	@Field
+	@Caption("Municipio IBGE")
+	@Column(name = "MUNICIPIO_IBGE", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer municipioIBGE;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "UF", referencedColumnName = "ID")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private UF uf;
+
+	@Field
+	@Caption("Email")
+	@Column(name = "EMAIL", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String email;
+
+	@JoinColumn(name = "ID_Pessoa", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Pessoa idPessoa;
 
-    public Contador() {
-    }
+	public Contador() {
 
-    public Contador(Integer id) {
-        this.id = id;
-    }
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Contador(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public String getInscricaoCrc() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getInscricaoCrc() {
 		return inscricaoCrc;
 	}
 
@@ -232,6 +264,7 @@ public class Contador extends AbstractModel<Integer> implements Serializable {
 	public void setIdPessoa(Pessoa idPessoa) {
 		this.idPessoa = idPessoa;
 	}
+
 	public UF getUf() {
 		return uf;
 	}
@@ -241,8 +274,8 @@ public class Contador extends AbstractModel<Integer> implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
-}
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
+}

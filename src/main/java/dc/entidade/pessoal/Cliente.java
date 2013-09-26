@@ -30,183 +30,206 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
-
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
 @Table(name = "cliente")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Cliente extends AbstractModel<Integer> implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
 
-    @Field
-    @Caption("Desde")
-    @Column(name = "DESDE")
-    private Date desde;
-    
-    @Column(name = "DATA_CADASTRO")
-    private Date dataCadastro;
-    
-    @Lob
-    @Field
-    @Caption("Observacao")
-    @Type(type="text")
-    @Column(name = "OBSERVACAO", length = 65535)
-    private String observacao;
-    
-    @Field
-    @Caption("Conta Tomador")
-    @Column(name="CONTA_TOMADOR")
-    private String contaTomador;
-    
-    @Field
-    @Caption("Gera Financeiro")
-    @Column(name="GERA_FINANCEIRO")
-    private Character geraFinanceiro;
-    
-    @Field
-    @Caption("Indicador Preco")
-    @Column(name="INDICADOR_PRECO")
-    private Character indicadorPreco;
-    
-    @Field
-    @Caption("Porcento Desconto")
-    @Column(name = "PORCENTO_DESCONTO", precision = 18, scale = 6)
-    private Double porcentoDesconto;
-    
-    @Field
-    @Caption("Forma Desconto")
-    @Column(name="FORMA_DESCONTO")
-    private Character formaDesconto;
-    
-    @Field
-    @Caption("Limite Credito")
-    @Column(name = "LIMITE_CREDITO", precision = 18, scale = 6)
-    private Double limiteCredito;
-    
-    @Field
-    @Caption("Tipo Frete")
-    @Column(name="TIPO_FRETE")
-    private Character tipoFrete;
+	private static final long serialVersionUID = 1L;
 
-    /*
-     * Mapeamento Situação-Cliente
-     */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_SITUACAO_FOR_CLI",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private SituacaoForCli situacao;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PESSOA",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private Pessoa pessoa;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_ATIVIDADE_FOR_CLI",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private AtividadeForCli atividadeForCli;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_CONTABIL_CONTA",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private ContabilConta contabilConta;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_OPERACAO_FISCAL",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private dc.entidade.tributario.OperacaoFiscal operacaoFiscal;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public Cliente() {
-    }
+	@Field
+	@Caption("Desde")
+	@Column(name = "DESDE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date desde;
 
-    public Cliente(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "DATA_CADASTRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataCadastro;
 
-    public Integer getId() {
-        return id;
-    }
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Type(type = "text")
+	@Column(name = "OBSERVACAO", length = 65535)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Conta Tomador")
+	@Column(name = "CONTA_TOMADOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String contaTomador;
 
-    public Date getDesde() {
-        return desde;
-    }
+	@Field
+	@Caption("Gera Financeiro")
+	@Column(name = "GERA_FINANCEIRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Character geraFinanceiro;
 
-    public void setDesde(Date desde) {
-        this.desde = desde;
-    }
+	@Field
+	@Caption("Indicador Preco")
+	@Column(name = "INDICADOR_PRECO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Character indicadorPreco;
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+	@Field
+	@Caption("Porcento Desconto")
+	@Column(name = "PORCENTO_DESCONTO", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double porcentoDesconto;
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	@Field
+	@Caption("Forma Desconto")
+	@Column(name = "FORMA_DESCONTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Character formaDesconto;
+
+	@Field
+	@Caption("Limite Credito")
+	@Column(name = "LIMITE_CREDITO", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double limiteCredito;
+
+	@Field
+	@Caption("Tipo Frete")
+	@Column(name = "TIPO_FRETE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Character tipoFrete;
+
+	/*
+	 * Mapeamento Situação-Cliente
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", insertable = true, updatable = true)
+	@Fetch(FetchMode.JOIN)
+	private SituacaoForCli situacao;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_PESSOA", insertable = true, updatable = true)
+	@Fetch(FetchMode.JOIN)
+	private Pessoa pessoa;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", insertable = true, updatable = true)
+	@Fetch(FetchMode.JOIN)
+	private AtividadeForCli atividadeForCli;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_CONTABIL_CONTA", insertable = true, updatable = true)
+	@Fetch(FetchMode.JOIN)
+	private ContabilConta contabilConta;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_OPERACAO_FISCAL", insertable = true, updatable = true)
+	@Fetch(FetchMode.JOIN)
+	private dc.entidade.tributario.OperacaoFiscal operacaoFiscal;
+
+	public Cliente() {
+	}
+
+	public Cliente(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDesde() {
+		return desde;
+	}
+
+	public void setDesde(Date desde) {
+		this.desde = desde;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
 	/**
-     * @return the situacao
-     */
-    public SituacaoForCli getSituacao() {
-        return situacao;
-    }
+	 * @return the situacao
+	 */
+	public SituacaoForCli getSituacao() {
+		return situacao;
+	}
 
-    /**
-     * @param situacao the situacao to set
-     */
-    public void setSituacao(SituacaoForCli situacao) {
-        this.situacao = situacao;
-    }
+	/**
+	 * @param situacao
+	 *            the situacao to set
+	 */
+	public void setSituacao(SituacaoForCli situacao) {
+		this.situacao = situacao;
+	}
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof Cliente == false) return false;
-    	if (this == object) return true;
-    	final Cliente other = (Cliente) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Cliente == false)
+			return false;
+		if (this == object)
+			return true;
+		final Cliente other = (Cliente) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-    	if(this.pessoa != null)
-    	{
-    		return this.pessoa.getNome();    		
-    	}
-        return ToStringBuilder.reflectionToString(this);
-    }
-    
+	@Override
+	public String toString() {
+		if (this.pessoa != null) {
+			return this.pessoa.getNome();
+		}
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -304,6 +327,4 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 		this.operacaoFiscal = operacaoFiscal;
 	}
 
-	
-	
 }

@@ -42,11 +42,15 @@ public class UF extends AbstractModel<Integer> implements Serializable {
 	private Integer id;
 
 	@Column(name = "ID_PAIS", nullable = false)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer idPais;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
@@ -57,9 +61,12 @@ public class UF extends AbstractModel<Integer> implements Serializable {
 	private String sigla;
 
 	@Column(name = "CODIGO_IBGE", nullable = false)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbge;
 
 	public UF() {
+
 	}
 
 	public UF(Integer id) {
