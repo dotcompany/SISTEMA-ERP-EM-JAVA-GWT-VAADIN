@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
 
 import dc.controller.geral.UFListController;
 import dc.entidade.diversos.Cep;
@@ -17,7 +16,6 @@ import dc.servicos.dao.diversos.CepDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.diversos.CepFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -70,6 +68,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 		String complemento = subView.getTxtComplemento().getValue();
 		String bairro = subView.getTxtBairro().getValue();
 		String municipio = subView.getTxtMunicipio().getValue();
+
 		currentBean.setCep(cep);
 		currentBean.setLogradouro(logradouro);
 		currentBean.setComplemento(complemento);
@@ -78,6 +77,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 
 		try {
 			cepDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,56 +87,64 @@ public class CepFormController extends CRUDFormController<Cep> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = cepDAO.find(id);
+
 		subView.getTxtCep().setValue(currentBean.getCep());
 		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
 		subView.getTxtComplemento().setValue(currentBean.getComplemento());
 		subView.getTxtBairro().setValue(currentBean.getBairro());
 		subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
 
-		/* Configura combo PAÃ�S */
-		ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
+		// /* Configura combo PAÃ�S */
+		// ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
+		//
+		// @Override
+		// public void onCriarNovo(String filter) {
+		// Notification.show("Selecionado Criar Novo: " + filter);
+		// }
+		//
+		// @Override
+		// public List<UF> getResultado(String q) {
+		// return ufDAO.query(q);
+		// }
+		//
+		// @Override
+		// public Class<UF> getEntityClass() {
+		// return UF.class;
+		// }
+		//
+		// @Override
+		// public String getCaptionProperty() {
+		// return "nome";
+		// }
+		//
+		// @Override
+		// public void onEditar(UF value) {
+		// Notification.show("Selecionado Editar: " + value.getNome());
+		//
+		// }
+		//
+		// @Override
+		// public List<UF> getAll() {
+		// // TODO Auto-generated method stub
+		// return null;
+		// }
+		//
+		// @Override
+		// public void onAdvancedSearch() {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		// };
 
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
+		// subView.getCmbUf().setModel(modeluf);
+		// subView.getCmbUf().setValue(currentBean.getUf());
 
-			@Override
-			public List<UF> getResultado(String q) {
-				return ufDAO.query(q);
-			}
+		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(
+				UFListController.class, this.ufDAO, super.getMainController());
 
-			@Override
-			public Class<UF> getEntityClass() {
-				return UF.class;
-			}
+		this.subView.getCmbUf().setModel(model);
 
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(UF value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-
-			}
-
-			@Override
-			public List<UF> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-
-			}
-		};
-
-		subView.getCmbUf().setModel(modeluf);
-		subView.getCmbUf().setValue(currentBean.getUf());
+		this.subView.getCmbUf().setValue(currentBean.getUf());
 	}
 
 	/*
@@ -174,6 +182,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		cepDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
@@ -185,7 +194,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
 			adicionarErroDeValidacao(subView.getTxtCep(),
-					"NÃ£o pode ficar em Branco!");
+					"Não pode ficar em branco!");
 
 			return false;
 		}

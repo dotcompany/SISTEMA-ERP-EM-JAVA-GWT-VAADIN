@@ -12,38 +12,40 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class PaisListController extends CRUDListController<Pais>{
+public class PaisListController extends CRUDListController<Pais> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	PaisDAO dao;
-	
+
 	@Autowired
 	PaisFormController paisFormController;
-	
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"nomeEn", "nomePtbr","sigla2","sigla3"};
+		return new String[] { "nomeEn", "nomePtbr", "sigla2", "sigla3" };
 	}
 
 	@Override
 	protected Class<? super Pais> getEntityClass() {
 		return Pais.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -54,14 +56,13 @@ public class PaisListController extends CRUDListController<Pais>{
 	protected List<Pais> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Pais> getFormController() {
 		return paisFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaPais";
@@ -71,11 +72,10 @@ public class PaisListController extends CRUDListController<Pais>{
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-	
+
 	@Override
 	protected List<Pais> pesquisaDefault() {
 		return (List<Pais>) dao.getAll(getEntityClass());
 	}
-
 
 }

@@ -12,38 +12,41 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class OperadoraCartaoListController extends CRUDListController<OperadoraCartao>{
+public class OperadoraCartaoListController extends
+		CRUDListController<OperadoraCartao> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	OperadoraCartaoDAO dao;
-	
+
 	@Autowired
 	OperadoraCartaoFormController operadoraFormController;
-	
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"nome", "bandeira"};
+		return new String[] { "nome", "bandeira" };
 	}
 
 	@Override
 	protected Class<? super OperadoraCartao> getEntityClass() {
 		return OperadoraCartao.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -54,14 +57,13 @@ public class OperadoraCartaoListController extends CRUDListController<OperadoraC
 	protected List<OperadoraCartao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<OperadoraCartao> getFormController() {
 		return operadoraFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub

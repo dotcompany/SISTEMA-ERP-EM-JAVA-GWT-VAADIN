@@ -11,10 +11,15 @@ import dc.servicos.dao.diversos.AlmoxarifadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoListController extends CRUDListController<Almoxarifado> {
+public class AlmoxarifadoListController extends
+		CRUDListController<Almoxarifado> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	AlmoxarifadoDAO dao;
@@ -29,7 +34,7 @@ public class AlmoxarifadoListController extends CRUDListController<Almoxarifado>
 
 	@Override
 	protected String[] getColunas() {
-		return new String[]{"nome"};
+		return new String[] { "nome" };
 	}
 
 	@Override
@@ -41,7 +46,6 @@ public class AlmoxarifadoListController extends CRUDListController<Almoxarifado>
 	protected Class<? super Almoxarifado> getEntityClass() {
 		return Almoxarifado.class;
 	}
-	
 
 	@Override
 	protected List<Almoxarifado> pesquisa(String valor) {
@@ -52,10 +56,11 @@ public class AlmoxarifadoListController extends CRUDListController<Almoxarifado>
 	protected String getTitulo() {
 		return "Almoxarifado";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +68,6 @@ public class AlmoxarifadoListController extends CRUDListController<Almoxarifado>
 		return false;
 	}
 
-	
 	@Override
 	protected List<Almoxarifado> pesquisaDefault() {
 		return (List<Almoxarifado>) dao.getAll(getEntityClass());

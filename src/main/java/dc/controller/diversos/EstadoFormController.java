@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
 
 import dc.entidade.diversos.Estado;
 import dc.entidade.diversos.Pais;
@@ -16,7 +15,6 @@ import dc.servicos.dao.diversos.EstadoDAO;
 import dc.servicos.dao.diversos.PaisDAO;
 import dc.visao.diversos.EstadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -66,11 +64,13 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		String sigla = subView.getTxtSigla().getValue();
-		currentBean.setNome(nome);
+
+		//currentBean.setNome(nome);
 		currentBean.setSigla(sigla);
 
 		try {
 			estadoDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,51 +80,44 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = estadoDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+
+		//subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtSigla().setValue(currentBean.getSigla());
 
-		/* Configura combo PAÃ�S */
-		ManyToOneComboModel<Pais> modelpais = new ManyToOneComboModel<Pais>() {
+		/*
+		 * Configura combo PAÃ�S ManyToOneComboModel<Pais> modelpais = new
+		 * ManyToOneComboModel<Pais>() {
+		 * 
+		 * @Override public void onCriarNovo(String filter) {
+		 * Notification.show("Selecionado Criar Novo: " + filter); }
+		 * 
+		 * @Override public List<Pais> getResultado(String q) { return
+		 * paisDAO.query(q); }
+		 * 
+		 * @Override public Class<Pais> getEntityClass() { return Pais.class; }
+		 * 
+		 * @Override public String getCaptionProperty() { return "nome"; }
+		 * 
+		 * @Override public void onEditar(Pais value) {
+		 * Notification.show("Selecionado Editar: " + value.getNomeEn()); }
+		 * 
+		 * @Override public List<Pais> getAll() { // TODO Auto-generated method
+		 * stub return null; }
+		 * 
+		 * @Override public void onAdvancedSearch() { // TODO Auto-generated
+		 * method stub } };
+		 * 
+		 * subView.getCmbPais().setModel(modelpais);
+		 * subView.getCmbPais().setValue(currentBean.getPaisId());
+		 */
 
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
+		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
+				PaisListController.class, this.paisDAO,
+				super.getMainController());
 
-			@Override
-			public List<Pais> getResultado(String q) {
-				return paisDAO.query(q);
-			}
+		this.subView.getCmbPais().setModel(model);
 
-			@Override
-			public Class<Pais> getEntityClass() {
-				return Pais.class;
-			}
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(Pais value) {
-				Notification.show("Selecionado Editar: " + value.getNomeEn());
-			}
-
-			@Override
-			public List<Pais> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-			}
-		};
-
-		subView.getCmbPais().setModel(modelpais);
-		subView.getCmbPais().setValue(currentBean.getPaisId());
+		this.subView.getCmbPais().setValue(currentBean.getPaisId());
 	}
 
 	/*
@@ -144,11 +137,11 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		// DefaultManyToOneComboModel(PaisListController . class , paisDAO ,
 		// mainController);
 
-		DefaultManyToOneComboModel<Pais> modelBanco = new DefaultManyToOneComboModel<Pais>(
+		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
 				PaisListController.class, this.paisDAO,
 				super.getMainController());
 
-		this.subView.getCmbPais().setModel(modelBanco);
+		this.subView.getCmbPais().setModel(model);
 	}
 
 	/*
@@ -163,6 +156,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		estadoDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
@@ -174,7 +168,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
 			adicionarErroDeValidacao(subView.getTxtNome(),
-					"NÃ£o pode ficar em Branco!");
+					"Não pode ficar em branco!");
 
 			return false;
 		}

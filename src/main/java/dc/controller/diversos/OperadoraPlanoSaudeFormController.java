@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
@@ -18,7 +17,6 @@ import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
 import dc.servicos.util.Validator;
 import dc.visao.diversos.OperadoraPlanoSaudeFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -65,7 +63,6 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new OperadoraPlanoSaude();
-
 	}
 
 	@Override
@@ -90,49 +87,43 @@ public class OperadoraPlanoSaudeFormController extends
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtRegistroANS().setValue(currentBean.getRegistroAns());
 
-		// Configura combo
-		ManyToOneComboModel<ContabilConta> model = new ManyToOneComboModel<ContabilConta>() {
+		/*
+		 * // Configura combo ManyToOneComboModel<ContabilConta> model = new
+		 * ManyToOneComboModel<ContabilConta>() {
+		 * 
+		 * @Override public void onCriarNovo(String filter) {
+		 * Notification.show("Selecionado Criar Novo: " + filter); }
+		 * 
+		 * @Override public List<ContabilConta> getResultado(String q) { return
+		 * contabilContaDAO.query(q); }
+		 * 
+		 * @Override public Class<ContabilConta> getEntityClass() { return
+		 * ContabilConta.class; }
+		 * 
+		 * @Override public String getCaptionProperty() { return
+		 * "classificacao"; }
+		 * 
+		 * @Override public void onEditar(ContabilConta value) {
+		 * Notification.show("Selecionado Editar: " + value.getClassificacao());
+		 * }
+		 * 
+		 * @Override public List<ContabilConta> getAll() { // TODO
+		 * Auto-generated method stub return null; }
+		 * 
+		 * @Override public void onAdvancedSearch() { // TODO Auto-generated
+		 * method stub } };
+		 * 
+		 * subView.getCmbContabilConta().setModel(model);
+		 */
 
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
+		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
+				ContabilContaListController.class, this.contabilContaDAO,
+				super.getMainController());
 
-			@Override
-			public List<ContabilConta> getResultado(String q) {
-				return contabilContaDAO.query(q);
-			}
+		this.subView.getCmbContabilConta().setModel(model);
 
-			@Override
-			public Class<ContabilConta> getEntityClass() {
-				return ContabilConta.class;
-			}
-
-			@Override
-			public String getCaptionProperty() {
-				return "classificacao";
-			}
-
-			@Override
-			public void onEditar(ContabilConta value) {
-				Notification.show("Selecionado Editar: "
-						+ value.getClassificacao());
-			}
-
-			@Override
-			public List<ContabilConta> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-			}
-		};
-
-		subView.getCmbContabilConta().setModel(model);
-		subView.getCmbContabilConta().setValue(currentBean.getContabilConta());
+		this.subView.getCmbContabilConta().setValue(
+				currentBean.getContabilConta());
 	}
 
 	@Override
@@ -162,6 +153,7 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		operadoraPlanoSaudeDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 

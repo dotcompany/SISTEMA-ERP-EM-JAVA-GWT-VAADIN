@@ -15,16 +15,20 @@ import dc.servicos.util.Validator;
 import dc.visao.diversos.SetorFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class SetorFormController extends CRUDFormController<Setor> {
 
-	private  SetorFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private SetorFormView subView;
 
 	@Autowired
 	private SetorDAO setorDAO;
-	
+
 	private Setor currentBean;
 
 	@Override
@@ -42,49 +46,45 @@ public class SetorFormController extends CRUDFormController<Setor> {
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Setor();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new SetorFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = setorDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			setorDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -94,28 +94,29 @@ public class SetorFormController extends CRUDFormController<Setor> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		setorDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "setorForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }
