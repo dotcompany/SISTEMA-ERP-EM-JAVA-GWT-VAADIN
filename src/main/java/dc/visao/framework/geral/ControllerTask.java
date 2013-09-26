@@ -15,7 +15,11 @@ public abstract class ControllerTask implements Task {
 	@Override
 	public void setModuleId(String id){
 		this.moduleID = id;
+		setChildModuleID(id);
 	}
+	
+
+	public abstract void setChildModuleID(String id);
 
 	@Override
 	public abstract Controller getController();

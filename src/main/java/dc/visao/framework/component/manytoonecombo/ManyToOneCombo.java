@@ -16,6 +16,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -77,6 +78,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				searchItemValue.setCaption("Pesquisa avançada");
 				searchItemValue.setFilter(q);
 				addItem(searchItemValue);
+				
+				//cmbResult.setItemIcon(searchItemValue, new ThemeResource("components/img/close.png"));
 
 				// Adiciona os itens filtrados
 				if(model != null){

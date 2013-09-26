@@ -86,9 +86,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			
 	@PostConstruct
 	protected void init() {
-		
-		
-		
 		getFormController().setListController(this);
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
@@ -296,9 +293,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setPageLength(PAGE_SIZE);
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
 		
-		// configura��o do Container
 		BeanQueryFactory queryFactory = null ;
-		if(isMultiEmpresa(getEntityClass())){
+		if(genericDAO.isMultiEmpresa(getEntityClass())){
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 		}else{
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);	
@@ -309,7 +305,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("conta_id",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		conf.put("id_empresa",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -357,11 +353,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	}
 	
-	private boolean isMultiEmpresa(Object o) {
-		    return o instanceof AbstractMultiEmpresaModel;
-	}
-
-
 	protected AbstractCrudDAO getMainDao() {
 		return genericDAO;
 	}
@@ -490,11 +481,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		return getFormController();
 	}
 
-	public void addSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
+	public void setSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
 		saveListener = modalWindowSaveListener;
 	}
 	
-	public void addSelectionListener(ModalWindowSelectionListener listener) {
+	public void setSelectionListener(ModalWindowSelectionListener listener) {
 		windowSelectionListener = listener;
 	}
 	
@@ -524,6 +515,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		view = null;
 		table = null;
 		saveListener = null;
+		windowSelectionListener = null;
+	}
+	
+	@Override
+	public void setChildModuleID(String id){
+		getFormController().setModuleId(id);
 	}
 
 }

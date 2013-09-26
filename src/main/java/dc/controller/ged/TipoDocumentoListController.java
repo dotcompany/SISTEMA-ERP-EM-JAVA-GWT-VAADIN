@@ -1,5 +1,6 @@
 package dc.controller.ged;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class TipoDocumentoListController extends CRUDListController<TipoDocument
 
 	@Override
 	protected List<TipoDocumento> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		return new ArrayList<TipoDocumento>();
 	}
 	
 
@@ -63,7 +64,7 @@ public class TipoDocumentoListController extends CRUDListController<TipoDocument
 	
 	@Override
 	protected List<TipoDocumento> pesquisaDefault() {
-		return (List<TipoDocumento>) dao.getAll(getEntityClass());
+		return new ArrayList<TipoDocumento>();
 	}
 
 }

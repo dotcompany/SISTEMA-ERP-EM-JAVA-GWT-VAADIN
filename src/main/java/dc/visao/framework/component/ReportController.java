@@ -77,5 +77,12 @@ public class ReportController extends ControllerTask implements Controller, Cont
 	}
 	
 	
+	
+	@Override
+	public void setChildModuleID(String id){
+		//nothinf for now
+	}
+	
+	
 
 }

@@ -168,4 +168,10 @@ public abstract class BlankFormController extends ControllerTask implements Cont
 	public void dispose(){
 		
 	}
+	
+
+	@Override
+	public void setChildModuleID(String id){
+		//nothinf for now
+	}
 }

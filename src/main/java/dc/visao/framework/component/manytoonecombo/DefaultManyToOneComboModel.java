@@ -67,7 +67,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				}
 				
 			}
-			ctrl.addSaveListener(new ModalWindowSaveListener<T>(){
+			ctrl.setSaveListener(new ModalWindowSaveListener<T>(){
 
 				@Override
 				public void onSave(T object) {
@@ -82,7 +82,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		
 		@Override
 		public List<T> getResultado(String q) {
-			return dao.comboTextSearch(q, dao.getSearchFields());
+			return dao.comboTextSearch(q);
 		}
 		
 		@Override
@@ -163,7 +163,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				}
 				
 			}
-			ctrl.addSaveListener(new ModalWindowSaveListener<T>(){
+			ctrl.setSaveListener(new ModalWindowSaveListener<T>(){
 
 				@Override
 				public void onSave(T object) {
@@ -224,7 +224,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				
 			}
 			
-			ctrl.addSelectionListener(new ModalWindowSelectionListener<T>(){
+			ctrl.setSelectionListener(new ModalWindowSelectionListener<T>(){
 
 				@Override
 				public void onSelect(T object) {

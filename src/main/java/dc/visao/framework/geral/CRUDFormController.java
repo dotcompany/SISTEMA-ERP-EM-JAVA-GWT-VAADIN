@@ -47,6 +47,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	private Type beanType;
 
+
 	@Autowired
 	private MainController mainController;
 
@@ -256,6 +257,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	public void setListController(CRUDListController c) {
 		this.listController = c;
+		
 	}
 
 	protected abstract void remover(List<Serializable> ids);
@@ -322,16 +324,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		return listController;
 	}
 
-	@Override
-	public String getModuleId() {
-		return getParent().getModuleId();
-	}
-
-	@Override
-	public void setModuleId(String id) {
-		// nothing yet
-	}
-
 	public boolean hasNewAttemptOpen() {
 		return this.newAttemptOpen;
 	}
@@ -345,6 +337,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	protected MainController getMainController() {
 		return mainController;
+	}
+	
+
+	@Override
+	public void setChildModuleID(String id){
+		//nothing for now
 	}
 
 }

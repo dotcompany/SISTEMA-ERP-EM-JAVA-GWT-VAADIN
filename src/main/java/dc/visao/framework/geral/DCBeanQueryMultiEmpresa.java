@@ -78,12 +78,12 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm =  (String) getQueryConfiguration().get("search");
 		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
-		Integer idConta =  (Integer) getQueryConfiguration().get("id_empresa");
+		Integer idEmpresa =  (Integer) getQueryConfiguration().get("id_empresa");
 		int size = 0;
 		if(searchTerm != null && !searchTerm.trim().isEmpty()){
 			size = dao.fullTextSearchCount(searchTerm);	
 		}else{
-			size = dao.countByEmpresa(pojoClass,idConta);
+			size = dao.countByEmpresa(pojoClass,idEmpresa);
 		}
 		
 		logger.info("query result set size:" + size);
