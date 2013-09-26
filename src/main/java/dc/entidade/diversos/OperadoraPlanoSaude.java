@@ -27,6 +27,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
 /**
@@ -40,7 +41,8 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperadoraPlanoSaude extends AbstractModel<Integer> implements Serializable {
+public class OperadoraPlanoSaude extends AbstractModel<Integer> implements
+		Serializable {
 
 	/**
 	 *
@@ -52,20 +54,22 @@ public class OperadoraPlanoSaude extends AbstractModel<Integer> implements Seria
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operadora_plano_saude_id_seq")
 	@SequenceGenerator(name = "operadora_plano_saude_id_seq", sequenceName = "operadora_plano_saude_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
-	@Analyzer(definition= "dc_combo_analyzer")
 	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Registro ANS")
 	@Column(name = "REGISTRO_ANS", length = 100)
-	@Analyzer(definition= "dc_combo_analyzer")
 	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String registroAns;
 
 	@ManyToOne(optional = false)

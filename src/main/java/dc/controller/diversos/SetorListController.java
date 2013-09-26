@@ -11,10 +11,14 @@ import dc.servicos.dao.diversos.SetorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class SetorListController extends CRUDListController<Setor> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SetorDAO dao;
@@ -29,7 +33,7 @@ public class SetorListController extends CRUDListController<Setor> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[]{"nome", "descricao"};
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -41,7 +45,6 @@ public class SetorListController extends CRUDListController<Setor> {
 	protected Class<? super Setor> getEntityClass() {
 		return Setor.class;
 	}
-	
 
 	@Override
 	protected List<Setor> pesquisa(String valor) {
@@ -52,10 +55,10 @@ public class SetorListController extends CRUDListController<Setor> {
 	protected String getTitulo() {
 		return "Setor";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
 	}
 
 	@Override
@@ -63,7 +66,6 @@ public class SetorListController extends CRUDListController<Setor> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<Setor> pesquisaDefault() {
 		return (List<Setor>) dao.getAll(getEntityClass());

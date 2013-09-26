@@ -118,7 +118,7 @@ public class MainView extends CssLayout implements View {
                         
                         //NanoScrollPanel nPanel = new NanoScrollPanel();
                  	    //nPanel.setSizeFull();
-                 	    //nPanel.setWidth("100%");
+                 	   // nPanel.setWidth("100%");
                         //nPanel.setHeight("40px");
                         //nPanel.flashScrollbar();
                  	    //nPanel.setPreventPageScrolling(true); 

@@ -20,13 +20,13 @@ public abstract class FileBuilder implements Serializable {
     private String header;
     private Locale locale = Locale.getDefault();;
     private String dateFormatString = "MM/dd/yyyy hh:mm";
-
+    private  int coluna2 = 1;
     public FileBuilder() {
 
     }
 
     public FileBuilder(Container container) {
-        setContainer(container);
+    	setContainer(container);
     }
 
     public void setContainer(Container container) {
@@ -80,10 +80,14 @@ public abstract class FileBuilder implements Serializable {
             return;
         }
         onHeader();
+        int coluna = 1;
         for (Object propertyId : visibleColumns) {
-            String header = columnHeaderMap.get(propertyId);
-            onNewCell();
-            buildColumnHeaderCell(header);
+            if(coluna > 1){
+	        	String header = columnHeaderMap.get(propertyId);
+	            onNewCell();
+	            buildColumnHeaderCell(header);
+            }
+            coluna++;
         }
     }
 
@@ -104,9 +108,13 @@ public abstract class FileBuilder implements Serializable {
         if (container == null || container.getItemIds().isEmpty()) {
             return;
         }
+        
         for (Object itemId : container.getItemIds()) {
-            onNewRow();
-            buildRow(itemId);
+        	 if(coluna2 > 1){
+               onNewRow();
+               buildRow(itemId);
+        	 }
+        	 coluna2++;
         }
     }
 
@@ -114,11 +122,21 @@ public abstract class FileBuilder implements Serializable {
         if (visibleColumns.length == 0) {
             return;
         }
+        //int coluna = 1;
+        
+        if(getFileExtension().equalsIgnoreCase(".xls")){
+        	coluna2 = 1;
+        }
+        
         for (Object propertyId : visibleColumns) {
-            Property<?> property = container.getContainerProperty(itemId,
-                    propertyId);
-            onNewCell();
-            buildCell(property == null ? null : property.getValue());
+        	 if(coluna2 > 1){
+        	
+		            Property<?> property = container.getContainerProperty(itemId,
+		                    propertyId);
+		            onNewCell();
+		            buildCell(property == null ? null : property.getValue());
+        	 }
+        	 coluna2++;
         }
     }
 

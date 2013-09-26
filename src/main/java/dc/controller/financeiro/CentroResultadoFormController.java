@@ -10,28 +10,30 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.CentroResultado;
+import dc.entidade.financeiro.PlanoCentroResultado;
 import dc.servicos.dao.financeiro.CentroResultadoDAO;
 import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.CentroResultadoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no CentroResultado de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
- * formos pesquisar na Tela.
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+ *         que tem todos os controllers da Tela, onde quando extendemos herdamos
+ *         os métodos que temos na tela principal. Temos o botão Novo que é para
+ *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
+ *         o Button Salvar que é para salvar as informações no CentroResultado
+ *         de Dados Temos o carregar também que é para pegar as informações que
+ *         desejarmos quando formos pesquisar na Tela.
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class CentroResultadoFormController extends CRUDFormController<CentroResultado> {
+public class CentroResultadoFormController extends
+		CRUDFormController<CentroResultado> {
 
 	/**
 	 * 
@@ -94,11 +96,19 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 	@Override
 	protected void initSubView() {
 		subView = new CentroResultadoFormView();
-		subView.InitCbPlanoCentroResultado(planoresultadoDAO.listaTodos());
+		// subView.InitCbPlanoCentroResultado(planoresultadoDAO.listaTodos());
 
+		DefaultManyToOneComboModel<PlanoCentroResultado> model = new DefaultManyToOneComboModel<PlanoCentroResultado>(
+				PlanoCentroResultadoListController.class,
+				this.planoresultadoDAO, super.getMainController());
+
+		this.subView.getCmbPlanoCentroResultado().setModel(model);
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void quandoNovo() {
 
@@ -112,29 +122,40 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtClassficacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtClassficacao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtClassficacao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
+		/*
+		 * if
+		 * (!Validator.validateObject(subView.getCbPlanoCentroResultado().getValue
+		 * ())) { adicionarErroDeValidacao(subView.getCbPlanoCentroResultado(),
+		 * "Não pode ficar em branco"); valido = false; }
+		 */
 
-		if (!Validator.validateObject(subView.getCbPlanoCentroResultado().getValue())) {
-			adicionarErroDeValidacao(subView.getCbPlanoCentroResultado(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCmbPlanoCentroResultado()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getCmbPlanoCentroResultado(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		return valido;
 	}
+
 }

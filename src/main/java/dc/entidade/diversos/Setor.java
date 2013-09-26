@@ -26,6 +26,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.BemEntity;
 
@@ -54,11 +56,15 @@ public class Setor extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Lob
@@ -66,6 +72,8 @@ public class Setor extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "setor")

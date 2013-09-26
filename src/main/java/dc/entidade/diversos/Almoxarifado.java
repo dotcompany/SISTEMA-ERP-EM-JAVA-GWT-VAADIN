@@ -20,74 +20,85 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-
-
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
 @Table(name = "almoxarifado")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class Almoxarifado implements Serializable {
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class Almoxarifado extends AbstractModel<Integer> implements
+		Serializable {
 
-   private static final long serialVersionUID = 1L;
-   
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Basic(optional = false)
-   @Column(name = "ID")
-   private Integer id;
-   
-   @Field
-   @Caption("Nome")
-   @Column(name = "NOME")
-   private String nome;
-   
-   public Almoxarifado() {
-   }
+	private static final long serialVersionUID = 1L;
 
-   public Almoxarifado(Integer id) {
-       this.id = id;
-   }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-   public Integer getId() {
-       return id;
-   }
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
-   public void setId(Integer id) {
-       this.id = id;
-   }
+	public Almoxarifado() {
 
-   public String getNome() {
-       return nome;
-   }
+	}
 
-   public void setNome(String nome) {
-       this.nome = nome;
-   }
-   
-   @Override
-   public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-   }
+	public Almoxarifado(Integer id) {
+		this.id = id;
+	}
 
-   @Override
-   public boolean equals(Object object) {
-   	if (object instanceof Almoxarifado == false) return false;
-   	if (this == object) return true;
-   	final Almoxarifado other = (Almoxarifado) object;
-   	return EqualsBuilder.reflectionEquals(this, other);
-   }
+	public Integer getId() {
+		return id;
+	}
 
-   @Override
-   public String toString() {
-   	return ToStringBuilder.reflectionToString(this);
-   }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Almoxarifado == false)
+			return false;
+
+		if (this == object)
+			return true;
+
+		final Almoxarifado other = (Almoxarifado) object;
+
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

@@ -12,37 +12,39 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class CepListController extends CRUDListController<Cep>{
+public class CepListController extends CRUDListController<Cep> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CepDAO dao;
-	
+
 	@Autowired
 	CepFormController cepFormController;
-	
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"cep", "logradouro"};
+		return new String[] { "cep", "logradouro" };
 	}
 
 	@Override
 	protected Class<? super Cep> getEntityClass() {
 		return Cep.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -53,14 +55,13 @@ public class CepListController extends CRUDListController<Cep>{
 	protected List<Cep> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Cep> getFormController() {
 		return cepFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -79,8 +80,4 @@ public class CepListController extends CRUDListController<Cep>{
 		return (List<Cep>) dao.getAll(getEntityClass());
 	}
 
-	
-
-	
 }
-
