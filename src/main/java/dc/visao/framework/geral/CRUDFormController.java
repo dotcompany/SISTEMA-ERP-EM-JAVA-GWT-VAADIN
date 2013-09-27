@@ -147,8 +147,9 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	private void closeFormTaskOrWindow() {
 		if (!isOnSeparateWindow()) {
+			Task parent = listController;
 			mainController.removeTask(CRUDFormController.this, false);
-			mainController.showTaskableContent((Task) listController);
+			mainController.showTaskableContent(parent);
 		} else {
 			close();
 		}
@@ -330,9 +331,9 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	@Override
 	public void dispose() {
-		view = null;
-		validatableComponents = null;
-		listController = null;
+		//view = null;
+		//validatableComponents = null;
+		//listController = null;
 	}
 
 	protected MainController getMainController() {

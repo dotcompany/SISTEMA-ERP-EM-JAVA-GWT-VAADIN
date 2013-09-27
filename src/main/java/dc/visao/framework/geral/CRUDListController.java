@@ -512,10 +512,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	
 	@Override
 	public void dispose(){
-		view = null;
-		table = null;
-		saveListener = null;
-		windowSelectionListener = null;
+		//view = null;
+		//table = null;
+		//saveListener = null;
+		//windowSelectionListener = null;
 	}
 	
 	@Override
