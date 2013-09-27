@@ -47,7 +47,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	private Type beanType;
 
-
 	@Autowired
 	private MainController mainController;
 
@@ -80,6 +79,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		if (isFullSized()) {
 			panel.setHeight("100%");
 		}
+
 		panel.addComponent(getSubView());
 
 		/*
@@ -90,7 +90,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 		// Configura Botoes;
 		view.getBtnSalvar().addClickListener(new ClickListener() {
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				limpaValidacoes();
@@ -115,7 +114,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		});
 
 		view.getBtnNovo().addClickListener(new ClickListener() {
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
@@ -125,13 +123,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 					listController.showOnWindow(view);
 					criarNovo();
 				}
-
 			}
-
 		});
 
 		view.getBtnCancelar().addClickListener(new ClickListener() {
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (!hasNewAttemptOpen()) {
@@ -139,9 +134,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 				} else {
 					confirmClose();
 				}
-
 			}
-
 		});
 	}
 
@@ -178,7 +171,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		} else {
 			listController.closeWindow();
 		}
-
 	}
 
 	protected boolean isFullSized() {
@@ -195,7 +187,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			AbstractComponent c = validatableComponents.get(key);
 			c.setComponentError(null);
 		}
-
 	}
 
 	/*
@@ -241,6 +232,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void notifiyFrameworkSaveOK(E obj) {
 		newAttemptOpen = false;
 		listController.notifySaved(obj);
+
 		new Notification("Gravado!", "Registro gravado com sucesso",
 				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
 				.getCurrent());
@@ -258,7 +250,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	public void setListController(CRUDListController c) {
 		this.listController = c;
-		
 	}
 
 	protected abstract void remover(List<Serializable> ids);
@@ -272,7 +263,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	}
 
 	public void mensagemErro(String message) {
-		// TODO Auto-generated method stub
 		new Notification(DcConstants.ERROR_TITLE, message,
 				Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
 	}
@@ -298,7 +288,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			adicionarErroDeValidacao(txtField, "Não pode ficar em branco");
 			return true;
 		}
-		;
+
 		return false;
 	}
 
@@ -331,19 +321,18 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 
 	@Override
 	public void dispose() {
-		//view = null;
-		//validatableComponents = null;
-		//listController = null;
+		// view = null;
+		// validatableComponents = null;
+		// listController = null;
 	}
 
 	protected MainController getMainController() {
 		return mainController;
 	}
-	
 
 	@Override
-	public void setChildModuleID(String id){
-		//nothing for now
+	public void setChildModuleID(String id) {
+		// nothing for now
 	}
 
 }

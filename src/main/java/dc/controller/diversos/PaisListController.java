@@ -33,10 +33,10 @@ public class PaisListController extends CRUDListController<Pais> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	PaisDAO dao;
+	private PaisDAO dao;
 
 	@Autowired
-	PaisFormController paisFormController;
+	private PaisFormController paisFormController;
 
 	@Override
 	protected String[] getColunas() {
@@ -56,8 +56,12 @@ public class PaisListController extends CRUDListController<Pais> {
 	@Override
 	protected List<Pais> pesquisa(String valor) {
 		try {
-			return (List<Pais>) dao.fullTextSearch(valor);
+			List<Pais> auxLista = (List<Pais>) dao.procuraNomeContendo(valor);
+
+			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<Pais>();
 		}
 	}
@@ -81,10 +85,18 @@ public class PaisListController extends CRUDListController<Pais> {
 	@Override
 	protected List<Pais> pesquisaDefault() {
 		try {
-			return (List<Pais>) dao.getAll(getEntityClass());
+			List<Pais> auxLista = (List<Pais>) dao.listaTodos();
+
+			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<Pais>();
 		}
 	}
+
+	/**
+	 * **************************************
+	 */
 
 }

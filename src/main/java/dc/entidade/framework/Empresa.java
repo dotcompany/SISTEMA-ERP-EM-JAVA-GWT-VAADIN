@@ -36,6 +36,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import dc.anotacoes.Caption;
+import dc.entidade.diversos.Pais;
 import dc.entidade.financeiro.type.EmpresaType;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
@@ -218,6 +219,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Endereco> enderecos = new ArrayList<>();
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<Pais> paisList;
 
 	/*
 	 * @ManyToOne
@@ -695,6 +699,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setEndereco(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public List<Pais> getPaisList() {
+		return paisList;
+	}
+
+	public void setPaisList(List<Pais> paisList) {
+		this.paisList = paisList;
 	}
 
 	// /**
