@@ -11,15 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.ws.rs.ApplicationPath;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -28,68 +25,68 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
-
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
 @Table(name = "cbo")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class CBO extends AbstractModel<Integer> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cbo_id_seq")
 	@SequenceGenerator(name = "cbo_id_seq", sequenceName = "cbo_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name="Codigo", length = 50)
-    @ComboCode
-    @Analyzer(definition= "dc_combo_analyzer")
-    private String codigo;
-    
-    
-    @Field
-    @Caption("Nome")
-    @Column(name = "NOME", length = 50)
-    @Analyzer(definition= "dc_combo_analyzer")
-    @ComboValue
-    private String nome;
-    
-    @Lob
-    @Field
-    @Caption("Observacao")
-    @Column(name = "OBSERVACAO")
-    @Type(type="text")
-    private String observacao;
-    
-    public CBO() {
-    }
 
-    public CBO(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "Codigo", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-	
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	public CBO() {
+
+	}
+
+	public CBO(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -114,9 +111,9 @@ public class CBO extends AbstractModel<Integer> implements Serializable {
 		this.observacao = observacao;
 	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-    
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

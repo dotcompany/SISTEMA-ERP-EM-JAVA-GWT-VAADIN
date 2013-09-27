@@ -1,6 +1,5 @@
 package dc.controller.tributario;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.tributario.GrupoTributario;
-import dc.entidade.tributario.OperacaoFiscal;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.util.Validator;
@@ -24,14 +22,13 @@ import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioFormController extends CRUDFormController<GrupoTributario> {
+public class GrupoTributarioFormController extends
+		CRUDFormController<GrupoTributario> {
 
 	GrupoTributarioFormView subView;
 
 	@Autowired
 	GrupoTributarioDAO dao;
-
-
 
 	GrupoTributario currentBean;
 
@@ -46,9 +43,6 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-
-
-
 		return valido;
 	}
 
@@ -60,7 +54,6 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	@Override
 	protected void initSubView() {
 		subView = new GrupoTributarioFormView(this);
-
 	}
 
 	@Override
@@ -70,26 +63,27 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 		subView.preencherForm(currentBean);
 	}
 
-	public Empresa empresaAtual(){
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
-
-			String descricao = subView.getDescricao().getValue(); 
+		try {
+			String descricao = subView.getDescricao().getValue();
 			String origem = "";
 			String obs = subView.getObservacao().getValue();
 
-			if(!(Validator.validateString(descricao))) 
+			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
-			if(!(Validator.validateObject(subView.getCmbOrigemMercadoria().getValue()))) {
-				throw new ErroValidacaoException("Informe o Campo Origem da Mercadoria");
-			}
-			else{
-				origem = ((ORIGEM_MERCADORIA)(subView.getCmbOrigemMercadoria().getValue())).getCodigo();
+			if (!(Validator.validateObject(subView.getCmbOrigemMercadoria()
+					.getValue()))) {
+				throw new ErroValidacaoException(
+						"Informe o Campo Origem da Mercadoria");
+			} else {
+				origem = ((ORIGEM_MERCADORIA) (subView.getCmbOrigemMercadoria()
+						.getValue())).getCodigo();
 			}
 
 			currentBean.setEmpresa(empresaAtual());
@@ -98,9 +92,9 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 			currentBean.setObservacao(obs);
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		}catch(ErroValidacaoException e){
+		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
@@ -108,12 +102,11 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		}catch(Exception e){
+		try {
+			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -129,8 +122,8 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
@@ -138,14 +131,12 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-   public List<GrupoTributario> trazerTodos(){
-	   return dao.listaTodos();
-   }
-
-
+	public List<GrupoTributario> trazerTodos() {
+		return dao.listaTodos();
+	}
 
 }

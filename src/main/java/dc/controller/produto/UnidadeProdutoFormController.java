@@ -15,29 +15,34 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.produto.UnidadeProdutoFormView;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no Banco de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
- * formos pesquisar na Tela.
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+ *         que tem todos os controllers da Tela, onde quando extendemos herdamos
+ *         os métodos que temos na tela principal. Temos o botão Novo que é para
+ *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
+ *         o Button Salvar que é para salvar as informações no Banco de Dados
+ *         Temos o carregar também que é para pegar as informações que
+ *         desejarmos quando formos pesquisar na Tela.
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProduto> {
+public class UnidadeProdutoFormController extends
+		CRUDFormController<UnidadeProduto> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	UnidadeProdutoFormView subView;
-	
+
 	@Autowired
 	UnidadeProdutoDAO unidadeProdutoDAO;
 
 	private UnidadeProduto currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Unidade Produto";
@@ -48,33 +53,34 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
 		currentBean.setSigla(subView.getTxtSigla().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setPodeFracionar(subView.getCbPodeFracionar().toString());
-		try{
+
+		try {
 			unidadeProdutoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = unidadeProdutoDAO.find(id);
 		subView.getTxtSigla().setValue(currentBean.getSigla());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -82,7 +88,10 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 		subView = new UnidadeProdutoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new UnidadeProduto();
@@ -91,26 +100,31 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 	@Override
 	protected void remover(List<Serializable> ids) {
 		unidadeProdutoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtSigla().getValue() ==  null || subView.getTxtSigla().getValue().isEmpty()){
-			adicionarErroDeValidacao(subView.getTxtSigla(),"Não pode ficar em branco");
+		if (subView.getTxtSigla().getValue() == null
+				|| subView.getTxtSigla().getValue().isEmpty()) {
+			adicionarErroDeValidacao(subView.getTxtSigla(),
+					"Não pode ficar em branco");
 			return false;
 		}
-		
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em branco");
+
+		if (subView.getTxtDescricao().getValue() == null
+				|| subView.getTxtDescricao().getValue().isEmpty()) {
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em branco");
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

@@ -15,17 +15,20 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.produto.NCMFormView;
 
-
-
 @Controller
 @Scope("prototype")
 public class NCMFormController extends CRUDFormController<NCM> {
 
-	private  NCMFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private NCMFormView subView;
 
 	@Autowired
 	private NCMDAO ncmDAO;
-	
+
 	private NCM currentBean;
 
 	@Override
@@ -43,31 +46,30 @@ public class NCMFormController extends CRUDFormController<NCM> {
 					"Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtObservacao(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new NCM();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new NCMFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = ncmDAO.find(id);
-		
+
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
@@ -75,25 +77,22 @@ public class NCMFormController extends CRUDFormController<NCM> {
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-		
+
 		try {
 			ncmDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -103,24 +102,24 @@ public class NCMFormController extends CRUDFormController<NCM> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		ncmDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "ncmForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override

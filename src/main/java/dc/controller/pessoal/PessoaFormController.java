@@ -12,9 +12,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Pessoa;
-
 import dc.servicos.dao.pessoal.PessoaDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.PessoaFormView;
 import dc.visao.pessoal.TipoPessoa;
@@ -29,7 +27,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Autowired
 	PessoaDAO dao;
-	
+
 	Pessoa currentBean;
 
 	@Override
@@ -40,8 +38,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
-		
+
 		return valido;
 	}
 
@@ -53,7 +50,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void initSubView() {
 		subView = new PessoaFormView(this);
-
 	}
 
 	@Override
@@ -61,39 +57,36 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
 	}
-	
-	public Empresa empresaAtual(){
+
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
-			TipoPessoa tpPessoa = (TipoPessoa)subView.getCmbTipoPessoa().getValue();
+		try {
+			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa()
+					.getValue();
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setTipo(tpPessoa.getCodigo());
 			currentBean.setEmail(subView.getTxtEmail().getValue());
 			currentBean.setSite(subView.getTxtSite().getValue());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void quandoNovo() {
-		try{
-		}catch(Exception e){
+		try {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-	
 
 	@Override
 	protected Component getSubView() {
@@ -107,30 +100,23 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-	
 		dao.deleteAllByIds(ids);
-
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
-
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
-	
 
-	 public Contato novoContato(){
-		 Contato c = new Contato();
-		 currentBean.adicionarContato(c);
-		 return c;
-	 }
-	 
-	
-	
+	public Contato novoContato() {
+		Contato c = new Contato();
+		currentBean.adicionarContato(c);
+		return c;
+	}
 
 }
-

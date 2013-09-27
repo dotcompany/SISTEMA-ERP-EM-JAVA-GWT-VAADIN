@@ -22,64 +22,71 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*/
-
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
 @Table(name = "csosnb")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Csosnb extends AbstractModel<Integer> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "csosnb_id_seq")
 	@SequenceGenerator(name = "csosnb_id_seq", sequenceName = "csosnb_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name="Codigo", length = 50)
-    private String codigo;
-    
-    @Field
-    @Caption("Descricao")
-    @Column(name = "DESCRICAO", length = 50)
-    private String descricao;
-    
-    @Lob
-    @Field
-    @Caption("Observacao")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "OBSERVACAO")
-    @Type(type="text")
-    private String observacao;
-    
-    public Csosnb() {
-    }
 
-    public Csosnb(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "Codigo", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Descricao")
+	@Column(name = "DESCRICAO", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	public Csosnb() {
+
+	}
+
+	public Csosnb(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getCodigo() {
 		return codigo;
@@ -104,9 +111,10 @@ public class Csosnb extends AbstractModel<Integer> implements Serializable {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-    
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

@@ -21,86 +21,91 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
-
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
 @Table(name = "cfop")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Cfop extends AbstractModel<Integer> implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
-    
-    @Lob
-    @Type(type="text")
-    @Caption("Descrição")
-    @Field
-    @Column(name = "DESCRICAO", length = 65535)
-    private String descricao;
-    
-    @Lob
-    @Type(type="text")
-    @Field
-    @Caption("Aplicação")
-    @Column(name = "APLICACAO", length = 65535)
-    private String aplicacao;
-    
-    public Cfop() {
-    }
 
-    public Cfop(Integer id) {
-        this.id = id;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Lob
+	@Type(type = "text")
+	@Caption("Descrição")
+	@Field
+	@Column(name = "DESCRICAO", length = 65535)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public String getDescricao() {
-        return descricao;
-    }
+	@Lob
+	@Type(type = "text")
+	@Field
+	@Caption("Aplicação")
+	@Column(name = "APLICACAO", length = 65535)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String aplicacao;
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public Cfop() {
 
-    public String getAplicacao() {
-        return aplicacao;
-    }
+	}
 
-    public void setAplicacao(String aplicacao) {
-        this.aplicacao = aplicacao;
-    }
-    
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+	public Cfop(Integer id) {
+		this.id = id;
+	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getAplicacao() {
+		return aplicacao;
+	}
+
+	public void setAplicacao(String aplicacao) {
+		this.aplicacao = aplicacao;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

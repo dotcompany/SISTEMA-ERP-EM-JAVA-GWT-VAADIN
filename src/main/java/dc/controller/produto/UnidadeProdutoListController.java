@@ -1,5 +1,6 @@
 package dc.controller.produto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,37 +13,40 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoListController extends CRUDListController<UnidadeProduto>{
+public class UnidadeProdutoListController extends
+		CRUDListController<UnidadeProduto> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	UnidadeProdutoDAO dao;
-	
+
 	@Autowired
 	UnidadeProdutoFormController unidadeProdutoFormController;
-	
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"sigla", "descricao"};
+		return new String[] { "sigla", "descricao" };
 	}
 
 	@Override
 	protected Class<? super UnidadeProduto> getEntityClass() {
 		return UnidadeProduto.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -51,16 +55,21 @@ public class UnidadeProdutoListController extends CRUDListController<UnidadeProd
 
 	@Override
 	protected List<UnidadeProduto> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			return (List<UnidadeProduto>) dao.fullTextSearch(valor);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<UnidadeProduto>();
+		}
 	}
-	
 
 	@Override
 	protected CRUDFormController<UnidadeProduto> getFormController() {
 		return unidadeProdutoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -75,8 +84,13 @@ public class UnidadeProdutoListController extends CRUDListController<UnidadeProd
 
 	@Override
 	protected List<UnidadeProduto> pesquisaDefault() {
-		return (List<UnidadeProduto>) dao.getAll(getEntityClass());
+		try {
+			return (List<UnidadeProduto>) dao.getAll(getEntityClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<UnidadeProduto>();
+		}
 	}
 
 }
-

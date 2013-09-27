@@ -38,6 +38,8 @@ import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
@@ -64,140 +66,214 @@ public class Colaborador extends AbstractModel<Integer> implements Serializable 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Matricula")
 	@Column(name = "MATRICULA", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String matricula;
 
 	@Lob
 	@Type(type = "text")
 	@Column(name = "FOTO_34")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String foto34;
 
 	@Field
 	@Caption("Data Cadastro")
 	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Field
 	@Caption("Data Admissao")
 	@Column(name = "DATA_ADMISSAO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataAdmissao;
 
 	@Field
 	@Caption("Vencimento Ferias")
 	@Column(name = "VENCIMENTO_FERIAS")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date vencimentoFerias;
 
 	@Field
 	@Caption("Data Transferencia")
 	@Column(name = "DATA_TRANSFERENCIA")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataTransferencia;
 
 	@Column(name = "FGTS_OPTANTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character fgts_optante;
 
 	@Column(name = "FGTS_DATA_OPCAO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date fgtsDataOpcao;
 
 	@Column(name = "FGTS_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer fgtsConta;
 
 	@Column(name = "PAGAMENTO_FORMA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoForma;
 
 	@Column(name = "PAGAMENTO_Banco", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoBanco;
 
 	@Column(name = "PAGAMENTO_AGENCIA", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoAgencia;
 
 	@Column(name = "PAGAMENTO_AGENCIA_DIGITO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoAgenciaDigito;
 
 	@Column(name = "PAGAMENTO_CONTA", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoConta;
 
 	@Column(name = "PAGAMENTO_CONTA_DIGITO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoContaDigito;
 
 	@Column(name = "EXAME_MEDICO_ULTIMO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date exameMedicoUltimo;
 
 	@Column(name = "EXAME_MEDICO_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date exameMedicoVencimento;
 
 	@Column(name = "PIS_DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date pisDataCadastro;
 
 	@Column(name = "PIS_NUMERO", length = 12)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisNumero;
 
 	@Column(name = "PIS_BANCO", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisBanco;
 
 	@Column(name = "PIS_AGENCIA", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisAgencia;
 
 	@Column(name = "PIS_AGENCIA_DIGITO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pisAgenciaDigito;
 
 	@Column(name = "CTPS_NUMERO", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctps_Numero;
 
 	@Column(name = "CTPS_SERIE", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctpsSerie;
 
 	@Column(name = "CTPS_DATA_EXPEDICAO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date ctpsDataExpedicao;
 
 	@Column(name = "CTPS_UF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private UF ctpsUf;
 
 	@Column(name = "DESCONTO_PLANO_SAUDE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character descontoPlanoSaude;
 
 	@Column(name = "SAI_NA_RAIS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character saiNaRais;
 
 	@Column(name = "CATEGORIA_SEFIP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character categoriaSefip;
 
 	@Column(name = "OCORRENCIA_SEFIP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer ocorrenciaSefip;
 
 	@Column(name = "CODIGO_ADMISSAO_CAGED")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoAdmissaoCaged;
 
 	@Column(name = "CODIGO_DEMISSAO_CAGED")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoDemissaoCaged;
 
 	@Column(name = "CODIGO_DEMISSAO_SEFIP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoDemissaoSefip;
 
 	@Column(name = "DATA_DEMISSAO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataDemissao;
 
 	@Field
 	@Caption("Codigo Turma Ponto")
 	@Column(name = "CODIGO_TURMA_PONTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoTurmaPonto;
 
 	@Lob
 	@Type(type = "text")
 	@Column(name = "OBSERVACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")

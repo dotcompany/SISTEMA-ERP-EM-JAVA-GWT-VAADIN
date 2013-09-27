@@ -1,5 +1,6 @@
 package dc.controller.produto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,14 @@ import dc.servicos.dao.produto.ProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class ProdutoListController extends CRUDListController<Produto> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ProdutoDAO dao;
@@ -27,14 +32,15 @@ public class ProdutoListController extends CRUDListController<Produto> {
 		return produtoFormController;
 	}
 
-//	@Override
-//	protected String[] getColunas() {
-//		return new String[]{"gtin", "codigoInterno","nome","descricao","descricaoPdv"};
-//	}
-	 
+	// @Override
+	// protected String[] getColunas() {
+	// return new String[]{"gtin",
+	// "codigoInterno","nome","descricao","descricaoPdv"};
+	// }
+
 	@Override
 	protected String[] getColunas() {
-		return new String[]{"nome"};
+		return new String[] { "nome" };
 	}
 
 	@Override
@@ -46,21 +52,26 @@ public class ProdutoListController extends CRUDListController<Produto> {
 	protected Class<? super Produto> getEntityClass() {
 		return Produto.class;
 	}
-	
 
 	@Override
 	protected List<Produto> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			return (List<Produto>) dao.fullTextSearch(valor);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<Produto>();
+		}
 	}
 
 	@Override
 	protected String getTitulo() {
 		return "Produto";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
 	}
 
 	@Override
@@ -68,10 +79,15 @@ public class ProdutoListController extends CRUDListController<Produto> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<Produto> pesquisaDefault() {
-		return (List<Produto>) dao.getAll(getEntityClass());
+		try {
+			return (List<Produto>) dao.getAll(getEntityClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<Produto>();
+		}
 	}
 
 }

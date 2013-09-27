@@ -1,6 +1,5 @@
 package dc.controller.tributario;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,14 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ContagemEstoque;
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 import dc.entidade.tributario.ICMSCustomizado;
-import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ICMSCustomizadoFormView;
@@ -27,14 +20,13 @@ import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustomizado> {
+public class ICMSCustomizadoFormController extends
+		CRUDFormController<ICMSCustomizado> {
 
 	ICMSCustomizadoFormView subView;
 
 	@Autowired
 	ICMSCustomizadoDAO dao;
-	
-	
 
 	ICMSCustomizado currentBean;
 
@@ -46,8 +38,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-				
-		
+
 		return valido;
 	}
 
@@ -59,7 +50,6 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	@Override
 	protected void initSubView() {
 		subView = new ICMSCustomizadoFormView(this);
-
 	}
 
 	@Override
@@ -68,42 +58,38 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		currentBean = dao.find((Integer) id);
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.carregarOrigemMercadoria();
-		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
+		subView.getOrigemMercadoria().setValue(
+				ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean
+						.getOrigemMercadoria()));
 	}
-	
-	public Empresa empresaAtual(){
+
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
-			currentBean.setOrigemMercadoria(((ORIGEM_MERCADORIA)subView.getOrigemMercadoria().getValue()).getCodigo());
+			currentBean.setOrigemMercadoria(((ORIGEM_MERCADORIA) subView
+					.getOrigemMercadoria().getValue()).getCodigo());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
-		
-
 	}
-
-	
 
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		}catch(Exception e){
+		try {
+			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-	
 
 	@Override
 	protected Component getSubView() {
@@ -115,26 +101,19 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		return "ICMS Customizado";
 	}
 
-	
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
-
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
 	}
-	
-	
-	
 
 }
-

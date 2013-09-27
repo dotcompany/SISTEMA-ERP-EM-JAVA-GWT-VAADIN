@@ -26,6 +26,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.UF;
 
 /*
@@ -40,265 +42,304 @@ import dc.entidade.geral.UF;
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class Sindicato extends AbstractModel<Integer> implements Serializable {
-	
-	 private static final long serialVersionUID = 1L;
-	 
-	    @Id
-		@Column(name = "ID", nullable = false)
-		@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sindicato_id_seq")
-		@SequenceGenerator(name = "sindicato_id_seq", sequenceName = "sindicato_id_seq", allocationSize = 1, initialValue = 0)
-		@Basic(optional = false)
-		private Integer id;
-	    /*
-	    @Basic(optional = false)
-	    @Column(name = "CEP_ID", nullable = false)
-	    private int cepId;
-	    @Basic(optional = false)
-	    @Column(name = "BANCO_ID", nullable = false)
-	    private int bancoId;
-	     */
-	    
-	    @Column(name = "ID_CONTABIL_CONTA")
-	    private Integer idContabilConta;
-	    
-	    @Column(name = "CODIGO_BANCO")
-	    private Integer codigoBanco;
-	    
-	    @Column(name = "CODIGO_AGENCIA")
-	    private Integer codigoAgencia;
-	    
-	    @Column(name = "CONTA_BANCO")
-	    private String contaBanco;
-	    
-	    @Column(name = "CODIGO_CEDENTE")
-	    private String codigoCedente;
-	    
-	    @Field
-	    @Caption("Logradouro")
-	    @Column(name = "LOGRADOURO", length = 100)
-	    private String logradouro;
-	    
-	    @Field
-		@Caption("Numero")
-	    @Column(name = "NUMERO", length = 10)
-	    private String numero;
-	    
-	    @Field
-		@Caption("Bairro")
-	    @Column(name = "BAIRRO", length = 60)
-	    private String bairro;
-	    
-	    @Field
-		@Caption("Municipio")
-	    @Column(name = "MUNICIPIO", length = 60)
-	    private String municipio;
-	    
-	    @ManyToOne(optional = false)
-	    @JoinColumn(name = "UF",referencedColumnName = "ID")
-	    private UF  uf;
-	    
-	    @Field
-		@Caption("Telefone 1")
-	    @Column(name = "FONE1", length = 10)
-	    private String fone1;
-	    
-	    @Field
-		@Caption("Telefone 2")
-	    @Column(name = "FONE2", length = 10)
-	    private String fone2;
-	    
-	    @Field
-		@Caption("Email")
-	    @Column(name = "EMAIL", length = 100)
-	    private String email;
-	    
-	    @Field
-	    @Caption("Tipo Sindicato")
-	    @Column(name="TIPO_SINDICATO")
-	    private String tipoSindicato;
-	    
-	    @Field
-	    @Caption("Data Base")
-	    @Column(name = "DATA_BASE")
-	    @Temporal(TemporalType.DATE)
-	    private Date dataBase;
-	    
-	    @Field
-		@Caption("Nome")
-	    @Column(name = "Nome", length = 100)
-	    private String nome;
-	    
-	    @Column(name = "PISO_SALARIAL", precision = 14, scale = 0)
-	    private BigDecimal pisoSalarial;
-	    
-	    @Field
-		@Caption("Cnpj")
-	    @Column(name = "CNPJ", length = 30)
-	    private String cnpj;
-	    
 
-	    public Sindicato() {
-	    }
+	private static final long serialVersionUID = 1L;
 
-	    public Sindicato(Integer id) {
-	        this.id = id;
-	    }
+	@Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sindicato_id_seq")
+	@SequenceGenerator(name = "sindicato_id_seq", sequenceName = "sindicato_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-	    @Override
-	    public Integer getId() {
-	        return id;
-	    }
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "CEP_ID", nullable = false) private int cepId;
+	 * 
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "BANCO_ID", nullable = false) private int bancoId;
+	 */
 
-	    public void setId(Integer id) {
-	        this.id = id;
-	    }
-	    
-		public Integer getIdContabilConta() {
-			return idContabilConta;
-		}
+	@Column(name = "ID_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer idContabilConta;
 
-		public void setIdContabilConta(Integer idContabilConta) {
-			this.idContabilConta = idContabilConta;
-		}
+	@Column(name = "CODIGO_BANCO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigoBanco;
 
-		public Integer getCodigoBanco() {
-			return codigoBanco;
-		}
+	@Column(name = "CODIGO_AGENCIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigoAgencia;
 
-		public void setCodigoBanco(Integer codigoBanco) {
-			this.codigoBanco = codigoBanco;
-		}
+	@Column(name = "CONTA_BANCO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String contaBanco;
 
-		public Integer getCodigoAgencia() {
-			return codigoAgencia;
-		}
+	@Column(name = "CODIGO_CEDENTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigoCedente;
 
-		public void setCodigoAgencia(Integer codigoAgencia) {
-			this.codigoAgencia = codigoAgencia;
-		}
+	@Field
+	@Caption("Logradouro")
+	@Column(name = "LOGRADOURO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String logradouro;
 
-		public String getContaBanco() {
-			return contaBanco;
-		}
+	@Field
+	@Caption("Numero")
+	@Column(name = "NUMERO", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numero;
 
-		public void setContaBanco(String contaBanco) {
-			this.contaBanco = contaBanco;
-		}
+	@Field
+	@Caption("Bairro")
+	@Column(name = "BAIRRO", length = 60)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String bairro;
 
-		public String getCodigoCedente() {
-			return codigoCedente;
-		}
+	@Field
+	@Caption("Municipio")
+	@Column(name = "MUNICIPIO", length = 60)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String municipio;
 
-		public void setCodigoCedente(String codigoCedente) {
-			this.codigoCedente = codigoCedente;
-		}
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "UF", referencedColumnName = "ID")
+	private UF uf;
 
-		public String getLogradouro() {
-			return logradouro;
-		}
+	@Field
+	@Caption("Telefone 1")
+	@Column(name = "FONE1", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fone1;
 
-		public void setLogradouro(String logradouro) {
-			this.logradouro = logradouro;
-		}
+	@Field
+	@Caption("Telefone 2")
+	@Column(name = "FONE2", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fone2;
 
-		public String getNumero() {
-			return numero;
-		}
+	@Field
+	@Caption("Email")
+	@Column(name = "EMAIL", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String email;
 
-		public void setNumero(String numero) {
-			this.numero = numero;
-		}
+	@Field
+	@Caption("Tipo Sindicato")
+	@Column(name = "TIPO_SINDICATO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String tipoSindicato;
 
-		public String getBairro() {
-			return bairro;
-		}
+	@Field
+	@Caption("Data Base")
+	@Column(name = "DATA_BASE")
+	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataBase;
 
-		public void setBairro(String bairro) {
-			this.bairro = bairro;
-		}
+	@Field
+	@Caption("Nome")
+	@Column(name = "Nome", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
-		public String getMunicipio() {
-			return municipio;
-		}
+	@Column(name = "PISO_SALARIAL", precision = 14, scale = 0)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal pisoSalarial;
 
-		public void setMunicipio(String municipio) {
-			this.municipio = municipio;
-		}
+	@Field
+	@Caption("Cnpj")
+	@Column(name = "CNPJ", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnpj;
 
-		public UF getUf() {
-			return uf;
-		}
+	public Sindicato() {
 
-		public void setUf(UF uf) {
-			this.uf = uf;
-		}
+	}
 
-		public String getFone1() {
-			return fone1;
-		}
+	public Sindicato(Integer id) {
+		this.id = id;
+	}
 
-		public void setFone1(String fone1) {
-			this.fone1 = fone1;
-		}
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-		public String getFone2() {
-			return fone2;
-		}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-		public void setFone2(String fone2) {
-			this.fone2 = fone2;
-		}
+	public Integer getIdContabilConta() {
+		return idContabilConta;
+	}
 
-		public String getEmail() {
-			return email;
-		}
+	public void setIdContabilConta(Integer idContabilConta) {
+		this.idContabilConta = idContabilConta;
+	}
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+	public Integer getCodigoBanco() {
+		return codigoBanco;
+	}
 
-		public String getTipoSindicato() {
-			return tipoSindicato;
-		}
+	public void setCodigoBanco(Integer codigoBanco) {
+		this.codigoBanco = codigoBanco;
+	}
 
-		public void setTipoSindicato(String tipoSindicato) {
-			this.tipoSindicato = tipoSindicato;
-		}
+	public Integer getCodigoAgencia() {
+		return codigoAgencia;
+	}
 
-		public Date getDataBase() {
-			return dataBase;
-		}
+	public void setCodigoAgencia(Integer codigoAgencia) {
+		this.codigoAgencia = codigoAgencia;
+	}
 
-		public void setDataBase(Date dataBase) {
-			this.dataBase = dataBase;
-		}
+	public String getContaBanco() {
+		return contaBanco;
+	}
 
-		public String getNome() {
-			return nome;
-		}
+	public void setContaBanco(String contaBanco) {
+		this.contaBanco = contaBanco;
+	}
 
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
+	public String getCodigoCedente() {
+		return codigoCedente;
+	}
 
-		public BigDecimal getPisoSalarial() {
-			return pisoSalarial;
-		}
+	public void setCodigoCedente(String codigoCedente) {
+		this.codigoCedente = codigoCedente;
+	}
 
-		public void setPisoSalarial(BigDecimal pisoSalarial) {
-			this.pisoSalarial = pisoSalarial;
-		}
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-		public String getCnpj() {
-			return cnpj;
-		}
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-		public void setCnpj(String cnpj) {
-			this.cnpj = cnpj;
-		}
+	public String getNumero() {
+		return numero;
+	}
 
-		@Override
-	    public String toString() {
-	        return ToStringBuilder.reflectionToString(this);
-	    }
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public UF getUf() {
+		return uf;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	public String getFone1() {
+		return fone1;
+	}
+
+	public void setFone1(String fone1) {
+		this.fone1 = fone1;
+	}
+
+	public String getFone2() {
+		return fone2;
+	}
+
+	public void setFone2(String fone2) {
+		this.fone2 = fone2;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTipoSindicato() {
+		return tipoSindicato;
+	}
+
+	public void setTipoSindicato(String tipoSindicato) {
+		this.tipoSindicato = tipoSindicato;
+	}
+
+	public Date getDataBase() {
+		return dataBase;
+	}
+
+	public void setDataBase(Date dataBase) {
+		this.dataBase = dataBase;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public BigDecimal getPisoSalarial() {
+		return pisoSalarial;
+	}
+
+	public void setPisoSalarial(BigDecimal pisoSalarial) {
+		this.pisoSalarial = pisoSalarial;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

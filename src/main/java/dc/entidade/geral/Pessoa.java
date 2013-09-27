@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,27 +23,26 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
- *
- * @author Wesley Jr
-/*
- *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
- *no nosso Banco de Dados 
- ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
- * e mudamos, está diferente do mapeamento do T2Ti.
- * *
- * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
- * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
- * na Tela, pegando os dados que estão salvos no Banco de Dados.
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
  */
 
 @Entity
 @Table(name = "pessoa")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -52,46 +50,69 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pes")
 	@SequenceGenerator(name = "pes", sequenceName = "pessoa_id_seq", allocationSize = 1)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Tipo")
 	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Column(name = "EMAIL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Column(name = "SITE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;
 
-	@Column(name="CLIENTE")
+	@Column(name = "CLIENTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character cliente;
 
-	@Column(name="FORNECEDOR")
+	@Column(name = "FORNECEDOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character fornecedor;
 
-	@Column(name="COLABORADOR")
+	@Column(name = "COLABORADOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character colaborador;
 
-	@Column(name="CONVENIO")
+	@Column(name = "CONVENIO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character convenio;
 
-	@Column(name="CONTADOR")
+	@Column(name = "CONTADOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character contador;
 
-	@Column(name="TRANSPORTADORA")
+	@Column(name = "TRANSPORTADORA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character transportadora;
 
-	@OneToMany(mappedBy="pessoa")
+	@OneToMany(mappedBy = "pessoa")
 	List<Contato> contatos = new ArrayList<>();
 
 	public Pessoa() {
+
 	}
 
 	public Pessoa(Integer id) {
@@ -132,13 +153,15 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
 	}
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof Pessoa == false) return false;
-		if (this == object) return true;
+		if (object instanceof Pessoa == false)
+			return false;
+		if (this == object)
+			return true;
 		final Pessoa other = (Pessoa) object;
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
@@ -212,7 +235,7 @@ public class Pessoa implements Serializable {
 		this.contatos = contatos;
 	}
 
-	public void adicionarContato(Contato c){
+	public void adicionarContato(Contato c) {
 		getContatos().add(c);
 		c.setPessoa(this);
 	}

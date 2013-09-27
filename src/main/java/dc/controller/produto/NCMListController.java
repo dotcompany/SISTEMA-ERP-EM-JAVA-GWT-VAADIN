@@ -1,5 +1,6 @@
 package dc.controller.produto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,14 @@ import dc.servicos.dao.produto.NCMDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class NCMListController extends CRUDListController<NCM> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	NCMDAO dao;
@@ -29,7 +34,7 @@ public class NCMListController extends CRUDListController<NCM> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[]{"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -41,21 +46,27 @@ public class NCMListController extends CRUDListController<NCM> {
 	protected Class<? super NCM> getEntityClass() {
 		return NCM.class;
 	}
-	
 
 	@Override
 	protected List<NCM> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			return (List<NCM>) dao.fullTextSearch(valor);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<NCM>();
+		}
 	}
 
 	@Override
 	protected String getTitulo() {
 		return "NCM";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,10 +74,15 @@ public class NCMListController extends CRUDListController<NCM> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<NCM> pesquisaDefault() {
-		return (List<NCM>) dao.getAll(getEntityClass());
+		try {
+			return (List<NCM>) dao.getAll(getEntityClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<NCM>();
+		}
 	}
 
 }

@@ -15,16 +15,21 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.SituacaoForCliFormView;
 
-
 @Controller
 @Scope("prototype")
-public class SituacaoForCliFormController extends CRUDFormController<SituacaoForCli> {
+public class SituacaoForCliFormController extends
+		CRUDFormController<SituacaoForCli> {
 
-	private  SituacaoForCliFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private SituacaoForCliFormView subView;
 
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
-	
+
 	private SituacaoForCli currentBean;
 
 	@Override
@@ -42,49 +47,45 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SituacaoForCli();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new SituacaoForCliFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = situacaoForCliDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			situacaoForCliDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -94,28 +95,29 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		situacaoForCliDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "situacaoForCliForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }

@@ -1,6 +1,5 @@
 package dc.controller.tributario;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,13 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ContagemEstoque;
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -27,14 +21,13 @@ import dc.visao.tributario.OperacaoFiscalFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscal> {
+public class OperacaoFiscalFormController extends
+		CRUDFormController<OperacaoFiscal> {
 
 	OperacaoFiscalFormView subView;
 
 	@Autowired
 	OperacaoFiscalDAO dao;
-
-
 
 	OperacaoFiscal currentBean;
 
@@ -49,9 +42,6 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-
-
-
 		return valido;
 	}
 
@@ -63,7 +53,6 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	@Override
 	protected void initSubView() {
 		subView = new OperacaoFiscalFormView(this);
-
 	}
 
 	@Override
@@ -76,35 +65,37 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 		subView.getObservacao().setValue(currentBean.getObservacao());
 	}
 
-	public Empresa empresaAtual(){
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			String cfopStr = subView.getCfop().getValue();
-			if(!(Validator.validateNumber(cfopStr))) 
-				throw new ErroValidacaoException("Informe apenas números no campo CFOP");
+			if (!(Validator.validateNumber(cfopStr)))
+				throw new ErroValidacaoException(
+						"Informe apenas números no campo CFOP");
 
 			String descricao = subView.getDescricao().getValue();
-			if(!(Validator.validateString(descricao))) 
+			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
 			String descricaoNF = subView.getDescricaoNaNf().getValue();
-			if(!(Validator.validateString(descricaoNF))) 
-				throw new ErroValidacaoException("Informe o Campo Descrição na NF");
+			if (!(Validator.validateString(descricaoNF)))
+				throw new ErroValidacaoException(
+						"Informe o Campo Descrição na NF");
 
-			currentBean.setCfop(new Integer(cfopStr)); 
+			currentBean.setCfop(new Integer(cfopStr));
 			currentBean.setDescricao(descricao);
 			currentBean.setDescricaoNaNF(descricaoNF);
 			currentBean.setObservacao(subView.getObservacao().getValue());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		}catch(ErroValidacaoException e){
+		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
@@ -112,12 +103,11 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		}catch(Exception e){
+		try {
+			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -133,21 +123,16 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
-
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
-
-
-
-
 
 }
