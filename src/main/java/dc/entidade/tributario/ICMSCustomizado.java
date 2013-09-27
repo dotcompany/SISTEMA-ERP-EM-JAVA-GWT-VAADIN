@@ -12,35 +12,45 @@ import javax.persistence.Table;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Entity
 @Table(name = "tribut_icms_custom_cab")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class ICMSCustomizado extends AbstractModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trb")
 	@SequenceGenerator(name = "trb", sequenceName = "tribut_icms_custom_cab_id_seq", allocationSize = 1)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
+	@Field
 	@Caption("Descrição")
-	String descricao;
-	
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
+
+	@Field
 	@Caption("Origem Mercadoria")
-	@Column(name="origem_mercadoria")
-	String origemMercadoria;
-	
+	@Column(name = "origem_mercadoria")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String origemMercadoria;
+
 	@ManyToOne
-	@JoinColumn(name="id_empresa")
-	Empresa empresa;
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
 
 	public Integer getId() {
 		return id;
@@ -74,6 +84,4 @@ public class ICMSCustomizado extends AbstractModel<Integer> {
 		this.empresa = empresa;
 	}
 
-	
-	
 }

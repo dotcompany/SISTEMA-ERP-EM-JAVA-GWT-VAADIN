@@ -12,40 +12,57 @@ import javax.persistence.Table;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "tribut_operacao_fiscal")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class OperacaoFiscal extends AbstractModel<Integer> {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opf")
 	@SequenceGenerator(name = "opf", sequenceName = "tribut_operacao_fiscal_id_seq", allocationSize = 1)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	private Empresa empresa;
-		
+
+	@Field
 	@Caption("CFOP")
-	Integer cfop;
-	
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer cfop;
+
+	@Field
 	@Caption("Descrição")
-	String descricao;
-	
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
+
+	@Field
 	@Caption("Descrição na NF")
-	@Column(name="descricao_na_nf")
-	String descricaoNaNF;
-	
+	@Column(name = "descricao_na_nf")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricaoNaNF;
+
+	@Field
 	@Caption("Observações")
-	String observacao;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
 
 	public Integer getId() {
 		return id;
@@ -97,11 +114,7 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 
 	@Override
 	public String toString() {
-		return  descricao ;
+		return descricao;
 	}
-
-	
-	
-	
 
 }

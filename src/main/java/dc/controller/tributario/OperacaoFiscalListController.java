@@ -2,12 +2,12 @@ package dc.controller.tributario;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import dc.entidade.suprimentos.ContagemEstoque;
+
 import dc.entidade.tributario.OperacaoFiscal;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,8 +15,8 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscal>
-{
+public class OperacaoFiscalListController extends
+		CRUDListController<OperacaoFiscal> {
 
 	@Autowired
 	OperacaoFiscalDAO dao;
@@ -26,7 +26,7 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"cfop"};
+		return new String[] { "cfop" };
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 
 	@Override
 	protected List<OperacaoFiscal> pesquisa(String valor) {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -54,17 +54,14 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 		return OperacaoFiscal.class;
 	}
 
-
 	@Override
 	protected List<OperacaoFiscal> pesquisaDefault() {
-
-		/*List<ContagemEstoque> lista = new ArrayList<>();
-		try{
-			 lista =  dao.getAll(ContagemEstoque.class);	 
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }*/
-		//		
+		/*
+		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
+		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
+		 * e.printStackTrace(); }
+		 */
+		//
 		return new ArrayList<>();
 	}
 
@@ -75,4 +72,3 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 	}
 
 }
-

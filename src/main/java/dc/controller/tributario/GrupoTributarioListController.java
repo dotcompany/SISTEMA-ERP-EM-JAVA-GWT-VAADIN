@@ -2,23 +2,21 @@ package dc.controller.tributario;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import dc.entidade.suprimentos.ContagemEstoque;
+
 import dc.entidade.tributario.GrupoTributario;
-import dc.entidade.tributario.OperacaoFiscal;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioListController extends CRUDListController<GrupoTributario>
-{
+public class GrupoTributarioListController extends
+		CRUDListController<GrupoTributario> {
 
 	@Autowired
 	GrupoTributarioDAO dao;
@@ -28,7 +26,7 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"descricao","origemString"};
+		return new String[] { "descricao", "origemString" };
 	}
 
 	@Override
@@ -38,7 +36,7 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 
 	@Override
 	protected List<GrupoTributario> pesquisa(String valor) {
-		return null;
+		return new ArrayList<GrupoTributario>();
 	}
 
 	@Override
@@ -56,18 +54,15 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 		return GrupoTributario.class;
 	}
 
-
 	@Override
 	protected List<GrupoTributario> pesquisaDefault() {
-
-		/*List<ContagemEstoque> lista = new ArrayList<>();
-		try{
-			 lista =  dao.getAll(ContagemEstoque.class);	 
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }*/
-		//		
-		return new ArrayList<>();
+		/*
+		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
+		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
+		 * e.printStackTrace(); }
+		 */
+		//
+		return new ArrayList<GrupoTributario>();
 	}
 
 	@Override
@@ -77,4 +72,3 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 	}
 
 }
-

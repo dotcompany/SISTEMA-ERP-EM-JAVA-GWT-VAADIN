@@ -1,6 +1,5 @@
 package dc.controller.tributario;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,21 +13,19 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.OperacaoFiscal;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ConfiguracaoTributariaFormView;
-import dc.visao.tributario.GrupoTributarioFormView;
-import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributaria> {
+public class ConfiguracaoTributariaFormController extends
+		CRUDFormController<ConfiguracaoTributaria> {
 
 	ConfiguracaoTributariaFormView subView;
 
@@ -47,16 +44,12 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	@Override
 	public String getViewIdentifier() {
-
 		return "ConfiguracaoTributariaForm";
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-
-
-
 
 		return valido;
 	}
@@ -70,26 +63,55 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	protected void initSubView() {
 		subView = new ConfiguracaoTributariaFormView(this);
 
+		DefaultManyToOneComboModel<GrupoTributario> model = new DefaultManyToOneComboModel<GrupoTributario>(
+				GrupoTributarioListController.class, this.grupoTributarioDAO,
+				super.getMainController());
+
+		this.subView.getCmbGrupoTributario().setModel(model);
+
+		DefaultManyToOneComboModel<OperacaoFiscal> model1 = new DefaultManyToOneComboModel<OperacaoFiscal>(
+				OperacaoFiscalListController.class, this.operacaoFiscalDAO,
+				super.getMainController());
+
+		this.subView.getCmbOperacaoFiscal().setModel(model1);
 	}
 
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
+
+		DefaultManyToOneComboModel<GrupoTributario> model = new DefaultManyToOneComboModel<GrupoTributario>(
+				GrupoTributarioListController.class, this.grupoTributarioDAO,
+				super.getMainController());
+
+		this.subView.getCmbGrupoTributario().setModel(model);
+		this.subView.getCmbGrupoTributario().setValue(
+				this.currentBean.getGrupoTributario());
+
+		DefaultManyToOneComboModel<OperacaoFiscal> model1 = new DefaultManyToOneComboModel<OperacaoFiscal>(
+				OperacaoFiscalListController.class, this.operacaoFiscalDAO,
+				super.getMainController());
+
+		this.subView.getCmbOperacaoFiscal().setModel(model1);
+		this.subView.getCmbOperacaoFiscal().setValue(
+				this.currentBean.getOperacaoFiscal());
 	}
 
-	public Empresa empresaAtual(){
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setEmpresa(empresaAtual());
-			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
-			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
+			currentBean.setGrupoTributario((GrupoTributario) subView
+					.getCmbGrupoTributario().getValue());
+			currentBean.setOperacaoFiscal((OperacaoFiscal) subView
+					.getCmbOperacaoFiscal().getValue());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
@@ -97,12 +119,11 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		}catch(Exception e){
+		try {
+			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -118,8 +139,8 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
@@ -127,17 +148,16 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-	public List<GrupoTributario> trazerGrupos(){
+	public List<GrupoTributario> trazerGrupos() {
 		return grupoTributarioDAO.listaTodos();
 	}
 
-	public List<OperacaoFiscal> trazerOperacoes(){
+	public List<OperacaoFiscal> trazerOperacoes() {
 		return operacaoFiscalDAO.listaTodos();
 	}
-
 
 }
