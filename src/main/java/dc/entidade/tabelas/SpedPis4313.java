@@ -23,77 +23,89 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*/
-
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
 @Table(name = "sped_pis_4313")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class SpedPis4313 extends AbstractModel<Integer> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sped_pis_4313_id_seq")
 	@SequenceGenerator(name = "sped_pis_4313_id_seq", sequenceName = "sped_pis_4313_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name="Codigo")
-    private Integer codigo;
-    
-    @Lob
-    @Field
-    @Caption("Descricao")
-    @Type(type="text")
-    @Column(name="Descricao")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    private String descricao;
-    
-    @Lob
-    @Field
-    @Caption("Observacao")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "OBSERVACAO")
-    @Type(type="text")
-    private String observacao;
-    
-    @Field
-    @Caption("Inicio Vigencia")
-    @Column(name = "INICIO_VIGENCIA")
-    private Date inicioVigencia;
-    
-    @Field
-    @Caption("Fim Vigencia")
-    @Column(name = "FIM_VIGENCIA")
-    private Date fimVigencia;
-    
-    public SpedPis4313() {
-    }
 
-    public SpedPis4313(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "Codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Lob
+	@Field
+	@Caption("Descricao")
+	@Type(type = "text")
+	@Column(name = "Descricao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	@Field
+	@Caption("Inicio Vigencia")
+	@Column(name = "INICIO_VIGENCIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date inicioVigencia;
+
+	@Field
+	@Caption("Fim Vigencia")
+	@Column(name = "FIM_VIGENCIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date fimVigencia;
+
+	public SpedPis4313() {
+
+	}
+
+	public SpedPis4313(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -134,9 +146,9 @@ public class SpedPis4313 extends AbstractModel<Integer> implements Serializable 
 		this.fimVigencia = fimVigencia;
 	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-    
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

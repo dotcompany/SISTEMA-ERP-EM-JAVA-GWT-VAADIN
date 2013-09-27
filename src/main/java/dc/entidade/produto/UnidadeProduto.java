@@ -42,7 +42,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "produto")
+@Table(name = "unidade_produto")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)

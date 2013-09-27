@@ -14,6 +14,7 @@ import dc.controller.tributario.GrupoTributarioListController;
 import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.produto.MarcaProduto;
 import dc.entidade.produto.Produto;
+import dc.entidade.produto.SubGrupoProduto;
 import dc.entidade.produto.UnidadeProduto;
 import dc.entidade.tributario.GrupoTributario;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
@@ -192,8 +193,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 		subView.getCmbUnidadeProduto()
 				.setValue(currentBean.getUnidadeProduto());
 
-		subView.getCmbSubGrupoProduto().setValue(
-				currentBean.getSubgrupoProduto());
+		subView.getCmbSubGrupoProduto().setValue(new SubGrupoProduto());
 		subView.getCmbMarcaProduto().setValue(new MarcaProduto());
 	}
 

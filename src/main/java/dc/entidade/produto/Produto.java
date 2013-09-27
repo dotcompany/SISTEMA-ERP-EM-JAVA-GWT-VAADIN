@@ -322,6 +322,12 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private UnidadeProduto unidadeProduto;
 
+	@ManyToOne
+	@JoinColumn(name = "id_marca_produto", nullable = false)
+	@Caption("Marca do produto")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private MarcaProduto marcaProduto;
+
 	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Almoxarifado idAlmoxarifado;
@@ -702,6 +708,14 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 
 	public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
 		this.unidadeProduto = unidadeProduto;
+	}
+
+	public MarcaProduto getMarcaProduto() {
+		return marcaProduto;
+	}
+
+	public void setMarcaProduto(MarcaProduto marcaProduto) {
+		this.marcaProduto = marcaProduto;
 	}
 
 	/*

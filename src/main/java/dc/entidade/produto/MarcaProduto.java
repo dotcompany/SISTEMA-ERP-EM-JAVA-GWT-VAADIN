@@ -1,14 +1,17 @@
 package dc.entidade.produto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,7 +42,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "marca_produto")
+@Table(name = "produto_marca")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -73,6 +76,17 @@ public class MarcaProduto extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "marcaProduto", fetch = FetchType.LAZY)
+	private List<Produto> produtoList;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public MarcaProduto() {
 
 	}
@@ -103,6 +117,14 @@ public class MarcaProduto extends AbstractModel<Integer> implements
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<Produto> getProdutoList() {
+		return produtoList;
+	}
+
+	public void setProdutoList(List<Produto> produtoList) {
+		this.produtoList = produtoList;
 	}
 
 	@Override

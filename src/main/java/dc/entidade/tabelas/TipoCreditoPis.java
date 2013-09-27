@@ -20,58 +20,64 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*/
-
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
 @Table(name = "tipo_credito_pis")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoCreditoPis extends AbstractModel<Integer> implements Serializable {
-	
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class TipoCreditoPis extends AbstractModel<Integer> implements
+		Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_credito_pis_id_seq")
 	@SequenceGenerator(name = "tipo_credito_pis_id_seq", sequenceName = "tipo_credito_pis_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name="Codigo")
-    private Integer codigo;
-    
-    @Field
-    @Caption("Descricao")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "DESCRICAO", length= 250)
-    private String descricao;
-    
-    public TipoCreditoPis() {
-    }
 
-    public TipoCreditoPis(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "Codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Descricao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO", length = 250)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
+	public TipoCreditoPis() {
+
+	}
+
+	public TipoCreditoPis(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -88,9 +94,9 @@ public class TipoCreditoPis extends AbstractModel<Integer> implements Serializab
 		this.descricao = descricao;
 	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-    
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }
