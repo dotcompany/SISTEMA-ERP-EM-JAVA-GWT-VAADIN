@@ -65,7 +65,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		String nome = subView.getTxtNome().getValue();
 		String sigla = subView.getTxtSigla().getValue();
 
-		//currentBean.setNome(nome);
+		// currentBean.setNome(nome);
 		currentBean.setSigla(sigla);
 
 		try {
@@ -81,42 +81,16 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	protected void carregar(Serializable id) {
 		currentBean = estadoDAO.find(id);
 
-		//subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtSigla().setValue(currentBean.getSigla());
-
-		/*
-		 * Configura combo PAÃ�S ManyToOneComboModel<Pais> modelpais = new
-		 * ManyToOneComboModel<Pais>() {
-		 * 
-		 * @Override public void onCriarNovo(String filter) {
-		 * Notification.show("Selecionado Criar Novo: " + filter); }
-		 * 
-		 * @Override public List<Pais> getResultado(String q) { return
-		 * paisDAO.query(q); }
-		 * 
-		 * @Override public Class<Pais> getEntityClass() { return Pais.class; }
-		 * 
-		 * @Override public String getCaptionProperty() { return "nome"; }
-		 * 
-		 * @Override public void onEditar(Pais value) {
-		 * Notification.show("Selecionado Editar: " + value.getNomeEn()); }
-		 * 
-		 * @Override public List<Pais> getAll() { // TODO Auto-generated method
-		 * stub return null; }
-		 * 
-		 * @Override public void onAdvancedSearch() { // TODO Auto-generated
-		 * method stub } };
-		 * 
-		 * subView.getCmbPais().setModel(modelpais);
-		 * subView.getCmbPais().setValue(currentBean.getPaisId());
-		 */
+		subView.getTxtCodigoIBGE().setValue(
+				currentBean.getCodigoIbge().toString());
 
 		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
 				PaisListController.class, this.paisDAO,
 				super.getMainController());
 
 		this.subView.getCmbPais().setModel(model);
-
 		this.subView.getCmbPais().setValue(currentBean.getPaisId());
 	}
 

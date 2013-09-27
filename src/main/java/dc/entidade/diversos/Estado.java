@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,7 +38,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "estado")
+@Table(name = "uf")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -46,16 +47,13 @@ public class Estado extends AbstractModel<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uf_id_seq")
+	@SequenceGenerator(name = "uf_id_seq", sequenceName = "uf_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "PAIS_ID", referencedColumnName = "ID")
-	private Pais paisId;
 
 	@Field
 	@Caption("Sigla")
@@ -71,8 +69,16 @@ public class Estado extends AbstractModel<Integer> implements Serializable {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Field
 	@Column(name = "CODIGO_IBGE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbge;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_PAIS", nullable = false)
+	@Caption("País")
+	private Pais paisId;
 
 	public Estado() {
 

@@ -1,5 +1,6 @@
 package dc.controller.diversos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,11 @@ public class PaisListController extends CRUDListController<Pais> {
 
 	@Override
 	protected List<Pais> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			return (List<Pais>) dao.fullTextSearch(valor);
+		} catch (Exception e) {
+			return new ArrayList<Pais>();
+		}
 	}
 
 	@Override
@@ -75,7 +80,11 @@ public class PaisListController extends CRUDListController<Pais> {
 
 	@Override
 	protected List<Pais> pesquisaDefault() {
-		return (List<Pais>) dao.getAll(getEntityClass());
+		try {
+			return (List<Pais>) dao.getAll(getEntityClass());
+		} catch (Exception e) {
+			return new ArrayList<Pais>();
+		}
 	}
 
 }
