@@ -15,16 +15,21 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.produto.MarcaProdutoFormView;
 
-
 @Controller
 @Scope("prototype")
-public class MarcaProdutoFormController extends CRUDFormController<MarcaProduto> {
+public class MarcaProdutoFormController extends
+		CRUDFormController<MarcaProduto> {
 
-	private  MarcaProdutoFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private MarcaProdutoFormView subView;
 
 	@Autowired
 	private MarcaProdutoDAO marcaProdutoDAO;
-	
+
 	private MarcaProduto currentBean;
 
 	@Override
@@ -42,49 +47,45 @@ public class MarcaProdutoFormController extends CRUDFormController<MarcaProduto>
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new MarcaProduto();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new MarcaProdutoFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = marcaProdutoDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			marcaProdutoDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -94,28 +95,29 @@ public class MarcaProdutoFormController extends CRUDFormController<MarcaProduto>
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		marcaProdutoDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "marcaProdutoForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }

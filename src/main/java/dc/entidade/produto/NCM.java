@@ -22,80 +22,91 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+
 /**
- *
- * @author Wesley Jr
-/*
- *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
- *no nosso Banco de Dados 
- ** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
- * e mudamos, está diferente do mapeamento do T2Ti.
- * *
- * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
- * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
- * na Tela, pegando os dados que estão salvos no Banco de Dados.
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
  */
- 
+
 @Entity
 @Table(name = "ncm")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class NCM implements Serializable {
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class NCM extends AbstractModel<Integer> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name = "CODIGO")
-    private String codigo;
-    
-    @Lob
-    @Field
-    @Caption("Descricao")
-    @Type(type="text")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    
-    @Lob
-    @Field
-    @Caption("Observacao")
-    @Type(type="text")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "OBSERVACAO")
-    private String observacao;
+	private static final long serialVersionUID = 1L;
 
-    public NCM() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public NCM(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "CODIGO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Lob
+	@Field
+	@Caption("Descricao")
+	@Type(type = "text")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Type(type = "text")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "OBSERVACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public NCM() {
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    
-    public String getCodigo() {
+	}
+
+	public NCM(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getCodigo() {
 		return codigo;
 	}
 
@@ -112,21 +123,23 @@ public class NCM implements Serializable {
 	}
 
 	@Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof NCM == false) return false;
-    	if (this == object) return true;
-    	final NCM other = (NCM) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof NCM == false)
+			return false;
+		if (this == object)
+			return true;
+		final NCM other = (NCM) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }
-

@@ -26,6 +26,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.tributario.GrupoTributario;
 
 /**
@@ -54,32 +56,46 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_id_seq")
 	@SequenceGenerator(name = "produto_id_seq", sequenceName = "produto_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
 	@Basic(optional = false)
-	@Column(name = "ID_SUB_GRUPO", nullable = false) 
+	@Column(name = "ID_SUB_GRUPO", nullable = false)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private int idSubGrupo;
-	 
-	@Basic(optional = false) 
-	@Column(name = "ID_UNIDADE_PRODUTO", nullable = false) 
+
+	@Basic(optional = false)
+	@Column(name = "ID_UNIDADE_PRODUTO", nullable = false)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private int idUnidade;
 
 	@Field
 	@Caption("Gtin")
 	@Column(name = "GTIN", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String gtin;
 
 	@Field
 	@Caption("Codigo Interno")
 	@Column(name = "CODIGO_INTERNO", length = 60)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoInterno;
 
 	@Column(name = "NCM")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ncm;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	// @Lob
@@ -87,140 +103,215 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	@Caption("Descricao")
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@Field
 	@Caption("Descricao Pdv")
 	@Column(name = "DESCRICAO_PDV", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoPdv;
 
 	@Column(name = "VALOR_COMPRA", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCompra;
 
 	@Column(name = "VALOR_VENDA", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorVenda;
 
 	@Column(name = "PRECO_VENDA_MINIMO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoVendaMinimo;
 
 	@Column(name = "PRECO_SUGERIDO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoSugerido;
 
 	@Column(name = "CUSTO_MEDIO_LIQUIDO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal custoMedioLiquido;
 
 	@Column(name = "PRECO_LUCRO_ZERO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroZero;
 
 	@Column(name = "PRECO_LUCRO_MINIMO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMinimo;
 
 	@Column(name = "PRECO_LUCRO_MAXIMO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMaximo;
 
 	@Column(name = "MARKUP", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal markup;
 
 	@Column(name = "QUANTIDADE_ESTOQUE", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal qtdEstoque;
 
 	@Column(name = "QUANTIDADE_ESTOQUE_ANTERIOR", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal qtdEstoqueAnterior;
 
 	@Column(name = "ESTOQUE_MINIMO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMin;
 
 	@Column(name = "ESTOQUE_MAXIMO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMax;
 
 	@Column(name = "ESTOQUE_IDEAL", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueIdeal;
 
 	@Column(name = "EXCLUIDO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character excluido;
 
 	@Column(name = "INATIVO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String inativo;
 
 	@Column(name = "DATA_CADASTRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Column(name = "FOTO_PRODUTO", length = 65535)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fotoProduto;
 
 	@Column(name = "EX_TIPI")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character exTipi;
-	
+
 	/*
-	 * @Column(name = "CODIGO_iST") 
-	 * private String codigoIst;
+	 * @Column(name = "CODIGO_iST") private String codigoIst;
 	 */
 
 	@Column(name = "CLASSE_ABC")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String classeAbc;
 
 	@Column(name = "IAT")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String iat;
 
 	@Column(name = "IPPT")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ippt;
 
 	@Column(name = "TIPO_ITEM_SPED")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoItemSped;
 
 	@Column(name = "PESO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal peso;
 
 	@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal porcentoComissao;
 
 	@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal pontoPedido;
 
 	@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal loteEconomicoCompra;
 
 	@Column(name = "TOTALIZADOR_PARCIAL", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String totalizadorParcial;
 
 	@Column(name = "CODIGO_BALANCA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBalanca;
 
 	@Column(name = "DATA_ALTERACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataAlteracao;
 
 	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	/**
 	 * Mapeamento SubGrupo-Produto
+	 * 
 	 * @author wesley Junior
 	 **/
-	/*@JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private SubGrupoProduto idSubGrupo;*/
+	/*
+	 * @JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
+	 * 
+	 * @ManyToOne(optional = false) private SubGrupoProduto idSubGrupo;
+	 */
 
-	/** 
-	*Mapeamento Unidade-Produto
-	*@author wesley Junior
-	**/
-	/*@JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private UnidadeProduto unidade;*/
-	
-	/*@JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-	private MarcaProduto idMarcaProduto;*/
-	
+	/**
+	 * Mapeamento Unidade-Produto
+	 * 
+	 * @author wesley Junior
+	 **/
+	/*
+	 * @JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable =
+	 * true)
+	 * 
+	 * @Fetch(FetchMode.JOIN) private UnidadeProduto unidade;
+	 */
+
+	/*
+	 * @JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
+	 * 
+	 * @ManyToOne(optional = false) private MarcaProduto idMarcaProduto;
+	 */
+
 	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Almoxarifado idAlmoxarifado;
-	
+
 	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private GrupoTributario idGrupoTributario;
 
 	public Produto() {
+
 	}
 
 	public Produto(Integer id) {
@@ -565,18 +656,17 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	/*public SubGrupoProduto getIdSubGrupo() {
-		return idSubGrupo;
-	}
 
-	public void setIdSubGrupo(SubGrupoProduto idSubGrupo) {
-		this.idSubGrupo = idSubGrupo;
-	}*/
-	
-	/*public UnidadeProduto getUnidade() {
-		return unidade;
-	}*/
+	/*
+	 * public SubGrupoProduto getIdSubGrupo() { return idSubGrupo; }
+	 * 
+	 * public void setIdSubGrupo(SubGrupoProduto idSubGrupo) { this.idSubGrupo =
+	 * idSubGrupo; }
+	 */
+
+	/*
+	 * public UnidadeProduto getUnidade() { return unidade; }
+	 */
 
 	public int getIdUnidade() {
 		return idUnidade;
@@ -594,16 +684,13 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 		this.idSubGrupo = idSubGrupo;
 	}
 
-	/*public void setUnidade(UnidadeProduto unidade) {
-		this.unidade = unidade;
-	}
-	/*public MarcaProduto getIdMarcaProduto() {
-		return idMarcaProduto;
-	}
-
-	public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
-		this.idMarcaProduto = idMarcaProduto;
-	}*/
+	/*
+	 * public void setUnidade(UnidadeProduto unidade) { this.unidade = unidade;
+	 * } /*public MarcaProduto getIdMarcaProduto() { return idMarcaProduto; }
+	 * 
+	 * public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
+	 * this.idMarcaProduto = idMarcaProduto; }
+	 */
 
 	public Almoxarifado getIdAlmoxarifado() {
 		return idAlmoxarifado;
@@ -612,7 +699,7 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	public void setIdAlmoxarifado(Almoxarifado idAlmoxarifado) {
 		this.idAlmoxarifado = idAlmoxarifado;
 	}
-	
+
 	public GrupoTributario getIdGrupoTributario() {
 		return idGrupoTributario;
 	}

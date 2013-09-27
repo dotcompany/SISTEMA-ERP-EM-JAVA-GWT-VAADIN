@@ -15,16 +15,21 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.produto.GrupoProdutoFormView;
 
-
 @Controller
 @Scope("prototype")
-public class GrupoProdutoFormController extends CRUDFormController<GrupoProduto> {
+public class GrupoProdutoFormController extends
+		CRUDFormController<GrupoProduto> {
 
-	private  GrupoProdutoFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private GrupoProdutoFormView subView;
 
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
-	
+
 	private GrupoProduto currentBean;
 
 	@Override
@@ -42,49 +47,45 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoProduto>
 					"Não pode ficar em branco");
 			valido = false;
 		}
+
 		return valido;
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new GrupoProduto();
-		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new GrupoProdutoFormView();
-		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = grupoProdutoDAO.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		
+
 		try {
 			grupoProdutoDAO.saveOrUpdate(currentBean);
-
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -94,28 +95,29 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoProduto>
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		grupoProdutoDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "grupoProdutoForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
-	   return true;
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
+
 }
