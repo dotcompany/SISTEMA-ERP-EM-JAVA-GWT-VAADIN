@@ -60,17 +60,25 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Basic(optional = false)
-	@Column(name = "ID_SUB_GRUPO", nullable = false)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private int idSubGrupo;
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "ID_SUB_GRUPO", nullable = false)
+	 * 
+	 * @ComboValue
+	 * 
+	 * @Analyzer(definition = "dc_combo_analyzer") private int idSubGrupo;
+	 */
 
-	@Basic(optional = false)
-	@Column(name = "ID_UNIDADE_PRODUTO", nullable = false)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private int idUnidade;
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "ID_UNIDADE_PRODUTO", nullable = false)
+	 * 
+	 * @ComboValue
+	 * 
+	 * @Analyzer(definition = "dc_combo_analyzer") private int idUnidade;
+	 */
 
 	@Field
 	@Caption("Gtin")
@@ -301,6 +309,18 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	 * 
 	 * @ManyToOne(optional = false) private MarcaProduto idMarcaProduto;
 	 */
+
+	@ManyToOne
+	@JoinColumn(name = "ID_SUB_GRUPO", nullable = false)
+	@Caption("Subgrupo")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private SubGrupoProduto subgrupoProduto;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_UNIDADE_PRODUTO", nullable = false)
+	@Caption("Unidade do produto")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private UnidadeProduto unidadeProduto;
 
 	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -668,20 +688,20 @@ public class Produto extends AbstractModel<Integer> implements Serializable {
 	 * public UnidadeProduto getUnidade() { return unidade; }
 	 */
 
-	public int getIdUnidade() {
-		return idUnidade;
+	public SubGrupoProduto getSubgrupoProduto() {
+		return subgrupoProduto;
 	}
 
-	public void setIdUnidade(int idUnidade) {
-		this.idUnidade = idUnidade;
+	public void setSubgrupoProduto(SubGrupoProduto subgrupoProduto) {
+		this.subgrupoProduto = subgrupoProduto;
 	}
 
-	public int getIdSubGrupo() {
-		return idSubGrupo;
+	public UnidadeProduto getUnidadeProduto() {
+		return unidadeProduto;
 	}
 
-	public void setIdSubGrupo(int idSubGrupo) {
-		this.idSubGrupo = idSubGrupo;
+	public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
+		this.unidadeProduto = unidadeProduto;
 	}
 
 	/*

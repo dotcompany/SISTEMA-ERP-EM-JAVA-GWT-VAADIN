@@ -12,7 +12,9 @@ import com.vaadin.ui.Component;
 import dc.controller.diversos.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.entidade.diversos.Almoxarifado;
+import dc.entidade.produto.MarcaProduto;
 import dc.entidade.produto.Produto;
+import dc.entidade.produto.UnidadeProduto;
 import dc.entidade.tributario.GrupoTributario;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
 import dc.servicos.dao.produto.MarcaProdutoDAO;
@@ -181,6 +183,18 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 		subView.getCmbGrupoTributario().setModel(model1);
 		subView.getCmbGrupoTributario().setValue(
 				currentBean.getIdGrupoTributario());
+
+		DefaultManyToOneComboModel<UnidadeProduto> model2 = new DefaultManyToOneComboModel<UnidadeProduto>(
+				UnidadeProdutoListController.class, this.unidadeProdutoDAO,
+				super.getMainController());
+
+		subView.getCmbUnidadeProduto().setModel(model2);
+		subView.getCmbUnidadeProduto()
+				.setValue(currentBean.getUnidadeProduto());
+
+		subView.getCmbSubGrupoProduto().setValue(
+				currentBean.getSubgrupoProduto());
+		subView.getCmbMarcaProduto().setValue(new MarcaProduto());
 	}
 
 	@Override
