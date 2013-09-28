@@ -25,6 +25,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -50,11 +52,15 @@ public class InssEntity extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_inss_id_seq")
 	@SequenceGenerator(name = "folha_inss_id_seq", sequenceName = "folha_inss_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "competencia")
 	@Field
 	@Caption("Competência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String competencia = "";
 
 	/**

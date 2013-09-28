@@ -18,6 +18,7 @@ import dc.servicos.dao.folhapagamento.inss.InssDAO;
 import dc.servicos.dao.folhapagamento.inss.RetencaoDAO;
 import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.RetencaoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -111,8 +112,11 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 			this.subView.getCbInss().setValue(this.pEntity.getInss());
 			this.subView.getCbServico().setValue(this.pEntity.getServico());
 
-			this.subView.carregarCmbInss(this.inssListarTodos());
-			this.subView.carregarCmbServico(this.servicoListarTodos());
+			// this.subView.carregarCmbInss(this.inssListarTodos());
+			// this.subView.carregarCmbServico(this.servicoListarTodos());
+
+			this.subView.getCbInss().setData(this.inssListarTodos());
+			this.subView.getCbServico().setData(this.servicoListarTodos());
 		}
 	}
 
@@ -126,8 +130,11 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 			this.subView.getTfValorMensal().setValue(
 					String.valueOf(this.pEntity.getValorMensal()));
 
-			this.subView.carregarCmbInss(this.inssListarTodos());
-			this.subView.carregarCmbServico(this.servicoListarTodos());
+			// this.subView.carregarCmbInss(this.inssListarTodos());
+			// this.subView.carregarCmbServico(this.servicoListarTodos());
+
+			this.subView.getCbInss().setData(this.inssListarTodos());
+			this.subView.getCbServico().setData(this.servicoListarTodos());
 
 			this.subView.getCbInss().setValue(this.pEntity.getInss());
 			this.subView.getCbServico().setValue(this.pEntity.getServico());
@@ -160,8 +167,11 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 			this.subView.getTfValorMensal().setValue(
 					String.valueOf(this.pEntity.getValorMensal()));
 
-			this.subView.carregarCmbInss(this.inssListarTodos());
-			this.subView.carregarCmbServico(this.servicoListarTodos());
+			// this.subView.carregarCmbInss(this.inssListarTodos());
+			// this.subView.carregarCmbServico(this.servicoListarTodos());
+
+			this.subView.getCbInss().setData(this.inssListarTodos());
+			this.subView.getCbServico().setData(this.servicoListarTodos());
 
 			this.subView.getCbInss().setValue(this.pEntity.getInss());
 			this.subView.getCbServico().setValue(this.pEntity.getServico());
@@ -175,6 +185,14 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	@Override
 	protected void initSubView() {
 		this.subView = new RetencaoFormView(this);
+
+		/*
+		 * this.subView.getCbInss().setData(this.inssListarTodos());
+		 * this.subView.getCbServico().setData(this.servicoListarTodos());
+		 */
+
+		this.subView.getCbInss().setData(carregarCbInss());
+		this.subView.getCbServico().setData(carregarCbServico());
 	}
 
 	/*
@@ -199,8 +217,11 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 			this.subView.getTfValorMensal().setValue(
 					String.valueOf(this.pEntity.getValorMensal()));
 
-			this.subView.carregarCmbInss(this.inssListarTodos());
-			this.subView.carregarCmbServico(this.servicoListarTodos());
+			// this.subView.carregarCmbInss(this.inssListarTodos());
+			// this.subView.carregarCmbServico(this.servicoListarTodos());
+
+			this.subView.getCbInss().setData(this.inssListarTodos());
+			this.subView.getCbServico().setData(this.servicoListarTodos());
 
 			this.subView.getCbInss().setValue(this.pEntity.getInss());
 			this.subView.getCbServico().setValue(this.pEntity.getServico());
@@ -299,6 +320,21 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 		auxLista = this.sDAO.listarTodos();
 
 		return auxLista;
+	}
+
+	private DefaultManyToOneComboModel<InssEntity> carregarCbInss() {
+		DefaultManyToOneComboModel<InssEntity> model = new DefaultManyToOneComboModel<InssEntity>(
+				InssListController.class, this.iDAO, super.getMainController());
+
+		return model;
+	}
+
+	private DefaultManyToOneComboModel<ServicoEntity> carregarCbServico() {
+		DefaultManyToOneComboModel<ServicoEntity> model = new DefaultManyToOneComboModel<ServicoEntity>(
+				ServicoListController.class, this.sDAO,
+				super.getMainController());
+
+		return model;
 	}
 
 	/**

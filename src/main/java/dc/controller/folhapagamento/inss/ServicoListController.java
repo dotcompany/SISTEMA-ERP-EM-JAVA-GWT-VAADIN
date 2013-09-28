@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.inss;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,16 @@ public class ServicoListController extends CRUDListController<ServicoEntity> {
 
 	@Override
 	protected List<ServicoEntity> pesquisa(String valor) {
-		List<ServicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<ServicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			System.out.println("1");
+			e.printStackTrace();
+
+			return new ArrayList<ServicoEntity>();
+		}
 	}
 
 	@Override
@@ -80,9 +88,16 @@ public class ServicoListController extends CRUDListController<ServicoEntity> {
 
 	@Override
 	protected List<ServicoEntity> pesquisaDefault() {
-		List<ServicoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<ServicoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			System.out.println("2");
+			e.printStackTrace();
+
+			return new ArrayList<ServicoEntity>();
+		}
 	}
 
 }
