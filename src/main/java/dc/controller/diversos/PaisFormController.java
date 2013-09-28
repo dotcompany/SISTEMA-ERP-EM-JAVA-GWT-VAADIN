@@ -36,12 +36,30 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	PaisFormView subView;
+	private PaisFormView subView;
+
+	/**
+	 * DAO'S
+	 */
 
 	@Autowired
-	PaisDAO paisDAO;
+	private PaisDAO paisDAO;
+
+	/**
+	 * ENTITIES
+	 */
 
 	private Pais currentBean;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PaisFormController() {
+		if (this.currentBean == null) {
+			this.currentBean = new Pais();
+		}
+	}
 
 	@Override
 	protected String getNome() {
@@ -55,12 +73,12 @@ public class PaisFormController extends CRUDFormController<Pais> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNomePtbr(subView.getTxtNome().getValue());
-		currentBean.setNomeEn(subView.getTxtNomeIngles().getValue());
-		currentBean.setSigla2(subView.getTxtSigla2().getValue());
-		currentBean.setSigla3(subView.getTxtSigla3().getValue());
-
 		try {
+			currentBean.setNomePtbr(subView.getTxtNome().getValue());
+			currentBean.setNomeEn(subView.getTxtNomeIngles().getValue());
+			currentBean.setSigla2(subView.getTxtSigla2().getValue());
+			currentBean.setSigla3(subView.getTxtSigla3().getValue());
+
 			paisDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -71,12 +89,16 @@ public class PaisFormController extends CRUDFormController<Pais> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = paisDAO.find(id);
+		try {
+			currentBean = paisDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNomePtbr());
-		subView.getTxtNomeIngles().setValue(currentBean.getNomeEn());
-		subView.getTxtSigla2().setValue(currentBean.getSigla2());
-		subView.getTxtSigla3().setValue(currentBean.getSigla3());
+			subView.getTxtNome().setValue(currentBean.getNomePtbr());
+			subView.getTxtNomeIngles().setValue(currentBean.getNomeEn());
+			subView.getTxtSigla2().setValue(currentBean.getSigla2());
+			subView.getTxtSigla3().setValue(currentBean.getSigla3());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -85,12 +107,18 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	 */
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.currentBean = new Pais();
+		} catch (Exception e) {
+			e.printStackTrace();
 
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new PaisFormView();
+		subView = new PaisFormView(this);
 	}
 
 	/*
@@ -99,7 +127,13 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Pais();
+		try {
+			this.currentBean = new Pais();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -148,8 +182,20 @@ public class PaisFormController extends CRUDFormController<Pais> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "paisForm";
+	}
+
+	/**
+	 * COMBOS
+	 */
+
+	/**
+	 * **************************************
+	 */
+
+	@Override
+	protected boolean isFullSized() {
+		return true;
 	}
 
 }
