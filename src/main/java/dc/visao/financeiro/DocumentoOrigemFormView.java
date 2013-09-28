@@ -42,7 +42,7 @@ public class DocumentoOrigemFormView extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("-1px");
 
-		txtCodigo = ComponentUtil.builNumericField("Codigo");
+		txtCodigo = ComponentUtil.buildNumericField("Codigo");
 		mainLayout.addComponent(txtCodigo);
 		txtCodigo.setWidth("-1px");
 		txtCodigo.setMaxLength(4);

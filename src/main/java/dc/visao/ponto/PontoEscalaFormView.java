@@ -126,32 +126,32 @@ public class PontoEscalaFormView extends CustomComponent {
 		txNome = ComponentUtil.buildTextField("Nome");
 		gridLayout_2.addComponent(txNome, 0, 0);
 
-		txDescontoHoraDia = ComponentUtil.builNumericField("Desconto Hora Dia");
+		txDescontoHoraDia = ComponentUtil.buildNumericField("Desconto Hora Dia");
 		gridLayout_2.addComponent(txDescontoHoraDia, 1, 0);
 
 		// txSaldo
-		txDescontoDSR = ComponentUtil.builNumericField("Desconto DSR");
+		txDescontoDSR = ComponentUtil.buildNumericField("Desconto DSR");
 		gridLayout_2.addComponent(txDescontoDSR, 2, 0);
 
-		txCodigoHorarioDomingo = ComponentUtil.builNumericField("Código Horário Domingo");
+		txCodigoHorarioDomingo = ComponentUtil.buildNumericField("Código Horário Domingo");
 		gridLayout_2.addComponent(txCodigoHorarioDomingo, 0, 1);
 
-		txCodigoHorarioSegunda = ComponentUtil.builNumericField("Código Horário Segunda");
+		txCodigoHorarioSegunda = ComponentUtil.buildNumericField("Código Horário Segunda");
 		gridLayout_2.addComponent(txCodigoHorarioSegunda, 1, 1);
 
-		txCodigoHorarioTerca = ComponentUtil.builNumericField("Código Horário Terça");
+		txCodigoHorarioTerca = ComponentUtil.buildNumericField("Código Horário Terça");
 		gridLayout_2.addComponent(txCodigoHorarioTerca, 2, 1);
 
-		txCodigoHorarioQuarta = ComponentUtil.builNumericField("Código Horário Quarta");
+		txCodigoHorarioQuarta = ComponentUtil.buildNumericField("Código Horário Quarta");
 		gridLayout_2.addComponent(txCodigoHorarioQuarta, 3, 1);
 
-		txCodigoHorarioQuinta = ComponentUtil.builNumericField("Código Horário Quinta");
+		txCodigoHorarioQuinta = ComponentUtil.buildNumericField("Código Horário Quinta");
 		gridLayout_2.addComponent(txCodigoHorarioQuinta, 4, 1);
 
-		txCodigoHorarioSexta = ComponentUtil.builNumericField("Código Horário Sexta");
+		txCodigoHorarioSexta = ComponentUtil.buildNumericField("Código Horário Sexta");
 		gridLayout_2.addComponent(txCodigoHorarioSexta, 5, 1);
 
-		txCodigoHorarioSabado = ComponentUtil.builNumericField("Código Horário Sábado");
+		txCodigoHorarioSabado = ComponentUtil.buildNumericField("Código Horário Sábado");
 		gridLayout_2.addComponent(txCodigoHorarioSabado, 6, 1);
 
 		return gridLayout_2;

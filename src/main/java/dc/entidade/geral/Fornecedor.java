@@ -23,10 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
@@ -56,44 +59,79 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DESDE")
 	private Date desde;
+	
+	@Field
 	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
 	private String optanteSimplesNacional;
+	
+	@Field
 	@Column(name = "LOCALIZACAO")
 	private String localizacao;
+	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_CADASTRO")
 	private Date dataCadastro;
+	
+	@Field
 	@Column(name = "SOFRE_RETENCAO")
 	private String sofreRetencao;
+	
+	@Field
 	@Column(name = "CHEQUE_NOMINAL_A")
 	private String chequeNominalA;
+	
+	@Field
 	@Column(name = "OBSERVACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
+	
+	@Field
 	@Column(name = "CONTA_REMETENTE")
 	private String contaRemetente;
+	
+	@Field
 	@Column(name = "PRAZO_MEDIO_ENTREGA")
 	private BigDecimal prazoMedioEntrega;
+	
+	@Field
 	@Column(name = "GERA_FATURAMENTO")
 	private String geraFaturamento;
+	
+	@Field
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
 	private Integer numDiasPrimeiroVencimento;
+	
+	@Field
 	@Column(name = "NUM_DIAS_INTERVALO")
 	private Integer numDiasIntervalo;
+	
+	@Field
 	@Column(name = "QUANTIDADE_PARCELAS")
 	private Integer quantidadeParcelas;
+	
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private SituacaoForCli situacaoForCli;
+	
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private AtividadeForCli atividadeForCli;
+	
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch=FetchType.EAGER)
 	private Pessoa pessoa;
+		
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
 	private ContabilConta contabilConta;
@@ -291,7 +329,7 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.pessoa.getNome();
+		return this.observacao;
 	}
 
 	public String getGeraFaturamento() {

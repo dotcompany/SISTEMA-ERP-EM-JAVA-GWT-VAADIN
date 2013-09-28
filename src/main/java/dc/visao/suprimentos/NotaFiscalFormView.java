@@ -562,7 +562,7 @@ public class NotaFiscalFormView extends CustomComponent  {
 		txtChaveAcesso.setWidth("500");
 		layout.addComponent(txtChaveAcesso,1,1,3,1);
 
-		txtNumero = ComponentUtil.builNumericField("Número");
+		txtNumero = ComponentUtil.buildNumericField("Número");
 		layout.addComponent(txtNumero,4,1);
 
 		//Linha 2

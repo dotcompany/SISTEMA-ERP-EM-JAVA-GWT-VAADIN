@@ -136,7 +136,7 @@ public static PopupDateField buildPopupDateField(String caption) {
 		return textField;
 	}
 	
-	public static NumericField builNumericField(String caption)
+	public static NumericField buildNumericField(String caption)
 	{
 		NumericField textField = new NumericField(caption);
 		textField.setNullRepresentation("");

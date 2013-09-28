@@ -1,6 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,6 +25,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -46,7 +48,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class PlanoNaturezaFinanceira implements Serializable {
+public class PlanoNaturezaFinanceira  extends AbstractModel<BigDecimal> {
 	
     private static final long serialVersionUID = 1L;
     
@@ -54,11 +56,16 @@ public class PlanoNaturezaFinanceira implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
+	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
     private BigDecimal id;
     
     @Field
     @Caption("Nome")
     @Column(name = "NOME")
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String nome;
     
     @Field

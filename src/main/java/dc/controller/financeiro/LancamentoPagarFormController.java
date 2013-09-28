@@ -24,6 +24,7 @@ import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
+import dc.entidade.geral.Fornecedor;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -160,7 +161,7 @@ public class LancamentoPagarFormController extends
 
 	private void preencheCombos() {
 		// subView.preencheComboContaCaixa(contaCaixaDAO.listaTodos());
-		subView.preencheComboFornecedores(fornecedorDAO.listarTodos());
+		//subView.preencheComboFornecedores(fornecedorDAO.listarTodos());
 		// subView.preencheComboDocumentoOrigem(documentoOrigemDAO.listaTodos());
 
 		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(
@@ -177,8 +178,19 @@ public class LancamentoPagarFormController extends
 				return "descricao";
 			}
 		};
-
 		this.subView.getCbDocumentoOrigem().setModel(model3);
+		
+		DefaultManyToOneComboModel<Fornecedor> model2 = new DefaultManyToOneComboModel<Fornecedor>(
+				null, this.fornecedorDAO,
+				super.getMainController()){
+					@Override
+					public String getCaptionProperty() {
+						return "pessoa.nome";
+					}
+				};
+		this.subView.getCbFornecedor().setModel(model2);
+
+		
 	}
 
 	@Override

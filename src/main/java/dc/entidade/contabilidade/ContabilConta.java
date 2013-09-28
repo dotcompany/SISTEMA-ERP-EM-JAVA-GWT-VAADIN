@@ -14,9 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
@@ -63,6 +66,9 @@ import dc.entidade.framework.ComboValue;
  */
 @Entity
 @Table(name = "CONTABIL_CONTA")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class ContabilConta extends AbstractModel<Integer> implements
 		Serializable {
 
