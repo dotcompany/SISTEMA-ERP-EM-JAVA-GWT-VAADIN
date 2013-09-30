@@ -28,6 +28,7 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
+import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -289,9 +290,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setEditable(false);
 		table.setImmediate(false);
 		table.setSelectable(true);
+		//table.setDragMode(TableDragMode.)
+		table.setColumnCollapsingAllowed(true);
+		table.setColumnReorderingAllowed(true);
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
 		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
+		
+		
 		
 		BeanQueryFactory queryFactory = null ;
 		if(genericDAO.isMultiEmpresa(getEntityClass())){
@@ -302,10 +308,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		
 		
 		Map<String, Object> conf = new HashMap<String,Object>();
+		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 		conf.put("search",valor);
 		conf.put("dao",getMainDao());
 		conf.put("pojoClass",getEntityClass());
-		conf.put("id_empresa",SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		conf.put("id_empresa",idEmpresa);
 		queryFactory.setQueryConfiguration(conf);
 
 		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
@@ -315,6 +322,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
+		
 		
 		for(String prop : getColunas()) {
 			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
@@ -326,7 +334,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			else
 				table.setColumnHeader(prop, prop);
 
-			// verifica se � uma propriedade de um objeto dentro do bean
+			// verifica se e uma propriedade de um objeto dentro do bean
 			if (prop.contains(".")) {
 				//container.addNestedContainerProperty(prop);
 			}
@@ -347,7 +355,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setVisibleColumns(allCollumns);
 		table.setSizeFull();
 		
-	
+		if(getColunas() != null && getColunas().length > 1){
+			table.setFooterVisible(true);
+			table.setColumnFooter(CUSTOM_SELECT_ID, "Total: ");
+			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");	
+		}
+		
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 
