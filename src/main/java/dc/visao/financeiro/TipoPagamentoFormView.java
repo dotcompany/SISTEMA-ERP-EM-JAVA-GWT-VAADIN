@@ -86,4 +86,5 @@ public class TipoPagamentoFormView extends CustomComponent {
 	public void setTxtTipo(TextField txtTipo) {
 		this.txtTipo = txtTipo;
 	}
+
 }

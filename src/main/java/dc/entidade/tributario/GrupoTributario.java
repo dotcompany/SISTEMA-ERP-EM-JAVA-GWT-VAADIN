@@ -40,13 +40,11 @@ public class GrupoTributario extends AbstractModel<Integer> implements
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Descrição")
-	@ComboValue
+	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 

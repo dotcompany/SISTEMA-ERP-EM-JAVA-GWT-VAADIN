@@ -31,13 +31,11 @@ public class ICMSCustomizado extends AbstractModel<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trb")
 	@SequenceGenerator(name = "trb", sequenceName = "tribut_icms_custom_cab_id_seq", allocationSize = 1)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Descrição")
-	@ComboValue
+	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 

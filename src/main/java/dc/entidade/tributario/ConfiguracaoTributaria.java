@@ -17,8 +17,6 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -33,8 +31,6 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cfg")
 	@SequenceGenerator(name = "cfg", sequenceName = "tribut_configura_of_gt_id_seq", allocationSize = 1)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
@@ -44,15 +40,11 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements
 	@JoinColumn(name = "id_tribut_grupo_tributario", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Grupo Tributário")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private GrupoTributario grupoTributario;
 
 	@JoinColumn(name = "id_tribut_operacao_fiscal", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Operação Fiscal")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private OperacaoFiscal operacaoFiscal;
 
 	public ConfiguracaoTributaria() {

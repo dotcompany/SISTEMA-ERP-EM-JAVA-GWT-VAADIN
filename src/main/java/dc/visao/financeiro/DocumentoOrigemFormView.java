@@ -101,4 +101,5 @@ public class DocumentoOrigemFormView extends CustomComponent {
 		getTxtCodigo().setValue(currentBean.getCodigo());
 		getTxtSiglaDocumento().setValue(currentBean.getSiglaDocumento());
 	}
+
 }
