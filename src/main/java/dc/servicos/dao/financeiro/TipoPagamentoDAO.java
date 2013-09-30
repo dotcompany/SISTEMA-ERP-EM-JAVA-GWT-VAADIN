@@ -25,7 +25,7 @@ public class TipoPagamentoDAO extends AbstractCrudDAO<TipoPagamento>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] {"descricao"};
 	}
 	
 

@@ -19,15 +19,18 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
+import dc.entidade.financeiro.TipoPagamento;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -135,8 +138,20 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	private void preencheCombos() {
 		subView.preencheComboTipoBaixa();
-		subView.preencheComboTipoPagamento(tipoPagamentoDAO.listaTodos());
-		subView.preencheComboContaCaixa(contaCaixaDAO.listaTodos());
+		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
+				this.contaCaixaDAO, super.getMainController());
+
+		this.subView.getCbContaCaixa().setModel(model1);
+
+		DefaultManyToOneComboModel<TipoPagamento> model2 = new DefaultManyToOneComboModel<TipoPagamento>(TipoPagamentoListController.class,
+				this.tipoPagamentoDAO, super.getMainController()){
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
+
+		this.subView.getCbTipoPagamento().setModel(model2);
 	}
 
 	@Override

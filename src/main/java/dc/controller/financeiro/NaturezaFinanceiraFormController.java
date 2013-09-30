@@ -92,9 +92,14 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 		DefaultManyToOneComboModel<PlanoNaturezaFinanceira> model1 = new DefaultManyToOneComboModel<PlanoNaturezaFinanceira>(
 				PlanoNaturezaFinanceiraListController.class, planonaturezafinanceiraDAO, mainController);
 		subView.getCbPlanoNaturezaFinanceira().setModel(model1);
-		
-		DefaultManyToOneComboModel<ContabilConta> model2 = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, contabilcontaDAO, mainController);
+
+		DefaultManyToOneComboModel<ContabilConta> model2 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				contabilcontaDAO, mainController) {
+			@Override
+			public String getCaptionProperty() {
+				return "codigoReduzido";
+			}
+		};
 		subView.getCbContabilConta().setModel(model2);
 
 		subView.InitCbs();

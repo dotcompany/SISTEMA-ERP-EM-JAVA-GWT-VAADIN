@@ -89,6 +89,7 @@ public class CentroResultadoFormView extends CustomComponent {
 		// mainLayout.addComponent(cbPlanoCentroResultado, 0, 0);
 
 		cmbPlanoCentroResultado = new ManyToOneCombo<PlanoCentroResultado>();
+		cmbPlanoCentroResultado.setCaption("Plano Centro Resultado");
 		mainLayout.addComponent(cmbPlanoCentroResultado, 0, 0);
 
 		// optSofreRateio
