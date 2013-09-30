@@ -16,6 +16,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.visao.framework.component.SearchTextFieldConnector;
+import dc.visao.framework.component.SearchTextFieldExtension;
 import dc.visao.framework.component.export.ExcelExporter;
 import dc.visao.framework.component.export.PdfExporter;
 
@@ -87,6 +89,7 @@ public class CRUDListView extends CustomComponent implements View{
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
+		new SearchTextFieldExtension().extend(txtPesquisa);
 		
 	}
 

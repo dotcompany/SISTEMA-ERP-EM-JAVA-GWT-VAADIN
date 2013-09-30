@@ -267,7 +267,7 @@ public class DataProvider {
         /* First, read the text file into a string */
         StringBuffer fileData = new StringBuffer(2000);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
-                DataProvider.class.getResourceAsStream("cities.txt")));
+                DataProvider.class.getResourceAsStream("/cities.txt")));
 
         char[] buf = new char[1024];
         int numRead = 0;

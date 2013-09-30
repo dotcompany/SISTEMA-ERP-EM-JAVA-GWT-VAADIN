@@ -159,37 +159,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		subView.atualizaMiniatura(currentBean.getDocumentos());
 		
-		// Configura combo
-		/*ManyToOneComboModel<TipoDocumento> model = new ManyToOneComboModel<TipoDocumento>() {
-			
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-			
-			@Override
-			public List<TipoDocumento> getResultado(String q) {
-				return tipoDocumentoDAO.query(q);
-			}
-			
-			@Override
-			public Class<TipoDocumento> getEntityClass() {
-				return TipoDocumento.class;
-			}
-			
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(TipoDocumento value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-				
-			}
-		};
-		subView.getCmbTipoDocumento().setModel(model);
-		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());*/
+		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());
 	}
 
 	@Override

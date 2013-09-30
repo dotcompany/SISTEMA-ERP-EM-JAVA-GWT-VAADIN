@@ -1,7 +1,9 @@
 package dc.visao.framework.geral;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -52,6 +54,10 @@ public class ConfirmacaoContaView extends VerticalLayout implements View {
 	private String errorMessage;
 	
 	Label error = new Label("",     ContentMode.HTML);
+	
+	 @Autowired
+	 @Qualifier("org.springframework.security.authenticationManager")
+	 protected transient AuthenticationManager authenticationManager;
 
 	@Override
 	public void enter(ViewChangeEvent event) {
@@ -186,10 +192,12 @@ public class ConfirmacaoContaView extends VerticalLayout implements View {
                    try{ 
                 	   dao.saveOrUpdate(usuario);
                 	   logger.info("cadastro atualizado, vai navegar para main view");
+                	   SecuritySessionProvider.putUsuarioInSession(usuario, authenticationManager);
                 	   UI.getCurrent().getNavigator().navigateTo("");
                    }catch (Exception e) {
                 	   errorMessage = DcConstants.UPDATE_ACCOUNT_GENERIC_ERROR;
                 	   showErrorMessage(loginPanel, pwd, btnChangePwd, enter,errorMessage);
+                	   e.printStackTrace();
                    }
                 }
             }

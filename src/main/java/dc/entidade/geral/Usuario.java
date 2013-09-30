@@ -82,7 +82,7 @@ public class Usuario extends AbstractModel<Integer> implements Serializable,User
     private Date dataCadastro;
     
     @Column(name= "ADMINISTRADOR")
-    private Boolean administrador;
+    private Boolean administrador = false;
     
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
     @ManyToOne(optional = true, fetch=FetchType.EAGER)

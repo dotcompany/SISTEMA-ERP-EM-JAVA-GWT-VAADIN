@@ -40,8 +40,10 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.visao.sistema.CustomFieldFactory;
+import dc.visao.spring.SecuritySessionProvider;
 
 @org.springframework.stereotype.Component
 @Scope("prototype")
@@ -275,24 +277,16 @@ public class CriaContaEmpresaView extends ExternalView {
 			ui.setNavigator(nav);
 		}
 		
-		WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(novaConta.getUsuarioCriador().getLogin(),novaConta.getUsuarioCriador().getSenha());
-		token.setDetails(novaConta.getUsuarioCriador());
-		//token.setAuthenticated(isAuthenticated)
-		 //RunAsUserToken token = new RunAsUserToken(novaConta.getUsuario().getLogin(), novaConta.getUsuario(), novaConta.getUsuario().getSenha(), novaConta.getUsuario().getAuthorities(), null);
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-	        
-	        org.springframework.security.core.Authentication authenticatedUser = authenticationManager.authenticate(token);
-	        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-	        
-	        securityContext.setAuthentication(token);
-	        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+		SecuritySessionProvider.putUsuarioInSession(novaConta.getUsuarioCriador(),authenticationManager);
 		 
 		new Notification("Ok! Conta criada").show(Page.getCurrent());
 		
 		nav.navigateTo("wizard");
 		
 	}
+
+
+
 
 
 

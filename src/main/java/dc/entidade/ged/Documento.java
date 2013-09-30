@@ -172,13 +172,11 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 		this.dataExclusao = dataExclusao;
 	}
 
-	/*public TipoDocumento getTipoDocumento() {
+	public TipoDocumento getTipoDocumento() {
 		return tipoDocumento;
 	}
 
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}*/
+	
 
 	public List<DocumentoArquivo> getDocumentos() {
 		if (documentos == null) {

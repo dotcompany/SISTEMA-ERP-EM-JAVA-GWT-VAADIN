@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.sun.istack.logging.Logger;
+import com.vaadin.server.VaadinService;
+import com.vaadin.server.WrappedSession;
 
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.Usuario;
@@ -76,6 +81,24 @@ public class SecuritySessionProvider implements ApplicationContextAware{
 	
 	public boolean shouldLoadUserFromSpring(){
 		return Boolean.valueOf(loadFromSpring);
+	}
+
+	public static void putUsuarioInSession(Usuario u,AuthenticationManager manager) {
+
+			WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(u.getLogin(),u.getSenha());
+			token.setDetails(u);
+			//token.setAuthenticated(isAuthenticated)
+			 //RunAsUserToken token = new RunAsUserToken(novaConta.getUsuario().getLogin(), novaConta.getUsuario(), novaConta.getUsuario().getSenha(), novaConta.getUsuario().getAuthorities(), null);
+	        SecurityContext securityContext = SecurityContextHolder.getContext();
+		        
+		        org.springframework.security.core.Authentication authenticatedUser = manager.authenticate(token);
+		        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+		        
+		        securityContext.setAuthentication(token);
+		        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+
+
 	}
 
 }
