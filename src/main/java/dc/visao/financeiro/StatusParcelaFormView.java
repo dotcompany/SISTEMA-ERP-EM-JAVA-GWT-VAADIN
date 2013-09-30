@@ -92,4 +92,5 @@ public class StatusParcelaFormView extends CustomComponent {
 	public void setTxtProcedimento(TextField txtProcedimento) {
 		this.txtProcedimento = txtProcedimento;
 	}
+
 }

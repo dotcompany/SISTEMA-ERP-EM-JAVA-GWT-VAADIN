@@ -31,8 +31,6 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opf")
 	@SequenceGenerator(name = "opf", sequenceName = "tribut_operacao_fiscal_id_seq", allocationSize = 1)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@ManyToOne
@@ -41,7 +39,7 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 
 	@Field
 	@Caption("CFOP")
-	@ComboValue
+	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer cfop;
 
