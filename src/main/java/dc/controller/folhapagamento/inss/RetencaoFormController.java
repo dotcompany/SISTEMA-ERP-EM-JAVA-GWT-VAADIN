@@ -20,6 +20,7 @@ import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.RetencaoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 
 /**
  * 
@@ -182,17 +183,18 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 		}
 	}
 
+	@Autowired
+	private MainController mainController;
+
 	@Override
 	protected void initSubView() {
 		this.subView = new RetencaoFormView(this);
 
-		/*
-		 * this.subView.getCbInss().setData(this.inssListarTodos());
-		 * this.subView.getCbServico().setData(this.servicoListarTodos());
-		 */
+		this.subView.getCbInss().setData(this.inssListarTodos());
+		this.subView.getCbServico().setData(this.servicoListarTodos());
 
-		this.subView.getCbInss().setData(carregarCbInss());
-		this.subView.getCbServico().setData(carregarCbServico());
+		// this.subView.getCbInss().setData(carregarCbInss());
+		// this.subView.getCbServico().setData(carregarCbServico());
 	}
 
 	/*

@@ -49,14 +49,14 @@ public class RetencaoEntity extends AbstractModel<Integer> implements
 	@Basic(optional = false)
 	private Integer id;
 
-	@Column(name = "valor_mensal")
 	@Field
 	@Caption("Valor mensal")
+	@Column(name = "valor_mensal")
 	private Double valorMensal = new Double(0.0);
 
-	@Column(name = "valor_13")
 	@Field
 	@Caption("Valor 13")
+	@Column(name = "valor_13")
 	private Double valor13 = new Double(0.0);
 
 	/**
