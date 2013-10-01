@@ -32,6 +32,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Papel;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;
@@ -57,7 +58,7 @@ import dc.entidade.sistema.ContaEmpresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Usuario extends AbstractModel<Integer> implements Serializable,UserDetails {
+public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Serializable,UserDetails {
 	
     private static final long serialVersionUID = 1L;
 
