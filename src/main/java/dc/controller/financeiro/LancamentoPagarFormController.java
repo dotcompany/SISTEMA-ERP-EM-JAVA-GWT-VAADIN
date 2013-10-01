@@ -279,8 +279,10 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 
 	private BigDecimal getTotalNaturezaFinanceira(List<LctoPagarNtFinanceira> naturezasFinanceiras) {
 		BigDecimal total = BigDecimal.ZERO;
-		for (int i = 0; i < naturezasFinanceiras.size(); i++) {
-			total = total.add(naturezasFinanceiras.get(i).getValor());
+		if (naturezasFinanceiras != null) {
+			for (int i = 0; i < naturezasFinanceiras.size(); i++) {
+				total = total.add(naturezasFinanceiras.get(i).getValor());
+			}
 		}
 		return total;
 	}
