@@ -43,19 +43,7 @@ import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Classe principal que � abstract, onde implementa o Controller e pega
- * um Component.
- * Nessa tela temos as informa��es de todos os bot�es a configura��o deles
- * SALVAR, PESQUISAR E CRIAR
- * Onde temos a configura��o deles, o que cada bot�o faz!
- * Temos a configura��o da Tabela, pois pegamos informa��es da Tela CRUDListView
- * Temos a configura��o do Container tamb�m.
- *
-*/
+
 
 public abstract class CRUDListController<E> extends ControllerTask implements Controller,ControllerAcesso {
 
@@ -200,9 +188,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		final List ids = Arrays.asList(selected.keySet().toArray());
 		final List values = Arrays.asList(selected.values().toArray());
 		if(ids.isEmpty()){
-			getFormController().mensagemAtencao("Nenhum registro selecionado para remo��o");
+			getFormController().mensagemAtencao("Nenhum registro selecionado para remoção");
 		}else{
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remo��o", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
 			        "Sim", "Não", new ConfirmDialog.Listener() {
 
 			            public void onClose(ConfirmDialog dialog) {
