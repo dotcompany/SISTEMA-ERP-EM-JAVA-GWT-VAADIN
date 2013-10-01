@@ -202,8 +202,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		if(ids.isEmpty()){
 			getFormController().mensagemAtencao("Nenhum registro selecionado para remo��o");
 		}else{
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remo��o", "Voc� tem certeza? Isso apagar� os registros selecionados e N�o poder� ser revertido.",
-			        "Sim", "N�o", new ConfirmDialog.Listener() {
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remo��o", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
+			        "Sim", "Não", new ConfirmDialog.Listener() {
 
 			            public void onClose(ConfirmDialog dialog) {
 			                if (dialog.isConfirmed()) {
@@ -223,7 +223,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			            			table.refreshRowCache();
 			            			}catch (Exception e){
 			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo N�o tem depend�ncia com outros registros.");
+			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
 			            			}
 			                } 
 			            }
