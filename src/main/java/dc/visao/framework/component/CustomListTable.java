@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javassist.bytecode.Descriptor.Iterator;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -20,6 +23,8 @@ public class CustomListTable extends Table {
 	private TableFileHandler fileHandler = new TableFileHandler();
 	private String entityName;
 	public static final Object CUSTOM_SELECT_ID = "Selecionar";
+	private static final String COLLUMN_INFO = "col_info";
+	private static final String COLLAPSED = "collapsed";
 	
 	public void setEntityName(String name){
 		this.entityName = name;
@@ -37,52 +42,77 @@ public class CustomListTable extends Table {
 	 
 	 public boolean loadFromFile(){
 		 Integer userId = SecuritySessionProvider.getUsuario().getId();
-		 JsonObject o = fileHandler.load(String.valueOf(userId),entityName);
-		 if(o != null){
-			 doMapColluns(o);
+		 JsonArray collumns = fileHandler.load(String.valueOf(userId),entityName);
+		 if(collumns != null && collumns.size() > 0){
+			 java.util.Iterator<JsonElement> it = collumns.iterator();
+			 ArrayList<String> vaadinCols = new ArrayList<String>();
+			 while(it.hasNext()){
+				 JsonElement e = it.next();
+				 String colName = mapSingleCollumn(e.getAsJsonObject());
+				 if(colName != null){
+					 vaadinCols.add(colName);
+				 }
+			 }
+			 this.setVisibleColumns(vaadinCols.toArray());
 		 }
-		 
-		 
-		 return o != null && o.entrySet().size() >0 ;
+		 return collumns != null && collumns.size() >0 ;
 	 }
 	 
-	 private void doMapColluns(JsonObject o) {
-		// TODO Auto-generated method stub
+	 private String mapSingleCollumn(JsonObject o) {
+		 JsonObject colInfo = o.getAsJsonObject(COLLUMN_INFO);
+		 String colName = mapColInfo(colInfo);
+		 if(o.has(COLLAPSED)){
+			 setColumnCollapsedWithoutSave(colName, o.get(COLLAPSED).getAsBoolean());
+		 }
+		return colName; 
+		 
+	}
+
+	private void setColumnCollapsedWithoutSave(String pid, boolean collapsed) {
+		super.setColumnCollapsed(pid, collapsed);
+		
+	}
+
+	private String mapColInfo(JsonObject o) {
 		 Set<Entry<String, JsonElement>> s = o.entrySet();
 		 java.util.Iterator<Entry<String, JsonElement>> it = s.iterator();
-		 ArrayList<String> colunas = new ArrayList<String>();
-		 while (it.hasNext()){
+		
+		while (it.hasNext()){
 			 Entry k  = it.next();
-			 logger.info(String.valueOf(k.getKey()));
-			 logger.info(String.valueOf(k.getValue()));
-			 colunas.add(String.valueOf(k.getKey()));
-			 JsonPrimitive p =   (JsonPrimitive) k.getValue();
+			 String collumnName = String.valueOf(k.getKey());
+			 String collumnWidth = String.valueOf(k.getValue());
+			 logger.info(collumnName);
+			 logger.info(collumnWidth);
+		
+			 JsonPrimitive p = (JsonPrimitive) k.getValue();
 			 setColumnWidth(k.getKey(), p.getAsInt());
-			 //logger.info(String.valueOf(k));
-			 //logger.info(String.valueOf(o.get(String.valueOf(k))));
+			 return collumnName;
 		 }
 		
-		 this.setVisibleColumns(colunas.toArray());
+		return null;
 	}
 
 	public void saveToFile(){
 		 Integer userId = SecuritySessionProvider.getUsuario().getId();
-		 Object[] os =getVisibleColumns();
+		 Object[] collumns =getVisibleColumns();
 		 logger.info("saving to file, all visible collumns");
-		 JsonObject json = new JsonObject();
-		 for(Object o : os){ 
+		 JsonArray columnsMetadata = new JsonArray();
+		 for(Object o : collumns){
+			 JsonObject colRoot = new JsonObject();
+			 JsonObject colInfo = new JsonObject();
 			 String propertyId = String.valueOf(o);
-			 if(!isColumnCollapsed(propertyId)){
-				 int w= getColumnWidth(propertyId);
-				 logger.info("property: " + propertyId);
-				 logger.info("width" + w); 
-				 if(!propertyId.equals("DEBUG_PROPERTY_ID_QUERY_COUT") && !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_INDEX") && !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_QUERY_TIME")){
-					 json.addProperty(propertyId, String.valueOf(w));	 
-				 } 
+			 int w= getColumnWidth(propertyId);
+			 logger.info("property: " + propertyId);
+			 logger.info("width" + w); 
+			 if(!propertyId.equals("DEBUG_PROPERTY_ID_QUERY_COUT") && !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_INDEX") && !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_QUERY_TIME")){
+				 colInfo.addProperty(propertyId, String.valueOf(w));	 
 			 }
+			 colRoot.add(COLLUMN_INFO, colInfo);
+			 colRoot.addProperty(COLLAPSED, isColumnCollapsed(propertyId));
+			 columnsMetadata.add(colRoot);
 		 }
 		 
-		 fileHandler.save(json,String.valueOf(userId), entityName);
+		 fileHandler.save(columnsMetadata,String.valueOf(userId), entityName);
 		 
 	 }
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.context.annotation.Scope;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -22,7 +23,7 @@ public class TableFileHandler {
 	@Value("${user.home}/${table.fileBasePath}") 
 	private String filePath;
 
-	public void save(JsonObject json,String user, String entityName  ) {
+	public void save(JsonArray cols,String user, String entityName  ) {
 		// TODO Auto-generated method stub
 		try {
 			 
@@ -30,7 +31,7 @@ public class TableFileHandler {
 			file.getParentFile().mkdirs();
 			FileWriter writer= new FileWriter(file);
 		
-			writer.write(json.toString());
+			writer.write(cols.toString());
 			writer.flush();
 			writer.close();
 	 
@@ -43,7 +44,7 @@ public class TableFileHandler {
 		return filePath + "/" + user + "/"+entityName + ".json";
 	}
 
-	public JsonObject load(String user,String entityName) {
+	public JsonArray load(String user,String entityName) {
 		// TODO Auto-generated method stub
 		FileReader reader;
 		try {
@@ -51,7 +52,7 @@ public class TableFileHandler {
 			JsonParser p2 = new JsonParser();
 			JsonElement el = p2.parse(reader);
 			reader.close();
-			return el.getAsJsonObject();
+			return el.getAsJsonArray();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
