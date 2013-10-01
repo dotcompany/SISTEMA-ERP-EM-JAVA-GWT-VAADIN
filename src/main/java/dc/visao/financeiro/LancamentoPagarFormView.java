@@ -159,8 +159,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		txNumeroDocumento = ComponentUtil.buildTextField("Número Documento");
 		fields.addComponent(txNumeroDocumento, 2, 1);
 
-		cbPagamentoCompartilhado = ComponentUtil
-				.buildComboBox("Pagamento Compartilhado");
+		cbPagamentoCompartilhado = ComponentUtil.buildComboBox("Pagamento Compartilhado");
 		fields.addComponent(cbPagamentoCompartilhado, 3, 1);
 
 		dtLancamento = ComponentUtil.buildPopupDateField("Data Lançamento");
@@ -172,18 +171,15 @@ public class LancamentoPagarFormView extends CustomComponent {
 		txValorPagar = ComponentUtil.buildCurrencyField("Valor à Pagar");
 		fields.addComponent(txValorPagar, 2, 2);
 
-		txQuantidadeParcela = ComponentUtil
-				.buildNumericField("Quantidade Parcelas");
+		txQuantidadeParcela = ComponentUtil.buildNumericField("Quantidade Parcelas");
 		fields.addComponent(txQuantidadeParcela, 3, 2);
 		txQuantidadeParcela.setConverter(new IntegerConverter());
 
-		txIntervaloParcela = ComponentUtil
-				.buildNumericField("Intervalos Parcelas");
+		txIntervaloParcela = ComponentUtil.buildNumericField("Intervalos Parcelas");
 		fields.addComponent(txIntervaloParcela, 4, 2);
 		txIntervaloParcela.setConverter(new IntegerConverter());
 
-		dtPrimeiroVencimento = ComponentUtil
-				.buildPopupDateField("Primeiro Vencimento");
+		dtPrimeiroVencimento = ComponentUtil.buildPopupDateField("Primeiro Vencimento");
 		fields.addComponent(dtPrimeiroVencimento, 5, 2);
 
 		cbContaCaixa = new ManyToOneCombo<>();
@@ -204,20 +200,16 @@ public class LancamentoPagarFormView extends CustomComponent {
 		tabSheet.setSizeFull();
 
 		tabSheet.addTab(buildSubFormParcelas(), "Parcelas", null);
-		tabSheet.addTab(buildSubFormNaturezaFinanceira(),
-				"Naturezas Financeiras Vinculadas", null);
+		tabSheet.addTab(buildSubFormNaturezaFinanceira(), "Naturezas Financeiras Vinculadas", null);
 
 		return tabSheet;
 	}
 
 	private Component buildSubFormNaturezaFinanceira() {
-		String[] atributos = new String[] { "naturezaFinanceira",
-				"dataInclusao", "valor" };
-		String[] headers = new String[] { "Natureza Financeira",
-				"Data Inclusão", "Valor" };
+		String[] atributos = new String[] { "naturezaFinanceira", "dataInclusao", "valor" };
+		String[] headers = new String[] { "Natureza Financeira", "Data Inclusão", "Valor" };
 
-		this.naturezaFinanceiraSubForm = new SubFormComponent<LctoPagarNtFinanceira, Integer>(
-				LctoPagarNtFinanceira.class, atributos, headers) {
+		this.naturezaFinanceiraSubForm = new SubFormComponent<LctoPagarNtFinanceira, Integer>(LctoPagarNtFinanceira.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -231,9 +223,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 					private static final long serialVersionUID = 1L;
 
 					@Override
-					public Field<?> createField(Container container,
-							Object itemId, Object propertyId,
-							Component uiContext) {
+					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
 
 						if ("dataInclusao".equals(propertyId)) {
 							DateField dateField = new DateField();
@@ -245,8 +235,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 							ComboBox cmb = ComponentUtil.buildComboBox(null);
 							cmb.removeAllItems();
 
-							List<NaturezaFinanceira> naturezaFinanceiras = controller
-									.getNaturezasFinanceiras();
+							List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
 							for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
 								cmb.addItem(naturezaFinanceira);
 							}
@@ -269,14 +258,12 @@ public class LancamentoPagarFormView extends CustomComponent {
 			}
 
 			protected LctoPagarNtFinanceira getNovo() {
-				LctoPagarNtFinanceira LlctoPagarNtFinanceira = controller
-						.novoLctoPagarNtFinanceira();
+				LctoPagarNtFinanceira LlctoPagarNtFinanceira = controller.novoLctoPagarNtFinanceira();
 				return LlctoPagarNtFinanceira;
 			}
 
 			@Override
-			protected void getRemoverSelecionados(
-					List<LctoPagarNtFinanceira> values) {
+			protected void getRemoverSelecionados(List<LctoPagarNtFinanceira> values) {
 				controller.removerLctoPagarNtFinanceira(values);
 			}
 		};
@@ -292,18 +279,13 @@ public class LancamentoPagarFormView extends CustomComponent {
 		parcelasLayout.setMargin(false);
 		parcelasLayout.setSpacing(true);
 
-		String[] atributos = new String[] { "contaCaixa", "numeroParcela",
-				"dataEmissao", "dataVencimento", "descontoAte",
-				"sofreRetencao", "valor", "taxaJuro", "valorJuro", "taxaMulta",
-				"valorMulta", "taxaDesconto", "valorDesconto" };
+		String[] atributos = new String[] { "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao", "valor",
+				"taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto" };
 
-		String[] headers = new String[] { "Conta Caixa", "Número Parcela",
-				"Data Emissão", "Data Vencimento", "Desconto Até",
-				"Sofre Retenção", "Valor", "Taxa Juro", "Valor Juro",
-				"Taxa Multa", "Valor Multa", "Taxa Desconto", "Valor Desconto" };
+		String[] headers = new String[] { "Conta Caixa", "Número Parcela", "Data Emissão", "Data Vencimento", "Desconto Até", "Sofre Retenção",
+				"Valor", "Taxa Juro", "Valor Juro", "Taxa Multa", "Valor Multa", "Taxa Desconto", "Valor Desconto" };
 
-		this.parcelasSubForm = new SubFormComponent<ParcelaPagar, Integer>(
-				ParcelaPagar.class, atributos, headers) {
+		this.parcelasSubForm = new SubFormComponent<ParcelaPagar, Integer>(ParcelaPagar.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -323,12 +305,9 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 					@SuppressWarnings("rawtypes")
 					@Override
-					public Field<?> createField(Container container,
-							Object itemId, Object propertyId,
-							Component uiContext) {
+					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
 
-						if ("dataEmissao".equals(propertyId)
-								|| "dataVencimento".equals(propertyId)) {
+						if ("dataEmissao".equals(propertyId) || "dataVencimento".equals(propertyId)) {
 							DateField dateField = new DateField();
 							dateField.setSizeFull();
 							return dateField;
@@ -337,82 +316,67 @@ public class LancamentoPagarFormView extends CustomComponent {
 						}
 
 						else if ("contaCaixa".equals(propertyId)) {
-							TextField contaCaixaText = ComponentUtil
-									.buildTextField(null);
+							TextField contaCaixaText = ComponentUtil.buildTextField(null);
 
-							contaCaixaText
-									.setConverter(new Converter<String, ContaCaixa>() {
+							contaCaixaText.setConverter(new Converter<String, ContaCaixa>() {
 
-										/**
+								/**
 								 * 
 								 */
-										private static final long serialVersionUID = 1L;
+								private static final long serialVersionUID = 1L;
 
-										@Override
-										public ContaCaixa convertToModel(
-												String value,
-												Class<? extends ContaCaixa> targetType,
-												Locale locale)
-												throws com.vaadin.data.util.converter.Converter.ConversionException {
-											return null;
-										}
+								@Override
+								public ContaCaixa convertToModel(String value, Class<? extends ContaCaixa> targetType, Locale locale)
+										throws com.vaadin.data.util.converter.Converter.ConversionException {
+									return null;
+								}
 
-										@Override
-										public String convertToPresentation(
-												ContaCaixa value,
-												Class<? extends String> targetType,
-												Locale locale)
-												throws com.vaadin.data.util.converter.Converter.ConversionException {
-											return value.getNome();
-										}
+								@Override
+								public String convertToPresentation(ContaCaixa value, Class<? extends String> targetType, Locale locale)
+										throws com.vaadin.data.util.converter.Converter.ConversionException {
+									return value.getNome();
+								}
 
-										@Override
-										public Class<ContaCaixa> getModelType() {
-											return ContaCaixa.class;
-										}
+								@Override
+								public Class<ContaCaixa> getModelType() {
+									return ContaCaixa.class;
+								}
 
-										@Override
-										public Class<String> getPresentationType() {
-											return String.class;
-										}
-									});
+								@Override
+								public Class<String> getPresentationType() {
+									return String.class;
+								}
+							});
 
 							contaCaixaText.setReadOnly(true);
 							return contaCaixaText;
 
 						} else if ("taxaJuro".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildPercentageField(null);
+							Field field = ComponentUtil.buildPercentageField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("taxaMulta".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildPercentageField(null);
+							Field field = ComponentUtil.buildPercentageField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("taxaDesconto".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildPercentageField(null);
+							Field field = ComponentUtil.buildPercentageField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("valorJuro".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildCurrencyField(null);
+							Field field = ComponentUtil.buildCurrencyField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("valorMulta".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildCurrencyField(null);
+							Field field = ComponentUtil.buildCurrencyField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("valorDesconto".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildCurrencyField(null);
+							Field field = ComponentUtil.buildCurrencyField(null);
 							field.setEnabled(false);
 							return field;
 						} else if ("valorPago".equals(propertyId)) {
-							Field field = ComponentUtil
-									.buildCurrencyField(null);
+							Field field = ComponentUtil.buildCurrencyField(null);
 							field.setEnabled(false);
 							return field;
 						} else {
@@ -448,20 +412,13 @@ public class LancamentoPagarFormView extends CustomComponent {
 		currentBean.setFornecedor((Fornecedor) cbFornecedor.getValue());
 		currentBean.setDataLancamento(dtLancamento.getValue());
 		currentBean.setPrimeiroVencimento(dtPrimeiroVencimento.getValue());
-		currentBean.setDocumentoOrigem((DocumentoOrigem) cbDocumentoOrigem
-				.getValue());
-		currentBean
-				.setPagamentoCompartilhado(((SimNao) cbPagamentoCompartilhado
-						.getValue()).getCodigo());
-		currentBean.setValorAPagar((BigDecimal) txValorPagar
-				.getConvertedValue());
-		currentBean
-				.setValorTotal((BigDecimal) txValorTotal.getConvertedValue());
-		currentBean.setIntervaloEntreParcelas((Integer) txIntervaloParcela
-				.getConvertedValue());
+		currentBean.setDocumentoOrigem((DocumentoOrigem) cbDocumentoOrigem.getValue());
+		currentBean.setPagamentoCompartilhado(((SimNao) cbPagamentoCompartilhado.getValue()).getCodigo());
+		currentBean.setValorAPagar((BigDecimal) txValorPagar.getConvertedValue());
+		currentBean.setValorTotal((BigDecimal) txValorTotal.getConvertedValue());
+		currentBean.setIntervaloEntreParcelas(txIntervaloParcela.getConvertedValue() != null ? (Integer) txIntervaloParcela.getConvertedValue() : 0);
 		currentBean.setNumeroDocumento(txNumeroDocumento.getValue());
-		currentBean.setQuantidadeParcela((Integer) txQuantidadeParcela
-				.getConvertedValue());
+		currentBean.setQuantidadeParcela((Integer) txQuantidadeParcela.getConvertedValue());
 	}
 
 	public void preencheForm(LancamentoPagar currentBean) {
@@ -469,27 +426,22 @@ public class LancamentoPagarFormView extends CustomComponent {
 		dtLancamento.setValue(currentBean.getDataLancamento());
 		dtPrimeiroVencimento.setValue(currentBean.getPrimeiroVencimento());
 		cbDocumentoOrigem.setValue(currentBean.getDocumentoOrigem());
-		cbPagamentoCompartilhado.setValue(SimNao.getSimNao(currentBean
-				.getPagamentoCompartilhado()));
+		cbPagamentoCompartilhado.setValue(SimNao.getSimNao(currentBean.getPagamentoCompartilhado()));
 		txValorPagar.setConvertedValue(currentBean.getValorAPagar());
 		txValorTotal.setConvertedValue(currentBean.getValorTotal());
-		txIntervaloParcela.setConvertedValue(currentBean
-				.getIntervaloEntreParcelas());
+		txIntervaloParcela.setConvertedValue(currentBean.getIntervaloEntreParcelas());
 		txNumeroDocumento.setValue(currentBean.getNumeroDocumento());
-		txQuantidadeParcela.setConvertedValue(currentBean
-				.getQuantidadeParcela());
+		txQuantidadeParcela.setConvertedValue(currentBean.getQuantidadeParcela());
 
 		parcelasSubForm.fillWith(currentBean.getParcelasPagar());
-		naturezaFinanceiraSubForm.fillWith(currentBean
-				.getLctoPagarNtFinanceiras());
+		naturezaFinanceiraSubForm.fillWith(currentBean.getLctoPagarNtFinanceiras());
 	}
 
 	public ManyToOneCombo<DocumentoOrigem> getCbDocumentoOrigem() {
 		return cbDocumentoOrigem;
 	}
 
-	public void setCbDocumentoOrigem(
-			ManyToOneCombo<DocumentoOrigem> cbDocumentoOrigem) {
+	public void setCbDocumentoOrigem(ManyToOneCombo<DocumentoOrigem> cbDocumentoOrigem) {
 		this.cbDocumentoOrigem = cbDocumentoOrigem;
 	}
 
@@ -569,8 +521,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		return parcelasSubForm;
 	}
 
-	public void setParcelasSubForm(
-			SubFormComponent<ParcelaPagar, Integer> parcelasSubForm) {
+	public void setParcelasSubForm(SubFormComponent<ParcelaPagar, Integer> parcelasSubForm) {
 		this.parcelasSubForm = parcelasSubForm;
 	}
 
@@ -578,8 +529,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		return naturezaFinanceiraSubForm;
 	}
 
-	public void setNaturezaFinanceiraSubForm(
-			SubFormComponent<LctoPagarNtFinanceira, Integer> naturezaFinanceiraSubForm) {
+	public void setNaturezaFinanceiraSubForm(SubFormComponent<LctoPagarNtFinanceira, Integer> naturezaFinanceiraSubForm) {
 		this.naturezaFinanceiraSubForm = naturezaFinanceiraSubForm;
 	}
 
