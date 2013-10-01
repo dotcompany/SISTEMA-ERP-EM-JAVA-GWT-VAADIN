@@ -45,7 +45,7 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Papel extends AbstractModel<Integer> implements Serializable  {
+public class Papel extends AbstractMultiEmpresaModel<Integer> implements Serializable  {
 	
     private static final long serialVersionUID = 1L;
 

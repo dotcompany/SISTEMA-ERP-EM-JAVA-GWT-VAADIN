@@ -28,17 +28,21 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
-import com.vaadin.ui.Table.TableDragMode;
+import com.vaadin.ui.Table.ColumnReorderEvent;
+import com.vaadin.ui.Table.ColumnReorderListener;
+import com.vaadin.ui.Table.ColumnResizeEvent;
+import com.vaadin.ui.Table.ColumnResizeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.PapelMenu;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.visao.framework.component.CustomListTable;
+import dc.visao.framework.component.TableFileHandler;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
@@ -48,22 +52,23 @@ import dc.visao.spring.SecuritySessionProvider;
 public abstract class CRUDListController<E> extends ControllerTask implements Controller,ControllerAcesso {
 
 	public static Logger logger = Logger.getLogger(CRUDListController.class);
-	private static final Object CUSTOM_SELECT_ID = "Selecionar";
+
 	private static final int PAGE_SIZE = 100;
 	public static final int WINDOW_LIST = 1;
 	public static final int WINDOW_FORM = 2;
 	CRUDListView view;
-	private Table table;
+	private CustomListTable table;
 
 	private HashMap selected = new HashMap<Object,Object>();
 
 	@Autowired
 	private MainController mainController;
 	
-	
-	
 	@Autowired
 	private GenericListDAO genericDAO;
+	
+	@Autowired
+	private TableFileHandler fileUtils;
 	
 	private PapelMenu papelMenu;
 	private boolean acessoLiberado = false;
@@ -231,7 +236,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		String valor = view.getTxtPesquisa().getValue();
 
 		// Configura da tabela
-		table = new Table();
+		table = new CustomListTable();
+		
+		table.setFileHandler(fileUtils);
+		table.setEntityName(getEntityClass().getSimpleName());
+		
 		table.addListener(new ItemClickEvent.ItemClickListener() {
 			             private static final long serialVersionUID = 2068314108919135281L;
 
@@ -243,7 +252,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			         });
 
 		 //adiciona checkbox na ultima coluna para marcar para acoes como ex: remover
-		 table.addGeneratedColumn(CUSTOM_SELECT_ID, new ColumnGenerator() {
+		 table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
 
 	            @Override
 	            public Component generateCell(final Table source, final Object itemId, final Object columnId) {
@@ -276,16 +285,32 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setWidth("100%");
 		//table.setHeight("99%");
 		table.setEditable(false);
-		table.setImmediate(false);
+		table.setImmediate(true);
 		table.setSelectable(true);
 		//table.setDragMode(TableDragMode.)
 		table.setColumnCollapsingAllowed(true);
 		table.setColumnReorderingAllowed(true);
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
-		table.setColumnWidth(CUSTOM_SELECT_ID, 80);
+		table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
 		
+		table.addColumnReorderListener(new ColumnReorderListener() {
+			
+			@Override
+			public void columnReorder(ColumnReorderEvent event) {
+				logger.info("reorder");
+				table.saveToFile();
+			}
+		});
 		
+		table.addColumnResizeListener(new ColumnResizeListener() {
+			
+			@Override
+			public void columnResize(ColumnResizeEvent event) {
+				logger.info("resize");
+				table.saveToFile();
+			}
+		});
 		
 		BeanQueryFactory queryFactory = null ;
 		if(genericDAO.isMultiEmpresa(getEntityClass())){
@@ -311,7 +336,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
 		
-		
+	
 		for(String prop : getColunas()) {
 			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
 
@@ -327,31 +352,36 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				//container.addNestedContainerProperty(prop);
 			}
 
-			if (prop.equals(CUSTOM_SELECT_ID)){
+			if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)){
 				table.setColumnExpandRatio(prop, 1);	
 			}else{
 				table.setColumnExpandRatio(prop, 3);
 			}
 
-		}	
-
-		table.setContainerDataSource(container);
-
-		Object[] cs = new Object[]  {CUSTOM_SELECT_ID};
-		Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
+		}		
 		
-		table.setVisibleColumns(allCollumns);
-		table.setSizeFull();
+		
+		
+		table.setContainerDataSource(container);
+		boolean loadedFromFile = table.loadFromFile();
+		
+		
+		if(!loadedFromFile){
+			Object[] cs = new Object[]  {CustomListTable.CUSTOM_SELECT_ID};
+			Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
+			table.setVisibleColumns(allCollumns);
+		}
+		table.setSizeFull();	
 		
 		if(getColunas() != null && getColunas().length > 1){
 			table.setFooterVisible(true);
-			table.setColumnFooter(CUSTOM_SELECT_ID, "Total: ");
+			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
 			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");	
 		}
 		
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
-
+		
 	}
 	
 	protected AbstractCrudDAO getMainDao() {
