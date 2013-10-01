@@ -12,30 +12,29 @@ import com.vaadin.data.util.converter.Converter;
 public class IntegerConverter implements Converter<String, Integer> {
 
 	private static final long serialVersionUID = 8469805997615778349L;
-	
+
 	private String prefix = "";
 	private String suffix = "";
 
 	public IntegerConverter() {
 	}
-	
+
 	public IntegerConverter(String prefix) {
 		this.prefix = prefix;
 	}
-	
+
 	public IntegerConverter(String prefix, String suffix) {
 		this.prefix = prefix;
 		this.suffix = suffix;
 	}
-	
+
 	private NumberFormat getFormat() {
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0.00");
 		return decimalFormat;
 	}
 
 	@Override
-	public Integer convertToModel(String value,
-			Class<? extends Integer> targetType, Locale locale)
+	public Integer convertToModel(String value, Class<? extends Integer> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		if (StringUtils.isEmpty(value)) {
 			return null;
@@ -43,13 +42,17 @@ public class IntegerConverter implements Converter<String, Integer> {
 		value = value.trim();
 		value = value.replace(prefix, "");
 		value = value.replace(suffix, "");
-	
-		return new BigDecimal(value).intValue();
+		Integer converted = null;
+
+		try {
+			converted = new BigDecimal(value).intValue();
+		} catch (NumberFormatException e) {}
+
+		return converted;
 	}
 
 	@Override
-	public String convertToPresentation(Integer value,
-			Class<? extends String> targetType, Locale locale)
+	public String convertToPresentation(Integer value, Class<? extends String> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		if (value != null) {
 			return prefix + getFormat().format(value.doubleValue()) + suffix;
@@ -68,4 +71,3 @@ public class IntegerConverter implements Converter<String, Integer> {
 	}
 
 }
-

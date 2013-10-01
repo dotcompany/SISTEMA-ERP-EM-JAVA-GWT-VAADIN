@@ -1,16 +1,21 @@
 package dc.entidade.financeiro;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +25,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -123,6 +130,9 @@ public class ParcelaPagar extends AbstractModel<Integer> {
     @ManyToOne(optional = false)
     private ContaCaixa contaCaixa;
    
+    @OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
     
     public ParcelaPagar() {
     }
@@ -287,6 +297,14 @@ public class ParcelaPagar extends AbstractModel<Integer> {
 
 	public void setContaCaixa(ContaCaixa contaCaixa) {
 		this.contaCaixa = contaCaixa;
+	}
+
+	public List<ParcelaPagamento> getParcelapagamentos() {
+		return parcelapagamentos;
+	}
+
+	public void setParcelapagamentos(List<ParcelaPagamento> parcelapagamentos) {
+		this.parcelapagamentos = parcelapagamentos;
 	}
 	
 	

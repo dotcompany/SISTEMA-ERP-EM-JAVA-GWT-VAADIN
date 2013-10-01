@@ -24,7 +24,6 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
 public class PaisListController extends CRUDListController<Pais> {
 
 	/**
@@ -40,7 +39,8 @@ public class PaisListController extends CRUDListController<Pais> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "nomeEn", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2",
+				"sigla3" };
 	}
 
 	@Override
