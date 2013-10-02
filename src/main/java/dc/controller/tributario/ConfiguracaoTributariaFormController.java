@@ -6,17 +6,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
 import com.vaadin.ui.Component;
-
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.UF;
+import dc.entidade.tabelas.CodigoApuracaoEfd;
+import dc.entidade.tabelas.CstCofins;
+import dc.entidade.tabelas.CstIpi;
+import dc.entidade.tabelas.CstPis;
+import dc.entidade.tabelas.TipoReceitaDipi;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.ICMSConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
+import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.tabelas.CodigoApuracaoEfdDAO;
+import dc.servicos.dao.tabelas.CstCofinsDAO;
+import dc.servicos.dao.tabelas.CstIpiDAO;
+import dc.servicos.dao.tabelas.CstPisDAO;
+import dc.servicos.dao.tabelas.TipoReceitaDipiDAO;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ConfiguracaoTributariaFormView;
@@ -24,8 +34,7 @@ import dc.visao.tributario.ConfiguracaoTributariaFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ConfiguracaoTributariaFormController extends
-		CRUDFormController<ConfiguracaoTributaria> {
+public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributaria> {
 
 	ConfiguracaoTributariaFormView subView;
 
@@ -38,19 +47,37 @@ public class ConfiguracaoTributariaFormController extends
 	@Autowired
 	OperacaoFiscalDAO operacaoFiscalDAO;
 
+	@Autowired
+	UFDAO ufDAO;
+
 	ConfiguracaoTributaria currentBean;
 
 	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
+	
+	@Autowired
+	CstPisDAO cstPisDAO;
+	
+	@Autowired
+	CstCofinsDAO cstCofinsDAO;
+	
+	@Autowired
+	CstIpiDAO cstIpiDAO;
+	
+	@Autowired
+	CodigoApuracaoEfdDAO efdDAO;
+	
+	@Autowired
+	TipoReceitaDipiDAO dipiDAO;
 
 	@Override
 	public String getViewIdentifier() {
+
 		return "ConfiguracaoTributariaForm";
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-
 		return valido;
 	}
 
@@ -63,67 +90,41 @@ public class ConfiguracaoTributariaFormController extends
 	protected void initSubView() {
 		subView = new ConfiguracaoTributariaFormView(this);
 
-		DefaultManyToOneComboModel<GrupoTributario> model = new DefaultManyToOneComboModel<GrupoTributario>(
-				GrupoTributarioListController.class, this.grupoTributarioDAO,
-				super.getMainController());
-
-		this.subView.getCmbGrupoTributario().setModel(model);
-
-		DefaultManyToOneComboModel<OperacaoFiscal> model1 = new DefaultManyToOneComboModel<OperacaoFiscal>(
-				OperacaoFiscalListController.class, this.operacaoFiscalDAO,
-				super.getMainController());
-
-		this.subView.getCmbOperacaoFiscal().setModel(model1);
 	}
 
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
-
-		DefaultManyToOneComboModel<GrupoTributario> model = new DefaultManyToOneComboModel<GrupoTributario>(
-				GrupoTributarioListController.class, this.grupoTributarioDAO,
-				super.getMainController());
-
-		this.subView.getCmbGrupoTributario().setModel(model);
-		this.subView.getCmbGrupoTributario().setValue(
-				this.currentBean.getGrupoTributario());
-
-		DefaultManyToOneComboModel<OperacaoFiscal> model1 = new DefaultManyToOneComboModel<OperacaoFiscal>(
-				OperacaoFiscalListController.class, this.operacaoFiscalDAO,
-				super.getMainController());
-
-		this.subView.getCmbOperacaoFiscal().setModel(model1);
-		this.subView.getCmbOperacaoFiscal().setValue(
-				this.currentBean.getOperacaoFiscal());
+		subView.getCmbGrupoTributario().setValue(currentBean.getGrupoTributario());
+		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());
+	    subView.preencherIcmsSubForm(currentBean.getListaIcms());
 	}
 
-	public Empresa empresaAtual() {
+	public Empresa empresaAtual(){
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try {
+		try{
 			currentBean.setEmpresa(empresaAtual());
-			currentBean.setGrupoTributario((GrupoTributario) subView
-					.getCmbGrupoTributario().getValue());
-			currentBean.setOperacaoFiscal((OperacaoFiscal) subView
-					.getCmbOperacaoFiscal().getValue());
+			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
+			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		} catch (Exception e) {
-			mensagemErro("Erro!!");
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected void quandoNovo() {
-		try {
-			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		} catch (Exception e) {
+		try{
+			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		}catch(Exception e){
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
@@ -139,8 +140,8 @@ public class ConfiguracaoTributariaFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-	}
 
+	}
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
@@ -148,16 +149,45 @@ public class ConfiguracaoTributariaFormController extends
 	}
 
 	@Override
-	public boolean isFullSized() {
+	public boolean isFullSized(){
 		return true;
 	}
 
-	public List<GrupoTributario> trazerGrupos() {
+	public List<GrupoTributario> trazerGrupos(){
 		return grupoTributarioDAO.listaTodos();
 	}
 
-	public List<OperacaoFiscal> trazerOperacoes() {
+	public List<OperacaoFiscal> trazerOperacoes(){
 		return operacaoFiscalDAO.listaTodos();
 	}
 
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+
+	public ICMSConfiguracaoTributaria novoIcms(){
+		ICMSConfiguracaoTributaria objeto = new ICMSConfiguracaoTributaria();
+		currentBean.adicionarIcms(objeto);
+		return objeto;
+	}
+	
+	public CstPis consultarCstPis(String codigo){
+		return cstPisDAO.procuraPorCodigo(codigo);
+	}
+	
+	public CstCofins consultarCstCofins(String codigo){
+		return cstCofinsDAO.procuraPorCodigo(codigo);
+	}
+	
+	public CstIpi consultarCstIpi(String codigo){
+		return cstIpiDAO.procuraPorCodigo(codigo);
+	}
+	
+	public CodigoApuracaoEfd consultarEfd(String codigo){
+		return efdDAO.procuraPorCodigo(codigo);
+	}
+	
+	public TipoReceitaDipi consultarDipi(String codigo){
+		return dipiDAO.procuraPorCodigo(codigo);
+	}
 }
