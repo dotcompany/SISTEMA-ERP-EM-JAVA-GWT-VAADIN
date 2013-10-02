@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.lucene.util.StringHelper;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.context.annotation.Scope;
@@ -18,16 +19,24 @@ import com.google.gwt.json.client.JSONParser;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")
-public class TableFileHandler {
+public class CompanyFileHandler {
 	
-	@Value("${user.home}/${table.fileBasePath}") 
-	private String filePath;
+	@Value("${user.home}") 
+	private String homePath;
+	
+	@Value("${custom.companyRoot}") 
+	private String customRoot;
+	
+	@Value("${custom.companyBaseFolder}") 
+	private String customCompanyBaseFolder;
+	
+	private static final String TABLE_LIST_BASE_FOLDER = "tabelas";
 
-	public void save(JsonArray cols,String user, String entityName  ) {
+	public void save(JsonArray cols,String companyId, String user, String entityName  ) {
 		// TODO Auto-generated method stub
 		try {
 			 
-			File file = new File(getFullPath(user,entityName));
+			File file = new File(getTableListFullPath(companyId,user,entityName));
 			file.getParentFile().mkdirs();
 			FileWriter writer= new FileWriter(file);
 		
@@ -40,15 +49,25 @@ public class TableFileHandler {
 		}
 	}
 
-	private String getFullPath(String user, String entityName) {
-		return filePath + "/" + user + "/"+entityName + ".json";
+	private String getTableListFullPath(String companyId, String user, String entityName) {
+		if(customRoot != null && !customRoot.trim().equals("")){
+			return customRoot + getRelativeTableListPath(companyId,user,entityName);
+		}else{
+			return homePath +  getRelativeTableListPath(companyId,user,entityName);	
+		}
+		
 	}
 
-	public JsonArray load(String user,String entityName) {
+	private String getRelativeTableListPath(String companyId, String user,
+			String entityName) {
+		return "/" + customCompanyBaseFolder + "/" + companyId + "/" + TABLE_LIST_BASE_FOLDER + "/" + user + "/"+entityName + ".json";
+	}
+
+	public JsonArray load(String company,String user,String entityName) {
 		// TODO Auto-generated method stub
 		FileReader reader;
 		try {
-			reader = new FileReader(getFullPath(user, entityName));
+			reader = new FileReader(getTableListFullPath(company,user, entityName));
 			JsonParser p2 = new JsonParser();
 			JsonElement el = p2.parse(reader);
 			reader.close();

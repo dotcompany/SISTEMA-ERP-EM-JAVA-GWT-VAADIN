@@ -42,7 +42,7 @@ import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.component.CustomListTable;
-import dc.visao.framework.component.TableFileHandler;
+import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
@@ -68,7 +68,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	private GenericListDAO genericDAO;
 	
 	@Autowired
-	private TableFileHandler fileUtils;
+	private CompanyFileHandler fileUtils;
 	
 	private PapelMenu papelMenu;
 	private boolean acessoLiberado = false;

@@ -1,4 +1,4 @@
-package dc.visao.framework.component;
+package dc.framework.client;
 
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
@@ -10,11 +10,11 @@ import com.vaadin.client.extensions.AbstractExtensionConnector;
 import com.vaadin.client.ui.VOverlay;
 import com.vaadin.shared.ui.Connect;
 
+import dc.framework.SearchTextFieldExtension;
+
 @Connect(SearchTextFieldExtension.class)
 public class SearchTextFieldConnector extends AbstractExtensionConnector {
-	
-	
-	
+		
     @Override
     protected void extend(ServerConnector target) {
         final Widget txtFieldWidget = ((ComponentConnector) target).getWidget();
@@ -22,7 +22,7 @@ public class SearchTextFieldConnector extends AbstractExtensionConnector {
         final VOverlay warning = new VOverlay();
         warning.setOwner(txtFieldWidget(txtFieldWidget));
         warning.add(new HTML("Caps Lock is enabled!"));
-
+        System.out.println("Extending............................................");
         txtFieldWidget(txtFieldWidget).addDomHandler(new KeyPressHandler() {
             @Override
             public void onKeyPress(KeyPressEvent event) {
