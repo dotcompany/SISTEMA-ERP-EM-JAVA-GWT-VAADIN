@@ -1,13 +1,14 @@
 package dc.visao.framework.component;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.server.VaadinSession;
 
 public class IntegerConverter implements Converter<String, Integer> {
 
@@ -29,8 +30,11 @@ public class IntegerConverter implements Converter<String, Integer> {
 	}
 
 	private NumberFormat getFormat() {
-		DecimalFormat decimalFormat = new DecimalFormat("###,##0.00");
-		return decimalFormat;
+		Locale myLocale = VaadinSession.getCurrent().getLocale();
+
+		NumberFormat f = NumberFormat.getInstance(myLocale);
+
+		return f;
 	}
 
 	@Override
@@ -45,8 +49,10 @@ public class IntegerConverter implements Converter<String, Integer> {
 		Integer converted = null;
 
 		try {
-			converted = new BigDecimal(value).intValue();
-		} catch (NumberFormatException e) {}
+			converted = new BigDecimal(getFormat().parse(value).doubleValue()).intValue();
+		} catch (NumberFormatException | ParseException e) {
+			e.printStackTrace();
+		}
 
 		return converted;
 	}
