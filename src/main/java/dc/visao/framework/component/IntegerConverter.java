@@ -8,6 +8,7 @@ import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.server.VaadinSession;
 
 public class IntegerConverter implements Converter<String, Integer> {
 
@@ -29,7 +30,8 @@ public class IntegerConverter implements Converter<String, Integer> {
 	}
 
 	private NumberFormat getFormat() {
-		Locale myLocale = new Locale("pt", "BR");
+		Locale myLocale = VaadinSession.getCurrent().getLocale();
+
 		NumberFormat f = NumberFormat.getInstance(myLocale);
 
 		return f;
