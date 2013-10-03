@@ -27,6 +27,7 @@ public class OptimizedConnectorBundleLoaderFactory extends
         eagerConnectors.add(VerticalLayoutConnector.class.getName());
         eagerConnectors.add(HorizontalLayoutConnector.class.getName());
         eagerConnectors.add(ButtonConnector.class.getName());
+        eagerConnectors.add(dc.framework.client.SearchTextFieldConnector.class.getName());
         eagerConnectors.add(UIConnector.class.getName());
         eagerConnectors.add(CssLayoutConnector.class.getName());
         eagerConnectors.add(TextFieldConnector.class.getName());
@@ -34,6 +35,8 @@ public class OptimizedConnectorBundleLoaderFactory extends
         eagerConnectors.add(LabelConnector.class.getName());
         eagerConnectors.add(WindowConnector.class.getName());
         eagerConnectors.add(NanoScrollPanelConnector.class.getName());
+        eagerConnectors.add(com.vaadin.client.ui.ui.UIConnector.class.getName());
+        eagerConnectors.add(com.vaadin.client.ui.menubar.MenuBarConnector.class.getName());
     }
 
     @Override

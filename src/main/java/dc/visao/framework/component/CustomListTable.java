@@ -20,7 +20,7 @@ public class CustomListTable extends Table {
 	
 	private static final long serialVersionUID = 735711713125549382L;
 	public static Logger logger = Logger.getLogger(CustomListTable.class);
-	private TableFileHandler fileHandler = new TableFileHandler();
+	private CompanyFileHandler fileHandler = new CompanyFileHandler();
 	private String entityName;
 	public static final Object CUSTOM_SELECT_ID = "Selecionar";
 	private static final String COLLUMN_INFO = "col_info";
@@ -42,7 +42,8 @@ public class CustomListTable extends Table {
 	 
 	 public boolean loadFromFile(){
 		 Integer userId = SecuritySessionProvider.getUsuario().getId();
-		 JsonArray collumns = fileHandler.load(String.valueOf(userId),entityName);
+		 Integer companyId = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
+		 JsonArray collumns = fileHandler.load(String.valueOf(companyId),String.valueOf(userId),entityName);
 		 if(collumns != null && collumns.size() > 0){
 			 java.util.Iterator<JsonElement> it = collumns.iterator();
 			 ArrayList<String> vaadinCols = new ArrayList<String>();
@@ -94,6 +95,7 @@ public class CustomListTable extends Table {
 
 	public void saveToFile(){
 		 Integer userId = SecuritySessionProvider.getUsuario().getId();
+		 Integer companyId = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 		 Object[] collumns =getVisibleColumns();
 		 logger.info("saving to file, all visible collumns");
 		 JsonArray columnsMetadata = new JsonArray();
@@ -112,11 +114,11 @@ public class CustomListTable extends Table {
 			 columnsMetadata.add(colRoot);
 		 }
 		 
-		 fileHandler.save(columnsMetadata,String.valueOf(userId), entityName);
+		 fileHandler.save(columnsMetadata,String.valueOf(companyId),String.valueOf(userId), entityName);
 		 
 	 }
 
-	public void setFileHandler(TableFileHandler handle) {
+	public void setFileHandler(CompanyFileHandler handle) {
 		this.fileHandler = handle;
 		
 	}

@@ -1,5 +1,6 @@
 package dc.servicos.dao.tabelas;
 
+
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -7,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.tabelas.CodigoApuracaoEfd;
 import dc.entidade.tabelas.CstPis;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -21,21 +23,11 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CstPisDAO extends AbstractCrudDAO<CstPis>{
+public class CodigoApuracaoEfdDAO extends AbstractCrudDAO<CodigoApuracaoEfd>{
 
 	@Override
-	public Class<CstPis> getEntityClass() {
-		return CstPis.class;
-	}
-
-	@Transactional
-	public List<CstPis> listaTodos() {
-		return getSession().createQuery("from CstPis").list();
-	}
-
-	@Transactional
-	public List<CstPis> procuraNomeContendo(String query) {
-		return getSession().createQuery("from CstPis where descricao like :q").setParameter("q", "%" + query + "%").list();
+	public Class<CodigoApuracaoEfd> getEntityClass() {
+		return CodigoApuracaoEfd.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -43,13 +35,14 @@ public class CstPisDAO extends AbstractCrudDAO<CstPis>{
 	}
 
 	@Transactional
-	public CstPis procuraPorCodigo(String codigo){
-		CstPis cst = null;
-		Criteria c = getSession().createCriteria(CstPis.class);
+	public CodigoApuracaoEfd procuraPorCodigo(String codigo){
+		CodigoApuracaoEfd cod = null;
+		Criteria c = getSession().createCriteria(CodigoApuracaoEfd.class);
 		if(codigo!=null && !(codigo.isEmpty())){
 			c.add(Restrictions.eq("codigo", codigo));
 		}
-		cst = (CstPis)c.uniqueResult();
-		return cst;
+		cod = (CodigoApuracaoEfd)c.uniqueResult();
+		return cod;
 	}
 }
+
