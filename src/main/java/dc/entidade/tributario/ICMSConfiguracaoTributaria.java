@@ -43,6 +43,7 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 	@Column(name="modalidade_bc")
 	String modalidadeBc;
 
+	@Column(name="aliquota")
 	BigDecimal aliquota;
 
 	@Column(name="valor_pauta")

@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -60,8 +61,14 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Se
 	@OneToMany(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<ICMSConfiguracaoTributaria> listaIcms = new ArrayList<ICMSConfiguracaoTributaria>();
 
-	@OneToMany(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
-	private List<PISConfiguracaoTributaria> listaPis = new ArrayList<PISConfiguracaoTributaria>();
+	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	private PISConfiguracaoTributaria pis ;
+	
+	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	private CofinsConfiguracaoTributaria cofins ;
+	
+	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	private IPIConfiguracaoTributaria ipi ;
 		
 	public ConfiguracaoTributaria() {
 	}
@@ -110,9 +117,31 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Se
 		getListaIcms().add(icms);
 		icms.setConfiguracaoTributaria(this);
 	}
+
+	public PISConfiguracaoTributaria getPis() {
+		return pis;
+	}
+
+	public void setPis(PISConfiguracaoTributaria pis) {
+		this.pis = pis;
+	}
+
+	public CofinsConfiguracaoTributaria getCofins() {
+		return cofins;
+	}
+
+	public void setCofins(CofinsConfiguracaoTributaria cofins) {
+		this.cofins = cofins;
+	}
+
+	public IPIConfiguracaoTributaria getIpi() {
+		return ipi;
+	}
+
+	public void setIpi(IPIConfiguracaoTributaria ipi) {
+		this.ipi = ipi;
+	}
 	
 	
-
-
 
 }
