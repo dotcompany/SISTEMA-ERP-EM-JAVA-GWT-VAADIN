@@ -1,5 +1,6 @@
 package dc.controller.financeiro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,14 @@ import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	ContaCaixaDAO dao;
@@ -29,7 +34,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[]{"nome", "digito","descricao"};
+		return new String[] { "nome", "digito", "descricao" };
 	}
 
 	@Override
@@ -41,21 +46,27 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 	protected Class<? super ContaCaixa> getEntityClass() {
 		return ContaCaixa.class;
 	}
-	
 
 	@Override
 	protected List<ContaCaixa> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<ContaCaixa>();
+		}
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Conta Caixa";
+		return "Conta caixa";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
 	}
 
 	@Override
@@ -63,10 +74,16 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<ContaCaixa> pesquisaDefault() {
-		return (List<ContaCaixa>) dao.getAll(getEntityClass());
+		try {
+			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<ContaCaixa>();
+		}
 	}
 
 }

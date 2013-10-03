@@ -15,6 +15,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "tribut_pis_cod_apuracao")
@@ -30,10 +31,13 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 	@Column(name="cst_pis")
 	String cst;
 	
+	@Column(name="codigo_apuracao_efd")
+	String codigoApuracaoEfd;
+	
 	@Column(name="modalidade_base_calculo")
 	String modalidadeBc;
 	
-	@Column(name="porcento_bc")
+	@Column(name="porcento_base_calculo")
 	BigDecimal porcentoBc;
 	
 	@Column(name="aliquota_porcento")
@@ -52,6 +56,10 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
+	
+	@ManyToOne
+	@JoinColumn(name="id_empresa")
+	Empresa empresa;
 
 	public Integer getId() {
 		return id;
@@ -67,6 +75,16 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 
 	public void setCst(String cst) {
 		this.cst = cst;
+	}
+	
+	
+
+	public String getCodigoApuracaoEfd() {
+		return codigoApuracaoEfd;
+	}
+
+	public void setCodigoApuracaoEfd(String codigoApuracaoEfd) {
+		this.codigoApuracaoEfd = codigoApuracaoEfd;
 	}
 
 	public ConfiguracaoTributaria getConfiguracaoTributaria() {
@@ -124,6 +142,14 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 
 	public void setValorPautaFiscal(BigDecimal valorPautaFiscal) {
 		this.valorPautaFiscal = valorPautaFiscal;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 	
 	

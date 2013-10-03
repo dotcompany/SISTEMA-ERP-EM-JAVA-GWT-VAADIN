@@ -1,5 +1,5 @@
 package dc.visao.framework.component;
-
+ 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

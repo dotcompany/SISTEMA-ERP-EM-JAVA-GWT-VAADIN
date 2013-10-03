@@ -444,7 +444,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			currentBean.removeLctoPagarNtFinanceira(value);
 		}
 
-	}
+	} 
 
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
 		return naturezaFinanceiraDAO.listaTodos();

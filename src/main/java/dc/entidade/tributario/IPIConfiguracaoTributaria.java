@@ -16,6 +16,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
 import dc.entidade.tabelas.TipoReceitaDipi;
 
 @Entity
@@ -25,6 +26,7 @@ import dc.entidade.tabelas.TipoReceitaDipi;
 public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ipi")
 	@SequenceGenerator(name = "ipi", sequenceName = "tribut_ipi_dipi_id_seq", allocationSize = 1)
 	private Integer id;
 
@@ -49,13 +51,16 @@ public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
 	@Column(name="valor_pauta_fiscal")
 	BigDecimal valorPautaFiscal;
 		
-	@ManyToOne
-	@JoinColumn(name="id_tipo_receita_dipi")
-	TipoReceitaDipi tipoReceitaDipi; 
+	@Column(name="id_tipo_receita_dipi")
+	Integer tipoReceitaDipi; 
 		
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
+	
+	@ManyToOne
+	@JoinColumn(name="id_empresa")
+	Empresa empresa;
 
 	public Integer getId() {
 		return id;
@@ -129,6 +134,25 @@ public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
 	public void setValorPautaFiscal(BigDecimal valorPautaFiscal) {
 		this.valorPautaFiscal = valorPautaFiscal;
 	}
+	
+
+	public Integer getTipoReceitaDipi() {
+		return tipoReceitaDipi;
+	}
+
+	public void setTipoReceitaDipi(Integer tipoReceitaDipi) {
+		this.tipoReceitaDipi = tipoReceitaDipi;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+	
+	
 	
 }
 

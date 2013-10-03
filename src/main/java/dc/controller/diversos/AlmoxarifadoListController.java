@@ -13,8 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoListController extends
-		CRUDListController<Almoxarifado> {
+public class AlmoxarifadoListController extends	CRUDListController<Almoxarifado> {
 
 	/**
 	 * 
@@ -22,10 +21,10 @@ public class AlmoxarifadoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	AlmoxarifadoDAO dao;
+	private AlmoxarifadoDAO dao;
 
 	@Autowired
-	AlmoxarifadoFormController almoxarifadoFormController;
+	private AlmoxarifadoFormController almoxarifadoFormController;
 
 	@Override
 	protected CRUDFormController<Almoxarifado> getFormController() {

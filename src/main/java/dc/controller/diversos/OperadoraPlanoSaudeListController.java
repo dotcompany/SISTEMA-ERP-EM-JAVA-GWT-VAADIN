@@ -22,10 +22,10 @@ public class OperadoraPlanoSaudeListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	OperadoraPlanoSaudeDAO dao;
+	private OperadoraPlanoSaudeDAO dao;
 
 	@Autowired
-	OperadoraPlanoSaudeFormController operadoraPlanoSaudeFormController;
+	private OperadoraPlanoSaudeFormController operadoraPlanoSaudeFormController;
 
 	@Override
 	protected CRUDFormController<OperadoraPlanoSaude> getFormController() {
