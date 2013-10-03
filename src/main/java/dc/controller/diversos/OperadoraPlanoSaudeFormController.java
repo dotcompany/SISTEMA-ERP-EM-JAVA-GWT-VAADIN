@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class OperadoraPlanoSaudeFormController extends
-		CRUDFormController<OperadoraPlanoSaude> {
+public class OperadoraPlanoSaudeFormController extends	CRUDFormController<OperadoraPlanoSaude> {
 
 	/**
 	 * 
@@ -68,10 +67,6 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new OperadoraPlanoSaudeFormView();
-		// DefaultManyToOneComboModel<ContabilConta> model = new
-		// DefaultManyToOneComboModel(
-		// ContabilContaListController.class, contabilContaDAO,
-		// mainController);
 
 		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO,
@@ -121,9 +116,7 @@ public class OperadoraPlanoSaudeFormController extends
 				super.getMainController());
 
 		this.subView.getCmbContabilConta().setModel(model);
-
-		this.subView.getCmbContabilConta().setValue(
-				currentBean.getContabilConta());
+		/*this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta());*/
 	}
 
 	@Override

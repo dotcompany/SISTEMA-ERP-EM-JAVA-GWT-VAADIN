@@ -28,24 +28,23 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class OperadoraCartaoFormController extends
-		CRUDFormController<OperadoraCartao> {
+public class OperadoraCartaoFormController extends CRUDFormController<OperadoraCartao> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	OperadoraCartaoFormView subView;
+	private OperadoraCartaoFormView subView;
 
 	@Autowired
-	OperadoraCartaoDAO operadoraDAO;
+	private OperadoraCartaoDAO operadoraDAO;
 
 	private OperadoraCartao currentBean;
 
 	@Override
 	protected String getNome() {
-		return "OperadoraCartao";
+		return "Operadora Cartão";
 	}
 
 	@Override
@@ -55,15 +54,10 @@ public class OperadoraCartaoFormController extends
 
 	@Override
 	protected void actionSalvar() {
-		String nome = subView.getTxtNome().getValue();
-		String bandeira = subView.getTxtBandeira().getValue();
-		String fone1 = subView.getTxtTelefone1().getValue();
-		String fone2 = subView.getTxtTelefone2().getValue();
-
-		currentBean.setNome(nome);
-		currentBean.setBandeira(bandeira);
-		currentBean.setFone1(fone1);
-		currentBean.setFone2(fone2);
+		currentBean.setNome(subView.getTxtNome().getValue());
+		currentBean.setBandeira(subView.getTxtBandeira().getValue());
+		currentBean.setFone1(subView.getTxtTelefone1().getValue());
+		currentBean.setFone2(subView.getTxtTelefone2().getValue());
 
 		try {
 			operadoraDAO.saveOrUpdate(currentBean);
@@ -132,13 +126,11 @@ public class OperadoraCartaoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "operadoraCartaoForm";
 	}
 

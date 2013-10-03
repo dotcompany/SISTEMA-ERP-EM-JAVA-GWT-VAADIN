@@ -16,8 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OperadoraPlanoSaudeDAO extends
-		AbstractCrudDAO<OperadoraPlanoSaude> {
+public class OperadoraPlanoSaudeDAO extends	AbstractCrudDAO<OperadoraPlanoSaude> {
 
 	@Override
 	public Class<OperadoraPlanoSaude> getEntityClass() {

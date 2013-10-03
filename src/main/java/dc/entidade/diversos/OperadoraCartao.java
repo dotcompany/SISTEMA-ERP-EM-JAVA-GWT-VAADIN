@@ -21,7 +21,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -42,8 +42,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperadoraCartao extends AbstractModel<Integer> implements
-		Serializable {
+public class OperadoraCartao extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -82,9 +81,13 @@ public class OperadoraCartao extends AbstractModel<Integer> implements
 	private Integer vencimentoAluguel;
 
 	@Column(name = "FONE1")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone1;
 
 	@Column(name = "FONE2")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
 
 	public OperadoraCartao() {
