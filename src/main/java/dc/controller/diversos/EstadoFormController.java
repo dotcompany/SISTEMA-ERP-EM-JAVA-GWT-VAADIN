@@ -38,7 +38,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	EstadoFormView subView;
+	private EstadoFormView subView;
 
 	@Autowired
 	private EstadoDAO estadoDAO;
@@ -62,11 +62,8 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 	@Override
 	protected void actionSalvar() {
-		String nome = subView.getTxtNome().getValue();
-		String sigla = subView.getTxtSigla().getValue();
-
-		// currentBean.setNome(nome);
-		currentBean.setSigla(sigla);
+		currentBean.setNome(subView.getTxtNome().getValue());
+		currentBean.setSigla(subView.getTxtSigla().getValue());
 
 		try {
 			estadoDAO.saveOrUpdate(currentBean);
@@ -83,8 +80,7 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtSigla().setValue(currentBean.getSigla());
-		subView.getTxtCodigoIBGE().setValue(
-				currentBean.getCodigoIbge().toString());
+		subView.getTxtCodigoIBGE().setValue(currentBean.getCodigoIbge().toString());
 
 		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
 				PaisListController.class, this.paisDAO,
@@ -152,13 +148,10 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "estadoForm";
 	}
 

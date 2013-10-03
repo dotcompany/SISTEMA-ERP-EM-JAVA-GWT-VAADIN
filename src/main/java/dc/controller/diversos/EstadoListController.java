@@ -31,10 +31,10 @@ public class EstadoListController extends CRUDListController<Estado> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	EstadoDAO dao;
+	private EstadoDAO dao;
 
 	@Autowired
-	EstadoFormController estadoFormController;
+	private EstadoFormController estadoFormController;
 
 	@Override
 	protected String[] getColunas() {
@@ -64,19 +64,16 @@ public class EstadoListController extends CRUDListController<Estado> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "listaEstados";
+		return "listaEstado";
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected List<Estado> pesquisaDefault() {
-		// TODO Auto-generated method stub
 		return (List<Estado>) dao.getAll(getEntityClass());
 	}
 
