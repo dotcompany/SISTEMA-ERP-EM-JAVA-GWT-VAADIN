@@ -115,7 +115,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		currentBean = dao.find((Integer) id);
 		subView.getCmbGrupoTributario().setValue(currentBean.getGrupoTributario());
 		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());
-		subView.preencherIcmsSubForm(currentBean.getListaIcms());
+		subView.preencherIcmsSubForm(currentBean.getListaIcms()); 
 		carregarPis(currentBean);
 		carregarCofins(currentBean);
 		carregarIpi(currentBean);
