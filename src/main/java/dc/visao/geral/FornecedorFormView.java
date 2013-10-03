@@ -78,7 +78,7 @@ public class FornecedorFormView extends CustomComponent {
 		cbSituacao.setCaption("Situação");
 
 		cbAtividade = new ManyToOneCombo<>();
-		mainLayout.addComponent(cbAtividade, 3, 1, 6, 1);
+		mainLayout.addComponent(cbAtividade, 3, 1, 5, 1);
 		cbAtividade.setCaption("Atividade");
 
 		cbContabilConta = new ManyToOneCombo<>();
