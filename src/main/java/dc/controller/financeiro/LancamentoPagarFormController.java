@@ -17,6 +17,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
+import dc.controller.geral.FornecedorListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoPagar;
@@ -174,8 +175,8 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		};
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 
-		DefaultManyToOneComboModel<Fornecedor> model2 = new DefaultManyToOneComboModel<Fornecedor>(null, this.fornecedorDAO,
-				super.getMainController()) {
+		DefaultManyToOneComboModel<Fornecedor> model2 = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class,
+				this.fornecedorDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa.nome";
@@ -289,6 +290,26 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			LancamentoPagar lancamentoPagar = (LancamentoPagar) id;
+			List<LctoPagarNtFinanceira> lctoPagarNtFinanceiras = lancamentoPagar.getLctoPagarNtFinanceiras();
+
+			for (LctoPagarNtFinanceira lctoPagarNtFinanceira : lctoPagarNtFinanceiras) {
+				lctoPagarNtFinanceira.setLancamentoPagar(null);
+
+			}
+
+			List<ParcelaPagar> parcelasPagar = lancamentoPagar.getParcelasPagar();
+
+			for (ParcelaPagar parcelaPagar : parcelasPagar) {
+
+				parcelaPagar.setLancamentoPagar(null);
+			}
+
+			lancamentoPagarDAO.delete(lancamentoPagar);
+
+		}
+		mensagemRemovidoOK();
 	}
 
 	@Override

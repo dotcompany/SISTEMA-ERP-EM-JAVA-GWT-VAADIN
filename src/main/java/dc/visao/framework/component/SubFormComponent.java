@@ -171,7 +171,7 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		}
 
 		addComponent(table);
-		setExpandRatio(table,1);
+		setExpandRatio(table, 1);
 	}
 
 	@SuppressWarnings("serial")
@@ -190,6 +190,10 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 				if (validateItems(items)) {
 					T t = getNovo();
 					container.addBeanAt(0, t);
+					if (dados == null) {
+						dados = new ArrayList<>();
+					}
+					dados.add(t);
 				}
 			}
 
@@ -213,7 +217,7 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 									if (dialog.isConfirmed()) {
 										try {
 											getRemoverSelecionados(new ArrayList<>(values));
-											removeItens( values );
+											removeItens(values);
 											selected.clear();
 										} catch (Exception e) {
 											mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
@@ -221,7 +225,6 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 									}
 								}
 
-								
 							});
 				}
 			}
@@ -295,7 +298,7 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		}
 
 	}
-	
+
 	private NumberFormat getFormat() {
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0.00");
 		return decimalFormat;
@@ -308,9 +311,9 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 	public void removeAllItems() {
 		container.removeAllItems();
 	}
-	
-	public void removeItens(final Collection<T> values ) {
-		
+
+	public void removeItens(final Collection<T> values) {
+
 		for (T t : values) {
 			table.removeItem(t.getId());
 			table.removeItem(t.getUuid().getMostSignificantBits());
@@ -318,13 +321,11 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 			dados.remove(t);
 		}
 	}
-	
-	public Collection<T> getSelectedItens()
-	{
+
+	public Collection<T> getSelectedItens() {
 		final Collection<T> values = selected.values();
-		
+
 		return values;
 	}
 
 }
-

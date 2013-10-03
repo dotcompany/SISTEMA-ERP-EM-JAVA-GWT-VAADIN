@@ -62,7 +62,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	@Override
 	protected boolean deletaEmCascata() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
