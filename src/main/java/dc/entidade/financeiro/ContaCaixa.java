@@ -24,8 +24,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -53,54 +51,52 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_caixa_id_seq")
 	@SequenceGenerator(name = "conta_caixa_id_seq", sequenceName = "conta_caixa_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "CODIGO")
-	private String codigo;
+	private String codigo = "";
 
 	@Field
 	@Caption("Digito")
 	@Column(name = "DIGITO")
-	private String digito;
+	private String digito = "";
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Lob
 	@Field
 	@Type(type = "text")
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
-	private String descricao;
+	private String descricao = "";
 
 	@Column(name = "TIPO")
-	private String tipo;
+	private String tipo = "";
 
-	@JoinColumn(name = "ID_AGENCIA_BANCO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne
+	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
 	private AgenciaBanco agenciaBanco;
 
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne
+	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	private Empresa empresa;
 
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne
+	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
 	private ContabilConta contabilConta;
 
 	public ContaCaixa() {
+
 	}
 
 	public ContaCaixa(Integer id) {
 		this.id = id;
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -115,6 +111,14 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getDigito() {
+		return digito;
+	}
+
+	public void setDigito(String digito) {
+		this.digito = digito;
 	}
 
 	public String getNome() {
@@ -141,19 +145,6 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public ContabilConta getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilConta contabilConta) {
-		this.contabilConta = contabilConta;
-	}
-
-	@Override
-	public String toString() {
-		return nome;
-	}
-
 	public AgenciaBanco getAgenciaBanco() {
 		return agenciaBanco;
 	}
@@ -170,12 +161,17 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 		this.empresa = empresa;
 	}
 
-	public String getDigito() {
-		return digito;
+	public ContabilConta getContabilConta() {
+		return contabilConta;
 	}
 
-	public void setDigito(String digito) {
-		this.digito = digito;
+	public void setContabilConta(ContabilConta contabilConta) {
+		this.contabilConta = contabilConta;
+	}
+
+	@Override
+	public String toString() {
+		return nome;
 	}
 
 }
