@@ -17,8 +17,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoFormController extends
-		CRUDFormController<Almoxarifado> {
+public class AlmoxarifadoFormController extends	CRUDFormController<Almoxarifado> {
 
 	/**
 	 * 

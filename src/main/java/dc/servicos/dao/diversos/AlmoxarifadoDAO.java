@@ -42,7 +42,7 @@ public class AlmoxarifadoDAO extends AbstractCrudDAO<Almoxarifado>{
 	@Transactional
 	public List<Almoxarifado> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from Almoxarifado where lower(sigla) like :q").setParameter("q", q).list();
+		return getSession().createQuery("from Almoxarifado where lower(nome) like :q").setParameter("q", q).list();
 	}
 
 }
