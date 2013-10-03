@@ -61,7 +61,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 
 	@Override
 	protected String getTitulo() {
-		return "Conta Caixa";
+		return "Conta caixa";
 	}
 
 	@Override

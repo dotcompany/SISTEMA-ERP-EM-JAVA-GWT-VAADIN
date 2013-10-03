@@ -217,7 +217,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected String getNome() {
-		return "Conta Caixa";
+		return "Conta caixa";
 	}
 
 	@Override

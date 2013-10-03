@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -110,7 +111,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? "" : codigo.toUpperCase());
 	}
 
 	public String getDigito() {
@@ -118,7 +119,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setDigito(String digito) {
-		this.digito = digito;
+		this.digito = (digito == null ? "" : digito.toUpperCase());
 	}
 
 	public String getNome() {
@@ -126,7 +127,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "" : nome.toUpperCase());
 	}
 
 	public String getDescricao() {
@@ -134,7 +135,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
 	public String getTipo() {
@@ -142,7 +143,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setTipo(String tipo) {
-		this.tipo = tipo;
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
 	public AgenciaBanco getAgenciaBanco() {
@@ -171,7 +172,7 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		return nome;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
