@@ -39,7 +39,7 @@ public class CepFormController extends CRUDFormController<Cep> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	CepFormView subView;
+	private CepFormView subView;
 
 	@Autowired
 	private CepDAO cepDAO;
