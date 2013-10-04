@@ -32,10 +32,10 @@ import dc.visao.framework.geral.CRUDFormController;
 @Scope("prototype")
 public class BancoFormController extends CRUDFormController<Banco> {
 
-	BancoFormView subView;
+	private BancoFormView subView;
 	
 	@Autowired
-	BancoDAO bancoDAO;
+	private BancoDAO bancoDAO;
 	
 	private Banco currentBean;
 	
@@ -119,7 +119,6 @@ public class BancoFormController extends CRUDFormController<Banco> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "bancoForm";
 	}
 }
