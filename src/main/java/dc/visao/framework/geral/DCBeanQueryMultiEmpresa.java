@@ -15,11 +15,28 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 	
 	private Logger logger = Logger.getLogger(DCBeanQueryMultiEmpresa.class);
+	private String[] sortingFields = new String[0];
+	private boolean[] sortingStates = new boolean[0];
 	
 	public DCBeanQueryMultiEmpresa(QueryDefinition definition,
 			Map<String, Object> queryConfiguration, Object[] sortPropertyIds,
 			boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
+		
+		logger.info("sort properties");
+		this.sortingFields = new String[sortPropertyIds.length];
+		for (int i = 0; i < sortPropertyIds.length; i++) {
+			logger.info(String.valueOf(sortPropertyIds[i]));
+			this.sortingFields[i] = String.valueOf(sortPropertyIds[i]);
+		}
+		
+		logger.info("sort states");
+		for (int i = 0; i < sortStates.length; i++) {
+			logger.info(String.valueOf(sortStates[i]));
+		}
+	    this.sortingStates = sortStates;
+		
+		logger.info("DCBeanQueryMultiEmpresa, instatiated");
 	}
 	
 	@Override
@@ -59,10 +76,10 @@ public class DCBeanQueryMultiEmpresa extends AbstractBeanQuery<Serializable>{
 		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
 		Integer idEmpresa =  (Integer) getQueryConfiguration().get("id_empresa");
 		if(searchTerm != null && !searchTerm.trim().isEmpty()){
-			return dao.fullTextSearch(searchTerm,arg0,arg1);	
+			return dao.fullTextSearch(searchTerm,arg0,arg1,this.sortingFields,this.sortingStates);	
 		}else{
 			logger.info("null or empty search term, loading all..");
-			return dao.getAllPagedByEmpresa(pojoClass,idEmpresa,arg0,arg1);
+			return dao.getAllPagedByEmpresa(pojoClass,idEmpresa,arg0,arg1,this.sortingFields,this.sortingStates);
 		}
 	}
 

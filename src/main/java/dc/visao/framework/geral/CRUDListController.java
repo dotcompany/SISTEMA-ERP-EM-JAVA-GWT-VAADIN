@@ -362,26 +362,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
-		
-		
-		table.setContainerDataSource(container);
-		
-		boolean loadedFromFile = table.loadFromFile();
-		//boolean loadedFromFile = false;
-		if(!loadedFromFile){
-			Object[] cs = new Object[]  {CustomListTable.CUSTOM_SELECT_ID};
-			Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
-			table.setVisibleColumns(allCollumns);
-		}
-			
-		
-		if(getColunas() != null && getColunas().length > 1){
-			table.setFooterVisible(true);
-			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");	
-		}
-		table.markAsDirty();
+		table.setSortEnabled(true);
+		//table.markAsDirty();
 		table.setSizeFull();
+		table.setContainerDataSource(container);
 		
 		for(String prop : getColunas()) {
 			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
@@ -404,7 +388,23 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				table.setColumnExpandRatio(prop, 3);
 			}
 
-		}		
+		}	
+		
+		boolean loadedFromFile = table.loadFromFile();
+		//boolean loadedFromFile = false;
+		if(!loadedFromFile){
+			Object[] cs = new Object[]  {CustomListTable.CUSTOM_SELECT_ID};
+			Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
+			table.setVisibleColumns(allCollumns);
+		}
+			
+		
+		if(getColunas() != null && getColunas().length > 1){
+			table.setFooterVisible(true);
+			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
+			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");	
+		}
+	
 		
 		
 	}

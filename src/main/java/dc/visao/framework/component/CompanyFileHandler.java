@@ -64,22 +64,28 @@ public class CompanyFileHandler {
 	}
 
 	public JsonArray load(String company,String user,String entityName) {
-		// TODO Auto-generated method stub
-		FileReader reader;
-		try {
-			reader = new FileReader(getTableListFullPath(company,user, entityName));
-			JsonParser p2 = new JsonParser();
-			JsonElement el = p2.parse(reader);
-			reader.close();
-			return el.getAsJsonArray();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		File f = new File(getTableListFullPath(company,user, entityName));
+		if(f.exists()){
+			FileReader reader;
+			try {
+				reader = new FileReader(getTableListFullPath(company,user, entityName));
+				JsonParser p2 = new JsonParser();
+				JsonElement el = p2.parse(reader);
+				reader.close();
+				return el.getAsJsonArray();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;	
+		}else{
+			return null;
 		}
-		return null;
+		// TODO Auto-generated method stub
+		
 		
 	}
 
