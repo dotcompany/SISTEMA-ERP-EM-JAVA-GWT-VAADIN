@@ -21,7 +21,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -38,11 +38,11 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "uf")
+@Table(name = "uf") //está como uf porque não existe essa tabela no banco e como UF e Estado tem os mesmo campos está sendo utilizado o Uf
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Estado extends AbstractModel<Integer> implements Serializable {
+public class Estado extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

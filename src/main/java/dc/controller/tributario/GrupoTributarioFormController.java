@@ -87,7 +87,7 @@ public class GrupoTributarioFormController extends
 			}
 
 			currentBean.setEmpresa(empresaAtual());
-			currentBean.setDescricao(descricao);
+			currentBean.setNome(descricao);
 			currentBean.setOrigemMercadoria(origem);
 			currentBean.setObservacao(obs);
 			dao.saveOrUpdate(currentBean);

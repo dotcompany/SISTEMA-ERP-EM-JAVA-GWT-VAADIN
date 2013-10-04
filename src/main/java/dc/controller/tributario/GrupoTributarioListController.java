@@ -26,7 +26,7 @@ public class GrupoTributarioListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "descricao", "origemString" };
+		return new String[] { "nome", "origemString" };
 	}
 
 	@Override

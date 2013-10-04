@@ -54,7 +54,7 @@ public final class ComponentUtil {
 		textField.setSizeFull();
 
 		textField.setConverter(new BigDecimalConverter("R$ "));
-		
+
 		return textField;
 	}
 
@@ -77,13 +77,13 @@ public final class ComponentUtil {
 
 		return comboBox;
 	}
-	
+
 	public static <ID, T> LookupComponent<ID, T> buildLookup(String codeCaption, String comboCaption) {
 		LookupComponent<ID, T> lookupComponent = new LookupComponent<>();
 		lookupComponent.setCodeCaption(codeCaption);
 		lookupComponent.setComboCaption(comboCaption);
 		lookupComponent.setSizeFull();
-		
+
 		return lookupComponent;
 	}
 
@@ -96,8 +96,8 @@ public final class ComponentUtil {
 
 		return textArea;
 	}
-	
-public static PopupDateField buildPopupDateField(String caption) {
+
+	public static PopupDateField buildPopupDateField(String caption) {
 		PopupDateField data = new PopupDateField();
 		data.setCaption(caption);
 		data.setImmediate(true);
@@ -105,14 +105,14 @@ public static PopupDateField buildPopupDateField(String caption) {
 		data.setHeight("-1px");
 		return data;
 	}
-	
+
 	public static MaskedTextField buildMaskedTextField(String caption, String mask) {
 		MaskedTextField textField = new MaskedTextField();
 		textField.setMask(mask);
 		textField.setNullRepresentation("");
 		textField.setCaption(caption);
 		textField.setImmediate(true);
-		//textField.setSizeFull();
+		// textField.setSizeFull();
 
 		return textField;
 	}
@@ -125,7 +125,7 @@ public static PopupDateField buildPopupDateField(String caption) {
 
 		return checkBox;
 	}
-	
+
 	public static PasswordField buildPasswordField(String caption) {
 		PasswordField textField = new PasswordField();
 		textField.setNullRepresentation("");
@@ -135,17 +135,14 @@ public static PopupDateField buildPopupDateField(String caption) {
 
 		return textField;
 	}
-	
-	public static NumericField buildNumericField(String caption)
-	{
+
+	public static NumericField buildNumericField(String caption) {
 		NumericField textField = new NumericField(caption);
 		textField.setNullRepresentation("");
 		textField.setImmediate(true);
 		textField.setMaxLength(3);
 		textField.setSizeFull();
-		
+
 		return textField;
 	}
-
-
 }

@@ -322,7 +322,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		horizontalLayout_1.addComponent(txtCodigo);
 
 		// cmbBanco
-		cmbBanco = new ManyToOneCombo<>();
+		cmbBanco = new ManyToOneCombo<Banco>();
 		cmbBanco.setCaption("Banco");
 		cmbBanco.setImmediate(false);
 		cmbBanco.setWidth("364px");
@@ -424,7 +424,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		horizontalLayout_4.addComponent(txtMunicipio);
 
 		// cmbUF
-		cmbUF = new ManyToOneCombo<>();
+		cmbUF = new ManyToOneCombo<UF>();
 		cmbUF.setCaption("UF");
 		cmbUF.setImmediate(false);
 		cmbUF.setWidth("54px");

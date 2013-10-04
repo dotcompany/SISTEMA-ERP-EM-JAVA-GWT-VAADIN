@@ -1,5 +1,5 @@
 package dc.visao.financeiro;
-
+ 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
@@ -148,13 +148,11 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 		cbFornecedor = new ManyToOneCombo<>();
 		fields.addComponent(cbFornecedor, 0, 0, 1, 0);
-		cbFornecedor.setSizeFull();
 		cbFornecedor.setCaption("Fornecedor");
 
 		cbDocumentoOrigem = new ManyToOneCombo<>();
 		cbDocumentoOrigem.setCaption("Documento Origem");
 		fields.addComponent(cbDocumentoOrigem, 0, 1, 1, 1);
-		cbDocumentoOrigem.setSizeFull();
 
 		txNumeroDocumento = ComponentUtil.buildTextField("Número Documento");
 		fields.addComponent(txNumeroDocumento, 2, 1);
@@ -184,9 +182,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 		cbContaCaixa = new ManyToOneCombo<>();
 		cbContaCaixa.setCaption("Conta Caixa");
-		cbContaCaixa.setHeight("-1px");
-		cbContaCaixa.setWidth("200px");
-		fields.addComponent(cbContaCaixa, 0, 3);
+		fields.addComponent(cbContaCaixa, 0, 3, 1, 3);
 
 		btnGerarParcelas = new Button("Gerar Parcelas");
 		fields.addComponent(btnGerarParcelas, 0, 4);
@@ -353,31 +349,25 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 						} else if ("taxaJuro".equals(propertyId)) {
 							Field field = ComponentUtil.buildPercentageField(null);
-							field.setEnabled(false);
 							return field;
 						} else if ("taxaMulta".equals(propertyId)) {
 							Field field = ComponentUtil.buildPercentageField(null);
-							field.setEnabled(false);
 							return field;
 						} else if ("taxaDesconto".equals(propertyId)) {
 							Field field = ComponentUtil.buildPercentageField(null);
-							field.setEnabled(false);
 							return field;
 						} else if ("valorJuro".equals(propertyId)) {
 							Field field = ComponentUtil.buildCurrencyField(null);
-							field.setEnabled(false);
+
 							return field;
 						} else if ("valorMulta".equals(propertyId)) {
 							Field field = ComponentUtil.buildCurrencyField(null);
-							field.setEnabled(false);
 							return field;
 						} else if ("valorDesconto".equals(propertyId)) {
 							Field field = ComponentUtil.buildCurrencyField(null);
-							field.setEnabled(false);
 							return field;
 						} else if ("valorPago".equals(propertyId)) {
 							Field field = ComponentUtil.buildCurrencyField(null);
-							field.setEnabled(false);
 							return field;
 						} else {
 							return ComponentUtil.buildTextField(null);

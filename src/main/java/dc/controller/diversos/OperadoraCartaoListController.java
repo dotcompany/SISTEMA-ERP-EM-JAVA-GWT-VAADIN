@@ -24,8 +24,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class OperadoraCartaoListController extends
-		CRUDListController<OperadoraCartao> {
+public class OperadoraCartaoListController extends CRUDListController<OperadoraCartao> {
 
 	/**
 	 * 
@@ -33,10 +32,10 @@ public class OperadoraCartaoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	OperadoraCartaoDAO dao;
+	private OperadoraCartaoDAO dao;
 
 	@Autowired
-	OperadoraCartaoFormController operadoraFormController;
+	private OperadoraCartaoFormController operadoraFormController;
 
 	@Override
 	protected String[] getColunas() {
@@ -66,8 +65,7 @@ public class OperadoraCartaoListController extends
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "listaOperadoras";
+		return "listaOperadoraCartao";
 	}
 
 	@Override

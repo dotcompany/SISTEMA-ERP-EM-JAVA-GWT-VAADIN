@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -41,8 +41,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperadoraPlanoSaude extends AbstractModel<Integer> implements
-		Serializable {
+public class OperadoraPlanoSaude extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 *
@@ -72,9 +71,9 @@ public class OperadoraPlanoSaude extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String registroAns;
 
-	@ManyToOne(optional = false)
+	/*@ManyToOne(optional = false)
 	@JoinColumn(name = "CONTABIL_CONTA", referencedColumnName = "ID")
-	private ContabilConta contabilConta;
+	private ContabilConta contabilConta;*/
 
 	/**
 	 * ********************************************************
@@ -141,13 +140,13 @@ public class OperadoraPlanoSaude extends AbstractModel<Integer> implements
 		this.registroAns = registroAns;
 	}
 
-	public ContabilConta getContabilConta() {
+	/*public ContabilConta getContabilConta() {
 		return contabilConta;
 	}
 
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
-	}
+	}*/
 
 	public List<PlanoSaudeEntity> getPlanoSaudeList() {
 		return planoSaudeList;

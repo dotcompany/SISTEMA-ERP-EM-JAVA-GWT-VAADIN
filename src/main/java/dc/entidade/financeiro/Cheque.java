@@ -16,8 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -25,6 +23,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
 *
@@ -46,7 +47,7 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Cheque implements Serializable {
+public class Cheque extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     
@@ -54,16 +55,22 @@ public class Cheque implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
+    @ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
     private Integer id;
     
     @Field
     @Caption("Numero")
     @Column(name = "NUMERO")
+    @ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
     private Integer numero;
     
     @Field
     @Caption("Status Cheque")
     @Column(name = "STATUS_CHEQUE")
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String statusCheque;
     
     @Field
@@ -113,19 +120,6 @@ public class Cheque implements Serializable {
 
     public void setDataStatus(Date dataStatus) {
         this.dataStatus = dataStatus;
-    }
-
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
-
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof Cheque == false) return false;
-    	if (this == object) return true;
-    	final Cheque other = (Cheque) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
     }
 
     @Override

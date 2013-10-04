@@ -1,5 +1,5 @@
 package dc.entidade.financeiro;
-
+ 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -119,11 +119,11 @@ public class LancamentoPagar implements Serializable {
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	private Integer intervaloEntreParcelas;
 
-	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
 
-	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoPagarNtFinanceira> LctoPagarNtFinanceiras = new ArrayList<>();
 

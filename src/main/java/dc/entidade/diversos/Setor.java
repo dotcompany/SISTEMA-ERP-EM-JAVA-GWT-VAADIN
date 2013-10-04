@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
@@ -48,7 +47,7 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Setor extends AbstractModel<Integer> implements Serializable {
+public class Setor extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -79,8 +78,10 @@ public class Setor extends AbstractModel<Integer> implements Serializable {
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "setor")
 	// private List<ColaboradorVO> colaboradorVOList;
 
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Empresa.class)
-	@JoinColumn(name = "id_empresa")
+	@ManyToOne
+	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+	@Caption("Empresa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Empresa idEmpresa;
 
 	@OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)

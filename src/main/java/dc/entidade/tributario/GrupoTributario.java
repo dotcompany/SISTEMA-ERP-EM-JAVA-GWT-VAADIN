@@ -10,11 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.solr.client.solrj.beans.Field;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
@@ -22,100 +25,93 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
+
 /**
- * <p>
- * Description: VO relacionado a tabela [TRIBUT_GRUPO_TRIBUTARIO]
- * </p>
- * 
- * @author Wesley Junior
- */
+* <p>Description:  VO relacionado a tabela [TRIBUT_GRUPO_TRIBUTARIO]</p>
+*
+* @author Wesley Junior
+*/
 @Entity
-@Table(name = "TRIBUT_GRUPO_TRIBUTARIO")
-public class GrupoTributario extends AbstractModel<Integer> implements
-		Serializable {
+@Table(name = "tribut_grupo_tributario")
+@SuppressWarnings("serial")
+@Indexed
+@Analyzer(impl=BrazilianAnalyzer.class)
+public class GrupoTributario extends AbstractModel<Integer> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
+    
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "ID")
-	private Integer id;
-
-	@Field
-	@Caption("Descrição")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trb")
+	@SequenceGenerator(name = "trb", sequenceName = "tribut_grupo_tributario_id_seq", allocationSize = 1)
 	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
-
+	@Analyzer(definition="dc_combo_analyzer")
 	@Field
-	@Column(name = "ORIGEM_MERCADORIA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String origemMercadoria;
+	private Integer id;
+  
 
+	
 	@Field
-	@Column(name = "observacao")
+	@Column(name="descricao")
+    @Caption("Descrição")
 	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	@Analyzer(definition="dc_combo_analyzer")
+    private String nome;
+    
+    @Column(name = "ORIGEM_MERCADORIA")
+    private String origemMercadoria;
+    
+    private String observacao;
+    
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Empresa empresa;
+    
+    @Transient
+    @Caption("Origem da Mercadoria")
+    private String origemString;
 
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
+    public GrupoTributario() {
+    }
 
-	@Transient
-	@Caption("Origem da Mercadoria")
-	private String origemString;
+    public Integer getId() {
+        return id;
+    }
 
-	public GrupoTributario() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	}
+   
 
-	public Integer getId() {
-		return id;
-	}
+    public String getOrigemMercadoria() {
+        return origemMercadoria;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setOrigemMercadoria(String origemMercadoria) {
+        this.origemMercadoria = origemMercadoria;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public String getObservacao() {
+        return observacao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
 
-	public String getOrigemMercadoria() {
-		return origemMercadoria;
-	}
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 
-	public void setOrigemMercadoria(String origemMercadoria) {
-		this.origemMercadoria = origemMercadoria;
-	}
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
-	public String getObservacao() {
-		return observacao;
-	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
-	@Override
-	public String toString() {
-		return descricao;
-	}
+    @Override
+    public String toString() {
+        return nome;
+    }
 
 	public String getOrigemString() {
 		switch (new Integer(origemMercadoria)) {
@@ -136,5 +132,17 @@ public class GrupoTributario extends AbstractModel<Integer> implements
 	public void setOrigemString(String origemString) {
 		this.origemString = origemString;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	
+    
+    
 
 }

@@ -26,10 +26,12 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
@@ -63,81 +65,98 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
 	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DESDE")
+	@Caption(value = "Desde")
 	private Date desde;
-	
+
 	@Field
 	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
+	@Caption(value = "Optante Simples Nacional")
 	private String optanteSimplesNacional;
-	
+
 	@Field
 	@Column(name = "LOCALIZACAO")
+	@Caption(value = "Localização")
 	private String localizacao;
-	
+
 	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_CADASTRO")
+	@Caption(value = "Data Cadastro")
 	private Date dataCadastro;
-	
+
 	@Field
 	@Column(name = "SOFRE_RETENCAO")
+	@Caption(value = "Sofre Retenção")
 	private String sofreRetencao;
-	
+
 	@Field
 	@Column(name = "CHEQUE_NOMINAL_A")
+	@Caption(value = "Cheque Nominla à")
 	private String chequeNominalA;
-	
+
 	@Field
 	@Column(name = "OBSERVACAO")
 	@ComboValue
+	@Caption(value = "Observação")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
-	
+
 	@Field
 	@Column(name = "CONTA_REMETENTE")
+	@Caption(value = "Conta Remetente")
 	private String contaRemetente;
-	
+
 	@Field
 	@Column(name = "PRAZO_MEDIO_ENTREGA")
+	@Caption(value = "Prazo médio Entrega")
 	private BigDecimal prazoMedioEntrega;
-	
+
 	@Field
 	@Column(name = "GERA_FATURAMENTO")
+	@Caption(value = "Gera Faturamento")
 	private String geraFaturamento;
-	
+
 	@Field
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
+	@Caption(value = "Núm dias Primeiro Vencimento")
 	private Integer numDiasPrimeiroVencimento;
-	
+
 	@Field
 	@Column(name = "NUM_DIAS_INTERVALO")
+	@Caption(value = "Num Dias Intervalo")
 	private Integer numDiasIntervalo;
-	
+
 	@Field
 	@Column(name = "QUANTIDADE_PARCELAS")
+	@Caption(value = "Quantidade Parcelas")
 	private Integer quantidadeParcelas;
-	
+
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private SituacaoForCli situacaoForCli;
-	
+
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private AtividadeForCli atividadeForCli;
-	
+
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch=FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Pessoa pessoa;
-		
+
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
 	private ContabilConta contabilConta;
 
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
+
+	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Empresa empresa;
 
 	public Fornecedor() {
 
@@ -362,6 +381,14 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 }

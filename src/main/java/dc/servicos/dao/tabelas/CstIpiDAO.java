@@ -2,9 +2,12 @@ package dc.servicos.dao.tabelas;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.tabelas.CstCofins;
 import dc.entidade.tabelas.CstIpi;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -38,6 +41,17 @@ public class CstIpiDAO extends AbstractCrudDAO<CstIpi>{
 	
 	protected String[] getDefaultSearchFields() {
 		return new String[] {"codigo","descricao", "observacao"};
+	}
+	
+	@Transactional
+	public CstIpi procuraPorCodigo(String codigo){
+		CstIpi cst = null;
+		Criteria c = getSession().createCriteria(CstIpi.class);
+		if(codigo!=null && !(codigo.isEmpty())){
+			c.add(Restrictions.eq("codigo", codigo));
+		}
+		cst = (CstIpi)c.uniqueResult();
+		return cst;
 	}
 
 

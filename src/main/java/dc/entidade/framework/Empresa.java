@@ -37,6 +37,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Pais;
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.type.EmpresaType;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
@@ -279,6 +280,15 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	/**
+	 * @autor Gutemberg A. Da Silva
+	 * 
+	 * @module FINANCEIRO
+	 */
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<ContaCaixa> contaCaixaList;
 
 	/**
 	 * CONSTRUTOR
@@ -655,6 +665,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setLancamentoDetalheList(
 			List<LancamentoDetalheEntity> lancamentoDetalheList) {
 		this.lancamentoDetalheList = lancamentoDetalheList;
+	}
+
+	public List<ContaCaixa> getContaCaixaList() {
+		return contaCaixaList;
+	}
+
+	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
+		this.contaCaixaList = contaCaixaList;
 	}
 
 	public Contato addContato(Contato contato) {

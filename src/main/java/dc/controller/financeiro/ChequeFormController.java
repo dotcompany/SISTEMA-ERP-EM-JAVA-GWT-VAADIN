@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
 
 import dc.entidade.financeiro.Cheque;
 import dc.entidade.financeiro.TalonarioCheque;
@@ -17,7 +16,6 @@ import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.ChequeFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -99,52 +97,11 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 		subView.getDtStatus().setValue(currentBean.getDataStatus());
 		subView.setCbStatusCheque(currentBean.getStatusCheque().toString());
 
-		/* Configura combo TALONÁRIO CHEQUE */
-		ManyToOneComboModel<TalonarioCheque> model = new ManyToOneComboModel<TalonarioCheque>() {
+		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
+				TalonarioChequeListController.class, this.talonarioChequeDAO,
+				super.getMainController());
 
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-
-			@Override
-			public List<TalonarioCheque> getResultado(String q) {
-				return talonarioChequeDAO.query(q);
-			}
-
-			@Override
-			public Class<TalonarioCheque> getEntityClass() {
-				return TalonarioCheque.class;
-			}
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(TalonarioCheque value) {
-				Notification.show("Selecionado Editar: " + value.getTalao());
-
-			}
-
-			@Override
-			public List<TalonarioCheque> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-
-			}
-		};
-
-		subView.getCmbTalonarioCheque().setModel(model);
-		subView.getCmbTalonarioCheque().setValue(
-				currentBean.getIdTalonarioCheque());
-
+		this.subView.getCmbTalonarioCheque().setModel(model);
 	}
 
 	/*
