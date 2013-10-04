@@ -1,7 +1,6 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +31,10 @@ import dc.visao.framework.geral.CRUDFormController;
 @Scope("prototype")
 public class ConvenioFormController extends CRUDFormController<Convenio> {
 
-	ConvenioFormView subView;
+	private ConvenioFormView subView;
 	
 	@Autowired
-	ConvenioDAO convenioDAO;
+	private ConvenioDAO convenioDAO;
 
 	private Convenio currentBean;
 	
@@ -51,22 +50,14 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override  
 	protected void actionSalvar() {
-		String logradouro = subView.getTxtLogradouro().getValue();
-		Date dataVencimento = subView.getDnDataVencimento().getValue();
-		String numero = subView.getTxtNumero().getValue();
-		String bairro = subView.getTxtBairro().getValue();
-		String contato = subView.getTxtContato().getValue();
-		String telefone = subView.getTxtTelefone().getValue();
-		String descricao = subView.getTxtDescricao().getValue();
-		String cep = subView.getTxtCep().getValue();
-		currentBean.setLogradouro(logradouro);
-		currentBean.setDataVencimento(dataVencimento);
-		currentBean.setNumero(numero);
-		currentBean.setBairro(bairro);
-		currentBean.setContato(contato);
-		currentBean.setTelefone(telefone);
-		currentBean.setDescricao(descricao);
-		currentBean.setCep(cep);
+		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
+		currentBean.setDataVencimento(subView.getDnDataVencimento().getValue());
+		currentBean.setNumero(subView.getTxtNumero().getValue());
+		currentBean.setBairro(subView.getTxtBairro().getValue());
+		currentBean.setContato(subView.getTxtContato().getValue());
+		currentBean.setTelefone(subView.getTxtTelefone().getValue());
+		currentBean.setDescricao(subView.getTxtDescricao().getValue());
+		currentBean.setCep(subView.getTxtCep().getValue());
 		try{
 			convenioDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
@@ -125,13 +116,11 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "convenioForm";
 	}
 

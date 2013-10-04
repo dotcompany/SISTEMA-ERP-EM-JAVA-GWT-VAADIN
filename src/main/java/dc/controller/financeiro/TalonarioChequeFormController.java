@@ -1,6 +1,7 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.vaadin.ui.Notification;
 
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.TalonarioCheque;
+import dc.entidade.financeiro.type.StatusChequeType;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.servicos.util.Validator;
@@ -74,6 +76,8 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 	protected void initSubView() {
 		subView = new TalonarioChequeFormView();
 		
+		this.subView.InitCbs(getTalonarioChequeTipo());
+		
 	}
 
 	@Override
@@ -81,7 +85,6 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		currentBean = talonarioChequeDAO.find(id);
 		
 		subView.getTxtTalao().setValue(currentBean.getTalao());
-		subView.setCbStatus(currentBean.getStatusTalao().toString());
 		
 		/* Configura combo Conta CAIXA */
 		ManyToOneComboModel<ContaCaixa> model = new ManyToOneComboModel<ContaCaixa>() {
@@ -171,6 +174,25 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 	@Override
 	public String getViewIdentifier() {
 		return "talonarioChequeFormController";
+	}
+	
+	/**
+	 * COMBO
+	 */
+	public List<String> getTalonarioChequeTipo() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (StatusChequeType en : StatusChequeType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 
