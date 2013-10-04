@@ -9,7 +9,6 @@
 	<inherits name="com.vaadin.addon.calendar.gwt.CalendarWidgetset" />
 	<inherits name="com.vaadin.addon.charts.Widgetset" />
 	<inherits name="com.vaadin.addon.timeline.gwt.TimelineWidgetSet" />
-	<inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
 	<inherits name="org.vaadin.easyuploads.Widgetset" />
 	<inherits name="org.vaadin.tepi.imageviewer.widgetset.ImageViewerWidgetset" />
 	<inherits name="org.vaadin.peter.imagescaler.ImageScalerWidgetset" />

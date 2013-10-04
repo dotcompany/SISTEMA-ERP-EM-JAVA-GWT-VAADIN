@@ -232,7 +232,7 @@ public class AlterarSenhaView extends ExternalView{
 		getUI().getPage().setLocation(ui.getContextPath());
 		Notification notif = new Notification(
 			    "OK!",
-			    "Sua senha foi alterada. Fa�a o login no sistema usando sua nova senha.",
+			    "Sua senha foi alterada. Faça o login no sistema usando sua nova senha.",
 			    Notification.Type.HUMANIZED_MESSAGE);
 
 		notif.setDelayMsec(4000);

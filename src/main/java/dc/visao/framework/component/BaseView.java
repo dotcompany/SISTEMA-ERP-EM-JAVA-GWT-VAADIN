@@ -1,7 +1,5 @@
 package dc.visao.framework.component;
 
-import org.vaadin.hene.popupbutton.PopupButton;
-
 import com.vaadin.navigator.View;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
@@ -26,7 +24,7 @@ public abstract class BaseView<C extends BaseController<?>> extends CustomCompon
 
 	private Label lblTitle;
 	
-	private PopupButton btnRelatorios;
+	//private PopupButton btnRelatorios;
 
 	private HorizontalLayout relatoriosLayout;
 	
@@ -73,7 +71,7 @@ public abstract class BaseView<C extends BaseController<?>> extends CustomCompon
 		topLayout.addComponent(headerLayout);
 		
 		// btnRelatorios
-		btnRelatorios = new PopupButton();
+		/*btnRelatorios = new PopupButton();
 		btnRelatorios.setCaption("Relatórios");
 		relatoriosLayout = new HorizontalLayout();
 		btnRelatorios.setContent(relatoriosLayout);
@@ -82,7 +80,7 @@ public abstract class BaseView<C extends BaseController<?>> extends CustomCompon
 		btnRelatorios.setHeight("-1px");
 		btnRelatorios.setVisible(false);
 		topLayout.addComponent(btnRelatorios);
-		topLayout.setComponentAlignment(btnRelatorios, Alignment.MIDDLE_RIGHT);
+		topLayout.setComponentAlignment(btnRelatorios, Alignment.MIDDLE_RIGHT);*/
 		
 		mainLayout.addComponent(topLayout);
 	}
@@ -106,7 +104,7 @@ public abstract class BaseView<C extends BaseController<?>> extends CustomCompon
 			}
 		});
 		relatoriosLayout.addComponent(btnRelatorio);
-		btnRelatorios.setVisible(true);
+		//btnRelatorios.setVisible(true);
 	}
 	
 	public void setTitle(String title) {
