@@ -24,14 +24,13 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
 public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>{
 
 	@Autowired
 	AgenciaBancoDAO dao;
 	
 	@Autowired
-	AgenciaBancoFormController agenciaFormController;
+	AgenciaBancoFormController agenciaBancoFormController;
 	
 
 	@Override
@@ -58,7 +57,7 @@ public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>
 
 	@Override
 	protected CRUDFormController<AgenciaBanco> getFormController() {
-		return agenciaFormController;
+		return agenciaBancoFormController;
 	}
 
 	//Identificador da VIEW, para posterior uso nas urls de navegacao
