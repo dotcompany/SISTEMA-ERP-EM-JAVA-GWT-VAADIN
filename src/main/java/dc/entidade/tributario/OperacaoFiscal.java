@@ -31,6 +31,9 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opf")
 	@SequenceGenerator(name = "opf", sequenceName = "tribut_operacao_fiscal_id_seq", allocationSize = 1)
+	@ComboCode
+	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@ManyToOne
@@ -39,26 +42,23 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 
 	@Field
 	@Caption("CFOP")
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer cfop;
 
 	@Field
 	@Caption("Descrição")
+	@Column(name="descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String nome;
 
 	@Field
 	@Caption("Descrição na NF")
 	@Column(name = "descricao_na_nf")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoNaNF;
 
 	@Field
 	@Caption("Observações")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
@@ -86,12 +86,14 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 		this.cfop = cfop;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	
+
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getDescricaoNaNF() {
@@ -112,7 +114,7 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 
 	@Override
 	public String toString() {
-		return descricao;
+		return nome;
 	}
 
 }

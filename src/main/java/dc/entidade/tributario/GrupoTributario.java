@@ -10,11 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.solr.client.solrj.beans.Field;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
+
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 
@@ -24,19 +32,30 @@ import dc.entidade.framework.Empresa;
 * @author Wesley Junior
 */
 @Entity
-@Table(name = "TRIBUT_GRUPO_TRIBUTARIO")
+@Table(name = "tribut_grupo_tributario")
+@SuppressWarnings("serial")
+@Indexed
+@Analyzer(impl=BrazilianAnalyzer.class)
 public class GrupoTributario extends AbstractModel<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trb")
+	@SequenceGenerator(name = "trb", sequenceName = "tribut_grupo_tributario_id_seq", allocationSize = 1)
+	@ComboCode
+	@Analyzer(definition="dc_combo_analyzer")
+	@Field
+	private Integer id;
   
+
+	
+	@Field
+	@Column(name="descricao")
     @Caption("Descrição")
-    private String descricao;
+	@ComboValue
+	@Analyzer(definition="dc_combo_analyzer")
+    private String nome;
     
     @Column(name = "ORIGEM_MERCADORIA")
     private String origemMercadoria;
@@ -62,13 +81,7 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+   
 
     public String getOrigemMercadoria() {
         return origemMercadoria;
@@ -97,7 +110,7 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
 
     @Override
     public String toString() {
-        return descricao;
+        return nome;
     }
 
 	public String getOrigemString() {
@@ -119,6 +132,16 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
 	public void setOrigemString(String origemString) {
 		this.origemString = origemString;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	
     
     
 

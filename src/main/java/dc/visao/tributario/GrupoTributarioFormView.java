@@ -169,7 +169,7 @@ public class GrupoTributarioFormView extends CustomComponent {
 
 	public void preencherForm(GrupoTributario bean){
 		carregarOrigemMercadoria();
-		getDescricao().setValue(bean.getDescricao());
+		getDescricao().setValue(bean.getNome());
 		getCmbOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(bean.getOrigemMercadoria()));
 		getObservacao().setValue(bean.getObservacao());
 	}

@@ -35,7 +35,9 @@ import dc.servicos.dao.tributario.IPIConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.dao.tributario.PISConfiguracaoTributariaDAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ConfiguracaoTributariaFormView;
 import dc.visao.tributario.ConfiguracaoTributariaFormView.MODALIDADE_BC;
@@ -86,6 +88,9 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	
 	@Autowired
 	IPIConfiguracaoTributariaDAO ipiDAO;
+	
+	@Autowired
+	MainController mainController;
 
 	@Override
 	public String getViewIdentifier() {
@@ -107,7 +112,14 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Override
 	protected void initSubView() {
 		subView = new ConfiguracaoTributariaFormView(this);
+		DefaultManyToOneComboModel<GrupoTributario> comboModel = new DefaultManyToOneComboModel<GrupoTributario>
+		(GrupoTributarioListController.class, grupoTributarioDAO, mainController);
+		subView.getCmbGrupoTributario().setModel(comboModel);
 
+		DefaultManyToOneComboModel<OperacaoFiscal> comboOperacao = new DefaultManyToOneComboModel<OperacaoFiscal>
+		(OperacaoFiscalListController.class, operacaoFiscalDAO, mainController);
+		subView.getCmbOperacaoFiscal().setModel(comboOperacao);
+		
 	}
 
 	protected void carregar(Serializable id) {
