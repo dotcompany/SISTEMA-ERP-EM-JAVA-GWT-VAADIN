@@ -229,7 +229,7 @@ public class CargoFormView extends CustomComponent {
 		horizontalLayout_3.addComponent(txtSalario);
 
 		// cmbCBO1994
-		cmbCBO1994 = new ManyToOneCombo<>();
+		cmbCBO1994 = new ManyToOneCombo<CBO>();
 		cmbCBO1994.setCaption("CBO 1994");
 		cmbCBO1994.setImmediate(false);
 		cmbCBO1994.setWidth("-1px");
@@ -237,7 +237,7 @@ public class CargoFormView extends CustomComponent {
 		horizontalLayout_3.addComponent(cmbCBO1994);
 
 		// cmbCBO2002
-		cmbCBO2002 = new ManyToOneCombo<>();
+		cmbCBO2002 = new ManyToOneCombo<CBO>();
 		cmbCBO2002.setCaption("CBO 2002");
 		cmbCBO2002.setImmediate(false);
 		cmbCBO2002.setWidth("-1px");

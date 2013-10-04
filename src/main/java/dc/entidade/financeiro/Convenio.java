@@ -30,6 +30,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
 
@@ -52,7 +55,7 @@ import dc.entidade.geral.Pessoa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Convenio implements Serializable {
+public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -60,6 +63,8 @@ public class Convenio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
+    @ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
     private Integer id;
     
     /*
@@ -80,6 +85,8 @@ public class Convenio implements Serializable {
     @Field
     @Caption("Logradouro")
     @Column(name = "LOGRADOURO", length = 100)
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String logradouro;
     
     @Field
@@ -90,18 +97,26 @@ public class Convenio implements Serializable {
     @Field
     @Caption("Bairro")
     @Column(name = "BAIRRO", length = 60)
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String bairro;
     
     @Column(name="MUNICIPIO_IBGE")
+    @ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
     private Integer municipioIbge;
     
     @Column(name="UF")
     private Character uf;
     
     @Column(name = "CONTATO", length = 30)
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String contato;
     
     @Column(name = "TELEFONE", length = 14)
+    @ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     private String telefone;
     
     @Column(name = "DATA_CADASTRO")

@@ -1,6 +1,7 @@
 package dc.controller.pessoal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.vaadin.ui.Component;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.financeiro.type.StatusChequeType;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.Cliente;
@@ -129,6 +131,8 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	protected void initSubView() {
 		subView = new ClienteFormView();
+		
+		this.subView.InitCbs(getClienteTipo());
 	}
 
 	@Override
@@ -228,6 +232,25 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	public String getViewIdentifier() {
 		return "clienteForm";
+	}
+	
+	/**
+	 * COMBO
+	 */
+	public List<String> getClienteTipo() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (StatusChequeType en : StatusChequeType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

@@ -77,9 +77,15 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricaoo().setValue(currentBean.getDescricao());
+		
+		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(
+				CBOListController.class, cboDAO, super.getMainController());
+		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(
+				CBOListController.class, cboDAO, super.getMainController());
+		subView.getCmbCBO1994().setModel(modelCBO);
+		subView.getCmbCBO2002().setModel(modelCBO2);
 
-		this.subView.getTxtSalario().setValue(
-				String.valueOf(this.currentBean.getSalario()));
+		this.subView.getTxtSalario().setValue(String.valueOf(this.currentBean.getSalario()));
 	}
 
 	@Override
