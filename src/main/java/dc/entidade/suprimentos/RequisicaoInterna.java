@@ -25,7 +25,6 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;

@@ -39,7 +39,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		
 		
 		public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao,MainController mainController){
-		
 			this.dao = dao; 
 			this.ctrlClass = controllerClass;
 			this.mainController = mainController;

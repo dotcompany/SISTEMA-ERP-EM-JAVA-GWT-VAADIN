@@ -76,7 +76,7 @@ public abstract class AbstractCrudDAO<T> {
 		
 		
 	}
-
+	
 	private void configureDefaultComboFields() {
 		String[] defaultSearchFields = getDefaultSearchFields();
 		if(defaultSearchFields != null && defaultSearchFields.length != 0 ){
