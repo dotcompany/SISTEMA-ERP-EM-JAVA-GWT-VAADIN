@@ -25,6 +25,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -52,6 +54,8 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_caixa_id_seq")
 	@SequenceGenerator(name = "conta_caixa_id_seq", sequenceName = "conta_caixa_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "CODIGO")
@@ -60,11 +64,15 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Digito")
 	@Column(name = "DIGITO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String digito = "";
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
 	@Lob
@@ -72,6 +80,8 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@Type(type = "text")
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
 
 	@Column(name = "TIPO")

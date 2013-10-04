@@ -1,6 +1,7 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Cheque;
 import dc.entidade.financeiro.TalonarioCheque;
+import dc.entidade.financeiro.type.StatusChequeType;
 import dc.servicos.dao.financeiro.ChequeDAO;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.servicos.util.Validator;
@@ -95,7 +97,6 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	protected void carregar(Serializable id) {
 		currentBean = chequeDAO.find(id);
 		subView.getDtStatus().setValue(currentBean.getDataStatus());
-		subView.setCbStatusCheque(currentBean.getStatusCheque().toString());
 
 		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
 				TalonarioChequeListController.class, this.talonarioChequeDAO,
@@ -116,6 +117,8 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	@Override
 	protected void initSubView() {
 		subView = new ChequeFormView();
+		
+		this.subView.InitCbs(getChequeStatusCheque());
 
 		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
 				TalonarioChequeListController.class, this.talonarioChequeDAO,
@@ -147,6 +150,25 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	@Override
 	public String getViewIdentifier() {
 		return "chequeForm";
+	}
+	
+	/**
+	 * COMBO
+	 */
+	public List<String> getChequeStatusCheque() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (StatusChequeType en : StatusChequeType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
