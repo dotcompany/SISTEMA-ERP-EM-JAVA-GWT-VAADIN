@@ -129,38 +129,42 @@ public class GuiaAcumuladaFormController extends
 
 			mensagemErro(e.getMessage());
 		} finally {
-			criarNovo();
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
+			novoObjeto(id);
 
-			this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			this.subView.getTfGpsCompetencia().setValue(
-					this.pEntity.getGpsCompetencia());
-			this.subView.getTfGpsValorInss().setValue(
-					this.pEntity.getGpsValorInss().toString());
-			this.subView.getTfGpsValorOutrasEnt().setValue(
-					this.pEntity.getGpsValorOutrasEnt().toString());
-			this.subView.getPdfGpsDataPagamento().setValue(
-					this.pEntity.getGpsDataPagamento());
-			this.subView.getTfIrrfCompetencia().setValue(
-					this.pEntity.getIrrfCompetencia());
-			this.subView.getTfIrrfCodigoRecolhimento().setValue(
-					this.pEntity.getIrrfCodigoRecolhimento().toString());
-			this.subView.getTfIrrfValorAcumulado().setValue(
-					this.pEntity.getIrrfValorAcumulado().toString());
-			this.subView.getPdfIrrfDataPagamento().setValue(
-					this.pEntity.getIrrfDataPagamento());
-			this.subView.getTfPisCompetencia().setValue(
-					this.pEntity.getPisCompetencia());
-			this.subView.getTfPisValorAcumulado().setValue(
-					this.pEntity.getPisValorAcumulado().toString());
-			this.subView.getPdfPisDataPagamento().setValue(
-					this.pEntity.getPisDataPagamento());
+			/*
+			 * this.pEntity = this.pDAO.find(id);
+			 * 
+			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
+			 * this.subView.getTfGpsCompetencia().setValue(
+			 * this.pEntity.getGpsCompetencia());
+			 * this.subView.getTfGpsValorInss().setValue(
+			 * this.pEntity.getGpsValorInss().toString());
+			 * this.subView.getTfGpsValorOutrasEnt().setValue(
+			 * this.pEntity.getGpsValorOutrasEnt().toString());
+			 * this.subView.getPdfGpsDataPagamento().setValue(
+			 * this.pEntity.getGpsDataPagamento());
+			 * this.subView.getTfIrrfCompetencia().setValue(
+			 * this.pEntity.getIrrfCompetencia());
+			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
+			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
+			 * this.subView.getTfIrrfValorAcumulado().setValue(
+			 * this.pEntity.getIrrfValorAcumulado().toString());
+			 * this.subView.getPdfIrrfDataPagamento().setValue(
+			 * this.pEntity.getIrrfDataPagamento());
+			 * this.subView.getTfPisCompetencia().setValue(
+			 * this.pEntity.getPisCompetencia());
+			 * this.subView.getTfPisValorAcumulado().setValue(
+			 * this.pEntity.getPisValorAcumulado().toString());
+			 * this.subView.getPdfPisDataPagamento().setValue(
+			 * this.pEntity.getPisDataPagamento());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -175,31 +179,35 @@ public class GuiaAcumuladaFormController extends
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.pEntity = new GuiaAcumuladaEntity();
+			novoObjeto(0);
 
-			this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			this.subView.getTfGpsCompetencia().setValue(
-					this.pEntity.getGpsCompetencia());
-			this.subView.getTfGpsValorInss().setValue(
-					this.pEntity.getGpsValorInss().toString());
-			this.subView.getTfGpsValorOutrasEnt().setValue(
-					this.pEntity.getGpsValorOutrasEnt().toString());
-			this.subView.getPdfGpsDataPagamento().setValue(
-					this.pEntity.getGpsDataPagamento());
-			this.subView.getTfIrrfCompetencia().setValue(
-					this.pEntity.getIrrfCompetencia());
-			this.subView.getTfIrrfCodigoRecolhimento().setValue(
-					this.pEntity.getIrrfCodigoRecolhimento().toString());
-			this.subView.getTfIrrfValorAcumulado().setValue(
-					this.pEntity.getIrrfValorAcumulado().toString());
-			this.subView.getPdfIrrfDataPagamento().setValue(
-					this.pEntity.getIrrfDataPagamento());
-			this.subView.getTfPisCompetencia().setValue(
-					this.pEntity.getPisCompetencia());
-			this.subView.getTfPisValorAcumulado().setValue(
-					this.pEntity.getPisValorAcumulado().toString());
-			this.subView.getPdfPisDataPagamento().setValue(
-					this.pEntity.getPisDataPagamento());
+			/*
+			 * this.pEntity = new GuiaAcumuladaEntity();
+			 * 
+			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
+			 * this.subView.getTfGpsCompetencia().setValue(
+			 * this.pEntity.getGpsCompetencia());
+			 * this.subView.getTfGpsValorInss().setValue(
+			 * this.pEntity.getGpsValorInss().toString());
+			 * this.subView.getTfGpsValorOutrasEnt().setValue(
+			 * this.pEntity.getGpsValorOutrasEnt().toString());
+			 * this.subView.getPdfGpsDataPagamento().setValue(
+			 * this.pEntity.getGpsDataPagamento());
+			 * this.subView.getTfIrrfCompetencia().setValue(
+			 * this.pEntity.getIrrfCompetencia());
+			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
+			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
+			 * this.subView.getTfIrrfValorAcumulado().setValue(
+			 * this.pEntity.getIrrfValorAcumulado().toString());
+			 * this.subView.getPdfIrrfDataPagamento().setValue(
+			 * this.pEntity.getIrrfDataPagamento());
+			 * this.subView.getTfPisCompetencia().setValue(
+			 * this.pEntity.getPisCompetencia());
+			 * this.subView.getTfPisValorAcumulado().setValue(
+			 * this.pEntity.getPisValorAcumulado().toString());
+			 * this.subView.getPdfPisDataPagamento().setValue(
+			 * this.pEntity.getPisDataPagamento());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -223,31 +231,35 @@ public class GuiaAcumuladaFormController extends
 				this.pDAO = new GuiaAcumuladaDAO();
 			}
 
-			this.pEntity = new GuiaAcumuladaEntity();
+			novoObjeto(0);
 
-			this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			this.subView.getTfGpsCompetencia().setValue(
-					this.pEntity.getGpsCompetencia());
-			this.subView.getTfGpsValorInss().setValue(
-					this.pEntity.getGpsValorInss().toString());
-			this.subView.getTfGpsValorOutrasEnt().setValue(
-					this.pEntity.getGpsValorOutrasEnt().toString());
-			this.subView.getPdfGpsDataPagamento().setValue(
-					this.pEntity.getGpsDataPagamento());
-			this.subView.getTfIrrfCompetencia().setValue(
-					this.pEntity.getIrrfCompetencia());
-			this.subView.getTfIrrfCodigoRecolhimento().setValue(
-					this.pEntity.getIrrfCodigoRecolhimento().toString());
-			this.subView.getTfIrrfValorAcumulado().setValue(
-					this.pEntity.getIrrfValorAcumulado().toString());
-			this.subView.getPdfIrrfDataPagamento().setValue(
-					this.pEntity.getIrrfDataPagamento());
-			this.subView.getTfPisCompetencia().setValue(
-					this.pEntity.getPisCompetencia());
-			this.subView.getTfPisValorAcumulado().setValue(
-					this.pEntity.getPisValorAcumulado().toString());
-			this.subView.getPdfPisDataPagamento().setValue(
-					this.pEntity.getPisDataPagamento());
+			/*
+			 * this.pEntity = new GuiaAcumuladaEntity();
+			 * 
+			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
+			 * this.subView.getTfGpsCompetencia().setValue(
+			 * this.pEntity.getGpsCompetencia());
+			 * this.subView.getTfGpsValorInss().setValue(
+			 * this.pEntity.getGpsValorInss().toString());
+			 * this.subView.getTfGpsValorOutrasEnt().setValue(
+			 * this.pEntity.getGpsValorOutrasEnt().toString());
+			 * this.subView.getPdfGpsDataPagamento().setValue(
+			 * this.pEntity.getGpsDataPagamento());
+			 * this.subView.getTfIrrfCompetencia().setValue(
+			 * this.pEntity.getIrrfCompetencia());
+			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
+			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
+			 * this.subView.getTfIrrfValorAcumulado().setValue(
+			 * this.pEntity.getIrrfValorAcumulado().toString());
+			 * this.subView.getPdfIrrfDataPagamento().setValue(
+			 * this.pEntity.getIrrfDataPagamento());
+			 * this.subView.getTfPisCompetencia().setValue(
+			 * this.pEntity.getPisCompetencia());
+			 * this.subView.getTfPisValorAcumulado().setValue(
+			 * this.pEntity.getPisValorAcumulado().toString());
+			 * this.subView.getPdfPisDataPagamento().setValue(
+			 * this.pEntity.getPisDataPagamento());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -287,5 +299,50 @@ public class GuiaAcumuladaFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	@Override
+	protected boolean isFullSized() {
+		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new GuiaAcumuladaEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
+			this.subView.getTfGpsCompetencia().setValue(
+					this.pEntity.getGpsCompetencia());
+			this.subView.getTfGpsValorInss().setValue(
+					this.pEntity.getGpsValorInss().toString());
+			this.subView.getTfGpsValorOutrasEnt().setValue(
+					this.pEntity.getGpsValorOutrasEnt().toString());
+			this.subView.getPdfGpsDataPagamento().setValue(
+					this.pEntity.getGpsDataPagamento());
+			this.subView.getTfIrrfCompetencia().setValue(
+					this.pEntity.getIrrfCompetencia());
+			this.subView.getTfIrrfCodigoRecolhimento().setValue(
+					this.pEntity.getIrrfCodigoRecolhimento().toString());
+			this.subView.getTfIrrfValorAcumulado().setValue(
+					this.pEntity.getIrrfValorAcumulado().toString());
+			this.subView.getPdfIrrfDataPagamento().setValue(
+					this.pEntity.getIrrfDataPagamento());
+			this.subView.getTfPisCompetencia().setValue(
+					this.pEntity.getPisCompetencia());
+			this.subView.getTfPisValorAcumulado().setValue(
+					this.pEntity.getPisValorAcumulado().toString());
+			this.subView.getPdfPisDataPagamento().setValue(
+					this.pEntity.getPisDataPagamento());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

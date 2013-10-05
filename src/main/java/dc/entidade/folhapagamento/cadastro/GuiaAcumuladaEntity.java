@@ -50,12 +50,12 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Gps tipo")
-	@Column(name = "gps_tipo", insertable = false, updatable = false)
+	@Column(name = "gps_tipo")
 	private String gpsTipo = "";
 
 	@Field
 	@Caption("Gps competência")
-	@Column(name = "gps_competencia")
+	@Column(name = "gps_competencia", length = 1)
 	private String gpsCompetencia = "";
 
 	@Field
@@ -105,7 +105,7 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Gps tipo")
-	@Column(name = "gps_tipo")
+	@Column(name = "pis_data_pagamento")
 	private Date pisDataPagamento;
 
 	/**
