@@ -40,8 +40,10 @@ import dc.entidade.diversos.Pais;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.type.EmpresaType;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
+import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
+import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
 import dc.entidade.folhapagamento.cadastro.ParametroEntity;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
@@ -280,6 +282,12 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList;
+
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	private List<GuiaAcumuladaEntity> guiaAcumuladaList;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -665,6 +673,15 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setLancamentoDetalheList(
 			List<LancamentoDetalheEntity> lancamentoDetalheList) {
 		this.lancamentoDetalheList = lancamentoDetalheList;
+	}
+
+	public List<FeriasPeriodoAquisitivoEntity> getFeriasPeriodoAquisitivoList() {
+		return feriasPeriodoAquisitivoList;
+	}
+
+	public void setFeriasPeriodoAquisitivoList(
+			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList) {
+		this.feriasPeriodoAquisitivoList = feriasPeriodoAquisitivoList;
 	}
 
 	public List<ContaCaixa> getContaCaixaList() {

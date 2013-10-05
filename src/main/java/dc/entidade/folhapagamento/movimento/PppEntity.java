@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 /**
@@ -38,7 +38,8 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PppEntity extends AbstractModel<Integer> implements Serializable {
+public class PppEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	/**
 	 *

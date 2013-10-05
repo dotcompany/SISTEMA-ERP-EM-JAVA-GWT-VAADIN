@@ -22,8 +22,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -36,8 +35,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LancamentoDetalheEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class LancamentoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 *
@@ -88,11 +87,16 @@ public class LancamentoDetalheEntity extends AbstractModel<Integer> implements
 
 	/* id_empresa integer NOT NULL, */
 
-	@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_empresa", nullable = false)
+	 * 
+	 * @Caption("Empresa")
+	 * 
+	 * @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	 * private Empresa empresa;
+	 */
 
 	/**
 	 * REFERENCIA - LIST
@@ -160,13 +164,11 @@ public class LancamentoDetalheEntity extends AbstractModel<Integer> implements
 		this.lancamentoCabecalho = lancamentoCabecalho;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+	/*
+	 * public Empresa getEmpresa() { return empresa; }
+	 * 
+	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+	 */
 
 	/**
 	 * TO STRING

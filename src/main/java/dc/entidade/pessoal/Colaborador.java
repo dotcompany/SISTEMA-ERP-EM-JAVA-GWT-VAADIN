@@ -31,6 +31,7 @@ import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
+import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
@@ -352,6 +353,9 @@ public class Colaborador extends AbstractModel<Integer> implements Serializable 
 
 	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
 	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
+
+	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
+	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList;
 
 	/**
 	 * ********************************************************
@@ -795,6 +799,15 @@ public class Colaborador extends AbstractModel<Integer> implements Serializable 
 	public void setLancamentoCabecalhoList(
 			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
 		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
+	}
+
+	public List<FeriasPeriodoAquisitivoEntity> getFeriasPeriodoAquisitivoEntityList() {
+		return feriasPeriodoAquisitivoEntityList;
+	}
+
+	public void setFeriasPeriodoAquisitivoEntityList(
+			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList) {
+		this.feriasPeriodoAquisitivoEntityList = feriasPeriodoAquisitivoEntityList;
 	}
 
 	public ContabilConta getIdContaContabil() {

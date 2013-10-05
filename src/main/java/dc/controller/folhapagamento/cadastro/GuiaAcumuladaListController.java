@@ -43,7 +43,8 @@ public class GuiaAcumuladaListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "numero", "bem.nome", "seguradora.nome" };
+		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia",
+				"pisCompetencia" };
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class GuiaAcumuladaListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Servico";
+		return "Guia acumulada";
 	}
 
 	@Override

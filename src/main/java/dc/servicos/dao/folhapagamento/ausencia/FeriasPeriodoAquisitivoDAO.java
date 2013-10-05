@@ -35,6 +35,8 @@ public class FeriasPeriodoAquisitivoDAO extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<FeriasPeriodoAquisitivoEntity>();
 		}
 	}
@@ -42,7 +44,8 @@ public class FeriasPeriodoAquisitivoDAO extends
 	@Transactional
 	public List<FeriasPeriodoAquisitivoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM FeriasPeriodoAquisitivoEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM FeriasPeriodoAquisitivoEntity ent WHERE (1 = 1)"
+					+ " AND ent.colaborador.matricula LIKE :q";
 
 			List<FeriasPeriodoAquisitivoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -50,12 +53,14 @@ public class FeriasPeriodoAquisitivoDAO extends
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<FeriasPeriodoAquisitivoEntity>();
 		}
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Número", "Bem", "Seguradora" };
+		return new String[] { "Data início", "Data término" };
 	}
 
 }

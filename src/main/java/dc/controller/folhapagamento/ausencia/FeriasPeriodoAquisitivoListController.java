@@ -43,7 +43,7 @@ public class FeriasPeriodoAquisitivoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "numero", "bem.nome", "seguradora.nome" };
+		return new String[] { "dataInicio", "dataFim" };
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class FeriasPeriodoAquisitivoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Servico";
+		return "Férias - Período aquisitivo";
 	}
 
 	@Override
