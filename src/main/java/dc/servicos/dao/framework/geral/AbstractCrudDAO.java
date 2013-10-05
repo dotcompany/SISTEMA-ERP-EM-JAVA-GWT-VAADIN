@@ -367,7 +367,6 @@ public abstract class AbstractCrudDAO<T> {
 	    configureHQLOrder(sortingFields, states, criteria);
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(pageSize);
-		
 		List result = criteria.list();
 		return result;
 	}
@@ -376,11 +375,12 @@ public abstract class AbstractCrudDAO<T> {
 			Criteria criteria) {
 		for (int i = 0; i < sortingFields.length; i++) {
 	    	if(states[i]){
-	    		criteria.addOrder(Order.desc(sortingFields[i]));	
+	    		criteria.addOrder(Order.desc(sortingFields[i]).ignoreCase());	
 	    	}else{
-	    		criteria.addOrder(Order.asc(sortingFields[i]));
+	    		criteria.addOrder(Order.asc(sortingFields[i]).ignoreCase());
 	    	}
 		}
+		
 	}
 	
 	@Transactional
