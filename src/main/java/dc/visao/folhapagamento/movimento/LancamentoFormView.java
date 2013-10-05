@@ -97,7 +97,9 @@ public class LancamentoFormView extends CustomComponent {
 		gridLayout_1.setWidth("100.0%");
 		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
+		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
+		gridLayout_1.setColumns(3);
 
 		return gridLayout_1;
 	}

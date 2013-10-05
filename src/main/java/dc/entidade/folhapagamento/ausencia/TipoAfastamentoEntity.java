@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,8 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -38,8 +35,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoAfastamentoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class TipoAfastamentoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 *
@@ -74,11 +71,16 @@ public class TipoAfastamentoEntity extends AbstractModel<Integer> implements
 
 	/* id_empresa integer NOT NULL, */
 
-	@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_empresa", nullable = false)
+	 * 
+	 * @Caption("Empresa")
+	 * 
+	 * @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	 * private Empresa empresa;
+	 */
 
 	/**
 	 * REFERENCIA - LIST
@@ -137,13 +139,11 @@ public class TipoAfastamentoEntity extends AbstractModel<Integer> implements
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+	/*
+	 * public Empresa getEmpresa() { return empresa; }
+	 * 
+	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+	 */
 
 	public List<AfastamentoEntity> getAfastamentoList() {
 		return afastamentoList;

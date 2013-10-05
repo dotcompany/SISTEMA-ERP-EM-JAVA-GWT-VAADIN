@@ -22,8 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 /**
@@ -37,8 +36,8 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class FeriasPeriodoAquisitivoEntity extends AbstractModel<Integer>
-		implements Serializable {
+public class FeriasPeriodoAquisitivoEntity extends
+		AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 *
@@ -131,11 +130,16 @@ public class FeriasPeriodoAquisitivoEntity extends AbstractModel<Integer>
 
 	/* id_empresa integer NOT NULL, */
 
-	@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_empresa", nullable = false)
+	 * 
+	 * @Caption("Empresa")
+	 * 
+	 * @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	 * private Empresa empresa;
+	 */
 
 	/**
 	 * REFERENCIA - LIST
@@ -280,13 +284,11 @@ public class FeriasPeriodoAquisitivoEntity extends AbstractModel<Integer>
 		this.colaborador = colaborador;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+	/*
+	 * public Empresa getEmpresa() { return empresa; }
+	 * 
+	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+	 */
 
 	/**
 	 * TO STRING

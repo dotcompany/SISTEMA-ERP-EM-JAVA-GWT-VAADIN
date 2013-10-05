@@ -149,6 +149,31 @@ public class FeriasPeriodoAquisitivoFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getTfSituacao().setValue(this.pEntity.getSituacao());
+			this.subView.getPdfLimiteParaGozo().setValue(
+					this.pEntity.getLimiteParaGozo());
+			this.subView.getTfDescontarFaltas().setValue(
+					this.pEntity.getDescontarFaltas());
+			this.subView.getTfDesconsiderarAfastamento().setValue(
+					this.pEntity.getDesconsiderarAfastamento());
+			this.subView.getTfAfastamentoPrevidencia().setValue(
+					this.pEntity.getAfastamentoPrevidencia().toString());
+			this.subView.getTfAfastamentoSemRemun().setValue(
+					this.pEntity.getAfastamentoSemRemun().toString());
+			this.subView.getTfAfastamentoComRemun().setValue(
+					this.pEntity.getAfastamentoComRemun().toString());
+			this.subView.getTfDiasDireito().setValue(
+					this.pEntity.getDiasDireito().toString());
+			this.subView.getTfDiasGozados().setValue(
+					this.pEntity.getDiasGozados().toString());
+			this.subView.getTfDiasFaltas().setValue(
+					this.pEntity.getDiasFaltas().toString());
+			this.subView.getTfDiasRestantes().setValue(
+					this.pEntity.getDiasRestantes().toString());
+			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
+
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
 			this.subView.getCbColaborador().setValue(
@@ -167,7 +192,37 @@ public class FeriasPeriodoAquisitivoFormController extends
 	@Override
 	protected void quandoNovo() {
 		try {
-			criarNovo();
+			this.pEntity = new FeriasPeriodoAquisitivoEntity();
+
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getTfSituacao().setValue(this.pEntity.getSituacao());
+			this.subView.getPdfLimiteParaGozo().setValue(
+					this.pEntity.getLimiteParaGozo());
+			this.subView.getTfDescontarFaltas().setValue(
+					this.pEntity.getDescontarFaltas());
+			this.subView.getTfDesconsiderarAfastamento().setValue(
+					this.pEntity.getDesconsiderarAfastamento());
+			this.subView.getTfAfastamentoPrevidencia().setValue(
+					this.pEntity.getAfastamentoPrevidencia().toString());
+			this.subView.getTfAfastamentoSemRemun().setValue(
+					this.pEntity.getAfastamentoSemRemun().toString());
+			this.subView.getTfAfastamentoComRemun().setValue(
+					this.pEntity.getAfastamentoComRemun().toString());
+			this.subView.getTfDiasDireito().setValue(
+					this.pEntity.getDiasDireito().toString());
+			this.subView.getTfDiasGozados().setValue(
+					this.pEntity.getDiasGozados().toString());
+			this.subView.getTfDiasFaltas().setValue(
+					this.pEntity.getDiasFaltas().toString());
+			this.subView.getTfDiasRestantes().setValue(
+					this.pEntity.getDiasRestantes().toString());
+			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
+
+			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
+
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 

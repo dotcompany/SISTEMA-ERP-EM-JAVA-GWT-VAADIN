@@ -41,7 +41,7 @@ public class GuiaAcumuladaDAO extends AbstractCrudDAO<GuiaAcumuladaEntity> {
 	@Transactional
 	public List<GuiaAcumuladaEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM GuiaAcumuladaEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM GuiaAcumuladaEntity ent WHERE (1 = 1) AND ent.gpsTipo LIKE :q";
 
 			List<GuiaAcumuladaEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,7 +54,8 @@ public class GuiaAcumuladaDAO extends AbstractCrudDAO<GuiaAcumuladaEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Número", "Bem", "Seguradora" };
+		return new String[] { "Gps tipo", "Gps competência",
+				"IRRF competência", "PIS competência" };
 	}
 
 }

@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -35,7 +35,7 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ServicoEntity extends AbstractModel<Integer> implements
+public class ServicoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
