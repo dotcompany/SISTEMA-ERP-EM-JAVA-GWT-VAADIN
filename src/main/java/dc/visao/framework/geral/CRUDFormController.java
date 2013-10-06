@@ -24,7 +24,9 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
 import dc.framework.DcConstants;
+import dc.visao.spring.SecuritySessionProvider;
 
 /**
  * 
@@ -334,5 +336,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void setChildModuleID(String id) {
 		// nothing for now
 	}
+	
+	public Empresa empresaAtual(){
+		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+	}
+
 
 }
