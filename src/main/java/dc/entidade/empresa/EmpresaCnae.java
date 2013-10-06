@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -41,16 +42,20 @@ public class EmpresaCnae extends AbstractModel<Integer> {
 	
 	@Column(name="ramo_atividade")
 	@Caption("Ramo de Atividade")
-	@NotNull(message="Informe o objeto social")
 	String objetoSocial;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	private Empresa empresa;
 	
+	@Caption("CNAE")
 	@ManyToOne
 	@JoinColumn(name = "ID_CNAE", nullable = false)
 	private Cnae cnae;
+	
+	@Transient
+	@Caption("Principal")
+	private String principalStr;
 
 	public Integer getId() {
 		return id;
@@ -98,6 +103,15 @@ public class EmpresaCnae extends AbstractModel<Integer> {
 
 	public void setCnae(Cnae cnae) {
 		this.cnae = cnae;
+	}
+
+	public String getPrincipalStr() {
+		principalStr = principal.equals("0") ? "Não" : "Sim";
+		return principalStr;
+	}
+
+	public void setPrincipalStr(String principalStr) {
+		this.principalStr = principalStr;
 	}
 	
 	

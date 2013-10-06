@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,6 +24,10 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
 *
@@ -43,25 +48,25 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Cnae implements Serializable {
+public class Cnae extends AbstractModel<Integer> {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnae")
+	@SequenceGenerator(name = "cnae", sequenceName = "cnae_id_seq", allocationSize = 1)
+    @ComboCode    
+    @Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
     
     @Column(name="CODIGO", length=10)
     private String codigo;
     
-    @Lob
     @Field
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Type(type="text")
     @Caption("Denominacao")
     @Column(name = "DENOMINACAO")
-    private String denominacao;
+    @ComboValue
+    @Analyzer(definition = "dc_combo_analyzer")
+    private String nome;
     
     public Cnae() {
     }
@@ -78,15 +83,17 @@ public class Cnae implements Serializable {
         this.id = id;
     }
 
-    public String getDenominacao() {
-        return denominacao;
-    }
-
-    public void setDenominacao(String denominacao) {
-        this.denominacao = denominacao;
-    }
+   
     
-    @Override
+    public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	@Override
     public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
     }
@@ -101,7 +108,7 @@ public class Cnae implements Serializable {
 
     @Override
     public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
+    	return nome;
     }
 
 	public String getCodigo() {

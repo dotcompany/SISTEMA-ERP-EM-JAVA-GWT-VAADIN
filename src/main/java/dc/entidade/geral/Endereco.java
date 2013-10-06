@@ -104,10 +104,7 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
     @Column(name="UF")
     private UF uf;
     
-    @Field
-    @Caption("Telefone")
-    @Column(name = "TELEFONE", length = 14)
-    private String telefone;
+   
     
     @Field
     @Caption("Fone")
@@ -247,13 +244,7 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
 		this.uf = uf;
 	}
 
-	public String getTelefone() {
-		return telefone;
-	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
 
 	public String getFax() {
 		return fax;

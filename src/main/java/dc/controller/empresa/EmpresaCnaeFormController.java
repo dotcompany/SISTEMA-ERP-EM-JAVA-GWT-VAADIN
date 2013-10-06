@@ -14,15 +14,19 @@ import com.vaadin.ui.Component;
 import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Cnae;
 import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
+import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.EmpresaCnaeFormView;
+import dc.visao.empresa.EmpresaCnaeFormView.PRINCIPAL;
 import dc.visao.empresa.QuadroSocietarioFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
+import dc.visao.suprimentos.NotaFiscalFormView.FORMA_EMISSAO;
 
 @Controller
 @Scope("prototype")
@@ -33,6 +37,9 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 
 	@Autowired
 	EmpresaCnaeDAO dao;
+	
+	@Autowired
+	private CnaeDAO cnaeDAO;
 
 	EmpresaCnae currentBean;
 
@@ -62,20 +69,62 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
+		subView.getCmbCnae().setValue(currentBean.getCnae());
+		subView.getCmbPrincipal().setValue(PRINCIPAL.getPrincipal(currentBean.getPrincipal()));
+		subView.getTxtRamoAtividade().setValue(currentBean.getRamoAtividade());
+		subView.getTxtObjetoSocial().setValue(currentBean.getObjetoSocial());
 	}
 	
-	public Empresa empresaAtual(){
-		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
-	}
+
 
 	@Override
 	protected void actionSalvar() {
+		String msgErro = "Erro ao realizar operação";
 		
-			dao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
+		  try{
+			 Cnae cnae = (Cnae) subView.getCmbCnae().getValue();
+			 String principal = (((PRINCIPAL)subView.getCmbPrincipal()
+						.getValue()).getCodigo());
+			 String ramoAtividade = subView.getTxtRamoAtividade().getValue();
+			 String objetoSocial = subView.getTxtObjetoSocial().getValue();
+			 
+			 if(cnae == null){
+				 msgErro = "Informe o CNAE!";
+				 throw new ErroValidacaoException(msgErro);
+			 }
+			 
+			 if(principal == null){
+				 msgErro = "Informe Principal!";
+				 throw new ErroValidacaoException(msgErro);
+			 }
+			 
+			 if(ramoAtividade == null){
+				 msgErro = "Informe Ramo de Atividade!";
+				 throw new ErroValidacaoException(msgErro);
+			 }
+			 
+			 if(objetoSocial == null){
+				 msgErro = "Informe Objeto Social!";
+				 throw new ErroValidacaoException(msgErro);
+			 }
+			 
+			    currentBean.setEmpresa(empresaAtual());
+			    currentBean.setCnae(cnae);  
+			    currentBean.setPrincipal(principal);
+			    currentBean.setRamoAtividade(ramoAtividade);
+			    currentBean.setObjetoSocial(objetoSocial);
+				dao.saveOrUpdate(currentBean);
+				notifiyFrameworkSaveOK(this.currentBean);
+		  
+		  }catch(ErroValidacaoException e){
+			  mensagemErro(e.montaMensagemErro());
+		  }catch(Exception e){
+			  e.printStackTrace();
+			  
+		  }
 		
-		
-		
+		   
+				
 	}
 
 	public String formataValor(String valor){
@@ -125,7 +174,10 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 	}
 	
 	
-	
+	 public List<Cnae> trazerListaCnae(){
+		 List<Cnae> lista = cnaeDAO.listarTodos();
+		 return lista;
+	 }
 	
 
 }

@@ -11,14 +11,17 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Cnae;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.pessoal.Contador;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.visao.financeiro.EmpresaFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 /**
 *
 * @author Wesley Jr
@@ -66,6 +69,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	
 	@Autowired
 	private FpasDAO fpasDAO;
+	
+	
 
 	private Empresa currentBean;
 
@@ -180,7 +185,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		// TODO Auto-generated method stub
 		return "empresaForm";
 	}
-
+  
+	
 
 
 }

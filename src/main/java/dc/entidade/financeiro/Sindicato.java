@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.UF;
@@ -41,7 +42,7 @@ import dc.entidade.geral.UF;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Sindicato extends AbstractModel<Integer> implements Serializable {
+public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,55 +66,46 @@ public class Sindicato extends AbstractModel<Integer> implements Serializable {
 	 */
 
 	@Column(name = "ID_CONTABIL_CONTA")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer idContabilConta;
 
 	@Column(name = "CODIGO_BANCO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBanco;
 
 	@Column(name = "CODIGO_AGENCIA")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoAgencia;
 
 	@Column(name = "CONTA_BANCO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaBanco;
 
 	@Column(name = "CODIGO_CEDENTE")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoCedente;
 
 	@Field
 	@Caption("Logradouro")
 	@Column(name = "LOGRADOURO", length = 100)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String logradouro;
 
 	@Field
 	@Caption("Numero")
 	@Column(name = "NUMERO", length = 10)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero;
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 60)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String bairro;
 
 	@Field
 	@Caption("Municipio")
 	@Column(name = "MUNICIPIO", length = 60)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String municipio;
 
@@ -124,28 +116,24 @@ public class Sindicato extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Telefone 1")
 	@Column(name = "FONE1", length = 10)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone1;
 
 	@Field
 	@Caption("Telefone 2")
 	@Column(name = "FONE2", length = 10)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL", length = 100)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Field
 	@Caption("Tipo Sindicato")
 	@Column(name = "TIPO_SINDICATO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoSindicato;
 
@@ -153,7 +141,6 @@ public class Sindicato extends AbstractModel<Integer> implements Serializable {
 	@Caption("Data Base")
 	@Column(name = "DATA_BASE")
 	@Temporal(TemporalType.DATE)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataBase;
 
@@ -165,14 +152,12 @@ public class Sindicato extends AbstractModel<Integer> implements Serializable {
 	private String nome;
 
 	@Column(name = "PISO_SALARIAL", precision = 14, scale = 0)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal pisoSalarial;
 
 	@Field
 	@Caption("Cnpj")
 	@Column(name = "CNPJ", length = 30)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cnpj;
 

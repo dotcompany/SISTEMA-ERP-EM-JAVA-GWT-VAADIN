@@ -27,7 +27,7 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae>
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"cnae"};
+		return new String[] {"cnae","principalStr","objetoSocial","ramoAtividade"};
 	}
 
 	@Override
