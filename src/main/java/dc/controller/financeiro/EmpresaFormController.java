@@ -115,7 +115,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Override
 	protected void initSubView() {
-		subView = new EmpresaFormView();
+		subView = new EmpresaFormView(this);
 	}
 
 	@Override
