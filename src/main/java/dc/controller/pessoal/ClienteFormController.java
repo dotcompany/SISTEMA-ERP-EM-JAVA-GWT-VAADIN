@@ -13,12 +13,15 @@ import com.vaadin.ui.Component;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.financeiro.type.StatusChequeType;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.SituacaoForCli;
 import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.type.pessoal.FormaDescontoType;
+import dc.entidade.type.pessoal.GerarFinanceiroType;
+import dc.entidade.type.pessoal.IndicadorPrecoType;
+import dc.entidade.type.pessoal.TipoFreteType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
@@ -132,7 +135,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	protected void initSubView() {
 		subView = new ClienteFormView();
 		
-		this.subView.InitCbs(getClienteTipo());
+		/*subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
+		
+		/*this.subView.InitCbs(getClienteTipo());
+		this.subView.InitCbs(getClienteIndicadorPrecoType());
+		this.subView.InitCbs(getClienteTipoFreteType());
+		this.subView.InitCbs(getClienteFormaDescontoType());*/
+		
+		this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
+		this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
+		this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
+		this.subView.getCmbFormaDesconto().setData(getClienteFormaDescontoType());
+		
 	}
 
 	@Override
@@ -237,18 +251,68 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	/**
 	 * COMBO
 	 */
-	public List<String> getClienteTipo() {
+	public List<String> getClienteGerarFinanceiroType() {
 		try {
 			List<String> siLista = new ArrayList<String>();
 
-			for (StatusChequeType en : StatusChequeType.values()) {
-				siLista.add(en.ordinal(), en.toString());
+			for (GerarFinanceiroType en : GerarFinanceiroType.values()) {
+				siLista.add(en.ordinal(), en.toString()); 
+							
 			}
 
 			return siLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
+			return null;
+		}
+	}
+	
+	public List<String> getClienteIndicadorPrecoType() {
+		
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (IndicadorPrecoType in : IndicadorPrecoType.values()) {
+				siLista.add(in.ordinal(), in.toString());
+				
+			}
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+		
+	}
+	
+	public List<String> getClienteTipoFreteType() {
+		
+		try {
+			List<String> siLista = new ArrayList<String>();
+			
+			for (TipoFreteType tf : TipoFreteType.values()) {
+				siLista.add(tf.ordinal(), tf.toString());
+			}
+			return siLista;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<String> getClienteFormaDescontoType() {
+		
+		try {
+			List<String> siLista = new ArrayList<String>();
+			
+			for (FormaDescontoType fd : FormaDescontoType.values()) {
+				siLista.add(fd.ordinal(), fd.toString());
+			}
+			return siLista;
+		}catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

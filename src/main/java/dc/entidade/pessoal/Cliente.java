@@ -103,7 +103,7 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "INDICADOR_PRECO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character indicadorPreco;
+	private String indicadorPreco;
 
 	@Field
 	@Caption("Porcento Desconto")
@@ -262,11 +262,11 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 		this.geraFinanceiro = geraFinanceiro;
 	}
 
-	public Character getIndicadorPreco() {
+	public String getIndicadorPreco() {
 		return indicadorPreco;
 	}
 
-	public void setIndicadorPreco(Character indicadorPreco) {
+	public void setIndicadorPreco(String indicadorPreco) {
 		this.indicadorPreco = indicadorPreco;
 	}
 

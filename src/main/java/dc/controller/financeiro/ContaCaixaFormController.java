@@ -23,6 +23,13 @@ import dc.visao.financeiro.ContaCaixaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
+
+/**
+ * 
+ *  DotCompany
+ * @author Wesley Jr
+ *
+ */
 @Controller
 @Scope("prototype")
 public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {

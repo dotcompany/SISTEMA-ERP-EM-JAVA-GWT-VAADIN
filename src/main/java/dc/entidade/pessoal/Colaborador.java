@@ -38,7 +38,7 @@ import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacao;
@@ -57,7 +57,7 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Colaborador extends AbstractModel<Integer> implements Serializable {
+public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

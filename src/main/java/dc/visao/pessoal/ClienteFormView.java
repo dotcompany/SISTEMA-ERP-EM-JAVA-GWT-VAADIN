@@ -562,4 +562,36 @@ public class ClienteFormView extends CustomComponent {
 		this.cmbOperacaoFiscal = cmbOperacaoFiscal;
 	}
 
+	public ComboBox getCmbFormaDesconto() {
+		return cmbFormaDesconto;
+	}
+
+	public void setCmbFormaDesconto(ComboBox cmbFormaDesconto) {
+		this.cmbFormaDesconto = cmbFormaDesconto;
+	}
+
+	public ComboBox getCmbTipoFrete() {
+		return cmbTipoFrete;
+	}
+
+	public void setCmbTipoFrete(ComboBox cmbTipoFrete) {
+		this.cmbTipoFrete = cmbTipoFrete;
+	}
+
+	public ComboBox getCmbIndicadorPreco() {
+		return cmbIndicadorPreco;
+	}
+
+	public void setCmbIndicadorPreco(ComboBox cmbIndicadorPreco) {
+		this.cmbIndicadorPreco = cmbIndicadorPreco;
+	}
+
+	public ComboBox getCmbGerarFinanceiro() {
+		return cmbGerarFinanceiro;
+	}
+
+	public void setCmbGerarFinanceiro(ComboBox cmbGerarFinanceiro) {
+		this.cmbGerarFinanceiro = cmbGerarFinanceiro;
+	}
+	
 }
