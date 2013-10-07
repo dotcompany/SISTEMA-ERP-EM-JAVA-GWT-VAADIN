@@ -134,19 +134,24 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	protected void initSubView() {
 		subView = new ClienteFormView();
-		
-		/*subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
-		
-		/*this.subView.InitCbs(getClienteTipo());
-		this.subView.InitCbs(getClienteIndicadorPrecoType());
-		this.subView.InitCbs(getClienteTipoFreteType());
-		this.subView.InitCbs(getClienteFormaDescontoType());*/
-		
-		this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
-		this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
+
+		/* subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
+
+		/*
+		 * this.subView.InitCbs(getClienteTipo());
+		 * this.subView.InitCbs(getClienteIndicadorPrecoType());
+		 * this.subView.InitCbs(getClienteTipoFreteType());
+		 * this.subView.InitCbs(getClienteFormaDescontoType());
+		 */
+
+		// this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
+		// this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
 		this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
-		this.subView.getCmbFormaDesconto().setData(getClienteFormaDescontoType());
-		
+		this.subView.getCmbFormaDesconto().setData(
+				getClienteFormaDescontoType());
+
+		this.subView.InitCbs(getClienteTipoFreteType(),
+				getClienteIndicadorPrecoType());
 	}
 
 	@Override
@@ -247,7 +252,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	public String getViewIdentifier() {
 		return "clienteForm";
 	}
-	
+
 	/**
 	 * COMBO
 	 */
@@ -256,8 +261,8 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			List<String> siLista = new ArrayList<String>();
 
 			for (GerarFinanceiroType en : GerarFinanceiroType.values()) {
-				siLista.add(en.ordinal(), en.toString()); 
-							
+				siLista.add(en.ordinal(), en.toString());
+
 			}
 
 			return siLista;
@@ -267,15 +272,15 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			return null;
 		}
 	}
-	
+
 	public List<String> getClienteIndicadorPrecoType() {
-		
+
 		try {
 			List<String> siLista = new ArrayList<String>();
 
 			for (IndicadorPrecoType in : IndicadorPrecoType.values()) {
 				siLista.add(in.ordinal(), in.toString());
-				
+
 			}
 			return siLista;
 		} catch (Exception e) {
@@ -283,35 +288,35 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 
 			return null;
 		}
-		
+
 	}
-	
+
 	public List<String> getClienteTipoFreteType() {
-		
+
 		try {
 			List<String> siLista = new ArrayList<String>();
-			
+
 			for (TipoFreteType tf : TipoFreteType.values()) {
 				siLista.add(tf.ordinal(), tf.toString());
 			}
 			return siLista;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-	
+
 	public List<String> getClienteFormaDescontoType() {
-		
+
 		try {
 			List<String> siLista = new ArrayList<String>();
-			
+
 			for (FormaDescontoType fd : FormaDescontoType.values()) {
 				siLista.add(fd.ordinal(), fd.toString());
 			}
 			return siLista;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
