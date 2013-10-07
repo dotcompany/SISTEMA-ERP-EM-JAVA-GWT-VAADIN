@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -21,6 +22,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
+import dc.entidade.tabelas.Cfop;
 
 @Entity
 @Table(name = "tribut_operacao_fiscal")
@@ -42,8 +44,7 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer> {
 //	private Empresa empresa;
 
 	@Field
-	@Caption("CFOP")
-	private Integer cfop;
+    private Integer cfop;
 
 	@Field
 	@Caption("Descrição")
@@ -79,18 +80,21 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer> {
 //		this.empresa = empresa;
 //	}
 
+	
+	
+
+	public String getNome() {
+		return nome;
+	}
+
+	
+
 	public Integer getCfop() {
 		return cfop;
 	}
 
 	public void setCfop(Integer cfop) {
 		this.cfop = cfop;
-	}
-
-	
-
-	public String getNome() {
-		return nome;
 	}
 
 	public void setNome(String nome) {
