@@ -52,6 +52,8 @@ public class OperacaoFiscalFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 
+		setHeight("100%");
+		
 		// calDataRequisicao
 
 		cfop = ComponentUtil.buildTextField("CFOP");
@@ -64,7 +66,8 @@ public class OperacaoFiscalFormView extends CustomComponent {
 		fields.addComponent(descricaoNaNf, 0, 1, 4, 1);
 
 		observacao = new TextArea("Observações");
-		observacao.setWidth("800");
+		observacao.setWidth("100%");
+		observacao.setHeight("350");
 		fields.addComponent(observacao, 0, 2, 4, 2);
 		return fields;
 	}
