@@ -135,7 +135,7 @@ public class TipoRelacionamento extends AbstractModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }

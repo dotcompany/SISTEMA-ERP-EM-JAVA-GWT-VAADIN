@@ -26,7 +26,7 @@ public class OperacaoFiscalListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "cfop" };
+		return new String[] { "cfop","nome" };
 	}
 
 	@Override

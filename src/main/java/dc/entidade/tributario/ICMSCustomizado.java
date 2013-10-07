@@ -24,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -32,7 +33,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ICMSCustomizado extends AbstractModel<Integer> {
+public class ICMSCustomizado extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trb")
@@ -46,9 +47,9 @@ public class ICMSCustomizado extends AbstractModel<Integer> {
 	@Column(name="origem_mercadoria")
 	String origemMercadoria;
 	
-	@ManyToOne
-	@JoinColumn(name="id_empresa")
-	Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name="id_empresa")
+//	Empresa empresa;
 	
 	@OneToMany(mappedBy="icmsCustomizado",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<ICMSCustomizadoDetalhe> detalhes = new ArrayList<ICMSCustomizadoDetalhe>();
@@ -79,13 +80,13 @@ public class ICMSCustomizado extends AbstractModel<Integer> {
 		this.origemMercadoria = origemMercadoria;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public List<ICMSCustomizadoDetalhe> getDetalhes() {
 		return detalhes;

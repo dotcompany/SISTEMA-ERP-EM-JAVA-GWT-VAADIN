@@ -43,10 +43,10 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Se
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cfg")
 	@SequenceGenerator(name = "cfg", sequenceName = "tribut_configura_of_gt_id_seq", allocationSize = 1)
 	private Integer id;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
+//
+//	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+//	@ManyToOne(optional = false)
+//	private Empresa empresa;
 
 	@JoinColumn(name = "id_tribut_grupo_tributario", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -81,13 +81,13 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Se
 		this.id = id;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public GrupoTributario getGrupoTributario() {
 		return grupoTributario;

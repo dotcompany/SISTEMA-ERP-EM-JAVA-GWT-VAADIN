@@ -17,6 +17,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
@@ -26,7 +27,7 @@ import dc.entidade.framework.Empresa;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperacaoFiscal extends AbstractModel<Integer> {
+public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opf")
@@ -36,9 +37,9 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+//	private Empresa empresa;
 
 	@Field
 	@Caption("CFOP")
@@ -70,13 +71,13 @@ public class OperacaoFiscal extends AbstractModel<Integer> {
 		this.id = id;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public Integer getCfop() {
 		return cfop;

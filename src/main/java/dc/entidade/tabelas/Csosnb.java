@@ -31,7 +31,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "csosnb")
+@Table(name = "csosn_b")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -114,7 +114,7 @@ public class Csosnb extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

@@ -459,20 +459,21 @@ cmbOperacaoFiscal.setCaption("Operação Fiscal");
 						}
 
 						if ("cfop".equals(propertyId)) {
-							TextField field = ComponentUtil.buildTextField("CFOP");
-							return field;
+							ComboBox combo = ComponentUtil.buildComboBox("CFOP");
+							combo.setContainerDataSource(controller.carregarCfop());
+							return combo;
 						}
 
 						if ("csosnB".equals(propertyId)) {
-							TextField field = ComponentUtil.buildTextField("CSOSN_B");
-							field.setMaxLength(3);
-							return field;
+							ComboBox combo = ComponentUtil.buildComboBox("CSOSN_B");
+							combo.setContainerDataSource(controller.carregarCsosnb());
+							return combo;
 						}
 
 						if ("cstB".equals(propertyId)) {
-							TextField field = ComponentUtil.buildTextField("CST_B");
-							field.setMaxLength(2);
-							return field;
+							ComboBox combo = ComponentUtil.buildComboBox("CST_B");
+							combo.setContainerDataSource(controller.carregarCstB());
+							return combo;
 						}
 
 						if ("modalidadeBc".equals(propertyId)) {

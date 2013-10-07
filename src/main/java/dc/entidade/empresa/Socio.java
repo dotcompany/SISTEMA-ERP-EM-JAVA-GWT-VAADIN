@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
 
@@ -34,7 +35,7 @@ import dc.entidade.geral.Pessoa;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Socio extends AbstractModel<Integer> {
+public class Socio extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "soc")
@@ -83,9 +84,9 @@ public class Socio extends AbstractModel<Integer> {
 	@Temporal(TemporalType.DATE)
 	Date dataSaida;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+//	private Empresa empresa;
 
 	@OneToMany(mappedBy="socio")
 	private List<Dependente> dependentes = new ArrayList<>();
@@ -173,13 +174,13 @@ public class Socio extends AbstractModel<Integer> {
 		this.cep = cep;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public String getFone() {
 		return fone;

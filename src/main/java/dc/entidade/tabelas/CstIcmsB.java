@@ -115,7 +115,7 @@ public class CstIcmsB extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

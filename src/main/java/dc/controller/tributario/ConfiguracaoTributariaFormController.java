@@ -2,16 +2,22 @@ package dc.controller.tributario;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UF;
+import dc.entidade.tabelas.Cfop;
 import dc.entidade.tabelas.CodigoApuracaoEfd;
+import dc.entidade.tabelas.Csosnb;
 import dc.entidade.tabelas.CstCofins;
+import dc.entidade.tabelas.CstIcmsB;
 import dc.entidade.tabelas.CstIpi;
 import dc.entidade.tabelas.CstPis;
 import dc.entidade.tabelas.TipoReceitaDipi;
@@ -23,8 +29,11 @@ import dc.entidade.tributario.IPIConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.entidade.tributario.PISConfiguracaoTributaria;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.tabelas.CfopDAO;
 import dc.servicos.dao.tabelas.CodigoApuracaoEfdDAO;
+import dc.servicos.dao.tabelas.CsosnbDAO;
 import dc.servicos.dao.tabelas.CstCofinsDAO;
+import dc.servicos.dao.tabelas.CstIcmsBDAO;
 import dc.servicos.dao.tabelas.CstIpiDAO;
 import dc.servicos.dao.tabelas.CstPisDAO;
 import dc.servicos.dao.tabelas.TipoReceitaDipiDAO;
@@ -88,6 +97,15 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	
 	@Autowired
 	IPIConfiguracaoTributariaDAO ipiDAO;
+	
+	@Autowired
+	CsosnbDAO csosnbDAO;
+	
+	@Autowired
+	CstIcmsBDAO cstIcmsBDAO;
+	
+	@Autowired
+	CfopDAO cfopDAO;
 	
 	@Autowired
 	MainController mainController;
@@ -298,7 +316,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Override
 	protected void actionSalvar() {
 		try{
-			currentBean.setEmpresa(empresaAtual());
+			//currentBean.setEmpresa(empresaAtual());
 			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
 			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
 			dao.saveOrUpdate(currentBean);
@@ -316,7 +334,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 		try{
 			pis.setConfiguracaoTributaria(currentBean);
-		    pis.setEmpresa(currentBean.getEmpresa());
+		//    pis.setEmpresa(currentBean.getEmpresa());
 		    pis.setCst(subView.getTxtCstPis().getValue());
 		    pis.setCodigoApuracaoEfd(subView.getTxtEfdPis().getValue());
 		    pis.setModalidadeBc(((MODALIDADE_BC)(subView.getCmbModalidadeBcPis().getValue())).getCodigo());
@@ -336,7 +354,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 		try{
 			cofins.setConfiguracaoTributaria(currentBean);
-			cofins.setEmpresa(currentBean.getEmpresa());
+			//cofins.setEmpresa(currentBean.getEmpresa());
 			cofins.setCst(subView.getTxtCstCofins().getValue());
 			cofins.setCodigoApuracaoEfd(subView.getTxtEfdCofins().getValue());
 			cofins.setModalidadeBc(((MODALIDADE_BC)(subView.getCmbModalidadeBcCofins().getValue())).getCodigo());
@@ -356,7 +374,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 		try{
 			ipi.setConfiguracaoTributaria(currentBean);
-			ipi.setEmpresa(currentBean.getEmpresa());
+			//ipi.setEmpresa(currentBean.getEmpresa());
 		    ipi.setCst(subView.getTxtCstIPI().getValue());
 		    ipi.setModalidadeBc(((MODALIDADE_BC)(subView.getCmbModalidadeBcIPI().getValue())).getCodigo());
 		    String dipi = subView.getTxtDipi().getValue();
@@ -454,5 +472,28 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 				
 				replaceAll( ",","" ).trim();
 		return format;
+	}
+	
+	public BeanItemContainer<Csosnb> carregarCsosnb(){
+		BeanItemContainer<Csosnb> container = new BeanItemContainer<>(Csosnb.class);
+		for(Csosnb obj : csosnbDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	public BeanItemContainer<CstIcmsB> carregarCstB(){
+		BeanItemContainer<CstIcmsB> container = new BeanItemContainer<>(CstIcmsB.class);
+		for(CstIcmsB obj : cstIcmsBDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<Cfop> carregarCfop(){
+		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
+		for(Cfop obj : cfopDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
 	}
 }

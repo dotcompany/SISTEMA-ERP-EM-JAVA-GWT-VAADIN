@@ -2,6 +2,7 @@ package dc.controller.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,11 @@ import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
+import dc.entidade.pessoal.TipoRelacionamento;
 import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.SocioDAO;
+import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
@@ -35,6 +38,9 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	SocioDAO dao;
 
 	Socio currentBean;
+	
+	@Autowired
+	TipoRelacionamentoDAO tipoRelacionamentoDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -124,6 +130,14 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
 		currentBean.adicionarDependente(p);
 		return p;
+	}
+	
+	public List<TipoRelacionamento> carregarTipoRelacionamento(){
+		List<TipoRelacionamento> lista = new ArrayList<TipoRelacionamento>();
+		for(TipoRelacionamento tipo : tipoRelacionamentoDAO.listaTodos()){
+			lista.add(tipo);
+		}
+		return lista;
 	}
 
 }

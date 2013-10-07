@@ -42,6 +42,7 @@ public class Dependente extends AbstractModel<Integer> {
 	String nome;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name="dataNascimento")
 	Date dataNascimento;
 	
 	@Temporal(TemporalType.DATE)

@@ -40,7 +40,7 @@ public class QuadroSocietarioFormView extends CustomComponent {
 		// common part: create layout
 		fields = new GridLayout(6, 4);
 		fields.setImmediate(false);
-		fields.setWidth("100.0%");
+		fields.setWidth("80%");
 		fields.setHeight("-1px");
 		fields.setMargin(false);
 		fields.setSpacing(true);

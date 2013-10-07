@@ -18,6 +18,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Cnae;
 
@@ -26,7 +27,7 @@ import dc.entidade.geral.Cnae;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class EmpresaCnae extends AbstractModel<Integer> {
+public class EmpresaCnae extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "epc")
@@ -34,19 +35,19 @@ public class EmpresaCnae extends AbstractModel<Integer> {
 	private Integer id;
 	
 	@Caption("Principal")
-	String principal;
+	String principal;//0-Não 1-Sim
 		
-	@Column(name="objeto_social")
+	@Column(name="ramo_atividade")
 	@Caption("Ramo de Atividade")
 	String ramoAtividade;
 	
-	@Column(name="ramo_atividade")
-	@Caption("Ramo de Atividade")
+	@Column(name="objeto_social")
+	@Caption("Objeto Social")
 	String objetoSocial;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+//	private Empresa empresa;
 	
 	@Caption("CNAE")
 	@ManyToOne
@@ -89,13 +90,13 @@ public class EmpresaCnae extends AbstractModel<Integer> {
 		this.objetoSocial = objetoSocial;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public Cnae getCnae() {
 		return cnae;

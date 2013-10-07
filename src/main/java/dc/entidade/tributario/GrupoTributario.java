@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
@@ -36,7 +37,7 @@ import dc.entidade.framework.Empresa;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class GrupoTributario extends AbstractModel<Integer> implements Serializable {
+public class GrupoTributario extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -62,9 +63,9 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
     
     private String observacao;
     
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Empresa empresa;
+//    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+//    @ManyToOne(optional = false)
+//    private Empresa empresa;
     
     @Transient
     @Caption("Origem da Mercadoria")
@@ -99,13 +100,13 @@ public class GrupoTributario extends AbstractModel<Integer> implements Serializa
         this.observacao = observacao;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
+//    public Empresa getEmpresa() {
+//        return empresa;
+//    }
+//
+//    public void setEmpresa(Empresa empresa) {
+//        this.empresa = empresa;
+//    }
 
 
     @Override

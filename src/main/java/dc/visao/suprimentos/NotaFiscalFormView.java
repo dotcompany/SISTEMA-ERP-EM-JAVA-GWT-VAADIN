@@ -2195,9 +2195,6 @@ public class NotaFiscalFormView extends CustomComponent  {
 			if (codigo.equals("1")) {
 				return SAIDA;
 			} 
-
-
-
 			return null;
 		}
 

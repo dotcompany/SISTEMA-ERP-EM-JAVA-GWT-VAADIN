@@ -22,6 +22,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -29,7 +30,7 @@ import dc.entidade.framework.Empresa;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class QuadroSocietario extends AbstractModel<Integer> {
+public class QuadroSocietario extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qdr")
@@ -53,9 +54,9 @@ public class QuadroSocietario extends AbstractModel<Integer> {
 	@Caption("Quantidade Cotas")
 	Integer quantidadeCotas;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+//	private Empresa empresa;
 
 	public Integer getId() {
 		return id;
@@ -97,13 +98,13 @@ public class QuadroSocietario extends AbstractModel<Integer> {
 		this.quantidadeCotas = quantidadeCotas;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 	
 	
 
