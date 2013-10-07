@@ -63,8 +63,8 @@ public class GrupoTributarioFormView extends CustomComponent {
 
 		observacao = new TextArea("Observações");
 		
-		observacao.setWidth("800");
-		observacao.setHeight("250");
+		observacao.setWidth("120%");
+		observacao.setHeight("400");
 		fields.addComponent(observacao, 0, 1);
 		return fields;
 	}
@@ -79,8 +79,8 @@ public class GrupoTributarioFormView extends CustomComponent {
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
-		setWidth("100.0%");
-		setHeight("70.0%");
+		setWidth("100%");
+		setHeight("100%");
 
 		// fields
 		fields = buildFields();
