@@ -96,7 +96,7 @@ public class ICMSCustomizadoFormView extends CustomComponent {
 
 		// top-level component properties
 		setWidth("100.0%");
-		setHeight("70.0%");
+		setHeight("100%");
 
 		// fields
 		fields = buildFields();
