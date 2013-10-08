@@ -18,6 +18,9 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.geral.UF;
+import dc.entidade.tabelas.Cfop;
+import dc.entidade.tabelas.Csosnb;
+import dc.entidade.tabelas.CstIcmsB;
 
 @Entity
 @Table(name = "tribut_icms_custom_det")
@@ -34,25 +37,32 @@ public class ICMSCustomizadoDetalhe extends AbstractModel<Integer> {
 	@Column(name="uf_destino")
 	private String ufDestino;
 
-	private Integer cfop;
+	@ManyToOne
+	@JoinColumn(name="cfop")
+	private Cfop cfop;
 
 	@Column(name="csosn_b")
 	private String csosnB;
+	
+	@Transient
+	private Csosnb csosn;
 
 	@Column(name="cst_b")
 	private String cstB;
+	
+	@Transient
+	private CstIcmsB cst;
 
 	@Column(name="modalidade_bc")
 	String modalidadeBc;
 
-	BigDecimal aliquota;
+	Integer aliquota;
 
 	@Column(name="valor_pauta")
 	BigDecimal valorPauta;
 
 	@Column(name="valor_preco_maximo")
 	BigDecimal valorPrecoMaximo;
-
 
 	@ManyToOne
 	@JoinColumn(name="id_tribut_icms_custom_cab")
@@ -93,14 +103,17 @@ public class ICMSCustomizadoDetalhe extends AbstractModel<Integer> {
 		this.icmsCustomizado = icmsCustomizado;
 	}
 
-	public Integer getCfop() {
+	
+	
+	public Cfop getCfop() {
 		return cfop;
 	}
 
-	public void setCfop(Integer cfop) {
+	public void setCfop(Cfop cfop) {
 		this.cfop = cfop;
 	}
 
+	
 	public String getCsosnB() {
 		return csosnB;
 	}
@@ -125,11 +138,13 @@ public class ICMSCustomizadoDetalhe extends AbstractModel<Integer> {
 		this.modalidadeBc = modalidadeBc;
 	}
 
-	public BigDecimal getAliquota() {
+	
+
+	public Integer getAliquota() {
 		return aliquota;
 	}
 
-	public void setAliquota(BigDecimal aliquota) {
+	public void setAliquota(Integer aliquota) {
 		this.aliquota = aliquota;
 	}
 
@@ -149,9 +164,26 @@ public class ICMSCustomizadoDetalhe extends AbstractModel<Integer> {
 		this.valorPrecoMaximo = valorPrecoMaximo;
 	}
 
+	public Csosnb getCsosn() {
+		return csosn;
+	}
+
+	public void setCsosn(Csosnb csosn) {
+		this.csosn = csosn;
+	}
+
+	public CstIcmsB getCst() {
+		return cst;
+	}
+
+	public void setCst(CstIcmsB cst) {
+		this.cst = cst;
+	}
+
 	
-
-
-
+	
+	
+	
+	
 
 }

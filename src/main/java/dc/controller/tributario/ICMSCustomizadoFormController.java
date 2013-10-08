@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
@@ -16,12 +17,18 @@ import dc.entidade.geral.UF;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ContagemEstoque;
 import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
+import dc.entidade.tabelas.Cfop;
+import dc.entidade.tabelas.Csosnb;
+import dc.entidade.tabelas.CstIcmsB;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
+import dc.servicos.dao.tabelas.CfopDAO;
+import dc.servicos.dao.tabelas.CsosnbDAO;
+import dc.servicos.dao.tabelas.CstIcmsBDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDetalheDAO;
 import dc.servicos.util.Validator;
@@ -47,6 +54,15 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	ICMSCustomizadoDetalheDAO detalheDAO;
 
 	ICMSCustomizado currentBean;
+	
+	@Autowired
+	CfopDAO cfopDAO;
+	
+	@Autowired
+	CsosnbDAO csosnbDAO;
+	
+	@Autowired
+	CstIcmsBDAO cstbDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -79,6 +95,21 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.carregarOrigemMercadoria();
 		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
+	
+		
+		List<ICMSCustomizadoDetalhe> detalhes = currentBean.getDetalhes();
+		
+		for(ICMSCustomizadoDetalhe d  : detalhes){
+			Integer idCsosn = new Integer(d.getCsosnB().trim());
+			d.setCsosn(csosnbDAO.find(idCsosn));
+			
+			Integer idCst = new Integer(d.getCstB().trim());
+			d.setCst(cstbDAO.find(idCst));
+			
+		}
+		
+		
+		subView.preencheSubForm(detalhes);
 	}
 
 	public Empresa empresaAtual(){
@@ -89,6 +120,11 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	protected void actionSalvar() {
 		try{
 
+			
+			List<ICMSCustomizadoDetalhe> detalhes = subView.getDetalhesSubForm()
+				     .getDados();
+			
+			
 			String descricao = subView.getTxtDescricao().getValue(); 
 			String origem = "";
 
@@ -106,8 +142,18 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 			currentBean.setOrigemMercadoria(origem);
 			currentBean.setEmpresa(empresaAtual());
 
-			dao.saveOrUpdate(currentBean);		
-
+			dao.saveOrUpdate(currentBean);	
+			
+			for(ICMSCustomizadoDetalhe d : detalhes){
+				d.setIcmsCustomizado(currentBean);
+				d.setCsosnB(d.getCsosn().getId().toString());
+				d.setCstB(d.getCst().getId().toString());
+				detalheDAO.saveOrUpdate(d);
+			}
+		
+		
+			
+			
 			notifiyFrameworkSaveOK(currentBean);
 		}catch(ErroValidacaoException e){
 			mensagemErro(e.montaMensagemErro());
@@ -118,8 +164,6 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 
 	}
-
-
 
 	@Override
 	protected void quandoNovo() {
@@ -174,6 +218,30 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 				replaceAll( ",","" ).trim();
 		return format;
+	}
+	
+	public BeanItemContainer<Cfop> carregarCfop(){
+		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
+		for(Cfop obj : cfopDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<Csosnb> carregarCsosnb(){
+		BeanItemContainer<Csosnb> container = new BeanItemContainer<>(Csosnb.class);
+		for(Csosnb obj : csosnbDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<CstIcmsB> carregarCstb(){
+		BeanItemContainer<CstIcmsB> container = new BeanItemContainer<>(CstIcmsB.class);
+		for(CstIcmsB obj : cstbDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
 	}
 
 }

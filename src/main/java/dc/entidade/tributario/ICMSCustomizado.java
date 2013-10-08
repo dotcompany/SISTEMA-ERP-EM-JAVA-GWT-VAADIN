@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -47,14 +48,15 @@ public class ICMSCustomizado extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name="origem_mercadoria")
 	String origemMercadoria;
 	
+	@Transient
+	String origemStr;
+	
 //	@ManyToOne
 //	@JoinColumn(name="id_empresa")
 //	Empresa empresa;
 	
-	@OneToMany(mappedBy="icmsCustomizado",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="icmsCustomizado",fetch=FetchType.EAGER)
 	private List<ICMSCustomizadoDetalhe> detalhes = new ArrayList<ICMSCustomizadoDetalhe>();
-
-	
 	
 	public Integer getId() {
 		return id;
@@ -102,6 +104,17 @@ public class ICMSCustomizado extends AbstractMultiEmpresaModel<Integer> {
     	getDetalhes().add(detalhe);
     	detalhe.setIcmsCustomizado(this);
     }
+
+	public String getOrigemStr() {
+		origemStr = origemMercadoria.equals("0") ? "Nacional" : "Estrangeira";
+		return origemStr;
+	}
+
+	public void setOrigemStr(String origemStr) {
+		this.origemStr = origemStr;
+	}
+	
+	
 	
 	
 }
