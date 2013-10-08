@@ -30,7 +30,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Setor;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.pessoal.Colaborador;
 
@@ -45,7 +45,8 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class BemEntity extends AbstractModel<Integer> implements Serializable {
+public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	/**
 	 * 
@@ -53,7 +54,7 @@ public class BemEntity extends AbstractModel<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_bem_id_seq")
 	@SequenceGenerator(name = "patrim_bem_id_seq", sequenceName = "patrim_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -225,6 +226,10 @@ public class BemEntity extends AbstractModel<Integer> implements Serializable {
 	@Caption("Função")
 	private String funcao = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "id_patrim_tipo_aquisicao_bem", nullable = false)
 	@Caption("Tipo de aquisição")
@@ -260,6 +265,10 @@ public class BemEntity extends AbstractModel<Integer> implements Serializable {
 	@Caption("Colaborador")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Colaborador colaborador;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "bem", fetch = FetchType.LAZY)
 	private List<ApoliceSeguroEntity> apoliceSeguroList;

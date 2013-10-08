@@ -23,7 +23,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -41,7 +41,7 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ParcelaPagamento extends AbstractModel<Integer> {
+public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,47 +50,47 @@ public class ParcelaPagamento extends AbstractModel<Integer> {
 	@Basic(optional = false)
 	@Column(name = "ID")
 	private Integer id;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
 	private Date dataPagamento;
-	
+
 	@Column(name = "TAXA_JURO")
 	private BigDecimal taxaJuro;
-	
+
 	@Column(name = "TAXA_MULTA")
 	private BigDecimal taxaMulta;
-	
+
 	@Column(name = "TAXA_DESCONTO")
 	private BigDecimal taxaDesconto;
-	
+
 	@Column(name = "VALOR_JURO")
 	private BigDecimal valorJuro;
-	
+
 	@Column(name = "VALOR_MULTA")
 	private BigDecimal valorMulta;
-	
+
 	@Column(name = "VALOR_DESCONTO")
 	private BigDecimal valorDesconto;
-	
+
 	@Column(name = "VALOR_PAGO")
 	private BigDecimal valorPago;
-	
+
 	@Column(name = "HISTORICO")
 	private String historico;
-	
+
 	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ParcelaPagar parcelaPagar;
-	
+
 	@JoinColumn(name = "ID_FIN_CHEQUE_EMITIDO", referencedColumnName = "ID")
 	@ManyToOne
 	private ChequeEmitido chequeEmitido;
-	
+
 	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private TipoPagamento tipoPagamento;
-	
+
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContaCaixa contaCaixa;

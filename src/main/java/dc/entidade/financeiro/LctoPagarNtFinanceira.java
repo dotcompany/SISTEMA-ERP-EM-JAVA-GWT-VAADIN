@@ -21,91 +21,90 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.contabilidade.ContabilLancamentoDetalhe;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "LCTO_PAGAR_NT_FINANCEIRA")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LctoPagarNtFinanceira extends AbstractModel<Integer>{
+public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATA_INCLUSAO")
-    private Date dataInclusao;
-    @Column(name = "VALOR")
-    private BigDecimal valor;
-    @JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private LancamentoPagar lancamentoPagar;
-    @JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private NaturezaFinanceira naturezaFinanceira;
-    @JoinColumn(name = "ID_CONTABIL_LANCAMENTO_DET", referencedColumnName = "ID")
-    @ManyToOne
-    private ContabilLancamentoDetalhe contabilLancamentoDetalhe;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_INCLUSAO")
+	private Date dataInclusao;
+	@Column(name = "VALOR")
+	private BigDecimal valor;
+	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private LancamentoPagar lancamentoPagar;
+	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private NaturezaFinanceira naturezaFinanceira;
+	@JoinColumn(name = "ID_CONTABIL_LANCAMENTO_DET", referencedColumnName = "ID")
+	@ManyToOne
+	private ContabilLancamentoDetalhe contabilLancamentoDetalhe;
 
-    public LctoPagarNtFinanceira() {
-    }
+	public LctoPagarNtFinanceira() {
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Date getDataInclusao() {
-        return dataInclusao;
-    }
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
 
-    public void setDataInclusao(Date dataInclusao) {
-        this.dataInclusao = dataInclusao;
-    }
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
 
-    public BigDecimal getValor() {
-        return valor;
-    }
+	public BigDecimal getValor() {
+		return valor;
+	}
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
-    public LancamentoPagar getLancamentoPagar() {
-        return lancamentoPagar;
-    }
+	public LancamentoPagar getLancamentoPagar() {
+		return lancamentoPagar;
+	}
 
-    public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
-        this.lancamentoPagar = lancamentoPagar;
-    }
+	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
+		this.lancamentoPagar = lancamentoPagar;
+	}
 
-    public NaturezaFinanceira getNaturezaFinanceira() {
-        return naturezaFinanceira;
-    }
+	public NaturezaFinanceira getNaturezaFinanceira() {
+		return naturezaFinanceira;
+	}
 
-    public void setNaturezaFinanceira(NaturezaFinanceira naturezaFinanceira) {
-        this.naturezaFinanceira = naturezaFinanceira;
-    }
+	public void setNaturezaFinanceira(NaturezaFinanceira naturezaFinanceira) {
+		this.naturezaFinanceira = naturezaFinanceira;
+	}
 
-    public ContabilLancamentoDetalhe getContabilLancamentoDetalhe() {
-        return contabilLancamentoDetalhe;
-    }
+	public ContabilLancamentoDetalhe getContabilLancamentoDetalhe() {
+		return contabilLancamentoDetalhe;
+	}
 
-    public void setContabilLancamentoDetalhe(ContabilLancamentoDetalhe contabilLancamentoDetalhe) {
-        this.contabilLancamentoDetalhe = contabilLancamentoDetalhe;
-    }
+	public void setContabilLancamentoDetalhe(ContabilLancamentoDetalhe contabilLancamentoDetalhe) {
+		this.contabilLancamentoDetalhe = contabilLancamentoDetalhe;
+	}
 
-
-    @Override
-    public String toString() {
-        return "com.t2tierp.financeiro.java.FinLctoPagarNtFinanceira[id=" + id + "]";
-    }
+	@Override
+	public String toString() {
+		return "com.t2tierp.financeiro.java.FinLctoPagarNtFinanceira[id=" + id + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -150,6 +149,4 @@ public class LctoPagarNtFinanceira extends AbstractModel<Integer>{
 		return true;
 	}
 
-    
-    
 }

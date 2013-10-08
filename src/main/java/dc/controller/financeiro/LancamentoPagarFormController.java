@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
@@ -91,22 +93,42 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 
-		StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
-		if (statusParcela == null) {
-			mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
-		} else {
-			for (ParcelaPagar p : currentBean.getParcelasPagar()) {
-				p.setStatusParcela(statusParcela);
-			}
+		boolean valido = true;
 
-			try {
-				lancamentoPagarDAO.saveOrUpdate(currentBean);
-				notifiyFrameworkSaveOK(this.currentBean);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
+		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
+			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+			valido = false;
+
+			mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+		}
+
+		if (valido) {
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			if (statusParcela == null) {
+				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
+			} else {
+				for (ParcelaPagar p : currentBean.getParcelasPagar()) {
+					p.setStatusParcela(statusParcela);
+				}
+
+				try {
+					lancamentoPagarDAO.saveOrUpdate(currentBean);
+					notifiyFrameworkSaveOK(this.currentBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	@Override
@@ -146,6 +168,22 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 
 			}
 		});
+
+		subView.getTxValorTotal().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				subView.getTxValorPagar().setConvertedValue(subView.getTxValorTotal().getConvertedValue());
+
+			}
+		});
+
+		subView.getDtLancamento().setValue(new Date());
 
 		preencheCombos();
 	}
@@ -196,23 +234,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
-		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
-
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
-			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
-			valido = false;
-		}
-
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
-					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-			valido = false;
-		}
-
-		valido = valido && validaCampos();
+		boolean valido = validaCampos();
 
 		return valido;
 	}
@@ -444,7 +466,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			currentBean.removeLctoPagarNtFinanceira(value);
 		}
 
-	} 
+	}
 
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
 		return naturezaFinanceiraDAO.listaTodos();

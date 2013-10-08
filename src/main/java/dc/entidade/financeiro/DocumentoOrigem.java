@@ -1,15 +1,11 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,10 +16,9 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
  * 
@@ -41,8 +36,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class DocumentoOrigem extends AbstractModel<Integer> implements
-		Serializable {
+public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -66,10 +60,6 @@ public class DocumentoOrigem extends AbstractModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
 
 	public DocumentoOrigem() {
 
@@ -133,13 +123,4 @@ public class DocumentoOrigem extends AbstractModel<Integer> implements
 	public void setSiglaDocumento(String siglaDocumento) {
 		this.siglaDocumento = siglaDocumento;
 	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
 }

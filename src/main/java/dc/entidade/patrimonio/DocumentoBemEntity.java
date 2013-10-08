@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -35,8 +35,8 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class DocumentoBemEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class DocumentoBemEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class DocumentoBemEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_documento_bem_id_seq")
 	@SequenceGenerator(name = "patrim_documento_bem_id_seq", sequenceName = "patrim_documento_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -66,11 +66,19 @@ public class DocumentoBemEntity extends AbstractModel<Integer> implements
 	@Caption("Imagem")
 	private String imagem = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "id_patrim_bem", nullable = false)
 	@Caption("Bem")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private BemEntity bem;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * CONSTRUTOR

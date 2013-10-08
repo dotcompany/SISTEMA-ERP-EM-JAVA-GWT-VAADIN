@@ -1,15 +1,11 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,10 +17,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
  * 
@@ -42,7 +37,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoPagamento extends AbstractModel<Integer> implements Serializable {
+public class TipoPagamento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,10 +60,6 @@ public class TipoPagamento extends AbstractModel<Integer> implements Serializabl
 	@Column(name = "TIPO")
 	@Caption("Tipo")
 	private String tipo;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
 
 	public TipoPagamento() {
 	}
@@ -119,14 +110,6 @@ public class TipoPagamento extends AbstractModel<Integer> implements Serializabl
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 }

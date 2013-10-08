@@ -1,7 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,57 +11,57 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.anotacoes.Caption;
-
-
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name="CENTRO_RESULTADO")
-public class CentroResultado implements Serializable {
+@Table(name = "CENTRO_RESULTADO")
+public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
-	
-    @Column(name = "CLASSIFICACAO")
-    @Caption(value="Classificação")
-    private String classificacao;
-    @Column(name = "DESCRICAO")
-    @Caption(value="Descrição")
-    private String descricao;
-    @Column(name = "SOFRE_RATEIO")
-    @Caption(value="Sofre Rateio")
-    private String sofreRateio;
-   	@JoinColumn(name = "ID_PLANO_CENTRO_RESULTADO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-   	@Caption(value="Plano Centro Resultado")
-    private PlanoCentroResultado planoCentroResultado;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
+	private Integer id;
 
-    public CentroResultado() {
-    }
+	@Column(name = "CLASSIFICACAO")
+	@Caption(value = "Classificação")
+	private String classificacao;
+	@Column(name = "DESCRICAO")
+	@Caption(value = "Descrição")
+	private String descricao;
+	@Column(name = "SOFRE_RATEIO")
+	@Caption(value = "Sofre Rateio")
+	private String sofreRateio;
+	@JoinColumn(name = "ID_PLANO_CENTRO_RESULTADO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	@Caption(value = "Plano Centro Resultado")
+	private PlanoCentroResultado planoCentroResultado;
 
-    public CentroResultado(Integer id) {
-        this.id = id;
-    }
+	public CentroResultado() {
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public CentroResultado(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getClassificacao() {
-        return classificacao;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
-    }
-    public String getSofreRateio() {
+	public String getClassificacao() {
+		return classificacao;
+	}
+
+	public void setClassificacao(String classificacao) {
+		this.classificacao = classificacao;
+	}
+
+	public String getSofreRateio() {
 		return sofreRateio;
 	}
 
@@ -71,48 +69,48 @@ public class CentroResultado implements Serializable {
 		this.sofreRateio = sofreRateio;
 	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CentroResultado)) {
-            return false;
-        }
-        CentroResultado other = (CentroResultado) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof CentroResultado)) {
+			return false;
+		}
+		CentroResultado other = (CentroResultado) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    
+	/**
+	 * @return the planoCentroResultado
+	 */
+	public PlanoCentroResultado getPlanoCentroResultado() {
+		return planoCentroResultado;
+	}
 
-    /**
-     * @return the planoCentroResultado
-     */
-    public PlanoCentroResultado getPlanoCentroResultado() {
-        return planoCentroResultado;
-    }
-
-    /**
-     * @param planoCentroResultado the planoCentroResultado to set
-     */
-    public void setPlanoCentroResultado(PlanoCentroResultado planoCentroResultado) {
-        this.planoCentroResultado = planoCentroResultado;
-    }
+	/**
+	 * @param planoCentroResultado
+	 *            the planoCentroResultado to set
+	 */
+	public void setPlanoCentroResultado(PlanoCentroResultado planoCentroResultado) {
+		this.planoCentroResultado = planoCentroResultado;
+	}
 
 }

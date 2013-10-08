@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -39,8 +39,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SeguradoraEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class SeguradoraEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class SeguradoraEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seguradora_id_seq")
 	@SequenceGenerator(name = "seguradora_id_seq", sequenceName = "seguradora_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -72,11 +72,19 @@ public class SeguradoraEntity extends AbstractModel<Integer> implements
 	@Size(max = 14, message = "Tamanho inválido.")
 	private String telefone = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Empresa empresa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "seguradora", fetch = FetchType.LAZY)
 	private List<ApoliceSeguroEntity> apoliceSeguroList;
