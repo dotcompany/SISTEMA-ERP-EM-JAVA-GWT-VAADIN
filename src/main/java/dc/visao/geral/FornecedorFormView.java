@@ -35,12 +35,15 @@ public class FornecedorFormView extends CustomComponent {
 	private ManyToOneCombo<SituacaoForCli> cbSituacao;
 	private ManyToOneCombo<AtividadeForCli> cbAtividade;
 	private ManyToOneCombo<ContabilConta> cbContabilConta;
+	
 	private PopupDateField dtDesde;
 	private TextField txContaRemetente;
+	
 	private ComboBox cbGerarFaturamento;
 	private ComboBox cbOptanteSimples;
 	private ComboBox cbLocalizacao;
 	private ComboBox cbSofreRentencao;
+	
 	private TextField txPrazoMedioEntrega;
 	private TextField txNumDiasPrimeiroVenc;
 	private TextField txNumDiasIntervalo;

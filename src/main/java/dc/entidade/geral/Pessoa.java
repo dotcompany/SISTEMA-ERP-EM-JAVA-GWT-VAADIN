@@ -22,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -42,7 +43,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Pessoa implements Serializable {
+public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,11 +68,15 @@ public class Pessoa implements Serializable {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
+	@Field
+	@Caption("Email")
 	@Column(name = "EMAIL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
+	@Field
+	@Caption("Site")
 	@Column(name = "SITE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

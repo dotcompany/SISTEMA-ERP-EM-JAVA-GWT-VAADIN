@@ -45,7 +45,7 @@ public class PessoaDAO extends AbstractCrudDAO<Pessoa> {
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "email"};
+		return new String[] {"nome", "tipo", "email","site"};
 	}
 	
 	@Transactional
