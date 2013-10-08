@@ -1,6 +1,7 @@
 package dc.controller.pessoal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ import dc.entidade.pessoal.Cargo;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.pessoal.SituacaoColaborador;
 import dc.entidade.pessoal.TipoColaborador;
+import dc.entidade.type.pessoal.DescontoPlanoSaudeType;
+import dc.entidade.type.pessoal.FormaPagamentoType;
+import dc.entidade.type.pessoal.OptanteType;
+import dc.entidade.type.pessoal.SaiRaisType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -112,6 +117,9 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	protected void initSubView() {
 		subView = new ColaboradorFormView();
 
+		this.subView.InitCbs(getColaboradorDescontoPlanoSaudeType(), getColaboradorSaiRaisType(), getColaboradorOptanteType(), getColaboradorFormaPagamentoType());
+		
+		
 		/* Configura combo Pessoa */
 		// DefaultManyToOneComboModel<Pessoa> model= new
 		// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
@@ -285,6 +293,76 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+	
+	
+	/**
+	 * COMBOS
+	 */
+	public List<String> getColaboradorDescontoPlanoSaudeType() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (DescontoPlanoSaudeType en : DescontoPlanoSaudeType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	public List<String> getColaboradorSaiRaisType() {
+
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (SaiRaisType in : SaiRaisType.values()) {
+				siLista.add(in.ordinal(), in.toString());
+
+			}
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+
+	}
+
+	public List<String> getColaboradorOptanteType() {
+
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (OptanteType tf : OptanteType.values()) {
+				siLista.add(tf.ordinal(), tf.toString());
+			}
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public List<String> getColaboradorFormaPagamentoType() {
+
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (FormaPagamentoType fd : FormaPagamentoType.values()) {
+				siLista.add(fd.ordinal(), fd.toString());
+			}
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

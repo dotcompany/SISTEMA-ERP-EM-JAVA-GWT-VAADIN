@@ -144,14 +144,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		 * this.subView.InitCbs(getClienteFormaDescontoType());
 		 */
 
-		// this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
-		// this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
+		/*this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
+		this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
 		this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
-		this.subView.getCmbFormaDesconto().setData(
-				getClienteFormaDescontoType());
+		this.subView.getCmbFormaDesconto().setData(	getClienteFormaDescontoType());*/
 
-		this.subView.InitCbs(getClienteTipoFreteType(),
-				getClienteIndicadorPrecoType());
+		this.subView.InitCbs(getClienteGerarFinanceiroType(), getClienteIndicadorPrecoType(),	getClienteTipoFreteType(), getClienteFormaDescontoType());
 	}
 
 	@Override

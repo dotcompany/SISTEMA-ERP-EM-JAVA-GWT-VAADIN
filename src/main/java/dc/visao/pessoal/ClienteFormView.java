@@ -311,16 +311,19 @@ public class ClienteFormView extends CustomComponent {
 		return horizontalLayout_6;
 	}
 
-	public void InitCbs(List<String> clienteTipoList, List<String> auxLista) {
+	public void InitCbs(List<String> clienteTipoList, List<String> auxLista, List<String> auxlista, List<String> auxCliente) {
 		for (String str : clienteTipoList) {
 			cmbGerarFinanceiro.addItem(str.toString());
-			cmbIndicadorPreco.addItem(str.toString());
-			cmbTipoFrete.addItem(str.toString());
-			cmbFormaDesconto.addItem(str.toString());
 		}
 
 		for (String str : auxLista) {
-			cmbGerarFinanceiro.addItem(str.toString());
+			cmbIndicadorPreco.addItem(str.toString());
+		}
+		for (String str : auxlista) {
+			cmbTipoFrete.addItem(str.toString());
+		}
+		for (String str : auxCliente) {
+			cmbFormaDesconto.addItem(str.toString());
 		}
 	}
 
