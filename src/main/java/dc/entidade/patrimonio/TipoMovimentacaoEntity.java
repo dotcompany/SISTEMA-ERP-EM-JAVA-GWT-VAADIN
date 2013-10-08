@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -39,8 +39,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoMovimentacaoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class TipoMovimentacaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class TipoMovimentacaoEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_tipo_movimentacao_id_seq")
 	@SequenceGenerator(name = "patrim_tipo_movimentacao_id_seq", sequenceName = "patrim_tipo_movimentacao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -71,11 +71,19 @@ public class TipoMovimentacaoEntity extends AbstractModel<Integer> implements
 	@Caption("Descrição")
 	private String descricao = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Empresa empresa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "tipoMovimentacao", fetch = FetchType.LAZY)
 	private List<MovimentacaoBemEntity> movimentacaoBemList;

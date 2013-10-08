@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -38,8 +38,8 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class DepreciacaoBemEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class DepreciacaoBemEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class DepreciacaoBemEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_depreciacao_bem_id_seq")
 	@SequenceGenerator(name = "patrim_depreciacao_bem_id_seq", sequenceName = "patrim_depreciacao_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -97,6 +97,10 @@ public class DepreciacaoBemEntity extends AbstractModel<Integer> implements
 	@Caption("Bem")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private BemEntity bem;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * CONSTRUTOR

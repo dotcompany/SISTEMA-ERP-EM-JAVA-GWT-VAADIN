@@ -21,7 +21,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -34,8 +34,8 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TaxaDepreciacaoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class TaxaDepreciacaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class TaxaDepreciacaoEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_taxa_depreciacao_id_seq")
 	@SequenceGenerator(name = "patrim_taxa_depreciacao_id_seq", sequenceName = "patrim_taxa_depreciacao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -72,6 +72,14 @@ public class TaxaDepreciacaoEntity extends AbstractModel<Integer> implements
 	@Caption("Taxa")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
 	private Double taxa = new Double(0.0);
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * CONSTRUTOR

@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.control.converter.RunField;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -40,8 +40,8 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ApoliceSeguroEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class ApoliceSeguroEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_apolice_seguro_id_seq")
 	@SequenceGenerator(name = "patrim_apolice_seguro_id_seq", sequenceName = "patrim_apolice_seguro_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -105,6 +105,10 @@ public class ApoliceSeguroEntity extends AbstractModel<Integer> implements
 	@RunField(mappedName = "imagem")
 	private String imagem = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "ID_PATRIM_BEM", nullable = false)
 	@Caption("Bem")
@@ -118,6 +122,10 @@ public class ApoliceSeguroEntity extends AbstractModel<Integer> implements
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	@RunField(mappedName = "seguradora")
 	private SeguradoraEntity seguradora;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * CONSTRUTOR
