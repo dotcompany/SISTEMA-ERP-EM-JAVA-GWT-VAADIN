@@ -75,11 +75,11 @@ public class TipoAquisicaoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "id_empresa", nullable = false)
+//	@Caption("Empresa")
+//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+//	private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -100,10 +100,10 @@ public class TipoAquisicaoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public TipoAquisicaoEntity(Integer id, Empresa empresa) {
-		this.id = id;
-		this.empresa = empresa;
-	}
+//	public TipoAquisicaoEntity(Integer id, Empresa empresa) {
+//		this.id = id;
+//		this.empresa = empresa;
+//	}
 
 	public List<BemEntity> getBemList() {
 		return bemList;
@@ -149,13 +149,13 @@ public class TipoAquisicaoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	@Override
 	public String toString() {

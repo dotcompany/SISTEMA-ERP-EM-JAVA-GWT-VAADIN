@@ -75,11 +75,11 @@ public class EstadoConservacaoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false, insertable = false, updatable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false, insertable = false, updatable = false)
+//	@Caption("Empresa")
+//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+//	private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -133,13 +133,13 @@ public class EstadoConservacaoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public List<BemEntity> getBemList() {
 		return bemList;
