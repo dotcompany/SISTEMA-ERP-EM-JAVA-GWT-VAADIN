@@ -150,11 +150,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 				d.setCstB(d.getCst().getId().toString());
 				detalheDAO.saveOrUpdate(d);
 			}
-		
-		
-			
-			
-			notifiyFrameworkSaveOK(currentBean);
+		notifiyFrameworkSaveOK(currentBean);
 		}catch(ErroValidacaoException e){
 			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
@@ -197,6 +193,22 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 	@Override
 	protected void remover(List<Serializable> ids) {
+		
+		try{
+			for(Serializable id : ids){
+				ICMSCustomizado icms = dao.find(id);
+				List<ICMSCustomizadoDetalhe> detalhes = detalheDAO.findByIcms(icms);
+				for(ICMSCustomizadoDetalhe detalhe : detalhes){
+					detalheDAO.delete(detalhe);
+				}
+			}
+			dao.deleteAllByIds(ids);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		
 		// TODO Auto-generated method stub
 
 	}

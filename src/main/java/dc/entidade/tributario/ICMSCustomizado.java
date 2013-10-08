@@ -56,7 +56,7 @@ public class ICMSCustomizado extends AbstractMultiEmpresaModel<Integer> {
 //	@JoinColumn(name="id_empresa")
 //	Empresa empresa;
 	
-	@OneToMany(mappedBy="icmsCustomizado",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="icmsCustomizado",cascade=CascadeType.REMOVE,fetch=FetchType.EAGER)
 	private List<ICMSCustomizadoDetalhe> detalhes = new ArrayList<ICMSCustomizadoDetalhe>();
 	
 	public Integer getId() {
