@@ -310,119 +310,94 @@ public class ClienteFormView extends CustomComponent {
 
 		return horizontalLayout_6;
 	}
-	
-	public void InitCbs(List<String> clienteTipoList) {
 
+	public void InitCbs(List<String> clienteTipoList, List<String> auxLista) {
 		for (String str : clienteTipoList) {
 			cmbGerarFinanceiro.addItem(str.toString());
 			cmbIndicadorPreco.addItem(str.toString());
 			cmbTipoFrete.addItem(str.toString());
 			cmbFormaDesconto.addItem(str.toString());
-		} 
-	}
-
-	/*public void InitCbs() {
-
-		
-		cmbGerarFinanceiro.addItem(GerarFinanceiroType.SIM.toString());
-		cmbGerarFinanceiro.addItem(GerarFinanceiroType.NAO.toString());
-
-		cmbIndicadorPreco.addItem(IndicadorPrecoType.TABELA.toString());
-		cmbIndicadorPreco.addItem(IndicadorPrecoType.ULTIMOPEDIDO.toString());
-
-		cmbTipoFrete.addItem(TipoFreteType.EMITENTE.toString());
-		cmbTipoFrete.addItem(TipoFreteType.DESTINATARIO.toString());
-		cmbTipoFrete.addItem(TipoFreteType.SEMFRETE.toString());
-		cmbTipoFrete.addItem(TipoFreteType.TERCEIROS.toString());
-
-		cmbFormaDesconto.addItem(FormaDescontoType.PRODUTO.toString());
-		cmbFormaDesconto.addItem(FormaDescontoType.FIMPEDIDO.toString());
-
-	}
-
-	public String getCbGerarFinanceiro() {
-		String cbvalue = new String();
-		if (cmbGerarFinanceiro.getValue() == "Sim") {
-			cbvalue = "S";
-		} else if (cmbGerarFinanceiro.getValue() == "Nao") {
-			cbvalue = "N";
 		}
-		return cbvalue;
-	}
 
-	public void setCbGerarFinanceiro(String cbGerarFinanceiro) {
-		if (cbGerarFinanceiro.equalsIgnoreCase("S")) {
-			this.cmbGerarFinanceiro.setValue("Sim");
-		} else if (cbGerarFinanceiro.equalsIgnoreCase("N")) {
-			this.cmbGerarFinanceiro.setValue("Nao");
+		for (String str : auxLista) {
+			cmbGerarFinanceiro.addItem(str.toString());
 		}
 	}
 
-	public String getCbIndicadorPreco() {
-		String cbvalue = new String();
-		if (cmbIndicadorPreco.getValue() == "Tabela") {
-			cbvalue = "T";
-		} else if (cmbIndicadorPreco.getValue() == "Último Pedido") {
-			cbvalue = "P";
-		}
-		return cbvalue;
-	}
-
-	public void setCbIndicadorPreco(String cbIndicadorPreco) {
-		if (cbIndicadorPreco.equalsIgnoreCase("T")) {
-			this.cmbIndicadorPreco.setValue("Tabela");
-		} else if (cbIndicadorPreco.equalsIgnoreCase("P")) {
-			this.cmbIndicadorPreco.setValue("Último Pedido");
-		}
-	}
-
-	public String getCbTipoFrete() {
-		String cbvalue = new String();
-		if (cmbTipoFrete.getValue() == "Emitente") {
-			cbvalue = "E";
-		} else if (cmbTipoFrete.getValue() == "Destinatários") {
-			cbvalue = "D";
-		} else if (cmbTipoFrete.getValue() == "Sem Frete") {
-
-			cbvalue = "S";
-		} else if (cmbTipoFrete.getValue() == "Terceiros") {
-
-			cbvalue = "T";
-		}
-		return cbvalue;
-	}
-
-	public void setCbTipoFrete(String cbTipoFrete) {
-		if (cbTipoFrete.equalsIgnoreCase("E")) {
-			this.cmbTipoFrete.setValue("Emitente");
-		} else if (cbTipoFrete.equalsIgnoreCase("D")) {
-			this.cmbTipoFrete.setValue("Destinatários");
-		} else if (cbTipoFrete.equalsIgnoreCase("S")) {
-
-			this.cmbTipoFrete.setValue("Sem Frete");
-		} else if (cbTipoFrete.equalsIgnoreCase("T")) {
-
-			this.cmbTipoFrete.setValue("Terceiros");
-		}
-	}
-
-	public String getCbFormaDesconto() {
-		String cbvalue = new String();
-		if (cmbFormaDesconto.getValue() == "Produto") {
-			cbvalue = "P";
-		} else if (cmbFormaDesconto.getValue() == "Fim do Pedido") {
-			cbvalue = "F";
-		}
-		return cbvalue;
-	}
-
-	public void setCbFormaDesconto(String cbFormaDesconto) {
-		if (cbFormaDesconto.equalsIgnoreCase("P")) {
-			this.cmbFormaDesconto.setValue("Produto");
-		} else if (cbFormaDesconto.equalsIgnoreCase("F")) {
-			this.cmbFormaDesconto.setValue("Fim do pedido");
-		}
-	}*/
+	/*
+	 * public void InitCbs() {
+	 * 
+	 * 
+	 * cmbGerarFinanceiro.addItem(GerarFinanceiroType.SIM.toString());
+	 * cmbGerarFinanceiro.addItem(GerarFinanceiroType.NAO.toString());
+	 * 
+	 * cmbIndicadorPreco.addItem(IndicadorPrecoType.TABELA.toString());
+	 * cmbIndicadorPreco.addItem(IndicadorPrecoType.ULTIMOPEDIDO.toString());
+	 * 
+	 * cmbTipoFrete.addItem(TipoFreteType.EMITENTE.toString());
+	 * cmbTipoFrete.addItem(TipoFreteType.DESTINATARIO.toString());
+	 * cmbTipoFrete.addItem(TipoFreteType.SEMFRETE.toString());
+	 * cmbTipoFrete.addItem(TipoFreteType.TERCEIROS.toString());
+	 * 
+	 * cmbFormaDesconto.addItem(FormaDescontoType.PRODUTO.toString());
+	 * cmbFormaDesconto.addItem(FormaDescontoType.FIMPEDIDO.toString());
+	 * 
+	 * }
+	 * 
+	 * public String getCbGerarFinanceiro() { String cbvalue = new String(); if
+	 * (cmbGerarFinanceiro.getValue() == "Sim") { cbvalue = "S"; } else if
+	 * (cmbGerarFinanceiro.getValue() == "Nao") { cbvalue = "N"; } return
+	 * cbvalue; }
+	 * 
+	 * public void setCbGerarFinanceiro(String cbGerarFinanceiro) { if
+	 * (cbGerarFinanceiro.equalsIgnoreCase("S")) {
+	 * this.cmbGerarFinanceiro.setValue("Sim"); } else if
+	 * (cbGerarFinanceiro.equalsIgnoreCase("N")) {
+	 * this.cmbGerarFinanceiro.setValue("Nao"); } }
+	 * 
+	 * public String getCbIndicadorPreco() { String cbvalue = new String(); if
+	 * (cmbIndicadorPreco.getValue() == "Tabela") { cbvalue = "T"; } else if
+	 * (cmbIndicadorPreco.getValue() == "Último Pedido") { cbvalue = "P"; }
+	 * return cbvalue; }
+	 * 
+	 * public void setCbIndicadorPreco(String cbIndicadorPreco) { if
+	 * (cbIndicadorPreco.equalsIgnoreCase("T")) {
+	 * this.cmbIndicadorPreco.setValue("Tabela"); } else if
+	 * (cbIndicadorPreco.equalsIgnoreCase("P")) {
+	 * this.cmbIndicadorPreco.setValue("Último Pedido"); } }
+	 * 
+	 * public String getCbTipoFrete() { String cbvalue = new String(); if
+	 * (cmbTipoFrete.getValue() == "Emitente") { cbvalue = "E"; } else if
+	 * (cmbTipoFrete.getValue() == "Destinatários") { cbvalue = "D"; } else if
+	 * (cmbTipoFrete.getValue() == "Sem Frete") {
+	 * 
+	 * cbvalue = "S"; } else if (cmbTipoFrete.getValue() == "Terceiros") {
+	 * 
+	 * cbvalue = "T"; } return cbvalue; }
+	 * 
+	 * public void setCbTipoFrete(String cbTipoFrete) { if
+	 * (cbTipoFrete.equalsIgnoreCase("E")) {
+	 * this.cmbTipoFrete.setValue("Emitente"); } else if
+	 * (cbTipoFrete.equalsIgnoreCase("D")) {
+	 * this.cmbTipoFrete.setValue("Destinatários"); } else if
+	 * (cbTipoFrete.equalsIgnoreCase("S")) {
+	 * 
+	 * this.cmbTipoFrete.setValue("Sem Frete"); } else if
+	 * (cbTipoFrete.equalsIgnoreCase("T")) {
+	 * 
+	 * this.cmbTipoFrete.setValue("Terceiros"); } }
+	 * 
+	 * public String getCbFormaDesconto() { String cbvalue = new String(); if
+	 * (cmbFormaDesconto.getValue() == "Produto") { cbvalue = "P"; } else if
+	 * (cmbFormaDesconto.getValue() == "Fim do Pedido") { cbvalue = "F"; }
+	 * return cbvalue; }
+	 * 
+	 * public void setCbFormaDesconto(String cbFormaDesconto) { if
+	 * (cbFormaDesconto.equalsIgnoreCase("P")) {
+	 * this.cmbFormaDesconto.setValue("Produto"); } else if
+	 * (cbFormaDesconto.equalsIgnoreCase("F")) {
+	 * this.cmbFormaDesconto.setValue("Fim do pedido"); } }
+	 */
 
 	public GridLayout getMainLayout() {
 		return mainLayout;
@@ -593,5 +568,5 @@ public class ClienteFormView extends CustomComponent {
 	public void setCmbGerarFinanceiro(ComboBox cmbGerarFinanceiro) {
 		this.cmbGerarFinanceiro = cmbGerarFinanceiro;
 	}
-	
+
 }
