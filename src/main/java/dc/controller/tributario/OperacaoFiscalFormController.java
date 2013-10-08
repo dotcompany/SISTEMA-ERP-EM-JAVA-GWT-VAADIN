@@ -94,10 +94,10 @@ public class OperacaoFiscalFormController extends
 				throw new ErroValidacaoException(
 						"Informe o Campo Descrição na NF");
 
-			currentBean.setCfop(cfop.getId());
 			currentBean.setNome(descricao);
 			currentBean.setDescricaoNaNF(descricaoNF);
 			currentBean.setObservacao(subView.getObservacao().getValue());
+		    currentBean.setCfop(cfop.getId());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
@@ -130,7 +130,7 @@ public class OperacaoFiscalFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-
+       dao.deleteAllByIds(ids);
 	}
 
 	@Override

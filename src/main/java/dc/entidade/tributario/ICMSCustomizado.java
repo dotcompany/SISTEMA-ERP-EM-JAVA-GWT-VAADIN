@@ -49,6 +49,7 @@ public class ICMSCustomizado extends AbstractMultiEmpresaModel<Integer> {
 	String origemMercadoria;
 	
 	@Transient
+	@Caption("Origem")
 	String origemStr;
 	
 //	@ManyToOne
