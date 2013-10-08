@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,113 +23,108 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "plano_natureza_financeira")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class PlanoNaturezaFinanceira  extends AbstractModel<BigDecimal> {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class PlanoNaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	@Field
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-    private BigDecimal id;
-    
-    @Field
-    @Caption("Nome")
-    @Column(name = "NOME")
-    @ComboValue
+	private Integer id;
+
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-    private String nome;
-    
-    @Field
-    @Caption("Máscara")
-    @Column(name = "MASCARA")
-    private String mascara;
-    
-    @Column(name = "NIVEIS")
-    private BigDecimal niveis;
-    
-    @Column(name = "DATA_INCLUSAO")
-    @Temporal(TemporalType.DATE)
-    private Date dataInclusao;
-    
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
+	private String nome;
 
-    public PlanoNaturezaFinanceira() {
-    }
+	@Field
+	@Caption("Máscara")
+	@Column(name = "MASCARA")
+	private String mascara;
 
-    public PlanoNaturezaFinanceira(BigDecimal id) {
-        this.id = id;
-    }
+	@Column(name = "NIVEIS")
+	private BigDecimal niveis;
 
-    public BigDecimal getId() {
-        return id;
-    }
+	@Column(name = "DATA_INCLUSAO")
+	@Temporal(TemporalType.DATE)
+	private Date dataInclusao;
 
-    public void setId(BigDecimal id) {
-        this.id = id;
-    }
+	public PlanoNaturezaFinanceira() {
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public PlanoNaturezaFinanceira(Integer id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getMascara() {
-        return mascara;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setMascara(String mascara) {
-        this.mascara = mascara;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof PlanoNaturezaFinanceira == false) return false;
-    	if (this == object) return true;
-    	final PlanoNaturezaFinanceira other = (PlanoNaturezaFinanceira) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	public String getMascara() {
+		return mascara;
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	public void setMascara(String mascara) {
+		this.mascara = mascara;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof PlanoNaturezaFinanceira == false)
+			return false;
+		if (this == object)
+			return true;
+		final PlanoNaturezaFinanceira other = (PlanoNaturezaFinanceira) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 	public BigDecimal getNiveis() {
 		return niveis;
@@ -148,14 +141,4 @@ public class PlanoNaturezaFinanceira  extends AbstractModel<BigDecimal> {
 	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-    
 }
-

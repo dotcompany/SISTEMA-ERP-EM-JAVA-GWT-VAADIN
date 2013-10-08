@@ -32,256 +32,257 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "parcela_pagar")
-
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class ParcelaPagar extends AbstractModel<Integer> {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "DATA_EMISSAO")
-    @Temporal(TemporalType.DATE)
-    @Caption(value="Data Emissão")
-    private Date dataEmissao;
-    
-    @Caption(value="Data Vencimento")
-    @Column(name = "DATA_VENCIMENTO")
-    @Temporal(TemporalType.DATE)
-    private Date dataVencimento;
-    
-    @Caption(value="Desconto Até")
-    @Column(name = "DESCONTO_ATE")
-    @Temporal(TemporalType.DATE)
-    private Date descontoAte;
-    
-    @Caption(value="Sofre Retencao")
-    @Column(name = "SOFRE_RETENCAO")
-    private String sofreRetencao;
-    
-    @Field
-    @Caption(value="Valor")
-    @Column(name = "VALOR")
-    private BigDecimal valor;
-    
-    @Caption(value="Taxa Juro")
-    @Column(name = "TAXA_JURO", precision = 14, scale = 0)
-    private BigDecimal taxaJuro;
-    
-    @Caption(value="Taxa Multa")
-    @Column(name = "TAXA_MULTA", precision = 14, scale = 0)
-    private BigDecimal taxaMulta;
-    
-    @Caption(value="Taxa Desconto")
-    @Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
-    private BigDecimal taxaDesconto;
-    
-    @Caption(value="Valor Juro")
-    @Column(name = "VALOR_JURO", precision = 14, scale = 0)
-    private BigDecimal valorJuro;
-    
-    @Caption(value="Valor Multa")
-    @Column(name = "VALOR_MULTA", precision = 14, scale = 0)
-    private BigDecimal valorMulta;
-    
-    @Caption(value="Valor Desconto")
-    @Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
-    private BigDecimal valorDesconto;
-    
-    @Caption(value="Status Parcela")
-    @JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private StatusParcela statusParcela;
-    
-    @Caption(value="Lançamento à Pagar")
-    @JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private LancamentoPagar lancamentoPagar;
-   
-    @Caption(value="Número Parcela")
-    @Column(name = "NUMERO_PARCELA")
-    private Integer numeroParcela;
-   
-    @Caption(value="Conta Caixa")
-    @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ContaCaixa contaCaixa;
-   
-    @OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+
+	@Column(name = "DATA_EMISSAO")
+	@Temporal(TemporalType.DATE)
+	@Caption(value = "Data Emissão")
+	private Date dataEmissao;
+
+	@Caption(value = "Data Vencimento")
+	@Column(name = "DATA_VENCIMENTO")
+	@Temporal(TemporalType.DATE)
+	private Date dataVencimento;
+
+	@Caption(value = "Desconto Até")
+	@Column(name = "DESCONTO_ATE")
+	@Temporal(TemporalType.DATE)
+	private Date descontoAte;
+
+	@Caption(value = "Sofre Retencao")
+	@Column(name = "SOFRE_RETENCAO")
+	private String sofreRetencao;
+
+	@Field
+	@Caption(value = "Valor")
+	@Column(name = "VALOR")
+	private BigDecimal valor;
+
+	@Caption(value = "Taxa Juro")
+	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
+	private BigDecimal taxaJuro;
+
+	@Caption(value = "Taxa Multa")
+	@Column(name = "TAXA_MULTA", precision = 14, scale = 0)
+	private BigDecimal taxaMulta;
+
+	@Caption(value = "Taxa Desconto")
+	@Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
+	private BigDecimal taxaDesconto;
+
+	@Caption(value = "Valor Juro")
+	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
+	private BigDecimal valorJuro;
+
+	@Caption(value = "Valor Multa")
+	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
+	private BigDecimal valorMulta;
+
+	@Caption(value = "Valor Desconto")
+	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
+	private BigDecimal valorDesconto;
+
+	@Caption(value = "Status Parcela")
+	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private StatusParcela statusParcela;
+
+	@Caption(value = "Lançamento à Pagar")
+	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private LancamentoPagar lancamentoPagar;
+
+	@Caption(value = "Número Parcela")
+	@Column(name = "NUMERO_PARCELA")
+	private Integer numeroParcela;
+
+	@Caption(value = "Conta Caixa")
+	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private ContaCaixa contaCaixa;
+
+	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
-    
-    public ParcelaPagar() {
-    }
 
-    public ParcelaPagar(Integer id) {
-        this.id = id;
-    }
+	public ParcelaPagar() {
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public ParcelaPagar(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getDataEmissao() {
-        return dataEmissao;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setDataEmissao(Date dataEmissao) {
-        this.dataEmissao = dataEmissao;
-    }
+	public Date getDataEmissao() {
+		return dataEmissao;
+	}
 
-    public Date getDataVencimento() {
-        return dataVencimento;
-    }
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
 
-    public void setDataVencimento(Date dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
 
-    public Date getDescontoAte() {
-        return descontoAte;
-    }
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
+	}
 
-    public void setDescontoAte(Date descontoAte) {
-        this.descontoAte = descontoAte;
-    }
+	public Date getDescontoAte() {
+		return descontoAte;
+	}
 
-    public String getSofreRetencao() {
-        return sofreRetencao;
-    }
+	public void setDescontoAte(Date descontoAte) {
+		this.descontoAte = descontoAte;
+	}
 
-    public void setSofreRetencao(String sofreRetencao) {
-        this.sofreRetencao = sofreRetencao;
-    }
+	public String getSofreRetencao() {
+		return sofreRetencao;
+	}
 
-    public BigDecimal getValor() {
-        return valor;
-    }
+	public void setSofreRetencao(String sofreRetencao) {
+		this.sofreRetencao = sofreRetencao;
+	}
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
+	public BigDecimal getValor() {
+		return valor;
+	}
 
-    public BigDecimal getTaxaJuro() {
-        return taxaJuro;
-    }
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
-    public void setTaxaJuro(BigDecimal taxaJuro) {
-        this.taxaJuro = taxaJuro;
-    }
+	public BigDecimal getTaxaJuro() {
+		return taxaJuro;
+	}
 
-    public BigDecimal getTaxaMulta() {
-        return taxaMulta;
-    }
+	public void setTaxaJuro(BigDecimal taxaJuro) {
+		this.taxaJuro = taxaJuro;
+	}
 
-    public void setTaxaMulta(BigDecimal taxaMulta) {
-        this.taxaMulta = taxaMulta;
-    }
+	public BigDecimal getTaxaMulta() {
+		return taxaMulta;
+	}
 
-    public BigDecimal getTaxaDesconto() {
-        return taxaDesconto;
-    }
+	public void setTaxaMulta(BigDecimal taxaMulta) {
+		this.taxaMulta = taxaMulta;
+	}
 
-    public void setTaxaDesconto(BigDecimal taxaDesconto) {
-        this.taxaDesconto = taxaDesconto;
-    }
+	public BigDecimal getTaxaDesconto() {
+		return taxaDesconto;
+	}
 
-    public BigDecimal getValorJuro() {
-        return valorJuro;
-    }
+	public void setTaxaDesconto(BigDecimal taxaDesconto) {
+		this.taxaDesconto = taxaDesconto;
+	}
 
-    public void setValorJuro(BigDecimal valorJuro) {
-        this.valorJuro = valorJuro;
-    }
+	public BigDecimal getValorJuro() {
+		return valorJuro;
+	}
 
-    public BigDecimal getValorMulta() {
-        return valorMulta;
-    }
+	public void setValorJuro(BigDecimal valorJuro) {
+		this.valorJuro = valorJuro;
+	}
 
-    public void setValorMulta(BigDecimal valorMulta) {
-        this.valorMulta = valorMulta;
-    }
+	public BigDecimal getValorMulta() {
+		return valorMulta;
+	}
 
-    public BigDecimal getValorDesconto() {
-        return valorDesconto;
-    }
+	public void setValorMulta(BigDecimal valorMulta) {
+		this.valorMulta = valorMulta;
+	}
 
-    public void setValorDesconto(BigDecimal valorDesconto) {
-        this.valorDesconto = valorDesconto;
-    }
+	public BigDecimal getValorDesconto() {
+		return valorDesconto;
+	}
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public void setValorDesconto(BigDecimal valorDesconto) {
+		this.valorDesconto = valorDesconto;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof ParcelaPagar== false) return false;
-    	if (this == object) return true;
-    	final ParcelaPagar other = (ParcelaPagar) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof ParcelaPagar == false)
+			return false;
+		if (this == object)
+			return true;
+		final ParcelaPagar other = (ParcelaPagar) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
 
-    /**
-     * @return the statusParcela
-     */
-    public StatusParcela getStatusParcela() {
-        return statusParcela;
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
-    /**
-     * @param statusParcela the statusParcela to set
-     */
-    public void setStatusParcela(StatusParcela statusParcela) {
-        this.statusParcela = statusParcela;
-    }
+	/**
+	 * @return the statusParcela
+	 */
+	public StatusParcela getStatusParcela() {
+		return statusParcela;
+	}
 
-    /**
-     * @return the lancamentoPagar
-     */
-    public LancamentoPagar getLancamentoPagar() {
-        return lancamentoPagar;
-    }
+	/**
+	 * @param statusParcela
+	 *            the statusParcela to set
+	 */
+	public void setStatusParcela(StatusParcela statusParcela) {
+		this.statusParcela = statusParcela;
+	}
 
-    /**
-     * @param lancamentoPagar the lancamentoPagar to set
-     */
-    public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
-        this.lancamentoPagar = lancamentoPagar;
-    }
+	/**
+	 * @return the lancamentoPagar
+	 */
+	public LancamentoPagar getLancamentoPagar() {
+		return lancamentoPagar;
+	}
+
+	/**
+	 * @param lancamentoPagar
+	 *            the lancamentoPagar to set
+	 */
+	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
+		this.lancamentoPagar = lancamentoPagar;
+	}
 
 	public Integer getNumeroParcela() {
 		return numeroParcela;
@@ -306,8 +307,5 @@ public class ParcelaPagar extends AbstractModel<Integer> {
 	public void setParcelapagamentos(List<ParcelaPagamento> parcelapagamentos) {
 		this.parcelapagamentos = parcelapagamentos;
 	}
-	
-	
 
 }
-

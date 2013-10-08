@@ -1,6 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,10 +22,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
  * 
@@ -46,8 +42,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PlanoCentroResultado extends AbstractModel<Integer> implements
-		Serializable {
+public class PlanoCentroResultado extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -77,10 +72,6 @@ public class PlanoCentroResultado extends AbstractModel<Integer> implements
 	@Column(name = "DATA_INCLUSAO")
 	@Temporal(TemporalType.DATE)
 	private Date dataInclusao;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
 
 	public PlanoCentroResultado() {
 
@@ -151,14 +142,6 @@ public class PlanoCentroResultado extends AbstractModel<Integer> implements
 
 	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 }

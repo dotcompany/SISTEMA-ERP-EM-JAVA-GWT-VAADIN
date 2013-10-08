@@ -1,6 +1,5 @@
 package dc.entidade.financeiro;
- 
-import java.io.Serializable;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +34,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 
 /**
@@ -53,7 +53,7 @@ import dc.entidade.geral.Fornecedor;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LancamentoPagar implements Serializable {
+public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

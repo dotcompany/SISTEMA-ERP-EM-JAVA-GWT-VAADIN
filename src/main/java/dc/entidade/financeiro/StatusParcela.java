@@ -1,17 +1,12 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,116 +16,103 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 @Entity
 @Table(name = "status_parcela")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class StatusParcela implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "DESCRICAO")
-    @Caption(value="Descrição")
-    private String descricao;
-    
-    @Lob
-    @Type(type="text")
-    @Column(name = "PROCEDIMENTO")
-    @Caption(value="Procedimento")
-    private String procedimento;
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class StatusParcela extends AbstractMultiEmpresaModel<Integer> {
 
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    private Empresa empresa;
-    
-    @Caption(value="Situação")
-    @Column(name = "SITUACAO")
-    private String situacao;
+	private static final long serialVersionUID = 1L;
 
-    public StatusParcela() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-    public StatusParcela(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "DESCRICAO")
+	@Caption(value = "Descrição")
+	private String descricao;
 
-    public Integer getId() {
-        return id;
-    }
+	@Lob
+	@Type(type = "text")
+	@Column(name = "PROCEDIMENTO")
+	@Caption(value = "Procedimento")
+	private String procedimento;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Caption(value = "Situação")
+	@Column(name = "SITUACAO")
+	private String situacao;
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getProcedimento() {
-        return procedimento;
-    }
-
-    public void setProcedimento(String procedimento) {
-        this.procedimento = procedimento;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StatusParcela)) {
-            return false;
-        }
-        StatusParcela other = (StatusParcela) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "StatusParcela[id=" + id + "]";
-    }
-
-	public Empresa getEmpresa() {
-		return empresa;
+	public StatusParcela() {
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public StatusParcela(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getProcedimento() {
+		return procedimento;
+	}
+
+	public void setProcedimento(String procedimento) {
+		this.procedimento = procedimento;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof StatusParcela)) {
+			return false;
+		}
+		StatusParcela other = (StatusParcela) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "StatusParcela[id=" + id + "]";
 	}
 
 	public String getSituacao() {
@@ -142,4 +124,3 @@ public class StatusParcela implements Serializable {
 	}
 
 }
-
