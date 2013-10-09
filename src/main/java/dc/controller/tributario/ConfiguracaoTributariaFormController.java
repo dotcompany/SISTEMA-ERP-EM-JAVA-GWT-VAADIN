@@ -29,6 +29,7 @@ import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.entidade.tributario.IPIConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.entidade.tributario.PISConfiguracaoTributaria;
+import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.tabelas.CfopDAO;
 import dc.servicos.dao.tabelas.CodigoApuracaoEfdDAO;
@@ -337,9 +338,22 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Override
 	protected void actionSalvar() {
 		try{
-			//currentBean.setEmpresa(empresaAtual());
-			currentBean.setGrupoTributario((GrupoTributario)subView.getCmbGrupoTributario().getValue());
-			currentBean.setOperacaoFiscal((OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue());
+			currentBean.setEmpresa(empresaAtual());
+			String msgErro ="Problema ao realizar operação";
+			GrupoTributario grupo = (GrupoTributario)subView.getCmbGrupoTributario().getValue();
+			if(grupo == null) {
+				msgErro = "Informe o Grupo Tributário";
+				throw new ErroValidacaoException(msgErro);
+			}
+			
+			OperacaoFiscal operacao = (OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue();
+			if(operacao == null) {
+				msgErro = "Informe a Operação Fiscal";
+				throw new ErroValidacaoException(msgErro);
+			}
+			
+			currentBean.setGrupoTributario(grupo);
+			currentBean.setOperacaoFiscal(operacao);
 			dao.saveOrUpdate(currentBean);
 
 
@@ -359,6 +373,8 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 			salvarCofins(currentBean);
 			salvarIpi(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
+		}	catch (ErroValidacaoException e) {
+				mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -476,8 +492,6 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
-
 	}
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
