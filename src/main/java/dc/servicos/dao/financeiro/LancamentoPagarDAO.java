@@ -9,11 +9,9 @@ import dc.entidade.financeiro.LancamentoPagar;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
 @Repository
 @SuppressWarnings("unchecked")
-public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagar>{
+public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagar> {
 
 	@Override
 	public Class<LancamentoPagar> getEntityClass() {
@@ -24,10 +22,9 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagar>{
 	public List<ParcelaPagamento> listaTodos() {
 		return getSession().createQuery("from LancamentoPagar").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] { "pagamentoCompartilhado" };
 	}
-	
 
 }

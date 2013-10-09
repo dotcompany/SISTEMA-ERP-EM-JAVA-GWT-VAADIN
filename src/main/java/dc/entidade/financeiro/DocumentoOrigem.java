@@ -13,6 +13,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -49,14 +50,17 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Código")
 	@Column(name = "CODIGO")
+	@Field
 	private String codigo;
 
 	@Caption(value = "Sigla Documento")
 	@Column(name = "SIGLA_DOCUMENTO")
+	@Field
 	private String siglaDocumento;
 
 	@Caption(value = "Descrição")
 	@Column(name = "DESCRICAO")
+	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;

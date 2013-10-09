@@ -41,6 +41,7 @@ import dc.visao.financeiro.LancamentoPagarFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -122,6 +123,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 				}
 
 				try {
+					currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 					lancamentoPagarDAO.saveOrUpdate(currentBean);
 					notifiyFrameworkSaveOK(this.currentBean);
 				} catch (Exception e) {

@@ -1,6 +1,5 @@
 package dc.entidade.geral;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -25,13 +24,12 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
@@ -53,7 +51,7 @@ import dc.entidade.pessoal.SituacaoForCli;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Fornecedor extends AbstractModel<Integer> implements Serializable {
+public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -100,7 +98,6 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	@Field
 	@Column(name = "OBSERVACAO")
-	@ComboValue
 	@Caption(value = "Observação")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
@@ -145,6 +142,8 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@Analyzer(definition = "dc_combo_analyzer")
+	@IndexedEmbedded
 	private Pessoa pessoa;
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
@@ -153,10 +152,6 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Empresa empresa;
 
 	public Fornecedor() {
 
@@ -381,14 +376,6 @@ public class Fornecedor extends AbstractModel<Integer> implements Serializable {
 
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 }

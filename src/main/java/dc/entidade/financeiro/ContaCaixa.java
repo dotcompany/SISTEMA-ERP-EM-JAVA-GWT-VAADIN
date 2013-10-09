@@ -1,7 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +22,9 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
  * 
@@ -45,7 +42,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
+public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -64,7 +61,6 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Digito")
 	@Column(name = "DIGITO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String digito = "";
 
@@ -80,7 +76,6 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@Type(type = "text")
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
 
@@ -90,10 +85,6 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
 	private AgenciaBanco agenciaBanco;
-
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
@@ -162,14 +153,6 @@ public class ContaCaixa extends AbstractModel<Integer> implements Serializable {
 
 	public void setAgenciaBanco(AgenciaBanco agenciaBanco) {
 		this.agenciaBanco = agenciaBanco;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	public ContabilConta getContabilConta() {
