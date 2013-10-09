@@ -11,12 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import sun.security.action.GetLongAction;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.tabelas.Cfop;
+import dc.entidade.tabelas.Csosnb;
+import dc.entidade.tabelas.CstIcmsB;
 
 @Entity
 @Table(name = "tribut_icms_uf")
@@ -32,7 +37,9 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 	@Column(name="uf_destino")
 	private String ufDestino;
 
-	private Integer cfop;
+	@ManyToOne
+	@JoinColumn(name="cfop")
+	private Cfop cfop;
 
 	@Column(name="csosn_b")
 	private String csosnB;
@@ -44,7 +51,7 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 	String modalidadeBc;
 
 	@Column(name="aliquota")
-	BigDecimal aliquota;
+	Integer aliquota;
 
 	@Column(name="valor_pauta")
 	BigDecimal valorPauta;
@@ -55,7 +62,12 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
-
+	
+	@Transient
+	private Csosnb csosn;
+	
+	@Transient
+	private CstIcmsB cst;
 
 	public Integer getId() {
 		return id;
@@ -73,13 +85,9 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 		this.ufDestino = ufDestino;
 	}
 
-	public Integer getCfop() {
-		return cfop;
-	}
+	
 
-	public void setCfop(Integer cfop) {
-		this.cfop = cfop;
-	}
+	
 
 	public String getCsosnB() {
 		return csosnB;
@@ -105,13 +113,7 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 		this.modalidadeBc = modalidadeBc;
 	}
 
-	public BigDecimal getAliquota() {
-		return aliquota;
-	}
-
-	public void setAliquota(BigDecimal aliquota) {
-		this.aliquota = aliquota;
-	}
+	
 
 	public BigDecimal getValorPauta() {
 		return valorPauta;
@@ -138,6 +140,37 @@ public class ICMSConfiguracaoTributaria extends AbstractModel<Integer> {
 		this.configuracaoTributaria = configuracaoTributaria;
 	}
 
+	public Cfop getCfop() {
+		return cfop;
+	}
 
+	public void setCfop(Cfop cfop) {
+		this.cfop = cfop;
+	}
+
+	public Integer getAliquota() {
+		return aliquota;
+	}
+
+	public void setAliquota(Integer aliquota) {
+		this.aliquota = aliquota;
+	}
+
+	public Csosnb getCsosn() {
+		return csosn;
+	}
+
+	public void setCsosn(Csosnb csosn) {
+		this.csosn = csosn;
+	}
+
+	public CstIcmsB getCst() {
+		return cst;
+	}
+
+	public void setCst(CstIcmsB cst) {
+		this.cst = cst;
+	}
+	
 
 }
