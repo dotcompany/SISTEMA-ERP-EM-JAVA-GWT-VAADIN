@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -39,8 +39,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class GrupoBemEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class GrupoBemEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class GrupoBemEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_grupo_bem_id_seq")
 	@SequenceGenerator(name = "patrim_grupo_bem_id_seq", sequenceName = "patrim_grupo_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -89,11 +89,19 @@ public class GrupoBemEntity extends AbstractModel<Integer> implements
 	@Caption("Código do historico")
 	private Integer codigoHistorico = new Integer(0);
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	/**
+	 * REFERENCIA - FK
+	 */
+
+//	@ManyToOne
+//	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+//	@Caption("Empresa")
+//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+//	private Empresa empresa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "grupoBem", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
@@ -173,13 +181,13 @@ public class GrupoBemEntity extends AbstractModel<Integer> implements
 		this.codigoHistorico = codigoHistorico;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public List<BemEntity> getBemList() {
 		return bemList;

@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 
@@ -35,7 +36,7 @@ import dc.servicos.dao.tributario.GrupoTributarioDAO;
 @Table(name = "tribut_configura_of_gt")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Serializable {
+public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -58,16 +59,16 @@ public class ConfiguracaoTributaria extends AbstractModel<Integer> implements Se
 	@Caption("Operação Fiscal")
 	private OperacaoFiscal operacaoFiscal;
 
-	@OneToMany(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="configuracaoTributaria",fetch=FetchType.EAGER)
 	private List<ICMSConfiguracaoTributaria> listaIcms = new ArrayList<ICMSConfiguracaoTributaria>();
 
-	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="configuracaoTributaria")
 	private PISConfiguracaoTributaria pis ;
 	
-	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="configuracaoTributaria")
 	private CofinsConfiguracaoTributaria cofins ;
 	
-	@OneToOne(mappedBy="configuracaoTributaria",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="configuracaoTributaria")
 	private IPIConfiguracaoTributaria ipi ;
 		
 	public ConfiguracaoTributaria() {

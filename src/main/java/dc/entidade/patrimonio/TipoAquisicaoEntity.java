@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -39,8 +39,8 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoAquisicaoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class TipoAquisicaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class TipoAquisicaoEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_tipo_aquisicao_bem_id_seq")
 	@SequenceGenerator(name = "patrim_tipo_aquisicao_bem_id_seq", sequenceName = "patrim_tipo_aquisicao_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -71,11 +71,19 @@ public class TipoAquisicaoEntity extends AbstractModel<Integer> implements
 	@Caption("Descrição")
 	private String descricao = "";
 
-	@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	/**
+	 * REFERENCIA - FK
+	 */
+
+//	@ManyToOne
+//	@JoinColumn(name = "id_empresa", nullable = false)
+//	@Caption("Empresa")
+//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+//	private Empresa empresa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "tipoAquisicao", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
@@ -92,10 +100,10 @@ public class TipoAquisicaoEntity extends AbstractModel<Integer> implements
 		this.id = id;
 	}
 
-	public TipoAquisicaoEntity(Integer id, Empresa empresa) {
-		this.id = id;
-		this.empresa = empresa;
-	}
+//	public TipoAquisicaoEntity(Integer id, Empresa empresa) {
+//		this.id = id;
+//		this.empresa = empresa;
+//	}
 
 	public List<BemEntity> getBemList() {
 		return bemList;
@@ -141,13 +149,13 @@ public class TipoAquisicaoEntity extends AbstractModel<Integer> implements
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//	public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	@Override
 	public String toString() {

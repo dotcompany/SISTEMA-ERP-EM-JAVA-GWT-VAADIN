@@ -121,7 +121,7 @@ public class GrupoTributarioFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-
+		dao.deleteAllByIds(ids);
 	}
 
 	@Override

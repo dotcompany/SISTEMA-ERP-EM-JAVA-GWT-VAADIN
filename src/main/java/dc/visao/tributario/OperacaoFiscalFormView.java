@@ -63,14 +63,17 @@ public class OperacaoFiscalFormView extends CustomComponent {
 		fields.addComponent(cfop, 0, 0);
 
 		descricao = ComponentUtil.buildTextField("Descrição");
+		descricao.setMaxLength(100);
 		descricao.setRequired(true);
 		fields.addComponent(descricao, 1, 0, 4, 0);
 
 		descricaoNaNf = ComponentUtil.buildTextField("Descrição Na NF");
 		descricaoNaNf.setRequired(true);
+		descricaoNaNf.setMaxLength(100);
 		fields.addComponent(descricaoNaNf, 0, 1, 4, 1);
 
 		observacao = new TextArea("Observações");
+		observacao.setMaxLength(500);
 		observacao.setWidth("100%");
 		observacao.setHeight("350");
 		fields.addComponent(observacao, 0, 2, 4, 2);

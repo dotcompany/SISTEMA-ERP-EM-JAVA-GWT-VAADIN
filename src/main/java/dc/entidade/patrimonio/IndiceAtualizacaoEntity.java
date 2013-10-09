@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.control.converter.RunField;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -38,8 +38,8 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class IndiceAtualizacaoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class IndiceAtualizacaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class IndiceAtualizacaoEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_indice_atualizacao_id_seq")
 	@SequenceGenerator(name = "patrim_indice_atualizacao_id_seq", sequenceName = "patrim_indice_atualizacao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -80,6 +80,14 @@ public class IndiceAtualizacaoEntity extends AbstractModel<Integer> implements
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
 	@RunField(mappedName = "valorAlternativo")
 	private Double valorAlternativo = new Double(0.0);
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * CONSTRUTOR

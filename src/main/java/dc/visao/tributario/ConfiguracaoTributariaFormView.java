@@ -403,7 +403,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		// common part: create layout
 
 		icmsSubForm = new SubFormComponent<ICMSConfiguracaoTributaria, Integer>(ICMSConfiguracaoTributaria.class, new String[] { 
-			"ufDestino","cfop","csosnB","cstB","modalidadeBc","aliquota","valorPauta","valorPrecoMaximo"}, new String[] {"UF","CFOP","CSOSN_B","CST_B","Modalidade BC","Aliquota","Valor Pauta","Valor Preço Máximo"}) {
+			"ufDestino","cfop","csosn","cst","modalidadeBc","aliquota","valorPauta","valorPrecoMaximo"}, new String[] {"UF","CFOP","CSOSN_B","CST_B","Modalidade BC","Aliquota","Valor Pauta","Valor Preço Máximo"}) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -433,21 +433,23 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 							return combo;
 						}
 
-						if ("csosnB".equals(propertyId)) {
+						if ("csosn".equals(propertyId)) {
 							ComboBox combo = ComponentUtil.buildComboBox("CSOSN_B");
 							combo.setContainerDataSource(controller.carregarCsosnb());
 							return combo;
 						}
 
-						if ("cstB".equals(propertyId)) {
+						if ("cst".equals(propertyId)) {
 							ComboBox combo = ComponentUtil.buildComboBox("CST_B");
 							combo.setContainerDataSource(controller.carregarCstB());
 							return combo;
 						}
 
 						if ("modalidadeBc".equals(propertyId)) {
-							TextField field = ComponentUtil.buildTextField("Modalidade BC");
-							field.setMaxLength(1);
+							ComboBox field = ComponentUtil.buildComboBox("Modalidade Base de Cálculo");
+							field.removeAllItems();
+							field.addItem(MODALIDADE_BC.PERCENTUAL);
+							field.addItem(MODALIDADE_BC.TESTE);
 							return field;
 						}
 
