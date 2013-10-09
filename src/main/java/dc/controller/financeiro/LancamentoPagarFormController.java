@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -38,6 +40,7 @@ import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoPagarFormView;
+import dc.visao.financeiro.LancamentoPagarFormView.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -114,6 +117,9 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		}
 
 		if (valido) {
+
+			setIntervaloParcelaByTipoVencimento();
+
 			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
@@ -130,6 +136,12 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+
+	private void setIntervaloParcelaByTipoVencimento() {
+		if (TipoVencimento.MENSAL.equals(subView.getCbTipoVencimento().getValue())) {
+			currentBean.setIntervaloEntreParcelas(30);
 		}
 	}
 
@@ -186,6 +198,29 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		});
 
 		subView.getDtLancamento().setValue(new Date());
+		subView.getTxIntervaloParcela().setEnabled(false);
+
+		subView.getCbTipoVencimento().addValueChangeListener(new ValueChangeListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				TipoVencimento tipoVencimento = (TipoVencimento) subView.getCbTipoVencimento().getValue();
+				if (TipoVencimento.MENSAL.equals(tipoVencimento)) {
+					subView.getTxIntervaloParcela().setEnabled(false);
+					subView.getTxIntervaloParcela().setValue(null);
+					currentBean.setIntervaloEntreParcelas(30);
+				} else {
+					subView.getTxIntervaloParcela().setEnabled(true);
+					currentBean.setIntervaloEntreParcelas(null);
+				}
+
+			}
+		});
 
 		preencheCombos();
 	}
@@ -291,7 +326,8 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 	}
 
 	private boolean verificaSeFoiParcelado() {
-		return ((Integer) subView.getTxQuantidadeParcela().getConvertedValue()) > 1;
+		return ((Integer) subView.getTxQuantidadeParcela().getConvertedValue()) > 1
+				&& TipoVencimento.DIARIO.equals(subView.getCbTipoVencimento().getValue());
 	}
 
 	private BigDecimal getTotalParcelaPagar(List<ParcelaPagar> parcelas) {
@@ -392,6 +428,9 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		subView.getParcelasSubForm().removeAllItems();
 
 		subView.preencheBean(currentBean);
+
+		setIntervaloParcelaByTipoVencimento();
+
 		LancamentoPagar lancamentoPagar = currentBean;
 		ParcelaPagar parcelaPagar;
 		Date dataEmissao = new Date();
@@ -421,10 +460,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 			}
 
 			parcelasPagar.add(parcelaPagar);
-		}
-
-		for (ParcelaPagar p : parcelasPagar) {
-			novoParcelaPagar(p);
+			novoParcelaPagar(parcelaPagar);
 		}
 
 		subView.getParcelasSubForm().fillWith(parcelasPagar);

@@ -1,5 +1,5 @@
 package dc.visao.financeiro;
- 
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
@@ -93,6 +93,8 @@ public class LancamentoPagarFormView extends CustomComponent {
 	private Button btnGerarParcelas;
 	private VerticalLayout parcelasLayout;
 
+	private ComboBox cbTipoVencimento;
+
 	/**
 	 * The constructor should first build the main layout, set the composition
 	 * root and then do any custom initialization.
@@ -133,6 +135,10 @@ public class LancamentoPagarFormView extends CustomComponent {
 			cbPagamentoCompartilhado.addItem(value);
 		}
 
+		for (TipoVencimento value : TipoVencimento.values()) {
+			cbTipoVencimento.addItem(value);
+		}
+
 		return mainLayout;
 	}
 
@@ -144,7 +150,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(7);
-		fields.setColumns(6);
+		fields.setColumns(7);
 
 		cbFornecedor = new ManyToOneCombo<>();
 		fields.addComponent(cbFornecedor, 0, 0, 1, 0);
@@ -173,12 +179,15 @@ public class LancamentoPagarFormView extends CustomComponent {
 		fields.addComponent(txQuantidadeParcela, 3, 2);
 		txQuantidadeParcela.setConverter(new IntegerConverter());
 
+		cbTipoVencimento = ComponentUtil.buildComboBox("Tipo Vencimento");
+		fields.addComponent(cbTipoVencimento, 4, 2);
+
 		txIntervaloParcela = ComponentUtil.buildNumericField("Intervalos Parcelas");
-		fields.addComponent(txIntervaloParcela, 4, 2);
+		fields.addComponent(txIntervaloParcela, 5, 2);
 		txIntervaloParcela.setConverter(new IntegerConverter());
 
 		dtPrimeiroVencimento = ComponentUtil.buildPopupDateField("Primeiro Vencimento");
-		fields.addComponent(dtPrimeiroVencimento, 5, 2);
+		fields.addComponent(dtPrimeiroVencimento, 6, 2);
 
 		cbContaCaixa = new ManyToOneCombo<>();
 		cbContaCaixa.setCaption("Conta Caixa");
@@ -423,6 +432,13 @@ public class LancamentoPagarFormView extends CustomComponent {
 		txNumeroDocumento.setValue(currentBean.getNumeroDocumento());
 		txQuantidadeParcela.setConvertedValue(currentBean.getQuantidadeParcela());
 
+		if ((Integer) txIntervaloParcela.getConvertedValue() == 30) {
+			cbTipoVencimento.setValue(TipoVencimento.MENSAL);
+		} else {
+			txIntervaloParcela.setEnabled(false);
+			cbTipoVencimento.setValue(TipoVencimento.DIARIO);
+		}
+
 		parcelasSubForm.fillWith(currentBean.getParcelasPagar());
 		naturezaFinanceiraSubForm.fillWith(currentBean.getLctoPagarNtFinanceiras());
 	}
@@ -539,26 +555,6 @@ public class LancamentoPagarFormView extends CustomComponent {
 		this.cbContaCaixa = cbContaCaixa;
 	}
 
-	/*
-	 * public void preencheComboContaCaixa(List<ContaCaixa> contas) {
-	 * cbContaCaixa.removeAllItems(); for (ContaCaixa contaCaixa : contas) {
-	 * cbContaCaixa.addItem(contaCaixa); }
-	 * 
-	 * }
-	 */
-	/*
-	 * public void preencheComboFornecedores(List<Fornecedor> fornecedores) {
-	 * cbFornecedor.removeAllItems(); for (Fornecedor fornecedor : fornecedores)
-	 * { cbFornecedor.addItem(fornecedor); } }
-	 */
-
-	/*
-	 * public void preencheComboDocumentoOrigem(List<DocumentoOrigem>
-	 * documentosOrigem) { cbDocumentoOrigem.removeAllItems(); for
-	 * (DocumentoOrigem doc : documentosOrigem) {
-	 * cbDocumentoOrigem.addItem(doc); } }
-	 */
-
 	public enum SimNao {
 
 		SIM("Sim", "S"), NAO("Não", "N");
@@ -595,12 +591,56 @@ public class LancamentoPagarFormView extends CustomComponent {
 		}
 	}
 
+	public enum TipoVencimento {
+
+		MENSAL("Mensal", "M"), DIARIO("Diário", "D");
+
+		private TipoVencimento(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static TipoVencimento getTipoVencimento(String codigo) {
+			for (TipoVencimento e : TipoVencimento.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
 	public ManyToOneCombo<Fornecedor> getCbFornecedor() {
 		return cbFornecedor;
 	}
 
 	public void setCbFornecedor(ManyToOneCombo<Fornecedor> cbFornecedor) {
 		this.cbFornecedor = cbFornecedor;
+	}
+
+	public ComboBox getCbTipoVencimento() {
+		return cbTipoVencimento;
+	}
+
+	public void setCbTipoVencimento(ComboBox cbTipoVencimento) {
+		this.cbTipoVencimento = cbTipoVencimento;
 	}
 
 }
