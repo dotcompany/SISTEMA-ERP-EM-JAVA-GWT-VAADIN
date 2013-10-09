@@ -1,6 +1,7 @@
 package dc.controller.produto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.produto.UnidadeProduto;
+import dc.entidade.type.produto.PodeFracionarType;
 import dc.servicos.dao.produto.UnidadeProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.produto.UnidadeProdutoFormView;
@@ -28,8 +30,7 @@ import dc.visao.produto.UnidadeProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoFormController extends
-		CRUDFormController<UnidadeProduto> {
+public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProduto> {
 
 	/**
 	 * 
@@ -57,7 +58,6 @@ public class UnidadeProdutoFormController extends
 	protected void actionSalvar() {
 		currentBean.setSigla(subView.getTxtSigla().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		currentBean.setPodeFracionar(subView.getCbPodeFracionar().toString());
 
 		try {
 			unidadeProdutoDAO.saveOrUpdate(currentBean);
@@ -86,6 +86,8 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new UnidadeProdutoFormView();
+		
+		this.subView.InitCbs(getUnidadeProdutoPodeFracionarType());
 	}
 
 	/*
@@ -130,6 +132,21 @@ public class UnidadeProdutoFormController extends
 	@Override
 	public String getViewIdentifier() {
 		return "unidadeProdutoForm";
+	}
+	
+	public List<String> getUnidadeProdutoPodeFracionarType() {
+
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (PodeFracionarType fd : PodeFracionarType.values()) {
+				siLista.add(fd.ordinal(), fd.toString());
+			}
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
