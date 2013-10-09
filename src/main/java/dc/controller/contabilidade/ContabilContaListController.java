@@ -11,10 +11,14 @@ import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class ContabilContaListController extends CRUDListController<ContabilConta> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ContabilContaDAO dao;
@@ -23,25 +27,19 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	private ContabilContaFormController contabilContaFormController;
 
 	@Override
-	protected CRUDFormController<ContabilConta> getFormController() {
-		return contabilContaFormController;
-	}
-
-	@Override
 	protected String[] getColunas() {
-		return new String[]{"nome"};
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return "listContabilConta";
+		return new String[] { "classificacao" };
 	}
 
 	@Override
 	protected Class<? super ContabilConta> getEntityClass() {
 		return ContabilConta.class;
 	}
-	
+
+	@Override
+	protected String getTitulo() {
+		return "Contabil Conta";
+	}
 
 	@Override
 	protected List<ContabilConta> pesquisa(String valor) {
@@ -49,21 +47,24 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	}
 
 	@Override
-	protected String getTitulo() {
-		return "Contabil Conta";
+	protected CRUDFormController<ContabilConta> getFormController() {
+		return contabilContaFormController;
 	}
+
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
-		
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return "listaContabilContas";
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected List<ContabilConta> pesquisaDefault() {
 		return (List<ContabilConta>) dao.getAll(getEntityClass());
