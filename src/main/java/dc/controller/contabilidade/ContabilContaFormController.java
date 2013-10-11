@@ -108,11 +108,11 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 			}
 		};
 
-		DefaultManyToOneComboModel<PlanoConta> planoContaModel = new DefaultManyToOneComboModel<PlanoConta>(null, this.planoContaDAO,
-				super.getMainController());
+		DefaultManyToOneComboModel<PlanoConta> planoContaModel = new DefaultManyToOneComboModel<PlanoConta>(PlanoContaListController.class,
+				this.planoContaDAO, super.getMainController());
 
-		DefaultManyToOneComboModel<PlanoContaRefSped> planoContaRefSpedModel = new DefaultManyToOneComboModel<PlanoContaRefSped>(null,
-				this.planoContaRefSpedDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<PlanoContaRefSped> planoContaRefSpedModel = new DefaultManyToOneComboModel<PlanoContaRefSped>(
+				PlanoContaRefSpedListController.class, this.planoContaRefSpedDAO, super.getMainController()) {
 
 			@Override
 			public String getCaptionProperty() {
