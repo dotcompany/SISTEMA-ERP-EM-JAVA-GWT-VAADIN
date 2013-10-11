@@ -510,6 +510,7 @@ public class BemFormView extends CustomComponent {
 		tfNumeroNb.setWidth("160px");
 		tfNumeroNb.setHeight("-1px");
 		tfNumeroNb.setSizeFull();
+		tfNumeroNb.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNumeroNb, 0, 1);
 
 		// tfDescricao
@@ -519,6 +520,7 @@ public class BemFormView extends CustomComponent {
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
 		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 1, 1);
 
 		// tfNome
@@ -528,6 +530,7 @@ public class BemFormView extends CustomComponent {
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
 		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 2, 1);
 
 		// tfNumeroSerie
@@ -537,6 +540,7 @@ public class BemFormView extends CustomComponent {
 		tfNumeroSerie.setWidth("160px");
 		tfNumeroSerie.setHeight("-1px");
 		tfNumeroSerie.setSizeFull();
+		tfNumeroSerie.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNumeroSerie, 0, 2);
 
 		// pdfDataAquisicao
@@ -561,7 +565,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataCadastro.setImmediate(false);
 		pdfDataCadastro.setWidth("160px");
 		pdfDataCadastro.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataCadastro, 0, 4);
+		gridLayout_1.addComponent(pdfDataCadastro, 0, 3);
 
 		// pdfDataContabilizado
 		pdfDataContabilizado = new PopupDateField();
@@ -569,7 +573,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataContabilizado.setImmediate(false);
 		pdfDataContabilizado.setWidth("160px");
 		pdfDataContabilizado.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataContabilizado, 1, 4);
+		gridLayout_1.addComponent(pdfDataContabilizado, 1, 3);
 
 		// pdfDataVistoria
 		pdfDataVistoria = new PopupDateField();
@@ -577,7 +581,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataVistoria.setImmediate(false);
 		pdfDataVistoria.setWidth("160px");
 		pdfDataVistoria.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataVistoria, 0, 5);
+		gridLayout_1.addComponent(pdfDataVistoria, 2, 3);
 
 		// pdfDataMarcacao
 		pdfDataMarcacao = new PopupDateField();
@@ -585,7 +589,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataMarcacao.setImmediate(false);
 		pdfDataMarcacao.setWidth("160px");
 		pdfDataMarcacao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataMarcacao, 1, 5);
+		gridLayout_1.addComponent(pdfDataMarcacao, 0, 4);
 
 		// pdfDataBaixa
 		pdfDataBaixa = new PopupDateField();
@@ -593,7 +597,7 @@ public class BemFormView extends CustomComponent {
 		pdfDataBaixa.setImmediate(false);
 		pdfDataBaixa.setWidth("160px");
 		pdfDataBaixa.setHeight("-1px");
-		gridLayout_1.addComponent(pdfDataBaixa, 0, 6);
+		gridLayout_1.addComponent(pdfDataBaixa, 1, 4);
 
 		// pdfVencimentoGarantia
 		pdfVencimentoGarantia = new PopupDateField();
@@ -601,7 +605,7 @@ public class BemFormView extends CustomComponent {
 		pdfVencimentoGarantia.setImmediate(false);
 		pdfVencimentoGarantia.setWidth("160px");
 		pdfVencimentoGarantia.setHeight("-1px");
-		gridLayout_1.addComponent(pdfVencimentoGarantia, 1, 6);
+		gridLayout_1.addComponent(pdfVencimentoGarantia, 2, 4);
 
 		// tfNumeroNotaFiscal
 		tfNumeroNotaFiscal = new TextField();
@@ -609,7 +613,9 @@ public class BemFormView extends CustomComponent {
 		tfNumeroNotaFiscal.setImmediate(false);
 		tfNumeroNotaFiscal.setWidth("160px");
 		tfNumeroNotaFiscal.setHeight("-1px");
-		gridLayout_1.addComponent(tfNumeroNotaFiscal, 0, 7);
+		tfNumeroNotaFiscal.setSizeFull();
+		tfNumeroNotaFiscal.setNullRepresentation("");
+		gridLayout_1.addComponent(tfNumeroNotaFiscal, 0, 5);
 
 		// tfChaveNfe
 		tfChaveNfe = new TextField();
@@ -617,7 +623,9 @@ public class BemFormView extends CustomComponent {
 		tfChaveNfe.setImmediate(false);
 		tfChaveNfe.setWidth("160px");
 		tfChaveNfe.setHeight("-1px");
-		gridLayout_1.addComponent(tfChaveNfe, 1, 7);
+		tfChaveNfe.setSizeFull();
+		tfChaveNfe.setNullRepresentation("");
+		gridLayout_1.addComponent(tfChaveNfe, 1, 5);
 
 		// tfValorOriginal
 		tfValorOriginal = new TextField();
@@ -625,7 +633,9 @@ public class BemFormView extends CustomComponent {
 		tfValorOriginal.setImmediate(false);
 		tfValorOriginal.setWidth("160px");
 		tfValorOriginal.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorOriginal, 0, 8);
+		tfValorOriginal.setSizeFull();
+		tfValorOriginal.setNullRepresentation("");
+		gridLayout_1.addComponent(tfValorOriginal, 2, 5);
 
 		// tfValorCompra
 		tfValorCompra = new TextField();
@@ -633,7 +643,9 @@ public class BemFormView extends CustomComponent {
 		tfValorCompra.setImmediate(false);
 		tfValorCompra.setWidth("160px");
 		tfValorCompra.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorCompra, 1, 8);
+		tfValorCompra.setSizeFull();
+		tfValorCompra.setNullRepresentation("");
+		gridLayout_1.addComponent(tfValorCompra, 0, 6);
 
 		// tfValorAtualizado
 		tfValorAtualizado = new TextField();
@@ -641,7 +653,9 @@ public class BemFormView extends CustomComponent {
 		tfValorAtualizado.setImmediate(false);
 		tfValorAtualizado.setWidth("160px");
 		tfValorAtualizado.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorAtualizado, 0, 9);
+		tfValorAtualizado.setSizeFull();
+		tfValorAtualizado.setNullRepresentation("");
+		gridLayout_1.addComponent(tfValorAtualizado, 1, 6);
 
 		// tfValorBaixa
 		tfValorBaixa = new TextField();
@@ -649,7 +663,9 @@ public class BemFormView extends CustomComponent {
 		tfValorBaixa.setImmediate(false);
 		tfValorBaixa.setWidth("160px");
 		tfValorBaixa.setHeight("-1px");
-		gridLayout_1.addComponent(tfValorBaixa, 1, 9);
+		tfValorBaixa.setSizeFull();
+		tfValorBaixa.setNullRepresentation("");
+		gridLayout_1.addComponent(tfValorBaixa, 2, 6);
 
 		// tfDeprecia
 		tfDeprecia = new TextField();
@@ -657,7 +673,9 @@ public class BemFormView extends CustomComponent {
 		tfDeprecia.setImmediate(false);
 		tfDeprecia.setWidth("160px");
 		tfDeprecia.setHeight("-1px");
-		gridLayout_1.addComponent(tfDeprecia, 0, 10);
+		tfDeprecia.setSizeFull();
+		tfDeprecia.setNullRepresentation("");
+		gridLayout_1.addComponent(tfDeprecia, 0, 7);
 
 		// tfMetodoDepreciacao
 		tfMetodoDepreciacao = new TextField();
@@ -665,7 +683,9 @@ public class BemFormView extends CustomComponent {
 		tfMetodoDepreciacao.setImmediate(false);
 		tfMetodoDepreciacao.setWidth("160px");
 		tfMetodoDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(tfMetodoDepreciacao, 1, 10);
+		tfMetodoDepreciacao.setSizeFull();
+		tfMetodoDepreciacao.setNullRepresentation("");
+		gridLayout_1.addComponent(tfMetodoDepreciacao, 1, 7);
 
 		// pdfInicioDepreciacao
 		pdfInicioDepreciacao = new PopupDateField();
@@ -673,7 +693,7 @@ public class BemFormView extends CustomComponent {
 		pdfInicioDepreciacao.setImmediate(false);
 		pdfInicioDepreciacao.setWidth("160px");
 		pdfInicioDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfInicioDepreciacao, 0, 11);
+		gridLayout_1.addComponent(pdfInicioDepreciacao, 2, 7);
 
 		// pdfUltimaDepreciacao
 		pdfUltimaDepreciacao = new PopupDateField();
@@ -681,7 +701,7 @@ public class BemFormView extends CustomComponent {
 		pdfUltimaDepreciacao.setImmediate(false);
 		pdfUltimaDepreciacao.setWidth("160px");
 		pdfUltimaDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(pdfUltimaDepreciacao, 1, 11);
+		gridLayout_1.addComponent(pdfUltimaDepreciacao, 0, 8);
 
 		// tfTipoDepreciacao
 		tfTipoDepreciacao = new TextField();
@@ -689,7 +709,9 @@ public class BemFormView extends CustomComponent {
 		tfTipoDepreciacao.setImmediate(false);
 		tfTipoDepreciacao.setWidth("160px");
 		tfTipoDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(tfTipoDepreciacao, 0, 12);
+		tfTipoDepreciacao.setSizeFull();
+		tfTipoDepreciacao.setNullRepresentation("");
+		gridLayout_1.addComponent(tfTipoDepreciacao, 1, 8);
 
 		// tfTaxaAnualDepreciacao
 		tfTaxaAnualDepreciacao = new TextField();
@@ -697,7 +719,9 @@ public class BemFormView extends CustomComponent {
 		tfTaxaAnualDepreciacao.setImmediate(false);
 		tfTaxaAnualDepreciacao.setWidth("160px");
 		tfTaxaAnualDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(tfTaxaAnualDepreciacao, 1, 12);
+		tfTaxaAnualDepreciacao.setSizeFull();
+		tfTaxaAnualDepreciacao.setNullRepresentation("");
+		gridLayout_1.addComponent(tfTaxaAnualDepreciacao, 2, 8);
 
 		// tfTaxaMensalDepreciacao
 		tfTaxaMensalDepreciacao = new TextField();
@@ -705,7 +729,9 @@ public class BemFormView extends CustomComponent {
 		tfTaxaMensalDepreciacao.setImmediate(false);
 		tfTaxaMensalDepreciacao.setWidth("160px");
 		tfTaxaMensalDepreciacao.setHeight("-1px");
-		gridLayout_1.addComponent(tfTaxaMensalDepreciacao, 0, 13);
+		tfTaxaMensalDepreciacao.setSizeFull();
+		tfTaxaMensalDepreciacao.setNullRepresentation("");
+		gridLayout_1.addComponent(tfTaxaMensalDepreciacao, 0, 9);
 
 		// tfTaxaDepreciacaoAcelerada
 		tfTaxaDepreciacaoAcelerada = new TextField();
@@ -713,7 +739,9 @@ public class BemFormView extends CustomComponent {
 		tfTaxaDepreciacaoAcelerada.setImmediate(false);
 		tfTaxaDepreciacaoAcelerada.setWidth("160px");
 		tfTaxaDepreciacaoAcelerada.setHeight("-1px");
-		gridLayout_1.addComponent(tfTaxaDepreciacaoAcelerada, 1, 13);
+		tfTaxaDepreciacaoAcelerada.setSizeFull();
+		tfTaxaDepreciacaoAcelerada.setNullRepresentation("");
+		gridLayout_1.addComponent(tfTaxaDepreciacaoAcelerada, 1, 9);
 
 		// tfTaxaDepreciacaoIncentivada
 		tfTaxaDepreciacaoIncentivada = new TextField();
@@ -722,7 +750,9 @@ public class BemFormView extends CustomComponent {
 		tfTaxaDepreciacaoIncentivada.setImmediate(false);
 		tfTaxaDepreciacaoIncentivada.setWidth("160px");
 		tfTaxaDepreciacaoIncentivada.setHeight("-1px");
-		gridLayout_1.addComponent(tfTaxaDepreciacaoIncentivada, 0, 14);
+		tfTaxaDepreciacaoIncentivada.setSizeFull();
+		tfTaxaDepreciacaoIncentivada.setNullRepresentation("");
+		gridLayout_1.addComponent(tfTaxaDepreciacaoIncentivada, 2, 9);
 
 		// tfFuncao
 		tfFuncao = new TextField();
@@ -730,7 +760,9 @@ public class BemFormView extends CustomComponent {
 		tfFuncao.setImmediate(false);
 		tfFuncao.setWidth("160px");
 		tfFuncao.setHeight("-1px");
-		gridLayout_1.addComponent(tfFuncao, 1, 14);
+		tfFuncao.setSizeFull();
+		tfFuncao.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFuncao, 0, 10);
 
 		// cbTipoAquisicao
 		cbTipoAquisicao = new ComboBox();
@@ -739,7 +771,7 @@ public class BemFormView extends CustomComponent {
 		cbTipoAquisicao.setWidth("160px");
 		cbTipoAquisicao.setHeight("-1px");
 		cbTipoAquisicao.setRequired(true);
-		gridLayout_1.addComponent(cbTipoAquisicao, 0, 15);
+		gridLayout_1.addComponent(cbTipoAquisicao, 1, 10);
 
 		// cbEstadoConservacao
 		cbEstadoConservacao = new ComboBox();
@@ -748,7 +780,7 @@ public class BemFormView extends CustomComponent {
 		cbEstadoConservacao.setWidth("160px");
 		cbEstadoConservacao.setHeight("-1px");
 		cbEstadoConservacao.setRequired(true);
-		gridLayout_1.addComponent(cbEstadoConservacao, 1, 15);
+		gridLayout_1.addComponent(cbEstadoConservacao, 2, 10);
 
 		// cbGrupoBem
 		cbGrupoBem = new ComboBox();
@@ -757,7 +789,7 @@ public class BemFormView extends CustomComponent {
 		cbGrupoBem.setWidth("160px");
 		cbGrupoBem.setHeight("-1px");
 		cbGrupoBem.setRequired(true);
-		gridLayout_1.addComponent(cbGrupoBem, 0, 16);
+		gridLayout_1.addComponent(cbGrupoBem, 0, 11);
 
 		// cbSetor
 		cbSetor = new ComboBox();
@@ -766,7 +798,7 @@ public class BemFormView extends CustomComponent {
 		cbSetor.setWidth("160px");
 		cbSetor.setHeight("-1px");
 		cbSetor.setRequired(true);
-		gridLayout_1.addComponent(cbSetor, 1, 16);
+		gridLayout_1.addComponent(cbSetor, 1, 11);
 
 		// cbFornecedor
 		cbFornecedor = new ComboBox();
@@ -775,7 +807,7 @@ public class BemFormView extends CustomComponent {
 		cbFornecedor.setWidth("160px");
 		cbFornecedor.setHeight("-1px");
 		cbFornecedor.setRequired(true);
-		gridLayout_1.addComponent(cbFornecedor, 0, 17);
+		gridLayout_1.addComponent(cbFornecedor, 2, 11);
 
 		// cbColaborador
 		cbColaborador = new ComboBox();
@@ -784,7 +816,7 @@ public class BemFormView extends CustomComponent {
 		cbColaborador.setWidth("160px");
 		cbColaborador.setHeight("-1px");
 		cbColaborador.setRequired(true);
-		gridLayout_1.addComponent(cbColaborador, 1, 17);
+		gridLayout_1.addComponent(cbColaborador, 0, 12);
 
 		return gridLayout_1;
 	}

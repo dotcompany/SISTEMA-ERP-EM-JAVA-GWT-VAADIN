@@ -168,7 +168,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
@@ -223,18 +223,18 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfNumero
 		tfNumero = new TextField();
 		tfNumero.setCaption("Número:");
-		// tfNumero.setNullRepresentation("");
-		tfNumero.setNullRepresentation("");
 		tfNumero.setImmediate(false);
 		tfNumero.setWidth("175px");
 		tfNumero.setHeight("-1px");
-		tfNumero.setRequired(true);
+		// tfNumero.setRequired(true);
 		tfNumero.setSizeFull();
+		// tfNumero.setNullRepresentation("");
+		tfNumero.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNumero, 0, 1);
 
 		// pdfDataContratacao
@@ -256,45 +256,45 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		// tfValorPremio
 		tfValorPremio = new TextField();
 		tfValorPremio.setCaption("Valor do prêmio:");
-		// tfValorPremio.setNullRepresentation("");
-		tfValorPremio.setNullRepresentation("");
 		tfValorPremio.setImmediate(false);
 		tfValorPremio.setWidth("175px");
 		tfValorPremio.setHeight("-1px");
 		tfValorPremio.setSizeFull();
+		// tfValorPremio.setNullRepresentation("");
+		tfValorPremio.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValorPremio, 0, 3);
 
 		// tfValorSegurado
 		tfValorSegurado = new TextField();
 		tfValorSegurado.setCaption("Valor segurado:");
-		// tfValorSegurado.setNullRepresentation("");
-		tfValorSegurado.setNullRepresentation("");
 		tfValorSegurado.setImmediate(false);
 		tfValorSegurado.setWidth("175px");
 		tfValorSegurado.setHeight("-1px");
 		tfValorSegurado.setSizeFull();
+		// tfValorSegurado.setNullRepresentation("");
+		tfValorSegurado.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValorSegurado, 1, 3);
 
 		// tfObservacao
 		tfObservacao = new TextField();
 		tfObservacao.setCaption("Observação:");
-		// tfObservacao.setNullRepresentation("");
-		tfObservacao.setNullRepresentation("");
 		tfObservacao.setImmediate(false);
 		tfObservacao.setWidth("175px");
 		tfObservacao.setHeight("-1px");
 		tfObservacao.setSizeFull();
+		// tfObservacao.setNullRepresentation("");
+		tfObservacao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfObservacao, 0, 4);
 
 		// tfImagem
 		tfImagem = new TextField();
 		tfImagem.setCaption("Imagem:");
-		// tfImagem.setNullRepresentation("");
-		tfImagem.setNullRepresentation("");
 		tfImagem.setImmediate(false);
 		tfImagem.setWidth("-1px");
 		tfImagem.setHeight("-1px");
 		tfImagem.setSizeFull();
+		// tfImagem.setNullRepresentation("");
+		tfImagem.setNullRepresentation("");
 		gridLayout_1.addComponent(tfImagem, 1, 4);
 
 		// cbBem

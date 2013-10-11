@@ -181,74 +181,74 @@ public class GrupoBemFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfCodigoHistorico
 		tfCodigoHistorico = new TextField();
 		tfCodigoHistorico.setCaption("Código do histórico:");
-		tfCodigoHistorico.setNullRepresentation("");
 		tfCodigoHistorico.setImmediate(false);
 		tfCodigoHistorico.setWidth("160px");
 		tfCodigoHistorico.setHeight("-1px");
-		tfCodigoHistorico.setRequired(true);
+		// tfCodigoHistorico.setRequired(true);
 		tfCodigoHistorico.setSizeFull();
+		tfCodigoHistorico.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCodigoHistorico, 0, 1);
 
 		// tfContaDespesaDepreciacao
 		tfContaDespesaDepreciacao = new TextField();
 		tfContaDespesaDepreciacao
 				.setCaption("Conta da despesa da depreciação:");
-		tfContaDespesaDepreciacao.setNullRepresentation("");
 		tfContaDespesaDepreciacao.setImmediate(false);
 		tfContaDespesaDepreciacao.setWidth("160px");
 		tfContaDespesaDepreciacao.setHeight("-1px");
-		tfContaDespesaDepreciacao.setRequired(true);
+		// tfContaDespesaDepreciacao.setRequired(true);
 		tfContaDespesaDepreciacao.setSizeFull();
+		tfContaDespesaDepreciacao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfContaDespesaDepreciacao, 1, 1);
 
 		// tfContaDepreciacaoAcumulada
 		tfContaDepreciacaoAcumulada = new TextField();
 		tfContaDepreciacaoAcumulada
 				.setCaption("Conta da depreciação acumulada:");
-		tfContaDepreciacaoAcumulada.setNullRepresentation("");
 		tfContaDepreciacaoAcumulada.setImmediate(false);
 		tfContaDepreciacaoAcumulada.setWidth("160px");
 		tfContaDepreciacaoAcumulada.setHeight("-1px");
-		tfContaDepreciacaoAcumulada.setRequired(true);
+		// tfContaDepreciacaoAcumulada.setRequired(true);
 		tfContaDepreciacaoAcumulada.setSizeFull();
+		tfContaDepreciacaoAcumulada.setNullRepresentation("");
 		gridLayout_1.addComponent(tfContaDepreciacaoAcumulada, 0, 2);
 
 		// tfContaAtivoImobilizado
 		tfContaAtivoImobilizado = new TextField();
 		tfContaAtivoImobilizado.setCaption("Conta ativo imobilizado:");
-		tfContaAtivoImobilizado.setNullRepresentation("");
 		tfContaAtivoImobilizado.setImmediate(false);
 		tfContaAtivoImobilizado.setWidth("160px");
 		tfContaAtivoImobilizado.setHeight("-1px");
-		tfContaAtivoImobilizado.setRequired(true);
+		// tfContaAtivoImobilizado.setRequired(true);
 		tfContaAtivoImobilizado.setSizeFull();
+		tfContaAtivoImobilizado.setNullRepresentation("");
 		gridLayout_1.addComponent(tfContaAtivoImobilizado, 1, 2);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
+		// tfNome.setRequired(true);
 		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 0, 3);
 
 		// tfCodigo
 		tfCodigo = new TextField();
 		tfCodigo.setCaption("Código:");
-		tfCodigo.setNullRepresentation("");
 		tfCodigo.setImmediate(false);
 		tfCodigo.setWidth("160px");
 		tfCodigo.setHeight("-1px");
-		tfCodigo.setRequired(true);
+		// tfCodigo.setRequired(true);
 		tfCodigo.setSizeFull();
+		tfCodigo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCodigo, 1, 3);
 
 		return gridLayout_1;

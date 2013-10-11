@@ -135,7 +135,7 @@ public class DepreciacaoBemFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
@@ -198,57 +198,61 @@ public class DepreciacaoBemFormView extends CustomComponent {
 		pdfDataDepreciacao.setImmediate(false);
 		pdfDataDepreciacao.setWidth("175px");
 		pdfDataDepreciacao.setHeight("-1px");
-		pdfDataDepreciacao.setRequired(true);
+		// pdfDataDepreciacao.setRequired(true);
 		gridLayout_1.addComponent(pdfDataDepreciacao, 0, 1);
 
 		// tfDias
 		tfDias = new TextField();
 		tfDias.setCaption("Data de contratação:");
-		// tfValorPremio.setNullRepresentation("");
-		tfDias.setNullRepresentation("");
 		tfDias.setImmediate(false);
 		tfDias.setWidth("-1px");
 		tfDias.setHeight("-1px");
+		tfDias.setSizeFull();
+		// tfValorPremio.setNullRepresentation("");
+		tfDias.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDias, 1, 1);
 
 		// tfTaxa
 		tfTaxa = new TextField();
 		tfTaxa.setCaption("Data de vencimento:");
-		// tfValorPremio.setNullRepresentation("");
-		tfTaxa.setNullRepresentation("");
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("-1px");
 		tfTaxa.setHeight("-1px");
+		tfTaxa.setSizeFull();
+		// tfValorPremio.setNullRepresentation("");
+		tfTaxa.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTaxa, 0, 2);
 
 		// tfIndice
 		tfIndice = new TextField();
 		tfIndice.setCaption("Valor do prêmio:");
-		// tfValorPremio.setNullRepresentation("");
-		tfIndice.setNullRepresentation("");
 		tfIndice.setImmediate(false);
 		tfIndice.setWidth("175px");
 		tfIndice.setHeight("-1px");
+		tfIndice.setSizeFull();
+		tfIndice.setNullRepresentation("");
 		gridLayout_1.addComponent(tfIndice, 1, 2);
 
 		// tfValor
 		tfValor = new TextField();
 		tfValor.setCaption("Valor segurado:");
-		// tfValorSegurado.setNullRepresentation("");
-		tfValor.setNullRepresentation("");
 		tfValor.setImmediate(false);
 		tfValor.setWidth("175px");
 		tfValor.setHeight("-1px");
+		tfValor.setSizeFull();
+		// tfValorSegurado.setNullRepresentation("");
+		tfValor.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValor, 0, 3);
 
 		// tfDepreciacaoAcumulada
 		tfDepreciacaoAcumulada = new TextField();
 		tfDepreciacaoAcumulada.setCaption("Observação:");
-		// tfObservacao.setNullRepresentation("");
-		tfDepreciacaoAcumulada.setNullRepresentation("");
 		tfDepreciacaoAcumulada.setImmediate(false);
 		tfDepreciacaoAcumulada.setWidth("175px");
 		tfDepreciacaoAcumulada.setHeight("-1px");
+		tfDepreciacaoAcumulada.setSizeFull();
+		// tfObservacao.setNullRepresentation("");
+		tfDepreciacaoAcumulada.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDepreciacaoAcumulada, 1, 3);
 
 		// cbBem

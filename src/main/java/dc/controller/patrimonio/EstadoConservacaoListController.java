@@ -44,8 +44,7 @@ public class EstadoConservacaoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "codigo", "nome", "descricao",
-				"empresa.nomeFantasia" };
+		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override

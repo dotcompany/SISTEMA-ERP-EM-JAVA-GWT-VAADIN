@@ -156,7 +156,7 @@ public class DocumentoBemFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// cbBem
 		cbBem = new ComboBox();
@@ -170,28 +170,31 @@ public class DocumentoBemFormView extends CustomComponent {
 		// tfDescricaoMovimentacaoBemFormViewjava
 		tfDescricao = new TextField();
 		tfDescricao.setCaption("Descrição:");
-		tfDescricao.setNullRepresentation("");
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 1, 1);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
+		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 0, 2);
 
 		// tfImagem
 		tfImagem = new TextField();
 		tfImagem.setCaption("Imagem:");
-		tfImagem.setNullRepresentation("");
 		tfImagem.setImmediate(false);
 		tfImagem.setWidth("160px");
 		tfImagem.setHeight("-1px");
+		tfImagem.setSizeFull();
+		tfImagem.setNullRepresentation("");
 		gridLayout_1.addComponent(tfImagem, 1, 2);
 
 		return gridLayout_1;

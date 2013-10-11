@@ -165,34 +165,38 @@ public class IndiceAtualizacaoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
-		tfNome.setWidth("160px");
+		// tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
+		// tfNome.setRequired(true);
 		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 0, 1);
 
 		// tfValor
 		tfValor = new TextField();
 		tfValor.setCaption("Valor:");
 		tfValor.setImmediate(false);
-		tfValor.setWidth("160px");
+		// tfValor.setWidth("160px");
 		tfValor.setHeight("-1px");
-		tfValor.setRequired(true);
+		// tfValor.setRequired(true);
+		tfValor.setSizeFull();
+		tfValor.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValor, 1, 1);
 
 		// tfValorAlternativo
 		tfValorAlternativo = new TextField();
 		tfValorAlternativo.setCaption("Valor alternativo:");
 		tfValorAlternativo.setImmediate(false);
-		tfValorAlternativo.setWidth("160px");
+		// tfValorAlternativo.setWidth("160px");
 		tfValorAlternativo.setHeight("-1px");
+		tfValorAlternativo.setSizeFull();
+		tfValorAlternativo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValorAlternativo, 0, 2);
 
 		// pdfDataIndice
@@ -201,7 +205,7 @@ public class IndiceAtualizacaoFormView extends CustomComponent {
 		pdfDataIndice.setImmediate(false);
 		pdfDataIndice.setWidth("160px");
 		pdfDataIndice.setHeight("-1px");
-		pdfDataIndice.setRequired(true);
+		// pdfDataIndice.setRequired(true);
 		gridLayout_1.addComponent(pdfDataIndice, 1, 2);
 
 		return gridLayout_1;

@@ -149,38 +149,39 @@ public class SeguradoraFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
+		// tfNome.setRequired(true);
 		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 0, 1);
 
 		// tfContato
 		tfContato = new TextField();
 		tfContato.setCaption("Contato:");
-		tfContato.setNullRepresentation("");
 		tfContato.setImmediate(false);
 		tfContato.setWidth("160px");
 		tfContato.setHeight("-1px");
-		tfContato.setRequired(true);
+		// tfContato.setRequired(true);
 		tfContato.setSizeFull();
+		tfContato.setNullRepresentation("");
 		gridLayout_1.addComponent(tfContato, 1, 1);
 
 		// tfTelefone
 		tfTelefone = new MaskedTextField();
 		tfTelefone.setCaption("Telefone:");
-		tfTelefone.setNullRepresentation("");
 		tfTelefone.setMask("(##) ####-####");
 		tfTelefone.setImmediate(false);
 		tfTelefone.setWidth("160px");
 		tfTelefone.setHeight("-1px");
+		tfTelefone.setSizeFull();
+		tfTelefone.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTelefone, 0, 2);
 
 		return gridLayout_1;

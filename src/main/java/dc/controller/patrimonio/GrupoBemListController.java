@@ -43,7 +43,7 @@ public class GrupoBemListController extends CRUDListController<GrupoBemEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "codigo", "nome", "empresa.nomeFantasia" };
+		return new String[] { "codigo", "nome" };
 	}
 
 	@Override

@@ -159,46 +159,46 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfNcm
 		tfNcm = new TextField();
 		tfNcm.setCaption("Ncm:");
-		tfNcm.setNullRepresentation("");
 		tfNcm.setImmediate(false);
 		tfNcm.setWidth("160px");
 		tfNcm.setHeight("-1px");
 		tfNcm.setSizeFull();
+		tfNcm.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNcm, 0, 1);
 
 		// tfBem
 		tfBem = new TextField();
 		tfBem.setCaption("Bem:");
-		tfBem.setNullRepresentation("");
 		tfBem.setImmediate(false);
 		tfBem.setWidth("160px");
 		tfBem.setHeight("-1px");
 		tfBem.setSizeFull();
+		tfBem.setNullRepresentation("");
 		gridLayout_1.addComponent(tfBem, 1, 1);
 
 		// tfTaxa
 		tfTaxa = new TextField();
 		tfTaxa.setCaption("Taxa:");
-		tfTaxa.setNullRepresentation("");
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("160px");
 		tfTaxa.setHeight("-1px");
 		tfTaxa.setSizeFull();
+		tfTaxa.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTaxa, 0, 2);
 
 		// tfVida
 		tfVida = new TextField();
 		tfVida.setCaption("Vida:");
-		tfVida.setNullRepresentation("");
 		tfVida.setImmediate(false);
 		tfVida.setWidth("160px");
 		tfVida.setHeight("-1px");
 		tfVida.setSizeFull();
+		tfVida.setNullRepresentation("");
 		gridLayout_1.addComponent(tfVida, 1, 2);
 
 		return gridLayout_1;

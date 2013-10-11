@@ -159,7 +159,7 @@ public class MovimentacaoBemFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// cbBem
 		cbBem = new ComboBox();
@@ -182,11 +182,11 @@ public class MovimentacaoBemFormView extends CustomComponent {
 		// tfResponsavel
 		tfResponsavel = new TextField();
 		tfResponsavel.setCaption("Responsável:");
-		tfResponsavel.setNullRepresentation("");
 		tfResponsavel.setImmediate(false);
 		tfResponsavel.setWidth("160px");
 		tfResponsavel.setHeight("-1px");
 		tfResponsavel.setSizeFull();
+		tfResponsavel.setNullRepresentation("");
 		gridLayout_1.addComponent(tfResponsavel, 0, 2);
 
 		// pdfDataMovimentacao

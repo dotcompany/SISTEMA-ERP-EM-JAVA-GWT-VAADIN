@@ -141,35 +141,38 @@ public class EstadoConservacaoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfDescricao
 		tfDescricao = new TextField();
 		tfDescricao.setCaption("Descrição:");
-		tfDescricao.setNullRepresentation("");
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 0, 1);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
+		// tfNome.setRequired(true);
+		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfCodigo
 		tfCodigo = new TextField();
 		tfCodigo.setCaption("Código:");
-		tfCodigo.setNullRepresentation("");
 		tfCodigo.setImmediate(false);
 		tfCodigo.setWidth("160px");
 		tfCodigo.setHeight("-1px");
-		tfCodigo.setRequired(true);
+		// tfCodigo.setRequired(true);
+		tfCodigo.setSizeFull();
+		tfCodigo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCodigo, 0, 2);
 
 		return gridLayout_1;

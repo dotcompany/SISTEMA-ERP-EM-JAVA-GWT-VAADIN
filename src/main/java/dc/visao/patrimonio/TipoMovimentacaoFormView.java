@@ -141,36 +141,36 @@ public class TipoMovimentacaoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfTipo
 		tfTipo = new TextField();
 		tfTipo.setCaption("Tipo:");
-		tfTipo.setNullRepresentation("");
 		tfTipo.setImmediate(true);
 		tfTipo.setWidth("160px");
 		tfTipo.setHeight("-1px");
 		tfTipo.setSizeFull();
+		tfTipo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTipo, 0, 1);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("160px");
 		tfNome.setHeight("-1px");
 		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfDescricao
 		tfDescricao = new TextField();
 		tfDescricao.setCaption("Descrição:");
-		tfDescricao.setNullRepresentation("");
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("160px");
 		tfDescricao.setHeight("-1px");
 		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		return gridLayout_1;

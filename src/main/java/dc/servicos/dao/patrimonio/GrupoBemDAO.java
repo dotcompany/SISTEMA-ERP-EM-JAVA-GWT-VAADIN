@@ -54,7 +54,7 @@ public class GrupoBemDAO extends AbstractCrudDAO<GrupoBemEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Tipo", "Nome", "Descrição" };
+		return new String[] { "Código", "Nome" };
 	}
 
 }
