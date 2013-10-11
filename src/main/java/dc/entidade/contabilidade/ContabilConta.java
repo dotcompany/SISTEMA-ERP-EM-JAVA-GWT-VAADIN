@@ -24,6 +24,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -88,63 +89,75 @@ public class ContabilConta extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CLASSIFICACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Classificação")
 	private String classificacao;
 
 	@Column(name = "TIPO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Tipo")
 	private String tipo;
 
 	@Field
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Descrição")
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INCLUSAO")
 	@ComboValue
+	@Caption(value = "Data Inclusão")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
 
 	@Column(name = "SITUACAO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Situação")
 	private String situacao;
 
 	@Column(name = "NATUREZA", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Natureza")
 	private String natureza;
 
 	@Column(name = "PATRIMONIO_RESULTADO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Patrimonio Resultado")
 	private String patrimonioResultado;
 
 	@Column(name = "LIVRO_CAIXA", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Livro Caixa")
 	private String livroCaixa;
 
 	@Column(name = "DFC", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Dfc")
 	private String dfc;
 
 	@Column(name = "ORDEM")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Ordem")
 	private String ordem;
 
 	@Column(name = "CODIGO_REDUZIDO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Código Reduzido")
 	private String codigoReduzido;
 
 	@Column(name = "CODIGO_EFD", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Código EFD")
 	private String codigoEfd;
 
 	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")
