@@ -11,6 +11,7 @@ import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class ContabilContaFormView extends CustomComponent {
 
@@ -40,7 +41,7 @@ public class ContabilContaFormView extends CustomComponent {
 	private ComboBox cbPatrimonio;
 	private ComboBox cbLivroCaixa;
 	private ComboBox cbDemonstracaoFluxoCaixa;
-	private ComboBox cbCodigoEFB;
+	private ComboBox cbCodigoEFD;
 
 	public ContabilContaFormView() {
 		buildMainLayout();
@@ -56,8 +57,56 @@ public class ContabilContaFormView extends CustomComponent {
 		mainLayout.setHeight("-1px");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
-		mainLayout.setRows(5);
-		mainLayout.setColumns(5);
+		mainLayout.setRows(6);
+		mainLayout.setColumns(6);
+
+		cbPlanoConta = new ManyToOneCombo<>();
+		cbPlanoConta.setCaption("Plano Conta");
+		mainLayout.addComponent(cbPlanoConta, 0, 0, 4, 0);
+
+		cbPlanoContaRefSped = new ManyToOneCombo<>();
+		cbPlanoContaRefSped.setCaption("Plano Conta Referencial SPED");
+		mainLayout.addComponent(cbPlanoContaRefSped, 0, 1, 4, 1);
+
+		cbContabilContaPai = new ManyToOneCombo<>();
+		cbContabilContaPai.setCaption("Conta Pai");
+		mainLayout.addComponent(cbContabilContaPai, 0, 2, 3, 2);
+
+		txClassificacao = ComponentUtil.buildTextField("Classificação");
+		mainLayout.addComponent(txClassificacao, 4, 2);
+
+		cbTipo = ComponentUtil.buildComboBox("Tipo");
+		mainLayout.addComponent(cbTipo, 5, 2);
+
+		txDescricao = ComponentUtil.buildTextField("Descrição");
+		mainLayout.addComponent(txDescricao, 0, 3, 4, 3);
+
+		cbDemonstracaoFluxoCaixa = ComponentUtil.buildComboBox("Demonstração dos Fluxos de Caixa");
+		mainLayout.addComponent(cbDemonstracaoFluxoCaixa, 0, 4);
+
+		cbSituacao = ComponentUtil.buildComboBox("Situação");
+		mainLayout.addComponent(cbSituacao, 1, 4);
+
+		cbNatureza = ComponentUtil.buildComboBox("Natureza");
+		mainLayout.addComponent(cbNatureza, 2, 4);
+
+		cbPatrimonio = ComponentUtil.buildComboBox("Patrimônio ou Resultado");
+		mainLayout.addComponent(cbPatrimonio, 3, 4);
+
+		cbLivroCaixa = ComponentUtil.buildComboBox("Livro Caixa");
+		mainLayout.addComponent(cbLivroCaixa, 4, 4);
+
+		dtDataInclusao = ComponentUtil.buildPopupDateField("Data Inclusão");
+		mainLayout.addComponent(dtDataInclusao, 5, 4);
+
+		txOrdem = ComponentUtil.buildTextField("Ordem");
+		mainLayout.addComponent(txOrdem, 0, 5, 1, 5);
+
+		txCodigoReduzido = ComponentUtil.buildTextField("Código Reduzido");
+		mainLayout.addComponent(txCodigoReduzido, 2, 5);
+
+		cbCodigoEFD = ComponentUtil.buildComboBox("Código EFD");
+		mainLayout.addComponent(cbCodigoEFD, 3, 5);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -67,11 +116,42 @@ public class ContabilContaFormView extends CustomComponent {
 	}
 
 	public void preencheBean(ContabilConta currentBean) {
-
+		currentBean.setClassificacao(txClassificacao.getValue());
+		currentBean.setCodigoEfd(((CodigoEFD) cbCodigoEFD.getValue()).getCodigo());
+		currentBean.setCodigoReduzido(txCodigoReduzido.getValue());
+		currentBean.setContabilConta(cbContabilContaPai.getValue());
+		currentBean.setDataInclusao(dtDataInclusao.getValue());
+		currentBean.setDescricao(txDescricao.getValue());
+		currentBean.setDfc(((DemoFluxoCaixa) cbDemonstracaoFluxoCaixa.getValue()).getCodigo());
+		currentBean.setLivroCaixa(((SimNao) cbLivroCaixa.getValue()).getCodigo());
+		currentBean.setNatureza(((Natureza) cbNatureza.getValue()).getCodigo());
+		currentBean.setOrdem(txOrdem.getValue());
+		currentBean.setPatrimonioResultado(((PatrimonioResultado) cbPatrimonio.getValue()).getCodigo());
+		currentBean.setPlanoConta(cbPlanoConta.getValue());
+		currentBean.setPlanoContaRefSped(cbPlanoContaRefSped.getValue());
+		currentBean.setSituacao(((Situacao) cbSituacao.getValue()).getCodigo());
+		currentBean.setTipo(((Tipo) cbTipo.getValue()).getCodigo());
 	}
 
 	public void preencheForm(ContabilConta currentBean) {
+		txClassificacao.setValue(currentBean.getClassificacao());
+		cbCodigoEFD.setValue(CodigoEFD.getCodigoEFD(currentBean.getCodigoEfd()));
+		txCodigoReduzido.setValue(currentBean.getCodigoReduzido());
+		dtDataInclusao.setValue(currentBean.getDataInclusao());
+		txDescricao.setValue(currentBean.getDescricao());
+		cbDemonstracaoFluxoCaixa.setValue(DemoFluxoCaixa.getDemoFluxoCaixa(currentBean.getDfc()));
+		cbLivroCaixa.setValue(SimNao.getSimNao(currentBean.getLivroCaixa()));
+		cbNatureza.setValue(Natureza.getNatureza(currentBean.getNatureza()));
+		txOrdem.setValue(currentBean.getOrdem());
+		cbPatrimonio.setValue(PatrimonioResultado.getPatrimonioResultado(currentBean.getPatrimonioResultado()));
+		cbPlanoConta.setValue(currentBean.getPlanoConta());
+		cbPlanoContaRefSped.setValue(currentBean.getPlanoContaRefSped());
+		cbSituacao.setValue(Situacao.getSituacao(currentBean.getSituacao()));
+		cbTipo.setValue(Tipo.getTipo(currentBean.getTipo()));
 
+		if (currentBean.getContabilConta() != null) {
+			cbContabilContaPai.setValue(currentBean.getContabilConta());
+		}
 	}
 
 	public ManyToOneCombo<PlanoConta> getCbPlanoConta() {
@@ -187,11 +267,264 @@ public class ContabilContaFormView extends CustomComponent {
 	}
 
 	public ComboBox getCbCodigoEFB() {
-		return cbCodigoEFB;
+		return cbCodigoEFD;
 	}
 
 	public void setCbCodigoEFB(ComboBox cbCodigoEFB) {
-		this.cbCodigoEFB = cbCodigoEFB;
+		this.cbCodigoEFD = cbCodigoEFB;
+	}
+
+	public enum SimNao {
+
+		SIM("Sim", "S"), NAO("Não", "N");
+
+		private SimNao(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static SimNao getSimNao(String codigo) {
+			for (SimNao e : SimNao.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum Tipo {
+
+		SINTETICA("Sintética", "S"), ANALITICA("Analítica", "A");
+
+		private Tipo(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static Tipo getTipo(String codigo) {
+			for (Tipo e : Tipo.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum DemoFluxoCaixa {
+
+		NAO_PARTICIPA("Não Participa", "N"), ATIVIDADES_OPERACIONAIS("Atividades Operacionais", "O"), ATIVIDADES_FINANCIAMENTO(
+				"Atividades de Financiamneto", "F"), ATIVIDADES_INVESTIMENTO("Atividades Atividades de Investimento", "I");
+
+		private DemoFluxoCaixa(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static DemoFluxoCaixa getDemoFluxoCaixa(String codigo) {
+			for (DemoFluxoCaixa e : DemoFluxoCaixa.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum PatrimonioResultado {
+
+		PATRIMONIO("Patrimônio", "P"), RESULTADO("Resultado", "R");
+
+		private PatrimonioResultado(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static PatrimonioResultado getPatrimonioResultado(String codigo) {
+			for (PatrimonioResultado e : PatrimonioResultado.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum Natureza {
+
+		CREDORA("Credora", "C"), DEVEDORA("Devedora", "D");
+
+		private Natureza(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static Natureza getNatureza(String codigo) {
+			for (Natureza e : Natureza.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum Situacao {
+
+		ATIVA("Ativa", "A"), INATIVA("Inativa", "I");
+
+		private Situacao(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static Situacao getSituacao(String codigo) {
+			for (Situacao e : Situacao.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public enum CodigoEFD {
+
+		CONTA_ATIVO("Conta de Ativo", "01");
+
+		private CodigoEFD(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static CodigoEFD getCodigoEFD(String codigo) {
+			for (CodigoEFD e : CodigoEFD.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
 	}
 
 }
