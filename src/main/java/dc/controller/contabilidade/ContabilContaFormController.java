@@ -1,6 +1,7 @@
 package dc.controller.contabilidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,20 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.PlanoContaDAO;
+import dc.servicos.dao.contabilidade.PlanoContaRefSpedDAO;
 import dc.visao.contabilidade.ContabilContaFormView;
+import dc.visao.contabilidade.ContabilContaFormView.CodigoEFD;
+import dc.visao.contabilidade.ContabilContaFormView.DemoFluxoCaixa;
+import dc.visao.contabilidade.ContabilContaFormView.Natureza;
+import dc.visao.contabilidade.ContabilContaFormView.PatrimonioResultado;
+import dc.visao.contabilidade.ContabilContaFormView.SimNao;
+import dc.visao.contabilidade.ContabilContaFormView.Situacao;
+import dc.visao.contabilidade.ContabilContaFormView.Tipo;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -28,6 +41,12 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
+
+	@Autowired
+	private PlanoContaDAO planoContaDAO;
+
+	@Autowired
+	private PlanoContaRefSpedDAO planoContaRefSpedDAO;
 
 	private ContabilConta currentBean;
 
@@ -74,45 +93,65 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 
 		carregarCombos();
 
+		subView.getDtDataInclusao().setValue(new Date());
+
 	}
 
 	private void carregarCombos() {
-		/*
-		 * DefaultManyToOneComboModel<AtividadeForCli> atividadeModel = new
-		 * DefaultManyToOneComboModel<AtividadeForCli>(
-		 * AtividadeForCliListController.class, this.atividadeForCliDAO,
-		 * super.getMainController());
-		 * 
-		 * DefaultManyToOneComboModel<SituacaoForCli> situacaoModel = new
-		 * DefaultManyToOneComboModel
-		 * <SituacaoForCli>(SituacaoForCliListController.class,
-		 * this.situacaoForCliDAO, super.getMainController());
-		 * 
-		 * DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new
-		 * DefaultManyToOneComboModel<ContabilConta>(
-		 * ContabilContaListController.class, this.contabilContaDAO,
-		 * super.getMainController()) {
-		 * 
-		 * @Override public String getCaptionProperty() { return
-		 * "codigoReduzido"; } };
-		 * 
-		 * DefaultManyToOneComboModel<Pessoa> pessoaModel = new
-		 * DefaultManyToOneComboModel<Pessoa>(PessoaListController.class,
-		 * this.pessoaDAO, super.getMainController());
-		 * 
-		 * subView.getCbAtividade().setModel(atividadeModel);
-		 * subView.getCbSituacao().setModel(situacaoModel);
-		 * subView.getCbContabilConta().setModel(contabilContaModel);
-		 * subView.getCbPessoa().setModel(pessoaModel);
-		 * 
-		 * for (SimNao value : SimNao.values()) {
-		 * subView.getCbSofreRentencao().addItem(value);
-		 * subView.getCbGerarFaturamento().addItem(value);
-		 * subView.getCbOptanteSimples().addItem(value); }
-		 * 
-		 * for (Localizacao value : Localizacao.values()) {
-		 * subView.getCbLocalizacao().addItem(value); }
-		 */
+
+		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
+				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "codigoReduzido";
+			}
+		};
+
+		DefaultManyToOneComboModel<PlanoConta> planoContaModel = new DefaultManyToOneComboModel<PlanoConta>(null, this.planoContaDAO,
+				super.getMainController());
+
+		DefaultManyToOneComboModel<PlanoContaRefSped> planoContaRefSpedModel = new DefaultManyToOneComboModel<PlanoContaRefSped>(null,
+				this.planoContaRefSpedDAO, super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
+
+		subView.getCbPlanoConta().setModel(planoContaModel);
+		subView.getCbPlanoContaRefSped().setModel(planoContaRefSpedModel);
+		subView.getCbContabilContaPai().setModel(contabilContaModel);
+
+		for (Tipo value : Tipo.values()) {
+			subView.getCbTipo().addItem(value);
+		}
+
+		for (DemoFluxoCaixa value : DemoFluxoCaixa.values()) {
+			subView.getCbDemonstracaoFluxoCaixa().addItem(value);
+		}
+
+		for (PatrimonioResultado value : PatrimonioResultado.values()) {
+			subView.getCbPatrimonio().addItem(value);
+		}
+
+		for (Natureza value : Natureza.values()) {
+			subView.getCbNatureza().addItem(value);
+		}
+
+		for (Situacao value : Situacao.values()) {
+			subView.getCbSituacao().addItem(value);
+		}
+
+		for (CodigoEFD value : CodigoEFD.values()) {
+			subView.getCbCodigoEFB().addItem(value);
+		}
+
+		for (SimNao value : SimNao.values()) {
+			subView.getCbLivroCaixa().addItem(value);
+		}
+
 	}
 
 	/*

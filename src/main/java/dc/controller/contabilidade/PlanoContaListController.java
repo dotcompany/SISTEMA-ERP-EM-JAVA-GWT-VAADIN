@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.contabilidade.ContabilConta;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.entidade.contabilidade.PlanoConta;
+import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ContabilContaListController extends CRUDListController<ContabilConta> {
+public class PlanoContaListController extends CRUDListController<PlanoConta> {
 
 	/**
 	 * 
@@ -21,42 +21,41 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ContabilContaDAO dao;
+	private PlanoContaDAO dao;
 
 	@Autowired
-	private ContabilContaFormController contabilContaFormController;
+	private PlanoContaFormController planoContaFormController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "classificacao", "tipo", "descricao", "dataInclusao", "situacao", "natureza", "patrimonioResultado", "livroCaixa",
-				"dfc", "ordem", "codigoReduzido", "codigoEfd" };
+		return new String[] { "nome", "dataInclusao", "mascara", "niveis" };
 	}
 
 	@Override
-	protected Class<? super ContabilConta> getEntityClass() {
-		return ContabilConta.class;
+	protected Class<? super PlanoConta> getEntityClass() {
+		return PlanoConta.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Contabil Conta";
+		return "Plano Conta";
 	}
 
 	@Override
-	protected List<ContabilConta> pesquisa(String valor) {
+	protected List<PlanoConta> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ContabilConta> getFormController() {
-		return contabilContaFormController;
+	protected CRUDFormController<PlanoConta> getFormController() {
+		return planoContaFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaContabilContas";
+		return "listaPlanoContas";
 	}
 
 	@Override
@@ -67,8 +66,8 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ContabilConta> pesquisaDefault() {
-		return (List<ContabilConta>) dao.getAll(getEntityClass());
+	protected List<PlanoConta> pesquisaDefault() {
+		return (List<PlanoConta>) dao.getAll(getEntityClass());
 	}
 
 }
