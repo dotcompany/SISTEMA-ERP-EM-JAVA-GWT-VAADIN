@@ -14,6 +14,7 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import dc.controller.adm.dotcompany.ParametroClienteListController;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
@@ -191,8 +192,25 @@ public class MenuBuilder implements Serializable {
 			final MenuBar menubar,final MainController mainController) {
 		menuPanel.addComponent(menubar);
 
-		MenuBar.MenuItem cadastros = this.createModuleMenuItem(menubar,
-				"Cadastros");
+		/**
+		 * 
+		 * Menu Administrativo
+		 * @ Wesley Jr
+		 */
+		
+		MenuBar.MenuItem administrativo = this.createModuleMenuItem(menubar, "Administrativo");
+		
+		MenuBar.MenuItem parametroCliente = administrativo.addItem("Parâmetro Cliente", null, new Command() {
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(ParametroClienteListController.class);
+				showControllerSistema(mainController, c);
+				
+			}
+		});
+		
+		MenuBar.MenuItem cadastros = this.createModuleMenuItem(menubar, "Cadastros");
+		
 		MenuBar.MenuItem modulos = cadastros.addItem("MÃ³dulos", null, new Command() {
 			
 			@Override
