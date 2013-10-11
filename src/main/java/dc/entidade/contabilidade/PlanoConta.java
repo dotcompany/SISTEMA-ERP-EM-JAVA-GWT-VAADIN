@@ -19,6 +19,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -38,20 +39,28 @@ public class PlanoConta extends AbstractMultiEmpresaModel<Integer> implements Se
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Caption(value = "Nome")
 	@Column(name = "NOME")
 	@ComboValue
 	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
+
+	@Caption(value = "Data Inclusão")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INCLUSAO")
 	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
+
+	@Caption(value = "Máscara")
 	@Column(name = "MASCARA")
 	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String mascara;
+
+	@Caption(value = "Níveis")
 	@Column(name = "NIVEIS")
 	@Field
 	@Analyzer(definition = "dc_combo_analyzer")

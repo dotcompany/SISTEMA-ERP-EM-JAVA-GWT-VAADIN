@@ -16,8 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -37,26 +39,44 @@ public class PlanoContaRefSped extends AbstractMultiEmpresaModel<Integer> implem
 	@Analyzer(definition = "dc_combo_analyzer")
 	@ComboCode
 	private Integer id;
+
+	@Caption(value = "Código Conta")
 	@Column(name = "COD_CTA_REF")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private String codCtaRef;
+
+	@Caption(value = "Descrição")
 	@Column(name = "DESCRICAO")
 	@Analyzer(definition = "dc_combo_analyzer")
 	@ComboValue
+	@Field
 	private String descricao;
+
+	@Caption(value = "Orientações")
 	@Column(name = "ORIENTACOES")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private String orientacoes;
+
+	@Caption(value = "Início Validade")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "INICIO_VALIDADE")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private Date inicioValidade;
+
+	@Caption(value = "Fim Validade")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FIM_VALIDADE")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private Date fimValidade;
+
+	@Caption(value = "Tipo")
 	@Column(name = "TIPO")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private String tipo;
 
 	public PlanoContaRefSped() {
