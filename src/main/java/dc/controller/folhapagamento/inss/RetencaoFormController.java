@@ -103,42 +103,14 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			this.pEntity = new RetencaoEntity();
-
-			this.subView.getTfValor13().setValue(
-					String.valueOf(this.pEntity.getValor13()));
-			this.subView.getTfValorMensal().setValue(
-					String.valueOf(this.pEntity.getValorMensal()));
-
-			this.subView.getCbInss().setValue(this.pEntity.getInss());
-			this.subView.getCbServico().setValue(this.pEntity.getServico());
-
-			// this.subView.carregarCmbInss(this.inssListarTodos());
-			// this.subView.carregarCmbServico(this.servicoListarTodos());
-
-			this.subView.getCbInss().setData(this.inssListarTodos());
-			this.subView.getCbServico().setData(this.servicoListarTodos());
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
-
-			this.subView.getTfValor13().setValue(
-					String.valueOf(this.pEntity.getValor13()));
-			this.subView.getTfValorMensal().setValue(
-					String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.carregarCmbInss(this.inssListarTodos());
-			// this.subView.carregarCmbServico(this.servicoListarTodos());
-
-			this.subView.getCbInss().setData(this.inssListarTodos());
-			this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			this.subView.getCbInss().setValue(this.pEntity.getInss());
-			this.subView.getCbServico().setValue(this.pEntity.getServico());
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -153,8 +125,6 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.pEntity = new RetencaoEntity();
-
 			if (this.iDAO == null) {
 				this.iDAO = new InssDAO();
 			}
@@ -163,19 +133,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 				this.sDAO = new ServicoDAO();
 			}
 
-			this.subView.getTfValor13().setValue(
-					String.valueOf(this.pEntity.getValor13()));
-			this.subView.getTfValorMensal().setValue(
-					String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.carregarCmbInss(this.inssListarTodos());
-			// this.subView.carregarCmbServico(this.servicoListarTodos());
-
-			this.subView.getCbInss().setData(this.inssListarTodos());
-			this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			this.subView.getCbInss().setValue(this.pEntity.getInss());
-			this.subView.getCbServico().setValue(this.pEntity.getServico());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -204,8 +162,6 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new RetencaoEntity();
-
 			if (this.iDAO == null) {
 				this.iDAO = new InssDAO();
 			}
@@ -214,19 +170,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 				this.sDAO = new ServicoDAO();
 			}
 
-			this.subView.getTfValor13().setValue(
-					String.valueOf(this.pEntity.getValor13()));
-			this.subView.getTfValorMensal().setValue(
-					String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.carregarCmbInss(this.inssListarTodos());
-			// this.subView.carregarCmbServico(this.servicoListarTodos());
-
-			this.subView.getCbInss().setData(this.inssListarTodos());
-			this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			this.subView.getCbInss().setValue(this.pEntity.getInss());
-			this.subView.getCbServico().setValue(this.pEntity.getServico());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -346,6 +290,36 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new RetencaoEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			this.subView.getTfValor13().setValue(
+					String.valueOf(this.pEntity.getValor13()));
+			this.subView.getTfValorMensal().setValue(
+					String.valueOf(this.pEntity.getValorMensal()));
+
+			// this.subView.carregarCmbInss(this.inssListarTodos());
+			// this.subView.carregarCmbServico(this.servicoListarTodos());
+
+			this.subView.getCbInss().setData(this.inssListarTodos());
+			this.subView.getCbServico().setData(this.servicoListarTodos());
+
+			this.subView.getCbInss().setValue(this.pEntity.getInss());
+			this.subView.getCbServico().setValue(this.pEntity.getServico());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -81,20 +81,14 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			this.pEntity = new ServicoEntity();
-
-			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
-			this.subView.getTfNome().setValue(this.pEntity.getNome());
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
-
-			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
-			this.subView.getTfNome().setValue(this.pEntity.getNome());
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -109,10 +103,7 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.pEntity = new ServicoEntity();
-
-			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
-			this.subView.getTfNome().setValue(this.pEntity.getNome());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -132,10 +123,7 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new ServicoEntity();
-
-			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
-			this.subView.getTfNome().setValue(this.pEntity.getNome());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -183,6 +171,25 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new ServicoEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
+			this.subView.getTfNome().setValue(this.pEntity.getNome());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -41,7 +41,7 @@ public class PppFatorRiscoDAO extends AbstractCrudDAO<PppFatorRiscoEntity> {
 	@Transactional
 	public List<PppFatorRiscoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PppFatorRiscoEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM PppFatorRiscoEntity ent WHERE (1 = 1) AND ent.tipo LIKE :q";
 
 			List<PppFatorRiscoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,8 +54,7 @@ public class PppFatorRiscoDAO extends AbstractCrudDAO<PppFatorRiscoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Data do ínicio", "Data do término", "Tipo",
-				"PPP" };
+		return new String[] { "Data do ínicio", "Data do término", "Tipo" };
 	}
 
 }

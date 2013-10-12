@@ -94,20 +94,14 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			this.pEntity = new InssEntity();
-
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
-
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -122,10 +116,7 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.pEntity = new InssEntity();
-
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -145,10 +136,7 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new InssEntity();
-
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -196,6 +184,25 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new InssEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

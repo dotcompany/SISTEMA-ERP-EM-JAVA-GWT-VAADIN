@@ -44,8 +44,7 @@ public class PppFatorRiscoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "dataInicio", "dataTermino", "tipo",
-				"ppp.observacao" };
+		return new String[] { "dataInicio", "dataTermino", "tipo" };
 	}
 
 	@Override
