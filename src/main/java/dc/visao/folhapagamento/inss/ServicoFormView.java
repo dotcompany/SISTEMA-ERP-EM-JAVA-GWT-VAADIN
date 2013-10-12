@@ -68,7 +68,8 @@ public class ServicoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -122,26 +123,28 @@ public class ServicoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfCodigo
 		tfCodigo = new TextField();
 		tfCodigo.setCaption("Código");
-		// tfCodigo.setNullRepresentation("");
-		tfCodigo.setNullRepresentation("");
 		tfCodigo.setImmediate(false);
 		tfCodigo.setWidth("-1px");
 		tfCodigo.setHeight("-1px");
+		tfCodigo.setSizeFull();
+		// tfCodigo.setNullRepresentation("");
+		tfCodigo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCodigo, 0, 1);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome");
-		// tfNome.setNullRepresentation("");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("-1px");
 		tfNome.setHeight("-1px");
+		tfNome.setSizeFull();
+		// tfNome.setNullRepresentation("");
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		return gridLayout_1;

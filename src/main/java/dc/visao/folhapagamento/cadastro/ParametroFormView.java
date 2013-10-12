@@ -234,7 +234,8 @@ public class ParametroFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -296,6 +297,8 @@ public class ParametroFormView extends CustomComponent {
 		tfCompetencia.setImmediate(false);
 		tfCompetencia.setWidth("175px");
 		tfCompetencia.setHeight("-1px");
+		tfCompetencia.setSizeFull();
+		tfCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCompetencia, 0, 1);
 
 		// tfContribuiPis
@@ -304,6 +307,8 @@ public class ParametroFormView extends CustomComponent {
 		tfContribuiPis.setImmediate(false);
 		tfContribuiPis.setWidth("175px");
 		tfContribuiPis.setHeight("-1px");
+		tfContribuiPis.setSizeFull();
+		tfContribuiPis.setNullRepresentation("");
 		gridLayout_1.addComponent(tfContribuiPis, 1, 1);
 
 		// tfAliquotaPis
@@ -312,7 +317,9 @@ public class ParametroFormView extends CustomComponent {
 		tfAliquotaPis.setImmediate(false);
 		tfAliquotaPis.setWidth("175px");
 		tfAliquotaPis.setHeight("-1px");
-		gridLayout_1.addComponent(tfAliquotaPis, 0, 2);
+		tfAliquotaPis.setSizeFull();
+		tfAliquotaPis.setNullRepresentation("");
+		gridLayout_1.addComponent(tfAliquotaPis, 2, 1);
 
 		// tfDiscriminarDsr
 		tfDiscriminarDsr = new TextField();
@@ -320,7 +327,9 @@ public class ParametroFormView extends CustomComponent {
 		tfDiscriminarDsr.setImmediate(false);
 		tfDiscriminarDsr.setWidth("175px");
 		tfDiscriminarDsr.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiscriminarDsr, 1, 2);
+		tfDiscriminarDsr.setSizeFull();
+		tfDiscriminarDsr.setNullRepresentation("");
+		gridLayout_1.addComponent(tfDiscriminarDsr, 0, 2);
 
 		// tfDiaPagamento
 		tfDiaPagamento = new TextField();
@@ -328,7 +337,9 @@ public class ParametroFormView extends CustomComponent {
 		tfDiaPagamento.setImmediate(false);
 		tfDiaPagamento.setWidth("175px");
 		tfDiaPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiaPagamento, 0, 3);
+		tfDiaPagamento.setSizeFull();
+		tfDiaPagamento.setNullRepresentation("");
+		gridLayout_1.addComponent(tfDiaPagamento, 1, 2);
 
 		// tfCalculoProporcionalidade
 		tfCalculoProporcionalidade = new TextField();
@@ -336,7 +347,9 @@ public class ParametroFormView extends CustomComponent {
 		tfCalculoProporcionalidade.setImmediate(false);
 		tfCalculoProporcionalidade.setWidth("-1px");
 		tfCalculoProporcionalidade.setHeight("-1px");
-		gridLayout_1.addComponent(tfDiaPagamento, 1, 3);
+		tfCalculoProporcionalidade.setSizeFull();
+		tfCalculoProporcionalidade.setNullRepresentation("");
+		gridLayout_1.addComponent(tfDiaPagamento, 2, 2);
 
 		// tfDescontarFaltas13
 		tfDescontarFaltas13 = new TextField();
@@ -344,7 +357,9 @@ public class ParametroFormView extends CustomComponent {
 		tfDescontarFaltas13.setImmediate(false);
 		tfDescontarFaltas13.setWidth("-1px");
 		tfDescontarFaltas13.setHeight("-1px");
-		gridLayout_1.addComponent(tfDescontarFaltas13, 0, 4);
+		tfDescontarFaltas13.setSizeFull();
+		tfDescontarFaltas13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfDescontarFaltas13, 0, 3);
 
 		// tfPagarAdicionais13
 		tfPagarAdicionais13 = new TextField();
@@ -352,7 +367,9 @@ public class ParametroFormView extends CustomComponent {
 		tfPagarAdicionais13.setImmediate(false);
 		tfPagarAdicionais13.setWidth("-1px");
 		tfPagarAdicionais13.setHeight("-1px");
-		gridLayout_1.addComponent(tfPagarAdicionais13, 1, 4);
+		tfPagarAdicionais13.setSizeFull();
+		tfPagarAdicionais13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfPagarAdicionais13, 1, 3);
 
 		// tfPagarEstagiarios13
 		tfPagarEstagiarios13 = new TextField();
@@ -360,7 +377,9 @@ public class ParametroFormView extends CustomComponent {
 		tfPagarEstagiarios13.setImmediate(false);
 		tfPagarEstagiarios13.setWidth("-1px");
 		tfPagarEstagiarios13.setHeight("-1px");
-		gridLayout_1.addComponent(tfPagarEstagiarios13, 0, 5);
+		tfPagarEstagiarios13.setSizeFull();
+		tfPagarEstagiarios13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfPagarEstagiarios13, 2, 3);
 
 		// tfMesAdiantamento13
 		tfMesAdiantamento13 = new TextField();
@@ -368,7 +387,9 @@ public class ParametroFormView extends CustomComponent {
 		tfMesAdiantamento13.setImmediate(false);
 		tfMesAdiantamento13.setWidth("-1px");
 		tfMesAdiantamento13.setHeight("-1px");
-		gridLayout_1.addComponent(tfMesAdiantamento13, 1, 5);
+		tfMesAdiantamento13.setSizeFull();
+		tfMesAdiantamento13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfMesAdiantamento13, 0, 4);
 
 		// tfPercentualAdiantam13
 		tfPercentualAdiantam13 = new TextField();
@@ -376,7 +397,9 @@ public class ParametroFormView extends CustomComponent {
 		tfPercentualAdiantam13.setImmediate(false);
 		tfPercentualAdiantam13.setWidth("-1px");
 		tfPercentualAdiantam13.setHeight("-1px");
-		gridLayout_1.addComponent(tfPercentualAdiantam13, 0, 6);
+		tfPercentualAdiantam13.setSizeFull();
+		tfPercentualAdiantam13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfPercentualAdiantam13, 1, 4);
 
 		// tfFeriasDescontarFaltas
 		tfFeriasDescontarFaltas = new TextField();
@@ -384,7 +407,9 @@ public class ParametroFormView extends CustomComponent {
 		tfFeriasDescontarFaltas.setImmediate(false);
 		tfFeriasDescontarFaltas.setWidth("-1px");
 		tfFeriasDescontarFaltas.setHeight("-1px");
-		gridLayout_1.addComponent(tfFeriasDescontarFaltas, 1, 6);
+		tfFeriasDescontarFaltas.setSizeFull();
+		tfFeriasDescontarFaltas.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFeriasDescontarFaltas, 2, 4);
 
 		// tfFeriasPagarAdicionais
 		tfFeriasPagarAdicionais = new TextField();
@@ -392,7 +417,9 @@ public class ParametroFormView extends CustomComponent {
 		tfFeriasPagarAdicionais.setImmediate(false);
 		tfFeriasPagarAdicionais.setWidth("-1px");
 		tfFeriasPagarAdicionais.setHeight("-1px");
-		gridLayout_1.addComponent(tfFeriasPagarAdicionais, 0, 7);
+		tfFeriasPagarAdicionais.setSizeFull();
+		tfFeriasPagarAdicionais.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFeriasPagarAdicionais, 0, 5);
 
 		// tfFeriasAdiantar13
 		tfFeriasAdiantar13 = new TextField();
@@ -400,7 +427,9 @@ public class ParametroFormView extends CustomComponent {
 		tfFeriasAdiantar13.setImmediate(false);
 		tfFeriasAdiantar13.setWidth("-1px");
 		tfFeriasAdiantar13.setHeight("-1px");
-		gridLayout_1.addComponent(tfFeriasAdiantar13, 1, 7);
+		tfFeriasAdiantar13.setSizeFull();
+		tfFeriasAdiantar13.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFeriasAdiantar13, 1, 5);
 
 		// tfFeriasCalcJustaCausa
 		tfFeriasCalcJustaCausa = new TextField();
@@ -408,7 +437,9 @@ public class ParametroFormView extends CustomComponent {
 		tfFeriasCalcJustaCausa.setImmediate(false);
 		tfFeriasCalcJustaCausa.setWidth("-1px");
 		tfFeriasCalcJustaCausa.setHeight("-1px");
-		gridLayout_1.addComponent(tfFeriasCalcJustaCausa, 0, 8);
+		tfFeriasCalcJustaCausa.setSizeFull();
+		tfFeriasCalcJustaCausa.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFeriasCalcJustaCausa, 2, 5);
 
 		// tfFeriasMovimentoMensal
 		tfFeriasMovimentoMensal = new TextField();
@@ -416,7 +447,9 @@ public class ParametroFormView extends CustomComponent {
 		tfFeriasMovimentoMensal.setImmediate(false);
 		tfFeriasMovimentoMensal.setWidth("-1px");
 		tfFeriasMovimentoMensal.setHeight("-1px");
-		gridLayout_1.addComponent(tfFeriasMovimentoMensal, 1, 8);
+		tfFeriasMovimentoMensal.setSizeFull();
+		tfFeriasMovimentoMensal.setNullRepresentation("");
+		gridLayout_1.addComponent(tfFeriasMovimentoMensal, 0, 6);
 
 		return gridLayout_1;
 	}

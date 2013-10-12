@@ -57,7 +57,8 @@ public class InssFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -111,16 +112,17 @@ public class InssFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfCompetencia
 		tfCompetencia = new TextField();
 		tfCompetencia.setCaption("Competência");
-		tfCompetencia.setNullRepresentation("");
 		tfCompetencia.setImmediate(false);
 		tfCompetencia.setWidth("-1px");
 		tfCompetencia.setHeight("-1px");
-		tfCompetencia.setRequired(true);
+		// tfCompetencia.setRequired(true);
+		tfCompetencia.setSizeFull();
+		tfCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCompetencia, 0, 1);
 
 		return gridLayout_1;

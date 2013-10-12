@@ -108,7 +108,8 @@ public class AfastamentoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -162,12 +163,11 @@ public class AfastamentoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
 		pdfDataInicio.setCaption("Data inicio:");
-		// pdfDataInicio.setNullRepresentation("");
 		pdfDataInicio.setImmediate(false);
 		pdfDataInicio.setWidth("-1px");
 		pdfDataInicio.setHeight("-1px");
@@ -176,7 +176,6 @@ public class AfastamentoFormView extends CustomComponent {
 		// pdfDataFim
 		pdfDataFim = new PopupDateField();
 		pdfDataFim.setCaption("Data termino:");
-		// pdfDataFim.setNullRepresentation("");
 		pdfDataFim.setImmediate(false);
 		pdfDataFim.setWidth("-1px");
 		pdfDataFim.setHeight("-1px");
@@ -185,10 +184,11 @@ public class AfastamentoFormView extends CustomComponent {
 		// tfDiasAfastado
 		tfDiasAfastado = new TextField();
 		tfDiasAfastado.setCaption("Dias de afastamento:");
-		tfDiasAfastado.setNullRepresentation("");
 		tfDiasAfastado.setImmediate(false);
 		tfDiasAfastado.setWidth("175px");
 		tfDiasAfastado.setHeight("-1px");
+		tfDiasAfastado.setSizeFull();
+		tfDiasAfastado.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasAfastado, 0, 2);
 
 		// cbColaborador

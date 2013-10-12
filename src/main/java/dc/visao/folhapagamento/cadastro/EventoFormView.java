@@ -123,7 +123,8 @@ public class EventoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -177,69 +178,76 @@ public class EventoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfCodigo
 		tfCodigo = new TextField();
 		tfCodigo.setCaption("Codigo:");
-		tfCodigo.setNullRepresentation("");
 		tfCodigo.setImmediate(false);
 		tfCodigo.setWidth("175px");
 		tfCodigo.setHeight("-1px");
+		tfCodigo.setSizeFull();
+		tfCodigo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCodigo, 0, 1);
 
 		// tfNome
 		tfNome = new TextField();
 		tfNome.setCaption("Nome:");
-		tfNome.setNullRepresentation("");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("175px");
 		tfNome.setHeight("-1px");
+		tfNome.setSizeFull();
+		tfNome.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNome, 1, 1);
 
 		// tfDescricao
 		tfDescricao = new TextField();
 		tfDescricao.setCaption("Descricao:");
-		tfDescricao.setNullRepresentation("");
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("175px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		// tfTipo
 		tfTipo = new TextField();
 		tfTipo.setCaption("Tipo:");
-		tfTipo.setNullRepresentation("");
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
+		tfTipo.setSizeFull();
+		tfTipo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTipo, 1, 2);
 
 		// tfUnidade
 		tfUnidade = new TextField();
 		tfUnidade.setCaption("Unidade:");
-		tfUnidade.setNullRepresentation("");
 		tfUnidade.setImmediate(false);
 		tfUnidade.setWidth("175px");
 		tfUnidade.setHeight("-1px");
+		tfUnidade.setSizeFull();
+		tfUnidade.setNullRepresentation("");
 		gridLayout_1.addComponent(tfUnidade, 0, 3);
 
 		// tfBaseCalculo
 		tfBaseCalculo = new TextField();
 		tfBaseCalculo.setCaption("Base de calculo:");
-		tfBaseCalculo.setNullRepresentation("");
 		tfBaseCalculo.setImmediate(false);
 		tfBaseCalculo.setWidth("175px");
 		tfBaseCalculo.setHeight("-1px");
+		tfBaseCalculo.setSizeFull();
+		tfBaseCalculo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfBaseCalculo, 1, 3);
 
 		// tfTaxa
 		tfTaxa = new TextField();
 		tfTaxa.setCaption("Taxa:");
-		tfTaxa.setNullRepresentation("");
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("175px");
 		tfTaxa.setHeight("-1px");
+		tfTaxa.setSizeFull();
+		tfTaxa.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTaxa, 0, 4);
 
 		return gridLayout_1;

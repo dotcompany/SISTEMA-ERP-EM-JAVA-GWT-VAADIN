@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.cadastro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,16 @@ public class PlanoSaudeListController extends
 
 	@Override
 	protected List<PlanoSaudeEntity> pesquisa(String valor) {
-		List<PlanoSaudeEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<PlanoSaudeEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PlanoSaudeEntity>();
+		}
 	}
 
 	@Override
@@ -82,9 +90,15 @@ public class PlanoSaudeListController extends
 
 	@Override
 	protected List<PlanoSaudeEntity> pesquisaDefault() {
-		List<PlanoSaudeEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<PlanoSaudeEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PlanoSaudeEntity>();
+		}
 	}
 
 }

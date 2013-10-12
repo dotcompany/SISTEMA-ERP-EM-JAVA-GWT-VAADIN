@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.cadastro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,16 @@ public class ParametroListController extends
 
 	@Override
 	protected List<ParametroEntity> pesquisa(String valor) {
-		List<ParametroEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<ParametroEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<ParametroEntity>();
+		}
 	}
 
 	@Override
@@ -82,9 +90,15 @@ public class ParametroListController extends
 
 	@Override
 	protected List<ParametroEntity> pesquisaDefault() {
-		List<ParametroEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<ParametroEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<ParametroEntity>();
+		}
 	}
 
 }

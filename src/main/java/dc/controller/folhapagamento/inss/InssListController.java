@@ -43,7 +43,7 @@ public class InssListController extends CRUDListController<InssEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "competencia", "empresa.nomeFantasia" };
+		return new String[] { "competencia" };
 	}
 
 	@Override

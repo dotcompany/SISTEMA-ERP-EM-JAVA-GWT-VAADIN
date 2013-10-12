@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.cadastro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,16 @@ public class GuiaAcumuladaListController extends
 
 	@Override
 	protected List<GuiaAcumuladaEntity> pesquisa(String valor) {
-		List<GuiaAcumuladaEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<GuiaAcumuladaEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<GuiaAcumuladaEntity>();
+		}
 	}
 
 	@Override
@@ -83,9 +90,15 @@ public class GuiaAcumuladaListController extends
 
 	@Override
 	protected List<GuiaAcumuladaEntity> pesquisaDefault() {
-		List<GuiaAcumuladaEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<GuiaAcumuladaEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<GuiaAcumuladaEntity>();
+		}
 	}
 
 }

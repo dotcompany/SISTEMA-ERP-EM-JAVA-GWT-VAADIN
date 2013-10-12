@@ -41,7 +41,7 @@ public class PlanoSaudeDAO extends AbstractCrudDAO<PlanoSaudeEntity> {
 	@Transactional
 	public List<PlanoSaudeEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PlanoSaudeEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM PlanoSaudeEntity ent WHERE (1 = 1) AND ent.beneficiario LIKE :q";
 
 			List<PlanoSaudeEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")

@@ -126,7 +126,8 @@ public class FeriasColetivasFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -180,7 +181,7 @@ public class FeriasColetivasFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -204,6 +205,8 @@ public class FeriasColetivasFormView extends CustomComponent {
 		tfDiasGozo.setImmediate(false);
 		tfDiasGozo.setWidth("175px");
 		tfDiasGozo.setHeight("-1px");
+		tfDiasGozo.setSizeFull();
+		tfDiasGozo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasGozo, 0, 2);
 
 		// pdfAbonoPecuniarioInicio
@@ -228,6 +231,8 @@ public class FeriasColetivasFormView extends CustomComponent {
 		tfDiasAbono.setImmediate(false);
 		tfDiasAbono.setWidth("175px");
 		tfDiasAbono.setHeight("-1px");
+		tfDiasAbono.setSizeFull();
+		tfDiasAbono.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasAbono, 1, 3);
 
 		// pdfDataPagamento

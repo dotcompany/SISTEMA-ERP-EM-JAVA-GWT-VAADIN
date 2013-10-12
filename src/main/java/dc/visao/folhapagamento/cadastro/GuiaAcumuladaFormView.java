@@ -179,7 +179,8 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -233,7 +234,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfGpsTipo
 		tfGpsTipo = new TextField();
@@ -242,6 +243,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfGpsTipo.setWidth("175px");
 		tfGpsTipo.setHeight("-1px");
 		tfGpsTipo.setSizeFull();
+		tfGpsTipo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfGpsTipo, 0, 1);
 
 		// tfGpsCompetencia
@@ -251,6 +253,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfGpsCompetencia.setWidth("175px");
 		tfGpsCompetencia.setHeight("-1px");
 		tfGpsCompetencia.setSizeFull();
+		tfGpsCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfGpsCompetencia, 1, 1);
 
 		// tfGpsValorInss
@@ -260,6 +263,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfGpsValorInss.setWidth("175px");
 		tfGpsValorInss.setHeight("-1px");
 		tfGpsValorInss.setSizeFull();
+		tfGpsValorInss.setNullRepresentation("");
 		gridLayout_1.addComponent(tfGpsValorInss, 0, 2);
 
 		// tfGpsValorOutrasEnt
@@ -269,6 +273,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfGpsValorOutrasEnt.setWidth("175px");
 		tfGpsValorOutrasEnt.setHeight("-1px");
 		tfGpsValorOutrasEnt.setSizeFull();
+		tfGpsValorOutrasEnt.setNullRepresentation("");
 		gridLayout_1.addComponent(tfGpsValorOutrasEnt, 1, 2);
 
 		// pdfGpsDataPagamento
@@ -286,6 +291,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfIrrfCompetencia.setWidth("175px");
 		tfIrrfCompetencia.setHeight("-1px");
 		tfIrrfCompetencia.setSizeFull();
+		tfIrrfCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfIrrfCompetencia, 1, 3);
 
 		// tfIrrfCodigoRecolhimento
@@ -295,6 +301,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfIrrfCodigoRecolhimento.setWidth("175px");
 		tfIrrfCodigoRecolhimento.setHeight("-1px");
 		tfIrrfCodigoRecolhimento.setSizeFull();
+		tfIrrfCodigoRecolhimento.setNullRepresentation("");
 		gridLayout_1.addComponent(tfIrrfCodigoRecolhimento, 0, 4);
 
 		// tfIrrfValorAcumulado
@@ -304,6 +311,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfIrrfValorAcumulado.setWidth("175px");
 		tfIrrfValorAcumulado.setHeight("-1px");
 		tfIrrfValorAcumulado.setSizeFull();
+		tfIrrfValorAcumulado.setNullRepresentation("");
 		gridLayout_1.addComponent(tfIrrfValorAcumulado, 1, 4);
 
 		// pdfIrrfDataPagamento
@@ -321,6 +329,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfPisCompetencia.setWidth("175px");
 		tfPisCompetencia.setHeight("-1px");
 		tfPisCompetencia.setSizeFull();
+		tfPisCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfPisCompetencia, 1, 5);
 
 		// tfPisValorAcumulado
@@ -330,6 +339,7 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		tfPisValorAcumulado.setWidth("175px");
 		tfPisValorAcumulado.setHeight("-1px");
 		tfPisValorAcumulado.setSizeFull();
+		tfPisValorAcumulado.setNullRepresentation("");
 		gridLayout_1.addComponent(tfPisValorAcumulado, 0, 6);
 
 		// pdfPisDataPagamento

@@ -97,7 +97,8 @@ public class PlanoSaudeFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -151,7 +152,7 @@ public class PlanoSaudeFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -164,10 +165,11 @@ public class PlanoSaudeFormView extends CustomComponent {
 		// tfBeneficiario
 		tfBeneficiario = new TextField();
 		tfBeneficiario.setCaption("Beneficiario:");
-		tfBeneficiario.setNullRepresentation("");
 		tfBeneficiario.setImmediate(false);
 		tfBeneficiario.setWidth("175px");
 		tfBeneficiario.setHeight("-1px");
+		tfBeneficiario.setSizeFull();
+		tfBeneficiario.setNullRepresentation("");
 		gridLayout_1.addComponent(tfBeneficiario, 1, 1);
 
 		// cbColaborador

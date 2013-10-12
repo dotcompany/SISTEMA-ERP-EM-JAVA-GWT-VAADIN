@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.cadastro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,15 @@ public class EventoListController extends CRUDListController<EventoEntity> {
 
 	@Override
 	protected List<EventoEntity> pesquisa(String valor) {
-		List<EventoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<EventoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<EventoEntity>();
+		}
 	}
 
 	@Override
@@ -80,9 +87,15 @@ public class EventoListController extends CRUDListController<EventoEntity> {
 
 	@Override
 	protected List<EventoEntity> pesquisaDefault() {
-		List<EventoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<EventoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<EventoEntity>();
+		}
 	}
 
 }

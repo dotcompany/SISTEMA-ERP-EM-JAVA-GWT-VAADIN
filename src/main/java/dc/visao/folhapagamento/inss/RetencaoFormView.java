@@ -102,7 +102,8 @@ public class RetencaoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -156,24 +157,26 @@ public class RetencaoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfValorMensal
 		tfValorMensal = new TextField();
 		tfValorMensal.setCaption("Valor mensal:");
-		tfValorMensal.setNullRepresentation("");
 		tfValorMensal.setImmediate(false);
 		tfValorMensal.setWidth("175px");
 		tfValorMensal.setHeight("-1px");
+		tfValorMensal.setSizeFull();
+		tfValorMensal.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValorMensal, 0, 1);
 
 		// tfValor13
 		tfValor13 = new TextField();
 		tfValor13.setCaption("Valor do 13:");
-		tfValor13.setNullRepresentation("");
 		tfValor13.setImmediate(false);
 		tfValor13.setWidth("175px");
 		tfValor13.setHeight("-1px");
+		tfValor13.setSizeFull();
+		tfValor13.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValor13, 1, 1);
 
 		// cbInss

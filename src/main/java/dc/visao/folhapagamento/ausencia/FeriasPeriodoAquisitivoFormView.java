@@ -208,7 +208,8 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -262,7 +263,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -270,7 +271,6 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		pdfDataInicio.setImmediate(false);
 		pdfDataInicio.setWidth("175px");
 		pdfDataInicio.setHeight("-1px");
-		// pdfDataInicio.setSizeFull();
 		gridLayout_1.addComponent(pdfDataInicio, 0, 1);
 
 		// tfSituacao
@@ -280,6 +280,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfSituacao.setWidth("175px");
 		tfSituacao.setHeight("-1px");
 		tfSituacao.setSizeFull();
+		tfSituacao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfSituacao, 1, 1);
 
 		// pdfLimiteParaGozo
@@ -288,7 +289,6 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		pdfLimiteParaGozo.setImmediate(false);
 		pdfLimiteParaGozo.setWidth("175px");
 		pdfLimiteParaGozo.setHeight("-1px");
-		// pdfLimiteParaGozo.setSizeFull();
 		gridLayout_1.addComponent(pdfLimiteParaGozo, 0, 2);
 
 		// tfDescontarFaltas
@@ -298,6 +298,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDescontarFaltas.setWidth("175px");
 		tfDescontarFaltas.setHeight("-1px");
 		tfDescontarFaltas.setSizeFull();
+		tfDescontarFaltas.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescontarFaltas, 1, 2);
 
 		// tfDesconsiderarAfastamento
@@ -307,6 +308,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDesconsiderarAfastamento.setWidth("175px");
 		tfDesconsiderarAfastamento.setHeight("-1px");
 		tfDesconsiderarAfastamento.setSizeFull();
+		tfDesconsiderarAfastamento.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDesconsiderarAfastamento, 0, 3);
 
 		// tfAfastamentoPrevidencia
@@ -316,6 +318,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfAfastamentoPrevidencia.setWidth("175px");
 		tfAfastamentoPrevidencia.setHeight("-1px");
 		tfAfastamentoPrevidencia.setSizeFull();
+		tfAfastamentoPrevidencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfAfastamentoPrevidencia, 1, 3);
 
 		// tfAfastamentoSemRemun
@@ -325,6 +328,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfAfastamentoSemRemun.setWidth("175px");
 		tfAfastamentoSemRemun.setHeight("-1px");
 		tfAfastamentoSemRemun.setSizeFull();
+		tfAfastamentoSemRemun.setNullRepresentation("");
 		gridLayout_1.addComponent(tfAfastamentoSemRemun, 0, 4);
 
 		// tfAfastamentoComRemun
@@ -334,6 +338,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfAfastamentoComRemun.setWidth("175px");
 		tfAfastamentoComRemun.setHeight("-1px");
 		tfAfastamentoComRemun.setSizeFull();
+		tfAfastamentoComRemun.setNullRepresentation("");
 		gridLayout_1.addComponent(tfAfastamentoComRemun, 1, 4);
 
 		// tfDiasDireito
@@ -343,6 +348,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDiasDireito.setWidth("175px");
 		tfDiasDireito.setHeight("-1px");
 		tfDiasDireito.setSizeFull();
+		tfDiasDireito.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasDireito, 0, 5);
 
 		// tfDiasGozados
@@ -352,6 +358,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDiasGozados.setWidth("175px");
 		tfDiasGozados.setHeight("-1px");
 		tfDiasGozados.setSizeFull();
+		tfDiasGozados.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasGozados, 1, 5);
 
 		// tfDiasFaltas
@@ -361,6 +368,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDiasFaltas.setWidth("175px");
 		tfDiasFaltas.setHeight("-1px");
 		tfDiasFaltas.setSizeFull();
+		tfDiasFaltas.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasFaltas, 0, 6);
 
 		// tfDiasRestantes
@@ -370,6 +378,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		tfDiasRestantes.setWidth("175px");
 		tfDiasRestantes.setHeight("-1px");
 		tfDiasRestantes.setSizeFull();
+		tfDiasRestantes.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDiasRestantes, 1, 6);
 
 		// pdfDataFim
@@ -378,7 +387,6 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		pdfDataFim.setImmediate(false);
 		pdfDataFim.setWidth("175px");
 		pdfDataFim.setHeight("-1px");
-		// pdfDataFim.setSizeFull();
 		gridLayout_1.addComponent(pdfDataFim, 0, 7);
 
 		// cbColaborador
@@ -387,7 +395,7 @@ public class FeriasPeriodoAquisitivoFormView extends CustomComponent {
 		cbColaborador.setImmediate(false);
 		cbColaborador.setWidth("-1px");
 		cbColaborador.setHeight("-1px");
-		// cbColaborador.setSizeFull();
+		cbColaborador.setRequired(true);
 		gridLayout_1.addComponent(cbColaborador, 1, 7);
 
 		return gridLayout_1;
