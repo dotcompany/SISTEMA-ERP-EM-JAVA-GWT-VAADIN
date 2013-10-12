@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,16 @@ public class HistoricoSalarialListController extends
 
 	@Override
 	protected List<HistoricoSalarialEntity> pesquisa(String valor) {
-		List<HistoricoSalarialEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<HistoricoSalarialEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<HistoricoSalarialEntity>();
+		}
 	}
 
 	@Override
@@ -83,9 +90,15 @@ public class HistoricoSalarialListController extends
 
 	@Override
 	protected List<HistoricoSalarialEntity> pesquisaDefault() {
-		List<HistoricoSalarialEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<HistoricoSalarialEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<HistoricoSalarialEntity>();
+		}
 	}
 
 }

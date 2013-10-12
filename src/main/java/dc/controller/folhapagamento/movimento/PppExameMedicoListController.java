@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,16 @@ public class PppExameMedicoListController extends
 
 	@Override
 	protected List<PppExameMedicoEntity> pesquisa(String valor) {
-		List<PppExameMedicoEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<PppExameMedicoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppExameMedicoEntity>();
+		}
 	}
 
 	@Override
@@ -83,9 +90,15 @@ public class PppExameMedicoListController extends
 
 	@Override
 	protected List<PppExameMedicoEntity> pesquisaDefault() {
-		List<PppExameMedicoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<PppExameMedicoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppExameMedicoEntity>();
+		}
 	}
 
 }

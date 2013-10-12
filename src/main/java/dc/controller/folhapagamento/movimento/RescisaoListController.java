@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,16 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 
 	@Override
 	protected List<RescisaoEntity> pesquisa(String valor) {
-		List<RescisaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<RescisaoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<RescisaoEntity>();
+		}
 	}
 
 	@Override
@@ -81,9 +89,15 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 
 	@Override
 	protected List<RescisaoEntity> pesquisaDefault() {
-		List<RescisaoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<RescisaoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<RescisaoEntity>();
+		}
 	}
 
 }

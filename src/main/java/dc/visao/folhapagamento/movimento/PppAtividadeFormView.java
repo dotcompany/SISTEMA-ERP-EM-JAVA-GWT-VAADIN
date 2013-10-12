@@ -96,7 +96,8 @@ public class PppAtividadeFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -150,7 +151,7 @@ public class PppAtividadeFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -174,6 +175,8 @@ public class PppAtividadeFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("175px");
 		tfDescricao.setHeight("-1px");
+		tfDescricao.setSizeFull();
+		tfDescricao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfDescricao, 0, 2);
 
 		// cbPpp
@@ -182,6 +185,7 @@ public class PppAtividadeFormView extends CustomComponent {
 		cbPpp.setImmediate(false);
 		cbPpp.setWidth("-1px");
 		cbPpp.setHeight("-1px");
+		cbPpp.setRequired(true);
 		gridLayout_1.addComponent(cbPpp, 1, 2);
 
 		return gridLayout_1;

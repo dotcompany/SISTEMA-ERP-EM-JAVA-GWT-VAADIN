@@ -217,7 +217,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -271,7 +272,7 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataInicio
 		pdfDataInicio = new PopupDateField();
@@ -295,6 +296,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
+		tfTipo.setSizeFull();
+		tfTipo.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 2);
 
 		// tfFatorRisco
@@ -303,6 +306,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfFatorRisco.setImmediate(false);
 		tfFatorRisco.setWidth("175px");
 		tfFatorRisco.setHeight("-1px");
+		tfFatorRisco.setSizeFull();
+		tfFatorRisco.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 2);
 
 		// tfIntensidade
@@ -311,6 +316,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfIntensidade.setImmediate(false);
 		tfIntensidade.setWidth("175px");
 		tfIntensidade.setHeight("-1px");
+		tfIntensidade.setSizeFull();
+		tfIntensidade.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 3);
 
 		// tfTecnicaUtilizada
@@ -319,6 +326,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfTecnicaUtilizada.setImmediate(false);
 		tfTecnicaUtilizada.setWidth("175px");
 		tfTecnicaUtilizada.setHeight("-1px");
+		tfTecnicaUtilizada.setSizeFull();
+		tfTecnicaUtilizada.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 3);
 
 		// tfEpcEficaz
@@ -327,6 +336,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfEpcEficaz.setImmediate(false);
 		tfEpcEficaz.setWidth("175px");
 		tfEpcEficaz.setHeight("-1px");
+		tfEpcEficaz.setSizeFull();
+		tfEpcEficaz.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 4);
 
 		// tfEpiEficaz
@@ -335,6 +346,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfEpiEficaz.setImmediate(false);
 		tfEpiEficaz.setWidth("175px");
 		tfEpiEficaz.setHeight("-1px");
+		tfEpiEficaz.setSizeFull();
+		tfEpiEficaz.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 4);
 
 		// tfCaEpi
@@ -343,6 +356,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfCaEpi.setImmediate(false);
 		tfCaEpi.setWidth("175px");
 		tfCaEpi.setHeight("-1px");
+		tfCaEpi.setSizeFull();
+		tfCaEpi.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 5);
 
 		// tfAtendimentoNr061
@@ -351,6 +366,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr061.setImmediate(false);
 		tfAtendimentoNr061.setWidth("175px");
 		tfAtendimentoNr061.setHeight("-1px");
+		tfAtendimentoNr061.setSizeFull();
+		tfAtendimentoNr061.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 5);
 
 		// tfAtendimentoNr062
@@ -359,6 +376,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr062.setImmediate(false);
 		tfAtendimentoNr062.setWidth("175px");
 		tfAtendimentoNr062.setHeight("-1px");
+		tfAtendimentoNr062.setSizeFull();
+		tfAtendimentoNr062.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 6);
 
 		// tfAtendimentoNr063
@@ -367,6 +386,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr063.setImmediate(false);
 		tfAtendimentoNr063.setWidth("175px");
 		tfAtendimentoNr063.setHeight("-1px");
+		tfAtendimentoNr063.setSizeFull();
+		tfAtendimentoNr063.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 6);
 
 		// tfAtendimentoNr064
@@ -375,6 +396,8 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr064.setImmediate(false);
 		tfAtendimentoNr064.setWidth("175px");
 		tfAtendimentoNr064.setHeight("-1px");
+		tfAtendimentoNr064.setSizeFull();
+		tfAtendimentoNr064.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 0, 7);
 
 		// tfAtendimentoNr065
@@ -383,7 +406,18 @@ public class PppFatorRiscoFormView extends CustomComponent {
 		tfAtendimentoNr065.setImmediate(false);
 		tfAtendimentoNr065.setWidth("175px");
 		tfAtendimentoNr065.setHeight("-1px");
+		tfAtendimentoNr065.setSizeFull();
+		tfAtendimentoNr065.setNullRepresentation("");
 		gridLayout_1.addComponent(pdfDataTermino, 1, 7);
+
+		// cbPpp
+		cbPpp = new ComboBox();
+		cbPpp.setCaption("PPP");
+		cbPpp.setImmediate(false);
+		cbPpp.setWidth("-1px");
+		cbPpp.setHeight("-1px");
+		cbPpp.setRequired(true);
+		gridLayout_1.addComponent(cbPpp, 0, 8);
 
 		return gridLayout_1;
 	}

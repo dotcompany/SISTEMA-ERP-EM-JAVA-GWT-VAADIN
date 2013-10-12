@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,15 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 
 	@Override
 	protected List<PppCatEntity> pesquisa(String valor) {
-		List<PppCatEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<PppCatEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppCatEntity>();
+		}
 	}
 
 	@Override
@@ -81,9 +88,15 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 
 	@Override
 	protected List<PppCatEntity> pesquisaDefault() {
-		List<PppCatEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<PppCatEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppCatEntity>();
+		}
 	}
 
 }

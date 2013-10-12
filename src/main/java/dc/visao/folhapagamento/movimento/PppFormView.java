@@ -73,7 +73,8 @@ public class PppFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -127,7 +128,7 @@ public class PppFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfObservacao
 		tfObservacao = new TextField();
@@ -135,6 +136,8 @@ public class PppFormView extends CustomComponent {
 		tfObservacao.setImmediate(false);
 		tfObservacao.setWidth("175px");
 		tfObservacao.setHeight("-1px");
+		tfObservacao.setSizeFull();
+		tfObservacao.setNullRepresentation("");
 		gridLayout_1.addComponent(tfObservacao, 0, 1);
 
 		// cbColaborador
@@ -143,6 +146,7 @@ public class PppFormView extends CustomComponent {
 		cbColaborador.setImmediate(false);
 		cbColaborador.setWidth("-1px");
 		cbColaborador.setHeight("-1px");
+		cbColaborador.setRequired(true);
 		gridLayout_1.addComponent(cbColaborador, 1, 1);
 
 		return gridLayout_1;

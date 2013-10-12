@@ -118,7 +118,8 @@ public class PppExameMedicoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -172,7 +173,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// pdfDataUltimo
 		pdfDataUltimo = new PopupDateField();
@@ -188,6 +189,8 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
+		tfTipo.setSizeFull();
+		tfTipo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfTipo, 1, 1);
 
 		// tfNatureza
@@ -196,6 +199,8 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfNatureza.setImmediate(false);
 		tfNatureza.setWidth("175px");
 		tfNatureza.setHeight("-1px");
+		tfNatureza.setSizeFull();
+		tfNatureza.setNullRepresentation("");
 		gridLayout_1.addComponent(tfNatureza, 0, 2);
 
 		// tfTipo
@@ -204,6 +209,8 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfExame.setImmediate(false);
 		tfExame.setWidth("175px");
 		tfExame.setHeight("-1px");
+		tfExame.setSizeFull();
+		tfExame.setNullRepresentation("");
 		gridLayout_1.addComponent(tfExame, 1, 2);
 
 		// tfIndicacaoResultados
@@ -212,6 +219,8 @@ public class PppExameMedicoFormView extends CustomComponent {
 		tfIndicacaoResultados.setImmediate(false);
 		tfIndicacaoResultados.setWidth("175px");
 		tfIndicacaoResultados.setHeight("-1px");
+		tfIndicacaoResultados.setSizeFull();
+		tfIndicacaoResultados.setNullRepresentation("");
 		gridLayout_1.addComponent(tfIndicacaoResultados, 0, 3);
 
 		// cbPpp
@@ -220,6 +229,7 @@ public class PppExameMedicoFormView extends CustomComponent {
 		cbPpp.setImmediate(false);
 		cbPpp.setWidth("-1px");
 		cbPpp.setHeight("-1px");
+		cbPpp.setRequired(true);
 		gridLayout_1.addComponent(cbPpp, 1, 3);
 
 		return gridLayout_1;

@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,16 @@ public class PppAtividadeListController extends
 
 	@Override
 	protected List<PppAtividadeEntity> pesquisa(String valor) {
-		List<PppAtividadeEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<PppAtividadeEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppAtividadeEntity>();
+		}
 	}
 
 	@Override
@@ -82,9 +89,15 @@ public class PppAtividadeListController extends
 
 	@Override
 	protected List<PppAtividadeEntity> pesquisaDefault() {
-		List<PppAtividadeEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<PppAtividadeEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppAtividadeEntity>();
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,16 @@ public class PppFatorRiscoListController extends
 
 	@Override
 	protected List<PppFatorRiscoEntity> pesquisa(String valor) {
-		List<PppFatorRiscoEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<PppFatorRiscoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppFatorRiscoEntity>();
+		}
 	}
 
 	@Override
@@ -83,9 +90,15 @@ public class PppFatorRiscoListController extends
 
 	@Override
 	protected List<PppFatorRiscoEntity> pesquisaDefault() {
-		List<PppFatorRiscoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<PppFatorRiscoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PppFatorRiscoEntity>();
+		}
 	}
 
 }

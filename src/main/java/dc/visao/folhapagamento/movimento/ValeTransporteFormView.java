@@ -85,7 +85,8 @@ public class ValeTransporteFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -139,7 +140,7 @@ public class ValeTransporteFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfQuantidade
 		tfQuantidade = new TextField();
@@ -147,6 +148,8 @@ public class ValeTransporteFormView extends CustomComponent {
 		tfQuantidade.setImmediate(false);
 		tfQuantidade.setWidth("175px");
 		tfQuantidade.setHeight("-1px");
+		tfQuantidade.setSizeFull();
+		tfQuantidade.setNullRepresentation("");
 		gridLayout_1.addComponent(tfQuantidade, 0, 1);
 
 		// cbColaborador
@@ -155,6 +158,7 @@ public class ValeTransporteFormView extends CustomComponent {
 		cbColaborador.setImmediate(false);
 		cbColaborador.setWidth("-1px");
 		cbColaborador.setHeight("-1px");
+		cbColaborador.setRequired(true);
 		gridLayout_1.addComponent(cbColaborador, 1, 1);
 
 		// cbColaborador
@@ -163,6 +167,7 @@ public class ValeTransporteFormView extends CustomComponent {
 		cbTransporteItinerario.setImmediate(false);
 		cbTransporteItinerario.setWidth("-1px");
 		cbTransporteItinerario.setHeight("-1px");
+		cbTransporteItinerario.setRequired(true);
 		gridLayout_1.addComponent(cbColaborador, 0, 2);
 
 		return gridLayout_1;

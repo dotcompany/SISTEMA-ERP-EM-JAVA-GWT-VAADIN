@@ -68,7 +68,8 @@ public class FechamentoFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -122,7 +123,7 @@ public class FechamentoFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfFechamentoAtual
 		tfFechamentoAtual = new TextField();
@@ -130,6 +131,8 @@ public class FechamentoFormView extends CustomComponent {
 		tfFechamentoAtual.setImmediate(false);
 		tfFechamentoAtual.setWidth("175px");
 		tfFechamentoAtual.setHeight("-1px");
+		tfFechamentoAtual.setSizeFull();
+		tfFechamentoAtual.setNullRepresentation("");
 		gridLayout_1.addComponent(tfFechamentoAtual, 0, 1);
 
 		// tfProximoFechamento
@@ -138,6 +141,8 @@ public class FechamentoFormView extends CustomComponent {
 		tfProximoFechamento.setImmediate(false);
 		tfProximoFechamento.setWidth("175px");
 		tfProximoFechamento.setHeight("-1px");
+		tfProximoFechamento.setSizeFull();
+		tfProximoFechamento.setNullRepresentation("");
 		gridLayout_1.addComponent(tfProximoFechamento, 1, 1);
 
 		return gridLayout_1;

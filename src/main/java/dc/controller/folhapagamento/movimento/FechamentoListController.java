@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,16 @@ public class FechamentoListController extends
 
 	@Override
 	protected List<FechamentoEntity> pesquisa(String valor) {
-		List<FechamentoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		try {
+			List<FechamentoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<FechamentoEntity>();
+		}
 	}
 
 	@Override
@@ -81,9 +89,15 @@ public class FechamentoListController extends
 
 	@Override
 	protected List<FechamentoEntity> pesquisaDefault() {
-		List<FechamentoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<FechamentoEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<FechamentoEntity>();
+		}
 	}
 
 }

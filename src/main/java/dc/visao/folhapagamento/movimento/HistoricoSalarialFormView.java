@@ -129,7 +129,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -183,7 +184,7 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(3);
+		gridLayout_1.setColumns(2);
 
 		// tfCompetencia
 		tfCompetencia = new TextField();
@@ -191,7 +192,9 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfCompetencia.setImmediate(false);
 		tfCompetencia.setWidth("175px");
 		tfCompetencia.setHeight("-1px");
-		tfCompetencia.setRequired(true);
+		// tfCompetencia.setRequired(true);
+		tfCompetencia.setSizeFull();
+		tfCompetencia.setNullRepresentation("");
 		gridLayout_1.addComponent(tfCompetencia, 0, 1);
 
 		// tfSalarioAtual
@@ -200,6 +203,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfSalarioAtual.setImmediate(false);
 		tfSalarioAtual.setWidth("175px");
 		tfSalarioAtual.setHeight("-1px");
+		tfSalarioAtual.setSizeFull();
+		tfSalarioAtual.setNullRepresentation("");
 		gridLayout_1.addComponent(tfSalarioAtual, 1, 1);
 
 		// tfPercentualAumento
@@ -208,6 +213,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfPercentualAumento.setImmediate(false);
 		tfPercentualAumento.setWidth("175px");
 		tfPercentualAumento.setHeight("-1px");
+		tfPercentualAumento.setSizeFull();
+		tfPercentualAumento.setNullRepresentation("");
 		gridLayout_1.addComponent(tfPercentualAumento, 0, 2);
 
 		// tfSalarioNovo
@@ -216,6 +223,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfSalarioNovo.setImmediate(false);
 		tfSalarioNovo.setWidth("175px");
 		tfSalarioNovo.setHeight("-1px");
+		tfSalarioNovo.setSizeFull();
+		tfSalarioNovo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfSalarioNovo, 1, 2);
 
 		// tfValidoAPartir
@@ -224,6 +233,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfValidoAPartir.setImmediate(false);
 		tfValidoAPartir.setWidth("-1px");
 		tfValidoAPartir.setHeight("-1px");
+		tfValidoAPartir.setSizeFull();
+		tfValidoAPartir.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValidoAPartir, 0, 3);
 
 		// tfMotivo
@@ -232,6 +243,8 @@ public class HistoricoSalarialFormView extends CustomComponent {
 		tfMotivo.setImmediate(false);
 		tfMotivo.setWidth("-1px");
 		tfMotivo.setHeight("-1px");
+		tfMotivo.setSizeFull();
+		tfMotivo.setNullRepresentation("");
 		gridLayout_1.addComponent(tfMotivo, 1, 3);
 
 		// cbColaborador

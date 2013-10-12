@@ -1,5 +1,6 @@
 package dc.controller.folhapagamento.movimento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,16 @@ public class ValeTransporteListController extends
 
 	@Override
 	protected List<ValeTransporteEntity> pesquisa(String valor) {
-		List<ValeTransporteEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		try {
+			List<ValeTransporteEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<ValeTransporteEntity>();
+		}
 	}
 
 	@Override
@@ -82,9 +89,15 @@ public class ValeTransporteListController extends
 
 	@Override
 	protected List<ValeTransporteEntity> pesquisaDefault() {
-		List<ValeTransporteEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<ValeTransporteEntity> auxLista = this.pDAO.listarTodos();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<ValeTransporteEntity>();
+		}
 	}
 
 }
