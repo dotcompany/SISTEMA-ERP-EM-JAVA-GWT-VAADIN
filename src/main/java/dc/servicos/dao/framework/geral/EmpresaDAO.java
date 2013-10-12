@@ -82,5 +82,12 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 		}
 		
 	}
+	
+	@Transactional
+	public List<Empresa> buscaMatrizes(){
+		return getSession()
+				.createQuery("from Empresa where tipo = :tipo")
+				.setParameter("tipo", "MATRIZ").list();
+	}
 
 }

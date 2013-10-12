@@ -147,7 +147,6 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-	
 		dao.deleteAllByIds(ids);
 
 	}

@@ -7,24 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Cnae;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
-import dc.entidade.pessoal.Contador;
+import dc.entidade.tabelas.CstIcmsB;
+import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
-import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
+import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.geral.CRUDFormController;
 /**
-*
-* @author Wesley Jr
+ *
+ * @author Wesley Jr
 /*
  * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
  * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
@@ -33,12 +34,11 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
  * Temos o carregar também que é para pegar as informações que desejarmos quando
  * formos pesquisar na Tela.
  *
-*/
-import dc.visao.framework.geral.CRUDFormController;
+ */
 
 /**
-*
-* @author Wesley Jr
+ *
+ * @author Wesley Jr
 /*
  * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
  * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
@@ -47,30 +47,30 @@ import dc.visao.framework.geral.CRUDFormController;
  * Temos o carregar também que é para pegar as informações que desejarmos quando
  * formos pesquisar na Tela.
  *
-*/
+ */
 
 @Controller
 @Scope("prototype")
 public class EmpresaFormController extends CRUDFormController<Empresa> {
 
-    private  EmpresaFormView subView;
+	private  EmpresaFormView subView;
 
 	@Autowired
 	private EmpresaDAO empresaDAO;
-	
+
 	/*@Autowired
 	private MatrizDAO matrizDAO;*/
-	
+
 	@Autowired
 	private ContadorDAO contadorDAO;
-	
+
 	@Autowired
 	private SindicatoDAO sindicatoDAO;
-	
+
 	@Autowired
 	private FpasDAO fpasDAO;
-	
-	
+
+
 
 	private Empresa currentBean;
 
@@ -86,19 +86,32 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Override
 	protected void actionSalvar() {
-		
-		//currentBean.setRazaoSocial(subView.getTxtRazaoSocial().getValue());
-		//currentBean.setNomeFantasia(subView.getTxtNomeFantasia().getValue());
-		
+
+		String razaoSocial = subView.getTxtRazaoSocial().getValue();
+		String nomeFantasia = subView.getTxtNomeFantasia().getValue();
+
+
 		try{
-			empresaDAO.saveOrUpdate(currentBean);
+
+			if(!(Validator.validateString(razaoSocial))){
+				throw new ErroValidacaoException("Informe a Razão Social");
+			}
+			if(!(Validator.validateString(nomeFantasia))){
+				throw new ErroValidacaoException("Informe o Nome de Fantasia");
+			}
+
+			currentBean.setRazaoSocial(razaoSocial);
+			currentBean.setNomeFantasia(nomeFantasia);
+    		empresaDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
+		}catch(ErroValidacaoException e){
+			e.montaMensagemErro();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	private void carregarCombos() {
 		/*subView.carregaComboMatrix(matrizDAO
 				.getAll(Matriz.class));*/
@@ -108,7 +121,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		//		.getAll(Sindicato.class));
 		/*subView.carregaComboFpas(FpasDAO
 				.getAll(Fpas.class)); */
-		}
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -133,7 +146,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public Contato novoContato() {
 		Contato contato = new Contato();
 		this.currentBean.addContato(contato);
@@ -148,7 +161,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		mensagemRemovidoOK();
 
 	}
-	
+
 	public Endereco novoEndereco() {
 		Endereco endereco = new Endereco();
 		this.currentBean.addEndereco(endereco);
@@ -169,7 +182,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		empresaDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	protected boolean validaSalvar() {
 		return true;
@@ -185,8 +198,24 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		// TODO Auto-generated method stub
 		return "empresaForm";
 	}
-  
 	
+	public BeanItemContainer<Empresa> carregarMatrizes(){
+		BeanItemContainer<Empresa> container = new BeanItemContainer<>(Empresa.class);
+		for(Empresa obj : empresaDAO.buscaMatrizes()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<Sindicato> carregarSindicatos(){
+		BeanItemContainer<Sindicato> container = new BeanItemContainer<>(Sindicato.class);
+		for(Sindicato obj : sindicatoDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+
+
 
 
 }
