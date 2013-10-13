@@ -114,6 +114,12 @@ public class EmpresaCnae extends AbstractMultiEmpresaModel<Integer> {
 	public void setPrincipalStr(String principalStr) {
 		this.principalStr = principalStr;
 	}
+
+	@Override
+	public String toString() {
+		return cnae.getNome();
+	}
+	
 	
 	
 	

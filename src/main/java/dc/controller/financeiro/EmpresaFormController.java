@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
+import dc.entidade.pessoal.Contador;
 import dc.entidade.tabelas.CstIcmsB;
 import dc.framework.exception.ErroValidacaoException;
+import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
@@ -70,7 +73,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	@Autowired
 	private FpasDAO fpasDAO;
 
-
+	@Autowired
+	EmpresaCnaeDAO empresaCnaeDAO; 
 
 	private Empresa currentBean;
 
@@ -214,8 +218,21 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 		return container;
 	}
-
-
-
+	
+	public BeanItemContainer<EmpresaCnae> carregarEmpresaCnae(){
+		BeanItemContainer<EmpresaCnae> container = new BeanItemContainer<>(EmpresaCnae.class);
+		for(EmpresaCnae obj : empresaCnaeDAO.listarPrincipais()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<Contador> carregarContadores(){
+		BeanItemContainer<Contador> container = new BeanItemContainer<>(Contador.class);
+		for(Contador obj : contadorDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
 
 }
