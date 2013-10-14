@@ -1,11 +1,15 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
@@ -13,6 +17,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
+import dc.entidade.framework.Fpas;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.pessoal.Contador;
@@ -94,9 +99,33 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		String razaoSocial = subView.getTxtRazaoSocial().getValue();
 		String nomeFantasia = subView.getTxtNomeFantasia().getValue();
 
+		Contador contador = (Contador)subView.getCmbContador().getValue();
+		Sindicato sindicato = (Sindicato)subView.getCmbSindicato().getValue();
+		Fpas fpas = (Fpas)subView.getCmbFpas().getValue();
 
+		Date dataInicioAtividades = subView.getDtInicioAtividades().getValue();
+		String cnpj = subView.getTxtCnpj().getValue();
+		String inscricaoEstadual = subView.getTxtInscricaoEstadual().getValue();
+		String inscricaoEstadualSt = subView.getTxtInscricaoEstadualSt().getValue();
+		String inscricaoMunicipal = subView.getTxtInscricaoMunicipal().getValue();
+		String inscricaoJuntaComercial = subView.getTxtInscricaoJuntaComercial().getValue();
+		//		
+				Date dataInscricaoJuntaComercial = subView.getDtInscricaoJuntaComercial().getValue();
+				String suframa = subView.getTxtSuframa().getValue();
+				String contato = subView.getTxtContato().getValue();
+				String codigoTerceiros = subView.getTxtCodigoTerceiros().getValue();
+				String cei = subView.getTxtCei().getValue();
+		//		
+				String aliquotaPis = subView.getTxtAliquotaPis().getValue();
+				String aliquotaCofins = subView.getTxtAliquotaCofins().getValue();
+				String aliquotaSat = subView.getTxtAliquotaSat().getValue();
+		//		
+				String codigoGps = subView.getTxtCodigoGps().getValue();
+		//		
+				String codigoMunicipio = subView.getTxtMunicipio().getValue();
+				String codigoUf = subView.getTxtUf().getValue();
+		//		
 		try{
-
 			if(!(Validator.validateString(razaoSocial))){
 				throw new ErroValidacaoException("Informe a Razão Social");
 			}
@@ -104,9 +133,103 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				throw new ErroValidacaoException("Informe o Nome de Fantasia");
 			}
 
+			if(Validator.validateObject(sindicato)){
+				currentBean.setIdSindicatoPatronal(sindicato.getId());
+			}
+
+			if(Validator.validateObject(contador)){
+				currentBean.setIdContador(contador.getId());
+			}
+
+			if(Validator.validateObject(fpas)){
+				currentBean.setIdFpas(fpas.getId());
+			}
+
 			currentBean.setRazaoSocial(razaoSocial);
 			currentBean.setNomeFantasia(nomeFantasia);
-    		empresaDAO.saveOrUpdate(currentBean);
+
+			if(sindicato!=null){
+				currentBean.setIdSindicatoPatronal(sindicato.getId());	
+			}
+
+			if(fpas!=null){
+				currentBean.setIdFpas(fpas.getId());	
+			}
+
+			if(contador!=null){
+				currentBean.setIdContador(contador.getId());	
+			}
+
+			if(Validator.validateObject(dataInicioAtividades)){
+				currentBean.setDataInicioAtividades(dataInicioAtividades);
+			}
+
+			if(Validator.validateObject(cnpj)){
+				currentBean.setCnpj(cnpj);
+			}
+
+			if(Validator.validateObject(inscricaoEstadual)){
+				currentBean.setInscricaoEstadual(inscricaoEstadual);
+			}
+			
+
+			if(Validator.validateObject(inscricaoEstadualSt)){
+				currentBean.setInscricaoEstadualSt(inscricaoEstadualSt);
+			}
+
+			if(Validator.validateObject(inscricaoMunicipal)){
+				currentBean.setInscricaoMunicipal(inscricaoMunicipal);
+			}
+
+			if(Validator.validateObject(inscricaoJuntaComercial)){
+				currentBean.setInscricaoJuntaComercial(inscricaoJuntaComercial);
+			}
+			
+			if(Validator.validateObject(dataInscricaoJuntaComercial)){
+				currentBean.setDataInscJuntaComercial(dataInscricaoJuntaComercial);
+			}
+			
+			if(Validator.validateObject(suframa)){
+				currentBean.setSuframa(suframa);
+			}
+			
+			if(Validator.validateObject(contato)){
+				currentBean.setContato(contato);
+			}
+			
+			if(Validator.validateObject(codigoTerceiros)){
+				currentBean.setCodigoTerceiros(new Integer(codigoTerceiros));
+			}
+			
+			if(Validator.validateObject(cei)){
+				currentBean.setCei(cei);
+			}
+			
+			if(Validator.validateObject(aliquotaPis)){
+				currentBean.setAliquotaPis(new BigDecimal(aliquotaPis));
+			}
+			
+			if(Validator.validateObject(aliquotaCofins)){
+				currentBean.setAliquotaCofins(new BigDecimal(aliquotaCofins));
+			}
+			
+			if(Validator.validateObject(aliquotaSat)){
+				currentBean.setAliquotaSat(new BigDecimal(aliquotaSat));
+			}
+			
+			if(Validator.validateObject(codigoGps)){
+				currentBean.setCodigoGps(new Integer(codigoGps));
+			}
+			
+			if(Validator.validateObject(codigoMunicipio)){
+				currentBean.setCodigoIbgeCidade(new Integer(codigoMunicipio));
+			}
+			
+			if(Validator.validateObject(codigoUf)){
+				currentBean.setCodigoIbgeUf(new Integer(codigoUf));
+			}
+
+			empresaDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch(ErroValidacaoException e){
 			e.montaMensagemErro();
@@ -131,8 +254,93 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	protected void carregar(Serializable id) {
 		carregarCombos();
 		currentBean = empresaDAO.find(id);
-		//subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
-		//subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
+		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
+		subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
+
+		if(currentBean.getIdSindicatoPatronal()!=null){
+			Sindicato sindicato = sindicatoDAO.find(currentBean.getIdSindicatoPatronal());
+			subView.getCmbSindicato().setValue(sindicato);
+		}
+
+		//		if(currentBean.getIdContador()!=null){
+		//			Contador contador = contadorDAO.find(currentBean.getIdContador());
+		//			subView.getCmbContador().setValue(contador);
+		//		}
+		
+		if(currentBean.getCnpj()!=null){
+			subView.getTxtCnpj().setValue(currentBean.getCnpj());
+		}
+
+		if(currentBean.getIdFpas()!=null){
+			Fpas fpas = fpasDAO.find(currentBean.getIdFpas());
+			subView.getCmbFpas().setValue(fpas);
+		}
+
+		if(Validator.validateObject(currentBean.getDataInicioAtividades())){
+			subView.getDtInicioAtividades().setValue(currentBean.getDataInicioAtividades());
+		}
+		
+		if(Validator.validateObject(currentBean.getInscricaoEstadual())){
+			subView.getTxtInscricaoEstadual().setValue(currentBean.getInscricaoEstadual());
+		}
+		
+		if(Validator.validateObject(currentBean.getInscricaoEstadualSt())){
+			subView.getTxtInscricaoEstadualSt().setValue(currentBean.getInscricaoEstadualSt());
+		}
+		
+		if(Validator.validateObject(currentBean.getInscricaoMunicipal())){
+			subView.getTxtInscricaoMunicipal().setValue(currentBean.getInscricaoEstadualSt());
+		}
+		
+		if(Validator.validateObject(currentBean.getInscricaoJuntaComercial())){
+			subView.getTxtInscricaoJuntaComercial().setValue(currentBean.getInscricaoJuntaComercial());
+		}
+		
+		if(Validator.validateObject(currentBean.getDataInscJuntaComercial())){
+			subView.getDtInscricaoJuntaComercial().setValue(currentBean.getDataInscJuntaComercial());
+		}
+		
+		if(Validator.validateObject(currentBean.getSuframa())){
+			subView.getTxtSuframa().setValue(currentBean.getSuframa());
+		}
+		
+		if(Validator.validateObject(currentBean.getContato())){
+			subView.getTxtContato().setValue(currentBean.getContato());
+		}
+		
+		if(Validator.validateObject(currentBean.getCodigoTerceiros())){
+			subView.getTxtCodigoTerceiros().setValue(currentBean.getCodigoTerceiros().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getCei())){
+			subView.getTxtCei().setValue(currentBean.getCei());
+		}
+		
+		if(Validator.validateObject(currentBean.getAliquotaPis())){
+			subView.getTxtAliquotaPis().setValue(currentBean.getAliquotaPis().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getAliquotaCofins())){
+			subView.getTxtAliquotaCofins().setValue(currentBean.getAliquotaCofins().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getAliquotaSat())){
+			subView.getTxtAliquotaSat().setValue(currentBean.getAliquotaSat().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getCodigoGps())){
+			subView.getTxtCodigoGps().setValue(currentBean.getCodigoGps().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getCodigoIbgeCidade())){
+			subView.getTxtMunicipio().setValue(currentBean.getCodigoIbgeCidade().toString());
+		}
+		
+		if(Validator.validateObject(currentBean.getCodigoIbgeUf())){
+			subView.getTxtUf().setValue(currentBean.getCodigoIbgeUf().toString());
+		}
+
+
 	}
 
 	@Override
@@ -146,7 +354,17 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	}
 
 	@Override
+	@Transactional
 	protected void quandoNovo() {
+
+
+		try{
+			Hibernate.initialize(currentBean.getTipoAquisicaoList());	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+
 		// TODO Auto-generated method stub
 
 	}
@@ -202,7 +420,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		// TODO Auto-generated method stub
 		return "empresaForm";
 	}
-	
+
 	public BeanItemContainer<Empresa> carregarMatrizes(){
 		BeanItemContainer<Empresa> container = new BeanItemContainer<>(Empresa.class);
 		for(Empresa obj : empresaDAO.buscaMatrizes()){
@@ -210,7 +428,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<Sindicato> carregarSindicatos(){
 		BeanItemContainer<Sindicato> container = new BeanItemContainer<>(Sindicato.class);
 		for(Sindicato obj : sindicatoDAO.listaTodos()){
@@ -218,7 +436,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<EmpresaCnae> carregarEmpresaCnae(){
 		BeanItemContainer<EmpresaCnae> container = new BeanItemContainer<>(EmpresaCnae.class);
 		for(EmpresaCnae obj : empresaCnaeDAO.listarPrincipais()){
@@ -226,10 +444,18 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<Contador> carregarContadores(){
 		BeanItemContainer<Contador> container = new BeanItemContainer<>(Contador.class);
 		for(Contador obj : contadorDAO.listaTodos()){
+			container.addBean(obj);
+		}
+		return container;
+	}
+
+	public BeanItemContainer<Fpas> carregarFpas(){
+		BeanItemContainer<Fpas> container = new BeanItemContainer<>(Fpas.class);
+		for(Fpas obj : fpasDAO.listaTodos()){
 			container.addBean(obj);
 		}
 		return container;

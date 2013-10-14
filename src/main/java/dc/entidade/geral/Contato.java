@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -43,7 +44,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Contato extends AbstractModel<Integer> implements Serializable {
+public class Contato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     
@@ -53,8 +54,8 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer id;
     
-    @Column(name = "id_empresa")
-    private Integer empresaId;
+//    @Column(name = "id_empresa")
+//    private Integer empresaId;
     
     @Field
     @Caption("Nome")
@@ -87,9 +88,9 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
      * MODULO ADMINISTRATIVO
      */
     
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Empresa empresa;
+//    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+//    @ManyToOne(optional = false)
+//    private Empresa empresa;
     
     @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -110,13 +111,13 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
         this.id = id;
     }
 
-    public Integer getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(Integer empresaId) {
-        this.empresaId = empresaId;
-    }
+//    public Integer getEmpresaId() {
+//        return empresaId;
+//    }
+//
+//    public void setEmpresaId(Integer empresaId) {
+//        this.empresaId = empresaId;
+//    }
 
     public String getNome() {
         return nome;
@@ -126,17 +127,17 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
         this.nome = nome;
     }
     
-    public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+//    public Empresa getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(Empresa empresa) {
+//		this.empresa = empresa;
+//	}
 
 	@Override
     public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
+    	return nome;
     }
 
 	public String getEmail() {

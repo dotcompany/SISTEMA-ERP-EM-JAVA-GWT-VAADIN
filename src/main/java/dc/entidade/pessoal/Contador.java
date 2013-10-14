@@ -275,7 +275,7 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return idPessoa.getNome();
 	}
 
 }

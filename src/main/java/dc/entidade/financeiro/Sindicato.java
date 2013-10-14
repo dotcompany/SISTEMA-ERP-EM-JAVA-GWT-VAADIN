@@ -103,15 +103,17 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String bairro;
 
-	@Field
-	@Caption("Municipio")
-	@Column(name = "MUNICIPIO", length = 60)
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String municipio;
+//	@Field
+//	@Caption("Municipio")
+//	@Column(name = "MUNICIPIO", length = 60)
+//	@Analyzer(definition = "dc_combo_analyzer")
+//	private String municipio;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "UF", referencedColumnName = "ID")
-	private UF uf;
+//	@ManyToOne(optional = false)
+//	@JoinColumn(name = "UF", referencedColumnName = "ID")
+//	private UF uf;
+	
+	private String uf;
 
 	@Field
 	@Caption("Telefone 1")
@@ -242,19 +244,13 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.bairro = bairro;
 	}
 
-	public String getMunicipio() {
-		return municipio;
-	}
+	
 
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-
-	public UF getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
@@ -324,7 +320,7 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }

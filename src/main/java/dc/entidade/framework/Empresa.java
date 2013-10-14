@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -56,6 +57,7 @@ import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
+import dc.entidade.pessoal.Contador;
 import dc.entidade.sistema.ContaEmpresa;
 
 /**
@@ -96,6 +98,10 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@Column(name = "ID_CONTADOR")
 	private Integer idContador;
+	
+//	@OneToOne
+//	@JoinColumn(name="id_contador")
+//	private Contador contador;
 
 	@Field
 	@Caption("Razao Social")
@@ -108,8 +114,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	private String nomeFantasia;
 
 	@Column(name = "CNPJ", length = 14, unique = true)
-	@CNPJ(message = "CNPJ inválido")
-	@NotEmpty
 	private String cnpj;
 
 	@Column(name = "INSCRICAO_ESTADUAL", length = 30)
@@ -162,7 +166,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	private BigDecimal aliquotaPis;
 
 	@Column(name = "CONTATO", length = 250)
-	private String contatos;
+	private String contato;
 
 	@Column(name = "ALIQUOTA_COFINS", precision = 18, scale = 6)
 	private BigDecimal aliquotaCofins;
@@ -216,11 +220,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 */
 
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<Contato> contato = new ArrayList<>();
+	private List<Contato> contatos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
@@ -468,13 +470,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.tipoRegime = tipoRegime;
 	}
 
-	public String getContatos() {
-		return contatos;
-	}
-
-	public void setContatos(String contatos) {
-		this.contatos = contatos;
-	}
+	
 
 	public BigDecimal getAliquotaPis() {
 		return aliquotaPis;
@@ -555,6 +551,8 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setIdFpas(Integer idFpas) {
 		this.idFpas = idFpas;
 	}
+
+	
 
 	public Integer getIdContador() {
 		return idContador;
@@ -693,25 +691,37 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public Contato addContato(Contato contato) {
-		getContato().add(contato);
+		getContatos().add(contato);
 		contato.setEmpresa(this);
 
 		return contato;
 	}
 
 	public Contato removeContato(Contato contato) {
-		getContato().remove(contato);
+		getContatos().remove(contato);
 		contato.setEmpresa(null);
 
 		return contato;
 	}
+	
+	
 
-	public List<Contato> getContato() {
+	
+
+	public String getContato() {
 		return contato;
 	}
 
-	public void setContato(List<Contato> contato) {
+	public void setContato(String contato) {
 		this.contato = contato;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 	public Endereco addEndereco(Endereco enderecos) {
