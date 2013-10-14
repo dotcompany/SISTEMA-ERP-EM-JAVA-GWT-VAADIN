@@ -194,19 +194,19 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 * @module PATRIMONIO
 	 */
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "empresa")
 	private List<TipoAquisicaoEntity> tipoAquisicaoList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "empresa")
 	private List<SeguradoraEntity> seguradoraList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "empresa")
 	private List<TipoMovimentacaoEntity> tipoMovimentacaoList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "empresa")
 	private List<EstadoConservacaoEntity> estadoConservacaoList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "empresa")
 	private List<GrupoBemEntity> grupoBemList;
 
 	/**
@@ -774,7 +774,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nomeFantasia;
 	}
 
 	/*

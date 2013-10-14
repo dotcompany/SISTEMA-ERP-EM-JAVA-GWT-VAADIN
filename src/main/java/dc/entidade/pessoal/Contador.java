@@ -53,7 +53,7 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	@Field
 	@Caption("Inscricao CRC")
-	@Column(name = "INSCCRICAO_CRC", length = 50)
+	@Column(name = "INSCRICAO_CRC", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoCrc;
