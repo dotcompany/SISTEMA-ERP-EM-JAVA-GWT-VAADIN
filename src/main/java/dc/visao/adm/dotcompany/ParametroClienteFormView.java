@@ -260,7 +260,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtComissao
 		txtComissao = new TextField();
-		txtComissao.setCaption("Comiss„o");
+		txtComissao.setCaption("Comiss√£o");
 		txtComissao.setImmediate(false);
 		txtComissao.setWidth("-1px");
 		txtComissao.setHeight("-1px");
@@ -276,7 +276,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtComissao1
 		txtComissao1 = new TextField();
-		txtComissao1.setCaption("Comiss„o");
+		txtComissao1.setCaption("Comiss√£o");
 		txtComissao1.setImmediate(false);
 		txtComissao1.setWidth("-1px");
 		txtComissao1.setHeight("-1px");
@@ -397,7 +397,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtObsFechamento
 		txtObsFechamento = new TextArea();
-		txtObsFechamento.setCaption("ObservaÁ„o Fechamento");
+		txtObsFechamento.setCaption("Observa√ß√£o Fechamento");
 		txtObsFechamento.setImmediate(false);
 		txtObsFechamento.setWidth("360px");
 		txtObsFechamento.setHeight("156px");
@@ -414,7 +414,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// dtVencimentoPromocao
 		dtVencimentoPromocao = new PopupDateField();
-		dtVencimentoPromocao.setCaption("Vencimento PromoÁ„o");
+		dtVencimentoPromocao.setCaption("Vencimento Promo√ß√£o");
 		dtVencimentoPromocao.setImmediate(false);
 		dtVencimentoPromocao.setWidth("160px");
 		dtVencimentoPromocao.setHeight("-1px");
@@ -448,7 +448,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// chbNao
 		chbNao = new CheckBox();
-		chbNao.setCaption("N„o");
+		chbNao.setCaption("N√£o");
 		chbNao.setImmediate(false);
 		chbNao.setWidth("-1px");
 		chbNao.setHeight("-1px");
@@ -472,7 +472,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// chBNao
 		chBNao = new CheckBox();
-		chBNao.setCaption("N„o");
+		chBNao.setCaption("N√£o");
 		chBNao.setImmediate(false);
 		chBNao.setWidth("-1px");
 		chBNao.setHeight("-1px");
@@ -483,7 +483,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		label_3.setImmediate(false);
 		label_3.setWidth("-1px");
 		label_3.setHeight("-1px");
-		label_3.setValue("Bloqueio Autom·tico se n„o pago em atÈ");
+		label_3.setValue("Bloqueio AutomÔøΩtico se N√£o pago em At√©");
 		absoluteLayout_4.addComponent(label_3, "top:56.0px;left:437.0px;");
 		
 		// chBSIM
@@ -496,7 +496,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// chBNAO
 		chBNAO = new CheckBox();
-		chBNAO.setCaption("N„o");
+		chBNAO.setCaption("N√£o");
 		chBNAO.setImmediate(false);
 		chBNAO.setWidth("-1px");
 		chBNAO.setHeight("-1px");
@@ -520,7 +520,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// chNao
 		chNao = new CheckBox();
-		chNao.setCaption("N„o");
+		chNao.setCaption("N√£o");
 		chNao.setImmediate(false);
 		chNao.setWidth("-1px");
 		chNao.setHeight("-1px");
@@ -528,7 +528,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtQuantidadeUsuario
 		txtQuantidadeUsuario = new TextField();
-		txtQuantidadeUsuario.setCaption("Quantidade de Usu·rio");
+		txtQuantidadeUsuario.setCaption("Quantidade de Usu√°rio");
 		txtQuantidadeUsuario.setImmediate(false);
 		txtQuantidadeUsuario.setWidth("160px");
 		txtQuantidadeUsuario.setHeight("-1px");
@@ -575,7 +575,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtEmailSecundario
 		txtEmailSecundario = new TextField();
-		txtEmailSecundario.setCaption("Email Secund·rio");
+		txtEmailSecundario.setCaption("Email Secund√°rio");
 		txtEmailSecundario.setImmediate(false);
 		txtEmailSecundario.setWidth("300px");
 		txtEmailSecundario.setHeight("-1px");
@@ -584,7 +584,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtNomeResponsavel
 		txtNomeResponsavel = new TextField();
-		txtNomeResponsavel.setCaption("Nome Respons·vel");
+		txtNomeResponsavel.setCaption("Nome Respons√°vel");
 		txtNomeResponsavel.setImmediate(false);
 		txtNomeResponsavel.setWidth("300px");
 		txtNomeResponsavel.setHeight("-1px");
@@ -601,7 +601,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// txtObsFinanceira
 		txtObsFinanceira = new TextArea();
-		txtObsFinanceira.setCaption("ObservaÁ„o Financeira");
+		txtObsFinanceira.setCaption("Observa√ß√£o Financeira");
 		txtObsFinanceira.setImmediate(false);
 		txtObsFinanceira.setWidth("280px");
 		txtObsFinanceira.setHeight("140px");
@@ -639,7 +639,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		
 		// dtLiberadoAte
 		dtLiberadoAte = new PopupDateField();
-		dtLiberadoAte.setCaption("Liberado AtÈ");
+		dtLiberadoAte.setCaption("Liberado At√©");
 		dtLiberadoAte.setImmediate(false);
 		dtLiberadoAte.setWidth("160px");
 		dtLiberadoAte.setHeight("-1px");
