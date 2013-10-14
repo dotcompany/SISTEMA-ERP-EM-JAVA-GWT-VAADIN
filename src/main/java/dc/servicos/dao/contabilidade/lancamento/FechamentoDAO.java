@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 
-@Repository
+@Repository(value = "fechamentoDAO1")
 @SuppressWarnings("unchecked")
 public class FechamentoDAO extends AbstractCrudDAO<InssEntity> {
 

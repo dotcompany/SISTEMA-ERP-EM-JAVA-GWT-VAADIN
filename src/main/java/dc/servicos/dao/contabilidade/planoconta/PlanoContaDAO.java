@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 
-@Repository
+@Repository(value = "planoContaDAO1")
 @SuppressWarnings("unchecked")
 public class PlanoContaDAO extends AbstractCrudDAO<InssEntity> {
 

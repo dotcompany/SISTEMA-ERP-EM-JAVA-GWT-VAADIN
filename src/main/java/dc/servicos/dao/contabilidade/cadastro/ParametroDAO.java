@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 
-@Repository
+@Repository(value = "parametroDAO1")
 @SuppressWarnings("unchecked")
 public class ParametroDAO extends AbstractCrudDAO<ParametroEntity> {
 
