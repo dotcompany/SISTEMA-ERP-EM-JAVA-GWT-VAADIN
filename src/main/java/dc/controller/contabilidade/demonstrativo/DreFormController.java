@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.demonstrativo.DreEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
@@ -147,7 +148,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	/**

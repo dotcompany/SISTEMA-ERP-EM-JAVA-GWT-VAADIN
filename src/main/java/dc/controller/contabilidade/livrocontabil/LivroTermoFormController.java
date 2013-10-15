@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.livrocontabil.LivroTermoEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroTermoDAO;
 import dc.visao.contabilidade.livrocontabil.LivroTermoFormView;
@@ -148,7 +149,7 @@ public class LivroTermoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	/**

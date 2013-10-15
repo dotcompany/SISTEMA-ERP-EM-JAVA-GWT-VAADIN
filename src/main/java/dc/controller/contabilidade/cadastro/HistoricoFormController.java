@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.contabilidade.cadastro.HistoricoFormView;
@@ -148,7 +149,7 @@ public class HistoricoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	/**

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExercicioEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExercicioDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExercicioFormView;
@@ -148,7 +149,7 @@ public class EncerramentoExercicioFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	/**

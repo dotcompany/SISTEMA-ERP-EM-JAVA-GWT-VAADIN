@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.lancamento.LancamentoPadraoEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoPadraoDAO;
 import dc.visao.contabilidade.lancamento.LancamentoPadraoFormView;
@@ -148,7 +149,7 @@ public class LancamentoPadraoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	/**

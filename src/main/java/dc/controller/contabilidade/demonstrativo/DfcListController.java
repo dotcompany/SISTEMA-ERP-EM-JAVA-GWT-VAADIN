@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.demonstrativo.DfcEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -77,7 +78,7 @@ public class DfcListController extends CRUDListController<DfcEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_lc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

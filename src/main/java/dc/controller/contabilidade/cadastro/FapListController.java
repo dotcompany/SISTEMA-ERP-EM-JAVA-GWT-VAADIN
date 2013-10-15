@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.cadastro.FapEntity;
 import dc.servicos.dao.contabilidade.cadastro.FapDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -77,7 +78,7 @@ public class FapListController extends CRUDListController<FapEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_lc";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override
