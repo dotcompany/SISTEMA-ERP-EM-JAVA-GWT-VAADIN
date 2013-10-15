@@ -1,20 +1,79 @@
 package dc.entidade.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
+@Entity
+@Table(name = "plano_conta")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
-*
-*/
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_conta_id_seq")
+	@SequenceGenerator(name = "plano_conta_id_seq", sequenceName = "plano_conta_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Caption(value = "Nome")
+	@Column(name = "nome")
+	@ComboValue
+	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
+
+	@Caption(value = "Data da inclusão")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_inclusao")
+	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataInclusao;
+
+	@Caption(value = "Máscara")
+	@Column(name = "mascara")
+	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String mascara = "";
+
+	@Caption(value = "Níveis")
+	@Column(name = "niveis")
+	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer niveis = new Integer(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -43,6 +102,38 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = (nome == null ? "" : nome.toUpperCase());
+	}
+
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
+
+	public String getMascara() {
+		return mascara;
+	}
+
+	public void setMascara(String mascara) {
+		this.mascara = (mascara == null ? "" : mascara.toUpperCase());
+	}
+
+	public Integer getNiveis() {
+		return niveis;
+	}
+
+	public void setNiveis(Integer niveis) {
+		this.niveis = (niveis == null ? new Integer(0) : niveis);
 	}
 
 	/**

@@ -6,12 +6,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
-public class DfcEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class DfcEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	/**
-*
-*/
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;

@@ -10,8 +10,9 @@ public class ParametroEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
-*
-*/
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
