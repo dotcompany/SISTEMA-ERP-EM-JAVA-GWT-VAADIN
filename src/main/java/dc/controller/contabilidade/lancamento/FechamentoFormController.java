@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.livrocontabil;
+package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.livrocontabil.EmissaoLivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.EmissaoLivroDAO;
-import dc.visao.contabilidade.livrocontabil.EmissaoLivroFormView;
+import dc.entidade.contabilidade.lancamento.FechamentoEntity;
+import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
+import dc.visao.contabilidade.lancamento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -20,44 +20,44 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller
+@Controller(value = "contabilidadeFechamentoFormController")
 @Scope("prototype")
-public class EmissaoLivroFormController extends
-		CRUDFormController<EmissaoLivroEntity> {
+public class FechamentoFormController extends
+		CRUDFormController<FechamentoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EmissaoLivroFormView subView;
+	private FechamentoFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private EmissaoLivroDAO pDAO;
+	private FechamentoDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private EmissaoLivroEntity pEntity;
+	private FechamentoEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public EmissaoLivroFormController() {
+	public FechamentoFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new FechamentoEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Emissão de livro";
+		return "Fechamento";
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EmissaoLivroFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new FechamentoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

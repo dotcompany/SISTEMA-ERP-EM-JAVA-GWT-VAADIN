@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.livrocontabil;
+package dc.controller.contabilidade.demonstrativo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.livrocontabil.EmissaoLivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.EmissaoLivroDAO;
-import dc.visao.contabilidade.livrocontabil.EmissaoLivroFormView;
+import dc.entidade.contabilidade.demonstrativo.DreEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
+import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -22,42 +22,41 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class EmissaoLivroFormController extends
-		CRUDFormController<EmissaoLivroEntity> {
+public class DreFormController extends CRUDFormController<DreEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EmissaoLivroFormView subView;
+	private BalancoPatrimonialFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private EmissaoLivroDAO pDAO;
+	private DreDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private EmissaoLivroEntity pEntity;
+	private DreEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public EmissaoLivroFormController() {
+	public DreFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new DreEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Emissão de livro";
+		return "DRE";
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class EmissaoLivroFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new DreEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

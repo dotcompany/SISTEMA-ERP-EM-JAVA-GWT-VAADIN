@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.livrocontabil;
+package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.livrocontabil.EmissaoLivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.EmissaoLivroDAO;
-import dc.visao.contabilidade.livrocontabil.EmissaoLivroFormView;
+import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
+import dc.visao.contabilidade.lancamento.LancamentoLoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -22,42 +22,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class EmissaoLivroFormController extends
-		CRUDFormController<EmissaoLivroEntity> {
+public class LancamentoLoteFormController extends
+		CRUDFormController<LancamentoLoteEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EmissaoLivroFormView subView;
+	private LancamentoLoteFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private EmissaoLivroDAO pDAO;
+	private LancamentoLoteDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private EmissaoLivroEntity pEntity;
+	private LancamentoLoteEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public EmissaoLivroFormController() {
+	public LancamentoLoteFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new LancamentoLoteEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Emissão de livro";
+		return "Lançamento lote";
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EmissaoLivroFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new LancamentoLoteEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

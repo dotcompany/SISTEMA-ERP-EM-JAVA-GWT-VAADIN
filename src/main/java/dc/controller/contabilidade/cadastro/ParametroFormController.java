@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.livrocontabil;
+package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.livrocontabil.EmissaoLivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.EmissaoLivroDAO;
-import dc.visao.contabilidade.livrocontabil.EmissaoLivroFormView;
+import dc.entidade.contabilidade.cadastro.ParametroEntity;
+import dc.servicos.dao.contabilidade.cadastro.ParametroDAO;
+import dc.visao.contabilidade.cadastro.ParametroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -20,44 +20,44 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller
+@Controller(value = "contabilidadeParametroFormController")
 @Scope("prototype")
-public class EmissaoLivroFormController extends
-		CRUDFormController<EmissaoLivroEntity> {
+public class ParametroFormController extends
+		CRUDFormController<ParametroEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EmissaoLivroFormView subView;
+	private ParametroFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private EmissaoLivroDAO pDAO;
+	private ParametroDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private EmissaoLivroEntity pEntity;
+	private ParametroEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public EmissaoLivroFormController() {
+	public ParametroFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new ParametroEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Emissão de livro";
+		return "Parâmetro";
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EmissaoLivroFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new EmissaoLivroEntity();
+			this.pEntity = new ParametroEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
