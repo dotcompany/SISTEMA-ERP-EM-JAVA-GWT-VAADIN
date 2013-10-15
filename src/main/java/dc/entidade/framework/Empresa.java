@@ -219,10 +219,10 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 * @module ADMINISTRATIVO
 	 */
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
 	private List<Contato> contatos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa",  orphanRemoval = true)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
@@ -691,6 +691,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public Contato addContato(Contato contato) {
+		this.getContatos().size();
 		getContatos().add(contato);
 		contato.setEmpresa(this);
 

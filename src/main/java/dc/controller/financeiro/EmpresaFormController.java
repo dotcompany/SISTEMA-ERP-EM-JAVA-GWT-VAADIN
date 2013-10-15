@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.geral.ContatoDAO;
+import dc.servicos.dao.geral.EnderecoDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
@@ -81,6 +84,12 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	@Autowired
 	EmpresaCnaeDAO empresaCnaeDAO; 
 
+	@Autowired
+	ContatoDAO contatoDAO;
+	
+	@Autowired
+	EnderecoDAO enderecoDAO;
+
 	private Empresa currentBean;
 
 	@Override
@@ -110,20 +119,20 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		String inscricaoMunicipal = subView.getTxtInscricaoMunicipal().getValue();
 		String inscricaoJuntaComercial = subView.getTxtInscricaoJuntaComercial().getValue();
 		//		
-				Date dataInscricaoJuntaComercial = subView.getDtInscricaoJuntaComercial().getValue();
-				String suframa = subView.getTxtSuframa().getValue();
-				String contato = subView.getTxtContato().getValue();
-				String codigoTerceiros = subView.getTxtCodigoTerceiros().getValue();
-				String cei = subView.getTxtCei().getValue();
+		Date dataInscricaoJuntaComercial = subView.getDtInscricaoJuntaComercial().getValue();
+		String suframa = subView.getTxtSuframa().getValue();
+		String contato = subView.getTxtContato().getValue();
+		String codigoTerceiros = subView.getTxtCodigoTerceiros().getValue();
+		String cei = subView.getTxtCei().getValue();
 		//		
-				String aliquotaPis = subView.getTxtAliquotaPis().getValue();
-				String aliquotaCofins = subView.getTxtAliquotaCofins().getValue();
-				String aliquotaSat = subView.getTxtAliquotaSat().getValue();
+		String aliquotaPis = subView.getTxtAliquotaPis().getValue();
+		String aliquotaCofins = subView.getTxtAliquotaCofins().getValue();
+		String aliquotaSat = subView.getTxtAliquotaSat().getValue();
 		//		
-				String codigoGps = subView.getTxtCodigoGps().getValue();
+		String codigoGps = subView.getTxtCodigoGps().getValue();
 		//		
-				String codigoMunicipio = subView.getTxtMunicipio().getValue();
-				String codigoUf = subView.getTxtUf().getValue();
+		String codigoMunicipio = subView.getTxtMunicipio().getValue();
+		String codigoUf = subView.getTxtUf().getValue();
 		//		
 		try{
 			if(!(Validator.validateString(razaoSocial))){
@@ -171,7 +180,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			if(Validator.validateObject(inscricaoEstadual)){
 				currentBean.setInscricaoEstadual(inscricaoEstadual);
 			}
-			
+
 
 			if(Validator.validateObject(inscricaoEstadualSt)){
 				currentBean.setInscricaoEstadualSt(inscricaoEstadualSt);
@@ -184,56 +193,71 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			if(Validator.validateObject(inscricaoJuntaComercial)){
 				currentBean.setInscricaoJuntaComercial(inscricaoJuntaComercial);
 			}
-			
+
 			if(Validator.validateObject(dataInscricaoJuntaComercial)){
 				currentBean.setDataInscJuntaComercial(dataInscricaoJuntaComercial);
 			}
-			
+
 			if(Validator.validateObject(suframa)){
 				currentBean.setSuframa(suframa);
 			}
-			
+
 			if(Validator.validateObject(contato)){
 				currentBean.setContato(contato);
 			}
-			
+
 			if(Validator.validateObject(codigoTerceiros)){
 				currentBean.setCodigoTerceiros(new Integer(codigoTerceiros));
 			}
-			
+
 			if(Validator.validateObject(cei)){
 				currentBean.setCei(cei);
 			}
-			
+
 			if(Validator.validateObject(aliquotaPis)){
 				currentBean.setAliquotaPis(new BigDecimal(aliquotaPis));
 			}
-			
+
 			if(Validator.validateObject(aliquotaCofins)){
 				currentBean.setAliquotaCofins(new BigDecimal(aliquotaCofins));
 			}
-			
+
 			if(Validator.validateObject(aliquotaSat)){
 				currentBean.setAliquotaSat(new BigDecimal(aliquotaSat));
 			}
-			
+
 			if(Validator.validateObject(codigoGps)){
 				currentBean.setCodigoGps(new Integer(codigoGps));
 			}
-			
+
 			if(Validator.validateObject(codigoMunicipio)){
 				currentBean.setCodigoIbgeCidade(new Integer(codigoMunicipio));
 			}
-			
+
 			if(Validator.validateObject(codigoUf)){
 				currentBean.setCodigoIbgeUf(new Integer(codigoUf));
 			}
 
 			empresaDAO.saveOrUpdate(currentBean);
+
+			for(Contato c : currentBean.getContatos()){
+				c.setEmpresa(currentBean);
+				contatoDAO.saveOrUpdate(c);
+			}
+			
+			for(Endereco e : currentBean.getEnderecos()){
+				e.setEmpresa(currentBean);
+				String cep = e.getCep().replace(".", "" ).replace("-", "").trim();
+				e.setCep(cep);
+				enderecoDAO.saveOrUpdate(e);
+			}
+                 currentBean.setIdEmpresa(currentBean.getId());
+                 empresaDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch(ErroValidacaoException e){
 			e.montaMensagemErro();
-		}catch (Exception e){
+		}catch (Exception e){ 
 			e.printStackTrace();
 		}
 
@@ -254,6 +278,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	protected void carregar(Serializable id) {
 		carregarCombos();
 		currentBean = empresaDAO.find(id);
+		
 		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
 		subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
 
@@ -262,11 +287,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			subView.getCmbSindicato().setValue(sindicato);
 		}
 
-		//		if(currentBean.getIdContador()!=null){
-		//			Contador contador = contadorDAO.find(currentBean.getIdContador());
-		//			subView.getCmbContador().setValue(contador);
-		//		}
-		
 		if(currentBean.getCnpj()!=null){
 			subView.getTxtCnpj().setValue(currentBean.getCnpj());
 		}
@@ -279,67 +299,78 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		if(Validator.validateObject(currentBean.getDataInicioAtividades())){
 			subView.getDtInicioAtividades().setValue(currentBean.getDataInicioAtividades());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getInscricaoEstadual())){
 			subView.getTxtInscricaoEstadual().setValue(currentBean.getInscricaoEstadual());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getInscricaoEstadualSt())){
 			subView.getTxtInscricaoEstadualSt().setValue(currentBean.getInscricaoEstadualSt());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getInscricaoMunicipal())){
 			subView.getTxtInscricaoMunicipal().setValue(currentBean.getInscricaoEstadualSt());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getInscricaoJuntaComercial())){
 			subView.getTxtInscricaoJuntaComercial().setValue(currentBean.getInscricaoJuntaComercial());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getDataInscJuntaComercial())){
 			subView.getDtInscricaoJuntaComercial().setValue(currentBean.getDataInscJuntaComercial());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getSuframa())){
 			subView.getTxtSuframa().setValue(currentBean.getSuframa());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getContato())){
 			subView.getTxtContato().setValue(currentBean.getContato());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getCodigoTerceiros())){
 			subView.getTxtCodigoTerceiros().setValue(currentBean.getCodigoTerceiros().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getCei())){
 			subView.getTxtCei().setValue(currentBean.getCei());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getAliquotaPis())){
 			subView.getTxtAliquotaPis().setValue(currentBean.getAliquotaPis().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getAliquotaCofins())){
 			subView.getTxtAliquotaCofins().setValue(currentBean.getAliquotaCofins().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getAliquotaSat())){
 			subView.getTxtAliquotaSat().setValue(currentBean.getAliquotaSat().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getCodigoGps())){
 			subView.getTxtCodigoGps().setValue(currentBean.getCodigoGps().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getCodigoIbgeCidade())){
 			subView.getTxtMunicipio().setValue(currentBean.getCodigoIbgeCidade().toString());
 		}
-		
+
 		if(Validator.validateObject(currentBean.getCodigoIbgeUf())){
 			subView.getTxtUf().setValue(currentBean.getCodigoIbgeUf().toString());
 		}
+		try{
+			List<Contato> contatos = contatoDAO.listaPorEmpresa(currentBean);
+			currentBean.setContatos(contatos);
+			subView.fillContatoSubForm(contatos);    
+			
+			List<Endereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
+			currentBean.setEndereco(enderecos);
+			subView.fillEnderecoSubForm(enderecos);    
 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
 

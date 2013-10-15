@@ -53,8 +53,10 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer id;
     
-    @Column(name = "EMPRESA_ID")
-    private Integer empresaId;
+   
+    
+//    @Column(name = "EMPRESA_ID")
+//    private Integer empresaId;
     
     /*
     @Basic(optional = false)
@@ -151,13 +153,13 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
         this.id = id;
     }
 
-    public Integer getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(Integer empresaId) {
-        this.empresaId = empresaId;
-    }
+//    public Integer getEmpresaId() {
+//        return empresaId;
+//    }
+//
+//    public void setEmpresaId(Integer empresaId) {
+//        this.empresaId = empresaId;
+//    }
 
     public String getLogradouro() {
         return logradouro;
