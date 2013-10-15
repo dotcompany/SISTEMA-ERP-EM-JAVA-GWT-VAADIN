@@ -17,10 +17,10 @@ import dc.visao.framework.geral.CRUDListController;
 public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 
 	@Autowired
-	EstadoCivilDAO dao;
+	private EstadoCivilDAO dao;
 
 	@Autowired
-	EstadoCivilFormController estadoCivilFormController;
+	private EstadoCivilFormController estadoCivilFormController;
 
 	@Override
 	protected CRUDFormController<EstadoCivil> getFormController() {
