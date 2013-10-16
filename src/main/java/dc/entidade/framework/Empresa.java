@@ -87,7 +87,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "ID", nullable = false)
 	private Integer id;
 	
-	private String tipo;
+	private String tipo;//1-Matriz 2-Filial 3-Depósito
+	/**O campo tipo apenas identifica se é Matriz,Filial ou 
+	 * Depósito,já o campo idMatriz armazena o id da empresa
+	 * escolhida como matriz
+	 *  */
+	
+	@Column(name="id_matriz")
+	private Integer idMatriz;
 
 	@Column(name = "ID_EMPRESA")
 	private Integer idEmpresa;
@@ -807,6 +814,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Integer getIdMatriz() {
+		return idMatriz;
+	}
+
+	public void setIdMatriz(Integer idMatriz) {
+		this.idMatriz = idMatriz;
 	}
 	
 	
