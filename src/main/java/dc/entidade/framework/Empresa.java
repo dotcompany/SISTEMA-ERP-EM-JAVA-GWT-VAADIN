@@ -86,6 +86,8 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
 	private Integer id;
+	
+	private String tipo;
 
 	@Column(name = "ID_EMPRESA")
 	private Integer idEmpresa;
@@ -132,9 +134,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataInscJuntaComercial;
 
-	@Column(name = "tipo")
-	@Enumerated(value = EnumType.STRING)
-	private EmpresaType empresa;
+//	@Column(name = "tipo")
+//	@Enumerated(value = EnumType.STRING)
+//	private EmpresaType empresa;
 
 	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
@@ -417,13 +419,13 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.dataInscJuntaComercial = dataInscJuntaComercial;
 	}
 
-	public EmpresaType getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(EmpresaType empresa) {
-		this.empresa = empresa;
-	}
+//	public EmpresaType getEmpresa() {
+//		return empresa;
+//	}
+//
+//	public void setEmpresa(EmpresaType empresa) {
+//		this.empresa = empresa;
+//	}
 
 	public Date getDataInicioAtividades() {
 		return dataInicioAtividades;
@@ -798,6 +800,16 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setCnaePrincipal(String cnaePrincipal) {
 		this.cnaePrincipal = cnaePrincipal;
 	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	
 	
 	
 

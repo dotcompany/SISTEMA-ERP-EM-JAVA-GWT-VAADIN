@@ -36,6 +36,8 @@ import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
 import dc.visao.financeiro.EmpresaFormView.CRT;
+import dc.visao.financeiro.EmpresaFormView.TIPO;
+import dc.visao.financeiro.EmpresaFormView.TIPO_REGIME;
 import dc.visao.framework.geral.CRUDFormController;
 /**
  *
@@ -256,9 +258,25 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				String codigo = ((CRT)subView.getCmbCrt()
 						.getValue()).getCodigo();
 
-
 				currentBean.setCrt(new Integer(codigo));
 
+			}
+			
+			if(Validator.validateObject(subView.getCmbTipo())){
+
+				String codigo = ((TIPO)subView.getCmbTipo()
+						.getValue()).getCodigo();
+
+				currentBean.setTipo(codigo);
+
+			}
+			
+			if(Validator.validateObject(subView.getCmbTipoRegime())){
+
+				String codigo = ((TIPO_REGIME)subView.getCmbTipoRegime()
+						.getValue()).getCodigo();
+
+				currentBean.setTipoRegime(codigo);
 
 			}
 
@@ -289,6 +307,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	private void carregarCombos() {
 		subView.carregarCRT();
+		subView.carregarTipoRegime();
+		subView.carregarTipo();
 		/*subView.carregaComboMatrix(matrizDAO
 				.getAll(Matriz.class));*/
 		//subView.carregaComboContador(contadorDAO
@@ -408,8 +428,14 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			subView.getCmbCrt().setValue(CRT.getCRT(currentBean.getCrt().toString()));
 		}
 		
-
-
+		if(Validator.validateObject(currentBean.getTipo())){
+			subView.getCmbTipo().setValue(TIPO.getTipo(currentBean.getTipo()));
+		}
+		
+		if(Validator.validateObject(currentBean.getTipoRegime())){
+			subView.getCmbTipoRegime().setValue(TIPO_REGIME.getTipoRegime(currentBean.getTipoRegime()));
+		}
+		
 		try{
 			List<Contato> contatos = contatoDAO.listaPorEmpresa(currentBean);
 			currentBean.setContatos(contatos);

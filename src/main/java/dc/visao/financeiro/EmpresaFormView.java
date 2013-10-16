@@ -1242,6 +1242,20 @@ public class EmpresaFormView extends CustomComponent {
 		this.cmbCrt.addItem(CRT.SIMPLES_EXCESSO);
 		this.cmbCrt.addItem(CRT.REGIME_NORMAL);
 	}
+	
+	public void carregarTipoRegime() {
+		this.cmbTipoRegime.removeAllItems();
+		this.cmbTipoRegime.addItem(TIPO_REGIME.LUCRO_REAL);
+		this.cmbTipoRegime.addItem(TIPO_REGIME.LUCRO_PRESUMIDO);
+		this.cmbTipoRegime.addItem(TIPO_REGIME.SIMPLES_NACIONAL);
+	}
+	
+	public void carregarTipo() {
+		this.cmbTipo.removeAllItems();
+		this.cmbTipo.addItem(TIPO.MATRIZ);
+		this.cmbTipo.addItem(TIPO.FILIAL);
+		this.cmbTipo.addItem(TIPO.DEPOSITO);
+	}
 
 
 	public enum CRT {
@@ -1264,6 +1278,86 @@ public class EmpresaFormView extends CustomComponent {
 				return SIMPLES_EXCESSO;
 			}else if (codigo.equals("3")) {
 				return REGIME_NORMAL;
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+	
+	public enum TIPO {
+
+		MATRIZ("Matriz", "1"), FILIAL("Filial", "2"),
+		DEPOSITO("Depósito", "3");
+
+		private TIPO(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static TIPO getTipo(String codigo) {
+			if (codigo.equals("1")) {
+				return MATRIZ;
+			} else if (codigo.equals("2")) {
+				return FILIAL;
+			}else if (codigo.equals("3")) {
+				return DEPOSITO;
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+
+	
+	public enum TIPO_REGIME {
+
+		LUCRO_REAL("Lucro Real", "1"), LUCRO_PRESUMIDO("Lucro Presumido", "2"),
+		SIMPLES_NACIONAL("Simples Nacional", "3");
+
+		private TIPO_REGIME(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static TIPO_REGIME getTipoRegime(String codigo) {
+			if (codigo.equals("1")) {
+				return LUCRO_REAL;
+			} else if (codigo.equals("2")) {
+				return LUCRO_PRESUMIDO;
+			}else if (codigo.equals("3")) {
+				return SIMPLES_NACIONAL;
 			}
 
 			return null;
