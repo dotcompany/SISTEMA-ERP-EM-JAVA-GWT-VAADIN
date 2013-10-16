@@ -149,7 +149,9 @@ public class LancamentoProgramadoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	/**

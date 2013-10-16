@@ -78,7 +78,9 @@ public class FapListController extends CRUDListController<FapEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	@Override
