@@ -15,12 +15,14 @@ public class ClasseUtil {
 		for (int i = 2; i < s1.length; i++) {
 			sUrl = sUrl.append(s1[i].toLowerCase());
 
-			if (i < (s1.length - 1)) {
-				sUrl = sUrl.append("_");
-			}
+			// if (i < (s1.length - 1)) {
+			sUrl = sUrl.append("_");
+			// }
 		}
 
-		return sUrl.toString();
+		int tamanho = sUrl.length();
+
+		return sUrl.toString().substring(0, tamanho - 1);
 	}
 
 	/**
