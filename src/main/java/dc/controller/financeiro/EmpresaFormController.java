@@ -252,7 +252,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 				currentBean.setCnaePrincipal(cnaePrincipal.getId().toString());
 			}
-			
+
 			if(Validator.validateObject(subView.getCmbCrt())){
 
 				String codigo = ((CRT)subView.getCmbCrt()
@@ -261,7 +261,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				currentBean.setCrt(new Integer(codigo));
 
 			}
-			
+
 			if(Validator.validateObject(subView.getCmbTipo())){
 
 				String codigo = ((TIPO)subView.getCmbTipo()
@@ -270,13 +270,20 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				currentBean.setTipo(codigo);
 
 			}
-			
+
 			if(Validator.validateObject(subView.getCmbTipoRegime())){
 
 				String codigo = ((TIPO_REGIME)subView.getCmbTipoRegime()
 						.getValue()).getCodigo();
 
 				currentBean.setTipoRegime(codigo);
+
+			}
+
+			if(Validator.validateObject(subView.getCmbMatriz().getValue())){
+
+				Empresa e = (Empresa)subView.getCmbMatriz().getValue();
+				currentBean.setIdMatriz(e.getId());
 
 			}
 
@@ -309,6 +316,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		subView.carregarCRT();
 		subView.carregarTipoRegime();
 		subView.carregarTipo();
+		carregarMatrizes();
 		/*subView.carregaComboMatrix(matrizDAO
 				.getAll(Matriz.class));*/
 		//subView.carregaComboContador(contadorDAO
@@ -331,7 +339,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			Sindicato sindicato = sindicatoDAO.find(currentBean.getIdSindicatoPatronal());
 			subView.getCmbSindicato().setValue(sindicato);
 		}
-		
+
 		if(currentBean.getIdContador()!=null){
 			try{
 				Integer idC = new Integer(currentBean.getIdContador());
@@ -340,7 +348,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		if(currentBean.getCnpj()!=null){
@@ -427,15 +435,21 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		if(Validator.validateObject(currentBean.getCrt())){
 			subView.getCmbCrt().setValue(CRT.getCRT(currentBean.getCrt().toString()));
 		}
-		
+
 		if(Validator.validateObject(currentBean.getTipo())){
 			subView.getCmbTipo().setValue(TIPO.getTipo(currentBean.getTipo()));
 		}
-		
+
 		if(Validator.validateObject(currentBean.getTipoRegime())){
 			subView.getCmbTipoRegime().setValue(TIPO_REGIME.getTipoRegime(currentBean.getTipoRegime()));
 		}
-		
+
+		if(Validator.validateObject(currentBean.getIdMatriz())){
+			Integer idMatriz = currentBean.getIdMatriz();
+			Empresa matriz = empresaDAO.find(idMatriz);
+    		subView.getCmbMatriz().setValue(matriz);
+		}
+
 		try{
 			List<Contato> contatos = contatoDAO.listaPorEmpresa(currentBean);
 			currentBean.setContatos(contatos);

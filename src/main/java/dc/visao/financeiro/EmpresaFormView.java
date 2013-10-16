@@ -288,6 +288,7 @@ public class EmpresaFormView extends CustomComponent {
 
 		// cmbMatriz
 		cmbMatriz = new ComboBox();
+		cmbMatriz.setContainerDataSource(controller.carregarMatrizes());
 		cmbMatriz.setCaption("Matriz");
 		cmbMatriz.setImmediate(false);
 		cmbMatriz.setWidth("400px");
