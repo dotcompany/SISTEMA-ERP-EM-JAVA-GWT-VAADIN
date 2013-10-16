@@ -191,6 +191,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToOne(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private ContaEmpresa conta;
+	
+	@Column(name="codigo_cnae_principal")
+	private String cnaePrincipal;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -787,6 +790,16 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public String toString() {
 		return nomeFantasia;
 	}
+
+	public String getCnaePrincipal() {
+		return cnaePrincipal;
+	}
+
+	public void setCnaePrincipal(String cnaePrincipal) {
+		this.cnaePrincipal = cnaePrincipal;
+	}
+	
+	
 
 	/*
 	 * public Contador getContador() { return contador; }

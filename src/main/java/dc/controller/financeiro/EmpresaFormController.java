@@ -19,6 +19,7 @@ import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
 import dc.entidade.framework.Fpas;
+import dc.entidade.geral.Cnae;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.pessoal.Contador;
@@ -28,11 +29,13 @@ import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.geral.ContatoDAO;
 import dc.servicos.dao.geral.EnderecoDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
+import dc.visao.financeiro.EmpresaFormView.CRT;
 import dc.visao.framework.geral.CRUDFormController;
 /**
  *
@@ -86,9 +89,12 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Autowired
 	ContatoDAO contatoDAO;
-	
+
 	@Autowired
 	EnderecoDAO enderecoDAO;
+
+	@Autowired
+	CnaeDAO cnaeDAO;
 
 	private Empresa currentBean;
 
@@ -133,6 +139,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		//		
 		String codigoMunicipio = subView.getTxtMunicipio().getValue();
 		String codigoUf = subView.getTxtUf().getValue();
+
+		Cnae cnaePrincipal = (Cnae)subView.getCmbCnaePrincipal().getValue();
 		//		
 		try{
 			if(!(Validator.validateString(razaoSocial))){
@@ -238,21 +246,37 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				currentBean.setCodigoIbgeUf(new Integer(codigoUf));
 			}
 
+			if(Validator.validateObject(cnaePrincipal)){
+
+				currentBean.setCnaePrincipal(cnaePrincipal.getId().toString());
+			}
+			
+			if(Validator.validateObject(subView.getCmbCrt())){
+
+				String codigo = ((CRT)subView.getCmbCrt()
+						.getValue()).getCodigo();
+
+
+				currentBean.setCrt(new Integer(codigo));
+
+
+			}
+
 			empresaDAO.saveOrUpdate(currentBean);
 
 			for(Contato c : currentBean.getContatos()){
 				c.setEmpresa(currentBean);
 				contatoDAO.saveOrUpdate(c);
 			}
-			
+
 			for(Endereco e : currentBean.getEnderecos()){
 				e.setEmpresa(currentBean);
 				String cep = e.getCep().replace(".", "" ).replace("-", "").trim();
 				e.setCep(cep);
 				enderecoDAO.saveOrUpdate(e);
 			}
-                 currentBean.setIdEmpresa(currentBean.getId());
-                 empresaDAO.saveOrUpdate(currentBean);
+			currentBean.setIdEmpresa(currentBean.getId());
+			empresaDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch(ErroValidacaoException e){
@@ -264,6 +288,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	}
 
 	private void carregarCombos() {
+		subView.carregarCRT();
 		/*subView.carregaComboMatrix(matrizDAO
 				.getAll(Matriz.class));*/
 		//subView.carregaComboContador(contadorDAO
@@ -278,13 +303,24 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	protected void carregar(Serializable id) {
 		carregarCombos();
 		currentBean = empresaDAO.find(id);
-		
+
 		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
 		subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
 
 		if(currentBean.getIdSindicatoPatronal()!=null){
 			Sindicato sindicato = sindicatoDAO.find(currentBean.getIdSindicatoPatronal());
 			subView.getCmbSindicato().setValue(sindicato);
+		}
+		
+		if(currentBean.getIdContador()!=null){
+			try{
+				Integer idC = new Integer(currentBean.getIdContador());
+				Contador contador = contadorDAO.find(idC);
+				subView.getCmbContador().setValue(contador);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 
 		if(currentBean.getCnpj()!=null){
@@ -359,11 +395,26 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		if(Validator.validateObject(currentBean.getCodigoIbgeUf())){
 			subView.getTxtUf().setValue(currentBean.getCodigoIbgeUf().toString());
 		}
+
+		if(Validator.validateObject(currentBean.getCnaePrincipal())){
+
+			Integer idCnae =new Integer( currentBean.getCnaePrincipal());
+			Cnae cnae = cnaeDAO.find(idCnae);
+
+			subView.getCmbCnaePrincipal().setValue(cnae);
+		}
+
+		if(Validator.validateObject(currentBean.getCrt())){
+			subView.getCmbCrt().setValue(CRT.getCRT(currentBean.getCrt().toString()));
+		}
+		
+
+
 		try{
 			List<Contato> contatos = contatoDAO.listaPorEmpresa(currentBean);
 			currentBean.setContatos(contatos);
 			subView.fillContatoSubForm(contatos);    
-			
+
 			List<Endereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
 			currentBean.setEndereco(enderecos);
 			subView.fillEnderecoSubForm(enderecos);    
@@ -468,10 +519,11 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		return container;
 	}
 
-	public BeanItemContainer<EmpresaCnae> carregarEmpresaCnae(){
-		BeanItemContainer<EmpresaCnae> container = new BeanItemContainer<>(EmpresaCnae.class);
-		for(EmpresaCnae obj : empresaCnaeDAO.listarPrincipais()){
-			container.addBean(obj);
+	public BeanItemContainer<Cnae> carregarEmpresaCnae(){
+		BeanItemContainer<Cnae> container = new BeanItemContainer<>(Cnae.class);
+		List<EmpresaCnae> lista = empresaCnaeDAO.listarPrincipais(); 
+		for(EmpresaCnae obj : lista ){
+			container.addBean(obj.getCnae());
 		}
 		return container;
 	}

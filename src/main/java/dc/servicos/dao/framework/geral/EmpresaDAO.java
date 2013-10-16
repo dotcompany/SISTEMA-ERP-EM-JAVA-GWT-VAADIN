@@ -1,7 +1,9 @@
 package dc.servicos.dao.framework.geral;
 
+import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,5 +91,6 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 				.createQuery("from Empresa where tipo = :tipo")
 				.setParameter("tipo", "MATRIZ").list();
 	}
+
 
 }
