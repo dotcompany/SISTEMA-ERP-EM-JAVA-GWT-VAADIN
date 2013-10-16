@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.contabilidade.demonstrativo.DfcEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -17,38 +17,38 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class DfcDAO extends AbstractCrudDAO<InssEntity> {
+public class DfcDAO extends AbstractCrudDAO<DfcEntity> {
 
 	@Override
-	public Class<InssEntity> getEntityClass() {
-		return InssEntity.class;
+	public Class<DfcEntity> getEntityClass() {
+		return DfcEntity.class;
 	}
 
 	@Transactional
-	public List<InssEntity> listarTodos() {
+	public List<DfcEntity> listarTodos() {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1)";
+			String sql = "FROM DfcEntity ent WHERE (1 = 1)";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
+			List<DfcEntity> auxLista = super.getSession().createQuery(sql)
 					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<DfcEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InssEntity> procuraNomeContendo(String query) {
+	public List<DfcEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM DfcEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
+			List<DfcEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<DfcEntity>();
 		}
 	}
 

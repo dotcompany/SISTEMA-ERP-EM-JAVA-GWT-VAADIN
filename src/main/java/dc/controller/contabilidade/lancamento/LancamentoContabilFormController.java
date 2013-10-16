@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.entidade.contabilidade.lancamento.LancamentoContabilEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoContabilDAO;
+import dc.visao.contabilidade.lancamento.LancamentoContabilFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,42 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class LancamentoContabilFormController extends
+		CRUDFormController<LancamentoContabilEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private LancamentoContabilFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private LancamentoContabilDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private LancamentoContabilEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public LancamentoContabilFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new LancamentoContabilEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "Lançamento contábil";
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new LancamentoContabilEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.contabilidade.lancamento.FechamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -15,40 +15,41 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 
-@Repository(value = "fechamentoDAO1")
+@Repository(value = "contabilidadeFechamentoDAO")
 @SuppressWarnings("unchecked")
-public class FechamentoDAO extends AbstractCrudDAO<InssEntity> {
+public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 
 	@Override
-	public Class<InssEntity> getEntityClass() {
-		return InssEntity.class;
+	public Class<FechamentoEntity> getEntityClass() {
+		return FechamentoEntity.class;
 	}
 
 	@Transactional
-	public List<InssEntity> listarTodos() {
+	public List<FechamentoEntity> listarTodos() {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1)";
+			String sql = "FROM FechamentoEntity ent WHERE (1 = 1)";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			List<FechamentoEntity> auxLista = super.getSession()
+					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<FechamentoEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InssEntity> procuraNomeContendo(String query) {
+	public List<FechamentoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM FechamentoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<FechamentoEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<FechamentoEntity>();
 		}
 	}
 

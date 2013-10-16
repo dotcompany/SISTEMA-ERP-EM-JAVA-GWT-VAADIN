@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.cadastro;
+package dc.controller.contabilidade.livrocontabil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
-import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
+import dc.entidade.contabilidade.livrocontabil.LivroTermoEntity;
+import dc.servicos.dao.contabilidade.livrocontabil.LivroTermoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfListController extends
-		CRUDListController<AidfAimdfEntity> {
+public class LivroTermoListController extends
+		CRUDListController<LivroTermoEntity> {
 
 	/**
 	 * 
@@ -34,14 +34,14 @@ public class AidfAimdfListController extends
 	 */
 
 	@Autowired
-	private AidfAimdfDAO pDAO;
+	private LivroTermoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private AidfAimdfFormController pController;
+	private LivroTermoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
@@ -49,31 +49,31 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected Class<? super AidfAimdfEntity> getEntityClass() {
-		return AidfAimdfEntity.class;
+	protected Class<? super LivroTermoEntity> getEntityClass() {
+		return LivroTermoEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "AIDF / AIMDF";
+		return "Livro de termo";
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisa(String valor) {
+	protected List<LivroTermoEntity> pesquisa(String valor) {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO
+			List<LivroTermoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<LivroTermoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<AidfAimdfEntity> getFormController() {
+	protected CRUDFormController<LivroTermoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +91,15 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisaDefault() {
+	protected List<LivroTermoEntity> pesquisaDefault() {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO.listarTodos();
+			List<LivroTermoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<LivroTermoEntity>();
 		}
 	}
 

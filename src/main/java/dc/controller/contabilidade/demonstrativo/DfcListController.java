@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.cadastro;
+package dc.controller.contabilidade.demonstrativo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
-import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
+import dc.entidade.contabilidade.demonstrativo.DfcEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfListController extends
-		CRUDListController<AidfAimdfEntity> {
+public class DfcListController extends CRUDListController<DfcEntity> {
 
 	/**
 	 * 
@@ -34,14 +33,14 @@ public class AidfAimdfListController extends
 	 */
 
 	@Autowired
-	private AidfAimdfDAO pDAO;
+	private DfcDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private AidfAimdfFormController pController;
+	private DfcFormController pController;
 
 	@Override
 	protected String[] getColunas() {
@@ -49,31 +48,30 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected Class<? super AidfAimdfEntity> getEntityClass() {
-		return AidfAimdfEntity.class;
+	protected Class<? super DfcEntity> getEntityClass() {
+		return DfcEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "AIDF / AIMDF";
+		return "DFC";
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisa(String valor) {
+	protected List<DfcEntity> pesquisa(String valor) {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<DfcEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<DfcEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<AidfAimdfEntity> getFormController() {
+	protected CRUDFormController<DfcEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +89,15 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisaDefault() {
+	protected List<DfcEntity> pesquisaDefault() {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO.listarTodos();
+			List<DfcEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<DfcEntity>();
 		}
 	}
 

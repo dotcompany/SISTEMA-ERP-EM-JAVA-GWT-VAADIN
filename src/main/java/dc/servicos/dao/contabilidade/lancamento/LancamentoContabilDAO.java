@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoContabilEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -17,38 +17,40 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LancamentoContabilDAO extends AbstractCrudDAO<InssEntity> {
+public class LancamentoContabilDAO extends
+		AbstractCrudDAO<LancamentoContabilEntity> {
 
 	@Override
-	public Class<InssEntity> getEntityClass() {
-		return InssEntity.class;
+	public Class<LancamentoContabilEntity> getEntityClass() {
+		return LancamentoContabilEntity.class;
 	}
 
 	@Transactional
-	public List<InssEntity> listarTodos() {
+	public List<LancamentoContabilEntity> listarTodos() {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1)";
+			String sql = "FROM LancamentoContabilEntity ent WHERE (1 = 1)";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			List<LancamentoContabilEntity> auxLista = super.getSession()
+					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LancamentoContabilEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InssEntity> procuraNomeContendo(String query) {
+	public List<LancamentoContabilEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LancamentoContabilEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<LancamentoContabilEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LancamentoContabilEntity>();
 		}
 	}
 

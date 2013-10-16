@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.contabilidade.livrocontabil.LivroTermoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -17,38 +17,39 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LivroTermoDAO extends AbstractCrudDAO<InssEntity> {
+public class LivroTermoDAO extends AbstractCrudDAO<LivroTermoEntity> {
 
 	@Override
-	public Class<InssEntity> getEntityClass() {
-		return InssEntity.class;
+	public Class<LivroTermoEntity> getEntityClass() {
+		return LivroTermoEntity.class;
 	}
 
 	@Transactional
-	public List<InssEntity> listarTodos() {
+	public List<LivroTermoEntity> listarTodos() {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1)";
+			String sql = "FROM LivroTermoEntity ent WHERE (1 = 1)";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			List<LivroTermoEntity> auxLista = super.getSession()
+					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LivroTermoEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InssEntity> procuraNomeContendo(String query) {
+	public List<LivroTermoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LivroTermoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<LivroTermoEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LivroTermoEntity>();
 		}
 	}
 

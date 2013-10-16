@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.livrocontabil.EmissaoLivroEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.EmissaoLivroDAO;
-import dc.visao.contabilidade.lancamento.LancamentoProgramadoFormView;
+import dc.visao.contabilidade.livrocontabil.EmissaoLivroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -30,7 +31,7 @@ public class EmissaoLivroFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private LancamentoProgramadoFormView subView;
+	private EmissaoLivroFormView subView;
 
 	/**
 	 * DAO'S
@@ -148,7 +149,9 @@ public class EmissaoLivroFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	/**

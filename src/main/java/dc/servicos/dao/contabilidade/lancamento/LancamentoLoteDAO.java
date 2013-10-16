@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.folhapagamento.inss.InssEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -17,38 +17,39 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LancamentoLoteDAO extends AbstractCrudDAO<InssEntity> {
+public class LancamentoLoteDAO extends AbstractCrudDAO<LancamentoLoteEntity> {
 
 	@Override
-	public Class<InssEntity> getEntityClass() {
-		return InssEntity.class;
+	public Class<LancamentoLoteEntity> getEntityClass() {
+		return LancamentoLoteEntity.class;
 	}
 
 	@Transactional
-	public List<InssEntity> listarTodos() {
+	public List<LancamentoLoteEntity> listarTodos() {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1)";
+			String sql = "FROM LancamentoLoteEntity ent WHERE (1 = 1)";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			List<LancamentoLoteEntity> auxLista = super.getSession()
+					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LancamentoLoteEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InssEntity> procuraNomeContendo(String query) {
+	public List<LancamentoLoteEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InssEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LancamentoLoteEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
-			List<InssEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<LancamentoLoteEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InssEntity>();
+			return new ArrayList<LancamentoLoteEntity>();
 		}
 	}
 

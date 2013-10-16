@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.entidade.contabilidade.cadastro.FapEntity;
+import dc.servicos.dao.contabilidade.cadastro.FapDAO;
+import dc.visao.contabilidade.cadastro.FapFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,42 +23,41 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class FapFormController extends CRUDFormController<FapEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private FapFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private FapDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private FapEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public FapFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new FapEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "AIDF / AIMDF";
 	}
 
 	@Override
@@ -115,7 +114,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new FapEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
