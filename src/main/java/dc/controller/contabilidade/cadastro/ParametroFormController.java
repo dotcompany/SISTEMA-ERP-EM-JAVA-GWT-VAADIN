@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.entidade.contabilidade.cadastro.ParametroEntity;
+import dc.servicos.dao.contabilidade.cadastro.ParametroDAO;
+import dc.visao.contabilidade.cadastro.ParametroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -21,44 +21,44 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller
+@Controller(value = "contabilidadeParametroFormController")
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class ParametroFormController extends
+		CRUDFormController<ParametroEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private ParametroFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private ParametroDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private ParametroEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public ParametroFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new ParametroEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "Parâmetro";
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new ParametroEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

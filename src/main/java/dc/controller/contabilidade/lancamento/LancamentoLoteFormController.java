@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
+import dc.visao.contabilidade.lancamento.LancamentoLoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,42 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class LancamentoLoteFormController extends
+		CRUDFormController<LancamentoLoteEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private LancamentoLoteFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private LancamentoLoteDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private LancamentoLoteEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public LancamentoLoteFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new LancamentoLoteEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "Lançamento lote";
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new LancamentoLoteEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

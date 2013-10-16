@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
-import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
+import dc.entidade.contabilidade.cadastro.HistoricoEntity;
+import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfListController extends
-		CRUDListController<AidfAimdfEntity> {
+public class HistoricoListController extends
+		CRUDListController<HistoricoEntity> {
 
 	/**
 	 * 
@@ -34,14 +34,14 @@ public class AidfAimdfListController extends
 	 */
 
 	@Autowired
-	private AidfAimdfDAO pDAO;
+	private HistoricoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private AidfAimdfFormController pController;
+	private HistoricoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
@@ -49,31 +49,31 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected Class<? super AidfAimdfEntity> getEntityClass() {
-		return AidfAimdfEntity.class;
+	protected Class<? super HistoricoEntity> getEntityClass() {
+		return HistoricoEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "AIDF / AIMDF";
+		return "Histórico";
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisa(String valor) {
+	protected List<HistoricoEntity> pesquisa(String valor) {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO
+			List<HistoricoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<HistoricoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<AidfAimdfEntity> getFormController() {
+	protected CRUDFormController<HistoricoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +91,15 @@ public class AidfAimdfListController extends
 	}
 
 	@Override
-	protected List<AidfAimdfEntity> pesquisaDefault() {
+	protected List<HistoricoEntity> pesquisaDefault() {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO.listarTodos();
+			List<HistoricoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<AidfAimdfEntity>();
+			return new ArrayList<HistoricoEntity>();
 		}
 	}
 

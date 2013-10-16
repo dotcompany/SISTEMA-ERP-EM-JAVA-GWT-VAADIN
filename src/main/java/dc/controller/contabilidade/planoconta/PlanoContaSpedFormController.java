@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.planoconta;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.entidade.contabilidade.planoconta.PlanoContaSpedEntity;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaSpedDAO;
+import dc.visao.contabilidade.planoconta.PlanoContaSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,42 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class PlanoContaSpedFormController extends
+		CRUDFormController<PlanoContaSpedEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private PlanoContaSpedFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private PlanoContaSpedDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private PlanoContaSpedEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public PlanoContaSpedFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new PlanoContaSpedEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "Plano conta - SPED";
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new PlanoContaSpedEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -79,7 +80,9 @@ public class LancamentoProgramadoListController extends
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_lc";
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	@Override

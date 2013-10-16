@@ -93,7 +93,7 @@ dependencies {
 		compile 'org.hibernate:hibernate-entitymanager:4.2.5.Final'
 		compile 'org.hibernate:hibernate-validator:5.0.1.Final'
 		
-		compile 'org.hibernate:hibernate-search:4.3.0.Final'
+		compile 'org.hibernate:hibernate-search:4.4.0.Final'
 		compile 'org.hibernate:hibernate-search-analyzers:4.3.0.Final'
 		compile 'org.hibernate:hibernate-c3p0:4.2.5.Final'
 		

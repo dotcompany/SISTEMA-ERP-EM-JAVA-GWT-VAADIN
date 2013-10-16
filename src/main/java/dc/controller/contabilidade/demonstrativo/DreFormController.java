@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
+import dc.entidade.contabilidade.demonstrativo.DreEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -23,8 +23,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class DreFormController extends CRUDFormController<DreEntity> {
 
 	/**
 	 * 
@@ -38,27 +37,27 @@ public class BalancoPatrimonialFormController extends
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private DreDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private BalancoPatrimonialEntity pEntity;
+	private DreEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public BalancoPatrimonialFormController() {
+	public DreFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new DreEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Balanço patrimonial";
+		return "DRE";
 	}
 
 	@Override
@@ -115,7 +114,7 @@ public class BalancoPatrimonialFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new BalancoPatrimonialEntity();
+			this.pEntity = new DreEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

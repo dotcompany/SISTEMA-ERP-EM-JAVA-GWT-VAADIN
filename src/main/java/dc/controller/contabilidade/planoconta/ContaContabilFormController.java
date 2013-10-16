@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.planoconta.ContaContabilEntity;
 import dc.servicos.dao.contabilidade.planoconta.ContaContabilDAO;
 import dc.visao.contabilidade.planoconta.ContaContabilFormView;
@@ -148,7 +149,9 @@ public class ContaContabilFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	/**
