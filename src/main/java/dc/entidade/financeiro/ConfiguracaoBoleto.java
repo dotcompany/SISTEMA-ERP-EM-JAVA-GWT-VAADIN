@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "FIN_CONFIGURACAO_BOLETO")
+@Table(name = "CONFIGURACAO_BOLETO")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -44,19 +45,19 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> {
 	private String instrucao02;
 
 	@Field
-	@Column(name = "CAMINHO_ARQUI_REMESSA")
+	@Column(name = "CAMINHO_ARQUIVO_REMESSA")
 	private String caminhoArquivoRemessa;
 
 	@Field
-	@Column(name = "CAMINHO_ARQUI_RETORNO")
+	@Column(name = "CAMINHO_ARQUIVO_RETORNO")
 	private String caminhoArquivoRetorno;
 
 	@Field
-	@Column(name = "CAMINHO_ARQUI_LOGOTIPO")
+	@Column(name = "CAMINHO_ARQUIVO_LOGOTIPO")
 	private String caminhoArquivoLogotipo;
 
 	@Field
-	@Column(name = "CAMINHO_ARQUI_PDF")
+	@Column(name = "CAMINHO_ARQUIVO_PDF")
 	private String caminhoArquivoPdf;
 
 	@Field
@@ -96,7 +97,7 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> {
 	private BigDecimal taxaMulta;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private ContaCaixa contaCaixa;
 
 	public ConfiguracaoBoleto() {

@@ -28,7 +28,8 @@ public class ConfiguracaoBoletoListController extends CRUDListController<Configu
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "instrucao01" };
+		return new String[] { "contaCaixa", "instrucao01", "instrucao02", "mensagem", "localPagamento", "aceite", "layoutRemessa", "especie",
+				"carteira", "codigoConvenio", "codigoCedente", "taxaMulta" };
 	}
 
 	@Override
