@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.ponto.PontoAbono;
 import dc.entidade.ponto.PontoAbonoUtilizacao;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoAbonoDAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ponto.PontoAbonoFormView;
 
@@ -39,46 +41,39 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
+
 		if (!Validator.validateNumber(subView.getTxQuantidade().getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidade(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxQuantidade(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateNumber(subView.getTxSaldo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaldo(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaldo(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateNumber(subView.getTxUtilizado().getValue())) {
-			adicionarErroDeValidacao(subView.getTxUtilizado(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxUtilizado(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxaObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaObservacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxaObservacao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
-		if (!Validator.validateObject(subView.getCmbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(),
-					"Não pode ficar em branco");
+
+		if (!Validator.validateObject(subView.getCbColaborador().getValue())) {
+			adicionarErroDeValidacao(subView.getCbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getDtCadastro().getValue())) {
-			adicionarErroDeValidacao(subView.getDtCadastro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtCadastro(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getDtUtilizacao().getValue())) {
-			adicionarErroDeValidacao(subView.getDtUtilizacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtUtilizacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -88,21 +83,25 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new PontoAbono();
-		carregarCombosView();
-	}
-
-	private void carregarCombosView() {
-		subView.carregarColaboradores(colaboradorDAO.getAll(Colaborador.class));
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new PontoAbonoFormView(this);
+
+		DefaultManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(ColaboradorListController.class,
+				this.colaboradorDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "pessoa.nome";
+			}
+		};
+
+		subView.getCbColaborador().setModel(colaboradorModel);
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		carregarCombosView();
 		currentBean = pontoAbonoDAO.find(id);
 		subView.preencheForm(currentBean);
 	}
@@ -160,7 +159,7 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 	public PontoAbonoUtilizacao novoPontoAbonoUtilizacao() {
 		return currentBean.addPontoAbonoUtilizacao();
 	}
-	
+
 	@Override
 	protected boolean isFullSized() {
 		return true;

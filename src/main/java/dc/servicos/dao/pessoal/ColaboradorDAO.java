@@ -40,14 +40,11 @@ public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
 
 	@Transactional
 	public List<Colaborador> procuraNomeContendo(String query) {
-		return getSession()
-				.createQuery("from Colaborador where observacao like :q")
-				.setParameter("q", "%" + query + "%").list();
+		return getSession().createQuery("from Colaborador where observacao like :q").setParameter("q", "%" + query + "%").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "codigoTurmaPonto", "dataCadastro",
-				"dataAdmissao", "vencimentoFerias", "dataTransferencia" };
+		return new String[] { "pessoa.nome", "codigoTurmaPonto", "dataCadastro", "dataAdmissao", "vencimentoFerias", "dataTransferencia" };
 	}
 
 	@Transactional
@@ -71,8 +68,7 @@ public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
 	@Transactional
 	public List<Colaborador> colaboradorLista() {
 		try {
-			String sql = "SELECT new Colaborador(ent.id, ent.matricula) FROM Colaborador ent"
-					+ " WHERE (1 = 1)";
+			String sql = "SELECT new Colaborador(ent.id, ent.matricula) FROM Colaborador ent" + " WHERE (1 = 1)";
 
 			List<Colaborador> auxLista = getSession().createQuery(sql).list();
 
