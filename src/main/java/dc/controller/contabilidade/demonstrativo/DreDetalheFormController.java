@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
-import dc.visao.contabilidade.demonstrativo.DreFormView;
+import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
+import dc.visao.contabilidade.demonstrativo.DreDetalheFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,41 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreFormController extends CRUDFormController<DreEntity> {
+public class DreDetalheFormController extends
+		CRUDFormController<DreDetalheEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DreFormView subView;
+	private DreDetalheFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private DreDAO pDAO;
+	private DreDetalheDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private DreEntity pEntity;
+	private DreDetalheEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public DreFormController() {
+	public DreDetalheFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new DreEntity();
+			this.pEntity = new DreDetalheEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "DRE";
+		return "DRE detalhe";
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new DreEntity();
+				this.pEntity = new DreDetalheEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}

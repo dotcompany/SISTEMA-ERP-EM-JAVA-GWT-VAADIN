@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
-import dc.visao.contabilidade.demonstrativo.DreFormView;
+import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeDetDAO;
+import dc.visao.contabilidade.demonstrativo.EncerramentoExeDetFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,41 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreFormController extends CRUDFormController<DreEntity> {
+public class EncerramentoExeDetFormController extends
+		CRUDFormController<EncerramentoExeDetEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DreFormView subView;
+	private EncerramentoExeDetFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private DreDAO pDAO;
+	private EncerramentoExeDetDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private DreEntity pEntity;
+	private EncerramentoExeDetEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public DreFormController() {
+	public EncerramentoExeDetFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new DreEntity();
+			this.pEntity = new EncerramentoExeDetEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "DRE";
+		return "Encerramento de exercício detalhe";
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new DreEntity();
+				this.pEntity = new EncerramentoExeDetEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}

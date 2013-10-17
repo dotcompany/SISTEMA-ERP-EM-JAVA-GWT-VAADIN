@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.livrocontabil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
-import dc.visao.contabilidade.demonstrativo.DreFormView;
+import dc.entidade.contabilidade.livrocontabil.TermoEntity;
+import dc.servicos.dao.contabilidade.livrocontabil.TermoDAO;
+import dc.visao.contabilidade.livrocontabil.TermoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,41 +23,41 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreFormController extends CRUDFormController<DreEntity> {
+public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DreFormView subView;
+	private TermoFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private DreDAO pDAO;
+	private TermoDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private DreEntity pEntity;
+	private TermoEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public DreFormController() {
+	public TermoFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new DreEntity();
+			this.pEntity = new TermoEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "DRE";
+		return "Termo";
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new DreEntity();
+				this.pEntity = new TermoEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}

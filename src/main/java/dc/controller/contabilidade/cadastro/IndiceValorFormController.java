@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
-import dc.visao.contabilidade.demonstrativo.DreFormView;
+import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
+import dc.servicos.dao.contabilidade.cadastro.IndiceValorDAO;
+import dc.visao.contabilidade.cadastro.IndiceValorFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,41 +23,42 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreFormController extends CRUDFormController<DreEntity> {
+public class IndiceValorFormController extends
+		CRUDFormController<IndiceValorEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private DreFormView subView;
+	private IndiceValorFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private DreDAO pDAO;
+	private IndiceValorDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private DreEntity pEntity;
+	private IndiceValorEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public DreFormController() {
+	public IndiceValorFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new DreEntity();
+			this.pEntity = new IndiceValorEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "DRE";
+		return "Histórico";
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new DreEntity();
+				this.pEntity = new IndiceValorEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
