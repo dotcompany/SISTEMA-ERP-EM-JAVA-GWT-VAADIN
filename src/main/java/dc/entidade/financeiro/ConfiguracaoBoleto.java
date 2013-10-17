@@ -19,6 +19,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
@@ -38,66 +39,82 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> {
 
 	@Field
 	@Column(name = "INSTRUCAO01")
+	@Caption(value = "Instrução01")
 	private String instrucao01;
 
 	@Field
 	@Column(name = "INSTRUCAO02")
+	@Caption(value = "Instrução02")
 	private String instrucao02;
 
 	@Field
 	@Column(name = "CAMINHO_ARQUIVO_REMESSA")
+	@Caption(value = "Caminho Arquivo Remessa")
 	private String caminhoArquivoRemessa;
 
 	@Field
 	@Column(name = "CAMINHO_ARQUIVO_RETORNO")
+	@Caption(value = "Caminho Arquivo Retorno")
 	private String caminhoArquivoRetorno;
 
 	@Field
 	@Column(name = "CAMINHO_ARQUIVO_LOGOTIPO")
+	@Caption(value = "Caminho Arquivo Logotipo")
 	private String caminhoArquivoLogotipo;
 
 	@Field
 	@Column(name = "CAMINHO_ARQUIVO_PDF")
+	@Caption(value = "Caminho Arquivo PDF")
 	private String caminhoArquivoPdf;
 
 	@Field
 	@Column(name = "MENSAGEM")
+	@Caption(value = "Mensagem")
 	private String mensagem;
 
 	@Field
 	@Column(name = "LOCAL_PAGAMENTO")
+	@Caption(value = "Local Pagamento")
 	private String localPagamento;
 
 	@Field
 	@Column(name = "LAYOUT_REMESSA")
+	@Caption(value = "Layout Remessa")
 	private String layoutRemessa;
 
 	@Field
 	@Column(name = "ACEITE")
+	@Caption(value = "Aceite")
 	private String aceite;
 
 	@Field
 	@Column(name = "ESPECIE")
+	@Caption(value = "Espécie")
 	private String especie;
 
 	@Field
 	@Column(name = "CARTEIRA")
+	@Caption(value = "Carteira")
 	private String carteira;
 
 	@Field
 	@Column(name = "CODIGO_CONVENIO")
+	@Caption(value = "Código Convénio")
 	private String codigoConvenio;
 
 	@Field
 	@Column(name = "CODIGO_CEDENTE")
+	@Caption(value = "Código Cedente")
 	private String codigoCedente;
 
 	@Field
 	@Column(name = "TAXA_MULTA")
+	@Caption(value = "Taxa Multa")
 	private BigDecimal taxaMulta;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@Caption(value = "Conta Caixa")
 	private ContaCaixa contaCaixa;
 
 	public ConfiguracaoBoleto() {

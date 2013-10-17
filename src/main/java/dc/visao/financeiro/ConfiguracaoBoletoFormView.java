@@ -109,7 +109,7 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 		cbEspecie = ComponentUtil.buildComboBox("Especie");
 		gridLayout.addComponent(cbEspecie, 2, 0);
 
-		txCarteira = ComponentUtil.buildTextField("Carteira");
+		txCarteira = ComponentUtil.buildMaskedTextField("Carteira", "***");
 		gridLayout.addComponent(txCarteira, 3, 0);
 
 		txCodigoConvenio = ComponentUtil.buildTextField("Código Convênio");

@@ -13,6 +13,7 @@ import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConfiguracaoBoletoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -104,6 +105,66 @@ public class ConfiguracaoBoletoFormController extends CRUDFormController<Configu
 	protected boolean validaSalvar() {
 
 		boolean valido = true;
+
+		if (!Validator.validateObject(subView.getCbContaCaixa().getValue())) {
+			adicionarErroDeValidacao(subView.getCbContaCaixa(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbAceite().getValue())) {
+			adicionarErroDeValidacao(subView.getCbAceite(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbEspecie().getValue())) {
+			adicionarErroDeValidacao(subView.getCbEspecie(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getCbLayoutRemessa().getValue())) {
+			adicionarErroDeValidacao(subView.getCbLayoutRemessa(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxCarteira().getValue())) {
+			adicionarErroDeValidacao(subView.getTxCarteira(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxCodigoCedente().getValue())) {
+			adicionarErroDeValidacao(subView.getTxCodigoCedente(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxCodigoConvenio().getValue())) {
+			adicionarErroDeValidacao(subView.getTxCodigoConvenio(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxInstrucao01().getValue())) {
+			adicionarErroDeValidacao(subView.getTxInstrucao01(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxInstrucao02().getValue())) {
+			adicionarErroDeValidacao(subView.getTxInstrucao02(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxLocalPagamento().getValue())) {
+			adicionarErroDeValidacao(subView.getTxLocalPagamento(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxMensagem().getValue())) {
+			adicionarErroDeValidacao(subView.getTxMensagem(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxTaxaMulta().getValue())) {
+			adicionarErroDeValidacao(subView.getTxTaxaMulta(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		return valido;
 	}
