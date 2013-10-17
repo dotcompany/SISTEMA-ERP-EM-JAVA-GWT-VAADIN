@@ -583,5 +583,10 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 		return container;
 	}
+	
+	@Override
+	 protected boolean isFullSized() {
+	  return true;
+	 }
 
 }

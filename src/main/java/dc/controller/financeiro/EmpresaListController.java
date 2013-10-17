@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
  * Nessa classe temos a Extensão do CrudListController, tendo alguns métodos herdados,
  * como o pesquisar, e pegamos também algumas informações da classe FormController, herdando
  * algumas informações.
- * Temos a configuração das colunas.
+ * Temos a configuração das unas.
  *
 */
 
