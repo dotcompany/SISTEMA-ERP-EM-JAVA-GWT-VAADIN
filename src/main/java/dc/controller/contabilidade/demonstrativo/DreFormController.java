@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.demonstrativo.DreEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreDAO;
-import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
+import dc.visao.contabilidade.demonstrativo.DreFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -30,7 +30,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BalancoPatrimonialFormView subView;
+	private DreFormView subView;
 
 	/**
 	 * DAO'S
@@ -76,14 +76,14 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,7 +114,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.pEntity = new DreEntity();
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,6 +164,33 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new DreEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			// this.subView.getTfValor13().setValue(
+			// String.valueOf(this.pEntity.getValor13()));
+			// this.subView.getTfValorMensal().setValue(
+			// String.valueOf(this.pEntity.getValorMensal()));
+
+			// this.subView.getCbInss().setData(this.inssListarTodos());
+			// this.subView.getCbServico().setData(this.servicoListarTodos());
+
+			// this.subView.getCbInss().setValue(this.pEntity.getInss());
+			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

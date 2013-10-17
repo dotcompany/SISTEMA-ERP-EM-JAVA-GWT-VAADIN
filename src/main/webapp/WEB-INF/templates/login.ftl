@@ -40,10 +40,10 @@ html, body {
               <div class="v-horizontallayout v-layout v-horizontal v-widget labels v-horizontallayout-labels v-has-width v-margin-top v-margin-right v-margin-bottom v-margin-left" style="width: 100%; height: 44px;">
                 <div class="v-expand" style="padding-left: 0px;">
                   <div class="v-slot v-slot-h4 v-align-middle" style="width: 50%; margin-left: 0px;">
-                    <div class="v-label v-widget h4 v-label-h4 v-label-undef-w" style="display: inline-block;">Bem Vindo</div>
+                    <div class="v-label v-widget h4 v-label-h4 v-label-undef-w" style="display: inline-block;">Seja Bem Vindo(a) ao DotCompany ERP</div>
                   </div>
                   <div class="v-slot v-slot-h2 v-slot-light v-align-right v-align-middle" style="width: 50%;">
-                    <div class="v-label v-widget h2 v-label-h2 light v-label-light v-label-undef-w" style="display: inline-block;">Empresa Dotcompany</div>
+                    <div class="v-label v-widget h2 v-label-h2 light v-label-light v-label-undef-w" style="display: inline-block;">(Versão alpha 1.0.0.1)</div>
                   </div>
                 </div>
               </div>

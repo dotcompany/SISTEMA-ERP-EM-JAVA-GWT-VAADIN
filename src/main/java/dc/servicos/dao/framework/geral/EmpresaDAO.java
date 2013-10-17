@@ -25,6 +25,8 @@ import dc.entidade.pessoal.Cargo;
 @Repository
 @SuppressWarnings("unchecked")
 public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
+	
+	static String MATRIZ="1";
 
 	@Override
 	public Class<Empresa> getEntityClass() {
@@ -89,7 +91,7 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 	public List<Empresa> buscaMatrizes(){
 		return getSession()
 				.createQuery("from Empresa where tipo = :tipo")
-				.setParameter("tipo", "MATRIZ").list();
+				.setParameter("tipo", MATRIZ).list();
 	}
 
 

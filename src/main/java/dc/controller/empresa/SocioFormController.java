@@ -10,16 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.UF;
 import dc.entidade.pessoal.TipoRelacionamento;
 import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.SocioDAO;
+import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
@@ -38,9 +41,12 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	SocioDAO dao;
 
 	Socio currentBean;
-	
+
 	@Autowired
 	TipoRelacionamentoDAO tipoRelacionamentoDAO;
+
+	@Autowired
+	UFDAO ufDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -125,19 +131,33 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		currentBean.adicionarDependente(dep);
 		return dep;
 	}
-	
+
 	public ParticipacaoSocietaria adicionarParticipacao(){
 		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
 		currentBean.adicionarDependente(p);
 		return p;
 	}
-	
+
 	public List<TipoRelacionamento> carregarTipoRelacionamento(){
 		List<TipoRelacionamento> lista = new ArrayList<TipoRelacionamento>();
 		for(TipoRelacionamento tipo : tipoRelacionamentoDAO.listaTodos()){
 			lista.add(tipo);
 		}
 		return lista;
+	}
+
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+
+	public BeanItemContainer<String> carregarUFs(){
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
+		}	
+
+		return container;
 	}
 
 }
