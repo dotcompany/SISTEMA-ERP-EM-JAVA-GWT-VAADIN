@@ -22,7 +22,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	public String getViewIdentifier() {
-		return "Parâmetro Cliente";
+		return "ParÃ¢metro Cliente";
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	protected String getNome() {
-		return "Parâmetro Cliente";
+		return "ParÃ¢metro Cliente";
 	}
 
 	@Override
