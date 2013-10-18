@@ -1,76 +1,74 @@
 package dc.entidade.contratos;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import dc.entidade.framework.Empresa;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "CONTRATO_TEMPLATE")
-public class ContratoTemplate implements Serializable {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Column(name = "NOME")
-    private String nome;
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Empresa empresa;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@Field
+	private Integer id;
 
-    public ContratoTemplate() {
-    }
+	@Field
+	@Column(name = "NOME")
+	private String nome;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Column(name = "DESCRICAO")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public ContratoTemplate() {
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-
-    @Override
-    public String toString() {
-        return "com.t2tierp.contratos.java.ContratoTemplateVO[id=" + id + "]";
-    }
+	@Override
+	public String toString() {
+		return "com.t2tierp.contratos.java.ContratoTemplateVO[id=" + id + "]";
+	}
 
 }

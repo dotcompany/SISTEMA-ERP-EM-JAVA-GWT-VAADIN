@@ -50,6 +50,7 @@ import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -84,8 +85,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -94,40 +94,33 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		TipoContrato tipoContrato = (TipoContrato) subView.getCbmTipoContrato()
-				.getValue();
+		TipoContrato tipoContrato = (TipoContrato) subView.getCbmTipoContrato().getValue();
 		if (!Validator.validateObject(tipoContrato)) {
-			adicionarErroDeValidacao(subView.getCbmTipoContrato(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbmTipoContrato(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		ContabilConta contabilConta = (ContabilConta) subView
-				.getCbmContabilConta().getValue();
+		ContabilConta contabilConta = (ContabilConta) subView.getCbmContabilConta().getValue();
 		if (!Validator.validateObject(contabilConta)) {
-			adicionarErroDeValidacao(subView.getCbmContabilConta(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbmContabilConta(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		Date dataVigencia = (Date) subView.getDtVigencia().getValue();
 		if (!Validator.validateObject(dataVigencia)) {
-			adicionarErroDeValidacao(subView.getDtVigencia(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtVigencia(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		Date dataCadastro = (Date) subView.getDtCadastro().getValue();
 		if (!Validator.validateObject(dataCadastro)) {
-			adicionarErroDeValidacao(subView.getDtCadastro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtCadastro(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		Date dataFimVigencia = (Date) subView.getDtFimVigencia().getValue();
 		if (!Validator.validateObject(dataFimVigencia)) {
-			adicionarErroDeValidacao(subView.getDtFimVigencia(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtFimVigencia(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -136,29 +129,23 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtQuantidadeParcelas()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxtQuantidadeParcelas(),
-					"Número inválido");
+		if (!Validator.validateNumber(subView.getTxtQuantidadeParcelas().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtQuantidadeParcelas(), "Número inválido");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtIntervaloParcelas()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxtIntervaloParcelas(),
-					"Número inválido");
+		if (!Validator.validateNumber(subView.getTxtIntervaloParcelas().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtIntervaloParcelas(), "Número inválido");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxaDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxaObservacoes().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaObservacoes(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxaObservacoes(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -171,20 +158,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	private void carregarCombos() {
-		subView.carregaComboContabilConta(contabilContaDAO
-				.getAll(ContabilConta.class));
-		subView.carregaComboTipoContrato(tipoContratoDAO
-				.getAll(TipoContrato.class));
-		subView.carregaComboSolicitacaoServico(solicitacaoServicoDAO
-				.getAll(ContratoSolicitacaoServico.class));
+		subView.carregaComboContabilConta(contabilContaDAO.getAll(ContabilConta.class));
+		subView.carregaComboTipoContrato(tipoContratoDAO.getAll(TipoContrato.class));
+		subView.carregaComboSolicitacaoServico(solicitacaoServicoDAO.getAll(ContratoSolicitacaoServico.class));
 		List<Documento> documentos = documentoDAO.getAll(Documento.class);
 
 		Iterator<Documento> iterator = documentos.iterator();
 		while (iterator.hasNext()) {
 			Documento doc = iterator.next();
-			if (doc.getDocumentos().size() > 0
-					&& !doc.getDocumentos().get(0).getCaminho()
-							.endsWith("docx")) {
+			if (doc.getDocumentos().size() > 0 && !doc.getDocumentos().get(0).getCaminho().endsWith("docx")) {
 				iterator.remove();
 			}
 
@@ -199,74 +181,87 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	private StreamResource createResource() {
-		final Documento documento = (Documento)subView.getCbmDocumento().getValue();
-		if(documento != null)
-		{
-			
+		final Documento documento = (Documento) subView.getCbmDocumento().getValue();
+		if (documento != null) {
+
 			return new StreamResource(new StreamSource() {
 				@Override
 				public InputStream getStream() {
-					
-					
+
 					Empresa empresa = documento.getEmpresa();
-					
+
 					Endereco enderecoEmpresa = new Endereco();// TODO
-					
-					Cliente dadosContratante = currentBean
-							.getContratoSolicitacaoServico().getCliente();
-					
-					ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
+
+					Cliente dadosContratante = currentBean.getContratoSolicitacaoServico().getCliente();
+
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
 					try {
 						File origem = getFileFromDocumento(documento);
 						File novo = getTempFile();
-						
-						
+
 						// define os termos a serem substituidos
 						String termos[] = new String[] {
 								// contratada
-								"#CONTRATADA#", "#CNPJ_CONTRATADA#",
-								"#ENDERECO_CONTRATADA#",
-								"#CIDADE_CONTRATADA#",
-								"#UF_CONTRATADA#",
-								"#BAIRRO_CONTRATADA#",
-								"#CEP_CONTRATADA#",
+								"#CONTRATADA#", "#CNPJ_CONTRATADA#", "#ENDERECO_CONTRATADA#", "#CIDADE_CONTRATADA#", "#UF_CONTRATADA#",
+								"#BAIRRO_CONTRATADA#", "#CEP_CONTRATADA#",
 								// contratante
-								"#CONTRATANTE#", "#CNPJ_CONTRATANTE#",
-								"#ENDERECO_CONTRATANTE#", "#CIDADE_CONTRATANTE#",
-								"#UF_CONTRATANTE#", "#BAIRRO_CONTRATANTE#",
-								"#CEP_CONTRATANTE#",
+								"#CONTRATANTE#", "#CNPJ_CONTRATANTE#", "#ENDERECO_CONTRATANTE#", "#CIDADE_CONTRATANTE#", "#UF_CONTRATANTE#",
+								"#BAIRRO_CONTRATANTE#", "#CEP_CONTRATANTE#",
 								// outros
 								"#VALOR_MENSAL#", "#DATA_EXTENSO#" };
-						
-						MaskFormatter formatoCnpj = new MaskFormatter(
-								"##.###.###/####-##");
+
+						MaskFormatter formatoCnpj = new MaskFormatter("##.###.###/####-##");
 						formatoCnpj.setValueContainsLiteralCharacters(false);
-						MaskFormatter formatoCpf = new MaskFormatter(
-								"###.###.###-##");
+						MaskFormatter formatoCpf = new MaskFormatter("###.###.###-##");
 						formatoCpf.setValueContainsLiteralCharacters(false);
-						SimpleDateFormat formatoDataExtenso = new SimpleDateFormat(
-								"EEEE, dd 'de' MMMM 'de' yyyy");
-						DecimalFormat formatoDecimal = new DecimalFormat(
-								"#,###,##0.00");
-						
+						SimpleDateFormat formatoDataExtenso = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy");
+						DecimalFormat formatoDecimal = new DecimalFormat("#,###,##0.00");
+
 						// busca os dados para substituicoes dos termos
 						String substituicoes[] = new String[] {
 								// contratada
-								empresa.getRazaoSocial(),
-								formatoCnpj.valueToString(empresa.getCnpj()),
-								"",	/*enderecoEmpresa.getLogradouro()
-									+ " "
-									+ enderecoEmpresa.getNumero()
-									+ " "
-									+ (enderecoEmpresa.getComplemento() == null ? ""
-											: enderecoEmpresa.getComplemento()),*/
-								"",//enderecoEmpresa.getCidade(),
+								empresa.getRazaoSocial(), formatoCnpj.valueToString(empresa.getCnpj()), "", /*
+																											 * enderecoEmpresa
+																											 * .
+																											 * getLogradouro
+																											 * (
+																											 * )
+																											 * +
+																											 * " "
+																											 * +
+																											 * enderecoEmpresa
+																											 * .
+																											 * getNumero
+																											 * (
+																											 * )
+																											 * +
+																											 * " "
+																											 * +
+																											 * (
+																											 * enderecoEmpresa
+																											 * .
+																											 * getComplemento
+																											 * (
+																											 * )
+																											 * ==
+																											 * null
+																											 * ?
+																											 * ""
+																											 * :
+																											 * enderecoEmpresa
+																											 * .
+																											 * getComplemento
+																											 * (
+																											 * )
+																											 * )
+																											 * ,
+																											 */
+								"",// enderecoEmpresa.getCidade(),
 								"",// enderecoEmpresa.getUf()
-								"",//enderecoEmpresa.getBairro(),
-								"",//enderecoEmpresa.getCep(),
-								// contratante
-								dadosContratante.getPessoa().getNome(), 
-								"", // dadosContratante.getCpfCnpj().length()
+								"",// enderecoEmpresa.getBairro(),
+								"",// enderecoEmpresa.getCep(),
+									// contratante
+								dadosContratante.getPessoa().getNome(), "", // dadosContratante.getCpfCnpj().length()
 								// == 11
 								// ?
 								// formatoCpf.valueToString(dadosContratante.getCpfCnpj())
@@ -282,40 +277,35 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 								"", // dadosContratante.getBairro(),
 								"", // dadosContratante.getCep(),
 								// outros
-								formatoDecimal.format(currentBean.getValor()),
-								formatoDataExtenso.format(currentBean.getDataInicioVigencia())
-						};
-						
-						XWPFDocument doc = new XWPFDocument(new FileInputStream(
-								origem));
-						
-						List<XWPFParagraph> paragrafos = new ArrayList<XWPFParagraph>(
-								doc.getParagraphs());
-						
+								formatoDecimal.format(currentBean.getValor()), formatoDataExtenso.format(currentBean.getDataInicioVigencia()) };
+
+						XWPFDocument doc = new XWPFDocument(new FileInputStream(origem));
+
+						List<XWPFParagraph> paragrafos = new ArrayList<XWPFParagraph>(doc.getParagraphs());
+
 						for (XWPFParagraph p : paragrafos) {
 							for (XWPFRun r : p.getRuns()) {
 								for (CTText ctText : r.getCTR().getTList()) {
 									for (int i = 0; i < termos.length; i++) {
 										String termo = termos[i];
 										String substituir = substituicoes[i];
-										
+
 										String str = null;
 										if (ctText.getStringValue().contains(termo)) {
-											str = ctText.getStringValue().replace(
-													termo, substituir);
+											str = ctText.getStringValue().replace(termo, substituir);
 											ctText.setStringValue(str);
 										}
 									}
 								}
-								
+
 							}
 						}
-						
+
 						doc.write(bos);
 						return new ByteArrayInputStream(bos.toByteArray());
-						
+
 					} catch (IOException | ParseException e) {
-						
+
 						e.printStackTrace();
 					} finally {
 						try {
@@ -324,13 +314,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 							e.printStackTrace();
 						}
 					}
-					
+
 					return null;
 				}
-			}, documento.getNome()+".docx");
-		}
-		else
-		{
+			}, documento.getNome() + ".docx");
+		} else {
 			return null;
 		}
 	}
@@ -341,8 +329,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		currentBean = contratoDAO.find(id);
 		subView.preencheContratoForm(currentBean);
 		StreamResource myResource = createResource();
-		if(myResource != null)
-		{			
+		if (myResource != null) {
 			FileDownloader fileDownloader = new FileDownloader(myResource);
 			fileDownloader.extend(subView.getBtnGerarContrato());
 		}
@@ -353,7 +340,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.preencheContrato(currentBean);
 
 		try {
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			contratoDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -401,11 +390,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return contratoHistFaturamento;
 	}
 
-	public void removerContratoHistFaturamento(
-			List<ContratoHistFaturamento> values) {
+	public void removerContratoHistFaturamento(List<ContratoHistFaturamento> values) {
 		for (ContratoHistFaturamento contratoHistFaturamento : values) {
-			this.currentBean
-					.removeContratoHistFaturamento(contratoHistFaturamento);
+			this.currentBean.removeContratoHistFaturamento(contratoHistFaturamento);
 		}
 		mensagemRemovidoOK();
 
@@ -417,11 +404,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return contratoPrevFaturamento;
 	}
 
-	public void removerContratoPrevFaturamento(
-			List<ContratoPrevFaturamento> values) {
+	public void removerContratoPrevFaturamento(List<ContratoPrevFaturamento> values) {
 		for (ContratoPrevFaturamento contratoPrevFaturamento : values) {
-			this.currentBean
-					.removeContratoPrevFaturamento(contratoPrevFaturamento);
+			this.currentBean.removeContratoPrevFaturamento(contratoPrevFaturamento);
 		}
 		mensagemRemovidoOK();
 
@@ -429,16 +414,13 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public ContratoHistoricoReajuste novoContratoHistoricoReajuste() {
 		ContratoHistoricoReajuste contratoHistoricoReajuste = new ContratoHistoricoReajuste();
-		this.currentBean
-				.addContratoHistoricoReajuste(contratoHistoricoReajuste);
+		this.currentBean.addContratoHistoricoReajuste(contratoHistoricoReajuste);
 		return contratoHistoricoReajuste;
 	}
 
-	public void removerContratoHistoricoReajuste(
-			List<ContratoHistoricoReajuste> values) {
+	public void removerContratoHistoricoReajuste(List<ContratoHistoricoReajuste> values) {
 		for (ContratoHistoricoReajuste contratoHistoricoReajuste : values) {
-			this.currentBean
-					.removeContratoHistoricoReajuste(contratoHistoricoReajuste);
+			this.currentBean.removeContratoHistoricoReajuste(contratoHistoricoReajuste);
 		}
 		mensagemRemovidoOK();
 
@@ -455,9 +437,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	private static File getFileFromDocumento(Documento documento) {
-		File arquivo = new File(
-				((List<DocumentoArquivo>) documento.getDocumentos()).get(0)
-						.getCaminho());
+		File arquivo = new File(((List<DocumentoArquivo>) documento.getDocumentos()).get(0).getCaminho());
 		return arquivo;
 	}
 

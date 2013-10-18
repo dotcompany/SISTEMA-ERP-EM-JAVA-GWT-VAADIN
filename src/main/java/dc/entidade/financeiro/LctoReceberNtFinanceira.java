@@ -35,7 +35,7 @@ public class LctoReceberNtFinanceira extends AbstractMultiEmpresaModel<Integer> 
 	private BigDecimal valor;
 	@JoinColumn(name = "ID_FIN_LANCAMENTO_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private LancamentoReceber finLancamentoReceber;
+	private LancamentoReceber lancamentoReceber;
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private NaturezaFinanceira naturezaanceira;
@@ -71,11 +71,11 @@ public class LctoReceberNtFinanceira extends AbstractMultiEmpresaModel<Integer> 
 	}
 
 	public LancamentoReceber getLancamentoReceber() {
-		return finLancamentoReceber;
+		return lancamentoReceber;
 	}
 
 	public void setLancamentoReceber(LancamentoReceber finLancamentoReceber) {
-		this.finLancamentoReceber = finLancamentoReceber;
+		this.lancamentoReceber = finLancamentoReceber;
 	}
 
 	public NaturezaFinanceira getNaturezaFinanceira() {

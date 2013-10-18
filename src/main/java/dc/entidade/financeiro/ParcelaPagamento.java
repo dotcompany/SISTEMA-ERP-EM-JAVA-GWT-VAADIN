@@ -21,6 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -49,34 +50,44 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@Field
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
+	@Field
 	private Date dataPagamento;
 
 	@Column(name = "TAXA_JURO")
+	@Field
 	private BigDecimal taxaJuro;
 
 	@Column(name = "TAXA_MULTA")
+	@Field
 	private BigDecimal taxaMulta;
 
 	@Column(name = "TAXA_DESCONTO")
+	@Field
 	private BigDecimal taxaDesconto;
 
 	@Column(name = "VALOR_JURO")
+	@Field
 	private BigDecimal valorJuro;
 
 	@Column(name = "VALOR_MULTA")
+	@Field
 	private BigDecimal valorMulta;
 
 	@Column(name = "VALOR_DESCONTO")
+	@Field
 	private BigDecimal valorDesconto;
 
 	@Column(name = "VALOR_PAGO")
+	@Field
 	private BigDecimal valorPago;
 
 	@Column(name = "HISTORICO")
+	@Field
 	private String historico;
 
 	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")

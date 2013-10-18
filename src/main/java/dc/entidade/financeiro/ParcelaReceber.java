@@ -57,10 +57,10 @@ public class ParcelaReceber extends AbstractModel<Integer> {
 	private String emitiuBoleto;
 	@Column(name = "BOLETO_NOSSO_NUMERO")
 	private String boletoNossoNumero;
-	@JoinColumn(name = "ID_FIN_LANCAMENTO_RECEBER", referencedColumnName = "ID")
+	@JoinColumn(name = "ID_LANCAMENTO_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private LancamentoReceber finLancamentoReceber;
-	@JoinColumn(name = "ID_FIN_STATUS_PARCELA", referencedColumnName = "ID")
+	private LancamentoReceber lancamentoReceber;
+	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private StatusParcela finStatusParcela;
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
@@ -185,11 +185,11 @@ public class ParcelaReceber extends AbstractModel<Integer> {
 	}
 
 	public LancamentoReceber getLancamentoReceber() {
-		return finLancamentoReceber;
+		return lancamentoReceber;
 	}
 
 	public void setLancamentoReceber(LancamentoReceber finLancamentoReceber) {
-		this.finLancamentoReceber = finLancamentoReceber;
+		this.lancamentoReceber = finLancamentoReceber;
 	}
 
 	public StatusParcela getStatusParcela() {

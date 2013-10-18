@@ -80,6 +80,7 @@ public class ContratoTipoServicoFormController extends CRUDFormController<Contra
 		String descricao = subView.getTxaDescricao().getValue();
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
+		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		try {
 			tipoServicoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -114,12 +115,11 @@ public class ContratoTipoServicoFormController extends CRUDFormController<Contra
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		
+
 		return "contratoTipoServicoForm";
 	}
 

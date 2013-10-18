@@ -24,11 +24,11 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoSolicitacaoServicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class ContratoSolicitacaoServicoFormController extends
-		CRUDFormController<ContratoSolicitacaoServico> {
+public class ContratoSolicitacaoServicoFormController extends CRUDFormController<ContratoSolicitacaoServico> {
 
 	/** 
 	 * 
@@ -58,59 +58,50 @@ public class ContratoSolicitacaoServicoFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateObject(subView.getCmbCliente().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbCliente(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbCliente(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbFornecedor().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbFornecedor(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbFornecedor(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbSetor().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbSetor(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbSetor(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbTipoServico().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTipoServico(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoServico(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtSolicitacao().getValue())) {
-			adicionarErroDeValidacao(subView.getDtSolicitacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtSolicitacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtDesejadaInicio().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDesejadaInicio(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtDesejadaInicio(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbUrgente().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbUrgente(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbUrgente(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxaDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -147,6 +138,7 @@ public class ContratoSolicitacaoServicoFormController extends
 	@Override
 	protected void actionSalvar() {
 		subView.preencherObjeto(currentBean);
+		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		contratoSolicitacaoServicoDAO.saveOrUpdate(currentBean);
 		notifiyFrameworkSaveOK(this.currentBean);
 
@@ -176,7 +168,6 @@ public class ContratoSolicitacaoServicoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-	
 
 	}
 
