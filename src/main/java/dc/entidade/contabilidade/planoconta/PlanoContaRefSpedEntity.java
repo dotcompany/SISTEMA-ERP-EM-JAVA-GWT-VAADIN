@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -36,11 +34,11 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "plano_conta")
+@Table(name = "plano_conta_ref_sped")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
+public class PlanoContaRefSpedEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -51,58 +49,73 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_conta_id_seq")
-	@SequenceGenerator(name = "plano_conta_id_seq", sequenceName = "plano_conta_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_conta_ref_sped_id_seq")
+	@SequenceGenerator(name = "plano_conta_ref_sped_id_seq", sequenceName = "plano_conta_ref_sped_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
-	@Caption(value = "Nome")
-	@Column(name = "nome")
+	@Column(name = "cod_cta_ref")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome = "";
+	@Caption(value = "Cod cta ref")
+	private String codCtaRef = "";
 
 	@Field
-	@Caption(value = "Data da inclusão")
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_inclusao")
+	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataInclusao;
+	@Caption(value = "Descrição")
+	private String descricao = "";
 
 	@Field
-	@Caption(value = "Máscara")
-	@Column(name = "mascara")
+	@Column(name = "orientacoes")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String mascara = "";
+	@Caption(value = "Orientações")
+	private String orientacoes = "";
 
 	@Field
-	@Caption(value = "Níveis")
-	@Column(name = "niveis")
+	@Column(name = "inicio_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer niveis = new Integer(0);
+	@Caption(value = "Início da validade")
+	private Date inicioValidade;
+
+	@Field
+	@Column(name = "fim_validade")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Fim da validade")
+	private Date fimValidade;
+
+	@Field
+	@Column(name = "tipo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Tipo")
+	private String tipo = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
+	// id_empresa integer,
+
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "planoConta", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "planoContaRefSped", fetch = FetchType.LAZY)
 	private List<ContaEntity> contaList;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public PlanoContaEntity() {
+	public PlanoContaRefSpedEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -119,36 +132,53 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getCodCtaRef() {
+		return codCtaRef;
 	}
 
-	public void setNome(String nome) {
-		this.nome = (nome == null ? "" : nome.toUpperCase());
+	public void setCodCtaRef(String codCtaRef) {
+		this.codCtaRef = (codCtaRef == null ? "" : codCtaRef.toUpperCase());
 	}
 
-	public Date getDataInclusao() {
-		return dataInclusao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDataInclusao(Date dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setDescricao(String descricao) {
+		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public String getMascara() {
-		return mascara;
+	public String getOrientacoes() {
+		return orientacoes;
 	}
 
-	public void setMascara(String mascara) {
-		this.mascara = (mascara == null ? "" : mascara.toUpperCase());
+	public void setOrientacoes(String orientacoes) {
+		this.orientacoes = (orientacoes == null ? "" : orientacoes
+				.toUpperCase());
 	}
 
-	public Integer getNiveis() {
-		return niveis;
+	public Date getInicioValidade() {
+		return inicioValidade;
 	}
 
-	public void setNiveis(Integer niveis) {
-		this.niveis = (niveis == null ? new Integer(0) : niveis);
+	public void setInicioValidade(Date inicioValidade) {
+		this.inicioValidade = inicioValidade;
+	}
+
+	public Date getFimValidade() {
+		return fimValidade;
+	}
+
+	public void setFimValidade(Date fimValidade) {
+		this.fimValidade = fimValidade;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
 	public List<ContaEntity> getContaList() {
