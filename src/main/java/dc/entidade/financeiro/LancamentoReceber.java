@@ -20,15 +20,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.pessoal.Cliente;
 
 @Entity
 @Table(name = "LANCAMENTO_RECEBER")
-public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
+public class LancamentoReceber extends AbstractModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -65,13 +66,13 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	/*@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ParcelaReceber> parcelasReceber = new ArrayList<>();
+	private List<ParcelaReceber> parcelaReceber = new ArrayList<>();*/
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<LctoReceberNtFinanceira> LctoReceberNtFinanceiras = new ArrayList<>();
+	private List<LctoReceberNtFinanceira> LctoReceberNtFinanceira = new ArrayList<>();
 
 	public LancamentoReceber() {
 	}
@@ -182,23 +183,23 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.financeiro.java.LancamentoReceber[id=" + id + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public List<ParcelaReceber> getParcelasReceber() {
-		return parcelasReceber;
+	/*public List<ParcelaReceber> getParcelaReceber() {
+		return parcelaReceber;
 	}
 
-	public void setParcelasReceber(List<ParcelaReceber> parcelasReceber) {
-		this.parcelasReceber = parcelasReceber;
+	public void setParcelaReceber(List<ParcelaReceber> parcelaReceber) {
+		this.parcelaReceber = parcelaReceber;
+	}*/
+
+	public List<LctoReceberNtFinanceira> getLctoReceberNtFinanceira() {
+		return LctoReceberNtFinanceira;
 	}
 
-	public List<LctoReceberNtFinanceira> getLctoReceberNtFinanceiras() {
-		return LctoReceberNtFinanceiras;
-	}
-
-	public void setLctoReceberNtFinanceiras(List<LctoReceberNtFinanceira> lctoReceberNtFinanceiras) {
-		LctoReceberNtFinanceiras = lctoReceberNtFinanceiras;
+	public void setLctoReceberNtFinanceira(List<LctoReceberNtFinanceira> lctoReceberNtFinanceira) {
+		LctoReceberNtFinanceira = lctoReceberNtFinanceira;
 	}
 
 	public void removeLctoReceberNtFinanceira(LctoReceberNtFinanceira value) {
