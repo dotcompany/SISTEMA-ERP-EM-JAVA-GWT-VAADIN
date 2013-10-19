@@ -21,7 +21,7 @@ import dc.entidade.framework.AbstractModel;
 @Entity
 @Table(name = "PARCELA_RECEBER")
 public class ParcelaReceber extends AbstractModel<Integer> {
-
+ 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

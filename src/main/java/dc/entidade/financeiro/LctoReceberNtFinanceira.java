@@ -21,7 +21,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Entity
 @Table(name = "LCTO_RECEBER_NT_FINANCEIRA")
 public class LctoReceberNtFinanceira extends AbstractMultiEmpresaModel<Integer> {
-
+ 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

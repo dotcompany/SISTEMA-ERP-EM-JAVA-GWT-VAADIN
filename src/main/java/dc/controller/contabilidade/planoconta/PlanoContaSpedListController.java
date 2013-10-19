@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.planoconta.PlanoContaSpedEntity;
+import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class PlanoContaSpedListController extends
-		CRUDListController<PlanoContaSpedEntity> {
+		CRUDListController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -49,8 +49,8 @@ public class PlanoContaSpedListController extends
 	}
 
 	@Override
-	protected Class<? super PlanoContaSpedEntity> getEntityClass() {
-		return PlanoContaSpedEntity.class;
+	protected Class<? super PlanoContaRefSpedEntity> getEntityClass() {
+		return PlanoContaRefSpedEntity.class;
 	}
 
 	@Override
@@ -59,21 +59,21 @@ public class PlanoContaSpedListController extends
 	}
 
 	@Override
-	protected List<PlanoContaSpedEntity> pesquisa(String valor) {
+	protected List<PlanoContaRefSpedEntity> pesquisa(String valor) {
 		try {
-			List<PlanoContaSpedEntity> auxLista = this.pDAO
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PlanoContaSpedEntity>();
+			return new ArrayList<PlanoContaRefSpedEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<PlanoContaSpedEntity> getFormController() {
+	protected CRUDFormController<PlanoContaRefSpedEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +91,15 @@ public class PlanoContaSpedListController extends
 	}
 
 	@Override
-	protected List<PlanoContaSpedEntity> pesquisaDefault() {
+	protected List<PlanoContaRefSpedEntity> pesquisaDefault() {
 		try {
-			List<PlanoContaSpedEntity> auxLista = this.pDAO.listarTodos();
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PlanoContaSpedEntity>();
+			return new ArrayList<PlanoContaRefSpedEntity>();
 		}
 	}
 

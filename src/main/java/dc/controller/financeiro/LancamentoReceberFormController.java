@@ -127,12 +127,12 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
 			} else {
-				for (ParcelaReceber p : currentBean.getParcelasReceber()) {
+				/*for (ParcelaReceber p : currentBean.getParcelaReceber()) {
 					p.setStatusParcela(statusParcela);
-				}
+				}*/
 
 				try {
-					currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+					//currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 					lancamentoReceberDAO.saveOrUpdate(currentBean);
 					notifiyFrameworkSaveOK(this.currentBean);
 				} catch (Exception e) {
@@ -322,19 +322,19 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoReceber lancamentoReceber = (LancamentoReceber) id;
-			List<LctoReceberNtFinanceira> lctoReceberNtFinanceiras = lancamentoReceber.getLctoReceberNtFinanceiras();
+			List<LctoReceberNtFinanceira> lctoReceberNtFinanceiras = lancamentoReceber.getLctoReceberNtFinanceira();
 
 			for (LctoReceberNtFinanceira lctoReceberNtFinanceira : lctoReceberNtFinanceiras) {
 				lctoReceberNtFinanceira.setLancamentoReceber(null);
 
 			}
 
-			List<ParcelaReceber> parcelasReceber = lancamentoReceber.getParcelasReceber();
+			/*List<ParcelaReceber> parcelasReceber = lancamentoReceber.getParcelaReceber();
 
 			for (ParcelaReceber parcelaReceber : parcelasReceber) {
 
 				parcelaReceber.setLancamentoReceber(null);
-			}
+			}*/
 
 			lancamentoReceberDAO.delete(lancamentoReceber);
 

@@ -1,14 +1,17 @@
-package dc.entidade.contabilidade.lancamento;
+package dc.entidade.contabilidade.planoconta;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,12 +34,12 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "contabil_lote")
+@Table(name = "plano_conta_ref_sped")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class PlanoContaRefSpedEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -46,12 +49,19 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_lote_id_seq")
-	@SequenceGenerator(name = "contabil_lote_id_seq", sequenceName = "contabil_lote_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_conta_ref_sped_id_seq")
+	@SequenceGenerator(name = "plano_conta_ref_sped_id_seq", sequenceName = "plano_conta_ref_sped_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Field
+	@Column(name = "cod_cta_ref")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Cod cta ref")
+	private String codCtaRef = "";
 
 	@Field
 	@Column(name = "descricao")
@@ -61,32 +71,32 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String descricao = "";
 
 	@Field
-	@Column(name = "liberado")
+	@Column(name = "orientacoes")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Liberado")
-	private String liberado = "";
+	@Caption(value = "Orientações")
+	private String orientacoes = "";
 
 	@Field
-	@Column(name = "data_inclusao")
+	@Column(name = "inicio_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Data da inclusão")
-	private Date dataInclusao;
+	@Caption(value = "Início da validade")
+	private Date inicioValidade;
 
 	@Field
-	@Column(name = "data_liberacao")
+	@Column(name = "fim_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Data da liberacao")
-	private Date dataLiberacao;
+	@Caption(value = "Fim da validade")
+	private Date fimValidade;
 
 	@Field
-	@Column(name = "programado")
+	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Programado")
-	private String programado = "";
+	@Caption(value = "Tipo")
+	private String tipo = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -98,11 +108,14 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
+	@OneToMany(mappedBy = "planoContaRefSped", fetch = FetchType.LAZY)
+	private List<ContaEntity> contaList;
+
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public LoteEntity() {
+	public PlanoContaRefSpedEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -119,6 +132,14 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
+	public String getCodCtaRef() {
+		return codCtaRef;
+	}
+
+	public void setCodCtaRef(String codCtaRef) {
+		this.codCtaRef = (codCtaRef == null ? "" : codCtaRef.toUpperCase());
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -127,36 +148,45 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public String getLiberado() {
-		return liberado;
+	public String getOrientacoes() {
+		return orientacoes;
 	}
 
-	public void setLiberado(String liberado) {
-		this.liberado = (liberado == null ? "" : liberado.toUpperCase());
+	public void setOrientacoes(String orientacoes) {
+		this.orientacoes = (orientacoes == null ? "" : orientacoes
+				.toUpperCase());
 	}
 
-	public Date getDataInclusao() {
-		return dataInclusao;
+	public Date getInicioValidade() {
+		return inicioValidade;
 	}
 
-	public void setDataInclusao(Date dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setInicioValidade(Date inicioValidade) {
+		this.inicioValidade = inicioValidade;
 	}
 
-	public Date getDataLiberacao() {
-		return dataLiberacao;
+	public Date getFimValidade() {
+		return fimValidade;
 	}
 
-	public void setDataLiberacao(Date dataLiberacao) {
-		this.dataLiberacao = dataLiberacao;
+	public void setFimValidade(Date fimValidade) {
+		this.fimValidade = fimValidade;
 	}
 
-	public String getProgramado() {
-		return programado;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setProgramado(String programado) {
-		this.programado = (programado == null ? "" : programado.toUpperCase());
+	public void setTipo(String tipo) {
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+	}
+
+	public List<ContaEntity> getContaList() {
+		return contaList;
+	}
+
+	public void setContaList(List<ContaEntity> contaList) {
+		this.contaList = contaList;
 	}
 
 	/**

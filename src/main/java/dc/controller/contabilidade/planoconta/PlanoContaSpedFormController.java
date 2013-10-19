@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.planoconta.PlanoContaSpedEntity;
+import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaSpedDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -24,7 +24,7 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 public class PlanoContaSpedFormController extends
-		CRUDFormController<PlanoContaSpedEntity> {
+		CRUDFormController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class PlanoContaSpedFormController extends
 	 * ENTITIES
 	 */
 
-	private PlanoContaSpedEntity pEntity;
+	private PlanoContaRefSpedEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
@@ -52,7 +52,7 @@ public class PlanoContaSpedFormController extends
 
 	public PlanoContaSpedFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new PlanoContaSpedEntity();
+			this.pEntity = new PlanoContaRefSpedEntity();
 		}
 	}
 
@@ -174,7 +174,7 @@ public class PlanoContaSpedFormController extends
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new PlanoContaSpedEntity();
+				this.pEntity = new PlanoContaRefSpedEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
