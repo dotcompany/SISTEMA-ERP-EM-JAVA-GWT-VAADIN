@@ -27,7 +27,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
  * 
  */
 
-@Entity
+@Entity(name = "folhapagamentoFechamentoEntity")
 @Table(name = "folha_fechamento")
 @XmlRootElement
 @Indexed
