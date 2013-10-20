@@ -27,7 +27,7 @@ public class SocioListController extends CRUDListController<Socio>
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"numero"};
+		return new String[] {"pessoa"};
 	}
 
 	@Override
