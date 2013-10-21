@@ -26,6 +26,12 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
 @Entity
 @Table(name = "contabil_encerramento_exe_det")
 @XmlRootElement
