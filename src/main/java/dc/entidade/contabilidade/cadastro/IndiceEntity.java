@@ -2,15 +2,18 @@ package dc.entidade.contabilidade.cadastro;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -95,6 +98,9 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
+	@OneToMany(mappedBy = "indice", fetch = FetchType.LAZY)
+	private List<IndiceValorEntity> indiceValorList;
+
 	/**
 	 * CONSTRUTOR
 	 */
@@ -148,6 +154,14 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setIndiceEconomico(IndiceEconomico indiceEconomico) {
 		this.indiceEconomico = indiceEconomico;
+	}
+
+	public List<IndiceValorEntity> getIndiceValorList() {
+		return indiceValorList;
+	}
+
+	public void setIndiceValorList(List<IndiceValorEntity> indiceValorList) {
+		this.indiceValorList = indiceValorList;
 	}
 
 	/**

@@ -2,13 +2,16 @@ package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -98,6 +101,9 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
+	@OneToMany(mappedBy = "lote", fetch = FetchType.LAZY)
+	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
+
 	/**
 	 * CONSTRUTOR
 	 */
@@ -157,6 +163,15 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setProgramado(String programado) {
 		this.programado = (programado == null ? "" : programado.toUpperCase());
+	}
+
+	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
+		return lancamentoCabecalhoList;
+	}
+
+	public void setLancamentoCabecalhoList(
+			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
 	}
 
 	/**

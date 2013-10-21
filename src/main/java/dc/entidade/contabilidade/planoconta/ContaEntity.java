@@ -26,6 +26,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -182,6 +184,12 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<EncerramentoExeDetEntity> encerramentoExeDetList;
+
+	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
 
 	/**
 	 * CONSTRUTOR
@@ -342,6 +350,24 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setEncerramentoExeDetList(
 			List<EncerramentoExeDetEntity> encerramentoExeDetList) {
 		this.encerramentoExeDetList = encerramentoExeDetList;
+	}
+
+	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
+		return lancamentoDetalheList;
+	}
+
+	public void setLancamentoDetalheList(
+			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+		this.lancamentoDetalheList = lancamentoDetalheList;
+	}
+
+	public List<LancamentoOrcadoEntity> getLancamentoOrcadoList() {
+		return lancamentoOrcadoList;
+	}
+
+	public void setLancamentoOrcadoList(
+			List<LancamentoOrcadoEntity> lancamentoOrcadoList) {
+		this.lancamentoOrcadoList = lancamentoOrcadoList;
 	}
 
 	/**
