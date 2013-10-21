@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.web.bindery.requestfactory.vm.impl.Deobfuscator;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
@@ -21,6 +22,8 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.TipoRelacionamento;
+import dc.servicos.dao.empresa.DependenteDAO;
+import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.servicos.dao.geral.UFDAO;
@@ -28,8 +31,10 @@ import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
+import dc.visao.empresa.SocioFormView.DIRIGENTE;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
+import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
@@ -53,7 +58,13 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	QuadroSocietarioDAO quadroSocietarioDAO;
 
 	@Autowired
+	ParticipacaoSocietariaDAO participacaoSocietariaDAO;
+
+	@Autowired
 	UFDAO ufDAO;
+
+	@Autowired
+	DependenteDAO dependenteDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -81,7 +92,8 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	protected void carregar(Serializable id) {
 
 		currentBean = dao.find((Integer) id);
-
+		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
+		List<ParticipacaoSocietaria> participacoes = participacaoSocietariaDAO.findBySocio(currentBean);
 
 		try{
 			carregarCombos();
@@ -135,17 +147,33 @@ public class SocioFormController extends CRUDFormController<Socio> {
 			if(Validator.validateObject(currentBean.getQuotas())){
 				subView.getTxtQuotas().setValue(currentBean.getQuotas().toString());
 			}
-			
+
 			if(Validator.validateObject(currentBean.getIntegralizar())){
 				subView.getTxtIntegralizar().setValue(currentBean.getIntegralizar().toString());
 			}
-			
+
 			if(Validator.validateObject(currentBean.getDataIngresso())){
 				subView.getDataIngresso().setValue(currentBean.getDataIngresso());
 			}
-			
+
 			if(Validator.validateObject(currentBean.getDataSaida())){
 				subView.getDataSaida().setValue(currentBean.getDataSaida());
+			}
+
+			if(dependentes!=null) {
+				subView.preencherSubFormDependente(dependentes);
+			}
+
+			if(participacoes!=null) {
+
+				for(ParticipacaoSocietaria p : participacoes){
+
+					if(p.getDirigente()!=null && !(p.getDirigente().isEmpty()))
+						p.setDirigenteEnum(DIRIGENTE.getDirigente(p.getDirigente()));
+				}
+
+
+				subView.preencherSubFormParticipacao(participacoes);
 			}
 
 		}catch(Exception e){
@@ -262,8 +290,19 @@ public class SocioFormController extends CRUDFormController<Socio> {
 				currentBean.setDataSaida(dataSaida);
 			}
 
-
 			dao.saveOrUpdate(currentBean);
+
+			List<ParticipacaoSocietaria> participacoes = subView.getParticipacoesSubForm().getDados();
+			for(ParticipacaoSocietaria p : participacoes){
+
+				p.setDirigente(p.getDirigenteEnum().getCodigo());
+				participacaoSocietariaDAO.saveOrUpdate(p);
+			}
+
+
+
+			notifiyFrameworkSaveOK(currentBean);
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -313,13 +352,21 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 	public Dependente adicionarDependente(){
 		Dependente dep = new Dependente();
-		currentBean.adicionarDependente(dep);
+		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
+		if(dependentes == null) dependentes = new ArrayList<Dependente>();
+		currentBean.setDependentes(dependentes);
+		currentBean.getDependentes().add(dep);
+		dep.setSocio(currentBean);
 		return dep;
 	}
 
 	public ParticipacaoSocietaria adicionarParticipacao(){
 		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
-		currentBean.adicionarDependente(p);
+		List<ParticipacaoSocietaria> lista = participacaoSocietariaDAO.findBySocio(currentBean);
+		if(lista == null) lista = new ArrayList<ParticipacaoSocietaria>();
+		currentBean.setParticipacoes(lista);
+		currentBean.getParticipacoes().add(p);
+		p.setSocio(currentBean);
 		return p;
 	}
 
@@ -370,7 +417,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 
 	}
-	
+
 	public String formataValor(String valor){
 		String format = "";
 		format = valor.replace("R$","").
