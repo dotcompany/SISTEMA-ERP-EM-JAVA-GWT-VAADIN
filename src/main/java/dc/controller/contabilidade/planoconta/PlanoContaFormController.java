@@ -105,7 +105,7 @@ public class PlanoContaFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new PlanoContaFormView(this);
 	}
 
 	/*

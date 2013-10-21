@@ -6,7 +6,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.folhapagamento.movimento.AlteracaoSalarialFormController;
+import dc.controller.contabilidade.demonstrativo.EncerramentoExeCabFormController;
 
 public class EncerramentoExeCabFormView extends CustomComponent {
 
@@ -29,10 +29,11 @@ public class EncerramentoExeCabFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
-	// private AlteracaoSalarialFormController controller;
+	private EncerramentoExeCabFormController controller;
 
-	public EncerramentoExeCabFormView(final AlteracaoSalarialFormController controller) {
-		// this.controller = controller;
+	public EncerramentoExeCabFormView(
+			final EncerramentoExeCabFormController controller) {
+		this.controller = controller;
 
 		buildMainLayout();
 		setCompositionRoot(this.mainLayout);

@@ -105,7 +105,7 @@ public class EncerramentoExeCabFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new EncerramentoExeCabFormView(this);
 	}
 
 	/*

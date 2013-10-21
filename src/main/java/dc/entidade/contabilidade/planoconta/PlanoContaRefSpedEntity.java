@@ -33,7 +33,7 @@ import dc.entidade.framework.ComboValue;
  * 
  */
 
-@Entity
+@Entity(name = "contabilidadePlanoContaRefSpedEntity")
 @Table(name = "plano_conta_ref_sped")
 @XmlRootElement
 @Indexed

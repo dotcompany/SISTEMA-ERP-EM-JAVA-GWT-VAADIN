@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaSpedDAO;
-import dc.visao.contabilidade.planoconta.PlanoContaSpedFormView;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
+import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -21,9 +21,9 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller
+@Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
-public class PlanoContaSpedFormController extends
+public class PlanoContaRefSpedFormController extends
 		CRUDFormController<PlanoContaRefSpedEntity> {
 
 	/**
@@ -31,14 +31,14 @@ public class PlanoContaSpedFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private PlanoContaSpedFormView subView;
+	private PlanoContaRefSpedFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private PlanoContaSpedDAO pDAO;
+	private PlanoContaRefSpedDAO pDAO;
 
 	/**
 	 * ENTITIES
@@ -50,7 +50,7 @@ public class PlanoContaSpedFormController extends
 	 * CONSTRUTOR
 	 */
 
-	public PlanoContaSpedFormController() {
+	public PlanoContaRefSpedFormController() {
 		if (this.pEntity == null) {
 			this.pEntity = new PlanoContaRefSpedEntity();
 		}
@@ -105,7 +105,7 @@ public class PlanoContaSpedFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new PlanoContaRefSpedFormView(this);
 	}
 
 	/*

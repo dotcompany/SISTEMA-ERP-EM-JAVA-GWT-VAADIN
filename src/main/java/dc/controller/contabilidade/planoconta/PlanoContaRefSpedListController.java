@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaSpedDAO;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,9 +19,9 @@ import dc.visao.framework.geral.CRUDListController;
  * 
  */
 
-@Controller
+@Controller(value = "contabilidadePlanoContaRefSpedListController")
 @Scope("prototype")
-public class PlanoContaSpedListController extends
+public class PlanoContaRefSpedListController extends
 		CRUDListController<PlanoContaRefSpedEntity> {
 
 	/**
@@ -34,14 +34,14 @@ public class PlanoContaSpedListController extends
 	 */
 
 	@Autowired
-	private PlanoContaSpedDAO pDAO;
+	private PlanoContaRefSpedDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private PlanoContaSpedFormController pController;
+	private PlanoContaRefSpedFormController pController;
 
 	@Override
 	protected String[] getColunas() {

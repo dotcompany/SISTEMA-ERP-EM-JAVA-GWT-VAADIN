@@ -6,7 +6,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.folhapagamento.movimento.AlteracaoSalarialFormController;
+import dc.controller.contabilidade.cadastro.FapFormController;
 
 public class FapFormView extends CustomComponent {
 
@@ -29,10 +29,10 @@ public class FapFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
-	// private AlteracaoSalarialFormController controller;
+	private FapFormController controller;
 
-	public FapFormView(final AlteracaoSalarialFormController controller) {
-		// this.controller = controller;
+	public FapFormView(final FapFormController controller) {
+		this.controller = controller;
 
 		buildMainLayout();
 		setCompositionRoot(this.mainLayout);

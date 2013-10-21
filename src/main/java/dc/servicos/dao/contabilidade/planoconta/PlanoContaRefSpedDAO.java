@@ -15,9 +15,10 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 
-@Repository
+@Repository(value = "contabilidadePlanoContaRefSpedDAO")
 @SuppressWarnings("unchecked")
-public class PlanoContaSpedDAO extends AbstractCrudDAO<PlanoContaRefSpedEntity> {
+public class PlanoContaRefSpedDAO extends
+		AbstractCrudDAO<PlanoContaRefSpedEntity> {
 
 	@Override
 	public Class<PlanoContaRefSpedEntity> getEntityClass() {
@@ -27,7 +28,7 @@ public class PlanoContaSpedDAO extends AbstractCrudDAO<PlanoContaRefSpedEntity> 
 	@Transactional
 	public List<PlanoContaRefSpedEntity> listarTodos() {
 		try {
-			String sql = "FROM PlanoContaSpedEntity ent WHERE (1 = 1)";
+			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1)";
 
 			List<PlanoContaRefSpedEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
@@ -41,7 +42,7 @@ public class PlanoContaSpedDAO extends AbstractCrudDAO<PlanoContaRefSpedEntity> 
 	@Transactional
 	public List<PlanoContaRefSpedEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PlanoContaSpedEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
 
 			List<PlanoContaRefSpedEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
