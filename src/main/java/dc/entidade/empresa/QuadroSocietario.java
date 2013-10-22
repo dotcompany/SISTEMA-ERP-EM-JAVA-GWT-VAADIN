@@ -23,6 +23,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 
 @Entity
@@ -35,6 +37,8 @@ public class QuadroSocietario extends AbstractMultiEmpresaModel<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qdr")
 	@SequenceGenerator(name = "qdr", sequenceName = "quadro_societario_id_seq", allocationSize = 1)
+	@ComboCode
+	@ComboValue
 	private Integer id;
 	
 	@Temporal(TemporalType.DATE)
@@ -96,6 +100,11 @@ public class QuadroSocietario extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setQuantidadeCotas(Integer quantidadeCotas) {
 		this.quantidadeCotas = quantidadeCotas;
+	}
+
+	@Override
+	public String toString() {
+		return id.toString();
 	}
 
 //	public Empresa getEmpresa() {

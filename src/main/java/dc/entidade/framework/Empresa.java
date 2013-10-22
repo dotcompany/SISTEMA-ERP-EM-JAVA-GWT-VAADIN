@@ -7,16 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,21 +21,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Pais;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.type.EmpresaType;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
@@ -57,7 +47,6 @@ import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
-import dc.entidade.pessoal.Contador;
 import dc.entidade.sistema.ContaEmpresa;
 
 /**

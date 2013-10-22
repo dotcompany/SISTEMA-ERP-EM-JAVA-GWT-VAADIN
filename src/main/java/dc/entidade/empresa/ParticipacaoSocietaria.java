@@ -24,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.pessoal.TipoRelacionamento;
+import dc.visao.empresa.SocioFormView.DIRIGENTE;
 
 
 @Entity
@@ -59,6 +60,9 @@ public class ParticipacaoSocietaria extends AbstractModel<Integer> {
 	BigDecimal participacao;
 
 	String dirigente;//0-Não 1-Sim
+	
+	@Transient
+	DIRIGENTE dirigenteEnum;
 	
 	@Transient
 	String dirigenteStr;
@@ -133,6 +137,14 @@ public class ParticipacaoSocietaria extends AbstractModel<Integer> {
 
 	public void setDirigenteStr(String dirigenteStr) {
 		this.dirigenteStr = dirigenteStr;
+	}
+
+	public DIRIGENTE getDirigenteEnum() {
+		return dirigenteEnum;
+	}
+
+	public void setDirigenteEnum(DIRIGENTE dirigenteEnum) {
+		this.dirigenteEnum = dirigenteEnum;
 	}
 
 	
