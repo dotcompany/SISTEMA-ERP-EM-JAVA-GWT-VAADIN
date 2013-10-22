@@ -1,15 +1,17 @@
-package dc.entidade.contabilidade.demonstrativo;
+package dc.entidade.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,12 +33,12 @@ import dc.entidade.framework.ComboValue;
  * 
  */
 
-@Entity
-@Table(name = "contabil_dre_detalhe")
+@Entity(name = "contabilidadePlanoContaRefSpedEntity")
+@Table(name = "plano_conta_ref_sped")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
+public class PlanoContaRefSpedEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -47,19 +49,19 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_dre_detalhe_id_seq")
-	@SequenceGenerator(name = "contabil_dre_detalhe_id_seq", sequenceName = "contabil_dre_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_conta_ref_sped_id_seq")
+	@SequenceGenerator(name = "plano_conta_ref_sped_id_seq", sequenceName = "plano_conta_ref_sped_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
-	@Column(name = "classificacao")
+	@Column(name = "cod_cta_ref")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Classificação")
-	private String classificacao = "";
+	@Caption(value = "Cod cta ref")
+	private String codCtaRef = "";
 
 	@Field
 	@Column(name = "descricao")
@@ -69,32 +71,32 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private String descricao = "";
 
 	@Field
-	@Column(name = "forma_calculo")
+	@Column(name = "orientacoes")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Forma do cálculo")
-	private String formaCalculo = "";
+	@Caption(value = "Orientações")
+	private String orientacoes = "";
 
 	@Field
-	@Column(name = "sinal")
+	@Column(name = "inicio_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Sinal")
-	private String sinal = "";
+	@Caption(value = "Início da validade")
+	private Date inicioValidade;
 
 	@Field
-	@Column(name = "natureza")
+	@Column(name = "fim_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Natureza")
-	private String natureza = "";
+	@Caption(value = "Fim da validade")
+	private Date fimValidade;
 
 	@Field
-	@Column(name = "valor")
+	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Valor")
-	private Double valor = new Double(0.0);
+	@Caption(value = "Tipo")
+	private String tipo = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -102,23 +104,18 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	// id_empresa integer,
 
-	// id_contabil_dre_cabecalho integer NOT NULL,
-
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_dre_cabecalho", nullable = false)
-	@Caption("DRE cabeçalho")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private DreCabecalhoEntity dreCabecalho;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "planoContaRefSped", fetch = FetchType.LAZY)
+	private List<ContaEntity> contaList;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public DreDetalheEntity() {
+	public PlanoContaRefSpedEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -135,13 +132,12 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getClassificacao() {
-		return classificacao;
+	public String getCodCtaRef() {
+		return codCtaRef;
 	}
 
-	public void setClassificacao(String classificacao) {
-		this.classificacao = (classificacao == null ? "" : classificacao
-				.toUpperCase());
+	public void setCodCtaRef(String codCtaRef) {
+		this.codCtaRef = (codCtaRef == null ? "" : codCtaRef.toUpperCase());
 	}
 
 	public String getDescricao() {
@@ -152,45 +148,45 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
-	public String getFormaCalculo() {
-		return formaCalculo;
+	public String getOrientacoes() {
+		return orientacoes;
 	}
 
-	public void setFormaCalculo(String formaCalculo) {
-		this.formaCalculo = (formaCalculo == null ? "" : formaCalculo
+	public void setOrientacoes(String orientacoes) {
+		this.orientacoes = (orientacoes == null ? "" : orientacoes
 				.toUpperCase());
 	}
 
-	public String getSinal() {
-		return sinal;
+	public Date getInicioValidade() {
+		return inicioValidade;
 	}
 
-	public void setSinal(String sinal) {
-		this.sinal = (sinal == null ? "" : sinal.toUpperCase());
+	public void setInicioValidade(Date inicioValidade) {
+		this.inicioValidade = inicioValidade;
 	}
 
-	public String getNatureza() {
-		return natureza;
+	public Date getFimValidade() {
+		return fimValidade;
 	}
 
-	public void setNatureza(String natureza) {
-		this.natureza = (natureza == null ? "" : natureza.toUpperCase());
+	public void setFimValidade(Date fimValidade) {
+		this.fimValidade = fimValidade;
 	}
 
-	public Double getValor() {
-		return valor;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = (valor == null ? new Double(0.0) : valor);
+	public void setTipo(String tipo) {
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
-	public DreCabecalhoEntity getDreCabecalho() {
-		return dreCabecalho;
+	public List<ContaEntity> getContaList() {
+		return contaList;
 	}
 
-	public void setDreCabecalho(DreCabecalhoEntity dreCabecalho) {
-		this.dreCabecalho = dreCabecalho;
+	public void setContaList(List<ContaEntity> contaList) {
+		this.contaList = contaList;
 	}
 
 	/**

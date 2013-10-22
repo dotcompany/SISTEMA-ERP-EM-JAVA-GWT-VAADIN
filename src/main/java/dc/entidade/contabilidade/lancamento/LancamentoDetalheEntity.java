@@ -2,12 +2,44 @@ package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.cadastro.HistoricoEntity;
+import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
-public class LancamentoDetalheEntity extends
-		AbstractMultiEmpresaModel<Integer> implements Serializable {
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
+@Entity(name = "contabilidadeLancamentoDetalheEntity")
+@Table(name = "contabil_lancamento_detalhe")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class LancamentoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -15,11 +47,65 @@ public class LancamentoDetalheEntity extends
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_lancamento_detalhe_id_seq")
+	@SequenceGenerator(name = "contabil_lancamento_detalhe_id_seq", sequenceName = "contabil_lancamento_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Field
+	@Column(name = "historico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Histórico")
+	private String descricaoHistorico = "";
+
+	@Field
+	@Column(name = "valor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Valor")
+	private Double valor = new Double(0.0);
+
+	@Field
+	@Column(name = "tipo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Tipo")
+	private String tipo = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	// id_empresa integer,
+
+	// id_contabil_conta integer NOT NULL,
+
+	@ManyToOne
+	@JoinColumn(name = "id_contabil_conta", nullable = false)
+	@Caption("Conta")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private ContaEntity conta;
+
+	// id_contabil_historico integer,
+
+	@ManyToOne
+	@JoinColumn(name = "id_contabil_historico", nullable = false)
+	@Caption("Histórico")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private HistoricoEntity historico;
+
+	// id_contabil_lancamento_cab integer NOT NULL,
+
+	@ManyToOne
+	@JoinColumn(name = "id_contabil_lancamento_cab", nullable = false)
+	@Caption("Lançamento cabeçalho")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private LancamentoCabecalhoEntity lancamentoCabecalho;
 
 	/**
 	 * REFERENCIA - LIST
@@ -44,6 +130,56 @@ public class LancamentoDetalheEntity extends
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getDescricaoHistorico() {
+		return descricaoHistorico;
+	}
+
+	public void setDescricaoHistorico(String descricaoHistorico) {
+		this.descricaoHistorico = (descricaoHistorico == null ? ""
+				: descricaoHistorico.toUpperCase());
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = (valor == null ? new Double(0.0) : valor);
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+	}
+
+	public ContaEntity getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaEntity conta) {
+		this.conta = conta;
+	}
+
+	public HistoricoEntity getHistorico() {
+		return historico;
+	}
+
+	public void setHistorico(HistoricoEntity historico) {
+		this.historico = historico;
+	}
+
+	public LancamentoCabecalhoEntity getLancamentoCabecalho() {
+		return lancamentoCabecalho;
+	}
+
+	public void setLancamentoCabecalho(
+			LancamentoCabecalhoEntity lancamentoCabecalho) {
+		this.lancamentoCabecalho = lancamentoCabecalho;
 	}
 
 	/**

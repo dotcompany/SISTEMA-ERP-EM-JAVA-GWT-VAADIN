@@ -1,6 +1,5 @@
 package dc.entidade.contratos;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,18 +19,25 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.solr.client.solrj.beans.Field;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.ged.Documento;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "CONTRATO")
-public class Contrato implements Serializable {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -77,7 +83,7 @@ public class Contrato implements Serializable {
 
 	@Field
 	@Caption(value = "Dia Faturamento")
-	@Column(name = "DIA_FATURAMENTO", columnDefinition="bpchar")
+	@Column(name = "DIA_FATURAMENTO", columnDefinition = "bpchar")
 	private String diaFaturamento;
 
 	@Field
@@ -241,8 +247,7 @@ public class Contrato implements Serializable {
 		return contratoSolicitacaoServico;
 	}
 
-	public void setContratoSolicitacaoServico(
-			ContratoSolicitacaoServico contratoSolicitacaoServico) {
+	public void setContratoSolicitacaoServico(ContratoSolicitacaoServico contratoSolicitacaoServico) {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
 
@@ -266,48 +271,42 @@ public class Contrato implements Serializable {
 		this.contratoTemplate = contratoTemplate;
 	}
 
-	public ContratoHistFaturamento addContratoHistFaturamento(
-			ContratoHistFaturamento contratoHistFaturamento) {
+	public ContratoHistFaturamento addContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().add(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(this);
 
 		return contratoHistFaturamento;
 	}
 
-	public ContratoHistFaturamento removeContratoHistFaturamento(
-			ContratoHistFaturamento contratoHistFaturamento) {
+	public ContratoHistFaturamento removeContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().remove(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(null);
 
 		return contratoHistFaturamento;
 	}
-	
-	public ContratoHistoricoReajuste addContratoHistoricoReajuste(
-			ContratoHistoricoReajuste contratoHistReajustes) {
+
+	public ContratoHistoricoReajuste addContratoHistoricoReajuste(ContratoHistoricoReajuste contratoHistReajustes) {
 		getContratosHistoricosReajustes().add(contratoHistReajustes);
 		contratoHistReajustes.setContrato(this);
 
 		return contratoHistReajustes;
 	}
 
-	public ContratoHistoricoReajuste removeContratoHistoricoReajuste(
-			ContratoHistoricoReajuste contratoHistReajustes) {
+	public ContratoHistoricoReajuste removeContratoHistoricoReajuste(ContratoHistoricoReajuste contratoHistReajustes) {
 		getContratosHistoricosReajustes().remove(contratoHistReajustes);
 		contratoHistReajustes.setContrato(null);
 
 		return contratoHistReajustes;
 	}
-	
-	public ContratoPrevFaturamento addContratoPrevFaturamento(
-			ContratoPrevFaturamento contratoPrevFaturamentos) {
+
+	public ContratoPrevFaturamento addContratoPrevFaturamento(ContratoPrevFaturamento contratoPrevFaturamentos) {
 		getContratosPrevisoesFaturamentos().add(contratoPrevFaturamentos);
 		contratoPrevFaturamentos.setContrato(this);
 
 		return contratoPrevFaturamentos;
 	}
 
-	public ContratoPrevFaturamento removeContratoPrevFaturamento(
-			ContratoPrevFaturamento contratoPrevFaturamento) {
+	public ContratoPrevFaturamento removeContratoPrevFaturamento(ContratoPrevFaturamento contratoPrevFaturamento) {
 		getContratosPrevisoesFaturamentos().remove(contratoPrevFaturamento);
 		contratoPrevFaturamento.setContrato(null);
 
@@ -318,8 +317,7 @@ public class Contrato implements Serializable {
 		return contratosHistoricosFaturamentos;
 	}
 
-	public void setContratosHistoricosFaturamentos(
-			List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {
+	public void setContratosHistoricosFaturamentos(List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {
 		this.contratosHistoricosFaturamentos = contratosHistoricosFaturamentos;
 	}
 
@@ -327,8 +325,7 @@ public class Contrato implements Serializable {
 		return contratosHistoricosReajustes;
 	}
 
-	public void setContratosHistoricosReajustes(
-			List<ContratoHistoricoReajuste> contratosHistoricosReajustes) {
+	public void setContratosHistoricosReajustes(List<ContratoHistoricoReajuste> contratosHistoricosReajustes) {
 		this.contratosHistoricosReajustes = contratosHistoricosReajustes;
 	}
 
@@ -336,8 +333,7 @@ public class Contrato implements Serializable {
 		return contratosPrevisoesFaturamentos;
 	}
 
-	public void setContratosPrevisoesFaturamentos(
-			List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
+	public void setContratosPrevisoesFaturamentos(List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
 		this.contratosPrevisoesFaturamentos = contratosPrevisoesFaturamentos;
 	}
 }

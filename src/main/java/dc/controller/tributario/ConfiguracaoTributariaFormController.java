@@ -2,7 +2,6 @@ package dc.controller.tributario;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
+
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UF;
 import dc.entidade.tabelas.Cfop;
@@ -25,7 +25,6 @@ import dc.entidade.tributario.CofinsConfiguracaoTributaria;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;
-import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.entidade.tributario.IPIConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.entidade.tributario.PISConfiguracaoTributaria;

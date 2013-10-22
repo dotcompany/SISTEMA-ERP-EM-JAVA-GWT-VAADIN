@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.cadastro;
+package dc.controller.contabilidade.planoconta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.cadastro.ParametroEntity;
-import dc.servicos.dao.contabilidade.cadastro.ParametroDAO;
+import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,10 +19,10 @@ import dc.visao.framework.geral.CRUDListController;
  * 
  */
 
-@Controller(value = "contabilidadeParametroListController")
+@Controller(value = "contabilidadePlanoContaRefSpedListController")
 @Scope("prototype")
-public class ParametroListController extends
-		CRUDListController<ParametroEntity> {
+public class PlanoContaRefSpedListController extends
+		CRUDListController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -34,14 +34,14 @@ public class ParametroListController extends
 	 */
 
 	@Autowired
-	private ParametroDAO pDAO;
+	private PlanoContaRefSpedDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private ParametroFormController pController;
+	private PlanoContaRefSpedFormController pController;
 
 	@Override
 	protected String[] getColunas() {
@@ -49,31 +49,31 @@ public class ParametroListController extends
 	}
 
 	@Override
-	protected Class<? super ParametroEntity> getEntityClass() {
-		return ParametroEntity.class;
+	protected Class<? super PlanoContaRefSpedEntity> getEntityClass() {
+		return PlanoContaRefSpedEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Parâmetro";
+		return "Plano conta - SPED";
 	}
 
 	@Override
-	protected List<ParametroEntity> pesquisa(String valor) {
+	protected List<PlanoContaRefSpedEntity> pesquisa(String valor) {
 		try {
-			List<ParametroEntity> auxLista = this.pDAO
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<ParametroEntity>();
+			return new ArrayList<PlanoContaRefSpedEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<ParametroEntity> getFormController() {
+	protected CRUDFormController<PlanoContaRefSpedEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +91,15 @@ public class ParametroListController extends
 	}
 
 	@Override
-	protected List<ParametroEntity> pesquisaDefault() {
+	protected List<PlanoContaRefSpedEntity> pesquisaDefault() {
 		try {
-			List<ParametroEntity> auxLista = this.pDAO.listarTodos();
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<ParametroEntity>();
+			return new ArrayList<PlanoContaRefSpedEntity>();
 		}
 	}
 

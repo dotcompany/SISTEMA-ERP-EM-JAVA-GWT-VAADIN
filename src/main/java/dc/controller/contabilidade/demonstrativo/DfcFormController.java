@@ -104,7 +104,7 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new DfcFormView(this);
 	}
 
 	/*

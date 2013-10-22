@@ -105,7 +105,7 @@ public class DreCabecalhoFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new DreCabecalhoFormView(this);
 	}
 
 	/*

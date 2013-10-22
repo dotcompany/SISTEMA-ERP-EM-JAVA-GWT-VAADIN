@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.cadastro;
+package dc.controller.contabilidade.planoconta;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.cadastro.ParametroEntity;
-import dc.servicos.dao.contabilidade.cadastro.ParametroDAO;
-import dc.visao.contabilidade.cadastro.ParametroFormView;
+import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
+import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -21,44 +21,44 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller(value = "contabilidadeParametroFormController")
+@Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
-public class ParametroFormController extends
-		CRUDFormController<ParametroEntity> {
+public class PlanoContaRefSpedFormController extends
+		CRUDFormController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ParametroFormView subView;
+	private PlanoContaRefSpedFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private ParametroDAO pDAO;
+	private PlanoContaRefSpedDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private ParametroEntity pEntity;
+	private PlanoContaRefSpedEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public ParametroFormController() {
+	public PlanoContaRefSpedFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new ParametroEntity();
+			this.pEntity = new PlanoContaRefSpedEntity();
 		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Parâmetro";
+		return "Plano conta - SPED";
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class ParametroFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new PlanoContaRefSpedFormView(this);
 	}
 
 	/*
@@ -174,7 +174,7 @@ public class ParametroFormController extends
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new ParametroEntity();
+				this.pEntity = new PlanoContaRefSpedEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}

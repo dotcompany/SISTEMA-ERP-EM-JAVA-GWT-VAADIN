@@ -104,7 +104,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new TermoFormView(this);
 	}
 
 	/*

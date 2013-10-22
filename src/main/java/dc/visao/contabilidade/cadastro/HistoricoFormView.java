@@ -6,7 +6,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.folhapagamento.movimento.AlteracaoSalarialFormController;
+import dc.controller.contabilidade.cadastro.HistoricoFormController;
 
 public class HistoricoFormView extends CustomComponent {
 
@@ -29,10 +29,10 @@ public class HistoricoFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
-	// private AlteracaoSalarialFormController controller;
+	private HistoricoFormController controller;
 
-	public HistoricoFormView(final AlteracaoSalarialFormController controller) {
-		// this.controller = controller;
+	public HistoricoFormView(final HistoricoFormController controller) {
+		this.controller = controller;
 
 		buildMainLayout();
 		setCompositionRoot(this.mainLayout);
