@@ -416,8 +416,8 @@ public class LancamentoReceberFormView extends CustomComponent {
 			cbTipoVencimento.setValue(TipoVencimento.DIARIO);
 		}
 
-		parcelasSubForm.fillWith(currentBean.getParcelasReceber());
-		naturezaFinanceiraSubForm.fillWith(currentBean.getLctoReceberNtFinanceiras());
+		//parcelasSubForm.fillWith(currentBean.getParcelaReceber());
+		naturezaFinanceiraSubForm.fillWith(currentBean.getLctoReceberNtFinanceira());
 	}
 
 	public ManyToOneCombo<DocumentoOrigem> getCbDocumentoOrigem() {
