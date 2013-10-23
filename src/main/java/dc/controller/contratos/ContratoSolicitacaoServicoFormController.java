@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.diversos.SetorListController;
+import dc.controller.geral.FornecedorListController;
+import dc.controller.pessoal.ClienteListController;
+import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.contratos.ContratoSolicitacaoServico;
 import dc.entidade.contratos.ContratoTipoServico;
 import dc.entidade.diversos.Setor;
@@ -23,6 +27,7 @@ import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoSolicitacaoServicoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -57,28 +62,28 @@ public class ContratoSolicitacaoServicoFormController extends CRUDFormController
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateObject(subView.getCmbCliente().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbCliente(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbCliente().getValue())) {
+			adicionarErroDeValidacao(subView.getCbCliente(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCmbFornecedor().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbFornecedor(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
+			adicionarErroDeValidacao(subView.getCbFornecedor(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCmbSetor().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbSetor(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbSetor().getValue())) {
+			adicionarErroDeValidacao(subView.getCbSetor(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCmbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbColaborador().getValue())) {
+			adicionarErroDeValidacao(subView.getCbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCmbTipoServico().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTipoServico(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbTipoServico().getValue())) {
+			adicionarErroDeValidacao(subView.getCbTipoServico(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -108,16 +113,49 @@ public class ContratoSolicitacaoServicoFormController extends CRUDFormController
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new ContratoSolicitacaoServico();
-		carregarCombosView();
-
 	}
 
 	private void carregarCombosView() {
-		subView.carregarClientes(clienteDAO.getAll(Cliente.class));
-		subView.carregarColaboradores(colaboradorDAO.getAll(Colaborador.class));
-		subView.carregarFornecedores(fornecedorDAO.getAll(Fornecedor.class));
-		subView.carregarSetores(setorDAO.getAll(Setor.class));
-		subView.carregarTipoServicos(contratoTipoServicoDAO.getAll(ContratoTipoServico.class));
+
+		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class,
+				this.fornecedorDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+
+				return "pessoa.nome";
+			}
+		};
+
+		DefaultManyToOneComboModel<ContratoTipoServico> contratoTipoServicoModel = new DefaultManyToOneComboModel<ContratoTipoServico>(
+				ContratoTipoServicoListController.class, this.contratoTipoServicoDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(ColaboradorListController.class,
+				this.colaboradorDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+
+				return "pessoa.nome";
+			}
+		};
+
+		DefaultManyToOneComboModel<Setor> setorModel = new DefaultManyToOneComboModel<Setor>(SetorListController.class, this.setorDAO,
+				super.getMainController());
+
+		DefaultManyToOneComboModel<Cliente> clienteModel = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+				super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+
+				return "pessoa.nome";
+			}
+		};
+
+		subView.getCbFornecedor().setModel(fornecedorModel);
+		subView.getCbCliente().setModel(clienteModel);
+		subView.getCbColaborador().setModel(colaboradorModel);
+		subView.getCbSetor().setModel(setorModel);
+		subView.getCbTipoServico().setModel(contratoTipoServicoModel);
+
 		subView.carregarStatusSituacao();
 		subView.carregarUrgente();
 	}
@@ -125,12 +163,13 @@ public class ContratoSolicitacaoServicoFormController extends CRUDFormController
 	@Override
 	protected void initSubView() {
 		subView = new ContratoSolicitacaoServicoFormView();
+		carregarCombosView();
 
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		carregarCombosView();
+
 		currentBean = contratoSolicitacaoServicoDAO.find(id);
 		subView.carregarView(currentBean);
 	}
@@ -175,6 +214,11 @@ public class ContratoSolicitacaoServicoFormController extends CRUDFormController
 	public String getViewIdentifier() {
 
 		return null;
+	}
+
+	@Override
+	protected boolean isFullSized() {
+		return true;
 	}
 
 }

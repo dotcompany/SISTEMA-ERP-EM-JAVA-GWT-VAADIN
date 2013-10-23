@@ -7,14 +7,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "TIPO_CONTRATO")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class TipoContrato extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -24,11 +33,15 @@ public class TipoContrato extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "ID")
 	@Field
 	@Caption("Id")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "NOME")
 	@Field
 	@Caption("Nome")
+	@Analyzer(definition = "dc_combo_analyzer")
+	@ComboValue
 	private String nome;
 
 	@Field

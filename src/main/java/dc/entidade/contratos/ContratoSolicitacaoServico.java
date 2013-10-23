@@ -23,6 +23,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
@@ -41,6 +43,7 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	@Column(name = "ID")
 	@Field
 	@Caption("Id")
+	@ComboCode
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -68,6 +71,7 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	@Field
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+	@ComboValue
 	private String descricao;
 
 	@Caption("Tipo serviço")

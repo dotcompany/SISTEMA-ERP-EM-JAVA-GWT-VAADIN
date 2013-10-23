@@ -30,6 +30,7 @@ import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Component;
 
+import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.contratos.Contrato;
 import dc.entidade.contratos.ContratoHistFaturamento;
@@ -49,6 +50,7 @@ import dc.servicos.dao.contratos.TipoContratoDAO;
 import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -158,9 +160,33 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	private void carregarCombos() {
-		subView.carregaComboContabilConta(contabilContaDAO.getAll(ContabilConta.class));
-		subView.carregaComboTipoContrato(tipoContratoDAO.getAll(TipoContrato.class));
-		subView.carregaComboSolicitacaoServico(solicitacaoServicoDAO.getAll(ContratoSolicitacaoServico.class));
+		/*
+		 * subView.carregaComboContabilConta(contabilContaDAO.getAll(ContabilConta
+		 * .class));
+		 * subView.carregaComboTipoContrato(tipoContratoDAO.getAll(TipoContrato
+		 * .class));
+		 * subView.carregaComboSolicitacaoServico(solicitacaoServicoDAO
+		 * .getAll(ContratoSolicitacaoServico.class));
+		 */
+
+		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
+				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
+
+		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
+				this.tipoContratoDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<ContratoSolicitacaoServico> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
+				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController());
+
+		subView.getCbmContabilConta().setModel(contabilContaModel);
+		subView.getCbmTipoContrato().setModel(tipoContratoModel);
+		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+
 		List<Documento> documentos = documentoDAO.getAll(Documento.class);
 
 		Iterator<Documento> iterator = documentos.iterator();
@@ -172,12 +198,13 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		}
 
-		subView.carregaComboDocumento(documentos);
+		// subView.carregaComboDocumento(documentos);
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new ContratoFormView(this);
+		carregarCombos();
 	}
 
 	private StreamResource createResource() {
@@ -197,7 +224,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
 					try {
 						File origem = getFileFromDocumento(documento);
-						File novo = getTempFile();
 
 						// define os termos a serem substituidos
 						String termos[] = new String[] {
@@ -325,7 +351,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		carregarCombos();
+
 		currentBean = contratoDAO.find(id);
 		subView.preencheContratoForm(currentBean);
 		StreamResource myResource = createResource();
@@ -431,14 +457,14 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return "contratoForm";
 	}
 
-	private static File getTempFile() {
-
-		return new File("C:\\Users\\Douglas\\novo.docx");
-	}
-
 	private static File getFileFromDocumento(Documento documento) {
 		File arquivo = new File(((List<DocumentoArquivo>) documento.getDocumentos()).get(0).getCaminho());
 		return arquivo;
+	}
+
+	@Override
+	protected boolean isFullSized() {
+		return true;
 	}
 
 }
