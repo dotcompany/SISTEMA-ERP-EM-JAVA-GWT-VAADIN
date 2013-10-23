@@ -1,12 +1,16 @@
 package dc.entidade.comercial;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -50,6 +54,9 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 	
 	@Column(name="prazo_medio")
 	Integer prazoMedio;
+	
+	@OneToMany(mappedBy="condicaoPagamento",cascade=CascadeType.ALL,fetch= FetchType.EAGER)
+	List<ParcelaCondicaoPagamento> parcelas;
 
 	public Integer getId() {
 		return id;
@@ -121,6 +128,14 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 
 	public void setPrazoMedio(Integer prazoMedio) {
 		this.prazoMedio = prazoMedio;
+	}
+
+	public List<ParcelaCondicaoPagamento> getParcelas() {
+		return parcelas;
+	}
+
+	public void setParcelas(List<ParcelaCondicaoPagamento> parcelas) {
+		this.parcelas = parcelas;
 	}
 	
 	

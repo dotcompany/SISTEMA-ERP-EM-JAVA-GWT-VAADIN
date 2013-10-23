@@ -152,7 +152,7 @@ public class SocioFormView extends CustomComponent {
 		mainLayout.addComponent(fields);
 		subForms = new TabSheet();
 		subForms.setWidth("100.0%");
-		subForms.setHeight("100.0%");
+		subForms.setHeight("30.0%");
 		subForms.setSizeFull();
 		subForms.setImmediate(true);
 		montaAbaDependentes();
@@ -342,14 +342,11 @@ public class SocioFormView extends CustomComponent {
 
 	public void montaAbaDependentes() {
 		TabSheet sub = new TabSheet();
-		sub.setWidth("100.0%");
-		sub.setHeight("100.0%");
-		sub.setSizeFull();
-		sub.setImmediate(true);
+		
 		GridLayout layout = new GridLayout(1, 1);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
-		layout.setHeight("100.0%");
+		layout.setHeight("20.0%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -366,7 +363,7 @@ public class SocioFormView extends CustomComponent {
 		GridLayout layout = new GridLayout(1, 1);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
-		layout.setHeight("100.0%");
+		layout.setHeight("20.0%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -378,7 +375,7 @@ public class SocioFormView extends CustomComponent {
 		// common part: create layout
 		TabSheet sub = new TabSheet();
 		sub.setWidth("100.0%");
-		sub.setHeight("100.0%");
+		sub.setHeight("50.0%");
 		sub.setSizeFull();
 		sub.setImmediate(true);
 		sub.addTab(dependentesSubForm, "", null);

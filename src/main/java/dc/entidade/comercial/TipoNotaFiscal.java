@@ -113,8 +113,4 @@ public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		this.ultimoImpresso = ultimoImpresso;
 	}
 	
-	
-	
-	
-	
 }
