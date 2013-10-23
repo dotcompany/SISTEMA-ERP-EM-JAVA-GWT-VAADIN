@@ -48,6 +48,9 @@ public class CondicaoPagamentoFormView extends CustomComponent {
 		mainLayout.setSizeFull();
 		mainLayout.setMargin(false);
 		mainLayout.setSpacing(true);
+		
+		setHeight("100.0%");
+		setWidth("100.0%");
 
 		fields = buildFields();
 		mainLayout.addComponent(fields);

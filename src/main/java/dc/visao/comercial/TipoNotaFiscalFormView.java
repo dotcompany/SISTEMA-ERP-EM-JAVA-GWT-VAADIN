@@ -66,7 +66,7 @@ public class TipoNotaFiscalFormView extends CustomComponent {
 	     fields.addComponent(txtNome,0,0);
 	     
 	    txtDescricao = ComponentUtil.buildTextField("Descrição");
-	    fields.addComponent(txtDescricao,1,0,3,0);
+	    fields.addComponent(txtDescricao,1,0,4,0);
 	    		 
 		txtModelo = ComponentUtil.buildTextField("Modelo");
 		txtModelo.setMaxLength(2);

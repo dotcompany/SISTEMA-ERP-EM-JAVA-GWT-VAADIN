@@ -60,7 +60,7 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	@Override
 	protected void actionSalvar() {
 
-		
+		System.out.println("");
 
 	}
 
@@ -91,6 +91,11 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	 protected boolean isFullSized() {
+	  return true;
+	 }
 
 
 
