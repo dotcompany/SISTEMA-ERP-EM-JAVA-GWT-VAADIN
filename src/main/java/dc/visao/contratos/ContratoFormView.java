@@ -351,10 +351,15 @@ public class ContratoFormView extends CustomComponent {
 		tabSheet_2 = new TabSheet();
 		tabSheet_2.setImmediate(false);
 		tabSheet_2.setWidth("100%");
+		tabSheet_2.setHeight("100%");
 
 		historicoFaturamentoSubForm = buildHistoricoFaturaSubForm();
 		historicoReajustesSubForm = buildHistoricoReajustesSubForm();
 		previsaoFaturamentoSubForm = buildPrevisaoFaturamentoSubForm();
+
+		historicoFaturamentoSubForm.setHeight("100%");
+		historicoReajustesSubForm.setHeight("100%");
+		previsaoFaturamentoSubForm.setHeight("100%");
 
 		tabSheet_2.addTab(historicoFaturamentoSubForm, "Histórico Faturamento", null);
 
