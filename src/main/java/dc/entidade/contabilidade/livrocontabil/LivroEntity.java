@@ -60,21 +60,21 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Descrição")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
 	@Column(name = "competencia")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Competência")
-	private String competencia;
+	private String competencia = "";
 
 	@Field
 	@Column(name = "forma_escrituracao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Forma de escrituração")
-	private String formaEscrituracao;
+	private String formaEscrituracao = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -115,7 +115,7 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
 	}
 
 	public String getCompetencia() {
@@ -123,7 +123,8 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCompetencia(String competencia) {
-		this.competencia = competencia;
+		this.competencia = (competencia == null ? "" : competencia
+				.toUpperCase());
 	}
 
 	public String getFormaEscrituracao() {
@@ -131,7 +132,8 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setFormaEscrituracao(String formaEscrituracao) {
-		this.formaEscrituracao = formaEscrituracao;
+		this.formaEscrituracao = (formaEscrituracao == null ? ""
+				: formaEscrituracao.toUpperCase());
 	}
 
 	public List<TermoEntity> getTermoList() {

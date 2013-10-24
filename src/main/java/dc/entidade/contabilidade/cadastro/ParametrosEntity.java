@@ -56,231 +56,231 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "mascara")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "mascara")
+	@Caption(value = "Máscara")
 	private String mascara = "";
 
 	@Field
 	@Column(name = "niveis")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "niveis")
+	@Caption(value = "Níveis")
 	private Integer niveis = new Integer(0);
 
 	@Field
 	@Column(name = "informar_conta_por")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "informar_conta_por")
+	@Caption(value = "Informar conta por")
 	private String informarContaPor = "";
 
 	@Field
 	@Column(name = "compartilha_plano_conta")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "compartilha_plano_conta")
+	@Caption(value = "Compartilha plano de conta")
 	private String compartilhaPlanoConta = "";
 
 	@Field
 	@Column(name = "compartilha_historicos")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "compartilha_historicos")
+	@Caption(value = "Compartilha históricos")
 	private String compartilhaHistoricos = "";
 
 	@Field
 	@Column(name = "altera_lancamento_outro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "altera_lancamento_outro")
+	@Caption(value = "Altera lançamento outro")
 	private String alteraLancamentoOutro = "";
 
 	@Field
 	@Column(name = "historico_obrigatorio")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "historico_obrigatorio")
+	@Caption(value = "Histórico obrigatório")
 	private String historicoObrigatorio = "";
 
 	@Field
 	@Column(name = "permite_lancamento_zerado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "permite_lancamento_zerado")
+	@Caption(value = "Permite lançamento zerado")
 	private String permiteLancamentoZerado = "";
 
 	@Field
 	@Column(name = "gera_informativo_sped")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "gera_informativo_sped")
+	@Caption(value = "Gera informativo sped")
 	private String geraInformativoSped = "";
 
 	@Field
 	@Column(name = "sped_forma_escrit_diario")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "sped_forma_escrit_diario")
+	@Caption(value = "Sped forma escrit diário")
 	private String spedFormaEscritDiario = "";
 
 	@Field
 	@Column(name = "sped_nome_livro_diario")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "sped_nome_livro_diario")
+	@Caption(value = "Sped nome livro diário")
 	private String spedNomeLivroDiario = "";
 
 	@Field
 	@Column(name = "assinatura_direita")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "assinatura_direita")
+	@Caption(value = "Assinatura direita")
 	private String assinaturaDireita = "";
 
 	@Field
 	@Column(name = "assinatura_esquerda")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "assinatura_esquerda")
+	@Caption(value = "Assinatura esquerda")
 	private String assinaturaEsquerda = "";
 
 	@Field
 	@Column(name = "conta_ativo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_ativo")
+	@Caption(value = "Conta ativo")
 	private String contaAtivo = "";
 
 	@Field
 	@Column(name = "conta_passivo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_passivo")
+	@Caption(value = "Conta passivo")
 	private String contaPassivo = "";
 
 	@Field
 	@Column(name = "conta_patrimonio_liquido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_patrimonio_liquido")
+	@Caption(value = "Conta patrimônio líquido")
 	private String contaPatrimonioLiquido = "";
 
 	@Field
 	@Column(name = "conta_depreciacao_acumulada")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_depreciacao_acumulada")
+	@Caption(value = "Conta depreciação acumulada")
 	private String contaDepreciacaoAcumulada = "";
 
 	@Field
 	@Column(name = "conta_capital_social")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_capital_social")
+	@Caption(value = "Conta capital social")
 	private String contaCapitalSocial = "";
 
 	@Field
 	@Column(name = "conta_resultado_exercicio")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_resultado_exercicio")
+	@Caption(value = "Conta resultado exercício")
 	private String contaResultadoExercicio = "";
 
 	@Field
 	@Column(name = "conta_prejuizo_acumulado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_prejuizo_acumulado")
+	@Caption(value = "Conta prejuízo acumulado")
 	private String contaPrejuizoAcumulado = "";
 
 	@Field
 	@Column(name = "conta_lucro_acumulado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_lucro_acumulado")
+	@Caption(value = "Conta lucro acumulado")
 	private String contaLucroAcumulado = "";
 
 	@Field
 	@Column(name = "conta_titulo_pagar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_titulo_pagar")
+	@Caption(value = "Conta título a pagar")
 	private String contaTituloPagar = "";
 
 	@Field
 	@Column(name = "conta_titulo_receber")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_titulo_receber")
+	@Caption(value = "Conta título a receber")
 	private String contaTituloReceber = "";
 
 	@Field
 	@Column(name = "conta_juros_passivo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_juros_passivo")
+	@Caption(value = "Conta juros passivo")
 	private String contaJurosPassivo = "";
 
 	@Field
 	@Column(name = "conta_juros_ativo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_juros_ativo")
+	@Caption(value = "Conta juros ativo")
 	private String contaJurosAtivo = "";
 
 	@Field
 	@Column(name = "conta_desconto_obtido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_desconto_obtido")
+	@Caption(value = "Conta desconto obtido")
 	private String contaDescontoObtido = "";
 
 	@Field
 	@Column(name = "conta_desconto_concedido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_desconto_concedido")
+	@Caption(value = "Conta desconto concedido")
 	private String contaDescontoConcedido = "";
 
 	@Field
 	@Column(name = "conta_cmv")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_cmv")
+	@Caption(value = "Conta cmv")
 	private String contaCmv = "";
 
 	@Field
 	@Column(name = "conta_venda")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_venda")
+	@Caption(value = "Conta venda")
 	private String contaVenda = "";
 
 	@Field
 	@Column(name = "conta_venda_servico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_venda_servico")
+	@Caption(value = "Conta venda serviço")
 	private String contaVendaServico = "";
 
 	@Field
 	@Column(name = "conta_estoque")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_estoque")
+	@Caption(value = "Conta estoque")
 	private String contaEstoque = "";
 
 	@Field
 	@Column(name = "conta_apura_resultado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_apura_resultado")
+	@Caption(value = "Conta apura resultado")
 	private String contaApuraResultado = "";
 
 	@Field
 	@Column(name = "conta_juros_apropriar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "conta_juros_apropriar")
+	@Caption(value = "Conta juros apropriar")
 	private String contaJurosApropriar = "";
 
 	/**
@@ -295,7 +295,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "id_hist_padrao_resultado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "id_hist_padrao_resultado")
+	@Caption(value = "Hist padrão resultado")
 	private Integer histPadraoResultado = new Integer(0);
 
 	// id_hist_padrao_lucro integer,
@@ -304,7 +304,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "id_hist_padrao_lucro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "id_hist_padrao_lucro")
+	@Caption(value = "Hist padrão lucro")
 	private Integer histPadraoLucro = new Integer(0);
 
 	// id_hist_padrao_prejuizo integer,
@@ -313,7 +313,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "id_hist_padrao_prejuizo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "id_hist_padrao_prejuizo")
+	@Caption(value = "Hist padrão prejuízo")
 	private Integer histPadraoPrejuizo = new Integer(0);
 
 	/**
@@ -346,7 +346,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setMascara(String mascara) {
-		this.mascara = mascara;
+		this.mascara = (mascara == null ? "" : mascara.toUpperCase());
 	}
 
 	public Integer getNiveis() {
@@ -354,7 +354,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNiveis(Integer niveis) {
-		this.niveis = niveis;
+		this.niveis = (niveis == null ? new Integer(0) : niveis);
 	}
 
 	public String getInformarContaPor() {
@@ -362,7 +362,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setInformarContaPor(String informarContaPor) {
-		this.informarContaPor = informarContaPor;
+		this.informarContaPor = (informarContaPor == null ? ""
+				: informarContaPor.toUpperCase());
 	}
 
 	public String getCompartilhaPlanoConta() {
@@ -370,7 +371,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCompartilhaPlanoConta(String compartilhaPlanoConta) {
-		this.compartilhaPlanoConta = compartilhaPlanoConta;
+		this.compartilhaPlanoConta = (compartilhaPlanoConta == null ? ""
+				: compartilhaPlanoConta.toUpperCase());
 	}
 
 	public String getCompartilhaHistoricos() {
@@ -378,7 +380,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCompartilhaHistoricos(String compartilhaHistoricos) {
-		this.compartilhaHistoricos = compartilhaHistoricos;
+		this.compartilhaHistoricos = (compartilhaHistoricos == null ? ""
+				: compartilhaHistoricos.toUpperCase());
 	}
 
 	public String getAlteraLancamentoOutro() {
@@ -386,7 +389,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setAlteraLancamentoOutro(String alteraLancamentoOutro) {
-		this.alteraLancamentoOutro = alteraLancamentoOutro;
+		this.alteraLancamentoOutro = (alteraLancamentoOutro == null ? ""
+				: alteraLancamentoOutro.toUpperCase());
 	}
 
 	public String getHistoricoObrigatorio() {
@@ -394,7 +398,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setHistoricoObrigatorio(String historicoObrigatorio) {
-		this.historicoObrigatorio = historicoObrigatorio;
+		this.historicoObrigatorio = (historicoObrigatorio == null ? ""
+				: historicoObrigatorio.toUpperCase());
 	}
 
 	public String getPermiteLancamentoZerado() {
@@ -402,7 +407,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPermiteLancamentoZerado(String permiteLancamentoZerado) {
-		this.permiteLancamentoZerado = permiteLancamentoZerado;
+		this.permiteLancamentoZerado = (permiteLancamentoZerado == null ? ""
+				: permiteLancamentoZerado.toUpperCase());
 	}
 
 	public String getGeraInformativoSped() {
@@ -410,7 +416,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setGeraInformativoSped(String geraInformativoSped) {
-		this.geraInformativoSped = geraInformativoSped;
+		this.geraInformativoSped = (geraInformativoSped == null ? ""
+				: geraInformativoSped.toUpperCase());
 	}
 
 	public String getSpedFormaEscritDiario() {
@@ -418,7 +425,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSpedFormaEscritDiario(String spedFormaEscritDiario) {
-		this.spedFormaEscritDiario = spedFormaEscritDiario;
+		this.spedFormaEscritDiario = (spedFormaEscritDiario == null ? ""
+				: spedFormaEscritDiario.toUpperCase());
 	}
 
 	public String getSpedNomeLivroDiario() {
@@ -426,7 +434,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSpedNomeLivroDiario(String spedNomeLivroDiario) {
-		this.spedNomeLivroDiario = spedNomeLivroDiario;
+		this.spedNomeLivroDiario = (spedNomeLivroDiario == null ? ""
+				: spedNomeLivroDiario.toUpperCase());
 	}
 
 	public String getAssinaturaDireita() {
@@ -434,7 +443,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setAssinaturaDireita(String assinaturaDireita) {
-		this.assinaturaDireita = assinaturaDireita;
+		this.assinaturaDireita = (assinaturaDireita == null ? ""
+				: assinaturaDireita.toUpperCase());
 	}
 
 	public String getAssinaturaEsquerda() {
@@ -442,7 +452,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setAssinaturaEsquerda(String assinaturaEsquerda) {
-		this.assinaturaEsquerda = assinaturaEsquerda;
+		this.assinaturaEsquerda = (assinaturaEsquerda == null ? ""
+				: assinaturaEsquerda.toUpperCase());
 	}
 
 	public String getContaAtivo() {
@@ -450,7 +461,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaAtivo(String contaAtivo) {
-		this.contaAtivo = contaAtivo;
+		this.contaAtivo = (contaAtivo == null ? "" : contaAtivo.toUpperCase());
 	}
 
 	public String getContaPassivo() {
@@ -458,7 +469,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaPassivo(String contaPassivo) {
-		this.contaPassivo = contaPassivo;
+		this.contaPassivo = (contaPassivo == null ? "" : contaPassivo
+				.toUpperCase());
 	}
 
 	public String getContaPatrimonioLiquido() {
@@ -466,7 +478,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaPatrimonioLiquido(String contaPatrimonioLiquido) {
-		this.contaPatrimonioLiquido = contaPatrimonioLiquido;
+		this.contaPatrimonioLiquido = (contaPatrimonioLiquido == null ? ""
+				: contaPatrimonioLiquido.toUpperCase());
 	}
 
 	public String getContaDepreciacaoAcumulada() {
@@ -474,7 +487,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaDepreciacaoAcumulada(String contaDepreciacaoAcumulada) {
-		this.contaDepreciacaoAcumulada = contaDepreciacaoAcumulada;
+		this.contaDepreciacaoAcumulada = (contaDepreciacaoAcumulada == null ? ""
+				: contaDepreciacaoAcumulada.toUpperCase());
 	}
 
 	public String getContaCapitalSocial() {
@@ -482,7 +496,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaCapitalSocial(String contaCapitalSocial) {
-		this.contaCapitalSocial = contaCapitalSocial;
+		this.contaCapitalSocial = (contaCapitalSocial == null ? ""
+				: contaCapitalSocial.toUpperCase());
 	}
 
 	public String getContaResultadoExercicio() {
@@ -490,7 +505,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaResultadoExercicio(String contaResultadoExercicio) {
-		this.contaResultadoExercicio = contaResultadoExercicio;
+		this.contaResultadoExercicio = (contaResultadoExercicio == null ? ""
+				: contaResultadoExercicio.toUpperCase());
 	}
 
 	public String getContaPrejuizoAcumulado() {
@@ -498,7 +514,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaPrejuizoAcumulado(String contaPrejuizoAcumulado) {
-		this.contaPrejuizoAcumulado = contaPrejuizoAcumulado;
+		this.contaPrejuizoAcumulado = (contaPrejuizoAcumulado == null ? ""
+				: contaPrejuizoAcumulado.toUpperCase());
 	}
 
 	public String getContaLucroAcumulado() {
@@ -506,7 +523,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaLucroAcumulado(String contaLucroAcumulado) {
-		this.contaLucroAcumulado = contaLucroAcumulado;
+		this.contaLucroAcumulado = (contaLucroAcumulado == null ? ""
+				: contaLucroAcumulado.toUpperCase());
 	}
 
 	public String getContaTituloPagar() {
@@ -514,7 +532,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaTituloPagar(String contaTituloPagar) {
-		this.contaTituloPagar = contaTituloPagar;
+		this.contaTituloPagar = (contaTituloPagar == null ? ""
+				: contaTituloPagar.toUpperCase());
 	}
 
 	public String getContaTituloReceber() {
@@ -522,7 +541,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaTituloReceber(String contaTituloReceber) {
-		this.contaTituloReceber = contaTituloReceber;
+		this.contaTituloReceber = (contaTituloReceber == null ? ""
+				: contaTituloReceber.toUpperCase());
 	}
 
 	public String getContaJurosPassivo() {
@@ -530,7 +550,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaJurosPassivo(String contaJurosPassivo) {
-		this.contaJurosPassivo = contaJurosPassivo;
+		this.contaJurosPassivo = (contaJurosPassivo == null ? ""
+				: contaJurosPassivo.toUpperCase());
 	}
 
 	public String getContaJurosAtivo() {
@@ -538,7 +559,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaJurosAtivo(String contaJurosAtivo) {
-		this.contaJurosAtivo = contaJurosAtivo;
+		this.contaJurosAtivo = (contaJurosAtivo == null ? "" : contaJurosAtivo
+				.toUpperCase());
 	}
 
 	public String getContaDescontoObtido() {
@@ -546,7 +568,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaDescontoObtido(String contaDescontoObtido) {
-		this.contaDescontoObtido = contaDescontoObtido;
+		this.contaDescontoObtido = (contaDescontoObtido == null ? ""
+				: contaDescontoObtido.toUpperCase());
 	}
 
 	public String getContaDescontoConcedido() {
@@ -554,7 +577,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaDescontoConcedido(String contaDescontoConcedido) {
-		this.contaDescontoConcedido = contaDescontoConcedido;
+		this.contaDescontoConcedido = (contaDescontoConcedido == null ? ""
+				: contaDescontoConcedido.toUpperCase());
 	}
 
 	public String getContaCmv() {
@@ -562,7 +586,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaCmv(String contaCmv) {
-		this.contaCmv = contaCmv;
+		this.contaCmv = (contaCmv == null ? "" : contaCmv.toUpperCase());
 	}
 
 	public String getContaVenda() {
@@ -570,7 +594,7 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaVenda(String contaVenda) {
-		this.contaVenda = contaVenda;
+		this.contaVenda = (contaVenda == null ? "" : contaVenda.toUpperCase());
 	}
 
 	public String getContaVendaServico() {
@@ -578,7 +602,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaVendaServico(String contaVendaServico) {
-		this.contaVendaServico = contaVendaServico;
+		this.contaVendaServico = (contaVendaServico == null ? ""
+				: contaVendaServico.toUpperCase());
 	}
 
 	public String getContaEstoque() {
@@ -586,7 +611,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaEstoque(String contaEstoque) {
-		this.contaEstoque = contaEstoque;
+		this.contaEstoque = (contaEstoque == null ? "" : contaEstoque
+				.toUpperCase());
 	}
 
 	public String getContaApuraResultado() {
@@ -594,7 +620,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaApuraResultado(String contaApuraResultado) {
-		this.contaApuraResultado = contaApuraResultado;
+		this.contaApuraResultado = (contaApuraResultado == null ? ""
+				: contaApuraResultado.toUpperCase());
 	}
 
 	public String getContaJurosApropriar() {
@@ -602,7 +629,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContaJurosApropriar(String contaJurosApropriar) {
-		this.contaJurosApropriar = contaJurosApropriar;
+		this.contaJurosApropriar = (contaJurosApropriar == null ? ""
+				: contaJurosApropriar.toUpperCase());
 	}
 
 	public Integer getHistPadraoResultado() {
@@ -610,7 +638,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setHistPadraoResultado(Integer histPadraoResultado) {
-		this.histPadraoResultado = histPadraoResultado;
+		this.histPadraoResultado = (histPadraoResultado == null ? new Integer(0)
+				: histPadraoResultado);
 	}
 
 	public Integer getHistPadraoLucro() {
@@ -618,7 +647,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setHistPadraoLucro(Integer histPadraoLucro) {
-		this.histPadraoLucro = histPadraoLucro;
+		this.histPadraoLucro = (histPadraoLucro == null ? new Integer(0)
+				: histPadraoLucro);
 	}
 
 	public Integer getHistPadraoPrejuizo() {
@@ -626,7 +656,8 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setHistPadraoPrejuizo(Integer histPadraoPrejuizo) {
-		this.histPadraoPrejuizo = histPadraoPrejuizo;
+		this.histPadraoPrejuizo = (histPadraoPrejuizo == null ? new Integer(0)
+				: histPadraoPrejuizo);
 	}
 
 	/**
