@@ -41,7 +41,7 @@ public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 	@Transactional
 	public List<FechamentoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM FechamentoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM FechamentoEntity ent WHERE (1 = 1) AND ent.criterioLancamento LIKE :q";
 
 			List<FechamentoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,7 +54,8 @@ public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Data de início", "Data de término",
+				"Critério de lançamento" };
 	}
 
 }

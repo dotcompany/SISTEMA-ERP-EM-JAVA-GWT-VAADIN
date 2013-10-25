@@ -59,7 +59,7 @@ public class TermoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "abertura_encerramento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Abertura do encerramento")
+	@Caption(value = "Abertura encerramento")
 	private String aberturaEncerramento = "";
 
 	@Field

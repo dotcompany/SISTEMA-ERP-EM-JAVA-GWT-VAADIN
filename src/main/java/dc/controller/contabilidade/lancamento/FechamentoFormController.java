@@ -179,6 +179,12 @@ public class FechamentoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
+			this.subView.getTfCriterioLancamento().setValue(
+					this.pEntity.getCriterioLancamento());
+
 			// this.subView.getTfValor13().setValue(
 			// String.valueOf(this.pEntity.getValor13()));
 			// this.subView.getTfValorMensal().setValue(

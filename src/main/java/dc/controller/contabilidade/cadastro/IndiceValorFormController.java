@@ -179,6 +179,11 @@ public class IndiceValorFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
+			this.subView.getPdfDataIndice().setValue(
+					this.pEntity.getDataIndice());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
+
 			// this.subView.getTfValor13().setValue(
 			// String.valueOf(this.pEntity.getValor13()));
 			// this.subView.getTfValorMensal().setValue(

@@ -136,8 +136,8 @@ public class IndiceFormView extends CustomComponent {
 		verticalLayout_2.addComponent(gridLayout_1);
 
 		// gridLayout_2
-		gridLayout_2 = buildGridLayout_2();
-		verticalLayout_2.addComponent(gridLayout_2);
+		// gridLayout_2 = buildGridLayout_2();
+		// verticalLayout_2.addComponent(gridLayout_2);
 
 		return verticalLayout_2;
 	}
@@ -187,7 +187,7 @@ public class IndiceFormView extends CustomComponent {
 	}
 
 	/**
-	 * 
+	 * *******************************************
 	 */
 
 	/**
