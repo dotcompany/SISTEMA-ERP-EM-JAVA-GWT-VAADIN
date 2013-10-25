@@ -61,21 +61,21 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Descrição")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
 	@Column(name = "historico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Histórico")
-	private String historico;
+	private String historico = "";
 
 	@Field
 	@Column(name = "pede_complemento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Pede complemento")
-	private String pedeComplemento;
+	private String pedeComplemento = "";
 
 	/**
 	 * REFERENCIA - FK

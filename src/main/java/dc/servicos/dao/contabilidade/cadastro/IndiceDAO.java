@@ -57,7 +57,8 @@ public class IndiceDAO extends AbstractCrudDAO<IndiceEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Periodicidade", "Diário a partir de",
+				"Mensal mês ano" };
 	}
 
 }

@@ -44,7 +44,7 @@ public class IndiceListController extends CRUDListController<IndiceEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "periodicidade", "diarioPartirDe", "mensalMesAno" };
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class IndiceListController extends CRUDListController<IndiceEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Histórico";
+		return "Índice";
 	}
 
 	@Override

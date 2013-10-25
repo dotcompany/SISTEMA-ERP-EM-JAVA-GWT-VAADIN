@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
+import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
+import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
 import dc.visao.contabilidade.cadastro.IndiceFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -177,6 +180,17 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
+
+			this.subView.getTfPeriodicidade().setValue(
+					this.pEntity.getPeriodicidade());
+			this.subView.getPdfDiarioPartirDe().setValue(
+					this.pEntity.getDiarioPartirDe());
+			this.subView.getTfMensalMesAno().setValue(
+					this.pEntity.getMensalMesAno());
+			
+			List<IndiceValorEntity> detalhes = new ArrayList<>();
+			
+			subView.preencheSubForm(detalhes);
 
 			// this.subView.getTfValor13().setValue(
 			// String.valueOf(this.pEntity.getValor13()));
