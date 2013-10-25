@@ -178,16 +178,13 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLiberacao().setValue(
+					this.pEntity.getDataLiberacao());
+			this.subView.getTfProgramado().setValue(this.pEntity.getLiberado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
