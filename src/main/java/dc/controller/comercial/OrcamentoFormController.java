@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.suprimentos.ReajusteEstoque;
@@ -98,6 +99,12 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	@Override
 	public boolean isFullSized(){
 		return true;
+	}
+	
+	public ItemOrcamento adicionarItem(){
+		ItemOrcamento item = new ItemOrcamento();
+		currentBean.adicionarItem(item);
+		return item;
 	}
 
 

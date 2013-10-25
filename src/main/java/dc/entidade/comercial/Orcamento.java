@@ -1,11 +1,17 @@
 package dc.entidade.comercial;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,6 +38,9 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_vendedor")
 	VendedorEntity vendedor;
+	
+	@OneToMany(mappedBy="orcamento",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
 
 	public Integer getId() {
 		return id;
@@ -48,7 +57,19 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 	public void setVendedor(VendedorEntity vendedor) {
 		this.vendedor = vendedor;
 	}
+
+	public List<ItemOrcamento> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemOrcamento> itens) {
+		this.itens = itens;
+	}
 	
+	public void adicionarItem(ItemOrcamento item){
+		getItens().add(item);
+		item.setOrcamento(this);
+	}
 	
 
 }
