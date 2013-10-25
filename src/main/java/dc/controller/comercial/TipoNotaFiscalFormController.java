@@ -36,7 +36,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 	@Override
 	protected boolean validaSalvar() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 			notifiyFrameworkSaveOK(currentBean);
 
 		}  catch(ErroValidacaoException e){
-			e.montaMensagemErro();
+			 mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
