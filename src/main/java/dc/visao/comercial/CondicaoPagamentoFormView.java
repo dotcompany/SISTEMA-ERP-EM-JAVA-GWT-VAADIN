@@ -267,10 +267,10 @@ public class CondicaoPagamentoFormView extends CustomComponent {
 				};
 			}
 
-			//				protected ICMSCustomizadoDetalhe getNovo() {
-			//					ICMSCustomizadoDetalhe detalhe = controller.novoDetalhe();
-			//					return detalhe;
-			//				}
+							protected ParcelaCondicaoPagamento getNovo() {
+								ParcelaCondicaoPagamento parcela = controller.adicionarParcela();
+								return parcela;
+							}
 
 
 
@@ -294,7 +294,7 @@ public class CondicaoPagamentoFormView extends CustomComponent {
 		subForms.addTab(layout, "Parcela", null);
 	}
 
-	public void preencheSubForm(List<ParcelaCondicaoPagamento> detalhes){
+	public void preencherSubForm(List<ParcelaCondicaoPagamento> detalhes){
 		parcelasSubForm.fillWith(detalhes);
 	}
 

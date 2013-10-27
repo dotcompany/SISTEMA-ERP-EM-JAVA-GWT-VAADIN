@@ -71,6 +71,14 @@ public class ParcelaCondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 	public void setTaxa(BigDecimal taxa) {
 		this.taxa = taxa;
 	}
+
+	public CondicaoPagamento getCondicaoPagamento() {
+		return condicaoPagamento;
+	}
+
+	public void setCondicaoPagamento(CondicaoPagamento condicaoPagamento) {
+		this.condicaoPagamento = condicaoPagamento;
+	}
 	
 	
 	

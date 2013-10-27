@@ -53,8 +53,15 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
-
+		currentBean = dao.find(id);
+		
+		subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		subView.getTxtModelo().setValue(currentBean.getModelo());
+		subView.getTxtSerie().setValue(currentBean.getSerie());
+		subView.getTxtTemplate().setValue(currentBean.getTemplate());
+		subView.getTxtNumeroItens().setValue(currentBean.getNumeroItens().toString());
+		subView.getTxtUltimoImpresso().setValue(currentBean.getUltimoImpresso().toString()); 
 	}
 
 	@Override

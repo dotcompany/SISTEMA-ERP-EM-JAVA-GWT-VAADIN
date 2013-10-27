@@ -138,7 +138,10 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 		this.parcelas = parcelas;
 	}
 	
-	
+	public void adicionarParcela(ParcelaCondicaoPagamento parcela){
+		getParcelas().add(parcela);
+		parcela.setCondicaoPagamento(this);
+	}
 	
 	
 
