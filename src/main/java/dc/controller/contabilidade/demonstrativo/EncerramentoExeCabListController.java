@@ -45,7 +45,7 @@ public class EncerramentoExeCabListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "data_inicio", "data_fim", "motivo" };
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class EncerramentoExeCabListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Encerramentop de exercício cabeçalho";
+		return "Encerramento de exercício cabeçalho";
 	}
 
 	@Override

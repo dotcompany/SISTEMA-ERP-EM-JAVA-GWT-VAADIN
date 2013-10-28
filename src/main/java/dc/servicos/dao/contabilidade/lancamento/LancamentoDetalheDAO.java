@@ -42,7 +42,7 @@ public class LancamentoDetalheDAO extends
 	@Transactional
 	public List<LancamentoDetalheEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM LancamentoDetalheEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LancamentoDetalheEntity ent WHERE (1 = 1) AND ent.historico LIKE :q";
 
 			List<LancamentoDetalheEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -55,7 +55,7 @@ public class LancamentoDetalheDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Histórico", "Valor", "Tipo" };
 	}
 
 }

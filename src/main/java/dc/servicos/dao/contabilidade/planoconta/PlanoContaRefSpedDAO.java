@@ -55,7 +55,8 @@ public class PlanoContaRefSpedDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Orientações", "Início da validade",
+				"Término da validade" };
 	}
 
 }

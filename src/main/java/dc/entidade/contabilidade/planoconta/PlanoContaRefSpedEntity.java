@@ -88,7 +88,7 @@ public class PlanoContaRefSpedEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "fim_validade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Fim da validade")
+	@Caption(value = "Término da validade")
 	private Date fimValidade;
 
 	@Field

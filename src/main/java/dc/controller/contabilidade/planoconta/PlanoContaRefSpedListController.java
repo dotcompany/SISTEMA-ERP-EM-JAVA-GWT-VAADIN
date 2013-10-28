@@ -45,7 +45,8 @@ public class PlanoContaRefSpedListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "descricao", "orientacoes", "inicio_validade",
+				"fim_validade" };
 	}
 
 	@Override

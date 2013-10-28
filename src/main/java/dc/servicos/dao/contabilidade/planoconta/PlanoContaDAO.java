@@ -41,7 +41,7 @@ public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> {
 	@Transactional
 	public List<PlanoContaEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PlanoContaEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM PlanoContaEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
 
 			List<PlanoContaEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,7 +54,7 @@ public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Nome", "Data da inclusão" };
 	}
 
 }

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
+import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class LancamentoDetalheListController extends
-		CRUDListController<LancamentoLoteEntity> {
+		CRUDListController<LancamentoDetalheEntity> {
 
 	/**
 	 * 
@@ -34,46 +34,46 @@ public class LancamentoDetalheListController extends
 	 */
 
 	@Autowired
-	private LancamentoLoteDAO pDAO;
+	private LancamentoDetalheDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private LancamentoLoteFormController pController;
+	private LancamentoDetalheFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "historico", "valor", "tipo" };
 	}
 
 	@Override
-	protected Class<? super LancamentoLoteEntity> getEntityClass() {
-		return LancamentoLoteEntity.class;
+	protected Class<? super LancamentoDetalheEntity> getEntityClass() {
+		return LancamentoDetalheEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Lançamento programado";
+		return "Lançamento detalhe";
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisa(String valor) {
+	protected List<LancamentoDetalheEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO
+			List<LancamentoDetalheEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LancamentoDetalheEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<LancamentoLoteEntity> getFormController() {
+	protected CRUDFormController<LancamentoDetalheEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +91,15 @@ public class LancamentoDetalheListController extends
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisaDefault() {
+	protected List<LancamentoDetalheEntity> pesquisaDefault() {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoDetalheEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LancamentoDetalheEntity>();
 		}
 	}
 

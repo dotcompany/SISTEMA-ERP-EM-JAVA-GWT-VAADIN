@@ -45,7 +45,7 @@ public class PlanoContaListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "nome", "dataInclusao" };
 	}
 
 	@Override

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
+import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class LancamentoCabecalhoListController extends
-		CRUDListController<LancamentoLoteEntity> {
+		CRUDListController<LancamentoCabecalhoEntity> {
 
 	/**
 	 * 
@@ -34,46 +34,47 @@ public class LancamentoCabecalhoListController extends
 	 */
 
 	@Autowired
-	private LancamentoLoteDAO pDAO;
+	private LancamentoCabecalhoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private LancamentoLoteFormController pController;
+	private LancamentoCabecalhoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "data_lancamento", "data_inclusao", "tipo",
+				"liberado", "valor" };
 	}
 
 	@Override
-	protected Class<? super LancamentoLoteEntity> getEntityClass() {
-		return LancamentoLoteEntity.class;
+	protected Class<? super LancamentoCabecalhoEntity> getEntityClass() {
+		return LancamentoCabecalhoEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Lançamento programado";
+		return "Lançamento cabeçalho";
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisa(String valor) {
+	protected List<LancamentoCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO
+			List<LancamentoCabecalhoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LancamentoCabecalhoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<LancamentoLoteEntity> getFormController() {
+	protected CRUDFormController<LancamentoCabecalhoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +92,15 @@ public class LancamentoCabecalhoListController extends
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisaDefault() {
+	protected List<LancamentoCabecalhoEntity> pesquisaDefault() {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoCabecalhoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LancamentoCabecalhoEntity>();
 		}
 	}
 

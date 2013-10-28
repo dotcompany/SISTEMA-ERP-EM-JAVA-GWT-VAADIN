@@ -42,7 +42,7 @@ public class EncerramentoExeDetDAO extends
 	@Transactional
 	public List<EncerramentoExeDetEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM EncerramentoExeDetEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM EncerramentoExeDetEntity ent WHERE (1 = 1) AND ent.saldo LIKE :q";
 
 			List<EncerramentoExeDetEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -55,7 +55,8 @@ public class EncerramentoExeDetDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Saldo anterior", "Valor do débito",
+				"Valor do crédito", "Saldo" };
 	}
 
 }
