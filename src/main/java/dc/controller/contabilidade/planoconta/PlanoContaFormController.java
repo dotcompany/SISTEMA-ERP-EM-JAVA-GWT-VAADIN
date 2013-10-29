@@ -179,16 +179,12 @@ public class PlanoContaFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfNome().setValue(this.pEntity.getNome());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getTfMascara().setValue(this.pEntity.getMascara());
+			this.subView.getTfNiveis().setValue(
+					this.pEntity.getNiveis().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

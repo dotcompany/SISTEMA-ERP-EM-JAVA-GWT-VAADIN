@@ -42,7 +42,7 @@ public class PlanoContaRefSpedDAO extends
 	@Transactional
 	public List<PlanoContaRefSpedEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
 			List<PlanoContaRefSpedEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")

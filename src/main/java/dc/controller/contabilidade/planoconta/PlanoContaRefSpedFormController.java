@@ -179,16 +179,15 @@ public class PlanoContaRefSpedFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfCodCtaRef().setValue(this.pEntity.getCodCtaRef());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfOrientacoes().setValue(
+					this.pEntity.getOrientacoes());
+			this.subView.getPdfInicioValidade().setValue(
+					this.pEntity.getInicioValidade());
+			this.subView.getPdfFimValidade().setValue(
+					this.pEntity.getFimValidade());
+			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

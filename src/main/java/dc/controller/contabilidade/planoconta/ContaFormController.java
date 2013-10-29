@@ -178,16 +178,21 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfClassificacao().setValue(
+					this.pEntity.getClassificacao());
+			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getTfSituacao().setValue(this.pEntity.getSituacao());
+			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
+			this.subView.getTfPatrimonioResultado().setValue(
+					this.pEntity.getPatrimonioResultado());
+			this.subView.getTfDfc().setValue(this.pEntity.getDfc());
+			this.subView.getTfOrdem().setValue(this.pEntity.getOrdem());
+			this.subView.getTfCodigoReduzido().setValue(
+					this.pEntity.getCodigoReduzido());
+			this.subView.getTfCodigoEfd().setValue(this.pEntity.getCodigoEfd());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
