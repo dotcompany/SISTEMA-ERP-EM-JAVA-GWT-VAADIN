@@ -1,6 +1,5 @@
 package dc.entidade.contratos;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -23,6 +22,9 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Setor;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
@@ -32,7 +34,7 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoSolicitacaoServico implements Serializable {
+public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -41,6 +43,7 @@ public class ContratoSolicitacaoServico implements Serializable {
 	@Column(name = "ID")
 	@Field
 	@Caption("Id")
+	@ComboCode
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -68,6 +71,7 @@ public class ContratoSolicitacaoServico implements Serializable {
 	@Field
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+	@ComboValue
 	private String descricao;
 
 	@Caption("Tipo serviço")
@@ -195,19 +199,11 @@ public class ContratoSolicitacaoServico implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((dataDesejadaInicio == null) ? 0 : dataDesejadaInicio
-						.hashCode());
-		result = prime * result
-				+ ((dataSolicitacao == null) ? 0 : dataSolicitacao.hashCode());
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((dataDesejadaInicio == null) ? 0 : dataDesejadaInicio.hashCode());
+		result = prime * result + ((dataSolicitacao == null) ? 0 : dataSolicitacao.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime
-				* result
-				+ ((statusSolicitacao == null) ? 0 : statusSolicitacao
-						.hashCode());
+		result = prime * result + ((statusSolicitacao == null) ? 0 : statusSolicitacao.hashCode());
 		result = prime * result + ((urgente == null) ? 0 : urgente.hashCode());
 		return result;
 	}
