@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.security.Key;
 import java.security.KeyStore;
 import java.security.MessageDigest;
@@ -104,6 +105,42 @@ public class Util {
 		}
 
 		return temp;
+	}
+	
+	
+	public static void copyFile(File sourceFile, File destFile) throws IOException {
+	    
+	    
+	    if (!destFile.exists()) {
+			File pastaPai = destFile.getParentFile();
+			if (pastaPai != null) {
+				pastaPai.mkdirs();
+				destFile.createNewFile();
+			}
+		}
+
+	    FileChannel source = null;
+	    FileChannel destination = null;
+	    try {
+	        source = new FileInputStream(sourceFile).getChannel();
+	        destination = new FileOutputStream(destFile).getChannel();
+
+	        // previous code: destination.transferFrom(source, 0, source.size());
+	        // to avoid infinite loops, should be:
+	        long count = 0;
+	        long size = source.size();              
+	        while((count += destination.transferFrom(source, count, size-count))<size);
+	    }
+	    finally {
+	        if(source != null) {
+	            source.close();
+	        }
+	        if(destination != null) {
+	            destination.close();
+	        }
+	        
+	        sourceFile.delete();
+	    }
 	}
 
 	public static File gravarArquivo(String caminho, byte[] dados) throws IOException {
