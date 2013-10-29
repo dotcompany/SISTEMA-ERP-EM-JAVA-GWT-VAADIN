@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
-import dc.visao.contabilidade.lancamento.LancamentoLoteFormView;
+import dc.entidade.contabilidade.lancamento.LoteEntity;
+import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
+import dc.visao.contabilidade.lancamento.LoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -23,28 +23,27 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LoteFormController extends
-		CRUDFormController<LancamentoLoteEntity> {
+public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private LancamentoLoteFormView subView;
+	private LoteFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private LancamentoLoteDAO pDAO;
+	private LoteDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private LancamentoLoteEntity pEntity;
+	private LoteEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
@@ -52,7 +51,7 @@ public class LoteFormController extends
 
 	public LoteFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new LancamentoLoteEntity();
+			this.pEntity = new LoteEntity();
 		}
 	}
 
@@ -105,7 +104,7 @@ public class LoteFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new LoteFormView(this);
 	}
 
 	/*
@@ -174,21 +173,18 @@ public class LoteFormController extends
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new LancamentoLoteEntity();
+				this.pEntity = new LoteEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLiberacao().setValue(
+					this.pEntity.getDataLiberacao());
+			this.subView.getTfProgramado().setValue(this.pEntity.getLiberado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

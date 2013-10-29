@@ -14,97 +14,117 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import dc.entidade.framework.AbstractModel;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "CONTRATO_HISTORICO_REAJUSTE")
-public class ContratoHistoricoReajuste extends AbstractModel<Integer>  {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ContratoHistoricoReajuste extends AbstractMultiEmpresaModel<Integer> {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Column(name = "INDICE")
-    private BigDecimal indice;
-    @Column(name = "VALOR_ANTERIOR")
-    private BigDecimal valorAnterior;
-    @Column(name = "VALOR_ATUAL")
-    private BigDecimal valorAtual;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATA_REAJUSTE")
-    private Date dataReajuste;
-    @Column(name = "OBSERVACAO")
-    private String observacao;
-    @JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Contrato contrato;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@Field
+	private Integer id;
 
-    public ContratoHistoricoReajuste() {
-    }
+	@Column(name = "INDICE")
+	@Field
+	private BigDecimal indice;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "VALOR_ANTERIOR")
+	@Field
+	private BigDecimal valorAnterior;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "VALOR_ATUAL")
+	@Field
+	private BigDecimal valorAtual;
 
-    public BigDecimal getIndice() {
-        return indice;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_REAJUSTE")
+	@Field
+	private Date dataReajuste;
 
-    public void setIndice(BigDecimal indice) {
-        this.indice = indice;
-    }
+	@Column(name = "OBSERVACAO")
+	@Field
+	private String observacao;
 
-    public BigDecimal getValorAnterior() {
-        return valorAnterior;
-    }
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Contrato contrato;
 
-    public void setValorAnterior(BigDecimal valorAnterior) {
-        this.valorAnterior = valorAnterior;
-    }
+	public ContratoHistoricoReajuste() {
+	}
 
-    public BigDecimal getValorAtual() {
-        return valorAtual;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setValorAtual(BigDecimal valorAtual) {
-        this.valorAtual = valorAtual;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Date getDataReajuste() {
-        return dataReajuste;
-    }
+	public BigDecimal getIndice() {
+		return indice;
+	}
 
-    public void setDataReajuste(Date dataReajuste) {
-        this.dataReajuste = dataReajuste;
-    }
+	public void setIndice(BigDecimal indice) {
+		this.indice = indice;
+	}
 
-    public String getObservacao() {
-        return observacao;
-    }
+	public BigDecimal getValorAnterior() {
+		return valorAnterior;
+	}
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
+	public void setValorAnterior(BigDecimal valorAnterior) {
+		this.valorAnterior = valorAnterior;
+	}
 
-    public Contrato getContrato() {
-        return contrato;
-    }
+	public BigDecimal getValorAtual() {
+		return valorAtual;
+	}
 
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
+	public void setValorAtual(BigDecimal valorAtual) {
+		this.valorAtual = valorAtual;
+	}
 
+	public Date getDataReajuste() {
+		return dataReajuste;
+	}
 
-    @Override
-    public String toString() {
-        return "com.t2tierp.contratos.java.ContratoHistoricoReajusteVO[id=" + id + "]";
-    }
+	public void setDataReajuste(Date dataReajuste) {
+		this.dataReajuste = dataReajuste;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public Contrato getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
+	}
+
+	@Override
+	public String toString() {
+		return "com.t2tierp.contratos.java.ContratoHistoricoReajusteVO[id=" + id + "]";
+	}
 
 }

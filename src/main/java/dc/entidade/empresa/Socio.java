@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,7 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToOne
 	@JoinColumn(name="id_pessoa")
+	@Caption(value="Nome")
 	Pessoa pessoa;
 
 	@ManyToOne
@@ -88,10 +90,10 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 //	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 //	private Empresa empresa;
 
-	@OneToMany(mappedBy="socio")
+	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL)
 	private List<Dependente> dependentes = new ArrayList<>();
 	
-	@OneToMany(mappedBy="socio")
+	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL)
 	private List<ParticipacaoSocietaria> participacoes = new ArrayList<>();
 
 	public Integer getId() {

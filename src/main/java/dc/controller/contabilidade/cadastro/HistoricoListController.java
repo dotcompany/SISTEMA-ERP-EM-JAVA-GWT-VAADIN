@@ -45,7 +45,7 @@ public class HistoricoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "descricao", "historico", "pedeComplemento" };
 	}
 
 	@Override

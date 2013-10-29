@@ -28,7 +28,7 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 
 	@Override
 	protected String getTitulo() {
-		return "Parâmetro Cliente";
+		return "ParÃ¢metro Cliente";
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 
 	@Override
 	public String getViewIdentifier() {
-		return "Parâmetro Cliente";
+		return "ParÃ¢metro Cliente";
 	}
 
 	@Override

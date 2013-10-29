@@ -43,7 +43,7 @@ public class IndiceValorDAO extends AbstractCrudDAO<IndiceValorEntity> {
 	@Transactional
 	public List<IndiceValorEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM IndiceValorEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM IndiceValorEntity ent WHERE (1 = 1) AND ent.valor LIKE :q";
 
 			List<IndiceValorEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -58,7 +58,7 @@ public class IndiceValorDAO extends AbstractCrudDAO<IndiceValorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Data do índice", "Valor" };
 	}
 
 }

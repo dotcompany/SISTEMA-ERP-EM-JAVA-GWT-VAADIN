@@ -41,7 +41,7 @@ public class TermoDAO extends AbstractCrudDAO<TermoEntity> {
 	@Transactional
 	public List<TermoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM TermoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM TermoEntity ent WHERE (1 = 1) AND ent.numero LIKE :q";
 
 			List<TermoEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
@@ -53,7 +53,8 @@ public class TermoDAO extends AbstractCrudDAO<TermoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Abertura encerramento", "Número",
+				"Número do registro" };
 	}
 
 }

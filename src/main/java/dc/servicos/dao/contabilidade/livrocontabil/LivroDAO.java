@@ -41,7 +41,7 @@ public class LivroDAO extends AbstractCrudDAO<LivroEntity> {
 	@Transactional
 	public List<LivroEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM LivroEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LivroEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
 			List<LivroEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
@@ -53,7 +53,8 @@ public class LivroDAO extends AbstractCrudDAO<LivroEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Competência",
+				"Forma de escrituração" };
 	}
 
 }

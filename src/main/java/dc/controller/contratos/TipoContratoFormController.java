@@ -80,6 +80,7 @@ public class TipoContratoFormController extends CRUDFormController<TipoContrato>
 		String descricao = subView.getTxaDescricao().getValue();
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
+		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		try {
 			tipoContratoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);

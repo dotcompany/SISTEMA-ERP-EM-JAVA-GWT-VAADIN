@@ -105,7 +105,7 @@ public class IndiceValorFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new IndiceValorFormView(this);
 	}
 
 	/*
@@ -178,6 +178,11 @@ public class IndiceValorFormController extends
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
+
+			this.subView.getPdfDataIndice().setValue(
+					this.pEntity.getDataIndice());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 
 			// this.subView.getTfValor13().setValue(
 			// String.valueOf(this.pEntity.getValor13()));

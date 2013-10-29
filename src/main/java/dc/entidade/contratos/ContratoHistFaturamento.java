@@ -14,67 +14,81 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import dc.entidade.framework.AbstractModel;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "CONTRATO_HIST_FATURAMENTO")
-public class ContratoHistFaturamento extends AbstractModel<Integer> {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ContratoHistFaturamento extends AbstractMultiEmpresaModel<Integer> {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATA_FATURA")
-    private Date dataFatura;
-    @Column(name = "VALOR")
-    private BigDecimal valor;
-    @JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Contrato contrato;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@Field
+	private Integer id;
 
-    public ContratoHistFaturamento() {
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_FATURA")
+	@Field
+	private Date dataFatura;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "VALOR")
+	@Field
+	private BigDecimal valor;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Contrato contrato;
 
-    public Date getDataFatura() {
-        return dataFatura;
-    }
+	public ContratoHistFaturamento() {
+	}
 
-    public void setDataFatura(Date dataFatura) {
-        this.dataFatura = dataFatura;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public BigDecimal getValor() {
-        return valor;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
+	public Date getDataFatura() {
+		return dataFatura;
+	}
 
-    public Contrato getContrato() {
-        return contrato;
-    }
+	public void setDataFatura(Date dataFatura) {
+		this.dataFatura = dataFatura;
+	}
 
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
+	public BigDecimal getValor() {
+		return valor;
+	}
 
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
-    @Override
-    public String toString() {
-        return "com.t2tierp.contratos.java.ContratoHistFaturamentoVO[id=" + id + "]";
-    }
+	public Contrato getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
+	}
+
+	@Override
+	public String toString() {
+		return "com.t2tierp.contratos.java.ContratoHistFaturamentoVO[id=" + id + "]";
+	}
 
 }

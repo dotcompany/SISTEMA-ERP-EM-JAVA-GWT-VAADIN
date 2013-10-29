@@ -45,7 +45,8 @@ public class EncerramentoExeDetListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "saldo_anterior", "valor_debito",
+				"valor_credito", "saldo" };
 	}
 
 	@Override

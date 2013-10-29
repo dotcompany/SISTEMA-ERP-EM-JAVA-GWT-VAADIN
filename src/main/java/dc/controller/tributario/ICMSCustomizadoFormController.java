@@ -54,13 +54,13 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	ICMSCustomizadoDetalheDAO detalheDAO;
 
 	ICMSCustomizado currentBean;
-	
+
 	@Autowired
 	CfopDAO cfopDAO;
-	
+
 	@Autowired
 	CsosnbDAO csosnbDAO;
-	
+
 	@Autowired
 	CstIcmsBDAO cstbDAO;
 
@@ -95,20 +95,18 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.carregarOrigemMercadoria();
 		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
-	
-		
+
 		List<ICMSCustomizadoDetalhe> detalhes = currentBean.getDetalhes();
-		
+
 		for(ICMSCustomizadoDetalhe d  : detalhes){
 			Integer idCsosn = new Integer(d.getCsosnB().trim());
 			d.setCsosn(csosnbDAO.find(idCsosn));
-			
+
 			Integer idCst = new Integer(d.getCstB().trim());
 			d.setCst(cstbDAO.find(idCst));
-			
+
 		}
-		
-		
+
 		subView.preencheSubForm(detalhes);
 	}
 
@@ -120,11 +118,11 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	protected void actionSalvar() {
 		try{
 
-			
+
 			List<ICMSCustomizadoDetalhe> detalhes = subView.getDetalhesSubForm()
-				     .getDados();
-			
-			
+					.getDados();
+
+
 			String descricao = subView.getTxtDescricao().getValue(); 
 			String origem = "";
 
@@ -143,14 +141,14 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 			currentBean.setEmpresa(empresaAtual());
 
 			dao.saveOrUpdate(currentBean);	
-			
+
 			for(ICMSCustomizadoDetalhe d : detalhes){
 				d.setIcmsCustomizado(currentBean);
 				d.setCsosnB(d.getCsosn().getId().toString());
 				d.setCstB(d.getCst().getId().toString());
 				detalheDAO.saveOrUpdate(d);
 			}
-		notifiyFrameworkSaveOK(currentBean);
+			notifiyFrameworkSaveOK(currentBean);
 		}catch(ErroValidacaoException e){
 			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
@@ -193,7 +191,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
+
 		try{
 			for(Serializable id : ids){
 				ICMSCustomizado icms = dao.find(id);
@@ -206,9 +204,9 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
+
+
+
 		// TODO Auto-generated method stub
 
 	}
@@ -231,7 +229,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 				replaceAll( ",","" ).trim();
 		return format;
 	}
-	
+
 	public BeanItemContainer<Cfop> carregarCfop(){
 		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
 		for(Cfop obj : cfopDAO.listaTodos()){
@@ -239,7 +237,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<Csosnb> carregarCsosnb(){
 		BeanItemContainer<Csosnb> container = new BeanItemContainer<>(Csosnb.class);
 		for(Csosnb obj : csosnbDAO.listaTodos()){
@@ -247,7 +245,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<CstIcmsB> carregarCstb(){
 		BeanItemContainer<CstIcmsB> container = new BeanItemContainer<>(CstIcmsB.class);
 		for(CstIcmsB obj : cstbDAO.listaTodos()){

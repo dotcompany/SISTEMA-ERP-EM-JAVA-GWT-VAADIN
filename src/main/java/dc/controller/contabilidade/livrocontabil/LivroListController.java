@@ -44,7 +44,7 @@ public class LivroListController extends CRUDListController<LivroEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "descricao", "competencia", "formaEscrituracao" };
 	}
 
 	@Override

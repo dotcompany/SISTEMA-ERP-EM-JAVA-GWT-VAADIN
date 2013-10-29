@@ -45,7 +45,7 @@ public class LancamentoOrcadoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "ano", "janeiro", "fevereiro", "marco" };
 	}
 
 	@Override

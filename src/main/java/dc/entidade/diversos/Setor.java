@@ -71,7 +71,6 @@ public class Setor extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	@Field
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 

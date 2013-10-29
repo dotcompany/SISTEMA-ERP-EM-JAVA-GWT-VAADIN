@@ -43,7 +43,7 @@ public class HistoricoDAO extends AbstractCrudDAO<HistoricoEntity> {
 	@Transactional
 	public List<HistoricoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM HistoricoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM HistoricoEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
 			List<HistoricoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -58,7 +58,7 @@ public class HistoricoDAO extends AbstractCrudDAO<HistoricoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Histórico", "Pede complemento" };
 	}
 
 }

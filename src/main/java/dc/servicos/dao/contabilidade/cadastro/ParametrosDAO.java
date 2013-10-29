@@ -43,7 +43,7 @@ public class ParametrosDAO extends AbstractCrudDAO<ParametrosEntity> {
 	@Transactional
 	public List<ParametrosEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM ParametrosEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM ParametrosEntity ent WHERE (1 = 1) AND ent.mascara LIKE :q";
 
 			List<ParametrosEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -58,7 +58,7 @@ public class ParametrosDAO extends AbstractCrudDAO<ParametrosEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Máscara", "Níveis" };
 	}
 
 }

@@ -6,6 +6,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
 public class DreEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 

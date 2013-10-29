@@ -15,13 +15,14 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "tipo_nota_fiscal")
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoNotaFiscal extends AbstractModel<Integer> {
+public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
@@ -111,9 +112,5 @@ public class TipoNotaFiscal extends AbstractModel<Integer> {
 	public void setUltimoImpresso(Integer ultimoImpresso) {
 		this.ultimoImpresso = ultimoImpresso;
 	}
-	
-	
-	
-	
 	
 }

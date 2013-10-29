@@ -104,7 +104,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new FapFormView(this);
 	}
 
 	/*

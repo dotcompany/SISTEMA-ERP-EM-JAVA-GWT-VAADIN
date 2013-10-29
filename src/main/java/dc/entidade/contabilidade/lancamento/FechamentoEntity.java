@@ -1,11 +1,40 @@
 package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
+@Entity(name = "contabilidadeFechamentoEntity")
+@Table(name = "contabil_fechamento")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class FechamentoEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
@@ -15,11 +44,41 @@ public class FechamentoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_fechamento_id_seq")
+	@SequenceGenerator(name = "contabil_fechamento_id_seq", sequenceName = "contabil_fechamento_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Field
+	@Column(name = "data_inicio")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Data de início")
+	private Date dataInicio;
+
+	@Field
+	@Column(name = "data_fim")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Data de término")
+	private Date dataFim;
+
+	@Field
+	@Column(name = "criterio_lancamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Critério de lançamento")
+	private String criterioLancamento = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	// id_empresa integer NOT NULL,
 
 	/**
 	 * REFERENCIA - LIST
@@ -44,6 +103,31 @@ public class FechamentoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public String getCriterioLancamento() {
+		return criterioLancamento;
+	}
+
+	public void setCriterioLancamento(String criterioLancamento) {
+		this.criterioLancamento = (criterioLancamento == null ? ""
+				: criterioLancamento.toUpperCase());
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class ClienteDAO extends AbstractCrudDAO<Cliente> {
 		// TODO Auto-generated method stub
 		return Cliente.class;
 	}
-	
+
 	@Transactional
 	public List<Cliente> listaTodos() {
 		return getSession().createQuery("from Cliente").list();
@@ -24,13 +24,14 @@ public class ClienteDAO extends AbstractCrudDAO<Cliente> {
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		
-		return new String[] {"desde", "contaTomador","observacao","geraFinanceiro","indicadorPreco","tipoFrete","formaDesconto","porcentoDesconto","limiteCredito"};
+
+		return new String[] { "pessoa.nome", "desde", "contaTomador", "observacao", "geraFinanceiro", "indicadorPreco", "tipoFrete", "formaDesconto",
+				"porcentoDesconto", "limiteCredito" };
 	}
-	
+
 	@Transactional
 	public List<Cliente> query(String q) {
-		q = "%" + q.toLowerCase() +"%";
+		q = "%" + q.toLowerCase() + "%";
 		return getSession().createQuery("from Cliente where lower(observacao) like :q").setParameter("q", q).list();
 	}
 

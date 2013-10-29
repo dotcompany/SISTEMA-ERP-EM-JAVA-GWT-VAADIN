@@ -104,7 +104,7 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new LivroFormView(this);
 	}
 
 	/*
@@ -178,16 +178,11 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfFormaEscrituracao().setValue(
+					this.pEntity.getFormaEscrituracao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

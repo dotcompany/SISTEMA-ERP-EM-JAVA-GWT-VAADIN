@@ -26,12 +26,12 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
 
 /**
@@ -66,12 +66,10 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Desde")
 	@Column(name = "DESDE")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
 	@Column(name = "DATA_CADASTRO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
@@ -80,56 +78,48 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 	@Caption("Observacao")
 	@Type(type = "text")
 	@Column(name = "OBSERVACAO", length = 65535)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
 	@Caption("Conta Tomador")
 	@Column(name = "CONTA_TOMADOR")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaTomador;
 
 	@Field
 	@Caption("Gera Financeiro")
 	@Column(name = "GERA_FINANCEIRO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character geraFinanceiro;
 
 	@Field
 	@Caption("Indicador Preco")
 	@Column(name = "INDICADOR_PRECO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String indicadorPreco;
 
 	@Field
 	@Caption("Porcento Desconto")
 	@Column(name = "PORCENTO_DESCONTO", precision = 18, scale = 6)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Double porcentoDesconto;
 
 	@Field
 	@Caption("Forma Desconto")
 	@Column(name = "FORMA_DESCONTO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character formaDesconto;
 
 	@Field
 	@Caption("Limite Credito")
 	@Column(name = "LIMITE_CREDITO", precision = 18, scale = 6)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Double limiteCredito;
 
 	@Field
 	@Caption("Tipo Frete")
 	@Column(name = "TIPO_FRETE")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character tipoFrete;
 
@@ -144,6 +134,8 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PESSOA", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
+	@Analyzer(definition = "dc_combo_analyzer")
+	@IndexedEmbedded
 	private Pessoa pessoa;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -322,8 +314,7 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(
-			dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
 

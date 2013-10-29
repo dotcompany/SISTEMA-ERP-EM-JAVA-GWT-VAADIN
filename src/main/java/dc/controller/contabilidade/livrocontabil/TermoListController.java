@@ -44,7 +44,8 @@ public class TermoListController extends CRUDListController<TermoEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "aberturaEncerramento", "numero",
+				"numeroRegistro" };
 	}
 
 	@Override

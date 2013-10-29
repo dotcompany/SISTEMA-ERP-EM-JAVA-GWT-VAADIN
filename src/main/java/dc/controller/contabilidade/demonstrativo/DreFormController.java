@@ -104,7 +104,7 @@ public class DreFormController extends CRUDFormController<DreEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new DreFormView(this);
 	}
 
 	/*

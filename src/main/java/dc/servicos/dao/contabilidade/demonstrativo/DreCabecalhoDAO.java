@@ -41,7 +41,7 @@ public class DreCabecalhoDAO extends AbstractCrudDAO<DreCabecalhoEntity> {
 	@Transactional
 	public List<DreCabecalhoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM DreCabecalhoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM DreCabecalhoEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
 			List<DreCabecalhoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -54,7 +54,8 @@ public class DreCabecalhoDAO extends AbstractCrudDAO<DreCabecalhoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Padrão", "Período inicial",
+				"Período final" };
 	}
 
 }

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
+import dc.entidade.contabilidade.lancamento.LoteEntity;
+import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LoteListController extends
-		CRUDListController<LancamentoLoteEntity> {
+public class LoteListController extends CRUDListController<LoteEntity> {
 
 	/**
 	 * 
@@ -34,23 +33,23 @@ public class LoteListController extends
 	 */
 
 	@Autowired
-	private LancamentoLoteDAO pDAO;
+	private LoteDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private LancamentoLoteFormController pController;
+	private LoteFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "descricao", "dataInclusao", "dataLiberacao" };
 	}
 
 	@Override
-	protected Class<? super LancamentoLoteEntity> getEntityClass() {
-		return LancamentoLoteEntity.class;
+	protected Class<? super LoteEntity> getEntityClass() {
+		return LoteEntity.class;
 	}
 
 	@Override
@@ -59,21 +58,20 @@ public class LoteListController extends
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisa(String valor) {
+	protected List<LoteEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<LoteEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LoteEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<LancamentoLoteEntity> getFormController() {
+	protected CRUDFormController<LoteEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +89,15 @@ public class LoteListController extends
 	}
 
 	@Override
-	protected List<LancamentoLoteEntity> pesquisaDefault() {
+	protected List<LoteEntity> pesquisaDefault() {
 		try {
-			List<LancamentoLoteEntity> auxLista = this.pDAO.listarTodos();
+			List<LoteEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LancamentoLoteEntity>();
+			return new ArrayList<LoteEntity>();
 		}
 	}
 

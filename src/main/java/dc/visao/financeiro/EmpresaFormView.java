@@ -153,6 +153,7 @@ public class EmpresaFormView extends CustomComponent {
 	private VerticalLayout buildMainLayout() {
 		// common part: create layout
 		mainLayout = new VerticalLayout();
+		setHeight("300%");
 		// top-level component properties
 
 mainLayout.setSizeFull();

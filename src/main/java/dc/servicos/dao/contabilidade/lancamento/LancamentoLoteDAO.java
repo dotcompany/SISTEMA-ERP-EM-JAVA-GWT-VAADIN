@@ -54,7 +54,8 @@ public class LancamentoLoteDAO extends AbstractCrudDAO<LancamentoLoteEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Data da inclusão",
+				"Data da liberacao" };
 	}
 
 }

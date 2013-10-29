@@ -42,7 +42,7 @@ public class LancamentoOrcadoDAO extends
 	@Transactional
 	public List<LancamentoOrcadoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM LancamentoOrcadoEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LancamentoOrcadoEntity ent WHERE (1 = 1) AND ent.ano LIKE :q";
 
 			List<LancamentoOrcadoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -55,7 +55,7 @@ public class LancamentoOrcadoDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Ano", "Janeiro", "Fevereiro", "Março" };
 	}
 
 }

@@ -104,7 +104,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new TermoFormView(this);
 	}
 
 	/*
@@ -178,16 +178,29 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfAberturaEncerramento().setValue(
+					this.pEntity.getAberturaEncerramento());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getTfPaginaInicial().setValue(
+					this.pEntity.getPaginaInicial().toString());
+			this.subView.getTfPaginaFinal().setValue(
+					this.pEntity.getPaginaFinal().toString());
+			this.subView.getTfRegistrado().setValue(
+					this.pEntity.getRegistrado());
+			this.subView.getTfNumeroRegistro().setValue(
+					this.pEntity.getNumeroRegistro());
+			this.subView.getPdfDataDespacho().setValue(
+					this.pEntity.getDataDespacho());
+			this.subView.getPdfDataAbertura().setValue(
+					this.pEntity.getDataAbertura());
+			this.subView.getPdfDataEncerramento().setValue(
+					this.pEntity.getDataEncerramento());
+			this.subView.getPdfEscrituracaoInicio().setValue(
+					this.pEntity.getEscrituracaoInicio());
+			this.subView.getPdfEscrituracaoFim().setValue(
+					this.pEntity.getEscrituracaoFim());
+			this.subView.getTfTexto().setValue(this.pEntity.getTexto());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

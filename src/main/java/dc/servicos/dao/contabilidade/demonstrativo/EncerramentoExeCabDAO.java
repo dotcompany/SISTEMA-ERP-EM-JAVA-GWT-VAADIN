@@ -55,7 +55,7 @@ public class EncerramentoExeCabDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Data do início", "Data do término", "Motivo" };
 	}
 
 }

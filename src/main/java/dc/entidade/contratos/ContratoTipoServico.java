@@ -1,25 +1,30 @@
 package dc.entidade.contratos;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "CONTRATO_TIPO_SERVICO")
-public class ContratoTipoServico implements Serializable {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ContratoTipoServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -27,22 +32,22 @@ public class ContratoTipoServico implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "ID")
 	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption("Id")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	private String descricao;
-
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
 
 	public ContratoTipoServico() {
 	}
@@ -71,14 +76,6 @@ public class ContratoTipoServico implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
 	@Override
 	public String toString() {
 		return nome;
@@ -88,9 +85,8 @@ public class ContratoTipoServico implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((empresa == null) ? 0 : empresa.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((getEmpresa() == null) ? 0 : getEmpresa().hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
@@ -110,10 +106,10 @@ public class ContratoTipoServico implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (empresa == null) {
-			if (other.empresa != null)
+		if (getEmpresa() == null) {
+			if (other.getEmpresa() != null)
 				return false;
-		} else if (!empresa.equals(other.empresa))
+		} else if (!getEmpresa().equals(other.getEmpresa()))
 			return false;
 		if (id == null) {
 			if (other.id != null)

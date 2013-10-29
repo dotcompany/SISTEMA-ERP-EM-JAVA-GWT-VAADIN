@@ -2,13 +2,16 @@ package dc.entidade.contabilidade.planoconta;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,6 +28,12 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
 
 @Entity
 @Table(name = "plano_conta")
@@ -49,29 +58,32 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption(value = "Nome")
 	@Column(name = "nome")
 	@ComboValue
-	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
+	@Field
 	@Caption(value = "Data da inclusão")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inclusao")
-	@Field
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
 
+	@Field
 	@Caption(value = "Máscara")
 	@Column(name = "mascara")
-	@Field
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String mascara = "";
 
+	@Field
 	@Caption(value = "Níveis")
 	@Column(name = "niveis")
-	@Field
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer niveis = new Integer(0);
 
@@ -82,6 +94,9 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "planoConta", fetch = FetchType.LAZY)
+	private List<ContaEntity> contaList;
 
 	/**
 	 * CONSTRUTOR
@@ -134,6 +149,14 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNiveis(Integer niveis) {
 		this.niveis = (niveis == null ? new Integer(0) : niveis);
+	}
+
+	public List<ContaEntity> getContaList() {
+		return contaList;
+	}
+
+	public void setContaList(List<ContaEntity> contaList) {
+		this.contaList = contaList;
 	}
 
 	/**

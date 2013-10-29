@@ -3,6 +3,7 @@ package dc.controller.ged;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.server.FileResource;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Link;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.ged.Documento;
@@ -26,6 +25,7 @@ import dc.servicos.dao.ged.TipoDocumentoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainController;
@@ -56,6 +56,9 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	private ColaboradorDAO colaboradorDAO;
 
 	private Documento currentBean;
+	
+	@Autowired
+	private CompanyFileHandler companyFileHandler;
 
 	private static String DOCUMENT_PATH = "";
 
@@ -87,27 +90,13 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 			adicionarErroDeValidacao(subView.getDtFimVigencia(), "Não pode ficar em branco");
 			valido = false;
 		}
-		File tmpFile = (File) subView.getUpArquivo().getValue();
-		if (currentBean == null || currentBean.getId() == null) {
 
-			if (!Validator.validateObject(tmpFile) || !tmpFile.exists()) {
-				adicionarErroDeValidacao(subView.getUpArquivo(), "Selecione um arquivo");
+
+		if (subView.getCkbAssinado().getValue()) {
+			File arquivoCertificado = (File) subView.getUpAssinatura().getValue();
+			if (!Validator.validateObject(arquivoCertificado) || !arquivoCertificado.exists()) {
+				adicionarErroDeValidacao(subView.getUpArquivo(), "Selecione o arquivo de certificado");
 			}
-		}
-
-		if (Validator.validateObject(tipoDocumento) && Validator.validateObject(tmpFile) && tmpFile.exists()) {
-
-			if (tamanhoArquivoMega(tmpFile) > tipoDocumento.getTamanhoMaximo().doubleValue()) {
-				adicionarErroDeValidacao(subView.getUpArquivo(), "Tamanho do arquivo excedente");
-			}
-
-			if (subView.getCkbAssinado().getValue()) {
-				File arquivoCertificado = (File) subView.getUpArquivo().getValue();
-				if (!Validator.validateObject(arquivoCertificado) || !arquivoCertificado.exists()) {
-					adicionarErroDeValidacao(subView.getUpArquivo(), "Selecione o arquivo de certificado");
-				}
-			}
-
 		}
 
 		return valido;
@@ -127,12 +116,22 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Empresa empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
+		subView.setIdEmpresa(getIDEmpresa());
+		subView.setListArquivos(new ArrayList<String>());
+	}
+	
+	public String getIDEmpresa() {
+		Usuario usuario = SecuritySessionProvider.getUsuario();
+		Empresa empresa = usuario.getConta().getEmpresa();
+		return empresa.getId().toString();
+		
+		
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new DocumentoFormView();
-
+		companyFileHandler = new CompanyFileHandler();
 		DefaultManyToOneComboModel<TipoDocumento> model= new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class,tipoDocumentoDAO,mainController);
 		subView.getCmbTipoDocumento().setModel(model);
 		
@@ -148,18 +147,23 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		subView.getCkbPodeAlterar().setValue(currentBean.getPodeAlterar());
 		subView.getCkbPodeExcluir().setValue(currentBean.getPodeExcluir());
 		subView.getCkbAssinado().setValue(currentBean.getAssinado());
-		File arquivo = new File(((List<DocumentoArquivo>) currentBean.getDocumentos()).get(0).getCaminho());
-
-		FileResource fr = new FileResource(arquivo);
-		Link link = subView.getLinkDonwload();
-		link.setVisible(arquivo.exists());
-		link.setEnabled(true);
-		link.setResource(fr);
-		link.setTargetName("_blank");
-
-		subView.atualizaMiniatura(currentBean.getDocumentos());
+		subView.setListArquivos(new ArrayList<String>());
+		
+		List<DocumentoArquivo> listArquivos = currentBean.getDocumentos();
+		
+	    subView.setIdDocumento(currentBean.getId().toString());
+		
+		subView.setIdEmpresa(getIDEmpresa());
+		
+		for(int i = 0; i < listArquivos.size(); i++){
+			String arquivo = listArquivos.get(i).getCaminho();
+			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i+1));
+		}
+	
 		
 		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());
+		
+	
 	}
 
 	@Override
@@ -175,13 +179,16 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		currentBean.setAssinado(false);
 
 		try {
+			
+			Integer id = currentBean.getId();
+			if(id == null){
+				id = new Integer(0);
+			}
+			
 			documentoDAO.saveOrUpdate(currentBean);
-
-			gravarAnexo(currentBean);
-
+		   	gravarAnexo(currentBean);
+					
 			notifiyFrameworkSaveOK(this.currentBean);
-			subView.getUpArquivo().setValue(null);
-			subView.atualizaMiniatura(currentBean.getDocumentos());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 
@@ -193,46 +200,65 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		String caminho = null;
 		String hash = null;
-
-		tmpFile = (File) subView.getUpArquivo().getValue();
-		hash = Util.md5Arquivo(tmpFile.getAbsolutePath());
-		String nomeArquivoSelecionado = subView.getNomeArquivo();
-		byte[] temp = Util.lerBytesArquivo(tmpFile);
-
-		caminho = DOCUMENT_PATH + "" + currentBean.getEmpresa().getId() + File.separator + documento.getId()
-				+ File.separator + hash + getExtensao(nomeArquivoSelecionado);
-
-		File arquivo = Util.gravarArquivo(caminho, temp);
-
-		if (arquivo != null && arquivo.exists()) {
-
-			if (currentBean.getAssinado()) {
-				File certificado = (File) subView.getUpAssinatura().getValue();
-				byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, subView
-						.getPwSenhaCertificado().getValue().toCharArray());
-				// usa o array de bytes e salva
-				Util.gravarArquivo(hash, assinatura);
+		
+		List<String> listArquivos = subView.getListArquivos();
+		
+		for(int i = 0 ; i < listArquivos.size(); i++){
+			String file = listArquivos.get(i);
+			
+			tmpFile = new File(file);
+			
+			try{hash = Util.md5Arquivo(tmpFile.getAbsolutePath());}catch(Exception e){
+				hash = "0";
+			}
+			
+			if(file.indexOf(hash) == -1 && !hash.equals("0")){
+					
+					byte[] temp = Util.lerBytesArquivo(tmpFile);
+					
+					String homePath = System.getProperty("user.home");
+					String customCompanyBaseFolder = "dc-erp";
+					String arqOriginal =  file;
+					
+					String copyArquivo = homePath + "/"+ customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() +  "/" + documento.getId() + "/" + file;
+					
+					caminho = homePath + "/"+ customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() +  "/" + documento.getId() + "/" +  hash + getExtensao(file);
+					
+					Util.copyFile(new File(arqOriginal), new File(caminho));
+		
+					File arquivo = Util.gravarArquivo(caminho, temp);
+		
+					if (arquivo != null && arquivo.exists()) {
+		
+						if (currentBean.getAssinado()) {
+							File certificado = (File) subView.getUpAssinatura().getValue();
+							byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, subView
+									.getPwSenhaCertificado().getValue().toCharArray());
+							// usa o array de bytes e salva
+							Util.gravarArquivo(hash, assinatura);
+						}
+					}
+		
+					DocumentoArquivo doc = new DocumentoArquivo();
+					doc.setCaminho(caminho);
+					doc.setHash(hash);
+					doc.setExtensaoArquivo(getExtensao(caminho));
+		
+					doc.setDocumento(currentBean);
+					currentBean.getDocumentos().add(doc);
+		
+					VersaoDocumento versao = verificaVersao(doc);
+					if(versao != null)
+					   documentoDAO.saveOrUpdate(versao);
+					try {
+						tmpFile.delete();
+				
+					} catch (Exception e) {
+					}
 			}
 		}
 
-		DocumentoArquivo doc = new DocumentoArquivo();
-		doc.setCaminho(caminho);
-		doc.setHash(hash);
-		doc.setExtensaoArquivo(getExtensao(caminho));
-
-		doc.setDocumento(currentBean);
-		currentBean.getDocumentos().add(doc);
-
-		VersaoDocumento versao = verificaVersao(doc);
-		documentoDAO.saveOrUpdate(versao);
-		try {
-			tmpFile.delete();
-			if (subView.getNomeArquivoVisualizacao() != null) {
-				new File(subView.getNomeArquivoVisualizacao()).delete();
-			}
-
-		} catch (Exception e) {
-		}
+		
 
 	}
 
@@ -249,7 +275,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 			DocumentoArquivo arquivoOriginal = original.getDocumentos().iterator().next();
 
-			if (!arquivoOriginal.getHash().equals(doc.getHash())) {
+		     if (!arquivoOriginal.getHash().equals(doc.getHash())) {
 
 				versao = new VersaoDocumento();
 				versao.setAcao(acao);

@@ -41,7 +41,7 @@ public class LoteDAO extends AbstractCrudDAO<LoteEntity> {
 	@Transactional
 	public List<LoteEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM LoteEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM LoteEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
 			List<LoteEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
@@ -53,7 +53,8 @@ public class LoteDAO extends AbstractCrudDAO<LoteEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Descrição", "Data da inclusão",
+				"Data da liberacao" };
 	}
 
 }

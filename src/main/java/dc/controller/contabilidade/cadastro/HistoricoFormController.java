@@ -105,7 +105,7 @@ public class HistoricoFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new HistoricoFormView(this);
 	}
 
 	/*
@@ -179,16 +179,10 @@ public class HistoricoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfHistorico().setValue(this.pEntity.getHistorico());
+			this.subView.getTfPedeComplemento().setValue(
+					this.pEntity.getPedeComplemento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

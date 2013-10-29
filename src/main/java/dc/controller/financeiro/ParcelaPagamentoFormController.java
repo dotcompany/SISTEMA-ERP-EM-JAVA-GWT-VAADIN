@@ -30,6 +30,7 @@ import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
+import dc.visao.financeiro.ParcelaPagamentoFormView.TipoBaixa;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -106,6 +107,33 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			}
 		});
 
+		subView.getCbTipoBaixa().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+
+				TipoBaixa tipoBaixa = (TipoBaixa) subView.getCbTipoBaixa().getValue();
+
+				switch (tipoBaixa) {
+				case PARCIAL:
+					subView.getTxValorPago().setEnabled(true);
+					break;
+				case TOTAL:
+					subView.getTxValorPago().setEnabled(false);
+
+				default:
+					break;
+				}
+
+			}
+		});
+		;
+
 		subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
 		subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
 		subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
@@ -144,7 +172,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		this.subView.getCbContaCaixa().setModel(model1);
 
 		DefaultManyToOneComboModel<TipoPagamento> model2 = new DefaultManyToOneComboModel<TipoPagamento>(TipoPagamentoListController.class,
-				this.tipoPagamentoDAO, super.getMainController()){
+				this.tipoPagamentoDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "descricao";

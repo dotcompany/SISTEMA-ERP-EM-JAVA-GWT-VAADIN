@@ -45,7 +45,8 @@ public class DreCabecalhoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "descricao", "padrao", "periodo_inicial",
+				"periodo_final" };
 	}
 
 	@Override

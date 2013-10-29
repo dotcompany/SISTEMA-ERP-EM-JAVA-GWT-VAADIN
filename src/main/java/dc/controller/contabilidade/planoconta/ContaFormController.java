@@ -104,7 +104,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new ContaFormView(this);
 	}
 
 	/*

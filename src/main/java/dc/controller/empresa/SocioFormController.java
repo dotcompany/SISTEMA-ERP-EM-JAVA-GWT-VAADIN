@@ -10,25 +10,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.web.bindery.requestfactory.vm.impl.Deobfuscator;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
+import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.TipoRelacionamento;
-import dc.entidade.produto.Produto;
-import dc.framework.exception.ErroValidacaoException;
+import dc.servicos.dao.empresa.DependenteDAO;
+import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
+import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
+import dc.visao.empresa.SocioFormView.DIRIGENTE;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
+import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
@@ -46,7 +52,19 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	TipoRelacionamentoDAO tipoRelacionamentoDAO;
 
 	@Autowired
+	PessoaDAO pessoaDAO;
+
+	@Autowired
+	QuadroSocietarioDAO quadroSocietarioDAO;
+
+	@Autowired
+	ParticipacaoSocietariaDAO participacaoSocietariaDAO;
+
+	@Autowired
 	UFDAO ufDAO;
+
+	@Autowired
+	DependenteDAO dependenteDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -72,8 +90,103 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
+
 		currentBean = dao.find((Integer) id);
+		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
+		List<ParticipacaoSocietaria> participacoes = participacaoSocietariaDAO.findBySocio(currentBean);
+
+		try{
+			carregarCombos();
+
+			if(Validator.validateObject(currentBean.getPessoa())){
+				subView.getCmbSocio().setValue(currentBean.getPessoa());
+			}
+
+			if(Validator.validateObject(currentBean.getQuadroSocietario())){
+				subView.getCmbQuadroSocietario().setValue(currentBean.getQuadroSocietario());
+			}
+
+			subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
+			subView.getTxtNumero().setValue(currentBean.getNumero().toString());
+			subView.getTxtComplemento().setValue(currentBean.getComplemento());
+
+			if(Validator.validateObject(currentBean.getBairro())){
+				subView.getTxtBairro().setValue(currentBean.getBairro());	
+			}
+
+			if(Validator.validateObject(currentBean.getUf())){
+				subView.getCmbUF().setValue(currentBean.getUf());	
+			}
+
+
+			if(Validator.validateObject(currentBean.getMunicipio())){
+				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());	
+			}
+
+
+			if(Validator.validateObject(currentBean.getCep())){
+				subView.getTxtCep().setValue(currentBean.getCep());
+			}
+
+			if(Validator.validateObject(currentBean.getFone())){
+				subView.getTxtFone().setValue(currentBean.getFone());
+			}
+
+			if(Validator.validateObject(currentBean.getCelular())){
+				subView.getTxtCelular().setValue(currentBean.getCelular());
+			}
+
+			if(Validator.validateObject(currentBean.getEmail())){
+				subView.getTxtEmail().setValue(currentBean.getEmail());
+			}
+
+			if(Validator.validateObject(currentBean.getParticipacao())){
+				subView.getTxtParticipacao().setValue(currentBean.getParticipacao().toString());
+			}
+
+			if(Validator.validateObject(currentBean.getQuotas())){
+				subView.getTxtQuotas().setValue(currentBean.getQuotas().toString());
+			}
+
+			if(Validator.validateObject(currentBean.getIntegralizar())){
+				subView.getTxtIntegralizar().setValue(currentBean.getIntegralizar().toString());
+			}
+
+			if(Validator.validateObject(currentBean.getDataIngresso())){
+				subView.getDataIngresso().setValue(currentBean.getDataIngresso());
+			}
+
+			if(Validator.validateObject(currentBean.getDataSaida())){
+				subView.getDataSaida().setValue(currentBean.getDataSaida());
+			}
+
+			if(dependentes!=null) {
+				subView.preencherSubFormDependente(dependentes);
+			}
+
+			if(participacoes!=null) {
+
+				for(ParticipacaoSocietaria p : participacoes){
+
+					if(p.getDirigente()!=null && !(p.getDirigente().isEmpty()))
+						p.setDirigenteEnum(DIRIGENTE.getDirigente(p.getDirigente()));
+				}
+
+
+				subView.preencherSubFormParticipacao(participacoes);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+
+
+	}
+
+	void carregarCombos(){
+		carregarPessoas();
+		carregarUFs();
 	}
 
 	public Empresa empresaAtual(){
@@ -83,7 +196,118 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	@Override
 	protected void actionSalvar() {
 
-		dao.saveOrUpdate(currentBean);
+
+		try{
+			Pessoa socio = (Pessoa)subView.getCmbSocio().getValue();
+			QuadroSocietario quadro = (QuadroSocietario)subView.getCmbQuadroSocietario().getValue(); 
+
+
+			String logradouro = subView.getTxtLogradouro().getValue();
+			String numero = subView.getTxtNumero().getValue();
+			String complemento = subView.getTxtComplemento().getValue();
+
+			String bairro = subView.getTxtBairro().getValue();
+			String municipio = subView.getTxtMunicipio().getValue();
+			String uf = (String)subView.getCmbUF().getValue();
+			String cep = subView.getTxtCep().getValue();
+
+			String fone = subView.getTxtFone().getValue();
+			String celular = subView.getTxtCelular().getValue();
+			String email = subView.getTxtEmail().getValue();
+
+
+			String participacao = subView.getTxtParticipacao().getValue();
+			String quotas = subView.getTxtQuotas().getValue();
+			String integralizar = subView.getTxtIntegralizar().getValue();
+			Date dataIngresso = subView.getDataIngresso().getValue();
+			Date dataSaida = subView.getDataSaida().getValue();
+
+			if(Validator.validateObject(socio)){
+				currentBean.setPessoa(socio);
+			}
+
+			if(Validator.validateObject(quadro)){
+				currentBean.setQuadroSocietario(quadro);
+			}
+
+			if(Validator.validateObject(logradouro)){
+				currentBean.setLogradouro(logradouro);
+			}
+
+			if(Validator.validateObject(numero)){
+				currentBean.setNumero(new Integer(numero));
+			}
+
+			if(Validator.validateObject(complemento)){
+				currentBean.setComplemento(complemento);
+			}
+
+			if(Validator.validateObject(bairro)){
+				currentBean.setBairro(bairro);
+			}
+
+			if(Validator.validateObject(municipio)){
+				currentBean.setMunicipio(municipio);
+			}
+
+			if(Validator.validateObject(uf)){
+				currentBean.setUf(uf);
+			}
+
+			if(Validator.validateObject(cep)){
+				currentBean.setCep(cep);
+			}
+
+			if(Validator.validateObject(fone)){
+				currentBean.setFone(fone);
+			}
+
+			if(Validator.validateObject(celular)){
+				currentBean.setCelular(celular);			
+			}
+
+			if(Validator.validateObject(email)){
+				currentBean.setEmail(email);
+			}
+
+			if(Validator.validateObject(participacao)){
+				currentBean.setParticipacao(new BigDecimal(formataValor(participacao)));
+			}
+
+			if(Validator.validateObject(quotas)){
+				currentBean.setQuotas(new Integer(quotas));
+			}
+
+			if(Validator.validateObject(integralizar)){
+				currentBean.setIntegralizar(new BigDecimal(formataValor(integralizar)));
+			}
+
+			if(Validator.validateObject(dataIngresso)){
+				currentBean.setDataIngresso(dataIngresso);
+			}
+
+			if(Validator.validateObject(dataSaida)){
+				currentBean.setDataSaida(dataSaida);
+			}
+
+			dao.saveOrUpdate(currentBean);
+
+			List<ParticipacaoSocietaria> participacoes = subView.getParticipacoesSubForm().getDados();
+			for(ParticipacaoSocietaria p : participacoes){
+
+				p.setDirigente(p.getDirigenteEnum().getCodigo());
+				participacaoSocietariaDAO.saveOrUpdate(p);
+			}
+
+
+
+			notifiyFrameworkSaveOK(currentBean);
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+
 
 	}
 
@@ -128,13 +352,21 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 	public Dependente adicionarDependente(){
 		Dependente dep = new Dependente();
-		currentBean.adicionarDependente(dep);
+		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
+		if(dependentes == null) dependentes = new ArrayList<Dependente>();
+		currentBean.setDependentes(dependentes);
+		currentBean.getDependentes().add(dep);
+		dep.setSocio(currentBean);
 		return dep;
 	}
 
 	public ParticipacaoSocietaria adicionarParticipacao(){
 		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
-		currentBean.adicionarDependente(p);
+		List<ParticipacaoSocietaria> lista = participacaoSocietariaDAO.findBySocio(currentBean);
+		if(lista == null) lista = new ArrayList<ParticipacaoSocietaria>();
+		currentBean.setParticipacoes(lista);
+		currentBean.getParticipacoes().add(p);
+		p.setSocio(currentBean);
 		return p;
 	}
 
@@ -158,6 +390,41 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		}	
 
 		return container;
+	}
+
+	public List<Pessoa>listarPessoas(){
+		return pessoaDAO.listaTodos();
+	}
+
+	public List<QuadroSocietario>listarQuadros(){
+		return quadroSocietarioDAO.listaTodos();
+	}
+
+	public BeanItemContainer<Pessoa> carregarPessoas(){
+		BeanItemContainer<Pessoa> container=  new BeanItemContainer<>(Pessoa.class);
+		for(Pessoa p : listarPessoas()){
+			container.addItem(p);
+		}
+		return container;
+	}
+
+	public BeanItemContainer<QuadroSocietario> carregarQuadros(){
+		BeanItemContainer<QuadroSocietario> container=  new BeanItemContainer<>(QuadroSocietario.class);
+		for(QuadroSocietario p : listarQuadros()){
+			container.addItem(p);
+		}
+		return container;
+
+
+	}
+
+	public String formataValor(String valor){
+		String format = "";
+		format = valor.replace("R$","").
+				substring(0,valor.indexOf(",")).
+
+				replaceAll( ",","" ).trim();
+		return format;
 	}
 
 }

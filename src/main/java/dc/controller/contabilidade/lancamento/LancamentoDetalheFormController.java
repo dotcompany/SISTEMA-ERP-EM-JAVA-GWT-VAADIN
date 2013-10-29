@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.lancamento.LancamentoLoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoLoteDAO;
-import dc.visao.contabilidade.lancamento.LancamentoLoteFormView;
+import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoDetalheDAO;
+import dc.visao.contabilidade.lancamento.LancamentoDetalheFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -24,27 +24,27 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 public class LancamentoDetalheFormController extends
-		CRUDFormController<LancamentoLoteEntity> {
+		CRUDFormController<LancamentoDetalheEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private LancamentoLoteFormView subView;
+	private LancamentoDetalheFormView subView;
 
 	/**
 	 * DAO'S
 	 */
 
 	@Autowired
-	private LancamentoLoteDAO pDAO;
+	private LancamentoDetalheDAO pDAO;
 
 	/**
 	 * ENTITIES
 	 */
 
-	private LancamentoLoteEntity pEntity;
+	private LancamentoDetalheEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
@@ -52,7 +52,7 @@ public class LancamentoDetalheFormController extends
 
 	public LancamentoDetalheFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new LancamentoLoteEntity();
+			this.pEntity = new LancamentoDetalheEntity();
 		}
 	}
 
@@ -105,7 +105,7 @@ public class LancamentoDetalheFormController extends
 
 	@Override
 	protected void initSubView() {
-		// this.subView = new AidfAimdfFormView(null);
+		this.subView = new LancamentoDetalheFormView(this);
 	}
 
 	/*
@@ -174,7 +174,7 @@ public class LancamentoDetalheFormController extends
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new LancamentoLoteEntity();
+				this.pEntity = new LancamentoDetalheEntity();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
