@@ -76,6 +76,10 @@ public class TermoFormView extends CustomComponent {
 		setCompositionRoot(this.mainLayout);
 	}
 
+	/**
+	 * GETS E SETS
+	 */
+
 	public TextField getTfAberturaEncerramento() {
 		return tfAberturaEncerramento;
 	}

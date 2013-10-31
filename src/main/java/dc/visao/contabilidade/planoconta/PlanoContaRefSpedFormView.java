@@ -59,6 +59,10 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 		setCompositionRoot(this.mainLayout);
 	}
 
+	/**
+	 * GETS E SETS
+	 */
+
 	public TextField getTfCodCtaRef() {
 		return tfCodCtaRef;
 	}
@@ -173,7 +177,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// tfCodCtaRef
 		tfCodCtaRef = new TextField();
-		tfCodCtaRef.setCaption("tfCodCtaRef:");
+		tfCodCtaRef.setCaption("Cod cta ref:");
 		tfCodCtaRef.setImmediate(false);
 		tfCodCtaRef.setWidth("175px");
 		tfCodCtaRef.setHeight("-1px");
@@ -183,7 +187,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// tfDescricao
 		tfDescricao = new TextField();
-		tfDescricao.setCaption("tfDescricao:");
+		tfDescricao.setCaption("Descrição:");
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("175px");
 		tfDescricao.setHeight("-1px");
@@ -193,7 +197,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// tfOrientacoes
 		tfOrientacoes = new TextField();
-		tfOrientacoes.setCaption("tfOrientacoes:");
+		tfOrientacoes.setCaption("Orientações:");
 		tfOrientacoes.setImmediate(false);
 		tfOrientacoes.setWidth("175px");
 		tfOrientacoes.setHeight("-1px");
@@ -203,7 +207,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// pdfInicioValidade
 		pdfInicioValidade = new PopupDateField();
-		pdfInicioValidade.setCaption("pdfInicioValidade:");
+		pdfInicioValidade.setCaption("Início da validade:");
 		pdfInicioValidade.setImmediate(false);
 		pdfInicioValidade.setWidth("175px");
 		pdfInicioValidade.setHeight("-1px");
@@ -212,7 +216,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// pdfFimValidade
 		pdfFimValidade = new PopupDateField();
-		pdfFimValidade.setCaption("pdfFimValidade:");
+		pdfFimValidade.setCaption("Fim da validade:");
 		pdfFimValidade.setImmediate(false);
 		pdfFimValidade.setWidth("175px");
 		pdfFimValidade.setHeight("-1px");
@@ -221,7 +225,7 @@ public class PlanoContaRefSpedFormView extends CustomComponent {
 
 		// tfTipo
 		tfTipo = new TextField();
-		tfTipo.setCaption("tfTipo:");
+		tfTipo.setCaption("Tipo:");
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
