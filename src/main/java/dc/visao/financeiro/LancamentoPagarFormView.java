@@ -31,6 +31,8 @@ import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.geral.Fornecedor;
+import dc.visao.financeiro.enums.SimNao;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -553,78 +555,6 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 	public void setCbContaCaixa(ManyToOneCombo<ContaCaixa> cbContaCaixa) {
 		this.cbContaCaixa = cbContaCaixa;
-	}
-
-	public enum SimNao {
-
-		SIM("Sim", "S"), NAO("Não", "N");
-
-		private SimNao(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static SimNao getSimNao(String codigo) {
-			for (SimNao e : SimNao.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum TipoVencimento {
-
-		MENSAL("Mensal", "M"), DIARIO("Diário", "D");
-
-		private TipoVencimento(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static TipoVencimento getTipoVencimento(String codigo) {
-			for (TipoVencimento e : TipoVencimento.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
 	}
 
 	public ManyToOneCombo<Fornecedor> getCbFornecedor() {

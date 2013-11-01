@@ -40,7 +40,7 @@ import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoPagarFormView;
-import dc.visao.financeiro.LancamentoPagarFormView.TipoVencimento;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;

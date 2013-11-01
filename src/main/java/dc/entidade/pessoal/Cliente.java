@@ -61,6 +61,7 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "ID", nullable = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private Integer id;
 
 	@Field
