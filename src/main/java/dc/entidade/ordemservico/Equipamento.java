@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -30,7 +30,7 @@ import dc.entidade.framework.ComboValue;
 @Table(name = "os_equipamento")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Equipamento extends AbstractModel<Integer> {
+public class Equipamento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class Equipamento extends AbstractModel<Integer> {
 	@Field
 	@Caption("Observacao")
 	@Lob
-	@Column(name = "obsevacao")
+	@Column(name = "observacao")
 	private String observacao;
 	
 	@Field
