@@ -29,6 +29,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Cliente;
 
@@ -49,48 +50,59 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@Field
 	@Column(name = "QUANTIDADE_PARCELA")
+	@Caption(value = "Quantidade Parcela")
 	private Integer quantidadeParcela;
 
 	@Field
 	@Column(name = "VALOR_TOTAL")
+	@Caption(value = "Valor Total")
 	private BigDecimal valorTotal;
 
 	@Field
 	@Column(name = "VALOR_A_RECEBER")
+	@Caption(value = "Valor Receber")
 	private BigDecimal valorAReceber;
 
 	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_LANCAMENTO")
+	@Caption(value = "Data Lançamento")
 	private Date dataLancamento;
 
 	@Field
 	@Column(name = "NUMERO_DOCUMENTO")
+	@Caption(value = "Número Documento")
 	private String numeroDocumento;
 
 	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
+	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimento;
 
 	@Field
 	@Column(name = "TAXA_COMISSAO")
+	@Caption(value = "Taxa Comissão")
 	private BigDecimal taxaComissao;
 
 	@Field
 	@Column(name = "VALOR_COMISSAO")
+	@Caption(value = "Valor Comissão")
 	private BigDecimal valorComissao;
 
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	@Field
+	@Caption(value = "Inrvalo Parcelas")
 	private Integer intervaloEntreParcelas;
 
 	@Field
 	@Column(name = "CODIGO_MODULO_LCTO")
+	@Caption(value = "Código Módulo Lcto")
 	private String codigoModuloLcto;
 
-	@JoinColumn(name = "ID_FIN_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
+	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@Caption(value = "Documento Origem")
 	private DocumentoOrigem documentoOrigem;
 
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
