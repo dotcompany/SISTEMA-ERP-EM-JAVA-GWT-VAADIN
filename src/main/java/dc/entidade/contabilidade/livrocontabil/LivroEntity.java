@@ -102,6 +102,10 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 		return descricao;
 	}
 
+	// public void setNome(String nome) {
+	// setDescricao(nome);
+	// }
+
 	/**
 	 * CONSTRUTOR
 	 */

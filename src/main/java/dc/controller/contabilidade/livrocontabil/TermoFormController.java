@@ -93,6 +93,8 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 					.getValue();
 			String texto = this.subView.getTfTexto().getValue();
 
+			LivroEntity livro = this.subView.getCbLivro().getValue();
+
 			this.pEntity.setAberturaEncerramento(aberturaEncerramento);
 			this.pEntity.setNumero(Integer.parseInt(numero));
 			this.pEntity.setPaginaInicial(Integer.parseInt(paginaInicial));
@@ -105,6 +107,8 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			this.pEntity.setEscrituracaoInicio(escrituracaoInicio);
 			this.pEntity.setEscrituracaoFim(escrituracaoFim);
 			this.pEntity.setTexto(texto);
+
+			this.pEntity.setLivro(livro);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -226,8 +230,12 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new TermoEntity();
+
+				this.subView.getCbLivro().setValue(new LivroEntity());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 			}
 
 			this.subView.getTfAberturaEncerramento().setValue(
@@ -253,6 +261,10 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			this.subView.getPdfEscrituracaoFim().setValue(
 					this.pEntity.getEscrituracaoFim());
 			this.subView.getTfTexto().setValue(this.pEntity.getTexto());
+
+			// popularCombo();
+
+			// this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

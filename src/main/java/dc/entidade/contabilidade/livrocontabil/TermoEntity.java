@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -161,19 +162,17 @@ public class TermoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * TRANSIENT
 	 */
 
+	@Transient
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "nome")
-	private String nome = "";
-
 	public String getNome() {
-		return nome;
+		return aberturaEncerramento;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR
