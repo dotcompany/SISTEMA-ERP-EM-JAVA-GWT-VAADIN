@@ -42,7 +42,7 @@ public class EncerramentoExeCabDAO extends
 	@Transactional
 	public List<EncerramentoExeCabEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM EncerramentoExeCabEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM EncerramentoExeCabEntity ent WHERE (1 = 1) AND ent.motivo LIKE :q";
 
 			List<EncerramentoExeCabEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")

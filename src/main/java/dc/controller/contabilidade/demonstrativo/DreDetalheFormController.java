@@ -179,16 +179,15 @@ public class DreDetalheFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfClassificacao().setValue(
+					this.pEntity.getClassificacao());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfFormaCalculo().setValue(
+					this.pEntity.getFormaCalculo());
+			this.subView.getTfSinal().setValue(this.pEntity.getSinal());
+			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

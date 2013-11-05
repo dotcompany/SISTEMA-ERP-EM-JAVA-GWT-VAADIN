@@ -45,7 +45,7 @@ public class LancamentoCabecalhoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "data_lancamento", "data_inclusao", "tipo",
+		return new String[] { "dataLancamento", "dataInclusao", "tipo",
 				"liberado", "valor" };
 	}
 

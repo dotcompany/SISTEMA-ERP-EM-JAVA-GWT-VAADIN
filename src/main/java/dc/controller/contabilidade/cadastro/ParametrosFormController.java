@@ -179,16 +179,70 @@ public class ParametrosFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfMascara().setValue(this.pEntity.getMascara());
+			this.subView.getTfNiveis().setValue(
+					this.pEntity.getNiveis().toString());
+			this.subView.getTfInformarContaPor().setValue(
+					this.pEntity.getInformarContaPor());
+			this.subView.getTfCompartilhaPlanoConta().setValue(
+					this.pEntity.getCompartilhaPlanoConta());
+			this.subView.getTfCompartilhaHistoricos().setValue(
+					this.pEntity.getCompartilhaHistoricos());
+			this.subView.getTfAlteraLancamentoOutro().setValue(
+					this.pEntity.getAlteraLancamentoOutro());
+			this.subView.getTfHistoricoObrigatorio().setValue(
+					this.pEntity.getHistoricoObrigatorio());
+			this.subView.getTfPermiteLancamentoZerado().setValue(
+					this.pEntity.getPermiteLancamentoZerado());
+			this.subView.getTfGeraInformativoSped().setValue(
+					this.pEntity.getGeraInformativoSped());
+			this.subView.getTfSpedFormaEscritDiario().setValue(
+					this.pEntity.getSpedFormaEscritDiario());
+			this.subView.getTfSpedNomeLivroDiario().setValue(
+					this.pEntity.getSpedNomeLivroDiario());
+			this.subView.getTfAssinaturaDireita().setValue(
+					this.pEntity.getAssinaturaDireita());
+			this.subView.getTfAssinaturaEsquerda().setValue(
+					this.pEntity.getAssinaturaEsquerda());
+			this.subView.getTfContaAtivo().setValue(
+					this.pEntity.getContaAtivo());
+			this.subView.getTfContaPassivo().setValue(
+					this.pEntity.getContaPassivo());
+			this.subView.getTfContaPatrimonioLiquido().setValue(
+					this.pEntity.getContaPatrimonioLiquido());
+			this.subView.getTfContaDepreciacaoAcumulada().setValue(
+					this.pEntity.getContaDepreciacaoAcumulada());
+			this.subView.getTfContaCapitalSocial().setValue(
+					this.pEntity.getContaCapitalSocial());
+			this.subView.getTfContaResultadoExercicio().setValue(
+					this.pEntity.getContaResultadoExercicio());
+			this.subView.getTfContaPrejuizoAcumulado().setValue(
+					this.pEntity.getContaPrejuizoAcumulado());
+			this.subView.getTfContaLucroAcumulado().setValue(
+					this.pEntity.getContaLucroAcumulado());
+			this.subView.getTfContaTituloPagar().setValue(
+					this.pEntity.getContaTituloPagar());
+			this.subView.getTfContaTituloReceber().setValue(
+					this.pEntity.getContaTituloReceber());
+			this.subView.getTfContaJurosPassivo().setValue(
+					this.pEntity.getContaJurosPassivo());
+			this.subView.getTfContaJurosAtivo().setValue(
+					this.pEntity.getContaJurosAtivo());
+			this.subView.getTfContaDescontoObtido().setValue(
+					this.pEntity.getContaDescontoObtido());
+			this.subView.getTfContaDescontoConcedido().setValue(
+					this.pEntity.getContaDescontoConcedido());
+			this.subView.getTfContaCmv().setValue(this.pEntity.getContaCmv());
+			this.subView.getTfContaVenda().setValue(
+					this.pEntity.getContaVenda());
+			this.subView.getTfContaVendaServico().setValue(
+					this.pEntity.getContaVendaServico());
+			this.subView.getTfContaEstoque().setValue(
+					this.pEntity.getContaEstoque());
+			this.subView.getTfContaApuraResultado().setValue(
+					this.pEntity.getContaApuraResultado());
+			this.subView.getTfContaJurosApropriar().setValue(
+					this.pEntity.getContaJurosApropriar());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

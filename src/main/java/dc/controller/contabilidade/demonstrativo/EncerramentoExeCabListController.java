@@ -45,7 +45,7 @@ public class EncerramentoExeCabListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "data_inicio", "data_fim", "motivo" };
+		return new String[] { "dataInicio", "dataFim", "motivo" };
 	}
 
 	@Override
