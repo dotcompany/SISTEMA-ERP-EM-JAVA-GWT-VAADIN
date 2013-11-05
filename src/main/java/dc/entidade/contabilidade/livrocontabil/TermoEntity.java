@@ -158,6 +158,24 @@ public class TermoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	/**
+	 * TRANSIENT
+	 */
+
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "nome")
+	private String nome = "";
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
 	 * CONSTRUTOR
 	 */
 

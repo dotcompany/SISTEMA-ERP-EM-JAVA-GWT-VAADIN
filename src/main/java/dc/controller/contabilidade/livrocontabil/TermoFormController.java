@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.livrocontabil;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
+import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.servicos.dao.contabilidade.livrocontabil.TermoDAO;
 import dc.visao.contabilidade.livrocontabil.TermoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -38,6 +42,9 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 	@Autowired
 	private TermoDAO pDAO;
+
+	@Autowired
+	private LivroDAO lDAO;
 
 	/**
 	 * ENTITIES
@@ -68,6 +75,37 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			String aberturaEncerramento = this.subView
+					.getTfAberturaEncerramento().getValue();
+			String numero = this.subView.getTfNumero().getValue();
+			String paginaInicial = this.subView.getTfPaginaInicial().getValue();
+			String paginaFinal = this.subView.getTfPaginaFinal().getValue();
+			String registrado = this.subView.getTfRegistrado().getValue();
+			String numeroRegistro = this.subView.getTfNumeroRegistro()
+					.getValue();
+			Date dataDespacho = this.subView.getPdfDataDespacho().getValue();
+			Date dataAbertura = this.subView.getPdfDataAbertura().getValue();
+			Date dataEncerramento = this.subView.getPdfDataEncerramento()
+					.getValue();
+			Date escrituracaoInicio = this.subView.getPdfEscrituracaoInicio()
+					.getValue();
+			Date escrituracaoFim = this.subView.getPdfEscrituracaoFim()
+					.getValue();
+			String texto = this.subView.getTfTexto().getValue();
+
+			this.pEntity.setAberturaEncerramento(aberturaEncerramento);
+			this.pEntity.setNumero(Integer.parseInt(numero));
+			this.pEntity.setPaginaInicial(Integer.parseInt(paginaInicial));
+			this.pEntity.setPaginaFinal(Integer.parseInt(paginaFinal));
+			this.pEntity.setRegistrado(registrado);
+			this.pEntity.setNumeroRegistro(numeroRegistro);
+			this.pEntity.setDataDespacho(dataDespacho);
+			this.pEntity.setDataAbertura(dataAbertura);
+			this.pEntity.setDataEncerramento(dataEncerramento);
+			this.pEntity.setEscrituracaoInicio(escrituracaoInicio);
+			this.pEntity.setEscrituracaoFim(escrituracaoFim);
+			this.pEntity.setTexto(texto);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
@@ -105,6 +143,8 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	@Override
 	protected void initSubView() {
 		this.subView = new TermoFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -156,6 +196,18 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<LivroEntity> model = new DefaultManyToOneComboModel<LivroEntity>(
+					LivroListController.class, this.lDAO,
+					super.getMainController());
+
+			this.subView.getCbLivro().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************
