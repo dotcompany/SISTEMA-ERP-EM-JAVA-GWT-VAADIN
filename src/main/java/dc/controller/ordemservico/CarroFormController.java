@@ -67,7 +67,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	@Override  
 	protected void actionSalvar() {
 		currentBean.setPlaca(subView.getTfPlaca().getValue());
-		currentBean.setMarca(subView.getCbMarca().getValue()); 
+		currentBean.setMarca(subView.getCbMarca().getValue());
 		currentBean.setCor(subView.getCbCor().getValue());
 		currentBean.setModelo(subView.getCbModelo().getValue());
 		currentBean.setCombustivel(subView.getCbCombustivel().getValue());
@@ -120,25 +120,25 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	
 	private void preencheCombos() {
 
+		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class,
+				this.marcaDAO, super.getMainController());
 
+		this.subView.getCbMarca().setModel(marca);
+		
 		DefaultManyToOneComboModel<Cor> cor = new DefaultManyToOneComboModel<Cor>(CorListController.class,
 				this.corDAO, super.getMainController());
 
 		this.subView.getCbCor().setModel(cor);
 
+		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
+				this.modeloDAO, super.getMainController());
+
+		this.subView.getCbModelo().setModel(modelo);
+
 		DefaultManyToOneComboModel<Combustivel> combustivel = new DefaultManyToOneComboModel<Combustivel>(CombustivelListController.class,
 				this.combustivelDAO, super.getMainController());
 
 		this.subView.getCbCombustivel().setModel(combustivel);
-
-		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(Marca.class,
-				this.marcaDAO, super.getMainController());
-
-		this.subView.getCbMarca().setModel(marca);
-
-		System.out.println("Marca: "+this.subView.getCbMarca().getValue());
-	//	carregaComboMarca();
-//		carregaComboModelo(currentBean.getMarca());
 
 	}
 	
@@ -170,22 +170,4 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	public String getViewIdentifier() {
 		return "carroForm";
 	}
-	
-	public void carregaComboModelo(Marca marca) {
-		System.out.println("Marca no carregaComboModelo: "+marca.getId());
-		List<Modelo> modelos;
-		if (marca != null) {
-			
-			modelos = modeloDAO.listaModeloPorMarca(marca);
-		} else {
-			modelos = modeloDAO.listaTodos();
-		}
-
-//		subView.populaModelos(modelos);
-	}
-
-//	private void carregaComboMarca() {
-//		List<Marca> marcas = marcaDAO.listaTodos();
-//		subView.populaMarcas(marcas);
-//	}
 } 
