@@ -242,7 +242,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 								Property<BigDecimal>valorReajuste = getBigDecimal("valorReajuste");
                                Object tipoReajuste =  cmbTipoReajuste.getValue();
 								if(produto!=null){
-									valorOriginal.setValue(produto.getValorVenda());	
+									//valorOriginal.setValue(produto.getValorVenda());	
 								}
 								if(porcentagem!=null && valorOriginal!=null && tipoReajuste!=null){
 									TipoReajuste tipo = (TipoReajuste)tipoReajuste;

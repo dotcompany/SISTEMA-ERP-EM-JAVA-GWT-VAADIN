@@ -344,13 +344,13 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 				msgErro = "Informe o Grupo Tributário";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
+
 			OperacaoFiscal operacao = (OperacaoFiscal)subView.getCmbOperacaoFiscal().getValue();
 			if(operacao == null) {
 				msgErro = "Informe a Operação Fiscal";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
+
 			currentBean.setGrupoTributario(grupo);
 			currentBean.setOperacaoFiscal(operacao);
 			dao.saveOrUpdate(currentBean);
@@ -358,14 +358,16 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 			List<ICMSConfiguracaoTributaria> detalhes = subView.getIcmsSubForm().getDados();
 
-			for(ICMSConfiguracaoTributaria detalhe : detalhes){
-				detalhe.setConfiguracaoTributaria(currentBean);
-				detalhe.setCsosnB(detalhe.getCsosn().getId().toString());
-				detalhe.setCstB(detalhe.getCst().getId().toString());
+			if(detalhes!=null) {
+				for(ICMSConfiguracaoTributaria detalhe : detalhes){
+					detalhe.setConfiguracaoTributaria(currentBean);
+					detalhe.setCsosnB(detalhe.getCsosn().getId().toString());
+					detalhe.setCstB(detalhe.getCst().getId().toString());
 
-				//detalhe.setModalidadeBc(((MODALIDADE_BC)(detalhe.getModalidadeBc().getValue())).getCodigo());
+					//detalhe.setModalidadeBc(((MODALIDADE_BC)(detalhe.getModalidadeBc().getValue())).getCodigo());
 
-				icmsDAO.saveOrUpdate(detalhe);
+					icmsDAO.saveOrUpdate(detalhe);
+				}
 			}
 
 			salvarPis(currentBean);
@@ -373,7 +375,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 			salvarIpi(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 		}	catch (ErroValidacaoException e) {
-				mensagemErro(e.montaMensagemErro());
+			mensagemErro(e.montaMensagemErro());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

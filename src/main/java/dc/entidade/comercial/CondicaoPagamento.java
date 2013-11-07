@@ -142,6 +142,11 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 		getParcelas().add(parcela);
 		parcela.setCondicaoPagamento(this);
 	}
+
+	@Override
+	public String toString() {
+		return  nome ;
+	}
 	
 	
 

@@ -81,8 +81,8 @@ public class MarcaProduto extends AbstractMultiEmpresaModel<Integer> implements 
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "marcaProduto", fetch = FetchType.LAZY)
-	private List<Produto> produtoList;
+//	@OneToMany(mappedBy = "marcaProduto", fetch = FetchType.LAZY)
+//	private List<Produto> produtoList;
 
 	/**
 	 * CONSTRUTOR
@@ -120,13 +120,13 @@ public class MarcaProduto extends AbstractMultiEmpresaModel<Integer> implements 
 		this.descricao = descricao;
 	}
 
-	public List<Produto> getProdutoList() {
-		return produtoList;
-	}
-
-	public void setProdutoList(List<Produto> produtoList) {
-		this.produtoList = produtoList;
-	}
+//	public List<Produto> getProdutoList() {
+//		return produtoList;
+//	}
+//
+//	public void setProdutoList(List<Produto> produtoList) {
+//		this.produtoList = produtoList;
+//	}
 
 	@Override
 	public int hashCode() {
