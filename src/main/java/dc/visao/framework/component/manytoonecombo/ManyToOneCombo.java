@@ -2,6 +2,7 @@ package dc.visao.framework.component.manytoonecombo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,17 +12,18 @@ import com.porotype.iconfont.FontAwesome.Icon;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Container.ItemSetChangeListener;
+import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
@@ -41,7 +43,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	private ManyToOneComboModel<T> model;
 	private String filterString;
-
+	private LinkedList<ValueChangeListener> valueChangeListeners = null;
+	
 	public static int ITEM_TYPE_BEAN = 0;
 	public static int ITEM_TYPE_CREATE = 1;
 	public static int ITEM_TYPE_SEARCH = 2;
@@ -301,4 +304,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.setValue(item);
 	}
 
+    public void addValueChangeListener(ValueChangeListener listener) {
+		System.out.println("modelo chanaddValueChangeListenerged:");
+
+        if (valueChangeListeners == null) {
+            valueChangeListeners = new LinkedList<ValueChangeListener>();
+        }
+        valueChangeListeners.add(listener);
+
+    }
 }
