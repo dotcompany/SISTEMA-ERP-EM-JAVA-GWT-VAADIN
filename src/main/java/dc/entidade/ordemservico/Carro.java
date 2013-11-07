@@ -98,7 +98,7 @@ public class Carro extends AbstractMultiEmpresaModel<Integer> {
 //	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
 //	@ManyToOne(optional = false)
 //	private Empresa empresa;
-//	
+	
 	@Field
 	@Caption("Observacao")
 	@Lob

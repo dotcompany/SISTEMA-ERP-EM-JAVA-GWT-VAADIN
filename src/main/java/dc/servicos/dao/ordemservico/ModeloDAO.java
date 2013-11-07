@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Modelo;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -25,4 +26,10 @@ public class ModeloDAO extends AbstractCrudDAO<Modelo>{
 	public List<Modelo> listaTodos() {
 		return getSession().createQuery("from Modelo").list();
 	}
+	
+	@Transactional
+	public List<Modelo> listaModeloPorMarca(Marca marca) {
+		return getSession().createQuery("from Modelo m WHERE m.marca.id="+marca.getId()).list();
+	}
+	
 }
