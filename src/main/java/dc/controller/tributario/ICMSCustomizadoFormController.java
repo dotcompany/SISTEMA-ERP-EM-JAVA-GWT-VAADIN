@@ -92,7 +92,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		subView.getTxtDescricao().setValue(currentBean.getNome());
 		subView.carregarOrigemMercadoria();
 		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
 
@@ -136,7 +136,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 				origem = ((ORIGEM_MERCADORIA)(subView.getOrigemMercadoria().getValue())).getCodigo();
 			}
 
-			currentBean.setDescricao(subView.getTxtDescricao().getValue());
+			currentBean.setNome(subView.getTxtDescricao().getValue());
 			currentBean.setOrigemMercadoria(origem);
 			currentBean.setEmpresa(empresaAtual());
 

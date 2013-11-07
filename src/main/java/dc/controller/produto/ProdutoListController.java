@@ -40,7 +40,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "nome" };
+		return new String[] { "id" };
 	}
 
 	@Override

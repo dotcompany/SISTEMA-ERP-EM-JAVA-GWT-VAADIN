@@ -141,7 +141,9 @@ public class NCM extends AbstractMultiEmpresaModel<Integer> implements Serializa
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return  descricao ;
 	}
+
+	
 
 }

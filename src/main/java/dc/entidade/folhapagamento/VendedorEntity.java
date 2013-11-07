@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.pessoal.Colaborador;
 
 /**
  * 
@@ -43,10 +46,8 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "vendedor_id_seq", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vendedor_id_seq")
-	@SequenceGenerator(name = "vendedor_id_seq", sequenceName = "vendedor_id_seq", allocationSize = 1, initialValue = 0)
-	@Basic(optional = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vnd")
+	@SequenceGenerator(name = "vnd", sequenceName = "vendedor_id_seq", allocationSize = 1)
 	private Integer id;
 
 	/**
@@ -55,9 +56,13 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 	 * @module FOLHAPAGAMENTO
 	 */
 
-	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
-	private List<LancamentoComissaoEntity> lancamentoComissaoList;
+//	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
+//	private List<LancamentoComissaoEntity> lancamentoComissaoList;
 
+	@ManyToOne
+	@JoinColumn(name="id_colaborador")
+	Colaborador colaborador; 
+	
 	/**
 	 * CONSTRUTOR
 	 */
@@ -79,14 +84,14 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 		this.id = id;
 	}
 
-	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
-		return lancamentoComissaoList;
-	}
-
-	public void setLancamentoComissaoList(
-			List<LancamentoComissaoEntity> lancamentoComissaoList) {
-		this.lancamentoComissaoList = lancamentoComissaoList;
-	}
+//	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
+//		return lancamentoComissaoList;
+//	}
+//
+//	public void setLancamentoComissaoList(
+//			List<LancamentoComissaoEntity> lancamentoComissaoList) {
+//		this.lancamentoComissaoList = lancamentoComissaoList;
+//	}
 
 	/**
 	 * TO STRING
@@ -94,7 +99,7 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return colaborador.getPessoa().getNome();
 	}
 
 }

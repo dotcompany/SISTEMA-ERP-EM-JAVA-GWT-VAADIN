@@ -18,8 +18,9 @@ public class ClienteDAO extends AbstractCrudDAO<Cliente> {
 	}
 
 	@Transactional
-	public List<Cliente> listaTodos() {
-		return getSession().createQuery("from Cliente").list();
+	public List<Cliente>  listaTodos() {
+		List<Cliente> lista = getSession().createQuery("from Cliente").list(); 
+		return lista ;
 	}
 
 	@Override

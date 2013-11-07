@@ -80,32 +80,26 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	 * @Analyzer(definition = "dc_combo_analyzer") private int idUnidade;
 	 */
 
-	@Field
 	@Caption("Gtin")
 	@Column(name = "GTIN", length = 14)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String gtin;
 
-	@Field
 	@Caption("Codigo Interno")
 	@Column(name = "CODIGO_INTERNO", length = 60)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoInterno;
-
-	@Column(name = "NCM")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String ncm;
-
+	//
+	//	@Column(name = "NCM")
+	//	@ComboValue
+	//	@Analyzer(definition = "dc_combo_analyzer")
+	//	private String ncm;
+	//
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
-
+	//
 	// @Lob
 	@Field
 	@Caption("Descricao")
@@ -114,39 +108,39 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
-
+	//
 	@Field
 	@Caption("Descricao Pdv")
 	@Column(name = "DESCRICAO_PDV", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoPdv;
-
+	//
 	@Column(name = "VALOR_COMPRA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCompra;
-
+	//
 	@Column(name = "VALOR_VENDA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorVenda;
-
+	//
 	@Column(name = "PRECO_VENDA_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoVendaMinimo;
-
+	//
 	@Column(name = "PRECO_SUGERIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoSugerido;
-
+	//
 	@Column(name = "CUSTO_MEDIO_LIQUIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal custoMedioLiquido;
-
+	//
 	@Column(name = "PRECO_LUCRO_ZERO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -170,61 +164,61 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Column(name = "QUANTIDADE_ESTOQUE", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal qtdEstoque;
+	private BigDecimal quantidadeEstoque;
 
 	@Column(name = "QUANTIDADE_ESTOQUE_ANTERIOR", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal qtdEstoqueAnterior;
+	private BigDecimal quantidadeEstoqueAnterior;
 
 	@Column(name = "ESTOQUE_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal estoqueMin;
+	private BigDecimal estoqueMinimo;
 
 	@Column(name = "ESTOQUE_MAXIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal estoqueMax;
+	private BigDecimal estoqueMaximo;
 
 	@Column(name = "ESTOQUE_IDEAL", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueIdeal;
+	//
+	//	@Column(name = "EXCLUIDO")
+	//	@ComboValue
+	//	@Analyzer(definition = "dc_combo_analyzer")
+	//	private Character excluido;
+	//
+		@Column(name = "INATIVO")
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private String inativo;
+	//
+	//	@Column(name = "DATA_CADASTRO")
+	//	@ComboValue
+	//	@Analyzer(definition = "dc_combo_analyzer")
+	//	private Date dataCadastro;
+	//
+	//	@Column(name = "FOTO_PRODUTO", length = 65535)
+	//	@ComboValue
+	//	@Analyzer(definition = "dc_combo_analyzer")
+	//	private String fotoProduto;
+	//
 
-	@Column(name = "EXCLUIDO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Character excluido;
-
-	@Column(name = "INATIVO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String inativo;
-
-	@Column(name = "DATA_CADASTRO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataCadastro;
-
-	@Column(name = "FOTO_PRODUTO", length = 65535)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String fotoProduto;
+	@Column(name = "codigo_lst") 
+	private String codigoLst;
 
 	@Column(name = "EX_TIPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character exTipi;
+	private String exTipi;
 
-	/*
-	 * @Column(name = "CODIGO_iST") private String codigoIst;
-	 */
-
-	@Column(name = "CLASSE_ABC")
+	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String classeAbc;
+	private String tipo;
 
 	@Column(name = "IAT")
 	@ComboValue
@@ -241,26 +235,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoItemSped;
 
-	@Column(name = "PESO", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal peso;
-
-	@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal porcentoComissao;
-
-	@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal pontoPedido;
-
-	@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal loteEconomicoCompra;
-
 	@Column(name = "TOTALIZADOR_PARCIAL", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -271,70 +245,101 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBalanca;
 
-	@Column(name = "DATA_ALTERACAO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataAlteracao;
+	
+		@Column(name = "CLASSE_ABC")
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private String classe;
+	
 
-	@Column(name = "TIPO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo;
+		@Column(name = "PESO", precision = 11, scale = 2)
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private BigDecimal peso;
+	
+		@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private BigDecimal taxaComissao;
+	
+		@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private BigDecimal pontoPedido;
+	
+		@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
+		@ComboValue
+		@Analyzer(definition = "dc_combo_analyzer")
+		private BigDecimal loteEconomicoCompra;
+	
 
+	//
+	//	@Column(name = "DATA_ALTERACAO")
+	//	@ComboValue
+	//	@Analyzer(definition = "dc_combo_analyzer")
+	//	private Date dataAlteracao;
+	//
+
+	//
 	/**
 	 * Mapeamento SubGrupo-Produto
 	 * 
 	 * @author wesley Junior
 	 **/
-	/*
-	 * @JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
-	 * 
-	 * @ManyToOne(optional = false) private SubGrupoProduto idSubGrupo;
-	 */
 
-	/**
-	 * Mapeamento Unidade-Produto
-	 * 
-	 * @author wesley Junior
-	 **/
-	/*
-	 * @JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable =
-	 * true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private UnidadeProduto unidade;
-	 */
 
-	/*
-	 * @JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
-	 * 
-	 * @ManyToOne(optional = false) private MarcaProduto idMarcaProduto;
-	 */
 
-	@ManyToOne
-	@JoinColumn(name = "ID_SUB_GRUPO", nullable = false)
-	@Caption("Subgrupo")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private SubGrupoProduto subgrupoProduto;
+	@ManyToOne(optional = false) 
+	@JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
+	private SubGrupoProduto subGrupo;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_UNIDADE_PRODUTO", nullable = false)
-	@Caption("Unidade do produto")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private UnidadeProduto unidadeProduto;
+	//	 * @JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable =
+	//	 * true)
 
-	@ManyToOne
-	@JoinColumn(name = "id_marca_produto", nullable = false)
-	@Caption("Marca do produto")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private MarcaProduto marcaProduto;
+	@ManyToOne(optional = false) 
+	@JoinColumn(name = "ID_UNIDADE_PRODUTO", referencedColumnName = "ID") 
+	private UnidadeProduto unidade;
+	
+	@Column(name="aliquota_icms_paf")
+	private BigDecimal aliquotaIcms;
+	
+	@Column(name="aliquota_issqn_paf")
+	private BigDecimal aliquotaIssqn;
+	
+	
+	//	 */
+	//
+	//	/*
+	//	 * @JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
+	//	 * 
+	//	 * @ManyToOne(optional = false) private MarcaProduto idMarcaProduto;
+	//	 */
+	//
+	//	@ManyToOne
+	//	@JoinColumn(name = "ID_SUB_GRUPO", nullable = false)
+	//	@Caption("Subgrupo")
+	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	//	private SubGrupoProduto subgrupoProduto;
 
-	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Almoxarifado idAlmoxarifado;
+	//	@ManyToOne
+	//	@JoinColumn(name = "ID_UNIDADE_PRODUTO", nullable = false)
+	//	@Caption("Unidade do produto")
+	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	//	private UnidadeProduto unidadeProduto;
 
-	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private GrupoTributario idGrupoTributario;
+	//	@ManyToOne
+	//	@JoinColumn(name = "id_marca_produto", nullable = false)
+	//	@Caption("Marca do produto")
+	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	//	private MarcaProduto marcaProduto;
+
+	//	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
+	//	@ManyToOne(optional = false)
+	//	private Almoxarifado idAlmoxarifado;
+
+	//	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
+	//	@ManyToOne(optional = false)
+	//	private GrupoTributario idGrupoTributario;
 
 	public Produto() {
 
@@ -352,12 +357,431 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.id = id;
 	}
 
+	//	public String getGtin() {
+	//		return gtin;
+	//	}
+	//
+	//	public void setGtin(String gtin) {
+	//		this.gtin = gtin;
+	//	}
+	//
+	//	public String getNome() {
+	//		return nome;
+	//	}
+	//
+	//	public void setNome(String nome) {
+	//		this.nome = nome;
+	//	}
+	//
+	//	public String getDescricao() {
+	//		return descricao;
+	//	}
+	//
+	//	public void setDescricao(String descricao) {
+	//		this.descricao = descricao;
+	//	}
+	//
+	//	public String getDescricaoPdv() {
+	//		return descricaoPdv;
+	//	}
+	//
+	//	public void setDescricaoPdv(String descricaoPdv) {
+	//		this.descricaoPdv = descricaoPdv;
+	//	}
+	//
+	//	public BigDecimal getValorCompra() {
+	//		return valorCompra;
+	//	}
+	//
+	//	public void setValorCompra(BigDecimal valorCompra) {
+	//		this.valorCompra = valorCompra;
+	//	}
+	//
+	//	public BigDecimal getValorVenda() {
+	//		return valorVenda;
+	//	}
+	//
+	//	public void setValorVenda(BigDecimal valorVenda) {
+	//		this.valorVenda = valorVenda;
+	//	}
+	//
+	//	public BigDecimal getQtdEstoque() {
+	//		return qtdEstoque;
+	//	}
+	//
+	//	public void setQtdEstoque(BigDecimal qtdEstoque) {
+	//		this.qtdEstoque = qtdEstoque;
+	//	}
+	//
+	//	public BigDecimal getEstoqueMin() {
+	//		return estoqueMin;
+	//	}
+	//
+	//	public void setEstoqueMin(BigDecimal estoqueMin) {
+	//		this.estoqueMin = estoqueMin;
+	//	}
+	//
+	//	public BigDecimal getEstoqueMax() {
+	//		return estoqueMax;
+	//	}
+	//
+	//	public void setEstoqueMax(BigDecimal estoqueMax) {
+	//		this.estoqueMax = estoqueMax;
+	//	}
+	//
+	//	public Character getExcluido() {
+	//		return excluido;
+	//	}
+	//
+	//	public void setExcluido(Character excluido) {
+	//		this.excluido = excluido;
+	//	}
+	//
+	//	public Date getDataCadastro() {
+	//		return dataCadastro;
+	//	}
+	//
+	//	public void setDataCadastro(Date dataCadastro) {
+	//		this.dataCadastro = dataCadastro;
+	//	}
+	//
+	//	// /**
+	//	// * @return the subGrupo
+	//	// */
+	//	// public SubGrupoProduto getSubGrupo() {
+	//	// return subGrupo;
+	//	// }
+	//	//
+	//	// /**
+	//	// * @param subGrupo the subGrupo to set
+	//	// */
+	//	// public void setSubGrupo(SubGrupoProduto subGrupo) {
+	//	// this.subGrupo = subGrupo;
+	//	// }
+	//
+	//	// /**
+	//	// * @return the unidade
+	//	// */
+	//	// public UnidadeProduto getUnidade() {
+	//	// return unidade;
+	//	// }
+	//	//
+	//	// /**
+	//	// * @param unidade the unidade to set
+	//	// */
+	//	// public void setUnidade(UnidadeProduto unidade) {
+	//	// this.unidade = unidade;
+	//	// }
+	//
+	//	public String getCodigoInterno() {
+	//		return codigoInterno;
+	//	}
+	//
+	//	public void setCodigoInterno(String codigoInterno) {
+	//		this.codigoInterno = codigoInterno;
+	//	}
+	//
+	//	public String getNcm() {
+	//		return ncm;
+	//	}
+	//
+	//	public void setNcm(String ncm) {
+	//		this.ncm = ncm;
+	//	}
+	//
+	//	public BigDecimal getPrecoVendaMinimo() {
+	//		return precoVendaMinimo;
+	//	}
+	//
+	//	public void setPrecoVendaMinimo(BigDecimal precoVendaMinimo) {
+	//		this.precoVendaMinimo = precoVendaMinimo;
+	//	}
+	//
+	//	public BigDecimal getPrecoSugerido() {
+	//		return precoSugerido;
+	//	}
+	//
+	//	public void setPrecoSugerido(BigDecimal precoSugerido) {
+	//		this.precoSugerido = precoSugerido;
+	//	}
+	//
+	//	public BigDecimal getCustoMedioLiquido() {
+	//		return custoMedioLiquido;
+	//	}
+	//
+	//	public void setCustoMedioLiquido(BigDecimal custoMedioLiquido) {
+	//		this.custoMedioLiquido = custoMedioLiquido;
+	//	}
+	//
+	//	public BigDecimal getPrecoLucroZero() {
+	//		return precoLucroZero;
+	//	}
+	//
+	//	public void setPrecoLucroZero(BigDecimal precoLucroZero) {
+	//		this.precoLucroZero = precoLucroZero;
+	//	}
+	//
+	//	public BigDecimal getPrecoLucroMinimo() {
+	//		return precoLucroMinimo;
+	//	}
+	//
+	//	public void setPrecoLucroMinimo(BigDecimal precoLucroMinimo) {
+	//		this.precoLucroMinimo = precoLucroMinimo;
+	//	}
+	//
+	//	public BigDecimal getPrecoLucroMaximo() {
+	//		return precoLucroMaximo;
+	//	}
+	//
+	//	public void setPrecoLucroMaximo(BigDecimal precoLucroMaximo) {
+	//		this.precoLucroMaximo = precoLucroMaximo;
+	//	}
+	//
+	//	public BigDecimal getMarkup() {
+	//		return markup;
+	//	}
+	//
+	//	public void setMarkup(BigDecimal markup) {
+	//		this.markup = markup;
+	//	}
+	//
+	//	public BigDecimal getQtdEstoqueAnterior() {
+	//		return qtdEstoqueAnterior;
+	//	}
+	//
+	//	public void setQtdEstoqueAnterior(BigDecimal qtdEstoqueAnterior) {
+	//		this.qtdEstoqueAnterior = qtdEstoqueAnterior;
+	//	}
+	//
+	//	public BigDecimal getEstoqueIdeal() {
+	//		return estoqueIdeal;
+	//	}
+	//
+	//	public void setEstoqueIdeal(BigDecimal estoqueIdeal) {
+	//		this.estoqueIdeal = estoqueIdeal;
+	//	}
+	//
+	//	public String getInativo() {
+	//		return inativo;
+	//	}
+	//
+	//	public void setInativo(String inativo) {
+	//		this.inativo = inativo;
+	//	}
+	//
+	//	public String getFotoProduto() {
+	//		return fotoProduto;
+	//	}
+	//
+	//	public void setFotoProduto(String fotoProduto) {
+	//		this.fotoProduto = fotoProduto;
+	//	}
+	//
+	//	public Character getExTipi() {
+	//		return exTipi;
+	//	}
+	//
+	//	public void setExTipi(Character exTipi) {
+	//		this.exTipi = exTipi;
+	//	}
+	//
+	//	/*
+	//	 * public String getCodigoIst() { return codigoIst; }
+	//	 * 
+	//	 * public void setCodigoIst(String codigoIst) { this.codigoIst = codigoIst;
+	//	 * }
+	//	 */
+	//
+	//	public String getClasseAbc() {
+	//		return classeAbc;
+	//	}
+	//
+	//	public void setClasseAbc(String classeAbc) {
+	//		this.classeAbc = classeAbc;
+	//	}
+	//
+	//	public String getIat() {
+	//		return iat;
+	//	}
+	//
+	//	public void setIat(String iat) {
+	//		this.iat = iat;
+	//	}
+	//
+	//	public String getIppt() {
+	//		return ippt;
+	//	}
+	//
+	//	public void setIppt(String ippt) {
+	//		this.ippt = ippt;
+	//	}
+	//
+	//	public String getTipoItemSped() {
+	//		return tipoItemSped;
+	//	}
+	//
+	//	public void setTipoItemSped(String tipoItemSped) {
+	//		this.tipoItemSped = tipoItemSped;
+	//	}
+	//
+	//	public BigDecimal getPeso() {
+	//		return peso;
+	//	}
+	//
+	//	public void setPeso(BigDecimal peso) {
+	//		this.peso = peso;
+	//	}
+	//
+	//	public BigDecimal getPorcentoComissao() {
+	//		return porcentoComissao;
+	//	}
+	//
+	//	public void setPorcentoComissao(BigDecimal porcentoComissao) {
+	//		this.porcentoComissao = porcentoComissao;
+	//	}
+	//
+	//	public BigDecimal getPontoPedido() {
+	//		return pontoPedido;
+	//	}
+	//
+	//	public void setPontoPedido(BigDecimal pontoPedido) {
+	//		this.pontoPedido = pontoPedido;
+	//	}
+	//
+	//	public BigDecimal getLoteEconomicoCompra() {
+	//		return loteEconomicoCompra;
+	//	}
+	//
+	//	public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
+	//		this.loteEconomicoCompra = loteEconomicoCompra;
+	//	}
+	//
+	//	public String getTotalizadorParcial() {
+	//		return totalizadorParcial;
+	//	}
+	//
+	//	public void setTotalizadorParcial(String totalizadorParcial) {
+	//		this.totalizadorParcial = totalizadorParcial;
+	//	}
+	//
+	//	public Integer getCodigoBalanca() {
+	//		return codigoBalanca;
+	//	}
+	//
+	//	public void setCodigoBalanca(Integer codigoBalanca) {
+	//		this.codigoBalanca = codigoBalanca;
+	//	}
+	//
+	//	public Date getDataAlteracao() {
+	//		return dataAlteracao;
+	//	}
+	//
+	//	public void setDataAlteracao(Date dataAlteracao) {
+	//		this.dataAlteracao = dataAlteracao;
+	//	}
+	//
+	//	public String getTipo() {
+	//		return tipo;
+	//	}
+	//
+	//	public void setTipo(String tipo) {
+	//		this.tipo = tipo;
+	//	}
+	//
+	//	/*
+	//	 * public SubGrupoProduto getIdSubGrupo() { return idSubGrupo; }
+	//	 * 
+	//	 * public void setIdSubGrupo(SubGrupoProduto idSubGrupo) { this.idSubGrupo =
+	//	 * idSubGrupo; }
+	//	 */
+	//
+	//	/*
+	//	 * public UnidadeProduto getUnidade() { return unidade; }
+	//	 */
+	//
+	//	public SubGrupoProduto getSubgrupoProduto() {
+	//		return subgrupoProduto;
+	//	}
+	//
+	//	public void setSubgrupoProduto(SubGrupoProduto subgrupoProduto) {
+	//		this.subgrupoProduto = subgrupoProduto;
+	//	}
+	//
+	//	public UnidadeProduto getUnidadeProduto() {
+	//		return unidadeProduto;
+	//	}
+	//
+	//	public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
+	//		this.unidadeProduto = unidadeProduto;
+	//	}
+	//
+	//	public MarcaProduto getMarcaProduto() {
+	//		return marcaProduto;
+	//	}
+	//
+	//	public void setMarcaProduto(MarcaProduto marcaProduto) {
+	//		this.marcaProduto = marcaProduto;
+	//	}
+	//
+	//	/*
+	//	 * public void setUnidade(UnidadeProduto unidade) { this.unidade = unidade;
+	//	 * } /*public MarcaProduto getIdMarcaProduto() { return idMarcaProduto; }
+	//	 * 
+	//	 * public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
+	//	 * this.idMarcaProduto = idMarcaProduto; }
+	//	 */
+	//
+	//	public Almoxarifado getIdAlmoxarifado() {
+	//		return idAlmoxarifado;
+	//	}
+	//
+	//	public void setIdAlmoxarifado(Almoxarifado idAlmoxarifado) {
+	//		this.idAlmoxarifado = idAlmoxarifado;
+	//	}
+	//
+	//	public GrupoTributario getIdGrupoTributario() {
+	//		return idGrupoTributario;
+	//	}
+	//
+	//	public void setIdGrupoTributario(GrupoTributario idGrupoTributario) {
+	//		this.idGrupoTributario = idGrupoTributario;
+	//	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 	public String getGtin() {
 		return gtin;
 	}
 
 	public void setGtin(String gtin) {
 		this.gtin = gtin;
+	}
+
+	public String getCodigoInterno() {
+		return codigoInterno;
+	}
+
+	public void setCodigoInterno(String codigoInterno) {
+		this.codigoInterno = codigoInterno;
+	}
+
+	public SubGrupoProduto getSubGrupo() {
+		return subGrupo;
+	}
+
+	public void setSubGrupo(SubGrupoProduto subGrupo) {
+		this.subGrupo = subGrupo;
+	}
+
+	public UnidadeProduto getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(UnidadeProduto unidade) {
+		this.unidade = unidade;
 	}
 
 	public String getNome() {
@@ -398,90 +822,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 
 	public void setValorVenda(BigDecimal valorVenda) {
 		this.valorVenda = valorVenda;
-	}
-
-	public BigDecimal getQtdEstoque() {
-		return qtdEstoque;
-	}
-
-	public void setQtdEstoque(BigDecimal qtdEstoque) {
-		this.qtdEstoque = qtdEstoque;
-	}
-
-	public BigDecimal getEstoqueMin() {
-		return estoqueMin;
-	}
-
-	public void setEstoqueMin(BigDecimal estoqueMin) {
-		this.estoqueMin = estoqueMin;
-	}
-
-	public BigDecimal getEstoqueMax() {
-		return estoqueMax;
-	}
-
-	public void setEstoqueMax(BigDecimal estoqueMax) {
-		this.estoqueMax = estoqueMax;
-	}
-
-	public Character getExcluido() {
-		return excluido;
-	}
-
-	public void setExcluido(Character excluido) {
-		this.excluido = excluido;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	// /**
-	// * @return the subGrupo
-	// */
-	// public SubGrupoProduto getSubGrupo() {
-	// return subGrupo;
-	// }
-	//
-	// /**
-	// * @param subGrupo the subGrupo to set
-	// */
-	// public void setSubGrupo(SubGrupoProduto subGrupo) {
-	// this.subGrupo = subGrupo;
-	// }
-
-	// /**
-	// * @return the unidade
-	// */
-	// public UnidadeProduto getUnidade() {
-	// return unidade;
-	// }
-	//
-	// /**
-	// * @param unidade the unidade to set
-	// */
-	// public void setUnidade(UnidadeProduto unidade) {
-	// this.unidade = unidade;
-	// }
-
-	public String getCodigoInterno() {
-		return codigoInterno;
-	}
-
-	public void setCodigoInterno(String codigoInterno) {
-		this.codigoInterno = codigoInterno;
-	}
-
-	public String getNcm() {
-		return ncm;
-	}
-
-	public void setNcm(String ncm) {
-		this.ncm = ncm;
 	}
 
 	public BigDecimal getPrecoVendaMinimo() {
@@ -540,12 +880,21 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.markup = markup;
 	}
 
-	public BigDecimal getQtdEstoqueAnterior() {
-		return qtdEstoqueAnterior;
+
+	public BigDecimal getEstoqueMinimo() {
+		return estoqueMinimo;
 	}
 
-	public void setQtdEstoqueAnterior(BigDecimal qtdEstoqueAnterior) {
-		this.qtdEstoqueAnterior = qtdEstoqueAnterior;
+	public void setEstoqueMinimo(BigDecimal estoqueMinimo) {
+		this.estoqueMinimo = estoqueMinimo;
+	}
+
+	public BigDecimal getEstoqueMaximo() {
+		return estoqueMaximo;
+	}
+
+	public void setEstoqueMaximo(BigDecimal estoqueMaximo) {
+		this.estoqueMaximo = estoqueMaximo;
 	}
 
 	public BigDecimal getEstoqueIdeal() {
@@ -556,43 +905,46 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.estoqueIdeal = estoqueIdeal;
 	}
 
-	public String getInativo() {
-		return inativo;
+	public BigDecimal getQuantidadeEstoque() {
+		return quantidadeEstoque;
 	}
 
-	public void setInativo(String inativo) {
-		this.inativo = inativo;
+	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
-	public String getFotoProduto() {
-		return fotoProduto;
+	public BigDecimal getQuantidadeEstoqueAnterior() {
+		return quantidadeEstoqueAnterior;
 	}
 
-	public void setFotoProduto(String fotoProduto) {
-		this.fotoProduto = fotoProduto;
+	public void setQuantidadeEstoqueAnterior(BigDecimal quantidadeEstoqueAnterior) {
+		this.quantidadeEstoqueAnterior = quantidadeEstoqueAnterior;
 	}
 
-	public Character getExTipi() {
+	
+
+	public String getCodigoLst() {
+		return codigoLst;
+	}
+
+	public void setCodigoLst(String codigoLst) {
+		this.codigoLst = codigoLst;
+	}
+
+	public String getExTipi() {
 		return exTipi;
 	}
 
-	public void setExTipi(Character exTipi) {
+	public void setExTipi(String exTipi) {
 		this.exTipi = exTipi;
 	}
 
-	/*
-	 * public String getCodigoIst() { return codigoIst; }
-	 * 
-	 * public void setCodigoIst(String codigoIst) { this.codigoIst = codigoIst;
-	 * }
-	 */
-
-	public String getClasseAbc() {
-		return classeAbc;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setClasseAbc(String classeAbc) {
-		this.classeAbc = classeAbc;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getIat() {
@@ -603,52 +955,12 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.iat = iat;
 	}
 
-	public String getIppt() {
-		return ippt;
-	}
-
-	public void setIppt(String ippt) {
-		this.ippt = ippt;
-	}
-
 	public String getTipoItemSped() {
 		return tipoItemSped;
 	}
 
 	public void setTipoItemSped(String tipoItemSped) {
 		this.tipoItemSped = tipoItemSped;
-	}
-
-	public BigDecimal getPeso() {
-		return peso;
-	}
-
-	public void setPeso(BigDecimal peso) {
-		this.peso = peso;
-	}
-
-	public BigDecimal getPorcentoComissao() {
-		return porcentoComissao;
-	}
-
-	public void setPorcentoComissao(BigDecimal porcentoComissao) {
-		this.porcentoComissao = porcentoComissao;
-	}
-
-	public BigDecimal getPontoPedido() {
-		return pontoPedido;
-	}
-
-	public void setPontoPedido(BigDecimal pontoPedido) {
-		this.pontoPedido = pontoPedido;
-	}
-
-	public BigDecimal getLoteEconomicoCompra() {
-		return loteEconomicoCompra;
-	}
-
-	public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
-		this.loteEconomicoCompra = loteEconomicoCompra;
 	}
 
 	public String getTotalizadorParcial() {
@@ -667,84 +979,82 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.codigoBalanca = codigoBalanca;
 	}
 
-	public Date getDataAlteracao() {
-		return dataAlteracao;
+	public BigDecimal getPeso() {
+		return peso;
 	}
 
-	public void setDataAlteracao(Date dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
+	public void setPeso(BigDecimal peso) {
+		this.peso = peso;
 	}
 
-	public String getTipo() {
-		return tipo;
+	
+
+	public BigDecimal getPontoPedido() {
+		return pontoPedido;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setPontoPedido(BigDecimal pontoPedido) {
+		this.pontoPedido = pontoPedido;
 	}
 
-	/*
-	 * public SubGrupoProduto getIdSubGrupo() { return idSubGrupo; }
-	 * 
-	 * public void setIdSubGrupo(SubGrupoProduto idSubGrupo) { this.idSubGrupo =
-	 * idSubGrupo; }
-	 */
-
-	/*
-	 * public UnidadeProduto getUnidade() { return unidade; }
-	 */
-
-	public SubGrupoProduto getSubgrupoProduto() {
-		return subgrupoProduto;
+	public BigDecimal getLoteEconomicoCompra() {
+		return loteEconomicoCompra;
 	}
 
-	public void setSubgrupoProduto(SubGrupoProduto subgrupoProduto) {
-		this.subgrupoProduto = subgrupoProduto;
+	public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
+		this.loteEconomicoCompra = loteEconomicoCompra;
 	}
 
-	public UnidadeProduto getUnidadeProduto() {
-		return unidadeProduto;
+	public BigDecimal getTaxaComissao() {
+		return taxaComissao;
 	}
 
-	public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
-		this.unidadeProduto = unidadeProduto;
+	public void setTaxaComissao(BigDecimal taxaComissao) {
+		this.taxaComissao = taxaComissao;
 	}
 
-	public MarcaProduto getMarcaProduto() {
-		return marcaProduto;
+	public String getIppt() {
+		return ippt;
 	}
 
-	public void setMarcaProduto(MarcaProduto marcaProduto) {
-		this.marcaProduto = marcaProduto;
+	public void setIppt(String ippt) {
+		this.ippt = ippt;
 	}
 
-	/*
-	 * public void setUnidade(UnidadeProduto unidade) { this.unidade = unidade;
-	 * } /*public MarcaProduto getIdMarcaProduto() { return idMarcaProduto; }
-	 * 
-	 * public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
-	 * this.idMarcaProduto = idMarcaProduto; }
-	 */
-
-	public Almoxarifado getIdAlmoxarifado() {
-		return idAlmoxarifado;
+	public BigDecimal getAliquotaIcms() {
+		return aliquotaIcms;
 	}
 
-	public void setIdAlmoxarifado(Almoxarifado idAlmoxarifado) {
-		this.idAlmoxarifado = idAlmoxarifado;
+	public void setAliquotaIcms(BigDecimal aliquotaIcms) {
+		this.aliquotaIcms = aliquotaIcms;
 	}
 
-	public GrupoTributario getIdGrupoTributario() {
-		return idGrupoTributario;
+	public BigDecimal getAliquotaIssqn() {
+		return aliquotaIssqn;
 	}
 
-	public void setIdGrupoTributario(GrupoTributario idGrupoTributario) {
-		this.idGrupoTributario = idGrupoTributario;
+	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
+		this.aliquotaIssqn = aliquotaIssqn;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public String getInativo() {
+		return inativo;
 	}
+
+	public void setInativo(String inativo) {
+		this.inativo = inativo;
+	}
+
+	public String getClasse() {
+		return classe;
+	}
+
+	public void setClasse(String classe) {
+		this.classe = classe;
+	}
+
+
+
+
 
 }

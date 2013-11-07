@@ -2,9 +2,13 @@ package dc.servicos.dao.comercial;
 
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.comercial.ItemOrcamento;
+import dc.entidade.comercial.Orcamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -18,8 +22,27 @@ public class ItemOrcamentoDAO extends AbstractCrudDAO<ItemOrcamento> {
 	protected String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	}
-	
-	
+
+	@Transactional
+	public List<ItemOrcamento> findByOrcamento(Orcamento orcamento){
+
+		List<ItemOrcamento> lista = null;
+
+		try{
+
+			lista =  getSession()
+					.createQuery("from ItemOrcamento i where i.orcamento = :orcamento")
+					.setParameter("orcamento", orcamento).list();
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lista;
+
+
+	}
+
+
 }
 
 

@@ -57,7 +57,7 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 	@Override
 	protected void actionSalvar() {
 		currentBean.setSigla(subView.getTxtSigla().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
+		currentBean.setNome(subView.getTxtDescricao().getValue());
 
 		try {
 			unidadeProdutoDAO.saveOrUpdate(currentBean);
@@ -71,7 +71,7 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 	protected void carregar(Serializable id) {
 		currentBean = unidadeProdutoDAO.find(id);
 		subView.getTxtSigla().setValue(currentBean.getSigla());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		subView.getTxtDescricao().setValue(currentBean.getNome());
 	}
 
 	/*

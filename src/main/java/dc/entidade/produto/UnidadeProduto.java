@@ -74,7 +74,7 @@ public class UnidadeProduto extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String nome;
 
 	@Field
 	@Caption("Pode Fracionar")
@@ -87,8 +87,8 @@ public class UnidadeProduto extends AbstractMultiEmpresaModel<Integer> implement
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "unidadeProduto", fetch = FetchType.LAZY)
-	private List<Produto> produtoList;
+//	@OneToMany(mappedBy = "unidadeProduto", fetch = FetchType.EAGER)
+//	private List<Produto> produtoList;
 
 	/**
 	 * CONSTRUTOR
@@ -126,20 +126,22 @@ public class UnidadeProduto extends AbstractMultiEmpresaModel<Integer> implement
 		this.podeFracionar = podeFracionar;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	
+
+//	public List<Produto> getProdutoList() {
+//		return produtoList;
+//	}
+//
+//	public void setProdutoList(List<Produto> produtoList) {
+//		this.produtoList = produtoList;
+//	}
+
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Produto> getProdutoList() {
-		return produtoList;
-	}
-
-	public void setProdutoList(List<Produto> produtoList) {
-		this.produtoList = produtoList;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	@Override

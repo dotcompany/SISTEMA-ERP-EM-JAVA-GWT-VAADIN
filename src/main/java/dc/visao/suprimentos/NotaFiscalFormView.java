@@ -518,7 +518,7 @@ public class NotaFiscalFormView extends CustomComponent  {
 						List<Produto> lista = new ArrayList<Produto>();
 						for(Det d : produtos){
 							Produto p =  new Produto();
-							p.setDescricao(d.getProd().getXProd());
+							//d	p.setDescricao(d.getProd().getXProd());
 							lista.add(p);
 						}
 
