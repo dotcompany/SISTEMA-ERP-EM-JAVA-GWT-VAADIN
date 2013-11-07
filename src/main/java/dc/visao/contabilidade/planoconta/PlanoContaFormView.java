@@ -155,7 +155,7 @@ public class PlanoContaFormView extends CustomComponent {
 
 		// tfNome
 		tfNome = new TextField();
-		tfNome.setCaption("tfNome:");
+		tfNome.setCaption("Nome:");
 		tfNome.setImmediate(false);
 		tfNome.setWidth("175px");
 		tfNome.setHeight("-1px");
@@ -165,7 +165,7 @@ public class PlanoContaFormView extends CustomComponent {
 
 		// pdfDataInclusao
 		pdfDataInclusao = new PopupDateField();
-		pdfDataInclusao.setCaption("pdfDataInclusao:");
+		pdfDataInclusao.setCaption("Data da inclusão:");
 		pdfDataInclusao.setImmediate(false);
 		pdfDataInclusao.setWidth("175px");
 		pdfDataInclusao.setHeight("-1px");
@@ -174,7 +174,7 @@ public class PlanoContaFormView extends CustomComponent {
 
 		// tfMascara
 		tfMascara = new TextField();
-		tfMascara.setCaption("tfMascara:");
+		tfMascara.setCaption("Máscara:");
 		tfMascara.setImmediate(false);
 		tfMascara.setWidth("175px");
 		tfMascara.setHeight("-1px");
@@ -184,7 +184,7 @@ public class PlanoContaFormView extends CustomComponent {
 
 		// tfNiveis
 		tfNiveis = new TextField();
-		tfNiveis.setCaption("tfNiveis:");
+		tfNiveis.setCaption("Níveis:");
 		tfNiveis.setImmediate(false);
 		tfNiveis.setWidth("175px");
 		tfNiveis.setHeight("-1px");

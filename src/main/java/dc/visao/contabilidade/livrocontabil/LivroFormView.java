@@ -48,6 +48,10 @@ public class LivroFormView extends CustomComponent {
 		setCompositionRoot(this.mainLayout);
 	}
 
+	/**
+	 * GETS E SETS
+	 */
+
 	public TextField getTfDescricao() {
 		return tfDescricao;
 	}

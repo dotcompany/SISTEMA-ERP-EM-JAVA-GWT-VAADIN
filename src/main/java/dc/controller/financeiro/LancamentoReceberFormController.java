@@ -3,6 +3,8 @@ package dc.controller.financeiro;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,11 +17,13 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.FornecedorListController;
+import dc.controller.pessoal.ClienteListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
@@ -27,7 +31,7 @@ import dc.entidade.financeiro.LctoReceberNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -36,9 +40,11 @@ import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.pessoal.ClienteDAO;
+import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoReceberFormView;
-import dc.visao.financeiro.LancamentoReceberFormView.TipoVencimento;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -73,6 +79,9 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	private FornecedorDAO fornecedorDAO;
 
 	@Autowired
+	private ClienteDAO clienteDAO;
+
+	@Autowired
 	private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
 
 	@Autowired
@@ -80,6 +89,9 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
+
+	@Autowired
+	private PessoaDAO pessoaDAO;
 
 	@Override
 	protected String getNome() {
@@ -98,26 +110,21 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		boolean valido = true;
 
 		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm().getDados();
-		List<LctoReceberNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+		List<LctoReceberNtFinanceira> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
-		// if (((BigDecimal)
-		// subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalParcelaReceber(parcelasReceber))
-		// != 0) {
-		// adicionarErroDeValidacao(subView.getParcelasSubForm(),
-		// "Os valores informados nas parcelas não batem com o valor a pagar.");
-		// valido = false;
-		// mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-		// }
+		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
+			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+		}
 
-		// if (((BigDecimal)
-		// subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras))
-		// != 0) {
-		// adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
-		// "Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-		// valido = false;
+		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+			valido = false;
 
-		// mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-		// }
+			mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+		}
 
 		if (valido) {
 
@@ -127,12 +134,13 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
 			} else {
-				/*for (ParcelaReceber p : currentBean.getParcelaReceber()) {
+
+				for (ParcelaReceber p : currentBean.getParcelasReceber()) {
 					p.setStatusParcela(statusParcela);
-				}*/
+				}
 
 				try {
-					//currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+					currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 					lancamentoReceberDAO.saveOrUpdate(currentBean);
 					notifiyFrameworkSaveOK(this.currentBean);
 				} catch (Exception e) {
@@ -191,9 +199,6 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 		subView.getCbTipoVencimento().addValueChangeListener(new ValueChangeListener() {
 
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -207,6 +212,21 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 					subView.getTxIntervaloParcela().setEnabled(true);
 					currentBean.setIntervaloEntreParcelas(null);
 				}
+
+			}
+		});
+
+		subView.getTxValorComissao().setEnabled(false);
+		subView.getTxTaxaComissao().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaValorComissao();
 
 			}
 		});
@@ -239,14 +259,14 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		};
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 
-		DefaultManyToOneComboModel<Fornecedor> model2 = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class,
-				this.fornecedorDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<Cliente> model2 = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa.nome";
 			}
 		};
-		// this.subView.getCbFornecedor().setModel(model2);
+		this.subView.getCbCliente().setModel(model2);
 
 	}
 
@@ -296,8 +316,14 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	private boolean verificaSeFoiParcelado() {
-		return ((Integer) subView.getTxQuantidadeParcela().getConvertedValue()) > 1
-				&& TipoVencimento.DIARIO.equals(subView.getCbTipoVencimento().getValue());
+		// TODO
+		/*
+		 * return ((Integer)
+		 * subView.getTxQuantidadeParcela().getConvertedValue()) > 1 &&
+		 * TipoVencimento
+		 * .DIARIO.equals(subView.getCbTipoVencimento().getValue());
+		 */
+		return false;
 	}
 
 	private BigDecimal getTotalParcelaReceber(List<ParcelaReceber> parcelas) {
@@ -308,11 +334,11 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		return total;
 	}
 
-	private BigDecimal getTotalNaturezaFinanceira(List<LctoReceberNtFinanceira> naturezasFinanceiras) {
+	private BigDecimal getTotalNaturezaFinanceira(List<LctoReceberNtFinanceira> naturezasanceiras) {
 		BigDecimal total = BigDecimal.ZERO;
-		if (naturezasFinanceiras != null) {
-			for (int i = 0; i < naturezasFinanceiras.size(); i++) {
-				total = total.add(naturezasFinanceiras.get(i).getValor());
+		if (naturezasanceiras != null) {
+			for (int i = 0; i < naturezasanceiras.size(); i++) {
+				total = total.add(naturezasanceiras.get(i).getValor());
 			}
 		}
 		return total;
@@ -322,19 +348,19 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoReceber lancamentoReceber = (LancamentoReceber) id;
-			List<LctoReceberNtFinanceira> lctoReceberNtFinanceiras = lancamentoReceber.getLctoReceberNtFinanceira();
+			List<LctoReceberNtFinanceira> lctoReceberNFinanceiras = lancamentoReceber.getLctoReceberNtFinanceira();
 
-			for (LctoReceberNtFinanceira lctoReceberNtFinanceira : lctoReceberNtFinanceiras) {
-				lctoReceberNtFinanceira.setLancamentoReceber(null);
+			for (LctoReceberNtFinanceira lctoReceberNFinanceira : lctoReceberNFinanceiras) {
+				lctoReceberNFinanceira.setLancamentoReceber(null);
 
 			}
 
-			/*List<ParcelaReceber> parcelasReceber = lancamentoReceber.getParcelaReceber();
+			List<ParcelaReceber> parcelasReceber = lancamentoReceber.getParcelasReceber();
 
 			for (ParcelaReceber parcelaReceber : parcelasReceber) {
 
 				parcelaReceber.setLancamentoReceber(null);
-			}*/
+			}
 
 			lancamentoReceberDAO.delete(lancamentoReceber);
 
@@ -395,31 +421,42 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	private void geraParcelas(ContaCaixa contaCaixa, final List<ParcelaReceber> parcelasReceber) {
+
+		// gera as parcelas
 		subView.getParcelasSubForm().removeAllItems();
-
 		subView.preencheBean(currentBean);
-
-		setIntervaloParcelaByTipoVencimento();
 
 		LancamentoReceber lancamentoReceber = currentBean;
 		ParcelaReceber parcelaReceber;
-		Date dataEmissao = new Date();
+		Date dataEmissão = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(lancamentoReceber.getPrimeiroVencimento());
 		BigDecimal valorParcela = lancamentoReceber.getValorAReceber().divide(BigDecimal.valueOf(lancamentoReceber.getQuantidadeParcela()),
 				RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
+		String nossoNumero;
+		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+		Date dataAtual = new Date();
 		for (int i = 0; i < lancamentoReceber.getQuantidadeParcela(); i++) {
 			parcelaReceber = new ParcelaReceber();
 			parcelaReceber.setContaCaixa(contaCaixa);
 			parcelaReceber.setNumeroParcela(i + 1);
-			parcelaReceber.setDataEmissao(dataEmissao);
+			parcelaReceber.setDataEmissao(dataEmissão);
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, lancamentoReceber.getIntervaloEntreParcelas());
 			}
 			parcelaReceber.setDataVencimento(primeiroVencimento.getTime());
-			// parcelaReceber.setSofreRetencao(lancamentoReceber.getFornecedor().getSofreRetencao());
+			parcelaReceber.setEmitiuBoleto("S");
+
+			nossoNumero = formatoNossoNumero5.format(lancamentoReceber.getCliente().getId());
+			nossoNumero += formatoNossoNumero5.format(parcelaReceber.getContaCaixa().getId());
+			nossoNumero += formatoNossoNumero4.format(parcelaReceber.getNumeroParcela());
+			nossoNumero += formatoNossoNumero6.format(dataAtual);
+			parcelaReceber.setBoletoNossoNumero(nossoNumero);
+
 			parcelaReceber.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
@@ -428,7 +465,6 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 				valorParcela = valorParcela.add(residuo);
 				parcelaReceber.setValor(valorParcela);
 			}
-
 			parcelasReceber.add(parcelaReceber);
 			novoParcelaReceber(parcelaReceber);
 		}
@@ -465,8 +501,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	public LctoReceberNtFinanceira novoLctoReceberNtFinanceira() {
-		LctoReceberNtFinanceira lctoReceberNtFinanceira = currentBean.addLctoReceberNtFinanceira();
-		return lctoReceberNtFinanceira;
+		LctoReceberNtFinanceira lctoReceberNFinanceira = currentBean.addLctoReceberNtFinanceira();
+		return lctoReceberNFinanceira;
 	}
 
 	public void removerLctoReceberNtFinanceira(List<LctoReceberNtFinanceira> values) {
@@ -478,6 +514,164 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
 		return naturezaFinanceiraDAO.listaTodos();
+	}
+
+	private void calculaValorComissao() {
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber().getConvertedValue();
+
+		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao().getConvertedValue();
+
+		if (valorAReceber != null && taxaComissao != null) {
+			subView.getTxValorComissao().setConvertedValue(
+					valorAReceber.multiply(taxaComissao).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+		}
+	}
+
+	public void gerarBoleto() throws Exception {
+		List<ParcelaReceber> listaParcelasReceber = subView.getParcelasSubForm().getDados();
+		if (listaParcelasReceber.isEmpty()) {
+			throw new Exception("Nenhuma parcela para gerar boleto.");
+		}
+		ContaCaixa contaCaixa = listaParcelasReceber.get(0).getContaCaixa();
+		if (contaCaixa.getAgenciaBanco() == null) {
+			throw new Exception("A conta/caixa não está vinculada a um banco. Geração de boletos não permitida.");
+		}
+		List<ParcelaReceber> listaParcelasBoleto = new ArrayList<ParcelaReceber>();
+		for (int i = 0; i < listaParcelasReceber.size(); i++) {
+			if (listaParcelasReceber.get(i).getEmitiuBoleto().equals("S")) {
+				listaParcelasBoleto.add(listaParcelasReceber.get(i));
+			}
+		}
+		if (listaParcelasBoleto.isEmpty()) {
+			throw new Exception("Nenhuma parcela selecionada para gerar boleto.");
+		}
+
+		// JFileChooser fileChooser = new JFileChooser();
+		// fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		if (/*
+			 * fileChooser.showOpenDialog(LancamentoReceberDetalhe) ==
+			 * JFileChooser.APPROVE_OPTION
+			 */true) {
+			/*
+			 * ConfiguracaoBoleto configuracaoBoleto =
+			 * configuracaoBoleto(listaParcelasReceber.get(0).getContaCaixa());
+			 * LancamentoReceber lancamentoReceber = currentBean; Cliente
+			 * cliente = lancamentoReceber.getCliente(); Empresa empresa =
+			 * SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			 * SimpleDateFormat formatoData = new
+			 * SimpleDateFormat("dd/MM/yyyy");
+			 * 
+			 * Cedente cedente = new Cedente(empresa.getRazaoSocial(),
+			 * empresa.getCnpj());
+			 * 
+			 * String cpfCnpjSacado; if
+			 * (cliente.getPessoa().getTipo().equals("F")) { cpfCnpjSacado =
+			 * pessoaDAO.getPessoaFisica(cliente.getPessoa().getId()).getCpf();
+			 * } else { cpfCnpjSacado =
+			 * pessoaDAO.getPessoaJuridica(cliente.getPessoa
+			 * ().getId())).getCnpj(); } Sacado sacado = new
+			 * Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
+			 * 
+			 * Endereco enderecoSacado = new Endereco();
+			 * enderecoSacado.setUF(UnidadeFederativa
+			 * .valueOfSigla(cliente.getPessoa
+			 * ().getListaEndereco().get(0).getUf()));
+			 * enderecoSacado.setLocalidade
+			 * (cliente.getPessoa().getListaEndereco().get(0).getCidade());
+			 * enderecoSacado.setCep(new
+			 * CEP(cliente.getPessoa().getListaEndereco().get(0).getCep()));
+			 * enderecoSacado
+			 * .setBairro(cliente.getPessoa().getListaEndereco().get
+			 * (0).getBairro());
+			 * enderecoSacado.setLogradouro(cliente.getPessoa()
+			 * .getListaEndereco().get(0).getLogradouro());
+			 * enderecoSacado.setNumero
+			 * (cliente.getPessoa().getListaEndereco().get(0).getNumero());
+			 * sacado.addEndereco(enderecoSacado);
+			 * 
+			 * ContaBancaria contaBancaria = new
+			 * ContaBancaria(BancosSuportados.suportados
+			 * .get(contaCaixa.getAgenciaBanco().getBanco().getCodigo())
+			 * .create()); contaBancaria.setNumeroDaConta(new
+			 * NumeroDaConta(Integer.valueOf(contaCaixa.getCodigo()),
+			 * contaCaixa.getDigito())); contaBancaria.setCarteira(new
+			 * Carteira(Integer.valueOf(configuracaoBoleto.getCarteira())));
+			 * contaBancaria .setAgencia(new
+			 * Agencia(Integer.valueOf(contaCaixa.getAgenciaBanco
+			 * ().getCodigo()), contaCaixa.getAgenciaBanco().getDigito()));
+			 * 
+			 * Titulo titulo; ParcelaReceber parcela; Boleto boleto;
+			 * List<Boleto> listaBoleto = new ArrayList<Boleto>(); for (int i =
+			 * 0; i < listaParcelasBoleto.size(); i++) { parcela =
+			 * listaParcelasBoleto.get(i);
+			 * 
+			 * titulo = new Titulo(contaBancaria, sacado, cedente);
+			 * titulo.setNumeroDoDocumento
+			 * (parcela.getBoletoNossoNumero().substring(0, 15));
+			 * titulo.setNossoNumero(parcela.getBoletoNossoNumero());
+			 * titulo.setDigitoDoNossoNumero("");
+			 * titulo.setValor(parcela.getValor());
+			 * titulo.setDataDoDocumento(parcela.getDataEmissao());
+			 * titulo.setDataDoVencimento(parcela.getDataVencimento()); if
+			 * (configuracaoBoleto.getEspecie().equals("DM")) {
+			 * titulo.setTipoDeDocumento(TipoDeTitulo.DM_DUPLICATA_MERCANTIL); }
+			 * else if (configuracaoBoleto.getEspecie().equals("DS")) {
+			 * titulo.setTipoDeDocumento(TipoDeTitulo.DS_DUPLICATA_DE_SERVICO);
+			 * } else if (configuracaoBoleto.getEspecie().equals("RC")) {
+			 * titulo.setTipoDeDocumento(TipoDeTitulo.RC_RECIBO); } else if
+			 * (configuracaoBoleto.getEspecie().equals("NP")) {
+			 * titulo.setTipoDeDocumento(TipoDeTitulo.NP_NOTA_PROMISSORIA); } if
+			 * (configuracaoBoleto.getAceite().equals("S")) {
+			 * titulo.setAceite(Aceite.A); } else { titulo.setAceite(Aceite.N);
+			 * } titulo.setDesconto(parcela.getValorDesconto()); //
+			 * titulo.setDeducao(BigDecimal.ZERO); //
+			 * titulo.setMora(BigDecimal.ZERO); //
+			 * titulo.setAcrecimo(BigDecimal.ZERO); //
+			 * titulo.setValorCobrado(BigDecimal.ZERO);
+			 * 
+			 * boleto = new Boleto(titulo);
+			 * boleto.setLocalPagamento(configuracaoBoleto.getLocalPagamento());
+			 * boleto.setInstrucaoAoSacado(configuracaoBoleto.getMensagem());
+			 * boleto.setInstrucao1(configuracaoBoleto.getInstrucao01());
+			 * boleto.setInstrucao2(configuracaoBoleto.getInstrucao02()); if
+			 * (parcela.getDescontoAte() != null && parcela.getTaxaDesconto() !=
+			 * null) { boleto.setInstrucao3("Para pagamento até o dia " +
+			 * formatoData.format(parcela.getDescontoAte()) +
+			 * " conceder desconto de " + parcela.getTaxaDesconto() + "%."); }
+			 * else { boleto.setInstrucao3(""); }
+			 * 
+			 * listaBoleto.add(boleto); }
+			 * 
+			 * // String nomeArquivo = //
+			 * fileChooser.getSelectedFile().getAbsolutePath() + //
+			 * System.getProperty("file.separator") + "boleto_" + //
+			 * cliente.getId() + ".pdf"; //
+			 * BoletoViewer.groupInOnePDF(listaBoleto, nomeArquivo); //
+			 * JOptionPane.showMessageDialog(LancamentoReceberDetalhe, //
+			 * "Boletos gerados com sucesso!\n" + nomeArquivo, //
+			 * "Informação do sistema", JOptionPane.INFORMATION_MESSAGE); } }
+			 * 
+			 * private ConfiguracaoBoleto configuracaoBoleto(ContaCaixa
+			 * contaCaixa) throws Exception { // busca a configuracao do boleto
+			 * 
+			 * List<ConfiguracaoBoleto> listaConfiguracaoBoleto = null;// buscar
+			 * pela // Conta Caixa
+			 * 
+			 * if (listaConfiguracaoBoleto.isEmpty()) { throw new
+			 * Exception("Não existem configurações de boleto para a conta/caixa."
+			 * ); } if (listaConfiguracaoBoleto.size() == 1) { return
+			 * listaConfiguracaoBoleto.get(0); } else { ConfiguracaoBoleto
+			 * configuracaoes[] = new
+			 * ConfiguracaoBoleto[listaConfiguracaoBoleto.size()];
+			 * listaConfiguracaoBoleto.toArray(configuracaoes);
+			 * ConfiguracaoBoleto configuracao = null; /* while (configuracao ==
+			 * null) { configuracao = (ConfiguracaoBoleto)
+			 * JOptionPane.showInputDialog(null, "Selecione uma Configuracao:",
+			 * "Solicitação do Sistema", JOptionPane.QUESTION_MESSAGE, null,
+			 * configuracaoes, configuracaoes[0]); }
+			 */
+
+		}
 	}
 
 }

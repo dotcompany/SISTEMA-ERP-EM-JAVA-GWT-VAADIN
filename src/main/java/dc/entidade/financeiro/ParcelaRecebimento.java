@@ -1,6 +1,5 @@
 package dc.entidade.financeiro;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,48 +14,92 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "PARCELA_RECEBIMENTO")
-public class ParcelaRecebimento implements Serializable {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ParcelaRecebimento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
+	@Field
 	private Integer id;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_RECEBIMENTO")
+	@Caption(value = "Data Recebimento")
+	@Field
 	private Date dataRecebimento;
+
+	@Caption(value = "Taxa Juros")
 	@Column(name = "TAXA_JURO")
+	@Field
 	private BigDecimal taxaJuro;
+
+	@Caption(value = "Taxa Multa")
 	@Column(name = "TAXA_MULTA")
+	@Field
 	private BigDecimal taxaMulta;
+
+	@Caption(value = "Taxa Desconto")
 	@Column(name = "TAXA_DESCONTO")
+	@Field
 	private BigDecimal taxaDesconto;
+
+	@Caption(value = "Valor juros")
 	@Column(name = "VALOR_JURO")
+	@Field
 	private BigDecimal valorJuro;
+
 	@Column(name = "VALOR_MULTA")
+	@Caption(value = "Valor Multa")
+	@Field
 	private BigDecimal valorMulta;
+
+	@Caption(value = "Valor Desconto")
 	@Column(name = "VALOR_DESCONTO")
+	@Field
 	private BigDecimal valorDesconto;
+
+	@Caption(value = "Valor Recebido")
 	@Column(name = "VALOR_RECEBIDO")
+	@Field
 	private BigDecimal valorRecebido;
+
+	@Caption(value = "Histórico")
 	@Column(name = "HISTORICO")
+	@Field
 	private String historico;
-	@JoinColumn(name = "ID_FIN_PARCELA_RECEBER", referencedColumnName = "ID")
+
+	@JoinColumn(name = "ID_PARCELA_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private ParcelaReceber finParcelaReceber;
-	@JoinColumn(name = "ID_FIN_TIPO_RECEBIMENTO", referencedColumnName = "ID")
+	private ParcelaReceber parcelaReceber;
+
+	@JoinColumn(name = "ID_TIPO_RECEBIMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private TipoRecebimento finTipoRecebimento;
+	private TipoRecebimento tipoRecebimento;
+
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContaCaixa contaCaixa;
-	@JoinColumn(name = "ID_FIN_CHEQUE_RECEBIDO", referencedColumnName = "ID")
+
+	@JoinColumn(name = "ID_CHEQUE_RECEBIDO", referencedColumnName = "ID")
 	@ManyToOne
-	private ChequeRecebido finChequeRecebido;
+	private ChequeRecebido chequeRecebido;
 
 	public ParcelaRecebimento() {
 	}
@@ -142,19 +185,19 @@ public class ParcelaRecebimento implements Serializable {
 	}
 
 	public ParcelaReceber getParcelaReceber() {
-		return finParcelaReceber;
+		return parcelaReceber;
 	}
 
 	public void setParcelaReceber(ParcelaReceber finParcelaReceber) {
-		this.finParcelaReceber = finParcelaReceber;
+		this.parcelaReceber = finParcelaReceber;
 	}
 
 	public TipoRecebimento getTipoRecebimento() {
-		return finTipoRecebimento;
+		return tipoRecebimento;
 	}
 
 	public void setTipoRecebimento(TipoRecebimento finTipoRecebimento) {
-		this.finTipoRecebimento = finTipoRecebimento;
+		this.tipoRecebimento = finTipoRecebimento;
 	}
 
 	public ContaCaixa getContaCaixa() {
@@ -166,11 +209,11 @@ public class ParcelaRecebimento implements Serializable {
 	}
 
 	public ChequeRecebido getChequeRecebido() {
-		return finChequeRecebido;
+		return chequeRecebido;
 	}
 
 	public void setChequeRecebido(ChequeRecebido finChequeRecebido) {
-		this.finChequeRecebido = finChequeRecebido;
+		this.chequeRecebido = finChequeRecebido;
 	}
 
 	@Override

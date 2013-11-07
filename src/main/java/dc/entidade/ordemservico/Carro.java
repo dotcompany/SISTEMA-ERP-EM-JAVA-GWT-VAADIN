@@ -24,16 +24,15 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "os_carro")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Carro extends AbstractModel<Integer> {
+public class Carro extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -96,14 +95,14 @@ public class Carro extends AbstractModel<Integer> {
 //	@ManyToOne(optional = false)
 //	private Cliente cliente;
 
-	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Empresa empresa;
-	
+//	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
+//	@ManyToOne(optional = false)
+//	private Empresa empresa;
+//	
 	@Field
 	@Caption("Observacao")
 	@Lob
-	@Column(name = "obsevacao")
+	@Column(name = "observacao")
 	private String observacao;
 	
 	public Integer getId() {
@@ -184,14 +183,6 @@ public class Carro extends AbstractModel<Integer> {
 
 	public void setCombustivel(Combustivel combustivel) {
 		this.combustivel = combustivel;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	public String getObservacao() {

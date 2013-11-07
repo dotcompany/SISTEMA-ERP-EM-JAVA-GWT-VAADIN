@@ -312,8 +312,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	@Transactional
 	private void salvaPagamento() throws Exception {
 		ParcelaPagamento parcelaPagamento = currentBean;
-		String tipoBaixa = subView.getCbTipoBaixa().getValue().toString();
-
+		String tipoBaixa = ((TipoBaixa) subView.getCbTipoBaixa().getValue()).getCodigo();
 		if (parcelaPagamento.getChequeEmitido() != null) {
 			// session.save(parcelaPagamento.getFinChequeEmitido());
 			// ChequeVO cheque =

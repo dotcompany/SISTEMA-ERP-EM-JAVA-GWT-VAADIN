@@ -179,16 +179,12 @@ public class DreCabecalhoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			this.subView.getTfPadrao().setValue(this.pEntity.getPadrao());
+			this.subView.getTfPeriodoInicial().setValue(
+					this.pEntity.getPeriodoInicial());
+			this.subView.getTfPeriodoFinal().setValue(
+					this.pEntity.getPeriodoFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

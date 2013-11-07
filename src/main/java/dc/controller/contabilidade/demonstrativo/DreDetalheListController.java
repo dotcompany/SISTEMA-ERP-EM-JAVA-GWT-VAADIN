@@ -45,7 +45,7 @@ public class DreDetalheListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "classificacao", "descricao", "forma_calculo",
+		return new String[] { "classificacao", "descricao", "formaCalculo",
 				"sinal" };
 	}
 

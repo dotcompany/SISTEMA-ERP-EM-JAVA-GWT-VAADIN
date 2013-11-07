@@ -21,7 +21,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Entity
 @Table(name = "LCTO_RECEBER_NT_FINANCEIRA")
 public class LctoReceberNtFinanceira extends AbstractMultiEmpresaModel<Integer> {
- 
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class LctoReceberNtFinanceira extends AbstractMultiEmpresaModel<Integer> 
 	private Date dataInclusao;
 	@Column(name = "VALOR")
 	private BigDecimal valor;
-	@JoinColumn(name = "ID_FIN_LANCAMENTO_RECEBER", referencedColumnName = "ID")
+	@JoinColumn(name = "ID_LANCAMENTO_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private LancamentoReceber lancamentoReceber;
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")

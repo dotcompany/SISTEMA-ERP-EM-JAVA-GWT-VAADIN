@@ -68,6 +68,15 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricao = this.subView.getTfDescricao().getValue();
+			String competencia = this.subView.getTfCompetencia().getValue();
+			String formaEscrituracao = this.subView.getTfFormaEscrituracao()
+					.getValue();
+
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setCompetencia(competencia);
+			this.pEntity.setFormaEscrituracao(formaEscrituracao);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

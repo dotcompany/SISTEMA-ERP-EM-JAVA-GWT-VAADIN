@@ -242,7 +242,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfClassificacao
 		tfClassificacao = new TextField();
-		tfClassificacao.setCaption("tfClassificacao:");
+		tfClassificacao.setCaption("Classificação:");
 		tfClassificacao.setImmediate(false);
 		tfClassificacao.setWidth("175px");
 		tfClassificacao.setHeight("-1px");
@@ -252,7 +252,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfTipo
 		tfTipo = new TextField();
-		tfTipo.setCaption("tfTipo:");
+		tfTipo.setCaption("Tipo:");
 		tfTipo.setImmediate(false);
 		tfTipo.setWidth("175px");
 		tfTipo.setHeight("-1px");
@@ -272,7 +272,7 @@ public class ContaFormView extends CustomComponent {
 
 		// pdfDataInclusao
 		pdfDataInclusao = new PopupDateField();
-		pdfDataInclusao.setCaption("pdfDataInclusao:");
+		pdfDataInclusao.setCaption("Data da inclusão:");
 		pdfDataInclusao.setImmediate(false);
 		pdfDataInclusao.setWidth("175px");
 		pdfDataInclusao.setHeight("-1px");
@@ -281,7 +281,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfSituacao
 		tfSituacao = new TextField();
-		tfSituacao.setCaption("tfSituacao:");
+		tfSituacao.setCaption("Situação:");
 		tfSituacao.setImmediate(false);
 		tfSituacao.setWidth("175px");
 		tfSituacao.setHeight("-1px");
@@ -291,7 +291,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfNatureza
 		tfNatureza = new TextField();
-		tfNatureza.setCaption("tfNatureza:");
+		tfNatureza.setCaption("Natureza:");
 		tfNatureza.setImmediate(false);
 		tfNatureza.setWidth("175px");
 		tfNatureza.setHeight("-1px");
@@ -301,7 +301,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfPatrimonioResultado
 		tfPatrimonioResultado = new TextField();
-		tfPatrimonioResultado.setCaption("tfPatrimonioResultado:");
+		tfPatrimonioResultado.setCaption("Patrimônio resultado:");
 		tfPatrimonioResultado.setImmediate(false);
 		tfPatrimonioResultado.setWidth("175px");
 		tfPatrimonioResultado.setHeight("-1px");
@@ -311,7 +311,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfLivroCaixa
 		tfLivroCaixa = new TextField();
-		tfLivroCaixa.setCaption("tfLivroCaixa:");
+		tfLivroCaixa.setCaption("Livro de caixa:");
 		tfLivroCaixa.setImmediate(false);
 		tfLivroCaixa.setWidth("175px");
 		tfLivroCaixa.setHeight("-1px");
@@ -321,7 +321,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfDfc
 		tfDfc = new TextField();
-		tfDfc.setCaption("tfDfc:");
+		tfDfc.setCaption("Dfc:");
 		tfDfc.setImmediate(false);
 		tfDfc.setWidth("175px");
 		tfDfc.setHeight("-1px");
@@ -331,7 +331,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfOrdem
 		tfOrdem = new TextField();
-		tfOrdem.setCaption("tfOrdem:");
+		tfOrdem.setCaption("Ordem:");
 		tfOrdem.setImmediate(false);
 		tfOrdem.setWidth("175px");
 		tfOrdem.setHeight("-1px");
@@ -341,7 +341,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfCodigoReduzido
 		tfCodigoReduzido = new TextField();
-		tfCodigoReduzido.setCaption("tfCodigoReduzido:");
+		tfCodigoReduzido.setCaption("Código reduzido:");
 		tfCodigoReduzido.setImmediate(false);
 		tfCodigoReduzido.setWidth("175px");
 		tfCodigoReduzido.setHeight("-1px");
@@ -351,7 +351,7 @@ public class ContaFormView extends CustomComponent {
 
 		// tfCodigoEfd
 		tfCodigoEfd = new TextField();
-		tfCodigoEfd.setCaption("tfCodigoEfd:");
+		tfCodigoEfd.setCaption("Código efd:");
 		tfCodigoEfd.setImmediate(false);
 		tfCodigoEfd.setWidth("175px");
 		tfCodigoEfd.setHeight("-1px");

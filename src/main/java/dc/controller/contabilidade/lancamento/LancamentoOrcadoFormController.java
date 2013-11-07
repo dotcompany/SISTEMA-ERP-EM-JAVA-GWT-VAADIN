@@ -179,16 +179,31 @@ public class LancamentoOrcadoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfAno().setValue(this.pEntity.getAno());
+			this.subView.getTfJaneiro().setValue(
+					this.pEntity.getJaneiro().toString());
+			this.subView.getTfFevereiro().setValue(
+					this.pEntity.getFevereiro().toString());
+			this.subView.getTfMarco().setValue(
+					this.pEntity.getMarco().toString());
+			this.subView.getTfAbril().setValue(
+					this.pEntity.getAbril().toString());
+			this.subView.getTfMaio()
+					.setValue(this.pEntity.getMaio().toString());
+			this.subView.getTfJunho().setValue(
+					this.pEntity.getJunho().toString());
+			this.subView.getTfJulho().setValue(
+					this.pEntity.getJulho().toString());
+			this.subView.getTfAgosto().setValue(
+					this.pEntity.getAgosto().toString());
+			this.subView.getTfSetembro().setValue(
+					this.pEntity.getSetembro().toString());
+			this.subView.getTfOutubro().setValue(
+					this.pEntity.getOutubro().toString());
+			this.subView.getTfNovembro().setValue(
+					this.pEntity.getNovembro().toString());
+			this.subView.getTfDezembro().setValue(
+					this.pEntity.getDezembro().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

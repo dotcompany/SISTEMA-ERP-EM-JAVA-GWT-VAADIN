@@ -179,16 +179,14 @@ public class EncerramentoExeDetFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfSaldoAnterior().setValue(
+					this.pEntity.getSaldoAnterior().toString());
+			this.subView.getTfValorDebito().setValue(
+					this.pEntity.getValorDebito().toString());
+			this.subView.getTfValorCredito().setValue(
+					this.pEntity.getValorCredito().toString());
+			this.subView.getTfSaldo().setValue(
+					this.pEntity.getSaldo().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
