@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -319,6 +320,22 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getMascara();
+	}
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR

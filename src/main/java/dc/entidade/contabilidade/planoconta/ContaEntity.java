@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -190,6 +191,22 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getDescricao();
+	}
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR

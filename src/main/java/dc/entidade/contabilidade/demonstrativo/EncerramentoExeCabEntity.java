@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -96,6 +97,22 @@ public class EncerramentoExeCabEntity extends
 
 	@OneToMany(mappedBy = "encerramentoExeCab", fetch = FetchType.LAZY)
 	private List<EncerramentoExeDetEntity> encerramentoExeDetList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getMotivo();
+	}
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR

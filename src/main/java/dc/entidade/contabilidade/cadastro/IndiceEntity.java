@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -100,6 +101,22 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "indice", fetch = FetchType.LAZY)
 	private List<IndiceValorEntity> indiceValorList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getPeriodicidade();
+	}
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR

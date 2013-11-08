@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -89,6 +90,22 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
 	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getDescricao();
+	}
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
 
 	/**
 	 * CONSTRUTOR

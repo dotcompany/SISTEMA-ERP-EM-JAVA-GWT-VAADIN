@@ -167,7 +167,7 @@ public class TermoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	public String getNome() {
-		return aberturaEncerramento;
+		return getAberturaEncerramento();
 	}
 
 	// public void setNome(String nome) {

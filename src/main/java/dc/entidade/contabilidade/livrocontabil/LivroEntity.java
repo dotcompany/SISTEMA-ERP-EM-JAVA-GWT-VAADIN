@@ -99,7 +99,7 @@ public class LivroEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	public String getNome() {
-		return descricao;
+		return getDescricao();
 	}
 
 	// public void setNome(String nome) {

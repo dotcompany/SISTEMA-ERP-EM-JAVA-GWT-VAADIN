@@ -99,6 +99,25 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 	private List<ContaEntity> contaList;
 
 	/**
+	 * TRANSIENT
+	 */
+
+	/*
+	 * @Transient
+	 * 
+	 * @Field
+	 * 
+	 * @ComboValue
+	 * 
+	 * @Analyzer(definition = "dc_combo_analyzer") public String getNome() {
+	 * return getMascara(); }
+	 */
+
+	// public void setNome(String nome) {
+	// setAberturaEncerramento(nome);
+	// }
+
+	/**
 	 * CONSTRUTOR
 	 */
 
