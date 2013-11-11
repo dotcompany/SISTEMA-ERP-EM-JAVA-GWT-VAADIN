@@ -11,8 +11,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -46,16 +48,19 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "DESCRICAO")
 	@Caption(value = "Descrição")
+	@Field
 	private String descricao;
 
 	@Lob
 	@Type(type = "text")
 	@Column(name = "PROCEDIMENTO")
 	@Caption(value = "Procedimento")
+	@Field
 	private String procedimento;
 
 	@Caption(value = "Situação")
 	@Column(name = "SITUACAO")
+	@Field
 	private String situacao;
 
 	public StatusParcela() {

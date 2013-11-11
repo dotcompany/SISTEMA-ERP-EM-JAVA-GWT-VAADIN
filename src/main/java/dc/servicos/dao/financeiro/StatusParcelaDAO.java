@@ -28,7 +28,7 @@ public class StatusParcelaDAO extends AbstractCrudDAO<StatusParcela>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[]{"situacao", "descricao"};
 	}
 
 	@Transactional

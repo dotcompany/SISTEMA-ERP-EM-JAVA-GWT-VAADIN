@@ -354,23 +354,50 @@ public abstract class AbstractCrudDAO<T> {
 		}
 
 	}
+	
+	private String getHQLOrderByClause(String[] sortingFields, boolean[] states) {
+		if(sortingFields.length > 0){
+			String clause = " ORDER BY ";
+			for (int i = 0; i < sortingFields.length; i++) {
+				if (states[i]) {
+					clause = clause + " " + sortingFields[i] + " DESC ,";
+					//criteria.addOrder(Order.desc(sortingFields[i]).ignoreCase().t);
+				} else {
+					//criteria.addOrder(Order.asc(sortingFields[i]).ignoreCase());
+					clause = clause + " " + sortingFields[i] + " ASC ,";
+				}
+			}	
+			return clause.substring(0, clause.length() - 1);
+		}else{
+			return "";
+		}
+	}
 
 	@Transactional
 	public List<Serializable> getAllPagedByEmpresa(Class pojoClass, Integer idEmpresa, int start, int pageSize, String[] sortingFields,
 			boolean[] states) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(pojoClass);
-		configureHQLOrder(sortingFields, states, criteria);
+		//Criteria criteria = sessionFactory.getCurrentSession().createCriteria(pojoClass);		criteria.add(Restrictions.di)
+		
+		Query query = sessionFactory.getCurrentSession().createQuery("from " +pojoClass.getName() +" where empresa.id = :id_empresa " + getHQLOrderByClause(sortingFields, states) );
+		query.setParameter("id_empresa", idEmpresa);
+		query.setFirstResult(start);
+
+		query.setMaxResults(pageSize);
+		
+		List result = query.list();
+		/*configureHQLOrder(sortingFields, states, criteria);
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(pageSize);
 		criteria.add(Restrictions.eq("empresa.id", idEmpresa));
-		List result = criteria.list();
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List result = criteria.list();*/
 		return result;
 	}
 
 	@Transactional
 	public int countByEmpresa(Class c, Integer idEmpresa) {
 		List l = sessionFactory.getCurrentSession().createCriteria(c).add(Restrictions.eq("empresa.id", idEmpresa))
-				.setProjection(Projections.rowCount()).list();
+				.setProjection(Projections.rowCount()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return Integer.valueOf(l.get(0).toString());
 	}
 

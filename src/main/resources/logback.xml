@@ -35,6 +35,11 @@
   <appender-ref ref="FILE" />
 </logger>
 
+<logger name="org.hibernate">
+    <level value="ALL" />
+    <appender-ref ref="FILE"/>
+</logger>
+
 <logger name="org.apache.lucene" level="trace" additivity="false">
   <appender-ref ref="STDOUT" />
   <appender-ref ref="FILE" />
@@ -46,10 +51,6 @@
 </logger>
 
 
-  <logger name="org.hibernate" level="DEBUG" />
-  <logger name="org.hibernate.search" level="TRACE" >
-  	<appender-ref ref="FILE" />
-  </logger>
 
   <root level="info">
   	<appender-ref ref="FILE" />

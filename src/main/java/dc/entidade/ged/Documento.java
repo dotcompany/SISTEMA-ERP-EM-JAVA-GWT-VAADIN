@@ -1,6 +1,5 @@
 package dc.entidade.ged;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +28,6 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "GED_DOCUMENTO")
