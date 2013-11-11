@@ -183,17 +183,6 @@ public class IndiceValorFormController extends
 					this.pEntity.getDataIndice());
 			this.subView.getTfValor().setValue(
 					this.pEntity.getValor().toString());
-
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

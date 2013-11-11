@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,21 @@ public class PlanoContaRefSpedFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String codCtaRef = this.subView.getTfCodCtaRef().getValue();
+			String descricao = this.subView.getTfDescricao().getValue();
+			String orientacoes = this.subView.getTfOrientacoes().getValue();
+			Date inicioValidade = this.subView.getPdfInicioValidade()
+					.getValue();
+			Date fimValidade = this.subView.getPdfFimValidade().getValue();
+			String tipo = this.subView.getTfTipo().getValue();
+
+			this.pEntity.setCodCtaRef(codCtaRef);
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setOrientacoes(orientacoes);
+			this.pEntity.setInicioValidade(inicioValidade);
+			this.pEntity.setFimValidade(fimValidade);
+			this.pEntity.setTipo(tipo);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

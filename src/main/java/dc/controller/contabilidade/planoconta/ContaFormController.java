@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,32 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			String classificacao = this.subView.getTfClassificacao().getValue();
+			String tipo = this.subView.getTfTipo().getValue();
+			String descricao = this.subView.getTfDescricao().getValue();
+			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
+			String situacao = this.subView.getTfSituacao().getValue();
+			String natureza = this.subView.getTfNatureza().getValue();
+			String patrimonioResultado = this.subView
+					.getTfPatrimonioResultado().getValue();
+			String dfc = this.subView.getTfDfc().getValue();
+			String ordem = this.subView.getTfOrdem().getValue();
+			String codigoReduzido = this.subView.getTfCodigoReduzido()
+					.getValue();
+			String codigoEfd = this.subView.getTfCodigoEfd().getValue();
+
+			this.pEntity.setClassificacao(classificacao);
+			this.pEntity.setTipo(tipo);
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setDataInclusao(dataInclusao);
+			this.pEntity.setSituacao(situacao);
+			this.pEntity.setNatureza(natureza);
+			this.pEntity.setPatrimonioResultado(patrimonioResultado);
+			this.pEntity.setDfc(dfc);
+			this.pEntity.setOrdem(ordem);
+			this.pEntity.setCodigoReduzido(codigoReduzido);
+			this.pEntity.setCodigoEfd(codigoEfd);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

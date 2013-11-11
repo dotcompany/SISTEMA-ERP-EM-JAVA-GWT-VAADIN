@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,17 @@ public class PlanoContaFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String nome = this.subView.getTfNome().getValue();
+			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
+			String mascara = this.subView.getTfMascara().getValue();
+			Integer niveis = Integer.parseInt(this.subView.getTfNiveis()
+					.getValue());
+
+			this.pEntity.setNome(nome);
+			this.pEntity.setDataInclusao(dataInclusao);
+			this.pEntity.setMascara(mascara);
+			this.pEntity.setNiveis(niveis);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
