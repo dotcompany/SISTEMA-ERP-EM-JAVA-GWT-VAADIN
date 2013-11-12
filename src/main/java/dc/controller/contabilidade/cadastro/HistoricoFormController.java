@@ -69,6 +69,15 @@ public class HistoricoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricao = this.subView.getTfDescricao().getValue();
+			String historico = this.subView.getTfHistorico().getValue();
+			String pedeComplemento = this.subView.getTfPedeComplemento()
+					.getValue();
+
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setHistorico(historico);
+			this.pEntity.setPedeComplemento(pedeComplemento);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

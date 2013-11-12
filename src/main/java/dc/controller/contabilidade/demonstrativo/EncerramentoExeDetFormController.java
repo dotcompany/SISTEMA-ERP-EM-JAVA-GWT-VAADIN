@@ -69,6 +69,20 @@ public class EncerramentoExeDetFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			Double saldoAnterior = Double.parseDouble(this.subView
+					.getTfSaldoAnterior().getValue());
+			Double valorDebito = Double.parseDouble(this.subView
+					.getTfValorDebito().getValue());
+			Double valorCredito = Double.parseDouble(this.subView
+					.getTfValorCredito().getValue());
+			Double saldo = Double.parseDouble(this.subView.getTfSaldo()
+					.getValue());
+
+			this.pEntity.setSaldoAnterior(saldoAnterior);
+			this.pEntity.setValorDebito(valorDebito);
+			this.pEntity.setValorCredito(valorCredito);
+			this.pEntity.setSaldo(saldo);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

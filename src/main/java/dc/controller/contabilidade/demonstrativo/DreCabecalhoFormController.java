@@ -69,6 +69,17 @@ public class DreCabecalhoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricao = this.subView.getTfDescricao().getValue();
+			String padrao = this.subView.getTfPadrao().getValue();
+			String periodoInicial = this.subView.getTfPeriodoInicial()
+					.getValue();
+			String periodoFinal = this.subView.getTfPeriodoFinal().getValue();
+
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setPadrao(padrao);
+			this.pEntity.setPeriodoInicial(periodoInicial);
+			this.pEntity.setPeriodoFinal(periodoFinal);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

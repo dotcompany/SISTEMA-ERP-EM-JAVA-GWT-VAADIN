@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,13 @@ public class IndiceValorFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			Date dataIndice = this.subView.getPdfDataIndice().getValue();
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
+
+			this.pEntity.setDataIndice(dataIndice);
+			this.pEntity.setValor(valor);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

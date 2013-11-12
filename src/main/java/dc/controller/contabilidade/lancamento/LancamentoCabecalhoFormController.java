@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,20 @@ public class LancamentoCabecalhoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			Date dataLancamento = this.subView.getPdfDataLancamento()
+					.getValue();
+			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
+			String tipo = this.subView.getTfTipo().getValue();
+			String liberado = this.subView.getTfLiberado().getValue();
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
+
+			this.pEntity.setDataLancamento(dataLancamento);
+			this.pEntity.setDataInclusao(dataInclusao);
+			this.pEntity.setTipo(tipo);
+			this.pEntity.setLiberado(liberado);
+			this.pEntity.setValor(valor);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

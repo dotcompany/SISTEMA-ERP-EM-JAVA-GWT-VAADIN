@@ -69,6 +69,102 @@ public class ParametrosFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String mascara = this.subView.getTfMascara().getValue();
+			Integer niveis = Integer.parseInt(this.subView.getTfNiveis()
+					.getValue());
+			String informarContaPor = this.subView.getTfInformarContaPor()
+					.getValue();
+			String compartilhaPlanoConta = this.subView
+					.getTfCompartilhaPlanoConta().getValue();
+			String compartilhaHistoricos = this.subView
+					.getTfCompartilhaHistoricos().getValue();
+			String alteraLancamentoOutro = this.subView
+					.getTfAlteraLancamentoOutro().getValue();
+			String historicoObrigatorio = this.subView
+					.getTfHistoricoObrigatorio().getValue();
+			String permiteLancamentoZerado = this.subView
+					.getTfPermiteLancamentoZerado().getValue();
+			String geraInformativoSped = this.subView
+					.getTfGeraInformativoSped().getValue();
+			String spedFormaEscritDiario = this.subView
+					.getTfSpedFormaEscritDiario().getValue();
+			String spedNomeLivroDiario = this.subView
+					.getTfSpedNomeLivroDiario().getValue();
+			String assinaturaDireita = this.subView.getTfAssinaturaDireita()
+					.getValue();
+			String assinaturaEsquerda = this.subView.getTfAssinaturaEsquerda()
+					.getValue();
+			String contaAtivo = this.subView.getTfContaAtivo().getValue();
+			String contaPassivo = this.subView.getTfContaPassivo().getValue();
+			String contaPatrimonioLiquido = this.subView
+					.getTfContaPatrimonioLiquido().getValue();
+			String contaDepreciacaoAcumulada = this.subView
+					.getTfContaDepreciacaoAcumulada().getValue();
+			String contaCapitalSocial = this.subView.getTfContaCapitalSocial()
+					.getValue();
+			String contaResultadoExercicio = this.subView
+					.getTfContaResultadoExercicio().getValue();
+			String contaPrejuizoAcumulado = this.subView
+					.getTfContaPrejuizoAcumulado().getValue();
+			String contaLucroAcumulado = this.subView
+					.getTfContaLucroAcumulado().getValue();
+			String contaTituloPagar = this.subView.getTfContaTituloPagar()
+					.getValue();
+			String contaTituloReceber = this.subView.getTfContaTituloReceber()
+					.getValue();
+			String contaJurosPassivo = this.subView.getTfContaJurosPassivo()
+					.getValue();
+			String contaJurosAtivo = this.subView.getTfContaJurosAtivo()
+					.getValue();
+			String contaDescontoObtido = this.subView
+					.getTfContaDescontoObtido().getValue();
+			String contaDescontoConcedido = this.subView
+					.getTfContaDescontoConcedido().getValue();
+			String contaCmv = this.subView.getTfContaCmv().getValue();
+			String contaVenda = this.subView.getTfContaVenda().getValue();
+			String contaVendaServico = this.subView.getTfContaVendaServico()
+					.getValue();
+			String contaEstoque = this.subView.getTfContaEstoque().getValue();
+			String contaApuraResultado = this.subView
+					.getTfContaApuraResultado().getValue();
+			String contaJurosApropriar = this.subView
+					.getTfContaJurosApropriar().getValue();
+
+			this.pEntity.setMascara(mascara);
+			this.pEntity.setNiveis(niveis);
+			this.pEntity.setInformarContaPor(informarContaPor);
+			this.pEntity.setCompartilhaPlanoConta(compartilhaPlanoConta);
+			this.pEntity.setCompartilhaHistoricos(compartilhaHistoricos);
+			this.pEntity.setAlteraLancamentoOutro(alteraLancamentoOutro);
+			this.pEntity.setHistoricoObrigatorio(historicoObrigatorio);
+			this.pEntity.setPermiteLancamentoZerado(permiteLancamentoZerado);
+			this.pEntity.setGeraInformativoSped(geraInformativoSped);
+			this.pEntity.setSpedFormaEscritDiario(spedFormaEscritDiario);
+			this.pEntity.setSpedNomeLivroDiario(spedNomeLivroDiario);
+			this.pEntity.setAssinaturaDireita(assinaturaDireita);
+			this.pEntity.setAssinaturaEsquerda(assinaturaEsquerda);
+			this.pEntity.setContaAtivo(contaAtivo);
+			this.pEntity.setContaPassivo(contaPassivo);
+			this.pEntity.setContaPatrimonioLiquido(contaPatrimonioLiquido);
+			this.pEntity
+					.setContaDepreciacaoAcumulada(contaDepreciacaoAcumulada);
+			this.pEntity.setContaCapitalSocial(contaCapitalSocial);
+			this.pEntity.setContaResultadoExercicio(contaResultadoExercicio);
+			this.pEntity.setContaPrejuizoAcumulado(contaPrejuizoAcumulado);
+			this.pEntity.setContaLucroAcumulado(contaLucroAcumulado);
+			this.pEntity.setContaTituloPagar(contaTituloPagar);
+			this.pEntity.setContaTituloReceber(contaTituloReceber);
+			this.pEntity.setContaJurosPassivo(contaJurosPassivo);
+			this.pEntity.setContaJurosAtivo(contaJurosAtivo);
+			this.pEntity.setContaDescontoObtido(contaDescontoObtido);
+			this.pEntity.setContaDescontoConcedido(contaDescontoConcedido);
+			this.pEntity.setContaCmv(contaCmv);
+			this.pEntity.setContaVenda(contaVenda);
+			this.pEntity.setContaVendaServico(contaVendaServico);
+			this.pEntity.setContaEstoque(contaEstoque);
+			this.pEntity.setContaApuraResultado(contaApuraResultado);
+			this.pEntity.setContaJurosApropriar(contaJurosApropriar);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

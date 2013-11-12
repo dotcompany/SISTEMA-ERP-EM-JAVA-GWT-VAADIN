@@ -69,6 +69,46 @@ public class LancamentoOrcadoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String ano = this.subView.getTfAno().getValue();
+			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro()
+					.getValue());
+			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro()
+					.getValue());
+			Double marco = Double.parseDouble(this.subView.getTfMarco()
+					.getValue());
+			Double abril = Double.parseDouble(this.subView.getTfAbril()
+					.getValue());
+			Double maio = Double.parseDouble(this.subView.getTfMaio()
+					.getValue());
+			Double junho = Double.parseDouble(this.subView.getTfJunho()
+					.getValue());
+			Double julho = Double.parseDouble(this.subView.getTfJulho()
+					.getValue());
+			Double agosto = Double.parseDouble(this.subView.getTfAgosto()
+					.getValue());
+			Double setembro = Double.parseDouble(this.subView.getTfSetembro()
+					.getValue());
+			Double outubro = Double.parseDouble(this.subView.getTfOutubro()
+					.getValue());
+			Double novembro = Double.parseDouble(this.subView.getTfNovembro()
+					.getValue());
+			Double dezembro = Double.parseDouble(this.subView.getTfDezembro()
+					.getValue());
+
+			this.pEntity.setAno(ano);
+			this.pEntity.setJaneiro(janeiro);
+			this.pEntity.setFevereiro(fevereiro);
+			this.pEntity.setMarco(marco);
+			this.pEntity.setAbril(abril);
+			this.pEntity.setMaio(maio);
+			this.pEntity.setJunho(junho);
+			this.pEntity.setJulho(julho);
+			this.pEntity.setAgosto(agosto);
+			this.pEntity.setSetembro(setembro);
+			this.pEntity.setOutubro(outubro);
+			this.pEntity.setNovembro(novembro);
+			this.pEntity.setDezembro(dezembro);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

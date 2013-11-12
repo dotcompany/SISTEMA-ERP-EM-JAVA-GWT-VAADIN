@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,15 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			String periocidade = this.subView.getTfPeriodicidade().getValue();
+			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe()
+					.getValue();
+			String mensalMesAno = this.subView.getTfMensalMesAno().getValue();
+
+			this.pEntity.setPeriodicidade(periocidade);
+			this.pEntity.setDiarioPartirDe(diarioPartirDe);
+			this.pEntity.setMensalMesAno(mensalMesAno);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

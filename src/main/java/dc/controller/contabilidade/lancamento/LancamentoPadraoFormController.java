@@ -69,6 +69,12 @@ public class LancamentoPadraoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricao = this.subView.getTfDescricao().getValue();
+			String historico = this.subView.getTfHistorico().getValue();
+
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setHistorico(historico);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

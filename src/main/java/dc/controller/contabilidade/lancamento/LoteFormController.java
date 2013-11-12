@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,18 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricao = this.subView.getTfDescricao().getValue();
+			String liberado = this.subView.getTfLiberado().getValue();
+			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
+			Date dataLiberacao = this.subView.getPdfDataLiberacao().getValue();
+			String programado = this.subView.getTfProgramado().getValue();
+
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setLiberado(liberado);
+			this.pEntity.setDataInclusao(dataInclusao);
+			this.pEntity.setDataLiberacao(dataLiberacao);
+			this.pEntity.setProgramado(programado);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
@@ -184,7 +197,8 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 					this.pEntity.getDataInclusao());
 			this.subView.getPdfDataLiberacao().setValue(
 					this.pEntity.getDataLiberacao());
-			this.subView.getTfProgramado().setValue(this.pEntity.getLiberado());
+			this.subView.getTfProgramado().setValue(
+					this.pEntity.getProgramado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

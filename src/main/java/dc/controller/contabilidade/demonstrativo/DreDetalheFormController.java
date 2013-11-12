@@ -69,6 +69,21 @@ public class DreDetalheFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String classificacao = this.subView.getTfClassificacao().getValue();
+			String descricao = this.subView.getTfDescricao().getValue();
+			String formaCalculo = this.subView.getTfFormaCalculo().getValue();
+			String sinal = this.subView.getTfSinal().getValue();
+			String natureza = this.subView.getTfNatureza().getValue();
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
+
+			this.pEntity.setClassificacao(classificacao);
+			this.pEntity.setDescricao(descricao);
+			this.pEntity.setFormaCalculo(formaCalculo);
+			this.pEntity.setSinal(sinal);
+			this.pEntity.setNatureza(natureza);
+			this.pEntity.setValor(valor);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

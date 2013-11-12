@@ -69,6 +69,16 @@ public class LancamentoDetalheFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String descricaoHistorico = this.subView.getTfDescricaoHistorico()
+					.getValue();
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
+			String tipo = this.subView.getTfTipo().getValue();
+
+			this.pEntity.setDescricaoHistorico(descricaoHistorico);
+			this.pEntity.setValor(valor);
+			this.pEntity.setTipo(tipo);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

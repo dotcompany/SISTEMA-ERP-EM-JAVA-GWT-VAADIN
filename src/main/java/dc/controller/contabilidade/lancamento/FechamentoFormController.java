@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,15 @@ public class FechamentoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			Date dataInicio = this.subView.getPdfDataInicio().getValue();
+			Date dataFim = this.subView.getPdfDataFim().getValue();
+			String criterioLancamento = this.subView.getTfCriterioLancamento()
+					.getValue();
+
+			this.pEntity.setDataInicio(dataInicio);
+			this.pEntity.setDataFim(dataFim);
+			this.pEntity.setCriterioLancamento(criterioLancamento);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
