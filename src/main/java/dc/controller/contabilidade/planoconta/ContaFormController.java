@@ -12,8 +12,13 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
+import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.ContaFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -39,6 +44,12 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 	@Autowired
 	private ContaDAO pDAO;
+
+	@Autowired
+	private PlanoContaDAO pcDAO;
+
+	@Autowired
+	private PlanoContaRefSpedDAO pcrsDAO;
 
 	/**
 	 * ENTITIES
@@ -132,6 +143,8 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	@Override
 	protected void initSubView() {
 		this.subView = new ContaFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -183,6 +196,30 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.pDAO,
+					super.getMainController());
+
+			this.subView.getCbConta().setModel(model1);
+
+			DefaultManyToOneComboModel<PlanoContaEntity> model2 = new DefaultManyToOneComboModel<PlanoContaEntity>(
+					PlanoContaListController.class, this.pcDAO,
+					super.getMainController());
+
+			this.subView.getCbPlanoConta().setModel(model2);
+
+			DefaultManyToOneComboModel<PlanoContaRefSpedEntity> model3 = new DefaultManyToOneComboModel<PlanoContaRefSpedEntity>(
+					PlanoContaRefSpedListController.class, this.pcrsDAO,
+					super.getMainController());
+
+			this.subView.getCbPlanoContaRefSped().setModel(model3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

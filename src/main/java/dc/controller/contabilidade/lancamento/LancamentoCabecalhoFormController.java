@@ -12,8 +12,11 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
+import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
+import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
 import dc.visao.contabilidade.lancamento.LancamentoCabecalhoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -40,6 +43,9 @@ public class LancamentoCabecalhoFormController extends
 
 	@Autowired
 	private LancamentoCabecalhoDAO pDAO;
+
+	@Autowired
+	private LoteDAO lDAO;
 
 	/**
 	 * ENTITIES
@@ -121,6 +127,8 @@ public class LancamentoCabecalhoFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new LancamentoCabecalhoFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -172,6 +180,18 @@ public class LancamentoCabecalhoFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<LoteEntity> model = new DefaultManyToOneComboModel<LoteEntity>(
+					LoteListController.class, this.lDAO,
+					super.getMainController());
+
+			this.subView.getCbLote().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

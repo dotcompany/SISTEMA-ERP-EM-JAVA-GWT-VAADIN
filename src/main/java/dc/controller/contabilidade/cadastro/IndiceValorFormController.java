@@ -11,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
+import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
 import dc.servicos.dao.contabilidade.cadastro.IndiceValorDAO;
 import dc.visao.contabilidade.cadastro.IndiceValorFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -40,6 +43,9 @@ public class IndiceValorFormController extends
 
 	@Autowired
 	private IndiceValorDAO pDAO;
+
+	@Autowired
+	private IndiceDAO iDAO;
 
 	/**
 	 * ENTITIES
@@ -114,6 +120,8 @@ public class IndiceValorFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new IndiceValorFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -165,6 +173,18 @@ public class IndiceValorFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<IndiceEntity> model = new DefaultManyToOneComboModel<IndiceEntity>(
+					IndiceListController.class, this.iDAO,
+					super.getMainController());
+
+			this.subView.getCbIndice().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

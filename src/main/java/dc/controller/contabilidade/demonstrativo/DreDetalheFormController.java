@@ -10,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
 import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
 import dc.visao.contabilidade.demonstrativo.DreDetalheFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -39,6 +42,9 @@ public class DreDetalheFormController extends
 
 	@Autowired
 	private DreDetalheDAO pDAO;
+
+	@Autowired
+	private DreCabecalhoDAO dcDAO;
 
 	/**
 	 * ENTITIES
@@ -121,6 +127,8 @@ public class DreDetalheFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new DreDetalheFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -172,6 +180,18 @@ public class DreDetalheFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<DreCabecalhoEntity> model = new DefaultManyToOneComboModel<DreCabecalhoEntity>(
+					DreCabecalhoListController.class, this.dcDAO,
+					super.getMainController());
+
+			this.subView.getCbDreCabecalho().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

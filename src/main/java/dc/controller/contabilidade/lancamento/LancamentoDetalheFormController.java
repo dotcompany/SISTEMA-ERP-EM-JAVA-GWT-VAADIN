@@ -10,9 +10,18 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.controller.contabilidade.cadastro.HistoricoListController;
+import dc.controller.contabilidade.planoconta.ContaListController;
+import dc.entidade.contabilidade.cadastro.HistoricoEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
+import dc.entidade.contabilidade.planoconta.ContaEntity;
+import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoDetalheDAO;
+import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
 import dc.visao.contabilidade.lancamento.LancamentoDetalheFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -39,6 +48,15 @@ public class LancamentoDetalheFormController extends
 
 	@Autowired
 	private LancamentoDetalheDAO pDAO;
+
+	@Autowired
+	private ContaDAO cDAO;
+
+	@Autowired
+	private HistoricoDAO hDAO;
+
+	@Autowired
+	private LancamentoCabecalhoDAO lcDAO;
 
 	/**
 	 * ENTITIES
@@ -116,6 +134,8 @@ public class LancamentoDetalheFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new LancamentoDetalheFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -167,6 +187,30 @@ public class LancamentoDetalheFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
+					super.getMainController());
+
+			this.subView.getCbConta().setModel(model1);
+
+			DefaultManyToOneComboModel<HistoricoEntity> model2 = new DefaultManyToOneComboModel<HistoricoEntity>(
+					HistoricoListController.class, this.hDAO,
+					super.getMainController());
+
+			this.subView.getCbHistorico().setModel(model2);
+
+			DefaultManyToOneComboModel<LancamentoCabecalhoEntity> model3 = new DefaultManyToOneComboModel<LancamentoCabecalhoEntity>(
+					LancamentoCabecalhoListController.class, this.lcDAO,
+					super.getMainController());
+
+			this.subView.getCbLancamentoCabecalho().setModel(model3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

@@ -10,9 +10,15 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.controller.contabilidade.planoconta.ContaListController;
+import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
+import dc.entidade.contabilidade.planoconta.ContaEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeDetDAO;
+import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeDetFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -39,6 +45,12 @@ public class EncerramentoExeDetFormController extends
 
 	@Autowired
 	private EncerramentoExeDetDAO pDAO;
+
+	@Autowired
+	private EncerramentoExeCabDAO eecDAO;
+
+	@Autowired
+	private ContaDAO cDAO;
 
 	/**
 	 * ENTITIES
@@ -120,6 +132,8 @@ public class EncerramentoExeDetFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new EncerramentoExeDetFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -171,6 +185,24 @@ public class EncerramentoExeDetFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<EncerramentoExeCabEntity> model1 = new DefaultManyToOneComboModel<EncerramentoExeCabEntity>(
+					EncerramentoExeCabListController.class, this.eecDAO,
+					super.getMainController());
+
+			this.subView.getCbEncerramentoExeCab().setModel(model1);
+
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
+					super.getMainController());
+
+			this.subView.getCbConta().setModel(model2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************
