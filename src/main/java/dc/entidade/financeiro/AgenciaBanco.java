@@ -46,8 +46,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -136,6 +135,11 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Type(type = "text")
 	private String observacao;
+
+	@Field
+	@Caption("Digito")
+	@Column(name = "DIGITO", length = 1)
+	private String digito;
 
 	/*
 	 * @Caption("Banco")
@@ -304,6 +308,22 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Integer getIdBanco() {
+		return idBanco;
+	}
+
+	public void setIdBanco(Integer idBanco) {
+		this.idBanco = idBanco;
+	}
+
+	public String getDigito() {
+		return digito;
+	}
+
+	public void setDigito(String digito) {
+		this.digito = digito;
 	}
 
 }

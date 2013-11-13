@@ -65,6 +65,10 @@ public class Banco extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	@Caption("URL")
 	private String url;
 
+	@Column(name = "CODIGO")
+	@Field
+	private String codigo;
+
 	public Banco() {
 
 	}
@@ -118,6 +122,14 @@ public class Banco extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

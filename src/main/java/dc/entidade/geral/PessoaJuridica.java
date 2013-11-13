@@ -27,134 +27,121 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
 @Table(name = "pessoa_juridica")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class PessoaJuridica implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "CNPJ")
-    private String cnpj;
-    
-    @Field
-    @Caption("Fantasia")
-    @Column(name="FANTASIA", length = 150)
-    private String fantasia;
-    
-    @Column(name = "INSCRICAO_MUNICIPAL")
-    private String inscricaoMunicipal;
-    
-    @Column(name = "INSCRICAO_ESTADUAL")
-    private String inscricaoEstadual;
-    
-    @Column(name = "DATA_CONSTITUICAO")
-    @Temporal(TemporalType.DATE)
-    private Date dataConstituicao;
-    
-    @Column(name="TIPO_REGIME")
-    private Character tipoRegime;
-    
-    @Column(name="CTR")
-    private Character ctr;
-    
-    @Column(name="SUFRAMA", length = 9)
-    private String suframa;
-    
-    @Field
-    @Caption("Razão Social")
-    @Column(name = "RAZAO_SOCIAL", length=255)
-    private String razaoSocial;
-    
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-    @OneToOne(optional = false)
-    private Pessoa pessoa;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-    public PessoaJuridica() {
-    }
+	@Column(name = "CNPJ")
+	private String cnpj;
 
-    public PessoaJuridica(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Fantasia")
+	@Column(name = "FANTASIA", length = 150)
+	private String fantasia;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "INSCRICAO_MUNICIPAL")
+	private String inscricaoMunicipal;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "INSCRICAO_ESTADUAL")
+	private String inscricaoEstadual;
 
-    public String getCnpj() {
-        return cnpj;
-    }
+	@Column(name = "DATA_CONSTITUICAO")
+	@Temporal(TemporalType.DATE)
+	private Date dataConstituicao;
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+	@Column(name = "TIPO_REGIME")
+	private Character tipoRegime;
 
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
+	@Column(name = "CRT")
+	private Character crt;
 
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
+	@Column(name = "SUFRAMA", length = 9)
+	private String suframa;
 
-    public String getInscricaoMunicipal() {
-        return inscricaoMunicipal;
-    }
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@OneToOne(optional = false)
+	private Pessoa pessoa;
 
-    public void setInscricaoMunicipal(String inscricaoMunicipal) {
-        this.inscricaoMunicipal = inscricaoMunicipal;
-    }
+	public PessoaJuridica() {
+	}
 
-    public Date getDataConstituicao() {
-        return dataConstituicao;
-    }
+	public PessoaJuridica(Integer id) {
+		this.id = id;
+	}
 
-    public void setDataConstituicao(Date dataConstituicao) {
-        this.dataConstituicao = dataConstituicao;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    @Override
-    public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof PessoaJuridica == false) return false;
-    	if (this == object) return true;
-    	final PessoaJuridica other = (PessoaJuridica) object;
-    	return EqualsBuilder.reflectionEquals(this, other);
-    }
+	public String getCnpj() {
+		return cnpj;
+	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
-    
-    public String getFantasia() {
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
+	}
+
+	public Date getDataConstituicao() {
+		return dataConstituicao;
+	}
+
+	public void setDataConstituicao(Date dataConstituicao) {
+		this.dataConstituicao = dataConstituicao;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof PessoaJuridica == false)
+			return false;
+		if (this == object)
+			return true;
+		final PessoaJuridica other = (PessoaJuridica) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public String getFantasia() {
 		return fantasia;
 	}
 
@@ -178,14 +165,6 @@ public class PessoaJuridica implements Serializable {
 		this.tipoRegime = tipoRegime;
 	}
 
-	public Character getCtr() {
-		return ctr;
-	}
-
-	public void setCtr(Character ctr) {
-		this.ctr = ctr;
-	}
-
 	public String getSuframa() {
 		return suframa;
 	}
@@ -195,17 +174,26 @@ public class PessoaJuridica implements Serializable {
 	}
 
 	/**
-     * @return the pessoa
-     */
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
+	 * @return the pessoa
+	 */
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
 
-    /**
-     * @param pessoa the pessoa to set
-     */
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
+	/**
+	 * @param pessoa
+	 *            the pessoa to set
+	 */
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public Character getCrt() {
+		return crt;
+	}
+
+	public void setCrt(Character crt) {
+		this.crt = crt;
+	}
 
 }

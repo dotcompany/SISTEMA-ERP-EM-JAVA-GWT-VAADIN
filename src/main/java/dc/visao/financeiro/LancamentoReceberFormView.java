@@ -72,6 +72,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 	private SubFormComponent<LctoReceberNtFinanceira, Integer> naturezaFinanceiraSubForm;
 	private LancamentoReceberFormController controller;
 	private Button btnGerarParcelas;
+	private Button btnGerarBoleto;
 	private VerticalLayout parcelasLayout;
 
 	/**
@@ -168,6 +169,9 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 		btnGerarParcelas = new Button("Gerar Parcelas");
 		fields.addComponent(btnGerarParcelas, 0, 5);
+
+		btnGerarBoleto = new Button("Gerar Boletos");
+		fields.addComponent(btnGerarBoleto, 1, 5);
 
 		for (TipoVencimento value : TipoVencimento.values()) {
 			cbTipoVencimento.addItem(value);
@@ -550,6 +554,14 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 	public void setCbTipoVencimento(ComboBox cbTipoVencimento) {
 		this.cbTipoVencimento = cbTipoVencimento;
+	}
+
+	public Button getBtnGerarBoleto() {
+		return btnGerarBoleto;
+	}
+
+	public void setBtnGerarBoleto(Button btnGerarBoleto) {
+		this.btnGerarBoleto = btnGerarBoleto;
 	}
 
 }
