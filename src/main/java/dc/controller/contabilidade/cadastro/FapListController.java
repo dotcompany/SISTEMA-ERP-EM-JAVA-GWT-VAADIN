@@ -44,7 +44,7 @@ public class FapListController extends CRUDListController<FapEntity> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "fap", "dataInicial", "dataFinal" };
 	}
 
 	@Override

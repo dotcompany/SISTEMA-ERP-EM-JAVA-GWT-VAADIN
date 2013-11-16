@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,20 @@ public class RegistroCartorioFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			String nomeCartorio = "";
+			Date dataRegistro = null;
+			Integer numero = new Integer(0);
+			Integer folha = new Integer(0);
+			Integer livro = new Integer(0);
+			String nire = "";
+
+			this.pEntity.setNomeCartorio(nomeCartorio);
+			this.pEntity.setDataRegistro(dataRegistro);
+			this.pEntity.setNumero(numero);
+			this.pEntity.setFolha(folha);
+			this.pEntity.setLivro(livro);
+			this.pEntity.setNire(nire);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

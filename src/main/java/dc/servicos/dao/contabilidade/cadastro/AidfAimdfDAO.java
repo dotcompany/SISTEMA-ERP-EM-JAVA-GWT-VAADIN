@@ -43,7 +43,7 @@ public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> {
 	@Transactional
 	public List<AidfAimdfEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM AidfAimdfEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM AidfAimdfEntity ent WHERE (1 = 1) AND ent.numeroAutorizacao LIKE :q";
 
 			List<AidfAimdfEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -58,7 +58,7 @@ public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Número da autorização", "Formulário disponível" };
 	}
 
 }

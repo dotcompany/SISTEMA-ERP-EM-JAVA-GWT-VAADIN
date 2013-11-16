@@ -1,6 +1,8 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +70,14 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			BigDecimal fap = new BigDecimal(0);
+			Date dataInicial = null;
+			Date dataFinal = null;
+
+			this.pEntity.setFap(fap);
+			this.pEntity.setDataInicial(dataInicial);
+			this.pEntity.setDataFinal(dataFinal);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,18 @@ public class AidfAimdfFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			Integer numero = null;
+			Date dataValidade = null;
+			Date dataAutorizacao = null;
+			String numeroAutorizacao = "";
+			String formularioDisponivel = "";
+
+			this.pEntity.setNumero(numero);
+			this.pEntity.setDataValidade(dataValidade);
+			this.pEntity.setDataAutorizacao(dataAutorizacao);
+			this.pEntity.setNumeroAutorizacao(numeroAutorizacao);
+			this.pEntity.setFormularioDisponivel(formularioDisponivel);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);

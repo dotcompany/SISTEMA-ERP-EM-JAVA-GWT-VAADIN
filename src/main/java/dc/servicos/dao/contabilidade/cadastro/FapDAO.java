@@ -43,7 +43,7 @@ public class FapDAO extends AbstractCrudDAO<FapEntity> {
 	@Transactional
 	public List<FapEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM FapEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM FapEntity ent WHERE (1 = 1) AND ent.fap LIKE :q";
 
 			List<FapEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
@@ -57,7 +57,7 @@ public class FapDAO extends AbstractCrudDAO<FapEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Fap", "Data inicial", "Data término" };
 	}
 
 }
