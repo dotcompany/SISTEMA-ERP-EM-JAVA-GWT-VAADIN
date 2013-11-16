@@ -70,11 +70,15 @@ public class AidfAimdfFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer numero = null;
-			Date dataValidade = null;
-			Date dataAutorizacao = null;
-			String numeroAutorizacao = "";
-			String formularioDisponivel = "";
+			Integer numero = Integer.parseInt(this.subView.getTfNumero()
+					.getValue());
+			Date dataValidade = this.subView.getPdfDataValidade().getValue();
+			Date dataAutorizacao = this.subView.getPdfDataAutorizacao()
+					.getValue();
+			String numeroAutorizacao = this.subView.getTfNumeroAutorizacao()
+					.getValue();
+			String formularioDisponivel = this.subView
+					.getTfFormularioDisponivel().getValue();
 
 			this.pEntity.setNumero(numero);
 			this.pEntity.setDataValidade(dataValidade);
@@ -192,16 +196,16 @@ public class AidfAimdfFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getPdfDataValidade().setValue(
+					this.pEntity.getDataValidade());
+			this.subView.getPdfDataAutorizacao().setValue(
+					this.pEntity.getDataAutorizacao());
+			this.subView.getTfNumeroAutorizacao().setValue(
+					this.pEntity.getNumeroAutorizacao());
+			this.subView.getTfFormularioDisponivel().setValue(
+					this.pEntity.getFormularioDisponivel());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

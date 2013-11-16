@@ -70,12 +70,15 @@ public class RegistroCartorioFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			String nomeCartorio = "";
-			Date dataRegistro = null;
-			Integer numero = new Integer(0);
-			Integer folha = new Integer(0);
-			Integer livro = new Integer(0);
-			String nire = "";
+			String nomeCartorio = this.subView.getTfNomeCartorio().getValue();
+			Date dataRegistro = this.subView.getPdfDataRegistro().getValue();
+			Integer numero = Integer.parseInt(this.subView.getTfNumero()
+					.getValue());
+			Integer folha = Integer.parseInt(this.subView.getTfFolha()
+					.getValue());
+			Integer livro = Integer.parseInt(this.subView.getTfLivro()
+					.getValue());
+			String nire = this.subView.getTfNire().getValue();
 
 			this.pEntity.setNomeCartorio(nomeCartorio);
 			this.pEntity.setDataRegistro(dataRegistro);
@@ -194,16 +197,17 @@ public class RegistroCartorioFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfNomeCartorio().setValue(
+					this.pEntity.getNomeCartorio());
+			this.subView.getPdfDataRegistro().setValue(
+					this.pEntity.getDataRegistro());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getTfFolha().setValue(
+					this.pEntity.getFolha().toString());
+			this.subView.getTfLivro().setValue(
+					this.pEntity.getLivro().toString());
+			this.subView.getTfNire().setValue(this.pEntity.getNire());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
