@@ -1,6 +1,8 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +70,14 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			BigDecimal fap = new BigDecimal(this.subView.getTfFap().getValue());
+			Date dataInicial = this.subView.getPdfDataInicial().getValue();
+			Date dataFinal = this.subView.getPdfDataFinal().getValue();
+
+			this.pEntity.setFap(fap);
+			this.pEntity.setDataInicial(dataInicial);
+			this.pEntity.setDataFinal(dataFinal);
+
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
@@ -178,16 +188,11 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			// this.subView.getTfValor13().setValue(
-			// String.valueOf(this.pEntity.getValor13()));
-			// this.subView.getTfValorMensal().setValue(
-			// String.valueOf(this.pEntity.getValorMensal()));
-
-			// this.subView.getCbInss().setData(this.inssListarTodos());
-			// this.subView.getCbServico().setData(this.servicoListarTodos());
-
-			// this.subView.getCbInss().setValue(this.pEntity.getInss());
-			// this.subView.getCbServico().setValue(this.pEntity.getServico());
+			this.subView.getTfFap().setValue(this.pEntity.getFap().toString());
+			this.subView.getPdfDataInicial().setValue(
+					this.pEntity.getDataInicial());
+			this.subView.getPdfDataFinal()
+					.setValue(this.pEntity.getDataFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

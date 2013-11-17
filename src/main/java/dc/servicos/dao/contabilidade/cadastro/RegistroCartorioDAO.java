@@ -44,7 +44,7 @@ public class RegistroCartorioDAO extends
 	@Transactional
 	public List<RegistroCartorioEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM RegistroCartorioEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM RegistroCartorioEntity ent WHERE (1 = 1) AND ent.nomeCartorio LIKE :q";
 
 			List<RegistroCartorioEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
@@ -59,7 +59,7 @@ public class RegistroCartorioDAO extends
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Competência" };
+		return new String[] { "Nome do cartório", "Data de registro", "Nire" };
 	}
 
 }

@@ -45,7 +45,7 @@ public class AidfAimdfListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "numeroAutorizacao", "formularioDisponivel" };
 	}
 
 	@Override
