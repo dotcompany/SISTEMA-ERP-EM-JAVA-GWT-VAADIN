@@ -105,39 +105,32 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Caption("Descricao")
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 	//
 	@Field
 	@Caption("Descricao Pdv")
 	@Column(name = "DESCRICAO_PDV", length = 30)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoPdv;
 	//
 	@Column(name = "VALOR_COMPRA", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCompra;
 	//
 	@Column(name = "VALOR_VENDA", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorVenda;
 	//
 	@Column(name = "PRECO_VENDA_MINIMO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoVendaMinimo;
 	//
 	@Column(name = "PRECO_SUGERIDO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoSugerido;
 	//
 	@Column(name = "CUSTO_MEDIO_LIQUIDO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal custoMedioLiquido;
 	//
@@ -147,42 +140,34 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	private BigDecimal precoLucroZero;
 
 	@Column(name = "PRECO_LUCRO_MINIMO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMinimo;
 
 	@Column(name = "PRECO_LUCRO_MAXIMO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMaximo;
 
 	@Column(name = "MARKUP", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal markup;
 
 	@Column(name = "QUANTIDADE_ESTOQUE", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidadeEstoque;
 
 	@Column(name = "QUANTIDADE_ESTOQUE_ANTERIOR", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidadeEstoqueAnterior;
 
 	@Column(name = "ESTOQUE_MINIMO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMinimo;
 
 	@Column(name = "ESTOQUE_MAXIMO", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMaximo;
 
 	@Column(name = "ESTOQUE_IDEAL", precision = 11, scale = 2)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueIdeal;
 	//
@@ -192,7 +177,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	//	private Character excluido;
 	//
 		@Column(name = "INATIVO")
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private String inativo;
 	//
@@ -211,64 +195,52 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	private String codigoLst;
 
 	@Column(name = "EX_TIPI")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String exTipi;
 
 	@Column(name = "TIPO")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Column(name = "IAT")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String iat;
 
 	@Column(name = "IPPT")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ippt;
 
 	@Column(name = "TIPO_ITEM_SPED")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoItemSped;
 
 	@Column(name = "TOTALIZADOR_PARCIAL", length = 10)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String totalizadorParcial;
 
 	@Column(name = "CODIGO_BALANCA")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBalanca;
 
 	
 		@Column(name = "CLASSE_ABC")
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private String classe;
 	
 
 		@Column(name = "PESO", precision = 11, scale = 2)
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private BigDecimal peso;
 	
 		@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private BigDecimal taxaComissao;
 	
 		@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private BigDecimal pontoPedido;
 	
 		@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
-		@ComboValue
 		@Analyzer(definition = "dc_combo_analyzer")
 		private BigDecimal loteEconomicoCompra;
 	
@@ -322,16 +294,15 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	//	private SubGrupoProduto subgrupoProduto;
 
 	//	@ManyToOne
-	//	@JoinColumn(name = "ID_UNIDADE_PRODUTO", nullable = false)
 	//	@Caption("Unidade do produto")
 	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	//	private UnidadeProduto unidadeProduto;
 
-	//	@ManyToOne
-	//	@JoinColumn(name = "id_marca_produto", nullable = false)
-	//	@Caption("Marca do produto")
-	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	//	private MarcaProduto marcaProduto;
+		@ManyToOne
+		@JoinColumn(name = "id_marca_produto", nullable = false)
+		@Caption("Marca do produto")
+		@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+		private MarcaProduto marcaProduto;
 
 	//	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
 	//	@ManyToOne(optional = false)
@@ -1053,6 +1024,15 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.classe = classe;
 	}
 
+	public MarcaProduto getMarcaProduto() {
+		return marcaProduto;
+	}
+
+	public void setMarcaProduto(MarcaProduto marcaProduto) {
+		this.marcaProduto = marcaProduto;
+	}
+
+	
 
 
 
