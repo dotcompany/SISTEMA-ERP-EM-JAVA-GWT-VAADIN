@@ -69,7 +69,6 @@ public class GrupoProduto extends AbstractMultiEmpresaModel<Integer> implements 
 	@Caption("Descricao")
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 

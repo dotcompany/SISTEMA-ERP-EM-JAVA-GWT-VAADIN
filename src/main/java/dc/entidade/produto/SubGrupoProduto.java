@@ -59,8 +59,6 @@ public class SubGrupoProduto extends AbstractModel<Integer> implements
 
 	@Basic(optional = false)
 	@Column(name = "ID_GRUPO", nullable = false)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private int idGrupo;
 
 	@Field
@@ -73,8 +71,6 @@ public class SubGrupoProduto extends AbstractModel<Integer> implements
 	@Lob
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	/**
@@ -143,7 +139,7 @@ public class SubGrupoProduto extends AbstractModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }

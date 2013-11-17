@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.solr.client.solrj.beans.Field;
@@ -34,6 +35,7 @@ import dc.entidade.framework.Empresa;
 */
 @Entity
 @Table(name = "tribut_grupo_tributario")
+@XmlRootElement
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
@@ -46,11 +48,8 @@ public class GrupoTributario extends AbstractMultiEmpresaModel<Integer> implemen
 	@SequenceGenerator(name = "trb", sequenceName = "tribut_grupo_tributario_id_seq", allocationSize = 1)
 	@ComboCode
 	@Analyzer(definition="dc_combo_analyzer")
-	@Field
 	private Integer id;
-  
-
-	
+  	
 	@Field
 	@Column(name="descricao")
     @Caption("Descrição")

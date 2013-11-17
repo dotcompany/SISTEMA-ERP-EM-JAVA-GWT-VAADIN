@@ -32,7 +32,6 @@ import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "almoxarifado")
-@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements	Serializable {
@@ -44,7 +43,9 @@ public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements	
 	@SequenceGenerator(name = "alm", sequenceName = "almoxarifado_id_seq", allocationSize = 1)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Field
 	private Integer id;
+	
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")

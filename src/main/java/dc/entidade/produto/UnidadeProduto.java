@@ -69,7 +69,7 @@ public class UnidadeProduto extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Lob
 	@Field
-	@Caption("Descricao")
+	@Caption("Nome")
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue

@@ -106,23 +106,23 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 	protected void initSubView() {
 		subView = new ProdutoFormView(this);
 		try{
-			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(SubGrupoProduto.class, subGrupoProdutoDAO, mainController);
-			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
+//			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(SubGrupoProduto.class, subGrupoProdutoDAO, mainController);
+//			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
+//////			
+//			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(UnidadeProduto.class, unidadeProdutoDAO, mainController);
+//			subView.getCmbUnidadeProduto().setModel(comboUnidade);
+////			
+//			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProduto.class, marcaProdutoDAO, mainController);
+//			subView.getCmbMarcaProduto().setModel(comboMarca);
+//////			
+//		DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(Almoxarifado.class, almoxarifadoDAO, mainController);
+//			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
 //			
-			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(UnidadeProduto.class, unidadeProdutoDAO, mainController);
-			subView.getCmbUnidadeProduto().setModel(comboUnidade);
+//			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributario.class, grupoTributarioDAO, mainController);
+//			subView.getCmbGrupoTributario().setModel(comboGrupo);
 //			
-			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProduto.class, marcaProdutoDAO, mainController);
-			subView.getCmbMarcaProduto().setModel(comboMarca);
-//			
-			DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(Almoxarifado.class, almoxarifadoDAO, mainController);
-			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
-			
-			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributario.class, grupoTributarioDAO, mainController);
-			subView.getCmbGrupoTributario().setModel(comboGrupo);
-			
-			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(ICMSCustomizado.class, icmsCustomizadoDAO, mainController);
-			subView.getCmbIcmsCustomizado().setModel(comboIcms);
+//			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(ICMSCustomizado.class, icmsCustomizadoDAO, mainController);
+//			subView.getCmbIcmsCustomizado().setModel(comboIcms);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -133,13 +133,13 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		
-		
+				
 		try{
 			currentBean = produtoDAO.find(id);
 			
 			subView.getCmbSubGrupoProduto().setValue(currentBean.getSubGrupo());
 			subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
+			//subView.getCmbMarcaProduto().setValue(currentBean.getMarcaProduto());
 			
 			subView.getTxtGtin().setValue(currentBean.getGtin());
 			subView.getTxtCodigoInterno().setValue(currentBean.getGtin());
@@ -303,105 +303,105 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 		
 		
 		
-//		subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-
-		//	subView.getTxtNome().setValue(currentBean.getNome());
-		//subView.getTxtDescricao().setValue(currentBean.getDescricao());
-
-		/* Configura combo Sub Grupo Produto */
-		/*
-		 * ManyToOneComboModel<SubGrupoProduto> modelsub = new
-		 * ManyToOneComboModel<SubGrupoProduto>() {
-		 * 
-		 * @Override public void onCriarNovo(String filter) {
-		 * Notification.show("Selecionado Criar Novo: " + filter); }
-		 * 
-		 * @Override public List<SubGrupoProduto> getResultado(String q) {
-		 * return subGrupoProdutoDAO.query(q); }
-		 * 
-		 * @Override public Class<SubGrupoProduto> getEntityClass() { return
-		 * SubGrupoProduto.class; }
-		 * 
-		 * @Override public String getCaptionProperty() { return "descricao"; }
-		 * 
-		 * @Override public void onEditar(SubGrupoProduto value) {
-		 * Notification.show("Selecionado Editar: " + value.getDescricao());
-		 * 
-		 * } }; subView.getCmbSubGrupoProduto().setModel(modelsub);
-		 * subView.getCmbSubGrupoProduto
-		 * ().setValue(currentBean.getIdSubGrupo());
-		 */
-
-		/* Configura combo Unidade Produto */
-		/*
-		 * ManyToOneComboModel<UnidadeProduto> model = new
-		 * ManyToOneComboModel<UnidadeProduto>() {
-		 * 
-		 * @Override public void onCriarNovo(String filter) {
-		 * Notification.show("Selecionado Criar Novo: " + filter); }
-		 * 
-		 * @Override public List<UnidadeProduto> getResultado(String q) { return
-		 * unidadeProdutoDAO.query(q); }
-		 * 
-		 * @Override public Class<UnidadeProduto> getEntityClass() { return
-		 * UnidadeProduto.class; }
-		 * 
-		 * @Override public String getCaptionProperty() { return "sigla"; }
-		 * 
-		 * @Override public void onEditar(UnidadeProduto value) {
-		 * Notification.show("Selecionado Editar: " + value.getSigla());
-		 * 
-		 * } }; subView.getCmbUnidadeProduto().setModel(model);
-		 * subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-		 */
-
-		/* Configura combo Marca Produto */
-		/*
-		 * ManyToOneComboModel<MarcaProduto> modelmarca = new
-		 * ManyToOneComboModel<MarcaProduto>() {
-		 * 
-		 * @Override public void onCriarNovo(String filter) {
-		 * Notification.show("Selecionado Criar Novo: " + filter); }
-		 * 
-		 * @Override public List<MarcaProduto> getResultado(String q) { return
-		 * marcaProdutoDAO.query(q); }
-		 * 
-		 * @Override public Class<MarcaProduto> getEntityClass() { return
-		 * MarcaProduto.class; }
-		 * 
-		 * @Override public String getCaptionProperty() { return "nome"; }
-		 * 
-		 * @Override public void onEditar(MarcaProduto value) {
-		 * Notification.show("Selecionado Editar: " + value.getNome());
-		 * 
-		 * } }; subView.getCmbMarcaProduto().setModel(modelmarca);
-		 * subView.getCmbMarcaProduto
-		 * ().setValue(currentBean.getIdMarcaProduto());
-		 */
-
-		DefaultManyToOneComboModel<Almoxarifado> model = new DefaultManyToOneComboModel<Almoxarifado>(
-				AlmoxarifadoListController.class, this.almoxarifadoDAO,
-				super.getMainController());
-
-		subView.getCmbAlmoxarifado().setModel(model);
-		//subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
-
-		DefaultManyToOneComboModel<GrupoTributario> model1 = new DefaultManyToOneComboModel<GrupoTributario>(
-				GrupoTributarioListController.class, this.grupoTributarioDAO,
-				super.getMainController());
-
-		subView.getCmbGrupoTributario().setModel(model1);
-		//	subView.getCmbGrupoTributario().setValue(currentBean.getIdGrupoTributario());
-
-		DefaultManyToOneComboModel<UnidadeProduto> model2 = new DefaultManyToOneComboModel<UnidadeProduto>(
-				UnidadeProdutoListController.class, this.unidadeProdutoDAO,
-				super.getMainController());
-
-		subView.getCmbUnidadeProduto().setModel(model2);
-		//subView.getCmbUnidadeProduto()		.setValue(currentBean.getUnidadeProduto());
-
-		subView.getCmbSubGrupoProduto().setValue(new SubGrupoProduto());
-		subView.getCmbMarcaProduto().setValue(new MarcaProduto());
+////		subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
+//
+//		//	subView.getTxtNome().setValue(currentBean.getNome());
+//		//subView.getTxtDescricao().setValue(currentBean.getDescricao());
+//
+//		/* Configura combo Sub Grupo Produto */
+//		/*
+//		 * ManyToOneComboModel<SubGrupoProduto> modelsub = new
+//		 * ManyToOneComboModel<SubGrupoProduto>() {
+//		 * 
+//		 * @Override public void onCriarNovo(String filter) {
+//		 * Notification.show("Selecionado Criar Novo: " + filter); }
+//		 * 
+//		 * @Override public List<SubGrupoProduto> getResultado(String q) {
+//		 * return subGrupoProdutoDAO.query(q); }
+//		 * 
+//		 * @Override public Class<SubGrupoProduto> getEntityClass() { return
+//		 * SubGrupoProduto.class; }
+//		 * 
+//		 * @Override public String getCaptionProperty() { return "descricao"; }
+//		 * 
+//		 * @Override public void onEditar(SubGrupoProduto value) {
+//		 * Notification.show("Selecionado Editar: " + value.getDescricao());
+//		 * 
+//		 * } }; subView.getCmbSubGrupoProduto().setModel(modelsub);
+//		 * subView.getCmbSubGrupoProduto
+//		 * ().setValue(currentBean.getIdSubGrupo());
+//		 */
+//
+//		/* Configura combo Unidade Produto */
+//		/*
+//		 * ManyToOneComboModel<UnidadeProduto> model = new
+//		 * ManyToOneComboModel<UnidadeProduto>() {
+//		 * 
+//		 * @Override public void onCriarNovo(String filter) {
+//		 * Notification.show("Selecionado Criar Novo: " + filter); }
+//		 * 
+//		 * @Override public List<UnidadeProduto> getResultado(String q) { return
+//		 * unidadeProdutoDAO.query(q); }
+//		 * 
+//		 * @Override public Class<UnidadeProduto> getEntityClass() { return
+//		 * UnidadeProduto.class; }
+//		 * 
+//		 * @Override public String getCaptionProperty() { return "sigla"; }
+//		 * 
+//		 * @Override public void onEditar(UnidadeProduto value) {
+//		 * Notification.show("Selecionado Editar: " + value.getSigla());
+//		 * 
+//		 * } }; subView.getCmbUnidadeProduto().setModel(model);
+//		 * subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
+//		 */
+//
+//		/* Configura combo Marca Produto */
+//		/*
+//		 * ManyToOneComboModel<MarcaProduto> modelmarca = new
+//		 * ManyToOneComboModel<MarcaProduto>() {
+//		 * 
+//		 * @Override public void onCriarNovo(String filter) {
+//		 * Notification.show("Selecionado Criar Novo: " + filter); }
+//		 * 
+//		 * @Override public List<MarcaProduto> getResultado(String q) { return
+//		 * marcaProdutoDAO.query(q); }
+//		 * 
+//		 * @Override public Class<MarcaProduto> getEntityClass() { return
+//		 * MarcaProduto.class; }
+//		 * 
+//		 * @Override public String getCaptionProperty() { return "nome"; }
+//		 * 
+//		 * @Override public void onEditar(MarcaProduto value) {
+//		 * Notification.show("Selecionado Editar: " + value.getNome());
+//		 * 
+//		 * } }; subView.getCmbMarcaProduto().setModel(modelmarca);
+//		 * subView.getCmbMarcaProduto
+//		 * ().setValue(currentBean.getIdMarcaProduto());
+//		 */
+//
+////		DefaultManyToOneComboModel<Almoxarifado> model = new DefaultManyToOneComboModel<Almoxarifado>(
+////				AlmoxarifadoListController.class, this.almoxarifadoDAO,
+////				super.getMainController());
+////
+////		subView.getCmbAlmoxarifado().setModel(model);
+//		//subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
+//
+//		DefaultManyToOneComboModel<GrupoTributario> model1 = new DefaultManyToOneComboModel<GrupoTributario>(
+//				GrupoTributarioListController.class, this.grupoTributarioDAO,
+//				super.getMainController());
+//
+//		//subView.getCmbGrupoTributario().setModel(model1);
+//		//	subView.getCmbGrupoTributario().setValue(currentBean.getIdGrupoTributario());
+//
+//		DefaultManyToOneComboModel<UnidadeProduto> model2 = new DefaultManyToOneComboModel<UnidadeProduto>(
+//				UnidadeProdutoListController.class, this.unidadeProdutoDAO,
+//				super.getMainController());
+//
+//		subView.getCmbUnidadeProduto().setModel(model2);
+//		//subView.getCmbUnidadeProduto()		.setValue(currentBean.getUnidadeProduto());
+//
+//		subView.getCmbSubGrupoProduto().setValue(new SubGrupoProduto());
+//		subView.getCmbMarcaProduto().setValue(new MarcaProduto());
 	}
 
 	@Override
@@ -415,7 +415,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			UnidadeProduto unidade = subView.getCmbUnidadeProduto().getValue();
 			
 			MarcaProduto marca = subView.getCmbMarcaProduto().getValue();
-			Almoxarifado almoxarifado = subView.getCmbAlmoxarifado().getValue();
+		//	Almoxarifado almoxarifado = subView.getCmbAlmoxarifado().getValue();
 			
 			if(!Validator.validateObject(subgrupo)){
 				throw new ErroValidacaoException("Informe o SubGrupo");
@@ -657,6 +657,14 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 		BeanItemContainer<NCM> container = new BeanItemContainer<>(NCM.class);
 		for(NCM ncm : ncmDAO.listaTodos()){
 			container.addItem(ncm);
+		}
+		return container;
+	}
+	
+	public BeanItemContainer<GrupoTributario> carregarGrupo(){
+		BeanItemContainer<GrupoTributario> container = new BeanItemContainer<>(GrupoTributario.class);
+		for(GrupoTributario grupo : grupoTributarioDAO.listaTodos()){
+			container.addItem(grupo);
 		}
 		return container;
 	}

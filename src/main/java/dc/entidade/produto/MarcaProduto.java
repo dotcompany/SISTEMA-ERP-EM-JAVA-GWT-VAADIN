@@ -73,8 +73,6 @@ public class MarcaProduto extends AbstractMultiEmpresaModel<Integer> implements 
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "DESCRICAO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	/**
