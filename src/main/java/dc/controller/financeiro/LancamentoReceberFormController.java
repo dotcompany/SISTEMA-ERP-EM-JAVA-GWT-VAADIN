@@ -90,7 +90,13 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		public InputStream getStream() {
 			ByteArrayInputStream resource = null;
 			try {
-				byte[] boleto = gerarBoleto();
+
+				List<ParcelaReceber> listaParcelasReceber = new ArrayList<ParcelaReceber>(subView.getParcelasSubForm().getSelectedItens());
+
+				if (listaParcelasReceber.isEmpty()) {
+					listaParcelasReceber.addAll(subView.getParcelasSubForm().getDados());
+				}
+				byte[] boleto = gerarBoleto(listaParcelasReceber);
 				resource = new ByteArrayInputStream(boleto);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -594,9 +600,15 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		}
 	}
 
-	public byte[] gerarBoleto() throws Exception {
+	public byte[] gerarBoleto(List<ParcelaReceber> listaParcelasReceber) throws Exception {
 		byte[] boletoByteArray = null;
-		List<ParcelaReceber> listaParcelasReceber = subView.getParcelasSubForm().getDados();
+
+		List<Boleto> listaBoleto = gerBoleto(listaParcelasReceber);
+		boletoByteArray = BoletoViewer.groupInOnePDF(listaBoleto);
+		return boletoByteArray;
+	}
+
+	private List<Boleto> gerBoleto(List<ParcelaReceber> listaParcelasReceber) throws Exception {
 		if (listaParcelasReceber.isEmpty()) {
 			throw new Exception("Nenhuma parcela para gerar boleto.");
 		}
@@ -614,100 +626,90 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			throw new Exception("Nenhuma parcela selecionada para gerar boleto.");
 		}
 
-		// JFileChooser fileChooser = new JFileChooser();
-		// fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		/*
-		 * fileChooser.showOpenDialog(LancamentoReceberDetalhe) ==
-		 * JFileChooser.APPROVE_OPTION
-		 */
-		if (true) {
-			ConfiguracaoBoleto configuracaoBoleto = configuracaoBoleto(listaParcelasReceber.get(0).getContaCaixa());
-			LancamentoReceber lancamentoReceber = currentBean;
-			Cliente cliente = lancamentoReceber.getCliente();
-			Empresa empresa = lancamentoReceber.getEmpresa();
-			SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+		ConfiguracaoBoleto configuracaoBoleto = configuracaoBoleto(listaParcelasReceber.get(0).getContaCaixa());
+		LancamentoReceber lancamentoReceber = currentBean;
+		Cliente cliente = lancamentoReceber.getCliente();
+		Empresa empresa = lancamentoReceber.getEmpresa();
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
-			Cedente cedente = new Cedente(empresa.getRazaoSocial(), empresa.getCnpj());
+		Cedente cedente = new Cedente(empresa.getRazaoSocial(), empresa.getCnpj());
 
-			String cpfCnpjSacado;
-			if (cliente.getPessoa().getTipo().equals("F")) {
-				cpfCnpjSacado = pessoaDAO.getPessoaFisica(cliente.getPessoa().getId()).getCpf();
-			} else {
-				cpfCnpjSacado = pessoaDAO.getPessoaJuridica(cliente.getPessoa().getId()).getCnpj();
-			}
-			Sacado sacado = new Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
-
-			Endereco enderecoSacado = new Endereco();
-
-			dc.entidade.geral.Endereco endereco = enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
-
-			enderecoSacado.setUF(UnidadeFederativa.valueOfSigla(endereco.getUf().getSigla()));
-			enderecoSacado.setLocalidade(endereco.getCidade());
-			enderecoSacado.setCep(new CEP(endereco.getCep()));
-			enderecoSacado.setBairro(endereco.getBairro());
-			enderecoSacado.setLogradouro(endereco.getLogradouro());
-			enderecoSacado.setNumero(String.valueOf(endereco.getNumero()));
-			sacado.addEndereco(enderecoSacado);
-
-			Banco banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getIdBanco());
-			ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.suportados.get(banco.getCodigo()).create());
-			contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf(contaCaixa.getCodigo()), contaCaixa.getDigito()));
-			contaBancaria.setCarteira(new Carteira(Integer.valueOf(configuracaoBoleto.getCarteira())));
-			contaBancaria
-					.setAgencia(new Agencia(Integer.valueOf(contaCaixa.getAgenciaBanco().getCodigo()), contaCaixa.getAgenciaBanco().getDigito()));
-
-			Titulo titulo;
-			ParcelaReceber parcela;
-			Boleto boleto;
-			List<Boleto> listaBoleto = new ArrayList<Boleto>();
-			for (int i = 0; i < listaParcelasBoleto.size(); i++) {
-				parcela = listaParcelasBoleto.get(i);
-
-				titulo = new Titulo(contaBancaria, sacado, cedente);
-				titulo.setNumeroDoDocumento(parcela.getBoletoNossoNumero().substring(0, 15));
-				titulo.setNossoNumero(parcela.getBoletoNossoNumero());
-				titulo.setDigitoDoNossoNumero("");
-				titulo.setValor(parcela.getValor());
-				titulo.setDataDoDocumento(parcela.getDataEmissao());
-				titulo.setDataDoVencimento(parcela.getDataVencimento());
-				if (configuracaoBoleto.getEspecie().equals("DM")) {
-					titulo.setTipoDeDocumento(TipoDeTitulo.DM_DUPLICATA_MERCANTIL);
-				} else if (configuracaoBoleto.getEspecie().equals("DS")) {
-					titulo.setTipoDeDocumento(TipoDeTitulo.DS_DUPLICATA_DE_SERVICO);
-				} else if (configuracaoBoleto.getEspecie().equals("RC")) {
-					titulo.setTipoDeDocumento(TipoDeTitulo.RC_RECIBO);
-				} else if (configuracaoBoleto.getEspecie().equals("NP")) {
-					titulo.setTipoDeDocumento(TipoDeTitulo.NP_NOTA_PROMISSORIA);
-				}
-				if (configuracaoBoleto.getAceite().equals("S")) {
-					titulo.setAceite(Aceite.A);
-				} else {
-					titulo.setAceite(Aceite.N);
-				}
-				titulo.setDesconto(parcela.getValorDesconto());
-				// titulo.setDeducao(BigDecimal.ZERO);
-				// titulo.setMora(BigDecimal.ZERO);
-				// titulo.setAcrecimo(BigDecimal.ZERO);
-				// titulo.setValorCobrado(BigDecimal.ZERO);
-
-				boleto = new Boleto(titulo);
-				boleto.setLocalPagamento(configuracaoBoleto.getLocalPagamento());
-				boleto.setInstrucaoAoSacado(configuracaoBoleto.getMensagem());
-				boleto.setInstrucao1(configuracaoBoleto.getInstrucao01());
-				boleto.setInstrucao2(configuracaoBoleto.getInstrucao02());
-				if (parcela.getDescontoAte() != null && parcela.getTaxaDesconto() != null) {
-					boleto.setInstrucao3("Para pagamento até o dia " + formatoData.format(parcela.getDescontoAte()) + " conceder desconto de "
-							+ parcela.getTaxaDesconto() + "%.");
-				} else {
-					boleto.setInstrucao3("");
-				}
-
-				listaBoleto.add(boleto);
-			}
-
-			boletoByteArray = BoletoViewer.groupInOnePDF(listaBoleto);
+		String cpfCnpjSacado;
+		if (cliente.getPessoa().getTipo().equals("F")) {
+			cpfCnpjSacado = pessoaDAO.getPessoaFisica(cliente.getPessoa().getId()).getCpf();
+		} else {
+			cpfCnpjSacado = pessoaDAO.getPessoaJuridica(cliente.getPessoa().getId()).getCnpj();
 		}
-		return boletoByteArray;
+		Sacado sacado = new Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
+
+		Endereco enderecoSacado = new Endereco();
+
+		dc.entidade.geral.Endereco endereco = enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
+
+		enderecoSacado.setUF(UnidadeFederativa.valueOfSigla(endereco.getUf().getSigla()));
+		enderecoSacado.setLocalidade(endereco.getCidade());
+		enderecoSacado.setCep(new CEP(endereco.getCep()));
+		enderecoSacado.setBairro(endereco.getBairro());
+		enderecoSacado.setLogradouro(endereco.getLogradouro());
+		enderecoSacado.setNumero(String.valueOf(endereco.getNumero()));
+		sacado.addEndereco(enderecoSacado);
+
+		Banco banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getIdBanco());
+		ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.suportados.get(banco.getCodigo()).create());
+		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf(contaCaixa.getCodigo()), contaCaixa.getDigito()));
+		contaBancaria.setCarteira(new Carteira(Integer.valueOf(configuracaoBoleto.getCarteira())));
+		contaBancaria.setAgencia(new Agencia(Integer.valueOf(contaCaixa.getAgenciaBanco().getCodigo()), contaCaixa.getAgenciaBanco().getDigito()));
+
+		Titulo titulo;
+		ParcelaReceber parcela;
+		Boleto boleto;
+		List<Boleto> listaBoleto = new ArrayList<Boleto>();
+		for (int i = 0; i < listaParcelasBoleto.size(); i++) {
+			parcela = listaParcelasBoleto.get(i);
+
+			titulo = new Titulo(contaBancaria, sacado, cedente);
+			titulo.setNumeroDoDocumento(parcela.getBoletoNossoNumero().substring(0, 15));
+			titulo.setNossoNumero(parcela.getBoletoNossoNumero());
+			titulo.setDigitoDoNossoNumero("");
+			titulo.setValor(parcela.getValor());
+			titulo.setDataDoDocumento(parcela.getDataEmissao());
+			titulo.setDataDoVencimento(parcela.getDataVencimento());
+			if (configuracaoBoleto.getEspecie().equals("DM")) {
+				titulo.setTipoDeDocumento(TipoDeTitulo.DM_DUPLICATA_MERCANTIL);
+			} else if (configuracaoBoleto.getEspecie().equals("DS")) {
+				titulo.setTipoDeDocumento(TipoDeTitulo.DS_DUPLICATA_DE_SERVICO);
+			} else if (configuracaoBoleto.getEspecie().equals("RC")) {
+				titulo.setTipoDeDocumento(TipoDeTitulo.RC_RECIBO);
+			} else if (configuracaoBoleto.getEspecie().equals("NP")) {
+				titulo.setTipoDeDocumento(TipoDeTitulo.NP_NOTA_PROMISSORIA);
+			}
+			if (configuracaoBoleto.getAceite().equals("S")) {
+				titulo.setAceite(Aceite.A);
+			} else {
+				titulo.setAceite(Aceite.N);
+			}
+			titulo.setDesconto(parcela.getValorDesconto());
+			// titulo.setDeducao(BigDecimal.ZERO);
+			// titulo.setMora(BigDecimal.ZERO);
+			// titulo.setAcrecimo(BigDecimal.ZERO);
+			// titulo.setValorCobrado(BigDecimal.ZERO);
+
+			boleto = new Boleto(titulo);
+			boleto.setLocalPagamento(configuracaoBoleto.getLocalPagamento());
+			boleto.setInstrucaoAoSacado(configuracaoBoleto.getMensagem());
+			boleto.setInstrucao1(configuracaoBoleto.getInstrucao01());
+			boleto.setInstrucao2(configuracaoBoleto.getInstrucao02());
+			if (parcela.getDescontoAte() != null && parcela.getTaxaDesconto() != null) {
+				boleto.setInstrucao3("Para pagamento até o dia " + formatoData.format(parcela.getDescontoAte()) + " conceder desconto de "
+						+ parcela.getTaxaDesconto() + "%.");
+			} else {
+				boleto.setInstrucao3("");
+			}
+
+			listaBoleto.add(boleto);
+
+		}
+		return listaBoleto;
 	}
 
 	private ConfiguracaoBoleto configuracaoBoleto(ContaCaixa contaCaixa) throws Exception {

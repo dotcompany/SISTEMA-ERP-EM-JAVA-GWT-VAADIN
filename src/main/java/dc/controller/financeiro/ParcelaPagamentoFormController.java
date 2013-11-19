@@ -125,6 +125,9 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 					break;
 				case TOTAL:
 					subView.getTxValorPago().setEnabled(false);
+					calculaTotalPago();
+
+					break;
 
 				default:
 					break;
@@ -132,7 +135,6 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 			}
 		});
-		;
 
 		subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
 		subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());

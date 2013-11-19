@@ -1,13 +1,22 @@
 package dc.visao.financeiro;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.vaadin.addons.maskedtextfield.NumericField;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.server.FileDownloader;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -18,6 +27,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -70,7 +80,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 	private SubFormComponent<ParcelaReceber, Integer> parcelasSubForm;
 	private SubFormComponent<LctoReceberNtFinanceira, Integer> naturezaFinanceiraSubForm;
-	private LancamentoReceberFormController controller;
+	private final LancamentoReceberFormController controller;
 	private Button btnGerarParcelas;
 	private Button btnGerarBoleto;
 	private VerticalLayout parcelasLayout;
@@ -274,6 +284,69 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.parcelasSubForm = new SubFormComponent<ParcelaReceber, Integer>(ParcelaReceber.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected Map<String, ColumnGenerator> generateCustomColumns() {
+
+				Map<String, ColumnGenerator> colunas = new HashMap<>();
+
+				colunas.put("Boleto", new ColumnGenerator() {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					@SuppressWarnings("unchecked")
+					public Component generateCell(final Table source, final Object itemId, final Object columnId) {
+
+						final BeanItem<ParcelaReceber> selectedBeanItem = (BeanItem<ParcelaReceber>) source.getContainerDataSource().getItem(itemId);
+
+						Button boletoButton = new Button("");
+						boletoButton.addStyleName("btnBoleto");
+
+						StreamResource myResource = createBoletoResource(selectedBeanItem);
+						if (myResource != null) {
+							FileDownloader fileDownloader = new FileDownloader(myResource);
+							fileDownloader.extend(boletoButton);
+						}
+
+						return boletoButton;
+					}
+
+					private StreamResource createBoletoResource(final BeanItem<ParcelaReceber> selectedBeanItem) {
+
+						return new StreamResource(new StreamSource() {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							@Override
+							public InputStream getStream() {
+								ByteArrayInputStream resource = null;
+								try {
+
+									List<ParcelaReceber> listaParcelasReceber = new ArrayList<ParcelaReceber>();
+
+									listaParcelasReceber.add(selectedBeanItem.getBean());
+									byte[] boleto = controller.gerarBoleto(listaParcelasReceber);
+									resource = new ByteArrayInputStream(boleto);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									mensagemErro(e.getMessage());
+								}
+
+								return resource;
+							}
+						}, "boleto.pdf");
+					}
+				});
+
+				return colunas;
+			}
 
 			@Override
 			protected void adicionarBotoes(Table table) {

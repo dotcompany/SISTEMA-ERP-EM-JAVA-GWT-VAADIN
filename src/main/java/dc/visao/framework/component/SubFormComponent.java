@@ -1,5 +1,5 @@
 package dc.visao.framework.component;
- 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -43,6 +43,12 @@ import dc.entidade.framework.AbstractModel;
 import dc.framework.DcConstants;
 import dc.visao.framework.geral.MainUI;
 
+/**
+ * @author Douglas
+ * 
+ * @param <T>
+ * @param <ID>
+ */
 public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends Serializable> extends VerticalLayout {
 
 	private static final long serialVersionUID = 2294032614900261052L;
@@ -155,6 +161,16 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		});
 
 		String[] cs = new String[] { CUSTOM_SELECT_ID };
+
+		Map<String, ColumnGenerator> customColumns = generateCustomColumns();
+
+		if (customColumns != null) {
+			cs = (String[]) ArrayUtils.addAll(cs, customColumns.keySet().toArray());
+			for (String key : customColumns.keySet()) {
+				table.addGeneratedColumn(key, customColumns.get(key));
+			}
+		}
+
 		table.setVisibleColumns(ArrayUtils.addAll(cs, props));
 		table.setColumnHeaders((String[]) ArrayUtils.addAll(cs, propsCaption));
 
@@ -172,6 +188,15 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 
 		addComponent(table);
 		setExpandRatio(table, 1);
+	}
+
+	/**
+	 * @author Douglas
+	 * @return Retorna um Map com o header da coluna como chave e a coluna como
+	 *         value;
+	 */
+	protected Map<String, ColumnGenerator> generateCustomColumns() {
+		return null;
 	}
 
 	@SuppressWarnings("serial")
@@ -327,7 +352,5 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 
 		return values;
 	}
-	
-	
 
 }

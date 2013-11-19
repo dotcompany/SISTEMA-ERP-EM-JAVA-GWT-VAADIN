@@ -125,6 +125,8 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 					break;
 				case TOTAL:
 					subView.getTxValorRecebido().setEnabled(false);
+					calculaTotalRecebido();
+					break;
 
 				default:
 					break;
@@ -132,7 +134,6 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 
 			}
 		});
-		;
 
 		subView.getTxTaxaJuro().addBlurListener(new CalculaTotalRecebidoBlurListener());
 		subView.getTxTaxaMulta().addBlurListener(new CalculaTotalRecebidoBlurListener());
