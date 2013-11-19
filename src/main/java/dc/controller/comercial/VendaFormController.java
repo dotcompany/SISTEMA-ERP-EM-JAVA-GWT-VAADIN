@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
+import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDAO;
+import dc.servicos.dao.folhapagamento.VendedorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.VendaFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -30,6 +33,9 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Autowired
 	VendaDAO dao;
+	
+	@Autowired
+	VendedorDAO vendedorDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -110,6 +116,14 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		VendaDetalhe detalhe = new VendaDetalhe();
 		currentBean.adicionarDetalhe(detalhe);
 		return detalhe;
+	}
+	
+	public BeanItemContainer<VendedorEntity> carregarVendedores(){
+		BeanItemContainer<VendedorEntity> container = new BeanItemContainer<>(VendedorEntity.class);
+		for(VendedorEntity c : vendedorDAO.listarTodos()){
+			container.addBean(c);
+		}
+		return container;
 	}
 
 }
