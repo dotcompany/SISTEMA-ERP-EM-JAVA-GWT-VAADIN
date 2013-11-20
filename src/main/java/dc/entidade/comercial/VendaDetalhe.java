@@ -31,7 +31,7 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	Integer quantidade;
 	
 	@ManyToOne
-	@JoinColumn(name="venda_cabecalho_id")
+	@JoinColumn(name="id_venda_cabecalho")
 	Venda venda;
 
 	public Integer getId() {
