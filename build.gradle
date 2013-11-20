@@ -42,6 +42,11 @@ dependencies {
 
 		 
 		 compile files('libs/maskedtextfield-0.1.4.jar')
+		 compile files('libs/jrimum-bopepo-0.2.3-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum-domkee-0.2.3-SNAPSHOT.jar')
+ 	     compile files('libs/jrimum-texgit-0.2.0-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum-utilix-0.2.3-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum-vallia-0.2.3-SNAPSHOT.jar')
 		  
 		 compile('org.vaadin.addon:confirmdialog:2.0.4'){
      		//excluding a particular transitive dependency:
@@ -171,7 +176,4 @@ dependencies {
 		compile 'org.apache.poi:poi-ooxml-schemas:3.9'
 		compile 'org.apache.poi:ooxml-schemas:1.1'
 		compile 'joda-time:joda-time:2.2'
-		compile 'org.jrimum:jrimum-texgit:0.2.0-SNAPSHOT'       
-		compile 'org.jrimum:jrimum-texgit:0.2.0-SNAPSHOT:sources'
-		compile 'org.jrimum:jrimum-bopepo:0.2.3-SNAPSHOT'
 }

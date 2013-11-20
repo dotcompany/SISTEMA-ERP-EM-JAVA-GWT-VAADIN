@@ -6407,13 +6407,13 @@ body .dotcompany.v-app .v-app-loading {
 	margin-left: 3px !important;
 }
 
-.btnBoleto {
+.dotcompany .btnBoleto {
 	background-image: url(img/iconPDF.gif) !important;
 	background-repeat: no-repeat !important;
 	background-position-x: center !important;
 	background-position-y: center !important;
-	border:  none !important;
+	border: none !important;
 	height: 18px;
 	box-shadow: none !important;
-	width:60px;
+	width: 60px;
 }

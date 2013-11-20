@@ -139,21 +139,13 @@ public class PessoaFormView extends CustomComponent {
 	public void buildAbaInformacoes() {
 
 		subForms = new TabSheet();
-		subForms.addTab(montaLayoutFisica(), "Informações do Tipo de Pessoa",
-				null);
+		subForms.addTab(montaLayoutFisica(), "Informações do Tipo de Pessoa", null);
 
 	}
 
 	public void buildAbaContatos() {
 
-		TabSheet aba = buildContatosSubForm();
-		GridLayout layout = new GridLayout(1, 1);
-		layout.setImmediate(false);
-		layout.setMargin(true);
-		layout.setSpacing(true);
-		layout.setSizeUndefined();
-		layout.addComponent(aba);
-		subForms.addTab(layout, "Contatos", null);
+		subForms.addTab(buildContatosSubForm(), "Contatos", null);
 	}
 
 	// private TabSheet buildContatosSubForm() {
@@ -270,12 +262,9 @@ public class PessoaFormView extends CustomComponent {
 		layoutJuridica.addComponent(txtFantasia, 0, 0, 5, 0);
 
 		txtCNPJ = ComponentUtil.buildTextField("CNPJ");
-		txtInscricaoEstadual = ComponentUtil
-				.buildTextField("Inscrição Estadual");
-		txtInscricaoMunicipal = ComponentUtil
-				.buildTextField("Inscrição Municipal");
-		dataConstituicao = ComponentUtil
-				.buildPopupDateField("Data da Constituição");
+		txtInscricaoEstadual = ComponentUtil.buildTextField("Inscrição Estadual");
+		txtInscricaoMunicipal = ComponentUtil.buildTextField("Inscrição Municipal");
+		dataConstituicao = ComponentUtil.buildPopupDateField("Data da Constituição");
 		txtSuframa = ComponentUtil.buildTextField("Suframa");
 
 		layoutJuridica.addComponent(txtCNPJ, 0, 1);
@@ -313,37 +302,33 @@ public class PessoaFormView extends CustomComponent {
 		cmbTipoPessoa.setItemCaptionPropertyId("label");
 		cmbTipoPessoa.setRequired(true);
 		cmbTipoPessoa.setImmediate(true);
-		cmbTipoPessoa
-				.addValueChangeListener(new Property.ValueChangeListener() {
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						TipoPessoa p = (TipoPessoa) event.getProperty()
-								.getValue();
-						if (p.getCodigo().equals(FISICA)) {
-							mainLayout.removeComponent(subForms);
-							panelFisica.setVisible(true);
-							subForms = new TabSheet();
-							subForms.addTab(montaLayoutFisica(),
-									"Informações do Tipo de Pessoa", null);
-							buildAbaContatos();
-							buildAbaEnderecos();
-							mainLayout.addComponent(subForms);
-							panelJuridica.setVisible(false);
-							// montaf();
-						}
-						if (p.getCodigo().equals(JURIDICA)) {
-							mainLayout.removeComponent(subForms);
-							subForms = new TabSheet();
-							subForms.addTab(montaLayoutJuridica(),
-									"Informações do Tipo de Pessoa", null);
-							buildAbaContatos();
-							buildAbaEnderecos();
-							mainLayout.addComponent(subForms);
-							panelJuridica.setVisible(true);
-							// montaJuridica();
-						}
-					}
-				});
+		cmbTipoPessoa.addValueChangeListener(new Property.ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				TipoPessoa p = (TipoPessoa) event.getProperty().getValue();
+				if (p.getCodigo().equals(FISICA)) {
+					mainLayout.removeComponent(subForms);
+					panelFisica.setVisible(true);
+					subForms = new TabSheet();
+					subForms.addTab(montaLayoutFisica(), "Informações do Tipo de Pessoa", null);
+					buildAbaContatos();
+					buildAbaEnderecos();
+					mainLayout.addComponent(subForms);
+					panelJuridica.setVisible(false);
+					// montaf();
+				}
+				if (p.getCodigo().equals(JURIDICA)) {
+					mainLayout.removeComponent(subForms);
+					subForms = new TabSheet();
+					subForms.addTab(montaLayoutJuridica(), "Informações do Tipo de Pessoa", null);
+					buildAbaContatos();
+					buildAbaEnderecos();
+					mainLayout.addComponent(subForms);
+					panelJuridica.setVisible(true);
+					// montaJuridica();
+				}
+			}
+		});
 
 		fields.addComponent(cmbTipoPessoa, 3, 0);
 
@@ -417,8 +402,7 @@ public class PessoaFormView extends CustomComponent {
 		lista.add(new TipoPessoa("Fisica", "1"));
 		lista.add(new TipoPessoa("Juridica", "2"));
 
-		BeanItemContainer<TipoPessoa> objects = new BeanItemContainer(
-				TipoPessoa.class, lista);
+		BeanItemContainer<TipoPessoa> objects = new BeanItemContainer(TipoPessoa.class, lista);
 		return objects;
 	}
 
@@ -454,52 +438,41 @@ public class PessoaFormView extends CustomComponent {
 		this.txtSite = txtSite;
 	}
 
-	private TabSheet buildContatosSubForm() {
+	private SubFormComponent buildContatosSubForm() {
 		// common part: create layout
-		TabSheet sub = new TabSheet();
 
-		contatosSubForm = new SubFormComponent<Contato, Integer>(Contato.class,
-				new String[] { "nome", "email", "foneComercial",
-						"foneResidencial", "foneCelular" }, new String[] {
-						"Nome", "Email", "Fone Comercial", "Fone Residencial",
-						"Fone Celular" }) {
+		contatosSubForm = new SubFormComponent<Contato, Integer>(Contato.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
+				"foneCelular" }, new String[] { "Nome", "Email", "Fone Comercial", "Fone Residencial", "Fone Celular" }) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
 
 					@Override
-					public Field<?> createField(Container container,
-							Object itemId, Object propertyId,
-							Component uiContext) {
+					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
 
 						if ("nome".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildTextField("Nome");
+							TextField textField = ComponentUtil.buildTextField("Nome");
 							return textField;
 						}
 
 						if ("email".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildTextField("Email");
+							TextField textField = ComponentUtil.buildTextField("Email");
 							return textField;
 						}
 
 						if ("foneComercial".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildTextField("Fone Comercial");
+							TextField textField = ComponentUtil.buildTextField("Fone Comercial");
 							return textField;
 						}
 
 						if ("foneResidencial".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildTextField("Fone Residencial");
+							TextField textField = ComponentUtil.buildTextField("Fone Residencial");
 							return textField;
 						}
 
 						if ("foneCelular".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildTextField("Fone Celular");
+							TextField textField = ComponentUtil.buildTextField("Fone Celular");
 							return textField;
 						}
 						return null;
@@ -520,9 +493,7 @@ public class PessoaFormView extends CustomComponent {
 
 		};
 
-		sub.addTab(contatosSubForm, "Contatos", null);
-
-		return sub;
+		return contatosSubForm;
 	}
 
 }
