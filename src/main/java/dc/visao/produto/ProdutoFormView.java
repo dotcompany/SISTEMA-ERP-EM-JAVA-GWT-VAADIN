@@ -527,72 +527,72 @@ public class ProdutoFormView extends CustomComponent {
 		fields.addComponent(cmbSubGrupoProduto,0,0);
 		fields.addComponent(cmbUnidadeProduto,1,0);
 ////
-//		cmbMarcaProduto = new ManyToOneCombo<>();
-//		cmbMarcaProduto.setCaption("Marca Produto");
-//		cmbMarcaProduto.setImmediate(false);
-//		cmbMarcaProduto.setWidth("456px");
-//		cmbMarcaProduto.setHeight("-1px");
+		cmbMarcaProduto = new ManyToOneCombo<>();
+		cmbMarcaProduto.setCaption("Marca Produto");
+		cmbMarcaProduto.setImmediate(false);
+		cmbMarcaProduto.setWidth("456px");
+	cmbMarcaProduto.setHeight("-1px");
 ////
 ////		// cmbAlmoxarifado
-//		cmbAlmoxarifado = new ManyToOneCombo<>();
-//	cmbAlmoxarifado.setCaption("Almoxarifado");
-//		cmbAlmoxarifado.setImmediate(false);
-//		cmbAlmoxarifado.setWidth("456px");
-//	cmbAlmoxarifado.setHeight("-1px");
+		cmbAlmoxarifado = new ManyToOneCombo<>();
+	cmbAlmoxarifado.setCaption("Almoxarifado");
+		cmbAlmoxarifado.setImmediate(false);
+		cmbAlmoxarifado.setWidth("456px");
+	cmbAlmoxarifado.setHeight("-1px");
 
-		//fields.addComponent(cmbMarcaProduto,0,1);
-		//fields.addComponent(cmbAlmoxarifado,1,1);
+		fields.addComponent(cmbMarcaProduto,0,1);
+		fields.addComponent(cmbAlmoxarifado,1,1);
 ////
 		// cmbIcmsCustomizado
-//		cmbTemIcmsCustomizado = new ComboBox();
-//		cmbTemIcmsCustomizado.setCaption("ICMS Customizado?");
-//		cmbTemIcmsCustomizado.setImmediate(false);
-//		cmbTemIcmsCustomizado.setWidth("100px");
-//		cmbTemIcmsCustomizado.setHeight("-1px");
-//		carregarIcms();
-//		cmbTemIcmsCustomizado.setValue(SIM_NAO.NAO);
+		cmbTemIcmsCustomizado = new ComboBox();
+		cmbTemIcmsCustomizado.setCaption("ICMS Customizado?");
+		cmbTemIcmsCustomizado.setImmediate(false);
+		cmbTemIcmsCustomizado.setWidth("100px");
+		cmbTemIcmsCustomizado.setHeight("-1px");
+		carregarIcms();
+		cmbTemIcmsCustomizado.setValue(SIM_NAO.NAO);
 		
 	
 		
-//		cmbTemIcmsCustomizado
-//		.addValueChangeListener(new Property.ValueChangeListener() {
-//			@Override
-//			public void valueChange(ValueChangeEvent event) {
-//				SIM_NAO obj = (SIM_NAO) event.getProperty()
-//				.getValue();
-//				
-//				if(obj.equals(SIM_NAO.SIM)){
-//				fields.removeComponent(cmbGrupoTributario);
-////					fields.addComponent(cmbIcmsCustomizado,1,2);
-//				}
-//				
-//				if(obj.equals(SIM_NAO.NAO)){
-//					fields.removeComponent(cmbIcmsCustomizado);
-//					fields.addComponent(cmbGrupoTributario,1,2);
-//				}
-//			}
-//		});
+		cmbTemIcmsCustomizado
+		.addValueChangeListener(new Property.ValueChangeListener() {
+		@Override
+			public void valueChange(ValueChangeEvent event) {
+				SIM_NAO obj = (SIM_NAO) event.getProperty()
+				.getValue();
+				
+				if(obj.equals(SIM_NAO.SIM)){
+				fields.removeComponent(cmbGrupoTributario);
+					fields.addComponent(cmbIcmsCustomizado,1,2);
+				}
+				
+				if(obj.equals(SIM_NAO.NAO)){
+					fields.removeComponent(cmbIcmsCustomizado);
+					fields.addComponent(cmbGrupoTributario,1,2);
+				}
+		}
+		});
 
 		// cmbGrupoTributario
-//		cmbGrupoTributario = new ManyToOneCombo<>();
-//		cmbGrupoTributario.setCaption("Grupo Tributário");
-//		cmbGrupoTributario.setImmediate(false);
-//		cmbGrupoTributario.setWidth("456px");
-//		cmbGrupoTributario.setHeight("-1px");
+		cmbGrupoTributario = new ManyToOneCombo<>();
+		cmbGrupoTributario.setCaption("Grupo Tributário");
+		cmbGrupoTributario.setImmediate(false);
+		cmbGrupoTributario.setWidth("456px");
+		cmbGrupoTributario.setHeight("-1px");
 		
-//		cmbGrupo = ComponentUtil.buildComboBox("Grupo");
-//		cmbGrupo.setWidth("456px");
-//		cmbGrupo.setHeight("-1px");
-//		cmbGrupo.setContainerDataSource(controller.carregarGrupo());
-//		
-//		fields.addComponent(cmbTemIcmsCustomizado,0,2);
-//				fields.addComponent(cmbGrupo,1,2);
+		cmbGrupo = ComponentUtil.buildComboBox("Grupo");
+		cmbGrupo.setWidth("456px");
+		cmbGrupo.setHeight("-1px");
+		cmbGrupo.setContainerDataSource(controller.carregarGrupo());
+		
+		fields.addComponent(cmbTemIcmsCustomizado,0,2);
+				fields.addComponent(cmbGrupo,1,2);
 //////
-//		cmbIcmsCustomizado = new ManyToOneCombo<>();
-//		cmbIcmsCustomizado.setCaption("ICMS Customizado");
-//		cmbIcmsCustomizado.setImmediate(false);
-//		cmbIcmsCustomizado.setWidth("456px");
-//		cmbIcmsCustomizado.setHeight("-1px");
+		cmbIcmsCustomizado = new ManyToOneCombo<>();
+		cmbIcmsCustomizado.setCaption("ICMS Customizado");
+		cmbIcmsCustomizado.setImmediate(false);
+		cmbIcmsCustomizado.setWidth("456px");
+		cmbIcmsCustomizado.setHeight("-1px");
 		return fields;
 
 	}

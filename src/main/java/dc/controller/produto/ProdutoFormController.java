@@ -106,23 +106,23 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 	protected void initSubView() {
 		subView = new ProdutoFormView(this);
 		try{
-//			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(SubGrupoProduto.class, subGrupoProdutoDAO, mainController);
-//			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
-//////			
-//			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(UnidadeProduto.class, unidadeProdutoDAO, mainController);
-//			subView.getCmbUnidadeProduto().setModel(comboUnidade);
+			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(SubGrupoProduto.class, subGrupoProdutoDAO, mainController);
+			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
 ////			
-//			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProduto.class, marcaProdutoDAO, mainController);
-//			subView.getCmbMarcaProduto().setModel(comboMarca);
-//////			
-//		DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(Almoxarifado.class, almoxarifadoDAO, mainController);
-//			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
+			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(UnidadeProduto.class, unidadeProdutoDAO, mainController);
+			subView.getCmbUnidadeProduto().setModel(comboUnidade);
 //			
-//			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributario.class, grupoTributarioDAO, mainController);
-//			subView.getCmbGrupoTributario().setModel(comboGrupo);
-//			
-//			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(ICMSCustomizado.class, icmsCustomizadoDAO, mainController);
-//			subView.getCmbIcmsCustomizado().setModel(comboIcms);
+			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProduto.class, marcaProdutoDAO, mainController);
+			subView.getCmbMarcaProduto().setModel(comboMarca);
+////			
+		DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(Almoxarifado.class, almoxarifadoDAO, mainController);
+			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
+			
+			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributario.class, grupoTributarioDAO, mainController);
+			subView.getCmbGrupoTributario().setModel(comboGrupo);
+			
+			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(ICMSCustomizado.class, icmsCustomizadoDAO, mainController);
+			subView.getCmbIcmsCustomizado().setModel(comboIcms);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
