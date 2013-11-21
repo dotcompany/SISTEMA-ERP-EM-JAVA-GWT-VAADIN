@@ -1,5 +1,8 @@
 package dc.entidade.comercial;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +17,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.produto.Produto;
 
 @Entity
 @Table(name = "venda_detalhe")
@@ -28,7 +32,24 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "vnd", sequenceName = "venda_detalhe_id_seq", allocationSize = 1)
 	private Integer id;
 	
+	@ManyToOne
+	@JoinColumn(name="id_produto")
+	Produto produto;
+	
 	Integer quantidade;
+	
+	@Column(name="valor_unitario")
+	BigDecimal valorUnitario;
+	
+	@Column(name="valor_subtotal")
+	BigDecimal valorSubTotal;
+	
+	@Column(name="valor_desconto")
+	BigDecimal valorDesconto;
+	
+	@Column(name="valor_total")
+	BigDecimal valorTotal;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="id_venda_cabecalho")
@@ -56,6 +77,46 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	public BigDecimal getValorSubTotal() {
+		return valorSubTotal;
+	}
+
+	public void setValorSubTotal(BigDecimal valorSubTotal) {
+		this.valorSubTotal = valorSubTotal;
+	}
+
+	public BigDecimal getValorDesconto() {
+		return valorDesconto;
+	}
+
+	public void setValorDesconto(BigDecimal valorDesconto) {
+		this.valorDesconto = valorDesconto;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 	
 	

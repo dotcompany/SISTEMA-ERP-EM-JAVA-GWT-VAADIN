@@ -112,5 +112,12 @@ public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	public void setUltimoImpresso(Integer ultimoImpresso) {
 		this.ultimoImpresso = ultimoImpresso;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+	
 	
 }
