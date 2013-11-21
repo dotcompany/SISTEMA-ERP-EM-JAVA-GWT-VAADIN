@@ -1,5 +1,6 @@
 package dc.controller.financeiro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,37 +13,40 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class IndiceEconomicoListController extends CRUDListController<IndiceEconomico>{
+public class IndiceEconomicoListController extends
+		CRUDListController<IndiceEconomico> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	IndiceEconomicoDAO dao;
-	
+	IndiceEconomicoDAO pDAO;
+
 	@Autowired
 	IndiceEconomicoFormController indiceFormController;
-	
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"nome", "sigla"};
+		return new String[] { "nome", "sigla" };
 	}
 
 	@Override
 	protected Class<? super IndiceEconomico> getEntityClass() {
 		return IndiceEconomico.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -51,16 +55,24 @@ public class IndiceEconomicoListController extends CRUDListController<IndiceEcon
 
 	@Override
 	protected List<IndiceEconomico> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			List<IndiceEconomico> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<IndiceEconomico>();
+		}
 	}
-	
 
 	@Override
 	protected CRUDFormController<IndiceEconomico> getFormController() {
 		return indiceFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -75,10 +87,15 @@ public class IndiceEconomicoListController extends CRUDListController<IndiceEcon
 
 	@Override
 	protected List<IndiceEconomico> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return (List<IndiceEconomico>) dao.getAll(getEntityClass());
+		try {
+			List<IndiceEconomico> auxLista = this.pDAO.listarTodos();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<IndiceEconomico>();
+		}
 	}
-
-
 
 }

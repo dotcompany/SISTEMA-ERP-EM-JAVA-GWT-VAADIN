@@ -14,19 +14,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.diversos.Pais;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -42,14 +44,22 @@ import dc.entidade.diversos.Pais;
 
 @Entity
 @Table(name = "indice_economico")
-public class IndiceEconomico implements Serializable {
+public class IndiceEconomico extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
+
+	/**
+	 *
+	 **/
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "indice_economico_id_seq")
+	@SequenceGenerator(name = "indice_economico_id_seq", sequenceName = "indice_economico_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	/*
@@ -58,20 +68,25 @@ public class IndiceEconomico implements Serializable {
 	 * @Column(name = "PAIS_ID", nullable = false) private int paisId;
 	 */
 	@Field
-	@Caption("Sigla")
-	@Column(name = "SIGLA", length = 50)
+	@Column(name = "sigla")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Sigla")
 	private String sigla;
 
 	@Field
-	@Caption("Nome")
-	@Column(name = "NOME", length = 50)
+	@Column(name = "nome")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Nome")
 	private String nome;
 
 	@Lob
 	@Field
-	@Caption("Descricao")
-	@Type(type = "text")
-	@Column(name = "DESCRICAO", length = 65535)
+	@Column(name = "descricao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Descrição")
 	private String descricao;
 
 	/*
@@ -151,20 +166,9 @@ public class IndiceEconomico implements Serializable {
 		this.indiceList = indiceList;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof IndiceEconomico == false)
-			return false;
-		if (this == object)
-			return true;
-		final IndiceEconomico other = (IndiceEconomico) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {
