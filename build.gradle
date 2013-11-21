@@ -42,11 +42,12 @@ dependencies {
 
 		 
 		 compile files('libs/maskedtextfield-0.1.4.jar')
-		 compile files('libs/jrimum-bopepo-0.2.3-SNAPSHOT.jar')
- 		 compile files('libs/jrimum-domkee-0.2.3-SNAPSHOT.jar')
- 	     compile files('libs/jrimum-texgit-0.2.0-SNAPSHOT.jar')
- 		 compile files('libs/jrimum-utilix-0.2.3-SNAPSHOT.jar')
- 		 compile files('libs/jrimum-vallia-0.2.3-SNAPSHOT.jar')
+		 compile files('libs/jrimum/jrimum-bopepo-0.2.3-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum/jrimum-domkee-0.2.3-SNAPSHOT.jar')
+ 	     compile files('libs/jrimum/jrimum-texgit-0.2.0-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum/jrimum-utilix-0.2.3-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum/jrimum-vallia-0.2.3-SNAPSHOT.jar')
+ 		 compile files('libs/jrimum/log4j-1.2.15.jar')
 		  
 		 compile('org.vaadin.addon:confirmdialog:2.0.4'){
      		//excluding a particular transitive dependency:

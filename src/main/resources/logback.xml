@@ -30,22 +30,22 @@
  
   </appender>
  
-<logger name="org.hibernate.type" level="trace" additivity="false">
+<logger name="org.hibernate.type" level="info" additivity="false">
   <appender-ref ref="STDOUT" />
   <appender-ref ref="FILE" />
 </logger>
 
 <logger name="org.hibernate">
-    <level value="ALL" />
+    <level value="info" />
     <appender-ref ref="FILE"/>
 </logger>
 
-<logger name="org.apache.lucene" level="trace" additivity="false">
+<logger name="org.apache.lucene" level="info" additivity="false">
   <appender-ref ref="STDOUT" />
   <appender-ref ref="FILE" />
 </logger>
 
-<logger name="org.apache.lucene.search" level="trace" additivity="false">
+<logger name="org.apache.lucene.search" level="info" additivity="false">
   <appender-ref ref="STDOUT" />
   <appender-ref ref="FILE" />
 </logger>
