@@ -268,7 +268,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			pagamento.setValorDesconto(valorDesconto);
 		}
 
-		pagamento.setValorPago(pagamento.getParcelaPagar().getValor().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+		pagamento.setValorPago(pagamento.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 
 		subView.preencheForm(currentBean);
 	}
