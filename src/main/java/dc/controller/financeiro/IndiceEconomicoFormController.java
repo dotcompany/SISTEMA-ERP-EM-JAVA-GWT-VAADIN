@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.IndiceEconomico;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
 import dc.visao.financeiro.IndiceEconomicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,19 +29,19 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 public class IndiceEconomicoFormController extends
-		CRUDFormController<IndiceEconomico> {
+		CRUDFormController<IndiceEconomicoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	IndiceEconomicoFormView subView;
+	private IndiceEconomicoFormView subView;
 
 	@Autowired
-	IndiceEconomicoDAO indiceDAO;
+	private IndiceEconomicoDAO indiceDAO;
 
-	private IndiceEconomico currentBean;
+	private IndiceEconomicoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -94,7 +94,7 @@ public class IndiceEconomicoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new IndiceEconomico();
+		currentBean = new IndiceEconomicoEntity();
 	}
 
 	@Override

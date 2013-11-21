@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.IndiceEconomico;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -25,7 +25,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class IndiceEconomicoListController extends
-		CRUDListController<IndiceEconomico> {
+		CRUDListController<IndiceEconomicoEntity> {
 
 	/**
 	 * 
@@ -33,10 +33,10 @@ public class IndiceEconomicoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	IndiceEconomicoDAO pDAO;
+	private IndiceEconomicoDAO pDAO;
 
 	@Autowired
-	IndiceEconomicoFormController indiceFormController;
+	private IndiceEconomicoFormController indiceFormController;
 
 	@Override
 	protected String[] getColunas() {
@@ -44,8 +44,8 @@ public class IndiceEconomicoListController extends
 	}
 
 	@Override
-	protected Class<? super IndiceEconomico> getEntityClass() {
-		return IndiceEconomico.class;
+	protected Class<? super IndiceEconomicoEntity> getEntityClass() {
+		return IndiceEconomicoEntity.class;
 	}
 
 	@Override
@@ -54,21 +54,21 @@ public class IndiceEconomicoListController extends
 	}
 
 	@Override
-	protected List<IndiceEconomico> pesquisa(String valor) {
+	protected List<IndiceEconomicoEntity> pesquisa(String valor) {
 		try {
-			List<IndiceEconomico> auxLista = this.pDAO
+			List<IndiceEconomicoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<IndiceEconomico>();
+			return new ArrayList<IndiceEconomicoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<IndiceEconomico> getFormController() {
+	protected CRUDFormController<IndiceEconomicoEntity> getFormController() {
 		return indiceFormController;
 	}
 
@@ -86,15 +86,15 @@ public class IndiceEconomicoListController extends
 	}
 
 	@Override
-	protected List<IndiceEconomico> pesquisaDefault() {
+	protected List<IndiceEconomicoEntity> pesquisaDefault() {
 		try {
-			List<IndiceEconomico> auxLista = this.pDAO.listarTodos();
+			List<IndiceEconomicoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<IndiceEconomico>();
+			return new ArrayList<IndiceEconomicoEntity>();
 		}
 	}
 

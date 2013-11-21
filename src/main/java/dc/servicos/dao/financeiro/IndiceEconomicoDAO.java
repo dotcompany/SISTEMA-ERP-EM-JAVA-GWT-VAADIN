@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.IndiceEconomico;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -22,44 +22,39 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomico> {
+public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomicoEntity> {
 
 	@Override
-	public Class<IndiceEconomico> getEntityClass() {
-		return IndiceEconomico.class;
+	public Class<IndiceEconomicoEntity> getEntityClass() {
+		return IndiceEconomicoEntity.class;
 	}
 
 	@Transactional
-	public List<IndiceEconomico> listaTodos() {
-		return getSession().createQuery("from IndiceEconomico").list();
-	}
-
-	@Transactional
-	public List<IndiceEconomico> listarTodos() {
+	public List<IndiceEconomicoEntity> listarTodos() {
 		try {
-			String sql = "FROM IndiceEconomico ent WHERE (1 = 1)";
+			String sql = "FROM IndiceEconomicoEntity ent WHERE (1 = 1)";
 
-			List<IndiceEconomico> auxLista = super.getSession()
+			List<IndiceEconomicoEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<IndiceEconomico>();
+			return new ArrayList<IndiceEconomicoEntity>();
 		}
 	}
 
 	@Transactional
-	public List<IndiceEconomico> procuraNomeContendo(String query) {
+	public List<IndiceEconomicoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM IndiceEconomico ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM IndiceEconomicoEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
 
-			List<IndiceEconomico> auxLista = super.getSession()
+			List<IndiceEconomicoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<IndiceEconomico>();
+			return new ArrayList<IndiceEconomicoEntity>();
 		}
 	}
 

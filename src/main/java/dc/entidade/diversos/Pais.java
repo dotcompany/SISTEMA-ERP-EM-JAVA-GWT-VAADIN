@@ -24,6 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -107,6 +108,13 @@ public class Pais extends AbstractModel<Integer> implements Serializable {
 	private List<Estado> estadoList;
 
 	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
+	private List<IndiceEconomicoEntity> indiceEconomicoList;
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -180,6 +188,15 @@ public class Pais extends AbstractModel<Integer> implements Serializable {
 
 	public void setEstadoList(List<Estado> estadoList) {
 		this.estadoList = estadoList;
+	}
+
+	public List<IndiceEconomicoEntity> getIndiceEconomicoList() {
+		return indiceEconomicoList;
+	}
+
+	public void setIndiceEconomicoList(
+			List<IndiceEconomicoEntity> indiceEconomicoList) {
+		this.indiceEconomicoList = indiceEconomicoList;
 	}
 
 	@Override

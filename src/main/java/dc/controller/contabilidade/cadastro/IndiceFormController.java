@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.controller.financeiro.IndiceEconomicoListController;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
-import dc.entidade.financeiro.IndiceEconomico;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
 import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
 import dc.visao.contabilidade.cadastro.IndiceFormView;
@@ -178,7 +178,7 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<IndiceEconomico> model = new DefaultManyToOneComboModel<IndiceEconomico>(
+			DefaultManyToOneComboModel<IndiceEconomicoEntity> model = new DefaultManyToOneComboModel<IndiceEconomicoEntity>(
 					IndiceEconomicoListController.class, this.ieDAO,
 					super.getMainController());
 
