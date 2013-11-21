@@ -43,7 +43,7 @@ public class IndiceDAO extends AbstractCrudDAO<IndiceEntity> {
 	@Transactional
 	public List<IndiceEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM IndiceEntity ent WHERE (1 = 1) AND ent.competencia LIKE :q";
+			String sql = "FROM IndiceEntity ent WHERE (1 = 1) AND ent.periodicidade LIKE :q";
 
 			List<IndiceEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
