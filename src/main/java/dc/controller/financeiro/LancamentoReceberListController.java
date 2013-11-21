@@ -38,7 +38,7 @@ public class LancamentoReceberListController extends CRUDListController<Lancamen
 
 	@Override
 	protected String getTitulo() {
-		return "Lançamento à Pagar";
+		return "Lançamento à Receber";
 	}
 
 	@Override

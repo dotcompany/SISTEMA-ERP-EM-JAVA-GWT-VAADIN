@@ -267,7 +267,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 			pagamento.setValorDesconto(valorDesconto);
 		}
 
-		pagamento.setValorRecebido(pagamento.getParcelaReceber().getValor().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+		pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 
 		subView.preencheForm(currentBean);
 	}
