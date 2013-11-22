@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.controller.diversos.AlmoxarifadoListController;
+import dc.controller.tributario.GrupoTributarioListController;
+import dc.controller.tributario.ICMSCustomizadoListController;
 import dc.entidade.diversos.Almoxarifado;
+import dc.entidade.produto.GrupoProduto;
 import dc.entidade.produto.MarcaProduto;
 import dc.entidade.produto.NCM;
 import dc.entidade.produto.Produto;
@@ -21,6 +25,7 @@ import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
+import dc.servicos.dao.produto.GrupoProdutoDAO;
 import dc.servicos.dao.produto.MarcaProdutoDAO;
 import dc.servicos.dao.produto.NCMDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
@@ -57,10 +62,6 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 	@Autowired
 	private ProdutoDAO produtoDAO;
 
-	/*
-	 * @Autowired private SubGrupoProdutoDAO subGrupoProdutoDAO;
-	 */
-
 	@Autowired
 	private UnidadeProdutoDAO unidadeProdutoDAO;
 
@@ -75,6 +76,9 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 	@Autowired
 	private SubGrupoProdutoDAO subGrupoProdutoDAO;
+
+	@Autowired
+	private GrupoProdutoDAO grupoProdutoDAO;
 
 	@Autowired
 	private NCMDAO ncmDAO;
@@ -100,29 +104,37 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 	protected void initSubView() {
 		subView = new ProdutoFormView(this);
 		try {
-			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(SubGrupoProduto.class,
-					subGrupoProdutoDAO, mainController);
+			DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(
+					SubGrupoProdutoListController.class, subGrupoProdutoDAO, mainController);
 			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
 			// //
-			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(UnidadeProduto.class,
-					unidadeProdutoDAO, mainController);
+			DefaultManyToOneComboModel<UnidadeProduto> comboUnidade = new DefaultManyToOneComboModel<UnidadeProduto>(
+					UnidadeProdutoListController.class, unidadeProdutoDAO, mainController);
 			subView.getCmbUnidadeProduto().setModel(comboUnidade);
 			//
-			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProduto.class, marcaProdutoDAO,
-					mainController);
+			DefaultManyToOneComboModel<MarcaProduto> comboMarca = new DefaultManyToOneComboModel<MarcaProduto>(MarcaProdutoListController.class,
+					marcaProdutoDAO, mainController);
 			subView.getCmbMarcaProduto().setModel(comboMarca);
 			// //
-			DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(Almoxarifado.class,
-					almoxarifadoDAO, mainController);
+			DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(
+					AlmoxarifadoListController.class, almoxarifadoDAO, mainController);
 			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
 
-			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributario.class,
-					grupoTributarioDAO, mainController);
+			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(
+					GrupoTributarioListController.class, grupoTributarioDAO, mainController);
 			subView.getCmbGrupoTributario().setModel(comboGrupo);
 
-			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(ICMSCustomizado.class,
-					icmsCustomizadoDAO, mainController);
+			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(
+					ICMSCustomizadoListController.class, icmsCustomizadoDAO, mainController);
 			subView.getCmbIcmsCustomizado().setModel(comboIcms);
+
+			DefaultManyToOneComboModel<GrupoProduto> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
+					GrupoProdutoListController.class, grupoProdutoDAO, mainController);
+			subView.getCmbGrupo().setModel(comboGrupoProduto);
+
+			DefaultManyToOneComboModel<NCM> comboNCM = new DefaultManyToOneComboModel<NCM>(NCMListController.class, ncmDAO, mainController);
+			subView.getCmbNcm().setModel(comboNCM);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,7 +149,8 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 			subView.getCmbSubGrupoProduto().setValue(currentBean.getSubGrupo());
 			subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-			// subView.getCmbMarcaProduto().setValue(currentBean.getMarcaProduto());
+			subView.getCmbMarcaProduto().setValue(currentBean.getMarcaProduto());
+			subView.getCmbGrupoTributario().setValue(currentBean.getGrupoTributario());
 
 			subView.getTxtGtin().setValue(currentBean.getGtin());
 			subView.getTxtCodigoInterno().setValue(currentBean.getGtin());
@@ -157,72 +170,72 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 			BigDecimal valorCompra = currentBean.getValorCompra();
 			if (valorCompra != null) {
-				subView.getTxtValorCompra().setValue(valorCompra.toString());
+				subView.getTxtValorCompra().setConvertedValue(valorCompra);
 			}
 
 			BigDecimal valorVenda = currentBean.getValorVenda();
 			if (valorVenda != null) {
-				subView.getTxtValorVenda().setValue(valorVenda.toString());
+				subView.getTxtValorVenda().setConvertedValue(valorVenda);
 			}
 
 			BigDecimal precoVendaMinimo = currentBean.getPrecoVendaMinimo();
 			if (valorVenda != null) {
-				subView.getTxtValorVendaMinimo().setValue(precoVendaMinimo.toString());
+				subView.getTxtValorVendaMinimo().setConvertedValue(precoVendaMinimo);
 			}
 
 			BigDecimal precoSugerido = currentBean.getPrecoSugerido();
 			if (precoSugerido != null) {
-				subView.getTxtValorSugerido().setValue(precoSugerido.toString());
+				subView.getTxtValorSugerido().setConvertedValue(precoSugerido);
 			}
 
 			BigDecimal custoMedioLiquido = currentBean.getCustoMedioLiquido();
 			if (custoMedioLiquido != null) {
-				subView.getTxtCustoMedioLiquido().setValue(custoMedioLiquido.toString());
+				subView.getTxtCustoMedioLiquido().setConvertedValue(custoMedioLiquido);
 			}
 
 			BigDecimal precoLucroZero = currentBean.getCustoMedioLiquido();
 			if (precoLucroZero != null) {
-				subView.getTxtPrecoLucroZero().setValue(precoLucroZero.toString());
+				subView.getTxtPrecoLucroZero().setConvertedValue(precoLucroZero);
 			}
 
 			BigDecimal precoLucroMinimo = currentBean.getPrecoLucroMinimo();
 			if (precoLucroMinimo != null) {
-				subView.getTxtPrecoLucroMinimo().setValue(precoLucroMinimo.toString());
+				subView.getTxtPrecoLucroMinimo().setConvertedValue(precoLucroMinimo);
 			}
 
 			BigDecimal precoLucroMaximo = currentBean.getPrecoLucroMaximo();
 			if (precoLucroMaximo != null) {
-				subView.getTxtPrecoLucroMaximo().setValue(precoLucroMaximo.toString());
+				subView.getTxtPrecoLucroMaximo().setConvertedValue(precoLucroMaximo);
 			}
 
 			BigDecimal markup = currentBean.getMarkup();
 			if (markup != null) {
-				subView.getTxtMarkup().setValue(markup.toString());
+				subView.getTxtMarkup().setConvertedValue(markup);
 			}
 
 			BigDecimal quantidadeEstoque = currentBean.getQuantidadeEstoque();
 			if (quantidadeEstoque != null) {
-				subView.getTxtQuantidadeEstoque().setValue(quantidadeEstoque.toString());
+				subView.getTxtQuantidadeEstoque().setConvertedValue(quantidadeEstoque);
 			}
 
 			BigDecimal quantidadeEstoqueAnterior = currentBean.getQuantidadeEstoqueAnterior();
 			if (quantidadeEstoqueAnterior != null) {
-				subView.getTxtQuantidadeEstoqueAnterior().setValue(quantidadeEstoqueAnterior.toString());
+				subView.getTxtQuantidadeEstoqueAnterior().setConvertedValue(quantidadeEstoqueAnterior);
 			}
 
 			BigDecimal estoqueIdeal = currentBean.getEstoqueIdeal();
 			if (estoqueIdeal != null) {
-				subView.getTxtEstoqueIdeal().setValue(estoqueIdeal.toString());
+				subView.getTxtEstoqueIdeal().setConvertedValue(estoqueIdeal);
 			}
 
 			BigDecimal estoqueMinimo = currentBean.getEstoqueMinimo();
 			if (estoqueMinimo != null) {
-				subView.getTxtEstoqueMinimo().setValue(estoqueIdeal.toString());
+				subView.getTxtEstoqueMinimo().setConvertedValue(estoqueMinimo);
 			}
 
 			BigDecimal estoqueMaximo = currentBean.getEstoqueMaximo();
 			if (estoqueMaximo != null) {
-				subView.getTxtEstoqueMaximo().setValue(estoqueMaximo.toString());
+				subView.getTxtEstoqueMaximo().setConvertedValue(estoqueMaximo);
 			}
 
 			String lst = currentBean.getCodigoLst();
@@ -262,155 +275,50 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 			Integer codigoBalanca = currentBean.getCodigoBalanca();
 			if (codigoBalanca != null) {
-				subView.getTxtCodigoBalanca().setValue(codigoBalanca.toString());
+				subView.getTxtCodigoBalanca().setConvertedValue(codigoBalanca);
 			}
 
 			BigDecimal peso = currentBean.getPeso();
 			if (peso != null) {
-				subView.getTxtPeso().setValue(peso.toString());
+				subView.getTxtPeso().setConvertedValue(peso);
 			}
 
 			BigDecimal taxaComissao = currentBean.getTaxaComissao();
 			if (taxaComissao != null) {
-				subView.getTxtTaxaComissao().setValue(taxaComissao.toString());
+				subView.getTxtTaxaComissao().setConvertedValue(taxaComissao);
 			}
 
 			BigDecimal pontoPedido = currentBean.getPontoPedido();
 			if (pontoPedido != null) {
-				subView.getTxtPontoPedido().setValue(pontoPedido.toString());
+				subView.getTxtPontoPedido().setConvertedValue(pontoPedido);
 			}
 
-			BigDecimal loteEconomicoCompra = currentBean.getTaxaComissao();
+			BigDecimal loteEconomicoCompra = currentBean.getLoteEconomicoCompra();
 			if (loteEconomicoCompra != null) {
-				subView.getTxtLoteEconomicoCompra().setValue(loteEconomicoCompra.toString());
+				subView.getTxtLoteEconomicoCompra().setConvertedValue(loteEconomicoCompra);
 			}
 
 			BigDecimal aliquotaIcms = currentBean.getAliquotaIcms();
 			if (aliquotaIcms != null) {
-				subView.getTxtAliquotaICms().setValue(aliquotaIcms.toString());
+				subView.getTxtAliquotaICms().setConvertedValue(aliquotaIcms);
 			}
 
 			BigDecimal aliquotaIssqn = currentBean.getAliquotaIssqn();
 			if (aliquotaIssqn != null) {
-				subView.getTxtAliquotaIssqn().setValue(aliquotaIssqn.toString());
+				subView.getTxtAliquotaIssqn().setConvertedValue(aliquotaIssqn);
 			}
+
+			subView.getCmbAlmoxarifado().setValue(currentBean.getAlmoxarifado());
+			subView.getCmbGrupo().setValue(currentBean.getGrupo());
+			subView.getCmbNcm().setValue(currentBean.getNcm());
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// // subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-		//
-		// // subView.getTxtNome().setValue(currentBean.getNome());
-		// //subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		//
-		// /* Configura combo Sub Grupo Produto */
-		// /*
-		// * ManyToOneComboModel<SubGrupoProduto> modelsub = new
-		// * ManyToOneComboModel<SubGrupoProduto>() {
-		// *
-		// * @Override public void onCriarNovo(String filter) {
-		// * Notification.show("Selecionado Criar Novo: " + filter); }
-		// *
-		// * @Override public List<SubGrupoProduto> getResultado(String q) {
-		// * return subGrupoProdutoDAO.query(q); }
-		// *
-		// * @Override public Class<SubGrupoProduto> getEntityClass() { return
-		// * SubGrupoProduto.class; }
-		// *
-		// * @Override public String getCaptionProperty() { return "descricao";
-		// }
-		// *
-		// * @Override public void onEditar(SubGrupoProduto value) {
-		// * Notification.show("Selecionado Editar: " + value.getDescricao());
-		// *
-		// * } }; subView.getCmbSubGrupoProduto().setModel(modelsub);
-		// * subView.getCmbSubGrupoProduto
-		// * ().setValue(currentBean.getIdSubGrupo());
-		// */
-		//
-		// /* Configura combo Unidade Produto */
-		// /*
-		// * ManyToOneComboModel<UnidadeProduto> model = new
-		// * ManyToOneComboModel<UnidadeProduto>() {
-		// *
-		// * @Override public void onCriarNovo(String filter) {
-		// * Notification.show("Selecionado Criar Novo: " + filter); }
-		// *
-		// * @Override public List<UnidadeProduto> getResultado(String q) {
-		// return
-		// * unidadeProdutoDAO.query(q); }
-		// *
-		// * @Override public Class<UnidadeProduto> getEntityClass() { return
-		// * UnidadeProduto.class; }
-		// *
-		// * @Override public String getCaptionProperty() { return "sigla"; }
-		// *
-		// * @Override public void onEditar(UnidadeProduto value) {
-		// * Notification.show("Selecionado Editar: " + value.getSigla());
-		// *
-		// * } }; subView.getCmbUnidadeProduto().setModel(model);
-		// * subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-		// */
-		//
-		// /* Configura combo Marca Produto */
-		// /*
-		// * ManyToOneComboModel<MarcaProduto> modelmarca = new
-		// * ManyToOneComboModel<MarcaProduto>() {
-		// *
-		// * @Override public void onCriarNovo(String filter) {
-		// * Notification.show("Selecionado Criar Novo: " + filter); }
-		// *
-		// * @Override public List<MarcaProduto> getResultado(String q) { return
-		// * marcaProdutoDAO.query(q); }
-		// *
-		// * @Override public Class<MarcaProduto> getEntityClass() { return
-		// * MarcaProduto.class; }
-		// *
-		// * @Override public String getCaptionProperty() { return "nome"; }
-		// *
-		// * @Override public void onEditar(MarcaProduto value) {
-		// * Notification.show("Selecionado Editar: " + value.getNome());
-		// *
-		// * } }; subView.getCmbMarcaProduto().setModel(modelmarca);
-		// * subView.getCmbMarcaProduto
-		// * ().setValue(currentBean.getIdMarcaProduto());
-		// */
-		//
-		// // DefaultManyToOneComboModel<Almoxarifado> model = new
-		// DefaultManyToOneComboModel<Almoxarifado>(
-		// // AlmoxarifadoListController.class, this.almoxarifadoDAO,
-		// // super.getMainController());
-		// //
-		// // subView.getCmbAlmoxarifado().setModel(model);
-		// //subView.getCmbAlmoxarifado().setValue(currentBean.getIdAlmoxarifado());
-		//
-		// DefaultManyToOneComboModel<GrupoTributario> model1 = new
-		// DefaultManyToOneComboModel<GrupoTributario>(
-		// GrupoTributarioListController.class, this.grupoTributarioDAO,
-		// super.getMainController());
-		//
-		// //subView.getCmbGrupoTributario().setModel(model1);
-		// //
-		// subView.getCmbGrupoTributario().setValue(currentBean.getIdGrupoTributario());
-		//
-		// DefaultManyToOneComboModel<UnidadeProduto> model2 = new
-		// DefaultManyToOneComboModel<UnidadeProduto>(
-		// UnidadeProdutoListController.class, this.unidadeProdutoDAO,
-		// super.getMainController());
-		//
-		// subView.getCmbUnidadeProduto().setModel(model2);
-		// //subView.getCmbUnidadeProduto()
-		// .setValue(currentBean.getUnidadeProduto());
-		//
-		// subView.getCmbSubGrupoProduto().setValue(new SubGrupoProduto());
-		// subView.getCmbMarcaProduto().setValue(new MarcaProduto());
 	}
 
 	@Override
 	protected void actionSalvar() {
-		// currentBean.setNome(subView.getTxtNome().getValue());
-		// currentBean.setDescricao(subView.getTxtDescricao().getValue());
 
 		try {
 
@@ -418,8 +326,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			UnidadeProduto unidade = subView.getCmbUnidadeProduto().getValue();
 
 			MarcaProduto marca = subView.getCmbMarcaProduto().getValue();
-			// Almoxarifado almoxarifado =
-			// subView.getCmbAlmoxarifado().getValue();
+			Almoxarifado almoxarifado = subView.getCmbAlmoxarifado().getValue();
 
 			if (!Validator.validateObject(subgrupo)) {
 				throw new ErroValidacaoException("Informe o SubGrupo");
@@ -430,9 +337,11 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			}
 			currentBean.setSubGrupo(subgrupo);
 			currentBean.setUnidade(unidade);
+			currentBean.setNcm(subView.getCmbNcm().getValue());
 
 			currentBean.setMarcaProduto(marca);
-			// currentBean.setAlmoxarifado(almoxarifado);
+			currentBean.setAlmoxarifado(almoxarifado);
+			currentBean.setGrupoTributario(subView.getCmbGrupoTributario().getValue());
 
 			String gtin = subView.getTxtGtin().getValue();
 			currentBean.setGtin(gtin);
@@ -460,75 +369,33 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			String descricaoPdv = subView.getTxtDescricaoPdv().getValue();
 			currentBean.setDescricaoPdv(descricaoPdv);
 
-			String valorVenda = subView.getTxtValorVenda().getValue();
-			if (Validator.validateString(valorVenda)) {
-				currentBean.setValorVenda(formataValor(valorVenda));
-			}
+			currentBean.setValorVenda((BigDecimal) subView.getTxtValorVenda().getConvertedValue());
 
-			String valorCompra = subView.getTxtValorCompra().getValue();
-			if (Validator.validateString(valorCompra)) {
-				currentBean.setValorCompra(formataValor(valorCompra));
-			}
+			currentBean.setValorCompra((BigDecimal) subView.getTxtValorCompra().getConvertedValue());
 
-			String precoVendaMinimo = subView.getTxtValorVendaMinimo().getValue();
-			if (Validator.validateString(precoVendaMinimo)) {
-				currentBean.setPrecoVendaMinimo(formataValor(precoVendaMinimo));
-			}
+			currentBean.setPrecoVendaMinimo((BigDecimal) subView.getTxtValorVendaMinimo().getConvertedValue());
 
-			String precoSugerido = subView.getTxtValorSugerido().getValue();
-			if (Validator.validateString(precoSugerido)) {
-				currentBean.setPrecoSugerido(formataValor(precoSugerido));
-			}
+			currentBean.setPrecoSugerido((BigDecimal) subView.getTxtValorSugerido().getConvertedValue());
 
-			String custoMedioLiquido = subView.getTxtCustoMedioLiquido().getValue();
-			if (Validator.validateString(custoMedioLiquido)) {
-				currentBean.setCustoMedioLiquido(formataValor(custoMedioLiquido));
-			}
+			currentBean.setCustoMedioLiquido((BigDecimal) subView.getTxtCustoMedioLiquido().getConvertedValue());
 
-			String precoLucroZero = subView.getTxtPrecoLucroZero().getValue();
-			if (Validator.validateString(precoLucroZero)) {
-				currentBean.setPrecoLucroZero(formataValor(precoLucroZero));
-			}
+			currentBean.setPrecoLucroZero((BigDecimal) subView.getTxtPrecoLucroZero().getConvertedValue());
 
-			String precoLucroMinimo = subView.getTxtPrecoLucroMinimo().getValue();
-			if (Validator.validateString(precoLucroMinimo)) {
-				currentBean.setPrecoLucroMinimo(formataValor(precoLucroMinimo));
-			}
+			currentBean.setPrecoLucroMinimo((BigDecimal) subView.getTxtPrecoLucroMinimo().getConvertedValue());
 
-			String precoLucroMaximo = subView.getTxtPrecoLucroMaximo().getValue();
-			if (Validator.validateString(precoLucroMaximo)) {
-				currentBean.setPrecoLucroMaximo(formataValor(precoLucroMaximo));
-			}
+			currentBean.setPrecoLucroMaximo((BigDecimal) subView.getTxtPrecoLucroMaximo().getConvertedValue());
 
-			String markup = subView.getTxtMarkup().getValue();
-			if (Validator.validateString(markup)) {
-				currentBean.setMarkup(formataValor(markup));
-			}
+			currentBean.setMarkup((BigDecimal) subView.getTxtMarkup().getConvertedValue());
 
-			String quantidadeEstoque = subView.getTxtQuantidadeEstoque().getValue();
-			if (Validator.validateString(quantidadeEstoque)) {
-				currentBean.setQuantidadeEstoque(formataValor(quantidadeEstoque));
-			}
+			currentBean.setQuantidadeEstoque((BigDecimal) subView.getTxtQuantidadeEstoque().getConvertedValue());
 
-			String quantidadeEstoqueAnterior = subView.getTxtQuantidadeEstoqueAnterior().getValue();
-			if (Validator.validateString(quantidadeEstoqueAnterior)) {
-				currentBean.setQuantidadeEstoqueAnterior(formataValor(quantidadeEstoqueAnterior));
-			}
+			currentBean.setQuantidadeEstoqueAnterior((BigDecimal) subView.getTxtQuantidadeEstoqueAnterior().getConvertedValue());
 
-			String estoqueIdeal = subView.getTxtEstoqueIdeal().getValue();
-			if (Validator.validateString(estoqueIdeal)) {
-				currentBean.setEstoqueIdeal(formataBigDecimal(estoqueIdeal));
-			}
+			currentBean.setEstoqueIdeal((BigDecimal) subView.getTxtEstoqueIdeal().getConvertedValue());
 
-			String estoqueMinimo = subView.getTxtEstoqueMinimo().getValue();
-			if (Validator.validateString(estoqueMinimo)) {
-				currentBean.setEstoqueMinimo(formataBigDecimal(estoqueMinimo));
-			}
+			currentBean.setEstoqueMinimo((BigDecimal) subView.getTxtEstoqueMinimo().getConvertedValue());
 
-			String estoqueMaximo = subView.getTxtEstoqueMaximo().getValue();
-			if (Validator.validateString(estoqueMaximo)) {
-				currentBean.setEstoqueMaximo(formataBigDecimal(estoqueMaximo));
-			}
+			currentBean.setEstoqueMaximo((BigDecimal) subView.getTxtEstoqueMaximo().getConvertedValue());
 
 			String lst = subView.getTxtLst().getValue();
 			if (Validator.validateString(lst)) {
@@ -572,35 +439,17 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 				currentBean.setCodigoBalanca(new Integer(codigoBalanca));
 			}
 
-			String peso = subView.getTxtPeso().getValue();
-			if (Validator.validateString(codigoBalanca)) {
-				currentBean.setPeso(formataBigDecimal(peso));
-			}
+			currentBean.setPeso((BigDecimal) subView.getTxtPeso().getConvertedValue());
 
-			String taxaComissao = subView.getTxtTaxaComissao().getValue();
-			if (Validator.validateString(taxaComissao)) {
-				currentBean.setTaxaComissao(formataBigDecimal(taxaComissao));
-			}
+			currentBean.setTaxaComissao((BigDecimal) subView.getTxtTaxaComissao().getConvertedValue());
 
-			String pontoPedido = subView.getTxtPontoPedido().getValue();
-			if (Validator.validateString(pontoPedido)) {
-				currentBean.setPontoPedido(formataBigDecimal(pontoPedido));
-			}
+			currentBean.setPontoPedido((BigDecimal) subView.getTxtPontoPedido().getConvertedValue());
 
-			String loteEconomicoCompra = subView.getTxtLoteEconomicoCompra().getValue();
-			if (Validator.validateString(loteEconomicoCompra)) {
-				currentBean.setLoteEconomicoCompra(formataBigDecimal(loteEconomicoCompra));
-			}
+			currentBean.setLoteEconomicoCompra((BigDecimal) subView.getTxtLoteEconomicoCompra().getConvertedValue());
 
-			String aliquotaIcms = subView.getTxtAliquotaICms().getValue();
-			if (Validator.validateString(aliquotaIcms)) {
-				currentBean.setAliquotaIcms(formataBigDecimal(aliquotaIcms));
-			}
+			currentBean.setAliquotaIcms((BigDecimal) subView.getTxtAliquotaICms().getConvertedValue());
 
-			String aliquotaIssqn = subView.getTxtAliquotaIssqn().getValue();
-			if (Validator.validateString(aliquotaIssqn)) {
-				currentBean.setAliquotaIssqn(formataBigDecimal(aliquotaIssqn));
-			}
+			currentBean.setAliquotaIssqn((BigDecimal) subView.getTxtAliquotaIssqn().getConvertedValue());
 
 			produtoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -660,26 +509,6 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 			container.addItem(ncm);
 		}
 		return container;
-	}
-
-	public BeanItemContainer<GrupoTributario> carregarGrupo() {
-		BeanItemContainer<GrupoTributario> container = new BeanItemContainer<>(GrupoTributario.class);
-		for (GrupoTributario grupo : grupoTributarioDAO.listaTodos()) {
-			container.addItem(grupo);
-		}
-		return container;
-	}
-
-	public BigDecimal formataValor(String valor) {
-		String format = "";
-		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
-
-		replaceAll(",", "").trim();
-		return new BigDecimal(format);
-	}
-
-	public BigDecimal formataBigDecimal(String valor) {
-		return new BigDecimal(valor.replace(',', '.'));
 	}
 
 }

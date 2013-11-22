@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -72,7 +71,7 @@ public class NCM extends AbstractMultiEmpresaModel<Integer> implements Serializa
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String nome;
 
 	@Lob
 	@Field
@@ -98,14 +97,6 @@ public class NCM extends AbstractMultiEmpresaModel<Integer> implements Serializa
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public String getCodigo() {
@@ -141,9 +132,15 @@ public class NCM extends AbstractMultiEmpresaModel<Integer> implements Serializa
 
 	@Override
 	public String toString() {
-		return  descricao ;
+		return nome;
 	}
 
-	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 }

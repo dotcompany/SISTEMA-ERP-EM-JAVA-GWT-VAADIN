@@ -32,15 +32,9 @@ public class ProdutoListController extends CRUDListController<Produto> {
 		return produtoFormController;
 	}
 
-	// @Override
-	// protected String[] getColunas() {
-	// return new String[]{"gtin",
-	// "codigoInterno","nome","descricao","descricaoPdv"};
-	// }
-
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "id" };
+		return new String[] { "gtin", "codigoInterno", "nome", "descricao", "descricaoPdv" };
 	}
 
 	@Override

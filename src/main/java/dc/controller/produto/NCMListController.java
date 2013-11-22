@@ -34,7 +34,7 @@ public class NCMListController extends CRUDListController<NCM> {
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "codigo", "descricao" };
+		return new String[] { "codigo", "nome" };
 	}
 
 	@Override

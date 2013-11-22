@@ -24,8 +24,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoListController extends
-		CRUDListController<UnidadeProduto> {
+public class UnidadeProdutoListController extends CRUDListController<UnidadeProduto> {
 
 	/**
 	 * 
@@ -40,7 +39,7 @@ public class UnidadeProdutoListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "sigla", "descricao" };
+		return new String[] { "sigla", "nome" };
 	}
 
 	@Override

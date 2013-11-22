@@ -2,7 +2,6 @@ package dc.entidade.produto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -60,26 +59,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "ID_SUB_GRUPO", nullable = false)
-	 * 
-	 * @ComboValue
-	 * 
-	 * @Analyzer(definition = "dc_combo_analyzer") private int idSubGrupo;
-	 */
-
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "ID_UNIDADE_PRODUTO", nullable = false)
-	 * 
-	 * @ComboValue
-	 * 
-	 * @Analyzer(definition = "dc_combo_analyzer") private int idUnidade;
-	 */
-
 	@Caption("Gtin")
 	@Column(name = "GTIN", length = 14)
 	private String gtin;
@@ -87,12 +66,7 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Caption("Codigo Interno")
 	@Column(name = "CODIGO_INTERNO", length = 60)
 	private String codigoInterno;
-	//
-	//	@Column(name = "NCM")
-	//	@ComboValue
-	//	@Analyzer(definition = "dc_combo_analyzer")
-	//	private String ncm;
-	//
+
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
@@ -171,27 +145,27 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueIdeal;
 	//
-	//	@Column(name = "EXCLUIDO")
-	//	@ComboValue
-	//	@Analyzer(definition = "dc_combo_analyzer")
-	//	private Character excluido;
+	// @Column(name = "EXCLUIDO")
+	// @ComboValue
+	// @Analyzer(definition = "dc_combo_analyzer")
+	// private Character excluido;
 	//
-		@Column(name = "INATIVO")
-		@Analyzer(definition = "dc_combo_analyzer")
-		private String inativo;
+	@Column(name = "INATIVO")
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inativo;
 	//
-	//	@Column(name = "DATA_CADASTRO")
-	//	@ComboValue
-	//	@Analyzer(definition = "dc_combo_analyzer")
-	//	private Date dataCadastro;
+	// @Column(name = "DATA_CADASTRO")
+	// @ComboValue
+	// @Analyzer(definition = "dc_combo_analyzer")
+	// private Date dataCadastro;
 	//
-	//	@Column(name = "FOTO_PRODUTO", length = 65535)
-	//	@ComboValue
-	//	@Analyzer(definition = "dc_combo_analyzer")
-	//	private String fotoProduto;
+	// @Column(name = "FOTO_PRODUTO", length = 65535)
+	// @ComboValue
+	// @Analyzer(definition = "dc_combo_analyzer")
+	// private String fotoProduto;
 	//
 
-	@Column(name = "codigo_lst") 
+	@Column(name = "codigo_lst")
 	private String codigoLst;
 
 	@Column(name = "EX_TIPI")
@@ -222,34 +196,31 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBalanca;
 
-	
-		@Column(name = "CLASSE_ABC")
-		@Analyzer(definition = "dc_combo_analyzer")
-		private String classe;
-	
+	@Column(name = "CLASSE_ABC")
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classe;
 
-		@Column(name = "PESO", precision = 11, scale = 2)
-		@Analyzer(definition = "dc_combo_analyzer")
-		private BigDecimal peso;
-	
-		@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
-		@Analyzer(definition = "dc_combo_analyzer")
-		private BigDecimal taxaComissao;
-	
-		@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
-		@Analyzer(definition = "dc_combo_analyzer")
-		private BigDecimal pontoPedido;
-	
-		@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
-		@Analyzer(definition = "dc_combo_analyzer")
-		private BigDecimal loteEconomicoCompra;
-	
+	@Column(name = "PESO", precision = 11, scale = 2)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal peso;
+
+	@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal taxaComissao;
+
+	@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal pontoPedido;
+
+	@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal loteEconomicoCompra;
 
 	//
-	//	@Column(name = "DATA_ALTERACAO")
-	//	@ComboValue
-	//	@Analyzer(definition = "dc_combo_analyzer")
-	//	private Date dataAlteracao;
+	// @Column(name = "DATA_ALTERACAO")
+	// @ComboValue
+	// @Analyzer(definition = "dc_combo_analyzer")
+	// private Date dataAlteracao;
 	//
 
 	//
@@ -259,58 +230,41 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	 * @author wesley Junior
 	 **/
 
-
-
-	@ManyToOne(optional = false) 
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
 	private SubGrupoProduto subGrupo;
 
-	//	 * @JoinColumn(name = "ID_UNIDADE_PRODUTO",insertable = true, updatable =
-	//	 * true)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_GRUPO_PRODUTO", referencedColumnName = "ID")
+	private GrupoProduto grupo;
 
-	@ManyToOne(optional = false) 
-	@JoinColumn(name = "ID_UNIDADE_PRODUTO", referencedColumnName = "ID") 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_UNIDADE_PRODUTO", referencedColumnName = "ID")
 	private UnidadeProduto unidade;
-	
-	@Column(name="aliquota_icms_paf")
+
+	@Column(name = "aliquota_icms_paf")
 	private BigDecimal aliquotaIcms;
-	
-	@Column(name="aliquota_issqn_paf")
+
+	@Column(name = "aliquota_issqn_paf")
 	private BigDecimal aliquotaIssqn;
-	
-	
-	//	 */
-	//
-	//	/*
-	//	 * @JoinColumn(name = "ID_MARCA_PRODUTO", referencedColumnName = "ID")
-	//	 * 
-	//	 * @ManyToOne(optional = false) private MarcaProduto idMarcaProduto;
-	//	 */
-	//
-	//	@ManyToOne
-	//	@JoinColumn(name = "ID_SUB_GRUPO", nullable = false)
-	//	@Caption("Subgrupo")
-	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	//	private SubGrupoProduto subgrupoProduto;
 
-	//	@ManyToOne
-	//	@Caption("Unidade do produto")
-	//	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	//	private UnidadeProduto unidadeProduto;
+	@ManyToOne
+	@JoinColumn(name = "id_marca_produto", nullable = false)
+	@Caption("Marca do produto")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private MarcaProduto marcaProduto;
 
-		@ManyToOne
-		@JoinColumn(name = "id_marca_produto", nullable = false)
-		@Caption("Marca do produto")
-		@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-		private MarcaProduto marcaProduto;
+	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Almoxarifado almoxarifado;
 
-	//	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
-	//	@ManyToOne(optional = false)
-	//	private Almoxarifado idAlmoxarifado;
+	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private GrupoTributario grupoTributario;
 
-	//	@JoinColumn(name = "ID_GRUPO_TRIBUTARIO", referencedColumnName = "ID")
-	//	@ManyToOne(optional = false)
-	//	private GrupoTributario idGrupoTributario;
+	@JoinColumn(name = "ID_NCM", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private NCM ncm;
 
 	public Produto() {
 
@@ -328,395 +282,398 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.id = id;
 	}
 
-	//	public String getGtin() {
-	//		return gtin;
-	//	}
-	//
-	//	public void setGtin(String gtin) {
-	//		this.gtin = gtin;
-	//	}
-	//
-	//	public String getNome() {
-	//		return nome;
-	//	}
-	//
-	//	public void setNome(String nome) {
-	//		this.nome = nome;
-	//	}
-	//
-	//	public String getDescricao() {
-	//		return descricao;
-	//	}
-	//
-	//	public void setDescricao(String descricao) {
-	//		this.descricao = descricao;
-	//	}
-	//
-	//	public String getDescricaoPdv() {
-	//		return descricaoPdv;
-	//	}
-	//
-	//	public void setDescricaoPdv(String descricaoPdv) {
-	//		this.descricaoPdv = descricaoPdv;
-	//	}
-	//
-	//	public BigDecimal getValorCompra() {
-	//		return valorCompra;
-	//	}
-	//
-	//	public void setValorCompra(BigDecimal valorCompra) {
-	//		this.valorCompra = valorCompra;
-	//	}
-	//
-	//	public BigDecimal getValorVenda() {
-	//		return valorVenda;
-	//	}
-	//
-	//	public void setValorVenda(BigDecimal valorVenda) {
-	//		this.valorVenda = valorVenda;
-	//	}
-	//
-	//	public BigDecimal getQtdEstoque() {
-	//		return qtdEstoque;
-	//	}
-	//
-	//	public void setQtdEstoque(BigDecimal qtdEstoque) {
-	//		this.qtdEstoque = qtdEstoque;
-	//	}
-	//
-	//	public BigDecimal getEstoqueMin() {
-	//		return estoqueMin;
-	//	}
-	//
-	//	public void setEstoqueMin(BigDecimal estoqueMin) {
-	//		this.estoqueMin = estoqueMin;
-	//	}
-	//
-	//	public BigDecimal getEstoqueMax() {
-	//		return estoqueMax;
-	//	}
-	//
-	//	public void setEstoqueMax(BigDecimal estoqueMax) {
-	//		this.estoqueMax = estoqueMax;
-	//	}
-	//
-	//	public Character getExcluido() {
-	//		return excluido;
-	//	}
-	//
-	//	public void setExcluido(Character excluido) {
-	//		this.excluido = excluido;
-	//	}
-	//
-	//	public Date getDataCadastro() {
-	//		return dataCadastro;
-	//	}
-	//
-	//	public void setDataCadastro(Date dataCadastro) {
-	//		this.dataCadastro = dataCadastro;
-	//	}
-	//
-	//	// /**
-	//	// * @return the subGrupo
-	//	// */
-	//	// public SubGrupoProduto getSubGrupo() {
-	//	// return subGrupo;
-	//	// }
-	//	//
-	//	// /**
-	//	// * @param subGrupo the subGrupo to set
-	//	// */
-	//	// public void setSubGrupo(SubGrupoProduto subGrupo) {
-	//	// this.subGrupo = subGrupo;
-	//	// }
-	//
-	//	// /**
-	//	// * @return the unidade
-	//	// */
-	//	// public UnidadeProduto getUnidade() {
-	//	// return unidade;
-	//	// }
-	//	//
-	//	// /**
-	//	// * @param unidade the unidade to set
-	//	// */
-	//	// public void setUnidade(UnidadeProduto unidade) {
-	//	// this.unidade = unidade;
-	//	// }
-	//
-	//	public String getCodigoInterno() {
-	//		return codigoInterno;
-	//	}
-	//
-	//	public void setCodigoInterno(String codigoInterno) {
-	//		this.codigoInterno = codigoInterno;
-	//	}
-	//
-	//	public String getNcm() {
-	//		return ncm;
-	//	}
-	//
-	//	public void setNcm(String ncm) {
-	//		this.ncm = ncm;
-	//	}
-	//
-	//	public BigDecimal getPrecoVendaMinimo() {
-	//		return precoVendaMinimo;
-	//	}
-	//
-	//	public void setPrecoVendaMinimo(BigDecimal precoVendaMinimo) {
-	//		this.precoVendaMinimo = precoVendaMinimo;
-	//	}
-	//
-	//	public BigDecimal getPrecoSugerido() {
-	//		return precoSugerido;
-	//	}
-	//
-	//	public void setPrecoSugerido(BigDecimal precoSugerido) {
-	//		this.precoSugerido = precoSugerido;
-	//	}
-	//
-	//	public BigDecimal getCustoMedioLiquido() {
-	//		return custoMedioLiquido;
-	//	}
-	//
-	//	public void setCustoMedioLiquido(BigDecimal custoMedioLiquido) {
-	//		this.custoMedioLiquido = custoMedioLiquido;
-	//	}
-	//
-	//	public BigDecimal getPrecoLucroZero() {
-	//		return precoLucroZero;
-	//	}
-	//
-	//	public void setPrecoLucroZero(BigDecimal precoLucroZero) {
-	//		this.precoLucroZero = precoLucroZero;
-	//	}
-	//
-	//	public BigDecimal getPrecoLucroMinimo() {
-	//		return precoLucroMinimo;
-	//	}
-	//
-	//	public void setPrecoLucroMinimo(BigDecimal precoLucroMinimo) {
-	//		this.precoLucroMinimo = precoLucroMinimo;
-	//	}
-	//
-	//	public BigDecimal getPrecoLucroMaximo() {
-	//		return precoLucroMaximo;
-	//	}
-	//
-	//	public void setPrecoLucroMaximo(BigDecimal precoLucroMaximo) {
-	//		this.precoLucroMaximo = precoLucroMaximo;
-	//	}
-	//
-	//	public BigDecimal getMarkup() {
-	//		return markup;
-	//	}
-	//
-	//	public void setMarkup(BigDecimal markup) {
-	//		this.markup = markup;
-	//	}
-	//
-	//	public BigDecimal getQtdEstoqueAnterior() {
-	//		return qtdEstoqueAnterior;
-	//	}
-	//
-	//	public void setQtdEstoqueAnterior(BigDecimal qtdEstoqueAnterior) {
-	//		this.qtdEstoqueAnterior = qtdEstoqueAnterior;
-	//	}
-	//
-	//	public BigDecimal getEstoqueIdeal() {
-	//		return estoqueIdeal;
-	//	}
-	//
-	//	public void setEstoqueIdeal(BigDecimal estoqueIdeal) {
-	//		this.estoqueIdeal = estoqueIdeal;
-	//	}
-	//
-	//	public String getInativo() {
-	//		return inativo;
-	//	}
-	//
-	//	public void setInativo(String inativo) {
-	//		this.inativo = inativo;
-	//	}
-	//
-	//	public String getFotoProduto() {
-	//		return fotoProduto;
-	//	}
-	//
-	//	public void setFotoProduto(String fotoProduto) {
-	//		this.fotoProduto = fotoProduto;
-	//	}
-	//
-	//	public Character getExTipi() {
-	//		return exTipi;
-	//	}
-	//
-	//	public void setExTipi(Character exTipi) {
-	//		this.exTipi = exTipi;
-	//	}
-	//
-	//	/*
-	//	 * public String getCodigoIst() { return codigoIst; }
-	//	 * 
-	//	 * public void setCodigoIst(String codigoIst) { this.codigoIst = codigoIst;
-	//	 * }
-	//	 */
-	//
-	//	public String getClasseAbc() {
-	//		return classeAbc;
-	//	}
-	//
-	//	public void setClasseAbc(String classeAbc) {
-	//		this.classeAbc = classeAbc;
-	//	}
-	//
-	//	public String getIat() {
-	//		return iat;
-	//	}
-	//
-	//	public void setIat(String iat) {
-	//		this.iat = iat;
-	//	}
-	//
-	//	public String getIppt() {
-	//		return ippt;
-	//	}
-	//
-	//	public void setIppt(String ippt) {
-	//		this.ippt = ippt;
-	//	}
-	//
-	//	public String getTipoItemSped() {
-	//		return tipoItemSped;
-	//	}
-	//
-	//	public void setTipoItemSped(String tipoItemSped) {
-	//		this.tipoItemSped = tipoItemSped;
-	//	}
-	//
-	//	public BigDecimal getPeso() {
-	//		return peso;
-	//	}
-	//
-	//	public void setPeso(BigDecimal peso) {
-	//		this.peso = peso;
-	//	}
-	//
-	//	public BigDecimal getPorcentoComissao() {
-	//		return porcentoComissao;
-	//	}
-	//
-	//	public void setPorcentoComissao(BigDecimal porcentoComissao) {
-	//		this.porcentoComissao = porcentoComissao;
-	//	}
-	//
-	//	public BigDecimal getPontoPedido() {
-	//		return pontoPedido;
-	//	}
-	//
-	//	public void setPontoPedido(BigDecimal pontoPedido) {
-	//		this.pontoPedido = pontoPedido;
-	//	}
-	//
-	//	public BigDecimal getLoteEconomicoCompra() {
-	//		return loteEconomicoCompra;
-	//	}
-	//
-	//	public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
-	//		this.loteEconomicoCompra = loteEconomicoCompra;
-	//	}
-	//
-	//	public String getTotalizadorParcial() {
-	//		return totalizadorParcial;
-	//	}
-	//
-	//	public void setTotalizadorParcial(String totalizadorParcial) {
-	//		this.totalizadorParcial = totalizadorParcial;
-	//	}
-	//
-	//	public Integer getCodigoBalanca() {
-	//		return codigoBalanca;
-	//	}
-	//
-	//	public void setCodigoBalanca(Integer codigoBalanca) {
-	//		this.codigoBalanca = codigoBalanca;
-	//	}
-	//
-	//	public Date getDataAlteracao() {
-	//		return dataAlteracao;
-	//	}
-	//
-	//	public void setDataAlteracao(Date dataAlteracao) {
-	//		this.dataAlteracao = dataAlteracao;
-	//	}
-	//
-	//	public String getTipo() {
-	//		return tipo;
-	//	}
-	//
-	//	public void setTipo(String tipo) {
-	//		this.tipo = tipo;
-	//	}
-	//
-	//	/*
-	//	 * public SubGrupoProduto getIdSubGrupo() { return idSubGrupo; }
-	//	 * 
-	//	 * public void setIdSubGrupo(SubGrupoProduto idSubGrupo) { this.idSubGrupo =
-	//	 * idSubGrupo; }
-	//	 */
-	//
-	//	/*
-	//	 * public UnidadeProduto getUnidade() { return unidade; }
-	//	 */
-	//
-	//	public SubGrupoProduto getSubgrupoProduto() {
-	//		return subgrupoProduto;
-	//	}
-	//
-	//	public void setSubgrupoProduto(SubGrupoProduto subgrupoProduto) {
-	//		this.subgrupoProduto = subgrupoProduto;
-	//	}
-	//
-	//	public UnidadeProduto getUnidadeProduto() {
-	//		return unidadeProduto;
-	//	}
-	//
-	//	public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
-	//		this.unidadeProduto = unidadeProduto;
-	//	}
-	//
-	//	public MarcaProduto getMarcaProduto() {
-	//		return marcaProduto;
-	//	}
-	//
-	//	public void setMarcaProduto(MarcaProduto marcaProduto) {
-	//		this.marcaProduto = marcaProduto;
-	//	}
-	//
-	//	/*
-	//	 * public void setUnidade(UnidadeProduto unidade) { this.unidade = unidade;
-	//	 * } /*public MarcaProduto getIdMarcaProduto() { return idMarcaProduto; }
-	//	 * 
-	//	 * public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
-	//	 * this.idMarcaProduto = idMarcaProduto; }
-	//	 */
-	//
-	//	public Almoxarifado getIdAlmoxarifado() {
-	//		return idAlmoxarifado;
-	//	}
-	//
-	//	public void setIdAlmoxarifado(Almoxarifado idAlmoxarifado) {
-	//		this.idAlmoxarifado = idAlmoxarifado;
-	//	}
-	//
-	//	public GrupoTributario getIdGrupoTributario() {
-	//		return idGrupoTributario;
-	//	}
-	//
-	//	public void setIdGrupoTributario(GrupoTributario idGrupoTributario) {
-	//		this.idGrupoTributario = idGrupoTributario;
-	//	}
+	// public String getGtin() {
+	// return gtin;
+	// }
+	//
+	// public void setGtin(String gtin) {
+	// this.gtin = gtin;
+	// }
+	//
+	// public String getNome() {
+	// return nome;
+	// }
+	//
+	// public void setNome(String nome) {
+	// this.nome = nome;
+	// }
+	//
+	// public String getDescricao() {
+	// return descricao;
+	// }
+	//
+	// public void setDescricao(String descricao) {
+	// this.descricao = descricao;
+	// }
+	//
+	// public String getDescricaoPdv() {
+	// return descricaoPdv;
+	// }
+	//
+	// public void setDescricaoPdv(String descricaoPdv) {
+	// this.descricaoPdv = descricaoPdv;
+	// }
+	//
+	// public BigDecimal getValorCompra() {
+	// return valorCompra;
+	// }
+	//
+	// public void setValorCompra(BigDecimal valorCompra) {
+	// this.valorCompra = valorCompra;
+	// }
+	//
+	// public BigDecimal getValorVenda() {
+	// return valorVenda;
+	// }
+	//
+	// public void setValorVenda(BigDecimal valorVenda) {
+	// this.valorVenda = valorVenda;
+	// }
+	//
+	// public BigDecimal getQtdEstoque() {
+	// return qtdEstoque;
+	// }
+	//
+	// public void setQtdEstoque(BigDecimal qtdEstoque) {
+	// this.qtdEstoque = qtdEstoque;
+	// }
+	//
+	// public BigDecimal getEstoqueMin() {
+	// return estoqueMin;
+	// }
+	//
+	// public void setEstoqueMin(BigDecimal estoqueMin) {
+	// this.estoqueMin = estoqueMin;
+	// }
+	//
+	// public BigDecimal getEstoqueMax() {
+	// return estoqueMax;
+	// }
+	//
+	// public void setEstoqueMax(BigDecimal estoqueMax) {
+	// this.estoqueMax = estoqueMax;
+	// }
+	//
+	// public Character getExcluido() {
+	// return excluido;
+	// }
+	//
+	// public void setExcluido(Character excluido) {
+	// this.excluido = excluido;
+	// }
+	//
+	// public Date getDataCadastro() {
+	// return dataCadastro;
+	// }
+	//
+	// public void setDataCadastro(Date dataCadastro) {
+	// this.dataCadastro = dataCadastro;
+	// }
+	//
+	// // /**
+	// // * @return the subGrupo
+	// // */
+	// // public SubGrupoProduto getSubGrupo() {
+	// // return subGrupo;
+	// // }
+	// //
+	// // /**
+	// // * @param subGrupo the subGrupo to set
+	// // */
+	// // public void setSubGrupo(SubGrupoProduto subGrupo) {
+	// // this.subGrupo = subGrupo;
+	// // }
+	//
+	// // /**
+	// // * @return the unidade
+	// // */
+	// // public UnidadeProduto getUnidade() {
+	// // return unidade;
+	// // }
+	// //
+	// // /**
+	// // * @param unidade the unidade to set
+	// // */
+	// // public void setUnidade(UnidadeProduto unidade) {
+	// // this.unidade = unidade;
+	// // }
+	//
+	// public String getCodigoInterno() {
+	// return codigoInterno;
+	// }
+	//
+	// public void setCodigoInterno(String codigoInterno) {
+	// this.codigoInterno = codigoInterno;
+	// }
+	//
+	// public String getNcm() {
+	// return ncm;
+	// }
+	//
+	// public void setNcm(String ncm) {
+	// this.ncm = ncm;
+	// }
+	//
+	// public BigDecimal getPrecoVendaMinimo() {
+	// return precoVendaMinimo;
+	// }
+	//
+	// public void setPrecoVendaMinimo(BigDecimal precoVendaMinimo) {
+	// this.precoVendaMinimo = precoVendaMinimo;
+	// }
+	//
+	// public BigDecimal getPrecoSugerido() {
+	// return precoSugerido;
+	// }
+	//
+	// public void setPrecoSugerido(BigDecimal precoSugerido) {
+	// this.precoSugerido = precoSugerido;
+	// }
+	//
+	// public BigDecimal getCustoMedioLiquido() {
+	// return custoMedioLiquido;
+	// }
+	//
+	// public void setCustoMedioLiquido(BigDecimal custoMedioLiquido) {
+	// this.custoMedioLiquido = custoMedioLiquido;
+	// }
+	//
+	// public BigDecimal getPrecoLucroZero() {
+	// return precoLucroZero;
+	// }
+	//
+	// public void setPrecoLucroZero(BigDecimal precoLucroZero) {
+	// this.precoLucroZero = precoLucroZero;
+	// }
+	//
+	// public BigDecimal getPrecoLucroMinimo() {
+	// return precoLucroMinimo;
+	// }
+	//
+	// public void setPrecoLucroMinimo(BigDecimal precoLucroMinimo) {
+	// this.precoLucroMinimo = precoLucroMinimo;
+	// }
+	//
+	// public BigDecimal getPrecoLucroMaximo() {
+	// return precoLucroMaximo;
+	// }
+	//
+	// public void setPrecoLucroMaximo(BigDecimal precoLucroMaximo) {
+	// this.precoLucroMaximo = precoLucroMaximo;
+	// }
+	//
+	// public BigDecimal getMarkup() {
+	// return markup;
+	// }
+	//
+	// public void setMarkup(BigDecimal markup) {
+	// this.markup = markup;
+	// }
+	//
+	// public BigDecimal getQtdEstoqueAnterior() {
+	// return qtdEstoqueAnterior;
+	// }
+	//
+	// public void setQtdEstoqueAnterior(BigDecimal qtdEstoqueAnterior) {
+	// this.qtdEstoqueAnterior = qtdEstoqueAnterior;
+	// }
+	//
+	// public BigDecimal getEstoqueIdeal() {
+	// return estoqueIdeal;
+	// }
+	//
+	// public void setEstoqueIdeal(BigDecimal estoqueIdeal) {
+	// this.estoqueIdeal = estoqueIdeal;
+	// }
+	//
+	// public String getInativo() {
+	// return inativo;
+	// }
+	//
+	// public void setInativo(String inativo) {
+	// this.inativo = inativo;
+	// }
+	//
+	// public String getFotoProduto() {
+	// return fotoProduto;
+	// }
+	//
+	// public void setFotoProduto(String fotoProduto) {
+	// this.fotoProduto = fotoProduto;
+	// }
+	//
+	// public Character getExTipi() {
+	// return exTipi;
+	// }
+	//
+	// public void setExTipi(Character exTipi) {
+	// this.exTipi = exTipi;
+	// }
+	//
+	// /*
+	// * public String getCodigoIst() { return codigoIst; }
+	// *
+	// * public void setCodigoIst(String codigoIst) { this.codigoIst =
+	// codigoIst;
+	// * }
+	// */
+	//
+	// public String getClasseAbc() {
+	// return classeAbc;
+	// }
+	//
+	// public void setClasseAbc(String classeAbc) {
+	// this.classeAbc = classeAbc;
+	// }
+	//
+	// public String getIat() {
+	// return iat;
+	// }
+	//
+	// public void setIat(String iat) {
+	// this.iat = iat;
+	// }
+	//
+	// public String getIppt() {
+	// return ippt;
+	// }
+	//
+	// public void setIppt(String ippt) {
+	// this.ippt = ippt;
+	// }
+	//
+	// public String getTipoItemSped() {
+	// return tipoItemSped;
+	// }
+	//
+	// public void setTipoItemSped(String tipoItemSped) {
+	// this.tipoItemSped = tipoItemSped;
+	// }
+	//
+	// public BigDecimal getPeso() {
+	// return peso;
+	// }
+	//
+	// public void setPeso(BigDecimal peso) {
+	// this.peso = peso;
+	// }
+	//
+	// public BigDecimal getPorcentoComissao() {
+	// return porcentoComissao;
+	// }
+	//
+	// public void setPorcentoComissao(BigDecimal porcentoComissao) {
+	// this.porcentoComissao = porcentoComissao;
+	// }
+	//
+	// public BigDecimal getPontoPedido() {
+	// return pontoPedido;
+	// }
+	//
+	// public void setPontoPedido(BigDecimal pontoPedido) {
+	// this.pontoPedido = pontoPedido;
+	// }
+	//
+	// public BigDecimal getLoteEconomicoCompra() {
+	// return loteEconomicoCompra;
+	// }
+	//
+	// public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
+	// this.loteEconomicoCompra = loteEconomicoCompra;
+	// }
+	//
+	// public String getTotalizadorParcial() {
+	// return totalizadorParcial;
+	// }
+	//
+	// public void setTotalizadorParcial(String totalizadorParcial) {
+	// this.totalizadorParcial = totalizadorParcial;
+	// }
+	//
+	// public Integer getCodigoBalanca() {
+	// return codigoBalanca;
+	// }
+	//
+	// public void setCodigoBalanca(Integer codigoBalanca) {
+	// this.codigoBalanca = codigoBalanca;
+	// }
+	//
+	// public Date getDataAlteracao() {
+	// return dataAlteracao;
+	// }
+	//
+	// public void setDataAlteracao(Date dataAlteracao) {
+	// this.dataAlteracao = dataAlteracao;
+	// }
+	//
+	// public String getTipo() {
+	// return tipo;
+	// }
+	//
+	// public void setTipo(String tipo) {
+	// this.tipo = tipo;
+	// }
+	//
+	// /*
+	// * public SubGrupoProduto getIdSubGrupo() { return idSubGrupo; }
+	// *
+	// * public void setIdSubGrupo(SubGrupoProduto idSubGrupo) { this.idSubGrupo
+	// =
+	// * idSubGrupo; }
+	// */
+	//
+	// /*
+	// * public UnidadeProduto getUnidade() { return unidade; }
+	// */
+	//
+	// public SubGrupoProduto getSubgrupoProduto() {
+	// return subgrupoProduto;
+	// }
+	//
+	// public void setSubgrupoProduto(SubGrupoProduto subgrupoProduto) {
+	// this.subgrupoProduto = subgrupoProduto;
+	// }
+	//
+	// public UnidadeProduto getUnidadeProduto() {
+	// return unidadeProduto;
+	// }
+	//
+	// public void setUnidadeProduto(UnidadeProduto unidadeProduto) {
+	// this.unidadeProduto = unidadeProduto;
+	// }
+	//
+	// public MarcaProduto getMarcaProduto() {
+	// return marcaProduto;
+	// }
+	//
+	// public void setMarcaProduto(MarcaProduto marcaProduto) {
+	// this.marcaProduto = marcaProduto;
+	// }
+	//
+	// /*
+	// * public void setUnidade(UnidadeProduto unidade) { this.unidade =
+	// unidade;
+	// * } /*public MarcaProduto getIdMarcaProduto() { return idMarcaProduto; }
+	// *
+	// * public void setIdMarcaProduto(MarcaProduto idMarcaProduto) {
+	// * this.idMarcaProduto = idMarcaProduto; }
+	// */
+	//
+	// public Almoxarifado getIdAlmoxarifado() {
+	// return idAlmoxarifado;
+	// }
+	//
+	// public void setIdAlmoxarifado(Almoxarifado idAlmoxarifado) {
+	// this.idAlmoxarifado = idAlmoxarifado;
+	// }
+	//
+	// public GrupoTributario getIdGrupoTributario() {
+	// return idGrupoTributario;
+	// }
+	//
+	// public void setIdGrupoTributario(GrupoTributario idGrupoTributario) {
+	// this.idGrupoTributario = idGrupoTributario;
+	// }
 
 	@Override
 	public String toString() {
@@ -851,7 +808,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.markup = markup;
 	}
 
-
 	public BigDecimal getEstoqueMinimo() {
 		return estoqueMinimo;
 	}
@@ -891,8 +847,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	public void setQuantidadeEstoqueAnterior(BigDecimal quantidadeEstoqueAnterior) {
 		this.quantidadeEstoqueAnterior = quantidadeEstoqueAnterior;
 	}
-
-	
 
 	public String getCodigoLst() {
 		return codigoLst;
@@ -957,8 +911,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	public void setPeso(BigDecimal peso) {
 		this.peso = peso;
 	}
-
-	
 
 	public BigDecimal getPontoPedido() {
 		return pontoPedido;
@@ -1032,9 +984,36 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.marcaProduto = marcaProduto;
 	}
 
-	
+	public Almoxarifado getAlmoxarifado() {
+		return almoxarifado;
+	}
 
+	public void setAlmoxarifado(Almoxarifado almoxarifado) {
+		this.almoxarifado = almoxarifado;
+	}
 
+	public GrupoProduto getGrupo() {
+		return grupo;
+	}
 
+	public void setGrupo(GrupoProduto grupo) {
+		this.grupo = grupo;
+	}
+
+	public GrupoTributario getGrupoTributario() {
+		return grupoTributario;
+	}
+
+	public void setGrupoTributario(GrupoTributario grupoTributario) {
+		this.grupoTributario = grupoTributario;
+	}
+
+	public NCM getNcm() {
+		return ncm;
+	}
+
+	public void setNcm(NCM ncm) {
+		this.ncm = ncm;
+	}
 
 }
