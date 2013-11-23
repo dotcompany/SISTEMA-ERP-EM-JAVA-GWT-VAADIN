@@ -36,20 +36,17 @@ public class NCMFormController extends CRUDFormController<NCM> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtObservacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -71,14 +68,14 @@ public class NCMFormController extends CRUDFormController<NCM> {
 		currentBean = ncmDAO.find(id);
 
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		subView.getTxtDescricao().setValue(currentBean.getNome());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 	}
 
 	@Override
 	protected void actionSalvar() {
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
+		currentBean.setNome(subView.getTxtDescricao().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 
 		try {
