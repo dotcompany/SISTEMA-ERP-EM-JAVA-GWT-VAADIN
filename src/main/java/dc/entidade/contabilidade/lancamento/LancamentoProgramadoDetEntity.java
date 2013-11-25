@@ -11,18 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -45,18 +49,33 @@ public class LancamentoProgramadoDetEntity extends
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_lanca_programado_det_id_seq")
+	@SequenceGenerator(name = "contabil_lanca_programado_det_id_seq", sequenceName = "contabil_lanca_programado_det_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column(name = "HISTORICO")
+	@Field
+	@Column(name = "historico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Descrição do histórico")
 	private String descricaoHistorico = "";
 
-	@Column(name = "VALOR")
+	@Field
+	@Column(name = "valor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Valor")
 	private BigDecimal valor = new BigDecimal(0);
 
-	@Column(name = "TIPO")
+	@Field
+	@Column(name = "tipo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Tipo")
 	private String tipo = "";
 
 	/**
