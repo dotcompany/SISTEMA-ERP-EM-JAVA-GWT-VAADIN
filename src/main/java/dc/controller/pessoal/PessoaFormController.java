@@ -65,12 +65,14 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa()
-					.getValue();
+			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa().getValue();
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setTipo(tpPessoa.getCodigo());
 			currentBean.setEmail(subView.getTxtEmail().getValue());
 			currentBean.setSite(subView.getTxtSite().getValue());
+
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
+
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
