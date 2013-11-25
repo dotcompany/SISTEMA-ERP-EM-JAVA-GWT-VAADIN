@@ -29,6 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -191,6 +192,9 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
+
+	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList;
 
 	/**
 	 * TRANSIENT
@@ -385,6 +389,15 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setLancamentoOrcadoList(
 			List<LancamentoOrcadoEntity> lancamentoOrcadoList) {
 		this.lancamentoOrcadoList = lancamentoOrcadoList;
+	}
+
+	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetEntityList() {
+		return lancamentoProgramadoDetEntityList;
+	}
+
+	public void setLancamentoProgramadoDetEntityList(
+			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList) {
+		this.lancamentoProgramadoDetEntityList = lancamentoProgramadoDetEntityList;
 	}
 
 	/**

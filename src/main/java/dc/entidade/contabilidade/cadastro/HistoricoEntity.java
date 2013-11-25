@@ -24,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -90,6 +91,9 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
 	private List<LancamentoDetalheEntity> lancamentoDetalheList;
+
+	@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
+	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList;
 
 	/**
 	 * TRANSIENT
@@ -160,6 +164,15 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setLancamentoDetalheList(
 			List<LancamentoDetalheEntity> lancamentoDetalheList) {
 		this.lancamentoDetalheList = lancamentoDetalheList;
+	}
+
+	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetEntityList() {
+		return lancamentoProgramadoDetEntityList;
+	}
+
+	public void setLancamentoProgramadoDetEntityList(
+			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList) {
+		this.lancamentoProgramadoDetEntityList = lancamentoProgramadoDetEntityList;
 	}
 
 	/**
