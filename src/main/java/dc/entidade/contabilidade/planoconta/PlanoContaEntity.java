@@ -36,7 +36,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "plano_conta")
+@Table(name = "PLANO_CONTA")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)

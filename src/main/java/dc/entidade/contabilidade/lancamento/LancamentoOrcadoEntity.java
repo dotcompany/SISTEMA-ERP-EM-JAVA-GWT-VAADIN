@@ -34,7 +34,7 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "contabil_lancamento_orcado")
+@Table(name = "CONTABIL_LANCAMENTO_ORCADO")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
