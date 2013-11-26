@@ -28,8 +28,12 @@ public class VendaDetalheDAO extends AbstractCrudDAO<VendaDetalhe> {
 
 	@Transactional
 	public List<VendaDetalhe> detalhesPorVenda(Venda venda){
-		List<VendaDetalhe> lista = getSession().createQuery("from VendaDetalhe v where v.venda= :venda").
-				setParameter("venda", venda).list(); 
+		List<VendaDetalhe> lista = new ArrayList<>();
+		if(venda.getId()!=null){
+			lista = getSession().createQuery("from VendaDetalhe v where v.venda= :venda").
+					setParameter("venda", venda).list(); 
+		}
+		
 
 		return lista;
 	}

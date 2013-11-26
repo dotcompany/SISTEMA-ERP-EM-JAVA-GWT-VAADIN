@@ -65,21 +65,18 @@ public class OrcamentoFormView extends CustomComponent {
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setSizeFull();
-		mainLayout.setMargin(false);
+		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
-
-		fields = buildFields();
-		mainLayout.addComponent(fields);
-
+         setHeight("100%");
+   
 		subForms = new TabSheet();
-		subForms.setWidth("100.0%");
-		subForms.setHeight("100.0%");
-		subForms.setSizeFull();
+		subForms  = buildItensSubForm();
+    	subForms.setSizeFull();
 		subForms.setImmediate(true);
-
-		buildItensSubForm();
+		
 		mainLayout.addComponent(subForms);
-
+		mainLayout.setExpandRatio(subForms, 1);
+		
 		return mainLayout;
 
 	}
@@ -91,7 +88,7 @@ public class OrcamentoFormView extends CustomComponent {
 		fields.setImmediate(false);
 		fields.setWidth("100.0%");
 		fields.setHeight("-1px");
-		fields.setMargin(false);
+		fields.setMargin(true);
 		fields.setSpacing(true);
 
 		cmbVendedor = ComponentUtil.buildComboBox("Vendedor");
@@ -157,7 +154,7 @@ public class OrcamentoFormView extends CustomComponent {
 
 	}
 
-	private void buildItensSubForm() {
+	private TabSheet buildItensSubForm() {
 		// common part: create layout
 
 		itensSubForm = new SubFormComponent<ItemOrcamento, Integer>(ItemOrcamento.class, new String[] { 
@@ -247,15 +244,18 @@ public class OrcamentoFormView extends CustomComponent {
 
 		};
 
-		GridLayout layout = new GridLayout(1,1);
-		layout.setImmediate(false);
-		layout.setWidth("100.0%");
-		layout.setHeight("100.0%");
-		layout.setMargin(true);
-		layout.setSpacing(true);
-		layout.setSizeFull();
-		layout.addComponent(itensSubForm);
-		subForms.addTab(layout, "Itens do Orçamento", null);
+//		GridLayout layout = new GridLayout(1,1);
+//		layout.setImmediate(false);
+//		layout.setWidth("100.0%");
+//		layout.setHeight("100.0%");
+//		layout.setMargin(true);
+//		layout.setSpacing(true);
+//		layout.setSizeFull();
+//		layout.addComponent(itensSubForm);
+		subForms.addTab(buildFields(), "Dados Principais", null);
+		subForms.addTab(itensSubForm, "Itens do Orçamento", null);
+		
+		return subForms;
 	}
 
 	public VerticalLayout getMainLayout() {
