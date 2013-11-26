@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
+import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
+import dc.servicos.dao.contabilidade.demonstrativo.DreVinculoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreDetalheListController extends
-		CRUDListController<DreDetalheEntity> {
+public class DreVinculoListController extends
+		CRUDListController<DreVinculoEntity> {
 
 	/**
 	 * 
@@ -34,47 +34,46 @@ public class DreDetalheListController extends
 	 */
 
 	@Autowired
-	private DreDetalheDAO pDAO;
+	private DreVinculoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private DreDetalheFormController pController;
+	private DreVinculoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "classificacao", "descricao", "formaCalculo",
-				"sinal" };
+		return new String[] { "dreDetalhe", "conta" };
 	}
 
 	@Override
-	protected Class<? super DreDetalheEntity> getEntityClass() {
-		return DreDetalheEntity.class;
+	protected Class<? super DreVinculoEntity> getEntityClass() {
+		return DreVinculoEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "DRE detalhe";
+		return "DRE vínculo";
 	}
 
 	@Override
-	protected List<DreDetalheEntity> pesquisa(String valor) {
+	protected List<DreVinculoEntity> pesquisa(String valor) {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO
+			List<DreVinculoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<DreDetalheEntity>();
+			return new ArrayList<DreVinculoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<DreDetalheEntity> getFormController() {
+	protected CRUDFormController<DreVinculoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -92,15 +91,15 @@ public class DreDetalheListController extends
 	}
 
 	@Override
-	protected List<DreDetalheEntity> pesquisaDefault() {
+	protected List<DreVinculoEntity> pesquisaDefault() {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO.listarTodos();
+			List<DreVinculoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<DreDetalheEntity>();
+			return new ArrayList<DreVinculoEntity>();
 		}
 	}
 

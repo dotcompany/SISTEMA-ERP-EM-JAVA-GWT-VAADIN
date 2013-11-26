@@ -180,6 +180,14 @@ public class LancamentoProgramadoCabEntity extends
 		this.liberado = (liberado == null ? "" : liberado.toUpperCase());
 	}
 
+	public LoteEntity getLote() {
+		return lote;
+	}
+
+	public void setLote(LoteEntity lote) {
+		this.lote = lote;
+	}
+
 	/**
 	 * TO STRING
 	 */

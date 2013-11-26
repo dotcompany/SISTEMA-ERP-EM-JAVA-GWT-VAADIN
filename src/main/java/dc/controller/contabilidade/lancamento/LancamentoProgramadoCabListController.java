@@ -1,4 +1,4 @@
-package dc.controller.contabilidade.demonstrativo;
+package dc.controller.contabilidade.lancamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
+import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoCabDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreDetalheListController extends
-		CRUDListController<DreDetalheEntity> {
+public class LancamentoProgramadoCabListController extends
+		CRUDListController<LancamentoProgramadoCabEntity> {
 
 	/**
 	 * 
@@ -34,47 +34,46 @@ public class DreDetalheListController extends
 	 */
 
 	@Autowired
-	private DreDetalheDAO pDAO;
+	private LancamentoProgramadoCabDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private DreDetalheFormController pController;
+	private LancamentoProgramadoCabFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "classificacao", "descricao", "formaCalculo",
-				"sinal" };
+		return new String[] { "dataInclusão", "tipo", "liberado" };
 	}
 
 	@Override
-	protected Class<? super DreDetalheEntity> getEntityClass() {
-		return DreDetalheEntity.class;
+	protected Class<? super LancamentoProgramadoCabEntity> getEntityClass() {
+		return LancamentoProgramadoCabEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "DRE detalhe";
+		return "Lançamento programado cab";
 	}
 
 	@Override
-	protected List<DreDetalheEntity> pesquisa(String valor) {
+	protected List<LancamentoProgramadoCabEntity> pesquisa(String valor) {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO
+			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<DreDetalheEntity>();
+			return new ArrayList<LancamentoProgramadoCabEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<DreDetalheEntity> getFormController() {
+	protected CRUDFormController<LancamentoProgramadoCabEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -92,15 +91,16 @@ public class DreDetalheListController extends
 	}
 
 	@Override
-	protected List<DreDetalheEntity> pesquisaDefault() {
+	protected List<LancamentoProgramadoCabEntity> pesquisaDefault() {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO
+					.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<DreDetalheEntity>();
+			return new ArrayList<LancamentoProgramadoCabEntity>();
 		}
 	}
 

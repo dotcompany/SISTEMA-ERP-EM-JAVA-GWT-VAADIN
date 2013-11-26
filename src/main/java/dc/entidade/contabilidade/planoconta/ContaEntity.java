@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
@@ -194,7 +195,10 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
-	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList;
+	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList;
+
+	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	private List<DreVinculoEntity> dreVinculoList;
 
 	/**
 	 * TRANSIENT
@@ -391,13 +395,21 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.lancamentoOrcadoList = lancamentoOrcadoList;
 	}
 
-	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetEntityList() {
-		return lancamentoProgramadoDetEntityList;
+	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetList() {
+		return lancamentoProgramadoDetList;
 	}
 
-	public void setLancamentoProgramadoDetEntityList(
-			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList) {
-		this.lancamentoProgramadoDetEntityList = lancamentoProgramadoDetEntityList;
+	public void setLancamentoProgramadoDetList(
+			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList) {
+		this.lancamentoProgramadoDetList = lancamentoProgramadoDetList;
+	}
+
+	public List<DreVinculoEntity> getDreVinculoList() {
+		return dreVinculoList;
+	}
+
+	public void setDreVinculoList(List<DreVinculoEntity> dreVinculoList) {
+		this.dreVinculoList = dreVinculoList;
 	}
 
 	/**

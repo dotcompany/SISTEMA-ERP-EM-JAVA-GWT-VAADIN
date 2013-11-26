@@ -1,0 +1,263 @@
+package dc.controller.contabilidade.lancamento;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.vaadin.ui.Component;
+
+import dc.control.util.ClasseUtil;
+import dc.controller.contabilidade.cadastro.HistoricoListController;
+import dc.controller.contabilidade.planoconta.ContaListController;
+import dc.entidade.contabilidade.cadastro.HistoricoEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
+import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
+import dc.entidade.contabilidade.planoconta.ContaEntity;
+import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoCabDAO;
+import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoDetDAO;
+import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.visao.contabilidade.lancamento.LancamentoProgramadoDetFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.geral.CRUDFormController;
+
+/**
+ * 
+ * @author Gutemberg A. Da Silva
+ * 
+ */
+
+@Controller
+@Scope("prototype")
+public class LancamentoProgramadoDetFormController extends
+		CRUDFormController<LancamentoProgramadoDetEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private LancamentoProgramadoDetFormView subView;
+
+	/**
+	 * DAO'S
+	 */
+
+	@Autowired
+	private LancamentoProgramadoDetDAO pDAO;
+
+	@Autowired
+	private LancamentoProgramadoCabDAO lpcDAO;
+
+	@Autowired
+	private ContaDAO cDAO;
+
+	@Autowired
+	private HistoricoDAO hDAO;
+
+	/**
+	 * ENTITIES
+	 */
+
+	private LancamentoProgramadoDetEntity pEntity;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public LancamentoProgramadoDetFormController() {
+		if (this.pEntity == null) {
+			this.pEntity = new LancamentoProgramadoDetEntity();
+		}
+	}
+
+	@Override
+	protected String getNome() {
+		return "Lançamento programado det";
+	}
+
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			String descricaoHistorico = this.subView.getTfDescricaoHistorico()
+					.getValue();
+			BigDecimal valor = new BigDecimal(this.subView.getTfValor()
+					.getValue());
+			String tipo = this.subView.getTfTipo().getValue();
+
+			LancamentoProgramadoCabEntity lancamentoProgramadoCab = (LancamentoProgramadoCabEntity) this.subView
+					.getCbLancamentoProgramadoCab().getValue();
+			ContaEntity conta = (ContaEntity) this.subView.getCbConta()
+					.getValue();
+			HistoricoEntity historico = (HistoricoEntity) this.subView
+					.getCbHistorico().getValue();
+
+			this.pEntity.setDescricaoHistorico(descricaoHistorico);
+			this.pEntity.setValor(valor);
+			this.pEntity.setTipo(tipo);
+
+			this.pEntity.setLancamentoProgramadoCab(lancamentoProgramadoCab);
+			this.pEntity.setConta(conta);
+			this.pEntity.setHistorico(historico);
+
+			this.pDAO.saveOrUpdate(this.pEntity);
+
+			notifiyFrameworkSaveOK(this.pEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		} finally {
+			novoObjeto(0);
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			novoObjeto(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
+	@Override
+	protected void quandoNovo() {
+		try {
+			novoObjeto(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void initSubView() {
+		this.subView = new LancamentoProgramadoDetFormView(this);
+
+		popularCombo();
+	}
+
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
+	@Override
+	protected void criarNovoBean() {
+		try {
+			novoObjeto(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void remover(List<Serializable> ids) {
+		try {
+			this.pDAO.deleteAllByIds(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/* Implementar validacao de campos antes de salvar. */
+	@Override
+	protected boolean validaSalvar() {
+		return true;
+	}
+
+	@Override
+	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
+	}
+
+	/**
+	 * COMBOS
+	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<LancamentoProgramadoCabEntity> model1 = new DefaultManyToOneComboModel<LancamentoProgramadoCabEntity>(
+					LancamentoProgramadoCabListController.class, this.lpcDAO,
+					super.getMainController());
+
+			this.subView.getCbLancamentoProgramadoCab().setModel(model1);
+
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
+					super.getMainController());
+
+			this.subView.getCbConta().setModel(model2);
+
+			DefaultManyToOneComboModel<HistoricoEntity> model3 = new DefaultManyToOneComboModel<HistoricoEntity>(
+					HistoricoListController.class, this.hDAO,
+					super.getMainController());
+
+			this.subView.getCbHistorico().setModel(model3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	@Override
+	protected boolean isFullSized() {
+		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new LancamentoProgramadoDetEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+			}
+
+			this.subView.getTfDescricaoHistorico().setValue(
+					this.pEntity.getDescricaoHistorico());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
+			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
+
+			this.subView.getCbLancamentoProgramadoCab().setValue(
+					this.pEntity.getLancamentoProgramadoCab());
+			this.subView.getCbConta().setValue(this.pEntity.getConta());
+			this.subView.getCbHistorico().setValue(this.pEntity.getHistorico());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}
