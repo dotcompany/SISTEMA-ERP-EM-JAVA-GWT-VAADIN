@@ -47,6 +47,10 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	private List<VendaDetalhe> detalhes;
 	
 	@ManyToOne
+	@JoinColumn(name="id_venda_orcamento_cabecalho")
+	Orcamento orcamento;
+	
+	@ManyToOne
 	@JoinColumn(name="id_tipo_nota_fiscal")
 	TipoNotaFiscal tipoNotaFiscal;
 	
@@ -271,6 +275,15 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
+	}
+	
 	
 	
 		

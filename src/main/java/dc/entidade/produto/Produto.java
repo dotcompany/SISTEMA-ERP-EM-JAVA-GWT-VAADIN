@@ -677,7 +677,7 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 	public String getGtin() {
