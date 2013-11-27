@@ -337,10 +337,10 @@ public class ServicoOsFormView extends CustomComponent {
 
 		taObservacao = ComponentUtil.buildTextArea("Observação");
 		taObservacao.setCaption("Observação");
+		taObservacao.setWidth("760px");
+		taObservacao.setHeight("-1px");
+		taObservacao.setRequired(true);
 		horizontalLayout_8.addComponent(taObservacao);
-
-//		txaHistorico = ComponentUtil.buildTextArea("Histórico");
-//		fields.addComponent(txaHistorico, 0, 4, 4, 5);
 		
 		return horizontalLayout_8;
 		

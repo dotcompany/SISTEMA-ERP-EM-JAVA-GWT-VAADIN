@@ -97,7 +97,7 @@ public class EquipamentoFormView extends CustomComponent {
 
 		
 		taObservacao = new TextArea();
-		taObservacao.setCaption("Descrição");
+		taObservacao.setCaption("Observação");
 		taObservacao.setImmediate(false);
 		taObservacao.setWidth("760px");
 		taObservacao.setHeight("-1px");

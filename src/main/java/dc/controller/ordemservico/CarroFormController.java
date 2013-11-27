@@ -7,22 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import ch.qos.logback.classic.Logger;
+
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
+import dc.controller.pessoal.ClienteListController;
 import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Carro;
 import dc.entidade.ordemservico.Modelo;
+import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.pessoal.ClienteDAO;
 
 /**
 *
@@ -39,6 +45,9 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	
 	@Autowired
 	CarroDAO carroDAO;
+	
+	@Autowired
+	ClienteDAO clienteDAO;
 	
 	@Autowired
 	MarcaDAO marcaDAO;
@@ -67,6 +76,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	@Override  
 	protected void actionSalvar() {
 		currentBean.setPlaca(subView.getTfPlaca().getValue());
+		currentBean.setCliente(subView.getCbCliente().getValue());
 		currentBean.setMarca(subView.getCbMarca().getValue());
 		currentBean.setCor(subView.getCbCor().getValue());
 		currentBean.setModelo(subView.getCbModelo().getValue());
@@ -75,6 +85,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		currentBean.setAno(Integer.parseInt(subView.getTfAno().getValue().toString()));
 		currentBean.setChassi(subView.getTfChassi().getValue());
 		currentBean.setObservacao(subView.getTaObservacao().getValue());
+		
 		try{
 			carroDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
@@ -89,8 +100,9 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		currentBean = carroDAO.find(id);
 		subView.getTfPlaca().setValue(currentBean.getPlaca());
 		subView.getCbMarca().setValue(currentBean.getMarca());
-		subView.getCbCor().setValue(currentBean.getCor());
+		subView.getCbCliente().setValue(currentBean.getCliente());
 		subView.getCbModelo().setValue(currentBean.getModelo());
+		subView.getCbCor().setValue(currentBean.getCor());
 		subView.getCbCombustivel().setValue(currentBean.getCombustivel());
 		subView.getTfMotorizacao().setValue(currentBean.getMotorizacao());
 		subView.getTfAno().setValue(currentBean.getAno().toString());
@@ -140,6 +152,19 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 		this.subView.getCbCombustivel().setModel(combustivel);
 
+		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class,
+				this.clienteDAO, super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "pessoa.nome";
+			}
+			
+		};
+
+		
+		this.subView.getCbCliente().setModel(cliente);
+
 	}
 	
 	@Override
@@ -170,4 +195,12 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	public String getViewIdentifier() {
 		return "carroForm";
 	}
+	
+//	public BeanItemContainer<Cliente> carregarClientes(){
+//		BeanItemContainer<Cliente> container = new BeanItemContainer<>(Cliente.class);
+//		for(Cliente c : clienteDAO.listaTodos()){
+//			container.addBean(c);
+//		}
+//		return container;
+//	}
 } 
