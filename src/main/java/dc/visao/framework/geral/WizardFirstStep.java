@@ -19,7 +19,7 @@ public class WizardFirstStep extends BaseWizardStep{
 
 	@Override
 	protected void fillMainPanel(VerticalLayout mainPanel) {
-		Label question = new Label("Que tipo de notas fiscais eletr�nicas (NF-e) Você precisa emitir?");
+		Label question = new Label("Que tipo de notas fiscais ELETRÔNICAS (NF-e) Você precisa emitir?");
         question.setSizeUndefined();
         question.addStyleName("h4");
         
