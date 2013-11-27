@@ -6418,18 +6418,14 @@ body .dotcompany.v-app .v-app-loading {
 	width: 60px;
 }
 
-/* Lay the options horizontally */
-.v-select-optiongroup-horizontal .v-select-option {
-    display: inline-block !important;
+.dotcompany .v-select-optiongroup-horizontal .v-select-option {
+	display: inline-block !important;
 }
 
-/* Avoid wrapping if the layout is too tight */
-.v-select-optiongroup-horizontal {
-    white-space: nowrap !important;
+.dotcompany .v-select-optiongroup-horizontal {
+	white-space: nowrap !important;
 }
 
-/* Some extra spacing is needed */
-.v-select-optiongroup-horizontal
-  .v-select-option.v-checkbox {
-    padding-right: 15px !important;
+.dotcompany .v-select-optiongroup-horizontal .v-select-option.v-checkbox {
+	padding-right: 15px !important;
 }

@@ -28,7 +28,6 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.Cliente;
 
 @Entity
 @Table(name = "os_carro")
@@ -93,10 +92,10 @@ public class Carro extends AbstractModel<Integer> {
 	@ManyToOne(optional = false)
 	private Combustivel combustivel;
 
-	@ManyToOne
-	@JoinColumn(name="id_cliente")
-	Cliente cliente;
-	
+//	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
+//	@ManyToOne(optional = false)
+//	private Cliente cliente;
+
 	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Empresa empresa; 
@@ -104,7 +103,7 @@ public class Carro extends AbstractModel<Integer> {
 	@Field 
 	@Caption("Observacao")
 	@Lob
-	@Column(name = "observacao")
+	@Column(name = "obsevacao")
 	private String observacao;
 	
 	public Integer getId() {
@@ -201,13 +200,5 @@ public class Carro extends AbstractModel<Integer> {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 }

@@ -42,7 +42,7 @@ public class MarcaListController extends CRUDListController<Marca> {
 	
 	@Override
 	public String getViewIdentifier() {
-		return "listaMarca";
+		return "listaModelo";
 	}
 
 	@Override
