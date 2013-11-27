@@ -101,5 +101,7 @@ public class VendedorEntity extends AbstractModel<Integer> implements
 	public String toString() {
 		return colaborador.getPessoa().getNome();
 	}
+	
+	
 
 }

@@ -224,6 +224,11 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 
+	@Override
+	public String toString() {
+		return "Vendedor:" + vendedor.toString() + ", Cliente:" + cliente.toString() + "]";
+	}
+
 	
 
 

@@ -23,12 +23,14 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.comercial.TipoNotaFiscalFormController;
 import dc.controller.comercial.VendaFormController;
+import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
+import dc.visao.pessoal.TipoPessoa;
 import dc.visao.suprimentos.ContagemEstoqueFormController;
 import dc.visao.suprimentos.NotaFiscalFormView.TIPO_OPERACAO;
 
@@ -73,8 +75,7 @@ public class VendaFormView extends CustomComponent {
 		mainLayout.setMargin(false);
 		mainLayout.setSpacing(true);
 		setHeight("100%");
-		//		fields = buildFields();
-		//		mainLayout.addComponent(fields);
+		
 
 		subForms = new TabSheet();
 		subForms = buildSubForms();
@@ -120,7 +121,26 @@ public class VendaFormView extends CustomComponent {
 
 
 		cmbOrcamento = ComponentUtil.buildComboBox("Orçamento");
+		cmbOrcamento.setContainerDataSource(controller.carregarOrcamentos());
 		cmbOrcamento.setReadOnly(true);
+		
+		cmbOrcamento.addValueChangeListener(new Property.ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				Orcamento orcamento = (Orcamento) event.getProperty().getValue();
+				cmbCliente.setValue(orcamento.getCliente());
+				cmbVendedor.setValue(orcamento.getVendedor());
+				cmbCondicoesPagamento.setValue(orcamento.getCondicaoPagamento());
+				txtValorSubTotal.setValue(orcamento.getValorSubTotal().toString());
+				txtValorFrete.setValue(orcamento.getValorFrete().toString());
+				txtTaxaComissao.setValue(orcamento.getTaxaComissao().toString());
+				txtValorComissao.setValue(orcamento.getValorComissao().toString());
+				
+				txtTaxaDesconto.setValue(orcamento.getTaxaDesconto().toString());
+				txtValorDesconto.setValue(orcamento.getValorDesconto().toString());
+				txtValorTotal.setValue(orcamento.getValorTotal().toString());
+			}
+		});
 
 		cmbTipoNotaFiscal = ComponentUtil.buildComboBox("Tipo Nota Fiscal");
 		cmbTipoNotaFiscal.setContainerDataSource(controller.carregarTipoNotaFiscal());

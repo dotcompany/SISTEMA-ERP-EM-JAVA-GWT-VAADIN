@@ -13,6 +13,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
+import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.Venda;
@@ -23,6 +24,7 @@ import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.OrcamentoDAO;
 import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDAO;
@@ -64,6 +66,9 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Autowired
 	ProdutoDAO produtoDAO;
+	
+	@Autowired
+	OrcamentoDAO orcamentoDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -175,7 +180,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			String localEntrega = subView.getTxtLocalEntrega().getValue();
 			currentBean.setLocalEntrega(localEntrega);
 
-			String localCobranca = subView.getTxtHoraSaida().getValue();
+			String localCobranca = subView.getTxtLocalCobranca().getValue();
 			currentBean.setLocalCobranca(localCobranca);
 
 			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
@@ -332,6 +337,14 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		String format = "";
 		format = valor.replace(",",".");
 		return format;
+	}
+	
+	public BeanItemContainer<Orcamento> carregarOrcamentos(){
+		BeanItemContainer<Orcamento> container = new BeanItemContainer<>(Orcamento.class);
+		for(Orcamento p : orcamentoDAO.listaTodos()){
+			container.addBean(p);
+		}
+		return container;
 	}
 
 
