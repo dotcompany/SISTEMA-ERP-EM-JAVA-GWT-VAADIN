@@ -68,7 +68,7 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Pessoa pessoa;
 
-	@JoinColumn(name = "ID_CONTA_CONTABIL", referencedColumnName = "ID")
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private ContabilConta contaContabil;
 
@@ -114,7 +114,7 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return pessoa.getNome();
 	}
 
 }
