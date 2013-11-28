@@ -101,8 +101,9 @@ public final class ComponentUtil {
 		PopupDateField data = new PopupDateField();
 		data.setCaption(caption);
 		data.setImmediate(true);
-		data.setWidth("-1px");
-		data.setHeight("-1px");
+		data.setSizeFull();
+		// data.setWidth("-1px");
+		// data.setHeight("-1px");
 		return data;
 	}
 
@@ -112,6 +113,7 @@ public final class ComponentUtil {
 		textField.setNullRepresentation("");
 		textField.setCaption(caption);
 		textField.setImmediate(true);
+		textField.setMaskClientOnly(true);
 		// textField.setSizeFull();
 
 		return textField;

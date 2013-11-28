@@ -111,16 +111,16 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
 	private String fax;
 
 	@Column(name = "PRINCIPAL")
-	private String principal;
+	private Boolean principal;
 
 	@Column(name = "ENTREGA")
-	private String entrega;
+	private Boolean entrega;
 
 	@Column(name = "COBRANCA")
-	private String cobranca;
+	private Boolean cobranca;
 
 	@Column(name = "CORRESPONDENCIA")
-	private String correspondencia;
+	private Boolean correspondencia;
 
 	/**
 	 * @Autor Wesley Júnior
@@ -252,35 +252,35 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
 		this.fax = fax;
 	}
 
-	public String getPrincipal() {
+	public Boolean getPrincipal() {
 		return principal;
 	}
 
-	public void setPrincipal(String principal) {
+	public void setPrincipal(Boolean principal) {
 		this.principal = principal;
 	}
 
-	public String getEntrega() {
+	public Boolean getEntrega() {
 		return entrega;
 	}
 
-	public void setEntrega(String entrega) {
+	public void setEntrega(Boolean entrega) {
 		this.entrega = entrega;
 	}
 
-	public String getCobranca() {
+	public Boolean getCobranca() {
 		return cobranca;
 	}
 
-	public void setCobranca(String cobranca) {
+	public void setCobranca(Boolean cobranca) {
 		this.cobranca = cobranca;
 	}
 
-	public String getCorrespondencia() {
+	public Boolean getCorrespondencia() {
 		return correspondencia;
 	}
 
-	public void setCorrespondencia(String correspondencia) {
+	public void setCorrespondencia(Boolean correspondencia) {
 		this.correspondencia = correspondencia;
 	}
 

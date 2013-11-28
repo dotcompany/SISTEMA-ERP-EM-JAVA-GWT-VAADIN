@@ -12,7 +12,6 @@ import com.porotype.iconfont.FontAwesome.Icon;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Container.ItemSetChangeListener;
-import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -23,17 +22,13 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
-import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
-
 @SuppressWarnings("serial")
 public class ManyToOneCombo<T> extends CustomComponent {
-
 
 	private HorizontalLayout mainLayout;
 	private Button btnEdit;
@@ -44,26 +39,21 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	private ManyToOneComboModel<T> model;
 	private String filterString;
 	private LinkedList<ValueChangeListener> valueChangeListeners = null;
-	
+
 	public static int ITEM_TYPE_BEAN = 0;
 	public static int ITEM_TYPE_CREATE = 1;
 	public static int ITEM_TYPE_SEARCH = 2;
-	
+
 	public static Logger logger = Logger.getLogger(ManyToOneCombo.class);
 
 	public ManyToOneCombo() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-	
-		
+
 	}
-	
-	
 
 	@SuppressWarnings("serial")
 	class FilteredBeanItemContainer extends BeanItemContainer<ItemValue> {
-
-		
 
 		public FilteredBeanItemContainer() throws IllegalArgumentException {
 			super(ItemValue.class);
@@ -75,19 +65,20 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			String q = filterString;
 			if (q != null && q.length() >= 2) {
 				removeAllItems();
-				
+
 				searchItemValue = new ItemValue();
 				searchItemValue.setType(ITEM_TYPE_SEARCH);
 				searchItemValue.setCaption("Pesquisa avançada");
 				searchItemValue.setFilter(q);
 				addItem(searchItemValue);
-				
-				//cmbResult.setItemIcon(searchItemValue, new ThemeResource("components/img/close.png"));
+
+				// cmbResult.setItemIcon(searchItemValue, new
+				// ThemeResource("components/img/close.png"));
 
 				// Adiciona os itens filtrados
-				if(model != null){
+				if (model != null) {
 					List l = model.getResultado(q);
-					if(l!= null && l.size() > 0){
+					if (l != null && l.size() > 0) {
 						addAll(wrapValues(l));
 					}
 				}
@@ -98,7 +89,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				createItemValue.setCaption("Criar novo: " + q);
 				createItemValue.setFilter(q);
 				addItem(createItemValue);
-			}else{
+			} else {
 				removeAllItems();
 				addAll(wrapValues(model.getAll()));
 			}
@@ -108,14 +99,14 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("serial")
 	private void setupActions() {
-		
+
 		createItemValue = new ItemValue();
 		createItemValue.setType(ITEM_TYPE_CREATE);
 
 		cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
 		cmbResult.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		cmbResult.setItemCaptionPropertyId("caption");
-		
+
 		cmbResult.addValueChangeListener(new ValueChangeListener() {
 
 			@Override
@@ -124,19 +115,19 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				selectSpecialItem();
 			}
 		});
-		
+
 		cmbResult.addItemSetChangeListener(new ItemSetChangeListener() {
-			
+
 			@Override
 			public void containerItemSetChange(ItemSetChangeEvent event) {
 				// TODO Auto-generated method stub
 				logger.info("item set change");
-				
+
 			}
 		});
 
 		cmbResult.addBlurListener(new BlurListener() {
-			
+
 			@Override
 			public void blur(BlurEvent event) {
 				logger.info("blur on combo");
@@ -147,12 +138,11 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if(getValue() != null)
+				if (getValue() != null)
 					model.onEditar(getValue());
 			}
 		});
-		
-	
+
 	}
 
 	@SuppressWarnings("serial")
@@ -177,12 +167,15 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		public T getBean() {
 			return bean;
 		}
+
 		public void setBean(T bean) {
 			this.bean = bean;
 		}
+
 		public int getType() {
 			return type;
 		}
+
 		public void setType(int type) {
 			this.type = type;
 		}
@@ -204,16 +197,17 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	protected void selectSpecialItem() {
 		logger.info("select special item...");
 		ItemValue val = (ItemValue) cmbResult.getValue();
-		if (val == null) return;
-		if (val.getType() == ITEM_TYPE_BEAN) return;
+		if (val == null)
+			return;
+		if (val.getType() == ITEM_TYPE_BEAN)
+			return;
 
 		if (val.getType() == ITEM_TYPE_CREATE) {
 			model.onCriarNovo(val.getFilter());
-		}else if(val.getType() == ITEM_TYPE_SEARCH){
+		} else if (val.getType() == ITEM_TYPE_SEARCH) {
 			model.onAdvancedSearch();
 		}
 	}
-
 
 	private List<ItemValue> wrapValues(List<T> resultado) {
 		List<ItemValue> lst = new ArrayList<>();
@@ -227,12 +221,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("unchecked")
 	public T getValue() {
-		if(cmbResult != null && cmbResult.getValue() != null){
-			return ((ItemValue)cmbResult.getValue()).getBean();	
-		}else{
+		if (cmbResult != null && cmbResult.getValue() != null) {
+			return ((ItemValue) cmbResult.getValue()).getBean();
+		} else {
 			return null;
 		}
-		
+
 	}
 
 	private HorizontalLayout buildMainLayout() {
@@ -248,7 +242,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		setHeight("100.0%");
 
 		// cmbResult
-		cmbResult = new ComboBox(){
+		cmbResult = new ComboBox() {
 			@Override
 			public void changeVariables(Object source, Map<String, Object> variables) {
 				String newFilter;
@@ -274,7 +268,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		return mainLayout;
 	}
 
-
 	public void setCaption(String caption) {
 		cmbResult.setCaption(caption);
 	}
@@ -289,12 +282,11 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	public void setModel(ManyToOneComboModel<T> model) {
 		this.model = model;
-		if(model instanceof DefaultManyToOneComboModel){
-			((DefaultManyToOneComboModel)this.model).setCombo(this);	
+		if (model instanceof DefaultManyToOneComboModel) {
+			((DefaultManyToOneComboModel) this.model).setCombo(this);
 		}
 		setupActions();
 	}
-
 
 	public void setValue(T bean) {
 		ItemValue item = new ItemValue();
@@ -304,13 +296,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.setValue(item);
 	}
 
-    public void addValueChangeListener(ValueChangeListener listener) {
+	public void addValueChangeListener(ValueChangeListener listener) {
 		System.out.println("modelo chanaddValueChangeListenerged:");
 
-        if (valueChangeListeners == null) {
-            valueChangeListeners = new LinkedList<ValueChangeListener>();
-        }
-        valueChangeListeners.add(listener);
+		if (valueChangeListeners == null) {
+			valueChangeListeners = new LinkedList<ValueChangeListener>();
+		}
+		valueChangeListeners.add(listener);
 
-    }
+	}
 }
