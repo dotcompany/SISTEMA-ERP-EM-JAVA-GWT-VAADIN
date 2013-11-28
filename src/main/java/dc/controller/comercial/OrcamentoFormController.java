@@ -66,6 +66,8 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	ProdutoDAO produtoDAO;
 	
 	
+	
+	
 	@Override
 	public String getViewIdentifier() {
 		return "orcamentoForm";
@@ -140,6 +142,10 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		if(valorTotal!=null ){
 			subView.getTxtValorTotal().setValue(valorTotal.toString());
 		}
+		
+		List<ItemOrcamento> itens = itemOrcamentoDAO.findByOrcamento(currentBean);
+		
+		subView.preencheSubForm(itens);
 	}
 
 	@Override
@@ -235,7 +241,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		dao.deleteAllByIds(ids);
 
 	}
 

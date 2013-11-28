@@ -13,6 +13,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
+import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.comercial.Venda;
@@ -24,6 +25,7 @@ import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.OrcamentoDAO;
 import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.servicos.dao.comercial.VendaDAO;
@@ -66,9 +68,12 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Autowired
 	ProdutoDAO produtoDAO;
-	
+
 	@Autowired
 	OrcamentoDAO orcamentoDAO;
+
+	@Autowired
+	ItemOrcamentoDAO itemOrcamentoDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -110,22 +115,38 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		subView.getDataSaida().setValue(currentBean.getDataSaida());
 		subView.getDataVenda().setValue(currentBean.getDataVenda());
 		subView.getTxtHoraSaida().setValue(currentBean.getHoraSaida());
-		subView.getTxtNumeroFatura().setValue(currentBean.getNumeroFatura().toString());
+
+		if(currentBean.getNumeroFatura()!=null){
+			subView.getTxtNumeroFatura().setValue(currentBean.getNumeroFatura().toString());	
+		}		
 
 		subView.getTxtLocalEntrega().setValue(currentBean.getLocalEntrega());
 		subView.getTxtLocalCobranca().setValue(currentBean.getLocalCobranca());
 
-		subView.getTxtValorSubTotal().setValue(currentBean.getValorSubTotal().toString());
-		subView.getTxtValorFrete().setValue(currentBean.getValorFrete().toString());
-		subView.getTxtTaxaComissao().setValue(currentBean.getTaxaComissao().toString());
-		subView.getTxtValorComissao().setValue(currentBean.getValorComissao().toString());
-
-		subView.getTxtTaxaDesconto().setValue(currentBean.getTaxaDesconto().toString());
-		subView.getTxtValorDesconto().setValue(currentBean.getValorDesconto().toString());
-		subView.getTxtValorTotal().setValue(currentBean.getValorTotal().toString());
+		if(currentBean.getValorSubTotal()!=null){
+			subView.getTxtValorSubTotal().setValue(currentBean.getValorSubTotal().toString());
+		}
+		if(currentBean.getValorFrete()!=null){
+			subView.getTxtValorFrete().setValue(currentBean.getValorFrete().toString());
+		}
+		if(currentBean.getTaxaComissao()!=null){
+			subView.getTxtTaxaComissao().setValue(currentBean.getTaxaComissao().toString());
+		}
+		if(currentBean.getValorComissao()!=null){
+			subView.getTxtValorComissao().setValue(currentBean.getValorComissao().toString());
+		}
+		if(currentBean.getTaxaDesconto()!=null){
+			subView.getTxtTaxaDesconto().setValue(currentBean.getTaxaDesconto().toString());
+		}
+		if(currentBean.getValorDesconto()!=null){
+			subView.getTxtValorDesconto().setValue(currentBean.getValorDesconto().toString());	
+		}
+		if(currentBean.getValorTotal()!=null){
+			subView.getTxtValorTotal().setValue(currentBean.getValorTotal().toString());
+		}
 
 		subView.getTxtObservacoes().setValue(currentBean.getObservacao());
-		
+
 		List<VendaDetalhe> detalhes = detalheDAO.detalhesPorVenda(currentBean);
 		if(detalhes!=null){
 			subView.preencheSubForm(detalhes);
@@ -174,8 +195,12 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			String horaSaida = subView.getTxtHoraSaida().getValue();
 			currentBean.setHoraSaida(horaSaida);
 
-			Integer numeroFatura = new Integer(subView.getTxtNumeroFatura().getValue());
-			currentBean.setNumeroFatura(numeroFatura);
+			String fatura = subView.getTxtNumeroFatura().getValue();
+			if(Validator.validateString(fatura)){
+				Integer numeroFatura = new Integer(fatura);
+				currentBean.setNumeroFatura(numeroFatura);
+			}
+
 
 			String localEntrega = subView.getTxtLocalEntrega().getValue();
 			currentBean.setLocalEntrega(localEntrega);
@@ -260,7 +285,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		dao.deleteAllByIds(ids);
 
 	}
 
@@ -338,7 +363,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		format = valor.replace(",",".");
 		return format;
 	}
-	
+
 	public BeanItemContainer<Orcamento> carregarOrcamentos(){
 		BeanItemContainer<Orcamento> container = new BeanItemContainer<>(Orcamento.class);
 		for(Orcamento p : orcamentoDAO.listaTodos()){
@@ -348,6 +373,8 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	}
 
 
-
+	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento){
+		return itemOrcamentoDAO.findByOrcamento(orcamento);
+	}
 
 }

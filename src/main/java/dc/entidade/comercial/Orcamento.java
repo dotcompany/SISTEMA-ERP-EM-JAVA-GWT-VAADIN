@@ -88,7 +88,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 
 	String observacao;
 
-	@OneToMany(mappedBy="orcamento",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="orcamento",orphanRemoval = true,cascade=CascadeType.ALL)
 	List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
 
 	public Integer getId() {

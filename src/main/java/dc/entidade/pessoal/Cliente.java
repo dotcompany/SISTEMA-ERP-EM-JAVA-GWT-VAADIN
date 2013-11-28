@@ -217,10 +217,9 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 
 	@Override
 	public String toString() {
-		if (this.pessoa != null) {
+		
 			return this.pessoa.getNome();
-		}
-		return ToStringBuilder.reflectionToString(this);
+		
 	}
 
 	public Pessoa getPessoa() {
