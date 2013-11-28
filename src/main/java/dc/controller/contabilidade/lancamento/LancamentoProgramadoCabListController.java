@@ -45,7 +45,7 @@ public class LancamentoProgramadoCabListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "dataInclusão", "tipo", "liberado" };
+		return new String[] { "dataInclusao", "tipo", "liberado" };
 	}
 
 	@Override
