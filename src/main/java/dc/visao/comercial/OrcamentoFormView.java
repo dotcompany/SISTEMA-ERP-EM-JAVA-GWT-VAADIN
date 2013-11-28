@@ -101,7 +101,7 @@ public class OrcamentoFormView extends CustomComponent {
 		fields.addComponent(cmbCliente,1,0);
 
 		cmbTransportadora = ComponentUtil.buildComboBox("Transportadora");
-		//cmbTransportadora.setContainerDataSource(controller.carregarTransportadoras());
+		cmbTransportadora.setContainerDataSource(controller.carregarTransportadoras());
 		fields.addComponent(cmbTransportadora,2,0);
 
 		cmbCondicaoPagamento = ComponentUtil.buildComboBox("Condição Pagamento");
