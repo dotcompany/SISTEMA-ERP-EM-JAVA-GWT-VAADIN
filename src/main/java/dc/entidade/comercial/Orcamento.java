@@ -27,6 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.Transportadora;
 
 
 @Entity
@@ -52,6 +53,10 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_venda_condicoes_pagamento")
 	CondicaoPagamento condicaoPagamento;
+	
+	@ManyToOne
+	@JoinColumn(name="id_transportadora")
+	Transportadora transportadora;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="data_cadastro")
@@ -88,7 +93,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 
 	String observacao;
 
-	@OneToMany(mappedBy="orcamento",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="orcamento",orphanRemoval = true,cascade=CascadeType.ALL)
 	List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
 
 	public Integer getId() {
@@ -227,6 +232,14 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 	@Override
 	public String toString() {
 		return "Vendedor:" + vendedor.toString() + ", Cliente:" + cliente.toString() + "]";
+	}
+
+	public Transportadora getTransportadora() {
+		return transportadora;
+	}
+
+	public void setTransportadora(Transportadora transportadora) {
+		this.transportadora = transportadora;
 	}
 
 	

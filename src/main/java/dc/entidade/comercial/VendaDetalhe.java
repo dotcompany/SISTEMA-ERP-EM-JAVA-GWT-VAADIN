@@ -36,7 +36,7 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name="id_produto")
 	Produto produto;
 	
-	Integer quantidade;
+	BigDecimal quantidade;
 	
 	@Column(name="valor_unitario")
 	BigDecimal valorUnitario;
@@ -63,11 +63,12 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public Integer getQuantidade() {
+	
+	public BigDecimal getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
 	}
 

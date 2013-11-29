@@ -58,7 +58,7 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 	@Override
 	protected String getNome() {
-		return "Lançamento lote";
+		return "Lote";
 	}
 
 	@Override

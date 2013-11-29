@@ -20,6 +20,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.comercial.OrcamentoFormController;
 import dc.entidade.comercial.ItemOrcamento;
+import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.geral.UF;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.visao.framework.component.SubFormComponent;
@@ -100,7 +101,7 @@ public class OrcamentoFormView extends CustomComponent {
 		fields.addComponent(cmbCliente,1,0);
 
 		cmbTransportadora = ComponentUtil.buildComboBox("Transportadora");
-		//cmbTransportadora.setContainerDataSource(controller.carregarTransportadoras());
+		cmbTransportadora.setContainerDataSource(controller.carregarTransportadoras());
 		fields.addComponent(cmbTransportadora,2,0);
 
 		cmbCondicaoPagamento = ComponentUtil.buildComboBox("Condição Pagamento");
@@ -193,7 +194,7 @@ public class OrcamentoFormView extends CustomComponent {
 						}
 
 						if ("quantidade".equals(propertyId)) {
-							TextField field = ComponentUtil.buildNumericField("Quantidade");
+							TextField field = ComponentUtil.buildNumberField("Quantidade");
 							return field;
 						}
 
@@ -443,7 +444,9 @@ public class OrcamentoFormView extends CustomComponent {
 		this.subForms = subForms;
 	}
 
-
+	public void preencheSubForm(List<ItemOrcamento> detalhes){
+		itensSubForm.fillWith(detalhes);
+	}
 
 
 }

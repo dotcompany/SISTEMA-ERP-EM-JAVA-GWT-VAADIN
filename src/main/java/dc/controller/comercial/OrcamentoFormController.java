@@ -58,14 +58,16 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Autowired
 	VendedorDAO vendedorDAO;
-	
+
 	@Autowired
 	ItemOrcamentoDAO itemOrcamentoDAO;
 
 	@Autowired
 	ProdutoDAO produtoDAO;
-	
-	
+
+
+
+
 	@Override
 	public String getViewIdentifier() {
 		return "orcamentoForm";
@@ -97,7 +99,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		subView.getCmbVendedor().setValue(currentBean.getVendedor());
 		subView.getCmbCliente().setValue(currentBean.getCliente());
 		subView.getCmbCondicaoPagamento().setValue(currentBean.getCondicaoPagamento());
-
+        subView.getCmbTransportadora().setValue(currentBean.getTransportadora());
 
 		subView.getDataCadastro().setValue(currentBean.getDataCadastro());
 		subView.getDataEntrega().setValue(currentBean.getDataEntrega());
@@ -140,6 +142,10 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		if(valorTotal!=null ){
 			subView.getTxtValorTotal().setValue(valorTotal.toString());
 		}
+
+		List<ItemOrcamento> itens = itemOrcamentoDAO.findByOrcamento(currentBean);
+
+		subView.preencheSubForm(itens);
 	}
 
 	@Override
@@ -148,6 +154,8 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		CondicaoPagamento condicao = (CondicaoPagamento)subView.getCmbCondicaoPagamento().getValue();
 		VendedorEntity vendedor = (VendedorEntity)subView.getCmbVendedor().getValue();
 		Cliente cliente = (Cliente)subView.getCmbCliente().getValue();
+		Transportadora  transportadora = (Transportadora)subView.getCmbTransportadora().getValue(); 
+
 
 		String valorSubTotal = subView.getTxtValorSubTotal().getValue();
 		String valorFrete = subView.getTxtValorFrete().getValue();
@@ -157,7 +165,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		String taxaDesconto = subView.getTxtTaxaDesconto().getValue();
 		String valorDesconto = subView.getTxtValorDesconto().getValue();
 		String valorTotal = subView.getTxtValorTotal().getValue();
-		
+
 		String observacao = subView.getTxtDescricao().getValue();
 
 		if(Validator.validateObject(condicao)){
@@ -170,6 +178,10 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 		if(Validator.validateObject(cliente)){
 			currentBean.setCliente(cliente);
+		}
+		
+		if(Validator.validateObject(transportadora)){
+			currentBean.setTransportadora(transportadora);
 		}
 
 		Date dataCadastro = subView.getDataCadastro().getValue();
@@ -235,7 +247,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		dao.deleteAllByIds(ids);
 
 	}
 
@@ -291,7 +303,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		}
 		return container;
 	}
-	
+
 	public BeanItemContainer<Produto> carregarProdutos(){
 		BeanItemContainer<Produto> container = new BeanItemContainer<>(Produto.class);
 		for(Produto p : produtoDAO.listaTodos()){

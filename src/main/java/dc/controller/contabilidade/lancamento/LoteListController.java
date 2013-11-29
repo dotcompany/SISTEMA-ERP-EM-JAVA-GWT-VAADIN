@@ -54,7 +54,7 @@ public class LoteListController extends CRUDListController<LoteEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Lançamento programado";
+		return "Lote";
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package dc.servicos.dao.comercial;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -26,14 +27,14 @@ public class ItemOrcamentoDAO extends AbstractCrudDAO<ItemOrcamento> {
 	@Transactional
 	public List<ItemOrcamento> findByOrcamento(Orcamento orcamento){
 
-		List<ItemOrcamento> lista = null;
+		List<ItemOrcamento> lista = new ArrayList<>();
 
 		try{
-
-			lista =  getSession()
-					.createQuery("from ItemOrcamento i where i.orcamento = :orcamento")
-					.setParameter("orcamento", orcamento).list();
-
+			if(orcamento!=null){
+				lista =  getSession()
+						.createQuery("from ItemOrcamento i where i.orcamento = :orcamento")
+						.setParameter("orcamento", orcamento).list();
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
