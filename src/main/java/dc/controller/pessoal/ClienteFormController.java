@@ -69,57 +69,46 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		boolean valido = true;
 
 		if (!Validator.validateObject(subView.getDtDesde().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDesde(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtDesde(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtContaTomador().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtContaTomador(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtContaTomador(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtTaxaDesconto().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTaxaDesconto(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtTaxaDesconto(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtLimiteCredito().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtLimiteCredito(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtLimiteCredito(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		Pessoa pessoa = (Pessoa) subView.getCmbPessoa().getValue();
 		if (!Validator.validateObject(pessoa)) {
-			adicionarErroDeValidacao(subView.getCmbPessoa(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbPessoa(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		SituacaoForCli situacao = (SituacaoForCli) subView.getCmbSituacao()
-				.getValue();
+		SituacaoForCli situacao = (SituacaoForCli) subView.getCmbSituacao().getValue();
 		if (!Validator.validateObject(situacao)) {
-			adicionarErroDeValidacao(subView.getCmbSituacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbSituacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		AtividadeForCli atividade = (AtividadeForCli) subView.getCmbAtividade()
-				.getValue();
+		AtividadeForCli atividade = (AtividadeForCli) subView.getCmbAtividade().getValue();
 		if (!Validator.validateObject(atividade)) {
-			adicionarErroDeValidacao(subView.getCmbAtividade(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbAtividade(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		ContabilConta contabil = (ContabilConta) subView.getCmbContaContabil()
-				.getValue();
+		ContabilConta contabil = (ContabilConta) subView.getCmbContaContabil().getValue();
 		if (!Validator.validateObject(contabil)) {
-			adicionarErroDeValidacao(subView.getCmbContaContabil(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbContaContabil(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -134,6 +123,35 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	protected void initSubView() {
 		subView = new ClienteFormView();
+		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
+				super.getMainController());
+
+		subView.getCmbPessoa().setModel(model);
+
+		DefaultManyToOneComboModel<SituacaoForCli> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCli>(SituacaoForCliListController.class,
+				this.situacaoDAO, super.getMainController());
+
+		subView.getCmbSituacao().setModel(modelsituacao);
+
+		DefaultManyToOneComboModel<AtividadeForCli> modelatividade = new DefaultManyToOneComboModel<AtividadeForCli>(
+				AtividadeForCliListController.class, this.atividadeDAO, super.getMainController());
+
+		subView.getCmbAtividade().setModel(modelatividade);
+
+		DefaultManyToOneComboModel<ContabilConta> modelconta = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				contaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "codigoReduzido";
+			}
+		};
+
+		subView.getCmbContaContabil().setModel(modelconta);
+
+		DefaultManyToOneComboModel<OperacaoFiscal> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscal>(OperacaoFiscalListController.class,
+				this.operacaoDAO, super.getMainController());
+
+		subView.getCmbOperacaoFiscal().setModel(modeloperacao);
 
 		/* subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
 
@@ -144,12 +162,18 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		 * this.subView.InitCbs(getClienteFormaDescontoType());
 		 */
 
-		/*this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
-		this.subView.getCmbIndicadorPreco().setData(getClienteIndicadorPrecoType());
-		this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
-		this.subView.getCmbFormaDesconto().setData(	getClienteFormaDescontoType());*/
+		/*
+		 * this.subView.getCmbGerarFinanceiro().setData(
+		 * getClienteGerarFinanceiroType());
+		 * this.subView.getCmbIndicadorPreco().
+		 * setData(getClienteIndicadorPrecoType());
+		 * this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
+		 * this.subView.getCmbFormaDesconto().setData(
+		 * getClienteFormaDescontoType());
+		 */
 
-		this.subView.InitCbs(getClienteGerarFinanceiroType(), getClienteIndicadorPrecoType(),	getClienteTipoFreteType(), getClienteFormaDescontoType());
+		this.subView.InitCbs(getClienteGerarFinanceiroType(), getClienteIndicadorPrecoType(), getClienteTipoFreteType(),
+				getClienteFormaDescontoType());
 	}
 
 	@Override
@@ -159,55 +183,25 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		subView.getTxtContaTomador().setValue(currentBean.getContaTomador());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
-				PessoaListController.class, this.pessoaDAO,
-				super.getMainController());
-
-		subView.getCmbPessoa().setModel(model);
 		subView.getCmbPessoa().setValue(currentBean.getPessoa());
 
-		DefaultManyToOneComboModel<SituacaoForCli> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCli>(
-				SituacaoForCliListController.class, this.situacaoDAO,
-				super.getMainController());
-
-		subView.getCmbSituacao().setModel(modelsituacao);
 		subView.getCmbSituacao().setValue(currentBean.getSituacao());
 
-		DefaultManyToOneComboModel<AtividadeForCli> modelatividade = new DefaultManyToOneComboModel<AtividadeForCli>(
-				AtividadeForCliListController.class, this.atividadeDAO,
-				super.getMainController());
-
-		subView.getCmbAtividade().setModel(modelatividade);
 		subView.getCmbAtividade().setValue(currentBean.getAtividadeForCli());
 
-		DefaultManyToOneComboModel<ContabilConta> modelconta = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contaDAO,
-				super.getMainController());
-
-		subView.getCmbContaContabil().setModel(modelconta);
 		subView.getCmbContaContabil().setValue(currentBean.getContabilConta());
 
-		DefaultManyToOneComboModel<OperacaoFiscal> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscal>(
-				OperacaoFiscalListController.class, this.operacaoDAO,
-				super.getMainController());
-
-		subView.getCmbOperacaoFiscal().setModel(modeloperacao);
-		subView.getCmbOperacaoFiscal()
-				.setValue(currentBean.getOperacaoFiscal());
+		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());
 	}
 
 	@Override
 	protected void actionSalvar() {
 		currentBean.setContaTomador(subView.getTxtContaTomador().getValue());
 		currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
-		currentBean.setSituacao((SituacaoForCli) subView.getCmbSituacao()
-				.getValue());
-		currentBean.setAtividadeForCli((AtividadeForCli) subView
-				.getCmbAtividade().getValue());
-		currentBean.setContabilConta((ContabilConta) subView
-				.getCmbContaContabil().getValue());
-		currentBean.setOperacaoFiscal((OperacaoFiscal) subView
-				.getCmbOperacaoFiscal().getValue());
+		currentBean.setSituacao((SituacaoForCli) subView.getCmbSituacao().getValue());
+		currentBean.setAtividadeForCli((AtividadeForCli) subView.getCmbAtividade().getValue());
+		currentBean.setContabilConta((ContabilConta) subView.getCmbContaContabil().getValue());
+		currentBean.setOperacaoFiscal((OperacaoFiscal) subView.getCmbOperacaoFiscal().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 
 		try {
