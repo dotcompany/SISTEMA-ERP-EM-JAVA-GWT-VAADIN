@@ -1,5 +1,8 @@
 package dc.entidade.comercial;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +35,38 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_transportadora")
 	Transportadora transportadora;
-
+	
+	@ManyToOne
+	@JoinColumn(name="id_venda_cabecalho")
+    Venda venda;
+	
+	Integer conhecimento;
+	
+	String responsavel;
+	
+	String placa;
+	
+	@Column(name="uf_placa")
+	String ufPlaca;
+	
+	@Column(name="selo_fiscal")
+	Integer seloFiscal;
+	
+	@Column(name="quantidade_volume")
+	BigDecimal quantidadeVolume;
+	
+	@Column(name="marca_volume")
+	String marcaVolume;
+	
+	@Column(name="especie_volume")
+	String especieVolume;
+	
+	@Column(name="peso_bruto")
+	BigDecimal pesoBruto;
+	
+	@Column(name="peso_liquido")
+	BigDecimal pesoLiquido;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +81,94 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setTransportadora(Transportadora transportadora) {
 		this.transportadora = transportadora;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public Integer getConhecimento() {
+		return conhecimento;
+	}
+
+	public void setConhecimento(Integer conhecimento) {
+		this.conhecimento = conhecimento;
+	}
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public String getUfPlaca() {
+		return ufPlaca;
+	}
+
+	public void setUfPlaca(String ufPlaca) {
+		this.ufPlaca = ufPlaca;
+	}
+
+	public Integer getSeloFiscal() {
+		return seloFiscal;
+	}
+
+	public void setSeloFiscal(Integer seloFiscal) {
+		this.seloFiscal = seloFiscal;
+	}
+
+	public BigDecimal getQuantidadeVolume() {
+		return quantidadeVolume;
+	}
+
+	public void setQuantidadeVolume(BigDecimal quantidadeVolume) {
+		this.quantidadeVolume = quantidadeVolume;
+	}
+
+	public String getMarcaVolume() {
+		return marcaVolume;
+	}
+
+	public void setMarcaVolume(String marcaVolume) {
+		this.marcaVolume = marcaVolume;
+	}
+
+	public BigDecimal getPesoBruto() {
+		return pesoBruto;
+	}
+
+	public void setPesoBruto(BigDecimal pesoBruto) {
+		this.pesoBruto = pesoBruto;
+	}
+
+	public BigDecimal getPesoLiquido() {
+		return pesoLiquido;
+	}
+
+	public void setPesoLiquido(BigDecimal pesoLiquido) {
+		this.pesoLiquido = pesoLiquido;
+	}
+
+	public String getEspecieVolume() {
+		return especieVolume;
+	}
+
+	public void setEspecieVolume(String especieVolume) {
+		this.especieVolume = especieVolume;
 	}
 	
 	
