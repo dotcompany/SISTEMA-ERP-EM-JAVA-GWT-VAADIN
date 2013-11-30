@@ -16,6 +16,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Transportadora;
 
@@ -34,10 +35,12 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 	
 	@ManyToOne
 	@JoinColumn(name="id_transportadora")
+	@Caption("Transportadora")
 	Transportadora transportadora;
 	
 	@ManyToOne
 	@JoinColumn(name="id_venda_cabecalho")
+	@Caption("ID Venda")
     Venda venda;
 	
 	Integer conhecimento;
