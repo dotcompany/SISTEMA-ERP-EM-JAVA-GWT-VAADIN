@@ -108,6 +108,7 @@ public class OrcamentoFormView extends CustomComponent {
 
 		cmbCondicaoPagamento = ComponentUtil.buildComboBox("Condição Pagamento");
 		cmbCondicaoPagamento.setContainerDataSource(controller.carregarCondicoes());
+		cmbCondicaoPagamento.setRequired(true);
 		fields.addComponent(cmbCondicaoPagamento,3,0);
 
 		cmbTipo = ComponentUtil.buildComboBox("Tipo");

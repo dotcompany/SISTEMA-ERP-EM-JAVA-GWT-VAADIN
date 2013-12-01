@@ -181,6 +181,10 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 			if(!Validator.validateObject(cliente)){
 				throw new ErroValidacaoException("Informe o Cliente");
 			}
+			
+			if(!Validator.validateObject(condicao)){
+				throw new ErroValidacaoException("Informe a Condição de Pagamento");
+			}
 
 			if(Validator.validateObject(condicao)){
 				currentBean.setCondicaoPagamento(condicao);

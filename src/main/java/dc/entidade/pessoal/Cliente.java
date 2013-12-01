@@ -200,26 +200,25 @@ public class Cliente extends AbstractModel<Integer> implements Serializable {
 		this.situacao = situacao;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Cliente == false)
-			return false;
-		if (this == object)
-			return true;
-		final Cliente other = (Cliente) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+//	@Override
+//	public int hashCode() {
+//		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+//	}
+//
+//	@Override
+//	public boolean equals(Object object) {
+//		if (object instanceof Cliente == false)
+//			return false;
+//		if (this == object)
+//			return true;
+//		final Cliente other = (Cliente) object;
+//		return EqualsBuilder.reflectionEquals(this, other);
+//	}
 
 	@Override
 	public String toString() {
-		
-			return this.pessoa.getNome();
-		
+		return this.pessoa.getNome();
+	
 	}
 
 	public Pessoa getPessoa() {
