@@ -24,6 +24,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Cliente;
@@ -44,16 +45,18 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name="id_vendedor")
+	@Caption("Vendedor")
 	VendedorEntity vendedor;
 
 	@ManyToOne
 	@JoinColumn(name="id_cliente")
+	@Caption("Cliente")
 	Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name="id_venda_condicoes_pagamento")
 	CondicaoPagamento condicaoPagamento;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="id_transportadora")
 	Transportadora transportadora;

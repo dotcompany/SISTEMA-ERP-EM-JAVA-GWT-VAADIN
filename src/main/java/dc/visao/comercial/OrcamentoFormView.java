@@ -93,10 +93,12 @@ public class OrcamentoFormView extends CustomComponent {
 		fields.setSpacing(true);
 
 		cmbVendedor = ComponentUtil.buildComboBox("Vendedor");
+		cmbVendedor.setRequired(true);
 		cmbVendedor.setContainerDataSource(controller.carregarVendedores());
 		fields.addComponent(cmbVendedor,0,0);
 
 		cmbCliente = ComponentUtil.buildComboBox("Cliente");
+		cmbCliente.setRequired(true);
 		cmbCliente.setContainerDataSource(controller.carregarClientes());
 		fields.addComponent(cmbCliente,1,0);
 
