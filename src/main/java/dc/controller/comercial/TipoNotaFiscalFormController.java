@@ -120,7 +120,8 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		dao.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 
 	}
 
