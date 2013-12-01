@@ -15,6 +15,7 @@ import dc.entidade.comercial.ParcelaCondicaoPagamento;
 import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.ParcelaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.CondicaoPagamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,6 +30,9 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 
 	@Autowired
 	CondicaoPagamentoDAO dao;
+
+	@Autowired
+	ParcelaDAO parcelaDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -89,7 +93,7 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 		if(prazoMedio!=null){
 			subView.getTxtPrazoMedio().setValue(prazoMedio.toString());
 		}
-		
+
 		List<ParcelaCondicaoPagamento> parcelas = currentBean.getParcelas();
 		if(parcelas!=null){
 			subView.preencherSubForm(parcelas);
@@ -172,7 +176,21 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+
+		try{
+			for(Serializable id : ids){
+				CondicaoPagamento condicao = dao.find(id);
+				for(ParcelaCondicaoPagamento parcela : condicao.getParcelas()){
+					parcelaDAO.delete(parcela);
+				}
+			}
+           
+			dao.deleteAllByIds(ids);
+			mensagemRemovidoOK();
+		}catch(Exception e){
+			e.printStackTrace();
+			mensagemErro("Problema ao remover");
+		}
 
 	}
 

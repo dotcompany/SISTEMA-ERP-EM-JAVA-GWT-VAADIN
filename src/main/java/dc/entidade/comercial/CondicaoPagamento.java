@@ -1,6 +1,7 @@
 package dc.entidade.comercial;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
@@ -33,8 +35,10 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 	@SequenceGenerator(name = "cnd", sequenceName = "venda_condicoes_pagamento_id_seq", allocationSize = 1)
 	private Integer id;
 
+	@Caption("Nome")
 	String nome;
 
+	@Caption("Descrição")
 	String descricao;
 	
 	@Column(name="faturamento_minimo")
@@ -139,6 +143,7 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 	}
 	
 	public void adicionarParcela(ParcelaCondicaoPagamento parcela){
+	    if(parcelas == null) parcelas = new ArrayList<ParcelaCondicaoPagamento>();
 		getParcelas().add(parcela);
 		parcela.setCondicaoPagamento(this);
 	}
