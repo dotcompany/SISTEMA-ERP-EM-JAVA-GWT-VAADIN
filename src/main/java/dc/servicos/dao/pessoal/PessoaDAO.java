@@ -37,13 +37,31 @@ public class PessoaDAO extends AbstractCrudDAO<Pessoa> {
 	}
 
 	@Transactional
-	public PessoaFisica getPessoaFisica(int idPessoa) {
-		return (PessoaFisica) getSession().createCriteria(PessoaFisica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
+	public PessoaFisica getPessoaFisica(Integer idPessoa) {
+		if (idPessoa == null) {
+			return null;
+		}
+
+		List<PessoaFisica> list = getSession().createCriteria(PessoaFisica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+
+		return null;
 	}
 
 	@Transactional
-	public PessoaJuridica getPessoaJuridica(int idPessoa) {
-		return (PessoaJuridica) getSession().createCriteria(PessoaJuridica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
+	public PessoaJuridica getPessoaJuridica(Integer idPessoa) {
+		if (idPessoa == null) {
+			return null;
+		}
+
+		List<PessoaJuridica> list = getSession().createCriteria(PessoaJuridica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+
+		return null;
 	}
 
 	@Override

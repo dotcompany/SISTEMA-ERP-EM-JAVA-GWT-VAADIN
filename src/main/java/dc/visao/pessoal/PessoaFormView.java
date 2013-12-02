@@ -613,7 +613,7 @@ public class PessoaFormView extends CustomComponent {
 							textField.setMaxLength(10);
 							return textField;
 						}
-						if ("entrega".equals(propertyId) || "entrega".equals(propertyId) || "cobranca".equals(propertyId)
+						if ("principal".equals(propertyId) || "entrega".equals(propertyId) || "cobranca".equals(propertyId)
 								|| "correspondencia".equals(propertyId)) {
 							CheckBox check = ComponentUtil.buildCheckBox(null);
 

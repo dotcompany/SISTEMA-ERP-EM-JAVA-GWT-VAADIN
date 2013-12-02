@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -130,6 +131,10 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
+
+	@Transient
+	@Caption(value = "Valor Faltante")
+	private BigDecimal valorFaltante;
 
 	public ParcelaPagar() {
 	}
@@ -306,6 +311,17 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setParcelapagamentos(List<ParcelaPagamento> parcelapagamentos) {
 		this.parcelapagamentos = parcelapagamentos;
+	}
+
+	public BigDecimal getValorFaltante() {
+		valorFaltante = BigDecimal.ZERO.add(valor);
+		for (ParcelaPagamento p : parcelapagamentos) {
+			if (p.getValorPago() != null) {
+				valorFaltante = valorFaltante.subtract(p.getValorPago());
+			}
+		}
+
+		return valorFaltante;
 	}
 
 }

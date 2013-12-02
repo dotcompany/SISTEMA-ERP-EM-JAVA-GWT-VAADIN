@@ -1,16 +1,21 @@
 package dc.entidade.financeiro;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +23,8 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -122,8 +129,16 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Conta Caixa")
 	private ContaCaixa contaCaixa;
 
+	@OneToMany(mappedBy = "parcelaReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ParcelaRecebimento> parcelasRecebidas = new ArrayList<>();
+
 	@Transient
 	private boolean selecionado;
+
+	@Transient
+	@Caption(value = "Valor Faltante")
+	private BigDecimal valorFaltante;
 
 	public ParcelaReceber() {
 	}
@@ -275,6 +290,21 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
+	}
+
+	public BigDecimal getValorFaltante() {
+		valorFaltante = BigDecimal.ZERO.add(valor);
+		for (ParcelaRecebimento p : parcelasRecebidas) {
+			if (p.getValorRecebido() != null) {
+				valorFaltante = valorFaltante.subtract(p.getValorRecebido());
+			}
+		}
+
+		return valorFaltante;
+	}
+
+	public void setValorFaltante(BigDecimal valorFaltante) {
+		this.valorFaltante = valorFaltante;
 	}
 
 }
