@@ -40,6 +40,7 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vnd")
 	@SequenceGenerator(name = "vnd", sequenceName = "venda_cabecalho_id_seq", allocationSize = 1)
+	@Caption("ID")
 	private Integer id;
 	
 	@OneToMany(mappedBy = "venda", orphanRemoval = true,cascade=CascadeType.ALL)
@@ -56,10 +57,12 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	
 	@ManyToOne
 	@JoinColumn(name="id_cliente")
+	@Caption("Cliente")
 	Cliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(name="id_vendedor")
+	@Caption("Vendedor")
 	VendedorEntity vendedor;
 	
 	@ManyToOne
