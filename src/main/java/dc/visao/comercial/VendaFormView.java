@@ -138,14 +138,14 @@ public class VendaFormView extends CustomComponent {
 				cmbCliente.setValue(orcamento.getCliente());
 				cmbVendedor.setValue(orcamento.getVendedor());
 				cmbCondicoesPagamento.setValue(orcamento.getCondicaoPagamento());
-				txtValorSubTotal.setValue(orcamento.getValorSubTotal().toString());
-				txtValorFrete.setValue(orcamento.getValorFrete().toString());
-				txtTaxaComissao.setValue(orcamento.getTaxaComissao().toString());
-				txtValorComissao.setValue(orcamento.getValorComissao().toString());
+				if(orcamento.getValorSubTotal()!=null)txtValorSubTotal.setValue(orcamento.getValorSubTotal().toString());
+				if(orcamento.getValorFrete()!=null)txtValorFrete.setValue(orcamento.getValorFrete().toString());
+				if(orcamento.getTaxaComissao()!=null)txtTaxaComissao.setValue(orcamento.getTaxaComissao().toString());
+				if(orcamento.getValorComissao()!=null)txtValorComissao.setValue(orcamento.getValorComissao().toString());
 				
-				txtTaxaDesconto.setValue(orcamento.getTaxaDesconto().toString());
-				txtValorDesconto.setValue(orcamento.getValorDesconto().toString());
-				txtValorTotal.setValue(orcamento.getValorTotal().toString());
+				if(orcamento.getTaxaDesconto()!=null)txtTaxaDesconto.setValue(orcamento.getTaxaDesconto().toString());
+				if(orcamento.getValorDesconto()!=null)txtValorDesconto.setValue(orcamento.getValorDesconto().toString());
+				if(orcamento.getValorTotal()!=null)txtValorTotal.setValue(orcamento.getValorTotal().toString());
 				
 				List<ItemOrcamento> itensOrcamento = controller.carregarItensOrcamento(orcamento);
 				
@@ -179,11 +179,11 @@ public class VendaFormView extends CustomComponent {
 
 		cmbTransportadora = ComponentUtil.buildComboBox("Transportadora");
 
-		cmbCondicoesPagamento = ComponentUtil.buildComboBox("Condição de Pagamento");	
+		cmbCondicoesPagamento = ComponentUtil.buildComboBox("Condição Pagto");	
 		cmbCondicoesPagamento.setContainerDataSource(controller.carregarCondicoesPagamento());
 		cmbCondicoesPagamento.setRequired(true);
 
-		cmbFormaPagamento = ComponentUtil.buildComboBox("Forma Pagamento");
+		cmbFormaPagamento = ComponentUtil.buildComboBox("Forma Pagto");
 		cmbFrete = ComponentUtil.buildComboBox("Frete");
 		dataVenda = ComponentUtil.buildPopupDateField("Data Venda");
 		dataSaida = ComponentUtil.buildPopupDateField("Data Saida");
@@ -197,11 +197,11 @@ public class VendaFormView extends CustomComponent {
 		fields.addComponent(cmbVendedor,2,1);
 		fields.addComponent(cmbCliente,3,1); 
 
-		fields.addComponent(cmbTransportadora,0,2);
-		fields.addComponent(cmbCondicoesPagamento,1,2);
+		fields.addComponent(cmbTransportadora,4,1);
+		fields.addComponent(cmbCondicoesPagamento,0,2);
 
-		fields.addComponent(cmbFormaPagamento,2,2);
-		fields.addComponent(cmbFrete,3,2);
+		fields.addComponent(cmbFormaPagamento,1,2);
+		fields.addComponent(cmbFrete,2,2);
 
 		fields.addComponent(dataVenda,0,3);
 		fields.addComponent(dataSaida,1,3);

@@ -162,7 +162,6 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 			Cliente cliente = (Cliente)subView.getCmbCliente().getValue();
 			Transportadora  transportadora = (Transportadora)subView.getCmbTransportadora().getValue(); 
 
-
 			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
 			String valorFrete = subView.getTxtValorFrete().getValue();
 			String taxaComissao = subView.getTxtTaxaComissao().getValue();

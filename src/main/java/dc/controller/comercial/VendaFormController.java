@@ -104,6 +104,11 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 		if(currentBean.getOrcamento()==null){
 			subView.getCmbTipoVenda().setValue(TIPO_VENDA.VENDA_DIRETA);
+			subView.getCmbOrcamento().setReadOnly(true);
+		}else{
+			subView.getCmbTipoVenda().setValue(TIPO_VENDA.ORCAMENTO);
+			subView.getCmbOrcamento().setReadOnly(false);
+			subView.getCmbOrcamento().setValue(currentBean.getOrcamento());
 		}
 
 		subView.getCmbCondicoesPagamento().setValue(currentBean.getCondicaoPagamento());
@@ -156,8 +161,6 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	@Override
 	protected void actionSalvar() {
 
-
-
 		try{
 
 			TipoNotaFiscal tipoNotaFiscal = (TipoNotaFiscal)subView.getCmbTipoNotaFiscal().getValue();
@@ -179,7 +182,8 @@ public class VendaFormController extends CRUDFormController<Venda> {
 				throw new ErroValidacaoException("Informe a Condição de Pagamento");
 			}
 
-
+			Orcamento orcamento = (Orcamento)subView.getCmbOrcamento().getValue();
+			currentBean.setOrcamento(orcamento);
 
 			currentBean.setTipoNotaFiscal(tipoNotaFiscal);
 			currentBean.setCliente(cliente);

@@ -1,7 +1,10 @@
 package dc.servicos.dao.comercial;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.TipoNotaFiscal;
@@ -19,6 +22,11 @@ public class VendaDAO extends AbstractCrudDAO<Venda> {
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
+	}
+	
+	@Transactional
+	public List<Venda> listaTodos() {
+		return getSession().createQuery("from Venda").list();
 	}
 	
 	

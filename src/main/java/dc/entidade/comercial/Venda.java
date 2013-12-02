@@ -283,6 +283,11 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
 	}
+
+	@Override
+	public String toString() {
+		return id.toString();
+	}
 	
 	
 	
