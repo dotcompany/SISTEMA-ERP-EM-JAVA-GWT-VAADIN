@@ -243,6 +243,7 @@ public class CRUDListView extends CustomComponent implements View{
 		 excelExporter = new ExcelExporter();
 		 excelExporter.setCaption("   Exportar Excel");
 		 excelExporter.setIcon(new ThemeResource("img/iconExcel.png"));
+		 excelExporter.setDownloadFileName(controller.getTitulo()+".xls");
 		 
 		 excelExporter.addClickListener(new Button.ClickListener() {
 			    public void buttonClick(ClickEvent event) {
@@ -256,6 +257,7 @@ public class CRUDListView extends CustomComponent implements View{
 		 pdfExporter = new PdfExporter();
 		 pdfExporter.setCaption("   Exportar PDF");
 		 pdfExporter.setIcon(new ThemeResource("img/iconPDF.gif"));
+		 pdfExporter.setDownloadFileName(controller.getTitulo()+".pdf");
 		 pdfExporter.addClickListener(new Button.ClickListener() {
 			    public void buttonClick(ClickEvent event) {
 			    	pdfExporter.setTableToBeExported(controller.getTable());

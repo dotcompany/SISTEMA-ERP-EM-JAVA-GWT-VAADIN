@@ -215,9 +215,9 @@ public class DocumentoFormView extends CustomComponent {
 			nPanel = new Panel();
 			nPanel.setImmediate(true);
 			nPanel.setHeight("200px");
-			nPanel.setWidth("800px");
+			nPanel.setWidth("100%");
 			nPanel.setScrollTop(1600);
-		    sources = new GridLayout(6,20);
+		    sources = new GridLayout(12,100);
 		    nPanel.setContent(sources);
 		    gridLayout.addComponent(nPanel, 0, 6, 5,6);
            
@@ -233,9 +233,9 @@ public class DocumentoFormView extends CustomComponent {
 				nPanel = new Panel();
 				nPanel.setImmediate(true);
 				nPanel.setHeight("200px");
-				nPanel.setWidth("800px");
+				nPanel.setWidth("100%");
 				nPanel.setScrollTop(1600);
-			    sources = new GridLayout(6,20);
+			    sources = new GridLayout(12,100);
 			    nPanel.setContent(sources);
 			    gridLayout.addComponent(nPanel, 0, 6, 5,6);
 			}
@@ -371,7 +371,7 @@ public class DocumentoFormView extends CustomComponent {
 				//sources.addComponent(gridImage);
 				
 				sources.addComponent(wrapper);
-				//sources.addComponent(linkDonwload);
+				sources.addComponent(linkDonwload);
 				
 				listArquivos.add(nomeArquivoVisualizacao);
 		
