@@ -157,7 +157,7 @@ dependencies {
         } 
 		
    		
-		compile 'org.vaadin.addon:easyuploads:7.0.0'
+		compile 'org.vaadin.addon:easyuploads:7.0.1'
 		compile 'com.reveregroup.gwt:gwt-image-loader:1.1.4'
 		compile 'org.vaadin.addons:imageviewer:0.5.1.v7'  
 		compile 'org.vaadin.addons:imagescaler:2.0.0'
