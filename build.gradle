@@ -104,7 +104,7 @@ dependencies {
 		compile 'org.hibernate:hibernate-c3p0:4.2.7.SP1'
 		
 		compile 'com.itextpdf:itextpdf:5.0.6'
-		compile 'javax.mail:mail:1.4'
+		compile 'javax.mail:mail:1.4.7'
 		
 		compile 'mysql:mysql-connector-java:5.1.21'
 		compile 'org.postgresql:postgresql:9.3-1100-jdbc41'
