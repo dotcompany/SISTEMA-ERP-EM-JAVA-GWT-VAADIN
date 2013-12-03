@@ -13,50 +13,62 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.ui.Component;
 
+import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;
+import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
+import dc.servicos.dao.sistema.PapelDAO;
 import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.UsuarioFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no Banco de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
- * formos pesquisar na Tela.
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+ *         que tem todos os controllers da Tela, onde quando extendemos herdamos
+ *         os métodos que temos na tela principal. Temos o botão Novo que é para
+ *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
+ *         o Button Salvar que é para salvar as informações no Banco de Dados
+ *         Temos o carregar também que é para pegar as informações que
+ *         desejarmos quando formos pesquisar na Tela.
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class UsuarioFormController extends CRUDFormController<Usuario> {
 
-	UsuarioFormView subView;
-	
-	@Autowired
-	UsuarioDAO usuarioDAO;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	
+	private UsuarioFormView subView;
+
 	@Autowired
-	PessoaDAO pessoaDAO;
+	private UsuarioDAO usuarioDAO;
+
+	@Autowired
+	private ColaboradorDAO colaboradorDAO;
+
+	@Autowired
+	private PessoaDAO pessoaDAO;
+
+	@Autowired
+	private PapelDAO papelDAO;
 
 	private Usuario currentBean = new Usuario();
 
-	
-	
 	public static Logger logger = Logger.getLogger(UsuarioFormController.class);
-	
+
 	@Override
 	protected String getNome() {
 		return "Usuário";
@@ -67,48 +79,62 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			ContaEmpresa conta = SecuritySessionProvider.getUsuario().getConta();
 			currentBean.setConta(conta);
 			usuarioDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro("Problemas ao salvar registro");
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = usuarioDAO.find(id);
 		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
-		subView.carregaColaboradores(usuarioDAO.getAll(Colaborador.class));
-		subView.carregaPapeis(usuarioDAO.getAll(Papel.class));
 		subView.getBinder().setItemDataSource(getCurrentBean());
-		
+
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
 		getCurrentBean().setConfirmado(false);
 		subView.getBinder().discard();
-		subView.getBinder().setItemDataSource(	getCurrentBean());
+		subView.getBinder().setItemDataSource(getCurrentBean());
 		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
-		subView.carregaColaboradores(usuarioDAO.getAll(Colaborador.class));
-		subView.carregaPapeis(usuarioDAO.getAll(Papel.class));
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new UsuarioFormView(this);
+
+		ManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(ColaboradorListController.class,
+				colaboradorDAO, this.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "pessoa.nome";
+			}
+		};
+
+		ManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(PapelListController.class, papelDAO, this.getMainController());
+
+		subView.getComboPapeis().setModel(papelModel);
+		subView.getComboColaborador().setModel(colaboradorModel);
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Usuario();
@@ -117,11 +143,11 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 usuarioDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		usuarioDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 		boolean retornoValidacao = true;
@@ -129,30 +155,32 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 			subView.getBinder().commit();
 			Usuario u = subView.getBinder().getItemDataSource().getBean();
 			currentBean = u;
-			if(u.getColaborador() == null){
-				adicionarErroDeValidacao(subView.getComboColaborador(),"O Usuário deve estar associado a um colaborador");
+			u.setColaborador(subView.getComboColaborador().getValue());
+			u.setPapel(subView.getComboPapeis().getValue());
+			if (u.getColaborador() == null) {
+				adicionarErroDeValidacao(subView.getComboColaborador(), "O Usuário deve estar associado a um colaborador");
 				retornoValidacao = false;
 			}
-			if(u.getPapel() == null){
-				adicionarErroDeValidacao(subView.getComboPapel(),"O Usuário deve estar associado a um papel");
+			if (u.getPapel() == null) {
+				adicionarErroDeValidacao(subView.getComboPapeis(), "O Usuário deve estar associado a um papel");
 				retornoValidacao = false;
 			}
-			
-			if(u.getLogin() == null || u.getLogin().isEmpty()){
-				adicionarErroDeValidacao(subView.getLoginTxtField(),"Não pode ficar em branco");
+
+			if (u.getLogin() == null || u.getLogin().isEmpty()) {
+				adicionarErroDeValidacao(subView.getLoginTxtField(), "Não pode ficar em branco");
 				retornoValidacao = false;
 			}
-			
-			if(u.getSenha() == null || u.getSenha().isEmpty()){
-				adicionarErroDeValidacao(subView.getSenhaPasswordField(),"Não pode ficar em branco");
+
+			if (u.getSenha() == null || u.getSenha().isEmpty()) {
+				adicionarErroDeValidacao(subView.getSenhaPasswordField(), "Não pode ficar em branco");
 				retornoValidacao = false;
 			}
-			
+
 		} catch (CommitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return retornoValidacao;
 	}
 
@@ -163,23 +191,25 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		// TODO Auto-generated method stub
-		 usuarioDAO.deleteAll(objetos);
-		 mensagemRemovidoOK();		
+		usuarioDAO.deleteAll(objetos);
+		mensagemRemovidoOK();
 	}
 
 	public void alteraFormBaseadoEmColaborador(Colaborador colaborador) {
-		if(isNovo()){
-			//dados padrão primeiro cadastro
+		if (isNovo()) {
+			// dados padrão primeiro cadastro
 			getCurrentBean().setDataCadastro(new Date());
 			Pessoa p = colaborador.getPessoa();
 			PessoaFisica pf = pessoaDAO.getPessoaFisica(p.getId());
-			if(pf != null){
+			if (pf != null) {
 				subView.getLoginTxtField().setValue(pf.getCpf());
 				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-				String sDate= sdf.format(pf.getDataNascimento());
-				subView.getSenhaPasswordField().setValue(sDate);	
+				if (pf.getDataNascimento() != null) {
+					String sDate = sdf.format(pf.getDataNascimento());
+					subView.getSenhaPasswordField().setValue(sDate);
+				}
 			}
-				
+
 		}
 
 	}
@@ -189,8 +219,5 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		// TODO Auto-generated method stub
 		return "usuarioForm";
 	}
-
-	
-
 
 }

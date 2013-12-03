@@ -302,7 +302,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		if (valueChangeListeners == null) {
 			valueChangeListeners = new LinkedList<ValueChangeListener>();
 		}
+		cmbResult.addValueChangeListener(listener);
 		valueChangeListeners.add(listener);
 
+	}
+
+	public T getItemValueBean(ItemValue item) {
+		return item.getBean();
 	}
 }

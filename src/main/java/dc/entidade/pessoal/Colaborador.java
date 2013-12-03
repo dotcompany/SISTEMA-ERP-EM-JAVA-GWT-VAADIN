@@ -41,6 +41,7 @@ import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
@@ -275,6 +276,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
+	@ComboValue
 	private Pessoa pessoa;
 
 	/**
