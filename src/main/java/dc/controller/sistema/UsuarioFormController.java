@@ -98,6 +98,8 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		currentBean = usuarioDAO.find(id);
 		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
 		subView.getBinder().setItemDataSource(getCurrentBean());
+		subView.getComboColaborador().setValue(currentBean.getColaborador());
+		subView.getComboPapeis().setValue(currentBean.getPapel());
 
 	}
 
