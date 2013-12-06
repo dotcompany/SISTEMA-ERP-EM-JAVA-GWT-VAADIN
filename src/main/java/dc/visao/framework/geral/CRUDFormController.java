@@ -37,8 +37,7 @@ import dc.visao.spring.SecuritySessionProvider;
  * 
  */
 
-public abstract class CRUDFormController<E> extends ControllerTask implements
-		Controller, Serializable {
+public abstract class CRUDFormController<E> extends ControllerTask implements Controller, Serializable {
 
 	/**
 	 * 
@@ -145,14 +144,14 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 			Task parent = listController;
 			mainController.removeTask(CRUDFormController.this, false);
 			mainController.showTaskableContent(parent);
+			listController.doSearch(((CRUDListView) listController.getView()).getTxtPesquisa().getValue());
 		} else {
 			close();
 		}
 	}
 
 	public void confirmClose() {
-		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?",
-				"Você não salvou nenhuma de suas alterações.", "Sim", "Não",
+		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?", "Você não salvou nenhuma de suas alterações.", "Sim", "Não",
 				new ConfirmDialog.Listener() {
 					public void onClose(ConfirmDialog dialog) {
 						if (dialog.isConfirmed()) {
@@ -235,9 +234,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		newAttemptOpen = false;
 		listController.notifySaved(obj);
 
-		new Notification("Gravado!", "Registro gravado com sucesso",
-				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-				.getCurrent());
+		new Notification("Gravado!", "Registro gravado com sucesso", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	protected abstract void quandoNovo();
@@ -259,28 +256,22 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	protected abstract void removerEmCascata(List<Serializable> objetos);
 
 	public void mensagemRemovidoOK() {
-		new Notification(DcConstants.DELETE_TITLE_OK, DcConstants.DELETE_OK,
-				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-				.getCurrent());
+		new Notification(DcConstants.DELETE_TITLE_OK, DcConstants.DELETE_OK, Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public void mensagemErro(String message) {
-		new Notification(DcConstants.ERROR_TITLE, message,
-				Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+		new Notification(DcConstants.ERROR_TITLE, message, Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public void mensagemAtencao(String message) {
-		new Notification(DcConstants.CAUTION_PLEASE, message,
-				Notification.TYPE_WARNING_MESSAGE, true)
-				.show(Page.getCurrent());
+		new Notification(DcConstants.CAUTION_PLEASE, message, Notification.TYPE_WARNING_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public View getView() {
 		return view;
 	}
 
-	protected void adicionarErroDeValidacao(AbstractComponent c,
-			String errorMessage) {
+	protected void adicionarErroDeValidacao(AbstractComponent c, String errorMessage) {
 		validatableComponents.put(c.getId(), c);
 		c.setComponentError(new UserError(errorMessage));
 	}
@@ -336,10 +327,9 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	public void setChildModuleID(String id) {
 		// nothing for now
 	}
-	
-	public Empresa empresaAtual(){
+
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
-
 
 }

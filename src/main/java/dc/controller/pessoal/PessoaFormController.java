@@ -127,9 +127,9 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		subView.getEnderecosSubForm().fillWith(currentBean.getEnderecos());
 		subView.getContatosSubForm().fillWith(currentBean.getContatos());
 
-		if ("1".equals(currentBean.getTipo())) {
+		if ("F".equals(currentBean.getTipo())) {
 			carregarPessoaFisica(id);
-		} else if ("2".equals(currentBean.getTipo())) {
+		} else if ("J".equals(currentBean.getTipo())) {
 			carregarPessoaJuridica(id);
 		}
 	}
@@ -213,9 +213,9 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
 
-			if ("1".equals(tpPessoa.getCodigo())) {
+			if ("F".equals(tpPessoa.getCodigo())) {
 				salvarPessoaFisica();
-			} else if ("2".equals(tpPessoa.getCodigo())) {
+			} else if ("J".equals(tpPessoa.getCodigo())) {
 				salvarPessoaJuridica();
 			}
 

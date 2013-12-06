@@ -19,12 +19,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.navigator.View;
@@ -35,72 +33,70 @@ import dc.framework.ModuleView;
 import dc.visao.framework.geral.MainController;
 
 @Entity
-@Table(name = "fm_modulo", uniqueConstraints=
-@UniqueConstraint(columnNames={"URL_ID"}))
-
+@Table(name = "fm_modulo", uniqueConstraints = @UniqueConstraint(columnNames = { "URL_ID" }))
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class FmModulo implements Serializable{
-	
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class FmModulo implements Serializable {
 
 	private static final long serialVersionUID = 7302719781603687858L;
 
 	public static final int ID_MODULO_ADM_DC = -1;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Field
-    @Caption("URL (identificador)")
-    @Column(name = "URL_ID")
-    private String urlID;
-    
-    @Field()
-    @Caption("Caption")
-    @Column(name = "CAPTION")
-    private String caption;
-    
-    @Field
-    @Caption("Nome da View")
-    @Column(name = "VIEW_NAME")
-    private String viewName;
-    
-    @OneToMany(mappedBy="fmModulo", orphanRemoval=true,fetch=FetchType.LAZY)  
-    private List<FmMenu> menus;
-    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-    private static Logger logger = Logger.getLogger(FmModulo.class);
-    
-    public FmModulo(String caption, int id, String url, String viewName) {
-    	this.caption = caption;
-    	this.viewName = viewName;
-    	this.id = id;
-    	this.urlID = url;
+	@Field
+	@Caption("URL (identificador)")
+	@Column(name = "URL_ID")
+	private String urlID;
+
+	@Field()
+	@Caption("Caption")
+	@Column(name = "CAPTION")
+	private String caption;
+
+	@Field
+	@Caption("Nome da View")
+	@Column(name = "VIEW_NAME")
+	private String viewName;
+
+	@OneToMany(mappedBy = "fmModulo", orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<FmMenu> menus;
+
+	private static Logger logger = Logger.getLogger(FmModulo.class);
+
+	public FmModulo(String caption, int id, String url, String viewName) {
+		this.caption = caption;
+		this.viewName = viewName;
+		this.id = id;
+		this.urlID = url;
 	}
 
 	public FmModulo() {
 	}
 
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id","menus"});
-    }
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id", "menus" });
+	}
 
-    @Override
-    public boolean equals(Object object) {
-    	if (object instanceof FmModulo== false) return false;
-    	if (this == object) return true;
-    	final FmModulo other = (FmModulo) object;
-    	return EqualsBuilder.reflectionEquals(this, other,new String[] {"menus"});
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof FmModulo == false)
+			return false;
+		if (this == object)
+			return true;
+		final FmModulo other = (FmModulo) object;
+		return EqualsBuilder.reflectionEquals(this, other, new String[] { "id", "urlID" });
+	}
 
-    @Override
-    public String toString() {
-    	return getCaption() + ": URL => " + getUrlID();
-    }
+	@Override
+	public String toString() {
+		return getCaption() + ": URL => " + getUrlID();
+	}
 
 	public Integer getId() {
 		return id;
@@ -134,18 +130,17 @@ public class FmModulo implements Serializable{
 		this.viewName = viewName;
 	}
 
-
-	public void loadRoute(HashMap<String, View> routes,MainController controller) {
-		if(isBlank()){
-			BlankModuleView blank = new BlankModuleView(this,controller);
+	public void loadRoute(HashMap<String, View> routes, MainController controller) {
+		if (isBlank()) {
+			BlankModuleView blank = new BlankModuleView(this, controller);
 			routes.put(getUrlID(), blank);
-			logger.info("loading route for module with blank view. module caption: " +  this.getCaption());
-		}else{
+			logger.info("loading route for module with blank view. module caption: " + this.getCaption());
+		} else {
 			try {
 				logger.info("loading route for module with view name: " + this.getViewName());
 				Class viewClass = Class.forName(this.getViewName());
-				Object view = viewClass.getDeclaredConstructor(FmModulo.class,MainController.class).newInstance(this,controller);
-				routes.put(this.getUrlID(),(View) view);
+				Object view = viewClass.getDeclaredConstructor(FmModulo.class, MainController.class).newInstance(this, controller);
+				routes.put(this.getUrlID(), (View) view);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (InstantiationException e) {
@@ -163,7 +158,7 @@ public class FmModulo implements Serializable{
 				try {
 					viewClass = Class.forName(this.getViewName());
 					Object view = viewClass.newInstance();
-					routes.put(this.getUrlID(),(View) view);
+					routes.put(this.getUrlID(), (View) view);
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -174,13 +169,13 @@ public class FmModulo implements Serializable{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 				e.printStackTrace();
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
@@ -199,7 +194,5 @@ public class FmModulo implements Serializable{
 	public static FmModulo loadSystemInstance() {
 		return new FmModulo("ADM DOTCOMPANY", FmModulo.ID_MODULO_ADM_DC, "adm_dotcompany", "dc.visao.modulos.AdmDotCompanyView");
 	}
-	
-	
-}
 
+}

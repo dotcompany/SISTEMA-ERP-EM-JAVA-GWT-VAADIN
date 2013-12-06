@@ -5,8 +5,8 @@ public class TipoPessoa {
 	String label;
 	String codigo;
 
-	public static final TipoPessoa PESSOA_FISICA = new TipoPessoa("Fisica", "1");
-	public static final TipoPessoa PESSOA_JURIDICA = new TipoPessoa("Juridica", "2");
+	public static final TipoPessoa PESSOA_FISICA = new TipoPessoa("Fisica", "F");
+	public static final TipoPessoa PESSOA_JURIDICA = new TipoPessoa("Juridica", "J");
 
 	public String getLabel() {
 		return label;
@@ -61,9 +61,9 @@ public class TipoPessoa {
 	}
 
 	public static final TipoPessoa getTipoPessoa(String codigo) {
-		if ("1".equals(codigo)) {
+		if ("F".equals(codigo)) {
 			return PESSOA_FISICA;
-		} else if ("2".equals(codigo)) {
+		} else if ("J".equals(codigo)) {
 			return PESSOA_JURIDICA;
 		} else {
 			return null;

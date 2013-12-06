@@ -84,6 +84,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		try {
 			ContaEmpresa conta = SecuritySessionProvider.getUsuario().getConta();
 			currentBean.setConta(conta);
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
 			usuarioDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {

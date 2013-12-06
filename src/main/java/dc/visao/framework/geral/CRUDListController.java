@@ -41,15 +41,13 @@ import dc.entidade.framework.PapelMenu;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
-import dc.visao.framework.component.CustomListTable;
 import dc.visao.framework.component.CompanyFileHandler;
+import dc.visao.framework.component.CustomListTable;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
-
-
-public abstract class CRUDListController<E> extends ControllerTask implements Controller,ControllerAcesso {
+public abstract class CRUDListController<E> extends ControllerTask implements Controller, ControllerAcesso {
 
 	public static Logger logger = Logger.getLogger(CRUDListController.class);
 
@@ -59,25 +57,24 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	CRUDListView view;
 	private CustomListTable table;
 
-	private HashMap selected = new HashMap<Object,Object>();
+	private HashMap selected = new HashMap<Object, Object>();
 
 	@Autowired
 	private MainController mainController;
-	
+
 	@Autowired
 	private GenericListDAO genericDAO;
-	
+
 	@Autowired
 	private CompanyFileHandler fileUtils;
-	
+
 	private PapelMenu papelMenu;
 	private boolean acessoLiberado = false;
-	
-	
+
 	private Window window = null;
 	private ModalWindowSaveListener saveListener;
 	private ModalWindowSelectionListener windowSelectionListener;
-			
+
 	@PostConstruct
 	protected void init() {
 		getFormController().setListController(this);
@@ -86,19 +83,19 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		// Titulo
 		view.getLblNome().setValue(getTitulo());
-		//view.getLblNome().setContentMode(ContentMode.HTML);
+		// view.getLblNome().setContentMode(ContentMode.HTML);
 
 		// Botao de pesquisa
 		view.getBtnPesquisa().addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				if(papelMenu != null){
-					if(DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeConsultar())){
-						actionPesquisa();	
-					}else{
+				if (papelMenu != null) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeConsultar())) {
+						actionPesquisa();
+					} else {
 						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
-					}	
-				}else{
-					if(acessoLiberado){
+					}
+				} else {
+					if (acessoLiberado) {
 						actionPesquisa();
 					}
 				}
@@ -107,74 +104,72 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		});
 
 		// Botao Criar (Novo)
-				view.getBtnCriar().addClickListener(new ClickListener() {
-					public void buttonClick(ClickEvent event) {
-						if(papelMenu != null){
-							if(DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeInserir())){
-								actionCriarNovo();	
-							}else{
-								getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
-							}
-						}else{
-							if(acessoLiberado){
-								actionCriarNovo();
-							}
-						}
+		view.getBtnCriar().addClickListener(new ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				if (papelMenu != null) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeInserir())) {
+						actionCriarNovo();
+					} else {
+						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
 					}
-				});
-
-
-				ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
-
-				    // We change the default order of the buttons
-				    @Override
-				    public ConfirmDialog create(String caption, String message,
-				            String okCaption, String cancelCaption) {
-				        ConfirmDialog d = super.create(caption, message, okCaption,
-				        		cancelCaption);
-				        d.setStyleName("dc-confirm-dialog");
-
-				        d.setWidth("35%");
-				        d.setHeight("20%");	
-
-				        return d;
-				    }
-
-				};
-				ConfirmDialog.setFactory(df);				
-
-				// Botaao remover selecionados	
-				view.getBtnRemover().addClickListener(new ClickListener() {
-					public void buttonClick(ClickEvent event) {
-						if(papelMenu != null){
-							if(DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeExcluir())){
-								actionRemoverSelecionados();	
-							}else{
-								getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
-							}	
-						}else{
-							if(acessoLiberado){
-								actionRemoverSelecionados();
-							}
-						}
-
+				} else {
+					if (acessoLiberado) {
+						actionCriarNovo();
 					}
-				});
-				
-				actionPesquisa();
+				}
+			}
+		});
+
+		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
+
+			// We change the default order of the buttons
+			@Override
+			public ConfirmDialog create(String caption, String message, String okCaption, String cancelCaption) {
+				ConfirmDialog d = super.create(caption, message, okCaption, cancelCaption);
+				d.setStyleName("dc-confirm-dialog");
+
+				d.setWidth("35%");
+				d.setHeight("20%");
+
+				return d;
+			}
+
+		};
+		ConfirmDialog.setFactory(df);
+
+		// Botaao remover selecionados
+		view.getBtnRemover().addClickListener(new ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				if (papelMenu != null) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeExcluir())) {
+						actionRemoverSelecionados();
+					} else {
+						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
+					}
+				} else {
+					if (acessoLiberado) {
+						actionRemoverSelecionados();
+					}
+				}
+
+			}
+		});
+
+		actionPesquisa();
 	}
 
 	protected void actionAbrir(Object object) {
-		if(object == null){				
+		if (object == null) {
 			getFormController().mensagemAtencao("Escolha um registro para abrir");
-		}else{Serializable id = (Serializable) object;
-			if(isOnSeparateWindow()){
+		} else {
+			Serializable id = (Serializable) object;
+			if (isOnSeparateWindow()) {
 				notifySelected((E) genericDAO.find(id));
-			}else{
-				mainController.showTaskableContent( getFormController());
-				getFormController().mostrar(id);	
+			} else {
+				mainController.showTaskableContent(getFormController());
+				getFormController().mostrar(id);
 			}
-					
+
 		}
 
 	}
@@ -192,182 +187,168 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	protected void actionRemoverSelecionados() {
 		final List ids = Arrays.asList(selected.keySet().toArray());
 		final List values = Arrays.asList(selected.values().toArray());
-		if(ids.isEmpty()){
+		if (ids.isEmpty()) {
 			getFormController().mensagemAtencao("Nenhum registro selecionado para remoção");
-		}else{
-			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção", "Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
-			        "Sim", "Não", new ConfirmDialog.Listener() {
+		} else {
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+					"Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.", "Sim", "Não",
+					new ConfirmDialog.Listener() {
 
-			            public void onClose(ConfirmDialog dialog) {
-			                if (dialog.isConfirmed()) {
-			                	try{
-			                	if(deletaEmCascata()){
-			                		getFormController().removerEmCascata(values);
-			                	}else{
-			                		getFormController().remover(ids);
-			                	}
-			                		LazyQueryContainer container = (LazyQueryContainer) table.getContainerDataSource();
-			            			for(Object id : ids){
-			            				   container.removeItem(id);
-			            			}
-			            			container.commit();
-		            				container.refresh();
-			            			selected.clear();
-			            			table.refreshRowCache();
-			            			}catch (Exception e){
-			            				logger.warning(e.getMessage());
-			            				getFormController().mensagemErro("Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
-			            			}
-			                } 
-			            }
-			        });
-
-
+						public void onClose(ConfirmDialog dialog) {
+							if (dialog.isConfirmed()) {
+								try {
+									if (deletaEmCascata()) {
+										getFormController().removerEmCascata(values);
+									} else {
+										getFormController().remover(ids);
+									}
+									LazyQueryContainer container = (LazyQueryContainer) table.getContainerDataSource();
+									for (Object id : ids) {
+										container.removeItem(id);
+									}
+									container.commit();
+									container.refresh();
+									selected.clear();
+									table.refreshRowCache();
+								} catch (Exception e) {
+									logger.warning(e.getMessage());
+									getFormController().mensagemErro(
+											"Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
+								}
+							}
+						}
+					});
 
 		}
 
 	}
 
 	protected abstract CRUDFormController<E> getFormController();
-	
 
 	protected void actionPesquisa() {
-	
+
 		String valor = view.getTxtPesquisa().getValue();
 
 		// Configura da tabela
 		table = new CustomListTable();
-		
+
 		table.setFileHandler(fileUtils);
 		table.setEntityName(getEntityClass().getSimpleName());
-		
-		
-		//table.setHeight("99%");
+
+		// table.setHeight("99%");
 		table.setEditable(false);
 		table.setImmediate(true);
 		table.setSelectable(true);
-		//table.setDragMode(TableDragMode.)
+		// table.setDragMode(TableDragMode.)
 		table.setColumnCollapsingAllowed(true);
 		table.setColumnReorderingAllowed(true);
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
-		
-		
+
 		table.addColumnReorderListener(new ColumnReorderListener() {
-			
+
 			@Override
 			public void columnReorder(ColumnReorderEvent event) {
 				logger.info("reorder");
 				table.saveToFile();
 			}
 		});
-		
+
 		table.addColumnResizeListener(new ColumnResizeListener() {
-			
+
 			@Override
 			public void columnResize(ColumnResizeEvent event) {
 				logger.info("resize");
 				table.saveToFile();
 			}
 		});
-		
-		
+
 		table.addListener(new ItemClickEvent.ItemClickListener() {
-			             private static final long serialVersionUID = 2068314108919135281L;
+			private static final long serialVersionUID = 2068314108919135281L;
 
-			             public void itemClick(ItemClickEvent event) {
-			                 if (event.isDoubleClick()) {
-			                      actionAbrir(event.getItemId());
-			                 }
-			             }
-			         });
+			public void itemClick(ItemClickEvent event) {
+				if (event.isDoubleClick()) {
+					actionAbrir(event.getItemId());
+				}
+			}
+		});
 
-		 //adiciona checkbox na ultima coluna para marcar para acoes como ex: remover
-		 table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
+		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
+		// remover
+		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
 
-	            @Override
-	            public Component generateCell(final Table source, final Object itemId, final Object columnId) {
+			@Override
+			public Component generateCell(final Table source, final Object itemId, final Object columnId) {
 
-	            	final CompositeItem selectedBeanItem = 	(CompositeItem) source.getContainerDataSource().getItem(itemId);
-	            	final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
-	            	
-	                final CheckBox checkBox = new CheckBox();
-	                checkBox.setImmediate(true);
-	                checkBox.addValueChangeListener(new Property.ValueChangeListener() {
+				final CompositeItem selectedBeanItem = (CompositeItem) source.getContainerDataSource().getItem(itemId);
+				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
 
-						@Override
-						public void valueChange(
-								com.vaadin.data.Property.ValueChangeEvent event) {
-							Boolean select = (Boolean) event.getProperty().getValue();
-	                		if(select){
-	                			selected.put(itemId,nestedItem.getBean());
-	                		}else{
-	                			selected.remove(itemId);
-	                		}
-							
+				final CheckBox checkBox = new CheckBox();
+				checkBox.setImmediate(true);
+				checkBox.addValueChangeListener(new Property.ValueChangeListener() {
+
+					@Override
+					public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+						Boolean select = (Boolean) event.getProperty().getValue();
+						if (select) {
+							selected.put(itemId, nestedItem.getBean());
+						} else {
+							selected.remove(itemId);
 						}
-	                });
 
-	                checkBox.setValue(selected.containsKey(itemId));
-	                return checkBox;
-	            }
-	        });
+					}
+				});
 
+				checkBox.setValue(selected.containsKey(itemId));
+				return checkBox;
+			}
+		});
 
-			
 		doSearch(valor);
-		
-	
-		
-		
-		
-		
-		
-		
-		
-	
+
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
-		
+
 	}
 
 	public void doSearch(String valor) {
+		if (valor == null) {
+			valor = "";
+		}
 		selected.clear();
 		table.setWidth("100%");
 		table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
 		logger.info("valor pesquisado: " + valor);
-		BeanQueryFactory queryFactory = null ;
-		if(genericDAO.isMultiEmpresa(getEntityClass())){
+		BeanQueryFactory queryFactory = null;
+		if (genericDAO.isMultiEmpresa(getEntityClass())) {
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
-		}else{
-			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);	
+		} else {
+			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 		}
-		
-		
-		Map<String, Object> conf = new HashMap<String,Object>();
+
+		Map<String, Object> conf = new HashMap<String, Object>();
 		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
-		conf.put("search",valor);
+		conf.put("search", valor);
 		genericDAO.setPojoClass(getEntityClass());
-		conf.put("dao",getMainDao());
-		conf.put("pojoClass",getEntityClass());
-		conf.put("id_empresa",idEmpresa);
+		conf.put("dao", getMainDao());
+		conf.put("pojoClass", getEntityClass());
+		conf.put("id_empresa", idEmpresa);
 		queryFactory.setQueryConfiguration(conf);
 
-		
-		LazyQueryContainer container = new LazyQueryContainer(queryFactory,getBeanIdProperty(),PAGE_SIZE,true);
-		
-		for(String id_coluna : getColunas()){
-			container.addContainerProperty(id_coluna, String.class, "", true, true);	
+		LazyQueryContainer container = new LazyQueryContainer(queryFactory, getBeanIdProperty(), PAGE_SIZE, true);
+
+		for (String id_coluna : getColunas()) {
+			container.addContainerProperty(id_coluna, String.class, "", true, true);
 		}
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
 		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
 		table.setSortEnabled(true);
-		//table.markAsDirty();
+		// table.markAsDirty();
 		table.setSizeFull();
 		table.setContainerDataSource(container);
-		
-		for(String prop : getColunas()) {
+
+		for (String prop : getColunas()) {
 			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
 
 			boolean existe = (captionAnn != null && !captionAnn.value().equals("NULO"));
@@ -379,36 +360,33 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 			// verifica se e uma propriedade de um objeto dentro do bean
 			if (prop.contains(".")) {
-				//container.addNestedContainerProperty(prop);
+				// container.addNestedContainerProperty(prop);
 			}
 
-			if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)){
-				table.setColumnExpandRatio(prop, 1);	
-			}else{
+			if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)) {
+				table.setColumnExpandRatio(prop, 1);
+			} else {
 				table.setColumnExpandRatio(prop, 3);
 			}
 
-		}	
-		
+		}
+
 		boolean loadedFromFile = table.loadFromFile();
-		//boolean loadedFromFile = false;
-		if(!loadedFromFile){
-			Object[] cs = new Object[]  {CustomListTable.CUSTOM_SELECT_ID};
+		// boolean loadedFromFile = false;
+		if (!loadedFromFile) {
+			Object[] cs = new Object[] { CustomListTable.CUSTOM_SELECT_ID };
 			Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
 			table.setVisibleColumns(allCollumns);
 		}
-			
-		
-		if(getColunas() != null && getColunas().length > 1){
+
+		if (getColunas() != null && getColunas().length > 1) {
 			table.setFooterVisible(true);
 			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");	
+			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");
 		}
-	
-		
-		
+
 	}
-	
+
 	protected AbstractCrudDAO getMainDao() {
 		return genericDAO;
 	}
@@ -418,15 +396,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	@Override
-	public void setPapelMenu(PapelMenu papelMenu){
+	public void setPapelMenu(PapelMenu papelMenu) {
 		logger.info("papel menu setado");
-		//logger.info(String.valueOf(papelMenu));
+		// logger.info(String.valueOf(papelMenu));
 		this.papelMenu = papelMenu;
 	}
 
 	@Override
-	public void setAcessoLiberado(){
-		this.acessoLiberado =true;
+	public void setAcessoLiberado() {
+		this.acessoLiberado = true;
 	}
 
 	protected abstract String[] getColunas();
@@ -461,12 +439,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public boolean autoriaCriacao() {
 		return acessoLiberado || DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeInserir());
 	}
-	
+
 	@Override
 	public String getControllerTitle() {
 		return this.getTitulo();
 	}
-	
+
 	@Override
 	public Controller getController() {
 		return this;
@@ -481,52 +459,49 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		window.close();
 		window = null;
 	}
-	
-	public void openOnNewWindow(int modalSize, final int mode){
-		window = new Window(){
-			
+
+	public void openOnNewWindow(int modalSize, final int mode) {
+		window = new Window() {
+
 			private static final long serialVersionUID = 1L;
 
-				public void close() {
-					if(mode == WINDOW_FORM){
-						if(getFormController().hasNewAttemptOpen()){
-					           getFormController().confirmClose();  
-					         } else{
-					        	 super.close();
-					         }	
-					}else{
+			public void close() {
+				if (mode == WINDOW_FORM) {
+					if (getFormController().hasNewAttemptOpen()) {
+						getFormController().confirmClose();
+					} else {
 						super.close();
 					}
-			        
-			     };
-			     
+				} else {
+					super.close();
+				}
+
+			};
+
 		};
-		
-		
-		if(mode == WINDOW_FORM){
-			window.setContent((Component) getFormController().getView());	
-		}else if(mode == WINDOW_LIST){
+
+		if (mode == WINDOW_FORM) {
+			window.setContent((Component) getFormController().getView());
+		} else if (mode == WINDOW_LIST) {
 			window.setContent((Component) getView());
 		}
-		
-		
-		
+
 		window.center();
-		if(modalSize != 1 && modalSize != 2){
+		if (modalSize != 1 && modalSize != 2) {
 			window.setWidth("70%");
-			window.setHeight("80%");	
-		}else if (modalSize == 1){
+			window.setHeight("80%");
+		} else if (modalSize == 1) {
 			window.setWidth("100%");
-			window.setHeight("100%");	
-		}else{
+			window.setHeight("100%");
+		} else {
 			window.setWidth("35%");
 			window.setHeight("40%");
 		}
-		
+
 		window.setModal(true);
-		
+
 		UI.getCurrent().addWindow(window);
-		
+
 	}
 
 	public boolean isOnSeparateWindow() {
@@ -540,22 +515,23 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public void setSaveListener(ModalWindowSaveListener modalWindowSaveListener) {
 		saveListener = modalWindowSaveListener;
 	}
-	
+
 	public void setSelectionListener(ModalWindowSelectionListener listener) {
 		windowSelectionListener = listener;
 	}
-	
-	public Table getTable(){
+
+	public Table getTable() {
 		return table;
 	}
 
 	public void notifySaved(E obj) {
-		if(saveListener != null){
+		if (saveListener != null) {
 			saveListener.onSave(obj);
 		}
 	}
+
 	public void notifySelected(E obj) {
-		if(windowSelectionListener != null){
+		if (windowSelectionListener != null) {
 			windowSelectionListener.onSelect(obj);
 			this.closeWindow();
 		}
@@ -563,19 +539,19 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	public void showOnWindow(Component c) {
 		window.setContent(c);
-		
+
 	}
-	
+
 	@Override
-	public void dispose(){
-		//view = null;
-		//table = null;
-		//saveListener = null;
-		//windowSelectionListener = null;
+	public void dispose() {
+		// view = null;
+		// table = null;
+		// saveListener = null;
+		// windowSelectionListener = null;
 	}
-	
+
 	@Override
-	public void setChildModuleID(String id){
+	public void setChildModuleID(String id) {
 		getFormController().setModuleId(id);
 	}
 
