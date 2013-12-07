@@ -27,7 +27,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	private AbstractCrudDAO<T> dao;
 	private Class ctrlClass;
 	private MainController mainController;
-	private int modalSize = 2;
+	private int modalSize = 1; //Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
 
 	public static final int FULL_SIZE_MODAL = 1;

@@ -68,7 +68,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 				searchItemValue = new ItemValue();
 				searchItemValue.setType(ITEM_TYPE_SEARCH);
-				searchItemValue.setCaption("Pesquisa avançada");
+				searchItemValue.setCaption("Pesquisa Avançada...");
 				searchItemValue.setFilter(q);
 				addItem(searchItemValue);
 
@@ -86,7 +86,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				// Adiciona "criar novo"
 				createItemValue = new ItemValue();
 				createItemValue.setType(ITEM_TYPE_CREATE);
-				createItemValue.setCaption("Criar novo: " + q);
+				createItemValue.setCaption("Criar Novo Cadastro: " + q);
 				createItemValue.setFilter(q);
 				addItem(createItemValue);
 			} else {
