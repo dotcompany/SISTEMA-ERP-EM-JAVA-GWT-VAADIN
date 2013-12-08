@@ -160,7 +160,8 @@ public class VendaFormView extends CustomComponent {
 					vendaDetalhe.setValorTotal(item.getValorTotal());
 					detalhes.add(vendaDetalhe);
 				}
-				preencheSubForm(detalhes);
+	    		preencheSubForm(detalhes);
+	    		controller.preencherDetalhes(detalhes);
 				
 			}
 		});

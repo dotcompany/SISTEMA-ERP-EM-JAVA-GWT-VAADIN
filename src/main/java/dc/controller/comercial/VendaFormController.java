@@ -380,5 +380,12 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento){
 		return itemOrcamentoDAO.findByOrcamento(orcamento);
 	}
+	
+	public void preencherDetalhes(List<VendaDetalhe> detalhes){
+		currentBean.setDetalhes(detalhes);
+		for(VendaDetalhe detalhe : detalhes){
+			detalhe.setVenda(currentBean);
+		}
+	}
 
 }
