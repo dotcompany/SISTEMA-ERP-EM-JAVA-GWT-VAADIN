@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
@@ -94,6 +95,12 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 					.getValue();
 			String codigoEfd = this.subView.getTfCodigoEfd().getValue();
 
+			ContaEntity conta = this.subView.getCbConta().getValue();
+			PlanoContaEntity planoConta = this.subView.getCbPlanoConta()
+					.getValue();
+			PlanoContaRefSpedEntity planoContaRefSped = this.subView
+					.getCbPlanoContaRefSped().getValue();
+
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setTipo(tipo);
 			this.pEntity.setDescricao(descricao);
@@ -105,6 +112,10 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			this.pEntity.setOrdem(ordem);
 			this.pEntity.setCodigoReduzido(codigoReduzido);
 			this.pEntity.setCodigoEfd(codigoEfd);
+
+			this.pEntity.setConta(conta);
+			this.pEntity.setPlanoConta(planoConta);
+			this.pEntity.setPlanoContaRefSped(planoContaRefSped);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -174,6 +185,51 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		ContaEntity conta = this.subView.getCbConta().getValue();
+
+		if (!Validator.validateObject(conta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
+
+			return false;
+		}
+
+		PlanoContaEntity planoConta = this.subView.getCbPlanoConta().getValue();
+
+		if (!Validator.validateObject(planoConta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbPlanoConta(), msg);
+
+			return false;
+		}
+
+		PlanoContaRefSpedEntity planoContaRefSped = this.subView
+				.getCbPlanoContaRefSped().getValue();
+
+		if (!Validator.validateObject(planoContaRefSped)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbPlanoContaRefSped(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -238,8 +294,20 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new ContaEntity();
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbPlanoConta().setValue(
+						this.pEntity.getPlanoConta());
+				this.subView.getCbPlanoContaRefSped().setValue(
+						this.pEntity.getPlanoContaRefSped());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbPlanoConta().setValue(
+						this.pEntity.getPlanoConta());
+				this.subView.getCbPlanoContaRefSped().setValue(
+						this.pEntity.getPlanoContaRefSped());
 			}
 
 			this.subView.getTfClassificacao().setValue(

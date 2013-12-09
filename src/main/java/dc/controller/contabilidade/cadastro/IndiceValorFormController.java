@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
 import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
@@ -80,8 +81,12 @@ public class IndiceValorFormController extends
 			Double valor = Double.parseDouble(this.subView.getTfValor()
 					.getValue());
 
+			IndiceEntity indice = this.subView.getCbIndice().getValue();
+
 			this.pEntity.setDataIndice(dataIndice);
 			this.pEntity.setValor(valor);
+
+			this.pEntity.setIndice(indice);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -151,6 +156,40 @@ public class IndiceValorFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataIndice = this.subView.getPdfDataIndice().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataIndice)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataIndice(), msg);
+
+			return false;
+		}
+
+		String valor = this.subView.getTfValor().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valor)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		IndiceEntity indice = this.subView.getCbIndice().getValue();
+
+		if (!Validator.validateObject(indice)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbIndice(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -203,8 +242,12 @@ public class IndiceValorFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new IndiceValorEntity();
+
+				this.subView.getCbIndice().setValue(this.pEntity.getIndice());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbIndice().setValue(this.pEntity.getIndice());
 			}
 
 			this.subView.getPdfDataIndice().setValue(

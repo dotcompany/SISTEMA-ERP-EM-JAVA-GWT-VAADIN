@@ -1,5 +1,6 @@
 package dc.control.validator;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Validator {
@@ -87,6 +88,19 @@ public class Validator {
 		try {
 			if (value != null && !value.equals("") && !value.isEmpty()) {
 				Integer.parseInt(value);
+			}
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public synchronized static Boolean validateNotRequiredBigDecimal(
+			String value) {
+		try {
+			if (value != null && !value.equals("") && !value.isEmpty()) {
+				new BigDecimal(value);
 			}
 
 			return true;

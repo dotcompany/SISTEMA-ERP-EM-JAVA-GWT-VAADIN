@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.controller.financeiro.IndiceEconomicoListController;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.financeiro.IndiceEconomicoEntity;
@@ -81,9 +82,14 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 					.getValue();
 			String mensalMesAno = this.subView.getTfMensalMesAno().getValue();
 
+			IndiceEconomicoEntity indiceEconomico = this.subView
+					.getCbIndiceEconomico().getValue();
+
 			this.pEntity.setPeriodicidade(periocidade);
 			this.pEntity.setDiarioPartirDe(diarioPartirDe);
 			this.pEntity.setMensalMesAno(mensalMesAno);
+
+			this.pEntity.setIndiceEconomico(indiceEconomico);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -153,6 +159,31 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object diarioPartirDe = this.subView.getPdfDiarioPartirDe().getValue();
+
+		if (!Validator.validateNotRequiredDate(diarioPartirDe)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDiarioPartirDe(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		IndiceEconomicoEntity indiceEconomico = this.subView
+				.getCbIndiceEconomico().getValue();
+
+		if (!Validator.validateObject(indiceEconomico)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbIndiceEconomico(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -205,8 +236,14 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new IndiceEntity();
+
+				this.subView.getCbIndiceEconomico().setValue(
+						this.pEntity.getIndiceEconomico());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbIndiceEconomico().setValue(
+						this.pEntity.getIndiceEconomico());
 			}
 
 			this.subView.getTfPeriodicidade().setValue(

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.RegistroCartorioEntity;
 import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
 import dc.visao.contabilidade.cadastro.RegistroCartorioFormView;
@@ -153,6 +154,46 @@ public class RegistroCartorioFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataRegistro = this.subView.getPdfDataRegistro().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataRegistro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataRegistro(), msg);
+
+			return false;
+		}
+
+		String numero = this.subView.getTfNumero().getValue();
+
+		if (!Validator.validateNotRequiredNumber(numero)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
+
+			return false;
+		}
+
+		String folha = this.subView.getTfFolha().getValue();
+
+		if (!Validator.validateNotRequiredNumber(folha)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfFolha(), msg);
+
+			return false;
+		}
+
+		String livro = this.subView.getTfLivro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(livro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfLivro(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 

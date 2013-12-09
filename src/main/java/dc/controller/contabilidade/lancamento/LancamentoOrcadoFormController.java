@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
@@ -102,6 +103,8 @@ public class LancamentoOrcadoFormController extends
 			Double dezembro = Double.parseDouble(this.subView.getTfDezembro()
 					.getValue());
 
+			ContaEntity conta = this.subView.getCbConta().getValue();
+
 			this.pEntity.setAno(ano);
 			this.pEntity.setJaneiro(janeiro);
 			this.pEntity.setFevereiro(fevereiro);
@@ -115,6 +118,8 @@ public class LancamentoOrcadoFormController extends
 			this.pEntity.setOutubro(outubro);
 			this.pEntity.setNovembro(novembro);
 			this.pEntity.setDezembro(dezembro);
+
+			this.pEntity.setConta(conta);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -184,6 +189,140 @@ public class LancamentoOrcadoFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String janeiro = this.subView.getTfJaneiro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(janeiro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfJaneiro(), msg);
+
+			return false;
+		}
+
+		String fevereiro = this.subView.getTfFevereiro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(fevereiro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfFevereiro(), msg);
+
+			return false;
+		}
+
+		String marco = this.subView.getTfMarco().getValue();
+
+		if (!Validator.validateNotRequiredNumber(marco)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfMarco(), msg);
+
+			return false;
+		}
+
+		String abril = this.subView.getTfAbril().getValue();
+
+		if (!Validator.validateNotRequiredNumber(abril)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfAbril(), msg);
+
+			return false;
+		}
+
+		String maio = this.subView.getTfMaio().getValue();
+
+		if (!Validator.validateNotRequiredNumber(maio)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfMaio(), msg);
+
+			return false;
+		}
+
+		String junho = this.subView.getTfJunho().getValue();
+
+		if (!Validator.validateNotRequiredNumber(junho)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfJunho(), msg);
+
+			return false;
+		}
+
+		String julho = this.subView.getTfJulho().getValue();
+
+		if (!Validator.validateNotRequiredNumber(julho)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfJulho(), msg);
+
+			return false;
+		}
+
+		String agosto = this.subView.getTfAgosto().getValue();
+
+		if (!Validator.validateNotRequiredNumber(agosto)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfAgosto(), msg);
+
+			return false;
+		}
+
+		String setembro = this.subView.getTfSetembro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(setembro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfSetembro(), msg);
+
+			return false;
+		}
+
+		String outubro = this.subView.getTfOutubro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(outubro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfOutubro(), msg);
+
+			return false;
+		}
+
+		String novembro = this.subView.getTfNovembro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(novembro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfNovembro(), msg);
+
+			return false;
+		}
+
+		String dezembro = this.subView.getTfDezembro().getValue();
+
+		if (!Validator.validateNotRequiredNumber(dezembro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfDezembro(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		ContaEntity conta = this.subView.getCbConta().getValue();
+
+		if (!Validator.validateObject(conta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -236,8 +375,12 @@ public class LancamentoOrcadoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoOrcadoEntity();
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			}
 
 			this.subView.getTfAno().setValue(this.pEntity.getAno());

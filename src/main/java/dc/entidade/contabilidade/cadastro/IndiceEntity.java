@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.IndiceEconomico;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -93,7 +93,7 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_indice_economico", nullable = false)
 	@Caption("Índice econômico")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private IndiceEconomico indiceEconomico;
+	private IndiceEconomicoEntity indiceEconomico;
 
 	/**
 	 * REFERENCIA - LIST
@@ -165,11 +165,11 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 				.toUpperCase());
 	}
 
-	public IndiceEconomico getIndiceEconomico() {
+	public IndiceEconomicoEntity getIndiceEconomico() {
 		return indiceEconomico;
 	}
 
-	public void setIndiceEconomico(IndiceEconomico indiceEconomico) {
+	public void setIndiceEconomico(IndiceEconomicoEntity indiceEconomico) {
 		this.indiceEconomico = indiceEconomico;
 	}
 

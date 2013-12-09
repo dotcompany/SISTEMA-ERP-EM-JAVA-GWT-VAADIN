@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeCabFormView;
@@ -146,6 +147,36 @@ public class EncerramentoExeCabFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataInicio = this.subView.getPdfDataInicio().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInicio)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
+
+			return false;
+		}
+
+		Object dataFim = this.subView.getPdfDataFim().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataFim)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataFim(), msg);
+
+			return false;
+		}
+
+		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 

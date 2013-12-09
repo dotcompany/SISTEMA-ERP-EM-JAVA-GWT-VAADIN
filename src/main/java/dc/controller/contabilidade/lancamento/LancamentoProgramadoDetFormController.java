@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.controller.contabilidade.cadastro.HistoricoListController;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
@@ -177,6 +178,52 @@ public class LancamentoProgramadoDetFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String valor = this.subView.getTfValor().getValue();
+
+		if (!Validator.validateNotRequiredBigDecimal(valor)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView
+				.getCbLancamentoProgramadoCab().getValue();
+
+		if (!Validator.validateObject(lancamentoProgramadoCab)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(
+					this.subView.getCbLancamentoProgramadoCab(), msg);
+
+			return false;
+		}
+
+		ContaEntity conta = this.subView.getCbConta().getValue();
+
+		if (!Validator.validateObject(conta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
+
+			return false;
+		}
+
+		HistoricoEntity historico = this.subView.getCbHistorico().getValue();
+
+		if (!Validator.validateObject(historico)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbHistorico(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -241,8 +288,20 @@ public class LancamentoProgramadoDetFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoProgramadoDetEntity();
+
+				this.subView.getCbLancamentoProgramadoCab().setValue(
+						this.pEntity.getLancamentoProgramadoCab());
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbHistorico().setValue(
+						this.pEntity.getHistorico());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbLancamentoProgramadoCab().setValue(
+						this.pEntity.getLancamentoProgramadoCab());
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbHistorico().setValue(
+						this.pEntity.getHistorico());
 			}
 
 			this.subView.getTfDescricaoHistorico().setValue(
@@ -250,11 +309,6 @@ public class LancamentoProgramadoDetFormController extends
 			this.subView.getTfValor().setValue(
 					this.pEntity.getValor().toString());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
-
-			this.subView.getCbLancamentoProgramadoCab().setValue(
-					this.pEntity.getLancamentoProgramadoCab());
-			this.subView.getCbConta().setValue(this.pEntity.getConta());
-			this.subView.getCbHistorico().setValue(this.pEntity.getHistorico());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

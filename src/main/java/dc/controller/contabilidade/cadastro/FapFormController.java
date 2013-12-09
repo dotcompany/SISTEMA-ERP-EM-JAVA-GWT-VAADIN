@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.FapEntity;
 import dc.servicos.dao.contabilidade.cadastro.FapDAO;
 import dc.visao.contabilidade.cadastro.FapFormView;
@@ -144,6 +145,36 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String fap = this.subView.getTfFap().getValue();
+
+		if (!Validator.validateNotRequiredBigDecimal(fap)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfFap(), msg);
+
+			return false;
+		}
+
+		Object dataInicial = this.subView.getPdfDataInicial().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInicial)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInicial(), msg);
+
+			return false;
+		}
+
+		Object dataFinal = this.subView.getPdfDataFinal().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataFinal)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataFinal(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 

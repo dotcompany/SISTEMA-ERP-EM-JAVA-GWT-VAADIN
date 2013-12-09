@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
@@ -84,11 +85,15 @@ public class LancamentoCabecalhoFormController extends
 			Double valor = Double.parseDouble(this.subView.getTfValor()
 					.getValue());
 
+			LoteEntity lote = this.subView.getCbLote().getValue();
+
 			this.pEntity.setDataLancamento(dataLancamento);
 			this.pEntity.setDataInclusao(dataInclusao);
 			this.pEntity.setTipo(tipo);
 			this.pEntity.setLiberado(liberado);
 			this.pEntity.setValor(valor);
+
+			this.pEntity.setLote(lote);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -158,6 +163,50 @@ public class LancamentoCabecalhoFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataLancamento = this.subView.getPdfDataLancamento().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataLancamento)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataLancamento(), msg);
+
+			return false;
+		}
+
+		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
+
+			return false;
+		}
+
+		String valor = this.subView.getTfValor().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valor)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		LoteEntity lote = this.subView.getCbLote().getValue();
+
+		if (!Validator.validateObject(lote)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbLote(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -210,8 +259,12 @@ public class LancamentoCabecalhoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoCabecalhoEntity();
+
+				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
 			this.subView.getPdfDataLancamento().setValue(

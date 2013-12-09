@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
@@ -90,10 +91,17 @@ public class EncerramentoExeDetFormController extends
 			Double saldo = Double.parseDouble(this.subView.getTfSaldo()
 					.getValue());
 
+			EncerramentoExeCabEntity encerramentoExeCab = this.subView
+					.getCbEncerramentoExeCab().getValue();
+			ContaEntity conta = this.subView.getCbConta().getValue();
+
 			this.pEntity.setSaldoAnterior(saldoAnterior);
 			this.pEntity.setValorDebito(valorDebito);
 			this.pEntity.setValorCredito(valorCredito);
 			this.pEntity.setSaldo(saldo);
+
+			this.pEntity.setEncerramentoExeCab(encerramentoExeCab);
+			this.pEntity.setConta(conta);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -163,6 +171,72 @@ public class EncerramentoExeDetFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String saldoAnterior = this.subView.getTfSaldoAnterior().getValue();
+
+		if (!Validator.validateNotRequiredNumber(saldoAnterior)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfSaldoAnterior(), msg);
+
+			return false;
+		}
+
+		String valorDebito = this.subView.getTfValorDebito().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valorDebito)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValorDebito(), msg);
+
+			return false;
+		}
+
+		String valorCredito = this.subView.getTfValorCredito().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valorCredito)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValorCredito(), msg);
+
+			return false;
+		}
+
+		String saldo = this.subView.getTfSaldo().getValue();
+
+		if (!Validator.validateNotRequiredNumber(saldo)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfSaldo(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		EncerramentoExeCabEntity encerramentoExeCab = this.subView
+				.getCbEncerramentoExeCab().getValue();
+
+		if (!Validator.validateObject(encerramentoExeCab)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(),
+					msg);
+
+			return false;
+		}
+
+		ContaEntity conta = this.subView.getCbConta().getValue();
+
+		if (!Validator.validateObject(conta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -221,8 +295,16 @@ public class EncerramentoExeDetFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new EncerramentoExeDetEntity();
+
+				this.subView.getCbEncerramentoExeCab().setValue(
+						this.pEntity.getEncerramentoExeCab());
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbEncerramentoExeCab().setValue(
+						this.pEntity.getEncerramentoExeCab());
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			}
 
 			this.subView.getTfSaldoAnterior().setValue(

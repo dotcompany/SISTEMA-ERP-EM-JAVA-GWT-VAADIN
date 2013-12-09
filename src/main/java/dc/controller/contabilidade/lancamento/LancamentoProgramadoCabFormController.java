@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoCabDAO;
@@ -160,6 +161,50 @@ public class LancamentoProgramadoCabFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
+
+			return false;
+		}
+
+		Object dataRealizada = this.subView.getPdfDataRealizada().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataRealizada)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataRealizada(), msg);
+
+			return false;
+		}
+
+		Object dataPrevista = this.subView.getPdfDataPrevista().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataPrevista)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataPrevista(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		LoteEntity lote = this.subView.getCbLote().getValue();
+
+		if (!Validator.validateObject(lote)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbLote(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -212,8 +257,12 @@ public class LancamentoProgramadoCabFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoProgramadoCabEntity();
+
+				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
 			this.subView.getPdfDataInclusao().setValue(
@@ -224,8 +273,6 @@ public class LancamentoProgramadoCabFormController extends
 					this.pEntity.getDataPrevista());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
-
-			this.subView.getCbLote().setValue(this.pEntity.getLote());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

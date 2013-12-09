@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
@@ -83,12 +84,17 @@ public class DreDetalheFormController extends
 			Double valor = Double.parseDouble(this.subView.getTfValor()
 					.getValue());
 
+			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
+					.getValue();
+
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setFormaCalculo(formaCalculo);
 			this.pEntity.setSinal(sinal);
 			this.pEntity.setNatureza(natureza);
 			this.pEntity.setValor(valor);
+
+			this.pEntity.setDreCabecalho(dreCabecalho);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -158,6 +164,31 @@ public class DreDetalheFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String valor = this.subView.getTfValor().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valor)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
+				.getValue();
+
+		if (!Validator.validateObject(dreCabecalho)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbDreCabecalho(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -210,8 +241,14 @@ public class DreDetalheFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new DreDetalheEntity();
+
+				this.subView.getCbDreCabecalho().setValue(
+						this.pEntity.getDreCabecalho());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbDreCabecalho().setValue(
+						this.pEntity.getDreCabecalho());
 			}
 
 			this.subView.getTfClassificacao().setValue(

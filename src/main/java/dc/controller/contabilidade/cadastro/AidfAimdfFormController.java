@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
 import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
 import dc.visao.contabilidade.cadastro.AidfAimdfFormView;
@@ -152,6 +153,37 @@ public class AidfAimdfFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String numero = this.subView.getTfNumero().getValue();
+
+		if (!Validator.validateNotRequiredInteger(numero)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
+
+			return false;
+		}
+
+		Object dataValidade = this.subView.getPdfDataValidade().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataValidade)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataValidade(), msg);
+
+			return false;
+		}
+
+		Object dataAutorizacao = this.subView.getPdfDataAutorizacao()
+				.getValue();
+
+		if (!Validator.validateNotRequiredDate(dataAutorizacao)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataAutorizacao(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 

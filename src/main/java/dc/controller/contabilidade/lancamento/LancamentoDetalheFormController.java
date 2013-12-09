@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.controller.contabilidade.cadastro.HistoricoListController;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
@@ -93,9 +94,19 @@ public class LancamentoDetalheFormController extends
 					.getValue());
 			String tipo = this.subView.getTfTipo().getValue();
 
+			ContaEntity conta = this.subView.getCbConta().getValue();
+			HistoricoEntity historico = this.subView.getCbHistorico()
+					.getValue();
+			LancamentoCabecalhoEntity lancamentoCabecalho = this.subView
+					.getCbLancamentoCabecalho().getValue();
+
 			this.pEntity.setDescricaoHistorico(descricaoHistorico);
 			this.pEntity.setValor(valor);
 			this.pEntity.setTipo(tipo);
+
+			this.pEntity.setConta(conta);
+			this.pEntity.setHistorico(historico);
+			this.pEntity.setLancamentoCabecalho(lancamentoCabecalho);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -165,6 +176,52 @@ public class LancamentoDetalheFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String valor = this.subView.getTfValor().getValue();
+
+		if (!Validator.validateNotRequiredNumber(valor)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		ContaEntity conta = this.subView.getCbConta().getValue();
+
+		if (!Validator.validateObject(conta)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
+
+			return false;
+		}
+
+		HistoricoEntity historico = this.subView.getCbHistorico().getValue();
+
+		if (!Validator.validateObject(historico)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbHistorico(), msg);
+
+			return false;
+		}
+
+		LancamentoCabecalhoEntity lancamentoCabecalho = this.subView
+				.getCbLancamentoCabecalho().getValue();
+
+		if (!Validator.validateObject(lancamentoCabecalho)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbLancamentoCabecalho(),
+					msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -229,8 +286,20 @@ public class LancamentoDetalheFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoDetalheEntity();
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbHistorico().setValue(
+						this.pEntity.getHistorico());
+				this.subView.getCbLancamentoCabecalho().setValue(
+						this.pEntity.getLancamentoCabecalho());
 			} else {
 				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				this.subView.getCbHistorico().setValue(
+						this.pEntity.getHistorico());
+				this.subView.getCbLancamentoCabecalho().setValue(
+						this.pEntity.getLancamentoCabecalho());
 			}
 
 			this.subView.getTfDescricaoHistorico().setValue(
