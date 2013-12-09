@@ -23,40 +23,40 @@ import dc.entidade.pessoal.Colaborador;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")
-public class SecuritySessionProvider implements ApplicationContextAware{
-	
-	@Value("${security.load}") 
+public class SecuritySessionProvider implements ApplicationContextAware {
+
+	@Value("${security.load}")
 	private String loadFromSpring;
-	
+
 	public static Logger logger = Logger.getLogger(SecuritySessionProvider.class);
-	
+
 	public static ApplicationContext ctx;
-	
+
 	@PostConstruct
 	protected void init() {
-		if(loadFromSpring != null && Boolean.valueOf(loadFromSpring)){
+		if (loadFromSpring != null && Boolean.valueOf(loadFromSpring)) {
 			logger.info("will load user from spring session");
-		}else{
+		} else {
 			logger.warning("Authentication DISABLED");
 		}
 	}
-	
-	public static Usuario getUsuario(){
-		if(ctx!= null){
+
+	public static Usuario getUsuario() {
+		if (ctx != null) {
 			SecuritySessionProvider s = ctx.getBean(SecuritySessionProvider.class);
-			if(s.shouldLoadUserFromSpring()){
+			if (s.shouldLoadUserFromSpring()) {
 				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-				if(auth != null){
+				if (auth != null) {
 					Object principal = auth.getPrincipal();
-					if(principal instanceof Usuario){
+					if (principal instanceof Usuario) {
 						return (Usuario) principal;
-					}else{
+					} else if (auth.getDetails() instanceof Usuario) {
 						return (Usuario) auth.getDetails();
 					}
-				}else{
+				} else {
 					return null;
 				}
-			}else{
+			} else {
 				Usuario u = new Usuario();
 				u.setAdministrador(true);
 				Colaborador c = new Colaborador();
@@ -67,37 +67,39 @@ public class SecuritySessionProvider implements ApplicationContextAware{
 				u.setColaborador(c);
 				return u;
 			}
-		}else{
+		} else {
 			return null;
 		}
-		
+		return null;
+
 	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext arg0)
-			throws BeansException {
-		SecuritySessionProvider.ctx= arg0;
+	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
+		SecuritySessionProvider.ctx = arg0;
 	}
-	
-	public boolean shouldLoadUserFromSpring(){
+
+	public boolean shouldLoadUserFromSpring() {
 		return Boolean.valueOf(loadFromSpring);
 	}
 
-	public static void putUsuarioInSession(Usuario u,AuthenticationManager manager) {
+	public static void putUsuarioInSession(Usuario u, AuthenticationManager manager) {
 
-			WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
-			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(u.getLogin(),u.getSenha());
-			token.setDetails(u);
-			//token.setAuthenticated(isAuthenticated)
-			 //RunAsUserToken token = new RunAsUserToken(novaConta.getUsuario().getLogin(), novaConta.getUsuario(), novaConta.getUsuario().getSenha(), novaConta.getUsuario().getAuthorities(), null);
-	        SecurityContext securityContext = SecurityContextHolder.getContext();
-		        
-		        org.springframework.security.core.Authentication authenticatedUser = manager.authenticate(token);
-		        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-		        
-		        securityContext.setAuthentication(token);
-		        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+		WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(u.getLogin(), u.getSenha());
+		token.setDetails(u);
+		// token.setAuthenticated(isAuthenticated)
+		// RunAsUserToken token = new
+		// RunAsUserToken(novaConta.getUsuario().getLogin(),
+		// novaConta.getUsuario(), novaConta.getUsuario().getSenha(),
+		// novaConta.getUsuario().getAuthorities(), null);
+		SecurityContext securityContext = SecurityContextHolder.getContext();
 
+		org.springframework.security.core.Authentication authenticatedUser = manager.authenticate(token);
+		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+
+		securityContext.setAuthentication(token);
+		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
 	}
 
