@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
@@ -178,6 +179,104 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String numero = this.subView.getTfNumero().getValue();
+
+		if (!Validator.validateNotRequiredInteger(numero)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
+
+			return false;
+		}
+
+		String paginaInicial = this.subView.getTfPaginaInicial().getValue();
+
+		if (!Validator.validateNotRequiredInteger(paginaInicial)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfPaginaInicial(), msg);
+
+			return false;
+		}
+
+		String paginaFinal = this.subView.getTfPaginaFinal().getValue();
+
+		if (!Validator.validateNotRequiredInteger(paginaFinal)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfPaginaFinal(), msg);
+
+			return false;
+		}
+
+		Object dataDespacho = this.subView.getPdfDataDespacho().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataDespacho)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataDespacho(), msg);
+
+			return false;
+		}
+
+		Object dataAbertura = this.subView.getPdfDataAbertura().getValue();
+
+		if (!Validator.validateNotRequiredDate(dataAbertura)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataAbertura(), msg);
+
+			return false;
+		}
+
+		Object dataEncerramento = this.subView.getPdfDataEncerramento()
+				.getValue();
+
+		if (!Validator.validateNotRequiredDate(dataEncerramento)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfDataEncerramento(), msg);
+
+			return false;
+		}
+
+		Object escrituracaoInicio = this.subView.getPdfEscrituracaoInicio()
+				.getValue();
+
+		if (!Validator.validateNotRequiredDate(escrituracaoInicio)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoInicio(),
+					msg);
+
+			return false;
+		}
+
+		Object escrituracaoFim = this.subView.getPdfEscrituracaoFim()
+				.getValue();
+
+		if (!Validator.validateNotRequiredDate(escrituracaoFim)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoFim(), msg);
+
+			return false;
+		}
+
+		/**
+		 * REQUIRED
+		 */
+
+		LivroEntity livro = this.subView.getCbLivro().getValue();
+
+		if (!Validator.validateObject(livro)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getCbLivro(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
