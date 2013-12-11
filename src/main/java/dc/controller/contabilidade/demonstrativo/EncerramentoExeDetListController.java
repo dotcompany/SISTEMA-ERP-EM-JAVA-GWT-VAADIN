@@ -56,7 +56,7 @@ public class EncerramentoExeDetListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Encerramentop de exercício detalhe";
+		return "Encerramento de exercício detalhe";
 	}
 
 	@Override

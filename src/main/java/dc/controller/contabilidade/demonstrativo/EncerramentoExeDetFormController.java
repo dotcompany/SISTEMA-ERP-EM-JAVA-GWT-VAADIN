@@ -296,9 +296,9 @@ public class EncerramentoExeDetFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new EncerramentoExeDetEntity();
 
-				this.subView.getCbEncerramentoExeCab().setValue(
-						this.pEntity.getEncerramentoExeCab());
-				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				// this.subView.getCbEncerramentoExeCab().setValue(
+				// this.pEntity.getEncerramentoExeCab());
+				// this.subView.getCbConta().setValue(this.pEntity.getConta());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

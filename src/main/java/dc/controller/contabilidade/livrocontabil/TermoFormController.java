@@ -330,7 +330,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new TermoEntity();
 
-				this.subView.getCbLivro().setValue(new LivroEntity());
+				// this.subView.getCbLivro().setValue(new LivroEntity());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

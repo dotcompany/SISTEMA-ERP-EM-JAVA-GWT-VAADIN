@@ -243,7 +243,7 @@ public class IndiceValorFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new IndiceValorEntity();
 
-				this.subView.getCbIndice().setValue(this.pEntity.getIndice());
+				// this.subView.getCbIndice().setValue(this.pEntity.getIndice());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

@@ -237,8 +237,8 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new IndiceEntity();
 
-				this.subView.getCbIndiceEconomico().setValue(
-						this.pEntity.getIndiceEconomico());
+				// this.subView.getCbIndiceEconomico().setValue(
+				// this.pEntity.getIndiceEconomico());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

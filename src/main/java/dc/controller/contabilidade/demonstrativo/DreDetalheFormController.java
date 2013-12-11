@@ -242,8 +242,8 @@ public class DreDetalheFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new DreDetalheEntity();
 
-				this.subView.getCbDreCabecalho().setValue(
-						this.pEntity.getDreCabecalho());
+				// this.subView.getCbDreCabecalho().setValue(
+				// this.pEntity.getDreCabecalho());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

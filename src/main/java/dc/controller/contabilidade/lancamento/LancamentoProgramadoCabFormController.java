@@ -258,7 +258,7 @@ public class LancamentoProgramadoCabFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoProgramadoCabEntity();
 
-				this.subView.getCbLote().setValue(this.pEntity.getLote());
+				// this.subView.getCbLote().setValue(this.pEntity.getLote());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

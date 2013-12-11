@@ -287,11 +287,11 @@ public class LancamentoDetalheFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoDetalheEntity();
 
-				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbHistorico().setValue(
-						this.pEntity.getHistorico());
-				this.subView.getCbLancamentoCabecalho().setValue(
-						this.pEntity.getLancamentoCabecalho());
+				// this.subView.getCbConta().setValue(this.pEntity.getConta());
+				// this.subView.getCbHistorico().setValue(
+				// this.pEntity.getHistorico());
+				// this.subView.getCbLancamentoCabecalho().setValue(
+				// this.pEntity.getLancamentoCabecalho());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

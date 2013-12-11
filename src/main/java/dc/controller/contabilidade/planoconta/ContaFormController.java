@@ -295,11 +295,11 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new ContaEntity();
 
-				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbPlanoConta().setValue(
-						this.pEntity.getPlanoConta());
-				this.subView.getCbPlanoContaRefSped().setValue(
-						this.pEntity.getPlanoContaRefSped());
+				// this.subView.getCbConta().setValue(this.pEntity.getConta());
+				// this.subView.getCbPlanoConta().setValue(
+				// this.pEntity.getPlanoConta());
+				// this.subView.getCbPlanoContaRefSped().setValue(
+				// this.pEntity.getPlanoContaRefSped());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

@@ -260,7 +260,7 @@ public class LancamentoCabecalhoFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoCabecalhoEntity();
 
-				this.subView.getCbLote().setValue(this.pEntity.getLote());
+				// this.subView.getCbLote().setValue(this.pEntity.getLote());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

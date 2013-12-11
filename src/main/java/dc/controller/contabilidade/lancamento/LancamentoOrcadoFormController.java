@@ -376,7 +376,7 @@ public class LancamentoOrcadoFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoOrcadoEntity();
 
-				this.subView.getCbConta().setValue(this.pEntity.getConta());
+				// this.subView.getCbConta().setValue(this.pEntity.getConta());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 

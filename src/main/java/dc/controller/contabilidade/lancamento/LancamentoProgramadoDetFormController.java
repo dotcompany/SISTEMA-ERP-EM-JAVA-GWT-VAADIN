@@ -289,11 +289,11 @@ public class LancamentoProgramadoDetFormController extends
 			if (id.equals(0) || id == null) {
 				this.pEntity = new LancamentoProgramadoDetEntity();
 
-				this.subView.getCbLancamentoProgramadoCab().setValue(
-						this.pEntity.getLancamentoProgramadoCab());
-				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbHistorico().setValue(
-						this.pEntity.getHistorico());
+				// this.subView.getCbLancamentoProgramadoCab().setValue(
+				// this.pEntity.getLancamentoProgramadoCab());
+				// this.subView.getCbConta().setValue(this.pEntity.getConta());
+				// this.subView.getCbHistorico().setValue(
+				// this.pEntity.getHistorico());
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
