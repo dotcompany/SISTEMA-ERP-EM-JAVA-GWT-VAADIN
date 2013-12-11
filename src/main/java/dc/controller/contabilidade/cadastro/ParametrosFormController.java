@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
 import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
 import dc.visao.contabilidade.cadastro.ParametrosFormView;
@@ -202,6 +203,8 @@ public class ParametrosFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new ParametrosFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -231,6 +234,16 @@ public class ParametrosFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		String niveis = this.subView.getTfNiveis().getValue();
+
+		if (!Validator.validateNotRequiredInteger(niveis)) {
+			String msg = "Não pode ficar em branco.";
+
+			adicionarErroDeValidacao(this.subView.getTfNiveis(), msg);
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -253,6 +266,14 @@ public class ParametrosFormController extends
 	/**
 	 * COMBOS
 	 */
+
+	private void popularCombo() {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * **************************************

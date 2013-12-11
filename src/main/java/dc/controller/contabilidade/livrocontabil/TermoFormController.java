@@ -360,10 +360,6 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			this.subView.getPdfEscrituracaoFim().setValue(
 					this.pEntity.getEscrituracaoFim());
 			this.subView.getTfTexto().setValue(this.pEntity.getTexto());
-
-			// popularCombo();
-
-			// this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
