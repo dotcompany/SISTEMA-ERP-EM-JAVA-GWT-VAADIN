@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.SpedPis4315DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SpedPis4315ListController extends CRUDListController<SpedPis4315>{
+public class SpedPis4315ListController extends CRUDListController<SpedPis4315> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SpedPis4315DAO dao;
-	
+
 	@Autowired
-	SpedPis4315FormController spedPis4315FormController;
-	
+	SpedPis4315FormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao", "observacao", "inicioVigencia", "fimVigencia"};
+		return new String[] { "codigo", "descricao", "observacao",
+				"inicioVigencia", "fimVigencia" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class SpedPis4315ListController extends CRUDListController<SpedPis4315>{
 		return SpedPis4315.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Sped Pis 4315";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SpedPis4315> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SpedPis4315> getFormController() {
-		return spedPis4315FormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSpedPis4315";
@@ -72,4 +81,5 @@ public class SpedPis4315ListController extends CRUDListController<SpedPis4315>{
 	protected List<SpedPis4315> pesquisaDefault() {
 		return (List<SpedPis4315>) dao.getAll(getEntityClass());
 	}
+
 }

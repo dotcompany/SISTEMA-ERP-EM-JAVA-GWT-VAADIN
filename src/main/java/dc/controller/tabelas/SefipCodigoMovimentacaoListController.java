@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.SefipCodigoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SefipCodigoMovimentacaoListController extends CRUDListController<SefipCodigoMovimentacao>{
+public class SefipCodigoMovimentacaoListController extends
+		CRUDListController<SefipCodigoMovimentacao> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SefipCodigoMovimentacaoDAO dao;
-	
+
 	@Autowired
-	SefipCodigoMovimentacaoFormController sefipCodigoMovimentacaoFormController;
-	
+	SefipCodigoMovimentacaoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao", "aplicacao"};
+		return new String[] { "codigo", "descricao", "aplicacao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class SefipCodigoMovimentacaoListController extends CRUDListController<Se
 		return SefipCodigoMovimentacao.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Sefip Codigo Movimentação";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SefipCodigoMovimentacao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SefipCodigoMovimentacao> getFormController() {
-		return sefipCodigoMovimentacaoFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSefipCodigoMovimentacao";
@@ -72,4 +81,5 @@ public class SefipCodigoMovimentacaoListController extends CRUDListController<Se
 	protected List<SefipCodigoMovimentacao> pesquisaDefault() {
 		return (List<SefipCodigoMovimentacao>) dao.getAll(getEntityClass());
 	}
+
 }

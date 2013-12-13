@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.SefipCodigoRecolhimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SefipCodigoRecolhimentoListController extends CRUDListController<SefipCodigoRecolhimento>{
+public class SefipCodigoRecolhimentoListController extends
+		CRUDListController<SefipCodigoRecolhimento> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SefipCodigoRecolhimentoDAO dao;
-	
+
 	@Autowired
-	SefipCodigoRecolhimentoFormController sefipCodigoRecolhimentoFormController;
-	
+	SefipCodigoRecolhimentoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao", "aplicacao"};
+		return new String[] { "codigo", "descricao", "aplicacao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class SefipCodigoRecolhimentoListController extends CRUDListController<Se
 		return SefipCodigoRecolhimento.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Sefip Codigo Recolhimento";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SefipCodigoRecolhimento> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SefipCodigoRecolhimento> getFormController() {
-		return sefipCodigoRecolhimentoFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSefipCodigoRecolhimento";
@@ -72,4 +81,5 @@ public class SefipCodigoRecolhimentoListController extends CRUDListController<Se
 	protected List<SefipCodigoRecolhimento> pesquisaDefault() {
 		return (List<SefipCodigoRecolhimento>) dao.getAll(getEntityClass());
 	}
+
 }

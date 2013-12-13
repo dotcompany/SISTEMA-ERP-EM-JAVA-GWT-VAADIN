@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.SefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SefipCategoriaTrabalhoListController extends CRUDListController<SefipCategoriaTrabalho>{
+public class SefipCategoriaTrabalhoListController extends
+		CRUDListController<SefipCategoriaTrabalho> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SefipCategoriaTrabalhoDAO dao;
-	
+
 	@Autowired
-	SefipCategoriaTrabalhoFormController sefipFormController;
-	
+	SefipCategoriaTrabalhoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","nome"};
+		return new String[] { "codigo", "nome" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 		return SefipCategoriaTrabalho.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Sefip Categoria de Trabalho";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SefipCategoriaTrabalho> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SefipCategoriaTrabalho> getFormController() {
-		return sefipFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSefipCategoriaTrabalho";
@@ -72,4 +81,5 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 	protected List<SefipCategoriaTrabalho> pesquisaDefault() {
 		return (List<SefipCategoriaTrabalho>) dao.getAll(getEntityClass());
 	}
+
 }

@@ -24,6 +24,11 @@ import dc.visao.tabelas.CfopFormView;
 @Scope("prototype")
 public class CfopFormController extends CRUDFormController<Cfop> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CfopFormView subView;
 
 	@Autowired
@@ -43,16 +48,15 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 
 	@Override
 	protected void actionSalvar() {
-
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
+
 		try {
 			cfopDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -100,11 +104,13 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

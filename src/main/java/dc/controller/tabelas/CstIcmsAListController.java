@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CstIcmsADAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CstIcmsAListController extends CRUDListController<CstIcmsA>{
+public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CstIcmsADAO dao;
-	
+
 	@Autowired
-	CstIcmsAFormController cstIcmsAFormController;
-	
+	CstIcmsAFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao","observacao"};
+		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA>{
 		return CstIcmsA.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Cst Icms A";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CstIcmsA> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CstIcmsA> getFormController() {
-		return cstIcmsAFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCstIcmsA";
@@ -72,4 +80,5 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA>{
 	protected List<CstIcmsA> pesquisaDefault() {
 		return (List<CstIcmsA>) dao.getAll(getEntityClass());
 	}
+
 }

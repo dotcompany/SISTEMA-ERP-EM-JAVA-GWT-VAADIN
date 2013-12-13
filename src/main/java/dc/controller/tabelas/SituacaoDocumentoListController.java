@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.SituacaoDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SituacaoDocumentoListController extends CRUDListController<SituacaoDocumento>{
+public class SituacaoDocumentoListController extends
+		CRUDListController<SituacaoDocumento> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SituacaoDocumentoDAO dao;
-	
+
 	@Autowired
-	SituacaoDocumentoFormController situacaoDocumentoFormController;
-	
+	SituacaoDocumentoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo", "descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class SituacaoDocumentoListController extends CRUDListController<Situacao
 		return SituacaoDocumento.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Situação Documento";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SituacaoDocumento> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SituacaoDocumento> getFormController() {
-		return situacaoDocumentoFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSituacaoDocumento";

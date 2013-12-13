@@ -14,26 +14,28 @@ import dc.servicos.dao.tabelas.CstPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CstPisFormView;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
- *
-*/
+ * 
+ * @author Wesley Jr /*
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class CstPisFormController extends CRUDFormController<CstPis> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CstPisFormView subView;
-	
+
 	@Autowired
 	CstPisDAO cstPisDAO;
 
 	private CstPis currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Cst Pis";
@@ -44,32 +46,33 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		try{
+
+		try {
 			cstPisDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = cstPisDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -77,7 +80,10 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 		subView = new CstPisFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new CstPis();
@@ -89,19 +95,25 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null
+				|| subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

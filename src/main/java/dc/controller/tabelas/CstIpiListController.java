@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CstIpiDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CstIpiListController extends CRUDListController<CstIpi>{
+public class CstIpiListController extends CRUDListController<CstIpi> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CstIpiDAO dao;
-	
+
 	@Autowired
-	CstIpiFormController cstIpiFormController;
-	
+	CstIpiFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao","observacao"};
+		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CstIpiListController extends CRUDListController<CstIpi>{
 		return CstIpi.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Cst Ipi";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CstIpi> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CstIpi> getFormController() {
-		return cstIpiFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCstIpi";
@@ -72,4 +80,5 @@ public class CstIpiListController extends CRUDListController<CstIpi>{
 	protected List<CstIpi> pesquisaDefault() {
 		return (List<CstIpi>) dao.getAll(getEntityClass());
 	}
+
 }

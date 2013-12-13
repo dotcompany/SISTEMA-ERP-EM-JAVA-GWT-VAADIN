@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.CsosnbDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-*
-*/
+ * 
+ * @author Wesley Jr
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class CsosnbListController extends CRUDListController<Csosnb>{
+public class CsosnbListController extends CRUDListController<Csosnb> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CsosnbDAO dao;
-	
+
 	@Autowired
-	CsosnbFormController csosnbFormController;
-	
+	CsosnbFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao", "observacao"};
+		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class CsosnbListController extends CRUDListController<Csosnb>{
 		return Csosnb.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Csosnb";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<Csosnb> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Csosnb> getFormController() {
-		return csosnbFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCsosnb";
@@ -72,4 +81,5 @@ public class CsosnbListController extends CRUDListController<Csosnb>{
 	protected List<Csosnb> pesquisaDefault() {
 		return (List<Csosnb>) dao.getAll(getEntityClass());
 	}
+
 }

@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.TipoCreditoPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class TipoCreditoPisListController extends CRUDListController<TipoCreditoPis>{
+public class TipoCreditoPisListController extends
+		CRUDListController<TipoCreditoPis> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	TipoCreditoPisDAO dao;
-	
+
 	@Autowired
-	TipoCreditoPisFormController tipoCreditoPisFormController;
-	
+	TipoCreditoPisFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class TipoCreditoPisListController extends CRUDListController<TipoCredito
 		return TipoCreditoPis.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Tipo Crédito Pis";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<TipoCreditoPis> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<TipoCreditoPis> getFormController() {
-		return tipoCreditoPisFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaTipoCreditoPis";
@@ -72,4 +81,5 @@ public class TipoCreditoPisListController extends CRUDListController<TipoCredito
 	protected List<TipoCreditoPis> pesquisaDefault() {
 		return (List<TipoCreditoPis>) dao.getAll(getEntityClass());
 	}
+
 }

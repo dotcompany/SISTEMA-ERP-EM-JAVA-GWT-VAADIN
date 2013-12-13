@@ -14,26 +14,28 @@ import dc.servicos.dao.tabelas.CstIcmsBDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CstIcmsBFormView;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
- *
-*/
+ * 
+ * @author Wesley Jr /*
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CstIcmsBFormView subView;
-	
+
 	@Autowired
 	CstIcmsBDAO cstIcmsBDAO;
 
 	private CstIcmsB currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Cst Icms B";
@@ -44,34 +46,35 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-		try{
+
+		try {
 			cstIcmsBDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = cstIcmsBDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -79,7 +82,10 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 		subView = new CstIcmsBFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new CstIcmsB();
@@ -91,19 +97,25 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null
+				|| subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

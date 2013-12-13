@@ -14,26 +14,28 @@ import dc.servicos.dao.tabelas.CsosnaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CsosnaFormView;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
- *
-*/
+ * 
+ * @author Wesley Jr /*
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class CsosnaFormController extends CRUDFormController<Csosna> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CsosnaFormView subView;
-	
+
 	@Autowired
 	CsosnaDAO csosnaDAO;
 
 	private Csosna currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Csosna";
@@ -44,34 +46,35 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		try{
+
+		try {
 			csosnaDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = csosnaDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());	
+		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -79,7 +82,10 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 		subView = new CsosnaFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Csosna();
@@ -87,23 +93,29 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 csosnaDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		csosnaDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null
+				|| subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

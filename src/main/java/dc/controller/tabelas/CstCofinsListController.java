@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CstCofinsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CstCofinsListController extends CRUDListController<CstCofins>{
+public class CstCofinsListController extends CRUDListController<CstCofins> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CstCofinsDAO dao;
-	
+
 	@Autowired
-	CstCofinsFormController cstCofinsFormController;
-	
+	CstCofinsFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao","observacao"};
+		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CstCofinsListController extends CRUDListController<CstCofins>{
 		return CstCofins.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Cst Cofins";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CstCofins> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CstCofins> getFormController() {
-		return cstCofinsFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCstCofins";
@@ -72,4 +80,5 @@ public class CstCofinsListController extends CRUDListController<CstCofins>{
 	protected List<CstCofins> pesquisaDefault() {
 		return (List<CstCofins>) dao.getAll(getEntityClass());
 	}
+
 }

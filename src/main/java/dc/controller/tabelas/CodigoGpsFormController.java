@@ -14,26 +14,28 @@ import dc.servicos.dao.tabelas.CodigoGpsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CodigoGpsFormView;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
- *
-*/
+ * 
+ * @author Wesley Jr /*
+ * 
+ */
 
 @Controller
 @Scope("prototype")
 public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private CodigoGpsFormView subView;
-	
+
 	@Autowired
 	private CodigoGpsDAO codigoGpsDAO;
 
 	private CodigoGps currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Código Gps";
@@ -44,30 +46,31 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		try{
+
+		try {
 			codigoGpsDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = codigoGpsDAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -75,7 +78,10 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 		subView = new CodigoGpsFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new CodigoGps();
@@ -87,19 +93,25 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null
+				|| subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override

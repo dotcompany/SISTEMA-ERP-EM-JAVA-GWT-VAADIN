@@ -11,28 +11,31 @@ import dc.servicos.dao.tabelas.SalarioMinimoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class SalarioMinimoListController extends CRUDListController<SalarioMinimo>{
+public class SalarioMinimoListController extends
+		CRUDListController<SalarioMinimo> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private SalarioMinimoDAO dao;
-	
+
 	@Autowired
-	private SalarioMinimoFormController salarioMinimoFormController;
-	
+	private SalarioMinimoFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"vigencia","valorMensal","valorDiario","valorHora"};
+		return new String[] { "vigencia", "valorMensal", "valorDiario",
+				"valorHora" };
 	}
 
 	@Override
@@ -40,24 +43,31 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 		return SalarioMinimo.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Salário Mínimo";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<SalarioMinimo> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<SalarioMinimo> getFormController() {
-		return salarioMinimoFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaSalarioMinimo";
@@ -72,4 +82,5 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 	protected List<SalarioMinimo> pesquisaDefault() {
 		return (List<SalarioMinimo>) dao.getAll(getEntityClass());
 	}
+
 }

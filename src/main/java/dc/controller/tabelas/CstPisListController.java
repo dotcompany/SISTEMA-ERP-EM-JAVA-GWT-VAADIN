@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CstPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CstPisListController extends CRUDListController<CstPis>{
+public class CstPisListController extends CRUDListController<CstPis> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CstPisDAO dao;
-	
+
 	@Autowired
-	CstPisFormController cstPisFormController;
-	
+	CstPisFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CstPisListController extends CRUDListController<CstPis>{
 		return CstPis.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Cst Pis";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CstPis> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CstPis> getFormController() {
-		return cstPisFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCstPis";
@@ -72,4 +80,5 @@ public class CstPisListController extends CRUDListController<CstPis>{
 	protected List<CstPis> pesquisaDefault() {
 		return (List<CstPis>) dao.getAll(getEntityClass());
 	}
+
 }
