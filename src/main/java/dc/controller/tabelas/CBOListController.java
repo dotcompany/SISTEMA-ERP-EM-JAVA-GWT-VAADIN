@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CBODAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CBOListController extends CRUDListController<CBO>{
+public class CBOListController extends CRUDListController<CBO> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CBODAO dao;
-	
+
 	@Autowired
-	CBOFormController cboFormController;
-	
+	CBOFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","nome", "observacao"};
+		return new String[] { "codigo", "nome", "observacao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CBOListController extends CRUDListController<CBO>{
 		return CBO.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "CBO";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CBO> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CBO> getFormController() {
-		return cboFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCBO";
@@ -72,4 +80,5 @@ public class CBOListController extends CRUDListController<CBO>{
 	protected List<CBO> pesquisaDefault() {
 		return (List<CBO>) dao.getAll(getEntityClass());
 	}
+
 }

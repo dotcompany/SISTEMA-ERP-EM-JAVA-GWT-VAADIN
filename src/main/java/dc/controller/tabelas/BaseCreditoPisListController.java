@@ -11,28 +11,30 @@ import dc.servicos.dao.tabelas.BaseCreditoPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class BaseCreditoPisListController extends CRUDListController<BaseCreditoPis>{
+public class BaseCreditoPisListController extends
+		CRUDListController<BaseCreditoPis> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	BaseCreditoPisDAO dao;
-	
+
 	@Autowired
-	BaseCreditoPisFormController baseCreditoPisFormController;
-	
+	BaseCreditoPisFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -40,24 +42,31 @@ public class BaseCreditoPisListController extends CRUDListController<BaseCredito
 		return BaseCreditoPis.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Base Crédito Pis";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<BaseCreditoPis> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<BaseCreditoPis> getFormController() {
-		return baseCreditoPisFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaBaseCreditoPis";
@@ -72,4 +81,5 @@ public class BaseCreditoPisListController extends CRUDListController<BaseCredito
 	protected List<BaseCreditoPis> pesquisaDefault() {
 		return (List<BaseCreditoPis>) dao.getAll(getEntityClass());
 	}
+
 }

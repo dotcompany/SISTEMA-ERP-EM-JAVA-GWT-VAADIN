@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CfopDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CfopListController extends CRUDListController<Cfop>{
+public class CfopListController extends CRUDListController<Cfop> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CfopDAO dao;
-	
+
 	@Autowired
-	CfopFormController cfopFormController;
-	
+	CfopFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"descricao","aplicacao"};
+		return new String[] { "descricao", "aplicacao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CfopListController extends CRUDListController<Cfop>{
 		return Cfop.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Cfop";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<Cfop> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Cfop> getFormController() {
-		return cfopFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCfop";
@@ -72,4 +80,5 @@ public class CfopListController extends CRUDListController<Cfop>{
 	protected List<Cfop> pesquisaDefault() {
 		return (List<Cfop>) dao.getAll(getEntityClass());
 	}
+
 }

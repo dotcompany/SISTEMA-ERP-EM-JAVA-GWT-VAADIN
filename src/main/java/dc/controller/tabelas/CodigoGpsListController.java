@@ -11,28 +11,29 @@ import dc.servicos.dao.tabelas.CodigoGpsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 /**
-*
-* @author Wesley Jr
-/*
-*/
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Controller
 @Scope("prototype")
-public class CodigoGpsListController extends CRUDListController<CodigoGps>{
+public class CodigoGpsListController extends CRUDListController<CodigoGps> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private CodigoGpsDAO dao;
-	
+
 	@Autowired
-	private CodigoGpsFormController codigoGpsFormController;
-	
+	private CodigoGpsFormController pController;
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
@@ -40,24 +41,31 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps>{
 		return CodigoGps.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
 		return "Código Gps";
 	}
 
 	@Override
+	protected void init() {
+		// TODO Auto-generated method stub
+		super.init();
+
+		this.setEnabled(false);
+		this.pController.setEnabled(false);
+	}
+
+	@Override
 	protected List<CodigoGps> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CodigoGps> getFormController() {
-		return codigoGpsFormController;
+		return pController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaCodigoGps";
@@ -72,4 +80,5 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps>{
 	protected List<CodigoGps> pesquisaDefault() {
 		return (List<CodigoGps>) dao.getAll(getEntityClass());
 	}
+
 }
