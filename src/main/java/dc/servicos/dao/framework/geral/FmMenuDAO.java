@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.NullPrecedence;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.financeiro.Banco;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 
 @Repository
 public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
@@ -90,23 +90,15 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 	}
 
 	@Transactional
-	public List<FmMenu> getMenuByModule(Usuario usuario, String nomeClasse) {
+	public List<FmMenu> getMenuLista(List lista) {
 		try {
-			String sql = "SELECT ent1.menu.menusFilho FROM PapelMenu ent1"
-					+ " INNER JOIN ent1.menu WHERE (1 = 1)";
+			String sql = "SELECT ent.menusFilho FROM FmMenu ent"
+					+ " WHERE (1 = 1) AND (ent.fmModulo IN (:lista))";
 
-			if (usuario.getAdministrador()) {
-				sql += " AND ent1.menu.fmModulo.id = " + 7;
-				//		+ " AND ent1.menu.controllerClass = '" + nomeClasse + "'";
-				// + " AND ent1.menu.parentId is not null";
-			} else {
-				sql += " WHERE ent1.papel.id = " + usuario.getPapel().getId()
-						+ " AND ent1.menu.fmModulo.id = " + 7;
-						//+ " AND ent1.menu.controllerClass = '" + nomeClasse + "'";
-				// + " AND ent1.menu.parent is not null";
-			}
+			Query query = super.getSession().createQuery(sql);
+			query.setParameterList("lista", lista);
 
-			List<FmMenu> auxLista = super.getSession().createQuery(sql).list();
+			List<FmMenu> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -44,6 +44,7 @@ import dc.entidade.geral.Usuario;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.CustomListTable;
@@ -598,24 +599,33 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		getFormController().setModuleId(id);
 	}
 
+	/**
+	 * VERIFICAR PERMISSÃO PARA SALVAR, CRIAR, REMOVER E EDITAR
+	 */
+
 	@Autowired
-	FmMenuDAO mDAO;
+	private FmMenuDAO meDAO;
+	
+	@Autowired
+	private FmModuloDAO mDAO;
 
 	public void permissao(CRUDListController pListController,
 			CRUDFormController pFormController) {
 		Usuario usuario = ClasseUtil.getUsuario();
 
 		if (usuario.getAdministrador()) {
-			List auxLista = this.mDAO.getMenuByModule(usuario, this.getClass()
+			//List auxLista = this.mDAO.getMenuByModule(usuario, this.getClass()
+			//		.getName());
+			
+			List auxLista = this.mDAO.getModuloLista(usuario, this.getClass()
 					.getName());
+			
+			List auxLista1 = this.meDAO.getMenuLista(auxLista);
 
-			for (Object obj : auxLista) {
+			for (Object obj : auxLista1) {
 				FmMenu menu = (FmMenu) obj;
 
 				if (menu.getControllerClass().equals(this.getClass().getName())) {
-					System.out.println(menu.getCaption());
-					System.out.println(menu.getControllerClass());
-
 					pListController.setEnabled(false);
 					pFormController.setEnabled(false);
 
