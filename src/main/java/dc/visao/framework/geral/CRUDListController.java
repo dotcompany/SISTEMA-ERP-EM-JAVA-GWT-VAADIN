@@ -89,9 +89,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@PostConstruct
 	protected void init() {
 		getFormController().setListController(this);
-		
-		
-		
+
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
 
@@ -176,7 +174,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		actionPesquisa();
-		
+
 		permissao(getFormController().getListController(), getFormController());
 	}
 
@@ -209,6 +207,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	protected void actionRemoverSelecionados() {
 		final List ids = Arrays.asList(selected.keySet().toArray());
 		final List values = Arrays.asList(selected.values().toArray());
+
 		if (ids.isEmpty()) {
 			getFormController().mensagemAtencao(
 					"Nenhum registro selecionado para remoção");
@@ -230,11 +229,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 												getFormController()
 														.remover(ids);
 											}
+
 											LazyQueryContainer container = (LazyQueryContainer) table
 													.getContainerDataSource();
+
 											for (Object id : ids) {
 												container.removeItem(id);
 											}
+
 											container.commit();
 											container.refresh();
 											selected.clear();
@@ -247,10 +249,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 										}
 									}
 								}
+
 							});
 
 		}
-
 	}
 
 	protected abstract CRUDFormController<E> getFormController();
@@ -307,7 +309,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 					@Override
 					public Component generateCell(final Table source,
 							final Object itemId, final Object columnId) {
-
 						final CompositeItem selectedBeanItem = (CompositeItem) source
 								.getContainerDataSource().getItem(itemId);
 						final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem
@@ -330,6 +331,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						});
 
 						checkBox.setValue(selected.containsKey(itemId));
+
 						return checkBox;
 					}
 				});
@@ -349,6 +351,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		table.setWidth("100%");
 		table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
 		logger.info("valor pesquisado: " + valor);
+
 		BeanQueryFactory queryFactory = null;
 
 		if (genericDAO.isMultiEmpresa(getEntityClass())) {
@@ -396,6 +399,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 			boolean existe = (captionAnn != null && !captionAnn.value().equals(
 					"NULO"));
+
 			if (existe)
 				table.setColumnHeader(prop, captionAnn.value());
 			else
@@ -614,7 +618,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@Autowired
 	private FmModuloDAO mDAO;
 
-	public void permissao(CRUDListController pListController,
+	private void permissao(CRUDListController pListController,
 			CRUDFormController pFormController) {
 		Usuario usuario = ClasseUtil.getUsuario();
 
