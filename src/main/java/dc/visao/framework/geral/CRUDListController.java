@@ -89,6 +89,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@PostConstruct
 	protected void init() {
 		getFormController().setListController(this);
+		
+		
+		
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
 
@@ -173,6 +176,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		actionPesquisa();
+		
+		permissao(getFormController().getListController(), getFormController());
 	}
 
 	protected void actionAbrir(Object object) {

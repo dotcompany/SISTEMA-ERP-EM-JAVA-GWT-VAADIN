@@ -48,14 +48,6 @@ public class BaseCreditoPisListController extends
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<BaseCreditoPis> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

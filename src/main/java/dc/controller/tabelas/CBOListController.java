@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.tabelas.CBO;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.tabelas.CBODAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -45,17 +44,6 @@ public class CBOListController extends CRUDListController<CBO> {
 	@Override
 	protected String getTitulo() {
 		return "CBO";
-	}
-
-	@Autowired
-	FmMenuDAO mDAO;
-
-	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
 	}
 
 	@Override

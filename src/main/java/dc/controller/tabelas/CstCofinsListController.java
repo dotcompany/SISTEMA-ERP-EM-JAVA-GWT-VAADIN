@@ -47,14 +47,6 @@ public class CstCofinsListController extends CRUDListController<CstCofins> {
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<CstCofins> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

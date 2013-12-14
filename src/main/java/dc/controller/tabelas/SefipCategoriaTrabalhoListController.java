@@ -48,14 +48,6 @@ public class SefipCategoriaTrabalhoListController extends
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<SefipCategoriaTrabalho> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

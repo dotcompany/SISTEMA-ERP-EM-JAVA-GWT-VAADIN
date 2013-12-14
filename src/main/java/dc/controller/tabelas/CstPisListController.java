@@ -47,14 +47,6 @@ public class CstPisListController extends CRUDListController<CstPis> {
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<CstPis> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

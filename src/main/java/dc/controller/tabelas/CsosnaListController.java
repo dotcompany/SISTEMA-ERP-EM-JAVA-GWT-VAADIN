@@ -48,14 +48,6 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<Csosna> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

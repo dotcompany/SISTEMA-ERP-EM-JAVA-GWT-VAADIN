@@ -47,14 +47,6 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<CstIcmsA> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

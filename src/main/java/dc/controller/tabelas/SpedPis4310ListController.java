@@ -48,14 +48,6 @@ public class SpedPis4310ListController extends CRUDListController<SpedPis4310> {
 	}
 
 	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
-
-	@Override
 	protected List<SpedPis4310> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}

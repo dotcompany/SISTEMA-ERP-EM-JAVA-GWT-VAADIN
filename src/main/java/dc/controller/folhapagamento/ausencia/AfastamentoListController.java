@@ -26,14 +26,6 @@ public class AfastamentoListController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Override
-	protected void init() {
-		// TODO Auto-generated method stub
-		super.init();
-
-		super.permissao(this, this.pController);
-	}
 
 	/**
 	 * DAO'S

@@ -256,6 +256,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		this.listController = c;
 	}
 
+	public CRUDListController getListController() {
+		return listController;
+	}
+
 	protected abstract void remover(List<Serializable> ids);
 
 	protected abstract void removerEmCascata(List<Serializable> objetos);
