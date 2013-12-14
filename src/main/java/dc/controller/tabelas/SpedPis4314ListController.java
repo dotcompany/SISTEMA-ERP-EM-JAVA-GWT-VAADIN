@@ -52,8 +52,7 @@ public class SpedPis4314ListController extends CRUDListController<SpedPis4314> {
 		// TODO Auto-generated method stub
 		super.init();
 
-		this.setEnabled(false);
-		this.pController.setEnabled(false);
+		super.permissao(this, this.pController);
 	}
 
 	@Override

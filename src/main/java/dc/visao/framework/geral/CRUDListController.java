@@ -37,9 +37,13 @@ import com.vaadin.ui.Window;
 
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
+import dc.control.util.ClasseUtil;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
+import dc.entidade.geral.Usuario;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.CustomListTable;
@@ -49,6 +53,11 @@ import dc.visao.spring.SecuritySessionProvider;
 
 public abstract class CRUDListController<E> extends ControllerTask implements
 		Controller, ControllerAcesso {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static Logger logger = Logger.getLogger(CRUDListController.class);
 
@@ -102,7 +111,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						actionPesquisa();
 					}
 				}
-
 			}
 		});
 
@@ -126,7 +134,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
-
 			// We change the default order of the buttons
 			@Override
 			public ConfirmDialog create(String caption, String message,
@@ -142,6 +149,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			}
 
 		};
+
 		ConfirmDialog.setFactory(df);
 
 		// Botaao remover selecionados
@@ -160,7 +168,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						actionRemoverSelecionados();
 					}
 				}
-
 			}
 		});
 
@@ -173,15 +180,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 					"Escolha um registro para abrir");
 		} else {
 			Serializable id = (Serializable) object;
+
 			if (isOnSeparateWindow()) {
 				notifySelected((E) genericDAO.find(id));
 			} else {
 				mainController.showTaskableContent(getFormController());
 				getFormController().mostrar(id);
 			}
-
 		}
-
 	}
 
 	protected void actionCriarNovo() {
@@ -244,7 +250,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	protected abstract CRUDFormController<E> getFormController();
 
 	protected void actionPesquisa() {
-
 		String valor = view.getTxtPesquisa().getValue();
 
 		// Configura da tabela
@@ -264,7 +269,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		table.setPageLength(PAGE_SIZE);
 
 		table.addColumnReorderListener(new ColumnReorderListener() {
-
 			@Override
 			public void columnReorder(ColumnReorderEvent event) {
 				logger.info("reorder");
@@ -273,7 +277,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		table.addColumnResizeListener(new ColumnResizeListener() {
-
 			@Override
 			public void columnResize(ColumnResizeEvent event) {
 				logger.info("resize");
@@ -295,7 +298,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		// remover
 		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID,
 				new ColumnGenerator() {
-
 					@Override
 					public Component generateCell(final Table source,
 							final Object itemId, final Object columnId) {
@@ -308,7 +310,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						final CheckBox checkBox = new CheckBox();
 						checkBox.setImmediate(true);
 						checkBox.addValueChangeListener(new Property.ValueChangeListener() {
-
 							@Override
 							public void valueChange(
 									com.vaadin.data.Property.ValueChangeEvent event) {
@@ -319,7 +320,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 								} else {
 									selected.remove(itemId);
 								}
-
 							}
 						});
 
@@ -332,18 +332,19 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
-
 	}
 
 	public void doSearch(String valor) {
 		if (valor == null) {
 			valor = "";
 		}
+
 		selected.clear();
 		table.setWidth("100%");
 		table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
 		logger.info("valor pesquisado: " + valor);
 		BeanQueryFactory queryFactory = null;
+
 		if (genericDAO.isMultiEmpresa(getEntityClass())) {
 			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
 					DCBeanQueryMultiEmpresa.class);
@@ -368,6 +369,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			container.addContainerProperty(id_coluna, String.class, "", true,
 					true);
 		}
+
 		container.addContainerProperty(
 				LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0,
 				true, false);
@@ -390,7 +392,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 					"NULO"));
 			if (existe)
 				table.setColumnHeader(prop, captionAnn.value());
-
 			else
 				table.setColumnHeader(prop, prop);
 
@@ -404,7 +405,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			} else {
 				table.setColumnExpandRatio(prop, 3);
 			}
-
 		}
 
 		boolean loadedFromFile = table.loadFromFile();
@@ -421,7 +421,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			table.setColumnFooter(getColunas()[0], container.getItemIds()
 					.size() + " registro(s) encontrado(s)");
 		}
-
 	}
 
 	protected AbstractCrudDAO getMainDao() {
@@ -521,8 +520,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 				} else {
 					super.close();
 				}
-
-			};
+			}
 
 		};
 
@@ -533,6 +531,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		}
 
 		window.center();
+
 		if (modalSize != 1 && modalSize != 2) {
 			window.setWidth("70%");
 			window.setHeight("80%");
@@ -547,7 +546,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		window.setModal(true);
 
 		UI.getCurrent().addWindow(window);
-
 	}
 
 	public boolean isOnSeparateWindow() {
@@ -585,7 +583,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 	public void showOnWindow(Component c) {
 		window.setContent(c);
-
 	}
 
 	@Override
@@ -599,6 +596,33 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@Override
 	public void setChildModuleID(String id) {
 		getFormController().setModuleId(id);
+	}
+
+	@Autowired
+	FmMenuDAO mDAO;
+
+	public void permissao(CRUDListController pListController,
+			CRUDFormController pFormController) {
+		Usuario usuario = ClasseUtil.getUsuario();
+
+		if (usuario.getAdministrador()) {
+			List auxLista = this.mDAO.getMenuByModule(usuario, this.getClass()
+					.getName());
+
+			for (Object obj : auxLista) {
+				FmMenu menu = (FmMenu) obj;
+
+				if (menu.getControllerClass().equals(this.getClass().getName())) {
+					System.out.println(menu.getCaption());
+					System.out.println(menu.getControllerClass());
+
+					pListController.setEnabled(false);
+					pFormController.setEnabled(false);
+
+					break;
+				}
+			}
+		}
 	}
 
 }

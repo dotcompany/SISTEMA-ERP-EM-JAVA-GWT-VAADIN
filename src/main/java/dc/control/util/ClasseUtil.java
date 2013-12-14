@@ -1,7 +1,9 @@
 package dc.control.util;
 
 import dc.controller.contabilidade.cadastro.AidfAimdfFormController;
+import dc.entidade.geral.Usuario;
 import dc.visao.framework.geral.ControllerTask;
+import dc.visao.spring.SecuritySessionProvider;
 
 public class ClasseUtil {
 
@@ -23,6 +25,18 @@ public class ClasseUtil {
 		int tamanho = sUrl.length();
 
 		return sUrl.toString().substring(0, tamanho - 1);
+	}
+
+	public static synchronized Usuario getUsuario() {
+		try {
+			Usuario usuario = SecuritySessionProvider.getUsuario();
+
+			return usuario;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new Usuario();
+		}
 	}
 
 	/**
