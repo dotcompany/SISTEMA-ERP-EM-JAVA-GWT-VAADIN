@@ -17,8 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -34,62 +32,62 @@ import dc.anotacoes.Caption;
 @Table(name = "fm_menu")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class FmMenu extends AbstractModel<Integer> implements Serializable{
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class FmMenu extends AbstractModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 3022660314863012474L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Field
-    @Caption("URL (identificador)")
-    @Column(name = "URL_ID")
-    private String urlId;
-    
-    @Field()
-    @Caption("Caption")
-    @Column(name = "CAPTION")
-    private String caption;
-    
-    @Field()
-    @Caption("Classe do controller")
-    @Column(name = "controller" , nullable=false)
-    private String controllerClass;
-    
-    @ManyToOne(fetch = FetchType.EAGER ,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, targetEntity = FmModulo.class)
-    private FmModulo fmModulo;
-    
-    @Transient
-    private Integer parentId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER )
+	@Field
+	@Caption("URL (identificador)")
+	@Column(name = "URL_ID")
+	private String urlId;
+
+	@Field()
+	@Caption("Caption")
+	@Column(name = "CAPTION")
+	private String caption;
+
+	@Field()
+	@Caption("Classe do controller")
+	@Column(name = "controller", nullable = false)
+	private String controllerClass;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
+	private FmModulo fmModulo;
+
+	@Transient
+	private Integer parentId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private FmMenu parent;
-	
-	@OneToMany(mappedBy="parent", orphanRemoval=true )
+
+	@OneToMany(mappedBy = "parent", orphanRemoval = true)
 	private List<FmMenu> menusFilho;
-	
-	@OneToMany(mappedBy="menu", orphanRemoval=true  )
-	private List<PapelMenu>  papeisMenu;
-	
-    private static Logger logger = Logger.getLogger(FmMenu.class);
 
-	
-	
-	public FmMenu(){
-	}
-	
-	public FmMenu(Integer id){
-		this.id= id;
+	@OneToMany(mappedBy = "menu", orphanRemoval = true)
+	private List<PapelMenu> papeisMenu;
+
+	private static Logger logger = Logger.getLogger(FmMenu.class);
+
+	public FmMenu() {
+
 	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	public FmMenu(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 	public Integer getId() {
 		return id;
@@ -115,20 +113,19 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable{
 		this.caption = caption;
 	}
 
-
-	public FmModulo getFmModulo(){
+	public FmModulo getFmModulo() {
 		return fmModulo;
 	}
 
-    public void setFmModulo(FmModulo m){
-    	this.fmModulo = m;
-    }
-    
-    public void setParent(FmMenu m){
-    	this.parent = m;
-    }
-    
-	public FmMenu getParent(){
+	public void setFmModulo(FmModulo m) {
+		this.fmModulo = m;
+	}
+
+	public void setParent(FmMenu m) {
+		this.parent = m;
+	}
+
+	public FmMenu getParent() {
 		return this.parent;
 	}
 
@@ -139,13 +136,13 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable{
 	public void setControllerClass(String controllerClass) {
 		this.controllerClass = controllerClass;
 	}
-	
-    public Integer getParentId() {
-    	if(parent != null){
-    		return parent.id;
-    	}else{
-    		return parentId;
-    	}
+
+	public Integer getParentId() {
+		if (parent != null) {
+			return parent.id;
+		} else {
+			return parentId;
+		}
 	}
 
 	public void setParentId(Integer parentId) {
@@ -157,25 +154,20 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable{
 		return null;
 	}
 
-
 	public List<PapelMenu> getPapeisMenu() {
 		return papeisMenu;
 	}
-
 
 	public void setPapeisMenu(List<PapelMenu> papeisMenu) {
 		this.papeisMenu = papeisMenu;
 	}
 
-
 	public List<FmMenu> getMenusFilho() {
 		return menusFilho;
 	}
 
-
 	public void setMenusFilho(List<FmMenu> menusFilho) {
 		this.menusFilho = menusFilho;
 	}
-    
-	
+
 }

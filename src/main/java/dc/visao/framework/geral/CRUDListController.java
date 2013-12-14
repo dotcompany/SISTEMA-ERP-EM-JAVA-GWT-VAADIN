@@ -605,7 +605,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 	@Autowired
 	private FmMenuDAO meDAO;
-	
+
 	@Autowired
 	private FmModuloDAO mDAO;
 
@@ -613,13 +613,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			CRUDFormController pFormController) {
 		Usuario usuario = ClasseUtil.getUsuario();
 
-		if (usuario.getAdministrador()) {
-			//List auxLista = this.mDAO.getMenuByModule(usuario, this.getClass()
-			//		.getName());
-			
+		if (!usuario.getLogin().equals("admin@dotcompanyerp.com.br")) {
 			List auxLista = this.mDAO.getModuloLista(usuario, this.getClass()
 					.getName());
-			
+
 			List auxLista1 = this.meDAO.getMenuLista(auxLista);
 
 			for (Object obj : auxLista1) {
