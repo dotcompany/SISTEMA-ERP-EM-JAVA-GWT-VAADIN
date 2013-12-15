@@ -68,7 +68,7 @@ public class CriaContaController implements Serializable, ViewController {
 		if(saved){
 			MailSender sender = new MailSender();
 			try {
-				sender.send(currentBean.getEmail(), "Bem vindo ao DotCompany ERP", "Bem vindo ao DotCompany ERP.</br> Clique <a href=\"http://www.dotcompanyerp.com.br\"> aqui</a> para acessar o sistema </br>",true);
+				sender.send(currentBean.getEmail(), "Bem vindo ao DotCompany ERP", "Bem vindo ao DotCompany ERP.</br> Clique <a href=\"http://www.dotcompanyerp.com.br/login\"> aqui</a> para acessar o sistema </br>",true);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
