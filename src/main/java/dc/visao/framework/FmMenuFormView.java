@@ -236,7 +236,7 @@ public class FmMenuFormView extends CustomComponent {
 
 		// cbPermissaoOperacao
 		cbPermissaoOperacao = new CheckBox();
-		cbPermissaoOperacao.setCaption("Não Permitir CRUD:");
+		cbPermissaoOperacao.setCaption("Não Permitir Aleração no (CRUD):");
 		cbPermissaoOperacao.setImmediate(false);
 		cbPermissaoOperacao.setWidth("-1px");
 		cbPermissaoOperacao.setHeight("-1px");
