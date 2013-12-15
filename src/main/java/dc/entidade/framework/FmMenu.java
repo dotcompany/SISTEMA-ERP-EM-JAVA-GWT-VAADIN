@@ -68,6 +68,11 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private FmMenu parent;
 
+	@Field()
+	@Caption("Permissão de operação")
+	@Column(name = "sn_permissao_operacao")
+	private boolean permissaoOperacao;
+
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
 	private List<FmMenu> menusFilho;
 
@@ -127,6 +132,14 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 
 	public FmMenu getParent() {
 		return this.parent;
+	}
+
+	public boolean getPermissaoOperacao() {
+		return permissaoOperacao;
+	}
+
+	public void setPermissaoOperacao(boolean permissaoOperacao) {
+		this.permissaoOperacao = permissaoOperacao;
 	}
 
 	public String getControllerClass() {

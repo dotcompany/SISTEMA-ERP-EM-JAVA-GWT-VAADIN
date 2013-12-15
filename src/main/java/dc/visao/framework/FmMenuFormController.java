@@ -18,6 +18,11 @@ import dc.visao.framework.geral.CRUDFormController;
 @Scope("prototype")
 public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	FmMenuFormView subView;
 
 	@Autowired
@@ -44,13 +49,15 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 			currentBean.setParent(subView.getMenu());
 			currentBean.setControllerClass(subView.getTxtController()
 					.getValue());
+			currentBean.setPermissaoOperacao(subView.getCbPermissaoOperacao()
+					.getValue());
+
 			fmDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -62,12 +69,14 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 		subView.getTxtURL().setValue(currentBean.getUrlId());
 		subView.getComboModulos().setValue(currentBean.getFmModulo());
 		subView.setParentMenu(currentBean.getParent());
+		subView.getCbPermissaoOperacao().setValue(
+				currentBean.getPermissaoOperacao());
+
 		if (currentBean.getControllerClass() != null
 				&& !"".equals(currentBean.getControllerClass())) {
 			subView.getTxtController().setValue(
 					currentBean.getControllerClass());
 		}
-
 	}
 
 	/*
@@ -91,6 +100,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 	public void carregaComboMenus(FmModulo module) {
 		List<FmMenu> menus;
+
 		if (module != null) {
 			menus = fmDAO.getAllMenusByModuleId(module.getId());
 		} else {
@@ -127,6 +137,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 				|| estaVazio(subView.getTxtURL())) {
 			return false;
 		}
+
 		return true;
 	}
 
