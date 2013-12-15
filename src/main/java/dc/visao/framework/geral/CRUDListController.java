@@ -626,7 +626,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			List auxLista = this.mDAO.getModuloLista(usuario, this.getClass()
 					.getName());
 
-			List auxLista1 = this.meDAO.getMenuLista(auxLista);
+			List auxLista1 = this.meDAO.getMenuLista(auxLista, pListController
+					.getClass().getName());
 
 			for (Object obj : auxLista1) {
 				FmMenu menu = (FmMenu) obj;

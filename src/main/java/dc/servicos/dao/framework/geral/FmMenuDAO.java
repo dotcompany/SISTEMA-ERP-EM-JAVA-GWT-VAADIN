@@ -90,17 +90,30 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 	}
 
 	@Transactional
-	public List<FmMenu> getMenuLista(List lista) {
+	public List<FmMenu> getMenuLista(List lista, String nomeClasse) {
 		try {
 			String sql = "SELECT ent.parent.menusFilho FROM FmMenu ent"
 					+ " WHERE (1 = 1) AND (ent.parent.fmModulo IN (:lista))";
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameterList("lista", lista);
-			// query.setParameter("classe",
-			// "dc.controller.tabelas.CBOListController");
 
-			List<FmMenu> auxLista = query.list();
+			List<FmMenu> auxLista1 = query.list();
+
+			sql = "FROM FmMenu ent WHERE (1 = 1) AND ent.controllerClass = :controller";
+
+			query = super.getSession().createQuery(sql);
+			query.setParameter("controller", nomeClasse);
+
+			List<FmMenu> auxLista2 = query.list();
+
+			boolean b = auxLista1.contains(auxLista2.get(0));
+
+			List<FmMenu> auxLista = new ArrayList<FmMenu>();
+
+			if (b) {
+				auxLista.add(auxLista2.get(0));
+			}
 
 			return auxLista;
 		} catch (Exception e) {
