@@ -632,8 +632,13 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 				FmMenu menu = (FmMenu) obj;
 
 				if (menu.getControllerClass().equals(this.getClass().getName())) {
-					pListController.setEnabled(false);
-					pFormController.setEnabled(false);
+					if (menu.getPermissaoOperacao().equals(1)) {
+						pListController.setEnabled(false);
+						pFormController.setEnabled(false);
+					} else {
+						pListController.setEnabled(true);
+						pFormController.setEnabled(true);
+					}
 
 					break;
 				}

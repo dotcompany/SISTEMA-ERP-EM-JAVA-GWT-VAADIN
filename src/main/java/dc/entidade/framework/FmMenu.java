@@ -71,7 +71,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@Field()
 	@Caption("Permissão de operação")
 	@Column(name = "sn_permissao_operacao")
-	private boolean permissaoOperacao;
+	private Integer permissaoOperacao = new Integer(0);
 
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
 	private List<FmMenu> menusFilho;
@@ -134,12 +134,13 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		return this.parent;
 	}
 
-	public boolean getPermissaoOperacao() {
+	public Integer getPermissaoOperacao() {
 		return permissaoOperacao;
 	}
 
-	public void setPermissaoOperacao(boolean permissaoOperacao) {
-		this.permissaoOperacao = permissaoOperacao;
+	public void setPermissaoOperacao(Integer permissaoOperacao) {
+		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0)
+				: permissaoOperacao);
 	}
 
 	public String getControllerClass() {

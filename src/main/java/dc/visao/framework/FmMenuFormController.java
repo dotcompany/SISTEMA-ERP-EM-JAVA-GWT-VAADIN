@@ -49,10 +49,13 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 			currentBean.setParent(subView.getMenu());
 			currentBean.setControllerClass(subView.getTxtController()
 					.getValue());
-			currentBean.setPermissaoOperacao(subView.getCbPermissaoOperacao()
-					.getValue());
+
+			boolean b = subView.getCbPermissaoOperacao().getValue();
+
+			currentBean.setPermissaoOperacao((b == true ? 1 : 0));
 
 			fmDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
@@ -70,7 +73,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 		subView.getComboModulos().setValue(currentBean.getFmModulo());
 		subView.setParentMenu(currentBean.getParent());
 		subView.getCbPermissaoOperacao().setValue(
-				currentBean.getPermissaoOperacao());
+				(currentBean.getPermissaoOperacao() == 1 ? true : false));
 
 		if (currentBean.getControllerClass() != null
 				&& !"".equals(currentBean.getControllerClass())) {
