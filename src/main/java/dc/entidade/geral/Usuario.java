@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -31,122 +32,138 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Papel;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;
 
-
 /**
-*
-* @author Wesley Jr
-/*
-*Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
-*no nosso Banco de Dados 
-** Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
-* e mudamos, está diferente do mapeamento do T2Ti.
-* *
-* Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
-* que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
-* na Tela, pegando os dados que estão salvos no Banco de Dados.
-*/
+ * 
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
+ */
 
 @Entity
 @Table(name = "usuario")
-
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Serializable,UserDetails {
-	
-    private static final long serialVersionUID = 1L;
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable, UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Field
-    @Caption("Login")
-    @Column(name = "LOGIN")
-    private String login;
-    
-    @Field
-    @Caption("Senha")
-    @Column(name = "SENHA")
-    private String senha;
-    
-    @Column(name = "DATA_CADASTRO")
-    @Temporal(TemporalType.DATE)
-    private Date dataCadastro;
-    
-    @Column(name= "ADMINISTRADOR")
-    private Boolean administrador = false;
-    
-    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
-    @ManyToOne(optional = true, fetch=FetchType.EAGER)
-    private Colaborador colaborador;
-    
-    @JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch=FetchType.EAGER)
-    private Papel papel;
-    
-    @Field
-    @Caption("Confirmado")
-    @Column(name = "CONFIRMADO")
-    private boolean confirmado;
-    
-    @Field
-    @Caption("Nome")
-    @Column(name = "usernome")
-    private String usernome;
+	/**
+	 * 
+	 */
 
-    
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST  ,CascadeType.DETACH	})
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+
+	@Field
+	@Caption("Login")
+	@Column(name = "LOGIN")
+	private String login;
+
+	@Field
+	@Caption("Senha")
+	@Column(name = "SENHA")
+	private String senha;
+
+	@Column(name = "DATA_CADASTRO")
+	@Temporal(TemporalType.DATE)
+	private Date dataCadastro;
+
+	@Column(name = "ADMINISTRADOR")
+	private Boolean administrador = false;
+
+	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	private Colaborador colaborador;
+
+	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	private Papel papel;
+
+	@Field
+	@Caption("Confirmado")
+	@Column(name = "CONFIRMADO")
+	private boolean confirmado;
+
+	@Field
+	@Caption("Nome")
+	@Column(name = "usernome")
+	private String usernome;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
+			CascadeType.DETACH })
 	private ContaEmpresa conta;
 
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	private Integer consultaMultiempresa = new Integer(0);
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public Usuario() {
-    }
 
-    public Usuario(Integer id) {
-        this.id = id;
-    }
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Usuario(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/**
+	 * GETS AND SETS
+	 */
 
-    public String getLogin() {
-        return login;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public Boolean getAdministrador() {
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public Boolean getAdministrador() {
 		return administrador;
 	}
 
@@ -154,43 +171,45 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.administrador = administrador;
 	}
 
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
-    /**
-     * @return the colaborador
-     */
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
+	/**
+	 * @return the colaborador
+	 */
+	public Colaborador getColaborador() {
+		return colaborador;
+	}
 
-    /**
-     * @param colaborador the colaborador to set
-     */
-    public void setColaborador(Colaborador colaborador) {
-        this.colaborador = colaborador;
-    }
+	/**
+	 * @param colaborador
+	 *            the colaborador to set
+	 */
+	public void setColaborador(Colaborador colaborador) {
+		this.colaborador = colaborador;
+	}
 
-    /**
-     * @return the papel
-     */
-    public Papel getPapel() {
-        return papel;
-    }
+	/**
+	 * @return the papel
+	 */
+	public Papel getPapel() {
+		return papel;
+	}
 
-    /**
-     * @param papel the papel to set
-     */
-    public void setPapel(Papel papel) {
-        this.papel = papel;
-    }
+	/**
+	 * @param papel
+	 *            the papel to set
+	 */
+	public void setPapel(Papel papel) {
+		this.papel = papel;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return grantedAuths;
 	}
 
@@ -223,9 +242,8 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	public boolean isEnabled() {
 		return true;
 	}
-	
 
-    public boolean isConfirmado() {
+	public boolean isConfirmado() {
 		return confirmado;
 	}
 
@@ -249,5 +267,13 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.usernome = usernome;
 	}
 
-}
+	public Integer getConsultaMultiempresa() {
+		return consultaMultiempresa;
+	}
 
+	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
+				0) : consultaMultiempresa);
+	}
+
+}

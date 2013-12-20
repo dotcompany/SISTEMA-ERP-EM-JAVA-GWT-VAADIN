@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.geral.Usuario;
 
@@ -105,7 +104,7 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 	}
 
 	@Transactional
-	public List<FmMenu> getModuloLista(Usuario usuario, String nomeClasse) {
+	public List<FmModulo> getModuloLista(Usuario usuario) {
 		try {
 			String sql = "FROM FmModulo ent WHERE (1 = 1)";
 
@@ -113,11 +112,12 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 				sql += " AND ent.id = " + 7;
 			}
 
-			List<FmMenu> auxLista = super.getSession().createQuery(sql).list();
+			List<FmModulo> auxLista = super.getSession().createQuery(sql)
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<FmMenu>();
+			return new ArrayList<FmModulo>();
 		}
 	}
 

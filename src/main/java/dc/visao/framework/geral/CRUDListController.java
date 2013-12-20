@@ -39,6 +39,7 @@ import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
 import dc.control.util.ClasseUtil;
 import dc.entidade.framework.FmMenu;
+import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.framework.DcConstants;
@@ -618,16 +619,17 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@Autowired
 	private FmModuloDAO mDAO;
 
-	private void permissao(CRUDListController pListController,
-			CRUDFormController pFormController) {
+	private void permissao(CRUDListController<E> pListController,
+			CRUDFormController<E> pFormController) {
+		//ClasseUtil.getUsuario().setConta(null);
+		
 		Usuario usuario = ClasseUtil.getUsuario();
 
 		if (!usuario.getLogin().equals("admin@dotcompanyerp.com.br")) {
-			List auxLista = this.mDAO.getModuloLista(usuario, this.getClass()
-					.getName());
+			List<FmModulo> auxLista = this.mDAO.getModuloLista(usuario);
 
-			List auxLista1 = this.meDAO.getMenuLista(auxLista, pListController
-					.getClass().getName());
+			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista,
+					pListController.getClass().getName());
 
 			for (Object obj : auxLista1) {
 				FmMenu menu = (FmMenu) obj;
@@ -636,9 +638,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 					if (menu.getPermissaoOperacao().equals(1)) {
 						pListController.setEnabled(false);
 						pFormController.setEnabled(false);
-					} else {
-						pListController.setEnabled(true);
-						pFormController.setEnabled(true);
+
+						usuario.setConsultaMultiempresa(menu
+								.getConsultaMultiempresa());
 					}
 
 					break;

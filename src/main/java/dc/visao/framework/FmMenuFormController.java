@@ -43,18 +43,23 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setCaption(subView.getTxtCaption().getValue());
-			currentBean.setUrlId(subView.getTxtURL().getValue());
-			currentBean.setFmModulo(subView.getModulo());
-			currentBean.setParent(subView.getMenu());
-			currentBean.setControllerClass(subView.getTxtController()
+			this.currentBean
+					.setCaption(this.subView.getTxtCaption().getValue());
+			this.currentBean.setUrlId(this.subView.getTxtURL().getValue());
+			this.currentBean.setFmModulo(this.subView.getModulo());
+			this.currentBean.setParent(this.subView.getMenu());
+			this.currentBean.setControllerClass(this.subView.getTxtController()
 					.getValue());
 
-			boolean b = subView.getCbPermissaoOperacao().getValue();
+			boolean b1 = this.subView.getCkbPermissaoOperacao().getValue();
 
-			currentBean.setPermissaoOperacao((b == true ? 1 : 0));
+			this.currentBean.setPermissaoOperacao((b1 == true ? 1 : 0));
 
-			fmDAO.saveOrUpdate(currentBean);
+			boolean b2 = this.subView.getCkbConsultaMultiempresa().getValue();
+
+			this.currentBean.setConsultaMultiempresa((b2 == true ? 1 : 0));
+
+			this.fmDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -66,19 +71,25 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	@Override
 	protected void carregar(Serializable id) {
 		System.out.println("carregando menu, vai printar pai");
-		currentBean = fmDAO.find(id);
-		carregaCombos(currentBean.getFmModulo());
-		subView.getTxtCaption().setValue(currentBean.getCaption());
-		subView.getTxtURL().setValue(currentBean.getUrlId());
-		subView.getComboModulos().setValue(currentBean.getFmModulo());
-		subView.setParentMenu(currentBean.getParent());
-		subView.getCbPermissaoOperacao().setValue(
-				(currentBean.getPermissaoOperacao() == 1 ? true : false));
+		this.currentBean = this.fmDAO.find(id);
 
-		if (currentBean.getControllerClass() != null
-				&& !"".equals(currentBean.getControllerClass())) {
-			subView.getTxtController().setValue(
-					currentBean.getControllerClass());
+		carregaCombos(this.currentBean.getFmModulo());
+
+		this.subView.getTxtCaption().setValue(this.currentBean.getCaption());
+		this.subView.getTxtURL().setValue(this.currentBean.getUrlId());
+		this.subView.getComboModulos().setValue(this.currentBean.getFmModulo());
+		this.subView.setParentMenu(this.currentBean.getParent());
+		this.subView.getCkbPermissaoOperacao().setValue(
+				(this.currentBean.getPermissaoOperacao() == 1 ? true : false));
+		this.subView.getCkbConsultaMultiempresa()
+				.setValue(
+						(this.currentBean.getConsultaMultiempresa() == 1 ? true
+								: false));
+
+		if (this.currentBean.getControllerClass() != null
+				&& !"".equals(this.currentBean.getControllerClass())) {
+			this.subView.getTxtController().setValue(
+					this.currentBean.getControllerClass());
 		}
 	}
 
@@ -97,25 +108,26 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	}
 
 	private void carregaComboModulos() {
-		List<FmModulo> modulos = fmDAO.getAllModulos();
-		subView.populaModulos(modulos);
+		List<FmModulo> modulos = this.fmDAO.getAllModulos();
+
+		this.subView.populaModulos(modulos);
 	}
 
 	public void carregaComboMenus(FmModulo module) {
 		List<FmMenu> menus;
 
 		if (module != null) {
-			menus = fmDAO.getAllMenusByModuleId(module.getId());
+			menus = this.fmDAO.getAllMenusByModuleId(module.getId());
 		} else {
-			menus = fmDAO.getAll(FmMenu.class);
+			menus = this.fmDAO.getAll(FmMenu.class);
 		}
 
-		subView.populaMenus(menus);
+		this.subView.populaMenus(menus);
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new FmMenuFormView(this);
+		this.subView = new FmMenuFormView(this);
 	}
 
 	/*
@@ -124,20 +136,21 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new FmMenu();
+		this.currentBean = new FmMenu();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		fmDAO.deleteAllByIds(ids);
+		this.fmDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (estaVazio(subView.getTxtCaption())
-				|| estaVazio(subView.getTxtURL())) {
+		if (estaVazio(this.subView.getTxtCaption())
+				|| estaVazio(this.subView.getTxtURL())) {
 			return false;
 		}
 
@@ -146,7 +159,8 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		fmDAO.deleteAll(objetos);
+		this.fmDAO.deleteAll(objetos);
+
 		mensagemRemovidoOK();
 	}
 

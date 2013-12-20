@@ -73,6 +73,11 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "sn_permissao_operacao")
 	private Integer permissaoOperacao = new Integer(0);
 
+	@Field()
+	@Caption("Consulta por multiempresa")
+	@Column(name = "sn_consulta_multiempresa")
+	private Integer consultaMultiempresa = new Integer(0);
+
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
 	private List<FmMenu> menusFilho;
 
@@ -141,6 +146,15 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	public void setPermissaoOperacao(Integer permissaoOperacao) {
 		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0)
 				: permissaoOperacao);
+	}
+
+	public Integer getConsultaMultiempresa() {
+		return consultaMultiempresa;
+	}
+
+	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
+				0) : consultaMultiempresa);
 	}
 
 	public String getControllerClass() {
