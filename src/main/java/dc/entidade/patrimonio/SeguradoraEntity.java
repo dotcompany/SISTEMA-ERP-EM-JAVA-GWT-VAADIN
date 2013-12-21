@@ -24,6 +24,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -49,35 +51,37 @@ public class SeguradoraEntity extends AbstractMultiEmpresaModel<Integer>
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seguradora_id_seq")
 	@SequenceGenerator(name = "seguradora_id_seq", sequenceName = "seguradora_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column(name = "nome")
 	@Field
+	@Column(name = "nome")
 	@Caption("Nome")
 	@Size(max = 50, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
-	@Column(name = "contato")
 	@Field
+	@Column(name = "contato")
 	@Caption("Contato")
 	@Size(max = 50, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String contato = "";
 
-	@Column(name = "telefone")
 	@Field
+	@Column(name = "telefone")
 	@Caption("Telefone")
 	@Size(max = 14, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String telefone = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
-
-	// @ManyToOne
-	// @JoinColumn(name = "ID_EMPRESA", nullable = false)
-	// @Caption("Empresa")
-	// @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	// private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -139,14 +143,6 @@ public class SeguradoraEntity extends AbstractMultiEmpresaModel<Integer>
 		this.telefone = (telefone == null ? "" : telefone.toUpperCase());
 	}
 
-	// public Empresa getEmpresa() {
-	// return empresa;
-	// }
-	//
-	// public void setEmpresa(Empresa empresa) {
-	// this.empresa = empresa;
-	// }
-
 	public List<ApoliceSeguroEntity> getApoliceSeguroList() {
 		return apoliceSeguroList;
 	}
@@ -155,27 +151,9 @@ public class SeguradoraEntity extends AbstractMultiEmpresaModel<Integer>
 		this.apoliceSeguroList = apoliceSeguroList;
 	}
 
-	// /**
-	// * HASH E EQUALS
-	// */
-	//
-	// @Override
-	// public int hashCode() {
-	// return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	// }
-	//
-	// @Override
-	// public boolean equals(Object object) {
-	// if (object instanceof SeguradoraEntity == false)
-	// return false;
-	//
-	// if (this == object)
-	// return true;
-	//
-	// final SeguradoraEntity other = (SeguradoraEntity) object;
-	//
-	// return EqualsBuilder.reflectionEquals(this, other);
-	// }
+	/**
+	 * HASH E EQUALS
+	 */
 
 	@Override
 	public String toString() {

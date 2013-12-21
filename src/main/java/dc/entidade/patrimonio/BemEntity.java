@@ -31,6 +31,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.pessoal.Colaborador;
 
@@ -58,172 +60,230 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrim_bem_id_seq")
 	@SequenceGenerator(name = "patrim_bem_id_seq", sequenceName = "patrim_bem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column(name = "numero_nb")
 	@Field
+	@Column(name = "numero_nb")
 	@Caption("Número NB")
 	@Size(max = 20, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroNb = "";
 
-	@Column(name = "nome")
 	@Field
+	@Column(name = "nome")
 	@Caption("Nome")
 	@Size(max = 100, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
-	@Column(name = "descricao")
 	@Field
+	@Column(name = "descricao")
 	@Caption("Descrição")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
 
-	@Column(name = "numero_serie")
 	@Field
+	@Column(name = "numero_serie")
 	@Caption("Número de serie")
 	@Size(max = 50, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroSerie = "";
 
-	@Column(name = "data_aquisicao")
 	@Field
+	@Column(name = "data_aquisicao")
 	@Caption("Data da aquisição")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataAquisicao;
 
-	@Column(name = "data_aceite")
 	@Field
+	@Column(name = "data_aceite")
 	@Caption("Data do aceite")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataAceite;
 
-	@Column(name = "data_cadastro")
 	@Field
+	@Column(name = "data_cadastro")
 	@Caption("Data do cadastro")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
-	@Column(name = "data_contabilizado")
 	@Field
+	@Column(name = "data_contabilizado")
 	@Caption("Data contabilizado")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataContabilizado;
 
-	@Column(name = "data_vistoria")
 	@Field
+	@Column(name = "data_vistoria")
 	@Caption("Data da vistoria")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataVistoria;
 
-	@Column(name = "data_marcacao")
 	@Field
+	@Column(name = "data_marcacao")
 	@Caption("Data da marcação")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataMarcacao;
 
-	@Column(name = "data_baixa")
 	@Field
+	@Column(name = "data_baixa")
 	@Caption("Data da baixa")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataBaixa;
 
-	@Column(name = "vencimento_garantia")
 	@Field
+	@Column(name = "vencimento_garantia")
 	@Caption("Vencimento da garantia")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date vencimentoGarantia;
 
-	@Column(name = "numero_nota_fiscal")
 	@Field
+	@Column(name = "numero_nota_fiscal")
 	@Caption("Número da nota fiscal")
 	@Size(max = 50, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroNotaFiscal = "";
 
-	@Column(name = "chave_nfe")
 	@Field
+	@Column(name = "chave_nfe")
 	@Caption("Chave NFE")
 	@Size(max = 44, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String chaveNfe = "";
 
-	@Column(name = "valor_original")
 	@Field
+	@Column(name = "valor_original")
 	@Caption("Valor original")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorOriginal = new Double(0.0);
 
-	@Column(name = "valor_compra")
 	@Field
+	@Column(name = "valor_compra")
 	@Caption("Valor da compra")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorCompra = new Double(0.0);
 
-	@Column(name = "valor_atualizado")
 	@Field
+	@Column(name = "valor_atualizado")
 	@Caption("Valor atualizado")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorAtualizado = new Double(0.0);
 
-	@Column(name = "valor_baixa")
 	@Field
+	@Column(name = "valor_baixa")
 	@Caption("Valor da baixa")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorBaixa = new Double(0.0);
 
-	@Column(name = "deprecia")
 	@Field
+	@Column(name = "deprecia")
 	@Caption("Deprecia")
 	@Size(max = 1, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String deprecia = "";
 
-	@Column(name = "metodo_depreciacao")
 	@Field
+	@Column(name = "metodo_depreciacao")
 	@Caption("Método de depreciação")
 	@Size(max = 1, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String metodoDepreciacao = "";
 
-	@Column(name = "inicio_depreciacao")
 	@Field
+	@Column(name = "inicio_depreciacao")
 	@Caption("Início da depreciação")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date inicioDepreciacao;
 
-	@Column(name = "ultima_depreciacao")
 	@Field
+	@Column(name = "ultima_depreciacao")
 	@Caption("Última depreciação")
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date ultimaDepreciacao;
 
-	@Column(name = "tipo_depreciacao")
 	@Field
+	@Column(name = "tipo_depreciacao")
 	@Caption("Tipo de depreciação")
 	@Size(max = 1, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoDepreciacao = "";
 
-	@Column(name = "taxa_anual_depreciacao")
 	@Field
+	@Column(name = "taxa_anual_depreciacao")
 	@Caption("Taxa anual de depreciação")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double taxaAnualDepreciacao = new Double(0.0);
 
-	@Column(name = "taxa_mensal_depreciacao")
 	@Field
+	@Column(name = "taxa_mensal_depreciacao")
 	@Caption("Taxa mensal de depreciação")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double taxaMensalDepreciacao = new Double(0.0);
 
-	@Column(name = "taxa_depreciacao_acelerada")
 	@Field
+	@Column(name = "taxa_depreciacao_acelerada")
 	@Caption("Taxa de depreciação acelerada")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double taxaDepreciacaoAcelerada = new Double(0.0);
 
-	@Column(name = "taxa_depreciacao_incentivada")
 	@Field
+	@Column(name = "taxa_depreciacao_incentivada")
 	@Caption("Taxa de depreciação incentivada")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double taxaDepreciacaoIncentivada = new Double(0.0);
 
-	@Column(name = "funcao")
 	@Field
+	@Column(name = "funcao")
 	@Caption("Função")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String funcao = "";
 
 	/**
@@ -427,7 +487,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorOriginal(Double valorOriginal) {
-		this.valorOriginal = valorOriginal;
+		this.valorOriginal = (valorOriginal == null ? new Double(0.0)
+				: valorOriginal);
 	}
 
 	public Double getValorCompra() {
@@ -435,7 +496,7 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorCompra(Double valorCompra) {
-		this.valorCompra = valorCompra;
+		this.valorCompra = (valorCompra == null ? new Double(0.0) : valorCompra);
 	}
 
 	public Double getValorAtualizado() {
@@ -443,7 +504,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorAtualizado(Double valorAtualizado) {
-		this.valorAtualizado = valorAtualizado;
+		this.valorAtualizado = (valorAtualizado == null ? new Double(0.0)
+				: valorAtualizado);
 	}
 
 	public Double getValorBaixa() {
@@ -451,7 +513,7 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorBaixa(Double valorBaixa) {
-		this.valorBaixa = valorBaixa;
+		this.valorBaixa = (valorBaixa == null ? new Double(0.0) : valorBaixa);
 	}
 
 	public String getDeprecia() {
@@ -501,7 +563,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTaxaAnualDepreciacao(Double taxaAnualDepreciacao) {
-		this.taxaAnualDepreciacao = taxaAnualDepreciacao;
+		this.taxaAnualDepreciacao = (taxaAnualDepreciacao == null ? new Double(
+				0.0) : taxaAnualDepreciacao);
 	}
 
 	public Double getTaxaMensalDepreciacao() {
@@ -509,7 +572,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTaxaMensalDepreciacao(Double taxaMensalDepreciacao) {
-		this.taxaMensalDepreciacao = taxaMensalDepreciacao;
+		this.taxaMensalDepreciacao = (taxaMensalDepreciacao == null ? new Double(
+				0.0) : taxaMensalDepreciacao);
 	}
 
 	public Double getTaxaDepreciacaoAcelerada() {
@@ -517,7 +581,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTaxaDepreciacaoAcelerada(Double taxaDepreciacaoAcelerada) {
-		this.taxaDepreciacaoAcelerada = taxaDepreciacaoAcelerada;
+		this.taxaDepreciacaoAcelerada = (taxaDepreciacaoAcelerada == null ? new Double(
+				0.0) : taxaDepreciacaoAcelerada);
 	}
 
 	public Double getTaxaDepreciacaoIncentivada() {
@@ -525,7 +590,8 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTaxaDepreciacaoIncentivada(Double taxaDepreciacaoIncentivada) {
-		this.taxaDepreciacaoIncentivada = taxaDepreciacaoIncentivada;
+		this.taxaDepreciacaoIncentivada = (taxaDepreciacaoIncentivada == null ? new Double(
+				0.0) : taxaDepreciacaoIncentivada);
 	}
 
 	public String getFuncao() {
@@ -608,6 +674,10 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setDocumentoBemList(List<DocumentoBemEntity> documentoBemList) {
 		this.documentoBemList = documentoBemList;
 	}
+
+	/**
+	 * HASH E EQUALS
+	 */
 
 	@Override
 	public String toString() {

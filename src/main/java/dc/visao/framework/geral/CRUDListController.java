@@ -175,7 +175,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		permissaoOperacao();
-		//consultaMultiempresa();
 
 		actionPesquisa();
 	}
@@ -346,7 +345,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 	public void doSearch(String valor) {
 		consultaMultiempresa();
-		
+
 		if (valor == null) {
 			valor = "";
 		}
@@ -398,6 +397,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		container.addContainerProperty(
 				LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME,
 				Integer.class, 0, true, false);
+
 		table.setSortEnabled(true);
 		// table.markAsDirty();
 		table.setSizeFull();

@@ -28,6 +28,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.control.converter.RunField;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -54,6 +56,8 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	@SequenceGenerator(name = "patrim_apolice_seguro_id_seq", sequenceName = "patrim_apolice_seguro_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	// @RunField(mappedName = "id")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "numero")
@@ -62,6 +66,8 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	@Size(max = 20, message = "Tamanho inválido.")
 	// @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	@RunField(mappedName = "numero")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero = "";
 
 	@Column(name = "data_contratacao")
@@ -70,6 +76,8 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	// @NotEmpty(message = "Não pode estar vazio.")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@RunField(mappedName = "dataContratacao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataContratacao;
 
 	@Column(name = "data_vencimento")
@@ -77,6 +85,8 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Data do vencimento")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@RunField(mappedName = "dataVencimento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataVencimento;
 
 	@Column(name = "valor_premio")
@@ -84,6 +94,8 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Valor do prêmio")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
 	@RunField(mappedName = "valorPremio")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorPremio = new Double(0.0);
 
 	@Column(name = "valor_segurado")
@@ -91,18 +103,24 @@ public class ApoliceSeguroEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Valor do segurado")
 	@Digits(integer = 18, fraction = 6, message = "Tamanho inválido.")
 	@RunField(mappedName = "valorSegurado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Double valorSegurado = new Double(0.0);
 
 	@Column(name = "observacao")
 	@Field
 	@Caption("Observação")
 	@RunField(mappedName = "observacao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao = "";
 
 	@Column(name = "imagem")
 	@Field
 	@Caption("Imagem")
 	@RunField(mappedName = "imagem")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String imagem = "";
 
 	/**

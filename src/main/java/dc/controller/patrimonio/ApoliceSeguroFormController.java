@@ -18,6 +18,7 @@ import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.servicos.dao.patrimonio.ApoliceSeguroDAO;
 import dc.servicos.dao.patrimonio.BemDAO;
 import dc.servicos.dao.patrimonio.SeguradoraDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.ApoliceSeguroFormView;
 
@@ -116,54 +117,14 @@ public class ApoliceSeguroFormController extends
 
 			mensagemErro(e.getMessage());
 		} finally {
-			this.pEntity = new ApoliceSeguroEntity();
-
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero());
-			this.subView.getPdfDataContratacao().setValue(
-					this.pEntity.getDataContratacao());
-			this.subView.getPdfDataVencimento().setValue(
-					this.pEntity.getDataVencimento());
-			this.subView.getTfValorPremio().setValue(
-					String.valueOf(this.pEntity.getValorPremio()));
-			this.subView.getTfValorSegurado().setValue(
-					String.valueOf(this.pEntity.getValorSegurado()));
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
-			this.subView.getTfImagem().setValue(this.pEntity.getImagem());
-
-			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbSeguradora(this.seguradoraListarTodos());
-
-			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbSeguradora().setValue(
-					this.pEntity.getSeguradora());
+			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.pEntity = this.pDAO.find(id);
-
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero());
-			this.subView.getPdfDataContratacao().setValue(
-					this.pEntity.getDataContratacao());
-			this.subView.getPdfDataVencimento().setValue(
-					this.pEntity.getDataVencimento());
-			this.subView.getTfValorPremio().setValue(
-					String.valueOf(this.pEntity.getValorPremio()));
-			this.subView.getTfValorSegurado().setValue(
-					String.valueOf(this.pEntity.getValorSegurado()));
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
-			this.subView.getTfImagem().setValue(this.pEntity.getImagem());
-
-			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbSeguradora(this.seguradoraListarTodos());
-
-			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbSeguradora().setValue(
-					this.pEntity.getSeguradora());
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -188,25 +149,7 @@ public class ApoliceSeguroFormController extends
 				this.sDAO = new SeguradoraDAO();
 			}
 
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero());
-			this.subView.getPdfDataContratacao().setValue(
-					this.pEntity.getDataContratacao());
-			this.subView.getPdfDataVencimento().setValue(
-					this.pEntity.getDataVencimento());
-			this.subView.getTfValorPremio().setValue(
-					String.valueOf(this.pEntity.getValorPremio()));
-			this.subView.getTfValorSegurado().setValue(
-					String.valueOf(this.pEntity.getValorSegurado()));
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
-			this.subView.getTfImagem().setValue(this.pEntity.getImagem());
-
-			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbSeguradora(this.seguradoraListarTodos());
-
-			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbSeguradora().setValue(
-					this.pEntity.getSeguradora());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -217,6 +160,8 @@ public class ApoliceSeguroFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new ApoliceSeguroFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -236,25 +181,7 @@ public class ApoliceSeguroFormController extends
 				this.sDAO = new SeguradoraDAO();
 			}
 
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero());
-			this.subView.getPdfDataContratacao().setValue(
-					this.pEntity.getDataContratacao());
-			this.subView.getPdfDataVencimento().setValue(
-					this.pEntity.getDataVencimento());
-			this.subView.getTfValorPremio().setValue(
-					String.valueOf(this.pEntity.getValorPremio()));
-			this.subView.getTfValorSegurado().setValue(
-					String.valueOf(this.pEntity.getValorSegurado()));
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
-			this.subView.getTfImagem().setValue(this.pEntity.getImagem());
-
-			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbSeguradora(this.seguradoraListarTodos());
-
-			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbSeguradora().setValue(
-					this.pEntity.getSeguradora());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -333,18 +260,9 @@ public class ApoliceSeguroFormController extends
 				return false;
 			}
 
-			// String observacao = this.subView.getTfObservacao().getValue();
-			// String imagem = this.subView.getTfImagem().getValue();
-
-			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
-
-			if (!Validator.validateObject(bem)) {
-				String msg = "Não pode ficar em branco.";
-
-				adicionarErroDeValidacao(this.subView.getCbBem(), msg);
-
-				return false;
-			}
+			/**
+			 * 
+			 */
 
 			SeguradoraEntity seguradora = (SeguradoraEntity) this.subView
 					.getCbSeguradora().getValue();
@@ -353,6 +271,16 @@ public class ApoliceSeguroFormController extends
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getCbSeguradora(), msg);
+
+				return false;
+			}
+
+			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
+
+			if (!Validator.validateObject(bem)) {
+				String msg = "Não pode ficar em branco.";
+
+				adicionarErroDeValidacao(this.subView.getCbBem(), msg);
 
 				return false;
 			}
@@ -394,12 +322,66 @@ public class ApoliceSeguroFormController extends
 	}
 
 	/**
+	 * COMBOS
+	 */
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<SeguradoraEntity> model1 = new DefaultManyToOneComboModel<SeguradoraEntity>(
+					SeguradoraListController.class, this.sDAO,
+					super.getMainController());
+
+			DefaultManyToOneComboModel<BemEntity> model2 = new DefaultManyToOneComboModel<BemEntity>(
+					BemListController.class, this.bDAO,
+					super.getMainController());
+
+			this.subView.getCbSeguradora().setModel(model1);
+			this.subView.getCbBem().setModel(model2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * **************************************
 	 */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.pEntity = new ApoliceSeguroEntity();
+			} else {
+				this.pEntity = this.pDAO.find(id);
+
+				this.subView.getCbBem().setValue(this.pEntity.getBem());
+				this.subView.getCbSeguradora().setValue(
+						this.pEntity.getSeguradora());
+			}
+
+			this.subView.getTfNumero().setValue(this.pEntity.getNumero());
+			this.subView.getPdfDataContratacao().setValue(
+					this.pEntity.getDataContratacao());
+			this.subView.getPdfDataVencimento().setValue(
+					this.pEntity.getDataVencimento());
+			this.subView.getTfValorPremio().setValue(
+					String.valueOf(this.pEntity.getValorPremio()));
+			this.subView.getTfValorSegurado().setValue(
+					String.valueOf(this.pEntity.getValorSegurado()));
+			this.subView.getTfObservacao().setValue(
+					this.pEntity.getObservacao());
+			this.subView.getTfImagem().setValue(this.pEntity.getImagem());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
