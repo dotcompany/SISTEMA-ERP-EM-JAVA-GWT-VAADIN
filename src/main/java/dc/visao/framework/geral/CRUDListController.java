@@ -174,9 +174,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			}
 		});
 
-		actionPesquisa();
+		permissaoOperacao();
+		//consultaMultiempresa();
 
-		permissao(getFormController().getListController(), getFormController());
+		actionPesquisa();
 	}
 
 	protected void actionAbrir(Object object) {
@@ -344,6 +345,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	public void doSearch(String valor) {
+		consultaMultiempresa();
+		
 		if (valor == null) {
 			valor = "";
 		}
@@ -356,8 +359,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		BeanQueryFactory queryFactory = null;
 
 		if (genericDAO.isMultiEmpresa(getEntityClass())) {
-			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
-					DCBeanQueryMultiEmpresa.class);
+			if (SecuritySessionProvider.getUsuario().getConsultaMultiempresa()
+					.equals(1)) {
+				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
+						DCBeanQueryMultiEmpresa.class);
+			} else {
+				queryFactory = new BeanQueryFactory<DCBeanQuery>(
+						DCBeanQuery.class);
+			}
 		} else {
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 		}
@@ -619,34 +628,38 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	@Autowired
 	private FmModuloDAO mDAO;
 
-	private void permissao(CRUDListController<E> pListController,
-			CRUDFormController<E> pFormController) {
-		//ClasseUtil.getUsuario().setConta(null);
-		
+	private void permissaoOperacao() {
 		Usuario usuario = ClasseUtil.getUsuario();
 
 		if (!usuario.getLogin().equals("admin@dotcompanyerp.com.br")) {
 			List<FmModulo> auxLista = this.mDAO.getModuloLista(usuario);
 
-			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista,
-					pListController.getClass().getName());
+			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista, this
+					.getFormController().getListController().getClass()
+					.getName());
 
 			for (Object obj : auxLista1) {
 				FmMenu menu = (FmMenu) obj;
 
 				if (menu.getControllerClass().equals(this.getClass().getName())) {
 					if (menu.getPermissaoOperacao().equals(1)) {
-						pListController.setEnabled(false);
-						pFormController.setEnabled(false);
-
-						usuario.setConsultaMultiempresa(menu
-								.getConsultaMultiempresa());
+						this.getFormController().getListController()
+								.setEnabled(false);
+						this.getFormController().setEnabled(false);
 					}
 
 					break;
 				}
 			}
 		}
+	}
+
+	private void consultaMultiempresa() {
+		FmMenu ent = this.meDAO.getMenu(this.getFormController()
+				.getListController().getClass().getName());
+
+		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(
+				ent.getConsultaMultiempresa());
 	}
 
 }

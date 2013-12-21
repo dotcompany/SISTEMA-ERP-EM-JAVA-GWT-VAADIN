@@ -12,36 +12,42 @@ import com.sun.istack.logging.Logger;
 
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-public class DCBeanQuery extends AbstractBeanQuery<Serializable>{
-	
+public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
+
 	private Logger logger = Logger.getLogger(DCBeanQuery.class);
 	private String[] sortingFields = new String[0];
 	private boolean[] sortingStates = new boolean[0];
-	
+
 	public DCBeanQuery(QueryDefinition definition,
 			Map<String, Object> queryConfiguration, Object[] sortPropertyIds,
 			boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
+
 		logger.info("DCBeanQuery, instatiated");
 
 		logger.info("sort properties");
+
 		this.sortingFields = new String[sortPropertyIds.length];
+
 		for (int i = 0; i < sortPropertyIds.length; i++) {
 			logger.info(String.valueOf(sortPropertyIds[i]));
 			this.sortingFields[i] = String.valueOf(sortPropertyIds[i]);
 		}
-		
+
 		logger.info("sort states");
+
 		for (int i = 0; i < sortStates.length; i++) {
 			logger.info(String.valueOf(sortStates[i]));
 		}
-	    this.sortingStates = sortStates;
+
+		this.sortingStates = sortStates;
 	}
-	
+
 	@Override
 	protected Serializable constructBean() {
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 		Object instance = null;
+
 		try {
 			instance = pojoClass.getConstructor().newInstance();
 		} catch (InstantiationException e) {
@@ -63,6 +69,7 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return (Serializable) instance;
 	}
 
@@ -70,14 +77,19 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable>{
 	protected List<Serializable> loadBeans(int arg0, int arg1) {
 		logger.info("loading beans from " + arg0);
 		logger.info("loading beans page size" + arg1);
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
-		String searchTerm =  (String) getQueryConfiguration().get("search");
-		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
-		if(searchTerm != null && !searchTerm.trim().isEmpty()){
-			return dao.fullTextSearch(searchTerm,arg0,arg1,sortingFields,sortingStates);	
-		}else{
+		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get(
+				"dao");
+		String searchTerm = (String) getQueryConfiguration().get("search");
+		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
+
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields,
+					sortingStates);
+		} else {
 			logger.info("null or empty search term, loading all..");
-			return dao.getAllPaged(pojoClass,arg0,arg1,sortingFields,sortingStates);
+
+			return dao.getAllPaged(pojoClass, arg0, arg1, sortingFields,
+					sortingStates);
 		}
 	}
 
@@ -85,29 +97,27 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable>{
 	protected void saveBeans(List<Serializable> arg0, List<Serializable> arg1,
 			List<Serializable> arg2) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public int size() {
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
-		String searchTerm =  (String) getQueryConfiguration().get("search");
-		Class pojoClass =  (Class) getQueryConfiguration().get("pojoClass");
+		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get(
+				"dao");
+		String searchTerm = (String) getQueryConfiguration().get("search");
+		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
+
 		int size = 0;
-		if(searchTerm != null && !searchTerm.trim().isEmpty()){
-			size = dao.fullTextSearchCount(searchTerm);	
-		}else{
+
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			size = dao.fullTextSearchCount(searchTerm);
+		} else {
 			size = dao.count(pojoClass);
 		}
-		
+
 		logger.info("query result set size:" + size);
-		
+
 		return size;
-		
-		
+
 	}
 
-	
-
 }
-

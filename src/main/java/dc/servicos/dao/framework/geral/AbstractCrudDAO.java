@@ -326,7 +326,6 @@ public abstract class AbstractCrudDAO<T> {
 				org.apache.lucene.search.Query luceneQueryForEmpresa = parser
 						.parse(String.valueOf(idEmpresa));
 				booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
-
 			}
 
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(

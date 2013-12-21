@@ -121,4 +121,20 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 		}
 	}
 
+	@Transactional
+	public FmMenu getMenu(String nomeClasse) {
+		try {
+			String sql = "FROM FmMenu ent WHERE (1 = 1) AND ent.controllerClass = :controller";
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("controller", nomeClasse);
+
+			FmMenu ent = (FmMenu) query.uniqueResult();
+
+			return ent;
+		} catch (Exception e) {
+			return new FmMenu();
+		}
+	}
+
 }
