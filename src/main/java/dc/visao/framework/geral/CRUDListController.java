@@ -655,8 +655,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	private void consultaMultiempresa() {
+		// Usuario usuario = ClasseUtil.getUsuario();
+
 		FmMenu ent = this.meDAO.getMenu(this.getFormController()
 				.getListController().getClass().getName());
+
+		if (ent == null) {
+			ent = new FmMenu();
+		}
 
 		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(
 				ent.getConsultaMultiempresa());
