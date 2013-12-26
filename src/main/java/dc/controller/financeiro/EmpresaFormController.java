@@ -2,6 +2,7 @@ package dc.controller.financeiro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +34,9 @@ import dc.servicos.dao.geral.EnderecoDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
-import dc.visao.financeiro.EmpresaFormView.CRT;
-import dc.visao.financeiro.EmpresaFormView.TIPO;
-import dc.visao.financeiro.EmpresaFormView.TIPO_REGIME;
+import dc.visao.financeiro.enums.CrtType;
+import dc.visao.financeiro.enums.TipoRegimeType;
+import dc.visao.financeiro.enums.TipoType;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -260,33 +261,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				currentBean.setCnaePrincipal(cnaePrincipal.getId().toString());
 			}
 
-			if (Validator.validateObject(subView.getCmbCrt())) {
-
-				String codigo = ((CRT) subView.getCmbCrt().getValue())
-						.getCodigo();
-
-				currentBean.setCrt(new Integer(codigo));
-
-			}
-
-			if (Validator.validateObject(subView.getCmbTipo())) {
-
-				String codigo = ((TIPO) subView.getCmbTipo().getValue())
-						.getCodigo();
-
-				currentBean.setTipo(codigo);
-
-			}
-
-			if (Validator.validateObject(subView.getCmbTipoRegime())) {
-
-				String codigo = ((TIPO_REGIME) subView.getCmbTipoRegime()
-						.getValue()).getCodigo();
-
-				currentBean.setTipoRegime(codigo);
-
-			}
-
 			if (Validator.validateObject(subView.getCmbMatriz().getValue())) {
 
 				Empresa e = (Empresa) subView.getCmbMatriz().getValue();
@@ -319,7 +293,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 	}
 
-	private void carregarCombos() {
+	/*private void carregarCombos() {
 		subView.carregarCRT();
 		subView.carregarTipoRegime();
 		subView.carregarTipo();
@@ -333,12 +307,11 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		// .getAll(Sindicato.class));
 		/*
 		 * subView.carregaComboFpas(FpasDAO .getAll(Fpas.class));
-		 */
-	}
+		 
+	}*/
 
 	@Override
 	protected void carregar(Serializable id) {
-		carregarCombos();
 		currentBean = empresaDAO.find(id);
 
 		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
@@ -454,20 +427,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 			subView.getCmbCnaePrincipal().setValue(cnae);
 		}
 
-		if (Validator.validateObject(currentBean.getCrt())) {
-			subView.getCmbCrt().setValue(
-					CRT.getCRT(currentBean.getCrt().toString()));
-		}
-
-		if (Validator.validateObject(currentBean.getTipo())) {
-			subView.getCmbTipo().setValue(TIPO.getTipo(currentBean.getTipo()));
-		}
-
-		if (Validator.validateObject(currentBean.getTipoRegime())) {
-			subView.getCmbTipoRegime().setValue(
-					TIPO_REGIME.getTipoRegime(currentBean.getTipoRegime()));
-		}
-
 		if (Validator.validateObject(currentBean.getIdMatriz())) {
 			Integer idMatriz = currentBean.getIdMatriz();
 			Empresa matriz = empresaDAO.find(idMatriz);
@@ -490,6 +449,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	@Override
 	protected void initSubView() {
 		subView = new EmpresaFormView(this);
+		
+		this.subView.InitCbs(getEmpresaCrtType(), getEmpresaTipoRegimeType(), getEmpresaTipoType());
 	}
 
 	@Override
@@ -613,10 +574,65 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 		return container;
 	}
+	
+	/**
+	 * COMBO
+	 */
+	public List<String> getEmpresaCrtType() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (CrtType en : CrtType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+	
+	public List<String> getEmpresaTipoRegimeType() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (TipoRegimeType en : TipoRegimeType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+	
+	public List<String> getEmpresaTipoType() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (TipoType en : TipoType.values()) {
+				siLista.add(en.ordinal(), en.toString());
+
+			}
+
+			return siLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+	
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
-
+	
 }
