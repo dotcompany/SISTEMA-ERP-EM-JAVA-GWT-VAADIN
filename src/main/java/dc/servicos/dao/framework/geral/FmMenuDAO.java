@@ -130,6 +130,10 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 			query.setParameter("controller", nomeClasse);
 
 			FmMenu ent = (FmMenu) query.uniqueResult();
+			
+			if (ent == null) {
+			  throw new Exception();
+			}
 
 			return ent;
 		} catch (Exception e) {

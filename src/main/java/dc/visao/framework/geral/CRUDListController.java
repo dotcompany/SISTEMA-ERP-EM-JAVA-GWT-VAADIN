@@ -26,12 +26,14 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.Table.ColumnReorderEvent;
 import com.vaadin.ui.Table.ColumnReorderListener;
 import com.vaadin.ui.Table.ColumnResizeEvent;
 import com.vaadin.ui.Table.ColumnResizeListener;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -305,6 +307,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
+		//table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
+		
+		table.addGeneratedColumn("mycolumn", new ColumnGenerator() {
+			public Object generateCell(Table source, Object itemId, Object columnId) {
+			   TextField tf = new TextField();
+			  return tf;
+		}
+		});
+		
 		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID,
 				new ColumnGenerator() {
 					@Override
@@ -314,8 +325,33 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 								.getContainerDataSource().getItem(itemId);
 						final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem
 								.getItem("bean");
-
+						
+						/*table.addContainerProperty("classification", String.class, null);
+					    final ColumnGenerator generator = new ColumnGenerator() {
+					        @Override
+					        public Object generateCell(Table source, Object itemId,
+					                Object columnId) {
+					            return "1";
+					        }
+					    };
+					    table.addGeneratedColumn("classification", generator);
+					    table.addItem();
+					    table.addItem();
+					    view.getVltTabela().addComponent(table);
+						
+						/*table.addContainerProperty("0", String.class, null, "", null, null);
+						for (int i=0; i<8; i++)
+						    table.addContainerProperty(""+(i+1), String.class, null,
+						                         String.valueOf((char) (65+i)), null, null);
+						
+						/*int rows = 0;
+						for (int i = 1; i < rows; i++) { 
+							
+						} 
+						
+						final Label label = new Label("1");*/
 						final CheckBox checkBox = new CheckBox();
+						
 						checkBox.setImmediate(true);
 						checkBox.addValueChangeListener(new Property.ValueChangeListener() {
 							@Override
@@ -655,14 +691,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	private void consultaMultiempresa() {
-		// Usuario usuario = ClasseUtil.getUsuario();
 
 		FmMenu ent = this.meDAO.getMenu(this.getFormController()
 				.getListController().getClass().getName());
-
-		if (ent == null) {
-			ent = new FmMenu();
-		}
 
 		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(
 				ent.getConsultaMultiempresa());
