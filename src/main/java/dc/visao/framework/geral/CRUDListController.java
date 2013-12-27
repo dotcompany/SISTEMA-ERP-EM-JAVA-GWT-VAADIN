@@ -22,9 +22,9 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -155,7 +155,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 				return d;
 			}
-
 		};
 
 		ConfirmDialog.setFactory(df);
@@ -183,35 +182,32 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		actionPesquisa();
 	}
-		
-		// Botao Fechar (Sair)
-		
-		private void populateTaskBar(List<Task> tasks,
-				final MainController mainController) {
-			
-			for(final Task t : tasks){
-				final HorizontalLayout taskItem = new HorizontalLayout();
-				Button fechar = new NativeButton("");
-				fechar.setImmediate(true);
-	            fechar.setDescription("Fechar");
-				view.getBtnFechar().addClickListener(new ClickListener() {
-					public void buttonClick(ClickEvent event) {
-						mainController.removeTask(t,true);
-					}
-				});
-				
-				HorizontalLayout taskItemDescripion = new HorizontalLayout();
-				taskItemDescripion.setStyleName("taskbar-item-desc");
-				Label itemLabel = new Label(t.getTaskCaption());
-				itemLabel.setStyleName("taskbar-label");
-				taskItemDescripion.addComponent(itemLabel);
-				
-				taskItem.addComponent(fechar);
-				
-			}
+
+	// Botao Fechar (Sair)
+
+	private void populateTaskBar(List<Task> tasks,
+			final MainController mainController) {
+
+		for (final Task t : tasks) {
+			final HorizontalLayout taskItem = new HorizontalLayout();
+			Button fechar = new NativeButton("");
+			fechar.setImmediate(true);
+			fechar.setDescription("Fechar");
+			view.getBtnFechar().addClickListener(new ClickListener() {
+				public void buttonClick(ClickEvent event) {
+					mainController.removeTask(t, true);
+				}
+			});
+
+			HorizontalLayout taskItemDescripion = new HorizontalLayout();
+			taskItemDescripion.setStyleName("taskbar-item-desc");
+			Label itemLabel = new Label(t.getTaskCaption());
+			itemLabel.setStyleName("taskbar-label");
+			taskItemDescripion.addComponent(itemLabel);
+
+			taskItem.addComponent(fechar);
+		}
 	}
-	
-	
 
 	protected void actionAbrir(Object object) {
 		if (object == null) {
@@ -310,6 +306,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		table.setColumnReorderingAllowed(true);
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
+		table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
 		table.addColumnReorderListener(new ColumnReorderListener() {
 			@Override
@@ -339,15 +336,17 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
-		//table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
-		
+		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
+
 		table.addGeneratedColumn("mycolumn", new ColumnGenerator() {
-			public Object generateCell(Table source, Object itemId, Object columnId) {
-			   TextField tf = new TextField();
-			  return tf;
-		}
+			public Object generateCell(Table source, Object itemId,
+					Object columnId) {
+				TextField tf = new TextField();
+
+				return tf;
+			}
 		});
-		
+
 		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID,
 				new ColumnGenerator() {
 					@Override
@@ -357,33 +356,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 								.getContainerDataSource().getItem(itemId);
 						final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem
 								.getItem("bean");
-						
-						/*table.addContainerProperty("classification", String.class, null);
-					    final ColumnGenerator generator = new ColumnGenerator() {
-					        @Override
-					        public Object generateCell(Table source, Object itemId,
-					                Object columnId) {
-					            return "1";
-					        }
-					    };
-					    table.addGeneratedColumn("classification", generator);
-					    table.addItem();
-					    table.addItem();
-					    view.getVltTabela().addComponent(table);
-						
-						/*table.addContainerProperty("0", String.class, null, "", null, null);
-						for (int i=0; i<8; i++)
-						    table.addContainerProperty(""+(i+1), String.class, null,
-						                         String.valueOf((char) (65+i)), null, null);
-						
-						/*int rows = 0;
-						for (int i = 1; i < rows; i++) { 
-							
-						} 
-						
-						final Label label = new Label("1");*/
+
 						final CheckBox checkBox = new CheckBox();
-						
+
 						checkBox.setImmediate(true);
 						checkBox.addValueChangeListener(new Property.ValueChangeListener() {
 							@Override
@@ -723,7 +698,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	private void consultaMultiempresa() {
-
 		FmMenu ent = this.meDAO.getMenu(this.getFormController()
 				.getListController().getClass().getName());
 
