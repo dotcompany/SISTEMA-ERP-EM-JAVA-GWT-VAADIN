@@ -20,7 +20,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
 /**
@@ -40,7 +40,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Endereco extends AbstractModel<Integer> implements Serializable {
+public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -128,9 +128,9 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
 	 *        Módulo Administrativo
 	 */
 
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Empresa empresa;
+	private Empresa empresa;*/
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne
@@ -199,13 +199,13 @@ public class Endereco extends AbstractModel<Integer> implements Serializable {
 		this.fone = fone;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 
 	@Override
 	public String toString() {

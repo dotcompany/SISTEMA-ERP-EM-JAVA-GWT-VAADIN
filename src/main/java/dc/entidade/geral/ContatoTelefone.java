@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+
 /**
 *
 * @author Wesley Jr
@@ -27,7 +29,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contato_telefone")
-public class ContatoTelefone implements Serializable {
+public class ContatoTelefone extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	
     private static final long serialVersionUID = 1L;

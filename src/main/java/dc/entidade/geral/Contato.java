@@ -13,14 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
@@ -44,7 +42,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Contato extends AbstractModel<Integer> implements Serializable {
+public class Contato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     
@@ -57,9 +55,9 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
 //    @Column(name = "id_empresa")
 //    private Integer empresaId;
     
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name="id_empresa")
-    private Empresa empresa;
+    private Empresa empresa;*/
     
     @Field
     @Caption("Nome")
@@ -184,13 +182,13 @@ public class Contato extends AbstractModel<Integer> implements Serializable {
 		this.pessoa = pessoa;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 	
 	
 

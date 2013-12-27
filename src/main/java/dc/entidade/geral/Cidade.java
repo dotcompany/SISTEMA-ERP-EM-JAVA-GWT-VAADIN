@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.Estado;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
 *
@@ -46,7 +47,7 @@ import dc.entidade.diversos.Estado;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Cidade implements Serializable {
+public class Cidade extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
