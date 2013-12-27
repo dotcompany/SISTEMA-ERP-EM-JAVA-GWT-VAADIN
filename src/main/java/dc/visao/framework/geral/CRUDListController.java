@@ -24,9 +24,12 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.Table.ColumnReorderEvent;
@@ -180,6 +183,35 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		actionPesquisa();
 	}
+		
+		// Botao Fechar (Sair)
+		
+		private void populateTaskBar(List<Task> tasks,
+				final MainController mainController) {
+			
+			for(final Task t : tasks){
+				final HorizontalLayout taskItem = new HorizontalLayout();
+				Button fechar = new NativeButton("");
+				fechar.setImmediate(true);
+	            fechar.setDescription("Fechar");
+				view.getBtnFechar().addClickListener(new ClickListener() {
+					public void buttonClick(ClickEvent event) {
+						mainController.removeTask(t,true);
+					}
+				});
+				
+				HorizontalLayout taskItemDescripion = new HorizontalLayout();
+				taskItemDescripion.setStyleName("taskbar-item-desc");
+				Label itemLabel = new Label(t.getTaskCaption());
+				itemLabel.setStyleName("taskbar-label");
+				taskItemDescripion.addComponent(itemLabel);
+				
+				taskItem.addComponent(fechar);
+				
+			}
+	}
+	
+	
 
 	protected void actionAbrir(Object object) {
 		if (object == null) {
