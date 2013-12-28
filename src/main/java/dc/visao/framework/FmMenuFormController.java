@@ -318,6 +318,9 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 					this.subView.getCbMenu().setVisible(true);
 					this.subView.getTxtController().setVisible(true);
+				} else {
+					this.subView.getCbMenu().setVisible(false);
+					this.subView.getTxtController().setVisible(false);
 				}
 			}
 
