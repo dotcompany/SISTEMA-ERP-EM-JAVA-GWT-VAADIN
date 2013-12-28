@@ -205,11 +205,15 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public Integer getParentId() {
-		return parentId;
+		if (parent != null) {
+			return parent.id;
+		} else {
+			return parentId;
+		}
 	}
 
 	public void setParentId(Integer parentId) {
-		this.parentId = (parentId == null ? new Integer(0) : parentId);
+		this.parentId = parentId;
 	}
 
 	public Command getCommand() {
@@ -221,9 +225,9 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	 * HASHCODE E EQUALS
 	 */
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+	//@Override
+	//public String toString() {
+	//	return ToStringBuilder.reflectionToString(this);
+	//}
 
 }
