@@ -220,29 +220,6 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	/**
 	 * HASHCODE E EQUALS
 	 */
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (this.id != null ? this.id.hashCode() : 0);
-
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (!(object instanceof FmMenu)) {
-			return false;
-		}
-
-		FmMenu ent = (FmMenu) object;
-
-		if ((this.id == null && ent.id != null)
-				|| (this.id != null && !this.id.equals(ent.id))) {
-			return false;
-		}
-
-		return true;
-	}
 
 	@Override
 	public String toString() {

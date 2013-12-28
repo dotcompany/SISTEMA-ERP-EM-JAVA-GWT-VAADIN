@@ -17,8 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -37,9 +36,12 @@ import dc.visao.framework.geral.MainController;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class FmModulo implements Serializable {
+public class FmModulo extends AbstractModel<Integer> implements Serializable {
 
-	private static final long serialVersionUID = 7302719781603687858L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static final int ID_MODULO_ADM_DC = -1;
 
@@ -77,27 +79,10 @@ public class FmModulo implements Serializable {
 	}
 
 	public FmModulo() {
-	}
 
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id", "menus" });
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (object instanceof FmModulo == false)
-			return false;
-		if (this == object)
-			return true;
-		final FmModulo other = (FmModulo) object;
-		return EqualsBuilder.reflectionEquals(this, other, new String[] { "id", "urlID" });
-	}
-
-	@Override
-	public String toString() {
-		return getCaption() + ": URL => " + getUrlID();
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -130,16 +115,22 @@ public class FmModulo implements Serializable {
 		this.viewName = viewName;
 	}
 
-	public void loadRoute(HashMap<String, View> routes, MainController controller) {
+	public void loadRoute(HashMap<String, View> routes,
+			MainController controller) {
 		if (isBlank()) {
 			BlankModuleView blank = new BlankModuleView(this, controller);
 			routes.put(getUrlID(), blank);
-			logger.info("loading route for module with blank view. module caption: " + this.getCaption());
+
+			logger.info("loading route for module with blank view. module caption: "
+					+ this.getCaption());
 		} else {
 			try {
-				logger.info("loading route for module with view name: " + this.getViewName());
+				logger.info("loading route for module with view name: "
+						+ this.getViewName());
 				Class viewClass = Class.forName(this.getViewName());
-				Object view = viewClass.getDeclaredConstructor(FmModulo.class, MainController.class).newInstance(this, controller);
+
+				Object view = viewClass.getDeclaredConstructor(FmModulo.class,
+						MainController.class).newInstance(this, controller);
 				routes.put(this.getUrlID(), (View) view);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -155,6 +146,7 @@ public class FmModulo implements Serializable {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
 				Class viewClass;
+
 				try {
 					viewClass = Class.forName(this.getViewName());
 					Object view = viewClass.newInstance();
@@ -175,12 +167,12 @@ public class FmModulo implements Serializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 
 	private boolean isBlank() {
-		return (this.viewName == ModuleView.BLANK_VIEW || this.viewName == null || this.viewName.trim().equals(""));
+		return (this.viewName == ModuleView.BLANK_VIEW || this.viewName == null || this.viewName
+				.trim().equals(""));
 	}
 
 	public List<FmMenu> getMenus() {
@@ -192,7 +184,33 @@ public class FmModulo implements Serializable {
 	}
 
 	public static FmModulo loadSystemInstance() {
-		return new FmModulo("ADM DOTCOMPANY", FmModulo.ID_MODULO_ADM_DC, "adm_dotcompany", "dc.visao.modulos.AdmDotCompanyView");
+		return new FmModulo("ADM DOTCOMPANY", FmModulo.ID_MODULO_ADM_DC,
+				"adm_dotcompany", "dc.visao.modulos.AdmDotCompanyView");
+	}
+
+	/*
+	 * public int hashCode() { return HashCodeBuilder.reflectionHashCode(this,
+	 * new String[] { "id", "menus" }); }
+	 * 
+	 * @Override public boolean equals(Object object) { if (object instanceof
+	 * FmModulo == false) return false; if (this == object) return true; final
+	 * FmModulo other = (FmModulo) object; return
+	 * EqualsBuilder.reflectionEquals(this, other, new String[] { "id", "urlID"
+	 * }); }
+	 */
+
+	/*@Override
+	public String toString() {
+		return getCaption() + ": URL => " + getUrlID();
+	}*/
+	
+	/**
+	 * HASHCODE E EQUALS
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
