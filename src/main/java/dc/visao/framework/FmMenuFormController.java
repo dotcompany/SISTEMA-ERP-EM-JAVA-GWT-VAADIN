@@ -261,7 +261,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 	@Override
 	protected boolean isFullSized() {
-		return true;
+		return false;
 	}
 
 	/**
