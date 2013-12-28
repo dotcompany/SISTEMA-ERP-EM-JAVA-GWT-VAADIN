@@ -181,33 +181,35 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		permissaoOperacao();
 
 		actionPesquisa();
-	}
 
 	// Botao Fechar (Sair)
 
-	private void populateTaskBar(List<Task> tasks,
+	/*private void populateTaskBar(List<Task> tasks,
 			final MainController mainController) {
 
 		for (final Task t : tasks) {
 			final HorizontalLayout taskItem = new HorizontalLayout();
 			Button fechar = new NativeButton("");
 			fechar.setImmediate(true);
-			fechar.setDescription("Fechar");
+			fechar.setDescription("Fechar");*/
+	
+		//ALTERAR (FECHAR)
 			view.getBtnFechar().addClickListener(new ClickListener() {
 				public void buttonClick(ClickEvent event) {
-					mainController.removeTask(t, true);
+					mainController.closeAllTasks();
+					
 				}
 			});
 
-			HorizontalLayout taskItemDescripion = new HorizontalLayout();
+			/*HorizontalLayout taskItemDescripion = new HorizontalLayout();
 			taskItemDescripion.setStyleName("taskbar-item-desc");
 			Label itemLabel = new Label(t.getTaskCaption());
 			itemLabel.setStyleName("taskbar-label");
 			taskItemDescripion.addComponent(itemLabel);
 
 			taskItem.addComponent(fechar);
-		}
-	}
+		}*/
+}
 
 	protected void actionAbrir(Object object) {
 		if (object == null) {

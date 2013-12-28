@@ -44,7 +44,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	 * 
 	 */
 	private static final long serialVersionUID = 6944317085399570143L;
-
+	
 	CRUDFormView view;
 
 	private Type beanType;
@@ -91,56 +91,59 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		 */
 
 		// Configura Botoes;
-		view.getBtnSalvar().addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				limpaValidacoes();
-				if (validaSalvar()) {
-					if (isNovo()) {
-						if (listController.autoriaCriacao()) {
-							actionSalvar();
-						} else {
-							mensagemErro(DcConstants.PERMISSAO_NEGADA);
-						}
-					} else {
-						if (listController.autoriaAlteracao()) {
-							actionSalvar();
-						} else {
-							mensagemErro(DcConstants.PERMISSAO_NEGADA);
-						}
-					}
-				} else {
-					mensagemErro(DcConstants.OPERATION_SAVE_NOT_OK);
-				}
-			}
-		});
+        view.getBtnSalvar().addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                        limpaValidacoes();
+                        if (validaSalvar()) {
+                                if (isNovo()) {
+                                        if (listController.autoriaCriacao()) {
+                                                actionSalvar();
+                                        } else {
+                                                mensagemErro(DcConstants.PERMISSAO_NEGADA);
+                                        }
+                                } else {
+                                        if (listController.autoriaAlteracao()) {
+                                                actionSalvar();
+                                        } else {
+                                                mensagemErro(DcConstants.PERMISSAO_NEGADA);
+                                        }
+                                }
+                        } else {
+                                mensagemErro(DcConstants.OPERATION_SAVE_NOT_OK);
+                        }
+                }
+        });
 
-		view.getBtnNovo().addClickListener(new ClickListener() {
-			@Override
+        view.getBtnNovo().addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                        init();
+                        if (!isOnSeparateWindow()) {
+                                mainController.showTaskableContent(CRUDFormController.this);
+                        } else {
+                                listController.showOnWindow(view);
+                                criarNovo();
+                        }
+                }
+        });
+        
+		view.getBtnCancelar().addClickListener(new ClickListener() {
+	
+		@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				if (!isOnSeparateWindow()) {
-					mainController.showTaskableContent(CRUDFormController.this);
-				} else {
-					listController.showOnWindow(view);
-					criarNovo();
-				}
-			}
-		});
-
-		view.getBtnCancelar().addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
+				////ew.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				if (!hasNewAttemptOpen()) {
-					closeFormTaskOrWindow();
-				} else {
-					confirmClose();
+					close();
+				}else {
+					sairFechar();
 				}
-			}
+	       }
 		});
-	}
-
-	private void closeFormTaskOrWindow() {
+}
+	
+       private void closeFormTaskOrWindow() {
 		if (!isOnSeparateWindow()) {
 			Task parent = listController;
 			mainController.removeTask(CRUDFormController.this, false);
@@ -217,6 +220,13 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		this.novo = true;
 		novo();
 	}
+	
+	private void sairFechar(){  
+        if(javax.swing.JOptionPane.showConfirmDialog(null,"Deseja Fechar?","ATEN��O ",javax.swing.JOptionPane.YES_NO_OPTION )==0){  
+            this.dispose();  
+            close();
+        }  
+    }  
 
 	protected abstract void carregar(Serializable id);
 
