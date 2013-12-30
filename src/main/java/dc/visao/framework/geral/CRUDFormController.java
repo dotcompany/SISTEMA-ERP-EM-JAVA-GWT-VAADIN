@@ -37,14 +37,13 @@ import dc.visao.spring.SecuritySessionProvider;
  * 
  */
 
-public abstract class CRUDFormController<E> extends ControllerTask implements
-		Controller, Serializable {
+public abstract class CRUDFormController<E> extends ControllerTask implements Controller, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6944317085399570143L;
-	
+
 	CRUDFormView view;
 
 	private Type beanType;
@@ -91,73 +90,64 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		 */
 
 		// Configura Botoes;
-        view.getBtnSalvar().addClickListener(new ClickListener() {
-                @Override
-                public void buttonClick(ClickEvent event) {
-                        limpaValidacoes();
-                        if (validaSalvar()) {
-                                if (isNovo()) {
-                                        if (listController.autoriaCriacao()) {
-                                                actionSalvar();
-                                        } else {
-                                                mensagemErro(DcConstants.PERMISSAO_NEGADA);
-                                        }
-                                } else {
-                                        if (listController.autoriaAlteracao()) {
-                                                actionSalvar();
-                                        } else {
-                                                mensagemErro(DcConstants.PERMISSAO_NEGADA);
-                                        }
-                                }
-                        } else {
-                                mensagemErro(DcConstants.OPERATION_SAVE_NOT_OK);
-                        }
-                }
-        });
+		view.getBtnSalvar().addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				limpaValidacoes();
+				if (validaSalvar()) {
+					if (isNovo()) {
+						if (listController.autoriaCriacao()) {
+							actionSalvar();
+						} else {
+							mensagemErro(DcConstants.PERMISSAO_NEGADA);
+						}
+					} else {
+						if (listController.autoriaAlteracao()) {
+							actionSalvar();
+						} else {
+							mensagemErro(DcConstants.PERMISSAO_NEGADA);
+						}
+					}
+				} else {
+					mensagemErro(DcConstants.OPERATION_SAVE_NOT_OK);
+				}
+			}
+		});
 
-        view.getBtnNovo().addClickListener(new ClickListener() {
-                @Override
-                public void buttonClick(ClickEvent event) {
-                        init();
-                        if (!isOnSeparateWindow()) {
-                                mainController.showTaskableContent(CRUDFormController.this);
-                        } else {
-                                listController.showOnWindow(view);
-                                criarNovo();
-                        }
-                }
-        });
-        
-		view.getBtnCancelar().addClickListener(new ClickListener() {
-	
-		@Override
+		view.getBtnNovo().addClickListener(new ClickListener() {
+			@Override
 			public void buttonClick(ClickEvent event) {
 				init();
-				////ew.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-				if (!hasNewAttemptOpen()) {
-					close();
-				}else {
-					sairFechar();
+				if (!isOnSeparateWindow()) {
+					mainController.showTaskableContent(CRUDFormController.this);
+				} else {
+					listController.showOnWindow(view);
+					criarNovo();
 				}
-	       }
+			}
 		});
-}
-	
-       private void closeFormTaskOrWindow() {
+
+		view.getBtnCancelar().addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				confirmClose();
+			}
+		});
+	}
+
+	private void closeFormTaskOrWindow() {
 		if (!isOnSeparateWindow()) {
 			Task parent = listController;
 			mainController.removeTask(CRUDFormController.this, false);
 			mainController.showTaskableContent(parent);
-			listController.doSearch(((CRUDListView) listController.getView())
-					.getTxtPesquisa().getValue());
+			listController.doSearch(((CRUDListView) listController.getView()).getTxtPesquisa().getValue());
 		} else {
 			close();
 		}
 	}
 
 	public void confirmClose() {
-		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?",
-				"Você não salvou nenhuma de suas alterações.", "Sim", "Não",
+		ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza?", "Você não salvou nenhuma de suas alterações.", "Sim", "Não",
 				new ConfirmDialog.Listener() {
 					public void onClose(ConfirmDialog dialog) {
 						if (dialog.isConfirmed()) {
@@ -220,13 +210,13 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		this.novo = true;
 		novo();
 	}
-	
-	private void sairFechar(){  
-        if(javax.swing.JOptionPane.showConfirmDialog(null,"Deseja Fechar?","ATEN��O ",javax.swing.JOptionPane.YES_NO_OPTION )==0){  
-            this.dispose();  
-            close();
-        }  
-    }  
+
+	private void sairFechar() {
+		if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Fechar?", "ATEN��O ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+			this.dispose();
+			close();
+		}
+	}
 
 	protected abstract void carregar(Serializable id);
 
@@ -247,9 +237,7 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 		newAttemptOpen = false;
 		listController.notifySaved(obj);
 
-		new Notification("Gravado!", "Registro gravado com sucesso",
-				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-				.getCurrent());
+		new Notification("Gravado!", "Registro gravado com sucesso", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	protected abstract void quandoNovo();
@@ -275,28 +263,22 @@ public abstract class CRUDFormController<E> extends ControllerTask implements
 	protected abstract void removerEmCascata(List<Serializable> objetos);
 
 	public void mensagemRemovidoOK() {
-		new Notification(DcConstants.DELETE_TITLE_OK, DcConstants.DELETE_OK,
-				Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-				.getCurrent());
+		new Notification(DcConstants.DELETE_TITLE_OK, DcConstants.DELETE_OK, Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public void mensagemErro(String message) {
-		new Notification(DcConstants.ERROR_TITLE, message,
-				Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+		new Notification(DcConstants.ERROR_TITLE, message, Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public void mensagemAtencao(String message) {
-		new Notification(DcConstants.CAUTION_PLEASE, message,
-				Notification.TYPE_WARNING_MESSAGE, true)
-				.show(Page.getCurrent());
+		new Notification(DcConstants.CAUTION_PLEASE, message, Notification.TYPE_WARNING_MESSAGE, true).show(Page.getCurrent());
 	}
 
 	public View getView() {
 		return view;
 	}
 
-	protected void adicionarErroDeValidacao(AbstractComponent c,
-			String errorMessage) {
+	protected void adicionarErroDeValidacao(AbstractComponent c, String errorMessage) {
 		validatableComponents.put(c.getId(), c);
 		c.setComponentError(new UserError(errorMessage));
 	}
