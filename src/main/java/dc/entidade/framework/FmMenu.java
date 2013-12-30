@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,50 +36,56 @@ import dc.anotacoes.Caption;
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class FmMenu extends AbstractModel<Integer> implements Serializable {
 
-	private static final long serialVersionUID = 3022660314863012474L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fm_menu_id_seq")
+	@SequenceGenerator(name = "fm_menu_id_seq", sequenceName = "fm_menu_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	private Integer id;
 
 	@Field
 	@Caption("URL (identificador)")
 	@Column(name = "URL_ID")
-	private String urlId;
+	private String urlId = "";
 
 	@Field()
 	@Caption("Caption")
 	@Column(name = "CAPTION")
-	private String caption;
+	private String caption = "";
 
 	@Field()
 	@Caption("Classe do controller")
 	@Column(name = "controller", nullable = false)
-	private String controllerClass;
-
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
-	private FmModulo fmModulo;
-
-	@Transient
-	private Integer parentId;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private FmMenu parent;
+	private String controllerClass = "";
 
 	@Field()
 	@Caption("Permissão de operação")
 	@Column(name = "sn_permissao_operacao")
 	private Integer permissaoOperacao = new Integer(0);
 
-	/*
-	 * @Field()
-	 * 
-	 * @Caption("Consulta por multiempresa")
-	 * 
-	 * @Column(name = "sn_consulta_multiempresa") private Integer
-	 * consultaMultiempresa = new Integer(0);
+	@Field()
+	@Caption("Consulta por multiempresa")
+	@Column(name = "sn_consulta_multiempresa")
+	private Integer consultaMultiempresa = new Integer(0);
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
+	private FmModulo fmModulo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private FmMenu parent;
+
+	/**
+	 * REFERENCIA - LIST
 	 */
 
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
@@ -87,8 +94,22 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "menu", orphanRemoval = true)
 	private List<PapelMenu> papeisMenu;
 
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	private Integer parentId = new Integer(0);
+
+	/**
+	 * LOG
+	 */
+
 	private static Logger logger = Logger.getLogger(FmMenu.class);
 
+	/**
+	 * CONSTRUTOR
+	 */
 	public FmMenu() {
 
 	}
@@ -97,10 +118,9 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+	/**
+	 * GET / SET
+	 */
 
 	public Integer getId() {
 		return id;
@@ -114,8 +134,8 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		return urlId;
 	}
 
-	public void setUrlId(String urlID) {
-		this.urlId = urlID;
+	public void setUrlId(String urlId) {
+		this.urlId = (urlId == null ? "" : urlId);
 	}
 
 	public String getCaption() {
@@ -123,23 +143,15 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setCaption(String caption) {
-		this.caption = caption;
+		this.caption = (caption == null ? "" : caption);
 	}
 
-	public FmModulo getFmModulo() {
-		return fmModulo;
+	public String getControllerClass() {
+		return controllerClass;
 	}
 
-	public void setFmModulo(FmModulo m) {
-		this.fmModulo = m;
-	}
-
-	public void setParent(FmMenu m) {
-		this.parent = m;
-	}
-
-	public FmMenu getParent() {
-		return this.parent;
+	public void setControllerClass(String controllerClass) {
+		this.controllerClass = (controllerClass == null ? "" : controllerClass);
 	}
 
 	public Integer getPermissaoOperacao() {
@@ -147,23 +159,49 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setPermissaoOperacao(Integer permissaoOperacao) {
-		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0) : permissaoOperacao);
+		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0)
+				: permissaoOperacao);
 	}
 
-	/*
-	 * public Integer getConsultaMultiempresa() { return consultaMultiempresa; }
-	 * 
-	 * public void setConsultaMultiempresa(Integer consultaMultiempresa) {
-	 * this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
-	 * 0) : consultaMultiempresa); }
-	 */
-
-	public String getControllerClass() {
-		return controllerClass;
+	public Integer getConsultaMultiempresa() {
+		return consultaMultiempresa;
 	}
 
-	public void setControllerClass(String controllerClass) {
-		this.controllerClass = controllerClass;
+	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
+				0) : consultaMultiempresa);
+	}
+
+	public FmModulo getFmModulo() {
+		return fmModulo;
+	}
+
+	public void setFmModulo(FmModulo fmModulo) {
+		this.fmModulo = fmModulo;
+	}
+
+	public FmMenu getParent() {
+		return parent;
+	}
+
+	public void setParent(FmMenu parent) {
+		this.parent = parent;
+	}
+
+	public List<FmMenu> getMenusFilho() {
+		return menusFilho;
+	}
+
+	public void setMenusFilho(List<FmMenu> menusFilho) {
+		this.menusFilho = menusFilho;
+	}
+
+	public List<PapelMenu> getPapeisMenu() {
+		return papeisMenu;
+	}
+
+	public void setPapeisMenu(List<PapelMenu> papeisMenu) {
+		this.papeisMenu = papeisMenu;
 	}
 
 	public Integer getParentId() {
@@ -183,20 +221,13 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		return null;
 	}
 
-	public List<PapelMenu> getPapeisMenu() {
-		return papeisMenu;
-	}
+	/**
+	 * HASHCODE E EQUALS
+	 */
 
-	public void setPapeisMenu(List<PapelMenu> papeisMenu) {
-		this.papeisMenu = papeisMenu;
-	}
-
-	public List<FmMenu> getMenusFilho() {
-		return menusFilho;
-	}
-
-	public void setMenusFilho(List<FmMenu> menusFilho) {
-		this.menusFilho = menusFilho;
-	}
+	//@Override
+	//public String toString() {
+	//	return ToStringBuilder.reflectionToString(this);
+	//}
 
 }

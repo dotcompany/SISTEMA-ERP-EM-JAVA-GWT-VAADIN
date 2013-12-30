@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javassist.bytecode.Descriptor.Iterator;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

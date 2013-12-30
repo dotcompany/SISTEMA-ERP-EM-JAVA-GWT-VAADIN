@@ -1231,8 +1231,21 @@ public class EmpresaFormView extends CustomComponent {
 	public void setTxtCodigoGps(TextField txtCodigoGps) {
 		this.txtCodigoGps = txtCodigoGps;
 	}
+	
+	public void InitCbs(List<String> crtTipoList, List<String> tipoRegimeList, List<String> tipoList) {
+		for (String crt : crtTipoList) {
+			cmbCrt.addItem(crt.toString());
+		}
 
-	public void carregarCRT() {
+		for (String tr : tipoRegimeList) {
+			cmbTipoRegime.addItem(tr.toString());
+		}
+		for (String t : tipoList) {
+			cmbTipo.addItem(t.toString());
+		}
+	}
+
+	/*public void carregarCRT() {
 		this.cmbCrt.removeAllItems();
 		this.cmbCrt.addItem(CRT.SIMPLES_NACIONAL);
 		this.cmbCrt.addItem(CRT.SIMPLES_EXCESSO);
@@ -1252,9 +1265,9 @@ public class EmpresaFormView extends CustomComponent {
 		this.cmbTipo.addItem(TIPO.FILIAL);
 		this.cmbTipo.addItem(TIPO.DEPOSITO);
 	}
+*/
 
-
-	public enum CRT {
+/*	public enum CRT {
 
 		SIMPLES_NACIONAL("Simples Nacional", "1"), SIMPLES_EXCESSO("Simples Nacional - excesso de sublimite de receita bruta", "2"),
 		REGIME_NORMAL("Regime Normal. (v2.0)", "3");
@@ -1371,7 +1384,7 @@ public class EmpresaFormView extends CustomComponent {
 		public String toString() {
 			return label;
 		}
-	}
+	}*/
 
 
 
