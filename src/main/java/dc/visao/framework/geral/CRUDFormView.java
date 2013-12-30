@@ -193,16 +193,4 @@ public class CRUDFormView extends CustomComponent implements View {
 		return horizontalLayout_3;
 	}
 
-	public void setDefaultCloseOperation(int doNothingOnClose) {
-		// TODO Auto-generated method stub
-		int resposta = JOptionPane.showConfirmDialog(null,"Deseja finalizar essa operação?","Finalizar",JOptionPane.YES_NO_OPTION);
-		
-		if (resposta == 0)  
-        {  
-            System.exit(0);  
-        }  
-          
-		
-	}
-
 }

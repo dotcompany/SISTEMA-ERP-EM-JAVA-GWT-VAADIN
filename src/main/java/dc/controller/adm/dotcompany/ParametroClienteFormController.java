@@ -1,18 +1,36 @@
 package dc.controller.adm.dotcompany;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.vaadin.dialogs.ConfirmDialog;
 
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 import dc.entidade.adm.dotcompany.ParametroCliente;
+import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LctoPagarNtFinanceira;
+import dc.entidade.financeiro.ParcelaPagar;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
+import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainUI;
 
 @Controller
 @Scope("prototype")
@@ -25,10 +43,76 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	
 	@Autowired
 	ParametroClienteDAO parametroClienteDAO;
+	
+	@Autowired
+	private ParcelaPagarDAO parcelaPagarDAO;
 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		return false;
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+
+	private boolean validaCampos() {
+
+		boolean valido = true;
+
+		if (!Validator.validateObject(subView.getTxtValorEntrada().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtValorEntrada(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getDtEntrada().getValue())) {
+			adicionarErroDeValidacao(subView.getDtEntrada(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(subView.getDtVencimentoPromocao().getValue())) {
+			adicionarErroDeValidacao(subView.getDtVencimentoPromocao(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateNumber(subView.getTxtValorMenPromocional().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtValorMenPromocional(), "Não pode ficar em branco");
+			valido = false;
+		/*} else if (verificaSeFoiParcelado() && !Validator.validateNumber(subView.getTxIntervaloParcela().getValue())) {
+			adicionarErroDeValidacao(subView.getTxIntervaloParcela(), "Não pode ficar em branco");
+			valido = false;
+		}*/
+
+		if (!Validator.validateNumber(subView.getTxtValorMensalidade().getConvertedValue().toString())) {
+			adicionarErroDeValidacao(subView.getTxtValorMensalidade(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		}
+		return valido;
+	}
+
+	private boolean verificaSeFoiParcelado() {
+		return ((Integer) subView.getTxtValorMensalidade().getConvertedValue()) > 1
+				&& TipoVencimento.DIARIO.equals(subView.getCmbTipoFatura().getValue());
+	}
+
+	private BigDecimal getTotalParcelaPagar(List<ParcelaPagar> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValor());
+		}
+		return total;
+	}
+
+	private BigDecimal getTotalNaturezaFinanceira(List<LctoPagarNtFinanceira> naturezasFinanceiras) {
+		BigDecimal total = BigDecimal.ZERO;
+		if (naturezasFinanceiras != null) {
+			for (int i = 0; i < naturezasFinanceiras.size(); i++) {
+				total = total.add(naturezasFinanceiras.get(i).getValor());
+			}
+		}
+		return total;
 	}
 
 	@Override
@@ -47,12 +131,176 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	protected void carregar(Serializable id) {
 		currentBean = parametroClienteDAO.find(id);
 		
+		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					gerarParcelas();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					mensagemErro(e.getMessage());
+				}
+
+			}
+		});
+		
+		subView.getTxtValorEntrada().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				subView.getTxtValorEntrada().setConvertedValue(subView.getTxtValorEntrada().getConvertedValue());
+				subView.getTxtValorMenPromocional().setConvertedValue(subView.getTxtValorMenPromocional().getConvertedValue());
+				subView.getTxtValorMensalidade().setConvertedValue(subView.getTxtValorMensalidade().getConvertedValue());
+
+			}
+		});
+		
 	}
 
 	@Override
 	protected void actionSalvar() {
+		try {
+		          parametroClienteDAO.saveOrUpdate(currentBean);
+		          notifiyFrameworkSaveOK(this.currentBean);	
+	}catch (Exception e){
+		mensagemErro(e.getMessage());
+		e.printStackTrace();
+	}
 		
 	}
+	
+	public void gerarParcelas() throws Exception {
+
+		if (validaCampos()) {
+			final ContaCaixa contaCaixa = (ContaCaixa) subView.getCmbTipoFatura().getValue();
+			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+			List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
+			if (dados != null) {
+				parcelasPagar.addAll(subView.getParcelasSubForm().getDados());
+			}
+
+			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
+				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						new ConfirmDialog.Listener() {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public void onClose(ConfirmDialog dialog) {
+								if (dialog.isConfirmed()) {
+									excluiParcelas(parcelasPagar);
+									geraParcelas(contaCaixa, parcelasPagar);
+								}
+							}
+						});
+			} else {
+				geraParcelas(contaCaixa, parcelasPagar);
+			}
+
+		} else {
+			mensagemErro("Preencha todos os campos corretamente!");
+		}
+
+	}
+	
+	private void setIntervaloParcelaByTipoVencimento() {
+		if (TipoVencimento.MENSAL.equals(subView.getCmbTipoFatura().getValue())) {
+		}
+	}
+	
+	private void geraParcelas(ContaCaixa contaCaixa, final List<ParcelaPagar> parcelasPagar) {
+		subView.getParcelasSubForm().removeAllItems();
+
+		subView.preencheBean(currentBean);
+
+		setIntervaloParcelaByTipoVencimento();
+
+		ParametroCliente parametroCliente = currentBean;
+		ParcelaPagar parcelaPagar;
+		Date dataEmissao = new Date();
+		Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(parametroCliente.getDiaVencimento());
+		BigDecimal valorParcela = parametroCliente.getValorEntrada().divide(BigDecimal.valueOf(parametroCliente.getQuantidadeParcela()),
+				RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+		for (int i = 0; i < parametroCliente.getQuantidadeParcela(); i++) {
+			parcelaPagar = new ParcelaPagar();
+			parcelaPagar.setContaCaixa(contaCaixa);
+			parcelaPagar.setNumeroParcela(i + 1);
+			parcelaPagar.setDataEmissao(dataEmissao);
+			if (i > 0) {
+			}
+			parcelaPagar.setDataVencimento(primeiroVencimento.getTime());
+			parcelaPagar.setValor(valorParcela);
+
+			somaParcelas = somaParcelas.add(valorParcela);
+			if (i == (parametroCliente.getQuantidadeParcela() - 1)) {
+				residuo = parametroCliente.getValorEntrada().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaPagar.setValor(valorParcela);
+			}
+
+			parcelasPagar.add(parcelaPagar);
+			//novoParcelaPagar(parcelaPagar);
+		}
+
+		subView.getParcelasSubForm().fillWith(parcelasPagar);
+	}
+
+	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
+		List<ParcelaPagar> persistentObjects = subView.getParcelasSubForm().getDados();
+
+		for (int i = 0; i < persistentObjects.size(); i++) {
+			parcelaPagarDAO.delete(persistentObjects.get(i));
+		}
+		parcelasPagar.clear();
+	}
+
+	/*public ParcelaPagar novoParcelaPagar() {
+		ParcelaPagar parcela = new ParcelaPagar();
+		return novoParcelaPagar(parcela);
+	}
+
+	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {
+
+		currentBean.addParcelaPagar(parcela);
+
+		return parcela;
+	}
+
+	public void removerParcelaPagar(List<ParcelaPagar> values) {
+		for (ParcelaPagar value : values) {
+			currentBean.removeParcelaPagar(value);
+		}
+
+	}*/
+
+	/*public LctoPagarNtFinanceira novoLctoPagarNtFinanceira() {
+		LctoPagarNtFinanceira lctoPagarNtFinanceira = currentBean.addLctoPagarNtFinanceira();
+		return lctoPagarNtFinanceira;
+	}
+
+	public void removerLctoPagarNtFinanceira(List<LctoPagarNtFinanceira> values) {
+		for (LctoPagarNtFinanceira value : values) {
+			currentBean.removeLctoPagarNtFinanceira(value);
+		}
+
+	}*/
 
 	@Override
 	protected void quandoNovo() {
