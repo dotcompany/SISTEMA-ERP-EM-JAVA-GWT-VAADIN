@@ -194,12 +194,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			fechar.setDescription("Fechar");*/
 	
 		//ALTERAR (FECHAR)
+		
 			view.getBtnFechar().addClickListener(new ClickListener() {
 				public void buttonClick(ClickEvent event) {
 					mainController.closeAllTasks();
 					
 				}
-			});
+            });
+	}
 
 			/*HorizontalLayout taskItemDescripion = new HorizontalLayout();
 			taskItemDescripion.setStyleName("taskbar-item-desc");
@@ -209,7 +211,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 			taskItem.addComponent(fechar);
 		}*/
-}
 
 	protected void actionAbrir(Object object) {
 		if (object == null) {

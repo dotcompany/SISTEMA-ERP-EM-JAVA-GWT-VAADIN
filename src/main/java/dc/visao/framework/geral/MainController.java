@@ -190,6 +190,13 @@ public class MainController implements ViewDisplay,Serializable {
 		return builder;
 	}
 
+	
+	public void removeTask(Task task) {
+		contentManager.removeTask(task);
+		if(task.isActive()){
+			updateBarAfterRemoval(task);
+		}
+	}
 
 	
 	public void removeTask(Task task,boolean updateView) {
