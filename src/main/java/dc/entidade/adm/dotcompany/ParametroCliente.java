@@ -2,20 +2,27 @@ package dc.entidade.adm.dotcompany;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+
+import com.sun.istack.logging.Logger;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -35,11 +42,17 @@ import dc.entidade.framework.ComboValue;
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final int ID_MODULO_ADM = -1;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pes")
-	@SequenceGenerator(name = "pes", sequenceName = "pessoa_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parametro")
+	@SequenceGenerator(name = "parametro", sequenceName = "parametro_id_seq", allocationSize = 1)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -78,13 +91,66 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoDeFatura;
+	
+	@Lob
+	@Field
+	@Caption("Observacao Fechamento")
+	@Type(type = "text")
+	@Column(name = "OBSERVACAO_FECHAMENTO", length = 65535)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacaoFechamento;
+	
+	@Field
+	@Caption("Data Entrada")
+	@Column(name = "DATA_ENTRADA")
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataEntrada;
+	
+	@Field
+	@Caption("Vencimento Promoção")
+	@Column(name = "VENCIMENTO_ENTRADA")
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date vencimentoPromocao;
+	
+	@Column(name = "DIA_VENCIMENTO")
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String diaVencimento;
+	
+	
+	private static Logger logger = Logger.getLogger(ParametroCliente.class);
+	
+	public ParametroCliente() {
+		this.id = id;
+	}
 
-	@Override
 	public Integer getId() {
-		return null;
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	
 	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof ParametroCliente == false)
+			return false;
+		if (this == object)
+			return true;
+		final ParametroCliente other = (ParametroCliente) object;
+		return EqualsBuilder.reflectionEquals(this, other);
+	}
+
+	@Override
+	public String toString() {
+		return tipoDeSistema;
+	}
 
 }

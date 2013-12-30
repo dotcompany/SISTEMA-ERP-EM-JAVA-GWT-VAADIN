@@ -23,17 +23,7 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 	
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"modelo","serie","nome","descricao"};
-	}
-
-	@Override
-	protected String getTitulo() {
-		return "Parâmetro Cliente";
-	}
-	
-	@Override
-	protected CRUDFormController<ParametroCliente> getFormController() {
-		return parametroClienteFormController;
+		return new String[] {"tipoDeSistema", "valorEntrada"};
 	}
 
 	@Override
@@ -41,24 +31,38 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 		return ParametroCliente.class;
 	}
 
+
 	@Override
-	public String getViewIdentifier() {
-		return "Parâmetro Cliente";
+	protected String getTitulo() {
+		return "Parametro Cliente";
 	}
 
 	@Override
 	protected List<ParametroCliente> pesquisa(String valor) {
-		return null;
+		return dao.fullTextSearch(valor);
 	}
+	
 
 	@Override
-	protected List<ParametroCliente> pesquisaDefault() {
-		return null;
+	protected CRUDFormController<ParametroCliente> getFormController() {
+		return parametroClienteFormController;
+	}
+
+	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	@Override
+	public String getViewIdentifier() {
+		return "listaParametroCliente";
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
+	
+	@Override
+	protected List<ParametroCliente> pesquisaDefault() {
+		return (List<ParametroCliente>) dao.getAll(getEntityClass());
+	}
+
 
 }

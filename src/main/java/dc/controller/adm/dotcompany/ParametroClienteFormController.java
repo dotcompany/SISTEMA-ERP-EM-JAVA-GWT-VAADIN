@@ -3,12 +3,14 @@ package dc.controller.adm.dotcompany;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
 import dc.entidade.adm.dotcompany.ParametroCliente;
+import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -16,14 +18,13 @@ import dc.visao.framework.geral.CRUDFormController;
 @Scope("prototype")
 public class ParametroClienteFormController extends CRUDFormController<ParametroCliente> {
 	
-	ParametroCliente currentBean;
+	
+	private ParametroCliente currentBean;
 	
 	ParametroClienteFormView subView;
-
-	@Override
-	public String getViewIdentifier() {
-		return "Parâmetro Cliente";
-	}
+	
+	@Autowired
+	ParametroClienteDAO parametroClienteDAO;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -34,7 +35,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	protected void criarNovoBean() {
 		currentBean = new ParametroCliente();
 		
-	}
+	} 
 
 	@Override
 	protected void initSubView() {
@@ -44,6 +45,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	protected void carregar(Serializable id) {
+		currentBean = parametroClienteDAO.find(id);
 		
 	}
 
@@ -69,11 +71,20 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	protected void remover(List<Serializable> ids) {
+		parametroClienteDAO.deleteAllByIds(ids);
+		 mensagemRemovidoOK();
 		
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
+		parametroClienteDAO.deleteAll(objetos);
+		 mensagemRemovidoOK();
+	}
+	
+	@Override
+	public String getViewIdentifier() {
+		return "parametroClienteForm";
 	}
 	
 	

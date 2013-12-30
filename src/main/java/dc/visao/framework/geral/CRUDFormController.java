@@ -211,13 +211,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 		novo();
 	}
 
-	private void sairFechar() {
-		if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Fechar?", "ATEN��O ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
-			this.dispose();
-			close();
-		}
-	}
-
 	protected abstract void carregar(Serializable id);
 
 	public void load(AbstractModel<Serializable> model) {

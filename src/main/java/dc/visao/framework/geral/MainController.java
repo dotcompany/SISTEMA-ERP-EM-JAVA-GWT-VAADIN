@@ -185,7 +185,7 @@ public class MainController implements ViewDisplay,Serializable {
 	public List<FmModulo> getModules() {
 		return this.modules;
 	}
-
+	
 	public MenuBuilder getMenuBuilder() {
 		return builder;
 	}

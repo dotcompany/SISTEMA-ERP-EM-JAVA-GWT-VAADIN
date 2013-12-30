@@ -203,7 +203,7 @@ public class MenuBuilder implements Serializable {
 		MenuBar.MenuItem parametroCliente = administrativo.addItem("Parâmetro Cliente", null, new Command() {
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
-				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(ParametroClienteListController.class);
+				Controller c = (Controller) mainController.getEntityController(ParametroClienteListController.class);
 				showControllerSistema(mainController, c);
 				
 			}
