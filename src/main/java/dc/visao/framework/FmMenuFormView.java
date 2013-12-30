@@ -325,7 +325,7 @@ public class FmMenuFormView extends CustomComponent {
 				controller.verificarTipo(event);
 			}
 		});
-		gridLayout_1.addComponent(tipoMenu, 1, 5);
+		gridLayout_1.addComponent(tipoMenu, 0, 6);
 
 		// cbMenu
 		cbMenu = new ComboBox();
@@ -334,7 +334,7 @@ public class FmMenuFormView extends CustomComponent {
 		cbMenu.setWidth("-1px");
 		cbMenu.setHeight("-1px");
 		cbMenu.setSizeFull();
-		gridLayout_1.addComponent(cbMenu, 0, 6);
+		gridLayout_1.addComponent(cbMenu, 0, 7);
 
 		// txtController
 		txtController = new TextField();
@@ -343,7 +343,7 @@ public class FmMenuFormView extends CustomComponent {
 		txtController.setWidth("-1px");
 		txtController.setHeight("-1px");
 		txtController.setSizeFull();
-		gridLayout_1.addComponent(txtController, 1, 6);
+		gridLayout_1.addComponent(txtController, 0, 8);
 
 		return gridLayout_1;
 	}
