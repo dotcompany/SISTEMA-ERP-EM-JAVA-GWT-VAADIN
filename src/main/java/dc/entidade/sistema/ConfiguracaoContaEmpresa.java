@@ -11,57 +11,52 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.logging.Logger;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 
 @Entity
 @Table(name = "configuracao_conta_empresa")
 @XmlRootElement
-public class ConfiguracaoContaEmpresa extends AbstractModel<Integer> implements Serializable{
-
+public class ConfiguracaoContaEmpresa extends AbstractModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = -4401209508896666278L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+
 	@OneToOne()
 	private ContaEmpresa conta;
-    
-    @Field()
-    @Caption("Pergunta 1")
-    @Column(name = "pergunta_1" )
-    private String pergunta1;
-    
-    @Field()
-    @Caption("Pergunta 2")
-    @Column(name = "pergunta_2" )
-    private String pergunta2;
- 
-    @ManyToMany(fetch=FetchType.EAGER)
-    //@Cascade({org.hibernate.annotations.CascadeType.DETACH})
+
+	@Field()
+	@Caption("Pergunta 1")
+	@Column(name = "pergunta_1")
+	private String pergunta1;
+
+	@Field()
+	@Caption("Pergunta 2")
+	@Column(name = "pergunta_2")
+	private String pergunta2;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "configuracao_conta_empresa_fm_modulo", inverseJoinColumns = { @JoinColumn(name = "modulos_id") }, joinColumns = { @JoinColumn(name = "configuracao_conta_empresa_id ") })
 	private List<FmModulo> modulos;
 
-    private static Logger logger = Logger.getLogger(ConfiguracaoContaEmpresa.class);
+	private static Logger logger = Logger.getLogger(ConfiguracaoContaEmpresa.class);
 
 	public Integer getId() {
 		return id;
@@ -103,11 +98,4 @@ public class ConfiguracaoContaEmpresa extends AbstractModel<Integer> implements 
 		this.modulos = modulos;
 	}
 
-
-
-
-
-
-    
-	
 }

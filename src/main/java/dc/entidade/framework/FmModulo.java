@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -28,6 +32,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.navigator.View;
 
 import dc.anotacoes.Caption;
+import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.framework.BlankModuleView;
 import dc.framework.ModuleView;
 import dc.visao.framework.geral.MainController;
@@ -66,6 +71,19 @@ public class FmModulo implements Serializable {
 
 	@OneToMany(mappedBy = "fmModulo", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FmMenu> menus;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@JoinTable(name = "configuracao_conta_empresa_fm_modulo", joinColumns = { @JoinColumn(name = "modulos_id") }, inverseJoinColumns = { @JoinColumn(name = "configuracao_conta_empresa_id ") })
+	private List<ConfiguracaoContaEmpresa> configuracaoContaEmpresa;
+
+	/**
+	 * @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 * @JoinTable(name = "stock_category", catalog = "mkyongdb", joinColumns = {
+	 *                 @JoinColumn(name = "STOCK_ID", nullable = false,
+	 *                 updatable = false inverseJoinColumns = { @JoinColumn(name
+	 *                 = "CATEGORY_ID", nullable = false, updatable = false) })
+	 *                 /
+	 */
 
 	private static Logger logger = Logger.getLogger(FmModulo.class);
 
@@ -193,6 +211,14 @@ public class FmModulo implements Serializable {
 
 	public static FmModulo loadSystemInstance() {
 		return new FmModulo("ADM DOTCOMPANY", FmModulo.ID_MODULO_ADM_DC, "adm_dotcompany", "dc.visao.modulos.AdmDotCompanyView");
+	}
+
+	public List<ConfiguracaoContaEmpresa> getConfiguracaoContaEmpresa() {
+		return configuracaoContaEmpresa;
+	}
+
+	public void setConfiguracaoContaEmpresa(List<ConfiguracaoContaEmpresa> configuracaoContaEmpresa) {
+		this.configuracaoContaEmpresa = configuracaoContaEmpresa;
 	}
 
 }
