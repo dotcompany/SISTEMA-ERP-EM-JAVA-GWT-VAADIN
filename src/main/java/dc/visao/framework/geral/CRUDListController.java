@@ -78,6 +78,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 	@Autowired
 	private MainController mainController;
+	
+	CRUDFormController<?> formController;
+	
+	@Autowired
+	private TaskContentManager task;
 
 	@Autowired
 	private GenericListDAO genericDAO;
@@ -196,8 +201,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		//ALTERAR (FECHAR)
 		
 			view.getBtnFechar().addClickListener(new ClickListener() {
+				@Override
 				public void buttonClick(ClickEvent event) {
-					mainController.closeAllTasks();
+					formController.confirmClose();
 					
 				}
             });
@@ -337,6 +343,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 			}
 		});
 
+		/**
+		 * 
+		 * Wesley Jr(Alterações CheckBox)
+		 */
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
@@ -344,7 +354,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		table.addGeneratedColumn("mycolumn", new ColumnGenerator() {
 			public Object generateCell(Table source, Object itemId,
 					Object columnId) {
-				TextField tf = new TextField();
+				TextField tf = new TextField(); 
+				
 
 				return tf;
 			}

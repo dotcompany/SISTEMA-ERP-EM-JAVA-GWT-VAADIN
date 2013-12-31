@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.istack.logging.Logger;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Table;
 
 import dc.visao.spring.SecuritySessionProvider;
@@ -20,7 +21,15 @@ public class CustomListTable extends Table {
 	public static Logger logger = Logger.getLogger(CustomListTable.class);
 	private CompanyFileHandler fileHandler = new CompanyFileHandler();
 	private String entityName;
-	public static final Object CUSTOM_SELECT_ID = "Selecionar";
+	
+	/*
+	 * 
+	 * Selecionar (AJUSTES)
+	 */
+	
+	public static final Object CUSTOM_SELECT_ID = "";
+	final CheckBox checkbox = new CheckBox();
+	
 	private static final String COLLUMN_INFO = "col_info";
 	private static final String COLLAPSED = "collapsed";
 	
@@ -30,7 +39,7 @@ public class CustomListTable extends Table {
 	
 	 public void setColumnCollapsed(Object propertyId, boolean collapsed) 
 	           throws IllegalStateException {
-		 if(!propertyId.equals(CUSTOM_SELECT_ID)){
+		 if(!propertyId.equals(checkbox)){
 		    super.setColumnCollapsed(propertyId, collapsed);
 		    logger.info("collapsed" + collapsed);
 		    logger.info(String.valueOf(propertyId));

@@ -53,7 +53,14 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 
 	private static final long serialVersionUID = 2294032614900261052L;
 
-	private static final String CUSTOM_SELECT_ID = "Selecionar";
+	
+	/*
+	 * 
+	 * Selecionar (AJUSTES)
+	 */
+	private static final String CUSTOM_SELECT_ID = "";
+	
+	final CheckBox checkbox = new CheckBox();
 
 	private Map<ID, T> selected = new HashMap<>();
 
@@ -124,12 +131,18 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		table.setPageLength(0);
 		table.setSizeFull();
 		table.setContainerDataSource(container);
-		table.addGeneratedColumn(CUSTOM_SELECT_ID, new ColumnGenerator() {
+		table.addGeneratedColumn(checkbox, new ColumnGenerator() {
 
 			@Override
 			@SuppressWarnings("unchecked")
 			public Component generateCell(final Table source, final Object itemId, final Object columnId) {
 
+				/*
+				 * @CheckBox
+				 * Wesley Jr
+				 * 
+				 */
+				
 				final BeanItem<T> selectedBeanItem = (BeanItem<T>) source.getContainerDataSource().getItem(itemId);
 				final CheckBox checkBox = new CheckBox();
 				checkBox.setImmediate(true);
