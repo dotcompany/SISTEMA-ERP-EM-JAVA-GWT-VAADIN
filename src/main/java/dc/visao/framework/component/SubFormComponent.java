@@ -131,7 +131,7 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		table.setPageLength(0);
 		table.setSizeFull();
 		table.setContainerDataSource(container);
-		table.addGeneratedColumn(checkbox, new ColumnGenerator() {
+		table.addGeneratedColumn(CUSTOM_SELECT_ID, new ColumnGenerator() {
 
 			@Override
 			@SuppressWarnings("unchecked")

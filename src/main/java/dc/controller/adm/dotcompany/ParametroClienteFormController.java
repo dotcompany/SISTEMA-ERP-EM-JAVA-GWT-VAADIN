@@ -1,48 +1,36 @@
 package dc.controller.adm.dotcompany;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.vaadin.dialogs.ConfirmDialog;
 
-import com.vaadin.event.FieldEvents.BlurEvent;
-import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
 import dc.entidade.adm.dotcompany.ParametroCliente;
-import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.LancamentoPagar;
-import dc.entidade.financeiro.LctoPagarNtFinanceira;
-import dc.entidade.financeiro.ParcelaPagar;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
-import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.framework.geral.MainUI;
 
 @Controller
 @Scope("prototype")
 public class ParametroClienteFormController extends CRUDFormController<ParametroCliente> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private ParametroCliente currentBean;
 	
 	ParametroClienteFormView subView;
 	
 	@Autowired
-	ParametroClienteDAO parametroClienteDAO;
+	private ParametroClienteDAO parametroClienteDAO;
 	
 	@Autowired
 	private ParcelaPagarDAO parcelaPagarDAO;
@@ -65,8 +53,8 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getDtEntrada().getValue())) {
-			adicionarErroDeValidacao(subView.getDtEntrada(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getDtDataEntrada().getValue())) {
+			adicionarErroDeValidacao(subView.getDtDataEntrada(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -75,25 +63,20 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtValorMenPromocional().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtValorMenPromocional(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxtValorMensPromocional().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtValorMensPromocional(), "Não pode ficar em branco");
 			valido = false;
 		/*} else if (verificaSeFoiParcelado() && !Validator.validateNumber(subView.getTxIntervaloParcela().getValue())) {
 			adicionarErroDeValidacao(subView.getTxIntervaloParcela(), "Não pode ficar em branco");
 			valido = false;
 		}*/
 
-		if (!Validator.validateNumber(subView.getTxtValorMensalidade().getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxtValorMensalidade(), "Não pode ficar em branco");
-			valido = false;
-		}
-
 		}
 		return valido;
 	}
 
-	private boolean verificaSeFoiParcelado() {
-		return ((Integer) subView.getTxtValorMensalidade().getConvertedValue()) > 1
+	/*private boolean verificaSeFoiParcelado() {
+		return ((Integer) subView.getTxtValorMensPromocional().getConvertedValue()) > 1
 				&& TipoVencimento.DIARIO.equals(subView.getCmbTipoFatura().getValue());
 	}
 
@@ -113,17 +96,17 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			}
 		}
 		return total;
-	}
+	}*/
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ParametroCliente();
+		currentBean = new ParametroCliente(); 
 		
 	} 
 
 	@Override
 	protected void initSubView() {
-		subView = new ParametroClienteFormView();
+		subView = new ParametroClienteFormView(this);
 		
 	}
 
@@ -131,12 +114,12 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	protected void carregar(Serializable id) {
 		currentBean = parametroClienteDAO.find(id);
 		
-		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
+		/*subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
+			/*private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -148,31 +131,20 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 				}
 
 			}
-		});
+		});*/
 		
-		subView.getTxtValorEntrada().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
 				subView.getTxtValorEntrada().setConvertedValue(subView.getTxtValorEntrada().getConvertedValue());
-				subView.getTxtValorMenPromocional().setConvertedValue(subView.getTxtValorMenPromocional().getConvertedValue());
-				subView.getTxtValorMensalidade().setConvertedValue(subView.getTxtValorMensalidade().getConvertedValue());
+				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
+				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
 
-			}
-		});
 		
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-		          parametroClienteDAO.saveOrUpdate(currentBean);
-		          notifiyFrameworkSaveOK(this.currentBean);	
+		        parametroClienteDAO.saveOrUpdate(currentBean);
+		        notifiyFrameworkSaveOK(this.currentBean);	
 	}catch (Exception e){
 		mensagemErro(e.getMessage());
 		e.printStackTrace();
@@ -180,7 +152,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 		
 	}
 	
-	public void gerarParcelas() throws Exception {
+	/*public void gerarParcelas() throws Exception {
 
 		if (validaCampos()) {
 			final ContaCaixa contaCaixa = (ContaCaixa) subView.getCmbTipoFatura().getValue();
@@ -198,7 +170,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 							/**
 							 * 
 							 */
-							private static final long serialVersionUID = 1L;
+						/*	private static final long serialVersionUID = 1L;
 
 							public void onClose(ConfirmDialog dialog) {
 								if (dialog.isConfirmed()) {
@@ -215,9 +187,9 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			mensagemErro("Preencha todos os campos corretamente!");
 		}
 
-	}
+	}*/
 	
-	private void setIntervaloParcelaByTipoVencimento() {
+	/*private void setIntervaloParcelaByTipoVencimento() {
 		if (TipoVencimento.MENSAL.equals(subView.getCmbTipoFatura().getValue())) {
 		}
 	}
@@ -335,6 +307,9 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 		return "parametroClienteForm";
 	}
 	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
 	
-
 }
