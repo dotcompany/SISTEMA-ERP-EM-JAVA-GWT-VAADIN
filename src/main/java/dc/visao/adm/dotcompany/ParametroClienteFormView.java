@@ -420,11 +420,11 @@ public class ParametroClienteFormView extends CustomComponent {
 		txtComissaoVendedor = new TextField();
 		txtComissaoVendedor.setCaption("Comissão");
 		txtComissaoVendedor.setImmediate(false);
-		txtComissaoVendedor.setWidth("456px");
+		txtComissaoVendedor.setWidth("56px");
 		txtComissaoVendedor.setHeight("-1px");
 		
 		layout.addComponent(cmbVendedor, 0,2);
-		layout.addComponent(txtComissaoVendedor, 2,2);
+		layout.addComponent(txtComissaoVendedor, 1,2);
 		
 		cmbAgente = new ComboBox();
 		cmbAgente.setCaption("Agente");
@@ -434,11 +434,11 @@ public class ParametroClienteFormView extends CustomComponent {
 		txtComissaoAgente = new TextField();
 		txtComissaoAgente.setCaption("Comissão");
 		txtComissaoAgente.setImmediate(false);
-		txtComissaoAgente.setWidth("456px");
+		txtComissaoAgente.setWidth("56px");
 		txtComissaoAgente.setHeight("-1px");
 		
 		layout.addComponent(cmbAgente, 0,3);
-		layout.addComponent(txtComissaoAgente, 3,2);
+		layout.addComponent(txtComissaoAgente, 1,3);
 		
 		
 		subForms.addTab(layout, "Informação", null);
