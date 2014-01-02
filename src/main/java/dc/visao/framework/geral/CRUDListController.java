@@ -22,14 +22,10 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.Table.ColumnReorderEvent;
@@ -58,8 +54,7 @@ import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
-public abstract class CRUDListController<E> extends ControllerTask implements
-		Controller, ControllerAcesso {
+public abstract class CRUDListController<E> extends ControllerTask implements Controller, ControllerAcesso {
 
 	/**
 	 * 
@@ -78,9 +73,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 	@Autowired
 	private MainController mainController;
-	
+
 	CRUDFormController<?> formController;
-	
+
 	@Autowired
 	private TaskContentManager task;
 
@@ -112,12 +107,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		view.getBtnPesquisa().addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				if (papelMenu != null) {
-					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu
-							.getPodeConsultar())) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeConsultar())) {
 						actionPesquisa();
 					} else {
-						getFormController().mensagemErro(
-								DcConstants.PERMISSAO_NEGADA);
+						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
 					}
 				} else {
 					if (acessoLiberado) {
@@ -131,12 +124,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		view.getBtnCriar().addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				if (papelMenu != null) {
-					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu
-							.getPodeInserir())) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeInserir())) {
 						actionCriarNovo();
 					} else {
-						getFormController().mensagemErro(
-								DcConstants.PERMISSAO_NEGADA);
+						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
 					}
 				} else {
 					if (acessoLiberado) {
@@ -149,10 +140,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
 			// We change the default order of the buttons
 			@Override
-			public ConfirmDialog create(String caption, String message,
-					String okCaption, String cancelCaption) {
-				ConfirmDialog d = super.create(caption, message, okCaption,
-						cancelCaption);
+			public ConfirmDialog create(String caption, String message, String okCaption, String cancelCaption) {
+				ConfirmDialog d = super.create(caption, message, okCaption, cancelCaption);
 				d.setStyleName("dc-confirm-dialog");
 
 				d.setWidth("35%");
@@ -168,12 +157,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		view.getBtnRemover().addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				if (papelMenu != null) {
-					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu
-							.getPodeExcluir())) {
+					if (DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeExcluir())) {
 						actionRemoverSelecionados();
 					} else {
-						getFormController().mensagemErro(
-								DcConstants.PERMISSAO_NEGADA);
+						getFormController().mensagemErro(DcConstants.PERMISSAO_NEGADA);
 					}
 				} else {
 					if (acessoLiberado) {
@@ -187,41 +174,40 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		actionPesquisa();
 
-	// Botao Fechar (Sair)
+		// Botao Fechar (Sair)
 
-	/*private void populateTaskBar(List<Task> tasks,
-			final MainController mainController) {
+		/*
+		 * private void populateTaskBar(List<Task> tasks, final MainController
+		 * mainController) {
+		 * 
+		 * for (final Task t : tasks) { final HorizontalLayout taskItem = new
+		 * HorizontalLayout(); Button fechar = new NativeButton("");
+		 * fechar.setImmediate(true); fechar.setDescription("Fechar");
+		 */
 
-		for (final Task t : tasks) {
-			final HorizontalLayout taskItem = new HorizontalLayout();
-			Button fechar = new NativeButton("");
-			fechar.setImmediate(true);
-			fechar.setDescription("Fechar");*/
-	
-		//ALTERAR (FECHAR)
-		
-			view.getBtnFechar().addClickListener(new ClickListener() {
-				@Override
-				public void buttonClick(ClickEvent event) {
-					formController.confirmClose();
-					
-				}
-            });
+		// ALTERAR (FECHAR)
+
+		view.getBtnFechar().addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				mainController.removeTask((Task) getController(), true);
+
+			}
+		});
 	}
 
-			/*HorizontalLayout taskItemDescripion = new HorizontalLayout();
-			taskItemDescripion.setStyleName("taskbar-item-desc");
-			Label itemLabel = new Label(t.getTaskCaption());
-			itemLabel.setStyleName("taskbar-label");
-			taskItemDescripion.addComponent(itemLabel);
-
-			taskItem.addComponent(fechar);
-		}*/
+	/*
+	 * HorizontalLayout taskItemDescripion = new HorizontalLayout();
+	 * taskItemDescripion.setStyleName("taskbar-item-desc"); Label itemLabel =
+	 * new Label(t.getTaskCaption()); itemLabel.setStyleName("taskbar-label");
+	 * taskItemDescripion.addComponent(itemLabel);
+	 * 
+	 * taskItem.addComponent(fechar); }
+	 */
 
 	protected void actionAbrir(Object object) {
 		if (object == null) {
-			getFormController().mensagemAtencao(
-					"Escolha um registro para abrir");
+			getFormController().mensagemAtencao("Escolha um registro para abrir");
 		} else {
 			Serializable id = (Serializable) object;
 
@@ -249,48 +235,40 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		final List values = Arrays.asList(selected.values().toArray());
 
 		if (ids.isEmpty()) {
-			getFormController().mensagemAtencao(
-					"Nenhum registro selecionado para remoção");
+			getFormController().mensagemAtencao("Nenhum registro selecionado para remoção");
 		} else {
-			ConfirmDialog
-					.show(MainUI.getCurrent(),
-							"Confirme a remoção",
-							"Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
-							"Sim", "Não", new ConfirmDialog.Listener() {
+			ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+					"Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.", "Sim", "Não",
+					new ConfirmDialog.Listener() {
 
-								public void onClose(ConfirmDialog dialog) {
-									if (dialog.isConfirmed()) {
-										try {
-											if (deletaEmCascata()) {
-												getFormController()
-														.removerEmCascata(
-																values);
-											} else {
-												getFormController()
-														.remover(ids);
-											}
-
-											LazyQueryContainer container = (LazyQueryContainer) table
-													.getContainerDataSource();
-
-											for (Object id : ids) {
-												container.removeItem(id);
-											}
-
-											container.commit();
-											container.refresh();
-											selected.clear();
-											table.refreshRowCache();
-										} catch (Exception e) {
-											logger.warning(e.getMessage());
-											getFormController()
-													.mensagemErro(
-															"Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
-										}
+						public void onClose(ConfirmDialog dialog) {
+							if (dialog.isConfirmed()) {
+								try {
+									if (deletaEmCascata()) {
+										getFormController().removerEmCascata(values);
+									} else {
+										getFormController().remover(ids);
 									}
-								}
 
-							});
+									LazyQueryContainer container = (LazyQueryContainer) table.getContainerDataSource();
+
+									for (Object id : ids) {
+										container.removeItem(id);
+									}
+
+									container.commit();
+									container.refresh();
+									selected.clear();
+									table.refreshRowCache();
+								} catch (Exception e) {
+									logger.warning(e.getMessage());
+									getFormController().mensagemErro(
+											"Houve um erro remover registro. Verifique se o mesmo Não tem dependência com outros registros.");
+								}
+							}
+						}
+
+					});
 
 		}
 	}
@@ -352,47 +330,39 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
 		table.addGeneratedColumn("mycolumn", new ColumnGenerator() {
-			public Object generateCell(Table source, Object itemId,
-					Object columnId) {
-				TextField tf = new TextField(); 
-				
+			public Object generateCell(Table source, Object itemId, Object columnId) {
+				TextField tf = new TextField();
 
 				return tf;
 			}
 		});
 
-		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID,
-				new ColumnGenerator() {
+		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
+			@Override
+			public Component generateCell(final Table source, final Object itemId, final Object columnId) {
+				final CompositeItem selectedBeanItem = (CompositeItem) source.getContainerDataSource().getItem(itemId);
+				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
+
+				final CheckBox checkBox = new CheckBox();
+
+				checkBox.setImmediate(true);
+				checkBox.addValueChangeListener(new Property.ValueChangeListener() {
 					@Override
-					public Component generateCell(final Table source,
-							final Object itemId, final Object columnId) {
-						final CompositeItem selectedBeanItem = (CompositeItem) source
-								.getContainerDataSource().getItem(itemId);
-						final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem
-								.getItem("bean");
-
-						final CheckBox checkBox = new CheckBox();
-
-						checkBox.setImmediate(true);
-						checkBox.addValueChangeListener(new Property.ValueChangeListener() {
-							@Override
-							public void valueChange(
-									com.vaadin.data.Property.ValueChangeEvent event) {
-								Boolean select = (Boolean) event.getProperty()
-										.getValue();
-								if (select) {
-									selected.put(itemId, nestedItem.getBean());
-								} else {
-									selected.remove(itemId);
-								}
-							}
-						});
-
-						checkBox.setValue(selected.containsKey(itemId));
-
-						return checkBox;
+					public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+						Boolean select = (Boolean) event.getProperty().getValue();
+						if (select) {
+							selected.put(itemId, nestedItem.getBean());
+						} else {
+							selected.remove(itemId);
+						}
 					}
 				});
+
+				checkBox.setValue(selected.containsKey(itemId));
+
+				return checkBox;
+			}
+		});
 
 		doSearch(valor);
 
@@ -415,21 +385,17 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		BeanQueryFactory queryFactory = null;
 
 		if (genericDAO.isMultiEmpresa(getEntityClass())) {
-			if (SecuritySessionProvider.getUsuario().getConsultaMultiempresa()
-					.equals(1)) {
-				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
-						DCBeanQueryMultiEmpresa.class);
+			if (SecuritySessionProvider.getUsuario().getConsultaMultiempresa().equals(1)) {
+				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 			} else {
-				queryFactory = new BeanQueryFactory<DCBeanQuery>(
-						DCBeanQuery.class);
+				queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 			}
 		} else {
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 		}
 
 		Map<String, Object> conf = new HashMap<String, Object>();
-		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta()
-				.getEmpresa().getId();
+		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 		conf.put("search", valor);
 		genericDAO.setPojoClass(getEntityClass());
 		conf.put("dao", getMainDao());
@@ -437,23 +403,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		conf.put("id_empresa", idEmpresa);
 		queryFactory.setQueryConfiguration(conf);
 
-		LazyQueryContainer container = new LazyQueryContainer(queryFactory,
-				getBeanIdProperty(), PAGE_SIZE, true);
+		LazyQueryContainer container = new LazyQueryContainer(queryFactory, getBeanIdProperty(), PAGE_SIZE, true);
 
 		for (String id_coluna : getColunas()) {
-			container.addContainerProperty(id_coluna, String.class, "", true,
-					true);
+			container.addContainerProperty(id_coluna, String.class, "", true, true);
 		}
 
-		container.addContainerProperty(
-				LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0,
-				true, false);
-		container.addContainerProperty(
-				LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0,
-				true, false);
-		container.addContainerProperty(
-				LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME,
-				Integer.class, 0, true, false);
+		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
+		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
+		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
 
 		table.setSortEnabled(true);
 		// table.markAsDirty();
@@ -461,11 +419,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		table.setContainerDataSource(container);
 
 		for (String prop : getColunas()) {
-			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
-					getEntityClass(), prop);
+			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
 
-			boolean existe = (captionAnn != null && !captionAnn.value().equals(
-					"NULO"));
+			boolean existe = (captionAnn != null && !captionAnn.value().equals("NULO"));
 
 			if (existe)
 				table.setColumnHeader(prop, captionAnn.value());
@@ -495,8 +451,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		if (getColunas() != null && getColunas().length > 1) {
 			table.setFooterVisible(true);
 			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			table.setColumnFooter(getColunas()[0], container.getItemIds()
-					.size() + " registro(s) encontrado(s)");
+			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");
 		}
 	}
 
@@ -546,15 +501,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	public boolean autoriaAlteracao() {
-		return acessoLiberado
-				|| DcConstants.BOOL_CHAR_TRUE
-						.equals(papelMenu.getPodeAlterar());
+		return acessoLiberado || DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeAlterar());
 	}
 
 	public boolean autoriaCriacao() {
-		return acessoLiberado
-				|| DcConstants.BOOL_CHAR_TRUE
-						.equals(papelMenu.getPodeInserir());
+		return acessoLiberado || DcConstants.BOOL_CHAR_TRUE.equals(papelMenu.getPodeInserir());
 	}
 
 	@Override
@@ -691,17 +642,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		if (!usuario.getLogin().equals("admin@dotcompanyerp.com.br")) {
 			List<FmModulo> auxLista = this.mDAO.getModuloLista(usuario);
 
-			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista, this
-					.getFormController().getListController().getClass()
-					.getName());
+			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista, this.getFormController().getListController().getClass().getName());
 
 			for (Object obj : auxLista1) {
 				FmMenu menu = (FmMenu) obj;
 
 				if (menu.getControllerClass().equals(this.getClass().getName())) {
 					if (menu.getPermissaoOperacao().equals(1)) {
-						this.getFormController().getListController()
-								.setEnabled(false);
+						this.getFormController().getListController().setEnabled(false);
 						this.getFormController().setEnabled(false);
 					}
 
@@ -712,11 +660,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 	}
 
 	private void consultaMultiempresa() {
-		FmMenu ent = this.meDAO.getMenu(this.getFormController()
-				.getListController().getClass().getName());
+		FmMenu ent = this.meDAO.getMenu(this.getFormController().getListController().getClass().getName());
 
-		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(
-				ent.getConsultaMultiempresa());
+		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(ent.getConsultaMultiempresa());
 	}
 
 }
