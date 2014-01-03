@@ -525,8 +525,4 @@ public class MainView extends CssLayout implements View {
 	}
 
 
-
-
-
-
 }

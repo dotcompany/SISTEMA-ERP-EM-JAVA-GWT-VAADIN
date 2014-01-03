@@ -1505,5 +1505,5 @@ public class ProdutoFormView extends CustomComponent {
 	public void setCmbGrupo(ManyToOneCombo<GrupoProduto> cmbGrupo) {
 		this.cmbGrupo = cmbGrupo;
 	}
-
+	
 }

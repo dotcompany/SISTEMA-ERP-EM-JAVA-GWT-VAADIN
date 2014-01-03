@@ -385,7 +385,7 @@ public class CRUDListView extends CustomComponent implements View{
 				btnFechar = new Button();
 				btnFechar.setCaption("Fechar");
 				btnFechar.setImmediate(true);
-				btnFechar.setWidth("-5px");
+				btnFechar.setWidth("-1px");
 				btnFechar.setHeight("-1px");
 				horizontalLayout_3.addComponent(btnFechar);
 				horizontalLayout_3.setComponentAlignment(btnFechar, new Alignment(35));

@@ -39,7 +39,7 @@ public class CustomListTable extends Table {
 	
 	 public void setColumnCollapsed(Object propertyId, boolean collapsed) 
 	           throws IllegalStateException {
-		 if(!propertyId.equals(checkbox)){
+		 if(!propertyId.equals(CUSTOM_SELECT_ID)){
 		    super.setColumnCollapsed(propertyId, collapsed);
 		    logger.info("collapsed" + collapsed);
 		    logger.info(String.valueOf(propertyId));

@@ -332,6 +332,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.addGeneratedColumn("mycolumn", new ColumnGenerator() {
 			public Object generateCell(Table source, Object itemId, Object columnId) {
 				TextField tf = new TextField();
+				source.setColumnCollapsed(itemId, false);
 
 				return tf;
 			}
@@ -521,11 +522,13 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public void setReadOnly(boolean readonly) {
 		view.getBtnCriar().setVisible(!readonly);
 		view.getBtnRemover().setVisible(!readonly);
+		view.getBtnFechar().setVisible(!readonly);
 	}
 
 	public void setEnabled(boolean enabled) {
 		view.getBtnCriar().setEnabled(enabled);
 		view.getBtnRemover().setEnabled(enabled);
+		view.getBtnFechar().setEnabled(enabled);
 	}
 
 	public void closeWindow() {

@@ -2,19 +2,16 @@ package dc.entidade.adm.dotcompany;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,20 +19,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import com.sun.istack.logging.Logger;
-
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.Empresa;
 /**
  * 
  * 
@@ -59,8 +52,8 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	public static final int ID_MODULO_ADM = -1;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parametro")
-	@SequenceGenerator(name = "parametro", sequenceName = "parametro_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dc_empresa_parametro")
+	@SequenceGenerator(name = "dc_empresa_parametro", sequenceName = "dc_empresa_parametro_id_seq", allocationSize = 1)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -71,6 +64,27 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoDeSistema;
+	
+	@Field
+	@Caption("Usa Nfe")
+	@Column(name = "USA_NFE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String usaNfe;
+	
+	@Field
+	@Caption("Liberado por Quem")
+	@Column(name = "LIBERADO_POR_QUEM")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String liberadoQuem;
+	
+	@Field
+	@Caption("Caminho do Banco")
+	@Column(name = "CAMINHO_BANCO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String caminhoBanco;
 
 	@Field
 	@Caption("Valor Entrada")
@@ -100,9 +114,9 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoDeFatura;
 	
-	@Caption(value = "Quantidade Parcela")
+	/*@Caption(value = "Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
-	private Integer quantidadeParcela;
+	private Integer quantidadeParcela;*/
 	
 	@Lob
 	@Field
@@ -128,10 +142,39 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date diaVencimento;
 	
+	@Field
+	@Caption("Empresa Liberada")
+	@Column(name = "EMPRESA_LIBERADA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String empresaLiberada;
 	
-	private static Logger logger = Logger.getLogger(ParametroCliente.class);
+	@Field
+	@Caption("Empresa Bloqueada")
+	@Column(name = "EMPRESA_BLOQUEADA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String empresaBloqueada;
+	
+	@Field
+	@Caption("Mostrando Aviso")
+	@Column(name = "MOSTRANDO_AVISO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String mostrandoAviso;
+	
+	/*@ManyToOne
+	@JoinColumn(name = "id_empresa", nullable = false)
+	@Caption("Empresa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Empresa empresa;*/
+	
 	
 	public ParametroCliente() {
+
+	}
+	
+	public ParametroCliente(Integer id) {
 		this.id = id;
 	}
 
@@ -215,14 +258,71 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 		this.diaVencimento = diaVencimento;
 	}
 	
-	public Integer getQuantidadeParcela() {
+	/*public Integer getQuantidadeParcela() {
 		return quantidadeParcela;
 	}
 
 	public void setQuantidadeParcela(Integer quantidadeParcela) {
 		this.quantidadeParcela = quantidadeParcela;
-	}
+	}*/
 	
+	public String getUsaNfe() {
+		return usaNfe;
+	}
+
+	public void setUsaNfe(String usaNfe) {
+		this.usaNfe = usaNfe;
+	}
+
+	public String getLiberadoQuem() {
+		return liberadoQuem;
+	}
+
+	public void setLiberadoQuem(String liberadoQuem) {
+		this.liberadoQuem = liberadoQuem;
+	}
+
+	public String getCaminhoBanco() {
+		return caminhoBanco;
+	}
+
+	public void setCaminhoBanco(String caminhoBanco) {
+		this.caminhoBanco = caminhoBanco;
+	}
+
+	public String getEmpresaLiberada() {
+		return empresaLiberada;
+	}
+
+	public void setEmpresaLiberada(String empresaLiberada) {
+		this.empresaLiberada = empresaLiberada;
+	}
+
+	public String getEmpresaBloqueada() {
+		return empresaBloqueada;
+	}
+
+	public void setEmpresaBloqueada(String empresaBloqueada) {
+		this.empresaBloqueada = empresaBloqueada;
+	}
+
+	public String getMostrandoAviso() {
+		return mostrandoAviso;
+	}
+
+	public void setMostrandoAviso(String mostrandoAviso) {
+		this.mostrandoAviso = mostrandoAviso;
+	}
+
+	
+	/*public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}*/
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
