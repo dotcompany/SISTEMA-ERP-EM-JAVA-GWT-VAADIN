@@ -229,10 +229,13 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "TELEFONE")
 	private String telefone;
 	
-	/*@ManyToOne
-	@JoinColumn(name = "id_empresa", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	@Caption(value = "Empresa")
+	private Empresa empresa;*/
+	
+	/*@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	private Empresa empresa;*/
 	
 	
@@ -380,15 +383,6 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 		this.mostrandoAviso = mostrandoAviso;
 	}
 
-	
-	/*public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
-
 	public String getVendedor() {
 		return vendedor;
 	}
@@ -468,6 +462,14 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+/*	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}*/
 
 	@Override
 	public int hashCode() {

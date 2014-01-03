@@ -9,11 +9,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.financeiro.EmpresaListController;
 import dc.entidade.adm.dotcompany.ParametroCliente;
+import dc.entidade.framework.Empresa;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -33,6 +37,9 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	private ParametroClienteDAO parametroClienteDAO;
 	
 	@Autowired
+	private EmpresaDAO empresaDAO;
+	
+	@Autowired
 	private ParcelaPagarDAO parcelaPagarDAO;
 
 	/* Implementar validacao de campos antes de salvar. */
@@ -47,6 +54,11 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	private boolean validaCampos() {
 
 		boolean valido = true;
+		
+		if (!Validator.validateObject(subView.getCmbEmpresa().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbEmpresa(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		if (!Validator.validateObject(subView.getTxtValorEntrada().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtValorEntrada(), "Não pode ficar em branco");
@@ -103,10 +115,25 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 		currentBean = new ParametroCliente(); 
 		
 	} 
+	
+	/*private void preencheCombos() {
+
+		DefaultManyToOneComboModel<Empresa> model = new DefaultManyToOneComboModel<Empresa>(EmpresaListController.class,
+				this.empresaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "empresa";
+			}
+		};
+		this.subView.getCmbEmpresa().setModel(model);
+
+	}*/
 
 	@Override
 	protected void initSubView() {
 		subView = new ParametroClienteFormView(this);
+		
+		//preencheCombos();
 		
 	}
 
