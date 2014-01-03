@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,7 +26,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 /**
  * 
  * 
@@ -57,6 +54,8 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+	
+	/////////////////////////////////////////////////////////// INFORMAÇÃO //////////////////////////////////////////////////////////////
 
 	@Field
 	@Caption("Tipo de Sistema")
@@ -85,6 +84,38 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String caminhoBanco;
+	
+	@Field
+	@Caption("Vendedor")
+	@Column(name = "VENDEDOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String vendedor;
+	
+	@Field
+	@Caption("Comissao Vendedor")
+	@Column(name = "COMISSAO_VENDEDOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String comissaoVendedor;
+	
+	
+	@Field
+	@Caption("Agente")
+	@Column(name = "AGENTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String agente;
+	
+	@Field
+	@Caption("Comissao Agente")
+	@Column(name = "COMISSAO_AGENTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String comissaoAgente;
+	
+	
+    /////////////////////////////////////////////////////////// Financeiro (GERAL) //////////////////////////////////////////////////////////////
 
 	@Field
 	@Caption("Valor Entrada")
@@ -162,6 +193,41 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String mostrandoAviso;
+	
+	@Field
+	@Caption("Empresa Bloqueada1")
+	@Column(name = "EMPRESA_BLOQUEADA1")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String empresaBloqueada1;
+	
+	@Lob
+	@Field
+	@Caption(value = "Obs Fechamento")
+	@Column(name = "OBS_FECHAMENTO", length = 355)
+	private String obsFechamento;
+	
+    /////////////////////////////////////////////////////////// Dados Cobrança //////////////////////////////////////////////////////////////
+	
+	@Field
+	@Caption("Email Principal")
+	@Column(name = "EMAIL_PRINCIPAL")
+	private String emailPrincipal;
+	
+	@Field
+	@Caption("Email Secundario")
+	@Column(name = "EMAIL_SECUNDARIO")
+	private String emailSecundario;
+	
+	@Field
+	@Caption("Nome Responsavel")
+	@Column(name = "NOME_RESPONSAVEL")
+	private String nomeResponsavel;
+	
+	@Field
+	@Caption("Telefone")
+	@Column(name = "TELEFONE")
+	private String telefone;
 	
 	/*@ManyToOne
 	@JoinColumn(name = "id_empresa", nullable = false)
@@ -322,6 +388,86 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}*/
+
+	public String getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(String vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public String getComissaoVendedor() {
+		return comissaoVendedor;
+	}
+
+	public void setComissaoVendedor(String comissaoVendedor) {
+		this.comissaoVendedor = comissaoVendedor;
+	}
+
+	public String getAgente() {
+		return agente;
+	}
+
+	public void setAgente(String agente) {
+		this.agente = agente;
+	}
+
+	public String getComissaoAgente() {
+		return comissaoAgente;
+	}
+
+	public void setComissaoAgente(String comissaoAgente) {
+		this.comissaoAgente = comissaoAgente;
+	}
+
+	public String getEmpresaBloqueada1() {
+		return empresaBloqueada1;
+	}
+
+	public void setEmpresaBloqueada1(String empresaBloqueada1) {
+		this.empresaBloqueada1 = empresaBloqueada1;
+	}
+
+	public String getObsFechamento() {
+		return obsFechamento;
+	}
+
+	public void setObsFechamento(String obsFechamento) {
+		this.obsFechamento = obsFechamento;
+	}
+
+	public String getEmailPrincipal() {
+		return emailPrincipal;
+	}
+
+	public void setEmailPrincipal(String emailPrincipal) {
+		this.emailPrincipal = emailPrincipal;
+	}
+
+	public String getEmailSecundario() {
+		return emailSecundario;
+	}
+
+	public void setEmailSecundario(String emailSecundario) {
+		this.emailSecundario = emailSecundario;
+	}
+
+	public String getNomeResponsavel() {
+		return nomeResponsavel;
+	}
+
+	public void setNomeResponsavel(String nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
 	@Override
 	public int hashCode() {
