@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.IndiceEconomicoEntity;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
@@ -41,7 +41,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Pais extends AbstractModel<Integer> implements Serializable {
+public class Pais extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -94,11 +94,11 @@ public class Pais extends AbstractModel<Integer> implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	private Empresa empresa;*/
 
 	/**
 	 * REFERENCIA - LIST
@@ -174,13 +174,13 @@ public class Pais extends AbstractModel<Integer> implements Serializable {
 		this.sigla3 = sigla3;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 
 	public List<Estado> getEstadoList() {
 		return estadoList;

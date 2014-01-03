@@ -24,6 +24,8 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+
 
 /**
 *
@@ -44,7 +46,7 @@ import org.hibernate.search.annotations.Indexed;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ChequeEmitido implements Serializable {
+public class ChequeEmitido extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     

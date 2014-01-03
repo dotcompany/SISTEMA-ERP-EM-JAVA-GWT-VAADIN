@@ -17,11 +17,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Pessoa;
 
 @Entity
 @Table(name = "CHEQUE_RECEBIDO")
-public class ChequeRecebido implements Serializable {
+public class ChequeRecebido extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
