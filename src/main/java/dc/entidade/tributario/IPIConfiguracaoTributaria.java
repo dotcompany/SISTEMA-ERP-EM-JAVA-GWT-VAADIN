@@ -12,18 +12,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
-import dc.entidade.tabelas.TipoReceitaDipi;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "tribut_ipi_dipi")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
+public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ipi")
@@ -58,9 +58,9 @@ public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="id_empresa")
-	Empresa empresa;
+	Empresa empresa;*/
 
 	public Integer getId() {
 		return id;
@@ -144,15 +144,12 @@ public class IPIConfiguracaoTributaria extends AbstractModel<Integer> {
 		this.tipoReceitaDipi = tipoReceitaDipi;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-	
-	
-	
+	}*/
 }
 

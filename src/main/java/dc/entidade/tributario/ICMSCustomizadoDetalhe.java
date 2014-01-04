@@ -16,7 +16,8 @@ import javax.persistence.Transient;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
-import dc.entidade.framework.AbstractModel;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.UF;
 import dc.entidade.tabelas.Cfop;
 import dc.entidade.tabelas.Csosnb;
@@ -27,7 +28,7 @@ import dc.entidade.tabelas.CstIcmsB;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ICMSCustomizadoDetalhe extends AbstractModel<Integer> {
+public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trd")

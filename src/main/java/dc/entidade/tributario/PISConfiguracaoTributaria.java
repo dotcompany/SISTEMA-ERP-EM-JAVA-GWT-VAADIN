@@ -11,17 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "tribut_pis_cod_apuracao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
+public class PISConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pis")
@@ -57,9 +58,9 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="id_empresa")
-	Empresa empresa;
+	Empresa empresa;*/
 
 	public Integer getId() {
 		return id;
@@ -144,16 +145,13 @@ public class PISConfiguracaoTributaria extends AbstractModel<Integer> {
 		this.valorPautaFiscal = valorPautaFiscal;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 	
 	
-
-
-
 }
