@@ -19,6 +19,8 @@ import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.adm.dotcompany.ParametroClienteFormView.SIM_NAO;
+import dc.visao.adm.dotcompany.ParametroClienteFormView.TIPO_FATURA;
 
 @Controller
 @Scope("prototype")
@@ -131,7 +133,22 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	protected void initSubView() {
+		
+		try {
 		subView = new ParametroClienteFormView(this);
+		
+		DefaultManyToOneComboModel<Empresa> model = new DefaultManyToOneComboModel<Empresa>(EmpresaListController.class,
+				this.empresaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "nomeFantasia";
+			}
+		};
+		this.subView.getCmbEmpresa().setModel(model);
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 		
 		//preencheCombos();
 		
@@ -163,6 +180,26 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 				subView.getTxtValorEntrada().setConvertedValue(subView.getTxtValorEntrada().getConvertedValue());
 				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
 				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
+				
+				String empresaLiberada = currentBean.getEmpresaLiberada();
+				if (Validator.validateString(empresaLiberada)) {
+					subView.getCmbEmpresaLiberada().setValue(SIM_NAO.getValor(empresaLiberada));
+				}
+
+				String empresaBloqueada = currentBean.getEmpresaBloqueada();
+				if (Validator.validateString(empresaBloqueada)) {
+					subView.getCmbEmpresaBloqueada().setValue(SIM_NAO.getValor(empresaBloqueada));
+				}
+				
+				String avisoCorte = currentBean.getMostrandoAviso();
+				if (Validator.validateString(avisoCorte)) {
+					subView.getCmbMostrandoAvisoCorte().setValue(SIM_NAO.getValor(avisoCorte));
+				}
+				
+				String tipoFatura = currentBean.getTipoDeFatura();
+				if (Validator.validateString(tipoFatura)) {
+					subView.getCmbTipoFatura().setValue(TIPO_FATURA.getTipoFatura(tipoFatura));
+				}
 
 		
 	}
