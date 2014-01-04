@@ -1,8 +1,18 @@
 package dc.entidade.suprimentos;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 /**
@@ -11,7 +21,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="compra_cotacao_pedido_detalhe")
-public class CotacaoPedidoDetalhe implements Serializable {
+public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

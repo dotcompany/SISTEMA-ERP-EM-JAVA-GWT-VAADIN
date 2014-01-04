@@ -1,7 +1,6 @@
 package dc.entidade.ged;
 
 import java.io.Serializable;
-import org.hibernate.search.*;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
@@ -10,25 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-
-
-import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Norms;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "GED_TIPO_DOCUMENTO")

@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 /**
@@ -36,7 +36,7 @@ import dc.entidade.pessoal.Colaborador;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Requisicao extends AbstractModel<Integer> {
+public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

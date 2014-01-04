@@ -12,16 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.search.annotations.Field;
-
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
 
 @Entity   // esse aqui e o nome da tabelam 
 @Table(name = "estoque_contagem_detalhe")
 @SuppressWarnings("serial")
-public class ContagemEstoqueDetalhe extends AbstractModel<Integer> {
+public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -20,7 +20,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 
@@ -29,7 +29,7 @@ import dc.entidade.framework.AbstractModel;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class NfeDuplicata extends AbstractModel<Integer> {
+public class NfeDuplicata extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")

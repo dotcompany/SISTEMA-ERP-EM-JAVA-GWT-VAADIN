@@ -1,6 +1,5 @@
 package dc.entidade.ponto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -22,7 +21,7 @@ import dc.entidade.pessoal.Colaborador;
 
 @Entity
 @Table(name = "PONTO_BANCO_HORAS")
-public class PontoBancoHoras extends AbstractMultiEmpresaModel<Integer>{
+public class PontoBancoHoras extends AbstractMultiEmpresaModel<Integer>  {
 
     private static final long serialVersionUID = 1L;
     @Id

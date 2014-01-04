@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -18,7 +18,7 @@ import dc.entidade.framework.AbstractModel;
 // @XmlRootElement
 // @Indexed
 // @Analyzer(impl = BrazilianAnalyzer.class)
-public class InformacaoGeralEntity extends AbstractModel<Integer> implements
+public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**

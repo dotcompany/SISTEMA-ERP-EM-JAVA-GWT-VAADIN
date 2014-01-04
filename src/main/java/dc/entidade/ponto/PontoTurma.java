@@ -10,12 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 @Entity
 @Table(name = "PONTO_TURMA")
-public class PontoTurma extends AbstractModel<Integer> {
+public class PontoTurma extends AbstractMultiEmpresaModel<Integer>  {
 
     private static final long serialVersionUID = 1L;
     @Id

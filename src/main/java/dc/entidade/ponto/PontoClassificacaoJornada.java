@@ -8,16 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "PONTO_CLASSIFICACAO_JORNADA")
-public class PontoClassificacaoJornada implements Serializable {
+public class PontoClassificacaoJornada extends AbstractMultiEmpresaModel<Integer>  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -41,10 +39,10 @@ public class PontoClassificacaoJornada implements Serializable {
 	@Column(name = "DESCONTAR_HORAS")
 	@Caption(value = "Descontar Horas")
 	private String descontarHoras;
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Empresa")
-	private Empresa empresa;
+	private Empresa empresa;*/
 
 	public PontoClassificacaoJornada() {
 	}
@@ -97,13 +95,13 @@ public class PontoClassificacaoJornada implements Serializable {
 		this.descontarHoras = descontarHoras;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 
 	@Override
 	public String toString() {

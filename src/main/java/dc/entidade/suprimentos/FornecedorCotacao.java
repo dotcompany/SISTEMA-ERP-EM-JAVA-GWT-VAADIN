@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 

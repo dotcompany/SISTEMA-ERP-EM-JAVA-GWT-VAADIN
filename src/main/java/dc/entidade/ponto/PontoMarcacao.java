@@ -14,12 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
 @Table(name = "PONTO_MARCACAO")
-public class PontoMarcacao extends AbstractModel<Integer>{
+public class PontoMarcacao extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id

@@ -14,11 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "PONTO_ABONO_UTILIZACAO")
-public class PontoAbonoUtilizacao  extends AbstractModel<Integer>  {
+public class PontoAbonoUtilizacao  extends AbstractMultiEmpresaModel<Integer>  {
 
 	/**
 	 * 

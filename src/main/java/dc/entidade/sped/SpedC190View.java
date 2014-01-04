@@ -28,7 +28,7 @@ import org.hibernate.search.annotations.Indexed;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SpedC190View implements Serializable {
+public class SpedC190View  implements Serializable {
 
 	/**
 	 *

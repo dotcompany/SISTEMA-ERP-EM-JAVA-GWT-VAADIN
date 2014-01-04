@@ -9,13 +9,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
 
 @Entity
 @Table(name = "requisicao_interna_detalhe")
 @SuppressWarnings("serial")
-public class RequisicaoInternaDetalhe extends AbstractModel<Integer> {
+public class RequisicaoInternaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

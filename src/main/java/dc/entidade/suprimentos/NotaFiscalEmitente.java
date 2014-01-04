@@ -14,15 +14,14 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "nfe_emitente")
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class NotaFiscalEmitente extends AbstractModel<Integer> {
+public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

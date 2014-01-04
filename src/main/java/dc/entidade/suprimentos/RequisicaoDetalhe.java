@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
 
 /**
@@ -21,7 +21,7 @@ import dc.entidade.produto.Produto;
 @Entity
 @Table(name = "compra_requisicao_detalhe")
 @SuppressWarnings("serial")
-public class RequisicaoDetalhe extends AbstractModel<Integer> {
+public class RequisicaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

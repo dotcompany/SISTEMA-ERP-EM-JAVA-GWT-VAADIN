@@ -9,18 +9,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
+
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "nfe_nf_referenciada")
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class NotaReferenciada extends AbstractModel<Integer> {
+public class NotaReferenciada extends AbstractMultiEmpresaModel<Integer> {
 	
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

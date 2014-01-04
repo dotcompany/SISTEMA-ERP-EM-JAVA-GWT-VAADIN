@@ -20,14 +20,14 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EstoqueContagemEntity extends AbstractModel<Integer> implements
+public class EstoqueContagemEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**

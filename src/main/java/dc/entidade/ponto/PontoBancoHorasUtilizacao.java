@@ -15,9 +15,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+
 @Entity
 @Table(name = "PONTO_BANCO_HORAS_UTILIZACAO")
-public class PontoBancoHorasUtilizacao implements Serializable {
+public class PontoBancoHorasUtilizacao extends AbstractMultiEmpresaModel<Integer>  implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

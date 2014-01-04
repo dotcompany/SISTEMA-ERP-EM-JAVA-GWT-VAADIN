@@ -28,7 +28,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 
@@ -37,8 +37,7 @@ import dc.entidade.pessoal.Colaborador;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ReajusteEstoque 
-extends AbstractModel<Integer> implements Serializable{
+public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -23,13 +23,13 @@ import org.hibernate.search.annotations.Field;
 import com.sun.istack.logging.Logger;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.FmModulo;
 
 @Entity
 @Table(name = "configuracao_conta_empresa")
 @XmlRootElement
-public class ConfiguracaoContaEmpresa extends AbstractModel<Integer> implements Serializable {
+public class ConfiguracaoContaEmpresa extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = -4401209508896666278L;
 

@@ -17,7 +17,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -30,7 +30,7 @@ import dc.entidade.framework.AbstractModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class AlteracaoSalarialEntity extends AbstractModel<Integer> implements
+public class AlteracaoSalarialEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**

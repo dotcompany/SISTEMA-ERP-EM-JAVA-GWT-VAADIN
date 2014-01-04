@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
@@ -17,7 +17,7 @@ import dc.entidade.framework.AbstractModel;
 // @XmlRootElement
 // @Indexed
 // @Analyzer(impl = BrazilianAnalyzer.class)
-public class LaudoTecnicoEntity extends AbstractModel<Integer> implements
+public class LaudoTecnicoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**

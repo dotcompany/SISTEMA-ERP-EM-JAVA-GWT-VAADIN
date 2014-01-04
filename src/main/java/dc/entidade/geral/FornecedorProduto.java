@@ -18,6 +18,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+
 /**
 *
 * @author Wesley Jr
@@ -34,7 +36,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "fornecedor_produto")
-public class FornecedorProduto implements Serializable {
+public class FornecedorProduto extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     

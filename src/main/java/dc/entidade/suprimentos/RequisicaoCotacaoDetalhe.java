@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
@@ -22,6 +21,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Entity
 @Table(name="compra_req_cotacao_detalhe")
 public class RequisicaoCotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

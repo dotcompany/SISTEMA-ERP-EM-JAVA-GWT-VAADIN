@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,11 +19,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "PONTO_ESCALA")
-public class PontoEscala implements Serializable {
+public class PontoEscala extends AbstractMultiEmpresaModel<Integer>  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -63,9 +61,9 @@ public class PontoEscala implements Serializable {
 	@Caption(value = "Código Horário Sábado")
 	@Column(name = "CODIGO_HORARIO_SABADO")
 	private String codigoHorarioSabado;
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Empresa empresa;
+	private Empresa empresa;*/
 	
 	@OneToMany(mappedBy = "pontoEscala", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -162,13 +160,13 @@ public class PontoEscala implements Serializable {
 		this.codigoHorarioSabado = codigoHorarioSabado;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 
 	@Override
 	public String toString() {

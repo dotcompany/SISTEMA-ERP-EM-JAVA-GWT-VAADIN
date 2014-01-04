@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Pessoa;
 
@@ -48,7 +48,7 @@ import dc.entidade.geral.Pessoa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Cliente extends AbstractModel<Integer> implements Serializable {
+public class Cliente extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

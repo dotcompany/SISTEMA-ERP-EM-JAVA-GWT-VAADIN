@@ -14,8 +14,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 @Entity
@@ -23,7 +22,7 @@ import dc.entidade.framework.AbstractModel;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class NfeLocalEntrega extends AbstractModel<Integer> {
+public class NfeLocalEntrega extends AbstractMultiEmpresaModel<Integer>{
 
 
 	@Id

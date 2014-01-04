@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
@@ -43,7 +43,7 @@ import dc.entidade.framework.Empresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TalonarioCheque extends AbstractModel<Integer> implements
+public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -75,9 +75,9 @@ public class TalonarioCheque extends AbstractModel<Integer> implements
 
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "talonarioCheque")
 	// private List<ChequeVO> chequeVOList;
-	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Empresa empresa;
+	private Empresa empresa;*/
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -146,7 +146,7 @@ public class TalonarioCheque extends AbstractModel<Integer> implements
 		this.statusTalao = statusTalao;
 	}
 
-	public Empresa getEmpresa() {
+	/*public Empresa getEmpresa() {
 		return empresa;
 	}
 
@@ -154,9 +154,9 @@ public class TalonarioCheque extends AbstractModel<Integer> implements
 	 * @param empresa
 	 *            the empresa to set
 	 */
-	public void setEmpresa(Empresa empresa) {
+	/*public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
+	}*/
 
 	/**
 	 * @return the contaCaixa

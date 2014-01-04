@@ -11,14 +11,14 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 
 @Entity
 @Table(name="compra_tipo_pedido")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoPedido extends AbstractModel<Integer> {
+public class TipoPedido extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id

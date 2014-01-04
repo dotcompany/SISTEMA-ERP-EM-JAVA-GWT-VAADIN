@@ -22,7 +22,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 
 /**
@@ -31,7 +31,7 @@ import dc.entidade.geral.Fornecedor;
  */
 @Entity
 @Table(name = "compra_pedido")
-public class PedidoCompra extends AbstractModel<Integer> {
+public class PedidoCompra extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -8,16 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "PONTO_RELOGIO")
-public class PontoRelogio  implements Serializable {
+public class PontoRelogio extends AbstractMultiEmpresaModel<Integer>   implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,9 +38,9 @@ public class PontoRelogio  implements Serializable {
     @Column(name = "UTILIZACAO")
     @Caption(value = "Utilização")
     private String utilizacao;
-    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+   /* @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Empresa empresa;
+    private Empresa empresa;*/
 
     public PontoRelogio() {
     }
@@ -95,13 +93,13 @@ public class PontoRelogio  implements Serializable {
         this.utilizacao = utilizacao;
     }
 
-    public Empresa getEmpresa() {
+   /* public Empresa getEmpresa() {
         return empresa;
     }
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
-    }
+    }*/
 
 
     @Override

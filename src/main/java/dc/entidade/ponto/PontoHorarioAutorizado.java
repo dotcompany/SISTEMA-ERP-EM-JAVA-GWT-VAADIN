@@ -16,11 +16,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
 @Table(name = "PONTO_HORARIO_AUTORIZADO")
-public class PontoHorarioAutorizado implements Serializable {
+public class PontoHorarioAutorizado extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +24,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
-
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
@@ -35,7 +33,7 @@ import dc.entidade.pessoal.Colaborador;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class RequisicaoInterna extends AbstractModel<Integer> {
+public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)

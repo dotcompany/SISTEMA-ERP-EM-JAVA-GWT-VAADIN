@@ -14,12 +14,13 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 
 @Entity
 @Table(name = "compra_tipo_requisicao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoRequisicao implements Serializable {
+public class TipoRequisicao extends AbstractModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
