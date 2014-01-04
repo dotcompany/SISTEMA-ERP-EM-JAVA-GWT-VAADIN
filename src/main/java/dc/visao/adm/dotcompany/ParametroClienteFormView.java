@@ -416,7 +416,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	/////////////////////////////////////////////////////////////////////////// FINANCEIRO ///////////////////////////////////////////////////////////////
 	
 	public void buildFinanceiroSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(7,7);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
@@ -526,7 +526,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	////////////////////////////////////////////////////////////////// DADOS COBRANÇA /////////////////////////////////////////////////
 	
 	public void buildDadosCobrancaSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(7,7);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
@@ -569,7 +569,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	
 	public void buildObsSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(7,7);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");

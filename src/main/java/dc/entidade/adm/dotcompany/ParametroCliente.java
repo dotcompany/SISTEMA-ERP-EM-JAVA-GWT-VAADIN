@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -153,6 +154,7 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@Field
 	@Caption("Observacao Fechamento")
 	@Type(type = "text")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACAO_FECHAMENTO", length = 65535)
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacaoFechamento;
@@ -203,8 +205,10 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	
 	@Lob
 	@Field
+	@Type(type = "text")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Caption(value = "Obs Fechamento")
-	@Column(name = "OBS_FECHAMENTO", length = 355)
+	@Column(name = "OBS_FECHAMENTO", length = 632355)
 	private String obsFechamento;
 	
     /////////////////////////////////////////////////////////// Dados Cobrança //////////////////////////////////////////////////////////////
