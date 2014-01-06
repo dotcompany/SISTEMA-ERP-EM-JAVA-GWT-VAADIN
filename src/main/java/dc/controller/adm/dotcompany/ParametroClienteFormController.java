@@ -20,6 +20,7 @@ import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.SIM_NAO;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.TIPO_FATURA;
+import dc.visao.adm.dotcompany.ParametroClienteFormView.TIPO_SISTEMA;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -202,6 +203,11 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 				String tipoFatura = currentBean.getTipoDeFatura();
 				if (Validator.validateString(tipoFatura)) {
 					subView.getCmbTipoFatura().setValue(TIPO_FATURA.getTipoFatura(tipoFatura));
+				}
+				
+				String tipoSistema = currentBean.getTipoDeSistema();
+				if (Validator.validateString(tipoSistema)) {
+					subView.getCmbTipoSistema().setValue(TIPO_SISTEMA.getTipoSistema(tipoSistema));
 				}
 
 		
