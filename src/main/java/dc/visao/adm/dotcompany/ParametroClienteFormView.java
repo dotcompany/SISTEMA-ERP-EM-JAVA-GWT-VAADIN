@@ -128,12 +128,12 @@ public class ParametroClienteFormView extends CustomComponent {
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
-		mainLayout.setHeight("100%");
+		//mainLayout.setHeight("100%");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
-		setHeight("100%");
+		//setHeight("100%");
 		setWidth("100%");
 
 		fields = buildFields();
