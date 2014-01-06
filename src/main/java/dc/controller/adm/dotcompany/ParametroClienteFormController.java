@@ -12,15 +12,16 @@ import com.vaadin.ui.Component;
 import dc.controller.financeiro.EmpresaListController;
 import dc.entidade.adm.dotcompany.ParametroCliente;
 import dc.entidade.framework.Empresa;
+import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.SIM_NAO;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.TIPO_FATURA;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
@@ -177,6 +178,8 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			}
 		});*/
 		
+		        subView.getCmbEmpresa().setValue(currentBean.getEmpresa());
+		
 				subView.getTxtValorEntrada().setConvertedValue(subView.getTxtValorEntrada().getConvertedValue());
 				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
 				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
@@ -207,8 +210,17 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	@Override
 	protected void actionSalvar() {
 		try {
+		        Empresa empresa = subView.getCmbEmpresa().getValue();
+		        
+		        if (!Validator.validateObject(empresa)) {
+					throw new ErroValidacaoException("Informe a Empresa");
+				}
+		        
+		        currentBean.setEmpresa(empresa);
+		        
 		        parametroClienteDAO.saveOrUpdate(currentBean);
-		        notifiyFrameworkSaveOK(this.currentBean);	
+		        notifiyFrameworkSaveOK(this.currentBean);
+		        
 	}catch (Exception e){
 		mensagemErro(e.getMessage());
 		e.printStackTrace();
