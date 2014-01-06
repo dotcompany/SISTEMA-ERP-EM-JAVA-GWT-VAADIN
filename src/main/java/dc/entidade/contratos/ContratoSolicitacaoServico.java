@@ -69,7 +69,7 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	private String statusSolicitacao;
 
 	@Field
-	@Caption("Descrição")
+	@Caption(value = "Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	private String descricao;

@@ -180,12 +180,25 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
 				this.tipoContratoDAO, super.getMainController());
 
+		/**
+		 * 
+		 * Ajustes para receber os dados de Solicitação de Serviço pegando os StatusSolicitação
+		 * para aparecer no ComboBox
+		 * 
+		 */
+		
 		DefaultManyToOneComboModel<ContratoSolicitacaoServico> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
-				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController());
+				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController()) {
+		@Override
+		public String getCaptionProperty() {
+			return "descricao";
+		}
+	};
 
 		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
-		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+		this.subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+		//subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
 		List<Documento> documentos = documentoDAO.getAll(Documento.class);
 
