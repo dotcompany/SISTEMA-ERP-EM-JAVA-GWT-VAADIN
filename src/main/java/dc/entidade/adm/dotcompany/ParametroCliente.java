@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,9 +26,10 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.Empresa;
 /**
  * 
  * 
@@ -39,7 +42,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class ParametroCliente extends AbstractModel<Integer> implements Serializable {
 	
 
 	/**
@@ -233,12 +236,15 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "TELEFONE")
 	private String telefone;
 	
-	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	@Caption(value = "Empresa")
-	private Empresa empresa;*/
+	@ManyToOne
+	@JoinColumn(name = "id_empresa", nullable = false)
+	@Caption("Empresa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Empresa empresa;
 	
-	/*@ManyToOne(optional = false)
+	/*@Field
+	@Caption("Empresa")
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
 	private Empresa empresa;*/
 	
@@ -467,13 +473,13 @@ public class ParametroCliente extends AbstractMultiEmpresaModel<Integer> impleme
 		this.telefone = telefone;
 	}
 	
-/*	public Empresa getEmpresa() {
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}*/
+	}
 
 	@Override
 	public int hashCode() {

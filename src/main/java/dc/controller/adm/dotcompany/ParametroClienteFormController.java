@@ -210,7 +210,10 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 					subView.getCmbTipoSistema().setValue(TIPO_SISTEMA.getTipoSistema(tipoSistema));
 				}
 
-		
+		        String empresaBloqueada1 = currentBean.getEmpresaBloqueada1();
+				if (Validator.validateString(empresaBloqueada1)) {
+					subView.getCmbEmpresaBloqueada1().setValue(SIM_NAO.getValor(empresaBloqueada1));
+				}
 	}
 
 	@Override

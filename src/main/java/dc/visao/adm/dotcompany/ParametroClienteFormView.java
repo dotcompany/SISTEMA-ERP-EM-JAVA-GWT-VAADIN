@@ -331,6 +331,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
+		layout.setHeight("100%");
 		
 		cmbTipoSistema= new ComboBox();
 		cmbTipoSistema.setCaption("Tipo de Sistema ");
@@ -425,6 +426,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
+		layout.setHeight("100%");
 
 		txtValorEntrada = new TextField();
 		txtValorEntrada.setMaxLength(60);
@@ -517,7 +519,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		cmbEmpresaBloqueada1.setImmediate(false);
 		cmbEmpresaBloqueada1.setWidth("-1px");
 		cmbEmpresaBloqueada1.setHeight("-1px");
-		carregarEmpresaBloqueada();
+		carregarEmpresaBloqueada1();
 		
 		layout.addComponent(cmbTipoFatura, 0, 3);
 		layout.addComponent(cmbEmpresaBloqueada1, 1,3);
@@ -535,6 +537,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
+		layout.setHeight("100%");
 
 		txtEmailPrincipal = new TextField();
 		txtEmailPrincipal.setCaption("Email Principal");
@@ -578,6 +581,7 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
+		layout.setHeight("100%");
 	
 
 	    txtObsFechamento = new TextArea();
@@ -800,6 +804,12 @@ public class ParametroClienteFormView extends CustomComponent {
 		cmbMostrandoAvisoCorte.removeAllItems();
 		cmbMostrandoAvisoCorte.addItem(SIM_NAO.NAO);
 		cmbMostrandoAvisoCorte.addItem(SIM_NAO.SIM);
+	}
+	
+	public void carregarEmpresaBloqueada1() {
+		cmbEmpresaBloqueada1.removeAllItems();
+		cmbEmpresaBloqueada1.addItem(SIM_NAO.NAO);
+		cmbEmpresaBloqueada1.addItem(SIM_NAO.SIM);
 	}
 	
 	public enum SIM_NAO {

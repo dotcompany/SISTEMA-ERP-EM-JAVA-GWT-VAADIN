@@ -23,7 +23,7 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 	
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"tipoDeSistema", "valorEntrada"};
+		return new String[] {"empresa"};
 	}
 
 	@Override
