@@ -171,8 +171,8 @@ public class ParametroClienteFormView extends CustomComponent {
 	private GridLayout buildFields() {
 		// common part: create layout
 		fields = new GridLayout();
-		/*fields.setRows(2);
-		fields.setColumns(2);*/
+		fields.setRows(7);
+		fields.setColumns(2);
 		fields.setImmediate(false);
 		fields.setMargin(false);
 		fields.setSpacing(true);
@@ -325,13 +325,12 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	public void buildInformacaoSubForm() {
 		final GridLayout layout = new GridLayout();
-		layout.setRows(6);
-		layout.setColumns(6);
+		layout.setRows(7);
+		layout.setColumns(7);
 		layout.setImmediate(false);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
-		layout.setHeight("100%");
 		
 		cmbTipoSistema= new ComboBox();
 		cmbTipoSistema.setCaption("Tipo de Sistema ");
@@ -420,13 +419,12 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	public void buildFinanceiroSubForm() {
 		GridLayout layout = new GridLayout();
-		layout.setRows(6);
-		layout.setColumns(6);
+		layout.setRows(7);
+		layout.setColumns(7);
 		layout.setImmediate(false);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
-		layout.setHeight("100%");
 
 		txtValorEntrada = new TextField();
 		txtValorEntrada.setMaxLength(60);
@@ -531,13 +529,12 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	public void buildDadosCobrancaSubForm() {
 		GridLayout layout = new GridLayout();
-		layout.setRows(6);
-		layout.setColumns(6);
+		layout.setRows(7);
+		layout.setColumns(7);
 		layout.setImmediate(false);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
-		layout.setHeight("100%");
 
 		txtEmailPrincipal = new TextField();
 		txtEmailPrincipal.setCaption("Email Principal");
@@ -575,13 +572,12 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	public void buildObsSubForm() {
 		GridLayout layout = new GridLayout();
-		layout.setRows(6);
-		layout.setColumns(6);
+		layout.setRows(7);
+		layout.setColumns(7);
 		layout.setImmediate(false);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setWidth("100%");
-		layout.setHeight("100%");
 	
 
 	    txtObsFechamento = new TextArea();
