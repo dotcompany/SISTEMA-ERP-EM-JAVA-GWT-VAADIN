@@ -74,7 +74,7 @@ public class FmModulo extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "fmModulo", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FmMenu> menus;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "configuracao_conta_empresa_fm_modulo", joinColumns = { @JoinColumn(name = "modulos_id") }, inverseJoinColumns = { @JoinColumn(name = "configuracao_conta_empresa_id ") })
 	private List<ConfiguracaoContaEmpresa> configuracaoContaEmpresa;
 

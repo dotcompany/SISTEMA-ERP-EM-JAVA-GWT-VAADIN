@@ -184,7 +184,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		 * HorizontalLayout(); Button fechar = new NativeButton("");
 		 * fechar.setImmediate(true); fechar.setDescription("Fechar");
 		 */
-		
 
 		// ALTERAR (FECHAR)
 
@@ -192,7 +191,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			@Override
 			public void buttonClick(ClickEvent event) {
 				mainController.removeTask((Task) getController(), true);
-				
 
 			}
 		});
@@ -273,6 +271,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 					});
 
 		}
+		;
 	}
 
 	protected abstract CRUDFormController<E> getFormController();
@@ -334,7 +333,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
 			public Object generateCell(Table source, Object itemId, Object columnId) {
 				TextField tf = new TextField();
-				
+
 				source.addColumnResizeListener(new ColumnResizeListener() {
 					@Override
 					public void columnResize(ColumnResizeEvent event) {
@@ -342,8 +341,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 						table.saveToFile();
 					}
 				});
-				
-				//table.setColumnCollapsed(tf, true);
+
+				// table.setColumnCollapsed(tf, true);
 
 				return tf;
 			}
