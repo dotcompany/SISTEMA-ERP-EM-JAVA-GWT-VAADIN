@@ -1,6 +1,8 @@
 package dc.controller.adm.dotcompany;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,30 +162,17 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	protected void carregar(Serializable id) {
 		currentBean = parametroClienteDAO.find(id);
 		
-		/*subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			/*private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				try {
-					gerarParcelas();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					mensagemErro(e.getMessage());
-				}
-
-			}
-		});*/
-		
 		        subView.getCmbEmpresa().setValue(currentBean.getEmpresa());
 		
-				subView.getTxtValorEntrada().setConvertedValue(subView.getTxtValorEntrada().getConvertedValue());
-				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
-				subView.getTxtValorMensPromocional().setConvertedValue(subView.getTxtValorMensPromocional().getConvertedValue());
+				BigDecimal valorEntrada = currentBean.getValorEntrada();
+				if (valorEntrada != null) {
+					subView.getTxtValorEntrada().setConvertedValue(valorEntrada);
+				}
+				
+				BigDecimal valorMensPromocional = currentBean.getValorMensPromocional();
+				if (valorMensPromocional != null) {
+					subView.getTxtValorMensPromocional().setConvertedValue(valorMensPromocional);
+				}
 				
 				String empresaLiberada = currentBean.getEmpresaLiberada();
 				if (Validator.validateString(empresaLiberada)) {
@@ -210,7 +199,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 					subView.getCmbTipoSistema().setValue(TIPO_SISTEMA.getTipoSistema(tipoSistema));
 				}
 
-		        String empresaBloqueada1 = currentBean.getEmpresaBloqueada1();
+		        String empresaBloqueada1 = currentBean.getEmpresaBloqueadaTotal();
 				if (Validator.validateString(empresaBloqueada1)) {
 					subView.getCmbEmpresaBloqueada1().setValue(SIM_NAO.getValor(empresaBloqueada1));
 				}
@@ -226,6 +215,62 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 				}
 		        
 		        currentBean.setEmpresa(empresa);
+		        
+		        TIPO_SISTEMA enumTipoSistema = (TIPO_SISTEMA) (subView.getCmbTipoSistema().getValue());
+				if (Validator.validateObject(enumTipoSistema)) {
+					String tipoSistema = (enumTipoSistema).getCodigo();
+					currentBean.setTipoDeSistema(tipoSistema);
+				}
+				
+				SIM_NAO enumUsaNfe = (SIM_NAO) (subView.getCmbUsaNfe().getValue());
+				if (Validator.validateObject(enumUsaNfe)) {
+					String usaNfe = (enumUsaNfe).getCodigo();
+					currentBean.setUsaNfe(usaNfe);
+				}
+		        
+		        String liberadoQuem = subView.getTxtLiberadoPorQuem().getValue();
+				currentBean.setLiberadoQuem(liberadoQuem);
+				
+				String caminhoBanco = subView.getTxtCaminhoBanco().getValue();
+				currentBean.setCaminhoBanco(caminhoBanco);
+				
+				String vendedor = subView.getTxtVendedor().getValue();
+				currentBean.setVendedor(vendedor);
+				
+				//currentBean.setComissaoVendedor((BigDecimal) subView.getTxtComissaoVendedor().getConvertedValue());
+				
+				String agente = subView.getTxtAgente().getValue();
+				currentBean.setAgente(agente);
+				
+				//currentBean.setComissaoAgente((BigDecimal) subView.getTxtComissaoAgente().getConvertedValue());
+				
+				/*currentBean.setValorEntrada((BigDecimal) subView.getTxtValorEntrada().getConvertedValue());
+				currentBean.setValorMensPromocional((BigDecimal) subView.getTxtValorMensPromocional().getConvertedValue());
+				currentBean.setValorMensalidade((BigDecimal) subView.getTxtValorMensalidade().getConvertedValue());*/
+				
+				TIPO_FATURA enumTipoFatura = (TIPO_FATURA) (subView.getCmbTipoFatura().getValue());
+				if (Validator.validateObject(enumTipoFatura)) {
+					String tipoFatura = (enumTipoFatura).getCodigo();
+					currentBean.setTipoDeFatura(tipoFatura);
+				}
+				
+				Date dataEntrada = subView.getDtDataEntrada().getValue();
+				currentBean.setDataEntrada(dataEntrada);
+				
+				Date dataVencimentoPromocao = subView.getDtVencimentoPromocao().getValue();
+				currentBean.setVencimentoPromocao(dataVencimentoPromocao);
+				
+				Date diaVencimento = subView.getDtDiaVencimento().getValue();
+				currentBean.setDiaVencimento(diaVencimento);
+				
+				String emailPrincipal = subView.getTxtEmailPrincipal().getValue();
+				currentBean.setEmailPrincipal(emailPrincipal);
+				
+				String emailSecundario = subView.getTxtEmailSecundario().getValue();
+				currentBean.setEmailSecundario(emailSecundario);
+				
+				String nomeResponsavel = subView.getTxtNomeResponsavel().getValue();
+				currentBean.setNomeResponsavel(nomeResponsavel);
 		        
 		        parametroClienteDAO.saveOrUpdate(currentBean);
 		        notifiyFrameworkSaveOK(this.currentBean);
@@ -390,6 +435,14 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	@Override
 	public String getViewIdentifier() {
 		return "parametroClienteForm";
+	}
+	
+	public ParametroCliente getCurrentBean() {
+		return currentBean;
+	}
+
+	public void setCurrentBean(ParametroCliente currentBean) {
+		this.currentBean = currentBean;
 	}
 	
 	@Override
