@@ -55,7 +55,9 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dc_empresa_parametro")
 	@SequenceGenerator(name = "dc_empresa_parametro", sequenceName = "dc_empresa_parametro_id_seq", allocationSize = 1)
+	@Basic(optional = false)
 	@ComboCode
+	@Column(name = "ID")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 	
@@ -119,7 +121,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	private String comissaoAgente;
 	
 	
-    /////////////////////////////////////////////////////////// Financeiro (GERAL) //////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////// Financeiro (GERAL) ////////////////////////////////////////////////////////////////////////////
 
 	@Field
 	@Caption("Valor Entrada")

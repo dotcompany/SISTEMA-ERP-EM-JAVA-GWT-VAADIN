@@ -86,6 +86,9 @@ dependencies {
 		 
          compile 'com.vaadin.addon:vaadin-calendar-cval-2.0:2.0.0.beta3'
          
+         // ElCache
+         compile 'net.sf.ehcache:ehcache:2.8.0'
+         
          
          compile 'com.vaadin.addon:vaadin-charts:1.0.0'
          
