@@ -185,7 +185,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		 * fechar.setImmediate(true); fechar.setDescription("Fechar");
 		 */
 
-		// ALTERAR (FECHAR)
+		/**
+		 * 
+		 * Wesley Jr
+		 *  (FECHAR)
+		 */
 
 		view.getBtnFechar().addClickListener(new ClickListener() {
 			@Override
@@ -333,14 +337,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
 			public Object generateCell(Table source, Object itemId, Object columnId) {
 				TextField tf = new TextField();
-
-				source.addColumnResizeListener(new ColumnResizeListener() {
-					@Override
-					public void columnResize(ColumnResizeEvent event) {
-						logger.info("resize");
-						table.saveToFile();
-					}
-				});
+				
+				source.setColumnCollapsed(itemId, true);
 
 				// table.setColumnCollapsed(tf, true);
 
