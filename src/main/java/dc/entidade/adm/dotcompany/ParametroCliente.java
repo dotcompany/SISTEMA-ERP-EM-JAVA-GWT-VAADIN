@@ -227,7 +227,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	
 	@Field
 	@Caption("Telefone")
-	@Column(name = "TELEFONE")
+	@Column(name = "TELEFONE", length = 14)
 	private String telefone;
 	
 	@ManyToOne
