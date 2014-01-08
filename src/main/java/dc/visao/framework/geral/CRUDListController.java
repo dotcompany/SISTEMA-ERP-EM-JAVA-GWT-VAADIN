@@ -329,16 +329,17 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		/**
 		 * 
 		 * Wesley Jr(Alterações CheckBox)
+		 * NUMERAÇÃO
 		 */
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
 		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
-			public Object generateCell(Table source, Object itemId, Object columnId) {
-				TextField tf = new TextField();
-				
-				source.setColumnCollapsed(itemId, true);
+			public Object generateCell(final Table source, final Object itemId, final Object columnId) {
+				final TextField tf = new TextField();
+				tf.setImmediate(true);
+				//source.setColumnCollapsed(itemId, true);
 
 				// table.setColumnCollapsed(tf, true);
 
@@ -354,6 +355,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
 
 				final CheckBox checkBox = new CheckBox();
+				//final TextField tf = new TextField();
 
 				checkBox.setImmediate(true);
 				checkBox.addValueChangeListener(new Property.ValueChangeListener() {
@@ -365,6 +367,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 						} else {
 							selected.remove(itemId);
 						}
+						
 					}
 				});
 
