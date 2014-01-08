@@ -9,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,9 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.geral.Pessoa;
 
 @Entity
 @Table(name = "CONTRATO")
@@ -112,6 +115,17 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContratoSolicitacaoServico contratoSolicitacaoServico;
+	
+	/**
+	 * 
+	 * Mapeamento de Pessoa
+	 * @ Wesley Jr
+	 * 
+	 */
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	@Caption(value = "Pessoa")
+	private Pessoa pessoa;
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
@@ -124,6 +138,10 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
 
 	@Transient
 	private ContratoTemplate contratoTemplate;
@@ -251,6 +269,17 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
 
+	public void addParcelaPagar(ParcelaPagar parcela) {
+		parcela.setContrato(this);
+		this.parcelasPagar.add(parcela);
+	}
+
+	public void removeParcelaPagar(ParcelaPagar parcela) {
+		parcela.setContrato(null);
+		parcelasPagar.remove(parcela);
+
+	}
+	
 	@Override
 	public String toString() {
 		return nome;
@@ -269,6 +298,14 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	public void setContratoTemplate(ContratoTemplate contratoTemplate) {
 		this.contratoTemplate = contratoTemplate;
+	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public ContratoHistFaturamento addContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {

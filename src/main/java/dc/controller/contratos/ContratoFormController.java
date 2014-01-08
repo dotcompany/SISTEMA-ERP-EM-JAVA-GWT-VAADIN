@@ -7,10 +7,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -20,17 +23,22 @@ import javax.swing.text.MaskFormatter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.hibernate.SessionFactory;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.pessoal.PessoaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.contratos.Contrato;
 import dc.entidade.contratos.ContratoHistFaturamento;
@@ -38,20 +46,25 @@ import dc.entidade.contratos.ContratoHistoricoReajuste;
 import dc.entidade.contratos.ContratoPrevFaturamento;
 import dc.entidade.contratos.ContratoSolicitacaoServico;
 import dc.entidade.contratos.TipoContrato;
+import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.framework.Empresa;
 import dc.entidade.ged.Documento;
 import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.geral.Endereco;
+import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contratos.ContratoDAO;
 import dc.servicos.dao.contratos.ContratoSolicitacaoServicoDAO;
 import dc.servicos.dao.contratos.TipoContratoDAO;
 import dc.servicos.dao.ged.DocumentoDAO;
+import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainUI;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
@@ -70,9 +83,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
+	
+	@Autowired
+	private PessoaDAO pessoaDAO;
 
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
+	
+	@Autowired
+	protected SessionFactory sessionFactory;
 
 	@Autowired
 	private ContratoSolicitacaoServicoDAO solicitacaoServicoDAO;
@@ -93,6 +112,12 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNumero(), "Número inválido");
+			valido = false;
+		}
+		
+		Pessoa pessoa = (Pessoa) subView.getCbmPessoa().getValue();
+		if (!Validator.validateObject(pessoa)) {
+			adicionarErroDeValidacao(subView.getCbmPessoa(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -218,6 +243,33 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	protected void initSubView() {
 		subView = new ContratoFormView(this);
 		
+		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					gerarParcelas();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					mensagemErro(e.getMessage());
+				}
+
+			}
+		});
+		
+		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(
+				PessoaListController.class, this.pessoaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};
+		
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
 			@Override
@@ -245,6 +297,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	};
 	
 	
+	    subView.getCbmPessoa().setModel(pessoaModel);
 	    subView.getCbmContabilConta().setModel(contabilContaModel);
 	    subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
@@ -495,6 +548,127 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		}
 		mensagemRemovidoOK();
 
+	}
+	
+	public void gerarParcelas() throws Exception {
+
+		if (validaSalvar()) {
+			final ContabilConta contabilConta = (ContabilConta) subView.getCbmContabilConta().getValue();
+			if (contabilConta == null || contabilConta.getId() == null) {
+				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
+			}
+			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+			List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
+			if (dados != null) {
+				//parcelasPagar.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
+			}
+
+			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
+				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						new ConfirmDialog.Listener() {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							public void onClose(ConfirmDialog dialog) {
+								if (dialog.isConfirmed()) {
+									excluiParcelas(parcelasPagar);
+									geraParcelas(contabilConta, parcelasPagar);
+								}
+							}
+						});
+			} else {
+				geraParcelas(contabilConta, parcelasPagar);
+			}
+
+		} else {
+			mensagemErro("Preencha todos os campos corretamente!");
+		}
+
+	}
+	
+	private void geraParcelas(ContabilConta contabilConta, final List<ParcelaPagar> parcelasPagar) {
+		subView.buildPrevisaoFaturamentoSubForm().removeAllItems();
+
+		subView.preencheContratoForm(currentBean);
+
+		setIntervaloParcelaByTipoVencimento();
+
+		Contrato contrato = currentBean;
+		ParcelaPagar parcelaPagar;
+		Date dataEmissao = new Date();
+		Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(contrato.getDataFimVigencia());
+		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()),
+				RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
+			parcelaPagar = new ParcelaPagar();
+			//parcelaPagar.setContaCaixa(contabilConta);
+			parcelaPagar.setNumeroParcela(i + 1);
+			parcelaPagar.setDataEmissao(dataEmissao);
+			if (i > 0) {
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
+			}
+			parcelaPagar.setDataVencimento(primeiroVencimento.getTime());
+			parcelaPagar.setSofreRetencao(contrato.getPessoa().getTipo());
+			parcelaPagar.setValor(valorParcela);
+
+			somaParcelas = somaParcelas.add(valorParcela);
+			if (i == (contrato.getQuantidadeParcelas() - 1)) {
+				residuo = contrato.getValor().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaPagar.setValor(valorParcela);
+			}
+
+			parcelasPagar.add(parcelaPagar);
+			novoParcelaPagar(parcelaPagar);
+		}
+
+		//subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
+	}
+	
+	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
+		List<ContratoPrevFaturamento> persistentObjects = subView.buildPrevisaoFaturamentoSubForm().getDados();
+
+		for (int i = 0; i < persistentObjects.size(); i++) {
+			delete(persistentObjects.get(i));
+		}
+		parcelasPagar.clear();
+	}
+	
+	public void delete(ContratoPrevFaturamento contratoPrevFaturamento) {
+		sessionFactory.getCurrentSession().delete(contratoPrevFaturamento);
+		
+	}
+
+	public ParcelaPagar novoParcelaPagar() {
+		ParcelaPagar parcela = new ParcelaPagar();
+		return novoParcelaPagar(parcela);
+	}
+
+	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {
+
+		currentBean.addParcelaPagar(parcela);
+
+		return parcela;
+	}
+
+	public void removerParcelaPagar(List<ParcelaPagar> values) {
+		for (ParcelaPagar value : values) {
+			currentBean.removeParcelaPagar(value);
+		}
+
+	}
+	
+	private void setIntervaloParcelaByTipoVencimento() {
+		if (TipoVencimento.MENSAL.equals(subView.getCbmTipoContrato().getValue())) {
+			currentBean.setIntervaloEntreParcelas(30);
+		}
 	}
 
 	@Override
