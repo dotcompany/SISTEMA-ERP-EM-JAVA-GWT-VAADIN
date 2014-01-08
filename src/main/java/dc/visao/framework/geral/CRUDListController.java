@@ -396,12 +396,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		BeanQueryFactory queryFactory = null;
 
-		if (genericDAO.isMultiEmpresa(getEntityClass())) {
-			if (SecuritySessionProvider.getUsuario().getConsultaMultiempresa().equals(1)) {
-				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
-			} else {
-				queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
-			}
+		if (genericDAO.isMultiEmpresa(getEntityClass()) && SecuritySessionProvider.getUsuario().getConsultaMultiempresa().equals(0)) {
+			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 		} else {
 			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 		}
