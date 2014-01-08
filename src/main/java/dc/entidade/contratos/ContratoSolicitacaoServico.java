@@ -69,12 +69,17 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	private String statusSolicitacao;
 
 	@Field
-	@Caption(value = "Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption(value = "Descrição")
 	private String descricao;
 
-	@Caption("Tipo serviço")
+	/**
+	 * Alterações para aparecer no ComoBox na Tela de Contrato
+	 */
+	
+	@Caption("Contrato Tipo serviço")
 	@JoinColumn(name = "ID_CONTRATO_TIPO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContratoTipoServico contratoTipoServico;

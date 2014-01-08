@@ -55,7 +55,9 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dc_empresa_parametro")
 	@SequenceGenerator(name = "dc_empresa_parametro", sequenceName = "dc_empresa_parametro_id_seq", allocationSize = 1)
+	@Basic(optional = false)
 	@ComboCode
+	@Column(name = "ID")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 	
@@ -98,10 +100,10 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	
 	@Field
 	@Caption("Comissao Vendedor")
-	@Column(name = "COMISSAO_VENDEDOR")
+	@Column(name = "COMISSAO_VENDEDOR", precision = 18, scale = 6)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String comissaoVendedor;
+	private BigDecimal comissaoVendedor;
 	
 	
 	@Field
@@ -113,13 +115,13 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	
 	@Field
 	@Caption("Comissao Agente")
-	@Column(name = "COMISSAO_AGENTE")
+	@Column(name = "COMISSAO_AGENTE", precision = 18, scale = 6)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String comissaoAgente;
+	private BigDecimal comissaoAgente;
 	
 	
-    /////////////////////////////////////////////////////////// Financeiro (GERAL) //////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////// Financeiro (GERAL) ////////////////////////////////////////////////////////////////////////////
 
 	@Field
 	@Caption("Valor Entrada")
@@ -153,15 +155,6 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@Column(name = "QUANTIDADE_PARCELA")
 	private Integer quantidadeParcela;*/
 	
-	@Lob
-	@Field
-	@Caption("Observacao Fechamento")
-	@Type(type = "text")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "OBSERVACAO_FECHAMENTO", length = 65535)
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacaoFechamento;
-	
 	@Field
 	@Caption("Data Entrada")
 	@Column(name = "DATA_ENTRADA")
@@ -170,7 +163,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	
 	@Field
 	@Caption("Vencimento Promoção")
-	@Column(name = "VENCIMENTO_ENTRADA")
+	@Column(name = "VENCIMENTO_PROMOCAO")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date vencimentoPromocao;
 	
@@ -200,11 +193,11 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	private String mostrandoAviso;
 	
 	@Field
-	@Caption("Empresa Bloqueada1")
-	@Column(name = "EMPRESA_BLOQUEADA1")
+	@Caption("Empresa Bloqueada Total")
+	@Column(name = "EMPRESA_BLOQUEADA_TOTAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String empresaBloqueada1;
+	private String empresaBloqueadaTotal;
 	
 	@Lob
 	@Field
@@ -212,6 +205,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Caption(value = "Obs Fechamento")
 	@Column(name = "OBS_FECHAMENTO", length = 632355)
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String obsFechamento;
 	
     /////////////////////////////////////////////////////////// Dados Cobrança //////////////////////////////////////////////////////////////
@@ -305,14 +299,6 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 		this.tipoDeFatura = tipoDeFatura;
 	}
 
-	public String getObservacaoFechamento() {
-		return observacaoFechamento;
-	}
-
-	public void setObservacaoFechamento(String observacaoFechamento) {
-		this.observacaoFechamento = observacaoFechamento;
-	}
-
 	public Date getDataEntrada() {
 		return dataEntrada;
 	}
@@ -401,11 +387,11 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 		this.vendedor = vendedor;
 	}
 
-	public String getComissaoVendedor() {
+	public BigDecimal getComissaoVendedor() {
 		return comissaoVendedor;
 	}
 
-	public void setComissaoVendedor(String comissaoVendedor) {
+	public void setComissaoVendedor(BigDecimal comissaoVendedor) {
 		this.comissaoVendedor = comissaoVendedor;
 	}
 
@@ -417,20 +403,20 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 		this.agente = agente;
 	}
 
-	public String getComissaoAgente() {
+	public BigDecimal getComissaoAgente() {
 		return comissaoAgente;
 	}
 
-	public void setComissaoAgente(String comissaoAgente) {
+	public void setComissaoAgente(BigDecimal comissaoAgente) {
 		this.comissaoAgente = comissaoAgente;
 	}
 
-	public String getEmpresaBloqueada1() {
-		return empresaBloqueada1;
+	public String getEmpresaBloqueadaTotal() {
+		return empresaBloqueadaTotal;
 	}
 
-	public void setEmpresaBloqueada1(String empresaBloqueada1) {
-		this.empresaBloqueada1 = empresaBloqueada1;
+	public void setEmpresaBloqueadaTotal(String empresaBloqueadaTotal) {
+		this.empresaBloqueadaTotal = empresaBloqueadaTotal;
 	}
 
 	public String getObsFechamento() {
