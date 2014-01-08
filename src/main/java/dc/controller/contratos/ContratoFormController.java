@@ -462,6 +462,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Override
 	protected void actionSalvar() {
 		subView.preencheContrato(currentBean);
+		
+		//currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
 
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());

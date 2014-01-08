@@ -558,6 +558,7 @@ public class ContratoFormView extends CustomComponent {
 
 	public void preencheContrato(Contrato contrato) {
 
+		contrato.setPessoa(getCbmPessoa().getValue());
 		contrato.setContabilConta(getCbmContabilConta().getValue());
 		contrato.setContratoSolicitacaoServico(getCmbSolicitacaoServico().getValue());
 		contrato.setDataCadastro(getDtCadastro().getValue());
@@ -576,6 +577,7 @@ public class ContratoFormView extends CustomComponent {
 	}
 
 	public void preencheContratoForm(Contrato contrato) {
+		getCbmPessoa().setValue(contrato.getPessoa());
 		getCbmContabilConta().setValue(contrato.getContabilConta());
 		getCmbSolicitacaoServico().setValue(contrato.getContratoSolicitacaoServico());
 		getDtCadastro().setValue(contrato.getDataCadastro());
