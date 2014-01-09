@@ -355,22 +355,21 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		// remover
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
-		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
+		/*table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
+		
+		//table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
 
 			private static final long serialVersionUID = 1L;
 
-			public Object generateCell(final Table source, final Object itemId,
-					final Object columnId) {
+			public Object generateCell(final Table source, final Object itemId,	final Object columnId) {
 				final TextField tf = new TextField();
 				tf.setImmediate(true);
 				// source.setColumnCollapsed(itemId, true);
 
 				// table.setColumnCollapsed(tf, true);
-
 				return tf;
 			}
-
-		});
+		});*/
 
 		/*
 		 * table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new
@@ -419,6 +418,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						final CheckBox checkBox = new CheckBox();
 
 						checkBox.setImmediate(true);
+						// checkBox.setWidth(BorderLayout.EAST);
 						checkBox.addValueChangeListener(new Property.ValueChangeListener() {
 							@Override
 							public void valueChange(
@@ -441,6 +441,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 						HorizontalLayout cellLayout = new HorizontalLayout();
 						cellLayout.addComponent(new Label(String.valueOf(i)));
 						cellLayout.addComponent(checkBox);
+						// cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
 
 						i++;
 

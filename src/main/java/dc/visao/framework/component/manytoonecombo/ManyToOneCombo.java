@@ -310,4 +310,5 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public T getItemValueBean(ItemValue item) {
 		return item.getBean();
 	}
+
 }
