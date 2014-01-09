@@ -70,7 +70,14 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 
 		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController());
+				super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "descricao";
+			
+		  }
+	};
 
 		this.subView.getCmbContabilConta().setModel(model);
 	}
@@ -111,11 +118,6 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 		 * subView.getCmbContabilConta().setModel(model);
 		 */
 
-		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController());
-
-		this.subView.getCmbContabilConta().setModel(model);
 		/*this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta());*/
 	}
 

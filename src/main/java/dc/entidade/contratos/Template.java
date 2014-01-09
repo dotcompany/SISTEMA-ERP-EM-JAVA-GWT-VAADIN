@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -36,7 +37,8 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template")
+	@SequenceGenerator(name = "template", sequenceName = "template_id_seq", allocationSize = 1)
 	@Basic(optional = false)
 	@Column(name = "ID")
 	@Field
@@ -58,6 +60,10 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	private String descricao;
 
 	public Template() {
+	}
+	
+	public Template(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {

@@ -139,12 +139,6 @@ public class CepFormController extends CRUDFormController<Cep> {
 		// subView.getCmbUf().setModel(modeluf);
 		// subView.getCmbUf().setValue(currentBean.getUf());
 
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController());
-
-		this.subView.getCmbUf().setModel(model);
-
-		this.subView.getCmbUf().setValue(currentBean.getUf());
 	}
 
 	/*
@@ -159,15 +153,26 @@ public class CepFormController extends CRUDFormController<Cep> {
 
 	@Override
 	protected void initSubView() {
+		try {
 		subView = new CepFormView();
 		// DefaultManyToOneComboModel<UF> modeluf= new
 		// DefaultManyToOneComboModel(UFListController . class , ufDAO ,
 		// mainController );
 
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController());
+		DefaultManyToOneComboModel<UF> ufModel = new DefaultManyToOneComboModel<UF>(UFListController.class,
+				this.ufDAO, super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "nome";
+		  }
+		};
 
-		this.subView.getCmbUf().setModel(model);
+		this.subView.getCmbUf().setModel(ufModel);
+		}catch (Exception e ) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/*

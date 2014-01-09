@@ -596,7 +596,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	    txtObsFechamento.setCaption("OBS, Fechamento");
 	    txtObsFechamento.setImmediate(false);
 	    txtObsFechamento.setWidth("1050px");
-	    txtObsFechamento.setHeight("350px");
+	    txtObsFechamento.setHeight("400");
 	    
 	    layout.addComponent(txtObsFechamento, 0, 0);
 	    

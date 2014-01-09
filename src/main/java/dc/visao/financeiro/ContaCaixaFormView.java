@@ -123,7 +123,6 @@ public class ContaCaixaFormView extends CustomComponent {
 		// cmbContabilConta
 		cmbContabilConta = new ComboBox();
 		cmbContabilConta.setCaption("Contábil Conta");
-		cmbContabilConta.setImmediate(false);
 		cmbContabilConta.setWidth("760px");
 		cmbContabilConta.setHeight("-1px");
 		// cmbContabilConta.setRequired(true);
@@ -132,7 +131,6 @@ public class ContaCaixaFormView extends CustomComponent {
 		// cmbAgenciaBanco
 		cmbAgenciaBanco = new ComboBox();
 		cmbAgenciaBanco.setCaption("Agência Banco");
-		cmbAgenciaBanco.setImmediate(false);
 		cmbAgenciaBanco.setWidth("760px");
 		cmbAgenciaBanco.setHeight("-1px");
 		// cmbAgenciaBanco.setRequired(true);
@@ -332,6 +330,14 @@ public class ContaCaixaFormView extends CustomComponent {
 	 * cmbContabilConta) { this.cmbContabilConta = cmbContabilConta; }
 	 */
 
+	public ComboBox getCmbTipo() {
+		return cmbTipo;
+	}
+
+	public void setCmbTipo(ComboBox cmbTipo) {
+		this.cmbTipo = cmbTipo;
+	}
+	
 	public ComboBox getCmbAgenciaBanco() {
 		return cmbAgenciaBanco;
 	}
@@ -346,14 +352,6 @@ public class ContaCaixaFormView extends CustomComponent {
 
 	public void setCmbContabilConta(ComboBox cmbContabilConta) {
 		this.cmbContabilConta = cmbContabilConta;
-	}
-
-	public ComboBox getCmbTipo() {
-		return cmbTipo;
-	}
-
-	public void setCmbTipo(ComboBox cmbTipo) {
-		this.cmbTipo = cmbTipo;
 	}
 
 	/**

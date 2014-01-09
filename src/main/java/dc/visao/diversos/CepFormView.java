@@ -169,9 +169,8 @@ public class CepFormView extends CustomComponent {
 		horizontalLayout_3.setSpacing(true);
 
 		// cmbUf
-		cmbUf = new ManyToOneCombo<UF>();
+		cmbUf = new ManyToOneCombo<>();
 		cmbUf.setCaption("Uf");
-		cmbUf.setImmediate(false);
 		cmbUf.setWidth("612px");
 		cmbUf.setHeight("-1px");
 		horizontalLayout_3.addComponent(cmbUf);
