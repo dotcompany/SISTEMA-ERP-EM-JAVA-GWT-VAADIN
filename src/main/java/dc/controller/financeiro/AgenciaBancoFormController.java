@@ -43,16 +43,16 @@ public class AgenciaBancoFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	AgenciaBancoFormView subView;
+	private AgenciaBancoFormView subView;
 
 	@Autowired
-	AgenciaBancoDAO agenciaDAO;
+	private AgenciaBancoDAO agenciaDAO;
 
 	@Autowired
-	BancoDAO bancoDAO;
+	private BancoDAO bancoDAO;
 
 	@Autowired
-	UFDAO ufDAO;
+	private UFDAO ufDAO;
 
 	private AgenciaBanco currentBean;
 
