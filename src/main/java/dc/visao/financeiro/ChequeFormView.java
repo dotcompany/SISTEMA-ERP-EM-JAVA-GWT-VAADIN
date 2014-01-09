@@ -95,9 +95,8 @@ public class ChequeFormView extends CustomComponent {
 		horizontalLayout_1.setSpacing(true);
 
 		// cmbTalonarioCheque
-		cmbTalonarioCheque = new ManyToOneCombo<TalonarioCheque>();
+		cmbTalonarioCheque = new ManyToOneCombo<>();
 		cmbTalonarioCheque.setCaption("Talonário Cheque");
-		cmbTalonarioCheque.setImmediate(false);
 		cmbTalonarioCheque.setWidth("480px");
 		cmbTalonarioCheque.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbTalonarioCheque);

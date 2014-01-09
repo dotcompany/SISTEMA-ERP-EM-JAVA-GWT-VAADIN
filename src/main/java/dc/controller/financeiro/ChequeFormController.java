@@ -98,11 +98,6 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 		currentBean = chequeDAO.find(id);
 		subView.getDtStatus().setValue(currentBean.getDataStatus());
 
-		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
-				TalonarioChequeListController.class, this.talonarioChequeDAO,
-				super.getMainController());
-
-		this.subView.getCmbTalonarioCheque().setModel(model);
 	}
 
 	/*
@@ -121,8 +116,13 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 		this.subView.InitCbs(getChequeStatusCheque());
 
 		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
-				TalonarioChequeListController.class, this.talonarioChequeDAO,
-				super.getMainController());
+				TalonarioChequeListController.class, this.talonarioChequeDAO,super.getMainController()) {
+		
+			@Override
+		public String getCaptionProperty() {
+			return "talao";
+		}
+	};
 
 		this.subView.getCmbTalonarioCheque().setModel(model);
 	}

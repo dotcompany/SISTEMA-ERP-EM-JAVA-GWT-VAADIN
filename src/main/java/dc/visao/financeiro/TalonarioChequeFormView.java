@@ -87,9 +87,8 @@ public class TalonarioChequeFormView extends CustomComponent {
 		horizontalLayout_1.setSpacing(true);
 
 		// cmbContaCaixa
-		cmbContaCaixa = new ManyToOneCombo<ContaCaixa>();
+		cmbContaCaixa = new ManyToOneCombo<>();
 		cmbContaCaixa.setCaption("Conta Caixa");
-		cmbContaCaixa.setImmediate(false);
 		cmbContaCaixa.setWidth("500px");
 		cmbContaCaixa.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbContaCaixa);
