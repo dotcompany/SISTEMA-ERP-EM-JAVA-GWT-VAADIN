@@ -336,6 +336,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		});
 
 		table.addListener(new ItemClickEvent.ItemClickListener() {
+
 			private static final long serialVersionUID = 2068314108919135281L;
 
 			public void itemClick(ItemClickEvent event) {
@@ -343,6 +344,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 					actionAbrir(event.getItemId());
 				}
 			}
+
 		});
 
 		/**
@@ -354,6 +356,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
 		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
+
+			private static final long serialVersionUID = 1L;
+
 			public Object generateCell(final Table source, final Object itemId,
 					final Object columnId) {
 				final TextField tf = new TextField();
@@ -398,6 +403,9 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID,
 				new ColumnGenerator() {
+
+					private static final long serialVersionUID = 1L;
+
 					int i = 1;
 
 					@Override
@@ -419,10 +427,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 										.getValue();
 								if (select) {
 									selected.put(itemId, nestedItem.getBean());
+									// table.select(itemId);
 								} else {
 									selected.remove(itemId);
+									// table.select(itemId);
 								}
-
 							}
 						});
 
@@ -437,6 +446,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements
 
 						return cellLayout;
 					}
+
 				});
 
 		doSearch(valor);
