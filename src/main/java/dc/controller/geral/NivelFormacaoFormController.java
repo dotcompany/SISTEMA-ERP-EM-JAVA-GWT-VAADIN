@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.UF;
-import dc.servicos.dao.geral.UFDAO;
+import dc.entidade.geral.NivelFormacao;
+import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.UFFormView;
+import dc.visao.geral.NivelFormacaoFormView;
 
 
 /**
@@ -22,18 +22,18 @@ import dc.visao.geral.UFFormView;
 
 @Controller
 @Scope("prototype")
-public class UFFormController extends CRUDFormController<UF> {
+public class NivelFormacaoFormController extends CRUDFormController<NivelFormacao> {
 
-	private UFFormView subView;
+	NivelFormacaoFormView subView;
 	
 	@Autowired
-	private UFDAO ufDAO;
+	NivelFormacaoDAO nivelFormacaoDAO;
 
-	private UF currentBean;
+	private NivelFormacao currentBean;
 	
 	@Override
 	protected String getNome() {
-		return "UF";
+		return "Nivel Formação";
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class UFFormController extends CRUDFormController<UF> {
 		try{
 			
 			currentBean.setNome(subView.getTxtNome().getValue());
-			currentBean.setSigla(subView.getTxtSigla().getValue());
+			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			
-			ufDAO.saveOrUpdate(currentBean);
+			nivelFormacaoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
@@ -59,9 +59,8 @@ public class UFFormController extends CRUDFormController<UF> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = ufDAO.find(id);
+		currentBean = nivelFormacaoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtSigla().setValue(currentBean.getSigla());
 	}
 	
 	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
@@ -72,43 +71,29 @@ public class UFFormController extends CRUDFormController<UF> {
 
 	@Override
 	protected void initSubView() {
-		subView = new UFFormView();
+		subView = new NivelFormacaoFormView();
 	}
 
 	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new UF();
+		currentBean = new NivelFormacao();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		ufDAO.deleteAllByIds(ids);
+		 nivelFormacaoDAO.deleteAllByIds(ids);
 		 mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */ 
+	@Override
 	protected boolean validaSalvar() {
-
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-	
-	private boolean validaCampos() {
-		
-		boolean valido = true;
-		
 		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
 			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
 			return false;
 		}
-		
-		if(subView.getTxtSigla().getValue() ==  null || subView.getTxtSigla().getValue().isEmpty()){
-			adicionarErroDeValidacao(subView.getTxtSigla(),"Não pode ficar em Branco!");
-			return false;
-		}
-		return valido;
+		return true;
 	}
 
 	@Override
@@ -120,7 +105,7 @@ public class UFFormController extends CRUDFormController<UF> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "ufForm";
+		return "nivelFormacaoForm";
 	}
 
 }

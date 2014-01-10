@@ -35,6 +35,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.UF;
 
 /**
 *
@@ -107,7 +108,7 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
     private Integer municipioIbge;
     
     @Column(name="UF")
-    private Character uf;
+    private UF uf;
     
     @Column(name = "CONTATO", length = 30)
     @ComboValue
@@ -275,11 +276,11 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.municipioIbge = municipioIbge;
 	}
 
-	public Character getUf() {
+	public UF getUf() {
 		return uf;
 	}
 
-	public void setUf(Character uf) {
+	public void setUf(UF uf) {
 		this.uf = uf;
 	}
 

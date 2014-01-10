@@ -12,6 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.diversos.SetorListController;
+import dc.controller.financeiro.SindicatoListController;
+import dc.controller.geral.NivelFormacaoListController;
 import dc.controller.geral.UFListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.Setor;
@@ -79,7 +81,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	private CargoDAO cargoDAO;
 
 	@Autowired
-	private ContabilContaDAO contaContabilDAO;
+	private ContabilContaDAO contabilContaDAO;
 
 	@Autowired
 	private SetorDAO setorDAO;
@@ -124,11 +126,63 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		// DefaultManyToOneComboModel<Pessoa> model= new
 		// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
 		// subView.getCmbPessoa().setModel(model);
+		
+		DefaultManyToOneComboModel<Pessoa> modelPessoa = new DefaultManyToOneComboModel<Pessoa>(
+				PessoaListController.class, pessoaDAO,
+				super.getMainController());
+		subView.getCmbPessoa().setModel(modelPessoa);
+		
+		DefaultManyToOneComboModel<NivelFormacao> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacao>(
+				NivelFormacaoListController.class, nivelFormacaoDAO,
+				super.getMainController()) {
+			
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};
 
+		this.subView.getCmbNivelFormacao().setModel(modelNivelFormacao);
+		
 		DefaultManyToOneComboModel<TipoColaborador> modelTipo = new DefaultManyToOneComboModel<TipoColaborador>(
 				TipoColaboradorListController.class, tipoColaboradorDAO,
 				super.getMainController());
 		subView.getCmbTipoColaborador().setModel(modelTipo);
+		
+		DefaultManyToOneComboModel<Cargo> modelCargo = new DefaultManyToOneComboModel<Cargo>(
+				CargoListController.class, cargoDAO,
+				super.getMainController()) {
+			
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
+		this.subView.getCmbCargo().setModel(modelCargo);
+		
+		DefaultManyToOneComboModel<SituacaoColaborador> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaborador>(
+				SituacaoColaboradorListController.class, situacaoColaboradorDAO,
+				super.getMainController());
+		subView.getCmbSituacaoColaborador().setModel(modelSituacaoColaborador);
+		
+		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				this.contabilContaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
+		this.subView.getCmbContaContabil().setModel(model);
+		
+		DefaultManyToOneComboModel<Sindicato> modelSindicato = new DefaultManyToOneComboModel<Sindicato>(
+				SindicatoListController.class, sindicatoDAO,
+				super.getMainController());
+		subView.getCmbSindicato().setModel(modelSindicato);
+		
+		DefaultManyToOneComboModel<Setor> modelSetor = new DefaultManyToOneComboModel<Setor>(
+				SetorListController.class, setorDAO,
+				super.getMainController());
+		subView.getCmbSetor().setModel(modelSetor);
 
 		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController());
@@ -158,7 +212,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getTxtConta().setValue(currentBean.getPagamentoConta());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
-		subView.getCmbPessoa().setValue(currentBean.getPessoa());
+		/*subView.getCmbPessoa().setValue(currentBean.getPessoa());
 
 		subView.getCmbTipoColaborador().setValue(
 				currentBean.getIdTipoColaborador());
@@ -169,7 +223,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 		subView.getCmbSituacaoColaborador().setModel(model);
 		subView.getCmbSituacaoColaborador().setValue(
-				currentBean.getIdSituacaoColaborador());
+				currentBean.getIdSituacaoColaborador());*/
 
 		/*
 		 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
@@ -178,7 +232,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		 * 
 		 * subView.getCmbSindicato().setModel(modelsindicato);
 		 */
-		subView.getCmbSindicato().setValue(currentBean.getIdSindicato());
+		//subView.getCmbSindicato().setValue(currentBean.getIdSindicato());
 
 		/*
 		 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
@@ -187,7 +241,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		 * 
 		 * subView.getCmbNivelFormacao().setModel(modelnivel);
 		 */
-		subView.getCmbNivelFormacao()
+		/*subView.getCmbNivelFormacao()
 				.setValue(currentBean.getIdNivelFormacao());
 
 		DefaultManyToOneComboModel<Cargo> modelcargo = new DefaultManyToOneComboModel<Cargo>(
@@ -198,7 +252,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getCmbCargo().setValue(currentBean.getIdCargo());
 
 		DefaultManyToOneComboModel<ContabilConta> modelconta = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contaContabilDAO,
+				ContabilContaListController.class, this.contabilContaDAO,
 				super.getMainController());
 
 		subView.getCmbContaContabil().setModel(modelconta);
@@ -212,7 +266,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getCmbSetor().setModel(modelsetor);
 		subView.getCmbSetor().setValue(currentBean.getIdSetor());
 
-		subView.getCmbUf().setValue(currentBean.getCtpsUf());
+		subView.getCmbUf().setValue(currentBean.getCtpsUf());*/
 	}
 
 	@Override

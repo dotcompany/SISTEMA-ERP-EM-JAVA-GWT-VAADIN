@@ -9,14 +9,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UFListController;
-import dc.entidade.financeiro.Convenio;
-import dc.entidade.geral.UF;
+import dc.controller.contabilidade.ContabilContaListController;
+import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.financeiro.Sindicato;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.financeiro.ConvenioDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.util.Validator;
-import dc.visao.financeiro.ConvenioFormView;
+import dc.visao.financeiro.SindicatoFormView;
+import dc.visao.financeiro.SindicatoFormView.TIPO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -35,21 +36,21 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class ConvenioFormController extends CRUDFormController<Convenio> {
+public class SindicatoFormController extends CRUDFormController<Sindicato> {
 
-	private ConvenioFormView subView;
+	private SindicatoFormView subView;
 	
 	@Autowired
-	private ConvenioDAO convenioDAO;
+	private SindicatoDAO sindicatoDAO;
 	
 	@Autowired
-	private UFDAO ufDAO;
+	private ContabilContaDAO contabilContaDAO;
 
-	private Convenio currentBean;
+	private Sindicato currentBean;
 	
 	@Override
 	protected String getNome() {
-		return "Convenio";
+		return "Sindicato";
 	}
 
 	@Override
@@ -59,28 +60,31 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override  
 	protected void actionSalvar() {
-		
 		try{
-		
-		UF uf = subView.getCmbUF().getValue();
-        
-        if (!Validator.validateObject(uf)) {
-			throw new ErroValidacaoException("Informe a Uf");
-		}
-        
-        currentBean.setUf(uf);
-		
-		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
-		currentBean.setDataVencimento(subView.getDnDataVencimento().getValue());
-		currentBean.setNumero(subView.getTxtNumero().getValue());
-		currentBean.setBairro(subView.getTxtBairro().getValue());
-		currentBean.setContato(subView.getTxtContato().getValue());
-		currentBean.setTelefone(subView.getTxtTelefone().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		currentBean.setCep(subView.getTxtCep().getValue());
-		
-		
-			convenioDAO.saveOrUpdate(currentBean);
+			
+			ContabilConta contabilConta = subView.getCmbContabilConta().getValue();
+	        
+	        if (!Validator.validateObject(contabilConta)) {
+				throw new ErroValidacaoException("Informe a Contábil Conta");
+			}
+	        
+	        currentBean.setContabilConta(contabilConta);
+	        
+	        currentBean.setNome(subView.getTxtNome().getValue());
+	        
+	        currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
+	        
+	        currentBean.setEmail(subView.getTxtEmail().getValue());
+	        
+	        currentBean.setDataBase(subView.getDtDataBase().getValue());
+	        
+	        TIPO enumTipo = (TIPO) (subView.getCmbTipo().getValue());
+			if (Validator.validateObject(enumTipo)) {
+				String tipo = (enumTipo).getCodigo();
+				currentBean.setTipoSindicato(tipo);
+			}
+			
+			sindicatoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
@@ -91,14 +95,13 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = convenioDAO.find(id);
-		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
-		subView.getTxtNumero().setValue(currentBean.getNumero());
-		subView.getTxtBairro().setValue(currentBean.getBairro());
-		subView.getTxtContato().setValue(currentBean.getContato());
-		subView.getTxtTelefone().setValue(currentBean.getTelefone());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getTxtCep().setValue(currentBean.getCep());
+		currentBean = sindicatoDAO.find(id);
+		subView.getTxtNome().setValue(currentBean.getNome());
+		
+		String tipo = currentBean.getTipoSindicato();
+		if (Validator.validateString(tipo)) {
+			subView.getCmbTipo().setValue(TIPO.getValor(tipo));
+		}
 	}
 	
 	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
@@ -109,27 +112,27 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ConvenioFormView();
+		subView = new SindicatoFormView();
 		
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class,
-				this.ufDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				this.contabilContaDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
-				return "nome";
+				return "descricao";
 			}
 		};
-		this.subView.getCmbUF().setModel(model);
+		this.subView.getCmbContabilConta().setModel(model);
 	}
 
 	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Convenio();
+		currentBean = new Sindicato();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 convenioDAO.deleteAllByIds(ids);
+		 sindicatoDAO.deleteAllByIds(ids);
 		 mensagemRemovidoOK();
 	}
 
@@ -146,10 +149,21 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		
 		boolean valido = true;
 		
+		if (!Validator.validateObject(subView.getCmbContabilConta().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
+			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+			valido = false;
+		}
+		
 		if(subView.getTxtLogradouro().getValue() ==  null || subView.getTxtLogradouro().getValue().isEmpty()){
 			adicionarErroDeValidacao(subView.getTxtLogradouro(),"Não pode ficar em Branco!");
-			return false;
+			valido = false;
 		}
+		
 		return valido;
 	}
 
@@ -160,7 +174,7 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "convenioForm";
+		return "sindicatoForm";
 	}
 
 }

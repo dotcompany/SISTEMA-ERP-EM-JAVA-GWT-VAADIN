@@ -30,7 +30,7 @@ public class UFListController extends CRUDListController<UF>{
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] {"nome"};
+		return new String[] {"nome","sigla"};
 	}
 
 	@Override
