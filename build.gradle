@@ -68,14 +68,14 @@ dependencies {
    		}
    		
    		
-   		compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:2.1'){
+   		compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:2.1.0'){
    			exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
    			exclude module: 'vaadin-client' //by artifact name
    			exclude module: 'vaadin-client-compiled' //by artifact name
    			exclude module: 'vaadin-themes' //by artifact name
    		}
-		
+   			
 		compile ('org.vaadin.addons:fonticon:7.1.1') {
 			exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
