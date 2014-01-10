@@ -41,7 +41,7 @@ public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacao>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome"};
+		return new String[] {"nome","descricao"};
 	}
 	
 	@Transactional

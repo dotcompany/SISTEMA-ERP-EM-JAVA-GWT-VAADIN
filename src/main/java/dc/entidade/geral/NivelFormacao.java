@@ -73,6 +73,16 @@ public class NivelFormacao extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer grauInstrucaoCaged;
+	
+	@Column(name = "GRAU_INSTRUCAO_SEFIP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer grauInstrucaoSefip;
+	
+	@Column(name = "GRAU_INSTRUCAO_RAIS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer grauInstrucaoRais;
 
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivelFormacao")
 	// private List<ColaboradorVO> colaboradorVOList;
@@ -115,6 +125,22 @@ public class NivelFormacao extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setGrauInstrucaoCaged(Integer grauInstrucaoCaged) {
 		this.grauInstrucaoCaged = grauInstrucaoCaged;
+	}
+	
+	public Integer getGrauInstrucaoSefip() {
+		return grauInstrucaoSefip;
+	}
+
+	public void setGrauInstrucaoSefip(Integer grauInstrucaoSefip) {
+		this.grauInstrucaoSefip = grauInstrucaoSefip;
+	}
+
+	public Integer getGrauInstrucaoRais() {
+		return grauInstrucaoRais;
+	}
+
+	public void setGrauInstrucaoRais(Integer grauInstrucaoRais) {
+		this.grauInstrucaoRais = grauInstrucaoRais;
 	}
 
 	@Override
