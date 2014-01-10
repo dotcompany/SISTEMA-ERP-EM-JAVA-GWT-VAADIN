@@ -444,7 +444,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			BeanQueryFactory queryFactory = null;
 
 			FmMenu menu = getMenu();
-			if (genericDAO.isConsultaMultiEmpresa(this.getFormController().getListController().getClass(), menu)) {
+			if (genericDAO.isConsultaMultiEmpresa(getEntityClass(), menu)) {
 				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 			} else {
 				queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
@@ -728,6 +728,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	public FmMenu getMenu() {
-		return this.meDAO.getMenu(getEntityClass().getName());
+		return this.meDAO.getMenu(this.getClass().getName());
 	}
 }

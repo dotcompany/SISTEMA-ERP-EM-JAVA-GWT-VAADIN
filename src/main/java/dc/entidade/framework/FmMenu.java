@@ -165,7 +165,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public boolean isConsultaMultiempresa() {
-		return new Integer(1).equals(consultaMultiempresa);
+		return new Integer(0).equals(consultaMultiempresa);
 	}
 
 	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
