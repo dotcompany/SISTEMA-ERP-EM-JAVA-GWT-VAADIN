@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -77,8 +76,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
-			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
 	private FmModulo fmModulo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -159,17 +157,19 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	}
 
 	public void setPermissaoOperacao(Integer permissaoOperacao) {
-		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0)
-				: permissaoOperacao);
+		this.permissaoOperacao = (permissaoOperacao == null ? new Integer(0) : permissaoOperacao);
 	}
 
 	public Integer getConsultaMultiempresa() {
 		return consultaMultiempresa;
 	}
 
+	public boolean isConsultaMultiempresa() {
+		return new Integer(1).equals(consultaMultiempresa);
+	}
+
 	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
-		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
-				0) : consultaMultiempresa);
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(0) : consultaMultiempresa);
 	}
 
 	public FmModulo getFmModulo() {
@@ -225,9 +225,9 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	 * HASHCODE E EQUALS
 	 */
 
-	//@Override
-	//public String toString() {
-	//	return ToStringBuilder.reflectionToString(this);
-	//}
+	// @Override
+	// public String toString() {
+	// return ToStringBuilder.reflectionToString(this);
+	// }
 
 }

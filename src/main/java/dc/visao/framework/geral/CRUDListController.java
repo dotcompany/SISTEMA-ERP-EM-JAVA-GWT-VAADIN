@@ -187,8 +187,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		/**
 		 * 
-		 * Wesley Jr
-		 *  (FECHAR)
+		 * Wesley Jr (FECHAR)
 		 */
 
 		view.getBtnFechar().addClickListener(new ClickListener() {
@@ -337,7 +336,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
 			public Object generateCell(Table source, Object itemId, Object columnId) {
 				TextField tf = new TextField();
-				
+
 				source.setColumnCollapsed(itemId, true);
 
 				// table.setColumnCollapsed(tf, true);
@@ -381,84 +380,96 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	public void doSearch(String valor) {
-		consultaMultiempresa();
 
-		if (valor == null) {
-			valor = "";
-		}
-
-		selected.clear();
-		table.setWidth("100%");
-		table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
-		logger.info("valor pesquisado: " + valor);
-
-		BeanQueryFactory queryFactory = null;
-
-		if (genericDAO.isMultiEmpresa(getEntityClass()) && SecuritySessionProvider.getUsuario().getConsultaMultiempresa().equals(0)) {
-			queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
-		} else {
-			queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
-		}
-
-		Map<String, Object> conf = new HashMap<String, Object>();
-		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
-		conf.put("search", valor);
-		genericDAO.setPojoClass(getEntityClass());
-		conf.put("dao", getMainDao());
-		conf.put("pojoClass", getEntityClass());
-		conf.put("id_empresa", idEmpresa);
-		queryFactory.setQueryConfiguration(conf);
-
-		LazyQueryContainer container = new LazyQueryContainer(queryFactory, getBeanIdProperty(), PAGE_SIZE, true);
-
-		for (String id_coluna : getColunas()) {
-			container.addContainerProperty(id_coluna, String.class, "", true, true);
-		}
-
-		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
-		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
-		container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
-
-		table.setSortEnabled(true);
-		// table.markAsDirty();
-		table.setSizeFull();
-		table.setContainerDataSource(container);
-
-		for (String prop : getColunas()) {
-			Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
-
-			boolean existe = (captionAnn != null && !captionAnn.value().equals("NULO"));
-
-			if (existe)
-				table.setColumnHeader(prop, captionAnn.value());
-			else
-				table.setColumnHeader(prop, prop);
-
-			// verifica se e uma propriedade de um objeto dentro do bean
-			if (prop.contains(".")) {
-				// container.addNestedContainerProperty(prop);
+		try {
+			if (valor == null) {
+				valor = "";
 			}
 
-			if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)) {
-				table.setColumnExpandRatio(prop, 1);
+			selected.clear();
+			table.setWidth("100%");
+			table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
+			logger.info("valor pesquisado: " + valor);
+
+			BeanQueryFactory queryFactory = null;
+
+			FmMenu menu = getMenu();
+			if (genericDAO.isConsultaMultiEmpresa(this.getFormController().getListController().getClass(), menu)) {
+				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(DCBeanQueryMultiEmpresa.class);
 			} else {
-				table.setColumnExpandRatio(prop, 3);
+				queryFactory = new BeanQueryFactory<DCBeanQuery>(DCBeanQuery.class);
 			}
-		}
 
-		boolean loadedFromFile = table.loadFromFile();
-		// boolean loadedFromFile = false;
-		if (!loadedFromFile) {
-			Object[] cs = new Object[] { CustomListTable.CUSTOM_SELECT_ID };
-			Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
-			table.setVisibleColumns(allCollumns);
-		}
+			Map<String, Object> conf = new HashMap<String, Object>();
+			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
+			conf.put("search", valor);
+			genericDAO.setPojoClass(getEntityClass());
+			conf.put("dao", getMainDao());
+			conf.put("pojoClass", getEntityClass());
+			conf.put("id_empresa", idEmpresa);
+			conf.put("menu", menu);
+			queryFactory.setQueryConfiguration(conf);
 
-		if (getColunas() != null && getColunas().length > 1) {
-			table.setFooterVisible(true);
-			table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");
+			LazyQueryContainer container = new LazyQueryContainer(queryFactory, getBeanIdProperty(), PAGE_SIZE, true);
+
+			for (String id_coluna : getColunas()) {
+				container.addContainerProperty(id_coluna, String.class, "", true, true);
+			}
+
+			container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);
+			container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_INDEX, Integer.class, 0, true, false);
+			container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_BATCH_QUERY_TIME, Integer.class, 0, true, false);
+
+			table.setSortEnabled(true);
+			// table.markAsDirty();
+			table.setSizeFull();
+
+			table.setContainerDataSource(container);
+
+			for (String prop : getColunas()) {
+				Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
+
+				boolean existe = (captionAnn != null && !captionAnn.value().equals("NULO"));
+
+				if (existe)
+					table.setColumnHeader(prop, captionAnn.value());
+				else
+					table.setColumnHeader(prop, prop);
+
+				// verifica se e uma propriedade de um objeto dentro do bean
+				if (prop.contains(".")) {
+					// container.addNestedContainerProperty(prop);
+				}
+
+				if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)) {
+					table.setColumnExpandRatio(prop, 1);
+				} else {
+					table.setColumnExpandRatio(prop, 3);
+				}
+			}
+
+			boolean loadedFromFile = table.loadFromFile();
+			// boolean loadedFromFile = false;
+			if (!loadedFromFile) {
+				Object[] cs = new Object[] { CustomListTable.CUSTOM_SELECT_ID };
+				Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
+				table.setVisibleColumns(allCollumns);
+			}
+
+			if (getColunas() != null && getColunas().length > 1) {
+				table.setFooterVisible(true);
+				table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
+				table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");
+			}
+
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			getFormController().mensagemErro("Ocorreu um erro na busca. Entre em contato com o administrador");
 		}
+	}
+
+	private boolean isConsultaMultiEmpresa() {
+		return genericDAO.isMultiEmpresa(getEntityClass()) && SecuritySessionProvider.getUsuario().getConsultaMultiempresa().equals(0);
 	}
 
 	protected AbstractCrudDAO getMainDao() {
@@ -667,10 +678,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		}
 	}
 
-	private void consultaMultiempresa() {
-		FmMenu ent = this.meDAO.getMenu(this.getFormController().getListController().getClass().getName());
-
-		SecuritySessionProvider.getUsuario().setConsultaMultiempresa(ent.getConsultaMultiempresa());
+	public FmMenu getMenu() {
+		return this.meDAO.getMenu(getEntityClass().getName());
 	}
-
 }

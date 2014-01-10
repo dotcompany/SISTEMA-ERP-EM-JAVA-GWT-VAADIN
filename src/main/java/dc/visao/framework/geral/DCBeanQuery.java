@@ -10,6 +10,7 @@ import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 
 import com.sun.istack.logging.Logger;
 
+import dc.entidade.framework.FmMenu;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
@@ -18,9 +19,7 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
 	private String[] sortingFields = new String[0];
 	private boolean[] sortingStates = new boolean[0];
 
-	public DCBeanQuery(QueryDefinition definition,
-			Map<String, Object> queryConfiguration, Object[] sortPropertyIds,
-			boolean[] sortStates) {
+	public DCBeanQuery(QueryDefinition definition, Map<String, Object> queryConfiguration, Object[] sortPropertyIds, boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
 
 		logger.info("DCBeanQuery, instatiated");
@@ -77,39 +76,35 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
 	protected List<Serializable> loadBeans(int arg0, int arg1) {
 		logger.info("loading beans from " + arg0);
 		logger.info("loading beans page size" + arg1);
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get(
-				"dao");
+		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields,
-					sortingStates);
+			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields, sortingStates, null);
 		} else {
 			logger.info("null or empty search term, loading all..");
 
-			return dao.getAllPaged(pojoClass, arg0, arg1, sortingFields,
-					sortingStates);
+			return dao.getAllPaged(pojoClass, arg0, arg1, sortingFields, sortingStates);
 		}
 	}
 
 	@Override
-	protected void saveBeans(List<Serializable> arg0, List<Serializable> arg1,
-			List<Serializable> arg2) {
+	protected void saveBeans(List<Serializable> arg0, List<Serializable> arg1, List<Serializable> arg2) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public int size() {
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get(
-				"dao");
+		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
+		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
 
 		int size = 0;
 
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			size = dao.fullTextSearchCount(searchTerm);
+			size = dao.fullTextSearchCount(searchTerm, menu);
 		} else {
 			size = dao.count(pojoClass);
 		}

@@ -14,6 +14,7 @@ import java.util.Map;
 import com.vaadin.ui.Notification;
 
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -27,7 +28,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	private AbstractCrudDAO<T> dao;
 	private Class ctrlClass;
 	private MainController mainController;
-	private int modalSize = 1; //Alterado MarcosRibeiro
+	private int modalSize = 1; // Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
 
 	public static final int FULL_SIZE_MODAL = 1;
@@ -76,7 +77,11 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public List<T> getResultado(String q) {
-		return dao.comboTextSearch(q);
+		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
+
+		FmMenu menu = ctrl.getMenu();
+
+		return dao.comboTextSearch(q, menu);
 	}
 
 	@Override
