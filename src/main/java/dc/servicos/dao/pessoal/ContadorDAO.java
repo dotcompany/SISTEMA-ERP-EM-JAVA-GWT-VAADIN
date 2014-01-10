@@ -1,6 +1,5 @@
 package dc.servicos.dao.pessoal;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;

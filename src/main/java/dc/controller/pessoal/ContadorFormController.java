@@ -71,11 +71,14 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	protected void initSubView() {
 		subView = new ContadorFormView();
 
-		subView.InitCbs(pessoaDAO.listaTodos(), ufDAO.listaTodos());
-
 		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
 				PessoaListController.class, this.pessoaDAO,
-				super.getMainController());
+				super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};
 
 		subView.getCmbPessoa().setModel(model);
 

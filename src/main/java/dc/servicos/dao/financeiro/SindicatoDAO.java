@@ -41,7 +41,7 @@ public class SindicatoDAO extends AbstractCrudDAO<Sindicato>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome"};
+		return new String[] {"nome","logradouro"};
 	}
 	
 	@Transactional

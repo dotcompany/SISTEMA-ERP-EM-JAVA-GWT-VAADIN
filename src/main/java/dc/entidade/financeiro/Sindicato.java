@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,9 +24,11 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.Empresa;
 
 /*
  * 
@@ -60,9 +64,12 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	 * @Column(name = "BANCO_ID", nullable = false) private int bancoId;
 	 */
 
-	@Column(name = "ID_CONTABIL_CONTA")
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer idContabilConta;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_contabil_conta", nullable = false)
+	@Caption("Contabil Conta")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private ContabilConta contabilConta;
 
 	@Column(name = "CODIGO_BANCO")
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -174,13 +181,13 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Integer getIdContabilConta() {
-		return idContabilConta;
+	
+	public ContabilConta getContabilConta() {
+		return contabilConta;
 	}
 
-	public void setIdContabilConta(Integer idContabilConta) {
-		this.idContabilConta = idContabilConta;
+	public void setContabilConta(ContabilConta contabilConta) {
+		this.contabilConta = contabilConta;
 	}
 
 	public Integer getCodigoBanco() {
