@@ -9,9 +9,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.geral.UFListController;
 import dc.entidade.financeiro.Convenio;
+import dc.entidade.geral.UF;
+import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.financeiro.ConvenioDAO;
+import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConvenioFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -35,6 +41,9 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	
 	@Autowired
 	private ConvenioDAO convenioDAO;
+	
+	@Autowired
+	private UFDAO ufDAO;
 
 	private Convenio currentBean;
 	
@@ -50,6 +59,17 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override  
 	protected void actionSalvar() {
+		
+		try{
+		
+		UF uf = subView.getCmbUF().getValue();
+        
+        if (!Validator.validateObject(uf)) {
+			throw new ErroValidacaoException("Informe a Uf");
+		}
+        
+        currentBean.setUf(uf);
+		
 		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
 		currentBean.setDataVencimento(subView.getDnDataVencimento().getValue());
 		currentBean.setNumero(subView.getTxtNumero().getValue());
@@ -58,7 +78,8 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		currentBean.setTelefone(subView.getTxtTelefone().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setCep(subView.getTxtCep().getValue());
-		try{
+		
+		
 			convenioDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
@@ -89,6 +110,15 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	@Override
 	protected void initSubView() {
 		subView = new ConvenioFormView();
+		
+		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class,
+				this.ufDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};
+		this.subView.getCmbUF().setModel(model);
 	}
 
 	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
@@ -104,14 +134,23 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	}
 
 	/* Implementar validacao de campos antes de salvar. */ 
-	@Override
+	
 	protected boolean validaSalvar() {
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+	
+	private boolean validaCampos() {
+		
+		boolean valido = true;
+		
 		if(subView.getTxtLogradouro().getValue() ==  null || subView.getTxtLogradouro().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
 			adicionarErroDeValidacao(subView.getTxtLogradouro(),"Não pode ficar em Branco!");
 			return false;
 		}
-		return true;
+		return valido;
 	}
 
 	@Override

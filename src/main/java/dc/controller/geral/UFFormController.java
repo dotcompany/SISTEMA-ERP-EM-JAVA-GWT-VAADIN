@@ -12,7 +12,6 @@ import com.vaadin.ui.Component;
 import dc.entidade.geral.UF;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.CidadeFormView;
 import dc.visao.geral.UFFormView;
 
 
@@ -39,12 +38,16 @@ public class UFFormController extends CRUDFormController<UF> {
 
 	@Override
 	protected Component getSubView() {
-		return null;
+		return subView;
 	}
 
 	@Override  
 	protected void actionSalvar() {
 		try{
+			
+			currentBean.setNome(subView.getTxtNome().getValue());
+			currentBean.setSigla(subView.getTxtSigla().getValue());
+			
 			ufDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
@@ -57,6 +60,8 @@ public class UFFormController extends CRUDFormController<UF> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = ufDAO.find(id);
+		subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTxtSigla().setValue(currentBean.getSigla());
 	}
 	
 	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
@@ -83,9 +88,27 @@ public class UFFormController extends CRUDFormController<UF> {
 	}
 
 	/* Implementar validacao de campos antes de salvar. */ 
-	@Override
 	protected boolean validaSalvar() {
-		return true;
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+	
+	private boolean validaCampos() {
+		
+		boolean valido = true;
+		
+		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
+			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+			return false;
+		}
+		
+		if(subView.getTxtSigla().getValue() ==  null || subView.getTxtSigla().getValue().isEmpty()){
+			adicionarErroDeValidacao(subView.getTxtSigla(),"Não pode ficar em Branco!");
+			return false;
+		}
+		return valido;
 	}
 
 	@Override
