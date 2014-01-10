@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
 
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.TalonarioCheque;
@@ -18,7 +17,7 @@ import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.TalonarioChequeFormView;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 
@@ -78,6 +77,19 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		
 		this.subView.InitCbs(getTalonarioChequeTipo());
 		
+		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
+				ContaCaixaListController.class, this.contaCaixaDAO,
+				super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "nome";
+			
+		  }
+	};
+
+		this.subView.getCmbContaCaixa().setModel(model);
+		
 	}
 
 	@Override
@@ -86,49 +98,6 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		
 		subView.getTxtTalao().setValue(currentBean.getTalao());
 		
-		/* Configura combo Conta CAIXA */
-		ManyToOneComboModel<ContaCaixa> model = new ManyToOneComboModel<ContaCaixa>() {
-
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-
-			@Override
-			public List<ContaCaixa> getResultado(String q) {
-				return contaCaixaDAO.query(q);
-			}
-
-			@Override
-			public Class<ContaCaixa> getEntityClass() {
-				return ContaCaixa.class;
-			}
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(ContaCaixa value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-
-			}
-
-			@Override
-			public List<ContaCaixa> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		subView.getCmbContaCaixa().setModel(model);
-		subView.getCmbContaCaixa().setValue(currentBean.getContaCaixa());
 	}
 
 	@Override

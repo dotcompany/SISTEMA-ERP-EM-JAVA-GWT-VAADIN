@@ -43,22 +43,22 @@ public class AgenciaBancoFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	AgenciaBancoFormView subView;
+	private AgenciaBancoFormView subView;
 
 	@Autowired
-	AgenciaBancoDAO agenciaDAO;
+	private AgenciaBancoDAO agenciaDAO;
 
 	@Autowired
-	BancoDAO bancoDAO;
+	private BancoDAO bancoDAO;
 
 	@Autowired
-	UFDAO ufDAO;
+	private UFDAO ufDAO;
 
 	private AgenciaBanco currentBean;
 
 	@Override
 	protected String getNome() {
-		return "AgenciaBanco";
+		return "Agencia Banco";
 	}
 
 	@Override
@@ -163,16 +163,6 @@ public class AgenciaBancoFormController extends
 
 		// subView.getCmbUF().setValue(currentBean.getUf());
 		
-		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
-				BancoListController.class, this.bancoDAO,
-				super.getMainController());
-
-		this.subView.getCmbBanco().setModel(modelBanco);
-
-		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController());
-
-		this.subView.getCmbUF().setModel(modelUf);
 	}
 
 	/*
@@ -189,13 +179,24 @@ public class AgenciaBancoFormController extends
 		this.subView = new AgenciaBancoFormView();
 
 		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
-				BancoListController.class, this.bancoDAO,
-				super.getMainController());
-
+				BancoListController.class, this.bancoDAO,super.getMainController());
+			/*@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};*/
+		
 		this.subView.getCmbBanco().setModel(modelBanco);
 
+
 		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController());
+				UFListController.class, this.ufDAO, super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "nome";
+		}
+	};
 
 		this.subView.getCmbUF().setModel(modelUf);
 

@@ -26,13 +26,14 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.Table.ColumnReorderEvent;
 import com.vaadin.ui.Table.ColumnReorderListener;
 import com.vaadin.ui.Table.ColumnResizeEvent;
 import com.vaadin.ui.Table.ColumnResizeListener;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -323,54 +324,103 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 					actionAbrir(event.getItemId());
 				}
 			}
+
 		});
 
 		/**
 		 * 
-		 * Wesley Jr(Alterações CheckBox)
+		 * Wesley Jr(Alterações CheckBox) NUMERAÇÃO
 		 */
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
-		table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
-			public Object generateCell(Table source, Object itemId, Object columnId) {
-				TextField tf = new TextField();
+		/*
+		 * table.addGeneratedColumn("mycolumnnumeric", new ColumnGenerator() {
+		 * 
+		 * //table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new
+		 * ColumnGenerator() {
+		 * 
+		 * private static final long serialVersionUID = 1L;
+		 * 
+		 * public Object generateCell(final Table source, final Object itemId,
+		 * final Object columnId) { final TextField tf = new TextField();
+		 * tf.setImmediate(true); // source.setColumnCollapsed(itemId, true);
+		 * 
+		 * // table.setColumnCollapsed(tf, true); return tf; } });
+		 */
 
-				source.setColumnCollapsed(itemId, true);
-
-				// table.setColumnCollapsed(tf, true);
-
-				return tf;
-			}
-
-		});
+		/*
+		 * table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new
+		 * ColumnGenerator() {
+		 * 
+		 * @Override public Component generateCell(final Table source, final
+		 * Object itemId, final Object columnId) { final CompositeItem
+		 * selectedBeanItem = (CompositeItem) source
+		 * .getContainerDataSource().getItem(itemId); final NestingBeanItem
+		 * nestedItem = (NestingBeanItem) selectedBeanItem .getItem("bean");
+		 * 
+		 * final CheckBox checkBox = new CheckBox(); // final TextField tf = new
+		 * TextField();
+		 * 
+		 * checkBox.setImmediate(true); checkBox.addValueChangeListener(new
+		 * Property.ValueChangeListener() {
+		 * 
+		 * @Override public void valueChange(
+		 * com.vaadin.data.Property.ValueChangeEvent event) { Boolean select =
+		 * (Boolean) event.getProperty() .getValue(); if (select) {
+		 * selected.put(itemId, nestedItem.getBean()); } else {
+		 * selected.remove(itemId); }
+		 * 
+		 * } });
+		 * 
+		 * checkBox.setValue(selected.containsKey(itemId));
+		 * 
+		 * return checkBox; } });
+		 */
 
 		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
+
+			private static final long serialVersionUID = 1L;
+
+			int i = 1;
+
 			@Override
-			public Component generateCell(final Table source, final Object itemId, final Object columnId) {
+			public Component generateCell(Table source, final Object itemId, Object columnId) {
 				final CompositeItem selectedBeanItem = (CompositeItem) source.getContainerDataSource().getItem(itemId);
 				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
 
 				final CheckBox checkBox = new CheckBox();
 
 				checkBox.setImmediate(true);
+				// checkBox.setWidth(BorderLayout.EAST);
 				checkBox.addValueChangeListener(new Property.ValueChangeListener() {
 					@Override
 					public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 						Boolean select = (Boolean) event.getProperty().getValue();
 						if (select) {
 							selected.put(itemId, nestedItem.getBean());
+							// table.select(itemId);
 						} else {
 							selected.remove(itemId);
+							// table.select(itemId);
 						}
 					}
 				});
 
 				checkBox.setValue(selected.containsKey(itemId));
 
-				return checkBox;
+				// Create the component for the generated column
+				HorizontalLayout cellLayout = new HorizontalLayout();
+				cellLayout.addComponent(new Label(String.valueOf(i)));
+				cellLayout.addComponent(checkBox);
+				// cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
+
+				i++;
+
+				return cellLayout;
 			}
+
 		});
 
 		doSearch(valor);
@@ -423,7 +473,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			table.setSortEnabled(true);
 			// table.markAsDirty();
 			table.setSizeFull();
-
 			table.setContainerDataSource(container);
 
 			for (String prop : getColunas()) {

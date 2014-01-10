@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.ContaCaixaTipoEnum;
+import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.ContaCaixa;
@@ -20,6 +21,7 @@ import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.ContaCaixaFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -112,21 +114,25 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 		this.subView.InitCbs(getContaCaixaTipo());
 
-		/*
-		 * DefaultManyToOneComboModel<AgenciaBanco> model = new
-		 * DefaultManyToOneComboModel<AgenciaBanco>(
-		 * AgenciaBancoListController.class, this.agenciaDAO,
-		 * super.getMainController());
-		 * 
-		 * this.subView.getCmbAgenciaBanco().setModel(model);
-		 * 
-		 * DefaultManyToOneComboModel<ContabilConta> model1 = new
-		 * DefaultManyToOneComboModel<ContabilConta>(
-		 * ContabilContaListController.class, this.contabilDAO,
-		 * super.getMainController());
-		 * 
-		 * this.subView.getCmbContabilConta().setModel(model1);
-		 */
+		  /*DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class, 
+				  this.agenciaDAO, super.getMainController()) {
+			  @Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
+			};
+		  
+		  DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				  this.contabilDAO,super.getMainController()) {
+			  @Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+			};
+		  
+		  this.subView.getCmbAgenciaBanco().setModel(model);
+		  this.subView.getCmbContabilConta().setModel(model1);*/
+		  
 	}
 
 	@Override

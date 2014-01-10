@@ -82,12 +82,6 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		subView.getTxtSigla().setValue(currentBean.getSigla());
 		subView.getTxtCodigoIBGE().setValue(currentBean.getCodigoIbge().toString());
 
-		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
-				PaisListController.class, this.paisDAO,
-				super.getMainController());
-
-		this.subView.getCmbPais().setModel(model);
-		this.subView.getCmbPais().setValue(currentBean.getPaisId());
 	}
 
 	/*
@@ -102,16 +96,26 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 	@Override
 	protected void initSubView() {
+		try {
 		subView = new EstadoFormView();
 		// DefaultManyToOneComboModel<Pais> modelpais= new
 		// DefaultManyToOneComboModel(PaisListController . class , paisDAO ,
 		// mainController);
 
-		DefaultManyToOneComboModel<Pais> model = new DefaultManyToOneComboModel<Pais>(
-				PaisListController.class, this.paisDAO,
-				super.getMainController());
+		DefaultManyToOneComboModel<Pais> paisModel = new DefaultManyToOneComboModel<Pais>(
+				PaisListController.class,this.paisDAO, super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "nomePtbr";
+		  }
+		};
 
-		this.subView.getCmbPais().setModel(model);
+		this.subView.getCmbPais().setModel(paisModel);
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*

@@ -33,6 +33,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contratos.Contrato;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
@@ -118,6 +119,11 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private LancamentoPagar lancamentoPagar;
+	
+	@Caption(value = "Contrato")
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Contrato contrato;
 
 	@Caption(value = "Número Parcela")
 	@Column(name = "NUMERO_PARCELA")
@@ -287,6 +293,14 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
 		this.lancamentoPagar = lancamentoPagar;
+	}
+	
+	public Contrato getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
 	}
 
 	public Integer getNumeroParcela() {

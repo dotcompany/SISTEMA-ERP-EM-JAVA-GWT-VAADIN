@@ -18,6 +18,7 @@ import com.vaadin.ui.TextField;
 import dc.controller.adm.dotcompany.ParametroClienteFormController;
 import dc.entidade.framework.Empresa;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class ParametroClienteFormView extends CustomComponent {
 
@@ -429,12 +430,14 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.setWidth("100%");
 		layout.setHeight("100%");
 
-		txtValorEntrada = new TextField();
+		/*txtValorEntrada = new TextField();
 		txtValorEntrada.setMaxLength(60);
 		txtValorEntrada.setCaption("Valor Entrada");
 		txtValorEntrada.setImmediate(false);
 		txtValorEntrada.setWidth("-1px");
-		txtValorEntrada.setHeight("-1px");
+		txtValorEntrada.setHeight("-1px");*/
+		
+		txtValorEntrada = ComponentUtil.buildCurrencyField("Valor Entrada");
 
 		// dtDataEntrada
 		dtDataEntrada = new PopupDateField();
@@ -472,12 +475,14 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.addComponent(cmbEmpresaBloqueada, 3, 0);
 		layout.addComponent(cmbMostrandoAvisoCorte, 4, 0);
 
-		txtValorMensPromocional = new TextField();
+		/*txtValorMensPromocional = new TextField();
 		txtValorMensPromocional.setMaxLength(60);
 		txtValorMensPromocional.setCaption("Valor Mens. Promocional");
 		txtValorMensPromocional.setImmediate(false);
 		txtValorMensPromocional.setWidth("-1px");
-		txtValorMensPromocional.setHeight("-1px");
+		txtValorMensPromocional.setHeight("-1px");*/
+		
+		txtValorMensPromocional = ComponentUtil.buildCurrencyField("Valor Mens. Promocional");
 
 		// dtDataVencimentoPromocao
 		dtVencimentoPromocao = new PopupDateField();
@@ -490,12 +495,14 @@ public class ParametroClienteFormView extends CustomComponent {
 		layout.addComponent(txtValorMensPromocional, 0, 1);
 		layout.addComponent(dtVencimentoPromocao, 1, 1);
 		
-		txtValorMensalidade = new TextField();
+		/*txtValorMensalidade = new TextField();
 		txtValorMensalidade.setMaxLength(60);
 		txtValorMensalidade.setCaption("Valor Mensalidade");
 		txtValorMensalidade.setImmediate(false);
 		txtValorMensalidade.setWidth("-1px");
-		txtValorMensalidade.setHeight("-1px");
+		txtValorMensalidade.setHeight("-1px");*/
+		
+		txtValorMensalidade = ComponentUtil.buildCurrencyField("Valor Mensalidade");
 		
 		// dtDiaVencimento
 		dtDiaVencimento = new PopupDateField();
@@ -589,7 +596,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	    txtObsFechamento.setCaption("OBS, Fechamento");
 	    txtObsFechamento.setImmediate(false);
 	    txtObsFechamento.setWidth("1050px");
-	    txtObsFechamento.setHeight("350px");
+	    txtObsFechamento.setHeight("400");
 	    
 	    layout.addComponent(txtObsFechamento, 0, 0);
 	    
