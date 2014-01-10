@@ -26,6 +26,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.UF;
 
 /**
  * 
@@ -80,7 +81,7 @@ public class Municipio extends AbstractMultiEmpresaModel<Integer> implements Ser
 	@JoinColumn(name = "ID_UF", nullable = false)
 	@Caption("Uf")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa idUf;
+	private UF idUf;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
@@ -136,11 +137,11 @@ public class Municipio extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.codigoEstadual = codigoEstadual;
 	}
 
-	public Empresa getIdUf() {
+	public UF getIdUf() {
 		return idUf;
 	}
 
-	public void setIdUf(Empresa idUf) {
+	public void setIdUf(UF idUf) {
 		this.idUf = idUf;
 	}
 
