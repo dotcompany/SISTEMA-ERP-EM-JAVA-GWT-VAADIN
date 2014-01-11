@@ -130,6 +130,134 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public Integer getCodigoMunicipio() {
+		return codigoMunicipio;
+	}
+
+	public void setCodigoMunicipio(Integer codigoMunicipio) {
+		this.codigoMunicipio = codigoMunicipio;
+	}
+
+	public String getNomeMunicipio() {
+		return nomeMunicipio;
+	}
+
+	public void setNomeMunicipio(String nomeMunicipio) {
+		this.nomeMunicipio = nomeMunicipio;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public Integer getCodigoPais() {
+		return codigoPais;
+	}
+
+	public void setCodigoPais(Integer codigoPais) {
+		this.codigoPais = codigoPais;
+	}
+
+	public String getNomePais() {
+		return nomePais;
+	}
+
+	public void setNomePais(String nomePais) {
+		this.nomePais = nomePais;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public String getSuframa() {
+		return suframa;
+	}
+
+	public void setSuframa(String suframa) {
+		this.suframa = suframa;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	/**
 	 * TO STRING
 	 */
