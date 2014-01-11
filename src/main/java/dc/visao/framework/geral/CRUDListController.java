@@ -412,7 +412,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 				// Create the component for the generated column
 				HorizontalLayout cellLayout = new HorizontalLayout();
-				//cellLayout.addComponent(new Label(String.valueOf(i)));
+				cellLayout.addComponent(new Label(String.valueOf(i)));
 				cellLayout.addComponent(checkBox);
 				// cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
 
