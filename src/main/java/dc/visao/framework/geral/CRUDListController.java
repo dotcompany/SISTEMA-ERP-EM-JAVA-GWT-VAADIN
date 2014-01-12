@@ -412,8 +412,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 				// Create the component for the generated column
 				HorizontalLayout cellLayout = new HorizontalLayout();
-				//cellLayout.addComponent(new Label(String.valueOf(i)));
+				cellLayout.setSizeFull();
+				cellLayout.addComponent(new Label(String.valueOf(i)));
 				cellLayout.addComponent(checkBox);
+
 				// cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
 
 				i++;
@@ -438,7 +440,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 			selected.clear();
 			table.setWidth("100%");
-			table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 80);
+			table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 60);
 			logger.info("valor pesquisado: " + valor);
 
 			BeanQueryFactory queryFactory = null;
