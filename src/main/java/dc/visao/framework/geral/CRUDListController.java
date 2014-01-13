@@ -298,7 +298,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		table.setColumnReorderingAllowed(true);
 		table.setMultiSelect(false);
 		table.setPageLength(PAGE_SIZE);
-		table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
 
 		table.addColumnReorderListener(new ColumnReorderListener() {
 			@Override
@@ -416,7 +415,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				cellLayout.addComponent(new Label(String.valueOf(i)));
 				cellLayout.addComponent(checkBox);
 
-				// cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
+				cellLayout.addStyleName("checkboxPanelOnTheMainScreen");
 
 				i++;
 

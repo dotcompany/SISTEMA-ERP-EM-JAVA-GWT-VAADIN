@@ -182,6 +182,10 @@
 	color: #666;
 }
 
+div.checkboxPanelOnTheMainScreen span.v-checkbox {
+	float: right;
+}
+
 .v-debugwindow-button:hover {
 	color: #000;
 	text-decoration: underline;
