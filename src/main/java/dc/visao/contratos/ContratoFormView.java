@@ -574,13 +574,13 @@ public class ContratoFormView extends CustomComponent {
 		contrato.setDataInicioVigencia(getDtVigencia().getValue());
 		contrato.setDescricao(getTxaDescricao().getValue());
 		contrato.setDiaFaturamento(getTxtDiaFaturamento().getValue());
-		contrato.setIntervaloEntreParcelas(Integer.parseInt(getTxtIntervaloParcelas().getValue()));
+		contrato.setIntervaloEntreParcelas(txtIntervaloParcelas.getConvertedValue() != null ? (Integer) txtIntervaloParcelas.getConvertedValue() : 0);
 		contrato.setNome(getTxtNome().getValue());
 		contrato.setNumero(getTxtNumero().getValue());
 		contrato.setObservacao(getTxaObservacoes().getValue());
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
 		contrato.setTipoContrato((TipoContrato) getCbmTipoContrato().getValue());
-		contrato.setValor(new BigDecimal(getTxtValor().getValue()));
+		contrato.setValor((BigDecimal) txtValor.getConvertedValue());
 
 	}
 
@@ -593,13 +593,15 @@ public class ContratoFormView extends CustomComponent {
 		getDtVigencia().setValue(contrato.getDataInicioVigencia());
 		getTxaDescricao().setValue(contrato.getDescricao());
 		getTxtDiaFaturamento().setValue(contrato.getDiaFaturamento());
-		getTxtIntervaloParcelas().setValue(String.valueOf(contrato.getIntervaloEntreParcelas()));
+		txtIntervaloParcelas.setConvertedValue(contrato.getIntervaloEntreParcelas());
+		//getTxtIntervaloParcelas().setValue(String.valueOf(contrato.getIntervaloEntreParcelas()));
 		getTxtNome().setValue(contrato.getNome());
 		getTxtNumero().setValue(contrato.getNumero());
 		getTxaObservacoes().setValue(contrato.getObservacao());
 		getTxtQuantidadeParcelas().setValue(String.valueOf(contrato.getQuantidadeParcelas()));
 		getCbmTipoContrato().setValue(contrato.getTipoContrato());
-		getTxtValor().setValue(contrato.getValor().toString());
+		txtValor.setConvertedValue(contrato.getValor());
+		//getTxtValor().setValue(contrato.getValor().toString());
 
 		this.fillContratoHistoricoFaturamentoSubForm(contrato.getContratosHistoricosFaturamentos());
 
