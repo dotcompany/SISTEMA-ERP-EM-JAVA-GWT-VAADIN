@@ -562,7 +562,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 			List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 			if (dados != null) {
-				//parcelasPagar.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
+				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
 
 			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
@@ -631,7 +631,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			novoParcelaPagar(parcelaPagar);
 		}
 
-		//subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
+		subView.getPrevisaoFaturamentoSubForm();
 	}
 	
 	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {

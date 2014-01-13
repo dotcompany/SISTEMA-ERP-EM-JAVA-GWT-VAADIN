@@ -343,6 +343,7 @@ public class ContratoFormView extends CustomComponent {
 
 		// txtIntervaloParcelas
 		txtIntervaloParcelas = ComponentUtil.buildTextField("Intervalo entre Parcelas");
+		txtIntervaloParcelas.setNullRepresentation("");
 		gridLayout_2.addComponent(txtIntervaloParcelas, 2, 1);
 		
 		btnGerarParcelas = new Button("Gerar Parcelas");
