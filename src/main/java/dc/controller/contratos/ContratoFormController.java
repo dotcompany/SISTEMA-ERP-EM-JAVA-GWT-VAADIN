@@ -627,7 +627,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (i == (contrato.getQuantidadeParcelas() - 1)) {
 				residuo = contrato.getValor().subtract(somaParcelas);
 				valorParcela = valorParcela.add(residuo);
-				parcelaPagar.setValor(valorParcela);
+				contrato.setValor(valorParcela);
 			}
 
 			parcelasPagar.add(parcelaPagar);
