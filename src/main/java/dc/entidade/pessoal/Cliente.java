@@ -2,6 +2,7 @@ package dc.entidade.pessoal;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -30,6 +33,7 @@ import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.nfe.NfeCabecalhoEntity;
 
 /**
  * 
@@ -48,7 +52,8 @@ import dc.entidade.geral.Pessoa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Cliente extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -151,7 +156,27 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Fetch(FetchMode.JOIN)
 	private dc.entidade.tributario.OperacaoFiscal operacaoFiscal;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public Cliente() {
+
 	}
 
 	public Cliente(Integer id) {
@@ -197,26 +222,20 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.situacao = situacao;
 	}
 
-//	@Override
-//	public int hashCode() {
-//		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-//	}
-//
-//	@Override
-//	public boolean equals(Object object) {
-//		if (object instanceof Cliente == false)
-//			return false;
-//		if (this == object)
-//			return true;
-//		final Cliente other = (Cliente) object;
-//		return EqualsBuilder.reflectionEquals(this, other);
-//	}
-
-	@Override
-	public String toString() {
-		return this.pessoa.getNome();
-	
-	}
+	// @Override
+	// public int hashCode() {
+	// return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	// }
+	//
+	// @Override
+	// public boolean equals(Object object) {
+	// if (object instanceof Cliente == false)
+	// return false;
+	// if (this == object)
+	// return true;
+	// final Cliente other = (Cliente) object;
+	// return EqualsBuilder.reflectionEquals(this, other);
+	// }
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -310,8 +329,34 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements Seria
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(
+			dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
+	}
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+		return nfeCabecalhoList;
+	}
+
+	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
+		this.nfeCabecalhoList = nfeCabecalhoList;
+	}
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

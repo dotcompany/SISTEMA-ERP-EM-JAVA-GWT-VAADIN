@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
@@ -27,91 +28,114 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.pessoal.Cliente;
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 
 @Entity
 @Table(name = "venda_cabecalho")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Venda extends AbstractMultiEmpresaModel<Integer> {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vnd")
 	@SequenceGenerator(name = "vnd", sequenceName = "venda_cabecalho_id_seq", allocationSize = 1)
 	@Caption("ID")
 	private Integer id;
-	
-	@OneToMany(mappedBy = "venda", orphanRemoval = true,cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "venda", orphanRemoval = true, cascade = CascadeType.ALL)
 	@Caption("Detalhe")
 	private List<VendaDetalhe> detalhes;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_venda_orcamento_cabecalho")
+	@JoinColumn(name = "id_venda_orcamento_cabecalho")
 	Orcamento orcamento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_tipo_nota_fiscal")
+	@JoinColumn(name = "id_tipo_nota_fiscal")
 	TipoNotaFiscal tipoNotaFiscal;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_cliente")
+	@JoinColumn(name = "id_cliente")
 	@Caption("Cliente")
 	Cliente cliente;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_vendedor")
+	@JoinColumn(name = "id_vendedor")
 	@Caption("Vendedor")
 	VendedorEntity vendedor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_venda_condicoes_pagamento")
+	@JoinColumn(name = "id_venda_condicoes_pagamento")
 	CondicaoPagamento condicaoPagamento;
-	
-	@Column(name="data_venda")
+
+	@Column(name = "data_venda")
 	@Temporal(TemporalType.DATE)
 	Date dataVenda;
-	
-	@Column(name="data_saida")
+
+	@Column(name = "data_saida")
 	@Temporal(TemporalType.DATE)
 	Date dataSaida;
-	
-	@Column(name="hora_saida")
+
+	@Column(name = "hora_saida")
 	String horaSaida;
-	
-	@Column(name="numero_fatura")
+
+	@Column(name = "numero_fatura")
 	Integer numeroFatura;
-	
-	@Column(name="local_entrega")
+
+	@Column(name = "local_entrega")
 	String localEntrega;
-	
-	@Column(name="local_cobranca")
+
+	@Column(name = "local_cobranca")
 	String localCobranca;
-	
-	@Column(name="valor_subtotal")
+
+	@Column(name = "valor_subtotal")
 	BigDecimal valorSubTotal;
-	
-	@Column(name="valor_frete")
+
+	@Column(name = "valor_frete")
 	BigDecimal valorFrete;
-	
-	@Column(name="taxa_comissao")
+
+	@Column(name = "taxa_comissao")
 	BigDecimal taxaComissao;
-	
-	@Column(name="valor_comissao")
+
+	@Column(name = "valor_comissao")
 	BigDecimal valorComissao;
-	
-	@Column(name="taxa_desconto")
+
+	@Column(name = "taxa_desconto")
 	BigDecimal taxaDesconto;
-	
-	@Column(name="valor_desconto")
+
+	@Column(name = "valor_desconto")
 	BigDecimal valorDesconto;
-	
-	@Column(name="valor_total")
+
+	@Column(name = "valor_total")
 	BigDecimal valorTotal;
-	
+
 	String observacao;
-	
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	@OneToMany(mappedBy = "vendaCabecalho", fetch = FetchType.LAZY)
+	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public Venda() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -127,9 +151,10 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	public void setDetalhes(List<VendaDetalhe> detalhes) {
 		this.detalhes = detalhes;
 	}
-	
+
 	public VendaDetalhe adicionarDetalhe(VendaDetalhe detalhe) {
-		if(detalhes==null) detalhes = new ArrayList();
+		if (detalhes == null)
+			detalhes = new ArrayList();
 		getDetalhes().add(detalhe);
 		detalhe.setVenda(this);
 		return detalhe;
@@ -287,12 +312,29 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 		this.orcamento = orcamento;
 	}
 
+	/**
+	 * Módulo: NFE
+	 */
+
+	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+		return nfeCabecalhoList;
+	}
+
+	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
+		this.nfeCabecalhoList = nfeCabecalhoList;
+	}
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return id.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
-	
-	
-	
-		
+
 }

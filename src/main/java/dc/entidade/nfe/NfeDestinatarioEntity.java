@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,6 +20,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
@@ -110,8 +113,27 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "email")
 	private String email;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	// id_nfe_cabecalho integer NOT NULL,
+
+	@ManyToOne
+	@JoinColumn(name = "id_nfe_cabecalho", nullable = false)
+	@Caption("NF-e - Cabeçalho")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private NfeCabecalhoEntity nfeCabecalho;
+
 	// id_empresa integer,
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public NfeDestinatarioEntity() {
 		// TODO Auto-generated constructor stub
@@ -256,6 +278,14 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public NfeCabecalhoEntity getNfeCabecalho() {
+		return nfeCabecalho;
+	}
+
+	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
+		this.nfeCabecalho = nfeCabecalho;
 	}
 
 	/**

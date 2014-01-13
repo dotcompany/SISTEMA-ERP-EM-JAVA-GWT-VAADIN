@@ -3,6 +3,7 @@ package dc.servicos.dao.nfe;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,10 +28,12 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	@Transactional
 	public List<NfeCabecalhoEntity> listarTodos() {
 		try {
-			String sql = "FROM NfeCabecalhoEntity ent WHERE (1 = 1)";
+			String sql = "FROM :entity ent WHERE (1 = 1)";
 
-			List<NfeCabecalhoEntity> auxLista = super.getSession()
-					.createQuery(sql).list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("entity", getEntityClass());
+
+			List<NfeCabecalhoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -39,13 +42,15 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	@Transactional
-	public List<NfeCabecalhoEntity> procuraNomeContendo(String query) {
+	public List<NfeCabecalhoEntity> procuraNomeContendo(String s) {
 		try {
-			String sql = "FROM NfeCabecalhoEntity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
 
-			List<NfeCabecalhoEntity> auxLista = super.getSession()
-					.createQuery(sql).setParameter("q", "%" + query + "%")
-					.list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("entity", getEntityClass());
+			query.setParameter("q", "%" + s + "%");
+
+			List<NfeCabecalhoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -54,7 +59,7 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "INSS", "Serviço", "Valor mensal", "Valor 13" };
+		return new String[] { "Código numérico" };
 	}
 
 }

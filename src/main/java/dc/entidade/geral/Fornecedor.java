@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -30,6 +31,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
@@ -153,6 +155,25 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
+	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public Fornecedor() {
 
 	}
@@ -169,13 +190,14 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	@Transient
 	public String getCaption() {
-
 		Object id = this.id;
+
 		if (id == null) {
 			id = "";
 		}
 
 		String nome = "";
+
 		if (getPessoa() != null && getPessoa().getNome() != null) {
 			nome = getPessoa().getNome();
 		}
@@ -341,11 +363,6 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	 * EqualsBuilder.reflectionEquals(this, other); }
 	 */
 
-	@Override
-	public String toString() {
-		return this.observacao;
-	}
-
 	public String getGeraFaturamento() {
 		return geraFaturamento;
 	}
@@ -376,6 +393,31 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
+	}
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+		return nfeCabecalhoList;
+	}
+
+	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
+		this.nfeCabecalhoList = nfeCabecalhoList;
+	}
+
+	/**
+	 * 
+	 */
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
