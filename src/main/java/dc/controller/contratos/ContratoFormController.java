@@ -61,7 +61,6 @@ import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
-import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -83,13 +82,13 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
-	
+
 	@Autowired
 	private PessoaDAO pessoaDAO;
 
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
-	
+
 	@Autowired
 	protected SessionFactory sessionFactory;
 
@@ -114,7 +113,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			adicionarErroDeValidacao(subView.getTxtNumero(), "Número inválido");
 			valido = false;
 		}
-		
+
 		Pessoa pessoa = (Pessoa) subView.getCbmPessoa().getValue();
 		if (!Validator.validateObject(pessoa)) {
 			adicionarErroDeValidacao(subView.getCbmPessoa(), "Não pode ficar em branco");
@@ -194,36 +193,41 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		 * .getAll(ContratoSolicitacaoServico.class));
 		 */
 
-		/*DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
-				this.tipoContratoDAO, super.getMainController());
-
-		/**
+		/*
+		 * DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new
+		 * DefaultManyToOneComboModel<ContabilConta>(
+		 * ContabilContaListController.class, this.contabilContaDAO,
+		 * super.getMainController()) {
 		 * 
-		 * Ajustes para receber os dados de Solicitação de Serviço pegando os StatusSolicitação
-		 * para aparecer no ComboBox
+		 * @Override public String getCaptionProperty() { return "descricao"; }
+		 * };
 		 * 
+		 * DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new
+		 * DefaultManyToOneComboModel
+		 * <TipoContrato>(TipoContratoListController.class,
+		 * this.tipoContratoDAO, super.getMainController());
+		 * 
+		 * /**
+		 * 
+		 * Ajustes para receber os dados de Solicitação de Serviço pegando os
+		 * StatusSolicitação para aparecer no ComboBox
 		 */
-		
-		/*DefaultManyToOneComboModel<ContratoSolicitacaoServico> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
-				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController()); 
-		@Override
-		public String getCaptionProperty() {
-			return "descricao";
-		}
-	};
 
-		subView.getCbmContabilConta().setModel(contabilContaModel);
-		subView.getCbmTipoContrato().setModel(tipoContratoModel);*/
-		//this.subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
-		//subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+		/*
+		 * DefaultManyToOneComboModel<ContratoSolicitacaoServico>
+		 * contratoSolicitacaoServicoModel = new
+		 * DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
+		 * ContratoSolicitacaoServicoListController.class,
+		 * this.solicitacaoServicoDAO, super.getMainController());
+		 * 
+		 * @Override public String getCaptionProperty() { return "descricao"; }
+		 * };
+		 * 
+		 * subView.getCbmContabilConta().setModel(contabilContaModel);
+		 * subView.getCbmTipoContrato().setModel(tipoContratoModel);
+		 */
+		// this.subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+		// subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
 		List<Documento> documentos = documentoDAO.getAll(Documento.class);
 
@@ -242,7 +246,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Override
 	protected void initSubView() {
 		subView = new ContratoFormView(this);
-		
+
 		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
 			/**
@@ -262,15 +266,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			}
 
 		});
-		
-		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(
-				PessoaListController.class, this.pessoaDAO, super.getMainController()) {
+
+		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
+				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "nome";
 			}
 		};
-		
+
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
 			@Override
@@ -281,28 +285,27 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
 				this.tipoContratoDAO, super.getMainController());
-		
+
 		/**
 		 * 
-		 * Ajustes para receber os dados de Solicitação de Serviço pegando os StatusSolicitação
-		 * para aparecer no ComboBox
+		 * Ajustes para receber os dados de Solicitação de Serviço pegando os
+		 * StatusSolicitação para aparecer no ComboBox
 		 * 
 		 */
-		
+
 		DefaultManyToOneComboModel<ContratoSolicitacaoServico> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
-				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController()) { 
-		@Override
-		public String getCaptionProperty() {
-			return "contratoTipoServico";
-		}
-	};
-	
-	
-	    subView.getCbmPessoa().setModel(pessoaModel);
-	    subView.getCbmContabilConta().setModel(contabilContaModel);
-	    subView.getCbmTipoContrato().setModel(tipoContratoModel);
+				ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "contratoTipoServico";
+			}
+		};
+
+		subView.getCbmPessoa().setModel(pessoaModel);
+		subView.getCbmContabilConta().setModel(contabilContaModel);
+		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
-		
+
 		carregarCombos();
 	}
 
@@ -463,8 +466,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Override
 	protected void actionSalvar() {
 		subView.preencheContrato(currentBean);
-		
-		//currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
+
+		// currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
 
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
@@ -552,7 +555,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		mensagemRemovidoOK();
 
 	}
-	
+
 	public void gerarParcelas() throws Exception {
 
 		if (validaSalvar()) {
@@ -562,7 +565,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			}
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 			final List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
-			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("")  ? new Integer(0) : subView.getTxtIntervaloParcelas().getValue());
+			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new Integer(0) : subView.getTxtIntervaloParcelas()
+					.getValue());
 			if (dados != null) {
 				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
@@ -593,27 +597,27 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		}
 
 	}
-	
+
 	private void geraParcelas(ContabilConta contabilConta, final List<ParcelaPagar> parcelasPagar) {
 		subView.buildPrevisaoFaturamentoSubForm().removeAllItems();
 
-		subView.preencheContratoForm(currentBean);
+		subView.preencheContrato(currentBean);
 
-		//setIntervaloParcelaByTipoVencimento();
+		// setIntervaloParcelaByTipoVencimento();
 
 		Contrato contrato = currentBean;
 		ParcelaPagar parcelaPagar;
-		//ContratoPrevFaturamento contratoPrevFaturamento;
+		// ContratoPrevFaturamento contratoPrevFaturamento;
 		List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataEmissao = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(contrato.getDataFimVigencia());
-		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()),RoundingMode.HALF_DOWN);
+		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()), RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
 			parcelaPagar = new ParcelaPagar();
-			//parcelaPagar.setContaCaixa(contabilConta);
+			// parcelaPagar.setContaCaixa(contabilConta);
 			parcelaPagar.setNumeroParcela(i + 1);
 			parcelaPagar.setDataEmissao(dataEmissao);
 			if (i > 0) {
@@ -634,10 +638,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			novoParcelaPagar(parcelaPagar);
 		}
 
-		//subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
+		// subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
 		subView.getPrevisaoFaturamentoSubForm().fillWith(dados);
 	}
-	
+
 	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
 		List<ContratoPrevFaturamento> persistentObjects = subView.buildPrevisaoFaturamentoSubForm().getDados();
 
@@ -646,10 +650,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		}
 		parcelasPagar.clear();
 	}
-	
+
 	public void delete(ContratoPrevFaturamento contratoPrevFaturamento) {
 		sessionFactory.getCurrentSession().delete(contratoPrevFaturamento);
-		
+
 	}
 
 	public ParcelaPagar novoParcelaPagar() {
@@ -659,23 +663,23 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {
 
-		//currentBean.addParcelaPagar(parcela);
+		// currentBean.addParcelaPagar(parcela);
 
 		return parcela;
 	}
 
 	public void removerParcelaPagar(List<ParcelaPagar> values) {
 		for (ParcelaPagar value : values) {
-			//currentBean.removeParcelaPagar(value);
+			// currentBean.removeParcelaPagar(value);
 		}
 
 	}
-	
-	/*private void setIntervaloParcelaByTipoVencimento() {
-		if (TipoVencimento.MENSAL.equals(subView.getCbmTipoContrato().getValue())) {
-			currentBean.setIntervaloEntreParcelas(30);
-		}
-	}*/
+
+	/*
+	 * private void setIntervaloParcelaByTipoVencimento() { if
+	 * (TipoVencimento.MENSAL.equals(subView.getCbmTipoContrato().getValue())) {
+	 * currentBean.setIntervaloEntreParcelas(30); } }
+	 */
 
 	@Override
 	public String getViewIdentifier() {
