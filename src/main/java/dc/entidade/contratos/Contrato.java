@@ -139,9 +139,9 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	/*@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
+	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();*/
 
 	@Transient
 	private ContratoTemplate contratoTemplate;
@@ -269,7 +269,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
 
-	public void addParcelaPagar(ParcelaPagar parcela) {
+	/*public void addParcelaPagar(ParcelaPagar parcela) {
 		parcela.setContrato(this);
 		this.parcelasPagar.add(parcela);
 	}
@@ -278,7 +278,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		parcela.setContrato(null);
 		parcelasPagar.remove(parcela);
 
-	}
+	}*/
 	
 	@Override
 	public String toString() {
