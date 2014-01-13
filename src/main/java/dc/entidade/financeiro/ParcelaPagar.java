@@ -120,10 +120,10 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	private LancamentoPagar lancamentoPagar;
 	
-	@Caption(value = "Contrato")
+	/*@Caption(value = "Contrato")
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Contrato contrato;
+	private Contrato contrato;*/
 
 	@Caption(value = "Número Parcela")
 	@Column(name = "NUMERO_PARCELA")
@@ -295,13 +295,13 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 		this.lancamentoPagar = lancamentoPagar;
 	}
 	
-	public Contrato getContrato() {
+	/*public Contrato getContrato() {
 		return contrato;
 	}
 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
-	}
+	}*/
 
 	public Integer getNumeroParcela() {
 		return numeroParcela;

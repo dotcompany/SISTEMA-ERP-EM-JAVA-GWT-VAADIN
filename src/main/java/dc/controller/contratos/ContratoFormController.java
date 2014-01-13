@@ -260,6 +260,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				}
 
 			}
+
 		});
 		
 		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(
@@ -560,9 +561,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 			}
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
-			List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
+			final List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
+			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("")  ? new Integer(0) : subView.getTxtIntervaloParcelas().getValue());
 			if (dados != null) {
-				//parcelasPagar.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
+				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
 
 			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
@@ -597,15 +599,16 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		subView.preencheContratoForm(currentBean);
 
-		setIntervaloParcelaByTipoVencimento();
+		//setIntervaloParcelaByTipoVencimento();
 
 		Contrato contrato = currentBean;
 		ParcelaPagar parcelaPagar;
+		//ContratoPrevFaturamento contratoPrevFaturamento;
+		List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataEmissao = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(contrato.getDataFimVigencia());
-		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()),
-				RoundingMode.HALF_DOWN);
+		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()),RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
@@ -616,15 +619,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
 			}
-			parcelaPagar.setDataVencimento(primeiroVencimento.getTime());
+			contrato.setDataInicioVigencia(primeiroVencimento.getTime());
 			parcelaPagar.setSofreRetencao(contrato.getPessoa().getTipo());
-			parcelaPagar.setValor(valorParcela);
+			contrato.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
 			if (i == (contrato.getQuantidadeParcelas() - 1)) {
 				residuo = contrato.getValor().subtract(somaParcelas);
 				valorParcela = valorParcela.add(residuo);
-				parcelaPagar.setValor(valorParcela);
+				contrato.setValor(valorParcela);
 			}
 
 			parcelasPagar.add(parcelaPagar);
@@ -632,6 +635,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		}
 
 		//subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
+		subView.getPrevisaoFaturamentoSubForm().fillWith(dados);
 	}
 	
 	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
@@ -655,23 +659,23 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {
 
-		currentBean.addParcelaPagar(parcela);
+		//currentBean.addParcelaPagar(parcela);
 
 		return parcela;
 	}
 
 	public void removerParcelaPagar(List<ParcelaPagar> values) {
 		for (ParcelaPagar value : values) {
-			currentBean.removeParcelaPagar(value);
+			//currentBean.removeParcelaPagar(value);
 		}
 
 	}
 	
-	private void setIntervaloParcelaByTipoVencimento() {
+	/*private void setIntervaloParcelaByTipoVencimento() {
 		if (TipoVencimento.MENSAL.equals(subView.getCbmTipoContrato().getValue())) {
 			currentBean.setIntervaloEntreParcelas(30);
 		}
-	}
+	}*/
 
 	@Override
 	public String getViewIdentifier() {
