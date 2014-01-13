@@ -561,6 +561,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			}
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 			List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
+			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("")  ? new Integer(0) : subView.getTxtIntervaloParcelas().getValue());
 			if (dados != null) {
 				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
