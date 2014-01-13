@@ -9,7 +9,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause.Occur;
@@ -175,11 +174,11 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public <T> List<T> getAllForCombo(final Class<T> type, int idEmpresa) {
+	public <T> List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
-		if (isMultiEmpresa(type)) {
+		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
 		}
 
@@ -252,7 +251,7 @@ public abstract class AbstractCrudDAO<T> {
 		List<T> resultSet = new ArrayList<T>();
 
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
-			BooleanQuery booleanQuery = buildMultiEmpresaQuery(searchValue, getSearchFields(), fullTextSession, resultSet, menu);
+			org.apache.lucene.search.Query booleanQuery = buildMultiEmpresaQuery(searchValue, getSearchFields(), fullTextSession, resultSet, menu);
 
 			return fullTextSession.createFullTextQuery(booleanQuery, getEntityClass()).getResultSize();
 		} else {
@@ -272,7 +271,7 @@ public abstract class AbstractCrudDAO<T> {
 	private List<T> doMultiEmpresaTextSearch(String value, String[] searchFields, int first, int pageSize, SortField[] sortingFields, FmMenu menu) {
 		FullTextSession fullTextSession = getFullTextSession();
 		List<T> resultSet = new ArrayList<T>();
-		BooleanQuery booleanQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, resultSet, menu);
+		org.apache.lucene.search.Query booleanQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, resultSet, menu);
 
 		FullTextQuery q = fullTextSession.createFullTextQuery(booleanQuery, getEntityClass());
 		configureSorting(sortingFields, q);
@@ -288,13 +287,17 @@ public abstract class AbstractCrudDAO<T> {
 		}
 	}
 
-	private BooleanQuery buildMultiEmpresaQuery(String value, String[] searchFields, FullTextSession fullTextSession, List<T> resultSet, FmMenu menu) {
+	private org.apache.lucene.search.Query buildMultiEmpresaQuery(String value, String[] searchFields, FullTextSession fullTextSession,
+			List<T> resultSet, FmMenu menu) {
 		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 		value = value.trim();
 
 		BooleanQuery booleanQuery = new BooleanQuery();
 		BooleanQuery booleanQuery2 = new BooleanQuery();
 		Analyzer an = fullTextSession.getSearchFactory().getAnalyzer("dc_combo_analyzer");
+
+		QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+		org.apache.lucene.search.Query query = qb.keyword().fuzzy().onFields(searchFields).matching(value).createQuery();
 
 		try {
 			if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
@@ -304,17 +307,15 @@ public abstract class AbstractCrudDAO<T> {
 				booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
 			}
 
-			MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31, searchFields, an);
-			org.apache.lucene.search.Query luceneQuery = parser.parse(value);
-			org.apache.lucene.search.Query luceneQuery2 = parser.parse(value + "*");
-			booleanQuery2.add(luceneQuery, Occur.SHOULD);
-			booleanQuery2.add(luceneQuery2, Occur.SHOULD);
-			booleanQuery.add(booleanQuery2, Occur.MUST);
+			org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { booleanQuery };
+
+			query.combine(empresaQuery);
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		return booleanQuery;
+		return query;
 	}
 
 	protected abstract String[] getDefaultSearchFields();
@@ -443,7 +444,7 @@ public abstract class AbstractCrudDAO<T> {
 
 		FullTextSession fullTextSession = getFullTextSession();
 		List<T> resultSet = new ArrayList<T>();
-		BooleanQuery booleanQuery = buildMultiEmpresaQuery(value, fields, fullTextSession, resultSet, menu);
+		org.apache.lucene.search.Query booleanQuery = buildMultiEmpresaQuery(value, fields, fullTextSession, resultSet, menu);
 		resultSet = fullTextSession.createFullTextQuery(booleanQuery, getEntityClass()).setFirstResult(0).list();
 
 		return resultSet;

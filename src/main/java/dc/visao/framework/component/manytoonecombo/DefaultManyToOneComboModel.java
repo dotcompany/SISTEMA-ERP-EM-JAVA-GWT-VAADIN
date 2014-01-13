@@ -193,7 +193,10 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public List<T> getAll() {
-		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId());
+		// CRUDListController ctrl = (CRUDListController)
+		// mainController.getEntityController(ctrlClass);
+
+		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), null);
 	}
 
 	@Override
