@@ -407,10 +407,11 @@ public class ContratoFormView extends CustomComponent {
 							dateField.setSizeFull();
 							return dateField;
 						} else if ("valor".equals(propertyId)) {
-							TextField textField = new TextField();
+							/*TextField textField = new TextField();
 							textField.setSizeFull();
 							textField.setConverter(new StringToBigDecimalConverter());
-							return textField;
+							return textField;*/
+							return ComponentUtil.buildCurrencyField(null);
 						}
 
 						return null;
@@ -566,40 +567,40 @@ public class ContratoFormView extends CustomComponent {
 
 	public void preencheContrato(Contrato contrato) {
 
-		contrato.setPessoa(getCbmPessoa().getValue());
-		contrato.setContabilConta(getCbmContabilConta().getValue());
-		contrato.setContratoSolicitacaoServico(getCmbSolicitacaoServico().getValue());
-		contrato.setDataCadastro(getDtCadastro().getValue());
-		contrato.setDataFimVigencia(getDtFimVigencia().getValue());
-		contrato.setDataInicioVigencia(getDtVigencia().getValue());
-		contrato.setDescricao(getTxaDescricao().getValue());
-		contrato.setDiaFaturamento(getTxtDiaFaturamento().getValue());
+		contrato.setPessoa((Pessoa) cbmPessoa.getValue());
+		contrato.setContabilConta((ContabilConta) cbmContabilConta.getValue());
+		contrato.setContratoSolicitacaoServico((ContratoSolicitacaoServico) cmbSolicitacaoServico.getValue());
+		contrato.setDataCadastro(dtCadastro.getValue());
+		contrato.setDataFimVigencia(dtFimVigencia.getValue());
+		contrato.setDataInicioVigencia(dtVigencia.getValue());
+		contrato.setDescricao(txaDescricao.getValue());
+		contrato.setDiaFaturamento(txtDiaFaturamento.getValue());
 		contrato.setIntervaloEntreParcelas(txtIntervaloParcelas.getConvertedValue() != null ? (Integer) txtIntervaloParcelas.getConvertedValue() : 0);
-		contrato.setNome(getTxtNome().getValue());
-		contrato.setNumero(getTxtNumero().getValue());
-		contrato.setObservacao(getTxaObservacoes().getValue());
+		contrato.setNome(txtNome.getValue());
+		contrato.setNumero(txtNumero.getValue());
+		contrato.setObservacao(txaObservacoes.getValue());
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
-		contrato.setTipoContrato((TipoContrato) getCbmTipoContrato().getValue());
+		contrato.setTipoContrato((TipoContrato) cbmTipoContrato.getValue());
 		contrato.setValor((BigDecimal) txtValor.getConvertedValue());
 
 	}
 
 	public void preencheContratoForm(Contrato contrato) {
-		getCbmPessoa().setValue(contrato.getPessoa());
-		getCbmContabilConta().setValue(contrato.getContabilConta());
-		getCmbSolicitacaoServico().setValue(contrato.getContratoSolicitacaoServico());
-		getDtCadastro().setValue(contrato.getDataCadastro());
-		getDtFimVigencia().setValue(contrato.getDataFimVigencia());
-		getDtVigencia().setValue(contrato.getDataInicioVigencia());
-		getTxaDescricao().setValue(contrato.getDescricao());
-		getTxtDiaFaturamento().setValue(contrato.getDiaFaturamento());
+		cbmPessoa.setValue(contrato.getPessoa());
+		cbmContabilConta.setValue(contrato.getContabilConta());
+		cmbSolicitacaoServico.setValue(contrato.getContratoSolicitacaoServico());
+		dtCadastro.setValue(contrato.getDataCadastro());
+		dtFimVigencia.setValue(contrato.getDataFimVigencia());
+		dtVigencia.setValue(contrato.getDataInicioVigencia());
+		txaDescricao.setValue(contrato.getDescricao());
+		txtDiaFaturamento.setValue(contrato.getDiaFaturamento());
 		txtIntervaloParcelas.setConvertedValue(contrato.getIntervaloEntreParcelas());
 		//getTxtIntervaloParcelas().setValue(String.valueOf(contrato.getIntervaloEntreParcelas()));
-		getTxtNome().setValue(contrato.getNome());
-		getTxtNumero().setValue(contrato.getNumero());
-		getTxaObservacoes().setValue(contrato.getObservacao());
-		getTxtQuantidadeParcelas().setValue(String.valueOf(contrato.getQuantidadeParcelas()));
-		getCbmTipoContrato().setValue(contrato.getTipoContrato());
+		txtNome.setValue(contrato.getNome());
+		txtNumero.setValue(contrato.getNumero());
+		txaObservacoes.setValue(contrato.getObservacao());
+		txtQuantidadeParcelas.setValue(String.valueOf(contrato.getQuantidadeParcelas()));
+		cbmTipoContrato.setValue(contrato.getTipoContrato());
 		txtValor.setConvertedValue(contrato.getValor());
 		//getTxtValor().setValue(contrato.getValor().toString());
 

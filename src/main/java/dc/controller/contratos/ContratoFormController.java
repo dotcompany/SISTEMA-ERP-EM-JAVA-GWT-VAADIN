@@ -30,6 +30,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
@@ -305,6 +307,20 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
+		
+		subView.getTxtValor().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				subView.getTxtValor().setConvertedValue(subView.getTxtValor().getConvertedValue());
+
+			}
+		});
 
 		carregarCombos();
 	}
@@ -466,6 +482,16 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Override
 	protected void actionSalvar() {
 		subView.preencheContrato(currentBean);
+		
+		boolean valido = true;
+		
+		List<ContratoPrevFaturamento> contratoPrevFaturamento = subView.getPrevisaoFaturamentoSubForm().getDados();
+		
+		if (((BigDecimal) subView.getTxtValor().getConvertedValue()).compareTo(getTotalParcelaPagar(contratoPrevFaturamento)) != 0) {
+			adicionarErroDeValidacao(subView.getPrevisaoFaturamentoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+		}
 
 		// currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
 
@@ -563,7 +589,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (contabilConta == null || contabilConta.getId() == null) {
 				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 			}
-			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+			//final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 			final List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new Integer(0) : subView.getTxtIntervaloParcelas()
 					.getValue());
@@ -571,7 +597,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
 
-			if (parcelasPagar != null && !parcelasPagar.isEmpty()) {
+			if (dados != null && !dados.isEmpty()) {
 				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
 						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
 						new ConfirmDialog.Listener() {
@@ -583,13 +609,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 							public void onClose(ConfirmDialog dialog) {
 								if (dialog.isConfirmed()) {
-									excluiParcelas(parcelasPagar);
-									geraParcelas(contabilConta, parcelasPagar);
+									//excluiParcelas(parcelasPagar);
+									//geraParcelas(contabilConta, parcelasPagar);
+									geraParcelas(contabilConta);
 								}
 							}
 						});
 			} else {
-				geraParcelas(contabilConta, parcelasPagar);
+				//geraParcelas(contabilConta, parcelasPagar);
+				geraParcelas(contabilConta);
 			}
 
 		} else {
@@ -598,7 +626,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 
-	private void geraParcelas(ContabilConta contabilConta, final List<ParcelaPagar> parcelasPagar) {
+	private void geraParcelas(ContabilConta contabilConta /*final List<ParcelaPagar> parcelasPagar*/) {
 		subView.buildPrevisaoFaturamentoSubForm().removeAllItems();
 
 		subView.preencheContrato(currentBean);
@@ -606,8 +634,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		// setIntervaloParcelaByTipoVencimento();
 
 		Contrato contrato = currentBean;
-		ParcelaPagar parcelaPagar;
-		// ContratoPrevFaturamento contratoPrevFaturamento;
+		//ParcelaPagar parcelaPagar;
+		ContratoPrevFaturamento contratoPrevFaturamento;
 		List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataEmissao = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -616,15 +644,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
-			parcelaPagar = new ParcelaPagar();
+			contratoPrevFaturamento = new ContratoPrevFaturamento();
 			// parcelaPagar.setContaCaixa(contabilConta);
-			parcelaPagar.setNumeroParcela(i + 1);
-			parcelaPagar.setDataEmissao(dataEmissao);
+			//parcelaPagar.setNumeroParcela(i + 1);
+			//parcelaPagar.setDataEmissao(dataEmissao);
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
 			}
 			contrato.setDataInicioVigencia(primeiroVencimento.getTime());
-			parcelaPagar.setSofreRetencao(contrato.getPessoa().getTipo());
+			//parcelaPagar.setSofreRetencao(contrato.getPessoa().getTipo());
 			contrato.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
@@ -634,8 +662,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				contrato.setValor(valorParcela);
 			}
 
-			parcelasPagar.add(parcelaPagar);
-			novoParcelaPagar(parcelaPagar);
+			//contratoPrevFaturamento.add(parcelaPagar);
+			//novoParcelaPagar(parcelaPagar);
 		}
 
 		// subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
@@ -673,6 +701,14 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			// currentBean.removeParcelaPagar(value);
 		}
 
+	}
+	
+	private BigDecimal getTotalParcelaPagar(List<ContratoPrevFaturamento> contratoPrevFaturamento) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < contratoPrevFaturamento.size(); i++) {
+			total = total.add(contratoPrevFaturamento.get(i).getValor());
+		}
+		return total;
 	}
 
 	/*
