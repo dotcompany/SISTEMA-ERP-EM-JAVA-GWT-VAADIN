@@ -389,6 +389,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				final CompositeItem selectedBeanItem = (CompositeItem) source.getContainerDataSource().getItem(itemId);
 				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
 
+				if (source.isFirstId(itemId)) {
+					i = 1;
+				}
+
 				final CheckBox checkBox = new CheckBox();
 
 				checkBox.setImmediate(true);
