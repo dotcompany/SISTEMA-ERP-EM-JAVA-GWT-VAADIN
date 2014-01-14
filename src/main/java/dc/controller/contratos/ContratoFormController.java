@@ -48,7 +48,6 @@ import dc.entidade.contratos.ContratoHistoricoReajuste;
 import dc.entidade.contratos.ContratoPrevFaturamento;
 import dc.entidade.contratos.ContratoSolicitacaoServico;
 import dc.entidade.contratos.TipoContrato;
-import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.framework.Empresa;
 import dc.entidade.ged.Documento;
 import dc.entidade.ged.DocumentoArquivo;
@@ -584,11 +583,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public void gerarParcelas() throws Exception {
 
-		if (validaSalvar()) {
+		/*if (validaSalvar()) {
 			final ContabilConta contabilConta = (ContabilConta) subView.getCbmContabilConta().getValue();
 			if (contabilConta == null || contabilConta.getId() == null) {
 				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
-			}
+			}*/
 			final List<ContratoPrevFaturamento> contratoprevFaturmaneoto = new ArrayList<ContratoPrevFaturamento>();
 			final List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new Integer(0) : subView.getTxtIntervaloParcelas()
@@ -611,22 +610,19 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 								if (dialog.isConfirmed()) {
 									excluiParcelas(contratoprevFaturmaneoto);
 									//geraParcelas(contabilConta, parcelasPagar);
-									geraParcelas(contabilConta, contratoprevFaturmaneoto);
+									geraParcelas(contratoprevFaturmaneoto);
 								}
 							}
 						});
 			} else {
 				//geraParcelas(contabilConta, parcelasPagar);
-				geraParcelas(contabilConta, contratoprevFaturmaneoto);
+				geraParcelas(contratoprevFaturmaneoto);
+				mensagemErro("Preencha todos os campos corretamente!");
 			}
 
-		} else {
-			mensagemErro("Preencha todos os campos corretamente!");
 		}
 
-	}
-
-	private void geraParcelas(ContabilConta contabilConta, final List<ContratoPrevFaturamento> contratopreFaturamento) {
+	private void geraParcelas(final List<ContratoPrevFaturamento> contratopreFaturamento) {
 		subView.buildPrevisaoFaturamentoSubForm().removeAllItems();
 
 		subView.preencheContrato(currentBean);
@@ -645,7 +641,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		BigDecimal residuo = BigDecimal.ZERO;
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
 			contratoPrevFaturamento = new ContratoPrevFaturamento();
-			contrato.setContabilConta(contabilConta);
+			//contrato.setContabilConta(contabilConta);
 			contrato.setQuantidadeParcelas(i + 1);
 			contrato.setDataFimVigencia(dataEmissao);
 			if (i > 0) {
