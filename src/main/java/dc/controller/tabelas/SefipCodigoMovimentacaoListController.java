@@ -44,7 +44,7 @@ public class SefipCodigoMovimentacaoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Sefip Codigo Movimentação";
+		return "Código Movimentação - SEFIP";
 	}
 
 	@Override

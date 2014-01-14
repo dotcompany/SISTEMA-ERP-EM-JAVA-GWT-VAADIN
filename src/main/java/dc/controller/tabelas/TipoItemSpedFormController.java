@@ -30,13 +30,13 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 	TipoItemSpedFormView subView;
 	
 	@Autowired
-	TipoItemSpedDAO tipoItemSepedDAO;
+	TipoItemSpedDAO tipoItemSpedDAO;
 
 	private TipoItemSped currentBean;
 	
 	@Override
 	protected String getNome() {
-		return "Tipo Item Seped";
+		return "Tipo Item Sped";
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try{
-			tipoItemSepedDAO.saveOrUpdate(currentBean);
+			tipoItemSpedDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);	
 		}catch (Exception e){
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoItemSepedDAO.find(id);
+		currentBean = tipoItemSpedDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
 	}
@@ -85,7 +85,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 tipoItemSepedDAO.deleteAllByIds(ids);
+		 tipoItemSpedDAO.deleteAllByIds(ids);
 		 mensagemRemovidoOK();
 	}
 
@@ -106,7 +106,7 @@ public class TipoItemSpedFormController extends CRUDFormController<TipoItemSped>
 
 	@Override
 	public String getViewIdentifier() {
-		return "tipoItemSepedForm";
+		return "tipoItemSpedForm";
 	}
 
 }

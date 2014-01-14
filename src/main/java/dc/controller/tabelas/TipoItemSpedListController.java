@@ -44,7 +44,7 @@ public class TipoItemSpedListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Item Seped";
+		return "Tipo Item Sped";
 	}
 
 	@Override

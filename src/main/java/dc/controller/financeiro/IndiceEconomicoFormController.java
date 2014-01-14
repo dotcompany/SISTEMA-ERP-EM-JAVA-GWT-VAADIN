@@ -45,7 +45,7 @@ public class IndiceEconomicoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "IndiceEconomico";
+		return "Índice Econômico";
 	}
 
 	@Override

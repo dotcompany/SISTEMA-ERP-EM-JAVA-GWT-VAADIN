@@ -554,7 +554,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 
-	public ContratoPrevFaturamento novoContratoPrevFaturamento() {
+	public ContratoPrevFaturamento novoContratoPrevFaturamento(ContratoPrevFaturamento contratoPreFaturamento) {
 		ContratoPrevFaturamento contratoPrevFaturamento = new ContratoPrevFaturamento();
 		this.currentBean.addContratoPrevFaturamento(contratoPrevFaturamento);
 		return contratoPrevFaturamento;
@@ -664,19 +664,20 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 			//contratoPrevFaturamento.add(parcelaPagar);
 			//novoParcelaPagar(parcelaPagar);
+			novoContratoPrevFaturamento(contratoPrevFaturamento);
 		}
 
 		// subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
 		subView.getPrevisaoFaturamentoSubForm().fillWith(dados);
 	}
 
-	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
+	private void excluiParcelas(List<ContratoPrevFaturamento> contratoPrevFaturamento) {
 		List<ContratoPrevFaturamento> persistentObjects = subView.buildPrevisaoFaturamentoSubForm().getDados();
 
 		for (int i = 0; i < persistentObjects.size(); i++) {
 			delete(persistentObjects.get(i));
 		}
-		parcelasPagar.clear();
+		contratoPrevFaturamento.clear();
 	}
 
 	public void delete(ContratoPrevFaturamento contratoPrevFaturamento) {
@@ -684,9 +685,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 
-	public ParcelaPagar novoParcelaPagar() {
-		ParcelaPagar parcela = new ParcelaPagar();
-		return novoParcelaPagar(parcela);
+	public ContratoPrevFaturamento novoContratoPrevFaturamento() {
+		ContratoPrevFaturamento contratoPreFaturamento = new ContratoPrevFaturamento();
+		return novoContratoPrevFaturamento(contratoPreFaturamento);
 	}
 
 	public ParcelaPagar novoParcelaPagar(ParcelaPagar parcela) {

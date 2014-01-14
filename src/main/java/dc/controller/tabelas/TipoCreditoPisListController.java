@@ -44,7 +44,7 @@ public class TipoCreditoPisListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Crédito Pis";
+		return "Tipo Crédito PIS";
 	}
 
 	@Override

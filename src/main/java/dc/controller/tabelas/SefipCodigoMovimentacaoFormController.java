@@ -36,7 +36,7 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 	
 	@Override
 	protected String getNome() {
-		return "Sefip Código Movimentação";
+		return "Código Movimentação - SEFIP";
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class SefipCategoriaTrabalhoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Sefip Categoria de Trabalho";
+		return "Categoria de Trabalho - SEFIP";
 	}
 
 	@Override

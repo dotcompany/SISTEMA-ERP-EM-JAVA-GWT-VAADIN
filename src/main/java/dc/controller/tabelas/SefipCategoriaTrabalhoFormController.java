@@ -36,7 +36,7 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 	
 	@Override
 	protected String getNome() {
-		return "Sefip Categoria de Trabalho";
+		return "Categoria de Trabalho - SEFIP";
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class SefipCodigoRecolhimentoFormController extends CRUDFormController<Se
 	
 	@Override
 	protected String getNome() {
-		return "Sefip Codigo Recolhimento";
+		return "Código Recolhimento - SEFIP";
 	}
 
 	@Override

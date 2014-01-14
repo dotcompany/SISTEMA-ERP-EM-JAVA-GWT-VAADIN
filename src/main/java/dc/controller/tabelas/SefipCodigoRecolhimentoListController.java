@@ -44,7 +44,7 @@ public class SefipCodigoRecolhimentoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Sefip Codigo Recolhimento";
+		return "Código Recolhimento - SEFIP";
 	}
 
 	@Override

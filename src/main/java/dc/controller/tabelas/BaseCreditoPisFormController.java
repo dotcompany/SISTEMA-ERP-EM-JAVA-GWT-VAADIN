@@ -39,7 +39,7 @@ public class BaseCreditoPisFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Base Crédito Pis";
+		return "Base Crédito PIS";
 	}
 
 	@Override

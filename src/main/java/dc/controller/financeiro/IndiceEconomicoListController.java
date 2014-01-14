@@ -50,7 +50,7 @@ public class IndiceEconomicoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "IndiceEconomico";
+		return "Índice Econômico";
 	}
 
 	@Override

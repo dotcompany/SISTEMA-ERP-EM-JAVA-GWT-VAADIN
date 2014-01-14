@@ -38,7 +38,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 
 	@Override
 	protected String getNome() {
-		return "Código Gps";
+		return "Código GPS";
 	}
 
 	@Override

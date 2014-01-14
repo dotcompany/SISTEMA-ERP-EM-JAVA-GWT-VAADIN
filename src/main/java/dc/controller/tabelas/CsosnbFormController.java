@@ -38,7 +38,7 @@ public class CsosnbFormController extends CRUDFormController<Csosnb> {
 
 	@Override
 	protected String getNome() {
-		return "Csosnb";
+		return "CSOSN B";
 	}
 
 	@Override

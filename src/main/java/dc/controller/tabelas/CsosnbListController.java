@@ -44,7 +44,7 @@ public class CsosnbListController extends CRUDListController<Csosnb> {
 
 	@Override
 	protected String getTitulo() {
-		return "Csosnb";
+		return "CSOSN B";
 	}
 
 	@Override

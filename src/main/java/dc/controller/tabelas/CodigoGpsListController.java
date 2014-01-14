@@ -43,7 +43,7 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps> {
 
 	@Override
 	protected String getTitulo() {
-		return "Código Gps";
+		return "Código GPS";
 	}
 
 	@Override

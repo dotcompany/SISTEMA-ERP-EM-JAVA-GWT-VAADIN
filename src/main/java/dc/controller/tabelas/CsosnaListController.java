@@ -44,7 +44,7 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 
 	@Override
 	protected String getTitulo() {
-		return "Csosna";
+		return "CSOSN A";
 	}
 
 	@Override

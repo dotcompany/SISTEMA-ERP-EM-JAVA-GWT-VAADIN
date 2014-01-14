@@ -36,7 +36,7 @@ public class TipoCreditoPisFormController extends CRUDFormController<TipoCredito
 	
 	@Override
 	protected String getNome() {
-		return "Tipo Crédito Pis";
+		return "Tipo Crédito PIS";
 	}
 
 	@Override
