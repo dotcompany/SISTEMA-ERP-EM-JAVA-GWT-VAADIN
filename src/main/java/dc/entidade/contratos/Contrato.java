@@ -266,6 +266,17 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public void setContratoSolicitacaoServico(ContratoSolicitacaoServico contratoSolicitacaoServico) {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
+	
+	public void addParcelaPagar(ContratoPrevFaturamento contratoPrevFaturamento) {
+		contratoPrevFaturamento.setContrato(this);
+		this.contratosPrevisoesFaturamentos.add(contratoPrevFaturamento);
+	}
+	
+	public void removeParcelaPagar(ContratoPrevFaturamento contratoPrevFaturamento) {
+		contratoPrevFaturamento.setContrato(null);
+		contratosPrevisoesFaturamentos.remove(contratoPrevFaturamento);
+
+	}
 
 	/*public void addParcelaPagar(ParcelaPagar parcela) {
 		parcela.setContrato(this);

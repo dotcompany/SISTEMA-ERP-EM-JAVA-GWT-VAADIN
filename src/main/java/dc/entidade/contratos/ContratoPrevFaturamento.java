@@ -2,6 +2,7 @@ package dc.entidade.contratos;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -46,6 +47,7 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	@Field
 	@Column(name = "VALOR")
 	private BigDecimal valor;
+	
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Contrato contrato;

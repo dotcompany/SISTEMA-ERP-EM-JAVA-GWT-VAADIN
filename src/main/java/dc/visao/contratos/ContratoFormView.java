@@ -581,7 +581,7 @@ public class ContratoFormView extends CustomComponent {
 		contrato.setObservacao(txaObservacoes.getValue());
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
 		contrato.setTipoContrato((TipoContrato) cbmTipoContrato.getValue());
-		contrato.setValor((BigDecimal) txtValor.getConvertedValue());
+		//contrato.setValor((BigDecimal) txtValor.getConvertedValue());
 
 	}
 
