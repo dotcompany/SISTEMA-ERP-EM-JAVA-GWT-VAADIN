@@ -588,15 +588,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (contabilConta == null || contabilConta.getId() == null) {
 				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
 			}*/
-			final List<ContratoPrevFaturamento> contratoprevFaturmaneoto = new ArrayList<ContratoPrevFaturamento>();
-			final List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
+			final List<ContratoPrevFaturamento> contratoprevFaturamento = new ArrayList<ContratoPrevFaturamento>();
+			List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new Integer(0) : subView.getTxtIntervaloParcelas()
 					.getValue());
 			if (dados != null) {
-				dados.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
+				contratoprevFaturamento.addAll(subView.buildPrevisaoFaturamentoSubForm().getDados());
 			}
 
-			if (dados != null && !dados.isEmpty()) {
+			if (contratoprevFaturamento != null && !contratoprevFaturamento.isEmpty()) {
 				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
 						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
 						new ConfirmDialog.Listener() {
@@ -608,15 +608,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 							public void onClose(ConfirmDialog dialog) {
 								if (dialog.isConfirmed()) {
-									excluiParcelas(contratoprevFaturmaneoto);
+									excluiParcelas(contratoprevFaturamento);
 									//geraParcelas(contabilConta, parcelasPagar);
-									geraParcelas(contratoprevFaturmaneoto);
+									geraParcelas(contratoprevFaturamento);
 								}
 							}
 						});
 			} else {
 				//geraParcelas(contabilConta, parcelasPagar);
-				geraParcelas(contratoprevFaturmaneoto);
+				geraParcelas(contratoprevFaturamento);
 				mensagemErro("Preencha todos os campos corretamente!");
 			}
 
@@ -630,7 +630,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		// setIntervaloParcelaByTipoVencimento();
 
 		Contrato contrato = currentBean;
-		//ParcelaPagar parcelaPagar;
 		ContratoPrevFaturamento contratoPrevFaturamento;
 		List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataEmissao = new Date();
@@ -647,9 +646,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
 			}
-			contrato.setDataInicioVigencia(primeiroVencimento.getTime());
-			//parcelaPagar.setSofreRetencao(contrato.getPessoa().getTipo());
-			contrato.setValor(valorParcela);
+			contratoPrevFaturamento.setDataPrevista(primeiroVencimento.getTime());
+			contratoPrevFaturamento.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
 			if (i == (contrato.getQuantidadeParcelas() - 1)) {

@@ -1,6 +1,5 @@
 package dc.visao.contratos;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.vaadin.addons.maskedtextfield.NumericField;
@@ -412,9 +411,9 @@ public class ContratoFormView extends CustomComponent {
 							textField.setConverter(new StringToBigDecimalConverter());
 							return textField;*/
 							return ComponentUtil.buildCurrencyField(null);
+						} else {
+							return ComponentUtil.buildTextField(null);
 						}
-
-						return null;
 					}
 
 				};
