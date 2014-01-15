@@ -636,5 +636,5 @@ public class LancamentoReceberFormView extends CustomComponent {
 	public void setBtnGerarBoleto(Button btnGerarBoleto) {
 		this.btnGerarBoleto = btnGerarBoleto;
 	}
-
+	
 }
