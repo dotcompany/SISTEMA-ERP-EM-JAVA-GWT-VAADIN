@@ -2,7 +2,6 @@ package dc.entidade.contratos;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.geral.Pessoa;
 
 @Entity
 @Table(name = "CONTRATO_PREV_FATURAMENTO")
@@ -51,6 +51,11 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Contrato contrato;
+	
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Pessoa pessoa;
+	
 
 	public ContratoPrevFaturamento() {
 	}
@@ -85,6 +90,14 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
+	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override
