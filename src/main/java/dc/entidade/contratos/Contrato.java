@@ -85,7 +85,13 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption(value = "Dia Faturamento")
 	@Column(name = "DIA_FATURAMENTO", columnDefinition = "bpchar")
-	private String diaFaturamento;
+	private Integer diaFaturamento;
+	
+	/*@Field
+	@Temporal(TemporalType.DATE)
+	@Column(name = "PRIMEIRO_VENCIMENTO")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimento;*/
 
 	@Field
 	@Caption(value = "Valor")
@@ -203,11 +209,11 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.dataFimVigencia = dataFimVigencia;
 	}
 
-	public String getDiaFaturamento() {
+	public Integer getDiaFaturamento() {
 		return diaFaturamento;
 	}
 
-	public void setDiaFaturamento(String diaFaturamento) {
+	public void setDiaFaturamento(Integer diaFaturamento) {
 		this.diaFaturamento = diaFaturamento;
 	}
 
@@ -267,12 +273,12 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
 	
-	public void addParcelaPagar(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public void addParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(this);
 		this.contratosPrevisoesFaturamentos.add(contratoPrevFaturamento);
 	}
 	
-	public void removeParcelaPagar(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public void removeParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(null);
 		contratosPrevisoesFaturamentos.remove(contratoPrevFaturamento);
 
@@ -382,4 +388,13 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public void setContratosPrevisoesFaturamentos(List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
 		this.contratosPrevisoesFaturamentos = contratosPrevisoesFaturamentos;
 	}
+
+	/*public Date getPrimeiroVencimento() {
+		return primeiroVencimento;
+	}
+
+	public void setPrimeiroVencimento(Date primeiroVencimento) {
+		this.primeiroVencimento = primeiroVencimento;
+	}*/
+	
 }

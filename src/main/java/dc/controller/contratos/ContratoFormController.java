@@ -636,7 +636,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		//List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataPrevista = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
-		primeiroVencimento.setTime(contrato.getDataFimVigencia());
+		primeiroVencimento.get(contrato.getDiaFaturamento());
 		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()), RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
@@ -649,6 +649,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
 			}
+			//contratoPrevFaturamento.setDataVencimento(primeiroVencimento.getTime());
 			contratoPrevFaturamento.setDataPrevista(primeiroVencimento.getTime());
 			contratoPrevFaturamento.setValor(valorParcela);
 
@@ -689,14 +690,14 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public ContratoPrevFaturamento novoContrato(ContratoPrevFaturamento contratoPreFaturamento) {
 
-		currentBean.addParcelaPagar(contratoPreFaturamento);
+		currentBean.addParcela(contratoPreFaturamento);
 
 		return contratoPreFaturamento;
 	}
 
 	public void removerParcelaPagar(List<ContratoPrevFaturamento> values) {
 		for (ContratoPrevFaturamento value : values) {
-			currentBean.removeParcelaPagar(value);
+			currentBean.removeParcela(value);
 		}
 
 	}
