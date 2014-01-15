@@ -572,5 +572,5 @@ public class LancamentoPagarFormView extends CustomComponent {
 	public void setCbTipoVencimento(ComboBox cbTipoVencimento) {
 		this.cbTipoVencimento = cbTipoVencimento;
 	}
-
+	
 }
