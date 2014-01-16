@@ -640,19 +640,30 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()), RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
+		String nossoNumero = null ;
+		DecimalFormat formatoNossoNumero = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero1 = new DecimalFormat("00000");
+		SimpleDateFormat formatoNossoNumero2 = new SimpleDateFormat("D");
+		Date dataAtual = new Date();
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
 			contratoPrevFaturamento = new ContratoPrevFaturamento();
 			contratoPrevFaturamento.setPessoa(pessoa);
 			//contrato.setContabilConta(contabilConta);
-			contrato.setQuantidadeParcelas(i + 1);
+			//contrato.setQuantidadeParcelas(i + 1);
+			contratoPrevFaturamento.setNumeroParcela(i + 1);
 			contratoPrevFaturamento.setDataPrevista(dataPrevista);
 			if (i > 0) {
 				primeiroVencimento.add(Calendar.DAY_OF_MONTH, contrato.getIntervaloEntreParcelas());
 			}
 			//contratoPrevFaturamento.setDataVencimento(primeiroVencimento.getTime());
 			contratoPrevFaturamento.setDataPrevista(primeiroVencimento.getTime());
-			contratoPrevFaturamento.setValor(valorParcela);
+			
+			nossoNumero += formatoNossoNumero1.format(contratoPrevFaturamento.getPessoa().getId());
+			nossoNumero += formatoNossoNumero.format(contratoPrevFaturamento.getNumeroParcela());
+			nossoNumero += formatoNossoNumero2.format(dataAtual);
 
+			contratoPrevFaturamento.setValor(valorParcela);
+			
 			somaParcelas = somaParcelas.add(valorParcela);
 			if (i == (contrato.getQuantidadeParcelas() - 1)) {
 				residuo = contrato.getValor().subtract(somaParcelas);

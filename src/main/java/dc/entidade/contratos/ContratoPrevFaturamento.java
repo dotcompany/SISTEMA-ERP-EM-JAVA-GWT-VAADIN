@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Pessoa;
 
@@ -38,6 +39,11 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "ID")
 	@Field
 	private Integer id;
+	
+	@Field
+	@Column(name = "NUMERO_PARCELA")
+	@Caption(value = "Número Parcelas")
+	private Integer numeroParcela;
 
 	@Field
 	@Temporal(TemporalType.DATE)
@@ -66,6 +72,14 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getNumeroParcela() {
+		return numeroParcela;
+	}
+
+	public void setNumeroParcela(Integer numeroParcela) {
+		this.numeroParcela = numeroParcela;
 	}
 
 	public Date getDataPrevista() {
