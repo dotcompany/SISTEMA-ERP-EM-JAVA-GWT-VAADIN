@@ -53,13 +53,13 @@ public class FeriadosFormView extends CustomComponent {
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setMargin(false);
-		mainLayout.setWidth("100.0%");
+		mainLayout.setWidth("-1px");
 		mainLayout.setHeight("-1px");
 		mainLayout.setSpacing(true);
 		mainLayout.setRows(8);
 		
 		// top-level component properties
-		//setWidth("100.0%");
+		setWidth("100.0%");
 		//setHeight("-1px");
 		
 		// horizontalLayout_1
@@ -79,7 +79,8 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		horizontalLayout_1 = new HorizontalLayout();
 		horizontalLayout_1.setImmediate(false);
-		horizontalLayout_1.setWidth("100.0%");
+		//horizontalLayout_1.setWidth("100.0%");
+		horizontalLayout_1.setWidth("-1px");
 		horizontalLayout_1.setHeight("-1px");
 		horizontalLayout_1.setMargin(false);
 		horizontalLayout_1.setSpacing(true);
@@ -108,7 +109,8 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		horizontalLayout_2 = new HorizontalLayout();
 		horizontalLayout_2.setImmediate(false);
-		horizontalLayout_2.setWidth("100.0%");
+		//horizontalLayout_2.setWidth("100.0%");
+		horizontalLayout_2.setWidth("-1px");
 		horizontalLayout_2.setHeight("-1px");
 		horizontalLayout_2.setMargin(false);
 		horizontalLayout_2.setSpacing(true);
@@ -125,7 +127,6 @@ public class FeriadosFormView extends CustomComponent {
 		// cmbUf
 		cmbUf = new ManyToOneCombo<>();
 		cmbUf.setCaption("UF");
-		cmbUf.setImmediate(false);
 		cmbUf.setWidth("200px");
 		cmbUf.setHeight("-1px");
 		horizontalLayout_2.addComponent(cmbUf);
