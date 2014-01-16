@@ -62,6 +62,7 @@ import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
+import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -486,7 +487,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		
 		List<ContratoPrevFaturamento> contratoPrevFaturamento = subView.getPrevisaoFaturamentoSubForm().getDados();
 		
-		if (((BigDecimal) subView.getTxtValor().getConvertedValue()).compareTo(getTotalParcelaPagar(contratoPrevFaturamento)) != 0) {
+		if (((BigDecimal) subView.getTxtValor().getConvertedValue()).compareTo(getTotal(contratoPrevFaturamento)) != 0) {
 			adicionarErroDeValidacao(subView.getPrevisaoFaturamentoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
 			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
@@ -629,7 +630,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getPrevisaoFaturamentoSubForm().removeAllItems();
 		subView.preencheContrato(currentBean);
 
-		// setIntervaloParcelaByTipoVencimento();
 
 		Contrato contrato = currentBean;
 		ContratoPrevFaturamento contratoPrevFaturamento;
@@ -702,19 +702,13 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 	
-	private BigDecimal getTotalParcelaPagar(List<ContratoPrevFaturamento> contratoPrevFaturamento) {
+	private BigDecimal getTotal(List<ContratoPrevFaturamento> contratoPrevFaturamento) {
 		BigDecimal total = BigDecimal.ZERO;
 		for (int i = 0; i < contratoPrevFaturamento.size(); i++) {
 			total = total.add(contratoPrevFaturamento.get(i).getValor());
 		}
 		return total;
 	}
-
-	/*
-	 * private void setIntervaloParcelaByTipoVencimento() { if
-	 * (TipoVencimento.MENSAL.equals(subView.getCbmTipoContrato().getValue())) {
-	 * currentBean.setIntervaloEntreParcelas(30); } }
-	 */
 
 	@Override
 	public String getViewIdentifier() {
