@@ -62,7 +62,6 @@ import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratoFormView;
-import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -102,8 +101,17 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	private Contrato currentBean;
 
+	
 	@Override
 	protected boolean validaSalvar() {
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+	
+	private boolean validaCampos() {
+		
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
@@ -152,7 +160,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtValor().getValue())) {
+		if (!Validator.validateNumber(subView.getTxtValor().getConvertedValue().toString())) {
 			adicionarErroDeValidacao(subView.getTxtValor(), "Número inválido");
 			valido = false;
 		}
@@ -268,6 +276,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			}
 
 		});
+		
+		subView.getDtCadastro().setValue(new Date());
 
 		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController()) {
@@ -636,7 +646,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		//List<ContratoPrevFaturamento> dados = subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataPrevista = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
-		primeiroVencimento.get(contrato.getDiaFaturamento());
+		primeiroVencimento.setTime(contrato.getDataInicioVigencia());
 		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()), RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
