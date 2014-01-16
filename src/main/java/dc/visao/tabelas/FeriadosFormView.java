@@ -52,15 +52,15 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("-1px");
+		mainLayout.setMargin(false);
+		mainLayout.setWidth("100.0%");
 		mainLayout.setHeight("-1px");
-		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		mainLayout.setRows(8);
 		
 		// top-level component properties
-		setWidth("-1px");
-		setHeight("-1px");
+		//setWidth("100.0%");
+		//setHeight("-1px");
 		
 		// horizontalLayout_1
 		horizontalLayout_1 = buildHorizontalLayout_1();
@@ -79,7 +79,7 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		horizontalLayout_1 = new HorizontalLayout();
 		horizontalLayout_1.setImmediate(false);
-		horizontalLayout_1.setWidth("-1px");
+		horizontalLayout_1.setWidth("100.0%");
 		horizontalLayout_1.setHeight("-1px");
 		horizontalLayout_1.setMargin(false);
 		horizontalLayout_1.setSpacing(true);
@@ -108,7 +108,7 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		horizontalLayout_2 = new HorizontalLayout();
 		horizontalLayout_2.setImmediate(false);
-		horizontalLayout_2.setWidth("-1px");
+		horizontalLayout_2.setWidth("100.0%");
 		horizontalLayout_2.setHeight("-1px");
 		horizontalLayout_2.setMargin(false);
 		horizontalLayout_2.setSpacing(true);
