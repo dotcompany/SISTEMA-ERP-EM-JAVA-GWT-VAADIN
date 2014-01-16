@@ -65,7 +65,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Column(name = "natureza_operacao")
-	@Caption("")
+	@Caption("Natureza da operação")
 	private String naturezaOperacao;
 
 	@Field
@@ -320,22 +320,22 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Column(name = "informacoes_add_fisco")
-	@Caption("")
+	@Caption("Informações add fisco")
 	private String informacoesAddFisco;
 
 	@Field
 	@Column(name = "informacoes_add_contribuinte")
-	@Caption("")
+	@Caption("Informações add contribuinte")
 	private String informacoesAddContribuinte;
 
 	@Field
 	@Column(name = "status_nota")
-	@Caption("")
+	@Caption("Status da nota")
 	private String statusNota;
 
 	@Field
 	@Column(name = "uf_emitente")
-	@Caption("")
+	@Caption("UF emitente")
 	private Integer ufEmitente;
 
 	/**

@@ -43,7 +43,9 @@ public class DadoNotaFiscalListController extends
 
 	@Override
 	protected String[] getColunas() {
-		return new String[] { "codigoNumerico" };
+		return new String[] { "tributOperacaoFiscal.nome", "ufEmitente",
+				"codigoNumerico", "naturezaOperacao", "informacoesAddFisco",
+				"informacoesAddContribuinte", "statusNota" };
 	}
 
 	@Override

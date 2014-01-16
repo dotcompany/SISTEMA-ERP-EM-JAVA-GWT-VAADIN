@@ -59,7 +59,10 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Código numérico" };
+		return new String[] { "Operação fiscal", "UF emitente",
+				"Código numérico", "Natureza da operação",
+				"Informações add fisco", "Informações add contribuinte",
+				"Status da nota" };
 	}
 
 }
