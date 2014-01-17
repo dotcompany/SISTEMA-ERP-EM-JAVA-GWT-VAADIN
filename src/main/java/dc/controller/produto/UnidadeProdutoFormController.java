@@ -148,5 +148,11 @@ public class UnidadeProdutoFormController extends CRUDFormController<UnidadeProd
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 }

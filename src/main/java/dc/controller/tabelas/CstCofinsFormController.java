@@ -119,6 +119,12 @@ public class CstCofinsFormController extends CRUDFormController<CstCofins> {
 	}
 
 	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	
+	@Override
 	public String getViewIdentifier() {
 		return "cstCofinsForm";
 	}

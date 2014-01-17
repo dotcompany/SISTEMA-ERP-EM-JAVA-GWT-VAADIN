@@ -117,6 +117,12 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 	@Override
 	public String getViewIdentifier() {

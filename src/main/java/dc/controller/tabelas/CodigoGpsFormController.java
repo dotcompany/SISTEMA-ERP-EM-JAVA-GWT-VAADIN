@@ -113,6 +113,12 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 	@Override
 	public String getViewIdentifier() {
