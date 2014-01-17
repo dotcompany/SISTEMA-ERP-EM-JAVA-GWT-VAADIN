@@ -123,4 +123,10 @@ public class CBOFormController extends CRUDFormController<CBO> {
 		return "cboForm";
 	}
 
+	@Override
+	protected boolean isFullSized() {
+
+		return true;
+	}
+	
 }

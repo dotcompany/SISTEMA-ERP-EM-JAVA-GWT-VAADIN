@@ -55,7 +55,7 @@ public class FeriadosFormView extends CustomComponent {
 		// common part: create layout
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("-1px");
+		//mainLayout.setWidth("-1px");
 		mainLayout.setSizeFull();
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
