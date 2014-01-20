@@ -9,9 +9,17 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.financeiro.ContaCaixaListController;
+import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.OperadoraCartao;
+import dc.entidade.financeiro.ContaCaixa;
+import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.diversos.OperadoraCartaoDAO;
+import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.util.Validator;
 import dc.visao.diversos.OperadoraCartaoFormView;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -39,6 +47,12 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Autowired
 	private OperadoraCartaoDAO operadoraDAO;
+	
+	@Autowired
+	private ContaCaixaDAO contaCaixaDAO;
+	
+	@Autowired
+	private ContabilContaDAO contabilContaDAO;
 
 	private OperadoraCartao currentBean;
 
@@ -90,6 +104,32 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Override
 	protected void initSubView() {
 		subView = new OperadoraCartaoFormView();
+		
+		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
+				ContaCaixaListController.class, this.contaCaixaDAO,
+				super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "nome";
+			
+		  }
+	};
+
+		this.subView.getCmbContaCaixa().setModel(model);
+		
+		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(
+				ContabilContaListController.class, this.contabilContaDAO,
+				super.getMainController()) {
+		
+		@Override
+		public String getCaptionProperty() {
+			return "descricao";
+			
+		  }
+	};
+
+		this.subView.getCmbContabilConta().setModel(model1);
 	}
 
 	/*
@@ -108,20 +148,38 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+	
+	private boolean validaCampos() {
+		
+		boolean valido = true;
+		
+		ContabilConta contabilConta = (ContabilConta) subView.getCmbContabilConta().getValue();
+		if (!Validator.validateObject(contabilConta)) {
+			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		ContaCaixa contaCaixa = (ContaCaixa) subView.getCmbContaCaixa().getValue();
+		if (!Validator.validateObject(contaCaixa)) {
+			adicionarErroDeValidacao(subView.getCmbContaCaixa(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (subView.getTxtNome().getValue() == null	|| subView.getTxtNome().getValue().isEmpty()) {
 			adicionarErroDeValidacao(subView.getTxtNome(),
 					"Não pode ficar em Branco!");
 
-			return false;
+			valido = false;
 		}
 
-		return true;
+		return valido;
 	}
 
 	@Override

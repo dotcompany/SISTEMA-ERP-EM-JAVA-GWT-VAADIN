@@ -49,7 +49,7 @@ public class OperadoraCartaoListController extends CRUDListController<OperadoraC
 
 	@Override
 	protected String getTitulo() {
-		return "OperadoraCartao";
+		return "Operadora Cartão";
 	}
 
 	@Override

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,6 +23,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -89,6 +93,15 @@ public class OperadoraCartao extends AbstractMultiEmpresaModel<Integer> implemen
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
+	
+	@Caption(value = "Conta Caixa")
+	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private ContaCaixa contaCaixa;
+
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
+	@ManyToOne
+	private ContabilConta contabilConta;
 
 	public OperadoraCartao() {
 
@@ -168,6 +181,22 @@ public class OperadoraCartao extends AbstractMultiEmpresaModel<Integer> implemen
 
 	public void setFone2(String fone2) {
 		this.fone2 = fone2;
+	}
+	
+	public ContaCaixa getContaCaixa() {
+		return contaCaixa;
+	}
+
+	public void setContaCaixa(ContaCaixa contaCaixa) {
+		this.contaCaixa = contaCaixa;
+	}
+
+	public ContabilConta getContabilConta() {
+		return contabilConta;
+	}
+
+	public void setContabilConta(ContabilConta contabilConta) {
+		this.contabilConta = contabilConta;
 	}
 
 	@Override
