@@ -49,7 +49,7 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	
 	@Override
 	protected String getNome() {
-		return "Convenio";
+		return "Convênio";
 	}
 
 	@Override

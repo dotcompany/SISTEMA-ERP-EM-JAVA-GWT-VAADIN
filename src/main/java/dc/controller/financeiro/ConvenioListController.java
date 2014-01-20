@@ -46,7 +46,7 @@ public class ConvenioListController extends CRUDListController<Convenio>{
 
 	@Override
 	protected String getTitulo() {
-		return "Convenio";
+		return "Convênio";
 	}
 
 	@Override
