@@ -43,7 +43,7 @@ public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>
 
 	@Override
 	protected String getTitulo() {
-		return "Agencia Banco";
+		return "Agência Banco";
 	}
 
 	@Override

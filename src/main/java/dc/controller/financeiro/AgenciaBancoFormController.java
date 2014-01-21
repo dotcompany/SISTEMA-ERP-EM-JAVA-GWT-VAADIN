@@ -58,7 +58,7 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Agencia Banco";
+		return "Agência Banco";
 	}
 
 	@Override
@@ -179,12 +179,12 @@ public class AgenciaBancoFormController extends
 		this.subView = new AgenciaBancoFormView();
 
 		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
-				BancoListController.class, this.bancoDAO,super.getMainController());
-			/*@Override
+				BancoListController.class, this.bancoDAO,super.getMainController()) {
+			@Override
 			public String getCaptionProperty() {
 				return "nome";
 			}
-		};*/
+		};
 		
 		this.subView.getCmbBanco().setModel(modelBanco);
 

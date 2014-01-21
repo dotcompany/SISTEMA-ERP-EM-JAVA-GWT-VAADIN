@@ -33,7 +33,7 @@ public class BancoListController extends CRUDListController<Banco> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "url", "codigo" };
+		return new String[] {"codigo", "nome", "url" };
 	}
 
 	@Override

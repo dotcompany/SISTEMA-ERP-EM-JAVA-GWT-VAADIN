@@ -48,7 +48,7 @@ public class BancoDAO extends AbstractCrudDAO<Banco>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "url"};
+		return new String[] {"codigo", "nome", "url"};
 	}
 	
 	@Transactional
