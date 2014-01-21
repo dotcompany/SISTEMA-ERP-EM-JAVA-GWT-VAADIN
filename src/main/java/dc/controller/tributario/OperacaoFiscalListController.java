@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalListController extends
-		CRUDListController<OperacaoFiscal> {
+public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscal> {
 
 	@Autowired
 	OperacaoFiscalDAO dao;
@@ -25,8 +24,8 @@ public class OperacaoFiscalListController extends
 	OperacaoFiscalFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "cfop","nome" };
+	public String[] getColunas() {
+		return new String[] { "cfop", "nome" };
 	}
 
 	@Override
@@ -50,7 +49,7 @@ public class OperacaoFiscalListController extends
 	}
 
 	@Override
-	protected Class<? super OperacaoFiscal> getEntityClass() {
+	public Class<? super OperacaoFiscal> getEntityClass() {
 		return OperacaoFiscal.class;
 	}
 

@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoMovimentacaoListController extends
-		CRUDListController<TipoMovimentacaoEntity> {
+public class TipoMovimentacaoListController extends CRUDListController<TipoMovimentacaoEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class TipoMovimentacaoListController extends
 	private TipoMovimentacaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "tipo", "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoMovimentacaoEntity> getEntityClass() {
+	public Class<? super TipoMovimentacaoEntity> getEntityClass() {
 		return TipoMovimentacaoEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class TipoMovimentacaoListController extends
 	@Override
 	protected List<TipoMovimentacaoEntity> pesquisa(String valor) {
 		try {
-			List<TipoMovimentacaoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<TipoMovimentacaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

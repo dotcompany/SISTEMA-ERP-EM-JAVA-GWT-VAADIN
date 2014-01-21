@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DocumentoBemListController extends
-		CRUDListController<DocumentoBemEntity> {
+public class DocumentoBemListController extends CRUDListController<DocumentoBemEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class DocumentoBemListController extends
 	private DocumentoBemFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "descricao", "bem" };
 	}
 
 	@Override
-	protected Class<? super DocumentoBemEntity> getEntityClass() {
+	public Class<? super DocumentoBemEntity> getEntityClass() {
 		return DocumentoBemEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class DocumentoBemListController extends
 	@Override
 	protected List<DocumentoBemEntity> pesquisa(String valor) {
 		try {
-			List<DocumentoBemEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<DocumentoBemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

@@ -14,8 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class PontoHorarioAutorizadoListController extends
-		CRUDListController<PontoHorarioAutorizado> {
+public class PontoHorarioAutorizadoListController extends CRUDListController<PontoHorarioAutorizado> {
 	/**
 	 * 
 	 */
@@ -28,15 +27,13 @@ public class PontoHorarioAutorizadoListController extends
 	PontoHorarioAutorizadoFormController pontoHorarioAutorizadoFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "colaborador", "dataHorario", "tipo",
-				"cargaHoraria", "entrada01", "saida01", "entrada02", "saida02",
-				"entrada03", "saida03", "entrada04", "saida04", "entrada05",
-				"saida05" };
+	public String[] getColunas() {
+		return new String[] { "colaborador", "dataHorario", "tipo", "cargaHoraria", "entrada01", "saida01", "entrada02", "saida02", "entrada03",
+				"saida03", "entrada04", "saida04", "entrada05", "saida05" };
 	}
 
 	@Override
-	protected Class<? super PontoHorarioAutorizado> getEntityClass() {
+	public Class<? super PontoHorarioAutorizado> getEntityClass() {
 		return PontoHorarioAutorizado.class;
 	}
 

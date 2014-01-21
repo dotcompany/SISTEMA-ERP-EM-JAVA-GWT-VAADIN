@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.ModeloFormController;
 import dc.entidade.ordemservico.Modelo;
 import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,14 +19,13 @@ public class ModeloListController extends CRUDListController<Modelo> {
 
 	@Autowired
 	ModeloDAO dao;
-	
+
 	@Autowired
 	ModeloFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","marca"};
+	public String[] getColunas() {
+		return new String[] { "nome", "marca" };
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class ModeloListController extends CRUDListController<Modelo> {
 	protected List<Modelo> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaModelo";
@@ -51,7 +49,7 @@ public class ModeloListController extends CRUDListController<Modelo> {
 	}
 
 	@Override
-	protected Class<? super Modelo> getEntityClass() {
+	public Class<? super Modelo> getEntityClass() {
 		return Modelo.class;
 	}
 

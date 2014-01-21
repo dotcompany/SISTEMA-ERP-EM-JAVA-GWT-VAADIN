@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreVinculoListController extends
-		CRUDListController<DreVinculoEntity> {
+public class DreVinculoListController extends CRUDListController<DreVinculoEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class DreVinculoListController extends
 	private DreVinculoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dreDetalhe", "conta" };
 	}
 
 	@Override
-	protected Class<? super DreVinculoEntity> getEntityClass() {
+	public Class<? super DreVinculoEntity> getEntityClass() {
 		return DreVinculoEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class DreVinculoListController extends
 	@Override
 	protected List<DreVinculoEntity> pesquisa(String valor) {
 		try {
-			List<DreVinculoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<DreVinculoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

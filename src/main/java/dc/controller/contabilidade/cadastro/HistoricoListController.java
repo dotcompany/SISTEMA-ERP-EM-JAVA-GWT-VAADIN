@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoListController extends
-		CRUDListController<HistoricoEntity> {
+public class HistoricoListController extends CRUDListController<HistoricoEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class HistoricoListController extends
 	private HistoricoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "descricao", "historico", "pedeComplemento" };
 	}
 
 	@Override
-	protected Class<? super HistoricoEntity> getEntityClass() {
+	public Class<? super HistoricoEntity> getEntityClass() {
 		return HistoricoEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class HistoricoListController extends
 	@Override
 	protected List<HistoricoEntity> pesquisa(String valor) {
 		try {
-			List<HistoricoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<HistoricoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

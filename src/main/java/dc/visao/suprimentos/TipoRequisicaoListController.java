@@ -17,14 +17,13 @@ public class TipoRequisicaoListController extends CRUDListController<TipoRequisi
 
 	@Autowired
 	TipoRequisicaoDAO dao;
-	
+
 	@Autowired
 	TipoRequisicaoFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"id", "codigo", "nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "id", "codigo", "nome", "descricao" };
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class TipoRequisicaoListController extends CRUDListController<TipoRequisi
 	protected List<TipoRequisicao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaTipoRequisicao";
@@ -48,7 +47,7 @@ public class TipoRequisicaoListController extends CRUDListController<TipoRequisi
 	}
 
 	@Override
-	protected Class<? super TipoRequisicao> getEntityClass() {
+	public Class<? super TipoRequisicao> getEntityClass() {
 		return TipoRequisicao.class;
 	}
 

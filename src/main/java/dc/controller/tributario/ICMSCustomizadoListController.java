@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoListController extends
-		CRUDListController<ICMSCustomizado> {
+public class ICMSCustomizadoListController extends CRUDListController<ICMSCustomizado> {
 
 	@Autowired
 	ContagemEstoqueDAO dao;
@@ -25,7 +24,7 @@ public class ICMSCustomizadoListController extends
 	ICMSCustomizadoFormController formController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "origemStr" };
 	}
 
@@ -50,7 +49,7 @@ public class ICMSCustomizadoListController extends
 	}
 
 	@Override
-	protected Class<? super ICMSCustomizado> getEntityClass() {
+	public Class<? super ICMSCustomizado> getEntityClass() {
 		return ICMSCustomizado.class;
 	}
 

@@ -21,18 +21,17 @@ public class PontoClassificacaoJornadaListController extends CRUDListController<
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	PontoClassificacaoJornadaDAO dao;
-	
 
 	@Autowired
 	PontoClassificacaoJornadaFormController pontoClassificacaoJornadaFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome", "descricao", "padrao", "descontarHoras" };
 	}
 
 	@Override
-	protected Class<? super PontoClassificacaoJornada> getEntityClass() {
+	public Class<? super PontoClassificacaoJornada> getEntityClass() {
 		return PontoClassificacaoJornada.class;
 	}
 

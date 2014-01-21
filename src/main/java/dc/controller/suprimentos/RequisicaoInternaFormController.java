@@ -7,22 +7,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.geral.Usuario;
-import dc.entidade.suprimentos.Requisicao;
 import dc.entidade.suprimentos.RequisicaoInterna;
 import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
-import dc.entidade.suprimentos.TipoRequisicao;
 import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.RequisicaoDAO;
 import dc.servicos.dao.suprimentos.RequisicaoInternaDAO;
 import dc.servicos.util.Validator;
-import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.suprimentos.RequisicaoInternaFormView;

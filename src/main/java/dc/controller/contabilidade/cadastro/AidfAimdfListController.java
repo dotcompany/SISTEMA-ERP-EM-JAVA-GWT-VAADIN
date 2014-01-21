@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfListController extends
-		CRUDListController<AidfAimdfEntity> {
+public class AidfAimdfListController extends CRUDListController<AidfAimdfEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class AidfAimdfListController extends
 	private AidfAimdfFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "numeroAutorizacao", "formularioDisponivel" };
 	}
 
 	@Override
-	protected Class<? super AidfAimdfEntity> getEntityClass() {
+	public Class<? super AidfAimdfEntity> getEntityClass() {
 		return AidfAimdfEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class AidfAimdfListController extends
 	@Override
 	protected List<AidfAimdfEntity> pesquisa(String valor) {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<AidfAimdfEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

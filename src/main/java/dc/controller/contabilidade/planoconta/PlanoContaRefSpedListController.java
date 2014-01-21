@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller(value = "contabilidadePlanoContaRefSpedListController")
 @Scope("prototype")
-public class PlanoContaRefSpedListController extends
-		CRUDListController<PlanoContaRefSpedEntity> {
+public class PlanoContaRefSpedListController extends CRUDListController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -44,13 +43,12 @@ public class PlanoContaRefSpedListController extends
 	private PlanoContaRefSpedFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "descricao", "orientacoes", "inicioValidade",
-				"fimValidade" };
+	public String[] getColunas() {
+		return new String[] { "descricao", "orientacoes", "inicioValidade", "fimValidade" };
 	}
 
 	@Override
-	protected Class<? super PlanoContaRefSpedEntity> getEntityClass() {
+	public Class<? super PlanoContaRefSpedEntity> getEntityClass() {
 		return PlanoContaRefSpedEntity.class;
 	}
 
@@ -62,8 +60,7 @@ public class PlanoContaRefSpedListController extends
 	@Override
 	protected List<PlanoContaRefSpedEntity> pesquisa(String valor) {
 		try {
-			List<PlanoContaRefSpedEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

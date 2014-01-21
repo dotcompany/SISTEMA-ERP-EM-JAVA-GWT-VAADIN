@@ -42,12 +42,12 @@ public class InssListController extends CRUDListController<InssEntity> {
 	private InssFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "competencia" };
 	}
 
 	@Override
-	protected Class<? super InssEntity> getEntityClass() {
+	public Class<? super InssEntity> getEntityClass() {
 		return InssEntity.class;
 	}
 

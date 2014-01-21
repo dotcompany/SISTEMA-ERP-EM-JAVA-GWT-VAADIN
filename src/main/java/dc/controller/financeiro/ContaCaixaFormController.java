@@ -110,19 +110,21 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected void initSubView() {
-		this.subView = new ContaCaixaFormView();
+		subView = new ContaCaixaFormView();
 
 		this.subView.InitCbs(getContaCaixaTipo());
 
-		  /*DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class, 
+		 /* DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class, 
 				  this.agenciaDAO, super.getMainController()) {
 			  @Override
 				public String getCaptionProperty() {
 					return "nome";
 				}
 			};
+			
+			subView.getCmbAgenciaBanco().setModel(model);
 		  
-		  DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		  DefaultManyToOneComboModel<ContabilConta> contaModel = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
 				  this.contabilDAO,super.getMainController()) {
 			  @Override
 				public String getCaptionProperty() {
@@ -130,8 +132,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 				}
 			};
 		  
-		  this.subView.getCmbAgenciaBanco().setModel(model);
-		  this.subView.getCmbContabilConta().setModel(model1);*/
+		  subView.getCmbContabilConta().setModel(contaModel);*/
 		  
 	}
 

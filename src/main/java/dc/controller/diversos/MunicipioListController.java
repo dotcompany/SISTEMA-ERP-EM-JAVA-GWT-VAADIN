@@ -32,8 +32,8 @@ public class MunicipioListController extends CRUDListController<Municipio> {
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "nome","codigoIbge","codigoReceitaFederal" };
+	public String[] getColunas() {
+		return new String[] { "nome", "codigoIbge", "codigoReceitaFederal" };
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class MunicipioListController extends CRUDListController<Municipio> {
 	}
 
 	@Override
-	protected Class<? super Municipio> getEntityClass() {
+	public Class<? super Municipio> getEntityClass() {
 		return Municipio.class;
 	}
 

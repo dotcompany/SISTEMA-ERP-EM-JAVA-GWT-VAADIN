@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreDetalheListController extends
-		CRUDListController<DreDetalheEntity> {
+public class DreDetalheListController extends CRUDListController<DreDetalheEntity> {
 
 	/**
 	 * 
@@ -44,13 +43,12 @@ public class DreDetalheListController extends
 	private DreDetalheFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "classificacao", "descricao", "formaCalculo",
-				"sinal" };
+	public String[] getColunas() {
+		return new String[] { "classificacao", "descricao", "formaCalculo", "sinal" };
 	}
 
 	@Override
-	protected Class<? super DreDetalheEntity> getEntityClass() {
+	public Class<? super DreDetalheEntity> getEntityClass() {
 		return DreDetalheEntity.class;
 	}
 
@@ -62,8 +60,7 @@ public class DreDetalheListController extends
 	@Override
 	protected List<DreDetalheEntity> pesquisa(String valor) {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<DreDetalheEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

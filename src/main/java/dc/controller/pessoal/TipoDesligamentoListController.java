@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.TipoDesligamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoDesligamentoListController extends CRUDListController<TipoDesligamento> {
@@ -28,8 +27,8 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"descricao"};
+	public String[] getColunas() {
+		return new String[] { "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	}
 
 	@Override
-	protected Class<? super TipoDesligamento> getEntityClass() {
+	public Class<? super TipoDesligamento> getEntityClass() {
 		return TipoDesligamento.class;
 	}
-	
 
 	@Override
 	protected List<TipoDesligamento> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	protected String getTitulo() {
 		return "Tipo Desligamento";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 		return false;
 	}
 
-	
 	@Override
 	protected List<TipoDesligamento> pesquisaDefault() {
 		return (List<TipoDesligamento>) dao.getAll(getEntityClass());

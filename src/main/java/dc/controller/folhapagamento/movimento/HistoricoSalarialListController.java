@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoSalarialListController extends
-		CRUDListController<HistoricoSalarialEntity> {
+public class HistoricoSalarialListController extends CRUDListController<HistoricoSalarialEntity> {
 
 	/**
 	 * 
@@ -43,13 +42,12 @@ public class HistoricoSalarialListController extends
 	private HistoricoSalarialFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "competencia", "salarioAtual",
-				"percentualAumento", "salarioNovo", "colaborador.matricula" };
+	public String[] getColunas() {
+		return new String[] { "competencia", "salarioAtual", "percentualAumento", "salarioNovo", "colaborador.matricula" };
 	}
 
 	@Override
-	protected Class<? super HistoricoSalarialEntity> getEntityClass() {
+	public Class<? super HistoricoSalarialEntity> getEntityClass() {
 		return HistoricoSalarialEntity.class;
 	}
 
@@ -61,8 +59,7 @@ public class HistoricoSalarialListController extends
 	@Override
 	protected List<HistoricoSalarialEntity> pesquisa(String valor) {
 		try {
-			List<HistoricoSalarialEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<HistoricoSalarialEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

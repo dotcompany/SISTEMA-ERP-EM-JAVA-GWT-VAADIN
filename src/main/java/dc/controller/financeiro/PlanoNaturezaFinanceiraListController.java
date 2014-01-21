@@ -12,19 +12,17 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão do CrudListController, tendo alguns métodos herdados,
- * como o pesquisar, e pegamos também algumas informações da classe FormController, herdando
- * algumas informações.
- * Temos a configuração das colunas.
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão do CrudListController,
+ *         tendo alguns métodos herdados, como o pesquisar, e pegamos também
+ *         algumas informações da classe FormController, herdando algumas
+ *         informações. Temos a configuração das colunas.
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class PlanoNaturezaFinanceiraListController extends CRUDListController<PlanoNaturezaFinanceira>{
+public class PlanoNaturezaFinanceiraListController extends CRUDListController<PlanoNaturezaFinanceira> {
 
 	/**
 	 * 
@@ -38,15 +36,14 @@ public class PlanoNaturezaFinanceiraListController extends CRUDListController<Pl
 	PlanoNaturezaFinanceiraFormController planoFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "mascara","niveis"};
+	public String[] getColunas() {
+		return new String[] { "nome", "mascara", "niveis" };
 	}
 
 	@Override
-	protected Class<? super PlanoNaturezaFinanceira> getEntityClass() {
+	public Class<? super PlanoNaturezaFinanceira> getEntityClass() {
 		return PlanoNaturezaFinanceira.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -63,8 +60,7 @@ public class PlanoNaturezaFinanceiraListController extends CRUDListController<Pl
 		return planoFormController;
 	}
 
-
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub

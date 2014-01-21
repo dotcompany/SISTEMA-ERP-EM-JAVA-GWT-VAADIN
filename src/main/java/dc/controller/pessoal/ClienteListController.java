@@ -27,8 +27,9 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"desde", "contaTomador","observacao","geraFinanceiro","indicadorPreco","tipoFrete","formaDesconto","porcentoDesconto","limiteCredito"};
+	public String[] getColunas() {
+		return new String[] { "desde", "contaTomador", "observacao", "geraFinanceiro", "indicadorPreco", "tipoFrete", "formaDesconto",
+				"porcentoDesconto", "limiteCredito" };
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	}
 
 	@Override
-	protected Class<? super Cliente> getEntityClass() {
+	public Class<? super Cliente> getEntityClass() {
 		return Cliente.class;
 	}
 
@@ -50,10 +51,11 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	protected String getTitulo() {
 		return "Cliente";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -61,12 +63,9 @@ public class ClienteListController extends CRUDListController<Cliente> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<Cliente> pesquisaDefault() {
 		return (List<Cliente>) dao.getAll(getEntityClass());
 	}
 
-	
-	
 }

@@ -42,12 +42,12 @@ public class ServicoListController extends CRUDListController<ServicoEntity> {
 	private ServicoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome" };
 	}
 
 	@Override
-	protected Class<? super ServicoEntity> getEntityClass() {
+	public Class<? super ServicoEntity> getEntityClass() {
 		return ServicoEntity.class;
 	}
 

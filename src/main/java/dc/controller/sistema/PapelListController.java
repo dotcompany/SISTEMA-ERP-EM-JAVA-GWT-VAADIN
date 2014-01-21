@@ -11,28 +11,25 @@ import dc.servicos.dao.sistema.PapelDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
-public class PapelListController extends CRUDListController<Papel>{
+public class PapelListController extends CRUDListController<Papel> {
 
 	@Autowired
 	PapelDAO dao;
-	
+
 	@Autowired
 	PapelFormController papelFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super Papel> getEntityClass() {
+	public Class<? super Papel> getEntityClass() {
 		return Papel.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -43,14 +40,13 @@ public class PapelListController extends CRUDListController<Papel>{
 	protected List<Papel> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Papel> getFormController() {
 		return papelFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -69,5 +65,4 @@ public class PapelListController extends CRUDListController<Papel>{
 		return (List<Papel>) dao.getAll(this.getEntityClass());
 	}
 
-	
 }

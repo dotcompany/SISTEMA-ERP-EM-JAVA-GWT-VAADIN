@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class MovimentacaoBemListController extends
-		CRUDListController<MovimentacaoBemEntity> {
+public class MovimentacaoBemListController extends CRUDListController<MovimentacaoBemEntity> {
 
 	/**
 	 * 
@@ -43,13 +42,12 @@ public class MovimentacaoBemListController extends
 	private MovimentacaoBemFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "responsavel", "bem", "tipoMovimentacao",
-				"dataMovimentacao" };
+	public String[] getColunas() {
+		return new String[] { "responsavel", "bem", "tipoMovimentacao", "dataMovimentacao" };
 	}
 
 	@Override
-	protected Class<? super MovimentacaoBemEntity> getEntityClass() {
+	public Class<? super MovimentacaoBemEntity> getEntityClass() {
 		return MovimentacaoBemEntity.class;
 	}
 
@@ -61,8 +59,7 @@ public class MovimentacaoBemListController extends
 	@Override
 	protected List<MovimentacaoBemEntity> pesquisa(String valor) {
 		try {
-			List<MovimentacaoBemEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<MovimentacaoBemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

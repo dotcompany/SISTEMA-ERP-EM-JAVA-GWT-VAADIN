@@ -14,8 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class ContratoTipoServicoListController extends
-		CRUDListController<ContratoTipoServico> {
+public class ContratoTipoServicoListController extends CRUDListController<ContratoTipoServico> {
 	@Autowired
 	ContratoTipoServicoDAO dao;
 
@@ -23,12 +22,12 @@ public class ContratoTipoServicoListController extends
 	ContratoTipoServicoFormController tipoContratoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super ContratoTipoServico> getEntityClass() {
+	public Class<? super ContratoTipoServico> getEntityClass() {
 		return ContratoTipoServico.class;
 	}
 

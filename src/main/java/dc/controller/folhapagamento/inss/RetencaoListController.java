@@ -41,13 +41,12 @@ public class RetencaoListController extends CRUDListController<RetencaoEntity> {
 	private RetencaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "inss.competencia", "servico.nome",
-				"valorMensal", "valor13" };
+	public String[] getColunas() {
+		return new String[] { "inss.competencia", "servico.nome", "valorMensal", "valor13" };
 	}
 
 	@Override
-	protected Class<? super RetencaoEntity> getEntityClass() {
+	public Class<? super RetencaoEntity> getEntityClass() {
 		return RetencaoEntity.class;
 	}
 

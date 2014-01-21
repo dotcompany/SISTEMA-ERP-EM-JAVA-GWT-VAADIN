@@ -13,7 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class StatusParcelaListController extends CRUDListController<StatusParcela>{
+public class StatusParcelaListController extends CRUDListController<StatusParcela> {
 
 	/**
 	 * 
@@ -22,21 +22,19 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 
 	@Autowired
 	private StatusParcelaDAO dao;
-	
+
 	@Autowired
 	private StatusParcelaFormController statusParcelaFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"situacao", "descricao", "procedimento"};
+	public String[] getColunas() {
+		return new String[] { "situacao", "descricao", "procedimento" };
 	}
 
 	@Override
-	protected Class<? super StatusParcela> getEntityClass() {
+	public Class<? super StatusParcela> getEntityClass() {
 		return StatusParcela.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -47,14 +45,13 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 	protected List<StatusParcela> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<StatusParcela> getFormController() {
 		return statusParcelaFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -73,4 +70,4 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 		return (List<StatusParcela>) dao.getAll(getEntityClass());
 	}
 
-}	
+}

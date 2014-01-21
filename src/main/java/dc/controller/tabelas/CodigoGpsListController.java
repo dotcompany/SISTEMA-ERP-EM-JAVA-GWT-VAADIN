@@ -32,12 +32,12 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps> {
 	private CodigoGpsFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super CodigoGps> getEntityClass() {
+	public Class<? super CodigoGps> getEntityClass() {
 		return CodigoGps.class;
 	}
 

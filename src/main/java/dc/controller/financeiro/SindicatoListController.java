@@ -12,37 +12,34 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class SindicatoListController extends CRUDListController<Sindicato>{
+public class SindicatoListController extends CRUDListController<Sindicato> {
 
 	@Autowired
 	SindicatoDAO dao;
-	
+
 	@Autowired
 	SindicatoFormController sindicatoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","logradouro"};
+	public String[] getColunas() {
+		return new String[] { "nome", "logradouro" };
 	}
 
 	@Override
-	protected Class<? super Sindicato> getEntityClass() {
+	public Class<? super Sindicato> getEntityClass() {
 		return Sindicato.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -53,14 +50,13 @@ public class SindicatoListController extends CRUDListController<Sindicato>{
 	protected List<Sindicato> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Sindicato> getFormController() {
 		return sindicatoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -80,4 +76,3 @@ public class SindicatoListController extends CRUDListController<Sindicato>{
 	}
 
 }
-

@@ -13,8 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class OperadoraPlanoSaudeListController extends
-		CRUDListController<OperadoraPlanoSaude> {
+public class OperadoraPlanoSaudeListController extends CRUDListController<OperadoraPlanoSaude> {
 
 	/**
 	 * 
@@ -33,7 +32,7 @@ public class OperadoraPlanoSaudeListController extends
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "registroAns", "nome" };
 	}
 
@@ -43,7 +42,7 @@ public class OperadoraPlanoSaudeListController extends
 	}
 
 	@Override
-	protected Class<? super OperadoraPlanoSaude> getEntityClass() {
+	public Class<? super OperadoraPlanoSaude> getEntityClass() {
 		return OperadoraPlanoSaude.class;
 	}
 

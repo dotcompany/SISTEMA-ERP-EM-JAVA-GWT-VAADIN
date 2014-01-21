@@ -27,13 +27,13 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	private ContabilContaFormController contabilContaFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "classificacao", "tipo", "descricao", "dataInclusao", "situacao", "natureza", "patrimonioResultado", "livroCaixa",
 				"dfc", "ordem", "codigoReduzido", "codigoEfd" };
 	}
 
 	@Override
-	protected Class<? super ContabilConta> getEntityClass() {
+	public Class<? super ContabilConta> getEntityClass() {
 		return ContabilConta.class;
 	}
 

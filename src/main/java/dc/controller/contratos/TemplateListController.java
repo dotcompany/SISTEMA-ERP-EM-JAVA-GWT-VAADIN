@@ -14,24 +14,22 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class TemplateListController extends CRUDListController<Template>{
+public class TemplateListController extends CRUDListController<Template> {
 	@Autowired
 	TemplateDAO dao;
-	
+
 	@Autowired
 	TemplateFormController templateFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super Template > getEntityClass() {
+	public Class<? super Template> getEntityClass() {
 		return Template.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -42,14 +40,13 @@ public class TemplateListController extends CRUDListController<Template>{
 	protected List<Template> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Template> getFormController() {
 		return templateFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaTemplate";
@@ -59,11 +56,10 @@ public class TemplateListController extends CRUDListController<Template>{
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-	
+
 	@Override
 	protected List<Template> pesquisaDefault() {
 		return (List<Template>) dao.getAll(getEntityClass());
 	}
-	
 
 }

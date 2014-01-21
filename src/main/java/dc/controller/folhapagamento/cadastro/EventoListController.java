@@ -42,12 +42,12 @@ public class EventoListController extends CRUDListController<EventoEntity> {
 	private EventoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "codigo", "tipo", "unidade", "taxa" };
 	}
 
 	@Override
-	protected Class<? super EventoEntity> getEntityClass() {
+	public Class<? super EventoEntity> getEntityClass() {
 		return EventoEntity.class;
 	}
 

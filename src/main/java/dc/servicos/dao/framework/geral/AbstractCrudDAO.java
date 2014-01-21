@@ -159,7 +159,10 @@ public abstract class AbstractCrudDAO<T> {
 	public <T> void saveOrUpdate(final T o) {
 		if (o instanceof AbstractMultiEmpresaModel) {
 			AbstractMultiEmpresaModel a = (AbstractMultiEmpresaModel) o;
-			a.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+
+			if (a.getEmpresa() == null) {
+				a.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+			}
 		}
 
 		sessionFactory.getCurrentSession().saveOrUpdate(o);

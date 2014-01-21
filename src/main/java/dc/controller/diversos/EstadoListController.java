@@ -37,12 +37,12 @@ public class EstadoListController extends CRUDListController<Estado> {
 	private EstadoFormController estadoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "sigla" };
 	}
 
 	@Override
-	protected Class<? super Estado> getEntityClass() {
+	public Class<? super Estado> getEntityClass() {
 		return Estado.class;
 	}
 

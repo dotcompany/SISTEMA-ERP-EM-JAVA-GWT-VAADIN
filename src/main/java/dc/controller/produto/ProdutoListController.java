@@ -33,7 +33,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "gtin", "codigoInterno", "nome", "descricao", "descricaoPdv" };
 	}
 
@@ -43,7 +43,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 	}
 
 	@Override
-	protected Class<? super Produto> getEntityClass() {
+	public Class<? super Produto> getEntityClass() {
 		return Produto.class;
 	}
 

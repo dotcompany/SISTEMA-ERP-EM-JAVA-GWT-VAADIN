@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.TransportadoraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class TransportadoraListController extends CRUDListController<Transportadora> {
@@ -28,8 +27,8 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"observacao"};
+	public String[] getColunas() {
+		return new String[] { "observacao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	}
 
 	@Override
-	protected Class<? super Transportadora> getEntityClass() {
+	public Class<? super Transportadora> getEntityClass() {
 		return Transportadora.class;
 	}
-	
 
 	@Override
 	protected List<Transportadora> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	protected String getTitulo() {
 		return "Transportadora";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class TransportadoraListController extends CRUDListController<Transportad
 		return false;
 	}
 
-	
 	@Override
 	protected List<Transportadora> pesquisaDefault() {
 		return (List<Transportadora>) dao.getAll(getEntityClass());

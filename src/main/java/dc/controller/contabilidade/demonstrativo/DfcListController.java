@@ -43,12 +43,12 @@ public class DfcListController extends CRUDListController<DfcEntity> {
 	private DfcFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "" };
 	}
 
 	@Override
-	protected Class<? super DfcEntity> getEntityClass() {
+	public Class<? super DfcEntity> getEntityClass() {
 		return DfcEntity.class;
 	}
 

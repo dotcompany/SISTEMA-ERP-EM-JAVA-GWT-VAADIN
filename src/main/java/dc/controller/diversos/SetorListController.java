@@ -32,7 +32,7 @@ public class SetorListController extends CRUDListController<Setor> {
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "descricao" };
 	}
 
@@ -42,7 +42,7 @@ public class SetorListController extends CRUDListController<Setor> {
 	}
 
 	@Override
-	protected Class<? super Setor> getEntityClass() {
+	public Class<? super Setor> getEntityClass() {
 		return Setor.class;
 	}
 

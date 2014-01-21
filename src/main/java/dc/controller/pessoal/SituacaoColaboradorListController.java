@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.SituacaoColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class SituacaoColaboradorListController extends CRUDListController<SituacaoColaborador> {
@@ -28,8 +27,8 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"codigo", "nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	}
 
 	@Override
-	protected Class<? super SituacaoColaborador> getEntityClass() {
+	public Class<? super SituacaoColaborador> getEntityClass() {
 		return SituacaoColaborador.class;
 	}
-	
 
 	@Override
 	protected List<SituacaoColaborador> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	protected String getTitulo() {
 		return "Situação Colaborador";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 		return false;
 	}
 
-	
 	@Override
 	protected List<SituacaoColaborador> pesquisaDefault() {
 		return (List<SituacaoColaborador>) dao.getAll(getEntityClass());

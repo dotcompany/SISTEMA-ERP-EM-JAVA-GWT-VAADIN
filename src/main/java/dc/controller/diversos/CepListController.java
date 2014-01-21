@@ -37,12 +37,12 @@ public class CepListController extends CRUDListController<Cep> {
 	CepFormController cepFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "cep", "logradouro" };
 	}
 
 	@Override
-	protected Class<? super Cep> getEntityClass() {
+	public Class<? super Cep> getEntityClass() {
 		return Cep.class;
 	}
 

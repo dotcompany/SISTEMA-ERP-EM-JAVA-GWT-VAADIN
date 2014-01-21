@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PlanoSaudeListController extends
-		CRUDListController<PlanoSaudeEntity> {
+public class PlanoSaudeListController extends CRUDListController<PlanoSaudeEntity> {
 
 	/**
 	 * 
@@ -43,13 +42,12 @@ public class PlanoSaudeListController extends
 	private PlanoSaudeFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "colaborador.matricula", "beneficiario",
-				"dataInicio" };
+	public String[] getColunas() {
+		return new String[] { "colaborador.matricula", "beneficiario", "dataInicio" };
 	}
 
 	@Override
-	protected Class<? super PlanoSaudeEntity> getEntityClass() {
+	public Class<? super PlanoSaudeEntity> getEntityClass() {
 		return PlanoSaudeEntity.class;
 	}
 
@@ -61,8 +59,7 @@ public class PlanoSaudeListController extends
 	@Override
 	protected List<PlanoSaudeEntity> pesquisa(String valor) {
 		try {
-			List<PlanoSaudeEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<PlanoSaudeEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

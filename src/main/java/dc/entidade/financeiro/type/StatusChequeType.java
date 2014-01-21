@@ -12,7 +12,7 @@ public enum StatusChequeType {
 		switch (this) {
 		case EMSER: return "Em ser";
 		case BAIXADO: return "Baixado";
-		case UTILIZADO: return "Utilziado";
+		case UTILIZADO: return "Utilizado";
 		case COMPENSADO: return "Compensado";
 		case CANCELADO: return "Cancelado";
 		}

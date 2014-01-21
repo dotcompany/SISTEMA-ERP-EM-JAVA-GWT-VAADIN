@@ -38,13 +38,12 @@ public class PaisListController extends CRUDListController<Pais> {
 	private PaisFormController paisFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2",
-				"sigla3" };
+	public String[] getColunas() {
+		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2", "sigla3" };
 	}
 
 	@Override
-	protected Class<? super Pais> getEntityClass() {
+	public Class<? super Pais> getEntityClass() {
 		return Pais.class;
 	}
 

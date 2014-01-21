@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoAquisicaoListController extends
-		CRUDListController<TipoAquisicaoEntity> {
+public class TipoAquisicaoListController extends CRUDListController<TipoAquisicaoEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class TipoAquisicaoListController extends
 	private TipoAquisicaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "tipo", "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoAquisicaoEntity> getEntityClass() {
+	public Class<? super TipoAquisicaoEntity> getEntityClass() {
 		return TipoAquisicaoEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class TipoAquisicaoListController extends
 	@Override
 	protected List<TipoAquisicaoEntity> pesquisa(String valor) {
 		try {
-			List<TipoAquisicaoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<TipoAquisicaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

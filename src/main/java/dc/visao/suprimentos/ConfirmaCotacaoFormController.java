@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.geral.FornecedorListController;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.suprimentos.Cotacao;
 import dc.entidade.suprimentos.CotacaoDetalhe;
@@ -18,6 +19,7 @@ import dc.entidade.suprimentos.RequisicaoDetalhe;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.suprimentos.CotacaoDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 
@@ -100,6 +102,16 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 	@Override
 	protected void initSubView() {
 		subView = new ConfirmaCotacaoFormView();
+		
+		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class, this.fornecedorDao,
+				super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "pessoa";
+			}
+		};
+		
+		//subView.getCmbFornecedor().setModel(fornecedorModel);
 	}
 
 	@Override

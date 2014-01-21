@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class AtividadeForCliListController extends CRUDListController<AtividadeForCli> {
@@ -28,8 +27,8 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	}
 
 	@Override
-	protected Class<? super AtividadeForCli> getEntityClass() {
+	public Class<? super AtividadeForCli> getEntityClass() {
 		return AtividadeForCli.class;
 	}
-	
 
 	@Override
 	protected List<AtividadeForCli> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	protected String getTitulo() {
 		return "Atividade Cliente/Fornecedor";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 		return false;
 	}
 
-	
 	@Override
 	protected List<AtividadeForCli> pesquisaDefault() {
 		return (List<AtividadeForCli>) dao.getAll(getEntityClass());

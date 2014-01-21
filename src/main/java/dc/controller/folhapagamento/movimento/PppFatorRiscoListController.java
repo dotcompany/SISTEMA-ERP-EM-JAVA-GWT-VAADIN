@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PppFatorRiscoListController extends
-		CRUDListController<PppFatorRiscoEntity> {
+public class PppFatorRiscoListController extends CRUDListController<PppFatorRiscoEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class PppFatorRiscoListController extends
 	private PppFatorRiscoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataInicio", "dataTermino", "tipo" };
 	}
 
 	@Override
-	protected Class<? super PppFatorRiscoEntity> getEntityClass() {
+	public Class<? super PppFatorRiscoEntity> getEntityClass() {
 		return PppFatorRiscoEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class PppFatorRiscoListController extends
 	@Override
 	protected List<PppFatorRiscoEntity> pesquisa(String valor) {
 		try {
-			List<PppFatorRiscoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<PppFatorRiscoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

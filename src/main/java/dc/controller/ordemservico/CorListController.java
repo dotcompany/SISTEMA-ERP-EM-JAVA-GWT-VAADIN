@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.CorFormController;
 import dc.entidade.ordemservico.Cor;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,14 +19,13 @@ public class CorListController extends CRUDListController<Cor> {
 
 	@Autowired
 	CorDAO dao;
-	
+
 	@Autowired
 	CorFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome"};
+	public String[] getColunas() {
+		return new String[] { "nome" };
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class CorListController extends CRUDListController<Cor> {
 	protected List<Cor> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaCor";
@@ -51,7 +49,7 @@ public class CorListController extends CRUDListController<Cor> {
 	}
 
 	@Override
-	protected Class<? super Cor> getEntityClass() {
+	public Class<? super Cor> getEntityClass() {
 		return Cor.class;
 	}
 

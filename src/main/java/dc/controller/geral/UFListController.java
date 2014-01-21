@@ -11,33 +11,30 @@ import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 /**
-*
-* @author Wesley Jr
-* **/
+ * 
+ * @author Wesley Jr
+ * **/
 
 @Controller
 @Scope("prototype")
-public class UFListController extends CRUDListController<UF>{
+public class UFListController extends CRUDListController<UF> {
 
 	@Autowired
 	private UFDAO dao;
-	
+
 	@Autowired
 	private UFFormController ufFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","sigla"};
+	public String[] getColunas() {
+		return new String[] { "nome", "sigla" };
 	}
 
 	@Override
-	protected Class<? super UF> getEntityClass() {
+	public Class<? super UF> getEntityClass() {
 		return UF.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -48,14 +45,13 @@ public class UFListController extends CRUDListController<UF>{
 	protected List<UF> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<UF> getFormController() {
 		return ufFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaUF";
@@ -70,6 +66,5 @@ public class UFListController extends CRUDListController<UF>{
 	protected List<UF> pesquisaDefault() {
 		return (List<UF>) dao.getAll(getEntityClass());
 	}
-
 
 }

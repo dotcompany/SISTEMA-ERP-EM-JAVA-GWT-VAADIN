@@ -14,23 +14,22 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class ContratoSolicitacaoServicoListController extends CRUDListController<ContratoSolicitacaoServico>{
+public class ContratoSolicitacaoServicoListController extends CRUDListController<ContratoSolicitacaoServico> {
 	@Autowired
 	ContratoSolicitacaoServicoDAO dao;
-	
+
 	@Autowired
 	ContratoSolicitacaoServicoFormController contratoSolicitacaoFormController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"fornecedor", "cliente", "setor", "colaborador", "contratoTipoServico"};
+	public String[] getColunas() {
+		return new String[] { "fornecedor", "cliente", "setor", "colaborador", "contratoTipoServico" };
 	}
 
 	@Override
-	protected Class<? super ContratoSolicitacaoServico > getEntityClass() {
+	public Class<? super ContratoSolicitacaoServico> getEntityClass() {
 		return ContratoSolicitacaoServico.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -41,15 +40,13 @@ public class ContratoSolicitacaoServicoListController extends CRUDListController
 	protected List<ContratoSolicitacaoServico> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
-	
 
 	@Override
 	protected CRUDFormController<ContratoSolicitacaoServico> getFormController() {
 		return contratoSolicitacaoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaContratoSolicitacaoServico";
@@ -57,14 +54,13 @@ public class ContratoSolicitacaoServicoListController extends CRUDListController
 
 	@Override
 	protected boolean deletaEmCascata() {
-	
+
 		return false;
 	}
-	
+
 	@Override
 	protected List<ContratoSolicitacaoServico> pesquisaDefault() {
 		return (List<ContratoSolicitacaoServico>) dao.getAll(getEntityClass());
 	}
-	
 
 }

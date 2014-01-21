@@ -98,9 +98,6 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	protected void initSubView() {
 		try {
 		subView = new EstadoFormView();
-		// DefaultManyToOneComboModel<Pais> modelpais= new
-		// DefaultManyToOneComboModel(PaisListController . class , paisDAO ,
-		// mainController);
 
 		DefaultManyToOneComboModel<Pais> paisModel = new DefaultManyToOneComboModel<Pais>(
 				PaisListController.class,this.paisDAO, super.getMainController()) {

@@ -38,12 +38,12 @@ public class OperadoraCartaoListController extends CRUDListController<OperadoraC
 	private OperadoraCartaoFormController operadoraFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "bandeira" };
 	}
 
 	@Override
-	protected Class<? super OperadoraCartao> getEntityClass() {
+	public Class<? super OperadoraCartao> getEntityClass() {
 		return OperadoraCartao.class;
 	}
 

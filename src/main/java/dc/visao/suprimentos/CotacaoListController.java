@@ -17,14 +17,13 @@ public class CotacaoListController extends CRUDListController<Cotacao> {
 
 	@Autowired
 	CotacaoDAO dao;
-	
+
 	@Autowired
 	CotacaoFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"id", "dataCotacao", "descricao", "situacao"};
+	public String[] getColunas() {
+		return new String[] { "id", "dataCotacao", "descricao", "situacao" };
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class CotacaoListController extends CRUDListController<Cotacao> {
 	protected List<Cotacao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaCotacao";
@@ -48,7 +47,7 @@ public class CotacaoListController extends CRUDListController<Cotacao> {
 	}
 
 	@Override
-	protected Class<? super Cotacao> getEntityClass() {
+	public Class<? super Cotacao> getEntityClass() {
 		return Cotacao.class;
 	}
 

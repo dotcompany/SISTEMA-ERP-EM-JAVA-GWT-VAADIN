@@ -27,13 +27,13 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 	private ParcelaRecebimentoFormController parcelaRecebimentoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "valor", "valorFaltante", "taxaJuro",
 				"valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto", "emitiuBoleto", "boletoNossoNumero" };
 	}
 
 	@Override
-	protected Class<? super ParcelaReceber> getEntityClass() {
+	public Class<? super ParcelaReceber> getEntityClass() {
 		return ParcelaReceber.class;
 	}
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import dc.entidade.suprimentos.PedidoCompra;
 import dc.servicos.dao.suprimentos.PedidoCompraDAO;
-import dc.visao.framework.component.ReportController;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,14 +20,14 @@ public class PedidoCompraListController extends CRUDListController<PedidoCompra>
 
 	@Autowired
 	PedidoCompraFormController formController;
-	
-	/*@Override
-	protected void initReports() {
-		addReport(new ReportController());
-	}*/
+
+	/*
+	 * @Override protected void initReports() { addReport(new
+	 * ReportController()); }
+	 */
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "id", "dataPedido", "tipoPedido.descricao", "fornecedor.pessoa.nome", "contato" };
 	}
 
@@ -53,7 +52,7 @@ public class PedidoCompraListController extends CRUDListController<PedidoCompra>
 	}
 
 	@Override
-	protected Class<? super PedidoCompra> getEntityClass() {
+	public Class<? super PedidoCompra> getEntityClass() {
 		return PedidoCompra.class;
 	}
 

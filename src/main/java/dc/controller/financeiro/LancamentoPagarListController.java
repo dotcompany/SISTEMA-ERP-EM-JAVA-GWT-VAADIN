@@ -10,7 +10,7 @@ import dc.entidade.financeiro.LancamentoPagar;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
- 
+
 @Controller
 @Scope("prototype")
 public class LancamentoPagarListController extends CRUDListController<LancamentoPagar> {
@@ -27,13 +27,13 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	private LancamentoPagarFormController lancamentoPagarFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "pagamentoCompartilhado", "valorTotal", "valorAPagar", "dataLancamento", "imagemDocumento", "documentoOrigem",
 				"fornecedor" };
 	}
 
 	@Override
-	protected Class<? super LancamentoPagar> getEntityClass() {
+	public Class<? super LancamentoPagar> getEntityClass() {
 		return LancamentoPagar.class;
 	}
 

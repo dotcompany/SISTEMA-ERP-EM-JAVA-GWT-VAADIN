@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ValeTransporteListController extends
-		CRUDListController<ValeTransporteEntity> {
+public class ValeTransporteListController extends CRUDListController<ValeTransporteEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class ValeTransporteListController extends
 	private ValeTransporteFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "quantidade", "colaborador.matricula" };
 	}
 
 	@Override
-	protected Class<? super ValeTransporteEntity> getEntityClass() {
+	public Class<? super ValeTransporteEntity> getEntityClass() {
 		return ValeTransporteEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class ValeTransporteListController extends
 	@Override
 	protected List<ValeTransporteEntity> pesquisa(String valor) {
 		try {
-			List<ValeTransporteEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<ValeTransporteEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

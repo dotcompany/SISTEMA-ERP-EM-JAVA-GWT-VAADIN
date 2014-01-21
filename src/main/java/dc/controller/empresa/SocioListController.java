@@ -2,13 +2,12 @@ package dc.controller.empresa;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
-import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class SocioListController extends CRUDListController<Socio>
-{
+public class SocioListController extends CRUDListController<Socio> {
 
 	@Autowired
 	SocioDAO dao;
@@ -26,8 +24,8 @@ public class SocioListController extends CRUDListController<Socio>
 	SocioFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"pessoa"};
+	public String[] getColunas() {
+		return new String[] { "pessoa" };
 	}
 
 	@Override
@@ -51,7 +49,7 @@ public class SocioListController extends CRUDListController<Socio>
 	}
 
 	@Override
-	protected Class<? super Socio> getEntityClass() {
+	public Class<? super Socio> getEntityClass() {
 		return Socio.class;
 	}
 

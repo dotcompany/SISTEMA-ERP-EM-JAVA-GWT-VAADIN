@@ -13,24 +13,23 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class ParametroClienteListController extends CRUDListController<ParametroCliente>{
-	
+public class ParametroClienteListController extends CRUDListController<ParametroCliente> {
+
 	@Autowired
 	ParametroClienteDAO dao;
-	
+
 	@Autowired
 	ParametroClienteFormController parametroClienteFormController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"empresa"};
+	public String[] getColunas() {
+		return new String[] { "empresa" };
 	}
 
 	@Override
-	protected Class<? super ParametroCliente> getEntityClass() {
+	public Class<? super ParametroCliente> getEntityClass() {
 		return ParametroCliente.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -41,14 +40,13 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 	protected List<ParametroCliente> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<ParametroCliente> getFormController() {
 		return parametroClienteFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaParametroCliente";
@@ -58,11 +56,10 @@ public class ParametroClienteListController extends CRUDListController<Parametro
 	protected boolean deletaEmCascata() {
 		return true;
 	}
-	
+
 	@Override
 	protected List<ParametroCliente> pesquisaDefault() {
 		return (List<ParametroCliente>) dao.getAll(getEntityClass());
 	}
-
 
 }

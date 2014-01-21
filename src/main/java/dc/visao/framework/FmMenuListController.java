@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.framework.Empresa;
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -22,21 +20,19 @@ public class FmMenuListController extends CRUDListController<FmMenu> implements 
 
 	@Autowired
 	FmMenuDAO dao;
-	
+
 	@Autowired
 	FmMenuFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"caption", "urlId"};
+	public String[] getColunas() {
+		return new String[] { "caption", "urlId" };
 	}
 
 	@Override
-	protected Class<? super FmMenu> getEntityClass() {
+	public Class<? super FmMenu> getEntityClass() {
 		return FmMenu.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -47,14 +43,13 @@ public class FmMenuListController extends CRUDListController<FmMenu> implements 
 	protected List<FmMenu> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<FmMenu> getFormController() {
 		return formController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -67,11 +62,10 @@ public class FmMenuListController extends CRUDListController<FmMenu> implements 
 		return true;
 	}
 
-
 	@Override
 	protected List<FmMenu> pesquisaDefault() {
 		// TODO Auto-generated method stub
 		return (List<FmMenu>) dao.getAll(getEntityClass());
 	}
-	
+
 }

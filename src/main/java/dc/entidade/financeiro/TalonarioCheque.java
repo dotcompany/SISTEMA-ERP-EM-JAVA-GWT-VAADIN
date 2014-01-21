@@ -25,7 +25,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 /**
  * 
@@ -79,6 +78,7 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	@ManyToOne(optional = false)
 	private Empresa empresa;*/
 
+	@Caption(value = "Conta Caixa")
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContaCaixa contaCaixa;

@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PppExameMedicoListController extends
-		CRUDListController<PppExameMedicoEntity> {
+public class PppExameMedicoListController extends CRUDListController<PppExameMedicoEntity> {
 
 	/**
 	 * 
@@ -43,13 +42,12 @@ public class PppExameMedicoListController extends
 	private PppExameMedicoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "dataUltimo", "tipo", "natureza",
-				"ppp.observacao" };
+	public String[] getColunas() {
+		return new String[] { "dataUltimo", "tipo", "natureza", "ppp.observacao" };
 	}
 
 	@Override
-	protected Class<? super PppExameMedicoEntity> getEntityClass() {
+	public Class<? super PppExameMedicoEntity> getEntityClass() {
 		return PppExameMedicoEntity.class;
 	}
 
@@ -61,8 +59,7 @@ public class PppExameMedicoListController extends
 	@Override
 	protected List<PppExameMedicoEntity> pesquisa(String valor) {
 		try {
-			List<PppExameMedicoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<PppExameMedicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

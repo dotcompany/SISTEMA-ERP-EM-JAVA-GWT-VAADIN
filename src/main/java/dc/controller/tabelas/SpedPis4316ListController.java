@@ -32,13 +32,12 @@ public class SpedPis4316ListController extends CRUDListController<SpedPis4316> {
 	SpedPis4316FormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "codigo", "descricao", "observacao",
-				"inicioVigencia", "fimVigencia" };
+	public String[] getColunas() {
+		return new String[] { "codigo", "descricao", "observacao", "inicioVigencia", "fimVigencia" };
 	}
 
 	@Override
-	protected Class<? super SpedPis4316> getEntityClass() {
+	public Class<? super SpedPis4316> getEntityClass() {
 		return SpedPis4316.class;
 	}
 

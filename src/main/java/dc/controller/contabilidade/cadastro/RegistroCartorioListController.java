@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class RegistroCartorioListController extends
-		CRUDListController<RegistroCartorioEntity> {
+public class RegistroCartorioListController extends CRUDListController<RegistroCartorioEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class RegistroCartorioListController extends
 	private RegistroCartorioFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nomeCartorio", "dataRegistro", "nire" };
 	}
 
 	@Override
-	protected Class<? super RegistroCartorioEntity> getEntityClass() {
+	public Class<? super RegistroCartorioEntity> getEntityClass() {
 		return RegistroCartorioEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class RegistroCartorioListController extends
 	@Override
 	protected List<RegistroCartorioEntity> pesquisa(String valor) {
 		try {
-			List<RegistroCartorioEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<RegistroCartorioEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

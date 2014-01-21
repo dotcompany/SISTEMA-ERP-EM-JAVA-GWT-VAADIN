@@ -32,8 +32,8 @@ public class DocumentoListController extends CRUDListController<Documento> {
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"nome", "descricao", "palavraChave", "podeExcluir", "podeAlterar", "dataFimVigencia"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao", "palavraChave", "podeExcluir", "podeAlterar", "dataFimVigencia" };
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class DocumentoListController extends CRUDListController<Documento> {
 	}
 
 	@Override
-	protected Class<? super Documento> getEntityClass() {
+	public Class<? super Documento> getEntityClass() {
 		return Documento.class;
 	}
 
@@ -55,10 +55,11 @@ public class DocumentoListController extends CRUDListController<Documento> {
 	protected String getTitulo() {
 		return "Documento";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -67,16 +68,10 @@ public class DocumentoListController extends CRUDListController<Documento> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<Documento> pesquisaDefault() {
 		// TODO Auto-generated method stub
 		return (List<Documento>) dao.getAll(getEntityClass());
 	}
 
-	
-	
 }
-	
-	
-

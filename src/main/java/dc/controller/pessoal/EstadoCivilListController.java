@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
@@ -28,8 +27,8 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	}
 
 	@Override
-	protected Class<? super EstadoCivil> getEntityClass() {
+	public Class<? super EstadoCivil> getEntityClass() {
 		return EstadoCivil.class;
 	}
-	
 
 	@Override
 	protected List<EstadoCivil> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	protected String getTitulo() {
 		return "Estado Civil";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 		return false;
 	}
 
-	
 	@Override
 	protected List<EstadoCivil> pesquisaDefault() {
 		return (List<EstadoCivil>) dao.getAll(getEntityClass());

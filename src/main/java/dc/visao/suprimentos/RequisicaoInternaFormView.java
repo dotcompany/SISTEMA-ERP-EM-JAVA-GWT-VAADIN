@@ -18,7 +18,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.RequisicaoInternaFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.PedidoDetalhe;
 import dc.entidade.suprimentos.RequisicaoInterna;
 import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
 import dc.visao.framework.component.SubFormComponent;
@@ -182,7 +181,4 @@ public class RequisicaoInternaFormView extends CustomComponent {
 		this.requisicaoDetalheSubForm = requisicaoDetalheSubForm;
 	}
 	
-	
-
-
 }

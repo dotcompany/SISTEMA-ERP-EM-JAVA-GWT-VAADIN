@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.TipoAdmissaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao> {
@@ -28,8 +27,8 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"codigo", "nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	}
 
 	@Override
-	protected Class<? super TipoAdmissao> getEntityClass() {
+	public Class<? super TipoAdmissao> getEntityClass() {
 		return TipoAdmissao.class;
 	}
-	
 
 	@Override
 	protected List<TipoAdmissao> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	protected String getTitulo() {
 		return "Tipo Admissão";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 		return false;
 	}
 
-	
 	@Override
 	protected List<TipoAdmissao> pesquisaDefault() {
 		return (List<TipoAdmissao>) dao.getAll(getEntityClass());

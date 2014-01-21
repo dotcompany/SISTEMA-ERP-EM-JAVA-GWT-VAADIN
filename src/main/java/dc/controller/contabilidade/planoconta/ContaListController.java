@@ -43,12 +43,12 @@ public class ContaListController extends CRUDListController<ContaEntity> {
 	private ContaFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "classificacao", "tipo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super ContaEntity> getEntityClass() {
+	public Class<? super ContaEntity> getEntityClass() {
 		return ContaEntity.class;
 	}
 

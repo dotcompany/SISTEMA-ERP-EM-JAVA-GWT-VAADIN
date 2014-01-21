@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SituacaoDocumentoListController extends
-		CRUDListController<SituacaoDocumento> {
+public class SituacaoDocumentoListController extends CRUDListController<SituacaoDocumento> {
 
 	/**
 	 * 
@@ -33,12 +32,12 @@ public class SituacaoDocumentoListController extends
 	SituacaoDocumentoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super SituacaoDocumento> getEntityClass() {
+	public Class<? super SituacaoDocumento> getEntityClass() {
 		return SituacaoDocumento.class;
 	}
 

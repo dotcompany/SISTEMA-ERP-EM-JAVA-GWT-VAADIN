@@ -17,14 +17,13 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 
 	@Autowired
 	RequisicaoDAO dao;
-	
+
 	@Autowired
 	RequisicaoCompraFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"id", "dataRequisicao", "colaborador.pessoa.nome", "tipoRequisicao.descricao"};
+	public String[] getColunas() {
+		return new String[] { "id", "dataRequisicao", "colaborador.pessoa.nome", "tipoRequisicao.descricao" };
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 	protected List<Requisicao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaRequisicaoCompra";
@@ -48,7 +47,7 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 	}
 
 	@Override
-	protected Class<? super Requisicao> getEntityClass() {
+	public Class<? super Requisicao> getEntityClass() {
 		return Requisicao.class;
 	}
 

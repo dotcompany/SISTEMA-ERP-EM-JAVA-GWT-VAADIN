@@ -36,12 +36,12 @@ public class EmpresaListController extends CRUDListController<Empresa> {
 	private EmpresaFormController empresaFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nomeFantasia", "razaoSocial" };
 	}
 
 	@Override
-	protected Class<? super Empresa> getEntityClass() {
+	public Class<? super Empresa> getEntityClass() {
 		return Empresa.class;
 	}
 
@@ -76,8 +76,7 @@ public class EmpresaListController extends CRUDListController<Empresa> {
 	@Override
 	protected List<Empresa> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		List<Empresa> auxLista = (List<Empresa>) this.dao
-				.getAll(getEntityClass());
+		List<Empresa> auxLista = (List<Empresa>) this.dao.getAll(getEntityClass());
 
 		return (List<Empresa>) this.dao.getAll(getEntityClass());
 	}

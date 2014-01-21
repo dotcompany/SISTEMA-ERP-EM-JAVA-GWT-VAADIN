@@ -11,33 +11,30 @@ import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 /**
-*
-* @author Wesley Jr
-* **/
+ * 
+ * @author Wesley Jr
+ * **/
 
 @Controller
 @Scope("prototype")
-public class CidadeListController extends CRUDListController<Cidade>{
+public class CidadeListController extends CRUDListController<Cidade> {
 
 	@Autowired
 	CidadeDAO dao;
-	
+
 	@Autowired
 	CidadeFormController cidadeFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome"};
+	public String[] getColunas() {
+		return new String[] { "nome" };
 	}
 
 	@Override
-	protected Class<? super Cidade> getEntityClass() {
+	public Class<? super Cidade> getEntityClass() {
 		return Cidade.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -48,14 +45,13 @@ public class CidadeListController extends CRUDListController<Cidade>{
 	protected List<Cidade> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Cidade> getFormController() {
 		return cidadeFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -73,6 +69,5 @@ public class CidadeListController extends CRUDListController<Cidade>{
 		// TODO Auto-generated method stub
 		return (List<Cidade>) dao.getAll(getEntityClass());
 	}
-
 
 }

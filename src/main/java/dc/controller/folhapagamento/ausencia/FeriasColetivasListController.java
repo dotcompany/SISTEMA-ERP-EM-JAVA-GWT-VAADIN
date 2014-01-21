@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FeriasColetivasListController extends
-		CRUDListController<FeriasColetivasEntity> {
+public class FeriasColetivasListController extends CRUDListController<FeriasColetivasEntity> {
 
 	/**
 	 * 
@@ -42,12 +41,12 @@ public class FeriasColetivasListController extends
 	private FeriasColetivasFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataInicio", "dataFim", "dataPagamento" };
 	}
 
 	@Override
-	protected Class<? super FeriasColetivasEntity> getEntityClass() {
+	public Class<? super FeriasColetivasEntity> getEntityClass() {
 		return FeriasColetivasEntity.class;
 	}
 
@@ -58,8 +57,7 @@ public class FeriasColetivasListController extends
 
 	@Override
 	protected List<FeriasColetivasEntity> pesquisa(String valor) {
-		List<FeriasColetivasEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		List<FeriasColetivasEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 		return auxLista;
 	}

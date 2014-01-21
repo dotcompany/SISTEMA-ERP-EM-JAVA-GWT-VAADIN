@@ -33,7 +33,7 @@ public class NCMListController extends CRUDListController<NCM> {
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome" };
 	}
 
@@ -43,7 +43,7 @@ public class NCMListController extends CRUDListController<NCM> {
 	}
 
 	@Override
-	protected Class<? super NCM> getEntityClass() {
+	public Class<? super NCM> getEntityClass() {
 		return NCM.class;
 	}
 

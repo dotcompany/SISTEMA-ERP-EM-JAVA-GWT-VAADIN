@@ -19,7 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class FeriadosListController extends	CRUDListController<Feriados> {
+public class FeriadosListController extends CRUDListController<Feriados> {
 
 	/**
 	 * 
@@ -33,12 +33,12 @@ public class FeriadosListController extends	CRUDListController<Feriados> {
 	private FeriadosFormController feriadosFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "ano", "nome" };
 	}
 
 	@Override
-	protected Class<? super Feriados> getEntityClass() {
+	public Class<? super Feriados> getEntityClass() {
 		return Feriados.class;
 	}
 

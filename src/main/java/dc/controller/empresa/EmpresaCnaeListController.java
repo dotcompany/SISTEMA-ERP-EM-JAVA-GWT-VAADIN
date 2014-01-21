@@ -2,22 +2,20 @@ package dc.controller.empresa;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.empresa.EmpresaCnae;
-import dc.entidade.empresa.QuadroSocietario;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
-import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae>
-{
+public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae> {
 
 	@Autowired
 	EmpresaCnaeDAO dao;
@@ -26,8 +24,8 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae>
 	EmpresaCnaeFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"cnae","principalStr","ramoAtividade","objetoSocial"};
+	public String[] getColunas() {
+		return new String[] { "cnae", "principalStr", "ramoAtividade", "objetoSocial" };
 	}
 
 	@Override
@@ -51,7 +49,7 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae>
 	}
 
 	@Override
-	protected Class<? super EmpresaCnae> getEntityClass() {
+	public Class<? super EmpresaCnae> getEntityClass() {
 		return EmpresaCnae.class;
 	}
 

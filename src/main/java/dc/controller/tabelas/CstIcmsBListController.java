@@ -32,12 +32,12 @@ public class CstIcmsBListController extends CRUDListController<CstIcmsB> {
 	CstIcmsBFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
-	protected Class<? super CstIcmsB> getEntityClass() {
+	public Class<? super CstIcmsB> getEntityClass() {
 		return CstIcmsB.class;
 	}
 

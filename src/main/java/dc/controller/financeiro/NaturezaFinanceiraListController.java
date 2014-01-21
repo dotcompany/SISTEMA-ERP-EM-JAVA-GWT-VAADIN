@@ -27,12 +27,12 @@ public class NaturezaFinanceiraListController extends CRUDListController<Naturez
 	NaturezaFinanceiraFormController naturezafinanceiraFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "descricao", "classificacao", "tipo", "aplicacao", "aparecePagar", "apareceReceber" };
 	}
 
 	@Override
-	protected Class<? super NaturezaFinanceira> getEntityClass() {
+	public Class<? super NaturezaFinanceira> getEntityClass() {
 		return NaturezaFinanceira.class;
 	}
 

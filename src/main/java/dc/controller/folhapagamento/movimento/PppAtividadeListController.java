@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PppAtividadeListController extends
-		CRUDListController<PppAtividadeEntity> {
+public class PppAtividadeListController extends CRUDListController<PppAtividadeEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class PppAtividadeListController extends
 	private PppAtividadeFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataInicio", "dataTermino", "ppp.observacao" };
 	}
 
 	@Override
-	protected Class<? super PppAtividadeEntity> getEntityClass() {
+	public Class<? super PppAtividadeEntity> getEntityClass() {
 		return PppAtividadeEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class PppAtividadeListController extends
 	@Override
 	protected List<PppAtividadeEntity> pesquisa(String valor) {
 		try {
-			List<PppAtividadeEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<PppAtividadeEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

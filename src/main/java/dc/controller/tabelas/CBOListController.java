@@ -32,12 +32,12 @@ public class CBOListController extends CRUDListController<CBO> {
 	CBOFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome", "observacao" };
 	}
 
 	@Override
-	protected Class<? super CBO> getEntityClass() {
+	public Class<? super CBO> getEntityClass() {
 		return CBO.class;
 	}
 

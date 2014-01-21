@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoCabListController extends
-		CRUDListController<LancamentoProgramadoCabEntity> {
+public class LancamentoProgramadoCabListController extends CRUDListController<LancamentoProgramadoCabEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class LancamentoProgramadoCabListController extends
 	private LancamentoProgramadoCabFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataInclusao", "tipo", "liberado" };
 	}
 
 	@Override
-	protected Class<? super LancamentoProgramadoCabEntity> getEntityClass() {
+	public Class<? super LancamentoProgramadoCabEntity> getEntityClass() {
 		return LancamentoProgramadoCabEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class LancamentoProgramadoCabListController extends
 	@Override
 	protected List<LancamentoProgramadoCabEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -93,8 +91,7 @@ public class LancamentoProgramadoCabListController extends
 	@Override
 	protected List<LancamentoProgramadoCabEntity> pesquisaDefault() {
 		try {
-			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO
-					.listarTodos();
+			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {

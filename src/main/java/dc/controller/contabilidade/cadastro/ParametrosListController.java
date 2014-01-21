@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller(value = "contabilidadeParametrosListController")
 @Scope("prototype")
-public class ParametrosListController extends
-		CRUDListController<ParametrosEntity> {
+public class ParametrosListController extends CRUDListController<ParametrosEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class ParametrosListController extends
 	private ParametrosFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "mascara", "niveis" };
 	}
 
 	@Override
-	protected Class<? super ParametrosEntity> getEntityClass() {
+	public Class<? super ParametrosEntity> getEntityClass() {
 		return ParametrosEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class ParametrosListController extends
 	@Override
 	protected List<ParametrosEntity> pesquisa(String valor) {
 		try {
-			List<ParametrosEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<ParametrosEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

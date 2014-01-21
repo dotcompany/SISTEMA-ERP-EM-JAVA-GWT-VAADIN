@@ -42,12 +42,12 @@ public class BemListController extends CRUDListController<BemEntity> {
 	private BemFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "estadoConservacao", "fornecedor" };
 	}
 
 	@Override
-	protected Class<? super BemEntity> getEntityClass() {
+	public Class<? super BemEntity> getEntityClass() {
 		return BemEntity.class;
 	}
 

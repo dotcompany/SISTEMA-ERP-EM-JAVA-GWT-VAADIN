@@ -22,14 +22,13 @@ public class PontoEscalaListController extends CRUDListController<PontoEscala> {
 	PontoEscalaFormController pontoEscalaFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "nome", "descontoHoraDia", "descontoDsr", "codigoHorarioDomingo", "codigoHorarioSegunda",
-				"codigoHorarioTerca", "codigoHorarioQuarta", "codigoHorarioQuinta", "codigoHorarioSexta",
-				"codigoHorarioSabado" };
+	public String[] getColunas() {
+		return new String[] { "nome", "descontoHoraDia", "descontoDsr", "codigoHorarioDomingo", "codigoHorarioSegunda", "codigoHorarioTerca",
+				"codigoHorarioQuarta", "codigoHorarioQuinta", "codigoHorarioSexta", "codigoHorarioSabado" };
 	}
 
 	@Override
-	protected Class<? super PontoEscala> getEntityClass() {
+	public Class<? super PontoEscala> getEntityClass() {
 		return PontoEscala.class;
 	}
 

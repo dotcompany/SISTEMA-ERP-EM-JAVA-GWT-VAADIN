@@ -12,55 +12,51 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>{
+public class AgenciaBancoListController extends CRUDListController<AgenciaBanco> {
 
 	@Autowired
 	AgenciaBancoDAO dao;
-	
+
 	@Autowired
 	AgenciaBancoFormController agenciaBancoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "logradouro"};
+	public String[] getColunas() {
+		return new String[] { "nome", "logradouro" };
 	}
 
 	@Override
-	protected Class<? super AgenciaBanco> getEntityClass() {
+	public Class<? super AgenciaBanco> getEntityClass() {
 		return AgenciaBanco.class;
 	}
 
-
 	@Override
 	protected String getTitulo() {
-		return "Agencia Banco";
+		return "Agência Banco";
 	}
 
 	@Override
 	protected List<AgenciaBanco> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<AgenciaBanco> getFormController() {
 		return agenciaBancoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaAgenciaBanco";
@@ -70,16 +66,16 @@ public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-	
+
 	@Override
 	protected List<AgenciaBanco> pesquisaDefault() {
 		return (List<AgenciaBanco>) dao.getAll(getEntityClass());
 	}
-	
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
-	
+
 }

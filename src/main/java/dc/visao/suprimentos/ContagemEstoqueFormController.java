@@ -32,7 +32,7 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 	@Autowired
 	ProdutoDAO produtoDAO;
 
-	ContagemEstoque currentBean;
+	private ContagemEstoque currentBean;
 
 	@Override
 	public String getViewIdentifier() {
@@ -68,7 +68,7 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
 		subView.getDataContagem().setValue(currentBean.getData());
-		subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+		subView.fillContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
 	}
 	
 	public Empresa empresaAtual(){
@@ -90,19 +90,9 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 
 	}
 
-	public ContagemEstoqueDetalhe novoContagemEstoqueDetalhe() {
-		ContagemEstoqueDetalhe contagemEstoqueDetalhe = new ContagemEstoqueDetalhe();
-		currentBean.addContagemDetalhe(contagemEstoqueDetalhe);
-		return contagemEstoqueDetalhe;
-	}
-
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+			subView.fillContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
 		
 	}
 	
@@ -117,7 +107,7 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 	protected String getNome() {
 		return "Contagem Estoque";
 	}
-
+	
 	@Override
 	protected void remover(List<Serializable> ids) {
 	for(Serializable i : ids){
@@ -136,6 +126,12 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 	@Override
 	public boolean isFullSized(){
 		return true;
+	}
+	
+	public ContagemEstoqueDetalhe novoContagemEstoqueDetalhe(){
+		ContagemEstoqueDetalhe detalhe = new ContagemEstoqueDetalhe();
+		currentBean.addContagemDetalhe(detalhe);
+		return detalhe;
 	}
 	
 	public List<Produto> buscarProdutos() {

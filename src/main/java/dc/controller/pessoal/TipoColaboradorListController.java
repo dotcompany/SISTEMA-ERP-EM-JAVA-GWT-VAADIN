@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.TipoColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoColaboradorListController extends CRUDListController<TipoColaborador> {
@@ -28,8 +27,8 @@ public class TipoColaboradorListController extends CRUDListController<TipoColabo
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class TipoColaboradorListController extends CRUDListController<TipoColabo
 	}
 
 	@Override
-	protected Class<? super TipoColaborador> getEntityClass() {
+	public Class<? super TipoColaborador> getEntityClass() {
 		return TipoColaborador.class;
 	}
-	
 
 	@Override
 	protected List<TipoColaborador> pesquisa(String valor) {
@@ -52,17 +50,18 @@ public class TipoColaboradorListController extends CRUDListController<TipoColabo
 	protected String getTitulo() {
 		return "Tipo Colaborador";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-	
+
 	@Override
 	protected List<TipoColaborador> pesquisaDefault() {
 		return (List<TipoColaborador>) dao.getAll(getEntityClass());

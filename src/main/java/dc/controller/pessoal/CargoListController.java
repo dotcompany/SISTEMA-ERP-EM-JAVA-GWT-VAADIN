@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.CargoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class CargoListController extends CRUDListController<Cargo> {
@@ -23,13 +22,13 @@ public class CargoListController extends CRUDListController<Cargo> {
 	CargoFormController cargoFormController;
 
 	@Override
-	protected CRUDFormController<Cargo> getFormController() { 
+	protected CRUDFormController<Cargo> getFormController() {
 		return cargoFormController;
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class CargoListController extends CRUDListController<Cargo> {
 	}
 
 	@Override
-	protected Class<? super Cargo> getEntityClass() {
+	public Class<? super Cargo> getEntityClass() {
 		return Cargo.class;
 	}
-	
 
 	@Override
 	protected List<Cargo> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class CargoListController extends CRUDListController<Cargo> {
 	protected String getTitulo() {
 		return "Cargo";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override

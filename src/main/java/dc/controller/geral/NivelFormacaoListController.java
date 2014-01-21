@@ -11,33 +11,30 @@ import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 /**
-*
-* @author Wesley Jr
-* **/
+ * 
+ * @author Wesley Jr
+ * **/
 
 @Controller
 @Scope("prototype")
-public class NivelFormacaoListController extends CRUDListController<NivelFormacao>{
+public class NivelFormacaoListController extends CRUDListController<NivelFormacao> {
 
 	@Autowired
 	NivelFormacaoDAO dao;
-	
+
 	@Autowired
 	NivelFormacaoFormController nivelFormacaoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super NivelFormacao> getEntityClass() {
+	public Class<? super NivelFormacao> getEntityClass() {
 		return NivelFormacao.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -48,14 +45,13 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 	protected List<NivelFormacao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<NivelFormacao> getFormController() {
 		return nivelFormacaoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -73,6 +69,5 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 		// TODO Auto-generated method stub
 		return (List<NivelFormacao>) dao.getAll(getEntityClass());
 	}
-
 
 }

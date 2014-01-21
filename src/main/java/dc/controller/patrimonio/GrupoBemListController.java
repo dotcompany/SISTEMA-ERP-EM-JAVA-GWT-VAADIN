@@ -42,12 +42,12 @@ public class GrupoBemListController extends CRUDListController<GrupoBemEntity> {
 	private GrupoBemFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome" };
 	}
 
 	@Override
-	protected Class<? super GrupoBemEntity> getEntityClass() {
+	public Class<? super GrupoBemEntity> getEntityClass() {
 		return GrupoBemEntity.class;
 	}
 
@@ -59,8 +59,7 @@ public class GrupoBemListController extends CRUDListController<GrupoBemEntity> {
 	@Override
 	protected List<GrupoBemEntity> pesquisa(String valor) {
 		try {
-			List<GrupoBemEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<GrupoBemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

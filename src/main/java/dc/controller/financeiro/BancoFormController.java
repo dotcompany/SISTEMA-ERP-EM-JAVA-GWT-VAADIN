@@ -51,6 +51,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 
 	@Override  
 	protected void actionSalvar() {
+		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setUrl(subView.getTxtURL().getValue());
 		try{
@@ -65,6 +66,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = bancoDAO.find(id);
+		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtURL().setValue(currentBean.getUrl());	
 	}
@@ -92,11 +94,23 @@ public class BancoFormController extends CRUDFormController<Banco> {
 		 mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
 	@Override
 	protected boolean validaSalvar() {
+
+		boolean valido = validaCampos();
+
+		return valido;
+	}
+	
+	private boolean validaCampos() {
 		
 		boolean valido = true;
+		
+		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtCodigo(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(),

@@ -33,12 +33,12 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 	CsosnaFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
-	protected Class<? super Csosna> getEntityClass() {
+	public Class<? super Csosna> getEntityClass() {
 		return Csosna.class;
 	}
 

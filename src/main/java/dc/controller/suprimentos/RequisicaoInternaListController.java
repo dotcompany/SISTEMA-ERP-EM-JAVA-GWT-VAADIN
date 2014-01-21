@@ -6,16 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.Colaborador;
-import dc.entidade.geral.Usuario;
-import dc.entidade.suprimentos.Requisicao;
 import dc.entidade.suprimentos.RequisicaoInterna;
-import dc.servicos.dao.suprimentos.RequisicaoDAO;
 import dc.servicos.dao.suprimentos.RequisicaoInternaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Component
 @Scope("prototype")
@@ -26,18 +20,16 @@ public class RequisicaoInternaListController extends CRUDListController<Requisic
 
 	@Autowired
 	RequisicaoInternaFormController formController;
-	
-	
 
-	public RequisicaoInternaListController(){
-		
-//		Empresa empresa = usuario.getConta().getEmpresa();
-//		System.out.println("");
+	public RequisicaoInternaListController() {
+
+		// Empresa empresa = usuario.getConta().getEmpresa();
+		// System.out.println("");
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"colaborador", "dataRequisicao"};
+	public String[] getColunas() {
+		return new String[] { "colaborador", "dataRequisicao" };
 	}
 
 	@Override
@@ -61,14 +53,14 @@ public class RequisicaoInternaListController extends CRUDListController<Requisic
 	}
 
 	@Override
-	protected Class<? super RequisicaoInterna> getEntityClass() {
+	public Class<? super RequisicaoInterna> getEntityClass() {
 		return RequisicaoInterna.class;
 	}
 
 	@Override
 	protected List<RequisicaoInterna> pesquisaDefault() {
 		return dao.getAll(RequisicaoInterna.class);
-		////return dao.findBySetor();
+		// //return dao.findBySetor();
 	}
 
 	@Override
@@ -77,4 +69,3 @@ public class RequisicaoInternaListController extends CRUDListController<Requisic
 	}
 
 }
-

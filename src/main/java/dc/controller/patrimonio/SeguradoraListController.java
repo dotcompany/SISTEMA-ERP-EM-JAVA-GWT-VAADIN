@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SeguradoraListController extends
-		CRUDListController<SeguradoraEntity> {
+public class SeguradoraListController extends CRUDListController<SeguradoraEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class SeguradoraListController extends
 	private SeguradoraFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "contato", "telefone" };
 	}
 
 	@Override
-	protected Class<? super SeguradoraEntity> getEntityClass() {
+	public Class<? super SeguradoraEntity> getEntityClass() {
 		return SeguradoraEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class SeguradoraListController extends
 	@Override
 	protected List<SeguradoraEntity> pesquisa(String valor) {
 		try {
-			List<SeguradoraEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<SeguradoraEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

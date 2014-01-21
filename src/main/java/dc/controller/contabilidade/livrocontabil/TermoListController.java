@@ -43,13 +43,12 @@ public class TermoListController extends CRUDListController<TermoEntity> {
 	private TermoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "aberturaEncerramento", "numero",
-				"numeroRegistro" };
+	public String[] getColunas() {
+		return new String[] { "aberturaEncerramento", "numero", "numeroRegistro" };
 	}
 
 	@Override
-	protected Class<? super TermoEntity> getEntityClass() {
+	public Class<? super TermoEntity> getEntityClass() {
 		return TermoEntity.class;
 	}
 
