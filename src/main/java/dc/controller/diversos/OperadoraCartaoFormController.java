@@ -68,11 +68,9 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setBandeira(subView.getTxtBandeira().getValue());
-		currentBean.setFone1(subView.getTxtTelefone1().getValue());
-		currentBean.setFone2(subView.getTxtTelefone2().getValue());
 
+		subView.preencheOperadoraCartao(currentBean);
+		
 		try {
 			operadoraDAO.saveOrUpdate(currentBean);
 
@@ -85,11 +83,8 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = operadoraDAO.find(id);
+		subView.preencheOperadoraCartaoForm(currentBean);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtBandeira().setValue(currentBean.getBandeira());
-		subView.getTxtTelefone1().setValue(currentBean.getFone1());
-		subView.getTxtTelefone2().setValue(currentBean.getFone2());
 	}
 
 	/*
@@ -172,10 +167,18 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 			valido = false;
 		}
 		
-		if (subView.getTxtNome().getValue() == null	|| subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
-
+		if (!Validator.validateString(subView.getTxtBandeira().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtBandeira(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateString(subView.getTxtNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateNumber(subView.getTxtVencimentoAluguel().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtVencimentoAluguel(), "Número inválido");
 			valido = false;
 		}
 
