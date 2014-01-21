@@ -27,12 +27,12 @@ public class TipoRecebimentoListController extends CRUDListController<TipoRecebi
 	private TipoRecebimentoFormController tipoRecebimentoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "tipo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoRecebimento> getEntityClass() {
+	public Class<? super TipoRecebimento> getEntityClass() {
 		return TipoRecebimento.class;
 	}
 

@@ -22,13 +22,12 @@ public class PontoAbonoListController extends CRUDListController<PontoAbono> {
 	PontoAbonoFormController pontoAbonoFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "quantidade", "saldo", "utilizado",
-				"dataCadastro", "inicioUtilizacao", "observacao", "colaborador" };
+	public String[] getColunas() {
+		return new String[] { "quantidade", "saldo", "utilizado", "dataCadastro", "inicioUtilizacao", "observacao", "colaborador" };
 	}
 
 	@Override
-	protected Class<? super PontoAbono> getEntityClass() {
+	public Class<? super PontoAbono> getEntityClass() {
 		return PontoAbono.class;
 	}
 

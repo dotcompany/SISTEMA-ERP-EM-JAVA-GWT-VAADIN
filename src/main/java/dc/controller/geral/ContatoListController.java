@@ -12,31 +12,29 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-* **/
+ * 
+ * @author Wesley Jr
+ * **/
 
 @Controller
 @Scope("prototype")
-public class ContatoListController extends CRUDListController<Contato>{
+public class ContatoListController extends CRUDListController<Contato> {
 
 	@Autowired
 	ContatoDAO dao;
-	
+
 	@Autowired
 	ContatoFormController contatoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","email"};
+	public String[] getColunas() {
+		return new String[] { "nome", "email" };
 	}
 
 	@Override
-	protected Class<? super Contato> getEntityClass() {
+	public Class<? super Contato> getEntityClass() {
 		return Contato.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -47,14 +45,13 @@ public class ContatoListController extends CRUDListController<Contato>{
 	protected List<Contato> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<Contato> getFormController() {
 		return contatoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -73,6 +70,4 @@ public class ContatoListController extends CRUDListController<Contato>{
 		return (List<Contato>) dao.getAll(getEntityClass());
 	}
 
-
 }
-

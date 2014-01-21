@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class InformativoGuiaListController extends
-		CRUDListController<InformativoGuiaEntity> {
+public class InformativoGuiaListController extends CRUDListController<InformativoGuiaEntity> {
 
 	/**
 	 * 
@@ -42,12 +41,12 @@ public class InformativoGuiaListController extends
 	private InformativoGuiaFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "numero", "bem.nome", "seguradora.nome" };
 	}
 
 	@Override
-	protected Class<? super InformativoGuiaEntity> getEntityClass() {
+	public Class<? super InformativoGuiaEntity> getEntityClass() {
 		return InformativoGuiaEntity.class;
 	}
 
@@ -58,8 +57,7 @@ public class InformativoGuiaListController extends
 
 	@Override
 	protected List<InformativoGuiaEntity> pesquisa(String valor) {
-		List<InformativoGuiaEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		List<InformativoGuiaEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 		return auxLista;
 	}

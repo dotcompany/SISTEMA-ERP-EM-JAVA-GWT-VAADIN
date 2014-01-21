@@ -13,7 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DocumentoOrigemListController extends CRUDListController<DocumentoOrigem>{
+public class DocumentoOrigemListController extends CRUDListController<DocumentoOrigem> {
 
 	/**
 	 * 
@@ -22,21 +22,19 @@ public class DocumentoOrigemListController extends CRUDListController<DocumentoO
 
 	@Autowired
 	private DocumentoOrigemDAO dao;
-	
+
 	@Autowired
 	private DocumentoOrigemFormController documentoorigemFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"codigo", "descricao", "siglaDocumento"};
+	public String[] getColunas() {
+		return new String[] { "codigo", "descricao", "siglaDocumento" };
 	}
 
 	@Override
-	protected Class<? super DocumentoOrigem> getEntityClass() {
+	public Class<? super DocumentoOrigem> getEntityClass() {
 		return DocumentoOrigem.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -47,14 +45,13 @@ public class DocumentoOrigemListController extends CRUDListController<DocumentoO
 	protected List<DocumentoOrigem> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<DocumentoOrigem> getFormController() {
 		return documentoorigemFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -73,4 +70,4 @@ public class DocumentoOrigemListController extends CRUDListController<DocumentoO
 		return (List<DocumentoOrigem>) dao.getAll(getEntityClass());
 	}
 
-}	
+}

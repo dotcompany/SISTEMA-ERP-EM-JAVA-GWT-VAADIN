@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AfastamentoListController extends
-		CRUDListController<AfastamentoEntity> {
+public class AfastamentoListController extends CRUDListController<AfastamentoEntity> {
 
 	/**
 	 * 
@@ -42,13 +41,12 @@ public class AfastamentoListController extends
 	private AfastamentoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "colaborador.matricula", "diasAfastado",
-				"dataInicio", "dataFim" };
+	public String[] getColunas() {
+		return new String[] { "colaborador.matricula", "diasAfastado", "dataInicio", "dataFim" };
 	}
 
 	@Override
-	protected Class<? super AfastamentoEntity> getEntityClass() {
+	public Class<? super AfastamentoEntity> getEntityClass() {
 		return AfastamentoEntity.class;
 	}
 

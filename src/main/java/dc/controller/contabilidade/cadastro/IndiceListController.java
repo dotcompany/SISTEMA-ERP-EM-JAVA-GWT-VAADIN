@@ -43,12 +43,12 @@ public class IndiceListController extends CRUDListController<IndiceEntity> {
 	private IndiceFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "periodicidade", "diarioPartirDe", "mensalMesAno" };
 	}
 
 	@Override
-	protected Class<? super IndiceEntity> getEntityClass() {
+	public Class<? super IndiceEntity> getEntityClass() {
 		return IndiceEntity.class;
 	}
 

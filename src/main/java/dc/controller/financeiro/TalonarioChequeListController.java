@@ -11,8 +11,6 @@ import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
-
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
@@ -24,12 +22,12 @@ public class TalonarioChequeListController extends CRUDListController<TalonarioC
 	TalonarioChequeFormController talonarioChequeFormController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "talao", "statusTalao","numero"};
+	public String[] getColunas() {
+		return new String[] { "talao", "statusTalao", "numero" };
 	}
 
 	@Override
-	protected Class<? super TalonarioCheque> getEntityClass() {
+	public Class<? super TalonarioCheque> getEntityClass() {
 		return TalonarioCheque.class;
 	}
 

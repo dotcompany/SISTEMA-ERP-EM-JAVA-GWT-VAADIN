@@ -2,25 +2,20 @@ package dc.controller.tributario;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import dc.entidade.suprimentos.ContagemEstoque;
+
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.GrupoTributario;
-import dc.entidade.tributario.OperacaoFiscal;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ConfiguracaoTributariaListController extends CRUDListController<ConfiguracaoTributaria>
-{
+public class ConfiguracaoTributariaListController extends CRUDListController<ConfiguracaoTributaria> {
 
 	@Autowired
 	ConfiguracaoTributariaDAO dao;
@@ -29,8 +24,8 @@ public class ConfiguracaoTributariaListController extends CRUDListController<Con
 	ConfiguracaoTributariaFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"grupoTributario","operacaoFiscal"};
+	public String[] getColunas() {
+		return new String[] { "grupoTributario", "operacaoFiscal" };
 	}
 
 	@Override
@@ -54,21 +49,19 @@ public class ConfiguracaoTributariaListController extends CRUDListController<Con
 	}
 
 	@Override
-	protected Class<? super ConfiguracaoTributaria> getEntityClass() {
+	public Class<? super ConfiguracaoTributaria> getEntityClass() {
 		return ConfiguracaoTributaria.class;
 	}
-
 
 	@Override
 	protected List<ConfiguracaoTributaria> pesquisaDefault() {
 
-		/*List<ContagemEstoque> lista = new ArrayList<>();
-		try{
-			 lista =  dao.getAll(ContagemEstoque.class);	 
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }*/
-		//		
+		/*
+		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
+		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
+		 * e.printStackTrace(); }
+		 */
+		//
 		return new ArrayList<>();
 	}
 
@@ -79,4 +72,3 @@ public class ConfiguracaoTributariaListController extends CRUDListController<Con
 	}
 
 }
-

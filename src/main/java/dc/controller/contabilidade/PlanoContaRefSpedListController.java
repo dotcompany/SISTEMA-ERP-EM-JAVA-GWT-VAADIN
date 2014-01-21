@@ -27,12 +27,12 @@ public class PlanoContaRefSpedListController extends CRUDListController<PlanoCon
 	private PlanoContaRefSpedFormController planoContaRefSpedFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codCtaRef", "descricao", "inicioValidade", "fimValidade", "tipo" };
 	}
 
 	@Override
-	protected Class<? super PlanoContaRefSped> getEntityClass() {
+	public Class<? super PlanoContaRefSped> getEntityClass() {
 		return PlanoContaRefSped.class;
 	}
 

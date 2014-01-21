@@ -13,33 +13,31 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class CondicaoPagamentoListController
-extends
-CRUDListController<CondicaoPagamento>{
-	
+public class CondicaoPagamentoListController extends CRUDListController<CondicaoPagamento> {
+
 	@Autowired
 	CondicaoPagamentoDAO dao;
-	
+
 	@Autowired
 	CondicaoPagamentoFormController formController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome","descricao"};
+	public String[] getColunas() {
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
 	protected String getTitulo() {
 		return "Condições Pagamento";
 	}
-	
+
 	@Override
 	protected CRUDFormController<CondicaoPagamento> getFormController() {
 		return formController;
 	}
 
 	@Override
-	protected Class<? super CondicaoPagamento> getEntityClass() {
+	public Class<? super CondicaoPagamento> getEntityClass() {
 		return CondicaoPagamento.class;
 	}
 

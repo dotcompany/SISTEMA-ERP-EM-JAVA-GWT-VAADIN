@@ -13,7 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoListController extends	CRUDListController<Almoxarifado> {
+public class AlmoxarifadoListController extends CRUDListController<Almoxarifado> {
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class AlmoxarifadoListController extends	CRUDListController<Almoxarifado>
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome" };
 	}
 
@@ -42,7 +42,7 @@ public class AlmoxarifadoListController extends	CRUDListController<Almoxarifado>
 	}
 
 	@Override
-	protected Class<? super Almoxarifado> getEntityClass() {
+	public Class<? super Almoxarifado> getEntityClass() {
 		return Almoxarifado.class;
 	}
 

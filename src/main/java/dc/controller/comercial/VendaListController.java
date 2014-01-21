@@ -13,31 +13,31 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class VendaListController extends CRUDListController<Venda>{
-	
+public class VendaListController extends CRUDListController<Venda> {
+
 	@Autowired
 	VendaDAO dao;
-	
+
 	@Autowired
 	VendaFormController formController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"id","cliente","vendedor"};
+	public String[] getColunas() {
+		return new String[] { "id", "cliente", "vendedor" };
 	}
 
 	@Override
 	protected String getTitulo() {
 		return "Venda";
 	}
-	
+
 	@Override
 	protected CRUDFormController<Venda> getFormController() {
 		return formController;
 	}
 
 	@Override
-	protected Class<? super Venda> getEntityClass() {
+	public Class<? super Venda> getEntityClass() {
 		return Venda.class;
 	}
 
@@ -65,5 +65,3 @@ public class VendaListController extends CRUDListController<Venda>{
 	}
 
 }
-
-

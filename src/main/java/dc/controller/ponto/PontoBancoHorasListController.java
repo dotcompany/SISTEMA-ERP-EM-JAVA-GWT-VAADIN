@@ -15,24 +15,22 @@ import dc.visao.ponto.PontoBancoHorasFormView.SituacaoBancoHoras;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class PontoBancoHorasListController extends CRUDListController<PontoBancoHoras>{
+public class PontoBancoHorasListController extends CRUDListController<PontoBancoHoras> {
 	@Autowired
 	PontoBancoHorasDAO dao;
-	
+
 	@Autowired
 	PontoBancoHorasFormController pontoBancoHorasFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"colaborador", "dataTrabalho", "quantidade", "situacao"};
+	public String[] getColunas() {
+		return new String[] { "colaborador", "dataTrabalho", "quantidade", "situacao" };
 	}
 
 	@Override
-	protected Class<? super PontoBancoHoras > getEntityClass() {
+	public Class<? super PontoBancoHoras> getEntityClass() {
 		return PontoBancoHoras.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -43,14 +41,13 @@ public class PontoBancoHorasListController extends CRUDListController<PontoBanco
 	protected List<PontoBancoHoras> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<PontoBancoHoras> getFormController() {
 		return pontoBancoHorasFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaPontoBancoHoras";
@@ -61,19 +58,17 @@ public class PontoBancoHorasListController extends CRUDListController<PontoBanco
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	protected List<PontoBancoHoras> pesquisaDefault() {
 		return ajustaEnums((List<PontoBancoHoras>) dao.getAll(getEntityClass()));
 	}
 
 	private List<PontoBancoHoras> ajustaEnums(List<PontoBancoHoras> all) {
-		for(PontoBancoHoras pontoBancoHoras : all)
-		{
+		for (PontoBancoHoras pontoBancoHoras : all) {
 			pontoBancoHoras.setSituacao(SituacaoBancoHoras.getSituacao(pontoBancoHoras.getSituacao()).getLabel());
 		}
 		return all;
 	}
-	
 
 }

@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class BaseCreditoPisListController extends
-		CRUDListController<BaseCreditoPis> {
+public class BaseCreditoPisListController extends CRUDListController<BaseCreditoPis> {
 
 	/**
 	 * 
@@ -33,12 +32,12 @@ public class BaseCreditoPisListController extends
 	BaseCreditoPisFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super BaseCreditoPis> getEntityClass() {
+	public Class<? super BaseCreditoPis> getEntityClass() {
 		return BaseCreditoPis.class;
 	}
 

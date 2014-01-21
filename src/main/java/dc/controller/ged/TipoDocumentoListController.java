@@ -15,24 +15,22 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class TipoDocumentoListController extends CRUDListController<TipoDocumento>{
+public class TipoDocumentoListController extends CRUDListController<TipoDocumento> {
 	@Autowired
 	TipoDocumentoDAO dao;
-	
+
 	@Autowired
 	TipoDocumentoFormController tipoDocumentoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "tamanhoMaximo"};
+	public String[] getColunas() {
+		return new String[] { "nome", "tamanhoMaximo" };
 	}
 
 	@Override
-	protected Class<? super TipoDocumento > getEntityClass() {
+	public Class<? super TipoDocumento> getEntityClass() {
 		return TipoDocumento.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -43,14 +41,13 @@ public class TipoDocumentoListController extends CRUDListController<TipoDocument
 	protected List<TipoDocumento> pesquisa(String valor) {
 		return new ArrayList<TipoDocumento>();
 	}
-	
 
 	@Override
 	protected CRUDFormController<TipoDocumento> getFormController() {
 		return tipoDocumentoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaTipoDocumento";
@@ -61,7 +58,7 @@ public class TipoDocumentoListController extends CRUDListController<TipoDocument
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	protected List<TipoDocumento> pesquisaDefault() {
 		return new ArrayList<TipoDocumento>();

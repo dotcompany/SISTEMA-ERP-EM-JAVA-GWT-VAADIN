@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SefipCategoriaTrabalhoListController extends
-		CRUDListController<SefipCategoriaTrabalho> {
+public class SefipCategoriaTrabalhoListController extends CRUDListController<SefipCategoriaTrabalho> {
 
 	/**
 	 * 
@@ -33,12 +32,12 @@ public class SefipCategoriaTrabalhoListController extends
 	SefipCategoriaTrabalhoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome" };
 	}
 
 	@Override
-	protected Class<? super SefipCategoriaTrabalho> getEntityClass() {
+	public Class<? super SefipCategoriaTrabalho> getEntityClass() {
 		return SefipCategoriaTrabalho.class;
 	}
 

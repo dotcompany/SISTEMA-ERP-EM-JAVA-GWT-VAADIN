@@ -33,7 +33,7 @@ public class SubGrupoProdutoListController extends CRUDListController<SubGrupoPr
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "descricao" };
 	}
 
@@ -43,7 +43,7 @@ public class SubGrupoProdutoListController extends CRUDListController<SubGrupoPr
 	}
 
 	@Override
-	protected Class<? super SubGrupoProduto> getEntityClass() {
+	public Class<? super SubGrupoProduto> getEntityClass() {
 		return SubGrupoProduto.class;
 	}
 

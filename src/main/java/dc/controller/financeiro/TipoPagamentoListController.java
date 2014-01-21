@@ -27,12 +27,12 @@ public class TipoPagamentoListController extends CRUDListController<TipoPagament
 	private TipoPagamentoFormController tipoPagamentoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "tipo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoPagamento> getEntityClass() {
+	public Class<? super TipoPagamento> getEntityClass() {
 		return TipoPagamento.class;
 	}
 

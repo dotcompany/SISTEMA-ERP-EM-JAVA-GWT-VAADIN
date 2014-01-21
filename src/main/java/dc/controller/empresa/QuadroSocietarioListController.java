@@ -2,6 +2,7 @@ package dc.controller.empresa;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class QuadroSocietarioListController extends CRUDListController<QuadroSocietario>
-{
+public class QuadroSocietarioListController extends CRUDListController<QuadroSocietario> {
 
 	@Autowired
 	QuadroSocietarioDAO dao;
@@ -24,8 +24,8 @@ public class QuadroSocietarioListController extends CRUDListController<QuadroSoc
 	QuadroSocietarioFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"dataRegistro","capitalSocial","valorQuota","quantidadeCotas"};
+	public String[] getColunas() {
+		return new String[] { "dataRegistro", "capitalSocial", "valorQuota", "quantidadeCotas" };
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class QuadroSocietarioListController extends CRUDListController<QuadroSoc
 	}
 
 	@Override
-	protected Class<? super QuadroSocietario> getEntityClass() {
+	public Class<? super QuadroSocietario> getEntityClass() {
 		return QuadroSocietario.class;
 	}
 

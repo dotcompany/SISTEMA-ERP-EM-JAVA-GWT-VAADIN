@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ApoliceSeguroListController extends
-		CRUDListController<ApoliceSeguroEntity> {
+public class ApoliceSeguroListController extends CRUDListController<ApoliceSeguroEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class ApoliceSeguroListController extends
 	private ApoliceSeguroFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "numero", "bem.nome", "seguradora.nome" };
 	}
 
 	@Override
-	protected Class<? super ApoliceSeguroEntity> getEntityClass() {
+	public Class<? super ApoliceSeguroEntity> getEntityClass() {
 		return ApoliceSeguroEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class ApoliceSeguroListController extends
 	@Override
 	protected List<ApoliceSeguroEntity> pesquisa(String valor) {
 		try {
-			List<ApoliceSeguroEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<ApoliceSeguroEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

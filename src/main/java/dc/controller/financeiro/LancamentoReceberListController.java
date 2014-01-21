@@ -27,12 +27,12 @@ public class LancamentoReceberListController extends CRUDListController<Lancamen
 	private LancamentoReceberFormController lancamentoReceberFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "valorTotal", "valorAReceber", "dataLancamento", "documentoOrigem", "cliente" };
 	}
 
 	@Override
-	protected Class<? super LancamentoReceber> getEntityClass() {
+	public Class<? super LancamentoReceber> getEntityClass() {
 		return LancamentoReceber.class;
 	}
 

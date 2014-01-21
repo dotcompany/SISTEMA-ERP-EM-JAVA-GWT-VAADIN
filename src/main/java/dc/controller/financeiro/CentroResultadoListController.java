@@ -12,19 +12,18 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 /**
-*
-* @author Wesley Jr
-/*
- * Nessa classe temos a Extensão da classe principal que é crudListController
- * Temos alguns métodos que pegamos, temos a configuração do Título da Tela;
- * O Método do Button pesquisar, pegando um valor. e também ele pega algumas informações
- * da classe FormController
- *
-*/
+ * 
+ * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
+ *         crudListController Temos alguns métodos que pegamos, temos a
+ *         configuração do Título da Tela; O Método do Button pesquisar, pegando
+ *         um valor. e também ele pega algumas informações da classe
+ *         FormController
+ * 
+ */
 
 @Controller
 @Scope("prototype")
-public class CentroResultadoListController extends CRUDListController<CentroResultado>{
+public class CentroResultadoListController extends CRUDListController<CentroResultado> {
 
 	/**
 	 * 
@@ -33,21 +32,19 @@ public class CentroResultadoListController extends CRUDListController<CentroResu
 
 	@Autowired
 	CentroResultadoDAO dao;
-	
+
 	@Autowired
 	CentroResultadoFormController centroresultadoFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"planoCentroResultado", "classificacao", "descricao", "sofreRateio"};
+	public String[] getColunas() {
+		return new String[] { "planoCentroResultado", "classificacao", "descricao", "sofreRateio" };
 	}
 
 	@Override
-	protected Class<? super CentroResultado> getEntityClass() {
+	public Class<? super CentroResultado> getEntityClass() {
 		return CentroResultado.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -58,14 +55,13 @@ public class CentroResultadoListController extends CRUDListController<CentroResu
 	protected List<CentroResultado> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<CentroResultado> getFormController() {
 		return centroresultadoFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
@@ -83,7 +79,5 @@ public class CentroResultadoListController extends CRUDListController<CentroResu
 	protected List<CentroResultado> pesquisaDefault() {
 		return (List<CentroResultado>) dao.getAll(getEntityClass());
 	}
-
-	
 
 }

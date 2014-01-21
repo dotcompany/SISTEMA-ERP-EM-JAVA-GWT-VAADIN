@@ -27,12 +27,12 @@ public class PlanoCentroResultadoListController extends CRUDListController<Plano
 	PlanoCentroResultadoFormController planocentroresultadoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "mascara" };
 	}
 
 	@Override
-	protected Class<? super PlanoCentroResultado> getEntityClass() {
+	public Class<? super PlanoCentroResultado> getEntityClass() {
 		return PlanoCentroResultado.class;
 	}
 

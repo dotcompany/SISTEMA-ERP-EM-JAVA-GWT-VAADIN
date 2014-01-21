@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeDetListController extends
-		CRUDListController<EncerramentoExeDetEntity> {
+public class EncerramentoExeDetListController extends CRUDListController<EncerramentoExeDetEntity> {
 
 	/**
 	 * 
@@ -44,13 +43,12 @@ public class EncerramentoExeDetListController extends
 	private EncerramentoExeDetFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "saldoAnterior", "valorDebito", "valorCredito",
-				"saldo" };
+	public String[] getColunas() {
+		return new String[] { "saldoAnterior", "valorDebito", "valorCredito", "saldo" };
 	}
 
 	@Override
-	protected Class<? super EncerramentoExeDetEntity> getEntityClass() {
+	public Class<? super EncerramentoExeDetEntity> getEntityClass() {
 		return EncerramentoExeDetEntity.class;
 	}
 
@@ -62,8 +60,7 @@ public class EncerramentoExeDetListController extends
 	@Override
 	protected List<EncerramentoExeDetEntity> pesquisa(String valor) {
 		try {
-			List<EncerramentoExeDetEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<EncerramentoExeDetEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

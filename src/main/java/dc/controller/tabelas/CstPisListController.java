@@ -32,12 +32,12 @@ public class CstPisListController extends CRUDListController<CstPis> {
 	CstPisFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super CstPis> getEntityClass() {
+	public Class<? super CstPis> getEntityClass() {
 		return CstPis.class;
 	}
 

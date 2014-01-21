@@ -27,13 +27,13 @@ public class PontoParametroListController extends CRUDListController<PontoParame
 	PontoParametroFormController pontoParametroFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "mesAno", "diaInicialApuracao", "horaNoturnaInicio", "horaNoturnaFim", "periodoMinimoInterjornada",
 				"percentualHeDiurna", "percentualHeNoturna", "duracaoHoraNoturna", "tratamentoHoraMais", "tratamentoHoraMenos", };
 	}
 
 	@Override
-	protected Class<? super PontoParametro> getEntityClass() {
+	public Class<? super PontoParametro> getEntityClass() {
 		return PontoParametro.class;
 	}
 

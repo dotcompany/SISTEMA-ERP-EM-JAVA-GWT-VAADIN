@@ -32,12 +32,12 @@ public class CfopListController extends CRUDListController<Cfop> {
 	CfopFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "descricao", "aplicacao" };
 	}
 
 	@Override
-	protected Class<? super Cfop> getEntityClass() {
+	public Class<? super Cfop> getEntityClass() {
 		return Cfop.class;
 	}
 

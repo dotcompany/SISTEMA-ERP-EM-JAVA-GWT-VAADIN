@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoListController extends
-		CRUDListController<LancamentoEntity> {
+public class LancamentoListController extends CRUDListController<LancamentoEntity> {
 
 	/**
 	 * 
@@ -42,12 +41,12 @@ public class LancamentoListController extends
 	private LancamentoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "numero", "bem.nome", "seguradora.nome" };
 	}
 
 	@Override
-	protected Class<? super LancamentoEntity> getEntityClass() {
+	public Class<? super LancamentoEntity> getEntityClass() {
 		return LancamentoEntity.class;
 	}
 

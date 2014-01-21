@@ -2,9 +2,11 @@ package dc.visao.suprimentos;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
 import dc.entidade.suprimentos.ContagemEstoque;
 import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -13,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ContagemEstoqueListController extends CRUDListController<ContagemEstoque>
-{
+public class ContagemEstoqueListController extends CRUDListController<ContagemEstoque> {
 
 	@Autowired
 	ContagemEstoqueDAO dao;
@@ -23,8 +24,8 @@ public class ContagemEstoqueListController extends CRUDListController<ContagemEs
 	ContagemEstoqueFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"data"};
+	public String[] getColunas() {
+		return new String[] { "data" };
 	}
 
 	@Override
@@ -48,21 +49,19 @@ public class ContagemEstoqueListController extends CRUDListController<ContagemEs
 	}
 
 	@Override
-	protected Class<? super ContagemEstoque> getEntityClass() {
+	public Class<? super ContagemEstoque> getEntityClass() {
 		return ContagemEstoque.class;
 	}
-
 
 	@Override
 	protected List<ContagemEstoque> pesquisaDefault() {
 
-		/*List<ContagemEstoque> lista = new ArrayList<>();
-		try{
-			 lista =  dao.getAll(ContagemEstoque.class);	 
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }*/
-		//		
+		/*
+		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
+		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
+		 * e.printStackTrace(); }
+		 */
+		//
 		return new ArrayList<>();
 	}
 

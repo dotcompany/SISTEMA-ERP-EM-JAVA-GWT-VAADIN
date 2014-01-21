@@ -27,12 +27,12 @@ public class FornecedorListController extends CRUDListController<Fornecedor> {
 	private FornecedorFormController fornecedorFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "pessoa", "desde", "optanteSimplesNacional", "localizacao", "dataCadastro", "sofreRetencao" };
 	}
 
 	@Override
-	protected Class<? super Fornecedor> getEntityClass() {
+	public Class<? super Fornecedor> getEntityClass() {
 		return Fornecedor.class;
 	}
 

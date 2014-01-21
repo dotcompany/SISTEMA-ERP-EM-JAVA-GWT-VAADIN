@@ -27,12 +27,12 @@ public class PlanoContaListController extends CRUDListController<PlanoConta> {
 	private PlanoContaFormController planoContaFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "dataInclusao", "mascara", "niveis" };
 	}
 
 	@Override
-	protected Class<? super PlanoConta> getEntityClass() {
+	public Class<? super PlanoConta> getEntityClass() {
 		return PlanoConta.class;
 	}
 

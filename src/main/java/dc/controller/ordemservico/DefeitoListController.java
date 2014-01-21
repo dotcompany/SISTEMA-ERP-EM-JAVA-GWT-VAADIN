@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.DefeitoFormController;
 import dc.entidade.ordemservico.Defeito;
 import dc.servicos.dao.ordemservico.DefeitoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,18 +19,17 @@ public class DefeitoListController extends CRUDListController<Defeito> {
 
 	@Autowired
 	DefeitoDAO dao;
-	
+
 	@Autowired
 	DefeitoFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome"};
+	public String[] getColunas() {
+		return new String[] { "nome" };
 	}
 
 	@Override
-	protected String getTitulo() {
+	public String getTitulo() {
 		return "Defeito";
 	}
 
@@ -39,7 +37,7 @@ public class DefeitoListController extends CRUDListController<Defeito> {
 	protected List<Defeito> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaDefeito";
@@ -51,7 +49,7 @@ public class DefeitoListController extends CRUDListController<Defeito> {
 	}
 
 	@Override
-	protected Class<? super Defeito> getEntityClass() {
+	public Class<? super Defeito> getEntityClass() {
 		return Defeito.class;
 	}
 

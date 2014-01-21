@@ -13,33 +13,31 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoNotaFiscalListController
-extends
-CRUDListController<TipoNotaFiscal>{
-	
+public class TipoNotaFiscalListController extends CRUDListController<TipoNotaFiscal> {
+
 	@Autowired
 	TipoNotaFiscalDAO dao;
-	
+
 	@Autowired
 	TipoNotaFiscalFormController formController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"modelo","serie","nome","descricao"};
+	public String[] getColunas() {
+		return new String[] { "modelo", "serie", "nome", "descricao" };
 	}
 
 	@Override
 	protected String getTitulo() {
 		return "Tipo Nota Fiscal";
 	}
-	
+
 	@Override
 	protected CRUDFormController<TipoNotaFiscal> getFormController() {
 		return formController;
 	}
 
 	@Override
-	protected Class<? super TipoNotaFiscal> getEntityClass() {
+	public Class<? super TipoNotaFiscal> getEntityClass() {
 		return TipoNotaFiscal.class;
 	}
 

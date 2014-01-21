@@ -17,13 +17,13 @@ public class MapaComparativoListController extends CRUDListController<Cotacao> {
 
 	@Autowired
 	CotacaoDAO dao;
-	
+
 	@Autowired
 	MapaComparativoFormController formController;
-	
+
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"dataCotacao", "descricao", "situacao"};
+	public String[] getColunas() {
+		return new String[] { "dataCotacao", "descricao", "situacao" };
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class MapaComparativoListController extends CRUDListController<Cotacao> {
 	protected List<Cotacao> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaCotacao";
@@ -47,7 +47,7 @@ public class MapaComparativoListController extends CRUDListController<Cotacao> {
 	}
 
 	@Override
-	protected Class<? super Cotacao> getEntityClass() {
+	public Class<? super Cotacao> getEntityClass() {
 		return Cotacao.class;
 	}
 
@@ -60,6 +60,5 @@ public class MapaComparativoListController extends CRUDListController<Cotacao> {
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-
 
 }

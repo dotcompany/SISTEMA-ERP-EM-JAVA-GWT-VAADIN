@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialListController extends
-		CRUDListController<BalancoPatrimonialEntity> {
+public class BalancoPatrimonialListController extends CRUDListController<BalancoPatrimonialEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class BalancoPatrimonialListController extends
 	private BalancoPatrimonialFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "" };
 	}
 
 	@Override
-	protected Class<? super BalancoPatrimonialEntity> getEntityClass() {
+	public Class<? super BalancoPatrimonialEntity> getEntityClass() {
 		return BalancoPatrimonialEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class BalancoPatrimonialListController extends
 	@Override
 	protected List<BalancoPatrimonialEntity> pesquisa(String valor) {
 		try {
-			List<BalancoPatrimonialEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<BalancoPatrimonialEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

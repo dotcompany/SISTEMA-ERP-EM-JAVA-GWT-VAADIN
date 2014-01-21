@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class ContadorListController extends CRUDListController<Contador> {
@@ -23,13 +22,13 @@ public class ContadorListController extends CRUDListController<Contador> {
 	ContadorFormController contadorFormController;
 
 	@Override
-	protected CRUDFormController<Contador> getFormController() { 
+	protected CRUDFormController<Contador> getFormController() {
 		return contadorFormController;
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"logradouro","complemento", "bairro","cep","municipioIBGE","fax","telefone"};
+	public String[] getColunas() {
+		return new String[] { "logradouro", "complemento", "bairro", "cep", "municipioIBGE", "fax", "telefone" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class ContadorListController extends CRUDListController<Contador> {
 	}
 
 	@Override
-	protected Class<? super Contador> getEntityClass() {
+	public Class<? super Contador> getEntityClass() {
 		return Contador.class;
 	}
-	
 
 	@Override
 	protected List<Contador> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class ContadorListController extends CRUDListController<Contador> {
 	protected String getTitulo() {
 		return "Contador";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override

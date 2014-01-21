@@ -14,24 +14,22 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class PontoRelogioListController extends CRUDListController<PontoRelogio>{
+public class PontoRelogioListController extends CRUDListController<PontoRelogio> {
 	@Autowired
 	PontoRelogioDAO dao;
-	
+
 	@Autowired
 	PontoRelogioFormController pontoBancoHorasFormController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"localizacao", "marca", "fabricante", "numeroSerie", "utilizacao"};
+	public String[] getColunas() {
+		return new String[] { "localizacao", "marca", "fabricante", "numeroSerie", "utilizacao" };
 	}
 
 	@Override
-	protected Class<? super PontoRelogio > getEntityClass() {
+	public Class<? super PontoRelogio> getEntityClass() {
 		return PontoRelogio.class;
 	}
-
 
 	@Override
 	protected String getTitulo() {
@@ -42,14 +40,13 @@ public class PontoRelogioListController extends CRUDListController<PontoRelogio>
 	protected List<PontoRelogio> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
 
 	@Override
 	protected CRUDFormController<PontoRelogio> getFormController() {
 		return pontoBancoHorasFormController;
 	}
 
-	//Identificador da VIEW, para posterior uso nas urls de navegacao
+	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		return "listaPontoRelogio";
@@ -60,13 +57,10 @@ public class PontoRelogioListController extends CRUDListController<PontoRelogio>
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	protected List<PontoRelogio> pesquisaDefault() {
 		return (List<PontoRelogio>) dao.getAll(getEntityClass());
 	}
-
-
-	
 
 }

@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoCabecalhoListController extends
-		CRUDListController<LancamentoCabecalhoEntity> {
+public class LancamentoCabecalhoListController extends CRUDListController<LancamentoCabecalhoEntity> {
 
 	/**
 	 * 
@@ -44,13 +43,12 @@ public class LancamentoCabecalhoListController extends
 	private LancamentoCabecalhoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "dataLancamento", "dataInclusao", "tipo",
-				"liberado", "valor" };
+	public String[] getColunas() {
+		return new String[] { "dataLancamento", "dataInclusao", "tipo", "liberado", "valor" };
 	}
 
 	@Override
-	protected Class<? super LancamentoCabecalhoEntity> getEntityClass() {
+	public Class<? super LancamentoCabecalhoEntity> getEntityClass() {
 		return LancamentoCabecalhoEntity.class;
 	}
 
@@ -62,8 +60,7 @@ public class LancamentoCabecalhoListController extends
 	@Override
 	protected List<LancamentoCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoCabecalhoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<LancamentoCabecalhoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

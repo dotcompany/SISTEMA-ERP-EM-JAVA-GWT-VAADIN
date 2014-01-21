@@ -42,13 +42,12 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 	private RescisaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "colaborador.matricula", "dataDemissao",
-				"dataPagamento", "motivo" };
+	public String[] getColunas() {
+		return new String[] { "colaborador.matricula", "dataDemissao", "dataPagamento", "motivo" };
 	}
 
 	@Override
-	protected Class<? super RescisaoEntity> getEntityClass() {
+	public Class<? super RescisaoEntity> getEntityClass() {
 		return RescisaoEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 	@Override
 	protected List<RescisaoEntity> pesquisa(String valor) {
 		try {
-			List<RescisaoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<RescisaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

@@ -32,12 +32,12 @@ public class CstCofinsListController extends CRUDListController<CstCofins> {
 	CstCofinsFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 
 	@Override
-	protected Class<? super CstCofins> getEntityClass() {
+	public Class<? super CstCofins> getEntityClass() {
 		return CstCofins.class;
 	}
 

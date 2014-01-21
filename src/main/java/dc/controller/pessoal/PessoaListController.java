@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class PessoaListController extends CRUDListController<Pessoa>
-{
+public class PessoaListController extends CRUDListController<Pessoa> {
 
 	@Autowired
 	PessoaDAO dao;
@@ -25,8 +24,8 @@ public class PessoaListController extends CRUDListController<Pessoa>
 	PessoaFormController formController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"nome", "tipo", "email","site"};
+	public String[] getColunas() {
+		return new String[] { "nome", "tipo", "email", "site" };
 	}
 
 	@Override
@@ -50,21 +49,19 @@ public class PessoaListController extends CRUDListController<Pessoa>
 	}
 
 	@Override
-	protected Class<? super Pessoa> getEntityClass() {
+	public Class<? super Pessoa> getEntityClass() {
 		return Pessoa.class;
 	}
-
 
 	@Override
 	protected List<Pessoa> pesquisaDefault() {
 
-		/*List<ContagemEstoque> lista = new ArrayList<>();
-		try{
-			 lista =  dao.getAll(ContagemEstoque.class);	 
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }*/
-		//		
+		/*
+		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
+		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
+		 * e.printStackTrace(); }
+		 */
+		//
 		return new ArrayList<>();
 	}
 

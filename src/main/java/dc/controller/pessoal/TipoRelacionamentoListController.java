@@ -11,7 +11,6 @@ import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoRelacionamentoListController extends CRUDListController<TipoRelacionamento> {
@@ -28,8 +27,8 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	}
 
 	@Override
-	protected String[] getColunas() {
-		return new String[]{"codigo", "nome", "descricao"};
+	public String[] getColunas() {
+		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override
@@ -38,10 +37,9 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	}
 
 	@Override
-	protected Class<? super TipoRelacionamento> getEntityClass() {
+	public Class<? super TipoRelacionamento> getEntityClass() {
 		return TipoRelacionamento.class;
 	}
-	
 
 	@Override
 	protected List<TipoRelacionamento> pesquisa(String valor) {
@@ -52,10 +50,11 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	protected String getTitulo() {
 		return "Tipo Relacionamento";
 	}
+
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-		
+
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 		return false;
 	}
 
-	
 	@Override
 	protected List<TipoRelacionamento> pesquisaDefault() {
 		return (List<TipoRelacionamento>) dao.getAll(getEntityClass());

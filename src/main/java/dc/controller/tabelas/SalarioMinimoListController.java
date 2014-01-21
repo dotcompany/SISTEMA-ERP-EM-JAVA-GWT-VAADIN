@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SalarioMinimoListController extends
-		CRUDListController<SalarioMinimo> {
+public class SalarioMinimoListController extends CRUDListController<SalarioMinimo> {
 
 	/**
 	 * 
@@ -33,13 +32,12 @@ public class SalarioMinimoListController extends
 	private SalarioMinimoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "vigencia", "valorMensal", "valorDiario",
-				"valorHora" };
+	public String[] getColunas() {
+		return new String[] { "vigencia", "valorMensal", "valorDiario", "valorHora" };
 	}
 
 	@Override
-	protected Class<? super SalarioMinimo> getEntityClass() {
+	public Class<? super SalarioMinimo> getEntityClass() {
 		return SalarioMinimo.class;
 	}
 

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.entidade.suprimentos.EstoqueContagemEntity;
-import dc.servicos.dao.patrimonio.ApoliceSeguroDAO;
 import dc.servicos.dao.suprimentos.EstoqueContagemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -21,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EstoqueContagemListController extends
-		CRUDListController<EstoqueContagemEntity> {
+public class EstoqueContagemListController extends CRUDListController<EstoqueContagemEntity> {
 
 	/**
 	 * DAO'S
@@ -39,12 +36,12 @@ public class EstoqueContagemListController extends
 	private EstoqueContagemFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "estoqueAtualizado" };
 	}
 
 	@Override
-	protected Class<? super EstoqueContagemEntity> getEntityClass() {
+	public Class<? super EstoqueContagemEntity> getEntityClass() {
 		return EstoqueContagemEntity.class;
 	}
 
@@ -55,8 +52,7 @@ public class EstoqueContagemListController extends
 
 	@Override
 	protected List<EstoqueContagemEntity> pesquisa(String valor) {
-		List<EstoqueContagemEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		List<EstoqueContagemEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 		return auxLista;
 	}

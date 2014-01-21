@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoOrcadoListController extends
-		CRUDListController<LancamentoOrcadoEntity> {
+public class LancamentoOrcadoListController extends CRUDListController<LancamentoOrcadoEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class LancamentoOrcadoListController extends
 	private LancamentoOrcadoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "ano", "janeiro", "fevereiro", "marco" };
 	}
 
 	@Override
-	protected Class<? super LancamentoOrcadoEntity> getEntityClass() {
+	public Class<? super LancamentoOrcadoEntity> getEntityClass() {
 		return LancamentoOrcadoEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class LancamentoOrcadoListController extends
 	@Override
 	protected List<LancamentoOrcadoEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoOrcadoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<LancamentoOrcadoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

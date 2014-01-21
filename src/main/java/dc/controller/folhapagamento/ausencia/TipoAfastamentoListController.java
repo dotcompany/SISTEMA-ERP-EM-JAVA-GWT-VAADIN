@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoAfastamentoListController extends
-		CRUDListController<TipoAfastamentoEntity> {
+public class TipoAfastamentoListController extends CRUDListController<TipoAfastamentoEntity> {
 
 	/**
 	 * 
@@ -42,12 +41,12 @@ public class TipoAfastamentoListController extends
 	private TipoAfastamentoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoAfastamentoEntity> getEntityClass() {
+	public Class<? super TipoAfastamentoEntity> getEntityClass() {
 		return TipoAfastamentoEntity.class;
 	}
 
@@ -58,8 +57,7 @@ public class TipoAfastamentoListController extends
 
 	@Override
 	protected List<TipoAfastamentoEntity> pesquisa(String valor) {
-		List<TipoAfastamentoEntity> auxLista = this.pDAO
-				.procuraNomeContendo(valor);
+		List<TipoAfastamentoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 		return auxLista;
 	}

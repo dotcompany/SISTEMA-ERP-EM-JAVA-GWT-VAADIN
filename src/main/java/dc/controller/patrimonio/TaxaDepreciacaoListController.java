@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TaxaDepreciacaoListController extends
-		CRUDListController<TaxaDepreciacaoEntity> {
+public class TaxaDepreciacaoListController extends CRUDListController<TaxaDepreciacaoEntity> {
 
 	/**
 	 * 
@@ -43,12 +42,12 @@ public class TaxaDepreciacaoListController extends
 	private TaxaDepreciacaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "ncm", "bem", "vida", "taxa" };
 	}
 
 	@Override
-	protected Class<? super TaxaDepreciacaoEntity> getEntityClass() {
+	public Class<? super TaxaDepreciacaoEntity> getEntityClass() {
 		return TaxaDepreciacaoEntity.class;
 	}
 
@@ -60,8 +59,7 @@ public class TaxaDepreciacaoListController extends
 	@Override
 	protected List<TaxaDepreciacaoEntity> pesquisa(String valor) {
 		try {
-			List<TaxaDepreciacaoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<TaxaDepreciacaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

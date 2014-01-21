@@ -27,13 +27,13 @@ public class ConfiguracaoBoletoListController extends CRUDListController<Configu
 	private ConfiguracaoBoletoFormController configuracaoBoletoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "contaCaixa", "instrucao01", "instrucao02", "mensagem", "localPagamento", "aceite", "layoutRemessa", "especie",
 				"carteira", "codigoConvenio", "codigoCedente", "taxaMulta" };
 	}
 
 	@Override
-	protected Class<? super ConfiguracaoBoleto> getEntityClass() {
+	public Class<? super ConfiguracaoBoleto> getEntityClass() {
 		return ConfiguracaoBoleto.class;
 	}
 

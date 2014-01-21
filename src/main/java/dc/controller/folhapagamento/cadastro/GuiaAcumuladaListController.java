@@ -20,8 +20,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class GuiaAcumuladaListController extends
-		CRUDListController<GuiaAcumuladaEntity> {
+public class GuiaAcumuladaListController extends CRUDListController<GuiaAcumuladaEntity> {
 
 	/**
 	 * 
@@ -43,13 +42,12 @@ public class GuiaAcumuladaListController extends
 	private GuiaAcumuladaFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia",
-				"pisCompetencia" };
+	public String[] getColunas() {
+		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia", "pisCompetencia" };
 	}
 
 	@Override
-	protected Class<? super GuiaAcumuladaEntity> getEntityClass() {
+	public Class<? super GuiaAcumuladaEntity> getEntityClass() {
 		return GuiaAcumuladaEntity.class;
 	}
 
@@ -61,8 +59,7 @@ public class GuiaAcumuladaListController extends
 	@Override
 	protected List<GuiaAcumuladaEntity> pesquisa(String valor) {
 		try {
-			List<GuiaAcumuladaEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<GuiaAcumuladaEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

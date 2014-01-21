@@ -24,8 +24,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class IndiceEconomicoListController extends
-		CRUDListController<IndiceEconomicoEntity> {
+public class IndiceEconomicoListController extends CRUDListController<IndiceEconomicoEntity> {
 
 	/**
 	 * 
@@ -39,12 +38,12 @@ public class IndiceEconomicoListController extends
 	private IndiceEconomicoFormController indiceFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "sigla" };
 	}
 
 	@Override
-	protected Class<? super IndiceEconomicoEntity> getEntityClass() {
+	public Class<? super IndiceEconomicoEntity> getEntityClass() {
 		return IndiceEconomicoEntity.class;
 	}
 
@@ -56,8 +55,7 @@ public class IndiceEconomicoListController extends
 	@Override
 	protected List<IndiceEconomicoEntity> pesquisa(String valor) {
 		try {
-			List<IndiceEconomicoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<IndiceEconomicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

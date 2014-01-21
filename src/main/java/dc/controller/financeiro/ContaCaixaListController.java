@@ -33,7 +33,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 	}
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "digito", "descricao" };
 	}
 
@@ -43,15 +43,14 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 	}
 
 	@Override
-	protected Class<? super ContaCaixa> getEntityClass() {
+	public Class<? super ContaCaixa> getEntityClass() {
 		return ContaCaixa.class;
 	}
 
 	@Override
 	protected List<ContaCaixa> pesquisa(String valor) {
 		try {
-			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao
-					.fullTextSearch(valor);
+			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao.fullTextSearch(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,8 +76,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 	@Override
 	protected List<ContaCaixa> pesquisaDefault() {
 		try {
-			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao
-					.getAll(getEntityClass());
+			List<ContaCaixa> auxLista = (List<ContaCaixa>) this.dao.getAll(getEntityClass());
 
 			return auxLista;
 		} catch (Exception e) {

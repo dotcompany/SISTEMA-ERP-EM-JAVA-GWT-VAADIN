@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoItemSpedListController extends
-		CRUDListController<TipoItemSped> {
+public class TipoItemSpedListController extends CRUDListController<TipoItemSped> {
 
 	/**
 	 * 
@@ -33,12 +32,12 @@ public class TipoItemSpedListController extends
 	TipoItemSpedFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao" };
 	}
 
 	@Override
-	protected Class<? super TipoItemSped> getEntityClass() {
+	public Class<? super TipoItemSped> getEntityClass() {
 		return TipoItemSped.class;
 	}
 

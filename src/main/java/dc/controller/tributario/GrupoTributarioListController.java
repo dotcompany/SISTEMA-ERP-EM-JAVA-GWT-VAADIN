@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioListController extends
-		CRUDListController<GrupoTributario> {
+public class GrupoTributarioListController extends CRUDListController<GrupoTributario> {
 
 	@Autowired
 	GrupoTributarioDAO dao;
@@ -25,7 +24,7 @@ public class GrupoTributarioListController extends
 	GrupoTributarioFormController formController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "nome", "origemString" };
 	}
 
@@ -50,7 +49,7 @@ public class GrupoTributarioListController extends
 	}
 
 	@Override
-	protected Class<? super GrupoTributario> getEntityClass() {
+	public Class<? super GrupoTributario> getEntityClass() {
 		return GrupoTributario.class;
 	}
 

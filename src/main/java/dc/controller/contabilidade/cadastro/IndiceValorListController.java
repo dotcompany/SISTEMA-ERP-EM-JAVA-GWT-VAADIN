@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class IndiceValorListController extends
-		CRUDListController<IndiceValorEntity> {
+public class IndiceValorListController extends CRUDListController<IndiceValorEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class IndiceValorListController extends
 	private IndiceValorFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataIndice", "valor" };
 	}
 
 	@Override
-	protected Class<? super IndiceValorEntity> getEntityClass() {
+	public Class<? super IndiceValorEntity> getEntityClass() {
 		return IndiceValorEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class IndiceValorListController extends
 	@Override
 	protected List<IndiceValorEntity> pesquisa(String valor) {
 		try {
-			List<IndiceValorEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<IndiceValorEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

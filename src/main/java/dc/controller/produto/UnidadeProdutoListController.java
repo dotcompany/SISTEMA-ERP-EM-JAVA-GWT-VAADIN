@@ -38,12 +38,12 @@ public class UnidadeProdutoListController extends CRUDListController<UnidadeProd
 	UnidadeProdutoFormController unidadeProdutoFormController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "sigla", "nome" };
 	}
 
 	@Override
-	protected Class<? super UnidadeProduto> getEntityClass() {
+	public Class<? super UnidadeProduto> getEntityClass() {
 		return UnidadeProduto.class;
 	}
 

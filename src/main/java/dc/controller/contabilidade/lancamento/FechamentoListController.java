@@ -21,8 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller(value = "contabilidadeFechamentoListController")
 @Scope("prototype")
-public class FechamentoListController extends
-		CRUDListController<FechamentoEntity> {
+public class FechamentoListController extends CRUDListController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -44,12 +43,12 @@ public class FechamentoListController extends
 	private FechamentoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "dataInicio", "dataFim", "criterioLancamento" };
 	}
 
 	@Override
-	protected Class<? super FechamentoEntity> getEntityClass() {
+	public Class<? super FechamentoEntity> getEntityClass() {
 		return FechamentoEntity.class;
 	}
 
@@ -61,8 +60,7 @@ public class FechamentoListController extends
 	@Override
 	protected List<FechamentoEntity> pesquisa(String valor) {
 		try {
-			List<FechamentoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<FechamentoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

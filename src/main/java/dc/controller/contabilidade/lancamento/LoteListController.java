@@ -43,12 +43,12 @@ public class LoteListController extends CRUDListController<LoteEntity> {
 	private LoteFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "descricao", "dataInclusao", "dataLiberacao" };
 	}
 
 	@Override
-	protected Class<? super LoteEntity> getEntityClass() {
+	public Class<? super LoteEntity> getEntityClass() {
 		return LoteEntity.class;
 	}
 

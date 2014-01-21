@@ -43,12 +43,12 @@ public class FapListController extends CRUDListController<FapEntity> {
 	private FapFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "fap", "dataInicial", "dataFinal" };
 	}
 
 	@Override
-	protected Class<? super FapEntity> getEntityClass() {
+	public Class<? super FapEntity> getEntityClass() {
 		return FapEntity.class;
 	}
 

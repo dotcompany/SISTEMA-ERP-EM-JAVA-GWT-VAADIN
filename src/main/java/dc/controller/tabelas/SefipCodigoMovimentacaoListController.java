@@ -18,8 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SefipCodigoMovimentacaoListController extends
-		CRUDListController<SefipCodigoMovimentacao> {
+public class SefipCodigoMovimentacaoListController extends CRUDListController<SefipCodigoMovimentacao> {
 
 	/**
 	 * 
@@ -33,12 +32,12 @@ public class SefipCodigoMovimentacaoListController extends
 	SefipCodigoMovimentacaoFormController pController;
 
 	@Override
-	protected String[] getColunas() {
+	public String[] getColunas() {
 		return new String[] { "codigo", "descricao", "aplicacao" };
 	}
 
 	@Override
-	protected Class<? super SefipCodigoMovimentacao> getEntityClass() {
+	public Class<? super SefipCodigoMovimentacao> getEntityClass() {
 		return SefipCodigoMovimentacao.class;
 	}
 

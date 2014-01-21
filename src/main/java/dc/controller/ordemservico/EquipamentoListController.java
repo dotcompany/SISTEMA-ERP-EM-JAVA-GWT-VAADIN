@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.Equipamento;
 import dc.servicos.dao.ordemservico.EquipamentoDAO;
-import dc.visao.framework.geral.CRUDFormController; 
+import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
@@ -19,14 +19,13 @@ public class EquipamentoListController extends CRUDListController<Equipamento> {
 
 	@Autowired
 	EquipamentoDAO dao;
-	
+
 	@Autowired
 	EquipamentoFormController formController;
-	
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] {"equipamento","descricao"};
+	public String[] getColunas() {
+		return new String[] { "equipamento", "descricao" };
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class EquipamentoListController extends CRUDListController<Equipamento> {
 	protected List<Equipamento> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaEquipamento";
@@ -50,7 +49,7 @@ public class EquipamentoListController extends CRUDListController<Equipamento> {
 	}
 
 	@Override
-	protected Class<? super Equipamento> getEntityClass() {
+	public Class<? super Equipamento> getEntityClass() {
 		return Equipamento.class;
 	}
 
