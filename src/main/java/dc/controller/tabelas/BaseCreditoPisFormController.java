@@ -119,5 +119,11 @@ public class BaseCreditoPisFormController extends
 	public String getViewIdentifier() {
 		return "baseCreditoPisForm";
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 }

@@ -119,6 +119,12 @@ public class CsosnbFormController extends CRUDFormController<Csosnb> {
 	}
 
 	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	
+	@Override
 	public String getViewIdentifier() {
 		return "csosnbForm";
 	}

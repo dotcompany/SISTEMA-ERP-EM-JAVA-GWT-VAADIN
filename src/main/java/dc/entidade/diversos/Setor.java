@@ -10,9 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,7 +25,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.BemEntity;
 
 /**
@@ -77,12 +74,6 @@ public class Setor extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "setor")
 	// private List<ColaboradorVO> colaboradorVOList;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa idEmpresa;
-
 	@OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
 
@@ -116,14 +107,6 @@ public class Setor extends AbstractMultiEmpresaModel<Integer> implements Seriali
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Empresa getIdEmpresa() {
-		return idEmpresa;
-	}
-
-	public void setIdEmpresa(Empresa idEmpresa) {
-		this.idEmpresa = idEmpresa;
 	}
 
 	public List<BemEntity> getBemList() {

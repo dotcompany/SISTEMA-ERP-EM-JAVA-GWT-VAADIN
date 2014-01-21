@@ -47,6 +47,16 @@ public class TransportadoraFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
+		
+		if (!Validator.validateObject(subView.getCmbPessoa().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbPessoa(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getCmbContContabil().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbContContabil(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtObservacao(),
@@ -65,6 +75,29 @@ public class TransportadoraFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new TransportadoraFormView();
+		
+		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
+				PessoaListController.class, this.pessoaDAO,
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+			}
+		};
+			
+		this.subView.getCmbPessoa().setModel(model);
+
+		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(
+				ContabilContaListController.class, this.contabilContaDAO,
+				super.getMainController()) {
+		@Override
+		public String getCaptionProperty() {
+			return "descricao";
+		}
+	};
+
+		this.subView.getCmbContContabil().setModel(model1);
 	}
 
 	@Override
@@ -73,19 +106,6 @@ public class TransportadoraFormController extends
 
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
-				PessoaListController.class, this.pessoaDAO,
-				super.getMainController());
-
-		subView.getCmbPessoa().setModel(model);
-		subView.getCmbPessoa().setValue(currentBean.getPessoa());
-
-		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController());
-
-		subView.getCmbContContabil().setModel(model1);
-		subView.getCmbContContabil().setValue(currentBean.getContaContabil());
 	}
 
 	@Override

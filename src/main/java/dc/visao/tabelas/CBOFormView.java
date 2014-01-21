@@ -45,14 +45,12 @@ public class CBOFormView extends CustomComponent {
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("-1px");
-		mainLayout.setHeight("-1px");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		mainLayout.setRows(2);
 		
 		// top-level component properties
 		setWidth("-1px");
-		setHeight("-1px");
 		
 		// horizontalLayout_1
 		horizontalLayout_1 = buildHorizontalLayout_1();

@@ -132,5 +132,11 @@ public class FeriadosFormController extends	CRUDFormController<Feriados> {
 	public String getViewIdentifier() {
 		return "feriadosForm";
 	}
+	
+	@Override
+	protected boolean isFullSized() {
+
+		return true;
+	}
 
 }

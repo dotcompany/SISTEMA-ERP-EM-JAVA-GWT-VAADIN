@@ -117,5 +117,9 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 	public String getViewIdentifier() {
 		return "cfopForm";
 	}
-
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
 }
