@@ -19,8 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DadoNotaFiscalListController extends
-		CRUDListController<NfeCabecalhoEntity> {
+public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -42,14 +41,13 @@ public class DadoNotaFiscalListController extends
 	private DadoNotaFiscalFormController pController;
 
 	@Override
-	protected String[] getColunas() {
-		return new String[] { "tributOperacaoFiscal.nome", "ufEmitente",
-				"codigoNumerico", "naturezaOperacao", "informacoesAddFisco",
+	public String[] getColunas() {
+		return new String[] { "tributOperacaoFiscal.nome", "ufEmitente", "codigoNumerico", "naturezaOperacao", "informacoesAddFisco",
 				"informacoesAddContribuinte", "statusNota" };
 	}
 
 	@Override
-	protected Class<? super Object> getEntityClass() {
+	public Class<? super Object> getEntityClass() {
 		return Object.class;
 	}
 
