@@ -22,11 +22,11 @@ import com.vaadin.ui.VerticalLayout;
 import dc.framework.SearchTextFieldExtension;
 import dc.visao.framework.component.export.ExcelExporter;
 import dc.visao.framework.component.export.PdfExporter;
-import dc.visao.framework.component.importer.ExcelImporter;
+//import dc.visao.framework.component.importer.ExcelImporter;
 
 /**
  * 
- * @author Wesley Jr /* Nessa classe temos a Tela (DESIGN), onde tem todos os
+ * @author Wesley Jr /* Nessa classe temos a Tela (DESIGN) a Principal, onde tem todos os
  *         botões nessa classe
  * 
  * 
@@ -76,7 +76,7 @@ public class CRUDListView extends CustomComponent implements View {
 	private CRUDListController controller;
 
 	private ExcelExporter excelExporter;
-	private ExcelImporter excelImporter;
+	//private ExcelImporter excelImporter;
 
 	private PdfExporter pdfExporter;
 
@@ -260,7 +260,7 @@ public class CRUDListView extends CustomComponent implements View {
 
 		horizontalLayout_4.addComponent(excelExporter);
 
-		excelImporter = new ExcelImporter();
+		/*excelImporter = new ExcelImporter();
 		excelImporter.setCaption("Importar Excel");
 
 		excelImporter.addListener(new ValueChangeListener() {
@@ -273,7 +273,7 @@ public class CRUDListView extends CustomComponent implements View {
 			}
 		});
 
-		horizontalLayout_4.addComponent(excelImporter);
+		horizontalLayout_4.addComponent(excelImporter);*/
 
 		pdfExporter = new PdfExporter();
 		pdfExporter.setCaption("   Exportar PDF");

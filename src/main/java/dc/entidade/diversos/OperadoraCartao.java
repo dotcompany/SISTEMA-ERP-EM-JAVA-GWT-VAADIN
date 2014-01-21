@@ -94,9 +94,10 @@ public class OperadoraCartao extends AbstractMultiEmpresaModel<Integer> implemen
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
 	
-	@Caption(value = "Conta Caixa")
-	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne
+	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
+	@Caption("Conta Caixa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContaCaixa contaCaixa;
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
