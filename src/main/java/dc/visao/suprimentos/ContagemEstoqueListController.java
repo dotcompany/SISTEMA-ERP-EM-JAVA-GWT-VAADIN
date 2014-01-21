@@ -1,6 +1,5 @@
 package dc.visao.suprimentos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +54,7 @@ public class ContagemEstoqueListController extends CRUDListController<ContagemEs
 
 	@Override
 	protected List<ContagemEstoque> pesquisaDefault() {
+		return dao.getAll(ContagemEstoque.class);
 
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
@@ -62,7 +62,6 @@ public class ContagemEstoqueListController extends CRUDListController<ContagemEs
 		 * e.printStackTrace(); }
 		 */
 		//
-		return new ArrayList<>();
 	}
 
 	@Override
