@@ -67,27 +67,27 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "NÃ£o pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "NÃ£o pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtPalavraChave().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtPalavraChave(), "NÃ£o pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtPalavraChave(), "Não pode ficar em branco");
 			valido = false;
 		}
 		TipoDocumento tipoDocumento = (TipoDocumento) subView.getCmbTipoDocumento().getValue();
 		if (!Validator.validateObject(tipoDocumento)) {
-			adicionarErroDeValidacao(subView.getCmbTipoDocumento(), "NÃ£o pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoDocumento(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtFimVigencia())) {
-			adicionarErroDeValidacao(subView.getDtFimVigencia(), "NÃ£o pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtFimVigencia(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -200,8 +200,8 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		String caminho = null;
 		String hash = null;
-		
 		List<String> listArquivos = subView.getListArquivos();
+		
 		
 		for(int i = 0 ; i < listArquivos.size(); i++){
 			String file = listArquivos.get(i);
@@ -257,7 +257,35 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 					}
 			}
 		}
-
+		
+		
+	/*
+		List<DocumentoArquivo> list = documento.getDocumentos();
+		for(int i = 0 ; i < list.size(); i++){
+			try{
+				DocumentoArquivo documentoArquivo = list.get(i);
+				String hashArq = documentoArquivo.getHash();
+				boolean bAchou = false;
+				for(int j = 0 ; j < listArquivos.size(); j++){
+					String file = listArquivos.get(i);
+					
+					tmpFile = new File(file);
+					
+					try{hash = Util.md5Arquivo(tmpFile.getAbsolutePath());}catch(Exception e){
+						hash = "0";
+					}
+					
+					if(file.indexOf(hashArq) != -1){
+						bAchou = true;
+					}
+				}
+				
+				if(!bAchou)
+				    documentoDAO.deleteDocumentoArquivo(documentoArquivo);
+			}catch(Exception e){}
+		}
+		
+*/
 		
 
 	}

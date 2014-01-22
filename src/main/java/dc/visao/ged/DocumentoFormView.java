@@ -204,189 +204,196 @@ public class DocumentoFormView extends CustomComponent {
 
 	@SuppressWarnings("deprecation")
 	public void atualizaMiniatura(File arquivo, String nomeArquivo, String acao, int contador) {
-
-		List<String> extensao= new ArrayList<String>();
-		extensao.add(".exe");
-		extensao.add(".bat");
-		extensao.add(".bin");
-		
-		if(sources == null){
-			
-			nPanel = new Panel();
-			nPanel.setImmediate(true);
-			nPanel.setHeight("200px");
-			nPanel.setWidth("100%");
-			nPanel.setScrollTop(1600);
-		    sources = new GridLayout(12,100);
-		    nPanel.setContent(sources);
-		    gridLayout.addComponent(nPanel, 0, 6, 5,6);
-           
-		}else{
-			
-			if(acao.equals("A") && contador == 1){
-				gridLayout.removeComponent(nPanel);
-				this.sources.markAsDirtyRecursive();
-				this.gridLayout.markAsDirtyRecursive();
-				this.mainLayout.markAsDirtyRecursive();
-				this.markAsDirtyRecursive();
+  
+		 if(arquivo.length() > 0){
+		 
+				List<String> extensao= new ArrayList<String>();
+				extensao.add(".exe");
+				extensao.add(".bat");
+				extensao.add(".bin");
 				
-				nPanel = new Panel();
-				nPanel.setImmediate(true);
-				nPanel.setHeight("200px");
-				nPanel.setWidth("100%");
-				nPanel.setScrollTop(1600);
-			    sources = new GridLayout(12,100);
-			    nPanel.setContent(sources);
-			    gridLayout.addComponent(nPanel, 0, 6, 5,6);
-			}
-			
-		}
-		
-
-		if (!extensao.contains(getExtensao(nomeArquivo))) {
-			
-            nomeArquivoVisualizacao = nomeArquivo;
-		
-			if(!this.idDocumento.equals("")){
-				 nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + this.idDocumento+"/"+ nomeArquivoVisualizacao;
-			}
-			else{
-				nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + nomeArquivoVisualizacao;
-			}
-			
-			try {
-				File tmp = gravarArquivo(nomeArquivoVisualizacao,
-						Util.lerBytesArquivo(arquivo));
-				nomeArquivoVisualizacao = tmp.getAbsolutePath();
-				
-				Embedded image = new Embedded();
-				if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("doc") != -1){
-					image.setSource(new ThemeResource("img/word.png"));
-				}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("xls") != -1){
-					image.setSource(new ThemeResource("img/excel.png"));
-				}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("pdf") != -1){
-					image.setSource(new ThemeResource("img/pdf.png"));
+				if(sources == null){
 					
-				}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("txt") != -1){
-					image.setSource(new ThemeResource("img/txtfile.png"));
+					nPanel = new Panel();
+					nPanel.setImmediate(true);
+					nPanel.setHeight("350px");
+					nPanel.setWidth("100%");
+					nPanel.setScrollTop(1600);
+				    sources = new GridLayout(12,100);
+				    nPanel.setContent(sources);
+				    gridLayout.addComponent(nPanel, 0, 6, 5,6);
+		           
 				}else{
-					image.setSource(new FileResource(tmp));
+					
+					if(acao.equals("A") && contador == 1){
+						gridLayout.removeComponent(nPanel);
+						this.sources.markAsDirtyRecursive();
+						this.gridLayout.markAsDirtyRecursive();
+						this.mainLayout.markAsDirtyRecursive();
+						this.markAsDirtyRecursive();
+						
+						nPanel = new Panel();
+						nPanel.setImmediate(true);
+						nPanel.setHeight("350px");
+						nPanel.setWidth("100%");
+						nPanel.setScrollTop(1600);
+					    sources = new GridLayout(12,100);
+					    nPanel.setContent(sources);
+					    gridLayout.addComponent(nPanel, 0, 6, 5,6);
+					}
+					
 				}
 				
-				image.setWidth("110px");
-				image.setHeight("90px");
-			
-				image.setId(nomeArquivoVisualizacao);
-				
-				image.addListener(new ClickListener(){
-				    @Override
-				    public void click(com.vaadin.event.MouseEvents.ClickEvent event){
-				    	
-				    	VerticalLayout mainLayoutViewer = new VerticalLayout();
-				    	mainLayoutViewer.setSizeFull();
-				    	mainLayoutViewer.setMargin(true);
-				    	mainLayoutViewer.setSpacing(true);
-				        
-				         imageViewer.setSizeFull();
-				         imageViewer.setImages(createImageList());
-				         imageViewer.setAnimationEnabled(false);
-				         imageViewer.setSideImageRelativeWidth(0.7f);
-
-				         imageViewer.addListener(new ImageViewer.ImageSelectionListener() {
-							
-							@Override
-							public void imageSelected(ImageSelectedEvent e) {
-								 if (e.getSelectedImageIndex() >= 0) {
-				                     selectedImage.setValue(String.valueOf(e
-				                             .getSelectedImageIndex()));
-				                 } else {
-				                     selectedImage.setValue("-");
-				                 }
-								
-							}
-					     });
-				         HorizontalLayout hl = new HorizontalLayout();
-				         hl.setSizeUndefined();
-				         hl.setMargin(false);
-				         hl.setSpacing(true);
-				         mainLayoutViewer.addComponent(hl);
-				         mainLayoutViewer.addComponent(imageViewer);
-				         mainLayoutViewer.setExpandRatio(imageViewer, 1);
-
-				         Layout ctrls = createControls();
-				         mainLayoutViewer.addComponent(ctrls);
-				         mainLayoutViewer.setComponentAlignment(ctrls, Alignment.BOTTOM_CENTER);
-				         
-				         
-					        
-				         // Configure the windws layout; by default a VerticalLayout
-				         VerticalLayout layout = new VerticalLayout();
-				         layout.setMargin(true);
-				         layout.setSpacing(true);
-				        
-				         com.vaadin.ui.Button close = new com.vaadin.ui.Button("Fechar", new com.vaadin.ui.Button.ClickListener() {
-				             // inline click-listener
-				             public void buttonClick(ClickEvent event) {
-				                 // close the window by removing it from the main window
-				             	subwindow.close();
-				             }
-				         });
-				         close.setClickShortcut(KeyCode.ESCAPE, null);
-				         
-				         // The components added to the window are actually added to the window's
-				         // layout; you can use either. Alignments are set using the layout
-				         layout.addComponent(close);
-				         layout.setComponentAlignment(close, Alignment.BOTTOM_RIGHT);
-				         mainLayoutViewer.addComponent(layout);
-				        
-				         imageViewer.setCenterImageIndex(0);
-				         imageViewer.focus();
-				         subwindow.setContent(mainLayoutViewer);
-				    	
-				    	
-				    	
-				    	
-				    	
-				    	
-				           subwindow.center();
-				           UI.getCurrent().addWindow(subwindow);
-				    }
-			    });
-				
-				
-				// Wrap it in a Drag and Drop Wrapper
-				DragAndDropWrapper wrapper = new DragAndDropWrapper(image);
-				wrapper.setSizeUndefined(); // Shrink to fit
-				// Enable dragging the wrapper
-				wrapper.setDragStartMode(DragStartMode.WRAPPER);
-				
-
-				linkDonwload = new Link(nomeArquivo, new FileResource(tmp));
-				linkDonwload.setTargetName("_blank");
-				
-				//GridLayout gridImage = new GridLayout(2,2);
-				//gridImage.addComponent(wrapper, 0, 1);
-				//gridImage.addComponent(linkDonwload, 1, 2);
-							           
-				//sources.addComponent(gridImage);
-				
-				sources.addComponent(wrapper);
-				sources.addComponent(linkDonwload);
-				
-				listArquivos.add(nomeArquivoVisualizacao);
 		
+				if (!extensao.contains(getExtensao(nomeArquivo))) {
+					
+		            nomeArquivoVisualizacao = nomeArquivo;
 				
+					if(!this.idDocumento.equals("")){
+						 nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + this.idDocumento+"/"+ nomeArquivoVisualizacao;
+					}
+					else{
+						nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + nomeArquivoVisualizacao;
+					}
+					
+					try {
+						File tmp = gravarArquivo(nomeArquivoVisualizacao,
+								Util.lerBytesArquivo(arquivo));
+						nomeArquivoVisualizacao = tmp.getAbsolutePath();
+						
+						Embedded image = new Embedded();
+						if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("doc") != -1){
+							image.setSource(new ThemeResource("img/word.png"));
+						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("xls") != -1){
+							image.setSource(new ThemeResource("img/excel.png"));
+						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("pdf") != -1){
+							image.setSource(new ThemeResource("img/pdf.png"));
+							
+						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("txt") != -1){
+							image.setSource(new ThemeResource("img/txtfile.png"));
+						}else{
+							image.setSource(new FileResource(tmp));
+						}
+						
+						image.setWidth("110px");
+						image.setHeight("90px");
+					
+						image.setId(nomeArquivoVisualizacao);
+						
+						image.addListener(new ClickListener(){
+						    @Override
+						    public void click(com.vaadin.event.MouseEvents.ClickEvent event){
+						    	
+						    	VerticalLayout mainLayoutViewer = new VerticalLayout();
+						    	mainLayoutViewer.setSizeFull();
+						    	mainLayoutViewer.setMargin(true);
+						    	mainLayoutViewer.setSpacing(true);
+						        
+						         imageViewer.setSizeFull();
+						         imageViewer.setImages(createImageList());
+						         imageViewer.setAnimationEnabled(false);
+						         imageViewer.setSideImageRelativeWidth(0.7f);
+		
+						         imageViewer.addListener(new ImageViewer.ImageSelectionListener() {
+									
+									@Override
+									public void imageSelected(ImageSelectedEvent e) {
+										 if (e.getSelectedImageIndex() >= 0) {
+						                     selectedImage.setValue(String.valueOf(e
+						                             .getSelectedImageIndex()));
+						                 } else {
+						                     selectedImage.setValue("-");
+						                 }
+										
+									}
+							     });
+						         HorizontalLayout hl = new HorizontalLayout();
+						         hl.setSizeUndefined();
+						         hl.setMargin(false);
+						         hl.setSpacing(true);
+						         mainLayoutViewer.addComponent(hl);
+						         mainLayoutViewer.addComponent(imageViewer);
+						         mainLayoutViewer.setExpandRatio(imageViewer, 1);
+		
+						         Layout ctrls = createControls();
+						         mainLayoutViewer.addComponent(ctrls);
+						         mainLayoutViewer.setComponentAlignment(ctrls, Alignment.BOTTOM_CENTER);
+						         
+						         
+							        
+						         // Configure the windws layout; by default a VerticalLayout
+						         VerticalLayout layout = new VerticalLayout();
+						         layout.setMargin(true);
+						         layout.setSpacing(true);
+						        
+						         com.vaadin.ui.Button close = new com.vaadin.ui.Button("Fechar", new com.vaadin.ui.Button.ClickListener() {
+						             // inline click-listener
+						             public void buttonClick(ClickEvent event) {
+						                 // close the window by removing it from the main window
+						             	subwindow.close();
+						             }
+						         });
+						         close.setClickShortcut(KeyCode.ESCAPE, null);
+						         
+						         // The components added to the window are actually added to the window's
+						         // layout; you can use either. Alignments are set using the layout
+						         layout.addComponent(close);
+						         layout.setComponentAlignment(close, Alignment.BOTTOM_RIGHT);
+						         mainLayoutViewer.addComponent(layout);
+						        
+						         imageViewer.setCenterImageIndex(0);
+						         imageViewer.focus();
+						         subwindow.setContent(mainLayoutViewer);
+						    	
+						    	
+						    	
+						    	
+						    	
+						    	
+						           subwindow.center();
+						           UI.getCurrent().addWindow(subwindow);
+						    }
+					    });
+						
+						
+						// Wrap it in a Drag and Drop Wrapper
+						DragAndDropWrapper wrapper = new DragAndDropWrapper(image);
+						wrapper.setSizeUndefined(); // Shrink to fit
+						// Enable dragging the wrapper
+						wrapper.setDragStartMode(DragStartMode.WRAPPER);
+						
+		
+						linkDonwload = new Link(nomeArquivo, new FileResource(tmp));
+						linkDonwload.setTargetName("_blank");
+						
+						//GridLayout gridImage = new GridLayout(2,2);
+						//gridImage.addComponent(wrapper, 0, 1);
+						//gridImage.addComponent(linkDonwload, 1, 2);
+									           
+						//sources.addComponent(gridImage);
+						
+						sources.addComponent(wrapper);
+						sources.addComponent(linkDonwload);
+						
+						listArquivos.add(nomeArquivoVisualizacao);
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}		
-			
-			this.markAsDirtyRecursive();
-			this.requestRepaintAll();
-			
-			
-			
-		}
+						
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+					}		
+					
+					this.markAsDirtyRecursive();
+					this.requestRepaintAll();
+					
+					
+					
+				}
+		 }else{
+			 try{
+				 arquivo.delete();
+			 }catch(Exception e){}
+		 }
 	}
 
 	
@@ -409,7 +416,7 @@ public class DocumentoFormView extends CustomComponent {
         hl.addComponent(c);
         hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
 
-        c = new CheckBox("AnimaÃ§Ã£o");
+        c = new CheckBox("Animação");
         c.setImmediate(true);
         c.addValueChangeListener(new Property.ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
@@ -422,7 +429,7 @@ public class DocumentoFormView extends CustomComponent {
         hl.addComponent(c);
         hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
 
-        Slider s = new Slider("DuraÃ§Ã£o AnimaÃ§Ã£o");
+        Slider s = new Slider("Duração Animação");
         s.setMax(2000);
         s.setMin(200);
         s.setImmediate(true);
@@ -790,7 +797,7 @@ public class DocumentoFormView extends CustomComponent {
 		gridLayout.addComponent(txtNome, 0, 0);
 
 		// txtDescricao
-		txtDescricao = ComponentUtil.buildTextField("DescriÃ§Ã£o");
+		txtDescricao = ComponentUtil.buildTextField("Descrição");
 		gridLayout.addComponent(txtDescricao, 0, 1);
 
 		// txtPalavraChave
@@ -800,11 +807,16 @@ public class DocumentoFormView extends CustomComponent {
 		// cbmTipoDocumento
 		cmbTipoDocumento = new ManyToOneCombo<>();
 		cmbTipoDocumento.setCaption("Tipo Documento");
+		cmbTipoDocumento.setWidth("290px");
+		cmbTipoDocumento.setSizeFull();
+		
+		UI.getCurrent().getPage().getStyles().add(".v-slot { position:static !important;}");
 		
 		gridLayout.addComponent(cmbTipoDocumento, 0, 3);
 		
+		
 		// dtFimVigencia
-				dtFimVigencia = ComponentUtil.buildPopupDateField("Data VigÃªncia");
+				dtFimVigencia = ComponentUtil.buildPopupDateField("Data Vigência");
 				gridLayout.addComponent(dtFimVigencia, 1, 1);
 		
 		// pwSenhaCertificado
@@ -916,7 +928,7 @@ public class DocumentoFormView extends CustomComponent {
 		
 		nPanel = new Panel();
 		nPanel.setImmediate(true);
-		nPanel.setHeight("200px");
+		nPanel.setHeight("350px");
 		nPanel.setWidth("900px");
 		nPanel.setScrollTop(1600);
 		

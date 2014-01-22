@@ -68,7 +68,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 				searchItemValue = new ItemValue();
 				searchItemValue.setType(ITEM_TYPE_SEARCH);
-				searchItemValue.setCaption("Pesquisa AvanÃ§ada...");
+				searchItemValue.setCaption("Pesquisa Avançada...");
 				searchItemValue.setFilter(q);
 				addItem(searchItemValue);
 
@@ -254,7 +254,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		};
 
 		cmbResult.setImmediate(true);
-		cmbResult.setWidth("100.0%");
+		cmbResult.setWidth("265px");
 		mainLayout.addComponent(cmbResult);
 
 		// lblEdit
@@ -262,9 +262,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnEdit.setCaption(Icon.edit.toString());
 		btnEdit.setHtmlContentAllowed(true);
 		btnEdit.setId("lblEdit");
+		btnEdit.setWidth("30px");
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
-		UI.getCurrent().getPage().getStyles().add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; margin-left:-8PX}");
+		UI.getCurrent().getPage().getStyles().add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; margin-left: 114px;}");
+		
+		
 		return mainLayout;
 	}
 
