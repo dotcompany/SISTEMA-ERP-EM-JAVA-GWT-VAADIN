@@ -13,6 +13,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
+
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,14 +24,14 @@ public class ExcelImporter extends Importer {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
 
-	public ExcelImporter() {
-		setFieldType(FieldType.FILE);
-	}
+	@SuppressWarnings("rawtypes")
+	private CRUDListController controller;
 
-	public void processaArquivo(File value, CRUDListController listController) {
+	public void processarArquivo(File value) {
 		try {
-			GenericListDAO genericDAO = listController.getGenericDAO();
+			GenericListDAO genericDAO = controller.getGenericDAO();
 
 			FileInputStream fileInputStream = new FileInputStream(value);
 			HSSFWorkbook xls = new HSSFWorkbook(fileInputStream);
@@ -38,16 +41,16 @@ public class ExcelImporter extends Importer {
 
 			// pula o header. Primeira linha
 			if (iterator.hasNext()) {
-				Row header = iterator.next();
+				iterator.next();
 			}
 
 			while (iterator.hasNext()) {
 				Row row = iterator.next();
 				// criar bean
-				Object bean = listController.getEntityClass().newInstance();
+				Object bean = controller.getEntityClass().newInstance();
 
 				int coluna = -1;
-				for (Object column : listController.getTable().getVisibleColumns()) {
+				for (Object column : controller.getTable().getVisibleColumns()) {
 					// Ignora a primeira coluna pois eh check box
 					if (coluna >= 0) {
 						try {
@@ -69,6 +72,10 @@ public class ExcelImporter extends Importer {
 			}
 			fileInputStream.close();
 			value.deleteOnExit();
+
+			new Notification("Arquivo", "Importação realizada com sucesso!", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
+
+			controller.doSearch("");
 
 		} catch (IOException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
@@ -96,6 +103,22 @@ public class ExcelImporter extends Importer {
 			break;
 		}
 		return returnValue;
+	}
+
+	/*
+	 * @SuppressWarnings("deprecation")
+	 * 
+	 * @Override protected void handleFile(File file, String fileName, String
+	 * mimeType, long length) { processaArquivo(file);
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
+
+	public void setController(@SuppressWarnings("rawtypes") CRUDListController controller) {
+		this.controller = controller;
+
 	}
 
 }

@@ -11,14 +11,13 @@
 	<http security="none" pattern="/VAADIN/**" />
 	<http security="none" pattern="/criarconta/**" />
 	<http security="none" pattern="/esqueciMinhaSenha/**" />
-	<http security="none" pattern="/APP/**" />
-	
 
 	<http auto-config='true'>
 		<intercept-url pattern="/login/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/alterarSenha*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/UIDL//**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="${security.pattern}" access="ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/APP/**" access="ROLE_USER, ROLE_ADMIN" />
 		<form-login login-page="/login/"
 			authentication-failure-url="/login/?error=true" />
 	</http>
