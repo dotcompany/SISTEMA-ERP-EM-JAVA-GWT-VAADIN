@@ -211,8 +211,14 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 		try {
 			DefaultManyToOneComboModel<IndiceEconomicoEntity> model = new DefaultManyToOneComboModel<IndiceEconomicoEntity>(
 					IndiceEconomicoListController.class, this.ieDAO,
-					super.getMainController());
+					super.getMainController()) {
 
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
+			};
+				
 			this.subView.getCbIndiceEconomico().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();

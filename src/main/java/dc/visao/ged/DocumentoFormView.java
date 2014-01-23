@@ -416,7 +416,7 @@ public class DocumentoFormView extends CustomComponent {
         hl.addComponent(c);
         hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
 
-        c = new CheckBox("Animação");
+        c = new CheckBox("Animaï¿½ï¿½o");
         c.setImmediate(true);
         c.addValueChangeListener(new Property.ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
@@ -429,7 +429,7 @@ public class DocumentoFormView extends CustomComponent {
         hl.addComponent(c);
         hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
 
-        Slider s = new Slider("Duração Animação");
+        Slider s = new Slider("Duraï¿½ï¿½o Animaï¿½ï¿½o");
         s.setMax(2000);
         s.setMin(200);
         s.setImmediate(true);
@@ -797,7 +797,7 @@ public class DocumentoFormView extends CustomComponent {
 		gridLayout.addComponent(txtNome, 0, 0);
 
 		// txtDescricao
-		txtDescricao = ComponentUtil.buildTextField("Descrição");
+		txtDescricao = ComponentUtil.buildTextField("DescriÃ§Ã£o");
 		gridLayout.addComponent(txtDescricao, 0, 1);
 
 		// txtPalavraChave
@@ -816,8 +816,8 @@ public class DocumentoFormView extends CustomComponent {
 		
 		
 		// dtFimVigencia
-				dtFimVigencia = ComponentUtil.buildPopupDateField("Data Vigência");
-				gridLayout.addComponent(dtFimVigencia, 1, 1);
+		dtFimVigencia = ComponentUtil.buildPopupDateField("Data VigÃªncia");
+		gridLayout.addComponent(dtFimVigencia, 1, 1);
 		
 		// pwSenhaCertificado
 		pwSenhaCertificado = new PasswordField();

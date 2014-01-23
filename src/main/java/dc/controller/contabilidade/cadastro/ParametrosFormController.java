@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDFormController;
  * 
  */
 
-@Controller(value = "contabilidadeParametrosFormController")
+@Controller()
 @Scope("prototype")
 public class ParametrosFormController extends
 		CRUDFormController<ParametrosEntity> {

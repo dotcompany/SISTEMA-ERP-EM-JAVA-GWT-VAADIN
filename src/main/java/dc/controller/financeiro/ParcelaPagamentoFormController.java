@@ -147,6 +147,8 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		subView.getTxValorPago().setEnabled(false);
 		subView.getDtDataVencimento().setEnabled(false);
 		subView.getTxValorPagar().setEnabled(false);
+		
+		preencheCombos();
 	}
 
 	@Override

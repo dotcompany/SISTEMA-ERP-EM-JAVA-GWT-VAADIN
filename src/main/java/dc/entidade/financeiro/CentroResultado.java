@@ -27,12 +27,15 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "CLASSIFICACAO")
 	@Caption(value = "Classificação")
 	private String classificacao;
+	
 	@Column(name = "DESCRICAO")
 	@Caption(value = "Descrição")
 	private String descricao;
+	
 	@Column(name = "SOFRE_RATEIO")
 	@Caption(value = "Sofre Rateio")
 	private String sofreRateio;
+	
 	@JoinColumn(name = "ID_PLANO_CENTRO_RESULTADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Plano Centro Resultado")

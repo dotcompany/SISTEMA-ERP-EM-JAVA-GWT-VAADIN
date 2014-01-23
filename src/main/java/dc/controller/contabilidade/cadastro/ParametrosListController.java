@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
@@ -19,7 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
  * 
  */
 
-@Controller(value = "contabilidadeParametrosListController")
+@Component
 @Scope("prototype")
 public class ParametrosListController extends CRUDListController<ParametrosEntity> {
 
