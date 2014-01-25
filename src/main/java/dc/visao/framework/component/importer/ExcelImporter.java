@@ -55,10 +55,15 @@ public class ExcelImporter extends Importer {
 					if (coluna >= 0) {
 						try {
 							Cell cell = row.getCell(coluna);
-							PropertyUtils.setSimpleProperty(bean, column.toString(), getCellValue(cell));
+							PropertyUtils.getPropertyDescriptor(bean, column.toString()).getPropertyType();
+							PropertyUtils.setSimpleProperty(bean, column.toString(),
+									getCellValue(cell, PropertyUtils.getPropertyDescriptor(bean, column.toString()).getPropertyType()));
+
 						} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-							// TODO Auto-generated catch block
+							new Notification("Arquivo", "Ocorreu um erro na importação!", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
+									.getCurrent());
 							e.printStackTrace();
+
 						}
 
 					}
@@ -84,23 +89,35 @@ public class ExcelImporter extends Importer {
 
 	}
 
-	private Object getCellValue(Cell cell) {
+	private Object getCellValue(Cell cell, Class<?> clazz) {
 		Object returnValue = null;
-		switch (cell.getCellType()) {
-		case Cell.CELL_TYPE_NUMERIC:
-			returnValue = cell.getNumericCellValue();
-			break;
+		if (cell != null) {
+			switch (cell.getCellType()) {
+			case Cell.CELL_TYPE_NUMERIC:
+				Double numericCellValue = cell.getNumericCellValue();
+				if (clazz.isInstance(numericCellValue)) {
+					returnValue = numericCellValue;
+				} else {
 
-		case Cell.CELL_TYPE_STRING:
-			returnValue = cell.getStringCellValue();
-			break;
+					if (numericCellValue instanceof Double) {
+						returnValue = String.valueOf(numericCellValue.intValue());
+					} else {
+						returnValue = numericCellValue.toString();
+					}
+				}
+				break;
 
-		case Cell.CELL_TYPE_BOOLEAN:
-			returnValue = cell.getBooleanCellValue();
-			break;
+			case Cell.CELL_TYPE_STRING:
+				returnValue = cell.getStringCellValue();
+				break;
 
-		default:
-			break;
+			case Cell.CELL_TYPE_BOOLEAN:
+				returnValue = cell.getBooleanCellValue();
+				break;
+
+			default:
+				break;
+			}
 		}
 		return returnValue;
 	}
