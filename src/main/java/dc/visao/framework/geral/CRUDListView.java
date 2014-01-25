@@ -20,8 +20,6 @@ import dc.visao.framework.component.export.ExcelExporter;
 import dc.visao.framework.component.export.PdfExporter;
 import dc.visao.framework.component.importer.ExcelImporter;
 
-//import dc.visao.framework.component.importer.ExcelImporter;
-
 /**
  * 
  * @author Wesley Jr /* Nessa classe temos a Tela (DESIGN) a Principal, onde tem
@@ -184,26 +182,10 @@ public class CRUDListView extends CustomComponent implements View {
 
 		horizontalLayout_4 = buildHorizontalLayout_4();
 
-		// PopupButton pb = new PopupButton("teste");
-		// pb.setContent(horizontalLayout_4);
+		PopupButton pb = new PopupButton("Ações");
+		pb.setContent(horizontalLayout_4);
 
-		PopupButton popupButton = new PopupButton("Action");
-
-		HorizontalLayout popupLayout = new HorizontalLayout();
-
-		popupButton.setComponent(popupLayout); // Set popup content
-
-		Button modifyButton = new Button("Modify");
-		modifyButton.setIcon(new ThemeResource("../runo/icons/16/document-txt.png"));
-		popupLayout.addComponent(modifyButton);
-		Button addButton = new Button("Add");
-		addButton.setIcon(new ThemeResource("../runo/icons/16/document-add.png"));
-		popupLayout.addComponent(addButton);
-		Button deleteButton = new Button("Delete");
-		deleteButton.setIcon(new ThemeResource("../runo/icons/16/document-delete.png"));
-		popupLayout.addComponent(deleteButton);
-
-		mainLayout.addComponent(popupButton);
+		mainLayout.addComponent(pb);
 
 		// vltTabela
 		vltTabela = new VerticalLayout();
@@ -226,40 +208,6 @@ public class CRUDListView extends CustomComponent implements View {
 		horizontalLayout_4.setHeight("-1px");
 		horizontalLayout_4.setMargin(true);
 		horizontalLayout_4.setSpacing(true);
-
-		/*
-		 * PopupButton popupButton = new PopupButton("Exportar Dados");
-		 * popupButton.setIcon(new ThemeResource("img/export.png"));
-		 * 
-		 * GridLayout gl = new GridLayout(2, 1); gl.setWidth("150px");
-		 * gl.setHeight("100px");
-		 * 
-		 * excelExporter = new ExcelExporter();
-		 * excelExporter.setCaption("   Excel"); excelExporter.setIcon(new
-		 * ThemeResource("img/iconExcel.png"));
-		 * 
-		 * excelExporter.addClickListener(new Button.ClickListener() { public
-		 * void buttonClick(ClickEvent event) {
-		 * excelExporter.setTableToBeExported(controller.getTable()); } });
-		 * 
-		 * 
-		 * 
-		 * gl.addComponent(excelExporter);
-		 * 
-		 * pdfExporter = new PdfExporter(); pdfExporter.setCaption("   PDF");
-		 * pdfExporter.setIcon(new ThemeResource("img/iconPDF.gif"));
-		 * pdfExporter.addClickListener(new Button.ClickListener() { public void
-		 * buttonClick(ClickEvent event) {
-		 * pdfExporter.setTableToBeExported(controller.getTable());
-		 * 
-		 * } });
-		 * 
-		 * gl.addComponent(pdfExporter);
-		 * 
-		 * popupButton.setContent(gl);
-		 * 
-		 * horizontalLayout_4.addComponent(popupButton);
-		 */
 
 		/**
 		 * cria as opcoes para exportar pra PDF, EXCEL.
@@ -292,9 +240,9 @@ public class CRUDListView extends CustomComponent implements View {
 		horizontalLayout_4.addComponent(pdfExporter);
 
 		excelImporter = new ExcelImporter();
-		excelImporter.setCaption("Importar Excel");
+		// excelImporter.setCaption("Importar Excel");
 		excelImporter.setController(controller);
-		excelImporter.setIcon(new ThemeResource("img/iconExcel.png"));
+		// excelImporter.setIcon(new ThemeResource("img/iconExcel.png"));
 		// excelImporter.setUploadButtonCaption("Selecione o arquivo");
 
 		horizontalLayout_4.addComponent(excelImporter);

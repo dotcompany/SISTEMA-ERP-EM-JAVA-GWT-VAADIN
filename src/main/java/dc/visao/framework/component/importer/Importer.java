@@ -4,12 +4,7 @@ import java.io.File;
 
 import org.vaadin.easyuploads.UploadField;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Upload;
-import com.vaadin.ui.Upload.FailedEvent;
-import com.vaadin.ui.Upload.FailedListener;
 
 public abstract class Importer extends UploadField {
 
@@ -42,30 +37,9 @@ public abstract class Importer extends UploadField {
 		});
 
 		final Upload upload = (Upload) getRootLayout().getComponent(0);
-		upload.setButtonCaption("Import");
+		// Make uploading start immediately when file is selected
 		upload.setImmediate(true);
-		upload.addListener(new FailedListener() {
-
-			@Override
-			public void uploadFailed(FailedEvent event) {
-				System.out.println(event);
-
-			}
-		});
-
-		Button processar = new Button();
-		processar.setCaption("Importar");
-		processar.addClickListener(new ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				upload.startUpload();
-
-			}
-		});
-
-		getRootLayout().addComponent(processar);
-
+		upload.setButtonCaption("Importar");
 	}
 
 	protected abstract void processarArquivo(File file);

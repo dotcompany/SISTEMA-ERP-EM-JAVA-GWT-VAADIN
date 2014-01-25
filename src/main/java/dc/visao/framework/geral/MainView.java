@@ -1,7 +1,5 @@
 package dc.visao.framework.geral;
 
-
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,7 +39,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.framework.FmModulo;
 import dc.entidade.geral.Usuario;
-import dc.org.vaadin.hhe.nanoscrollpanel.NanoScrollPanel;
 import dc.visao.framework.geral.fake.DashboardView;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -54,11 +51,11 @@ public class MainView extends CssLayout implements View {
 	CssLayout topMenu = new CssLayout();
 
 	CssLayout bottomBar = new CssLayout();
-    CssLayout content = new CssLayout();
-    
-    HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
+	CssLayout content = new CssLayout();
+
+	HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
 	protected HorizontalLayout tasksBar;
-	protected MenuItem tasksMenuItem ;
+	protected MenuItem tasksMenuItem;
 	private boolean barActive;
 	private ShortcutListener moveToNextTaskShortcut;
 	private List<MoveToIndexShortcutHandler> moveToIndexTaskShortcuts = new ArrayList<MoveToIndexShortcutHandler>();
@@ -67,9 +64,9 @@ public class MainView extends CssLayout implements View {
 	public static Logger logger = Logger.getLogger(MainView.class);
 
 	public MainView() {
-        this.addStyleName("root");
-        this.setSizeFull();
-        logger.info("Main view instantiated");
+		this.addStyleName("root");
+		this.setSizeFull();
+		logger.info("Main view instantiated");
 	}
 
 	private void showHomeView() {
@@ -80,201 +77,190 @@ public class MainView extends CssLayout implements View {
 
 	private void buildSideBarMenu() {
 		logger.info("sidebarmenu compostion. ");
-        this.addComponent(new HorizontalLayout() {
-            {
-                setSizeFull();
-                addStyleName("main-view");
-                addComponent(new VerticalLayout()  {
-                    // Sidebar
-                    {
-                        addStyleName("sidebar");
-                        setWidth(null);
-                        setHeight("100%");
+		this.addComponent(new HorizontalLayout() {
+			{
+				setSizeFull();
+				addStyleName("main-view");
+				addComponent(new VerticalLayout() {
+					// Sidebar
+					{
+						addStyleName("sidebar");
+						setWidth(null);
+						setHeight("100%");
 
-                        CssLayout homeLinkLayout = new CssLayout();
-                        homeLinkLayout.addStyleName("branding");
-                        Label logo = new Label("<span>SampleCompany</span> ERP",ContentMode.HTML);
-                        logo.setSizeUndefined();
-                        homeLinkLayout.addComponent(logo);
-                        homeLinkLayout.addLayoutClickListener(new LayoutClickListener() {
-							
+						CssLayout homeLinkLayout = new CssLayout();
+						homeLinkLayout.addStyleName("branding");
+						Label logo = new Label("<span>SampleCompany</span> ERP", ContentMode.HTML);
+						logo.setSizeUndefined();
+						homeLinkLayout.addComponent(logo);
+						homeLinkLayout.addLayoutClickListener(new LayoutClickListener() {
+
 							@Override
 							public void layoutClick(LayoutClickEvent event) {
-								if(event.getButton().equals(LayoutClickEvent.BUTTON_LEFT)){
+								if (event.getButton().equals(LayoutClickEvent.BUTTON_LEFT)) {
 									MainUI ui = (MainUI) UI.getCurrent();
-									if(ui != null){
+									if (ui != null) {
 										Navigator nav = ui.getNavigator();
-										if(nav != null){
-											nav.navigateTo("home");	
+										if (nav != null) {
+											nav.navigateTo("home");
 										}
 									}
-									
+
 								}
 							}
 						});
-                        addComponent(homeLinkLayout);
+						addComponent(homeLinkLayout);
 
-                        // SidebarMenu
-                        
-                        //NanoScrollPanel nPanel = new NanoScrollPanel();
-                 	    //nPanel.setSizeFull();
-                 	   // nPanel.setWidth("100%");
-                        //nPanel.setHeight("40px");
-                        //nPanel.flashScrollbar();
-                 	    //nPanel.setPreventPageScrolling(true); 
-                 	    //nPanel.setContent(sideBarMenu);
-                 	    addComponent(sideBarMenu);
-                        //addComponent(nPanel);
-                        setExpandRatio(sideBarMenu, 1);
+						// SidebarMenu
 
-                        // User menu
-                        addComponent( new VerticalLayout() {
-                            {
-                                setSizeUndefined();
-                                addStyleName("user");
-                                Image profilePic = new Image(
-                                        null,
-                                        new ThemeResource("img/profile-pic.png"));
-                                profilePic.setWidth("34px");
-                                addComponent(profilePic);
-                                
-                                Label userName = new Label("Usuario");
-                                Usuario usuario = SecuritySessionProvider.getUsuario();
-                                if(usuario != null){
-                                	userName.setValue(usuario.getUsernome());
-	                                userName.setSizeUndefined();
-	                                addComponent(userName);	
-                                }
-                                
-                                Command cmd = new Command() {
-                                    @Override
-                                    public void menuSelected(
-                                            MenuItem selectedItem) {
-                                        Notification
-                                                .show("Not implemented in this demo");
-                                    }
-                                };
-                                
-                                MenuBar settings = new MenuBar();
-                                MenuItem settingsMenu = settings.addItem("",
-                                        null);
-                                settingsMenu.setStyleName("icon-cog");
-                                settingsMenu.addItem("Configurações", cmd);
-                                settingsMenu.addItem("Preferências", cmd);
-                                settingsMenu.addSeparator();
-                                settingsMenu.addItem("Minha conta", cmd);
-                                addComponent(settings);
+						// NanoScrollPanel nPanel = new NanoScrollPanel();
+						// nPanel.setSizeFull();
+						// nPanel.setWidth("100%");
+						// nPanel.setHeight("40px");
+						// nPanel.flashScrollbar();
+						// nPanel.setPreventPageScrolling(true);
+						// nPanel.setContent(sideBarMenu);
+						addComponent(sideBarMenu);
+						// addComponent(nPanel);
+						setExpandRatio(sideBarMenu, 1);
 
-                                Button exit = new NativeButton("Sair");
-                                exit.addClickListener(new ClickListener() {
+						// User menu
+						addComponent(new VerticalLayout() {
+							{
+								setSizeUndefined();
+								addStyleName("user");
+								Image profilePic = new Image(null, new ThemeResource("img/profile-pic.png"));
+								profilePic.setWidth("34px");
+								addComponent(profilePic);
+
+								Label userName = new Label("Usuario");
+								Usuario usuario = SecuritySessionProvider.getUsuario();
+								if (usuario != null) {
+									userName.setValue(usuario.getUsernome());
+									userName.setSizeUndefined();
+									addComponent(userName);
+								}
+
+								Command cmd = new Command() {
+									@Override
+									public void menuSelected(MenuItem selectedItem) {
+										Notification.show("Not implemented in this demo");
+									}
+								};
+
+								MenuBar settings = new MenuBar();
+								MenuItem settingsMenu = settings.addItem("", null);
+								settingsMenu.setStyleName("icon-cog");
+								settingsMenu.addItem("Configurações", cmd);
+								settingsMenu.addItem("Preferências", cmd);
+								settingsMenu.addSeparator();
+								settingsMenu.addItem("Minha conta", cmd);
+								addComponent(settings);
+
+								Button exit = new NativeButton("Sair");
+								exit.addClickListener(new ClickListener() {
 
 									@Override
 									public void buttonClick(ClickEvent event) {
 										MainUI mUI = (MainUI) UI.getCurrent();
 										String logoutURL = mUI.getContextPath() + "/j_spring_security_logout";
-										getUI().getPage().setLocation(logoutURL
-									            );
+										getUI().getPage().setLocation(logoutURL);
 
-									        // Close the VaadinSession
-									        getSession().close();
+										// Close the VaadinSession
+										getSession().close();
 
 									}
 								});
-                                exit.addStyleName("icon-cancel");
-                                exit.setDescription("Sair");
-                                addComponent(exit);
-                                
-                            }
-                        });
-                    }
-                });
-                
-                VerticalLayout rightSide = new VerticalLayout() {
+								exit.addStyleName("icon-cancel");
+								exit.setDescription("Sair");
+								addComponent(exit);
+
+							}
+						});
+					}
+				});
+
+				VerticalLayout rightSide = new VerticalLayout() {
 
 					{
-	                	addComponent(topMenu);
-	                    topMenu.setWidth("100%");
-	                    //topMenu.setHeight("8%");
-	                    topMenu.addStyleName("view-menu");
-	                    topMenu.setVisible(false);
-	                    setComponentAlignment(topMenu, Alignment.TOP_LEFT);
+						addComponent(topMenu);
+						topMenu.setWidth("100%");
+						// topMenu.setHeight("8%");
+						topMenu.addStyleName("view-menu");
+						topMenu.setVisible(false);
+						setComponentAlignment(topMenu, Alignment.TOP_LEFT);
 
-	                    content.setSizeFull();
-	                    content.setStyleName("view-content");
-	                    addComponent(content);
-	                    setComponentAlignment(content, Alignment.TOP_CENTER);
+						content.setSizeFull();
+						content.setStyleName("view-content");
+						addComponent(content);
+						setComponentAlignment(content, Alignment.TOP_CENTER);
 
-	                    addComponent(bottomBar);
-	                    //bottomBar.setWidth("100%");
-	                   // bottomBar.setHeight("100%");
-	                    bottomBar.addStyleName("view-bottom");
+						addComponent(bottomBar);
+						// bottomBar.setWidth("100%");
+						// bottomBar.setHeight("100%");
+						bottomBar.addStyleName("view-bottom");
 
-	                    HorizontalLayout tasksPanel = new HorizontalLayout();
-	                    
-	                    tasksPanel.addStyleName("taskbar");
-	                    tasksPanel.setHeight("100%");
-	                    tasksPanel.setWidth("100%");
-	                    tasksBar = new HorizontalLayout();
-	                    tasksBar.addStyleName("tasks-panel");
-	                    tasksBar.setImmediate(true);
-	                    tasksBar.setWidth("100%");
-	                    //tasksPanel.addStyleName(MenuBuilder.MODULE_MENU_BAR);
-	                    tasksPanel.addComponent(tasksBar);
-	                    
-	                    MenuBar barMenu = new MenuBar();
-	                    barMenu.setImmediate(true);
-	        			tasksMenuItem  = barMenu.addItem("",new ThemeResource("img/icone_lista_tarefas.png"),null);
-	        			barMenu.setStyleName("taskbar-menu");
-	                    
-	        			tasksPanel.addComponent(barMenu);
-	        			tasksPanel.setComponentAlignment(barMenu, Alignment.MIDDLE_RIGHT);
-	        			
-	        			tasksPanel.setExpandRatio(tasksBar, 1);
-	                 
-	                    
-	                    bottomBar.addComponent(tasksPanel);
-	                    setComponentAlignment(bottomBar, Alignment.TOP_CENTER);
-	                    bottomBar.setVisible(false);
-	                    
-	                    bottomBar.setHeight("30px");
+						HorizontalLayout tasksPanel = new HorizontalLayout();
 
-	                   // setExpandRatio(topMenu,(float) 4.2);
-	                  //setExpandRatio(content,(float) 91.6);
-	                  //  setExpandRatio(bottomBar,(float) 4.2);
+						tasksPanel.addStyleName("taskbar");
+						tasksPanel.setHeight("100%");
+						tasksPanel.setWidth("100%");
+						tasksBar = new HorizontalLayout();
+						tasksBar.addStyleName("tasks-panel");
+						tasksBar.setImmediate(true);
+						tasksBar.setWidth("100%");
+						// tasksPanel.addStyleName(MenuBuilder.MODULE_MENU_BAR);
+						tasksPanel.addComponent(tasksBar);
 
-	                    setExpandRatio(topMenu,(float) 3.2);
-	                    setExpandRatio(content,(float) 92.8);
-                    }
-            	};
-            	
-            	rightSide.setHeight("100%");
-                addComponent(rightSide);
-                setExpandRatio(rightSide, 1);
-             
-            }
-        });
+						MenuBar barMenu = new MenuBar();
+						barMenu.setImmediate(true);
+						tasksMenuItem = barMenu.addItem("", new ThemeResource("img/icone_lista_tarefas.png"), null);
+						barMenu.setStyleName("taskbar-menu");
 
-       
-        
-        sideBarMenu.removeAllComponents();
-        
-        sideBarMenu.addStyleName("menu");
-        sideBarMenu.setHeight("100%");
-        
-        
+						tasksPanel.addComponent(barMenu);
+						tasksPanel.setComponentAlignment(barMenu, Alignment.MIDDLE_RIGHT);
+
+						tasksPanel.setExpandRatio(tasksBar, 1);
+
+						bottomBar.addComponent(tasksPanel);
+						setComponentAlignment(bottomBar, Alignment.TOP_CENTER);
+						bottomBar.setVisible(false);
+
+						bottomBar.setHeight("30px");
+
+						// setExpandRatio(topMenu,(float) 4.2);
+						// setExpandRatio(content,(float) 91.6);
+						// setExpandRatio(bottomBar,(float) 4.2);
+
+						setExpandRatio(topMenu, (float) 3.2);
+						setExpandRatio(content, (float) 92.8);
+					}
+				};
+
+				rightSide.setHeight("100%");
+				addComponent(rightSide);
+				setExpandRatio(rightSide, 1);
+
+			}
+		});
+
+		sideBarMenu.removeAllComponents();
+
+		sideBarMenu.addStyleName("menu");
+		sideBarMenu.setHeight("100%");
+
 	}
 
+	private void clearMenuSelection() {
+		for (Iterator<Component> it = sideBarMenu.getComponentIterator(); it.hasNext();) {
+			Component next = it.next();
+			if (next instanceof NativeButton) {
+				next.removeStyleName("selected");
+			}
+		}
+	}
 
-    private void clearMenuSelection() {
-        for (Iterator<Component> it = sideBarMenu.getComponentIterator(); it.hasNext();) {
-            Component next = it.next();
-            if (next instanceof NativeButton) {
-                next.removeStyleName("selected");
-            } 
-        }
-    }
-
-	public void setContent(Component c){
+	public void setContent(Component c) {
 		c.setSizeFull();
 		content.removeAllComponents();
 		content.addComponent(c);
@@ -283,7 +269,7 @@ public class MainView extends CssLayout implements View {
 	public void setTopMenu(Component m) {
 		topMenu.removeAllComponents();
 		topMenu.addComponent(m);
-		if(!topMenu.isVisible()){
+		if (!topMenu.isVisible()) {
 			topMenu.setVisible(true);
 		}
 	}
@@ -291,136 +277,128 @@ public class MainView extends CssLayout implements View {
 	@Override
 	public void enter(ViewChangeEvent event) {
 		logger.info("entering main view");
-		if(!showed){
+		if (!showed) {
 			showHomeView();
-			buildSideBarMenu();	
+			buildSideBarMenu();
 			showModulesMenu();
 		}
 		showed = true;
 	}
-	
-	public void setModules(List<FmModulo> modules){
+
+	public void setModules(List<FmModulo> modules) {
 		this.modules = modules;
 	}
-	
 
 	public void showModulesMenu() {
 		final Navigator nav = UI.getCurrent().getNavigator();
-		if(modules != null){
-			for(final FmModulo m : modules){
-	        	
-	        	String name = m.getCaption();
-	            Button b = new NativeButton(name);
-	            
-	            b.addStyleName("icon-" + m.getUrlID());
-	            b.addClickListener(new ClickListener() {
-	                @Override
-	                public void buttonClick(ClickEvent event) {
-	                    clearMenuSelection();
-	                    event.getButton().addStyleName("selected");
-	                    
-	                    if (!nav.getState().equals("/" + m.getUrlID()))
-	                        nav.navigateTo("/" + m.getUrlID());
-	                }
-	            });
+		if (modules != null) {
+			for (final FmModulo m : modules) {
 
-	            sideBarMenu.addComponent(b);
-	            viewNameToMenuButton.put("/" + m.getUrlID(), b);
-	        }	
+				String name = m.getCaption();
+				Button b = new NativeButton(name);
+
+				b.addStyleName("icon-" + m.getUrlID());
+				b.addClickListener(new ClickListener() {
+					@Override
+					public void buttonClick(ClickEvent event) {
+						clearMenuSelection();
+						event.getButton().addStyleName("selected");
+
+						if (!nav.getState().equals("/" + m.getUrlID()))
+							nav.navigateTo("/" + m.getUrlID());
+					}
+				});
+
+				sideBarMenu.addComponent(b);
+				viewNameToMenuButton.put("/" + m.getUrlID(), b);
+			}
 		}
-        
 
 	}
 
-	public void updateBar(List<Task> mainTasks,Collection<Task> nonMainTasks, final MainController mainController) {
-		
-		if(mainTasks.size() > 0){
+	public void updateBar(List<Task> mainTasks, Collection<Task> nonMainTasks, final MainController mainController) {
+
+		if (mainTasks.size() > 0) {
 			bottomBar.setVisible(true);
-		}else{
+		} else {
 			bottomBar.setVisible(false);
 		}
 
 		tasksBar.removeAllComponents();
 		tasksBar.setSizeFull();
 		populateTaskBar(mainTasks, mainController);
-		
-		
+
 		tasksMenuItem.removeChildren();
 		MenuItem separator = tasksMenuItem.addSeparator();
-		tasksMenuItem.addItem("Fechar todas",new Command() {
-			
+		tasksMenuItem.addItem("Fechar todas", new Command() {
+
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
 				// TODO Auto-generated method stub
 				mainController.closeAllTasks();
 			}
 		});
-		
-		
-		
-		if(nonMainTasks.size() > 0){
+
+		if (nonMainTasks.size() > 0) {
 			System.out.println("adding to taskmenu");
-			for(final Task nTask: nonMainTasks){
+			for (final Task nTask : nonMainTasks) {
 				System.out.println("added task to taskmenu");
 				System.out.println(nTask);
 				Command cmd = new Command() {
-					
+
 					@Override
 					public void menuSelected(MenuItem selectedItem) {
 						mainController.showTaskableContent(nTask);
-						setTopMenu(mainController.getMenuBuilder().buildMenuPanel(nTask.getModuleId(),mainController));
+						setTopMenu(mainController.getMenuBuilder().buildMenuPanel(nTask.getModuleId(), mainController));
 					}
 				};
-				tasksMenuItem.addItemBefore(nTask.getTaskCaption(),null,cmd,separator);
-				
+				tasksMenuItem.addItemBefore(nTask.getTaskCaption(), null, cmd, separator);
+
 			}
 		}
-		
-        
-        if(mainTasks.size () < TaskContentManager.MAIN_TASKS_LIMT){
-        	int emptySpaceCount = TaskContentManager.MAIN_TASKS_LIMT -mainTasks.size();
-        	System.out.println("EMPTY SPACE FILLING");
-        	System.out.println(emptySpaceCount);
-        	for(int i = 0 ; i< emptySpaceCount;i++){
-        		HorizontalLayout emptyItem = new HorizontalLayout();
-        		tasksBar.addComponent(emptyItem);
-        	}
-        }
+
+		if (mainTasks.size() < TaskContentManager.MAIN_TASKS_LIMT) {
+			int emptySpaceCount = TaskContentManager.MAIN_TASKS_LIMT - mainTasks.size();
+			System.out.println("EMPTY SPACE FILLING");
+			System.out.println(emptySpaceCount);
+			for (int i = 0; i < emptySpaceCount; i++) {
+				HorizontalLayout emptyItem = new HorizontalLayout();
+				tasksBar.addComponent(emptyItem);
+			}
+		}
 
 	}
 
-	private void populateTaskBar(List<Task> tasks,
-			final MainController mainController) {
-		
-		for(final Task t : tasks){
+	private void populateTaskBar(List<Task> tasks, final MainController mainController) {
+
+		for (final Task t : tasks) {
 			final HorizontalLayout taskItem = new HorizontalLayout();
 			Button fechar = new NativeButton("");
 			fechar.setImmediate(true);
-            fechar.setDescription("Fechar");
+			fechar.setDescription("Fechar");
 
-            fechar.addClickListener(new ClickListener() {
+			fechar.addClickListener(new ClickListener() {
 
 				@Override
 				public void buttonClick(ClickEvent event) {
-					mainController.removeTask(t,true);
+					mainController.removeTask(t, true);
 				}
 			});
 
-            
-			if(t.isActive() && barActive){
+			if (t.isActive() && barActive) {
 				taskItem.setStyleName("taskbar-item-active");
 				fechar.addStyleName("taskbar-close-active");
-				prepareShortcutForNextTask(taskItem,t,tasks,mainController);
-			}else{
-				if(tasks.indexOf(t) == 0){
-					taskItem.setStyleName("taskbar-item-first");	
-				}else{
+				prepareShortcutForNextTask(taskItem, t, tasks, mainController);
+			} else {
+				if (tasks.indexOf(t) == 0) {
+					taskItem.setStyleName("taskbar-item-first");
+				} else {
 					taskItem.setStyleName("taskbar-item");
 				}
 				fechar.addStyleName("taskbar-close");
 			}
-			prepareShortcutIndexTask(tasks,mainController);
-			
+			prepareShortcutIndexTask(tasks, mainController);
+
 			HorizontalLayout taskItemDescripion = new HorizontalLayout();
 			taskItemDescripion.setStyleName("taskbar-item-desc");
 			Label itemLabel = new Label(t.getTaskCaption());
@@ -432,88 +410,82 @@ public class MainView extends CssLayout implements View {
 				@Override
 				public void layoutClick(LayoutClickEvent event) {
 
-					if(event.getButton().equals(LayoutClickEvent.BUTTON_LEFT)){
+					if (event.getButton().equals(LayoutClickEvent.BUTTON_LEFT)) {
 						System.out.println("CLICOU PARA ABRIR");
 						mainController.showTaskableContent(t);
-						setTopMenu(mainController.getMenuBuilder().buildMenuPanel(t.getModuleId(),mainController));
+						setTopMenu(mainController.getMenuBuilder().buildMenuPanel(t.getModuleId(), mainController));
 					}
 				}
 
-
-			}; 
+			};
 
 			taskItemDescripion.addLayoutClickListener(listener);
-            taskItem.addComponent(taskItemDescripion);
-            taskItem.addComponent(fechar);
-            tasksBar.addComponent(taskItem);
+			taskItem.addComponent(taskItemDescripion);
+			taskItem.addComponent(fechar);
+			tasksBar.addComponent(taskItem);
 		}
 	}
 
-	private void prepareShortcutIndexTask(List<Task> tasks,
-			MainController mainController) {
-		
+	private void prepareShortcutIndexTask(List<Task> tasks, MainController mainController) {
+
 		clearAllIndexesShortcuts();
-		for(Task t : tasks){
+		for (Task t : tasks) {
 			TaskChangeAction taskChange = new TaskChangeAction(mainController, t);
-			moveToIndexTaskShortcuts.add(new MoveToIndexShortcutHandler("Move para tarefa",taskChange,tasks.indexOf(t)));
+			moveToIndexTaskShortcuts.add(new MoveToIndexShortcutHandler("Move para tarefa", taskChange, tasks.indexOf(t)));
 		}
 		registerAllIndexesShortcuts();
 	}
 
 	private void registerAllIndexesShortcuts() {
-		for(MoveToIndexShortcutHandler l : moveToIndexTaskShortcuts){
+		for (MoveToIndexShortcutHandler l : moveToIndexTaskShortcuts) {
 			content.addShortcutListener(l.getShortCutListener());
 		}
 	}
 
 	private void clearAllIndexesShortcuts() {
-		for(MoveToIndexShortcutHandler l : moveToIndexTaskShortcuts){
+		for (MoveToIndexShortcutHandler l : moveToIndexTaskShortcuts) {
 			content.removeShortcutListener(l.getShortCutListener());
 		}
 		moveToIndexTaskShortcuts = new ArrayList<MoveToIndexShortcutHandler>();
 	}
 
-	private void prepareShortcutForNextTask(HorizontalLayout taskItem, final Task t,
-			final List<Task> tasks,final MainController mainController) {
+	private void prepareShortcutForNextTask(HorizontalLayout taskItem, final Task t, final List<Task> tasks, final MainController mainController) {
 		// TODO Auto-generated method stub
 		content.removeShortcutListener(this.moveToNextTaskShortcut);
-		this.moveToNextTaskShortcut = new ShortcutListener("Troca de tarefa", KeyCode.TAB, new int[] {ModifierKey.SHIFT}) {
-			
+		this.moveToNextTaskShortcut = new ShortcutListener("Troca de tarefa", KeyCode.TAB, new int[] { ModifierKey.SHIFT }) {
+
 			@Override
 			public void handleAction(Object sender, Object target) {
 				System.out.println("Next task shortcut....");
 				int idx = tasks.indexOf(t);
-				if(idx < tasks.size() - 1){
+				if (idx < tasks.size() - 1) {
 					int nextIdx = idx + 1;
 					changeTask(tasks, mainController, nextIdx);
-				}else if (!tasks.isEmpty() && tasks.size() > 1){
+				} else if (!tasks.isEmpty() && tasks.size() > 1) {
 					int nextIdx = 0;
 					changeTask(tasks, mainController, nextIdx);
 				}
-				
-				
+
 			}
 
-			private void changeTask(final List<Task> tasks,
-					final MainController mainController, int nextIdx) {
+			private void changeTask(final List<Task> tasks, final MainController mainController, int nextIdx) {
 				Task next = tasks.get(nextIdx);
 				new Notification("Alterando para tarefa: " + next.getTaskCaption()).show(Page.getCurrent());
 				mainController.showTaskableContent(next);
-				setTopMenu(mainController.getMenuBuilder().buildMenuPanel(next.getModuleId(),mainController));
+				setTopMenu(mainController.getMenuBuilder().buildMenuPanel(next.getModuleId(), mainController));
 			}
 		};
 		content.addShortcutListener(this.moveToNextTaskShortcut);
-		
-		
+
 	}
 
 	public void inactivateBar() {
 		this.barActive = false;
-	//	content.removeShortcutListener(listener)
+		// content.removeShortcutListener(listener)
 	}
-	
+
 	public boolean isBarActive() {
-		return this.barActive; 
+		return this.barActive;
 	}
 
 	public void activateBar() {
@@ -523,6 +495,5 @@ public class MainView extends CssLayout implements View {
 	public void hideMenu() {
 		topMenu.setVisible(false);
 	}
-
 
 }

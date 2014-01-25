@@ -3,6 +3,8 @@ package dc.framework;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.vaadin.hene.popupbutton.widgetset.client.ui.PopupButtonConnector;
+
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.vaadin.client.ui.button.ButtonConnector;
 import com.vaadin.client.ui.csslayout.CssLayoutConnector;
@@ -17,36 +19,33 @@ import com.vaadin.client.ui.window.WindowConnector;
 import com.vaadin.server.widgetsetutils.ConnectorBundleLoaderFactory;
 import com.vaadin.shared.ui.Connect.LoadStyle;
 
-import dc.org.vaadin.hhe.nanoscrollpanel.gwt.client.connector.NanoScrollPanelConnector;
+public class OptimizedConnectorBundleLoaderFactory extends ConnectorBundleLoaderFactory {
+	private Set<String> eagerConnectors = new HashSet<String>();
+	{
+		eagerConnectors.add(PasswordFieldConnector.class.getName());
+		eagerConnectors.add(VerticalLayoutConnector.class.getName());
+		eagerConnectors.add(HorizontalLayoutConnector.class.getName());
+		eagerConnectors.add(ButtonConnector.class.getName());
+		eagerConnectors.add(dc.framework.client.SearchTextFieldConnector.class.getName());
+		eagerConnectors.add(UIConnector.class.getName());
+		eagerConnectors.add(CssLayoutConnector.class.getName());
+		eagerConnectors.add(TextFieldConnector.class.getName());
+		eagerConnectors.add(PanelConnector.class.getName());
+		eagerConnectors.add(LabelConnector.class.getName());
+		eagerConnectors.add(WindowConnector.class.getName());
+		eagerConnectors.add(PopupButtonConnector.class.getName());
+		eagerConnectors.add(com.vaadin.client.ui.ui.UIConnector.class.getName());
+		eagerConnectors.add(com.vaadin.client.ui.menubar.MenuBarConnector.class.getName());
+	}
 
-public class OptimizedConnectorBundleLoaderFactory extends
-        ConnectorBundleLoaderFactory {
-    private Set<String> eagerConnectors = new HashSet<String>();
-    {
-        eagerConnectors.add(PasswordFieldConnector.class.getName());
-        eagerConnectors.add(VerticalLayoutConnector.class.getName());
-        eagerConnectors.add(HorizontalLayoutConnector.class.getName());
-        eagerConnectors.add(ButtonConnector.class.getName());
-        eagerConnectors.add(dc.framework.client.SearchTextFieldConnector.class.getName());
-        eagerConnectors.add(UIConnector.class.getName());
-        eagerConnectors.add(CssLayoutConnector.class.getName());
-        eagerConnectors.add(TextFieldConnector.class.getName());
-        eagerConnectors.add(PanelConnector.class.getName());
-        eagerConnectors.add(LabelConnector.class.getName());
-        eagerConnectors.add(WindowConnector.class.getName());
-        eagerConnectors.add(NanoScrollPanelConnector.class.getName());
-        eagerConnectors.add(com.vaadin.client.ui.ui.UIConnector.class.getName());
-        eagerConnectors.add(com.vaadin.client.ui.menubar.MenuBarConnector.class.getName());
-    }
-
-    @Override
-    protected LoadStyle getLoadStyle(JClassType connectorType) {
-        if (eagerConnectors.contains(connectorType.getQualifiedBinaryName())) {
-            return LoadStyle.EAGER;
-        } else {
-            // Loads all other connectors immediately after the initial view has
-            // been rendered
-            return LoadStyle.DEFERRED;
-        }
-    }
+	@Override
+	protected LoadStyle getLoadStyle(JClassType connectorType) {
+		if (eagerConnectors.contains(connectorType.getQualifiedBinaryName())) {
+			return LoadStyle.EAGER;
+		} else {
+			// Loads all other connectors immediately after the initial view has
+			// been rendered
+			return LoadStyle.DEFERRED;
+		}
+	}
 }
