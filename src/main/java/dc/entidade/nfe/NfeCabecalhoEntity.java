@@ -29,6 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.comercial.Venda;
 import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
+import dc.entidade.contratos.ViewContratoDadosContratante;
 import dc.entidade.financeiro.Adiantamento;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
@@ -346,6 +347,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Adiantamento")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Adiantamento adiantamento;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_view_contrato_dados_contratante", nullable = false)
+	@Caption("View Contrato Dados Contratante")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private ViewContratoDadosContratante viewContratoDadosContratante;
 	
 	@Field
 	@Column(name = "contato_email")
@@ -941,6 +948,15 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setContatoEmail(String contatoEmail) {
 		this.contatoEmail = contatoEmail;
+	}
+	
+	public ViewContratoDadosContratante getViewContratoDadosContratante() {
+		return viewContratoDadosContratante;
+	}
+
+	public void setViewContratoDadosContratante(
+			ViewContratoDadosContratante viewContratoDadosContratante) {
+		this.viewContratoDadosContratante = viewContratoDadosContratante;
 	}
 
 	/**

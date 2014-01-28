@@ -67,27 +67,27 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtPalavraChave().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtPalavraChave(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtPalavraChave(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 		TipoDocumento tipoDocumento = (TipoDocumento) subView.getCmbTipoDocumento().getValue();
 		if (!Validator.validateObject(tipoDocumento)) {
-			adicionarErroDeValidacao(subView.getCmbTipoDocumento(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoDocumento(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtFimVigencia())) {
-			adicionarErroDeValidacao(subView.getDtFimVigencia(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtFimVigencia(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 

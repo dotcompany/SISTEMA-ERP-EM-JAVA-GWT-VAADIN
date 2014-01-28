@@ -7,31 +7,50 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+/**
+ * 
+ * @ Wesley Júnior
+ * 
+**/
+
+
 @Entity
 @Table(name = "VIEW_CONTRATO_DADOS_CONTRATANTE")
 public class ViewContratoDadosContratante implements Serializable {
+	
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @Column(name = "ID_SOLICITACAO")
     private int idSolicitacao;
+    
     @Basic(optional = false)
     @Column(name = "NOME")
     private String nome;
+    
     @Column(name = "CPF_CNPJ")
     private String cpfCnpj;
+    
     @Column(name = "LOGRADOURO")
     private String logradouro;
+    
     @Column(name = "NUMERO")
     private String numero;
+    
     @Column(name = "COMPLEMENTO")
     private String complemento;
+    
     @Column(name = "BAIRRO")
     private String bairro;
+    
     @Column(name = "CIDADE")
     private String cidade;
+    
     @Column(name = "CEP")
     private String cep;
+    
     @Column(name = "UF")
     private String uf;
 

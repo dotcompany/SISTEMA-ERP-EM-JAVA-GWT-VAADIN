@@ -70,6 +70,8 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements 
     private BigDecimal valor;
     
     @Lob
+    @Field
+    @Caption("Observações")
     @Type(type="text")
     @Basic(fetch=javax.persistence.FetchType.LAZY)
     @Column(name = "OBSERVACOES")
