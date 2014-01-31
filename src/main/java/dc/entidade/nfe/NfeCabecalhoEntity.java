@@ -397,11 +397,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Cliente cliente;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_lanca_programado_det", nullable = false)
-	@Caption("Contabil - Lancamento Programado Det")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity;
+	//@ManyToOne
+	//@JoinColumn(name = "id_contabil_lanca_programado_det", nullable = false)
+	//@Caption("Contabil - Lancamento Programado Det")
+	//@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	//private LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_contabil_dre_vinculo", nullable = false)
@@ -925,14 +925,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.cliente = cliente;
 	}
 	
-	public LancamentoProgramadoDetEntity getLancamentoProgramadoDetEntity() {
-		return lancamentoProgramadoDetEntity;
-	}
+	//public LancamentoProgramadoDetEntity getLancamentoProgramadoDetEntity() {
+	//	return lancamentoProgramadoDetEntity;
+	//}
 
-	public void setLancamentoProgramadoDetEntity(
-			LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity) {
-		this.lancamentoProgramadoDetEntity = lancamentoProgramadoDetEntity;
-	}
+	//public void setLancamentoProgramadoDetEntity(
+	//		LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity) {
+	//	this.lancamentoProgramadoDetEntity = lancamentoProgramadoDetEntity;
+	//}
 	
 	public DreVinculoEntity getDreVinculoEntity() {
 		return dreVinculoEntity;

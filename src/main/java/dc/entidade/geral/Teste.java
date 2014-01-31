@@ -28,8 +28,8 @@ import dc.anotacoes.Caption;
 import dc.entidade.diversos.Setor;
 import dc.entidade.framework.Empresa;
 
-@Entity
-@Table(name = "teste")
+//@Entity
+//@Table(name = "teste")
 
 @XmlRootElement
 @Indexed

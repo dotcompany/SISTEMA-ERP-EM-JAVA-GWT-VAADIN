@@ -92,8 +92,8 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
 	private List<LancamentoDetalheEntity> lancamentoDetalheList;
 
-	@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
-	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList;
+	//@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY)
+	//private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList;
 
 	/**
 	 * TRANSIENT
@@ -166,14 +166,14 @@ public class HistoricoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.lancamentoDetalheList = lancamentoDetalheList;
 	}
 
-	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetEntityList() {
-		return lancamentoProgramadoDetEntityList;
-	}
+	//public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetEntityList() {
+	//	return lancamentoProgramadoDetEntityList;
+	//}
 
-	public void setLancamentoProgramadoDetEntityList(
-			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList) {
-		this.lancamentoProgramadoDetEntityList = lancamentoProgramadoDetEntityList;
-	}
+	//public void setLancamentoProgramadoDetEntityList(
+	//		List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetEntityList) {
+	//	this.lancamentoProgramadoDetEntityList = lancamentoProgramadoDetEntityList;
+	//}
 
 	/**
 	 * TO STRING

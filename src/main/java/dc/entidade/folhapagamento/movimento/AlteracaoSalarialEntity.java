@@ -25,8 +25,8 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
  * 
  */
 
-@Entity
-@Table(name = "")
+//@Entity
+//@Table(name = "")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)

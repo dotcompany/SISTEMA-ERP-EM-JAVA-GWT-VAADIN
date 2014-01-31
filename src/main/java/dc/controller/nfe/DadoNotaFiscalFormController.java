@@ -99,8 +99,8 @@ public class DadoNotaFiscalFormController extends
 	protected void initSubView() {
 		this.subView = new DadoNotaFiscalFormView();
 
-		this.subView.getTfOperacaoFiscal().setValue("teste");
-		this.subView.getTfTcl().setValue("teste11");
+		//this.subView.getTfOperacaoFiscal().setValue("teste");
+		//this.subView.getTfTcl().setValue("teste11");
 	}
 
 	/*

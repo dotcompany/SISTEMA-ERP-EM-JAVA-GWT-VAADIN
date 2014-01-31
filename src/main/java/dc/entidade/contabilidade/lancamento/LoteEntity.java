@@ -105,8 +105,8 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "lote", fetch = FetchType.LAZY)
 	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
 
-	@OneToMany(mappedBy = "lote", fetch = FetchType.LAZY)
-	private List<LancamentoProgramadoCabEntity> lancamentoProgramadoCabList;
+	//@OneToMany(mappedBy = "lote", fetch = FetchType.LAZY)
+	//private List<LancamentoProgramadoCabEntity> lancamentoProgramadoCabList;
 
 	/**
 	 * TRANSIENT
@@ -194,14 +194,14 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
 	}
 
-	public List<LancamentoProgramadoCabEntity> getLancamentoProgramadoCabList() {
-		return lancamentoProgramadoCabList;
-	}
+	//public List<LancamentoProgramadoCabEntity> getLancamentoProgramadoCabList() {
+	//	return lancamentoProgramadoCabList;
+	//}
 
-	public void setLancamentoProgramadoCabList(
-			List<LancamentoProgramadoCabEntity> lancamentoProgramadoCabList) {
-		this.lancamentoProgramadoCabList = lancamentoProgramadoCabList;
-	}
+	//public void setLancamentoProgramadoCabList(
+	//		List<LancamentoProgramadoCabEntity> lancamentoProgramadoCabList) {
+	//	this.lancamentoProgramadoCabList = lancamentoProgramadoCabList;
+	//}
 
 	/**
 	 * TO STRING

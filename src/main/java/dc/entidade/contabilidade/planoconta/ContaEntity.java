@@ -194,8 +194,8 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
 
-	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
-	private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList;
+	//@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	//private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList;
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<DreVinculoEntity> dreVinculoList;
@@ -395,14 +395,14 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.lancamentoOrcadoList = lancamentoOrcadoList;
 	}
 
-	public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetList() {
-		return lancamentoProgramadoDetList;
-	}
+	//public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetList() {
+	//	return lancamentoProgramadoDetList;
+	//}
 
-	public void setLancamentoProgramadoDetList(
-			List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList) {
-		this.lancamentoProgramadoDetList = lancamentoProgramadoDetList;
-	}
+	//public void setLancamentoProgramadoDetList(
+	//		List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList) {
+	//	this.lancamentoProgramadoDetList = lancamentoProgramadoDetList;
+	//}
 
 	public List<DreVinculoEntity> getDreVinculoList() {
 		return dreVinculoList;
