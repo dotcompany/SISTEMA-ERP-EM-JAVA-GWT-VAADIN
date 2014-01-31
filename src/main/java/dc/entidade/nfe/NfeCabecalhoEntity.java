@@ -28,7 +28,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.comercial.Venda;
 import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
-import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
 import dc.entidade.contratos.ViewContratoDadosContratante;
 import dc.entidade.financeiro.Adiantamento;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -341,19 +340,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "uf_emitente")
 	@Caption("UF emitente")
 	private Integer ufEmitente;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_adiantamento", nullable = false)
-	@Caption("Adiantamento")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Adiantamento adiantamento;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_view_contrato_dados_contratante", nullable = false)
-	@Caption("View Contrato Dados Contratante")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private ViewContratoDadosContratante viewContratoDadosContratante;
-	
+
 	@Field
 	@Column(name = "contato_email")
 	@Caption("")
@@ -362,6 +349,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	@ManyToOne
+	@JoinColumn(name = "id_adiantamento", nullable = false)
+	@Caption("Adiantamento")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Adiantamento adiantamento;
 
 	// id_tribut_operacao_fiscal integer,
 
@@ -396,18 +389,24 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Cliente")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Cliente cliente;
-	
-	//@ManyToOne
-	//@JoinColumn(name = "id_contabil_lanca_programado_det", nullable = false)
-	//@Caption("Contabil - Lancamento Programado Det")
-	//@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	//private LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity;
-	
+
+	// @ManyToOne
+	// @JoinColumn(name = "id_contabil_lanca_programado_det", nullable = false)
+	// @Caption("Contabil - Lancamento Programado Det")
+	// @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	// private LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity;
+
 	@ManyToOne
 	@JoinColumn(name = "id_contabil_dre_vinculo", nullable = false)
 	@Caption("Contabil - Dre Vinculo")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private DreVinculoEntity dreVinculoEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "id_view_contrato_dados_contratante", nullable = false)
+	@Caption("View Contrato Dados Contratante")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private ViewContratoDadosContratante viewContratoDadosContratante;
 
 	/**
 	 * REFERENCIA - LIST
@@ -868,14 +867,6 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setInformacoesAddContribuinte(String informacoesAddContribuinte) {
 		this.informacoesAddContribuinte = informacoesAddContribuinte;
 	}
-	
-	public Adiantamento getAdiantamento() {
-		return adiantamento;
-	}
-
-	public void setAdiantamento(Adiantamento adiantamento) {
-		this.adiantamento = adiantamento;
-	}
 
 	public String getStatusNota() {
 		return statusNota;
@@ -891,6 +882,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUfEmitente(Integer ufEmitente) {
 		this.ufEmitente = ufEmitente;
+	}
+
+	public Adiantamento getAdiantamento() {
+		return adiantamento;
+	}
+
+	public void setAdiantamento(Adiantamento adiantamento) {
+		this.adiantamento = adiantamento;
 	}
 
 	public OperacaoFiscal getTributOperacaoFiscal() {
@@ -924,16 +923,16 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	//public LancamentoProgramadoDetEntity getLancamentoProgramadoDetEntity() {
-	//	return lancamentoProgramadoDetEntity;
-	//}
 
-	//public void setLancamentoProgramadoDetEntity(
-	//		LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity) {
-	//	this.lancamentoProgramadoDetEntity = lancamentoProgramadoDetEntity;
-	//}
-	
+	// public LancamentoProgramadoDetEntity getLancamentoProgramadoDetEntity() {
+	// return lancamentoProgramadoDetEntity;
+	// }
+
+	// public void setLancamentoProgramadoDetEntity(
+	// LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity) {
+	// this.lancamentoProgramadoDetEntity = lancamentoProgramadoDetEntity;
+	// }
+
 	public DreVinculoEntity getDreVinculoEntity() {
 		return dreVinculoEntity;
 	}
@@ -949,7 +948,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setContatoEmail(String contatoEmail) {
 		this.contatoEmail = contatoEmail;
 	}
-	
+
 	public ViewContratoDadosContratante getViewContratoDadosContratante() {
 		return viewContratoDadosContratante;
 	}
