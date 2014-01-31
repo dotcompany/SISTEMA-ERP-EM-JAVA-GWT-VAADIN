@@ -15,6 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("unchecked")
 public class ContratoListController extends CRUDListController<Contrato> {
+	
 	@Autowired
 	ContratoDAO dao;
 

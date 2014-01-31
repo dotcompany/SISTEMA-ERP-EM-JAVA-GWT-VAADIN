@@ -14,7 +14,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -25,7 +24,6 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
-import dc.entidade.geral.UF;
 
 /**
  * 
@@ -128,11 +126,11 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIBGE;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "UF", referencedColumnName = "ID")
+	@Field
+	@Caption("UF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private UF uf;
+	private String uf;
 
 	@Field
 	@Caption("Email")
@@ -265,11 +263,11 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.idPessoa = idPessoa;
 	}
 
-	public UF getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 

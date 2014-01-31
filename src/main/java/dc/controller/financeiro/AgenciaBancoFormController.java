@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UFListController;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.Banco;
 import dc.entidade.geral.UF;
@@ -87,84 +87,71 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = agenciaDAO.find(id);
-		subView.getTxtNomee().setValue(currentBean.getNome());
-		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
-		subView.getTxtBairro().setValue(currentBean.getBairro());
-		subView.getTxtCep().setValue(currentBean.getCep());
-		subView.getTxtContato().setValue(currentBean.getContato());
-		subView.getTxtGerente().setValue(currentBean.getGerente());
-		subView.getTxtTelefone().setValue(currentBean.getTelefone());
-		subView.getTxtNumero().setValue(currentBean.getNumero());
-
-		/* Configura combo BANCOOOOO */
-		/*ManyToOneComboModel<Banco> model = new ManyToOneComboModel<Banco>() {
-			@Override
-			public void onCriarNovo(String filter) {
-				Notification.show("Selecionado Criar Novo: " + filter);
-			}
-
-			@Override
-			public List<Banco> getResultado(String q) {
-				return bancoDAO.query(q);
-			}
-
-			@Override
-			public Class<Banco> getEntityClass() {
-				return Banco.class;
-			}
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-
-			@Override
-			public void onEditar(Banco value) {
-				Notification.show("Selecionado Editar: " + value.getNome());
-
-			}
-
-			@Override
-			public List<Banco> getAll() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void onAdvancedSearch() {
-				// TODO Auto-generated method stub
-
-			}
-		};*/
-		// subView.getCmbBanco().setModel(model);
-		// subView.getCmbBanco().setValue(currentBean.getBanco());
-
-		/* Configura combo UF */
-		/*
-		 * ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
-		 * 
-		 * @Override public void onCriarNovo(String filter) {
-		 * Notification.show("Selecionado Criar Novo: " + filter); }
-		 * 
-		 * @Override public List<UF> getResultado(String q) { return
-		 * ufDAO.query(q); }
-		 * 
-		 * @Override public Class<UF> getEntityClass() { return UF.class; }
-		 * 
-		 * @Override public String getCaptionProperty() { return "nome"; }
-		 * 
-		 * @Override public void onEditar(UF value) {
-		 * Notification.show("Selecionado Editar: " + value.getNome());
-		 * 
-		 * } }; subView.getCmbUF().setModel(modeluf);
-		 * subView.getCmbUF().setValue(currentBean.getUf());
-		 */
-
-		// subView.getCmbUF().setValue(currentBean.getUf());
 		
-	}
+		currentBean = agenciaDAO.find(id);
+		
+		try{
+			carregarCombos();
+			
+			if(Validator.validateObject(currentBean.getUf())){
+				subView.getCmbUF().setValue(currentBean.getUf());	
+			}
+			
+			if(Validator.validateObject(currentBean.getNome())){
+				subView.getTxtNomee().setValue(currentBean.getNome());
+			}
+			if(Validator.validateObject(currentBean.getLogradouro())){
+				subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
+			}
+			if(Validator.validateObject(currentBean.getBairro())){
+				subView.getTxtBairro().setValue(currentBean.getBairro());
+			}
+			if(Validator.validateObject(currentBean.getBairro())){
+				subView.getTxtBairro().setValue(currentBean.getBairro());
+			}
+			if(Validator.validateObject(currentBean.getMunicipio())){
+				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
+			}
+			if(Validator.validateObject(currentBean.getCep())){
+				subView.getTxtCep().setValue(currentBean.getCep());
+			}
+			if(Validator.validateObject(currentBean.getContato())){
+				subView.getTxtContato().setValue(currentBean.getContato());
+			}
+			if(Validator.validateObject(currentBean.getGerente())){
+				subView.getTxtGerente().setValue(currentBean.getGerente());
+			}
+			if(Validator.validateObject(currentBean.getTelefone())){
+				subView.getTxtTelefone().setValue(currentBean.getTelefone());
+			}
+			if(Validator.validateObject(currentBean.getNumero())){
+				subView.getTxtNumero().setValue(currentBean.getNumero());
+			}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
+	}
+		void carregarCombos(){
+			carregarUFs();
+	     }
+		
+
+		public List<UF> listarUfs(){
+			return ufDAO.listaTodos();
+		}
+		
+		public BeanItemContainer<String> carregarUFs(){
+			BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+			List<UF> ufs = listarUfs();
+			for (UF u : ufs) {
+				container.addBean(u.getSigla());
+			}	
+
+			return container;
+		}
+		
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
 	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
@@ -176,7 +163,7 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new AgenciaBancoFormView();
+		this.subView = new AgenciaBancoFormView(this);
 
 		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
 				BancoListController.class, this.bancoDAO,super.getMainController()) {
@@ -189,7 +176,7 @@ public class AgenciaBancoFormController extends
 		this.subView.getCmbBanco().setModel(modelBanco);
 
 
-		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
+		/*DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController()) {
 		
 		@Override
@@ -198,7 +185,7 @@ public class AgenciaBancoFormController extends
 		}
 	};
 
-		this.subView.getCmbUF().setModel(modelUf);
+		this.subView.getCmbUF().setModel(modelUf);*/
 
 		// subView.InitCbs(bancoDAO.listaTodos(), ufDAO.listaTodos());
 	}

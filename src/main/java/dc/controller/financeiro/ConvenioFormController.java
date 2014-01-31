@@ -7,17 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UFListController;
 import dc.entidade.financeiro.Convenio;
 import dc.entidade.geral.UF;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.financeiro.ConvenioDAO;
 import dc.servicos.dao.geral.UFDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConvenioFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -62,14 +59,6 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		
 		try{
 		
-		UF uf = subView.getCmbUF().getValue();
-        
-        if (!Validator.validateObject(uf)) {
-			throw new ErroValidacaoException("Informe a Uf");
-		}
-        
-        currentBean.setUf(uf);
-		
 		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
 		currentBean.setDataVencimento(subView.getDnDataVencimento().getValue());
 		currentBean.setNumero(subView.getTxtNumero().getValue());
@@ -101,6 +90,25 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		subView.getTxtCep().setValue(currentBean.getCep());
 	}
 	
+	void carregarCombos(){
+		carregarUFs();
+     }
+	
+
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+	
+	public BeanItemContainer<String> carregarUFs(){
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
+		}	
+
+		return container;
+	}
+	
 	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
 	@Override
 	protected void quandoNovo() {
@@ -109,16 +117,16 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ConvenioFormView();
+		subView = new ConvenioFormView(this);
 		
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class,
+		/*DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class,
 				this.ufDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "nome";
 			}
 		};
-		this.subView.getCmbUF().setModel(model);
+		this.subView.getCmbUF().setModel(model);*/
 	}
 
 	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/

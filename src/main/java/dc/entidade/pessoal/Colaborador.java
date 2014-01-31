@@ -44,7 +44,6 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.Pessoa;
-import dc.entidade.geral.UF;
 import dc.entidade.patrimonio.BemEntity;
 
 /**
@@ -196,7 +195,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 
 	@Column(name = "CTPS_UF")
 	@Analyzer(definition = "dc_combo_analyzer")
-	private UF ctpsUf;
+	private String ctpsUf;
 
 	@Column(name = "DESCONTO_PLANO_SAUDE")
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -615,11 +614,11 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		this.ctpsDataExpedicao = ctpsDataExpedicao;
 	}
 
-	public UF getCtpsUf() {
+	public String getCtpsUf() {
 		return ctpsUf;
 	}
 
-	public void setCtpsUf(UF ctpsUf) {
+	public void setCtpsUf(String ctpsUf) {
 		this.ctpsUf = ctpsUf;
 	}
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
 import dc.control.validator.Validator;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
 import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
@@ -213,11 +212,14 @@ public class ParametrosFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		try {
+		
+		pEntity = new ParametrosEntity();
+		
+		/*try {
 			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
@@ -258,9 +260,11 @@ public class ParametrosFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
+		//String sUrl = ClasseUtil.getUrl(this);
 
-		return sUrl;
+		//return sUrl;
+		
+		return "parametrosForm";
 	}
 
 	/**

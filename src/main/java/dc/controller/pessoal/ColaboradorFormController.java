@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.diversos.SetorListController;
 import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.NivelFormacaoListController;
-import dc.controller.geral.UFListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.Sindicato;
@@ -117,7 +117,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ColaboradorFormView();
+		subView = new ColaboradorFormView(this);
 
 		this.subView.InitCbs(getColaboradorDescontoPlanoSaudeType(), getColaboradorSaiRaisType(), getColaboradorOptanteType(), getColaboradorFormaPagamentoType());
 		
@@ -184,9 +184,9 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 				super.getMainController());
 		subView.getCmbSetor().setModel(modelSetor);
 
-		DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
+		/*DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController());
-		subView.getCmbUf().setModel(modelUf);
+		subView.getCmbUf().setModel(modelUf);*/
 	}
 
 	@Override
@@ -206,6 +206,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getDtDataOpcao().setValue(currentBean.getFgtsDataOpcao());
 		subView.getDtCadastroPis().setValue(currentBean.getPisDataCadastro());
 		subView.getTxtBanco1().setValue(currentBean.getPisBanco());
+		subView.getCmbUf().setValue(currentBean.getCtpsUf());
 		subView.getTxtAgencia1().setValue(currentBean.getPisAgencia());
 		subView.getTxtBanco().setValue(currentBean.getPagamentoBanco());
 		subView.getTxtAgencia().setValue(currentBean.getPagamentoAgencia());
@@ -268,6 +269,25 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 		subView.getCmbUf().setValue(currentBean.getCtpsUf());*/
 	}
+	
+	void carregarCombos(){
+		carregarUFs();
+     }
+	
+
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+	
+	public BeanItemContainer<String> carregarUFs(){
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
+		}	
+
+		return container;
+	}
 
 	@Override
 	protected void actionSalvar() {
@@ -283,8 +303,6 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		currentBean.setIdCargo((Cargo) subView.getCmbCargo().getValue());
 		currentBean.setIdContaContabil((ContabilConta) subView
 				.getCmbContaContabil().getValue());
-		currentBean.setCtpsUf((UF) subView.getCmbUf().getValue());
-
 		currentBean.setDataCadastro(subView.getDtCadastro().getValue());
 		currentBean.setDataAdmissao(subView.getDtAdmissao().getValue());
 		currentBean.setVencimentoFerias(subView.getDtVencimentoFerias()

@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UFListController;
 import dc.entidade.diversos.Cep;
 import dc.entidade.geral.UF;
 import dc.servicos.dao.diversos.CepDAO;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.util.Validator;
 import dc.visao.diversos.CepFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -63,20 +63,35 @@ public class CepFormController extends CRUDFormController<Cep> {
 
 	@Override
 	protected void actionSalvar() {
+		
+		try {
+			cepDAO.saveOrUpdate(currentBean);
+		
 		String cep = subView.getTxtCep().getValue();
+		String uf = (String)subView.getCmbUf().getValue();
 		String logradouro = subView.getTxtLogradouro().getValue();
 		String complemento = subView.getTxtComplemento().getValue();
 		String bairro = subView.getTxtBairro().getValue();
 		String municipio = subView.getTxtMunicipio().getValue();
 
-		currentBean.setCep(cep);
-		currentBean.setLogradouro(logradouro);
-		currentBean.setComplemento(complemento);
-		currentBean.setBairro(bairro);
-		currentBean.setMunicipio(municipio);
-
-		try {
-			cepDAO.saveOrUpdate(currentBean);
+		if(Validator.validateObject(cep)){
+			currentBean.setCep(cep);
+		}
+		if(Validator.validateObject(uf)){
+			currentBean.setUf(uf);
+		}
+		if(Validator.validateObject(logradouro)){
+			currentBean.setLogradouro(logradouro);
+		}
+		if(Validator.validateObject(complemento)){
+			currentBean.setComplemento(complemento);
+		}
+		if(Validator.validateObject(bairro)){
+			currentBean.setBairro(bairro);
+		}
+		if(Validator.validateObject(municipio)){
+			currentBean.setMunicipio(municipio);
+		}
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -88,58 +103,37 @@ public class CepFormController extends CRUDFormController<Cep> {
 	protected void carregar(Serializable id) {
 		currentBean = cepDAO.find(id);
 
-		subView.getTxtCep().setValue(currentBean.getCep());
-		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
-		subView.getTxtComplemento().setValue(currentBean.getComplemento());
-		subView.getTxtBairro().setValue(currentBean.getBairro());
-		subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
-
-		// /* Configura combo PAÃ�S */
-		// ManyToOneComboModel<UF> modeluf = new ManyToOneComboModel<UF>() {
-		//
-		// @Override
-		// public void onCriarNovo(String filter) {
-		// Notification.show("Selecionado Criar Novo: " + filter);
-		// }
-		//
-		// @Override
-		// public List<UF> getResultado(String q) {
-		// return ufDAO.query(q);
-		// }
-		//
-		// @Override
-		// public Class<UF> getEntityClass() {
-		// return UF.class;
-		// }
-		//
-		// @Override
-		// public String getCaptionProperty() {
-		// return "nome";
-		// }
-		//
-		// @Override
-		// public void onEditar(UF value) {
-		// Notification.show("Selecionado Editar: " + value.getNome());
-		//
-		// }
-		//
-		// @Override
-		// public List<UF> getAll() {
-		// // TODO Auto-generated method stub
-		// return null;
-		// }
-		//
-		// @Override
-		// public void onAdvancedSearch() {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		// };
-
-		// subView.getCmbUf().setModel(modeluf);
-		// subView.getCmbUf().setValue(currentBean.getUf());
+		try{
+			carregarCombos();
+			
+			if(Validator.validateObject(currentBean.getUf())){
+				subView.getCmbUf().setValue(currentBean.getUf());	
+			}
+			
+			if(Validator.validateObject(currentBean.getCep())){
+				subView.getTxtCep().setValue(currentBean.getCep());
+			}
+			if(Validator.validateObject(currentBean.getLogradouro())){
+				subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
+			}
+			if(Validator.validateObject(currentBean.getComplemento())){
+				subView.getTxtComplemento().setValue(currentBean.getComplemento());
+			}
+			if(Validator.validateObject(currentBean.getBairro())){
+				subView.getTxtBairro().setValue(currentBean.getBairro());
+			}
+			if(Validator.validateObject(currentBean.getMunicipio())){
+				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
+			}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
+		void carregarCombos(){
+			carregarUFs();
+	     }
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
@@ -154,25 +148,40 @@ public class CepFormController extends CRUDFormController<Cep> {
 	@Override
 	protected void initSubView() {
 		try {
-		subView = new CepFormView();
+		this.subView = new CepFormView(this);
 		// DefaultManyToOneComboModel<UF> modeluf= new
 		// DefaultManyToOneComboModel(UFListController . class , ufDAO ,
 		// mainController );
 
-		DefaultManyToOneComboModel<UF> ufModel = new DefaultManyToOneComboModel<UF>(UFListController.class,
+		/*DefaultManyToOneComboModel<UF> ufModel = new DefaultManyToOneComboModel<UF>(UFListController.class,
 				this.ufDAO, super.getMainController()) {
 		
 		@Override
 		public String getCaptionProperty() {
 			return "nome";
 		  }
-		};
+		};*/
 
-		this.subView.getCmbUf().setModel(ufModel);
+		//this.subView.getCmbUf().setModel(ufModel);
+		
 		}catch (Exception e ) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+	
+	public BeanItemContainer<String> carregarUFs(){
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
+		}	
+
+		return container;
 	}
 
 	/*

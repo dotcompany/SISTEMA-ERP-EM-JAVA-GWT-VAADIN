@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UFListController;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.Contador;
@@ -69,7 +69,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ContadorFormView();
+		this.subView = new ContadorFormView(this);
 
 		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
 				PessoaListController.class, this.pessoaDAO,
@@ -82,10 +82,10 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 
 		subView.getCmbPessoa().setModel(model);
 
-		DefaultManyToOneComboModel<UF> model1 = new DefaultManyToOneComboModel<UF>(
+		/*DefaultManyToOneComboModel<UF> model1 = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController());
 
-		subView.getCmbUf().setModel(model1);
+		subView.getCmbUf().setModel(model1);*/
 	}
 
 	@Override
@@ -98,6 +98,25 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		subView.getTxtBairro().setValue(currentBean.getBairro());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 	}
+	
+	void carregarCombos(){
+		carregarUFs();
+     }
+	
+
+	public List<UF> listarUfs(){
+		return ufDAO.listaTodos();
+	}
+	
+	public BeanItemContainer<String> carregarUFs(){
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
+		}	
+
+		return container;
+	}
 
 	@Override
 	protected void actionSalvar() {
@@ -107,7 +126,6 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		currentBean.setFone(subView.getTxtTelefone().getValue());
 		currentBean.setFax(subView.getTxtFax().getValue());
 		currentBean.setIdPessoa((Pessoa) subView.getCmbPessoa().getValue());
-		currentBean.setUf((UF) subView.getCmbUf().getValue());
 
 		try {
 			contadorDAO.saveOrUpdate(currentBean);

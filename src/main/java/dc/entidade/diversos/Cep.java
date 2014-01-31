@@ -93,7 +93,7 @@ public class Cep extends AbstractMultiEmpresaModel<Integer> implements Serializa
 	private String municipio;
 
 	@Column(name = "UF")
-	private UF uf;
+	private String uf;
 
 	@Column(name = "CODIGO_IBGE_MUNICIPIO")
 	private Integer codigoIbgeMunicipio;
@@ -154,11 +154,11 @@ public class Cep extends AbstractMultiEmpresaModel<Integer> implements Serializa
 		this.municipio = municipio;
 	}
 
-	public UF getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
