@@ -231,6 +231,18 @@ public class MenuBuilder implements Serializable {
 			
 		});
 		
+		MenuBar.MenuItem relatorios = cadastros.addItem("Relatórios", null, new Command(){
+			
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(FmReportListController.class);
+				showControllerSistema(mainController, c);
+				
+			}
+
+			
+		});
+		
 		
 	}
 	
