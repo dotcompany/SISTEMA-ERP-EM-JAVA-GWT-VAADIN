@@ -3,12 +3,14 @@ package dc.controller.nfe;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.nfe.ProdutoServicoEntity;
+import dc.entidade.contabilidade.livrocontabil.LivroEntity;
+import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
@@ -21,7 +23,7 @@ import dc.visao.nfe.ProdutoServicoFormView;
 @Controller
 @Scope("prototype")
 public class ProdutoServicoFormController extends
-		CRUDFormController<ProdutoServicoEntity> {
+		CRUDFormController<LivroEntity> {
 
 	/**
 	 * 
@@ -34,9 +36,14 @@ public class ProdutoServicoFormController extends
 	 * DAO'S
 	 */
 
+	@Autowired
+	private LivroDAO pDAO;
+
 	/**
 	 * ENTITIES
 	 */
+
+	private LivroEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
@@ -97,7 +104,11 @@ public class ProdutoServicoFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new ProdutoServicoFormView();
+		this.subView = new ProdutoServicoFormView(this);
+
+		List<LivroEntity> p = (List<LivroEntity>) this.pDAO.listarTodos();
+
+		this.subView.preencherSubForm(p);
 	}
 
 	/*
