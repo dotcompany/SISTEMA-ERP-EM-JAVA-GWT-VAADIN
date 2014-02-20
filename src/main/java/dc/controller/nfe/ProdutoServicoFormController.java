@@ -106,9 +106,10 @@ public class ProdutoServicoFormController extends
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
 
-		List<LivroEntity> p = (List<LivroEntity>) this.pDAO.listarTodos();
+		List<LivroEntity> auxLista = (List<LivroEntity>) this.pDAO
+				.listarTodos();
 
-		this.subView.preencherSubForm(p);
+		this.subView.preencherSubForm(auxLista);
 	}
 
 	/*
