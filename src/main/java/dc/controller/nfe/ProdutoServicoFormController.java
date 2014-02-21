@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
+import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
+import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
@@ -38,6 +40,9 @@ public class ProdutoServicoFormController extends
 
 	@Autowired
 	private LivroDAO pDAO;
+
+	@Autowired
+	private NfeDetalheDAO nfedDAO;
 
 	/**
 	 * ENTITIES
@@ -106,10 +111,13 @@ public class ProdutoServicoFormController extends
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
 
-		List<LivroEntity> auxLista = (List<LivroEntity>) this.pDAO
+		List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfedDAO
 				.listarTodos();
 
-		this.subView.preencherSubForm(auxLista);
+		List<LivroEntity> auxLista2 = (List<LivroEntity>) this.pDAO
+				.listarTodos();
+
+		this.subView.preencherSubForm(auxLista1, auxLista2);
 	}
 
 	/*
