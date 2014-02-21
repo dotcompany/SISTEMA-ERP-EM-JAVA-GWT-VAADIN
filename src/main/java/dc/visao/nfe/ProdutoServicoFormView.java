@@ -16,6 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.nfe.ProdutoServicoFormController;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
+import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.visao.framework.component.SubFormComponent;
 
@@ -414,7 +415,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	private SubFormComponent<LivroEntity, Integer> sfArmamento;
 
-	private SubFormComponent<LivroEntity, Integer> sfDeclaracaoImportacao;
+	private SubFormComponent<NfeDeclaracaoImportacaoEntity, Integer> sfDeclaracaoImportacao;
 
 	private SubFormComponent<LivroEntity, Integer> sfDeclaracaoImportacaoAdicoes;
 
@@ -1694,12 +1695,14 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfArmamento;
 	}
 
-	private SubFormComponent<LivroEntity, Integer> buildDeclaracaoImportacaoSubForm() {
+	private SubFormComponent<NfeDeclaracaoImportacaoEntity, Integer> buildDeclaracaoImportacaoSubForm() {
 		// common part: create layout
-		sfDeclaracaoImportacao = new SubFormComponent<LivroEntity, Integer>(
-				LivroEntity.class, new String[] { "descricao", "competencia",
-						"formaEscrituracao" }, new String[] { "Descrição",
-						"Competência", "Forma de escrituração" }) {
+		sfDeclaracaoImportacao = new SubFormComponent<NfeDeclaracaoImportacaoEntity, Integer>(
+				NfeDeclaracaoImportacaoEntity.class,
+				new String[] { "numeroDocumento", "dataRegistro",
+						"localDesembaraco" }, new String[] {
+						"Número do documento", "Data do registro",
+						"Local de desembaraço" }) {
 
 			/**
 			 * 
@@ -1726,7 +1729,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<LivroEntity> items) {
+			public boolean validateItems(
+					List<NfeDeclaracaoImportacaoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1779,12 +1783,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 	}
 
 	public void preencherSubForm(List<NfeDetalheEntity> auxLista1,
-			List<LivroEntity> auxLista2) {
+			List<LivroEntity> auxLista2,
+			List<NfeDeclaracaoImportacaoEntity> auxLista3) {
 		try {
 			sfNfeDetalhe.fillWith(auxLista1);
 			sfMedicamento.fillWith(auxLista2);
 			sfArmamento.fillWith(auxLista2);
-			sfDeclaracaoImportacao.fillWith(auxLista2);
+			sfDeclaracaoImportacao.fillWith(auxLista3);
 			sfDeclaracaoImportacaoAdicoes.fillWith(auxLista2);
 		} catch (Exception e) {
 			e.printStackTrace();
