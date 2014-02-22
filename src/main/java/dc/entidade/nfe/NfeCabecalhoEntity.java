@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -26,14 +24,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.comercial.Venda;
-import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
-import dc.entidade.contratos.ViewContratoDadosContratante;
-import dc.entidade.financeiro.Adiantamento;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.Fornecedor;
-import dc.entidade.pessoal.Cliente;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -59,354 +52,447 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nfe_cabecalho_id_seq")
 	@SequenceGenerator(name = "nfe_cabecalho_id_seq", sequenceName = "nfe_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Column(name = "codigo_numerico")
-	@Caption("Código numérico")
+	@Caption(value = "Código numérico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoNumerico;
 
 	@Field
 	@Column(name = "natureza_operacao")
-	@Caption("Natureza da operação")
+	@Caption(value = "Natureza da operação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String naturezaOperacao;
 
 	@Field
 	@Column(name = "indicador_forma_pagamento")
-	@Caption("")
+	@Caption(value = "Indicador da forma de pagamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String indicadorFormaPagamento;
 
 	@Field
 	@Column(name = "codigo_modelo")
-	@Caption("")
+	@Caption(value = "Código modelo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoModelo;
 
 	@Field
 	@Column(name = "serie")
-	@Caption("")
+	@Caption(value = "Série")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String serie;
 
 	@Field
 	@Column(name = "numero")
-	@Caption("")
+	@Caption(value = "Número")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero;
 
 	@Field
 	@Column(name = "data_emissao")
-	@Caption("")
+	@Caption(value = "Data de emissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEmissao;
 
 	@Field
 	@Column(name = "data_entrada_saida")
-	@Caption("")
+	@Caption(value = "Data de entrada / saída")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEntradaSaida;
 
 	@Field
 	@Column(name = "hora_entrada_saida")
-	@Caption("")
+	@Caption(value = "Hora de entrada / saída")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String horaEntradaSaida;
 
 	@Field
 	@Column(name = "tipo_operacao")
-	@Caption("")
+	@Caption(value = "Tipo de operação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoOperacao;
 
 	@Field
 	@Column(name = "codigo_municipio")
-	@Caption("")
+	@Caption(value = "Código do município")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoMunicipio;
 
 	@Field
 	@Column(name = "formato_impressao_danfe")
-	@Caption("")
+	@Caption(value = "Formato de impressão do DANFE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String formatoImpressaoDanfe;
 
 	@Field
 	@Column(name = "tipo_emissao")
-	@Caption("")
+	@Caption(value = "Tipo de emissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoEmissao;
 
 	@Field
 	@Column(name = "chave_acesso")
-	@Caption("")
+	@Caption(value = "Chave de acesso")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String chaveAcesso;
 
 	@Field
 	@Column(name = "digito_chave_acesso")
-	@Caption("")
+	@Caption(value = "Digíto da chave de acesso")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String digitoChaveAcesso;
 
 	@Field
 	@Column(name = "ambiente")
-	@Caption("")
+	@Caption(value = "Ambiente")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ambiente;
 
 	@Field
 	@Column(name = "finalidade_emissao")
-	@Caption("")
+	@Caption(value = "Finalidade de emissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String finalidadeEmissao;
 
 	@Field
 	@Column(name = "processo_emissao")
-	@Caption("")
+	@Caption(value = "Processo de emissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String processoEmissao;
 
 	@Field
 	@Column(name = "versao_processo_emissao")
-	@Caption("")
+	@Caption(value = "Versão do processo de emissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String versaoProcessoEmissao;
 
 	@Field
 	@Column(name = "data_entrada_contingencia")
-	@Caption("")
+	@Caption(value = "Data da entrada da contingência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEntradaContingencia;
 
 	@Field
 	@Column(name = "justificativa_contingencia")
-	@Caption("")
+	@Caption(value = "Justificativa da contingência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String justificativaContingencia;
 
 	@Field
 	@Column(name = "base_calculo_icms")
-	@Caption("")
+	@Caption(value = "Base de cálculo do ICMS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal baseCalculoIcms;
 
 	@Field
 	@Column(name = "valor_icms")
-	@Caption("")
+	@Caption(value = "Valor do ICMS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorIcms;
 
 	@Field
 	@Column(name = "base_calculo_icms_st")
-	@Caption("")
+	@Caption(value = "Base de cálculo do ICMS ST")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal baseCalculoIcmsSt;
 
 	@Field
 	@Column(name = "valor_icms_st")
-	@Caption("")
+	@Caption(value = "Valor do ICMS ST")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorIcmsSt;
 
 	@Field
 	@Column(name = "valor_total_produtos")
-	@Caption("")
+	@Caption(value = "Valor total dos produtos")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorTotalProdutos;
 
 	@Field
 	@Column(name = "valor_frete")
-	@Caption("")
+	@Caption(value = "Valor do frete")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorFrete;
 
 	@Field
 	@Column(name = "valor_seguro")
-	@Caption("")
+	@Caption(value = "Valor do seguro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorSeguro;
 
 	@Field
 	@Column(name = "valor_desconto")
-	@Caption("")
+	@Caption(value = "Valor do desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorDesconto;
 
 	@Field
 	@Column(name = "valor_imposto_importacao")
-	@Caption("")
+	@Caption(value = "Valor do imposto de importação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorImpostoImportacao;
 
 	@Field
 	@Column(name = "valor_ipi")
-	@Caption("")
+	@Caption(value = "Valor do IPI")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorIpi;
 
 	@Field
 	@Column(name = "valor_pis")
-	@Caption("")
+	@Caption(value = "Valor do PIS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorPis;
 
 	@Field
 	@Column(name = "valor_cofins")
-	@Caption("")
+	@Caption(value = "Valor do COFINS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCofins;
 
 	@Field
 	@Column(name = "valor_despesas_acessorias")
-	@Caption("")
+	@Caption(value = "Valor das despesas acessórias")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorDespesasAcessorias;
 
 	@Field
 	@Column(name = "valor_total")
-	@Caption("")
+	@Caption(value = "Valor total")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorTotal;
 
 	@Field
 	@Column(name = "valor_servicos")
-	@Caption("")
+	@Caption(value = "Valor dos serviços")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorServicos;
 
 	@Field
 	@Column(name = "base_calculo_issqn")
-	@Caption("")
+	@Caption(value = "Base de cálculo do ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal baseCalculoIssqn;
 
 	@Field
 	@Column(name = "valor_issqn")
-	@Caption("")
+	@Caption(value = "Valor do ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorIssqn;
 
 	@Field
 	@Column(name = "valor_pis_issqn")
-	@Caption("")
+	@Caption(value = "Valor do PIS / ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorPisIssqn;
 
 	@Field
 	@Column(name = "valor_cofins_issqn")
-	@Caption("")
+	@Caption(value = "Valor do COFINS / ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCofinsIssqn;
 
 	@Field
 	@Column(name = "valor_retido_pis")
-	@Caption("")
+	@Caption(value = "Valor retido do PIS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorRetidoPis;
 
 	@Field
 	@Column(name = "valor_retido_cofins")
-	@Caption("")
+	@Caption(value = "Valor retido do COFINS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorRetidoCofins;
 
 	@Field
 	@Column(name = "valor_retido_csll")
-	@Caption("")
+	@Caption(value = "Valor retido do CSLL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorRetidoCsll;
 
 	@Field
 	@Column(name = "base_calculo_irrf")
-	@Caption("")
+	@Caption(value = "Base de cálculo do IRRF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal baseCalculoIrrf;
 
 	@Field
 	@Column(name = "valor_retido_irrf")
-	@Caption("")
+	@Caption(value = "Valor retido do IRRF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorRetidoIrrf;
 
 	@Field
 	@Column(name = "base_calculo_previdencia")
-	@Caption("")
+	@Caption(value = "Base de cálculo da previdência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal baseCalculoPrevidencia;
 
 	@Field
 	@Column(name = "valor_retido_previdencia")
-	@Caption("")
+	@Caption(value = "Valor retido da previdência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorRetidoPrevidencia;
 
 	@Field
 	@Column(name = "comex_uf_embarque")
-	@Caption("")
+	@Caption(value = "Comex UF de embarque")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String comexUfEmbarque;
 
 	@Field
 	@Column(name = "comex_local_embarque")
-	@Caption("")
+	@Caption(value = "Comex local de embarque")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String comexLocalEmbarque;
 
 	@Field
 	@Column(name = "compra_nota_empenho")
-	@Caption("")
+	@Caption(value = "Compra da nota de empenho")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String compraNotaEmpenho;
 
 	@Field
 	@Column(name = "compra_pedido")
-	@Caption("")
+	@Caption(value = "Compra do pedido")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String compraPedido;
 
 	@Field
 	@Column(name = "compra_contrato")
-	@Caption("")
+	@Caption(value = "Compra do contrato")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String compraContrato;
 
 	@Field
 	@Column(name = "informacoes_add_fisco")
-	@Caption("Informações add fisco")
+	@Caption(value = "Informações add fisco")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String informacoesAddFisco;
 
 	@Field
 	@Column(name = "informacoes_add_contribuinte")
-	@Caption("Informações add contribuinte")
+	@Caption(value = "Informações add contribuinte")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String informacoesAddContribuinte;
 
 	@Field
 	@Column(name = "status_nota")
-	@Caption("Status da nota")
+	@Caption(value = "Status da nota")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String statusNota;
 
 	@Field
 	@Column(name = "uf_emitente")
-	@Caption("UF emitente")
+	@Caption(value = "UF emitente")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer ufEmitente;
 
 	@Field
 	@Column(name = "contato_email")
-	@Caption("")
+	@Caption(value = "Contato - e-mail")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String contatoEmail;
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_adiantamento", nullable = false)
-	@Caption("Adiantamento")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Adiantamento adiantamento;
+	@Field
+	@Column(name = "id_adiantamento")
+	@Caption(value = "Adiantamento")
+	private Integer adiantamento;
 
-	// id_tribut_operacao_fiscal integer,
+	@Field
+	@Column(name = "id_tribut_operacao_fiscal")
+	@Caption(value = "Tributário - Operação fiscal")
+	private Integer tributOperacaoFiscal;
 
-	@ManyToOne
-	@JoinColumn(name = "id_tribut_operacao_fiscal", nullable = false)
-	@Caption("Tributário - Operação fiscal")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private OperacaoFiscal tributOperacaoFiscal;
+	@Field
+	@Column(name = "id_venda_cabecalho")
+	@Caption(value = "Venda - Cabeçalho")
+	private Integer vendaCabecalho;
 
-	// id_venda_cabecalho integer,
+	@Field
+	@Column(name = "id_fornecedor")
+	@Caption(value = "Fornecedor")
+	private Integer fornecedor;
 
-	@ManyToOne
-	@JoinColumn(name = "id_venda_cabecalho", nullable = false)
-	@Caption("Venda - Cabeçalho")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Venda vendaCabecalho;
+	@Field
+	@Column(name = "id_cliente")
+	@Caption(value = "Cliente")
+	private Integer cliente;
 
-	// id_empresa integer,
+	@Field
+	@Column(name = "id_contabil_dre_vinculo")
+	@Caption(value = "Contabil - Dre Vinculo")
+	private Integer dreVinculoEntity;
 
-	// id_fornecedor integer,
-
-	@ManyToOne
-	@JoinColumn(name = "id_fornecedor", nullable = false)
-	@Caption("Fornecedor")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Fornecedor fornecedor;
-
-	// id_cliente integer,
-
-	@ManyToOne
-	@JoinColumn(name = "id_cliente", nullable = false)
-	@Caption("Cliente")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Cliente cliente;
-
-	// @ManyToOne
-	// @JoinColumn(name = "id_contabil_lanca_programado_det", nullable = false)
-	// @Caption("Contabil - Lancamento Programado Det")
-	// @javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	// private LancamentoProgramadoDetEntity lancamentoProgramadoDetEntity;
-
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_dre_vinculo", nullable = false)
-	@Caption("Contabil - Dre Vinculo")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private DreVinculoEntity dreVinculoEntity;
-
-	@ManyToOne
-	@JoinColumn(name = "id_view_contrato_dados_contratante", nullable = false)
-	@Caption("View Contrato Dados Contratante")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private ViewContratoDadosContratante viewContratoDadosContratante;
+	@Field
+	@Column(name = "id_view_contrato_dados_contratante")
+	@Caption(value = "View Contrato Dados Contratante")
+	private Integer viewContratoDadosContratante;
 
 	/**
 	 * REFERENCIA - LIST
@@ -884,43 +970,43 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.ufEmitente = ufEmitente;
 	}
 
-	public Adiantamento getAdiantamento() {
+	public Integer getAdiantamento() {
 		return adiantamento;
 	}
 
-	public void setAdiantamento(Adiantamento adiantamento) {
+	public void setAdiantamento(Integer adiantamento) {
 		this.adiantamento = adiantamento;
 	}
 
-	public OperacaoFiscal getTributOperacaoFiscal() {
+	public Integer getTributOperacaoFiscal() {
 		return tributOperacaoFiscal;
 	}
 
-	public void setTributOperacaoFiscal(OperacaoFiscal tributOperacaoFiscal) {
+	public void setTributOperacaoFiscal(Integer tributOperacaoFiscal) {
 		this.tributOperacaoFiscal = tributOperacaoFiscal;
 	}
 
-	public Venda getVendaCabecalho() {
+	public Integer getVendaCabecalho() {
 		return vendaCabecalho;
 	}
 
-	public void setVendaCabecalho(Venda vendaCabecalho) {
+	public void setVendaCabecalho(Integer vendaCabecalho) {
 		this.vendaCabecalho = vendaCabecalho;
 	}
 
-	public Fornecedor getFornecedor() {
+	public Integer getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(Integer fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public Cliente getCliente() {
+	public Integer getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Integer cliente) {
 		this.cliente = cliente;
 	}
 
@@ -933,11 +1019,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	// this.lancamentoProgramadoDetEntity = lancamentoProgramadoDetEntity;
 	// }
 
-	public DreVinculoEntity getDreVinculoEntity() {
+	public Integer getDreVinculoEntity() {
 		return dreVinculoEntity;
 	}
 
-	public void setDreVinculoEntity(DreVinculoEntity dreVinculoEntity) {
+	public void setDreVinculoEntity(Integer dreVinculoEntity) {
 		this.dreVinculoEntity = dreVinculoEntity;
 	}
 
@@ -949,12 +1035,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.contatoEmail = contatoEmail;
 	}
 
-	public ViewContratoDadosContratante getViewContratoDadosContratante() {
+	public Integer getViewContratoDadosContratante() {
 		return viewContratoDadosContratante;
 	}
 
 	public void setViewContratoDadosContratante(
-			ViewContratoDadosContratante viewContratoDadosContratante) {
+			Integer viewContratoDadosContratante) {
 		this.viewContratoDadosContratante = viewContratoDadosContratante;
 	}
 

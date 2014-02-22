@@ -12,6 +12,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
+import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
@@ -44,6 +45,9 @@ public class ProdutoServicoFormController extends
 	/**
 	 * DAO'S
 	 */
+
+	@Autowired
+	private NfeCabecalhoDAO nfecDAO;
 
 	@Autowired
 	private NfeDetalheDAO nfedDAO;

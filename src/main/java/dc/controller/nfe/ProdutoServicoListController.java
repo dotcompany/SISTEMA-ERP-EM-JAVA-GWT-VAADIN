@@ -45,7 +45,7 @@ public class ProdutoServicoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "competencia", "formaEscrituracao" };
+		return new String[] { "numeroItem", "codigoProduto", "gtin" };
 	}
 
 	@Override
