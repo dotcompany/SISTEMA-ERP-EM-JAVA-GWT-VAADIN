@@ -15,10 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -48,6 +51,65 @@ public class NfeDetalheImpostoCofinsEntity extends
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Column(name = "cst_cofins")
+	@Caption(value = "CST COFINS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cstCofins;
+
+	@Field
+	@Column(name = "quantidade_vendida")
+	@Caption(value = "Quantidade vendida")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double quantidadeVendida;
+
+	@Field
+	@Column(name = "base_calculo_cofins")
+	@Caption(value = "Base de cálculo do COFINS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double baseCalculoCofins;
+
+	@Field
+	@Column(name = "aliquota_cofins_percentual")
+	@Caption(value = "Alíquota COFINS percentual")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double aliquotaCofinsPercentual;
+
+	@Field
+	@Column(name = "aliquota_cofins_reais")
+	@Caption(value = "Alíquota COFINS reais")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double aliquotaCofinsReais;
+
+	@Field
+	@Column(name = "valor_cofins")
+	@Caption(value = "Valor do COFINS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double valorCofins;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@Field
+	@Column(name = "id_nfe_detalhe")
+	@Caption(value = "NFE detalhe")
+	private Integer nfeDetalhe;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public NfeDetalheImpostoCofinsEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -63,6 +125,62 @@ public class NfeDetalheImpostoCofinsEntity extends
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getCstCofins() {
+		return cstCofins;
+	}
+
+	public void setCstCofins(String cstCofins) {
+		this.cstCofins = cstCofins;
+	}
+
+	public Double getQuantidadeVendida() {
+		return quantidadeVendida;
+	}
+
+	public void setQuantidadeVendida(Double quantidadeVendida) {
+		this.quantidadeVendida = quantidadeVendida;
+	}
+
+	public Double getBaseCalculoCofins() {
+		return baseCalculoCofins;
+	}
+
+	public void setBaseCalculoCofins(Double baseCalculoCofins) {
+		this.baseCalculoCofins = baseCalculoCofins;
+	}
+
+	public Double getAliquotaCofinsPercentual() {
+		return aliquotaCofinsPercentual;
+	}
+
+	public void setAliquotaCofinsPercentual(Double aliquotaCofinsPercentual) {
+		this.aliquotaCofinsPercentual = aliquotaCofinsPercentual;
+	}
+
+	public Double getAliquotaCofinsReais() {
+		return aliquotaCofinsReais;
+	}
+
+	public void setAliquotaCofinsReais(Double aliquotaCofinsReais) {
+		this.aliquotaCofinsReais = aliquotaCofinsReais;
+	}
+
+	public Double getValorCofins() {
+		return valorCofins;
+	}
+
+	public void setValorCofins(Double valorCofins) {
+		this.valorCofins = valorCofins;
+	}
+
+	public Integer getNfeDetalhe() {
+		return nfeDetalhe;
+	}
+
+	public void setNfeDetalhe(Integer nfeDetalhe) {
+		this.nfeDetalhe = nfeDetalhe;
 	}
 
 	/**
