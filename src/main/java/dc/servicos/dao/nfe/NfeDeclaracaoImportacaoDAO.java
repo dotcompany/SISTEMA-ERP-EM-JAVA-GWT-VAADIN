@@ -29,7 +29,8 @@ public class NfeDeclaracaoImportacaoDAO extends
 	@Transactional
 	public List<NfeDeclaracaoImportacaoEntity> listarTodos() {
 		try {
-			String sql = "FROM NfeDeclaracaoImportacaoEntity ent WHERE (1 = 1)";
+			String sql = "FROM :entity ent WHERE (1 = 1)";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());
@@ -45,7 +46,8 @@ public class NfeDeclaracaoImportacaoDAO extends
 	@Transactional
 	public List<NfeDeclaracaoImportacaoEntity> procuraNomeContendo(String s) {
 		try {
-			String sql = "FROM NfeDeclaracaoImportacaoEntity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());

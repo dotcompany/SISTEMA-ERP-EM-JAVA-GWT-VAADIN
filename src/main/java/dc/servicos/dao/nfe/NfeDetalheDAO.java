@@ -28,10 +28,11 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 	@Transactional
 	public List<NfeDetalheEntity> listarTodos() {
 		try {
-			String sql = "FROM NfeDetalheEntity ent WHERE (1 = 1)";
+			String sql = "FROM :entity ent WHERE (1 = 1)";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
+			// query.setParameter("entity", getEntityClass().getName());
 
 			List<NfeDetalheEntity> auxLista = query.list();
 
@@ -44,7 +45,8 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 	@Transactional
 	public List<NfeDetalheEntity> procuraNomeContendo(String s) {
 		try {
-			String sql = "FROM NfeDetalheEntity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());

@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.nfe.NfeDestinatarioEntity;
+import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -18,15 +18,16 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
+public class NfeDetalheImpostoIiDAO extends
+		AbstractCrudDAO<NfeDetalheImpostoIiEntity> {
 
 	@Override
-	public Class<NfeDestinatarioEntity> getEntityClass() {
-		return NfeDestinatarioEntity.class;
+	public Class<NfeDetalheImpostoIiEntity> getEntityClass() {
+		return NfeDetalheImpostoIiEntity.class;
 	}
 
 	@Transactional
-	public List<NfeDestinatarioEntity> listarTodos() {
+	public List<NfeDetalheImpostoIiEntity> listarTodos() {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1)";
 			sql = sql.replace(":entity", getEntityClass().getName());
@@ -34,16 +35,16 @@ public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());
 
-			List<NfeDestinatarioEntity> auxLista = query.list();
+			List<NfeDetalheImpostoIiEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<NfeDestinatarioEntity>();
+			return new ArrayList<NfeDetalheImpostoIiEntity>();
 		}
 	}
 
 	@Transactional
-	public List<NfeDestinatarioEntity> procuraNomeContendo(String s) {
+	public List<NfeDetalheImpostoIiEntity> procuraNomeContendo(String s) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
 			sql = sql.replace(":entity", getEntityClass().getName());
@@ -52,16 +53,16 @@ public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
 			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
 
-			List<NfeDestinatarioEntity> auxLista = query.list();
+			List<NfeDetalheImpostoIiEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<NfeDestinatarioEntity>();
+			return new ArrayList<NfeDetalheImpostoIiEntity>();
 		}
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "INSS", "Serviço", "Valor mensal", "Valor 13" };
+		return new String[] { "Valor (BC)" };
 	}
 
 }

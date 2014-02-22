@@ -29,9 +29,10 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	public List<NfeCabecalhoEntity> listarTodos() {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1)";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("entity", getEntityClass());
+			// query.setParameter("entity", getEntityClass());
 
 			List<NfeCabecalhoEntity> auxLista = query.list();
 
@@ -45,9 +46,10 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	public List<NfeCabecalhoEntity> procuraNomeContendo(String s) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
+			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("entity", getEntityClass());
+			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
 
 			List<NfeCabecalhoEntity> auxLista = query.list();
