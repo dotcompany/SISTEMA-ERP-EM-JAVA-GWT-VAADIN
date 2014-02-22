@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
@@ -33,7 +34,7 @@ import dc.visao.nfe.ProdutoServicoFormView;
 @Controller
 @Scope("prototype")
 public class ProdutoServicoFormController extends
-		CRUDFormController<NfeDetalheEntity> {
+		CRUDFormController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -111,7 +112,16 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
+			List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfedDAO
+					.getLista(id);
 
+			List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
+					.listarTodos();
+
+			List<NfeDeclaracaoImportacaoEntity> auxLista3 = (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
+					.listarTodos();
+
+			this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -138,16 +148,19 @@ public class ProdutoServicoFormController extends
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
 
-		List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfedDAO
-				.listarTodos();
+		// List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>)
+		// this.nfedDAO
+		// .listarTodos();
 
-		List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
-				.listarTodos();
+		// List<NfeDetalheImpostoCofinsEntity> auxLista2 =
+		// (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
+		// .listarTodos();
 
-		List<NfeDeclaracaoImportacaoEntity> auxLista3 = (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
-				.listarTodos();
+		// List<NfeDeclaracaoImportacaoEntity> auxLista3 =
+		// (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
+		// .listarTodos();
 
-		this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
+		// this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
 	}
 
 	/*

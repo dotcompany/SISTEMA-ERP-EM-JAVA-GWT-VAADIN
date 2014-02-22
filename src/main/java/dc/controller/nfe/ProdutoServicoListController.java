@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.nfe.NfeDetalheEntity;
-import dc.servicos.dao.nfe.NfeDetalheDAO;
+import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ProdutoServicoListController extends
-		CRUDListController<NfeDetalheEntity> {
+		CRUDListController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class ProdutoServicoListController extends
 	 */
 
 	@Autowired
-	private NfeDetalheDAO pDAO;
+	private NfeCabecalhoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -45,12 +45,13 @@ public class ProdutoServicoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "numeroItem", "codigoProduto", "gtin" };
+		return new String[] { "codigoNumerico", "naturezaOperacao",
+				"indicadorFormaPagamento" };
 	}
 
 	@Override
-	public Class<? super NfeDetalheEntity> getEntityClass() {
-		return NfeDetalheEntity.class;
+	public Class<? super NfeCabecalhoEntity> getEntityClass() {
+		return NfeCabecalhoEntity.class;
 	}
 
 	@Override
@@ -59,21 +60,21 @@ public class ProdutoServicoListController extends
 	}
 
 	@Override
-	protected List<NfeDetalheEntity> pesquisa(String valor) {
+	protected List<NfeCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<NfeDetalheEntity> auxLista = this.pDAO
+			List<NfeCabecalhoEntity> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<NfeDetalheEntity>();
+			return new ArrayList<NfeCabecalhoEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<NfeDetalheEntity> getFormController() {
+	protected CRUDFormController<NfeCabecalhoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -91,15 +92,15 @@ public class ProdutoServicoListController extends
 	}
 
 	@Override
-	protected List<NfeDetalheEntity> pesquisaDefault() {
+	protected List<NfeCabecalhoEntity> pesquisaDefault() {
 		try {
-			List<NfeDetalheEntity> auxLista = this.pDAO.listarTodos();
+			List<NfeCabecalhoEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<NfeDetalheEntity>();
+			return new ArrayList<NfeCabecalhoEntity>();
 		}
 	}
 

@@ -32,7 +32,6 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
 
 			List<NfeCabecalhoEntity> auxLista = query.list();
 
@@ -49,7 +48,6 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
 
 			List<NfeCabecalhoEntity> auxLista = query.list();
@@ -61,10 +59,8 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Operação fiscal", "UF emitente",
-				"Código numérico", "Natureza da operação",
-				"Informações add fisco", "Informações add contribuinte",
-				"Status da nota" };
+		return new String[] { "Código numérico", "Natureza da operação",
+				"Indicador da forma de pagamento" };
 	}
 
 }

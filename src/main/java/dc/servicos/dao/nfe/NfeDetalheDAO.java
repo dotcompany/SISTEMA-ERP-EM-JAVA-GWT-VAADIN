@@ -1,5 +1,6 @@
 package dc.servicos.dao.nfe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass().getName());
 
 			List<NfeDetalheEntity> auxLista = query.list();
 
@@ -49,8 +49,24 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
+
+			List<NfeDetalheEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeDetalheEntity>();
+		}
+	}
+
+	@Transactional
+	public List<NfeDetalheEntity> getLista(Serializable idParent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :idParent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("idParent", idParent);
 
 			List<NfeDetalheEntity> auxLista = query.list();
 
