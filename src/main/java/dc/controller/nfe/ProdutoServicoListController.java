@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contabilidade.livrocontabil.LivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
+import dc.entidade.nfe.NfeDetalheEntity;
+import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ProdutoServicoListController extends
-		CRUDListController<LivroEntity> {
+		CRUDListController<NfeDetalheEntity> {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class ProdutoServicoListController extends
 	 */
 
 	@Autowired
-	private LivroDAO pDAO;
+	private NfeDetalheDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -49,8 +49,8 @@ public class ProdutoServicoListController extends
 	}
 
 	@Override
-	public Class<? super LivroEntity> getEntityClass() {
-		return LivroEntity.class;
+	public Class<? super NfeDetalheEntity> getEntityClass() {
+		return NfeDetalheEntity.class;
 	}
 
 	@Override
@@ -59,20 +59,21 @@ public class ProdutoServicoListController extends
 	}
 
 	@Override
-	protected List<LivroEntity> pesquisa(String valor) {
+	protected List<NfeDetalheEntity> pesquisa(String valor) {
 		try {
-			List<LivroEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<NfeDetalheEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LivroEntity>();
+			return new ArrayList<NfeDetalheEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<LivroEntity> getFormController() {
+	protected CRUDFormController<NfeDetalheEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -90,15 +91,15 @@ public class ProdutoServicoListController extends
 	}
 
 	@Override
-	protected List<LivroEntity> pesquisaDefault() {
+	protected List<NfeDetalheEntity> pesquisaDefault() {
 		try {
-			List<LivroEntity> auxLista = this.pDAO.listarTodos();
+			List<NfeDetalheEntity> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LivroEntity>();
+			return new ArrayList<NfeDetalheEntity>();
 		}
 	}
 

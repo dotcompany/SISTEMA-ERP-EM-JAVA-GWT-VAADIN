@@ -56,28 +56,28 @@ public class NfeDetalheImpostoIiEntity extends
 	@Caption(value = "Valor (BC)")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIi;
+	private Double valorBcIi = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_despesas_aduaneiras")
 	@Caption(value = "Valor das despesas aduaneiras")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorDespesasAduaneiras;
+	private Double valorDespesasAduaneiras = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_imposto_importacao")
 	@Caption(value = "Valor do imposto de importação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorImpostoImportacao;
+	private Double valorImpostoImportacao = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_iof")
 	@Caption(value = "Valor IOF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIof;
+	private Double valorIof = new Double(0.0);
 
 	/**
 	 * REFERENCIA - FK

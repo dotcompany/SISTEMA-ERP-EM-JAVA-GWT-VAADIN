@@ -56,42 +56,42 @@ public class NfeDetalheImpostoPisEntity extends
 	@Caption(value = "CST PIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cstPis;
+	private String cstPis = "";
 
 	@Field
 	@Column(name = "quantidade_vendida")
 	@Caption(value = "Quantidade vendida")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeVendida;
+	private Double quantidadeVendida = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_base_calculo_pis")
 	@Caption(value = "Valor da base de cálculo do PIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoPis;
+	private Double valorBaseCalculoPis = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_pis_percentual")
 	@Caption(value = "Alíquota do PIS percentual")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaPisPercentual;
+	private Double aliquotaPisPercentual = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_pis_reais")
 	@Caption(value = "Alíquota do PIS reais")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaPisReais;
+	private Double aliquotaPisReais = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_pis")
 	@Caption(value = "Valor do PIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorPis;
+	private Double valorPis = new Double(0.0);
 
 	/**
 	 * REFERENCIA - FK

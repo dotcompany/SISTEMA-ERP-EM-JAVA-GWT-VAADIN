@@ -56,42 +56,42 @@ public class NfeDetalheImpostoIssqnEntity extends
 	@Caption(value = "Base do cálculo do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoIssqn;
+	private Double baseCalculoIssqn = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_issqn")
 	@Caption(value = "Alíquota do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIssqn;
+	private Double aliquotaIssqn = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_issqn")
 	@Caption(value = "Valor do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIssqn;
+	private Double valorIssqn = new Double(0.0);
 
 	@Field
 	@Column(name = "municipio_issqn")
 	@Caption(value = "Municipio do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer municipioIssqn;
+	private Integer municipioIssqn = new Integer(0);
 
 	@Field
 	@Column(name = "item_lista_servicos")
 	@Caption(value = "Item da lista de serviços")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer itemListaServicos;
+	private Integer itemListaServicos = new Integer(0);
 
 	@Field
 	@Column(name = "tributacao_issqn")
 	@Caption(value = "Tributação do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tributacaoIssqn;
+	private String tributacaoIssqn = "";
 
 	/**
 	 * REFERENCIA - FK

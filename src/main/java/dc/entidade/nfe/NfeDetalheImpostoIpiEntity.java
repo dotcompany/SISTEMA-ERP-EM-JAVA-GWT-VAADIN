@@ -56,77 +56,77 @@ public class NfeDetalheImpostoIpiEntity extends
 	@Caption(value = "Enquadramento do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String enquadramentoIpi;
+	private String enquadramentoIpi = "";
 
 	@Field
 	@Column(name = "cnpj_produtor")
 	@Caption(value = "CNPJ do produtor")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cnpjProdutor;
+	private String cnpjProdutor = "";
 
 	@Field
 	@Column(name = "codigo_selo_ipi")
 	@Caption(value = "Código do selo do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoSeloIpi;
+	private String codigoSeloIpi = "";
 
 	@Field
 	@Column(name = "quantidade_selo_ipi")
 	@Caption(value = "Quantidade de selo do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer quantidadeSeloIpi;
+	private Integer quantidadeSeloIpi = new Integer(0);
 
 	@Field
 	@Column(name = "enquadramento_legal_ipi")
 	@Caption(value = "Enquadramento legal do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String enquadramentoLegalIpi;
+	private String enquadramentoLegalIpi = "";
 
 	@Field
 	@Column(name = "cst_ipi")
 	@Caption(value = "CST IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cstIpi;
+	private String cstIpi = "";
 
 	@Field
 	@Column(name = "valor_base_calculo_ipi")
 	@Caption(value = "Valor da base de cálculo do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoIpi;
+	private Double valorBaseCalculoIpi = new Double(0.0);
 
 	@Field
 	@Column(name = "Alíquota do IPI")
 	@Caption(value = "aliquota_ipi")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIpi;
+	private Double aliquotaIpi = new Double(0.0);
 
 	@Field
 	@Column(name = "quantidade_unidade_tributavel")
 	@Caption(value = "Quantidade da unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeUnidadeTributavel;
+	private Double quantidadeUnidadeTributavel = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_unidade_tributavel")
 	@Caption(value = "Valor da unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorUnidadeTributavel;
+	private Double valorUnidadeTributavel = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_ipi")
 	@Caption(value = "Valor do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIpi;
+	private Double valorIpi = new Double(0.0);
 
 	/**
 	 * REFERENCIA - FK

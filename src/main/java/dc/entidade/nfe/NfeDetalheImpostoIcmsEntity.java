@@ -56,161 +56,161 @@ public class NfeDetalheImpostoIcmsEntity extends
 	@Caption(value = "Origem da mercadoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String origemMercadoria;
+	private String origemMercadoria = "";
 
 	@Field
 	@Column(name = "cst_icms")
 	@Caption(value = "CST ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cstIcms;
+	private String cstIcms = "";
 
 	@Field
 	@Column(name = "csosn")
 	@Caption(value = "CSOSN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String csosn;
+	private String csosn = "";
 
 	@Field
 	@Column(name = "modalidade_bc_icms")
 	@Caption(value = "Modalidade BC ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String modalidadeBcIcms;
+	private String modalidadeBcIcms = "";
 
 	@Field
 	@Column(name = "taxa_reducao_bc_icms")
 	@Caption(value = "Taxa de redução BC ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double taxaReducaoBcIcms;
+	private Double taxaReducaoBcIcms = new Double(0.0);
 
 	@Field
 	@Column(name = "base_calculo_icms")
 	@Caption(value = "Base de cálculo do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoIcms;
+	private Double baseCalculoIcms = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_icms")
 	@Caption(value = "Alíquota do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIcms;
+	private Double aliquotaIcms = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_icms")
 	@Caption(value = "Valor do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcms;
+	private Double valorIcms = new Double(0.0);
 
 	@Field
 	@Column(name = "motivo_desoneracao_icms")
 	@Caption(value = "Motivo da desoneração do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String motivoDesoneracaoIcms;
+	private String motivoDesoneracaoIcms = "";
 
 	@Field
 	@Column(name = "modalidade_bc_icms_st")
 	@Caption(value = "Modalidade BC ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String modalidadeBcIcmsSt;
+	private String modalidadeBcIcmsSt = "";
 
 	@Field
 	@Column(name = "percentual_mva_icms_st")
 	@Caption(value = "Percentual MVA ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualMvaIcmsSt;
+	private Double percentualMvaIcmsSt = new Double(0.0);
 
 	@Field
 	@Column(name = "percentual_reducao_bc_icms_st")
 	@Caption(value = "Percentual de redução BC ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualReducaoBcIcmsSt;
+	private Double percentualReducaoBcIcmsSt = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_base_calculo_icms_st")
 	@Caption(value = "Valor da base de cálculo ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoIcmsSt;
+	private Double valorBaseCalculoIcmsSt = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_icms_st")
 	@Caption(value = "Alíquota ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIcmsSt;
+	private Double aliquotaIcmsSt = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_icms_st")
 	@Caption(value = "Valor ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsSt;
+	private Double valorIcmsSt = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_bc_icms_st_retido")
 	@Caption(value = "Valor BC ICMS ST retido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIcmsStRetido;
+	private Double valorBcIcmsStRetido = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_icms_st_retido")
 	@Caption(value = "Valor ICMS ST retido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsStRetido;
+	private Double valorIcmsStRetido = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_bc_icms_st_destino")
 	@Caption(value = "Valor BC ICMS ST destino")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIcmsStDestino;
+	private Double valorBcIcmsStDestino = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_icms_st_destino")
 	@Caption(value = "Valor ICMS ST destino")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsStDestino;
+	private Double valorIcmsStDestino = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_credito_icms_sn")
 	@Caption(value = "Alíquota do crédito ICMS SN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCreditoIcmsSn;
+	private Double aliquotaCreditoIcmsSn = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_credito_icms_sn")
 	@Caption(value = "Valor do crédito ICMS SN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorCreditoIcmsSn;
+	private Double valorCreditoIcmsSn = new Double(0.0);
 
 	@Field
 	@Column(name = "percentual_bc_operacao_propria")
 	@Caption(value = "Percentual BC operação própria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualBcOperacaoPropria;
+	private Double percentualBcOperacaoPropria = new Double(0.0);
 
 	@Field
 	@Column(name = "uf_st")
 	@Caption(value = "UF ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ufSt;
+	private String ufSt = "";
 
 	/**
 	 * REFERENCIA - FK

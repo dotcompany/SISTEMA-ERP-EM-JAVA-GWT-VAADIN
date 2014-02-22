@@ -9,12 +9,17 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
+import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoIiDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
+import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
@@ -27,7 +32,7 @@ import dc.visao.nfe.ProdutoServicoFormView;
 @Controller
 @Scope("prototype")
 public class ProdutoServicoFormController extends
-		CRUDFormController<LivroEntity> {
+		CRUDFormController<NfeDetalheEntity> {
 
 	/**
 	 * 
@@ -41,19 +46,32 @@ public class ProdutoServicoFormController extends
 	 */
 
 	@Autowired
-	private LivroDAO pDAO;
-
-	@Autowired
 	private NfeDetalheDAO nfedDAO;
 
 	@Autowired
 	private NfeDeclaracaoImportacaoDAO nfediDAO;
 
+	@Autowired
+	private NfeDetalheImpostoCofinsDAO nfedCofinsDAO;
+
+	@Autowired
+	private NfeDetalheImpostoIcmsDAO nfediIcmsDAO;
+
+	@Autowired
+	private NfeDetalheImpostoIiDAO nfediIiDAO;
+
+	@Autowired
+	private NfeDetalheImpostoIpiDAO nfediIpiDAO;
+
+	@Autowired
+	private NfeDetalheImpostoIssqnDAO nfediIssqnDAO;
+
+	@Autowired
+	private NfeDetalheImpostoPisDAO nfediPisDAO;
+
 	/**
 	 * ENTITIES
 	 */
-
-	private LivroEntity pEntity;
 
 	/**
 	 * CONSTRUTOR
@@ -119,7 +137,7 @@ public class ProdutoServicoFormController extends
 		List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfedDAO
 				.listarTodos();
 
-		List<LivroEntity> auxLista2 = (List<LivroEntity>) this.pDAO
+		List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
 				.listarTodos();
 
 		List<NfeDeclaracaoImportacaoEntity> auxLista3 = (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
@@ -167,7 +185,7 @@ public class ProdutoServicoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "nfe";
+		return "";
 	}
 
 	/**

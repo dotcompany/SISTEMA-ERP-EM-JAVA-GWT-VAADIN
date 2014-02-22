@@ -15,9 +15,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.nfe.ProdutoServicoFormController;
-import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
+import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.visao.framework.component.SubFormComponent;
 
 /**
@@ -411,13 +411,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	private SubFormComponent<NfeDetalheEntity, Integer> sfNfeDetalhe;
 
-	private SubFormComponent<LivroEntity, Integer> sfMedicamento;
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfMedicamento;
 
-	private SubFormComponent<LivroEntity, Integer> sfArmamento;
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfArmamento;
 
 	private SubFormComponent<NfeDeclaracaoImportacaoEntity, Integer> sfDeclaracaoImportacao;
 
-	private SubFormComponent<LivroEntity, Integer> sfDeclaracaoImportacaoAdicoes;
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfDeclaracaoImportacaoAdicoes;
 
 	/**
 	 * 
@@ -1611,12 +1611,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfNfeDetalhe;
 	}
 
-	private SubFormComponent<LivroEntity, Integer> buildMedicamentoSubForm() {
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> buildMedicamentoSubForm() {
 		// common part: create layout
-		sfMedicamento = new SubFormComponent<LivroEntity, Integer>(
-				LivroEntity.class, new String[] { "descricao", "competencia",
-						"formaEscrituracao" }, new String[] { "Descrição",
-						"Competência", "Forma de escrituração" }) {
+		sfMedicamento = new SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer>(
+				NfeDetalheImpostoCofinsEntity.class,
+				new String[] { "cstCofins", "quantidadeVendida",
+						"baseCalculoCofins" }, new String[] { "CST COFINS",
+						"Quantidade vendida", "Base de cálculo do COFINS" }) {
 
 			/**
 			 * 
@@ -1643,7 +1644,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<LivroEntity> items) {
+			public boolean validateItems(
+					List<NfeDetalheImpostoCofinsEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1653,12 +1655,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfMedicamento;
 	}
 
-	private SubFormComponent<LivroEntity, Integer> buildArmamentoSubForm() {
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> buildArmamentoSubForm() {
 		// common part: create layout
-		sfArmamento = new SubFormComponent<LivroEntity, Integer>(
-				LivroEntity.class, new String[] { "descricao", "competencia",
-						"formaEscrituracao" }, new String[] { "Descrição",
-						"Competência", "Forma de escrituração" }) {
+		sfArmamento = new SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer>(
+				NfeDetalheImpostoCofinsEntity.class,
+				new String[] { "cstCofins", "quantidadeVendida",
+						"baseCalculoCofins" }, new String[] { "CST COFINS",
+						"Quantidade vendida", "Base de cálculo do COFINS" }) {
 
 			/**
 			 * 
@@ -1685,7 +1688,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<LivroEntity> items) {
+			public boolean validateItems(
+					List<NfeDetalheImpostoCofinsEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1740,15 +1744,16 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfDeclaracaoImportacao;
 	}
 
-	private SubFormComponent<LivroEntity, Integer> buildDeclaracaoImportacaoAdicoesSubForm() {
+	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> buildDeclaracaoImportacaoAdicoesSubForm() {
 		// common part: create layout
-		sfDeclaracaoImportacaoAdicoes = new SubFormComponent<LivroEntity, Integer>(
-				LivroEntity.class, new String[] { "descricao", "competencia",
-						"formaEscrituracao" }, new String[] { "Descrição",
-						"Competência", "Forma de escrituração" }) {
+		sfDeclaracaoImportacaoAdicoes = new SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer>(
+				NfeDetalheImpostoCofinsEntity.class,
+				new String[] { "cstCofins", "quantidadeVendida",
+						"baseCalculoCofins" }, new String[] { "CST COFINS",
+						"Quantidade vendida", "Base de cálculo do COFINS" }) {
 
 			/**
-			 * 
+			 * xxx
 			 */
 			private static final long serialVersionUID = 1L;
 
@@ -1772,7 +1777,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<LivroEntity> items) {
+			public boolean validateItems(
+					List<NfeDetalheImpostoCofinsEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1783,7 +1789,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 	}
 
 	public void preencherSubForm(List<NfeDetalheEntity> auxLista1,
-			List<LivroEntity> auxLista2,
+			List<NfeDetalheImpostoCofinsEntity> auxLista2,
 			List<NfeDeclaracaoImportacaoEntity> auxLista3) {
 		try {
 			sfNfeDetalhe.fillWith(auxLista1);

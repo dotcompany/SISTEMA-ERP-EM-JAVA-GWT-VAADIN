@@ -56,42 +56,42 @@ public class NfeDetalheImpostoCofinsEntity extends
 	@Caption(value = "CST COFINS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cstCofins;
+	private String cstCofins = "";
 
 	@Field
 	@Column(name = "quantidade_vendida")
 	@Caption(value = "Quantidade vendida")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeVendida;
+	private Double quantidadeVendida = new Double(0.0);
 
 	@Field
 	@Column(name = "base_calculo_cofins")
 	@Caption(value = "Base de cálculo do COFINS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoCofins;
+	private Double baseCalculoCofins = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_cofins_percentual")
 	@Caption(value = "Alíquota COFINS percentual")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCofinsPercentual;
+	private Double aliquotaCofinsPercentual = new Double(0.0);
 
 	@Field
 	@Column(name = "aliquota_cofins_reais")
 	@Caption(value = "Alíquota COFINS reais")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCofinsReais;
+	private Double aliquotaCofinsReais = new Double(0.0);
 
 	@Field
 	@Column(name = "valor_cofins")
 	@Caption(value = "Valor do COFINS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorCofins;
+	private Double valorCofins = new Double(0.0);
 
 	/**
 	 * REFERENCIA - FK
