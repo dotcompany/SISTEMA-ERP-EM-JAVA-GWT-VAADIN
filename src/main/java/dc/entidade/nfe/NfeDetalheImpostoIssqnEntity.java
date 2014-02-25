@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -56,21 +57,21 @@ public class NfeDetalheImpostoIssqnEntity extends
 	@Caption(value = "Base do cálculo do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoIssqn = new Double(0.0);
+	private BigDecimal baseCalculoIssqn = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_issqn")
 	@Caption(value = "Alíquota do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIssqn = new Double(0.0);
+	private BigDecimal aliquotaIssqn = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_issqn")
 	@Caption(value = "Valor do ISSQN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIssqn = new Double(0.0);
+	private BigDecimal valorIssqn = new BigDecimal(0);
 
 	@Field
 	@Column(name = "municipio_issqn")
@@ -127,27 +128,27 @@ public class NfeDetalheImpostoIssqnEntity extends
 		this.id = id;
 	}
 
-	public Double getBaseCalculoIssqn() {
+	public BigDecimal getBaseCalculoIssqn() {
 		return baseCalculoIssqn;
 	}
 
-	public void setBaseCalculoIssqn(Double baseCalculoIssqn) {
+	public void setBaseCalculoIssqn(BigDecimal baseCalculoIssqn) {
 		this.baseCalculoIssqn = baseCalculoIssqn;
 	}
 
-	public Double getAliquotaIssqn() {
+	public BigDecimal getAliquotaIssqn() {
 		return aliquotaIssqn;
 	}
 
-	public void setAliquotaIssqn(Double aliquotaIssqn) {
+	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
 		this.aliquotaIssqn = aliquotaIssqn;
 	}
 
-	public Double getValorIssqn() {
+	public BigDecimal getValorIssqn() {
 		return valorIssqn;
 	}
 
-	public void setValorIssqn(Double valorIssqn) {
+	public void setValorIssqn(BigDecimal valorIssqn) {
 		this.valorIssqn = valorIssqn;
 	}
 

@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,6 +20,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -47,71 +47,121 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nfe_destinatario_id_seq")
 	@SequenceGenerator(name = "nfe_destinatario_id_seq", sequenceName = "nfe_destinatario_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Column(name = "cpf_cnpj")
-	private String cpfCnpj;
+	@Caption(value = "CPF / CNPJ")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cpfCnpj = "";
 
 	@Field
 	@Column(name = "razao_social")
-	private String razaoSocial;
+	@Caption(value = "Razão social")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String razaoSocial = "";
 
 	@Field
 	@Column(name = "logradouro")
-	private String logradouro;
+	@Caption(value = "Logradouro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String logradouro = "";
 
 	@Field
 	@Column(name = "numero")
-	private String numero;
+	@Caption(value = "Número")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numero = "";
 
 	@Field
 	@Column(name = "complemento")
-	private String complemento;
+	@Caption(value = "Complemento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String complemento = "";
 
 	@Field
 	@Column(name = "bairro")
-	private String bairro;
+	@Caption(value = "Bairro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String bairro = "";
 
 	@Field
 	@Column(name = "codigo_municipio")
+	@Caption(value = "Código do município")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoMunicipio;
 
 	@Field
 	@Column(name = "nome_municipio")
-	private String nomeMunicipio;
+	@Caption(value = "Nome do município")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nomeMunicipio = "";
 
 	@Field
 	@Column(name = "uf")
-	private String uf;
+	@Caption(value = "UF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String uf = "";
 
 	@Field
 	@Column(name = "cep")
-	private String cep;
+	@Caption(value = "CEP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cep = "";
 
 	@Field
 	@Column(name = "codigo_pais")
-	private Integer codigoPais;
+	@Caption(value = "Código do país")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigoPais = new Integer(0);
 
 	@Field
 	@Column(name = "nome_pais")
-	private String nomePais;
+	@Caption(value = "Nome do país")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nomePais = "";
 
 	@Field
 	@Column(name = "telefone")
-	private String telefone;
+	@Caption(value = "Telefone")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String telefone = "";
 
 	@Field
 	@Column(name = "inscricao_estadual")
-	private String inscricaoEstadual;
+	@Caption(value = "Inscrição estadual")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inscricaoEstadual = "";
 
 	@Field
 	@Column(name = "suframa")
-	private String suframa;
+	@Caption(value = "SUFRAMA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String suframa = "";
 
 	@Field
 	@Column(name = "email")
-	private String email;
+	@Caption(value = "E-mail")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String email = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -119,11 +169,10 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	// id_nfe_cabecalho integer NOT NULL,
 
-	@ManyToOne
-	@JoinColumn(name = "id_nfe_cabecalho", nullable = false)
-	@Caption("NF-e - Cabeçalho")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private NfeCabecalhoEntity nfeCabecalho;
+	@Field
+	@Column(name = "id_nfe_cabecalho")
+	@Caption(value = "NFE cabeçalho")
+	private Integer nfeCabecalho;
 
 	// id_empresa integer,
 
@@ -280,11 +329,11 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.email = email;
 	}
 
-	public NfeCabecalhoEntity getNfeCabecalho() {
+	public Integer getNfeCabecalho() {
 		return nfeCabecalho;
 	}
 
-	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
+	public void setNfeCabecalho(Integer nfeCabecalho) {
 		this.nfeCabecalho = nfeCabecalho;
 	}
 

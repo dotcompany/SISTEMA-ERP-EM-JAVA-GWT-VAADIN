@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -84,28 +85,28 @@ public class NfeDetalheImpostoIcmsEntity extends
 	@Caption(value = "Taxa de redução BC ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double taxaReducaoBcIcms = new Double(0.0);
+	private BigDecimal taxaReducaoBcIcms = new BigDecimal(0);
 
 	@Field
 	@Column(name = "base_calculo_icms")
 	@Caption(value = "Base de cálculo do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoIcms = new Double(0.0);
+	private BigDecimal baseCalculoIcms = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_icms")
 	@Caption(value = "Alíquota do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIcms = new Double(0.0);
+	private BigDecimal aliquotaIcms = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_icms")
 	@Caption(value = "Valor do ICMS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcms = new Double(0.0);
+	private BigDecimal valorIcms = new BigDecimal(0);
 
 	@Field
 	@Column(name = "motivo_desoneracao_icms")
@@ -126,84 +127,84 @@ public class NfeDetalheImpostoIcmsEntity extends
 	@Caption(value = "Percentual MVA ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualMvaIcmsSt = new Double(0.0);
+	private BigDecimal percentualMvaIcmsSt = new BigDecimal(0);
 
 	@Field
 	@Column(name = "percentual_reducao_bc_icms_st")
 	@Caption(value = "Percentual de redução BC ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualReducaoBcIcmsSt = new Double(0.0);
+	private BigDecimal percentualReducaoBcIcmsSt = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_base_calculo_icms_st")
 	@Caption(value = "Valor da base de cálculo ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoIcmsSt = new Double(0.0);
+	private BigDecimal valorBaseCalculoIcmsSt = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_icms_st")
 	@Caption(value = "Alíquota ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIcmsSt = new Double(0.0);
+	private BigDecimal aliquotaIcmsSt = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_icms_st")
 	@Caption(value = "Valor ICMS ST")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsSt = new Double(0.0);
+	private BigDecimal valorIcmsSt = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_bc_icms_st_retido")
 	@Caption(value = "Valor BC ICMS ST retido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIcmsStRetido = new Double(0.0);
+	private BigDecimal valorBcIcmsStRetido = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_icms_st_retido")
 	@Caption(value = "Valor ICMS ST retido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsStRetido = new Double(0.0);
+	private BigDecimal valorIcmsStRetido = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_bc_icms_st_destino")
 	@Caption(value = "Valor BC ICMS ST destino")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIcmsStDestino = new Double(0.0);
+	private BigDecimal valorBcIcmsStDestino = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_icms_st_destino")
 	@Caption(value = "Valor ICMS ST destino")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIcmsStDestino = new Double(0.0);
+	private BigDecimal valorIcmsStDestino = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_credito_icms_sn")
 	@Caption(value = "Alíquota do crédito ICMS SN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCreditoIcmsSn = new Double(0.0);
+	private BigDecimal aliquotaCreditoIcmsSn = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_credito_icms_sn")
 	@Caption(value = "Valor do crédito ICMS SN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorCreditoIcmsSn = new Double(0.0);
+	private BigDecimal valorCreditoIcmsSn = new BigDecimal(0);
 
 	@Field
 	@Column(name = "percentual_bc_operacao_propria")
 	@Caption(value = "Percentual BC operação própria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double percentualBcOperacaoPropria = new Double(0.0);
+	private BigDecimal percentualBcOperacaoPropria = new BigDecimal(0);
 
 	@Field
 	@Column(name = "uf_st")
@@ -278,35 +279,35 @@ public class NfeDetalheImpostoIcmsEntity extends
 		this.modalidadeBcIcms = modalidadeBcIcms;
 	}
 
-	public Double getTaxaReducaoBcIcms() {
+	public BigDecimal getTaxaReducaoBcIcms() {
 		return taxaReducaoBcIcms;
 	}
 
-	public void setTaxaReducaoBcIcms(Double taxaReducaoBcIcms) {
+	public void setTaxaReducaoBcIcms(BigDecimal taxaReducaoBcIcms) {
 		this.taxaReducaoBcIcms = taxaReducaoBcIcms;
 	}
 
-	public Double getBaseCalculoIcms() {
+	public BigDecimal getBaseCalculoIcms() {
 		return baseCalculoIcms;
 	}
 
-	public void setBaseCalculoIcms(Double baseCalculoIcms) {
+	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
 		this.baseCalculoIcms = baseCalculoIcms;
 	}
 
-	public Double getAliquotaIcms() {
+	public BigDecimal getAliquotaIcms() {
 		return aliquotaIcms;
 	}
 
-	public void setAliquotaIcms(Double aliquotaIcms) {
+	public void setAliquotaIcms(BigDecimal aliquotaIcms) {
 		this.aliquotaIcms = aliquotaIcms;
 	}
 
-	public Double getValorIcms() {
+	public BigDecimal getValorIcms() {
 		return valorIcms;
 	}
 
-	public void setValorIcms(Double valorIcms) {
+	public void setValorIcms(BigDecimal valorIcms) {
 		this.valorIcms = valorIcms;
 	}
 
@@ -326,100 +327,101 @@ public class NfeDetalheImpostoIcmsEntity extends
 		this.modalidadeBcIcmsSt = modalidadeBcIcmsSt;
 	}
 
-	public Double getPercentualMvaIcmsSt() {
+	public BigDecimal getPercentualMvaIcmsSt() {
 		return percentualMvaIcmsSt;
 	}
 
-	public void setPercentualMvaIcmsSt(Double percentualMvaIcmsSt) {
+	public void setPercentualMvaIcmsSt(BigDecimal percentualMvaIcmsSt) {
 		this.percentualMvaIcmsSt = percentualMvaIcmsSt;
 	}
 
-	public Double getPercentualReducaoBcIcmsSt() {
+	public BigDecimal getPercentualReducaoBcIcmsSt() {
 		return percentualReducaoBcIcmsSt;
 	}
 
-	public void setPercentualReducaoBcIcmsSt(Double percentualReducaoBcIcmsSt) {
+	public void setPercentualReducaoBcIcmsSt(
+			BigDecimal percentualReducaoBcIcmsSt) {
 		this.percentualReducaoBcIcmsSt = percentualReducaoBcIcmsSt;
 	}
 
-	public Double getValorBaseCalculoIcmsSt() {
+	public BigDecimal getValorBaseCalculoIcmsSt() {
 		return valorBaseCalculoIcmsSt;
 	}
 
-	public void setValorBaseCalculoIcmsSt(Double valorBaseCalculoIcmsSt) {
+	public void setValorBaseCalculoIcmsSt(BigDecimal valorBaseCalculoIcmsSt) {
 		this.valorBaseCalculoIcmsSt = valorBaseCalculoIcmsSt;
 	}
 
-	public Double getAliquotaIcmsSt() {
+	public BigDecimal getAliquotaIcmsSt() {
 		return aliquotaIcmsSt;
 	}
 
-	public void setAliquotaIcmsSt(Double aliquotaIcmsSt) {
+	public void setAliquotaIcmsSt(BigDecimal aliquotaIcmsSt) {
 		this.aliquotaIcmsSt = aliquotaIcmsSt;
 	}
 
-	public Double getValorIcmsSt() {
+	public BigDecimal getValorIcmsSt() {
 		return valorIcmsSt;
 	}
 
-	public void setValorIcmsSt(Double valorIcmsSt) {
+	public void setValorIcmsSt(BigDecimal valorIcmsSt) {
 		this.valorIcmsSt = valorIcmsSt;
 	}
 
-	public Double getValorBcIcmsStRetido() {
+	public BigDecimal getValorBcIcmsStRetido() {
 		return valorBcIcmsStRetido;
 	}
 
-	public void setValorBcIcmsStRetido(Double valorBcIcmsStRetido) {
+	public void setValorBcIcmsStRetido(BigDecimal valorBcIcmsStRetido) {
 		this.valorBcIcmsStRetido = valorBcIcmsStRetido;
 	}
 
-	public Double getValorIcmsStRetido() {
+	public BigDecimal getValorIcmsStRetido() {
 		return valorIcmsStRetido;
 	}
 
-	public void setValorIcmsStRetido(Double valorIcmsStRetido) {
+	public void setValorIcmsStRetido(BigDecimal valorIcmsStRetido) {
 		this.valorIcmsStRetido = valorIcmsStRetido;
 	}
 
-	public Double getValorBcIcmsStDestino() {
+	public BigDecimal getValorBcIcmsStDestino() {
 		return valorBcIcmsStDestino;
 	}
 
-	public void setValorBcIcmsStDestino(Double valorBcIcmsStDestino) {
+	public void setValorBcIcmsStDestino(BigDecimal valorBcIcmsStDestino) {
 		this.valorBcIcmsStDestino = valorBcIcmsStDestino;
 	}
 
-	public Double getValorIcmsStDestino() {
+	public BigDecimal getValorIcmsStDestino() {
 		return valorIcmsStDestino;
 	}
 
-	public void setValorIcmsStDestino(Double valorIcmsStDestino) {
+	public void setValorIcmsStDestino(BigDecimal valorIcmsStDestino) {
 		this.valorIcmsStDestino = valorIcmsStDestino;
 	}
 
-	public Double getAliquotaCreditoIcmsSn() {
+	public BigDecimal getAliquotaCreditoIcmsSn() {
 		return aliquotaCreditoIcmsSn;
 	}
 
-	public void setAliquotaCreditoIcmsSn(Double aliquotaCreditoIcmsSn) {
+	public void setAliquotaCreditoIcmsSn(BigDecimal aliquotaCreditoIcmsSn) {
 		this.aliquotaCreditoIcmsSn = aliquotaCreditoIcmsSn;
 	}
 
-	public Double getValorCreditoIcmsSn() {
+	public BigDecimal getValorCreditoIcmsSn() {
 		return valorCreditoIcmsSn;
 	}
 
-	public void setValorCreditoIcmsSn(Double valorCreditoIcmsSn) {
+	public void setValorCreditoIcmsSn(BigDecimal valorCreditoIcmsSn) {
 		this.valorCreditoIcmsSn = valorCreditoIcmsSn;
 	}
 
-	public Double getPercentualBcOperacaoPropria() {
+	public BigDecimal getPercentualBcOperacaoPropria() {
 		return percentualBcOperacaoPropria;
 	}
 
 	public void setPercentualBcOperacaoPropria(
-			Double percentualBcOperacaoPropria) {
+			BigDecimal percentualBcOperacaoPropria) {
 		this.percentualBcOperacaoPropria = percentualBcOperacaoPropria;
 	}
 

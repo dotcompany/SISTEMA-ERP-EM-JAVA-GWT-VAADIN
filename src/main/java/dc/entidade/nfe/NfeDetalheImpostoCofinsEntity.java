@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -63,35 +64,35 @@ public class NfeDetalheImpostoCofinsEntity extends
 	@Caption(value = "Quantidade vendida")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeVendida = new Double(0.0);
+	private BigDecimal quantidadeVendida = new BigDecimal(0);
 
 	@Field
 	@Column(name = "base_calculo_cofins")
 	@Caption(value = "Base de cálculo do COFINS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double baseCalculoCofins = new Double(0.0);
+	private BigDecimal baseCalculoCofins = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_cofins_percentual")
 	@Caption(value = "Alíquota COFINS percentual")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCofinsPercentual = new Double(0.0);
+	private BigDecimal aliquotaCofinsPercentual = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_cofins_reais")
 	@Caption(value = "Alíquota COFINS reais")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaCofinsReais = new Double(0.0);
+	private BigDecimal aliquotaCofinsReais = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_cofins")
 	@Caption(value = "Valor do COFINS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorCofins = new Double(0.0);
+	private BigDecimal valorCofins = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -135,43 +136,43 @@ public class NfeDetalheImpostoCofinsEntity extends
 		this.cstCofins = cstCofins;
 	}
 
-	public Double getQuantidadeVendida() {
+	public BigDecimal getQuantidadeVendida() {
 		return quantidadeVendida;
 	}
 
-	public void setQuantidadeVendida(Double quantidadeVendida) {
+	public void setQuantidadeVendida(BigDecimal quantidadeVendida) {
 		this.quantidadeVendida = quantidadeVendida;
 	}
 
-	public Double getBaseCalculoCofins() {
+	public BigDecimal getBaseCalculoCofins() {
 		return baseCalculoCofins;
 	}
 
-	public void setBaseCalculoCofins(Double baseCalculoCofins) {
+	public void setBaseCalculoCofins(BigDecimal baseCalculoCofins) {
 		this.baseCalculoCofins = baseCalculoCofins;
 	}
 
-	public Double getAliquotaCofinsPercentual() {
+	public BigDecimal getAliquotaCofinsPercentual() {
 		return aliquotaCofinsPercentual;
 	}
 
-	public void setAliquotaCofinsPercentual(Double aliquotaCofinsPercentual) {
+	public void setAliquotaCofinsPercentual(BigDecimal aliquotaCofinsPercentual) {
 		this.aliquotaCofinsPercentual = aliquotaCofinsPercentual;
 	}
 
-	public Double getAliquotaCofinsReais() {
+	public BigDecimal getAliquotaCofinsReais() {
 		return aliquotaCofinsReais;
 	}
 
-	public void setAliquotaCofinsReais(Double aliquotaCofinsReais) {
+	public void setAliquotaCofinsReais(BigDecimal aliquotaCofinsReais) {
 		this.aliquotaCofinsReais = aliquotaCofinsReais;
 	}
 
-	public Double getValorCofins() {
+	public BigDecimal getValorCofins() {
 		return valorCofins;
 	}
 
-	public void setValorCofins(Double valorCofins) {
+	public void setValorCofins(BigDecimal valorCofins) {
 		this.valorCofins = valorCofins;
 	}
 

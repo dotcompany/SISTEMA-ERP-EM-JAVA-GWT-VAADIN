@@ -60,13 +60,13 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 	}
 
 	@Transactional
-	public List<NfeDetalheEntity> getLista(Serializable idParent) {
+	public List<NfeDetalheEntity> getLista(Serializable idNfeCabecalho) {
 		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :idParent";
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :idNfeCabecalho";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("idParent", idParent);
+			query.setParameter("idNfeCabecalho", idNfeCabecalho);
 
 			List<NfeDetalheEntity> auxLista = query.list();
 

@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -56,175 +57,175 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Número do item")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer numeroItem;
+	private Integer numeroItem = new Integer(0);
 
 	@Field
 	@Column(name = "codigo_produto")
 	@Caption(value = "Código do produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoProduto;
+	private String codigoProduto = "";
 
 	@Field
 	@Column(name = "gtin")
 	@Caption(value = "GTIN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String gtin;
+	private String gtin = "";
 
 	@Field
 	@Column(name = "nome_produto")
 	@Caption(value = "Nome do produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nomeProduto;
+	private String nomeProduto = "";
 
 	@Field
 	@Column(name = "ncm")
 	@Caption(value = "NCM")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ncm;
+	private String ncm = "";
 
 	@Field
 	@Column(name = "ex_tipi")
 	@Caption(value = "EX TIPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer exTipi;
+	private Integer exTipi = new Integer(0);
 
 	@Field
 	@Column(name = "cfop")
 	@Caption(value = "CFOP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer cfop;
+	private Integer cfop = new Integer(0);
 
 	@Field
 	@Column(name = "unidade_comercial")
 	@Caption(value = "Unidade comercial")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String unidadeComercial;
+	private String unidadeComercial = "";
 
 	@Field
 	@Column(name = "quantidade_comercial")
 	@Caption(value = "Quantidade comercial")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeComercial;
+	private BigDecimal quantidadeComercial = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_unitario_comercial")
 	@Caption(value = "Valor unitário comercial")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorUnitarioComercial;
+	private BigDecimal valorUnitarioComercial = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_bruto_produto")
 	@Caption(value = "Valor bruto do produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBrutoProduto;
+	private BigDecimal valorBrutoProduto = new BigDecimal(0);
 
 	@Field
 	@Column(name = "gtin_unidade_tributavel")
 	@Caption(value = "GTIN unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String gtinUnidadeTributavel;
+	private String gtinUnidadeTributavel = "";
 
 	@Field
 	@Column(name = "unidade_tributavel")
 	@Caption(value = "Unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String unidadeTributavel;
+	private String unidadeTributavel = "";
 
 	@Field
 	@Column(name = "quantidade_tributavel")
 	@Caption(value = "Quantidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeTributavel;
+	private BigDecimal quantidadeTributavel = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_unitario_tributavel")
 	@Caption(value = "Valor unitário tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorUnitarioTributavel;
+	private BigDecimal valorUnitarioTributavel = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_frete")
 	@Caption(value = "Valor do frete")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorFrete;
+	private BigDecimal valorFrete = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_seguro")
 	@Caption(value = "Valor do seguro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorSeguro;
+	private BigDecimal valorSeguro = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_desconto")
 	@Caption(value = "Valor do desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorDesconto;
+	private BigDecimal valorDesconto = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_outras_despesas")
 	@Caption(value = "Valor de outras despesas")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorOutrasDespesas;
+	private BigDecimal valorOutrasDespesas = new BigDecimal(0);
 
 	@Field
 	@Column(name = "entra_total")
 	@Caption(value = "Entra total")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String entraTotal;
+	private String entraTotal = "";
 
 	@Field
 	@Column(name = "valor_subtotal")
 	@Caption(value = "Valor subtotal")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorSubtotal;
+	private BigDecimal valorSubtotal = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_total")
 	@Caption(value = "Valor total")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorTotal;
+	private BigDecimal valorTotal = new BigDecimal(0);
 
 	@Field
 	@Column(name = "numero_pedido_compra")
 	@Caption(value = "Número do pedido de compra")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String numeroPedidoCompra;
+	private String numeroPedidoCompra = "";
 
 	@Field
 	@Column(name = "item_pedido_compra")
 	@Caption(value = "Item do pedido de compra")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer itemPedidoCompra;
+	private Integer itemPedidoCompra = new Integer(0);
 
 	@Field
 	@Column(name = "informacoes_adicionais")
 	@Caption(value = "Informações adicionais")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String informacoesAdicionais;
+	private String informacoesAdicionais = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -329,27 +330,27 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.unidadeComercial = unidadeComercial;
 	}
 
-	public Double getQuantidadeComercial() {
+	public BigDecimal getQuantidadeComercial() {
 		return quantidadeComercial;
 	}
 
-	public void setQuantidadeComercial(Double quantidadeComercial) {
+	public void setQuantidadeComercial(BigDecimal quantidadeComercial) {
 		this.quantidadeComercial = quantidadeComercial;
 	}
 
-	public Double getValorUnitarioComercial() {
+	public BigDecimal getValorUnitarioComercial() {
 		return valorUnitarioComercial;
 	}
 
-	public void setValorUnitarioComercial(Double valorUnitarioComercial) {
+	public void setValorUnitarioComercial(BigDecimal valorUnitarioComercial) {
 		this.valorUnitarioComercial = valorUnitarioComercial;
 	}
 
-	public Double getValorBrutoProduto() {
+	public BigDecimal getValorBrutoProduto() {
 		return valorBrutoProduto;
 	}
 
-	public void setValorBrutoProduto(Double valorBrutoProduto) {
+	public void setValorBrutoProduto(BigDecimal valorBrutoProduto) {
 		this.valorBrutoProduto = valorBrutoProduto;
 	}
 
@@ -369,51 +370,51 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.unidadeTributavel = unidadeTributavel;
 	}
 
-	public Double getQuantidadeTributavel() {
+	public BigDecimal getQuantidadeTributavel() {
 		return quantidadeTributavel;
 	}
 
-	public void setQuantidadeTributavel(Double quantidadeTributavel) {
+	public void setQuantidadeTributavel(BigDecimal quantidadeTributavel) {
 		this.quantidadeTributavel = quantidadeTributavel;
 	}
 
-	public Double getValorUnitarioTributavel() {
+	public BigDecimal getValorUnitarioTributavel() {
 		return valorUnitarioTributavel;
 	}
 
-	public void setValorUnitarioTributavel(Double valorUnitarioTributavel) {
+	public void setValorUnitarioTributavel(BigDecimal valorUnitarioTributavel) {
 		this.valorUnitarioTributavel = valorUnitarioTributavel;
 	}
 
-	public Double getValorFrete() {
+	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}
 
-	public void setValorFrete(Double valorFrete) {
+	public void setValorFrete(BigDecimal valorFrete) {
 		this.valorFrete = valorFrete;
 	}
 
-	public Double getValorSeguro() {
+	public BigDecimal getValorSeguro() {
 		return valorSeguro;
 	}
 
-	public void setValorSeguro(Double valorSeguro) {
+	public void setValorSeguro(BigDecimal valorSeguro) {
 		this.valorSeguro = valorSeguro;
 	}
 
-	public Double getValorDesconto() {
+	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
 
-	public void setValorDesconto(Double valorDesconto) {
+	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public Double getValorOutrasDespesas() {
+	public BigDecimal getValorOutrasDespesas() {
 		return valorOutrasDespesas;
 	}
 
-	public void setValorOutrasDespesas(Double valorOutrasDespesas) {
+	public void setValorOutrasDespesas(BigDecimal valorOutrasDespesas) {
 		this.valorOutrasDespesas = valorOutrasDespesas;
 	}
 
@@ -425,19 +426,19 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.entraTotal = entraTotal;
 	}
 
-	public Double getValorSubtotal() {
+	public BigDecimal getValorSubtotal() {
 		return valorSubtotal;
 	}
 
-	public void setValorSubtotal(Double valorSubtotal) {
+	public void setValorSubtotal(BigDecimal valorSubtotal) {
 		this.valorSubtotal = valorSubtotal;
 	}
 
-	public Double getValorTotal() {
+	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
 
-	public void setValorTotal(Double valorTotal) {
+	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 

@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -98,35 +99,35 @@ public class NfeDetalheImpostoIpiEntity extends
 	@Caption(value = "Valor da base de cálculo do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoIpi = new Double(0.0);
+	private BigDecimal valorBaseCalculoIpi = new BigDecimal(0);
 
 	@Field
 	@Column(name = "Alíquota do IPI")
 	@Caption(value = "aliquota_ipi")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaIpi = new Double(0.0);
+	private BigDecimal aliquotaIpi = new BigDecimal(0);
 
 	@Field
 	@Column(name = "quantidade_unidade_tributavel")
 	@Caption(value = "Quantidade da unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeUnidadeTributavel = new Double(0.0);
+	private BigDecimal quantidadeUnidadeTributavel = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_unidade_tributavel")
 	@Caption(value = "Valor da unidade tributável")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorUnidadeTributavel = new Double(0.0);
+	private BigDecimal valorUnidadeTributavel = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_ipi")
 	@Caption(value = "Valor do IPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIpi = new Double(0.0);
+	private BigDecimal valorIpi = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -210,44 +211,44 @@ public class NfeDetalheImpostoIpiEntity extends
 		this.cstIpi = cstIpi;
 	}
 
-	public Double getValorBaseCalculoIpi() {
+	public BigDecimal getValorBaseCalculoIpi() {
 		return valorBaseCalculoIpi;
 	}
 
-	public void setValorBaseCalculoIpi(Double valorBaseCalculoIpi) {
+	public void setValorBaseCalculoIpi(BigDecimal valorBaseCalculoIpi) {
 		this.valorBaseCalculoIpi = valorBaseCalculoIpi;
 	}
 
-	public Double getAliquotaIpi() {
+	public BigDecimal getAliquotaIpi() {
 		return aliquotaIpi;
 	}
 
-	public void setAliquotaIpi(Double aliquotaIpi) {
+	public void setAliquotaIpi(BigDecimal aliquotaIpi) {
 		this.aliquotaIpi = aliquotaIpi;
 	}
 
-	public Double getQuantidadeUnidadeTributavel() {
+	public BigDecimal getQuantidadeUnidadeTributavel() {
 		return quantidadeUnidadeTributavel;
 	}
 
 	public void setQuantidadeUnidadeTributavel(
-			Double quantidadeUnidadeTributavel) {
+			BigDecimal quantidadeUnidadeTributavel) {
 		this.quantidadeUnidadeTributavel = quantidadeUnidadeTributavel;
 	}
 
-	public Double getValorUnidadeTributavel() {
+	public BigDecimal getValorUnidadeTributavel() {
 		return valorUnidadeTributavel;
 	}
 
-	public void setValorUnidadeTributavel(Double valorUnidadeTributavel) {
+	public void setValorUnidadeTributavel(BigDecimal valorUnidadeTributavel) {
 		this.valorUnidadeTributavel = valorUnidadeTributavel;
 	}
 
-	public Double getValorIpi() {
+	public BigDecimal getValorIpi() {
 		return valorIpi;
 	}
 
-	public void setValorIpi(Double valorIpi) {
+	public void setValorIpi(BigDecimal valorIpi) {
 		this.valorIpi = valorIpi;
 	}
 

@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -63,35 +64,35 @@ public class NfeDetalheImpostoPisEntity extends
 	@Caption(value = "Quantidade vendida")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double quantidadeVendida = new Double(0.0);
+	private BigDecimal quantidadeVendida = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_base_calculo_pis")
 	@Caption(value = "Valor da base de cálculo do PIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBaseCalculoPis = new Double(0.0);
+	private BigDecimal valorBaseCalculoPis = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_pis_percentual")
 	@Caption(value = "Alíquota do PIS percentual")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaPisPercentual = new Double(0.0);
+	private BigDecimal aliquotaPisPercentual = new BigDecimal(0);
 
 	@Field
 	@Column(name = "aliquota_pis_reais")
 	@Caption(value = "Alíquota do PIS reais")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double aliquotaPisReais = new Double(0.0);
+	private BigDecimal aliquotaPisReais = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_pis")
 	@Caption(value = "Valor do PIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorPis = new Double(0.0);
+	private BigDecimal valorPis = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -135,43 +136,43 @@ public class NfeDetalheImpostoPisEntity extends
 		this.cstPis = cstPis;
 	}
 
-	public Double getQuantidadeVendida() {
+	public BigDecimal getQuantidadeVendida() {
 		return quantidadeVendida;
 	}
 
-	public void setQuantidadeVendida(Double quantidadeVendida) {
+	public void setQuantidadeVendida(BigDecimal quantidadeVendida) {
 		this.quantidadeVendida = quantidadeVendida;
 	}
 
-	public Double getValorBaseCalculoPis() {
+	public BigDecimal getValorBaseCalculoPis() {
 		return valorBaseCalculoPis;
 	}
 
-	public void setValorBaseCalculoPis(Double valorBaseCalculoPis) {
+	public void setValorBaseCalculoPis(BigDecimal valorBaseCalculoPis) {
 		this.valorBaseCalculoPis = valorBaseCalculoPis;
 	}
 
-	public Double getAliquotaPisPercentual() {
+	public BigDecimal getAliquotaPisPercentual() {
 		return aliquotaPisPercentual;
 	}
 
-	public void setAliquotaPisPercentual(Double aliquotaPisPercentual) {
+	public void setAliquotaPisPercentual(BigDecimal aliquotaPisPercentual) {
 		this.aliquotaPisPercentual = aliquotaPisPercentual;
 	}
 
-	public Double getAliquotaPisReais() {
+	public BigDecimal getAliquotaPisReais() {
 		return aliquotaPisReais;
 	}
 
-	public void setAliquotaPisReais(Double aliquotaPisReais) {
+	public void setAliquotaPisReais(BigDecimal aliquotaPisReais) {
 		this.aliquotaPisReais = aliquotaPisReais;
 	}
 
-	public Double getValorPis() {
+	public BigDecimal getValorPis() {
 		return valorPis;
 	}
 
-	public void setValorPis(Double valorPis) {
+	public void setValorPis(BigDecimal valorPis) {
 		this.valorPis = valorPis;
 	}
 

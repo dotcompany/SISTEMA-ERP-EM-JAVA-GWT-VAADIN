@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -52,6 +53,23 @@ public class NfeDetalheImpostoIiDAO extends
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
+
+			List<NfeDetalheImpostoIiEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeDetalheImpostoIiEntity>();
+		}
+	}
+
+	@Transactional
+	public List<NfeDetalheImpostoIiEntity> getLista(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent.getId());
 
 			List<NfeDetalheImpostoIiEntity> auxLista = query.list();
 

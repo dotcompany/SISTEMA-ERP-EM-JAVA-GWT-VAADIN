@@ -10,20 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
-import dc.entidade.nfe.NfeDetalheEntity;
-import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
-import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
-import dc.servicos.dao.nfe.NfeDetalheDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIiDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.nfe.ProdutoServicoFormView;
+import dc.visao.nfe.DadoNfeFormView;
 
 /**
  * 
@@ -33,7 +22,7 @@ import dc.visao.nfe.ProdutoServicoFormView;
 
 @Controller
 @Scope("prototype")
-public class ProdutoServicoFormController extends
+public class DadoNfeFormController extends
 		CRUDFormController<NfeCabecalhoEntity> {
 
 	/**
@@ -41,7 +30,7 @@ public class ProdutoServicoFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ProdutoServicoFormView subView;
+	private DadoNfeFormView subView;
 
 	/**
 	 * DAO'S
@@ -49,30 +38,6 @@ public class ProdutoServicoFormController extends
 
 	@Autowired
 	private NfeCabecalhoDAO nfeCabecalhoDAO;
-
-	@Autowired
-	private NfeDetalheDAO nfeDetalheDAO;
-
-	@Autowired
-	private NfeDeclaracaoImportacaoDAO nfeDeclaracaoImportacaoDAO;
-
-	@Autowired
-	private NfeDetalheImpostoCofinsDAO nfeDetalheImpostoCofinsDAO;
-
-	@Autowired
-	private NfeDetalheImpostoIcmsDAO nfeDetalheImpostoIcmsDAO;
-
-	@Autowired
-	private NfeDetalheImpostoIiDAO nfeDetalheImpostoIiDAO;
-
-	@Autowired
-	private NfeDetalheImpostoIpiDAO nfeDetalheImpostoIpiDAO;
-
-	@Autowired
-	private NfeDetalheImpostoIssqnDAO nfeDetalheImpostoIssqnDAO;
-
-	@Autowired
-	private NfeDetalheImpostoPisDAO nfeDetalheImpostoPisDAO;
 
 	/**
 	 * ENTITIES
@@ -82,13 +47,13 @@ public class ProdutoServicoFormController extends
 	 * CONSTRUTOR
 	 */
 
-	public ProdutoServicoFormController() {
+	public DadoNfeFormController() {
 
 	}
 
 	@Override
 	protected String getNome() {
-		return "Produto / serviço";
+		return "Dado da nota fiscal eletrônica";
 	}
 
 	@Override
@@ -112,16 +77,7 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfeDetalheDAO
-					.getLista(id);
 
-			List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfeDetalheImpostoCofinsDAO
-					.listarTodos();
-
-			List<NfeDeclaracaoImportacaoEntity> auxLista3 = (List<NfeDeclaracaoImportacaoEntity>) this.nfeDeclaracaoImportacaoDAO
-					.listarTodos();
-
-			this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -146,21 +102,7 @@ public class ProdutoServicoFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new ProdutoServicoFormView(this);
-
-		// List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>)
-		// this.nfedDAO
-		// .listarTodos();
-
-		// List<NfeDetalheImpostoCofinsEntity> auxLista2 =
-		// (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
-		// .listarTodos();
-
-		// List<NfeDeclaracaoImportacaoEntity> auxLista3 =
-		// (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
-		// .listarTodos();
-
-		// this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
+		this.subView = new DadoNfeFormView(this);
 	}
 
 	/*

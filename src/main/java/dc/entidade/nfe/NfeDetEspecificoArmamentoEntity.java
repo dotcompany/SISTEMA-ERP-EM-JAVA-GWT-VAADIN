@@ -15,10 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -48,6 +51,43 @@ public class NfeDetEspecificoArmamentoEntity extends
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Column(name = "tipo_arma")
+	@Caption(value = "Tipo de arma")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String tipoArma = "";
+
+	@Field
+	@Column(name = "numero_serie_arma")
+	@Caption(value = "Número de série da arma")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numeroSerieArma = "";
+
+	@Field
+	@Column(name = "numero_serie_cano")
+	@Caption(value = "Número de série do cano")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numeroSerieCano = "";
+
+	@Field
+	@Column(name = "descricao")
+	@Caption(value = "Descrição")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@Field
+	@Column(name = "id_nfe_detalhe")
+	@Caption(value = "NFE detalhe")
+	private Integer nfeDetalhe;
+
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -71,6 +111,46 @@ public class NfeDetEspecificoArmamentoEntity extends
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getTipoArma() {
+		return tipoArma;
+	}
+
+	public void setTipoArma(String tipoArma) {
+		this.tipoArma = tipoArma;
+	}
+
+	public String getNumeroSerieArma() {
+		return numeroSerieArma;
+	}
+
+	public void setNumeroSerieArma(String numeroSerieArma) {
+		this.numeroSerieArma = numeroSerieArma;
+	}
+
+	public String getNumeroSerieCano() {
+		return numeroSerieCano;
+	}
+
+	public void setNumeroSerieCano(String numeroSerieCano) {
+		this.numeroSerieCano = numeroSerieCano;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Integer getNfeDetalhe() {
+		return nfeDetalhe;
+	}
+
+	public void setNfeDetalhe(Integer nfeDetalhe) {
+		this.nfeDetalhe = nfeDetalhe;
 	}
 
 	/**

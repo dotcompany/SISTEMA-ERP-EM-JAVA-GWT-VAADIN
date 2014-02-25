@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
+import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -52,6 +53,23 @@ public class NfeDetEspecificoArmamentoDAO extends
 			Query query = super.getSession().createQuery(sql);
 			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
+
+			List<NfeDetEspecificoArmamentoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeDetEspecificoArmamentoEntity>();
+		}
+	}
+
+	@Transactional
+	public List<NfeDetEspecificoArmamentoEntity> getLista(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent.getId());
 
 			List<NfeDetEspecificoArmamentoEntity> auxLista = query.list();
 

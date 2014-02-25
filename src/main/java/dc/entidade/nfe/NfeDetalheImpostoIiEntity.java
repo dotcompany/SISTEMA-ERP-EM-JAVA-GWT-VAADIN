@@ -1,6 +1,7 @@
 package dc.entidade.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -56,28 +57,28 @@ public class NfeDetalheImpostoIiEntity extends
 	@Caption(value = "Valor (BC)")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorBcIi = new Double(0.0);
+	private BigDecimal valorBcIi = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_despesas_aduaneiras")
 	@Caption(value = "Valor das despesas aduaneiras")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorDespesasAduaneiras = new Double(0.0);
+	private BigDecimal valorDespesasAduaneiras = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_imposto_importacao")
 	@Caption(value = "Valor do imposto de importação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorImpostoImportacao = new Double(0.0);
+	private BigDecimal valorImpostoImportacao = new BigDecimal(0);
 
 	@Field
 	@Column(name = "valor_iof")
 	@Caption(value = "Valor IOF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double valorIof = new Double(0.0);
+	private BigDecimal valorIof = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -113,35 +114,35 @@ public class NfeDetalheImpostoIiEntity extends
 		this.id = id;
 	}
 
-	public Double getValorBcIi() {
+	public BigDecimal getValorBcIi() {
 		return valorBcIi;
 	}
 
-	public void setValorBcIi(Double valorBcIi) {
+	public void setValorBcIi(BigDecimal valorBcIi) {
 		this.valorBcIi = valorBcIi;
 	}
 
-	public Double getValorDespesasAduaneiras() {
+	public BigDecimal getValorDespesasAduaneiras() {
 		return valorDespesasAduaneiras;
 	}
 
-	public void setValorDespesasAduaneiras(Double valorDespesasAduaneiras) {
+	public void setValorDespesasAduaneiras(BigDecimal valorDespesasAduaneiras) {
 		this.valorDespesasAduaneiras = valorDespesasAduaneiras;
 	}
 
-	public Double getValorImpostoImportacao() {
+	public BigDecimal getValorImpostoImportacao() {
 		return valorImpostoImportacao;
 	}
 
-	public void setValorImpostoImportacao(Double valorImpostoImportacao) {
+	public void setValorImpostoImportacao(BigDecimal valorImpostoImportacao) {
 		this.valorImpostoImportacao = valorImpostoImportacao;
 	}
 
-	public Double getValorIof() {
+	public BigDecimal getValorIof() {
 		return valorIof;
 	}
 
-	public void setValorIof(Double valorIof) {
+	public void setValorIof(BigDecimal valorIof) {
 		this.valorIof = valorIof;
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
+import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -33,7 +34,6 @@ public class NfeDetEspecificoCombustivelDAO extends
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
 
 			List<NfeDetEspecificoCombustivelEntity> auxLista = query.list();
 
@@ -50,8 +50,24 @@ public class NfeDetEspecificoCombustivelDAO extends
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			// query.setParameter("entity", getEntityClass());
 			query.setParameter("q", "%" + s + "%");
+
+			List<NfeDetEspecificoCombustivelEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeDetEspecificoCombustivelEntity>();
+		}
+	}
+
+	@Transactional
+	public List<NfeDetEspecificoCombustivelEntity> getLista(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent.getId());
 
 			List<NfeDetEspecificoCombustivelEntity> auxLista = query.list();
 
