@@ -47,7 +47,7 @@ public class Equipamento extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "filial")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String filial;
+	private Integer filial;
 
 	@Field
 	@Caption("Equipamento")
@@ -86,11 +86,11 @@ public class Equipamento extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public String getFilial() {
+	public Integer getFilial() {
 		return filial;
 	}
 
-	public void setFilial(String filial) {
+	public void setFilial(Integer filial) {
 		this.filial = filial;
 	}
 

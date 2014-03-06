@@ -1,7 +1,7 @@
 package dc.entidade.ordemservico;
 
 import java.util.Date;
-
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,38 +43,40 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 	private Integer id;
 	
 	@Field
-	@Caption("DESCRICAO")
-	@Column(name = "descricao")
-	private String descricao;
+	@Caption("Nome")
+	@Column(name = "nome")
+	private String nome;
 
+	@Caption("Grupo")
 	@ManyToOne
 	@JoinColumn(name = "id_grupo", referencedColumnName = "id")
 	private Grupo grupo;
 
+	@Caption("Subgrupo")
 	@ManyToOne
 	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id")
 	private SubGrupo subGrupo;
 	
 	@Column(name = "aliquota_issqn")
-	private Double aliquotaIssqn;
-
-	@Column(name = "comissao_tecnico_reais")
-	private Boolean comissaoTecnicoReais;
+	private BigDecimal aliquotaIssqn;
 
 	@Column(name = "valor_comissao_tecnico")
-	private Double valorComissaoTecnico;
-
-	@Column(name = "comissao_vendedor_reais")
-	private Boolean comissaoVendedorReais;
+	private BigDecimal valorComissaoTecnico;
 
 	@Column(name = "valor_comissao_vendedor")
-	private Double valorComissaoVendedor;
+	private BigDecimal valorComissaoVendedor;
+
+	@Column(name = "tipo_comissao_tecnico")
+	private String tipoComissaoTecnico;
+
+	@Column(name = "tipo_comissao_vendedor")
+	private String tipoComissaoVendedor;
 
 	@Column(name = "valor_servico")
-	private Double valorServico;
+	private BigDecimal valorServico;
 
 	@Column(name = "valor_minimo_servico")
-	private Double valorMinimoServico;
+	private BigDecimal valorMinimoServico;
 
 	@Column(name = "garantia_dia")
 	private Integer garantiaDia;
@@ -83,13 +85,13 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 	private Integer retorno;
 
 	@Column(name = "hora_gasta")
-	private Double horaGasta;
+	private BigDecimal horaGasta;
 
 	@Column(name = "ativa")
 	private Boolean ativa;
 
 	@Column(name = "valor_promocional")
-	private Double valorPromocional;
+	private BigDecimal valorPromocional;
 
 	@Column(name = "vencimento_promocao")
 	private Date vencimentoPromocao;
@@ -115,12 +117,12 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Grupo getGrupo() {
@@ -139,60 +141,20 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 		this.subGrupo = subGrupo;
 	}
 
-	public Double getAliquotaIssqn() {
-		return aliquotaIssqn;
+	public String getTipoComissaoTecnico() {
+		return tipoComissaoTecnico;
 	}
 
-	public void setAliquotaIssqn(Double aliquotaIssqn) {
-		this.aliquotaIssqn = aliquotaIssqn;
+	public void setTipoComissaoTecnico(String tipoComissaoTecnico) {
+		this.tipoComissaoTecnico = tipoComissaoTecnico;
 	}
 
-	public Double getValorComissaoTecnico() {
-		return valorComissaoTecnico;
+	public String getTipoComissaoVendedor() {
+		return tipoComissaoVendedor;
 	}
 
-	public void setValorComissaoTecnico(Double valorComissaoTecnico) {
-		this.valorComissaoTecnico = valorComissaoTecnico;
-	}
-
-	public Double getValorComissaoVendedor() {
-		return valorComissaoVendedor;
-	}
-
-	public void setValorComissaoVendedor(Double valorComissaoVendedor) {
-		this.valorComissaoVendedor = valorComissaoVendedor;
-	}
-
-	public Boolean getComissaoTecnicoReais() {
-		return comissaoTecnicoReais;
-	}
-
-	public void setComissaoTecnicoReais(Boolean comissaoTecnicoReais) {
-		this.comissaoTecnicoReais = comissaoTecnicoReais;
-	}
-
-	public Boolean getComissaoVendedorReais() {
-		return comissaoVendedorReais;
-	}
-
-	public void setComissaoVendedorReais(Boolean comissaoVendedorReais) {
-		this.comissaoVendedorReais = comissaoVendedorReais;
-	}
-
-	public Double getValorServico() {
-		return valorServico;
-	}
-
-	public void setValorServico(Double valorServico) {
-		this.valorServico = valorServico;
-	}
-
-	public Double getValorMinimoServico() {
-		return valorMinimoServico;
-	}
-
-	public void setValorMinimoServico(Double valorMinimoServico) {
-		this.valorMinimoServico = valorMinimoServico;
+	public void setTipoComissaoVendedor(String tipoComissaoVendedor) {
+		this.tipoComissaoVendedor = tipoComissaoVendedor;
 	}
 
 	public Integer getGarantiaDia() {
@@ -211,28 +173,12 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 		this.retorno = retorno;
 	}
 
-	public Double getHoraGasta() {
-		return horaGasta;
-	}
-
-	public void setHoraGasta(Double horaGasta) {
-		this.horaGasta = horaGasta;
-	}
-
 	public Boolean getAtiva() {
 		return ativa;
 	}
 
 	public void setAtiva(Boolean ativa) {
 		this.ativa = ativa;
-	}
-
-	public Double getValorPromocional() {
-		return valorPromocional;
-	}
-
-	public void setValorPromocional(Double valorPromocional) {
-		this.valorPromocional = valorPromocional;
 	}
 
 	public Date getVencimentoPromocao() {
@@ -257,5 +203,61 @@ public class ServicoOs extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public BigDecimal getAliquotaIssqn() {
+		return aliquotaIssqn;
+	}
+
+	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
+		this.aliquotaIssqn = aliquotaIssqn;
+	}
+
+	public BigDecimal getValorComissaoTecnico() {
+		return valorComissaoTecnico;
+	}
+
+	public void setValorComissaoTecnico(BigDecimal valorComissaoTecnico) {
+		this.valorComissaoTecnico = valorComissaoTecnico;
+	}
+
+	public BigDecimal getValorComissaoVendedor() {
+		return valorComissaoVendedor;
+	}
+
+	public void setValorComissaoVendedor(BigDecimal valorComissaoVendedor) {
+		this.valorComissaoVendedor = valorComissaoVendedor;
+	}
+
+	public BigDecimal getValorServico() {
+		return valorServico;
+	}
+
+	public void setValorServico(BigDecimal valorServico) {
+		this.valorServico = valorServico;
+	}
+
+	public BigDecimal getValorMinimoServico() {
+		return valorMinimoServico;
+	}
+
+	public void setValorMinimoServico(BigDecimal valorMinimoServico) {
+		this.valorMinimoServico = valorMinimoServico;
+	}
+
+	public BigDecimal getHoraGasta() {
+		return horaGasta;
+	}
+
+	public void setHoraGasta(BigDecimal horaGasta) {
+		this.horaGasta = horaGasta;
+	}
+
+	public BigDecimal getValorPromocional() {
+		return valorPromocional;
+	}
+
+	public void setValorPromocional(BigDecimal valorPromocional) {
+		this.valorPromocional = valorPromocional;
 	}
 }

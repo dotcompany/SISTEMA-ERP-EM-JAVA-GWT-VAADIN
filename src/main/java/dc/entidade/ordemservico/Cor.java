@@ -20,6 +20,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -29,7 +30,7 @@ import dc.entidade.framework.ComboValue;
 @Table(name = "os_cor")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Cor extends AbstractMultiEmpresaModel<Integer> {
+public class Cor extends AbstractModel<Integer> {
  
 	private static final long serialVersionUID = 1L;
 
