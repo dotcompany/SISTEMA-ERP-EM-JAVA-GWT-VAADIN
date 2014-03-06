@@ -27,6 +27,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.pessoal.Cliente;
 
 @Entity
 @Table(name = "os_carro")
@@ -61,48 +62,49 @@ public class Carro extends AbstractMultiEmpresaModel<Integer> {
 	private Date dataCadastro;
 
 	@Field
-	@Caption("MOTORIZAÇÃO")
+	@Caption("Motorização")
 	@Column(name = "motorizacao")
 	private String motorizacao;
 
 	@Field
-	@Caption("Nº CHASSIS")
+	@Caption("Nº Chassis")
 	@Column(name = "chassi")
 	private String chassi;
 	
 	@Field
-	@Caption("ANO")
+	@Caption("Ano")
 	@Column(name = "ano")
 	private Integer ano;
-	
+
+	@Caption("Cliente")
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	private Cliente cliente;
+
+	@Caption("Marca")
 	@JoinColumn(name = "id_marca", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Marca marca;
 
+	@Caption("Cor")
 	@JoinColumn(name = "id_cor", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Cor cor;
  
+	@Caption("Modelo")
 	@JoinColumn(name = "id_modelo", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Modelo modelo;
 
+	@Caption("Combustível")
 	@JoinColumn(name = "id_combustivel", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Combustivel combustivel;
 
-//	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
-//	@ManyToOne(optional = false)
-//	private Cliente cliente;
-
-	/*@JoinColumn(name = "id_empresa", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Empresa empresa; */
-	 
 	@Field 
 	@Caption("Observacao")
 	@Lob
-	@Column(name = "obsevacao")
+	@Column(name = "observacao")
 	private String observacao;
 	
 	public Integer getId() {
@@ -199,5 +201,13 @@ public class Carro extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
