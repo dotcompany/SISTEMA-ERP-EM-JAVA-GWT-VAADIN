@@ -24,9 +24,9 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 	private ParametroOsFormController formController;
 	
 
-	@Override
+	@Override 
 	public String[] getColunas() {
-		return new String[] {"dataCadastro"};
+		return new String[] {"id"};
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 	
 	@Override
 	public String getViewIdentifier() {
-		return "listaParametro";
+		return "listaParametros";
 	}
 
 	@Override
@@ -63,5 +63,4 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 	protected boolean deletaEmCascata() {
 		return false;
 	}
-
 }
