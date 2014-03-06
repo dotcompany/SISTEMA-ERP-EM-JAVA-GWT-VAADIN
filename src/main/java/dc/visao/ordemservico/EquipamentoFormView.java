@@ -8,6 +8,8 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.visao.framework.util.ComponentUtil;
+
 public class EquipamentoFormView extends CustomComponent {
 
 	private static final long serialVersionUID = 1L;
@@ -72,37 +74,21 @@ public class EquipamentoFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(5);
-		fields.setColumns(1);
+		fields.setColumns(3);
 
-		tfFilial = new TextField();
-		tfFilial.setCaption("Filial");
-		tfFilial.setImmediate(false);
-		tfFilial.setWidth("-1px");
-		tfFilial.setHeight("-1px");
-		fields.addComponent(tfFilial, 0, 0);
-
-		tfEquipamento = new TextField();
-		tfEquipamento.setCaption("Equipamento");
-		tfEquipamento.setImmediate(false);
-		tfEquipamento.setWidth("-1px");
-		tfEquipamento.setHeight("-1px");
-		fields.addComponent(tfEquipamento, 0, 1);
-
-		tfDescricao = new TextField();
-		tfDescricao.setCaption("Descrição");
-		tfDescricao.setImmediate(false);
-		tfDescricao.setWidth("-1px");
-		tfDescricao.setHeight("-1px");
-		fields.addComponent(tfDescricao, 0, 2);
+		tfFilial= ComponentUtil.buildNumericField("Filial");
+		fields.addComponent(tfFilial, 0, 1,0,1);
 
 		
-		taObservacao = new TextArea();
-		taObservacao.setCaption("Descrição");
-		taObservacao.setImmediate(false);
-		taObservacao.setWidth("760px");
-		taObservacao.setHeight("-1px");
-		taObservacao.setRequired(true);
-		fields.addComponent(taObservacao,0,3);
+		tfEquipamento= ComponentUtil.buildTextField("Equipamento");
+		fields.addComponent(tfEquipamento, 0, 2,1,2);
+
+		tfDescricao= ComponentUtil.buildTextField("Descrição");
+		fields.addComponent(tfDescricao, 0, 3,1,3);
+
+		
+		taObservacao= ComponentUtil.buildTextArea("Observação");
+		fields.addComponent(taObservacao,0,4,1,4);
 		
 		return fields;
 	}
