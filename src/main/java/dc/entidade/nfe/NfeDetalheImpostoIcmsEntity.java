@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -217,10 +219,10 @@ public class NfeDetalheImpostoIcmsEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_nfe_detalhe")
+	@ManyToOne
+	@JoinColumn(name = "id_nfe_detalhe", nullable = false)
 	@Caption(value = "NFE detalhe")
-	private Integer nfeDetalhe;
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * REFERENCIA - LIST
@@ -433,11 +435,11 @@ public class NfeDetalheImpostoIcmsEntity extends
 		this.ufSt = ufSt;
 	}
 
-	public Integer getNfeDetalhe() {
+	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
-	public void setNfeDetalhe(Integer nfeDetalhe) {
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
 	}
 

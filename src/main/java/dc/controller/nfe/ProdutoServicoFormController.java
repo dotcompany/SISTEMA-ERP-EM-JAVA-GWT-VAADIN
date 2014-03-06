@@ -1,6 +1,7 @@
 package dc.controller.nfe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,12 +79,21 @@ public class ProdutoServicoFormController extends
 	 * ENTITIES
 	 */
 
+	private NfeCabecalhoEntity nfeCabecalho;
+
 	/**
 	 * CONSTRUTOR
 	 */
 
 	public ProdutoServicoFormController() {
+		if (this.nfeCabecalho == null) {
+			this.nfeCabecalho = new NfeCabecalhoEntity();
+		}
 
+		if (this.nfeCabecalho.getNfeDetalheList() == null) {
+			this.nfeCabecalho
+					.setNfeDetalheList(new ArrayList<NfeDetalheEntity>());
+		}
 	}
 
 	@Override
@@ -203,6 +213,35 @@ public class ProdutoServicoFormController extends
 	@Override
 	public String getViewIdentifier() {
 		return "";
+	}
+
+	public NfeDetalheEntity novoNfeDetalhe() {
+		NfeDetalheEntity detalhe = new NfeDetalheEntity();
+		// this.nfeDetalhe.get//this.currentBean.adicionarDetalhe(detalhe);
+
+		this.nfeCabecalho.getNfeDetalheList().add(detalhe);
+
+		return detalhe;
+	}
+
+	public void selecionarNfeDetalhe(NfeDetalheEntity item) {
+		System.out.println(item.getNumeroItem());
+
+		int i = item.getNumeroItem() + 1;
+
+		this.subView.getTfOrigemMercadoriaIcms().setValue(String.valueOf(i));
+
+		i++;
+
+		this.subView.getTfCstPis().setValue(String.valueOf(i));
+
+		i++;
+
+		this.subView.getTfCstIpi().setValue(String.valueOf(i));
+
+		i++;
+
+		this.subView.getTfCstPis().setValue(String.valueOf(i));
 	}
 
 	/**
