@@ -19,14 +19,17 @@ public class CarroListController extends CRUDListController<Carro> {
 
 	@Autowired
 	CarroDAO dao;
-
+	
 	@Autowired
 	CarroFormController formController;
+	
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "placa" };
+		return new String[] {"placa","cliente","marca"};
 	}
+	
+	
 
 	@Override
 	protected String getTitulo() {
@@ -37,7 +40,7 @@ public class CarroListController extends CRUDListController<Carro> {
 	protected List<Carro> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-
+	
 	@Override
 	public String getViewIdentifier() {
 		return "listaCarro";
