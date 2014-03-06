@@ -1,6 +1,7 @@
 package dc.controller.ordemservico;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,19 +57,58 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 
 	@Override  
 	protected void actionSalvar() {
-	    currentBean.setDescricao(subView.getTfDescricao().getValue());
+	    currentBean.setNome(subView.getTfNome().getValue());
 		currentBean.setGrupo(subView.getCbGrupo().getValue());
 		currentBean.setSubGrupo(subView.getCbSubGrupo().getValue()); 
-		currentBean.setAliquotaIssqn(Double.parseDouble(subView.getTfAliquotaIssqn().getValue()));
-		currentBean.setValorComissaoTecnico(Double.parseDouble(subView.getTfValorComissaoTecnico().getValue()));
-		currentBean.setValorComissaoVendedor(Double.parseDouble(subView.getTfValorComissaoVendedor().getValue()));
-		currentBean.setValorServico(Double.parseDouble(subView.getTfValorServico().getValue()));
-		currentBean.setValorMinimoServico(Double.parseDouble(subView.getTfValorMinimoServico().getValue()));
-		currentBean.setGarantiaDia(Integer.parseInt(subView.getTfGarantiaDia().getValue()));
-		currentBean.setRetorno(Integer.parseInt(subView.getTfRetorno().getValue()));
-		currentBean.setHoraGasta(Double.parseDouble(subView.getTfHoraGasta().getValue()));
-//		currentBean.setAtiva(subView.getTfAtiva().getValue());
-		currentBean.setValorPromocional(Double.parseDouble(subView.getTfValorPromocional().getValue()));
+		String aliquota = subView.getTfAliquotaIssqn().getValue();
+		if(Validator.validateString(aliquota)){
+			aliquota = formataBigDecimal(aliquota);
+			currentBean.setAliquotaIssqn(new BigDecimal(aliquota));
+		}
+		
+		String horaGasta = subView.getTfHoraGasta().getValue();
+		if(Validator.validateString(horaGasta)){
+			horaGasta = formataBigDecimal(horaGasta);
+			currentBean.setHoraGasta(new BigDecimal(horaGasta));
+		}
+		
+		String valorComissaoTecnico = subView.getTfValorComissaoTecnico().getValue();
+		if(Validator.validateString(valorComissaoTecnico)){
+			valorComissaoTecnico = formataBigDecimal(valorComissaoTecnico);
+			currentBean.setValorComissaoTecnico(new BigDecimal(valorComissaoTecnico));
+		}
+		String valorComissaoVendedor = subView.getTfValorComissaoVendedor().getValue();  
+		if(Validator.validateString(valorComissaoVendedor)){
+			valorComissaoVendedor = formataBigDecimal(valorComissaoVendedor);
+			currentBean.setValorComissaoVendedor(new BigDecimal(valorComissaoVendedor));
+		}
+		String valorServico = subView.getTfValorServico().getValue();
+		if(Validator.validateString(valorServico)){
+			valorServico = formataMoeda(valorServico);
+			currentBean.setValorServico(new BigDecimal(valorServico));
+		}
+		String valorMinimoServico = subView.getTfValorMinimoServico().getValue();
+		if(Validator.validateString(valorMinimoServico)){
+			valorMinimoServico = formataMoeda(valorMinimoServico);
+			currentBean.setValorMinimoServico(new BigDecimal(valorMinimoServico));
+		}
+		if(subView.getTfGarantiaDia()!=null){
+			currentBean.setGarantiaDia(Integer.parseInt(subView.getTfGarantiaDia().getValue()));
+		}
+		
+		String retorno = subView.getTfRetorno().getValue();
+		if(Validator.validateString(retorno)){
+			currentBean.setRetorno(Integer.parseInt(subView.getTfRetorno().getValue()));
+		}
+
+		currentBean.setTipoComissaoTecnico((String) subView.getOptTipoComissaoTecnico().getValue());
+		currentBean.setTipoComissaoVendedor((String) subView.getOptTipoComissaoVendedor().getValue());
+		
+		String valorPromocional = subView.getTfValorPromocional().getValue();
+		if(Validator.validateString(valorPromocional)){
+			valorPromocional = formataMoeda(valorPromocional);
+			currentBean.setValorPromocional(new BigDecimal(valorPromocional));
+		}
 		currentBean.setVencimentoPromocao(subView.getDtVencimentoPromocao().getValue());
 		currentBean.setObservacao(subView.getTaObservacao().getValue());
 		try{
@@ -84,20 +124,42 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	protected void carregar(Serializable id) {
 		currentBean = servicoDAO.find(id);
 		
-		subView.getTfDescricao().setValue(currentBean.getDescricao());
+		subView.getTfNome().setValue(currentBean.getNome());
 		subView.getCbGrupo().setValue(currentBean.getGrupo());
 		subView.getCbSubGrupo().setValue(currentBean.getSubGrupo());
-		subView.getTfAliquotaIssqn().setValue(currentBean.getAliquotaIssqn().toString());
-		subView.getTfValorComissaoTecnico().setValue(currentBean.getValorComissaoTecnico().toString());
-		subView.getTfValorComissaoVendedor().setValue(currentBean.getValorComissaoVendedor().toString());
-		subView.getTfValorServico().setValue(currentBean.getValorServico().toString());
-		subView.getTfValorMinimoServico().setValue(currentBean.getValorMinimoServico().toString());
+		BigDecimal aliquota = currentBean.getAliquotaIssqn();
+		if (aliquota != null) {
+			subView.getTfAliquotaIssqn().setConvertedValue(aliquota);;
+		}
+		
+		BigDecimal horaGasta = currentBean.getHoraGasta();
+		if (horaGasta != null) {
+			subView.getTfHoraGasta().setConvertedValue(horaGasta);
+		}
+		BigDecimal comissaoTecnico= currentBean.getValorComissaoTecnico();
+		if (comissaoTecnico != null) {
+			subView.getTfValorComissaoTecnico().setConvertedValue(comissaoTecnico);
+		}
+		subView.getOptTipoComissaoTecnico().setValue(currentBean.getTipoComissaoTecnico());
+		BigDecimal comissaoVendedor = currentBean.getValorComissaoVendedor();
+		if (comissaoVendedor != null) {
+			subView.getTfValorComissaoVendedor().setConvertedValue(comissaoVendedor);
+		}
+		subView.getOptTipoComissaoVendedor().setValue(currentBean.getTipoComissaoVendedor());
+		BigDecimal valorServico = currentBean.getValorServico();
+		if (valorServico != null) {
+			subView.getTfValorServico().setConvertedValue(valorServico);
+		}
+		BigDecimal valorMinimoServico = currentBean.getValorMinimoServico();
+		if (valorMinimoServico != null) {
+			subView.getTfValorMinimoServico().setConvertedValue(valorMinimoServico);
+		}
 		subView.getTfGarantiaDia().setValue(currentBean.getGarantiaDia().toString());
 		subView.getTfRetorno().setValue(currentBean.getRetorno().toString());
-		subView.getTfHoraGasta().setValue(currentBean.getHoraGasta().toString());
-		subView.getTfAtiva().setValue(currentBean.getAtiva().toString());
-		subView.getTfValorPromocional().setValue(currentBean.getValorPromocional().toString());
-//		subView.getTfVencimentoPromocao().setValue(currentBean.getVencimentoPromocao());
+		BigDecimal valorPromocional = currentBean.getValorPromocional();
+		if (valorPromocional != null) {
+			subView.getTfValorPromocional().setConvertedValue(valorPromocional);
+		}
 		subView.getTaObservacao().setValue(currentBean.getObservacao());
 	}
 	
@@ -146,8 +208,8 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 		
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
+		if (!Validator.validateString(subView.getTfNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTfNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 		
@@ -161,5 +223,17 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	@Override
 	public String getViewIdentifier() {
 		return "servicoForm";
+	}
+	public String formataMoeda(String valor){
+		String format = "";
+		format = valor.replace("R$","").
+				substring(0,valor.indexOf(",")).replaceAll( ",","." ).trim();
+		return format;
+	}
+	
+	public String formataBigDecimal(String valor){
+		String format = "";
+		format = valor.replace(",",".");
+		return format;
 	}
 } 

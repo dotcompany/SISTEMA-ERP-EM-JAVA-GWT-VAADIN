@@ -20,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class InformacaoGeralListController extends CRUDListController<InformacaoGeralEntity> {
+public class InformacaoGeralListController extends
+		CRUDListController<InformacaoGeralEntity> {
 
 	/**
 	 * 
@@ -59,7 +60,8 @@ public class InformacaoGeralListController extends CRUDListController<Informacao
 	@Override
 	protected List<InformacaoGeralEntity> pesquisa(String valor) {
 		try {
-			List<InformacaoGeralEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<InformacaoGeralEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {

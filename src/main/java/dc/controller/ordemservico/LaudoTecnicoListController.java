@@ -20,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LaudoTecnicoListController extends CRUDListController<LaudoTecnicoEntity> {
+public class LaudoTecnicoListController extends
+		CRUDListController<LaudoTecnicoEntity> {
 
 	/**
 	 * 
@@ -59,9 +60,12 @@ public class LaudoTecnicoListController extends CRUDListController<LaudoTecnicoE
 	@Override
 	protected List<LaudoTecnicoEntity> pesquisa(String valor) {
 		try {
-			List<LaudoTecnicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		//	List<LaudoTecnicoEntity> auxLista = this.pDAO
+		//			.procuraNomeContendo(valor);
 
-			return auxLista;
+			//return auxLista;
+			return null;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -88,9 +92,11 @@ public class LaudoTecnicoListController extends CRUDListController<LaudoTecnicoE
 	@Override
 	protected List<LaudoTecnicoEntity> pesquisaDefault() {
 		try {
-			List<LaudoTecnicoEntity> auxLista = this.pDAO.listarTodos();
+//			List<LaudoTecnicoEntity> auxLista = this.pDAO.listarTodos();
 
-			return auxLista;
+//			return auxLista;
+			return null;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 

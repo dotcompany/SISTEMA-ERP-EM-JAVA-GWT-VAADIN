@@ -19,13 +19,13 @@ public class ServicoOsListController extends CRUDListController<ServicoOs> {
 
 	@Autowired
 	ServicoOsDAO dao;
-
+	
 	@Autowired
 	ServicoOsFormController formController;
-
+	
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao" };
+		return new String[] {"nome","grupo","subGrupo"};
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class ServicoOsListController extends CRUDListController<ServicoOs> {
 	protected List<ServicoOs> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-
+	
 	@Override
 	public String getViewIdentifier() {
 		return "listaServico";

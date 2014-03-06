@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.controller.ordemservico.SubGrupoFormController;
 import dc.entidade.ordemservico.SubGrupo;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,13 +20,14 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 
 	@Autowired
 	SubGrupoDAO dao;
-
+	
 	@Autowired
 	SubGrupoFormController formController;
+	
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "grupo" };
+		return new String[] {"nome","grupo"};
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 	protected List<SubGrupo> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-
+	
 	@Override
 	public String getViewIdentifier() {
 		return "listaSubGrupo";
@@ -52,7 +54,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 	public Class<? super SubGrupo> getEntityClass() {
 		return SubGrupo.class;
 	}
-
+ 
 	@Override
 	protected List<SubGrupo> pesquisaDefault() {
 		return dao.getAll(SubGrupo.class);

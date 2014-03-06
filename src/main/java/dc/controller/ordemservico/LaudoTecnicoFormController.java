@@ -106,7 +106,7 @@ public class LaudoTecnicoFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new LaudoTecnicoFormView(this);
+		this.subView = new LaudoTecnicoFormView();
 	}
 
 	/*

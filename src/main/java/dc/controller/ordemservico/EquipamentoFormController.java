@@ -45,7 +45,7 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 
 	@Override  
 	protected void actionSalvar() {
-		currentBean.setFilial(subView.getTfFilial().getValue());
+		currentBean.setFilial(Integer.parseInt(subView.getTfFilial().getValue()));
 		currentBean.setEquipamento(subView.getTfEquipamento().getValue());
 		currentBean.setDescricao(subView.getTfDescricao().getValue());
 		currentBean.setObservacao(subView.getTaObservacao().getValue());
@@ -61,13 +61,12 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = equipamentoDAO.find(id);
-		subView.getTfFilial().setValue(currentBean.getFilial());
+		subView.getTfFilial().setValue(currentBean.getFilial().toString());
 		subView.getTfEquipamento().setValue(currentBean.getEquipamento());
 		subView.getTfDescricao().setValue(currentBean.getEquipamento());
 		subView.getTaObservacao().setValue(currentBean.getObservacao());
 	}
 	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
 	@Override
 	protected void quandoNovo() {
 		
@@ -86,14 +85,6 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 		currentBean = new Equipamento();
 	}
 	
-	private void preencheCombos() {
-
-//		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class,
-//				this.marcaDAO, super.getMainController());
-//
-//		this.subView.getCbMarca().setModel(marca);
-	}
-	
 	@Override
 	protected void remover(List<Serializable> ids) {
 		 equipamentoDAO.deleteAllByIds(ids);
@@ -105,9 +96,17 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	protected boolean validaSalvar() {
 		
 		boolean valido = true;
+		if (!Validator.validateString(subView.getTfFilial().getValue())) {
+			adicionarErroDeValidacao(subView.getTfFilial(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		if (!Validator.validateString(subView.getTfEquipamento().getValue())) {
 			adicionarErroDeValidacao(subView.getTfEquipamento(), "Não pode ficar em branco");
+			valido = false;
+		}
+		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
+			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 		

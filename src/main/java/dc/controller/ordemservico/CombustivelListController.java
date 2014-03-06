@@ -19,13 +19,14 @@ public class CombustivelListController extends CRUDListController<Combustivel> {
 
 	@Autowired
 	CombustivelDAO dao;
-
+	
 	@Autowired
 	CombustivelFormController formController;
+	
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome" };
+		return new String[] {"nome"};
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class CombustivelListController extends CRUDListController<Combustivel> {
 	protected List<Combustivel> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-
+	
 	@Override
 	public String getViewIdentifier() {
 		return "listaCombustivel";
