@@ -1,6 +1,7 @@
 package dc.controller.ordemservico;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,19 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
+import dc.controller.pessoal.ClienteListController;
 import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Carro;
 import dc.entidade.ordemservico.Modelo;
+import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.pessoal.ClienteDAO;
 
 /**
 *
@@ -39,7 +43,10 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	
 	@Autowired
 	CarroDAO carroDAO;
-	
+
+	@Autowired
+	ClienteDAO clienteDAO;
+
 	@Autowired
 	MarcaDAO marcaDAO;
 
@@ -67,6 +74,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	@Override  
 	protected void actionSalvar() {
 		currentBean.setPlaca(subView.getTfPlaca().getValue());
+		currentBean.setCliente(subView.getCbCliente().getValue());
 		currentBean.setMarca(subView.getCbMarca().getValue());
 		currentBean.setCor(subView.getCbCor().getValue());
 		currentBean.setModelo(subView.getCbModelo().getValue());
@@ -88,6 +96,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	protected void carregar(Serializable id) {
 		currentBean = carroDAO.find(id);
 		subView.getTfPlaca().setValue(currentBean.getPlaca());
+		subView.getCbCliente().setValue(currentBean.getCliente());
 		subView.getCbMarca().setValue(currentBean.getMarca());
 		subView.getCbCor().setValue(currentBean.getCor());
 		subView.getCbModelo().setValue(currentBean.getModelo());
@@ -120,6 +129,15 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	
 	private void preencheCombos() {
 
+		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+				super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "pessoa.nome";
+			}
+		};
+		this.subView.getCbCliente().setModel(cliente);
+
 		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class,
 				this.marcaDAO, super.getMainController());
 
@@ -130,17 +148,27 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 		this.subView.getCbCor().setModel(cor);
 
-		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
-				this.modeloDAO, super.getMainController());
-
-		this.subView.getCbModelo().setModel(modelo);
-
 		DefaultManyToOneComboModel<Combustivel> combustivel = new DefaultManyToOneComboModel<Combustivel>(CombustivelListController.class,
 				this.combustivelDAO, super.getMainController());
 
 		this.subView.getCbCombustivel().setModel(combustivel);
 
+		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
+				this.modeloDAO, super.getMainController());
+		
+		this.subView.getCbModelo().setModel(modelo);
+
 	}
+	
+	public void getModelo(String idMarca){
+		Marca marca = new Marca();
+		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
+				this.modeloDAO, super.getMainController());
+		
+		this.subView.getCbModelo().setModel(modelo);
+		
+	}
+	
 	
 	@Override
 	protected void remover(List<Serializable> ids) {
