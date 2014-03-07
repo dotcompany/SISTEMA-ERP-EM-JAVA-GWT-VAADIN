@@ -63,7 +63,7 @@ public class NfeDetalheImpostoCofinsDAO extends
 	}
 
 	@Transactional
-	public List<NfeDetalheImpostoCofinsEntity> getLista(NfeDetalheEntity ent) {
+	public NfeDetalheImpostoCofinsEntity getEntidade(NfeDetalheEntity ent) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
 			sql = sql.replace(":entity", getEntityClass().getName());
@@ -71,11 +71,16 @@ public class NfeDetalheImpostoCofinsDAO extends
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("ent", ent);
 
-			List<NfeDetalheImpostoCofinsEntity> auxLista = query.list();
+			NfeDetalheImpostoCofinsEntity entidade = (NfeDetalheImpostoCofinsEntity) query
+					.uniqueResult();
 
-			return auxLista;
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoCofinsEntity();
+			}
+
+			return entidade;
 		} catch (Exception e) {
-			return new ArrayList<NfeDetalheImpostoCofinsEntity>();
+			return new NfeDetalheImpostoCofinsEntity();
 		}
 	}
 
