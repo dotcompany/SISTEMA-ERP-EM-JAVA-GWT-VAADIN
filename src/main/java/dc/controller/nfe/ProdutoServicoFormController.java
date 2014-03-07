@@ -242,6 +242,13 @@ public class ProdutoServicoFormController extends
 		i++;
 
 		this.subView.getTfCstPis().setValue(String.valueOf(i));
+		
+		List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfeDetalheImpostoCofinsDAO
+				.getLista(item);
+		
+		NfeDetalheImpostoCofinsEntity cofins = (NfeDetalheImpostoCofinsEntity) auxLista2.get(0);
+		
+		this.subView.getTfCstPis().setValue(cofins.getCstCofins() + " " + cofins.getId() + " " + cofins.getValorCofins());
 	}
 
 	/**

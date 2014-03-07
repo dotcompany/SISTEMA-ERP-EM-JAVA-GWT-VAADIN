@@ -69,7 +69,7 @@ public class NfeDetalheImpostoCofinsDAO extends
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("ent", ent.getId());
+			query.setParameter("ent", ent);
 
 			List<NfeDetalheImpostoCofinsEntity> auxLista = query.list();
 
