@@ -2506,15 +2506,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfDeclaracaoImportacaoAdicoes;
 	}
 
-	public void preencherSubForm(List<NfeDetalheEntity> auxLista1,
-			List<NfeDetalheImpostoCofinsEntity> auxLista2,
-			List<NfeDeclaracaoImportacaoEntity> auxLista3) {
+	public void carregarSfNfeDetalhe(List<NfeDetalheEntity> auxLista1) {
 		try {
 			sfNfeDetalhe.fillWith(auxLista1);
-			sfMedicamento.fillWith(auxLista2);
-			sfArmamento.fillWith(auxLista2);
-			sfDeclaracaoImportacao.fillWith(auxLista3);
-			sfDeclaracaoImportacaoAdicoes.fillWith(auxLista2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

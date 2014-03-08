@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
@@ -130,13 +129,7 @@ public class ProdutoServicoFormController extends
 			List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfeDetalheDAO
 					.getLista(id);
 
-			List<NfeDetalheImpostoCofinsEntity> auxLista2 = (List<NfeDetalheImpostoCofinsEntity>) this.nfeDetalheImpostoCofinsDAO
-					.listarTodos();
-
-			List<NfeDeclaracaoImportacaoEntity> auxLista3 = (List<NfeDeclaracaoImportacaoEntity>) this.nfeDeclaracaoImportacaoDAO
-					.listarTodos();
-
-			this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
+			this.subView.carregarSfNfeDetalhe(auxLista1);
 		} catch (Exception e) {
 			e.printStackTrace();
 
