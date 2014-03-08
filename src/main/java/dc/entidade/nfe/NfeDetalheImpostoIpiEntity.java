@@ -170,7 +170,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setEnquadramentoIpi(String enquadramentoIpi) {
-		this.enquadramentoIpi = enquadramentoIpi;
+		this.enquadramentoIpi = (enquadramentoIpi == null ? ""
+				: enquadramentoIpi.toUpperCase());
 	}
 
 	public String getCnpjProdutor() {
@@ -178,7 +179,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setCnpjProdutor(String cnpjProdutor) {
-		this.cnpjProdutor = cnpjProdutor;
+		this.cnpjProdutor = (cnpjProdutor == null ? "" : cnpjProdutor
+				.toUpperCase());
 	}
 
 	public String getCodigoSeloIpi() {
@@ -186,7 +188,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setCodigoSeloIpi(String codigoSeloIpi) {
-		this.codigoSeloIpi = codigoSeloIpi;
+		this.codigoSeloIpi = (codigoSeloIpi == null ? "" : codigoSeloIpi
+				.toUpperCase());
 	}
 
 	public Integer getQuantidadeSeloIpi() {
@@ -194,7 +197,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setQuantidadeSeloIpi(Integer quantidadeSeloIpi) {
-		this.quantidadeSeloIpi = quantidadeSeloIpi;
+		this.quantidadeSeloIpi = (quantidadeSeloIpi == null ? new Integer(0)
+				: quantidadeSeloIpi);
 	}
 
 	public String getEnquadramentoLegalIpi() {
@@ -202,7 +206,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setEnquadramentoLegalIpi(String enquadramentoLegalIpi) {
-		this.enquadramentoLegalIpi = enquadramentoLegalIpi;
+		this.enquadramentoLegalIpi = (enquadramentoLegalIpi == null ? ""
+				: enquadramentoLegalIpi.toUpperCase());
 	}
 
 	public String getCstIpi() {
@@ -210,7 +215,7 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setCstIpi(String cstIpi) {
-		this.cstIpi = cstIpi;
+		this.cstIpi = (cstIpi == null ? "" : cstIpi.toUpperCase());
 	}
 
 	public BigDecimal getValorBaseCalculoIpi() {
@@ -218,7 +223,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setValorBaseCalculoIpi(BigDecimal valorBaseCalculoIpi) {
-		this.valorBaseCalculoIpi = valorBaseCalculoIpi;
+		this.valorBaseCalculoIpi = (valorBaseCalculoIpi == null ? new BigDecimal(
+				0) : valorBaseCalculoIpi);
 	}
 
 	public BigDecimal getAliquotaIpi() {
@@ -226,7 +232,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setAliquotaIpi(BigDecimal aliquotaIpi) {
-		this.aliquotaIpi = aliquotaIpi;
+		this.aliquotaIpi = (aliquotaIpi == null ? new BigDecimal(0)
+				: aliquotaIpi);
 	}
 
 	public BigDecimal getQuantidadeUnidadeTributavel() {
@@ -235,7 +242,8 @@ public class NfeDetalheImpostoIpiEntity extends
 
 	public void setQuantidadeUnidadeTributavel(
 			BigDecimal quantidadeUnidadeTributavel) {
-		this.quantidadeUnidadeTributavel = quantidadeUnidadeTributavel;
+		this.quantidadeUnidadeTributavel = (quantidadeUnidadeTributavel == null ? new BigDecimal(
+				0) : quantidadeUnidadeTributavel);
 	}
 
 	public BigDecimal getValorUnidadeTributavel() {
@@ -243,7 +251,8 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setValorUnidadeTributavel(BigDecimal valorUnidadeTributavel) {
-		this.valorUnidadeTributavel = valorUnidadeTributavel;
+		this.valorUnidadeTributavel = (valorUnidadeTributavel == null ? new BigDecimal(
+				0) : valorUnidadeTributavel);
 	}
 
 	public BigDecimal getValorIpi() {
@@ -251,7 +260,7 @@ public class NfeDetalheImpostoIpiEntity extends
 	}
 
 	public void setValorIpi(BigDecimal valorIpi) {
-		this.valorIpi = valorIpi;
+		this.valorIpi = (valorIpi == null ? new BigDecimal(0) : valorIpi);
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

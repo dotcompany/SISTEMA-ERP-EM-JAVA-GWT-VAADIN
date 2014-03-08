@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -92,10 +94,10 @@ public class NfeDetEspecificoMedicamentoEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_nfe_detalhe")
+	@ManyToOne
+	@JoinColumn(name = "id_nfe_detalhe", nullable = false)
 	@Caption(value = "NFE detalhe")
-	private Integer nfeDetalhe;
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * REFERENCIA - LIST
@@ -127,7 +129,7 @@ public class NfeDetEspecificoMedicamentoEntity extends
 	}
 
 	public void setNumeroLote(String numeroLote) {
-		this.numeroLote = numeroLote;
+		this.numeroLote = (numeroLote == null ? "" : numeroLote.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeLote() {
@@ -135,7 +137,8 @@ public class NfeDetEspecificoMedicamentoEntity extends
 	}
 
 	public void setQuantidadeLote(BigDecimal quantidadeLote) {
-		this.quantidadeLote = quantidadeLote;
+		this.quantidadeLote = (quantidadeLote == null ? new BigDecimal(0)
+				: quantidadeLote);
 	}
 
 	public Date getDataFabricacao() {
@@ -159,14 +162,15 @@ public class NfeDetEspecificoMedicamentoEntity extends
 	}
 
 	public void setPrecoMaximoConsumidor(BigDecimal precoMaximoConsumidor) {
-		this.precoMaximoConsumidor = precoMaximoConsumidor;
+		this.precoMaximoConsumidor = (precoMaximoConsumidor == null ? new BigDecimal(
+				0) : precoMaximoConsumidor);
 	}
 
-	public Integer getNfeDetalhe() {
+	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
-	public void setNfeDetalhe(Integer nfeDetalhe) {
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
 	}
 

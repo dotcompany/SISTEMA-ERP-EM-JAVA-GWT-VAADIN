@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -84,10 +86,10 @@ public class NfeDetalheImpostoIiEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_nfe_detalhe")
+	@ManyToOne
+	@JoinColumn(name = "id_nfe_detalhe", nullable = false)
 	@Caption(value = "NFE detalhe")
-	private Integer nfeDetalhe;
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * REFERENCIA - LIST
@@ -119,7 +121,7 @@ public class NfeDetalheImpostoIiEntity extends
 	}
 
 	public void setValorBcIi(BigDecimal valorBcIi) {
-		this.valorBcIi = valorBcIi;
+		this.valorBcIi = (valorBcIi == null ? new BigDecimal(0) : valorBcIi);
 	}
 
 	public BigDecimal getValorDespesasAduaneiras() {
@@ -127,7 +129,8 @@ public class NfeDetalheImpostoIiEntity extends
 	}
 
 	public void setValorDespesasAduaneiras(BigDecimal valorDespesasAduaneiras) {
-		this.valorDespesasAduaneiras = valorDespesasAduaneiras;
+		this.valorDespesasAduaneiras = (valorDespesasAduaneiras == null ? new BigDecimal(
+				0) : valorDespesasAduaneiras);
 	}
 
 	public BigDecimal getValorImpostoImportacao() {
@@ -135,7 +138,8 @@ public class NfeDetalheImpostoIiEntity extends
 	}
 
 	public void setValorImpostoImportacao(BigDecimal valorImpostoImportacao) {
-		this.valorImpostoImportacao = valorImpostoImportacao;
+		this.valorImpostoImportacao = (valorImpostoImportacao == null ? new BigDecimal(
+				0) : valorImpostoImportacao);
 	}
 
 	public BigDecimal getValorIof() {
@@ -143,14 +147,14 @@ public class NfeDetalheImpostoIiEntity extends
 	}
 
 	public void setValorIof(BigDecimal valorIof) {
-		this.valorIof = valorIof;
+		this.valorIof = (valorIof == null ? new BigDecimal(0) : valorIof);
 	}
 
-	public Integer getNfeDetalhe() {
+	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
-	public void setNfeDetalhe(Integer nfeDetalhe) {
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
 	}
 

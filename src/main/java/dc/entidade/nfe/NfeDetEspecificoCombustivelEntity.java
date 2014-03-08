@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -105,10 +107,10 @@ public class NfeDetEspecificoCombustivelEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_nfe_detalhe")
+	@ManyToOne
+	@JoinColumn(name = "id_nfe_detalhe", nullable = false)
 	@Caption(value = "NFE detalhe")
-	private Integer nfeDetalhe;
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * REFERENCIA - LIST
@@ -140,7 +142,7 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setCodigoAnp(Integer codigoAnp) {
-		this.codigoAnp = codigoAnp;
+		this.codigoAnp = (codigoAnp == null ? new Integer(0) : codigoAnp);
 	}
 
 	public String getCodif() {
@@ -148,7 +150,7 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setCodif(String codif) {
-		this.codif = codif;
+		this.codif = (codif == null ? "" : codif.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeTempAmbiente() {
@@ -156,7 +158,8 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setQuantidadeTempAmbiente(BigDecimal quantidadeTempAmbiente) {
-		this.quantidadeTempAmbiente = quantidadeTempAmbiente;
+		this.quantidadeTempAmbiente = (quantidadeTempAmbiente == null ? new BigDecimal(
+				0) : quantidadeTempAmbiente);
 	}
 
 	public String getUfConsumo() {
@@ -164,7 +167,7 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setUfConsumo(String ufConsumo) {
-		this.ufConsumo = ufConsumo;
+		this.ufConsumo = (ufConsumo == null ? "" : ufConsumo.toUpperCase());
 	}
 
 	public BigDecimal getBaseCalculoCide() {
@@ -172,7 +175,8 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setBaseCalculoCide(BigDecimal baseCalculoCide) {
-		this.baseCalculoCide = baseCalculoCide;
+		this.baseCalculoCide = (baseCalculoCide == null ? new BigDecimal(0)
+				: baseCalculoCide);
 	}
 
 	public BigDecimal getAliquotaCide() {
@@ -180,7 +184,8 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setAliquotaCide(BigDecimal aliquotaCide) {
-		this.aliquotaCide = aliquotaCide;
+		this.aliquotaCide = (aliquotaCide == null ? new BigDecimal(0)
+				: aliquotaCide);
 	}
 
 	public BigDecimal getValorCide() {
@@ -188,14 +193,14 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setValorCide(BigDecimal valorCide) {
-		this.valorCide = valorCide;
+		this.valorCide = (valorCide == null ? new BigDecimal(0) : valorCide);
 	}
 
-	public Integer getNfeDetalhe() {
+	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
-	public void setNfeDetalhe(Integer nfeDetalhe) {
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
 	}
 

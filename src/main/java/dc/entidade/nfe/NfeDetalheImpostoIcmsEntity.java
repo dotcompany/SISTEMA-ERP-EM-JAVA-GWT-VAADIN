@@ -254,7 +254,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setOrigemMercadoria(String origemMercadoria) {
-		this.origemMercadoria = origemMercadoria;
+		this.origemMercadoria = (origemMercadoria == null ? ""
+				: origemMercadoria.toUpperCase());
 	}
 
 	public String getCstIcms() {
@@ -262,7 +263,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setCstIcms(String cstIcms) {
-		this.cstIcms = cstIcms;
+		this.cstIcms = (cstIcms == null ? "" : cstIcms.toUpperCase());
 	}
 
 	public String getCsosn() {
@@ -270,7 +271,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setCsosn(String csosn) {
-		this.csosn = csosn;
+		this.csosn = (csosn == null ? "" : csosn.toUpperCase());
 	}
 
 	public String getModalidadeBcIcms() {
@@ -278,7 +279,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setModalidadeBcIcms(String modalidadeBcIcms) {
-		this.modalidadeBcIcms = modalidadeBcIcms;
+		this.modalidadeBcIcms = (modalidadeBcIcms == null ? ""
+				: modalidadeBcIcms.toUpperCase());
 	}
 
 	public BigDecimal getTaxaReducaoBcIcms() {
@@ -286,7 +288,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setTaxaReducaoBcIcms(BigDecimal taxaReducaoBcIcms) {
-		this.taxaReducaoBcIcms = taxaReducaoBcIcms;
+		this.taxaReducaoBcIcms = (taxaReducaoBcIcms == null ? new BigDecimal(0)
+				: taxaReducaoBcIcms);
 	}
 
 	public BigDecimal getBaseCalculoIcms() {
@@ -294,7 +297,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
-		this.baseCalculoIcms = baseCalculoIcms;
+		this.baseCalculoIcms = (baseCalculoIcms == null ? new BigDecimal(0)
+				: baseCalculoIcms);
 	}
 
 	public BigDecimal getAliquotaIcms() {
@@ -302,7 +306,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setAliquotaIcms(BigDecimal aliquotaIcms) {
-		this.aliquotaIcms = aliquotaIcms;
+		this.aliquotaIcms = (aliquotaIcms == null ? new BigDecimal(0)
+				: aliquotaIcms);
 	}
 
 	public BigDecimal getValorIcms() {
@@ -310,7 +315,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorIcms(BigDecimal valorIcms) {
-		this.valorIcms = valorIcms;
+		this.valorIcms = (valorIcms == null ? new BigDecimal(0) : valorIcms);
 	}
 
 	public String getMotivoDesoneracaoIcms() {
@@ -318,7 +323,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setMotivoDesoneracaoIcms(String motivoDesoneracaoIcms) {
-		this.motivoDesoneracaoIcms = motivoDesoneracaoIcms;
+		this.motivoDesoneracaoIcms = (motivoDesoneracaoIcms == null ? ""
+				: motivoDesoneracaoIcms.toUpperCase());
 	}
 
 	public String getModalidadeBcIcmsSt() {
@@ -326,7 +332,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setModalidadeBcIcmsSt(String modalidadeBcIcmsSt) {
-		this.modalidadeBcIcmsSt = modalidadeBcIcmsSt;
+		this.modalidadeBcIcmsSt = (modalidadeBcIcmsSt == null ? ""
+				: modalidadeBcIcmsSt.toUpperCase());
 	}
 
 	public BigDecimal getPercentualMvaIcmsSt() {
@@ -334,7 +341,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setPercentualMvaIcmsSt(BigDecimal percentualMvaIcmsSt) {
-		this.percentualMvaIcmsSt = percentualMvaIcmsSt;
+		this.percentualMvaIcmsSt = (percentualMvaIcmsSt == null ? new BigDecimal(
+				0) : percentualMvaIcmsSt);
 	}
 
 	public BigDecimal getPercentualReducaoBcIcmsSt() {
@@ -343,7 +351,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setPercentualReducaoBcIcmsSt(
 			BigDecimal percentualReducaoBcIcmsSt) {
-		this.percentualReducaoBcIcmsSt = percentualReducaoBcIcmsSt;
+		this.percentualReducaoBcIcmsSt = (percentualReducaoBcIcmsSt == null ? new BigDecimal(
+				0) : percentualReducaoBcIcmsSt);
 	}
 
 	public BigDecimal getValorBaseCalculoIcmsSt() {
@@ -351,7 +360,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorBaseCalculoIcmsSt(BigDecimal valorBaseCalculoIcmsSt) {
-		this.valorBaseCalculoIcmsSt = valorBaseCalculoIcmsSt;
+		this.valorBaseCalculoIcmsSt = (valorBaseCalculoIcmsSt == null ? new BigDecimal(
+				0) : valorBaseCalculoIcmsSt);
 	}
 
 	public BigDecimal getAliquotaIcmsSt() {
@@ -359,7 +369,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setAliquotaIcmsSt(BigDecimal aliquotaIcmsSt) {
-		this.aliquotaIcmsSt = aliquotaIcmsSt;
+		this.aliquotaIcmsSt = (aliquotaIcmsSt == null ? new BigDecimal(0)
+				: aliquotaIcmsSt);
 	}
 
 	public BigDecimal getValorIcmsSt() {
@@ -367,7 +378,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorIcmsSt(BigDecimal valorIcmsSt) {
-		this.valorIcmsSt = valorIcmsSt;
+		this.valorIcmsSt = (valorIcmsSt == null ? new BigDecimal(0)
+				: valorIcmsSt);
 	}
 
 	public BigDecimal getValorBcIcmsStRetido() {
@@ -375,7 +387,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorBcIcmsStRetido(BigDecimal valorBcIcmsStRetido) {
-		this.valorBcIcmsStRetido = valorBcIcmsStRetido;
+		this.valorBcIcmsStRetido = (valorBcIcmsStRetido == null ? new BigDecimal(
+				0) : valorBcIcmsStRetido);
 	}
 
 	public BigDecimal getValorIcmsStRetido() {
@@ -383,7 +396,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorIcmsStRetido(BigDecimal valorIcmsStRetido) {
-		this.valorIcmsStRetido = valorIcmsStRetido;
+		this.valorIcmsStRetido = (valorIcmsStRetido == null ? new BigDecimal(0)
+				: valorIcmsStRetido);
 	}
 
 	public BigDecimal getValorBcIcmsStDestino() {
@@ -391,7 +405,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorBcIcmsStDestino(BigDecimal valorBcIcmsStDestino) {
-		this.valorBcIcmsStDestino = valorBcIcmsStDestino;
+		this.valorBcIcmsStDestino = (valorBcIcmsStDestino == null ? new BigDecimal(
+				0) : valorBcIcmsStDestino);
 	}
 
 	public BigDecimal getValorIcmsStDestino() {
@@ -399,7 +414,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorIcmsStDestino(BigDecimal valorIcmsStDestino) {
-		this.valorIcmsStDestino = valorIcmsStDestino;
+		this.valorIcmsStDestino = (valorIcmsStDestino == null ? new BigDecimal(
+				0) : valorIcmsStDestino);
 	}
 
 	public BigDecimal getAliquotaCreditoIcmsSn() {
@@ -407,7 +423,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setAliquotaCreditoIcmsSn(BigDecimal aliquotaCreditoIcmsSn) {
-		this.aliquotaCreditoIcmsSn = aliquotaCreditoIcmsSn;
+		this.aliquotaCreditoIcmsSn = (aliquotaCreditoIcmsSn == null ? new BigDecimal(
+				0) : aliquotaCreditoIcmsSn);
 	}
 
 	public BigDecimal getValorCreditoIcmsSn() {
@@ -415,7 +432,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setValorCreditoIcmsSn(BigDecimal valorCreditoIcmsSn) {
-		this.valorCreditoIcmsSn = valorCreditoIcmsSn;
+		this.valorCreditoIcmsSn = (valorCreditoIcmsSn == null ? new BigDecimal(
+				0) : valorCreditoIcmsSn);
 	}
 
 	public BigDecimal getPercentualBcOperacaoPropria() {
@@ -424,7 +442,8 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setPercentualBcOperacaoPropria(
 			BigDecimal percentualBcOperacaoPropria) {
-		this.percentualBcOperacaoPropria = percentualBcOperacaoPropria;
+		this.percentualBcOperacaoPropria = (percentualBcOperacaoPropria == null ? new BigDecimal(
+				0) : percentualBcOperacaoPropria);
 	}
 
 	public String getUfSt() {
@@ -432,7 +451,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setUfSt(String ufSt) {
-		this.ufSt = ufSt;
+		this.ufSt = (ufSt == null ? "" : ufSt.toUpperCase());
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

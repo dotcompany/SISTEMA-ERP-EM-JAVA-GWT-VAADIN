@@ -304,7 +304,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setGtin(String gtin) {
-		this.gtin = gtin;
+		this.gtin = (gtin == null ? "" : gtin.toUpperCase());
 	}
 
 	public String getNomeProduto() {
@@ -312,7 +312,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
+		this.nomeProduto = (nomeProduto == null ? "" : nomeProduto
+				.toUpperCase());
 	}
 
 	public String getNcm() {
@@ -320,7 +321,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNcm(String ncm) {
-		this.ncm = ncm;
+		this.ncm = (ncm == null ? "" : ncm.toUpperCase());
 	}
 
 	public Integer getExTipi() {
@@ -328,7 +329,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setExTipi(Integer exTipi) {
-		this.exTipi = exTipi;
+		this.exTipi = (exTipi == null ? new Integer(0) : exTipi);
 	}
 
 	public Integer getCfop() {
@@ -336,7 +337,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCfop(Integer cfop) {
-		this.cfop = cfop;
+		this.cfop = (cfop == null ? new Integer(0) : cfop);
 	}
 
 	public String getUnidadeComercial() {
@@ -344,7 +345,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setUnidadeComercial(String unidadeComercial) {
-		this.unidadeComercial = unidadeComercial;
+		this.unidadeComercial = (unidadeComercial == null ? ""
+				: unidadeComercial.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeComercial() {
@@ -352,7 +354,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setQuantidadeComercial(BigDecimal quantidadeComercial) {
-		this.quantidadeComercial = quantidadeComercial;
+		this.quantidadeComercial = (quantidadeComercial == null ? new BigDecimal(
+				0) : quantidadeComercial);
 	}
 
 	public BigDecimal getValorUnitarioComercial() {
@@ -360,7 +363,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorUnitarioComercial(BigDecimal valorUnitarioComercial) {
-		this.valorUnitarioComercial = valorUnitarioComercial;
+		this.valorUnitarioComercial = (valorUnitarioComercial == null ? new BigDecimal(
+				0) : valorUnitarioComercial);
 	}
 
 	public BigDecimal getValorBrutoProduto() {
@@ -368,7 +372,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorBrutoProduto(BigDecimal valorBrutoProduto) {
-		this.valorBrutoProduto = valorBrutoProduto;
+		this.valorBrutoProduto = (valorBrutoProduto == null ? new BigDecimal(0)
+				: valorBrutoProduto);
 	}
 
 	public String getGtinUnidadeTributavel() {
@@ -376,7 +381,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setGtinUnidadeTributavel(String gtinUnidadeTributavel) {
-		this.gtinUnidadeTributavel = gtinUnidadeTributavel;
+		this.gtinUnidadeTributavel = (gtinUnidadeTributavel == null ? ""
+				: gtinUnidadeTributavel.toUpperCase());
 	}
 
 	public String getUnidadeTributavel() {
@@ -384,7 +390,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setUnidadeTributavel(String unidadeTributavel) {
-		this.unidadeTributavel = unidadeTributavel;
+		this.unidadeTributavel = (unidadeTributavel == null ? ""
+				: unidadeTributavel.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeTributavel() {
@@ -392,7 +399,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setQuantidadeTributavel(BigDecimal quantidadeTributavel) {
-		this.quantidadeTributavel = quantidadeTributavel;
+		this.quantidadeTributavel = (quantidadeTributavel == null ? new BigDecimal(
+				0) : quantidadeTributavel);
 	}
 
 	public BigDecimal getValorUnitarioTributavel() {
@@ -400,7 +408,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorUnitarioTributavel(BigDecimal valorUnitarioTributavel) {
-		this.valorUnitarioTributavel = valorUnitarioTributavel;
+		this.valorUnitarioTributavel = (valorUnitarioTributavel == null ? new BigDecimal(
+				0) : valorUnitarioTributavel);
 	}
 
 	public BigDecimal getValorFrete() {
@@ -408,7 +417,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorFrete(BigDecimal valorFrete) {
-		this.valorFrete = valorFrete;
+		this.valorFrete = (valorFrete == null ? new BigDecimal(0) : valorFrete);
 	}
 
 	public BigDecimal getValorSeguro() {
@@ -416,7 +425,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorSeguro(BigDecimal valorSeguro) {
-		this.valorSeguro = valorSeguro;
+		this.valorSeguro = (valorSeguro == null ? new BigDecimal(0)
+				: valorSeguro);
 	}
 
 	public BigDecimal getValorDesconto() {
@@ -424,7 +434,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
+		this.valorDesconto = (valorDesconto == null ? new BigDecimal(0)
+				: valorDesconto);
 	}
 
 	public BigDecimal getValorOutrasDespesas() {
@@ -432,7 +443,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorOutrasDespesas(BigDecimal valorOutrasDespesas) {
-		this.valorOutrasDespesas = valorOutrasDespesas;
+		this.valorOutrasDespesas = (valorOutrasDespesas == null ? new BigDecimal(
+				0) : valorOutrasDespesas);
 	}
 
 	public String getEntraTotal() {
@@ -440,7 +452,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEntraTotal(String entraTotal) {
-		this.entraTotal = entraTotal;
+		this.entraTotal = (entraTotal == null ? "" : entraTotal.toUpperCase());
 	}
 
 	public BigDecimal getValorSubtotal() {
@@ -448,7 +460,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorSubtotal(BigDecimal valorSubtotal) {
-		this.valorSubtotal = valorSubtotal;
+		this.valorSubtotal = (valorSubtotal == null ? new BigDecimal(0)
+				: valorSubtotal);
 	}
 
 	public BigDecimal getValorTotal() {
@@ -456,7 +469,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
+		this.valorTotal = (valorTotal == null ? new BigDecimal(0) : valorTotal);
 	}
 
 	public String getNumeroPedidoCompra() {
@@ -464,7 +477,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumeroPedidoCompra(String numeroPedidoCompra) {
-		this.numeroPedidoCompra = numeroPedidoCompra;
+		this.numeroPedidoCompra = (numeroPedidoCompra == null ? ""
+				: numeroPedidoCompra.toUpperCase());
 	}
 
 	public Integer getItemPedidoCompra() {
@@ -472,7 +486,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setItemPedidoCompra(Integer itemPedidoCompra) {
-		this.itemPedidoCompra = itemPedidoCompra;
+		this.itemPedidoCompra = (itemPedidoCompra == null ? new Integer(0)
+				: itemPedidoCompra);
 	}
 
 	public String getInformacoesAdicionais() {
@@ -480,7 +495,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setInformacoesAdicionais(String informacoesAdicionais) {
-		this.informacoesAdicionais = informacoesAdicionais;
+		this.informacoesAdicionais = (informacoesAdicionais == null ? ""
+				: informacoesAdicionais.toUpperCase());
 	}
 
 	public Integer getProduto() {
@@ -488,7 +504,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setProduto(Integer produto) {
-		this.produto = produto;
+		this.produto = (produto == null ? new Integer(0) : produto);
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {

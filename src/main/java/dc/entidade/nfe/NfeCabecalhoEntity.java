@@ -535,7 +535,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoNumerico(String codigoNumerico) {
-		this.codigoNumerico = codigoNumerico;
+		this.codigoNumerico = (codigoNumerico == null ? "" : codigoNumerico
+				.toUpperCase());
 	}
 
 	public String getNaturezaOperacao() {
@@ -543,7 +544,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNaturezaOperacao(String naturezaOperacao) {
-		this.naturezaOperacao = naturezaOperacao;
+		this.naturezaOperacao = (naturezaOperacao == null ? ""
+				: naturezaOperacao.toUpperCase());
 	}
 
 	public String getIndicadorFormaPagamento() {
@@ -551,7 +553,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setIndicadorFormaPagamento(String indicadorFormaPagamento) {
-		this.indicadorFormaPagamento = indicadorFormaPagamento;
+		this.indicadorFormaPagamento = (indicadorFormaPagamento == null ? ""
+				: indicadorFormaPagamento.toUpperCase());
 	}
 
 	public String getCodigoModelo() {
@@ -559,7 +562,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoModelo(String codigoModelo) {
-		this.codigoModelo = codigoModelo;
+		this.codigoModelo = (codigoModelo == null ? "" : codigoModelo
+				.toUpperCase());
 	}
 
 	public String getSerie() {
@@ -567,7 +571,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSerie(String serie) {
-		this.serie = serie;
+		this.serie = (serie == null ? "" : serie.toUpperCase());
 	}
 
 	public String getNumero() {
@@ -575,7 +579,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = (numero == null ? "" : numero.toUpperCase());
 	}
 
 	public Date getDataEmissao() {
@@ -599,7 +603,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setHoraEntradaSaida(String horaEntradaSaida) {
-		this.horaEntradaSaida = horaEntradaSaida;
+		this.horaEntradaSaida = (horaEntradaSaida == null ? ""
+				: horaEntradaSaida.toUpperCase());
 	}
 
 	public String getTipoOperacao() {
@@ -607,7 +612,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTipoOperacao(String tipoOperacao) {
-		this.tipoOperacao = tipoOperacao;
+		this.tipoOperacao = (tipoOperacao == null ? "" : tipoOperacao
+				.toUpperCase());
 	}
 
 	public Integer getCodigoMunicipio() {
@@ -615,7 +621,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoMunicipio(Integer codigoMunicipio) {
-		this.codigoMunicipio = codigoMunicipio;
+		this.codigoMunicipio = (codigoMunicipio == null ? new Integer(0)
+				: codigoMunicipio);
 	}
 
 	public String getFormatoImpressaoDanfe() {
@@ -623,7 +630,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFormatoImpressaoDanfe(String formatoImpressaoDanfe) {
-		this.formatoImpressaoDanfe = formatoImpressaoDanfe;
+		this.formatoImpressaoDanfe = (formatoImpressaoDanfe == null ? ""
+				: formatoImpressaoDanfe.toUpperCase());
 	}
 
 	public String getTipoEmissao() {
@@ -631,7 +639,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTipoEmissao(String tipoEmissao) {
-		this.tipoEmissao = tipoEmissao;
+		this.tipoEmissao = (tipoEmissao == null ? "" : tipoEmissao
+				.toUpperCase());
 	}
 
 	public String getChaveAcesso() {
@@ -639,7 +648,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setChaveAcesso(String chaveAcesso) {
-		this.chaveAcesso = chaveAcesso;
+		this.chaveAcesso = (chaveAcesso == null ? "" : chaveAcesso
+				.toUpperCase());
 	}
 
 	public String getDigitoChaveAcesso() {
@@ -647,7 +657,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDigitoChaveAcesso(String digitoChaveAcesso) {
-		this.digitoChaveAcesso = digitoChaveAcesso;
+		this.digitoChaveAcesso = (digitoChaveAcesso == null ? ""
+				: digitoChaveAcesso.toUpperCase());
 	}
 
 	public String getAmbiente() {
@@ -655,7 +666,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setAmbiente(String ambiente) {
-		this.ambiente = ambiente;
+		this.ambiente = (ambiente == null ? "" : ambiente.toUpperCase());
 	}
 
 	public String getFinalidadeEmissao() {
@@ -663,7 +674,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFinalidadeEmissao(String finalidadeEmissao) {
-		this.finalidadeEmissao = finalidadeEmissao;
+		this.finalidadeEmissao = (finalidadeEmissao == null ? ""
+				: finalidadeEmissao.toUpperCase());
 	}
 
 	public String getProcessoEmissao() {
@@ -671,7 +683,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setProcessoEmissao(String processoEmissao) {
-		this.processoEmissao = processoEmissao;
+		this.processoEmissao = (processoEmissao == null ? "" : processoEmissao
+				.toUpperCase());
 	}
 
 	public String getVersaoProcessoEmissao() {
@@ -679,7 +692,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setVersaoProcessoEmissao(String versaoProcessoEmissao) {
-		this.versaoProcessoEmissao = versaoProcessoEmissao;
+		this.versaoProcessoEmissao = (versaoProcessoEmissao == null ? ""
+				: versaoProcessoEmissao.toUpperCase());
 	}
 
 	public Date getDataEntradaContingencia() {
@@ -695,7 +709,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setJustificativaContingencia(String justificativaContingencia) {
-		this.justificativaContingencia = justificativaContingencia;
+		this.justificativaContingencia = (justificativaContingencia == null ? ""
+				: justificativaContingencia.toUpperCase());
 	}
 
 	public BigDecimal getBaseCalculoIcms() {
@@ -703,7 +718,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
-		this.baseCalculoIcms = baseCalculoIcms;
+		this.baseCalculoIcms = (baseCalculoIcms == null ? new BigDecimal(0)
+				: baseCalculoIcms);
 	}
 
 	public BigDecimal getValorIcms() {
@@ -711,7 +727,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorIcms(BigDecimal valorIcms) {
-		this.valorIcms = valorIcms;
+		this.valorIcms = (valorIcms == null ? new BigDecimal(0) : valorIcms);
 	}
 
 	public BigDecimal getBaseCalculoIcmsSt() {
@@ -719,7 +735,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBaseCalculoIcmsSt(BigDecimal baseCalculoIcmsSt) {
-		this.baseCalculoIcmsSt = baseCalculoIcmsSt;
+		this.baseCalculoIcmsSt = (baseCalculoIcmsSt == null ? new BigDecimal(0)
+				: baseCalculoIcmsSt);
 	}
 
 	public BigDecimal getValorIcmsSt() {
@@ -727,7 +744,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorIcmsSt(BigDecimal valorIcmsSt) {
-		this.valorIcmsSt = valorIcmsSt;
+		this.valorIcmsSt = (valorIcmsSt == null ? new BigDecimal(0)
+				: valorIcmsSt);
 	}
 
 	public BigDecimal getValorTotalProdutos() {
@@ -735,7 +753,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorTotalProdutos(BigDecimal valorTotalProdutos) {
-		this.valorTotalProdutos = valorTotalProdutos;
+		this.valorTotalProdutos = (valorTotalProdutos == null ? new BigDecimal(
+				0) : valorTotalProdutos);
 	}
 
 	public BigDecimal getValorFrete() {
@@ -743,7 +762,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorFrete(BigDecimal valorFrete) {
-		this.valorFrete = valorFrete;
+		this.valorFrete = (valorFrete == null ? new BigDecimal(0) : valorFrete);
 	}
 
 	public BigDecimal getValorSeguro() {
@@ -751,7 +770,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorSeguro(BigDecimal valorSeguro) {
-		this.valorSeguro = valorSeguro;
+		this.valorSeguro = (valorSeguro == null ? new BigDecimal(0)
+				: valorSeguro);
 	}
 
 	public BigDecimal getValorDesconto() {
@@ -759,7 +779,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
+		this.valorDesconto = (valorDesconto == null ? new BigDecimal(0)
+				: valorDesconto);
 	}
 
 	public BigDecimal getValorImpostoImportacao() {
@@ -767,7 +788,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorImpostoImportacao(BigDecimal valorImpostoImportacao) {
-		this.valorImpostoImportacao = valorImpostoImportacao;
+		this.valorImpostoImportacao = (valorImpostoImportacao == null ? new BigDecimal(
+				0) : valorImpostoImportacao);
 	}
 
 	public BigDecimal getValorIpi() {
@@ -775,7 +797,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorIpi(BigDecimal valorIpi) {
-		this.valorIpi = valorIpi;
+		this.valorIpi = (valorIpi == null ? new BigDecimal(0) : valorIpi);
 	}
 
 	public BigDecimal getValorPis() {
@@ -783,7 +805,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorPis(BigDecimal valorPis) {
-		this.valorPis = valorPis;
+		this.valorPis = (valorPis == null ? new BigDecimal(0) : valorPis);
 	}
 
 	public BigDecimal getValorCofins() {
@@ -791,7 +813,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorCofins(BigDecimal valorCofins) {
-		this.valorCofins = valorCofins;
+		this.valorCofins = (valorCofins == null ? new BigDecimal(0)
+				: valorCofins);
 	}
 
 	public BigDecimal getValorDespesasAcessorias() {
@@ -799,7 +822,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorDespesasAcessorias(BigDecimal valorDespesasAcessorias) {
-		this.valorDespesasAcessorias = valorDespesasAcessorias;
+		this.valorDespesasAcessorias = (valorDespesasAcessorias == null ? new BigDecimal(
+				0) : valorDespesasAcessorias);
 	}
 
 	public BigDecimal getValorTotal() {
@@ -807,7 +831,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
+		this.valorTotal = (valorTotal == null ? new BigDecimal(0) : valorTotal);
 	}
 
 	public BigDecimal getValorServicos() {
@@ -815,7 +839,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorServicos(BigDecimal valorServicos) {
-		this.valorServicos = valorServicos;
+		this.valorServicos = (valorServicos == null ? new BigDecimal(0)
+				: valorServicos);
 	}
 
 	public BigDecimal getBaseCalculoIssqn() {
@@ -823,7 +848,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBaseCalculoIssqn(BigDecimal baseCalculoIssqn) {
-		this.baseCalculoIssqn = baseCalculoIssqn;
+		this.baseCalculoIssqn = (baseCalculoIssqn == null ? new BigDecimal(0)
+				: baseCalculoIssqn);
 	}
 
 	public BigDecimal getValorIssqn() {
@@ -831,7 +857,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorIssqn(BigDecimal valorIssqn) {
-		this.valorIssqn = valorIssqn;
+		this.valorIssqn = (valorIssqn == null ? new BigDecimal(0) : valorIssqn);
 	}
 
 	public BigDecimal getValorPisIssqn() {
@@ -839,7 +865,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorPisIssqn(BigDecimal valorPisIssqn) {
-		this.valorPisIssqn = valorPisIssqn;
+		this.valorPisIssqn = (valorPisIssqn == null ? new BigDecimal(0)
+				: valorPisIssqn);
 	}
 
 	public BigDecimal getValorCofinsIssqn() {
@@ -847,7 +874,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorCofinsIssqn(BigDecimal valorCofinsIssqn) {
-		this.valorCofinsIssqn = valorCofinsIssqn;
+		this.valorCofinsIssqn = (valorCofinsIssqn == null ? new BigDecimal(0)
+				: valorCofinsIssqn);
 	}
 
 	public BigDecimal getValorRetidoPis() {
@@ -855,7 +883,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorRetidoPis(BigDecimal valorRetidoPis) {
-		this.valorRetidoPis = valorRetidoPis;
+		this.valorRetidoPis = (valorRetidoPis == null ? new BigDecimal(0)
+				: valorRetidoPis);
 	}
 
 	public BigDecimal getValorRetidoCofins() {
@@ -863,7 +892,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorRetidoCofins(BigDecimal valorRetidoCofins) {
-		this.valorRetidoCofins = valorRetidoCofins;
+		this.valorRetidoCofins = (valorRetidoCofins == null ? new BigDecimal(0)
+				: valorRetidoCofins);
 	}
 
 	public BigDecimal getValorRetidoCsll() {
@@ -871,7 +901,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorRetidoCsll(BigDecimal valorRetidoCsll) {
-		this.valorRetidoCsll = valorRetidoCsll;
+		this.valorRetidoCsll = (valorRetidoCsll == null ? new BigDecimal(0)
+				: valorRetidoCsll);
 	}
 
 	public BigDecimal getBaseCalculoIrrf() {
@@ -879,7 +910,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBaseCalculoIrrf(BigDecimal baseCalculoIrrf) {
-		this.baseCalculoIrrf = baseCalculoIrrf;
+		this.baseCalculoIrrf = (baseCalculoIrrf == null ? new BigDecimal(0)
+				: baseCalculoIrrf);
 	}
 
 	public BigDecimal getValorRetidoIrrf() {
@@ -887,7 +919,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorRetidoIrrf(BigDecimal valorRetidoIrrf) {
-		this.valorRetidoIrrf = valorRetidoIrrf;
+		this.valorRetidoIrrf = (valorRetidoIrrf == null ? new BigDecimal(0)
+				: valorRetidoIrrf);
 	}
 
 	public BigDecimal getBaseCalculoPrevidencia() {
@@ -895,7 +928,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBaseCalculoPrevidencia(BigDecimal baseCalculoPrevidencia) {
-		this.baseCalculoPrevidencia = baseCalculoPrevidencia;
+		this.baseCalculoPrevidencia = (baseCalculoPrevidencia == null ? new BigDecimal(
+				0) : baseCalculoPrevidencia);
 	}
 
 	public BigDecimal getValorRetidoPrevidencia() {
@@ -903,7 +937,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorRetidoPrevidencia(BigDecimal valorRetidoPrevidencia) {
-		this.valorRetidoPrevidencia = valorRetidoPrevidencia;
+		this.valorRetidoPrevidencia = (valorRetidoPrevidencia == null ? new BigDecimal(
+				0) : valorRetidoPrevidencia);
 	}
 
 	public String getComexUfEmbarque() {
@@ -911,7 +946,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setComexUfEmbarque(String comexUfEmbarque) {
-		this.comexUfEmbarque = comexUfEmbarque;
+		this.comexUfEmbarque = (comexUfEmbarque == null ? "" : comexUfEmbarque
+				.toUpperCase());
 	}
 
 	public String getComexLocalEmbarque() {
@@ -919,7 +955,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setComexLocalEmbarque(String comexLocalEmbarque) {
-		this.comexLocalEmbarque = comexLocalEmbarque;
+		this.comexLocalEmbarque = (comexLocalEmbarque == null ? ""
+				: comexLocalEmbarque.toUpperCase());
 	}
 
 	public String getCompraNotaEmpenho() {
@@ -927,7 +964,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCompraNotaEmpenho(String compraNotaEmpenho) {
-		this.compraNotaEmpenho = compraNotaEmpenho;
+		this.compraNotaEmpenho = (compraNotaEmpenho == null ? ""
+				: compraNotaEmpenho.toUpperCase());
 	}
 
 	public String getCompraPedido() {
@@ -935,7 +973,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCompraPedido(String compraPedido) {
-		this.compraPedido = compraPedido;
+		this.compraPedido = (compraPedido == null ? "" : compraPedido
+				.toUpperCase());
 	}
 
 	public String getCompraContrato() {
@@ -943,7 +982,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCompraContrato(String compraContrato) {
-		this.compraContrato = compraContrato;
+		this.compraContrato = (compraContrato == null ? "" : compraContrato
+				.toUpperCase());
 	}
 
 	public String getInformacoesAddFisco() {
@@ -951,7 +991,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setInformacoesAddFisco(String informacoesAddFisco) {
-		this.informacoesAddFisco = informacoesAddFisco;
+		this.informacoesAddFisco = (informacoesAddFisco == null ? ""
+				: informacoesAddFisco.toUpperCase());
 	}
 
 	public String getInformacoesAddContribuinte() {
@@ -959,7 +1000,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setInformacoesAddContribuinte(String informacoesAddContribuinte) {
-		this.informacoesAddContribuinte = informacoesAddContribuinte;
+		this.informacoesAddContribuinte = (informacoesAddContribuinte == null ? ""
+				: informacoesAddContribuinte.toUpperCase());
 	}
 
 	public String getStatusNota() {
@@ -967,7 +1009,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setStatusNota(String statusNota) {
-		this.statusNota = statusNota;
+		this.statusNota = (statusNota == null ? "" : statusNota.toUpperCase());
 	}
 
 	public Integer getUfEmitente() {
@@ -975,7 +1017,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setUfEmitente(Integer ufEmitente) {
-		this.ufEmitente = ufEmitente;
+		this.ufEmitente = (ufEmitente == null ? new Integer(0) : ufEmitente);
 	}
 
 	public Integer getAdiantamento() {
@@ -983,7 +1025,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setAdiantamento(Integer adiantamento) {
-		this.adiantamento = adiantamento;
+		this.adiantamento = (adiantamento == null ? new Integer(0)
+				: adiantamento);
 	}
 
 	public Integer getTributOperacaoFiscal() {

@@ -135,7 +135,7 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setCstPis(String cstPis) {
-		this.cstPis = cstPis;
+		this.cstPis = (cstPis == null ? "" : cstPis.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeVendida() {
@@ -143,7 +143,8 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setQuantidadeVendida(BigDecimal quantidadeVendida) {
-		this.quantidadeVendida = quantidadeVendida;
+		this.quantidadeVendida = (quantidadeVendida == null ? new BigDecimal(0)
+				: quantidadeVendida);
 	}
 
 	public BigDecimal getValorBaseCalculoPis() {
@@ -151,7 +152,8 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setValorBaseCalculoPis(BigDecimal valorBaseCalculoPis) {
-		this.valorBaseCalculoPis = valorBaseCalculoPis;
+		this.valorBaseCalculoPis = (valorBaseCalculoPis == null ? new BigDecimal(
+				0) : valorBaseCalculoPis);
 	}
 
 	public BigDecimal getAliquotaPisPercentual() {
@@ -159,7 +161,8 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setAliquotaPisPercentual(BigDecimal aliquotaPisPercentual) {
-		this.aliquotaPisPercentual = aliquotaPisPercentual;
+		this.aliquotaPisPercentual = (aliquotaPisPercentual == null ? new BigDecimal(
+				0) : aliquotaPisPercentual);
 	}
 
 	public BigDecimal getAliquotaPisReais() {
@@ -167,7 +170,8 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setAliquotaPisReais(BigDecimal aliquotaPisReais) {
-		this.aliquotaPisReais = aliquotaPisReais;
+		this.aliquotaPisReais = (aliquotaPisReais == null ? new BigDecimal(0)
+				: aliquotaPisReais);
 	}
 
 	public BigDecimal getValorPis() {
@@ -175,7 +179,7 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setValorPis(BigDecimal valorPis) {
-		this.valorPis = valorPis;
+		this.valorPis = (valorPis == null ? new BigDecimal(0) : valorPis);
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

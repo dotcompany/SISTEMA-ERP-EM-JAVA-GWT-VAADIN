@@ -133,7 +133,8 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setBaseCalculoIssqn(BigDecimal baseCalculoIssqn) {
-		this.baseCalculoIssqn = baseCalculoIssqn;
+		this.baseCalculoIssqn = (baseCalculoIssqn == null ? new BigDecimal(0)
+				: baseCalculoIssqn);
 	}
 
 	public BigDecimal getAliquotaIssqn() {
@@ -141,7 +142,8 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
-		this.aliquotaIssqn = aliquotaIssqn;
+		this.aliquotaIssqn = (aliquotaIssqn == null ? new BigDecimal(0)
+				: aliquotaIssqn);
 	}
 
 	public BigDecimal getValorIssqn() {
@@ -149,7 +151,7 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setValorIssqn(BigDecimal valorIssqn) {
-		this.valorIssqn = valorIssqn;
+		this.valorIssqn = (valorIssqn == null ? new BigDecimal(0) : valorIssqn);
 	}
 
 	public Integer getMunicipioIssqn() {
@@ -157,7 +159,8 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setMunicipioIssqn(Integer municipioIssqn) {
-		this.municipioIssqn = municipioIssqn;
+		this.municipioIssqn = (municipioIssqn == null ? new Integer(0)
+				: municipioIssqn);
 	}
 
 	public Integer getItemListaServicos() {
@@ -165,7 +168,8 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setItemListaServicos(Integer itemListaServicos) {
-		this.itemListaServicos = itemListaServicos;
+		this.itemListaServicos = (itemListaServicos == null ? new Integer(0)
+				: itemListaServicos);
 	}
 
 	public String getTributacaoIssqn() {
@@ -173,7 +177,8 @@ public class NfeDetalheImpostoIssqnEntity extends
 	}
 
 	public void setTributacaoIssqn(String tributacaoIssqn) {
-		this.tributacaoIssqn = tributacaoIssqn;
+		this.tributacaoIssqn = (tributacaoIssqn == null ? "" : tributacaoIssqn
+				.toUpperCase());
 	}
 
 	public Integer getNfeDetalhe() {

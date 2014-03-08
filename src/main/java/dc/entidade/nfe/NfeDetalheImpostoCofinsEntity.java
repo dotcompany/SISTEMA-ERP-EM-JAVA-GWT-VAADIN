@@ -135,7 +135,7 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setCstCofins(String cstCofins) {
-		this.cstCofins = cstCofins;
+		this.cstCofins = (cstCofins == null ? "" : cstCofins.toUpperCase());
 	}
 
 	public BigDecimal getQuantidadeVendida() {
@@ -143,7 +143,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setQuantidadeVendida(BigDecimal quantidadeVendida) {
-		this.quantidadeVendida = quantidadeVendida;
+		this.quantidadeVendida = (quantidadeVendida == null ? new BigDecimal(0)
+				: quantidadeVendida);
 	}
 
 	public BigDecimal getBaseCalculoCofins() {
@@ -151,7 +152,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setBaseCalculoCofins(BigDecimal baseCalculoCofins) {
-		this.baseCalculoCofins = baseCalculoCofins;
+		this.baseCalculoCofins = (baseCalculoCofins == null ? new BigDecimal(0)
+				: baseCalculoCofins);
 	}
 
 	public BigDecimal getAliquotaCofinsPercentual() {
@@ -159,7 +161,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setAliquotaCofinsPercentual(BigDecimal aliquotaCofinsPercentual) {
-		this.aliquotaCofinsPercentual = aliquotaCofinsPercentual;
+		this.aliquotaCofinsPercentual = (aliquotaCofinsPercentual == null ? new BigDecimal(
+				0) : aliquotaCofinsPercentual);
 	}
 
 	public BigDecimal getAliquotaCofinsReais() {
@@ -167,7 +170,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setAliquotaCofinsReais(BigDecimal aliquotaCofinsReais) {
-		this.aliquotaCofinsReais = aliquotaCofinsReais;
+		this.aliquotaCofinsReais = (aliquotaCofinsReais == null ? new BigDecimal(
+				0) : aliquotaCofinsReais);
 	}
 
 	public BigDecimal getValorCofins() {
@@ -175,7 +179,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setValorCofins(BigDecimal valorCofins) {
-		this.valorCofins = valorCofins;
+		this.valorCofins = (valorCofins == null ? new BigDecimal(0)
+				: valorCofins);
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {
