@@ -79,6 +79,28 @@ public class NfeDetalheImpostoIcmsDAO extends
 		}
 	}
 
+	@Transactional
+	public NfeDetalheImpostoIcmsEntity getEntidade(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDetalheImpostoIcmsEntity entidade = (NfeDetalheImpostoIcmsEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoIcmsEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheImpostoIcmsEntity();
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "CST ICMS" };
 	}

@@ -79,6 +79,28 @@ public class NfeDetalheImpostoIpiDAO extends
 		}
 	}
 
+	@Transactional
+	public NfeDetalheImpostoIpiEntity getEntidade(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDetalheImpostoIpiEntity entidade = (NfeDetalheImpostoIpiEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoIpiEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheImpostoIpiEntity();
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "Enquadramento do IPI" };
 	}

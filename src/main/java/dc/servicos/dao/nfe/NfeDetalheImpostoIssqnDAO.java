@@ -79,6 +79,28 @@ public class NfeDetalheImpostoIssqnDAO extends
 		}
 	}
 
+	@Transactional
+	public NfeDetalheImpostoIssqnEntity getEntidade(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDetalheImpostoIssqnEntity entidade = (NfeDetalheImpostoIssqnEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoIssqnEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheImpostoIssqnEntity();
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "Base do cálculo do ISSQN" };
 	}

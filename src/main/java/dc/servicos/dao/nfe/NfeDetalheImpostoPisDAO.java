@@ -79,6 +79,28 @@ public class NfeDetalheImpostoPisDAO extends
 		}
 	}
 
+	@Transactional
+	public NfeDetalheImpostoPisEntity getEntidade(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDetalheImpostoPisEntity entidade = (NfeDetalheImpostoPisEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoPisEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheImpostoPisEntity();
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "CST PIS" };
 	}

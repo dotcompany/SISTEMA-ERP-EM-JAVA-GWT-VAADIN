@@ -79,6 +79,28 @@ public class NfeDetalheImpostoIiDAO extends
 		}
 	}
 
+	@Transactional
+	public NfeDetalheImpostoIiEntity getEntidade(NfeDetalheEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDetalheImpostoIiEntity entidade = (NfeDetalheImpostoIiEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDetalheImpostoIiEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheImpostoIiEntity();
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "Valor (BC)" };
 	}
