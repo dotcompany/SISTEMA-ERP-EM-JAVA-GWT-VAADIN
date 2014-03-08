@@ -1,5 +1,6 @@
 package dc.servicos.dao.nfe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,28 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 			return auxLista;
 		} catch (Exception e) {
 			return new ArrayList<NfeCabecalhoEntity>();
+		}
+	}
+
+	@Transactional
+	public NfeCabecalhoEntity getEntidade(Serializable id) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id = :id";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", id);
+
+			NfeCabecalhoEntity entidade = (NfeCabecalhoEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeCabecalhoEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeCabecalhoEntity();
 		}
 	}
 

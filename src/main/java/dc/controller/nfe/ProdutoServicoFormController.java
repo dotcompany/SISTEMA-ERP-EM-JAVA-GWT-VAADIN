@@ -126,10 +126,15 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>) this.nfeDetalheDAO
-					.getLista(id);
+			this.nfeCabecalho = this.nfeCabecalhoDAO.getEntidade(id);
 
-			this.subView.carregarSfNfeDetalhe(auxLista1);
+			List<NfeDetalheEntity> auxLista = (List<NfeDetalheEntity>) this.nfeDetalheDAO
+					.getLista(this.nfeCabecalho);
+
+			this.nfeCabecalho.setNfeDetalheList(auxLista);
+
+			this.subView.carregarSfNfeDetalhe(this.nfeCabecalho
+					.getNfeDetalheList());
 		} catch (Exception e) {
 			e.printStackTrace();
 

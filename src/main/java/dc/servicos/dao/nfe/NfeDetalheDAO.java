@@ -1,6 +1,5 @@
 package dc.servicos.dao.nfe;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -60,13 +60,13 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 	}
 
 	@Transactional
-	public List<NfeDetalheEntity> getLista(Serializable idNfeCabecalho) {
+	public List<NfeDetalheEntity> getLista(NfeCabecalhoEntity ent) {
 		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho.id = :idNfeCabecalho";
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :ent";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("idNfeCabecalho", idNfeCabecalho);
+			query.setParameter("ent", ent);
 
 			List<NfeDetalheEntity> auxLista = query.list();
 
