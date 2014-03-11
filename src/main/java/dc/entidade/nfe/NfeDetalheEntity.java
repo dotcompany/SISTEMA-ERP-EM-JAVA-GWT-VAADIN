@@ -2,18 +2,15 @@ package dc.entidade.nfe;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -250,17 +247,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
-	private List<NfeDetalheImpostoIcmsEntity> nfeDetalheImpostoIcmsList;
-
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
-	private List<NfeDetalheImpostoPisEntity> nfeDetalheImpostoPisList;
-
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
-	private List<NfeDetalheImpostoCofinsEntity> nfeDetalheImpostoCofinsList;
-
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
-	private List<NfeDetalheImpostoIpiEntity> nfeDetalheImpostoIpiList;
+	// @OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
+	// private List<NfeDetalheImpostoCofinsEntity> nfeDetalheImpostoCofinsList;
 
 	/**
 	 * CONSTRUTOR
@@ -513,42 +501,6 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
 		this.nfeCabecalho = nfeCabecalho;
-	}
-
-	public List<NfeDetalheImpostoIcmsEntity> getNfeDetalheImpostoIcmsList() {
-		return nfeDetalheImpostoIcmsList;
-	}
-
-	public void setNfeDetalheImpostoIcmsList(
-			List<NfeDetalheImpostoIcmsEntity> nfeDetalheImpostoIcmsList) {
-		this.nfeDetalheImpostoIcmsList = nfeDetalheImpostoIcmsList;
-	}
-
-	public List<NfeDetalheImpostoPisEntity> getNfeDetalheImpostoPisList() {
-		return nfeDetalheImpostoPisList;
-	}
-
-	public void setNfeDetalheImpostoPisList(
-			List<NfeDetalheImpostoPisEntity> nfeDetalheImpostoPisList) {
-		this.nfeDetalheImpostoPisList = nfeDetalheImpostoPisList;
-	}
-
-	public List<NfeDetalheImpostoCofinsEntity> getNfeDetalheImpostoCofinsList() {
-		return nfeDetalheImpostoCofinsList;
-	}
-
-	public void setNfeDetalheImpostoCofinsList(
-			List<NfeDetalheImpostoCofinsEntity> nfeDetalheImpostoCofinsList) {
-		this.nfeDetalheImpostoCofinsList = nfeDetalheImpostoCofinsList;
-	}
-
-	public List<NfeDetalheImpostoIpiEntity> getNfeDetalheImpostoIpiList() {
-		return nfeDetalheImpostoIpiList;
-	}
-
-	public void setNfeDetalheImpostoIpiList(
-			List<NfeDetalheImpostoIpiEntity> nfeDetalheImpostoIpiList) {
-		this.nfeDetalheImpostoIpiList = nfeDetalheImpostoIpiList;
 	}
 
 	/**

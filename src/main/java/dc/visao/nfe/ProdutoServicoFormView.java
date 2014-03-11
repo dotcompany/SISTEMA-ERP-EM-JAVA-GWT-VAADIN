@@ -1313,8 +1313,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glIcms = new GridLayout();
 		glIcms.setImmediate(false);
-		glIcms.setWidth("100.0%");
-		glIcms.setHeight("100.0%");
+		// glIcms.setWidth("100.0%");
+		// glIcms.setHeight("100.0%");
+		glIcms.setSizeFull();
 		glIcms.setMargin(false);
 		glIcms.setSpacing(true);
 		glIcms.setRows(6);
@@ -1536,8 +1537,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glPis = new GridLayout();
 		glPis.setImmediate(false);
-		glPis.setWidth("100.0%");
-		glPis.setHeight("100.0%");
+		// glPis.setWidth("100.0%");
+		// glPis.setHeight("100.0%");
+		glPis.setSizeFull();
 		glPis.setMargin(false);
 		glPis.setSpacing(true);
 		glPis.setRows(4);
@@ -1605,8 +1607,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glCofins = new GridLayout();
 		glCofins.setImmediate(false);
-		glCofins.setWidth("100.0%");
-		glCofins.setHeight("100.0%");
+		// glCofins.setWidth("100.0%");
+		// glCofins.setHeight("100.0%");
+		glCofins.setSizeFull();
 		glCofins.setMargin(false);
 		glCofins.setSpacing(true);
 		glCofins.setRows(4);
@@ -1674,8 +1677,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glIpi = new GridLayout();
 		glIpi.setImmediate(false);
-		glIpi.setWidth("100.0%");
-		glIpi.setHeight("100.0%");
+		// glIpi.setWidth("100.0%");
+		// glIpi.setHeight("100.0%");
+		glIpi.setSizeFull();
 		glIpi.setMargin(false);
 		glIpi.setSpacing(true);
 		glIpi.setRows(4);
@@ -1788,8 +1792,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glImpostoImportacao = new GridLayout();
 		glImpostoImportacao.setImmediate(false);
-		glImpostoImportacao.setWidth("100.0%");
-		glImpostoImportacao.setHeight("100.0%");
+		// glImpostoImportacao.setWidth("100.0%");
+		// glImpostoImportacao.setHeight("100.0%");
+		glImpostoImportacao.setSizeFull();
 		glImpostoImportacao.setMargin(false);
 		glImpostoImportacao.setSpacing(true);
 		glImpostoImportacao.setRows(4);
@@ -1843,8 +1848,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glIssqn = new GridLayout();
 		glIssqn.setImmediate(false);
-		glIssqn.setWidth("100.0%");
-		glIssqn.setHeight("100.0%");
+		// glIssqn.setWidth("100.0%");
+		// glIssqn.setHeight("100.0%");
+		glIssqn.setSizeFull();
 		glIssqn.setMargin(false);
 		glIssqn.setSpacing(true);
 		glIssqn.setRows(4);
@@ -1912,8 +1918,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glCombustivel = new GridLayout();
 		glCombustivel.setImmediate(false);
-		glCombustivel.setWidth("100.0%");
-		glCombustivel.setHeight("100.0%");
+		// glCombustivel.setWidth("100.0%");
+		// glCombustivel.setHeight("100.0%");
+		glCombustivel.setSizeFull();
 		glCombustivel.setMargin(false);
 		glCombustivel.setSpacing(true);
 		glCombustivel.setRows(4);
@@ -1990,8 +1997,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glVeiculo = new GridLayout();
 		glVeiculo.setImmediate(false);
-		glVeiculo.setWidth("100.0%");
-		glVeiculo.setHeight("100.0%");
+		// glVeiculo.setWidth("100.0%");
+		// glVeiculo.setHeight("100.0%");
+		glVeiculo.setSizeFull();
 		glVeiculo.setMargin(false);
 		glVeiculo.setSpacing(true);
 		glVeiculo.setRows(6);
@@ -2221,8 +2229,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glMedicamento = new GridLayout();
 		glMedicamento.setImmediate(false);
-		glMedicamento.setWidth("100.0%");
-		glMedicamento.setHeight("100.0%");
+		// glMedicamento.setWidth("100.0%");
+		// glMedicamento.setHeight("100.0%");
+		glMedicamento.setSizeFull();
 		glMedicamento.setMargin(false);
 
 		glMedicamento.addComponent(buildMedicamentoSubForm());
@@ -2235,8 +2244,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glArmamento = new GridLayout();
 		glArmamento.setImmediate(false);
-		glArmamento.setWidth("100.0%");
-		glArmamento.setHeight("100.0%");
+		// glArmamento.setWidth("100.0%");
+		// glArmamento.setHeight("100.0%");
+		glArmamento.setSizeFull();
 		glArmamento.setMargin(false);
 
 		glArmamento.addComponent(buildArmamentoSubForm());
@@ -2249,8 +2259,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glDeclaracaoImportacao = new GridLayout();
 		glDeclaracaoImportacao.setImmediate(false);
-		glDeclaracaoImportacao.setWidth("100.0%");
-		glDeclaracaoImportacao.setHeight("100.0%");
+		// glDeclaracaoImportacao.setWidth("100.0%");
+		// glDeclaracaoImportacao.setHeight("100.0%");
+		glDeclaracaoImportacao.setSizeFull();
 		glDeclaracaoImportacao.setMargin(false);
 		glDeclaracaoImportacao.setSpacing(true);
 		glDeclaracaoImportacao.setRows(2);
@@ -2295,8 +2306,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 					public Field<?> createField(Container container,
 							Object itemId, Object propertyId,
 							Component uiContext) {
-						TextField field = new TextField("Teste");
-						// field.setMaxLength(1);
+						TextField field = new TextField();
+						field.setSizeFull();
 
 						return field;
 					}

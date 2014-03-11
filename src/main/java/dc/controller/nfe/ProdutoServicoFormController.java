@@ -113,7 +113,11 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			for (Object obj : this.nfeCabecalho.getNfeDetalheList()) {
+				NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 
+				System.out.println(ent.getNumeroItem());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -218,18 +222,73 @@ public class ProdutoServicoFormController extends
 		return "";
 	}
 
-	public NfeDetalheEntity novoNfeDetalhe() {
-		NfeDetalheEntity detalhe = new NfeDetalheEntity();
-		// this.nfeDetalhe.get//this.currentBean.adicionarDetalhe(detalhe);
+	/**
+	 * COMBOS
+	 */
 
-		this.nfeCabecalho.getNfeDetalheList().add(detalhe);
+	/**
+	 * **************************************
+	 */
 
-		return detalhe;
+	@Override
+	protected boolean isFullSized() {
+		return true;
 	}
 
-	public void carregarImpostos(NfeDetalheEntity item) {
-		System.out.println(item.getNumeroItem());
+	/**
+	 * ADICIONAR
+	 */
 
+	public NfeDetalheEntity novoNfeDetalhe() {
+		NfeDetalheEntity ent = new NfeDetalheEntity();
+		ent.setNfeCabecalho(this.nfeCabecalho);
+
+		/**
+		 * COFINS
+		 */
+
+		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
+
+		/**
+		 * ICMS
+		 */
+
+		NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
+
+		/**
+		 * IMPOSTO IMPORTAÇÃO
+		 */
+
+		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
+
+		/**
+		 * IPI
+		 */
+
+		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+
+		/**
+		 * ISSQN
+		 */
+
+		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
+
+		/**
+		 * PIS
+		 */
+
+		NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
+
+		this.nfeCabecalho.getNfeDetalheList().add(ent);
+
+		return ent;
+	}
+
+	/**
+	 * CARREGAR
+	 */
+
+	public void carregarImpostos(NfeDetalheEntity item) {
 		/**
 		 * COFINS
 		 */
@@ -350,19 +409,6 @@ public class ProdutoServicoFormController extends
 	private void carregarPis(NfeDetalheEntity item) {
 		NfeDetalheImpostoPisEntity entPis = this.nfeDetalheImpostoPisDAO
 				.getEntidade(item);
-	}
-
-	/**
-	 * COMBOS
-	 */
-
-	/**
-	 * **************************************
-	 */
-
-	@Override
-	protected boolean isFullSized() {
-		return true;
 	}
 
 }

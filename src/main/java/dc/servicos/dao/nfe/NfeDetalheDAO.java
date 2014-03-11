@@ -62,16 +62,20 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 	@Transactional
 	public List<NfeDetalheEntity> getLista(NfeCabecalhoEntity ent) {
 		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :ent";
+			//String sql = "SELECT ent FROM :entity ent INNER JOIN ent.nfeCabecalho"
+			//		+ " WHERE (1 = 1) AND ent.nfeCabecalho = :ent";
+			String sql = "FROM :entity ent";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("ent", ent);
+			//query.setParameter("ent", ent);
 
 			List<NfeDetalheEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
+			e.printStackTrace();
+
 			return new ArrayList<NfeDetalheEntity>();
 		}
 	}
