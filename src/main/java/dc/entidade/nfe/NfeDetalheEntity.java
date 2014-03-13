@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -242,6 +244,24 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_nfe_cabecalho", nullable = false)
 	@Caption(value = "NFE cabeçalho")
 	private NfeCabecalhoEntity nfeCabecalho;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpostoCofinsEntity nfeDetalheImpostoCofins;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpostoIcmsEntity nfeDetalheImpostoIcms;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpostoIiEntity nfeDetalheImpostoIi;
+
+	// @OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	// private NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpostoIssqnEntity nfeDetalheImpostoIssqn;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpostoPisEntity nfeDetalheImpostoPis;
 
 	/**
 	 * REFERENCIA - LIST
@@ -501,6 +521,60 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
 		this.nfeCabecalho = nfeCabecalho;
+	}
+
+	public NfeDetalheImpostoCofinsEntity getNfeDetalheImpostoCofins() {
+		return nfeDetalheImpostoCofins;
+	}
+
+	public void setNfeDetalheImpostoCofins(
+			NfeDetalheImpostoCofinsEntity nfeDetalheImpostoCofins) {
+		this.nfeDetalheImpostoCofins = nfeDetalheImpostoCofins;
+	}
+
+	public NfeDetalheImpostoIcmsEntity getNfeDetalheImpostoIcms() {
+		return nfeDetalheImpostoIcms;
+	}
+
+	public void setNfeDetalheImpostoIcms(
+			NfeDetalheImpostoIcmsEntity nfeDetalheImpostoIcms) {
+		this.nfeDetalheImpostoIcms = nfeDetalheImpostoIcms;
+	}
+
+	public NfeDetalheImpostoIiEntity getNfeDetalheImpostoIi() {
+		return nfeDetalheImpostoIi;
+	}
+
+	public void setNfeDetalheImpostoIi(
+			NfeDetalheImpostoIiEntity nfeDetalheImpostoIi) {
+		this.nfeDetalheImpostoIi = nfeDetalheImpostoIi;
+	}
+
+	// public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() {
+	// return nfeDetalheImpostoIpi;
+	// }
+
+	// public void setNfeDetalheImpostoIpi(
+	// NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi) {
+	// this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
+	// }
+
+	public NfeDetalheImpostoIssqnEntity getNfeDetalheImpostoIssqn() {
+		return nfeDetalheImpostoIssqn;
+	}
+
+	public void setNfeDetalheImpostoIssqn(
+			NfeDetalheImpostoIssqnEntity nfeDetalheImpostoIssqn) {
+		this.nfeDetalheImpostoIssqn = nfeDetalheImpostoIssqn;
+	}
+
+	public NfeDetalheImpostoPisEntity getNfeDetalheImpostoPis() {
+		return nfeDetalheImpostoPis;
+	}
+
+	public void setNfeDetalheImpostoPis(
+			NfeDetalheImpostoPisEntity nfeDetalheImpostoPis) {
+		this.nfeDetalheImpostoPis = nfeDetalheImpostoPis;
 	}
 
 	/**

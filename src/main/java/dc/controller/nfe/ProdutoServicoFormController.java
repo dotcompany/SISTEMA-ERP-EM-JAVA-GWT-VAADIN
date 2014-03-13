@@ -243,23 +243,40 @@ public class ProdutoServicoFormController extends
 		NfeDetalheEntity ent = new NfeDetalheEntity();
 		ent.setNfeCabecalho(this.nfeCabecalho);
 
+		this.nfeDetalheDAO.save(ent);
+
 		/**
 		 * COFINS
 		 */
 
 		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
+		ndiCofins.setNfeDetalhe(ent);
+
+		this.nfeDetalheImpostoCofinsDAO.save(ndiCofins);
+
+		// ent.setNfeDetalheImpostoCofins(ndiCofins);
 
 		/**
 		 * ICMS
 		 */
 
 		NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
+		ndiIcms.setNfeDetalhe(ent);
+
+		this.nfeDetalheImpostoIcmsDAO.save(ndiIcms);
+
+		ent.setNfeDetalheImpostoIcms(ndiIcms);
 
 		/**
 		 * IMPOSTO IMPORTAÇÃO
 		 */
 
 		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
+		ndiIi.setNfeDetalhe(ent);
+
+		this.nfeDetalheImpostoIiDAO.save(ndiIi);
+
+		// ent.setNfeDetalheImpostoIi(ndiIi);
 
 		/**
 		 * IPI
@@ -272,12 +289,22 @@ public class ProdutoServicoFormController extends
 		 */
 
 		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
+		ndiIssqn.setNfeDetalhe(ent);
+
+		this.nfeDetalheImpostoIssqnDAO.save(ndiIssqn);
+
+		// ent.setNfeDetalheImpostoIssqn(ndiIssqn);
 
 		/**
 		 * PIS
 		 */
 
 		NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
+		ndiPis.setNfeDetalhe(ent);
+
+		this.nfeDetalheImpostoPisDAO.save(ndiPis);
+
+		// ent.setNfeDetalheImpostoPis(ndiPis);
 
 		this.nfeCabecalho.getNfeDetalheList().add(ent);
 
