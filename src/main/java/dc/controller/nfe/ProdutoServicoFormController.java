@@ -93,11 +93,6 @@ public class ProdutoServicoFormController extends
 		if (this.nfeCabecalho == null) {
 			this.nfeCabecalho = new NfeCabecalhoEntity();
 		}
-
-		if (this.nfeCabecalho.getNfeDetalheList() == null) {
-			this.nfeCabecalho
-					.setNfeDetalheList(new ArrayList<NfeDetalheEntity>());
-		}
 	}
 
 	@Override
@@ -113,11 +108,31 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			for (Object obj : this.nfeCabecalho.getNfeDetalheList()) {
-				NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+			this.nfeCabecalhoDAO.save(this.nfeCabecalho);
 
-				System.out.println(ent.getNumeroItem());
+			if (!this.nfeCabecalho.getNfeDetalheList().isEmpty()) {
+				for (Object obj : this.nfeCabecalho.getNfeDetalheList()) {
+					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+
+					System.out.println(ent.getNumeroItem());
+
+					this.nfeDetalheDAO.save(ent);
+
+					this.nfeDetalheImpostoCofinsDAO.save(ent
+							.getNfeDetalheImpostoCofins());
+					this.nfeDetalheImpostoIcmsDAO.save(ent
+							.getNfeDetalheImpostoIcms());
+					this.nfeDetalheImpostoIiDAO.save(ent
+							.getNfeDetalheImpostoIi());
+					// this.nfeDetalheImpostoIpiDAO.save(ent.getn);
+					this.nfeDetalheImpostoIssqnDAO.save(ent
+							.getNfeDetalheImpostoIssqn());
+					this.nfeDetalheImpostoPisDAO.save(ent
+							.getNfeDetalheImpostoPis());
+				}
 			}
+
+			notifiyFrameworkSaveOK(this.nfeCabecalho);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -130,15 +145,7 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.nfeCabecalho = this.nfeCabecalhoDAO.getEntidade(id);
-
-			List<NfeDetalheEntity> auxLista = (List<NfeDetalheEntity>) this.nfeDetalheDAO
-					.getLista(this.nfeCabecalho);
-
-			this.nfeCabecalho.setNfeDetalheList(auxLista);
-
-			this.subView.carregarSfNfeDetalhe(this.nfeCabecalho
-					.getNfeDetalheList());
+			novoObjeto(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -153,7 +160,7 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void quandoNovo() {
 		try {
-
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -164,20 +171,6 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
-
-		// List<NfeDetalheEntity> auxLista1 = (List<NfeDetalheEntity>)
-		// this.nfedDAO
-		// .listarTodos();
-
-		// List<NfeDetalheImpostoCofinsEntity> auxLista2 =
-		// (List<NfeDetalheImpostoCofinsEntity>) this.nfedCofinsDAO
-		// .listarTodos();
-
-		// List<NfeDeclaracaoImportacaoEntity> auxLista3 =
-		// (List<NfeDeclaracaoImportacaoEntity>) this.nfediDAO
-		// .listarTodos();
-
-		// this.subView.preencherSubForm(auxLista1, auxLista2, auxLista3);
 	}
 
 	/*
@@ -187,7 +180,7 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -198,6 +191,8 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
+			this.nfeCabecalhoDAO.deleteAllByIds(ids);
+
 			mensagemRemovidoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -214,7 +209,16 @@ public class ProdutoServicoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+			// this.pDAO.deleteAllByIds(ids);
+			this.nfeCabecalhoDAO.listarTodos(ids);
 
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -236,14 +240,70 @@ public class ProdutoServicoFormController extends
 	}
 
 	/**
+	 * **************************************
+	 */
+
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.nfeCabecalho = new NfeCabecalhoEntity();
+				this.nfeCabecalho
+						.setNfeDetalheList(new ArrayList<NfeDetalheEntity>());
+			} else {
+				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
+
+				List<NfeDetalheEntity> auxLista = (List<NfeDetalheEntity>) this.nfeDetalheDAO
+						.getLista(this.nfeCabecalho);
+
+				for (Object obj : auxLista) {
+					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+
+					NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheImpostoCofinsDAO
+							.getEntidade(ent);
+					ndiCofins.setNfeDetalhe(ent);
+					NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheImpostoIcmsDAO
+							.getEntidade(ent);
+					ndiIcms.setNfeDetalhe(ent);
+					NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheImpostoIiDAO
+							.getEntidade(ent);
+					ndiIi.setNfeDetalhe(ent);
+					// NfeDetalheImpostoIpiEntity ndiIpi =
+					// this.nfeDetalheImpostoIpiDAO.getEntidade(ent);
+					NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheImpostoIssqnDAO
+							.getEntidade(ent);
+					ndiIssqn.setNfeDetalhe(ent);
+					NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheImpostoPisDAO
+							.getEntidade(ent);
+					ndiPis.setNfeDetalhe(ent);
+
+					ent.setNfeDetalheImpostoCofins(ndiCofins);
+					ent.setNfeDetalheImpostoIcms(ndiIcms);
+					ent.setNfeDetalheImpostoIi(ndiIi);
+					ent.setNfeDetalheImpostoIssqn(ndiIssqn);
+					ent.setNfeDetalheImpostoPis(ndiPis);
+				}
+
+				this.nfeCabecalho.setNfeDetalheList(auxLista);
+
+				this.subView.carregarSfNfeDetalhe(this.nfeCabecalho
+						.getNfeDetalheList());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * **************************************
+	 */
+
+	/**
 	 * ADICIONAR
 	 */
 
 	public NfeDetalheEntity novoNfeDetalhe() {
 		NfeDetalheEntity ent = new NfeDetalheEntity();
 		ent.setNfeCabecalho(this.nfeCabecalho);
-
-		this.nfeDetalheDAO.save(ent);
 
 		/**
 		 * COFINS
@@ -252,9 +312,7 @@ public class ProdutoServicoFormController extends
 		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
 		ndiCofins.setNfeDetalhe(ent);
 
-		this.nfeDetalheImpostoCofinsDAO.save(ndiCofins);
-
-		// ent.setNfeDetalheImpostoCofins(ndiCofins);
+		ent.setNfeDetalheImpostoCofins(ndiCofins);
 
 		/**
 		 * ICMS
@@ -262,8 +320,6 @@ public class ProdutoServicoFormController extends
 
 		NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
 		ndiIcms.setNfeDetalhe(ent);
-
-		this.nfeDetalheImpostoIcmsDAO.save(ndiIcms);
 
 		ent.setNfeDetalheImpostoIcms(ndiIcms);
 
@@ -274,15 +330,13 @@ public class ProdutoServicoFormController extends
 		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
 		ndiIi.setNfeDetalhe(ent);
 
-		this.nfeDetalheImpostoIiDAO.save(ndiIi);
-
-		// ent.setNfeDetalheImpostoIi(ndiIi);
+		ent.setNfeDetalheImpostoIi(ndiIi);
 
 		/**
 		 * IPI
 		 */
 
-		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+		// NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
 
 		/**
 		 * ISSQN
@@ -291,9 +345,7 @@ public class ProdutoServicoFormController extends
 		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
 		ndiIssqn.setNfeDetalhe(ent);
 
-		this.nfeDetalheImpostoIssqnDAO.save(ndiIssqn);
-
-		// ent.setNfeDetalheImpostoIssqn(ndiIssqn);
+		ent.setNfeDetalheImpostoIssqn(ndiIssqn);
 
 		/**
 		 * PIS
@@ -302,9 +354,7 @@ public class ProdutoServicoFormController extends
 		NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
 		ndiPis.setNfeDetalhe(ent);
 
-		this.nfeDetalheImpostoPisDAO.save(ndiPis);
-
-		// ent.setNfeDetalheImpostoPis(ndiPis);
+		ent.setNfeDetalheImpostoPis(ndiPis);
 
 		this.nfeCabecalho.getNfeDetalheList().add(ent);
 

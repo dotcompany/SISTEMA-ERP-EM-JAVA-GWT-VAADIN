@@ -60,6 +60,23 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	@Transactional
+	public List<NfeCabecalhoEntity> listarTodos(List<Serializable> ids) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id IN (:lista)";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("lista", ids);
+
+			List<NfeCabecalhoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeCabecalhoEntity>();
+		}
+	}
+
+	@Transactional
 	public NfeCabecalhoEntity getEntidade(Serializable id) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id = :id";
