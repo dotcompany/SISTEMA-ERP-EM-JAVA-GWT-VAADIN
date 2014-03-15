@@ -2,6 +2,7 @@ package dc.controller.nfe;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +182,19 @@ public class ProdutoServicoFormController extends
 	}
 
 	@Override
+	public void criarNovo() {
+		try {
+			super.criarNovo();
+
+			novoObjeto(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
 			this.nfeCabecalhoDAO.deleteAllByIds(ids);
@@ -239,6 +253,9 @@ public class ProdutoServicoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.nfeCabecalho = new NfeCabecalhoEntity();
+
+				this.subView
+						.carregarSfNfeDetalhe(new ArrayList<NfeDetalheEntity>());
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 
@@ -273,7 +290,7 @@ public class ProdutoServicoFormController extends
 				this.subView.carregarSfNfeDetalhe(auxLista);
 			}
 
-			this.subView.getPanel_3().setVisible(false);
+			// this.subView.getPanel_3().setVisible(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -289,6 +306,10 @@ public class ProdutoServicoFormController extends
 
 	public NfeDetalheEntity adicionarNfeDetalhe() {
 		try {
+			if (this.nfeCabecalho == null || this.nfeCabecalho.getId() == null) {
+				this.nfeCabecalhoDAO.saveOrUpdate(this.nfeCabecalho);
+			}
+
 			NfeDetalheEntity ent = new NfeDetalheEntity();
 			ent.setNfeCabecalho(this.nfeCabecalho);
 
@@ -344,6 +365,8 @@ public class ProdutoServicoFormController extends
 
 			ent.setNfeDetalheImpostoPis(ndiPis);
 
+			this.nfeDetalheDAO.saveOrUpdate(ent);
+
 			return ent;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -360,7 +383,7 @@ public class ProdutoServicoFormController extends
 		try {
 			this.nfeDetalheSelecionado = item;
 
-			this.subView.getPanel_3().setVisible(true);
+			// this.subView.getPanel_3().setVisible(true);
 
 			/**
 			 * COFINS
