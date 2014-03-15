@@ -2322,7 +2322,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 			}
 
 			protected NfeDetalheEntity getNovo() {
-				NfeDetalheEntity detalhe = controller.novoNfeDetalhe();
+				NfeDetalheEntity detalhe = controller.adicionarNfeDetalhe();
 
 				return detalhe;
 			}
@@ -2332,7 +2332,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 				// TODO Auto-generated method stub
 				// super.onSelect(item);
 
-				controller.carregarImpostos(item);
+				controller.selecionarNfeDetalhe(item);
 			}
 
 		};

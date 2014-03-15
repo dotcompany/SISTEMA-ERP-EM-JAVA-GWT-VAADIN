@@ -86,6 +86,12 @@ public class ProdutoServicoFormController extends
 	private NfeCabecalhoEntity nfeCabecalho;
 
 	/**
+	 * 
+	 */
+
+	private List<NfeDetalheEntity> nfeDetalheList;
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -93,6 +99,8 @@ public class ProdutoServicoFormController extends
 		if (this.nfeCabecalho == null) {
 			this.nfeCabecalho = new NfeCabecalhoEntity();
 		}
+
+		this.nfeDetalheList = new ArrayList<NfeDetalheEntity>();
 	}
 
 	@Override
@@ -110,25 +118,14 @@ public class ProdutoServicoFormController extends
 		try {
 			this.nfeCabecalhoDAO.save(this.nfeCabecalho);
 
-			if (!this.nfeCabecalho.getNfeDetalheList().isEmpty()) {
+			if (this.nfeDetalheList != null && !this.nfeDetalheList.isEmpty()) {
 				for (Object obj : this.nfeCabecalho.getNfeDetalheList()) {
 					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+					ent.setNfeCabecalho(this.nfeCabecalho);
 
 					System.out.println(ent.getNumeroItem());
 
 					this.nfeDetalheDAO.save(ent);
-
-					this.nfeDetalheImpostoCofinsDAO.save(ent
-							.getNfeDetalheImpostoCofins());
-					this.nfeDetalheImpostoIcmsDAO.save(ent
-							.getNfeDetalheImpostoIcms());
-					this.nfeDetalheImpostoIiDAO.save(ent
-							.getNfeDetalheImpostoIi());
-					// this.nfeDetalheImpostoIpiDAO.save(ent.getn);
-					this.nfeDetalheImpostoIssqnDAO.save(ent
-							.getNfeDetalheImpostoIssqn());
-					this.nfeDetalheImpostoPisDAO.save(ent
-							.getNfeDetalheImpostoPis());
 				}
 			}
 
@@ -138,7 +135,7 @@ public class ProdutoServicoFormController extends
 
 			mensagemErro(e.getMessage());
 		} finally {
-
+			// novoObjeto(0);
 		}
 	}
 
@@ -247,46 +244,48 @@ public class ProdutoServicoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.nfeCabecalho = new NfeCabecalhoEntity();
-				this.nfeCabecalho
-						.setNfeDetalheList(new ArrayList<NfeDetalheEntity>());
+
+				this.nfeDetalheList = new ArrayList<NfeDetalheEntity>();
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 
-				List<NfeDetalheEntity> auxLista = (List<NfeDetalheEntity>) this.nfeDetalheDAO
+				this.nfeDetalheList = this.nfeDetalheDAO
 						.getLista(this.nfeCabecalho);
 
-				for (Object obj : auxLista) {
-					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+				if (this.nfeDetalheList != null
+						&& !this.nfeDetalheList.isEmpty()) {
+					for (Object obj : this.nfeDetalheList) {
+						NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 
-					NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheImpostoCofinsDAO
-							.getEntidade(ent);
-					ndiCofins.setNfeDetalhe(ent);
-					NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheImpostoIcmsDAO
-							.getEntidade(ent);
-					ndiIcms.setNfeDetalhe(ent);
-					NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheImpostoIiDAO
-							.getEntidade(ent);
-					ndiIi.setNfeDetalhe(ent);
-					// NfeDetalheImpostoIpiEntity ndiIpi =
-					// this.nfeDetalheImpostoIpiDAO.getEntidade(ent);
-					NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheImpostoIssqnDAO
-							.getEntidade(ent);
-					ndiIssqn.setNfeDetalhe(ent);
-					NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheImpostoPisDAO
-							.getEntidade(ent);
-					ndiPis.setNfeDetalhe(ent);
+						NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheImpostoCofinsDAO
+								.getEntidade(ent);
+						ndiCofins.setNfeDetalhe(ent);
+						NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheImpostoIcmsDAO
+								.getEntidade(ent);
+						ndiIcms.setNfeDetalhe(ent);
+						NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheImpostoIiDAO
+								.getEntidade(ent);
+						ndiIi.setNfeDetalhe(ent);
+						// NfeDetalheImpostoIpiEntity ndiIpi =
+						// this.nfeDetalheImpostoIpiDAO.getEntidade(ent);
+						NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheImpostoIssqnDAO
+								.getEntidade(ent);
+						ndiIssqn.setNfeDetalhe(ent);
+						NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheImpostoPisDAO
+								.getEntidade(ent);
+						ndiPis.setNfeDetalhe(ent);
 
-					ent.setNfeDetalheImpostoCofins(ndiCofins);
-					ent.setNfeDetalheImpostoIcms(ndiIcms);
-					ent.setNfeDetalheImpostoIi(ndiIi);
-					ent.setNfeDetalheImpostoIssqn(ndiIssqn);
-					ent.setNfeDetalheImpostoPis(ndiPis);
+						ent.setNfeDetalheImpostoCofins(ndiCofins);
+						ent.setNfeDetalheImpostoIcms(ndiIcms);
+						ent.setNfeDetalheImpostoIi(ndiIi);
+						ent.setNfeDetalheImpostoIssqn(ndiIssqn);
+						ent.setNfeDetalheImpostoPis(ndiPis);
+					}
 				}
 
-				this.nfeCabecalho.setNfeDetalheList(auxLista);
+				// this.nfeCabecalho.setNfeDetalheList(auxLista);
 
-				this.subView.carregarSfNfeDetalhe(this.nfeCabecalho
-						.getNfeDetalheList());
+				this.subView.carregarSfNfeDetalhe(this.nfeDetalheList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -298,109 +297,213 @@ public class ProdutoServicoFormController extends
 	 */
 
 	/**
-	 * ADICIONAR
+	 * @method ADICIONAR NFEDETALHE
 	 */
 
-	public NfeDetalheEntity novoNfeDetalhe() {
-		NfeDetalheEntity ent = new NfeDetalheEntity();
-		ent.setNfeCabecalho(this.nfeCabecalho);
+	public NfeDetalheEntity adicionarNfeDetalhe() {
+		try {
+			NfeDetalheEntity ent = new NfeDetalheEntity();
+			// ent.setNfeCabecalho(this.nfeCabecalho);
 
-		/**
-		 * COFINS
-		 */
+			/**
+			 * COFINS
+			 */
 
-		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
-		ndiCofins.setNfeDetalhe(ent);
+			NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
+			// ndiCofins.setNfeDetalhe(ent);
 
-		ent.setNfeDetalheImpostoCofins(ndiCofins);
+			ent.setNfeDetalheImpostoCofins(ndiCofins);
 
-		/**
-		 * ICMS
-		 */
+			/**
+			 * ICMS
+			 */
 
-		NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
-		ndiIcms.setNfeDetalhe(ent);
+			NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
+			// ndiIcms.setNfeDetalhe(ent);
 
-		ent.setNfeDetalheImpostoIcms(ndiIcms);
+			ent.setNfeDetalheImpostoIcms(ndiIcms);
 
-		/**
-		 * IMPOSTO IMPORTAÇÃO
-		 */
+			/**
+			 * IMPOSTO IMPORTAÇÃO
+			 */
 
-		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
-		ndiIi.setNfeDetalhe(ent);
+			NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
+			// ndiIi.setNfeDetalhe(ent);
 
-		ent.setNfeDetalheImpostoIi(ndiIi);
+			ent.setNfeDetalheImpostoIi(ndiIi);
 
-		/**
-		 * IPI
-		 */
+			/**
+			 * IPI
+			 */
 
-		// NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+			// NfeDetalheImpostoIpiEntity ndiIpi = new
+			// NfeDetalheImpostoIpiEntity();
 
-		/**
-		 * ISSQN
-		 */
+			/**
+			 * ISSQN
+			 */
 
-		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
-		ndiIssqn.setNfeDetalhe(ent);
+			NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
+			// ndiIssqn.setNfeDetalhe(ent);
 
-		ent.setNfeDetalheImpostoIssqn(ndiIssqn);
+			ent.setNfeDetalheImpostoIssqn(ndiIssqn);
 
-		/**
-		 * PIS
-		 */
+			/**
+			 * PIS
+			 */
 
-		NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
-		ndiPis.setNfeDetalhe(ent);
+			NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
+			// ndiPis.setNfeDetalhe(ent);
 
-		ent.setNfeDetalheImpostoPis(ndiPis);
+			ent.setNfeDetalheImpostoPis(ndiPis);
 
-		this.nfeCabecalho.getNfeDetalheList().add(ent);
+			this.nfeDetalheList.add(ent);
 
-		return ent;
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new NfeDetalheEntity();
+		}
 	}
 
 	/**
-	 * CARREGAR
+	 * @method SELECIONAR NFEDETALHE
 	 */
 
-	public void carregarImpostos(NfeDetalheEntity item) {
-		/**
-		 * COFINS
-		 */
+	public void selecionarNfeDetalhe(NfeDetalheEntity item) {
+		try {
+			/**
+			 * COFINS
+			 */
 
-		carregarCofins(item);
+			NfeDetalheImpostoCofinsEntity entCofins = item
+					.getNfeDetalheImpostoCofins();
 
-		/**
-		 * ICMS
-		 */
+			this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
+			this.subView.getTfQtdVendidaCofins().setValue(
+					entCofins.getQuantidadeVendida().toString());
+			this.subView.getTfBaseCalculoBcCofins().setValue(
+					entCofins.getBaseCalculoCofins().toString());
+			this.subView.getTfAliquotaPercentualCofins().setValue(
+					entCofins.getAliquotaCofinsPercentual().toString());
+			this.subView.getTfAliquotaReaisCofins().setValue(
+					entCofins.getAliquotaCofinsReais().toString());
+			this.subView.getTfValorCofins().setValue(
+					entCofins.getValorCofins().toString());
 
-		carregarIcms(item);
+			/**
+			 * ICMS
+			 */
 
-		/**
-		 * IMPOSTO IMPORTAÇÃO
-		 */
+			NfeDetalheImpostoIcmsEntity entIcms = item
+					.getNfeDetalheImpostoIcms();
 
-		carregarIi(item);
+			this.subView.getTfOrigemMercadoriaIcms().setValue(
+					entIcms.getOrigemMercadoria());
+			this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
+			this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
+			this.subView.getTfModalidadeBcIcms().setValue(
+					entIcms.getModalidadeBcIcms());
+			this.subView.getTfTaxaReducaoBcIcms().setValue(
+					entIcms.getTaxaReducaoBcIcms().toString());
+			this.subView.getTfBaseCalculoBcIcms().setValue(
+					entIcms.getBaseCalculoIcms().toString());
+			this.subView.getTfAliquotaIcms().setValue(
+					entIcms.getAliquotaIcms().toString());
+			this.subView.getTfValorIcms().setValue(
+					entIcms.getValorIcms().toString());
+			this.subView.getTfMotivoDesoneracaoIcms().setValue(
+					entIcms.getMotivoDesoneracaoIcms());
+			this.subView.getTfModalidadeBcStIcms().setValue(
+					entIcms.getModalidadeBcIcmsSt());
+			this.subView.getTfPercentualMvaStIcms().setValue(
+					entIcms.getPercentualMvaIcmsSt().toString());
+			// this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
+			this.subView.getTfBaseCalculoStIcms().setValue(
+					entIcms.getValorBaseCalculoIcmsSt().toString());
+			this.subView.getTfAliquotaStIcms().setValue(
+					entIcms.getAliquotaIcmsSt().toString());
+			this.subView.getTfValorStIcms().setValue(
+					entIcms.getValorIcmsSt().toString());
+			this.subView.getTfBcStRetidoIcms().setValue(
+					entIcms.getValorBcIcmsStRetido().toString());
+			this.subView.getTfValorStRetidoIcms().setValue(
+					entIcms.getValorIcmsStRetido().toString());
+			this.subView.getTfBcStDestinoIcms().setValue(
+					entIcms.getValorBcIcmsStDestino().toString());
+			this.subView.getTfValorStDestinoIcms().setValue(
+					entIcms.getValorIcmsStDestino().toString());
+			this.subView.getTfAliquotaCreditoSnIcms().setValue(
+					entIcms.getAliquotaCreditoIcmsSn().toString());
+			this.subView.getTfValorCreditoSnIcms().setValue(
+					entIcms.getValorCreditoIcmsSn().toString());
+			this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
+					entIcms.getPercentualBcOperacaoPropria().toString());
+			this.subView.getTfUfStIcms().setValue(entIcms.getUfSt());
 
-		/**
-		 * IPI
-		 */
+			/**
+			 * IMPOSTO IMPORTAÇÃO
+			 */
 
-		carregarIpi(item);
+			NfeDetalheImpostoIiEntity entIi = item.getNfeDetalheImpostoIi();
 
-		/**
-		 * ISSQN
-		 */
+			this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
+					entIi.getValorBcIi().toString());
+			this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
+					entIi.getValorDespesasAduaneiras().toString());
+			this.subView.getTfValorImpostoImportacao().setValue(
+					entIi.getValorImpostoImportacao().toString());
+			this.subView.getTfIofImpostoImportacao().setValue(
+					entIi.getValorIof().toString());
 
-		carregarIssqn(item);
+			/**
+			 * IPI
+			 */
 
-		/**
-		 * PIS
-		 */
+			// NfeDetalheImpostoIpiEntity ndiIpi = new
+			// NfeDetalheImpostoIpiEntity();
 
-		carregarPis(item);
+			/**
+			 * ISSQN
+			 */
+
+			NfeDetalheImpostoIssqnEntity entIssqn = item
+					.getNfeDetalheImpostoIssqn();
+
+			this.subView.getTfBaseCalculoBcIssqn().setValue(
+					entIssqn.getBaseCalculoIssqn().toString());
+			this.subView.getTfAliquotaIssqn().setValue(
+					entIssqn.getAliquotaIssqn().toString());
+			this.subView.getTfValorIssqn().setValue(
+					entIssqn.getValorIssqn().toString());
+			this.subView.getTfMunicipioIssqn().setValue(
+					entIssqn.getMunicipioIssqn().toString());
+			this.subView.getTfItemListaServicosIssqn().setValue(
+					entIssqn.getItemListaServicos().toString());
+			this.subView.getTfTributacaoIssqn().setValue(
+					entIssqn.getTributacaoIssqn());
+
+			/**
+			 * PIS
+			 */
+
+			NfeDetalheImpostoPisEntity entPis = item.getNfeDetalheImpostoPis();
+
+			this.subView.getTfCstPis().setValue(entPis.getCstPis());
+			this.subView.getTfQtdVendidaPis().setValue(
+					entPis.getQuantidadeVendida().toString());
+			this.subView.getTfBaseCalculoBcPis().setValue(
+					entPis.getValorBaseCalculoPis().toString());
+			this.subView.getTfAliquotaPercentualPis().setValue(
+					entPis.getAliquotaPisPercentual().toString());
+			this.subView.getTfAliquotaReaisPis().setValue(
+					entPis.getAliquotaPisReais().toString());
+			this.subView.getTfValorPis().setValue(
+					entPis.getValorPis().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void carregarCofins(NfeDetalheEntity item) {
