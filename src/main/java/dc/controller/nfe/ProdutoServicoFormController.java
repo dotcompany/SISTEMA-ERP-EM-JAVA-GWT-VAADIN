@@ -1,7 +1,6 @@
 package dc.controller.nfe;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +85,6 @@ public class ProdutoServicoFormController extends
 	private NfeCabecalhoEntity nfeCabecalho;
 
 	/**
-	 * 
-	 */
-
-	private List<NfeDetalheEntity> nfeDetalheList;
-
-	/**
 	 * CONSTRUTOR
 	 */
 
@@ -99,8 +92,6 @@ public class ProdutoServicoFormController extends
 		if (this.nfeCabecalho == null) {
 			this.nfeCabecalho = new NfeCabecalhoEntity();
 		}
-
-		this.nfeDetalheList = new ArrayList<NfeDetalheEntity>();
 	}
 
 	@Override
@@ -116,16 +107,18 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.nfeCabecalhoDAO.save(this.nfeCabecalho);
+			this.nfeCabecalhoDAO.saveOrUpdate(this.nfeCabecalho);
 
-			if (this.nfeDetalheList != null && !this.nfeDetalheList.isEmpty()) {
-				for (Object obj : this.nfeCabecalho.getNfeDetalheList()) {
+			List auxLista = this.subView.getSfNfeDetalhe().getDados();
+
+			if (auxLista != null && !auxLista.isEmpty()) {
+				for (Object obj : auxLista) {
 					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 					ent.setNfeCabecalho(this.nfeCabecalho);
 
-					System.out.println(ent.getNumeroItem());
+					// System.out.println(ent.getNumeroItem());
 
-					this.nfeDetalheDAO.save(ent);
+					this.nfeDetalheDAO.saveOrUpdate(ent);
 				}
 			}
 
@@ -136,6 +129,7 @@ public class ProdutoServicoFormController extends
 			mensagemErro(e.getMessage());
 		} finally {
 			// novoObjeto(0);
+			novoObjeto(0);
 		}
 	}
 
@@ -244,17 +238,13 @@ public class ProdutoServicoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.nfeCabecalho = new NfeCabecalhoEntity();
-
-				this.nfeDetalheList = new ArrayList<NfeDetalheEntity>();
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 
-				this.nfeDetalheList = this.nfeDetalheDAO
-						.getLista(this.nfeCabecalho);
+				List auxLista = this.nfeDetalheDAO.getLista(this.nfeCabecalho);
 
-				if (this.nfeDetalheList != null
-						&& !this.nfeDetalheList.isEmpty()) {
-					for (Object obj : this.nfeDetalheList) {
+				if (auxLista != null && !auxLista.isEmpty()) {
+					for (Object obj : auxLista) {
 						NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 
 						NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheImpostoCofinsDAO
@@ -285,7 +275,7 @@ public class ProdutoServicoFormController extends
 
 				// this.nfeCabecalho.setNfeDetalheList(auxLista);
 
-				this.subView.carregarSfNfeDetalhe(this.nfeDetalheList);
+				this.subView.carregarSfNfeDetalhe(auxLista);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -303,14 +293,14 @@ public class ProdutoServicoFormController extends
 	public NfeDetalheEntity adicionarNfeDetalhe() {
 		try {
 			NfeDetalheEntity ent = new NfeDetalheEntity();
-			// ent.setNfeCabecalho(this.nfeCabecalho);
+			ent.setNfeCabecalho(this.nfeCabecalho);
 
 			/**
 			 * COFINS
 			 */
 
 			NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
-			// ndiCofins.setNfeDetalhe(ent);
+			ndiCofins.setNfeDetalhe(ent);
 
 			ent.setNfeDetalheImpostoCofins(ndiCofins);
 
@@ -319,7 +309,7 @@ public class ProdutoServicoFormController extends
 			 */
 
 			NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
-			// ndiIcms.setNfeDetalhe(ent);
+			ndiIcms.setNfeDetalhe(ent);
 
 			ent.setNfeDetalheImpostoIcms(ndiIcms);
 
@@ -328,7 +318,7 @@ public class ProdutoServicoFormController extends
 			 */
 
 			NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
-			// ndiIi.setNfeDetalhe(ent);
+			ndiIi.setNfeDetalhe(ent);
 
 			ent.setNfeDetalheImpostoIi(ndiIi);
 
@@ -344,7 +334,7 @@ public class ProdutoServicoFormController extends
 			 */
 
 			NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
-			// ndiIssqn.setNfeDetalhe(ent);
+			ndiIssqn.setNfeDetalhe(ent);
 
 			ent.setNfeDetalheImpostoIssqn(ndiIssqn);
 
@@ -353,11 +343,9 @@ public class ProdutoServicoFormController extends
 			 */
 
 			NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
-			// ndiPis.setNfeDetalhe(ent);
+			ndiPis.setNfeDetalhe(ent);
 
 			ent.setNfeDetalheImpostoPis(ndiPis);
-
-			this.nfeDetalheList.add(ent);
 
 			return ent;
 		} catch (Exception e) {
