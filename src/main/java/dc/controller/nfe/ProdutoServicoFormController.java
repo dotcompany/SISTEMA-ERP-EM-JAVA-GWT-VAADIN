@@ -1,12 +1,14 @@
 package dc.controller.nfe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
@@ -116,8 +118,6 @@ public class ProdutoServicoFormController extends
 					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 					ent.setNfeCabecalho(this.nfeCabecalho);
 
-					// System.out.println(ent.getNumeroItem());
-
 					this.nfeDetalheDAO.saveOrUpdate(ent);
 				}
 			}
@@ -128,7 +128,6 @@ public class ProdutoServicoFormController extends
 
 			mensagemErro(e.getMessage());
 		} finally {
-			// novoObjeto(0);
 			novoObjeto(0);
 		}
 	}
@@ -359,8 +358,12 @@ public class ProdutoServicoFormController extends
 	 * @method SELECIONAR NFEDETALHE
 	 */
 
+	private NfeDetalheEntity nfeDetalheSelecionado;
+
 	public void selecionarNfeDetalhe(NfeDetalheEntity item) {
 		try {
+			this.nfeDetalheSelecionado = item;
+
 			/**
 			 * COFINS
 			 */
@@ -492,6 +495,53 @@ public class ProdutoServicoFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void atualizarCofins(String id, ValueChangeEvent event) {
+		// System.out.println(event);
+
+		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheSelecionado
+				.getNfeDetalheImpostoCofins();
+
+		String s = event.getProperty().getValue().toString().trim();
+
+		switch (id) {
+		case "tfCstCofins":
+			ndiCofins.setCstCofins(s);
+
+			break;
+		case "tfQtdVendidaCofins":
+			ndiCofins.setQuantidadeVendida(new BigDecimal(s));
+
+			break;
+		case "tfBaseCalculoBcCofins":
+			ndiCofins.setBaseCalculoCofins(new BigDecimal(s));
+
+			break;
+		case "tfAliquotaPercentualCofins":
+			ndiCofins.setAliquotaCofinsPercentual(new BigDecimal(s));
+
+			break;
+		case "tfAliquotaReaisCofins":
+			ndiCofins.setAliquotaCofinsReais(new BigDecimal(s));
+
+			break;
+		case "tfValorCofins":
+			ndiCofins.setValorCofins(new BigDecimal(s));
+
+			break;
+		}
+
+		Integer index = this.subView.getSfNfeDetalhe().getDados()
+				.indexOf(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.remove(this.nfeDetalheSelecionado);
+
+		this.nfeDetalheSelecionado.setNfeDetalheImpostoCofins(ndiCofins);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.add(index, this.nfeDetalheSelecionado);
 	}
 
 	private void carregarCofins(NfeDetalheEntity item) {
