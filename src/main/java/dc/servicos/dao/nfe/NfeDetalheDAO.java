@@ -1,5 +1,6 @@
 package dc.servicos.dao.nfe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,23 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 			return auxLista;
 		} catch (Exception e) {
 			return new ArrayList<NfeDetalheEntity>();
+		}
+	}
+
+	@Transactional
+	public NfeDetalheEntity getEntidade(Serializable itemId) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeDetalhe.id = :itemId";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("itemId", itemId);
+
+			NfeDetalheEntity entidade = (NfeDetalheEntity) query.uniqueResult();
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDetalheEntity();
 		}
 	}
 

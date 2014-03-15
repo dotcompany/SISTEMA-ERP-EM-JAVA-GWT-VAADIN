@@ -2446,9 +2446,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 					private static final long serialVersionUID = 1L;
 
 					@Override
-					public Field<?> createField(Container container,
-							Object itemId, Object propertyId,
-							Component uiContext) {
+					public Field<?> createField(final Container container,
+							final Object itemId, final Object propertyId,
+							final Component uiContext) {
 						TextField field = new TextField();
 						field.setSizeFull();
 

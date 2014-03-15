@@ -709,4 +709,8 @@ public class ProdutoServicoFormController extends
 				.getEntidade(item);
 	}
 
+	public void teste(Object obj1, Object obj2, Object obj3, Object obj4) {
+		System.out.println(obj1 + " " + obj2 + " " + obj3 + " " + obj4);
+	}
+
 }
