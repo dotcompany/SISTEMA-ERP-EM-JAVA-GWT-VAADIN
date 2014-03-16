@@ -385,6 +385,40 @@ public class ProdutoServicoFormController extends
 
 			// this.subView.getPanel_3().setVisible(true);
 
+			NfeCabecalhoEntity nfeCabecalho = item.getNfeCabecalho();
+
+			// this.subView.getTfOperacaoFiscalId().setValue(nfeCabecalho);
+			// this.subView.getTfOperacaoFiscal().setValue(nfeCabecalho.get);
+			// this.subView.getTfVenda().setValue(nfeCabecalho.getVendaCabecalho().toString());
+			this.subView.getTfModeloNotaFiscal().setValue(
+					nfeCabecalho.getCodigoModelo());
+			this.subView.getTfNaturezaOperacao().setValue(
+					nfeCabecalho.getNaturezaOperacao());
+			this.subView.getTfChaveAcesso().setValue(
+					nfeCabecalho.getChaveAcesso());
+			this.subView.getTfDigitoChaveAcesso().setValue(
+					nfeCabecalho.getDigitoChaveAcesso());
+			this.subView.getTfCodigoNumerico().setValue(
+					nfeCabecalho.getCodigoNumerico());
+			this.subView.getTfSerie().setValue(nfeCabecalho.getSerie());
+			this.subView.getTfNumero().setValue(nfeCabecalho.getNumero());
+			// this.subView.getTfDataEmissao().setValue(
+			// nfeCabecalho.getDataEmissao().toString());
+			// this.subView.getTfDataEntradaSaida().setValue(
+			// nfeCabecalho.getDataEntradaSaida().toString());
+			// this.subView.getTfHoraEntradaSaida().setValue(
+			// nfeCabecalho.getHoraEntradaSaida());
+			this.subView.getTfTipoOperacao().setValue(
+					nfeCabecalho.getTipoOperacao());
+			this.subView.getTfTipoEmissao().setValue(
+					nfeCabecalho.getTipoEmissao());
+			this.subView.getTfFinalidadeEmissao().setValue(
+					nfeCabecalho.getFinalidadeEmissao());
+			this.subView.getTfFormatoImpressaoDanfe().setValue(
+					nfeCabecalho.getFormatoImpressaoDanfe());
+			this.subView.getTfFormaPagamento().setValue(
+					nfeCabecalho.getIndicadorFormaPagamento());
+
 			/**
 			 * COFINS
 			 */
@@ -518,6 +552,10 @@ public class ProdutoServicoFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void adicionarNfeCabecalho(String id, ValueChangeEvent event) {
+		System.out.println("cabecalho ...");
 	}
 
 	public void adicionarCofins(String id, ValueChangeEvent event) {
