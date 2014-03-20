@@ -29,7 +29,7 @@ public class MaterialServicoDAO extends AbstractCrudDAO<MaterialServico>{
 	}
 	
 	@Transactional
-	public List<MaterialServico> findByEntradaServico(OrdemServico ordemServico){
+	public List<MaterialServico> findByMaterialServico(OrdemServico ordemServico){
 
 		List<MaterialServico> lista = new ArrayList<>();
 

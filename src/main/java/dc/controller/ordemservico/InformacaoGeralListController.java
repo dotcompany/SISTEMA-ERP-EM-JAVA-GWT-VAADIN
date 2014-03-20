@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class InformacaoGeralListController extends
-		CRUDListController<InformacaoGeralEntity> {
+		CRUDListController<InformacaoGeral> {
 
 	/**
 	 * 
@@ -58,21 +59,20 @@ public class InformacaoGeralListController extends
 	}
 
 	@Override
-	protected List<InformacaoGeralEntity> pesquisa(String valor) {
+	protected List<InformacaoGeral> pesquisa(String valor) {
 		try {
-			List<InformacaoGeralEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<InformacaoGeral> auxLista = this.pDAO.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<InformacaoGeralEntity>();
+			return new ArrayList<InformacaoGeral>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<InformacaoGeralEntity> getFormController() {
+	protected CRUDFormController<InformacaoGeral> getFormController() {
 		return this.pController;
 	}
 
@@ -88,15 +88,15 @@ public class InformacaoGeralListController extends
 	}
 
 	@Override
-	protected List<InformacaoGeralEntity> pesquisaDefault() {
+	protected List<InformacaoGeral> pesquisaDefault() {
 		try {
-			List<InformacaoGeralEntity> auxLista = this.pDAO.listarTodos();
+			List<InformacaoGeral> auxLista = this.pDAO.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<InformacaoGeralEntity>();
+			return new ArrayList<InformacaoGeral>();
 		}
 	}
 

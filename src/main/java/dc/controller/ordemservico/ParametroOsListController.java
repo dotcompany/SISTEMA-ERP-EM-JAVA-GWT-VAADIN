@@ -26,7 +26,7 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 
 	@Override 
 	public String[] getColunas() {
-		return new String[] {"id"};
+		return new String[] {"id","qtdDiasPadrao","obsDefeitoPadrao","obsPadrao"};
 	}
 
 	@Override

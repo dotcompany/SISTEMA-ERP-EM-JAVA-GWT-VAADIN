@@ -9,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,6 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Cliente;
-import dc.entidade.suprimentos.PedidoDetalhe;
 
 @Entity
 @Table(name = "os_ordem_servico")
@@ -119,20 +119,20 @@ public class OrdemServico extends AbstractModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataExclusao;
 
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL)
-//	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<EntradaServico> itensEntradaServico = new ArrayList<EntradaServico>();
 	
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL)
-//	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<VendaPeca> itensVendaPeca = new ArrayList<VendaPeca>();
 
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL)
-//	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<MaterialServico> itensMaterialServico = new ArrayList<MaterialServico>();
 	
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL)
-//	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<AcessorioOs> itensAcessorioOs = new ArrayList<AcessorioOs>();
 	
 	public Integer getId() {
@@ -287,6 +287,10 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.itensMaterialServico = itensMaterialServico;
 	}
 
+	public BigDecimal getValorLucroParcial() {
+		return valorLucroParcial;
+	}
+
 	public List<AcessorioOs> getItensAcessorioOs() {
 		return itensAcessorioOs;
 	}
@@ -294,7 +298,6 @@ public class OrdemServico extends AbstractModel<Integer> {
 	public void setItensAcessorioOs(List<AcessorioOs> itensAcessorioOs) {
 		this.itensAcessorioOs = itensAcessorioOs;
 	}
-	
 
 	public EntradaServico adicionarEntradaServico(EntradaServico entradaServico){
 		getItensEntradaServico().add(entradaServico);

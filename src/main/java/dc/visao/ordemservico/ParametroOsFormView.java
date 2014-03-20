@@ -77,65 +77,74 @@ public class ParametroOsFormView extends CustomComponent {
 
 		cbLimparBD = ComponentUtil.buildComboBox("Limpar banco de dados automaticamente");
 		gridLayout_1.addComponent(cbLimparBD,0,1,1,1);
-		
+
 		for (SimNao value : SimNao.values()) {
-			cbLimparBD.addItem(value);
+			cbLimparBD.addItem(value.valor);
+			cbLimparBD.setItemCaption(value.valor, value.label);
 		}
 		
 		cbVendedorAtendente = ComponentUtil.buildComboBox("Usar vendedor\\atendente");
 		gridLayout_1.addComponent(cbVendedorAtendente,2,1,3,1);
 
 		for (SimNao value : SimNao.values()) {
-			cbVendedorAtendente.addItem(value);
+			cbVendedorAtendente.addItem(value.valor);
+			cbVendedorAtendente.setItemCaption(value.valor, value.label);
 		}
 
 		cbVendedorProduto= ComponentUtil.buildComboBox("Usar vendedor no lançamento de produto");
 		gridLayout_1.addComponent(cbVendedorProduto,4,1,5,1);
 
 		for (SimNao value : SimNao.values()) {
-			cbVendedorProduto.addItem(value);
+			cbVendedorProduto.addItem(value.valor);
+			cbVendedorProduto.setItemCaption(value.valor, value.label);
 		}
 
 		cbValorPagoPeca= ComponentUtil.buildComboBox("Usar campo valor pago na peça\\produto");
 		gridLayout_1.addComponent(cbValorPagoPeca,0,2,1,2);
 
 		for (SimNao value : SimNao.values()) {
-			cbValorPagoPeca.addItem(value);
+			cbValorPagoPeca.addItem(value.valor);
+			cbValorPagoPeca.setItemCaption(value.valor, value.label);
 		}
 
 		cbDesconto= ComponentUtil.buildComboBox("Usar desconto geral");
 		gridLayout_1.addComponent(cbDesconto,2,2,3,2);
 
 		for (SimNao value : SimNao.values()) {
-			cbDesconto.addItem(value);
+			cbDesconto.addItem(value.valor);
+			cbDesconto.setItemCaption(value.valor, value.label);
 		}
 
 		cbTecnicoProduto= ComponentUtil.buildComboBox("Usar técnico no lançamento de produto");
 		gridLayout_1.addComponent(cbTecnicoProduto,4,2,5,2);
 
 		for (SimNao value : SimNao.values()) {
-			cbTecnicoProduto.addItem(value);
+			cbTecnicoProduto.addItem(value.valor);
+			cbTecnicoProduto.setItemCaption(value.valor, value.label);
 		}
 
 		cbVendedorServico= ComponentUtil.buildComboBox("Usar vendedor no lançamento de seviço");
 		gridLayout_1.addComponent(cbVendedorServico,0,3,1,3);
 
 		for (SimNao value : SimNao.values()) {
-			cbVendedorServico.addItem(value);
+			cbVendedorServico.addItem(value.valor);
+			cbVendedorServico.setItemCaption(value.valor, value.label);
 		}
 
 		cbOsSimplificada= ComponentUtil.buildComboBox("Usar O.S simplificada");
 		gridLayout_1.addComponent(cbOsSimplificada,2,3,3,3);
 
 		for (SimNao value : SimNao.values()) {
-			cbOsSimplificada.addItem(value);
+			cbOsSimplificada.addItem(value.valor);
+			cbOsSimplificada.setItemCaption(value.valor, value.label);
 		}
 
 		cbProximaRevisao = ComponentUtil.buildComboBox("Perguntar quantidade de dias próxima revisão");
 		gridLayout_1.addComponent(cbProximaRevisao,4,3,5,3);
 
 		for (SimNao value : SimNao.values()) {
-			cbProximaRevisao.addItem(value);
+			cbProximaRevisao.addItem(value.valor);
+			cbProximaRevisao.setItemCaption(value.valor, value.label);
 		}
 
 		tfDiasPadrao = ComponentUtil.buildNumericField("Quantidade dias padrão");
@@ -150,7 +159,7 @@ public class ParametroOsFormView extends CustomComponent {
 		// Baixa de produto no estoque
 		optBaixaProduto = new OptionGroup();
 		optBaixaProduto.setStyleName("horizontal");
-		optBaixaProduto.setCaption("Baixax produto no estoque");
+		optBaixaProduto.setCaption("Baixar produto no estoque");
 		optBaixaProduto.setImmediate(false);
 		optBaixaProduto.setWidth("-1px");
 		optBaixaProduto.setHeight("-1px");
@@ -158,7 +167,7 @@ public class ParametroOsFormView extends CustomComponent {
 		optBaixaProduto.setItemCaption("1", "No lançamento do produto");
 		optBaixaProduto.addItem("2");
 		optBaixaProduto.setItemCaption("2", "Na efetivação da O.S");
-		gridLayout_1.addComponent(optBaixaProduto,0,5,1,5);
+		gridLayout_1.addComponent(optBaixaProduto,0,5,4,5);
 
 		taDefeitoApresentado = ComponentUtil.buildTextArea("Obs. defeito apresentado padrão");
 		gridLayout_1.addComponent(taDefeitoApresentado,0,6,1,7);
@@ -171,7 +180,7 @@ public class ParametroOsFormView extends CustomComponent {
 
 		subForms.addTab(gridLayout_1, "Ordem serviço", null);
 	}
-	
+
 	public enum SimNao {
 
 		SIM("Sim", true), NAO("Não", false);
@@ -202,10 +211,139 @@ public class ParametroOsFormView extends CustomComponent {
 			return label;
 		}
 
+		
 		@Override
 		public String toString() {
 			return label;
 		}
+	}
+
+	public OptionGroup getOptBaixaProduto() {
+		return optBaixaProduto;
+	}
+
+	public void setOptBaixaProduto(OptionGroup optBaixaProduto) {
+		this.optBaixaProduto = optBaixaProduto;
+	}
+
+	public ComboBox getCbLimparBD() {
+		return cbLimparBD;
+	}
+
+	public void setCbLimparBD(ComboBox cbLimparBD) {
+		this.cbLimparBD = cbLimparBD;
+	}
+
+	public ComboBox getCbVendedorProduto() {
+		return cbVendedorProduto;
+	}
+
+	public void setCbVendedorProduto(ComboBox cbVendedorProduto) {
+		this.cbVendedorProduto = cbVendedorProduto;
+	}
+
+	public ComboBox getCbValorPagoPeca() {
+		return cbValorPagoPeca;
+	}
+
+	public void setCbValorPagoPeca(ComboBox cbValorPagoPeca) {
+		this.cbValorPagoPeca = cbValorPagoPeca;
+	}
+
+	public ComboBox getCbDesconto() {
+		return cbDesconto;
+	}
+
+	public void setCbDesconto(ComboBox cbDesconto) {
+		this.cbDesconto = cbDesconto;
+	}
+
+	public ComboBox getCbTecnicoProduto() {
+		return cbTecnicoProduto;
+	}
+
+	public void setCbTecnicoProduto(ComboBox cbTecnicoProduto) {
+		this.cbTecnicoProduto = cbTecnicoProduto;
+	}
+
+	public ComboBox getCbVendedorAtendente() {
+		return cbVendedorAtendente;
+	}
+
+	public void setCbVendedorAtendente(ComboBox cbVendedorAtendente) {
+		this.cbVendedorAtendente = cbVendedorAtendente;
+	}
+
+	public ComboBox getCbVendedorServico() {
+		return cbVendedorServico;
+	}
+
+	public void setCbVendedorServico(ComboBox cbVendedorServico) {
+		this.cbVendedorServico = cbVendedorServico;
+	}
+
+	public ComboBox getCbOsSimplificada() {
+		return cbOsSimplificada;
+	}
+
+	public void setCbOsSimplificada(ComboBox cbOsSimplificada) {
+		this.cbOsSimplificada = cbOsSimplificada;
+	}
+
+	public ComboBox getCbProximaRevisao() {
+		return cbProximaRevisao;
+	}
+
+	public void setCbProximaRevisao(ComboBox cbProximaRevisao) {
+		this.cbProximaRevisao = cbProximaRevisao;
+	}
+
+	public TextField getTfMatricialLinhas() {
+		return tfMatricialLinhas;
+	}
+
+	public void setTfMatricialLinhas(TextField tfMatricialLinhas) {
+		this.tfMatricialLinhas = tfMatricialLinhas;
+	}
+
+	public TextField getTfEntrelinhas() {
+		return tfEntrelinhas;
+	}
+
+	public void setTfEntrelinhas(TextField tfEntrelinhas) {
+		this.tfEntrelinhas = tfEntrelinhas;
+	}
+
+	public TextField getTfDiasPadrao() {
+		return tfDiasPadrao;
+	}
+
+	public void setTfDiasPadrao(TextField tfDiasPadrao) {
+		this.tfDiasPadrao = tfDiasPadrao;
+	}
+
+	public TextArea getTaDefeitoApresentado() {
+		return taDefeitoApresentado;
+	}
+
+	public void setTaDefeitoApresentado(TextArea taDefeitoApresentado) {
+		this.taDefeitoApresentado = taDefeitoApresentado;
+	}
+
+	public TextArea getTaObsPadrao() {
+		return taObsPadrao;
+	}
+
+	public void setTaObsPadrao(TextArea taObsPadrao) {
+		this.taObsPadrao = taObsPadrao;
+	}
+
+	public TextArea getTaObsPadraoSimpes() {
+		return taObsPadraoSimpes;
+	}
+
+	public void setTaObsPadraoSimpes(TextArea taObsPadraoSimpes) {
+		this.taObsPadraoSimpes = taObsPadraoSimpes;
 	}
 
 }

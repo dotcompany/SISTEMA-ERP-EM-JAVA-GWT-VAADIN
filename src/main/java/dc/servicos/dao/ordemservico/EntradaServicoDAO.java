@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.EntradaServico;
-import dc.entidade.ordemservico.OrcamentoOs;
-import dc.entidade.ordemservico.OrcamentoOsItem;
 import dc.entidade.ordemservico.OrdemServico;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 

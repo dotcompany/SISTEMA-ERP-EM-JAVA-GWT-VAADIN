@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -22,8 +23,7 @@ import dc.visao.ordemservico.InformacaoGeralFormView;
 
 @Controller
 @Scope("prototype")
-public class InformacaoGeralFormController extends
-		CRUDFormController<InformacaoGeralEntity> {
+public class InformacaoGeralFormController extends CRUDFormController<InformacaoGeral> {
 
 	/**
 	 * 

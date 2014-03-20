@@ -12,7 +12,6 @@ import com.vaadin.ui.Component;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.ordemservico.ModeloFormView;
 import dc.visao.ordemservico.SubGrupoFormView;
 import dc.entidade.ordemservico.Grupo;
 import dc.entidade.ordemservico.SubGrupo;

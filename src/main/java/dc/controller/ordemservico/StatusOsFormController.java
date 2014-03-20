@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.StatusOsFormView;
 import dc.entidade.ordemservico.StatusOs;

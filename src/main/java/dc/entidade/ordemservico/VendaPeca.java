@@ -80,7 +80,7 @@ public class VendaPeca extends AbstractModel<Integer> {
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 
-	@Column(name = "vlr_desconto")
+	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
 
 	public Integer getId() {

@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.comercial.ItemOrcamento;
-import dc.entidade.comercial.Orcamento;
 import dc.entidade.ordemservico.OrcamentoOs;
 import dc.entidade.ordemservico.OrcamentoOsItem;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;

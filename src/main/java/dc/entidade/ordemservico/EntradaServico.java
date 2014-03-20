@@ -1,6 +1,7 @@
 package dc.entidade.ordemservico;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -20,6 +23,7 @@ import org.hibernate.search.annotations.Field;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
@@ -54,10 +58,12 @@ public class EntradaServico extends AbstractModel<Integer> {
 	@JoinColumn(name = "id_servico", referencedColumnName = "id")
 	private ServicoOs servico;
 	
-	@Field
+	@Temporal(TemporalType.DATE)
 	@Caption("DATA GARANTIA")
 	@Column(name = "data_garantia")
-	private String dataGarantia;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataGarantia;
 
 	@Field
 	@Caption("HORA TRABALHADA")
@@ -133,11 +139,11 @@ public class EntradaServico extends AbstractModel<Integer> {
 		this.servico = servico;
 	}
 
-	public String getDataGarantia() {
+	public Date getDataGarantia() {
 		return dataGarantia;
 	}
 
-	public void setDataGarantia(String dataGarantia) {
+	public void setDataGarantia(Date dataGarantia) {
 		this.dataGarantia = dataGarantia;
 	}
 

@@ -24,7 +24,7 @@ import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
 
 @Entity
-@Table(name = "os_entrada_servico")
+@Table(name = "os_material_servico")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class MaterialServico extends AbstractModel<Integer> {

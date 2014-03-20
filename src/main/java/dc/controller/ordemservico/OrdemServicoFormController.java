@@ -16,10 +16,15 @@ import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.ordemservico.Acessorio;
 import dc.entidade.ordemservico.AcessorioOs;
 import dc.entidade.ordemservico.Carro;
+import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.EntradaServico;
+import dc.entidade.ordemservico.Equipamento;
 import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.LaudoTecnico;
+import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.MaterialServico;
+import dc.entidade.ordemservico.Modelo;
+import dc.entidade.ordemservico.Observacao;
 import dc.entidade.ordemservico.OrdemServico;
 import dc.entidade.ordemservico.ServicoOs;
 import dc.entidade.ordemservico.SituacaoServico;
@@ -29,16 +34,19 @@ import dc.entidade.ordemservico.VendaPeca;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.PedidoDetalhe;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.servicos.dao.ordemservico.AcessorioDAO;
+import dc.servicos.dao.ordemservico.AcessorioOsDAO;
 import dc.servicos.dao.ordemservico.CarroDAO;
+import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.EntradaServicoDAO;
+import dc.servicos.dao.ordemservico.EquipamentoDAO;
 import dc.servicos.dao.ordemservico.GarantiaDAO;
 import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.servicos.dao.ordemservico.LaudoTecnicoDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.MaterialServicoDAO;
+import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.servicos.dao.ordemservico.ObservacaoDAO;
 import dc.servicos.dao.ordemservico.OrdemServicoDAO;
 import dc.servicos.dao.ordemservico.ServicoOsDAO;
@@ -87,12 +95,22 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	MarcaDAO marcaDAO;
 
 	@Autowired
+	CorDAO corDAO;
+
+	@Autowired
 	StatusOsDAO statusOsDAO;
 
 	@Autowired
 	TipoServicoDAO tipoServicoDAO;
+
 	@Autowired
 	SituacaoServicoDAO situacaoServicoDAO;
+
+	@Autowired
+	EquipamentoDAO equipamentoDAO;
+
+	@Autowired
+	ModeloDAO modeloDAO;
 
 	@Autowired
 	InformacaoGeralDAO informacaoGeralDAO;
@@ -116,7 +134,13 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	AcessorioDAO acessorioDAO;
 
 	@Autowired
+	AcessorioOsDAO acessorioOsDAO;
+
+	@Autowired
 	ObservacaoDAO observacaoDAO;
+
+	@Autowired
+	OrdemServicoDAO ordemServicoDAO;
 
 	private OrdemServico currentBean;
 
@@ -145,12 +169,10 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			
 			dao.saveOrUpdate(currentBean);
 
-//			salvarInformacaoGeral();	
-//			salvarLaudoTecnico();
-//			salvarEntradaServico();
-//			salvarTransporte();
-//			salvarFatura();
-
+			salvarInformacaoGeral();	
+			salvarLaudoTecnico();
+			salvarObservacao();
+			
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
@@ -227,11 +249,37 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 				};
 
 		this.subView.getCbFormaPagamento().setModel(tipoPagamento);
-		 
+
+		DefaultManyToOneComboModel<Equipamento> equipamento = new DefaultManyToOneComboModel<Equipamento>(EquipamentoListController.class,
+				this.equipamentoDAO, super.getMainController()){
+					@Override
+					public String getCaptionProperty() {
+						return "descricao";
+					}
+				};
+
+		this.subView.getCbEquipamentoGarantia().setModel(equipamento);
+
+		
+		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class,
+				this.marcaDAO, super.getMainController());
+
+		this.subView.getCbMarcaGarantia().setModel(marca);
+		
+		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
+				this.modeloDAO, super.getMainController());
+
+		this.subView.getCbModeloGarantia().setModel(modelo);
+	
+		DefaultManyToOneComboModel<Cor> cor = new DefaultManyToOneComboModel<Cor>(CorListController.class,
+				this.corDAO, super.getMainController());
+
+		this.subView.getCbCorGarantia().setModel(cor);
+
 	}
 
 	public void salvarInformacaoGeral(){
-	//	InformacaoGeral informacaoGeral = informacaoGeralDAO.buscaInformacaoGeral(currentBean);
+//		InformacaoGeral informacaoGeral = informacaoGeralDAO.buscaInformacaoGeral(currentBean);
 //		if(informacaoGeral == null){
 //			informacaoGeral = new InformacaoGeral();
 //		}
@@ -259,6 +307,9 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			if(subView.getCbSituacaoServico()!=null){
 				informacaoGeral.setSituacaoServico(subView.getCbSituacaoServico().getValue());
 			}
+			if(subView.getCbPlaca()!=null){
+				informacaoGeral.setCarro(subView.getCbPlaca().getValue());
+			}
 			if(subView.getCbAtendente()!=null){
 				informacaoGeral.setAtendente(subView.getCbAtendente().getValue());
 			}
@@ -266,7 +317,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 				informacaoGeral.setTelefone(subView.getTfFone().getValue());
 			}
 			if(subView.getTfkm()!=null){
-				informacaoGeral.setTelefone(subView.getTfkm().getValue());
+				informacaoGeral.setKmHorRodado(Integer.parseInt(subView.getTfkm().getValue()));
 			}
 			if(subView.getPdfProximaRevisao()!=null){
 				informacaoGeral.setDataProximaRevisao(subView.getPdfProximaRevisao().getValue());
@@ -284,7 +335,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 				informacaoGeral.setDataEntrega(subView.getPdfEntrega().getValue());
 			}
 			informacaoGeral.setOrdemServico(currentBean);
-//			informacaoGeralDAO.saveOrUpdate(informacaoGeral);
+			informacaoGeralDAO.saveOrUpdate(informacaoGeral);
 		}
 
 	}
@@ -309,180 +360,122 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 				laudoTecnico.setObservacaoLaudoFerramentas((String)subView.getTaObservacaoLaudoFerramentas().getValue());
 			}
 			laudoTecnico.setOrdemServico(currentBean);
-		//	laudoTecnicoDAO.saveOrUpdate(laudoTecnico);
+			laudoTecnicoDAO.saveOrUpdate(laudoTecnico);
 		}
 	}
 	
-
+	public void salvarObservacao(){
+		
+		Observacao observacao = new Observacao();
+		
+		if(currentBean!=null){
+			if(subView.getTaObservacaoOS()!=null){
+				observacao.setObservacaoOs(subView.getTaObservacaoOS().getValue());
+			}
+			if(subView.getTaObservacaoLocal()!=null){
+				observacao.setFicandoLocal(subView.getTaObservacaoLocal().getValue());
+			}
+			observacao.setOrdemServico(currentBean);
+			observacaoDAO.saveOrUpdate(observacao);
+		}
+	}
+	
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find((Integer) id);
 		
-//		subView.getCbTipoServico().setValue(currentBean.);
+		subView.getCbCliente().setValue(currentBean.getCliente());
 		
-		
-//		subView.carregarFormaPagamento();
-//		subView.carregarFormaEmissao();
-//		subView.carregarTipoOperacao();
-//		subView.carregarFinalidadeEmissao();
-//		subView.carregarTipoDANFE();
-//		subView.carregarCRT();
-	//	subView.carregarView(currentBean);
-
-//		carregarEmitente();
-//		carregarCuponsVinculados();	
-//		carregarNotasReferenciadas();
-//		carregarLocalEntrega(); 
-//		carregarLocalRetirada();
-//		carregarTransporte();
-//		carregarFatura();
-//		carregarDuplicatas();
-
+		carregarInformacaoGeral();
+		carregarLaudoTecnico();
+		carregarEntradaServico();
+		carregarVendaPeca();
+		carregarMaterialServico();
+		carregarAcessorioOs();
+		carregarObservacao();
 	}
 
-//	public void carregarFatura(){
-//		NfeFatura fatura = faturaDAO.buscaFaturaPorNota(currentBean);
-//
-//		if(fatura != null){
-//			subView.getNumeroFatura().setValue(fatura.getNumero());
-//			subView.getValorOriginalFatura().setValue(fatura.getValorOriginal().toString());
-//			subView.getValorDescontoFatura().setValue(fatura.getValorDesconto().toString());
-//			subView.getValorLiquidoFatura().setValue(fatura.getValorLiquido().toString());
-//		}
-//	}
-//
-//	public void carregarTransporte(){
-//		try{
-//			NFeTransporte transporte = transporteDAO.buscaTransportePorNota(currentBean);
-//			if(transporte!=null){
-//				subView.getCpfTransp().setValue(transporte.getCpfCnpj());
-//				subView.getRazaoSocialTransp().setValue(transporte.getRazaoSocial());
-//				subView.getInscricaoEstadualTransp().setValue(transporte.getInscricaoEstadual());
-//				subView.getLogradouroTransp().setValue(transporte.getLogradouro());
-//				subView.getCidadeTransp().setValue(transporte.getCidade());
-//				subView.getUfTransp().setValue(transporte.getUf());
-//				if(transporte.getCodigoIBGE()!=null )subView.getCodigoMunicipioTransp().setValue(transporte.getCodigoIBGE().toString());
-//				if(transporte.getCfop()!=null )subView.getCfopTransp().setValue(transporte.getCfop().toString());
-//				if(transporte.getBaseCalculo()!=null )subView.getBaseCalculoTransp().setValue(transporte.getBaseCalculo().toString());
-//				if(transporte.getAliquota()!=null )subView.getAliquotaTransp().setValue(transporte.getAliquota().toString());
-//				if(transporte.getValorServico()!=null )	subView.getValorServicoTransp().setValue(transporte.getValorServico().toString());
-//				if(transporte.getValorIcmsRetido()!=null )subView.getIcmsRetidoTransp().setValue(transporte.getValorIcmsRetido().toString());
-//				if(transporte.getUfVeiculo()!=null )subView.getUfVeiculo().setValue(transporte.getUfVeiculo().toString());
-//				subView.getPlacaVeiculo().setValue(transporte.getPlacaVeiculo());
-//				subView.getRntcVeiculo().setValue(transporte.getRntcVeiculo());
-//			}
-//
-//		}catch(Exception e){
-//			System.out.println("PROBLEMA AO CARREGAR TRANSPORTE");
-//			e.printStackTrace();
-//		}
-//	}
+	public void carregarInformacaoGeral(){
+		InformacaoGeral info = informacaoGeralDAO.buscaInformacaoGeral(currentBean);
 
-//	public void carregarEmitente(){
-//
-//		try{
-//			NotaFiscalEmitente emitente = emitenteDAO.findByNota(currentBean);
-//			subView.carregarViewCRT(emitente);
-//			if(emitente!=null) {
-//
-//				subView.getCpfCnpjEm().setValue(emitente.getCpfCnpj());
-//				subView.getRazaoEm().setValue(emitente.getRazaoSocial());
-//				subView.getFantasiaEm().setValue(emitente.getNomeFantasia());
-//                subView.getCep().setValue(emitente.getCep());
-//				subView.getLogradouro().setValue(emitente.getLogradouro());
-//				subView.getNumero().setValue(emitente.getNumero());
-//				subView.getComplemento().setValue(emitente.getComplemento());
-//
-//				subView.getBairro().setValue(emitente.getBairro());
-//				subView.getCodigoMunicipio().setValue(emitente.getCodigoIBGE().toString());
-//				subView.getCidade().setValue(emitente.getCidade());
-//				subView.getUf().setValue(emitente.getUf());
-//				subView.getInscricao().setValue(emitente.getInscricaoEstadual());
-//
-//				subView.getTelefone().setValue(emitente.getTelefone());
-//			}
-//
-//		}catch(Exception e){
-//			System.out.println("PROBLEMA AO CARREGAR EMITENTE");
-//			e.printStackTrace();
-//		}
-//
-//	}
-//
-//	public void carregarLocalEntrega(){
-//		NfeLocalEntrega entrega = localEntregaDAO.buscaEntregaPorNota(currentBean);
-//
-//		try{
-//			if(entrega!=null){
-//				subView.getCnpjEnt().setValue(entrega.getCpfCnpj());
-//				subView.getLogradouroEnt().setValue(entrega.getLogradouro());
-//				subView.getNumeroEnt().setValue(entrega.getNumero());
-//				subView.getComplementoEnt().setValue(entrega.getComplemento());
-//				subView.getBairroEnt().setValue(entrega.getBairro());
-//				if(entrega.getCodigoMunicipio()!=null)subView.getIbgeEnt().setValue(entrega.getCodigoMunicipio().toString());
-//				subView.getCidadeEnt().setValue(entrega.getCidade());
-//				subView.getUfEnt().setValue(entrega.getUf());
-//			}	  
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void carregarLocalRetirada(){
-//		NfeLocalRetirada retirada = localRetiradaDAO.buscaRetiradaPorNota(currentBean);
-//
-//		try{
-//			if(retirada!=null){
-//				subView.getCnpjRet().setValue(retirada.getCpfCnpj());
-//				subView.getLogradouroRet().setValue(retirada.getLogradouro());
-//				subView.getNumeroRet().setValue(retirada.getNumero());
-//				subView.getComplementoRet().setValue(retirada.getComplemento());
-//				subView.getBairroRet().setValue(retirada.getBairro());
-//			    if(retirada.getCodigoMunicipio()!=null)subView.getIbgeRet().setValue(retirada.getCodigoMunicipio().toString());
-//				subView.getCidadeRet().setValue(retirada.getCidade());
-//				subView.getUfRet().setValue(retirada.getUf());
-//			}	  
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void carregarCuponsVinculados(){
-//		try{
-//			currentBean.setCuponsVinculados(cupomDAO.buscaCuponsPorNota(currentBean));
-//			subView.preencheCupomSubForm(currentBean.getCuponsVinculados());	 
-//		}catch(Exception e){
-//			System.out.println("PROBLEMA AO CARREGAR CUPONS VINCULADOS");
-//			e.printStackTrace();
-//		}
-//
-//	}
-//
-//	public void carregarNotasReferenciadas(){
-//		try{
-//			currentBean.setNotasReferenciados(notaReferenciadaDAO.buscaNotasReferenciadas(currentBean));
-//			subView.preencherNotasSubForm(currentBean.getNotasReferenciadas());	
-//		}catch(Exception e){
-//			System.out.println("PROBLEMA AO CARREGAR NOTAS REFERENCIADAS");
-//			e.printStackTrace();
-//		}
-//
-//	}
-//	
-//	public void carregarDuplicatas(){
-//		try{
-//			currentBean.setDuplicatas(duplicataDAO.buscarDuplicatasPorNota(currentBean));
-//			subView.preencherDuplicatasSubForm(currentBean.getDuplicatas());	
-//		}catch(Exception e){
-//			System.out.println("PROBLEMA AO CARREGAR NOTAS DUPLICATAS");
-//			e.printStackTrace();
-//		}
-//
-//	}
+		if(info != null){
+			subView.getCbAtendente().setValue(info.getAtendente());
+			subView.getPdfDataEntrada().setValue(info.getDataEntrada());
+			subView.getPdfDataEfetiv().setValue(info.getDataEntrada());
+			subView.getTfNumeroComanda().setValue(info.getNumeroComanda().toString());
+			subView.getCbStatus().setValue(info.getStatusOs());
+			subView.getCbSituacaoServico().setValue(info.getSituacaoServico());
+			subView.getTfFone().setValue(info.getTelefone());
+			subView.getCbPlaca().setValue(info.getCarro());
+			subView.getTfkm().setValue(info.getKmHorRodado().toString());
+			subView.getPdfProximaRevisao().setValue(info.getDataProximaRevisao());
+			subView.getCbTipoServico().setValue(info.getTipoServico());
+			subView.getTaObservacaoDefeito().setValue(info.getObservacao());
+			subView.getCbFormaPagamento().setValue(info.getTipoPagamento());
+			subView.getPdfEntrega().setValue(info.getDataEntrega());
+		}
+	}
 
+	public void carregarLaudoTecnico(){
+		LaudoTecnico laudo = laudoTecnicoDAO.buscaLaudoTecnico(currentBean);
 
+		if(laudo != null){
+			subView.getTaObservacaoLaudoTecnico().setValue(laudo.getObservacaoLaudoTecnico());
+			subView.getTaObservacaoLaudoFerramentas().setValue(laudo.getObservacaoLaudoFerramentas());
+		}
+	}
+	
+	public void carregarEntradaServico(){
+		try{
+			currentBean.setItensEntradaServico(entradaServicoDAO.findByEntradaServico(currentBean));
+			subView.preencheEntradaServicoSubForm(currentBean.getItensEntradaServico());	
+			subView.preencheEntradaServicoFinanceiraSubForm(currentBean.getItensEntradaServico());	
+		}catch(Exception e){
+			System.out.println("PROBLEMA AO CARREGAR ENTRADA DE SERVIÇO");
+			e.printStackTrace();
+		}
+	}
+
+	public void carregarVendaPeca(){
+		try{
+			currentBean.setItensVendaPeca(vendaPecaDAO.findByVendaPeca(currentBean));
+			subView.preencheVendaPecaSubForm(currentBean.getItensVendaPeca());	 
+			subView.preencheVendaPecaFinanceiraSubForm(currentBean.getItensVendaPeca());
+			
+		}catch(Exception e){
+			System.out.println("PROBLEMA AO CARREGAR VENDA DE PEÇA");
+			e.printStackTrace();
+		}
+	}
+
+	public void carregarMaterialServico(){
+		try{
+			currentBean.setItensMaterialServico(materialServicoDAO.findByMaterialServico(currentBean));
+			subView.preencheMaterialServicoSubForm(currentBean.getItensMaterialServico());	 
+		}catch(Exception e){
+			System.out.println("PROBLEMA AO CARREGAR MATERIAL DE SERVIÇO");
+			e.printStackTrace();
+		}
+	}
+	
+	public void carregarAcessorioOs(){
+		try{
+			currentBean.setItensAcessorioOs(acessorioOsDAO.findByAcessorioOs(currentBean));
+			subView.preencheAcessorioOsSubForm(currentBean.getItensAcessorioOs());	 
+		}catch(Exception e){
+			System.out.println("PROBLEMA AO CARREGAR ACESSORIOS DE ORDEM DE SERVIÇO");
+			e.printStackTrace();
+		}
+	}
+	
+	public void carregarObservacao(){
+		Observacao observacao = observacaoDAO.buscaObservacao(currentBean);
+
+		if(observacao != null){
+			subView.getTaObservacaoOS().setValue(observacao.getObservacaoOs());
+			subView.getTaObservacaoLocal().setValue(observacao.getFicandoLocal());
+		}
+	}
 
 	@Override
 	protected void initSubView() {
@@ -534,6 +527,15 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		return servicoOsDAO.getAll(ServicoOs.class);
 	}
 
+	public List<InformacaoGeral> buscarInformacaoGeral() {
+		return informacaoGeralDAO.getAll(InformacaoGeral.class);
+	}
+
+	public void buscarOsAgrupada(Cliente cliente) {
+		List<OrdemServico> osAgrupada = ordemServicoDAO.buscarOsPorCliente(cliente);
+		subView.preencheOsAgrupadaSubForm(osAgrupada);
+	}
+
 	public List<Produto> buscarProdutos() {
 		return produtoDAO.getAll(Produto.class);
 	}
@@ -556,11 +558,13 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	public EntradaServico novoEntradaServico(){
 		EntradaServico c = new EntradaServico();
 		currentBean.adicionarEntradaServico(c);
+		subView.preencheEntradaServicoFinanceiraSubForm(currentBean.getItensEntradaServico());
 		return c;
 	}
 	public VendaPeca novoVendaPeca(){
 		VendaPeca c = new VendaPeca();
 		currentBean.adicionarVendaPeca(c);
+		subView.preencheVendaPecaFinanceiraSubForm(currentBean.getItensVendaPeca());
 		return c;
 	}
 	
@@ -569,6 +573,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		currentBean.adicionarMaterialServico(c);
 		return c;
 	}
+	
 	public AcessorioOs novoAcessorioOs(){
 		AcessorioOs c = new AcessorioOs();
 		currentBean.adicionarAcessorioOs(c);

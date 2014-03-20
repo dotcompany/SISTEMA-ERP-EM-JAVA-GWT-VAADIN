@@ -1,7 +1,6 @@
 package dc.controller.ordemservico;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +72,11 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 	@Override  
 	protected void actionSalvar() {
-		currentBean.setPlaca(subView.getTfPlaca().getValue());
+		String placa = subView.getTfPlaca().getValue();
+		if(Validator.validateString(placa)){
+			placa = placa.replace("-", "").trim();
+			currentBean.setPlaca(placa);
+		}
 		currentBean.setCliente(subView.getCbCliente().getValue());
 		currentBean.setMarca(subView.getCbMarca().getValue());
 		currentBean.setCor(subView.getCbCor().getValue());
@@ -161,7 +164,6 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	}
 	
 	public void getModelo(String idMarca){
-		Marca marca = new Marca();
 		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
 				this.modeloDAO, super.getMainController());
 		

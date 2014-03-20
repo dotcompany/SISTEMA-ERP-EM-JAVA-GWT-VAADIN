@@ -1,7 +1,5 @@
 package dc.entidade.ordemservico;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

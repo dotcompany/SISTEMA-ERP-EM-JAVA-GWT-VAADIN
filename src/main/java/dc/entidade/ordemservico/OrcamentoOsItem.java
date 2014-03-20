@@ -16,7 +16,6 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.suprimentos.PedidoCompra;
 
 @Entity
 @Table(name = "os_orcamento_item")

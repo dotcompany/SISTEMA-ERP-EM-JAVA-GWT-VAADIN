@@ -55,7 +55,7 @@ public class InformacaoGeral extends AbstractModel<Integer> {
 
 	@Field
 	@Caption("NR TELEFONE")
-	@Column(name = "fone")
+	@Column(name = "telefone")
 	private String telefone;
 	
 	@ManyToOne
@@ -108,7 +108,7 @@ public class InformacaoGeral extends AbstractModel<Integer> {
 	@Field
 	@Caption("Observacao")
 	@Lob
-	@Column(name = "observaco")
+	@Column(name = "observacao")
 	@Type(type = "text")
 	private String observacao;
 	

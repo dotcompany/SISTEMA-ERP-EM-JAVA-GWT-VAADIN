@@ -11,13 +11,13 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.CarroFormController;
-import dc.controller.suprimentos.NotaFiscalFormController;
 import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Modelo;
 import dc.entidade.pessoal.Cliente;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class CarroFormView extends CustomComponent {
 
@@ -131,13 +131,11 @@ public class CarroFormView extends CustomComponent {
 		tfRazao.setHeight("-1px");
 		fields.addComponent(tfRazao, 2,1,2,1);
 
-		tfPlaca = new TextField();
-		tfPlaca.setCaption("Placa");
-		tfPlaca.setImmediate(false);
+		tfPlaca = ComponentUtil.buildMaskedTextField("Placa", "UUU-####");
 		tfPlaca.setWidth("-1px");
 		tfPlaca.setHeight("-1px");
-		fields.addComponent(tfPlaca, 0, 2);
-
+		fields.addComponent(tfPlaca,0,2);
+		
 
 		cbCor = new ManyToOneCombo<Cor>();
 		cbCor.setCaption("Cor");

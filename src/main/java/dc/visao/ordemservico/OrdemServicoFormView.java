@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.vaadin.easyuploads.MultiFileUpload;
 import org.vaadin.tepi.imageviewer.ImageViewer;
@@ -19,6 +20,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.converter.Converter;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.event.MouseEvents.ClickListener;
@@ -39,6 +41,7 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.Notification;
@@ -46,6 +49,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -55,6 +59,7 @@ import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.ordemservico.Acessorio;
@@ -63,6 +68,7 @@ import dc.entidade.ordemservico.Carro;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.EntradaServico;
 import dc.entidade.ordemservico.Equipamento;
+import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.MaterialServico;
 import dc.entidade.ordemservico.Modelo;
@@ -148,7 +154,11 @@ public class OrdemServicoFormView extends CustomComponent {
 
 	private SubFormComponent<EntradaServico, Integer> entradaServicoSubForm;
 
+	private SubFormComponent<EntradaServico, Integer> entradaServicoFinanceiraSubForm;
+
 	private SubFormComponent<VendaPeca, Integer> vendaPecaSubForm;
+
+	private SubFormComponent<VendaPeca, Integer> vendaPecaFinanceiraSubForm;
 
 	private SubFormComponent<MaterialServico, Integer> materialServicoSubForm;
 
@@ -169,6 +179,9 @@ public class OrdemServicoFormView extends CustomComponent {
 	private TextField tfTotalPeca, tfLucroPeca, tfTotalServico, tfLucroServico, tfComissaoTecnico, tfComissaoVendedor, tfComissaoAtendente,
 	                  tfDesconto, tfLucroParcialServico;
 
+	private Label lblTotalPeca, lblLucroPeca,lblTotalServico, lblLucroServico, lblComissaoTecnico, lblComissaoVendedor,
+	              lblComissaoAtendente, lblDesconto, lblLucroParcialServico;
+	
 	private ManyToOneCombo<Cliente> cbCliente;
 
 	private ManyToOneCombo<Carro> cbPlaca;
@@ -255,12 +268,15 @@ public class OrdemServicoFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				Cliente cli = new Cliente();
 				cli = cbCliente.getValue();
-				tfRazao.setValue(cli.getPessoa().getNome());
-				tfEndereco.setValue(cli.getPessoa().getEnderecos().get(0).getLogradouro());
-				tfCidade.setValue(cli.getPessoa().getEnderecos().get(0).getCidade());
-				tfBairro.setValue(cli.getPessoa().getEnderecos().get(0).getBairro());
-				tfUf.setValue(cli.getPessoa().getEnderecos().get(0).getUf().getSigla());
-			}
+				
+				if(cli!=null){
+					tfRazao.setValue(cli.getPessoa().getNome());
+					tfEndereco.setValue(cli.getPessoa().getEnderecos().get(0).getLogradouro());
+					tfCidade.setValue(cli.getPessoa().getEnderecos().get(0).getCidade());
+					tfBairro.setValue(cli.getPessoa().getEnderecos().get(0).getBairro());
+					tfUf.setValue(cli.getPessoa().getEnderecos().get(0).getUf().getSigla());
+					controller.buscarOsAgrupada(cli);			}
+				}
 			
 		});
 		gridLayout_1.addComponent(cbCliente,0,1,1,1);
@@ -790,7 +806,7 @@ public class OrdemServicoFormView extends CustomComponent {
 								Property<BigDecimal> valorUnitario = get("valorUnitario");
 								Property<Produto> produtoProperty = getProduto("produto");
 								Produto produto = produtoProperty.getValue();
-								
+
 								if(produto!=null){
 									valorUnitario.setValue(produto.getValorVenda());
 								}
@@ -837,9 +853,25 @@ public class OrdemServicoFormView extends CustomComponent {
 									}
 									valorTotal.setValue(vt.subtract(vd));
 								}
-
+								
+								System.out.println("propertyId: "+propertyId);
+								System.out.println("ValorTotal: "+valorTotal.getValue());
+//								System.out.println("ValorTotal: "+vendaPecaSubForm.getDados().get(0).getValorTotal());
+								if(propertyId.equals("valorUnitarioPago")){
+									if(valorTotal.getValue()!=null){
+										BigDecimal totalp = BigDecimal.ZERO;
+										if(tfTotalPeca.getValue()!=null){
+											totalp = new BigDecimal(tfTotalPeca.getValue());
+										}
+										totalp.add(valorTotal.getValue());
+										System.out.println("totalp: "+totalp);
+										tfTotalPeca.setValue(totalp.toString());
+									}
+								}
+								//vendaPecaSubForm
 							}
-
+							
+							
 							@SuppressWarnings("unchecked")
 							private Property<BigDecimal> get(String property) {
 								Item item = container.getItem(itemId);
@@ -865,6 +897,8 @@ public class OrdemServicoFormView extends CustomComponent {
 			public boolean validateItems(List<VendaPeca> items) {
 				return true;
 			}
+			
+
 		};
 
 		sub.addTab(vendaPecaSubForm, "Venda Peça", null);
@@ -1182,31 +1216,250 @@ public class OrdemServicoFormView extends CustomComponent {
 		}
 
 	}
+
 	public void buildAbaOsAgrupada() {
-		TabSheet abaMaterialServico = buildMaterialServicoSubForm();
-		VerticalLayout layout = montaVertical(Arrays.asList(abaMaterialServico));
+		TabSheet abaOsAgrupada = buildOsAgrupadaSubForm();
+		GridLayout layout = new GridLayout(1, 1);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
-		subForms.addTab(layout, "Material serviço", null);
+		layout.addComponent(abaOsAgrupada);
+		subForms.addTab(layout, "OS agrupada", null);
 	}
-
+		
 	@AutoGenerated
 	@SuppressWarnings("serial")
 	private TabSheet buildOsAgrupadaSubForm() {
 		// common part: create layout
 		TabSheet sub = new TabSheet();
-		sub.setSizeFull();
 		sub.setWidth("100.0%");
 		sub.setHeight("100.0%");
+		sub.setSizeFull();
 		sub.setImmediate(true);
+//		osAgrupadaSubForm = new SubFormComponent<OrdemServico, Integer>(OrdemServico.class, new String[] { "id", "informacaoGeral.dataEntrada","informacaoGeral.dataEfetivacao", 
+ //           "produto", "servico","valorDesconto", "valorTotalOs", "garantia.equipamento","garantia.marca", "garantia.modelo", "garantia.modelo" },
+//	new String[] { "Nr. OS", "Data", "Efetivação","Produto", "Serviço", "Desconto", "Total","Equipamento", "Marca", "Modelo",
+//			"Serial" }, new String[] {"valorTotal" }) {
 
-		osAgrupadaSubForm = new SubFormComponent<OrdemServico, Integer>(
-				OrdemServico.class, new String[] { "id"}, 
-				new String[] {"Id" }) {
+		osAgrupadaSubForm = new SubFormComponent<OrdemServico, Integer>(OrdemServico.class, new String[] { "id"},
+				new String[] {"Nr. OS"}, new String[] {"valorTotal" }) {
+
+			@Override
+			protected void adicionarBotoes(Table table) {
+
+			}
+
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+					
+						if ("id".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if("ordemServico".equals(propertyId)){
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<InformacaoGeral> infoContainer = new BeanItemContainer<>(InformacaoGeral.class,controller.buscarInformacaoGeral());
+
+							combobox.setContainerDataSource(infoContainer);
+							combobox.setItemCaptionPropertyId("dataEntrada");
+
+							combobox.setReadOnly(true);
+							return combobox;
+							
+//						}else if ("informacaoGeral".equals(propertyId)) {
+//								TextField infoGeralText = ComponentUtil.buildTextField(null);
+//
+//								infoGeralText.setConverter(new Converter<String, InformacaoGeral>() {
+//
+//									/**
+//									 * 
+//									 */
+//									private static final long serialVersionUID = 1L;
+//
+//									@Override
+//									public InformacaoGeral convertToModel(String value, Class<? extends InformacaoGeral> targetType, Locale locale)
+//											throws com.vaadin.data.util.converter.Converter.ConversionException {
+//										return null;
+//									}
+//
+//									@Override
+//									public Class<InformacaoGeral> getModelType() {
+//										return InformacaoGeral.class;
+//									}
+//
+//									@Override
+//									public Class<String> getPresentationType() {
+//										return String.class;
+//									}
+//
+//									@Override
+//									public String convertToPresentation(
+//											InformacaoGeral value,
+//											Class<? extends String> targetType,
+//											Locale locale)
+//											throws com.vaadin.data.util.converter.Converter.ConversionException {
+//										// TODO Auto-generated method stub
+//										return null;
+//									}
+//								});
+//
+//								infoGeralText.setReadOnly(true);
+//								return infoGeralText;
+//
+						}						
+						return null;
+					}
+				};
+			}
+
+			@Override
+			public boolean validateItems(List<OrdemServico> items) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+		};
+
+		sub.addTab(osAgrupadaSubForm, "O.S agrupada", null);
+
+		return sub;
+	}
+		
+		public void buildAbaInformacaoFinanceira() {
+		
+		TabSheet finForms = new TabSheet();
+		finForms.setWidth("100.0%");
+		finForms.setHeight("100.0%");
+		finForms.setSizeFull();
+		finForms.setImmediate(true);
+
+		GridLayout gridLayout_1 = new GridLayout();
+		gridLayout_1.setImmediate(false);
+		gridLayout_1.setWidth("100.0%");
+		gridLayout_1.setMargin(true);
+		gridLayout_1.setSpacing(true);
+		gridLayout_1.setRows(10);
+		gridLayout_1.setColumns(5);
+		
+		lblTotalPeca = new Label();
+		lblTotalPeca.setCaption("Total de peças:");
+		lblTotalPeca.setHeight("-1px");
+		gridLayout_1.addComponent(lblTotalPeca, 0, 1,0,1);
+		
+		// Total de peças
+		tfTotalPeca = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfTotalPeca, 1, 1,1,1);
+
+		lblLucroPeca = new Label();
+		lblLucroPeca.setCaption("Total lucro de peças:");
+		lblLucroPeca.setHeight("-1px");
+		gridLayout_1.addComponent(lblLucroPeca, 0, 2,0,2);
+
+		// Total lucro de peças
+		tfLucroPeca = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfLucroPeca, 1, 2,1,2);
+
+		lblTotalServico = new Label();
+		lblTotalServico.setCaption("Total de serviços:");
+		lblTotalServico.setHeight("-1px");
+		gridLayout_1.addComponent(lblTotalServico, 0, 3,0,3);
+		
+		// Total de serviço
+		tfTotalServico = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfTotalServico, 1, 3,1,3);
+
+
+		// Total lucro serviço
+		lblLucroServico = new Label();
+		lblLucroServico.setCaption("Total lucro de serviços:");
+		lblLucroServico.setHeight("-1px");
+		gridLayout_1.addComponent(lblLucroServico, 0, 4,0,4);
+		
+		tfLucroServico = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfLucroServico, 1, 4,1,4);
+
+
+		// comissão paga ao técnico
+		lblComissaoTecnico = new Label();
+		lblComissaoTecnico.setCaption("Comissão paga ao Técnico:");
+		lblComissaoTecnico.setHeight("-1px");
+		gridLayout_1.addComponent(lblComissaoTecnico, 0, 5,0,5);
+		
+		tfComissaoTecnico = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfComissaoTecnico, 1, 5,1,5);
+		
+		// Comissão paga ao vendedor
+		lblComissaoVendedor = new Label();
+		lblComissaoVendedor.setCaption("Comissão paga ao vendedor:");
+		lblComissaoVendedor.setHeight("-1px");
+		gridLayout_1.addComponent(lblComissaoVendedor, 0,6,0,6);
+		
+		tfComissaoVendedor = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfComissaoVendedor, 1, 6,1,6);
+
+		// Comissão paga ao atendente
+		lblComissaoAtendente = new Label();
+		lblComissaoAtendente.setCaption("Comissão paga ao atendente:");
+		lblComissaoAtendente.setHeight("-1px");
+		gridLayout_1.addComponent(lblComissaoAtendente, 0, 7,0,7);
+		
+		tfComissaoAtendente = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfComissaoAtendente, 1, 7,1,7);
+
+		// Desconto
+        lblDesconto = new Label();
+        lblDesconto.setCaption("Desconto:");
+        lblDesconto.setHeight("-1px");
+		gridLayout_1.addComponent(lblDesconto, 0, 8,0,8);
+
+		tfDesconto = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfDesconto, 1, 8,1,8);
+
+		// Lucro parcial de serviço
+		lblLucroParcialServico = new Label();
+		lblLucroParcialServico.setCaption("Lucro parcial do serviço:");
+		lblLucroParcialServico.setHeight("-1px");
+		gridLayout_1.addComponent(lblLucroParcialServico, 0, 9,0,9);
+		
+		tfLucroParcialServico = ComponentUtil.buildCurrencyField(null);
+		gridLayout_1.addComponent(tfLucroParcialServico, 1, 9,1,9);
+
+		finForms.addTab(gridLayout_1, "Informação geral", null);
+
+		finForms.addTab(buildEntradaServicoFinanceiraSubForm(), "Detalhe do serviço", null);
+
+		finForms.addTab(buildVendaPecaFinanceiraSubForm(), "Detalhe do produto", null);
+
+		subForms.addTab(finForms, "Informação financeira", null);
+	}
+	
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildEntradaServicoFinanceiraSubForm() {
+		VerticalLayout entradaSevicoLayout = new VerticalLayout();
+		entradaSevicoLayout.setImmediate(false);
+		entradaSevicoLayout.setSizeFull();
+		entradaSevicoLayout.setMargin(false);
+		entradaSevicoLayout.setSpacing(true);
+
+		entradaServicoFinanceiraSubForm = new SubFormComponent<EntradaServico, Integer>(
+				EntradaServico.class, new String[] { "vendedor","tecnico","servico","horaTrabalhada","quantidadeServico","valorOriginal",
+					"valorCobrado","valorSubtotal","percentualDesconto","valorDesconto","valorTotal","dataGarantia","percentualTecnico","comissaoTecnico"}, new String[] {
+						"Vendedor","Técnico","Serviço","Hr.","Qtd","Valor Original","Valor Feito","Sub total","Desconto %","Desconto R$", "Valor Total","Garantia","Técnico %","Comissão Técnico"}
+				) {
+//, new String[] {"horaTrabalhada","quantidadeServico","valorSubtotal","valorDesconto","valorTotal"}
+			@Override
+			protected void adicionarBotoes(Table table) {
+
+			}
 			
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -1215,135 +1468,215 @@ public class OrdemServicoFormView extends CustomComponent {
 					public Field<?> createField(Container container,
 							Object itemId, Object propertyId,
 							Component uiContext) {
-						if ("id".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildNumberField(null);
+						if ("vendedor".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							combobox.removeAllItems();
 
+							List<Colaborador> vendedores = controller.getVendedores();
+							for (Colaborador vd : vendedores) {
+								combobox.addItem(vd);
+							}
+							combobox.setReadOnly(true);
+							return combobox;
+						}else if ("tecnico".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							combobox.removeAllItems();
+
+							List<Colaborador> tecnicos = controller.getTecnicos();
+							for (Colaborador tc : tecnicos) {
+								combobox.addItem(tc);
+							}
+
+							combobox.setReadOnly(true);
+							return combobox;
+						}else if ("servico".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<ServicoOs> servicoContainer = new BeanItemContainer<>(ServicoOs.class,controller.buscarServicoOs());
+
+							combobox.setContainerDataSource(servicoContainer);
+							combobox.setItemCaptionPropertyId("nome");
+
+							combobox.setReadOnly(true);
+							return combobox;
+							 
+						} else if ("horaTrabalhada".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
 							return textField;
-						} 
+						} else if ("quantidadeServico".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorOriginal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorCobrado".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorSubtotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("percentualDesconto".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorDesconto".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("dataGarantia".equals(propertyId)) {
+							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
+							popupDateField.setReadOnly(true);
+							return popupDateField;
+						} else if ("percentualTecnico".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("comissaoTecnico".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+
+						}
+						
 						return null;
 					}
 				};
 			}
-
-			protected OrdemServico getNovo() {
-				//MaterialServico detalhe = controller.novoMaterialServico();
-
-//				return detalhe;
-				return null;
-			}
-
+			
 			@Override
-			public boolean validateItems(List<OrdemServico> items) {
+			public boolean validateItems(List<EntradaServico> items) {
 				return true;
 			}
 		};
 
-		sub.addTab(osAgrupadaSubForm, "Os Agrupadas", null);
+		entradaSevicoLayout.addComponent(this.entradaServicoFinanceiraSubForm);
+		entradaSevicoLayout.setExpandRatio(entradaServicoFinanceiraSubForm, 1);
 
-		return sub;
+		return entradaSevicoLayout;
+
 	}
-	public void buildAbaInformacaoFinanceira() {
+	
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildVendaPecaFinanceiraSubForm() {
 
-		GridLayout gridLayout_1 = new GridLayout(9, 2);
-		gridLayout_1.setImmediate(false);
-		gridLayout_1.setWidth("100.0%");
-		gridLayout_1.setMargin(true);
-		gridLayout_1.setSpacing(true);
+		VerticalLayout vendaPecaLayout = new VerticalLayout();
+		vendaPecaLayout.setImmediate(false);
+		vendaPecaLayout.setSizeFull();
+		vendaPecaLayout.setMargin(false);
+		vendaPecaLayout.setSpacing(true);
+		
+		vendaPecaFinanceiraSubForm = new SubFormComponent<VendaPeca, Integer>(
+				VendaPeca.class, new String[] { "vendedor", "tecnico","produto","tipoPeca","quantidadeProduto","valorUnitario","valorUnitarioPago","valorSubtotal","percentualDesconto","valorDesconto","valorTotal"}, 
+				new String[] {"Vendedor", "Técnico", "Descrição produto","Tipo","Qtd", "Valor venda", "Valor vendido","Sub total", "Desconto %", "Valor desconto", "Valor Total"}
+				) {
+//, new String[] { "valorSubtotal", "valorDesconto","valorTotal" }
+			@Override
+			protected void adicionarBotoes(Table table) {
 
-		// Total de peças
-		tfTotalPeca = new TextField();
-		tfTotalPeca.setCaption("Total de peças:");
-		tfTotalPeca.setNullRepresentation("");
-		tfTotalPeca.setImmediate(false);
-		tfTotalPeca.setWidth("175px");
-		tfTotalPeca.setHeight("-1px");
-		tfTotalPeca.setRequired(true);
-		gridLayout_1.addComponent(tfTotalPeca, 0, 1);
-		
-		// Total de lucro de peças
-		tfLucroPeca = new TextField();
-		tfLucroPeca.setCaption("Total lucro de peças:");
-		tfLucroPeca.setNullRepresentation("");
-		tfLucroPeca.setImmediate(false);
-		tfLucroPeca.setWidth("175px");
-		tfLucroPeca.setHeight("-1px");
-		tfLucroPeca.setRequired(true);
-		gridLayout_1.addComponent(tfLucroPeca, 1, 1);
-		
-		//Total de seviço
-		tfTotalServico = new TextField();
-		tfTotalServico.setCaption("Total de serviços:");
-		tfTotalServico.setNullRepresentation("");
-		tfTotalServico.setImmediate(false);
-		tfTotalServico.setWidth("175px");
-		tfTotalServico.setHeight("-1px");
-		tfTotalServico.setRequired(true);
-		gridLayout_1.addComponent(tfTotalServico, 2, 1);
-		
-		// Total lucro serviço
-		tfLucroServico = new TextField();
-		tfLucroServico.setCaption("Total lucro serviço:");
-		tfLucroServico.setNullRepresentation("");
-		tfLucroServico.setImmediate(false);
-		tfLucroServico.setWidth("175px");
-		tfLucroServico.setHeight("-1px");
-		tfLucroServico.setRequired(true);
-		gridLayout_1.addComponent(tfLucroServico,3, 1);
-		
-		// Comissão paga ao Técnico
-		tfComissaoTecnico = new TextField();
-		tfComissaoTecnico.setCaption("Comissão paga ao Técnico:");
-		tfComissaoTecnico.setNullRepresentation("");
-		tfComissaoTecnico.setImmediate(false);
-		tfComissaoTecnico.setWidth("175px");
-		tfComissaoTecnico.setHeight("-1px");
-		tfComissaoTecnico.setRequired(true);
-		gridLayout_1.addComponent(tfComissaoTecnico,4, 1);
-		
-		// Comissão paga ao Técnico
-		tfComissaoVendedor = new TextField();
-		tfComissaoVendedor.setCaption("Comissão paga ao vendedor:");
-		tfComissaoVendedor.setNullRepresentation("");
-		tfComissaoVendedor.setImmediate(false);
-		tfComissaoVendedor.setWidth("175px");
-		tfComissaoVendedor.setHeight("-1px");
-		tfComissaoVendedor.setRequired(true);
-		gridLayout_1.addComponent(tfComissaoVendedor,5, 1);
-		
-		// Comissão paga ao Técnico
-		tfComissaoAtendente = new TextField();
-		tfComissaoAtendente.setCaption("Comissão paga ao atendente:");
-		tfComissaoAtendente.setNullRepresentation("");
-		tfComissaoAtendente.setImmediate(false);
-		tfComissaoAtendente.setWidth("175px");
-		tfComissaoAtendente.setHeight("-1px");
-		tfComissaoAtendente.setRequired(true);
-		gridLayout_1.addComponent(tfComissaoAtendente,6, 1);
-		
-		
-		// Desconto
-		tfDesconto = new TextField();
-		tfDesconto.setCaption("Desconto:");
-		tfDesconto.setNullRepresentation("");
-		tfDesconto.setImmediate(false);
-		tfDesconto.setWidth("175px");
-		tfDesconto.setHeight("-1px");
-		tfDesconto.setRequired(true);
-		gridLayout_1.addComponent(tfDesconto,7, 1);
-		
-		// Lucro parcial do serviço
-		tfLucroParcialServico = new TextField();
-		tfLucroParcialServico.setCaption("Lucro parcial do serviço:");
-		tfLucroParcialServico.setNullRepresentation("");
-		tfLucroParcialServico.setImmediate(false);
-		tfLucroParcialServico.setWidth("175px");
-		tfLucroParcialServico.setHeight("-1px");
-		tfLucroParcialServico.setRequired(true);
-		gridLayout_1.addComponent(tfLucroParcialServico,8, 1);
+			}
+			
 
-		
-		subForms.addTab(gridLayout_1, "Informação financeira", null);
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						
+						if ("vendedor".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							combobox.removeAllItems();
+							
+							List<Colaborador> vendedores = controller.getVendedores();
+							for (Colaborador vd : vendedores) {
+								combobox.addItem(vd);
+							}
+							combobox.setReadOnly(true);
+							return combobox;
+						}else if ("tecnico".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							combobox.removeAllItems();
+
+							List<Colaborador> tecnicos = controller.getTecnicos();
+							for (Colaborador tc : tecnicos) {
+								combobox.addItem(tc);
+							}
+							combobox.setReadOnly(true);
+
+							return combobox;
+						}else if ("produto".equals(propertyId)) {
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<Produto> produtoContainer = new BeanItemContainer<>(Produto.class,controller.buscarProdutos());
+
+							combobox.setContainerDataSource(produtoContainer);
+							combobox.setItemCaptionPropertyId("descricao");
+							combobox.setReadOnly(true);
+							return combobox;
+						}else if("tipoPeca".equals(propertyId)){
+							ComboBox combobox = ComponentUtil.buildComboBox(null);
+							combobox.removeAllItems();
+
+							combobox.addItem("GENUÍNA");
+							combobox.addItem("NAO GENUÍNA");
+							combobox.setReadOnly(true);
+
+							return combobox;
+						}else if ("quantidadeProduto".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if ("valorUnitario".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if ("valorUnitarioPago".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						} else if ("valorSubtotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if ("percentualDesconto".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildPercentageField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if ("valorDesconto".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							textField.setReadOnly(true);
+							return textField;
+						}
+
+						return null;
+					}
+				};
+				
+			}
+
+			@Override
+			public boolean validateItems(List<VendaPeca> items) {
+				return true;
+			}
+		};
+
+		vendaPecaLayout.addComponent(this.vendaPecaFinanceiraSubForm);
+		vendaPecaLayout.setExpandRatio(vendaPecaFinanceiraSubForm, 1);
+
+		return vendaPecaLayout;
 	}
 
 	public enum Tipo {
@@ -2362,4 +2695,40 @@ public class OrdemServicoFormView extends CustomComponent {
 
    
     }
+	
+	public void preencheEntradaServicoSubForm(List<EntradaServico> entradaServico) {
+		entradaServicoSubForm.fillWith(entradaServico);
+	}
+	
+	public void preencheVendaPecaSubForm(List<VendaPeca> vendaPeca) {
+		vendaPecaSubForm.fillWith(vendaPeca);
+	}
+
+	public void preencheOsAgrupadaSubForm(List<OrdemServico> ordemServico) {
+		if(ordemServico!=null){
+			osAgrupadaSubForm.fillWith(ordemServico);
+		}
+	}
+
+	public void preencheVendaPecaFinanceiraSubForm(List<VendaPeca> vendaPeca) {
+		vendaPecaFinanceiraSubForm.fillWith(vendaPeca);
+	}
+
+	public void preencheEntradaServicoFinanceiraSubForm(List<EntradaServico> entradaServico) {
+		BigDecimal totalEntradaServico = BigDecimal.ZERO;
+		entradaServicoFinanceiraSubForm.fillWith(entradaServico);
+		for(EntradaServico es : entradaServico){
+			totalEntradaServico.add(es.getValorTotal());
+		}
+		tfTotalServico.setValue(totalEntradaServico.toString());
+
+	}
+
+	public void preencheMaterialServicoSubForm(List<MaterialServico> materialServico) {
+		materialServicoSubForm.fillWith(materialServico);
+	}
+	
+	public void preencheAcessorioOsSubForm(List<AcessorioOs> acessorioOs) {
+		acessorioOsSubForm.fillWith(acessorioOs);
+	}
 }

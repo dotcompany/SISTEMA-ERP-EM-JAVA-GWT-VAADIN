@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -31,7 +29,6 @@ import org.hibernate.search.annotations.Field;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.suprimentos.PedidoDetalhe;
 
 @Entity
 @Table(name = "os_orcamento")
@@ -75,18 +72,21 @@ public class OrcamentoOs extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "placa")
 	private String placa;
 
-	@ManyToOne
-	@JoinColumn(name = "id_marca", referencedColumnName = "id")
-	private Marca marca;
+	@Field
+	@Caption("Marca")
+	@Column(name = "marca")
+	private String marca;
 
-	@ManyToOne
-	@JoinColumn(name = "id_modelo", referencedColumnName = "id")
-	private Modelo modelo;
+	@Field
+	@Caption("Modelo")
+	@Column(name = "modelo")
+	private String modelo;
 
-	@ManyToOne
-	@JoinColumn(name = "id_cor", referencedColumnName = "id")
-	private Cor cor;
-	
+	@Field
+	@Caption("Cor")
+	@Column(name = "cor")
+	private String cor;
+
 	@Field
 	@Caption("Ano")
 	@Column(name = "ano")
@@ -102,19 +102,19 @@ public class OrcamentoOs extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "motorizacao")
 	private String motorizacao;
 
-	@Column(name = "vlr_mao_obra")
+	@Column(name = "valor_mao_obra")
 	private BigDecimal valorMaoObra;
 
-	@Column(name = "vlr_produto")
+	@Column(name = "valor_produto")
 	private BigDecimal valorProduto;
 	
-	@Column(name = "vlr_outros")
+	@Column(name = "valor_outros")
 	private BigDecimal valorOutros;
 
-	@Column(name = "vlr_desconto")
+	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
 
-	@Column(name = "vlr_total")
+	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 
 	@Field
@@ -186,27 +186,27 @@ public class OrcamentoOs extends AbstractMultiEmpresaModel<Integer> {
 		this.placa = placa;
 	}
 
-	public Marca getMarca() {
+	public String getMarca() {
 		return marca;
 	}
 
-	public void setMarca(Marca marca) {
+	public void setMarca(String marca) {
 		this.marca = marca;
 	}
 
-	public Modelo getModelo() {
+	public String getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(Modelo modelo) {
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
-	public Cor getCor() {
+	public String getCor() {
 		return cor;
 	}
 
-	public void setCor(Cor cor) {
+	public void setCor(String cor) {
 		this.cor = cor;
 	}
 
