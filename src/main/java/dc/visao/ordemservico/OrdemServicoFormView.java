@@ -275,8 +275,9 @@ public class OrdemServicoFormView extends CustomComponent {
 					tfCidade.setValue(cli.getPessoa().getEnderecos().get(0).getCidade());
 					tfBairro.setValue(cli.getPessoa().getEnderecos().get(0).getBairro());
 					tfUf.setValue(cli.getPessoa().getEnderecos().get(0).getUf().getSigla());
-					controller.buscarOsAgrupada(cli);			}
+//					controller.buscarOsAgrupada(cli);			
 				}
+			}
 			
 		});
 		gridLayout_1.addComponent(cbCliente,0,1,1,1);
@@ -2715,12 +2716,12 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 
 	public void preencheEntradaServicoFinanceiraSubForm(List<EntradaServico> entradaServico) {
-		BigDecimal totalEntradaServico = BigDecimal.ZERO;
+//		BigDecimal totalEntradaServico = BigDecimal.ZERO;
 		entradaServicoFinanceiraSubForm.fillWith(entradaServico);
-		for(EntradaServico es : entradaServico){
-			totalEntradaServico.add(es.getValorTotal());
-		}
-		tfTotalServico.setValue(totalEntradaServico.toString());
+//		for(EntradaServico es : entradaServico){
+//			totalEntradaServico.add(es.getValorTotal());
+//		}
+//		tfTotalServico.setValue(totalEntradaServico.toString());
 
 	}
 
