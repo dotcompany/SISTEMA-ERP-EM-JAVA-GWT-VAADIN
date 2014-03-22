@@ -515,6 +515,40 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return glImpostoImportacao;
 	}
 
+	public TextField getTfBaseCalculoBcImpostoImportacao() {
+		return tfBaseCalculoBcImpostoImportacao;
+	}
+
+	public void setTfBaseCalculoBcImpostoImportacao(
+			TextField tfBaseCalculoBcImpostoImportacao) {
+		this.tfBaseCalculoBcImpostoImportacao = tfBaseCalculoBcImpostoImportacao;
+	}
+
+	public TextField getTfDespesasAduaneirasImpostoImportacao() {
+		return tfDespesasAduaneirasImpostoImportacao;
+	}
+
+	public void setTfDespesasAduaneirasImpostoImportacao(
+			TextField tfDespesasAduaneirasImpostoImportacao) {
+		this.tfDespesasAduaneirasImpostoImportacao = tfDespesasAduaneirasImpostoImportacao;
+	}
+
+	public TextField getTfValorImpostoImportacao() {
+		return tfValorImpostoImportacao;
+	}
+
+	public void setTfValorImpostoImportacao(TextField tfValorImpostoImportacao) {
+		this.tfValorImpostoImportacao = tfValorImpostoImportacao;
+	}
+
+	public TextField getTfIofImpostoImportacao() {
+		return tfIofImpostoImportacao;
+	}
+
+	public void setTfIofImpostoImportacao(TextField tfIofImpostoImportacao) {
+		this.tfIofImpostoImportacao = tfIofImpostoImportacao;
+	}
+
 	/**
 	 * IPI
 	 */
@@ -676,6 +710,55 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return glCofins;
 	}
 
+	public TextField getTfCstCofins() {
+		return tfCstCofins;
+	}
+
+	public void setTfCstCofins(TextField tfCstCofins) {
+		this.tfCstCofins = tfCstCofins;
+	}
+
+	public TextField getTfQtdVendidaCofins() {
+		return tfQtdVendidaCofins;
+	}
+
+	public void setTfQtdVendidaCofins(TextField tfQtdVendidaCofins) {
+		this.tfQtdVendidaCofins = tfQtdVendidaCofins;
+	}
+
+	public TextField getTfBaseCalculoBcCofins() {
+		return tfBaseCalculoBcCofins;
+	}
+
+	public void setTfBaseCalculoBcCofins(TextField tfBaseCalculoBcCofins) {
+		this.tfBaseCalculoBcCofins = tfBaseCalculoBcCofins;
+	}
+
+	public TextField getTfAliquotaPercentualCofins() {
+		return tfAliquotaPercentualCofins;
+	}
+
+	public void setTfAliquotaPercentualCofins(
+			TextField tfAliquotaPercentualCofins) {
+		this.tfAliquotaPercentualCofins = tfAliquotaPercentualCofins;
+	}
+
+	public TextField getTfAliquotaReaisCofins() {
+		return tfAliquotaReaisCofins;
+	}
+
+	public void setTfAliquotaReaisCofins(TextField tfAliquotaReaisCofins) {
+		this.tfAliquotaReaisCofins = tfAliquotaReaisCofins;
+	}
+
+	public TextField getTfValorCofins() {
+		return tfValorCofins;
+	}
+
+	public void setTfValorCofins(TextField tfValorCofins) {
+		this.tfValorCofins = tfValorCofins;
+	}
+
 	/**
 	 * PIS
 	 */
@@ -703,6 +786,54 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	public GridLayout getGlPis() {
 		return glPis;
+	}
+
+	public TextField getTfCstPis() {
+		return tfCstPis;
+	}
+
+	public void setTfCstPis(TextField tfCstPis) {
+		this.tfCstPis = tfCstPis;
+	}
+
+	public TextField getTfQtdVendidaPis() {
+		return tfQtdVendidaPis;
+	}
+
+	public void setTfQtdVendidaPis(TextField tfQtdVendidaPis) {
+		this.tfQtdVendidaPis = tfQtdVendidaPis;
+	}
+
+	public TextField getTfBaseCalculoBcPis() {
+		return tfBaseCalculoBcPis;
+	}
+
+	public void setTfBaseCalculoBcPis(TextField tfBaseCalculoBcPis) {
+		this.tfBaseCalculoBcPis = tfBaseCalculoBcPis;
+	}
+
+	public TextField getTfAliquotaPercentualPis() {
+		return tfAliquotaPercentualPis;
+	}
+
+	public void setTfAliquotaPercentualPis(TextField tfAliquotaPercentualPis) {
+		this.tfAliquotaPercentualPis = tfAliquotaPercentualPis;
+	}
+
+	public TextField getTfAliquotaReaisPis() {
+		return tfAliquotaReaisPis;
+	}
+
+	public void setTfAliquotaReaisPis(TextField tfAliquotaReaisPis) {
+		this.tfAliquotaReaisPis = tfAliquotaReaisPis;
+	}
+
+	public TextField getTfValorPis() {
+		return tfValorPis;
+	}
+
+	public void setTfValorPis(TextField tfValorPis) {
+		this.tfValorPis = tfValorPis;
 	}
 
 	/**
@@ -783,6 +914,191 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	public GridLayout getGlIcms() {
 		return glIcms;
+	}
+
+	public TextField getTfOrigemMercadoriaIcms() {
+		return tfOrigemMercadoriaIcms;
+	}
+
+	public void setTfOrigemMercadoriaIcms(TextField tfOrigemMercadoriaIcms) {
+		this.tfOrigemMercadoriaIcms = tfOrigemMercadoriaIcms;
+	}
+
+	public TextField getTfCstIcms() {
+		return tfCstIcms;
+	}
+
+	public void setTfCstIcms(TextField tfCstIcms) {
+		this.tfCstIcms = tfCstIcms;
+	}
+
+	public TextField getTfCsosnIcms() {
+		return tfCsosnIcms;
+	}
+
+	public void setTfCsosnIcms(TextField tfCsosnIcms) {
+		this.tfCsosnIcms = tfCsosnIcms;
+	}
+
+	public TextField getTfModalidadeBcIcms() {
+		return tfModalidadeBcIcms;
+	}
+
+	public void setTfModalidadeBcIcms(TextField tfModalidadeBcIcms) {
+		this.tfModalidadeBcIcms = tfModalidadeBcIcms;
+	}
+
+	public TextField getTfTaxaReducaoBcIcms() {
+		return tfTaxaReducaoBcIcms;
+	}
+
+	public void setTfTaxaReducaoBcIcms(TextField tfTaxaReducaoBcIcms) {
+		this.tfTaxaReducaoBcIcms = tfTaxaReducaoBcIcms;
+	}
+
+	public TextField getTfBaseCalculoBcIcms() {
+		return tfBaseCalculoBcIcms;
+	}
+
+	public void setTfBaseCalculoBcIcms(TextField tfBaseCalculoBcIcms) {
+		this.tfBaseCalculoBcIcms = tfBaseCalculoBcIcms;
+	}
+
+	public TextField getTfAliquotaIcms() {
+		return tfAliquotaIcms;
+	}
+
+	public void setTfAliquotaIcms(TextField tfAliquotaIcms) {
+		this.tfAliquotaIcms = tfAliquotaIcms;
+	}
+
+	public TextField getTfValorIcms() {
+		return tfValorIcms;
+	}
+
+	public void setTfValorIcms(TextField tfValorIcms) {
+		this.tfValorIcms = tfValorIcms;
+	}
+
+	public TextField getTfMotivoDesoneracaoIcms() {
+		return tfMotivoDesoneracaoIcms;
+	}
+
+	public void setTfMotivoDesoneracaoIcms(TextField tfMotivoDesoneracaoIcms) {
+		this.tfMotivoDesoneracaoIcms = tfMotivoDesoneracaoIcms;
+	}
+
+	public TextField getTfModalidadeBcStIcms() {
+		return tfModalidadeBcStIcms;
+	}
+
+	public void setTfModalidadeBcStIcms(TextField tfModalidadeBcStIcms) {
+		this.tfModalidadeBcStIcms = tfModalidadeBcStIcms;
+	}
+
+	public TextField getTfPercentualMvaStIcms() {
+		return tfPercentualMvaStIcms;
+	}
+
+	public void setTfPercentualMvaStIcms(TextField tfPercentualMvaStIcms) {
+		this.tfPercentualMvaStIcms = tfPercentualMvaStIcms;
+	}
+
+	public TextField getTfTaxaReducaoBcStIcms() {
+		return tfTaxaReducaoBcStIcms;
+	}
+
+	public void setTfTaxaReducaoBcStIcms(TextField tfTaxaReducaoBcStIcms) {
+		this.tfTaxaReducaoBcStIcms = tfTaxaReducaoBcStIcms;
+	}
+
+	public TextField getTfBaseCalculoStIcms() {
+		return tfBaseCalculoStIcms;
+	}
+
+	public void setTfBaseCalculoStIcms(TextField tfBaseCalculoStIcms) {
+		this.tfBaseCalculoStIcms = tfBaseCalculoStIcms;
+	}
+
+	public TextField getTfAliquotaStIcms() {
+		return tfAliquotaStIcms;
+	}
+
+	public void setTfAliquotaStIcms(TextField tfAliquotaStIcms) {
+		this.tfAliquotaStIcms = tfAliquotaStIcms;
+	}
+
+	public TextField getTfValorStIcms() {
+		return tfValorStIcms;
+	}
+
+	public void setTfValorStIcms(TextField tfValorStIcms) {
+		this.tfValorStIcms = tfValorStIcms;
+	}
+
+	public TextField getTfBcStRetidoIcms() {
+		return tfBcStRetidoIcms;
+	}
+
+	public void setTfBcStRetidoIcms(TextField tfBcStRetidoIcms) {
+		this.tfBcStRetidoIcms = tfBcStRetidoIcms;
+	}
+
+	public TextField getTfValorStRetidoIcms() {
+		return tfValorStRetidoIcms;
+	}
+
+	public void setTfValorStRetidoIcms(TextField tfValorStRetidoIcms) {
+		this.tfValorStRetidoIcms = tfValorStRetidoIcms;
+	}
+
+	public TextField getTfBcStDestinoIcms() {
+		return tfBcStDestinoIcms;
+	}
+
+	public void setTfBcStDestinoIcms(TextField tfBcStDestinoIcms) {
+		this.tfBcStDestinoIcms = tfBcStDestinoIcms;
+	}
+
+	public TextField getTfValorStDestinoIcms() {
+		return tfValorStDestinoIcms;
+	}
+
+	public void setTfValorStDestinoIcms(TextField tfValorStDestinoIcms) {
+		this.tfValorStDestinoIcms = tfValorStDestinoIcms;
+	}
+
+	public TextField getTfAliquotaCreditoSnIcms() {
+		return tfAliquotaCreditoSnIcms;
+	}
+
+	public void setTfAliquotaCreditoSnIcms(TextField tfAliquotaCreditoSnIcms) {
+		this.tfAliquotaCreditoSnIcms = tfAliquotaCreditoSnIcms;
+	}
+
+	public TextField getTfValorCreditoSnIcms() {
+		return tfValorCreditoSnIcms;
+	}
+
+	public void setTfValorCreditoSnIcms(TextField tfValorCreditoSnIcms) {
+		this.tfValorCreditoSnIcms = tfValorCreditoSnIcms;
+	}
+
+	public TextField getTfPercentualBcOperacaoPropriaIcms() {
+		return tfPercentualBcOperacaoPropriaIcms;
+	}
+
+	public void setTfPercentualBcOperacaoPropriaIcms(
+			TextField tfPercentualBcOperacaoPropriaIcms) {
+		this.tfPercentualBcOperacaoPropriaIcms = tfPercentualBcOperacaoPropriaIcms;
+	}
+
+	public TextField getTfUfStIcms() {
+		return tfUfStIcms;
+	}
+
+	public void setTfUfStIcms(TextField tfUfStIcms) {
+		this.tfUfStIcms = tfUfStIcms;
 	}
 
 	/**
@@ -1085,322 +1401,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 		this.tfValorCideCombustivel = tfValorCideCombustivel;
 	}
 
-	public TextField getTfBaseCalculoBcImpostoImportacao() {
-		return tfBaseCalculoBcImpostoImportacao;
-	}
-
-	public void setTfBaseCalculoBcImpostoImportacao(
-			TextField tfBaseCalculoBcImpostoImportacao) {
-		this.tfBaseCalculoBcImpostoImportacao = tfBaseCalculoBcImpostoImportacao;
-	}
-
-	public TextField getTfDespesasAduaneirasImpostoImportacao() {
-		return tfDespesasAduaneirasImpostoImportacao;
-	}
-
-	public void setTfDespesasAduaneirasImpostoImportacao(
-			TextField tfDespesasAduaneirasImpostoImportacao) {
-		this.tfDespesasAduaneirasImpostoImportacao = tfDespesasAduaneirasImpostoImportacao;
-	}
-
-	public TextField getTfValorImpostoImportacao() {
-		return tfValorImpostoImportacao;
-	}
-
-	public void setTfValorImpostoImportacao(TextField tfValorImpostoImportacao) {
-		this.tfValorImpostoImportacao = tfValorImpostoImportacao;
-	}
-
-	public TextField getTfIofImpostoImportacao() {
-		return tfIofImpostoImportacao;
-	}
-
-	public void setTfIofImpostoImportacao(TextField tfIofImpostoImportacao) {
-		this.tfIofImpostoImportacao = tfIofImpostoImportacao;
-	}
-
-	public TextField getTfCstCofins() {
-		return tfCstCofins;
-	}
-
-	public void setTfCstCofins(TextField tfCstCofins) {
-		this.tfCstCofins = tfCstCofins;
-	}
-
-	public TextField getTfQtdVendidaCofins() {
-		return tfQtdVendidaCofins;
-	}
-
-	public void setTfQtdVendidaCofins(TextField tfQtdVendidaCofins) {
-		this.tfQtdVendidaCofins = tfQtdVendidaCofins;
-	}
-
-	public TextField getTfBaseCalculoBcCofins() {
-		return tfBaseCalculoBcCofins;
-	}
-
-	public void setTfBaseCalculoBcCofins(TextField tfBaseCalculoBcCofins) {
-		this.tfBaseCalculoBcCofins = tfBaseCalculoBcCofins;
-	}
-
-	public TextField getTfAliquotaPercentualCofins() {
-		return tfAliquotaPercentualCofins;
-	}
-
-	public void setTfAliquotaPercentualCofins(
-			TextField tfAliquotaPercentualCofins) {
-		this.tfAliquotaPercentualCofins = tfAliquotaPercentualCofins;
-	}
-
-	public TextField getTfAliquotaReaisCofins() {
-		return tfAliquotaReaisCofins;
-	}
-
-	public void setTfAliquotaReaisCofins(TextField tfAliquotaReaisCofins) {
-		this.tfAliquotaReaisCofins = tfAliquotaReaisCofins;
-	}
-
-	public TextField getTfValorCofins() {
-		return tfValorCofins;
-	}
-
-	public void setTfValorCofins(TextField tfValorCofins) {
-		this.tfValorCofins = tfValorCofins;
-	}
-
-	public TextField getTfCstPis() {
-		return tfCstPis;
-	}
-
-	public void setTfCstPis(TextField tfCstPis) {
-		this.tfCstPis = tfCstPis;
-	}
-
-	public TextField getTfQtdVendidaPis() {
-		return tfQtdVendidaPis;
-	}
-
-	public void setTfQtdVendidaPis(TextField tfQtdVendidaPis) {
-		this.tfQtdVendidaPis = tfQtdVendidaPis;
-	}
-
-	public TextField getTfBaseCalculoBcPis() {
-		return tfBaseCalculoBcPis;
-	}
-
-	public void setTfBaseCalculoBcPis(TextField tfBaseCalculoBcPis) {
-		this.tfBaseCalculoBcPis = tfBaseCalculoBcPis;
-	}
-
-	public TextField getTfAliquotaPercentualPis() {
-		return tfAliquotaPercentualPis;
-	}
-
-	public void setTfAliquotaPercentualPis(TextField tfAliquotaPercentualPis) {
-		this.tfAliquotaPercentualPis = tfAliquotaPercentualPis;
-	}
-
-	public TextField getTfAliquotaReaisPis() {
-		return tfAliquotaReaisPis;
-	}
-
-	public void setTfAliquotaReaisPis(TextField tfAliquotaReaisPis) {
-		this.tfAliquotaReaisPis = tfAliquotaReaisPis;
-	}
-
-	public TextField getTfValorPis() {
-		return tfValorPis;
-	}
-
-	public void setTfValorPis(TextField tfValorPis) {
-		this.tfValorPis = tfValorPis;
-	}
-
-	public TextField getTfOrigemMercadoriaIcms() {
-		return tfOrigemMercadoriaIcms;
-	}
-
-	public void setTfOrigemMercadoriaIcms(TextField tfOrigemMercadoriaIcms) {
-		this.tfOrigemMercadoriaIcms = tfOrigemMercadoriaIcms;
-	}
-
-	public TextField getTfCstIcms() {
-		return tfCstIcms;
-	}
-
-	public void setTfCstIcms(TextField tfCstIcms) {
-		this.tfCstIcms = tfCstIcms;
-	}
-
-	public TextField getTfCsosnIcms() {
-		return tfCsosnIcms;
-	}
-
-	public void setTfCsosnIcms(TextField tfCsosnIcms) {
-		this.tfCsosnIcms = tfCsosnIcms;
-	}
-
-	public TextField getTfModalidadeBcIcms() {
-		return tfModalidadeBcIcms;
-	}
-
-	public void setTfModalidadeBcIcms(TextField tfModalidadeBcIcms) {
-		this.tfModalidadeBcIcms = tfModalidadeBcIcms;
-	}
-
-	public TextField getTfTaxaReducaoBcIcms() {
-		return tfTaxaReducaoBcIcms;
-	}
-
-	public void setTfTaxaReducaoBcIcms(TextField tfTaxaReducaoBcIcms) {
-		this.tfTaxaReducaoBcIcms = tfTaxaReducaoBcIcms;
-	}
-
-	public TextField getTfBaseCalculoBcIcms() {
-		return tfBaseCalculoBcIcms;
-	}
-
-	public void setTfBaseCalculoBcIcms(TextField tfBaseCalculoBcIcms) {
-		this.tfBaseCalculoBcIcms = tfBaseCalculoBcIcms;
-	}
-
-	public TextField getTfAliquotaIcms() {
-		return tfAliquotaIcms;
-	}
-
-	public void setTfAliquotaIcms(TextField tfAliquotaIcms) {
-		this.tfAliquotaIcms = tfAliquotaIcms;
-	}
-
-	public TextField getTfValorIcms() {
-		return tfValorIcms;
-	}
-
-	public void setTfValorIcms(TextField tfValorIcms) {
-		this.tfValorIcms = tfValorIcms;
-	}
-
-	public TextField getTfMotivoDesoneracaoIcms() {
-		return tfMotivoDesoneracaoIcms;
-	}
-
-	public void setTfMotivoDesoneracaoIcms(TextField tfMotivoDesoneracaoIcms) {
-		this.tfMotivoDesoneracaoIcms = tfMotivoDesoneracaoIcms;
-	}
-
-	public TextField getTfModalidadeBcStIcms() {
-		return tfModalidadeBcStIcms;
-	}
-
-	public void setTfModalidadeBcStIcms(TextField tfModalidadeBcStIcms) {
-		this.tfModalidadeBcStIcms = tfModalidadeBcStIcms;
-	}
-
-	public TextField getTfPercentualMvaStIcms() {
-		return tfPercentualMvaStIcms;
-	}
-
-	public void setTfPercentualMvaStIcms(TextField tfPercentualMvaStIcms) {
-		this.tfPercentualMvaStIcms = tfPercentualMvaStIcms;
-	}
-
-	public TextField getTfTaxaReducaoBcStIcms() {
-		return tfTaxaReducaoBcStIcms;
-	}
-
-	public void setTfTaxaReducaoBcStIcms(TextField tfTaxaReducaoBcStIcms) {
-		this.tfTaxaReducaoBcStIcms = tfTaxaReducaoBcStIcms;
-	}
-
-	public TextField getTfBaseCalculoStIcms() {
-		return tfBaseCalculoStIcms;
-	}
-
-	public void setTfBaseCalculoStIcms(TextField tfBaseCalculoStIcms) {
-		this.tfBaseCalculoStIcms = tfBaseCalculoStIcms;
-	}
-
-	public TextField getTfAliquotaStIcms() {
-		return tfAliquotaStIcms;
-	}
-
-	public void setTfAliquotaStIcms(TextField tfAliquotaStIcms) {
-		this.tfAliquotaStIcms = tfAliquotaStIcms;
-	}
-
-	public TextField getTfValorStIcms() {
-		return tfValorStIcms;
-	}
-
-	public void setTfValorStIcms(TextField tfValorStIcms) {
-		this.tfValorStIcms = tfValorStIcms;
-	}
-
-	public TextField getTfBcStRetidoIcms() {
-		return tfBcStRetidoIcms;
-	}
-
-	public void setTfBcStRetidoIcms(TextField tfBcStRetidoIcms) {
-		this.tfBcStRetidoIcms = tfBcStRetidoIcms;
-	}
-
-	public TextField getTfValorStRetidoIcms() {
-		return tfValorStRetidoIcms;
-	}
-
-	public void setTfValorStRetidoIcms(TextField tfValorStRetidoIcms) {
-		this.tfValorStRetidoIcms = tfValorStRetidoIcms;
-	}
-
-	public TextField getTfBcStDestinoIcms() {
-		return tfBcStDestinoIcms;
-	}
-
-	public void setTfBcStDestinoIcms(TextField tfBcStDestinoIcms) {
-		this.tfBcStDestinoIcms = tfBcStDestinoIcms;
-	}
-
-	public TextField getTfValorStDestinoIcms() {
-		return tfValorStDestinoIcms;
-	}
-
-	public void setTfValorStDestinoIcms(TextField tfValorStDestinoIcms) {
-		this.tfValorStDestinoIcms = tfValorStDestinoIcms;
-	}
-
-	public TextField getTfAliquotaCreditoSnIcms() {
-		return tfAliquotaCreditoSnIcms;
-	}
-
-	public void setTfAliquotaCreditoSnIcms(TextField tfAliquotaCreditoSnIcms) {
-		this.tfAliquotaCreditoSnIcms = tfAliquotaCreditoSnIcms;
-	}
-
-	public TextField getTfValorCreditoSnIcms() {
-		return tfValorCreditoSnIcms;
-	}
-
-	public void setTfValorCreditoSnIcms(TextField tfValorCreditoSnIcms) {
-		this.tfValorCreditoSnIcms = tfValorCreditoSnIcms;
-	}
-
-	public TextField getTfPercentualBcOperacaoPropriaIcms() {
-		return tfPercentualBcOperacaoPropriaIcms;
-	}
-
-	public void setTfPercentualBcOperacaoPropriaIcms(
-			TextField tfPercentualBcOperacaoPropriaIcms) {
-		this.tfPercentualBcOperacaoPropriaIcms = tfPercentualBcOperacaoPropriaIcms;
-	}
-
-	public TextField getTfUfStIcms() {
-		return tfUfStIcms;
-	}
-
-	public void setTfUfStIcms(TextField tfUfStIcms) {
-		this.tfUfStIcms = tfUfStIcms;
-	}
-
 	public SubFormComponent<NfeDetalheEntity, Integer> getSfNfeDetalhe() {
 		return sfNfeDetalhe;
 	}
@@ -1647,6 +1647,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfOperacaoFiscalId.setImmediate(true);
 		tfOperacaoFiscalId.setId("tfOperacaoFiscalId");
 		tfOperacaoFiscalId.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1667,6 +1672,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfOperacaoFiscal.setImmediate(true);
 		tfOperacaoFiscal.setId("tfOperacaoFiscal");
 		tfOperacaoFiscal.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1687,6 +1697,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfVenda.setImmediate(true);
 		tfVenda.setId("tfVenda");
 		tfVenda.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1706,6 +1721,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfModeloNotaFiscal.setImmediate(true);
 		tfModeloNotaFiscal.setId("tfModeloNotaFiscal");
 		tfModeloNotaFiscal.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1726,6 +1746,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNaturezaOperacao.setImmediate(true);
 		tfNaturezaOperacao.setId("tfNaturezaOperacao");
 		tfNaturezaOperacao.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1746,6 +1771,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfChaveAcesso.setImmediate(true);
 		tfChaveAcesso.setId("tfChaveAcesso");
 		tfChaveAcesso.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1765,6 +1795,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDigitoChaveAcesso.setImmediate(true);
 		tfDigitoChaveAcesso.setId("tfDigitoChaveAcesso");
 		tfDigitoChaveAcesso.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1785,6 +1820,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoNumerico.setImmediate(true);
 		tfCodigoNumerico.setId("tfCodigoNumerico");
 		tfCodigoNumerico.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1805,6 +1845,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfSerie.setImmediate(true);
 		tfSerie.setId("tfSerie");
 		tfSerie.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1824,6 +1869,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumero.setImmediate(true);
 		tfNumero.setId("tfNumero");
 		tfNumero.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1843,6 +1893,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDataEmissao.setImmediate(true);
 		tfDataEmissao.setId("tfDataEmissao");
 		tfDataEmissao.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1862,6 +1917,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDataEntradaSaida.setImmediate(true);
 		tfDataEntradaSaida.setId("tfDataEntradaSaida");
 		tfDataEntradaSaida.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1882,6 +1942,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfHoraEntradaSaida.setImmediate(true);
 		tfHoraEntradaSaida.setId("tfHoraEntradaSaida");
 		tfHoraEntradaSaida.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1902,6 +1967,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoOperacao.setImmediate(true);
 		tfTipoOperacao.setId("tfTipoOperacao");
 		tfTipoOperacao.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1921,6 +1991,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoEmissao.setImmediate(true);
 		tfTipoEmissao.setId("tfTipoEmissao");
 		tfTipoEmissao.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1940,6 +2015,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfFinalidadeEmissao.setImmediate(true);
 		tfFinalidadeEmissao.setId("tfFinalidadeEmissao");
 		tfFinalidadeEmissao.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -1961,6 +2041,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfFormatoImpressaoDanfe.setId("tfFormatoImpressaoDanfe");
 		tfFormatoImpressaoDanfe
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -1981,6 +2066,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfFormaPagamento.setImmediate(true);
 		tfFormaPagamento.setId("tfFormaPagamento");
 		tfFormaPagamento.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2049,6 +2139,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfOrigemMercadoriaIcms.setId("tfOrigemMercadoriaIcms");
 		tfOrigemMercadoriaIcms
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -2068,6 +2163,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCstIcms.setImmediate(true);
 		tfCstIcms.setId("tfCstIcms");
 		tfCstIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2086,6 +2186,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCsosnIcms.setImmediate(true);
 		tfCsosnIcms.setId("tfCsosnIcms");
 		tfCsosnIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2104,6 +2209,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfModalidadeBcIcms.setImmediate(true);
 		tfModalidadeBcIcms.setId("tfModalidadeBcIcms");
 		tfModalidadeBcIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2122,6 +2232,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTaxaReducaoBcIcms.setImmediate(true);
 		tfTaxaReducaoBcIcms.setId("tfTaxaReducaoBcIcms");
 		tfTaxaReducaoBcIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2140,6 +2255,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoBcIcms.setImmediate(true);
 		tfBaseCalculoBcIcms.setId("tfBaseCalculoBcIcms");
 		tfBaseCalculoBcIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2158,6 +2278,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaIcms.setImmediate(true);
 		tfAliquotaIcms.setId("tfAliquotaIcms");
 		tfAliquotaIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2176,6 +2301,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorIcms.setImmediate(true);
 		tfValorIcms.setId("tfValorIcms");
 		tfValorIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2195,6 +2325,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfMotivoDesoneracaoIcms.setId("tfMotivoDesoneracaoIcms");
 		tfMotivoDesoneracaoIcms
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -2214,6 +2349,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfModalidadeBcStIcms.setImmediate(true);
 		tfModalidadeBcStIcms.setId("tfModalidadeBcStIcms");
 		tfModalidadeBcStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2232,6 +2372,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPercentualMvaStIcms.setImmediate(true);
 		tfPercentualMvaStIcms.setId("tfPercentualMvaStIcms");
 		tfPercentualMvaStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2250,6 +2395,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTaxaReducaoBcStIcms.setImmediate(true);
 		tfTaxaReducaoBcStIcms.setId("tfTaxaReducaoBcStIcms");
 		tfTaxaReducaoBcStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2268,6 +2418,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoStIcms.setImmediate(true);
 		tfBaseCalculoStIcms.setId("tfBaseCalculoStIcms");
 		tfBaseCalculoStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2286,6 +2441,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaStIcms.setImmediate(true);
 		tfAliquotaStIcms.setId("tfAliquotaStIcms");
 		tfAliquotaStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2304,6 +2464,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorStIcms.setImmediate(true);
 		tfValorStIcms.setId("tfValorStIcms");
 		tfValorStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2322,6 +2487,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBcStRetidoIcms.setImmediate(true);
 		tfBcStRetidoIcms.setId("tfBcStRetidoIcms");
 		tfBcStRetidoIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2340,6 +2510,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorStRetidoIcms.setImmediate(true);
 		tfValorStRetidoIcms.setId("tfValorStRetidoIcms");
 		tfValorStRetidoIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2358,6 +2533,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBcStDestinoIcms.setImmediate(true);
 		tfBcStDestinoIcms.setId("tfBcStDestinoIcms");
 		tfBcStDestinoIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2376,6 +2556,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorStDestinoIcms.setImmediate(true);
 		tfValorStDestinoIcms.setId("tfValorStDestinoIcms");
 		tfValorStDestinoIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2395,6 +2580,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaCreditoSnIcms.setId("tfAliquotaCreditoSnIcms");
 		tfAliquotaCreditoSnIcms
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -2414,6 +2604,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorCreditoSnIcms.setImmediate(true);
 		tfValorCreditoSnIcms.setId("tfValorCreditoSnIcms");
 		tfValorCreditoSnIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2435,6 +2630,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 				.setId("tfPercentualBcOperacaoPropriaIcms");
 		tfPercentualBcOperacaoPropriaIcms
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -2455,6 +2655,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfUfStIcms.setImmediate(true);
 		tfUfStIcms.setId("tfUfStIcms");
 		tfUfStIcms.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2486,6 +2691,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCstPis.setHeight("-1px");
 		tfCstPis.setSizeFull();
 		tfCstPis.setNullRepresentation("");
+		tfCstPis.setImmediate(true);
+		tfCstPis.setId("tfCstPis");
+		tfCstPis.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarPis(tfCstPis.getId(), event);
+			}
+		});
 		glPis.addComponent(tfCstPis, 0, 0);
 
 		// tfQtdVendidaPis
@@ -2495,6 +2714,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQtdVendidaPis.setHeight("-1px");
 		tfQtdVendidaPis.setSizeFull();
 		tfQtdVendidaPis.setNullRepresentation("");
+		tfQtdVendidaPis.setImmediate(true);
+		tfQtdVendidaPis.setId("tfQtdVendidaPis");
+		tfQtdVendidaPis.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarPis(tfQtdVendidaPis.getId(), event);
+			}
+		});
 		glPis.addComponent(tfQtdVendidaPis, 1, 0);
 
 		// tfBaseCalculoBcPis
@@ -2504,6 +2737,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoBcPis.setHeight("-1px");
 		tfBaseCalculoBcPis.setSizeFull();
 		tfBaseCalculoBcPis.setNullRepresentation("");
+		tfBaseCalculoBcPis.setImmediate(true);
+		tfBaseCalculoBcPis.setId("tfBaseCalculoBcPis");
+		tfBaseCalculoBcPis.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarPis(tfBaseCalculoBcPis.getId(), event);
+			}
+		});
 		glPis.addComponent(tfBaseCalculoBcPis, 2, 0);
 
 		// tfAliquotaPercentualPis
@@ -2513,6 +2760,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaPercentualPis.setHeight("-1px");
 		tfAliquotaPercentualPis.setSizeFull();
 		tfAliquotaPercentualPis.setNullRepresentation("");
+		tfAliquotaPercentualPis.setImmediate(true);
+		tfAliquotaPercentualPis.setId("tfAliquotaPercentualPis");
+		tfAliquotaPercentualPis
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarPis(
+								tfAliquotaPercentualPis.getId(), event);
+					}
+				});
 		glPis.addComponent(tfAliquotaPercentualPis, 3, 0);
 
 		// tfAliquotaReaisPis
@@ -2522,6 +2785,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaReaisPis.setHeight("-1px");
 		tfAliquotaReaisPis.setSizeFull();
 		tfAliquotaReaisPis.setNullRepresentation("");
+		tfAliquotaReaisPis.setImmediate(true);
+		tfAliquotaReaisPis.setId("tfAliquotaReaisPis");
+		tfAliquotaReaisPis.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarPis(tfAliquotaReaisPis.getId(), event);
+			}
+		});
 		glPis.addComponent(tfAliquotaReaisPis, 0, 1);
 
 		// tfValorPis
@@ -2531,6 +2808,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorPis.setHeight("-1px");
 		tfValorPis.setSizeFull();
 		tfValorPis.setNullRepresentation("");
+		tfValorPis.setImmediate(true);
+		tfValorPis.setId("tfValorPis");
+		tfValorPis.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarPis(tfValorPis.getId(), event);
+			}
+		});
 		glPis.addComponent(tfValorPis, 1, 1);
 
 		return glPis;
@@ -2559,6 +2850,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCstCofins.setImmediate(true);
 		tfCstCofins.setId("tfCstCofins");
 		tfCstCofins.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2577,6 +2873,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQtdVendidaCofins.setImmediate(true);
 		tfQtdVendidaCofins.setId("tfQtdVendidaCofins");
 		tfQtdVendidaCofins.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2595,6 +2896,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoBcCofins.setImmediate(true);
 		tfBaseCalculoBcCofins.setId("tfBaseCalculoBcCofins");
 		tfBaseCalculoBcCofins.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2614,6 +2920,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaPercentualCofins.setId("tfAliquotaPercentualCofins");
 		tfAliquotaPercentualCofins
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
@@ -2633,6 +2944,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaReaisCofins.setImmediate(true);
 		tfAliquotaReaisCofins.setId("tfAliquotaReaisCofins");
 		tfAliquotaReaisCofins.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2651,6 +2967,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorCofins.setImmediate(true);
 		tfValorCofins.setId("tfValorCofins");
 		tfValorCofins.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -2682,6 +3003,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCstIpi.setHeight("-1px");
 		tfCstIpi.setSizeFull();
 		tfCstIpi.setNullRepresentation("");
+		tfCstIpi.setImmediate(true);
+		tfCstIpi.setId("tfCstIpi");
+		tfCstIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfCstIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfCstIpi, 0, 0);
 
 		// tfBaseCalculoBcIpi
@@ -2691,6 +3026,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoBcIpi.setHeight("-1px");
 		tfBaseCalculoBcIpi.setSizeFull();
 		tfBaseCalculoBcIpi.setNullRepresentation("");
+		tfBaseCalculoBcIpi.setImmediate(true);
+		tfBaseCalculoBcIpi.setId("tfBaseCalculoBcIpi");
+		tfBaseCalculoBcIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfBaseCalculoBcIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfBaseCalculoBcIpi, 1, 0);
 
 		// tfAliquotaIpi
@@ -2700,6 +3049,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaIpi.setHeight("-1px");
 		tfAliquotaIpi.setSizeFull();
 		tfAliquotaIpi.setNullRepresentation("");
+		tfAliquotaIpi.setImmediate(true);
+		tfAliquotaIpi.setId("tfAliquotaIpi");
+		tfAliquotaIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfAliquotaIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfAliquotaIpi, 2, 0);
 
 		// tfQtdUndTributavelIpi
@@ -2709,6 +3072,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQtdUndTributavelIpi.setHeight("-1px");
 		tfQtdUndTributavelIpi.setSizeFull();
 		tfQtdUndTributavelIpi.setNullRepresentation("");
+		tfQtdUndTributavelIpi.setImmediate(true);
+		tfQtdUndTributavelIpi.setId("tfQtdUndTributavelIpi");
+		tfQtdUndTributavelIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfQtdUndTributavelIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfQtdUndTributavelIpi, 3, 0);
 
 		// tfValorUndTributavelIpi
@@ -2718,6 +3095,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorUndTributavelIpi.setHeight("-1px");
 		tfValorUndTributavelIpi.setSizeFull();
 		tfValorUndTributavelIpi.setNullRepresentation("");
+		tfValorUndTributavelIpi.setImmediate(true);
+		tfValorUndTributavelIpi.setId("tfValorUndTributavelIpi");
+		tfValorUndTributavelIpi
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarIpi(
+								tfValorUndTributavelIpi.getId(), event);
+					}
+				});
 		glIpi.addComponent(tfValorUndTributavelIpi, 0, 1);
 
 		// tfValorIpi
@@ -2727,6 +3120,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorIpi.setHeight("-1px");
 		tfValorIpi.setSizeFull();
 		tfValorIpi.setNullRepresentation("");
+		tfValorIpi.setImmediate(true);
+		tfValorIpi.setId("tfValorIpi");
+		tfValorIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfValorIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfValorIpi, 1, 1);
 
 		// tfEnquadramentoIpi
@@ -2736,6 +3143,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfEnquadramentoIpi.setHeight("-1px");
 		tfEnquadramentoIpi.setSizeFull();
 		tfEnquadramentoIpi.setNullRepresentation("");
+		tfEnquadramentoIpi.setImmediate(true);
+		tfEnquadramentoIpi.setId("tfEnquadramentoIpi");
+		tfEnquadramentoIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfEnquadramentoIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfEnquadramentoIpi, 2, 1);
 
 		// tfEnquadramentoLegalIpi
@@ -2745,6 +3166,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfEnquadramentoLegalIpi.setHeight("-1px");
 		tfEnquadramentoLegalIpi.setSizeFull();
 		tfEnquadramentoLegalIpi.setNullRepresentation("");
+		tfEnquadramentoLegalIpi.setImmediate(true);
+		tfEnquadramentoLegalIpi.setId("tfEnquadramentoLegalIpi");
+		tfEnquadramentoLegalIpi
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarIpi(
+								tfEnquadramentoLegalIpi.getId(), event);
+					}
+				});
 		glIpi.addComponent(tfEnquadramentoLegalIpi, 3, 1);
 
 		// tfCnpjProdutorIpi
@@ -2754,6 +3191,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCnpjProdutorIpi.setHeight("-1px");
 		tfCnpjProdutorIpi.setSizeFull();
 		tfCnpjProdutorIpi.setNullRepresentation("");
+		tfCnpjProdutorIpi.setImmediate(true);
+		tfCnpjProdutorIpi.setId("tfCnpjProdutorIpi");
+		tfCnpjProdutorIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfCnpjProdutorIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfCnpjProdutorIpi, 0, 2);
 
 		// tfQtdSeloIpi
@@ -2763,6 +3214,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQtdSeloIpi.setHeight("-1px");
 		tfQtdSeloIpi.setSizeFull();
 		tfQtdSeloIpi.setNullRepresentation("");
+		tfQtdSeloIpi.setImmediate(true);
+		tfQtdSeloIpi.setId("tfQtdSeloIpi");
+		tfQtdSeloIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfQtdSeloIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfQtdSeloIpi, 1, 2);
 
 		// tfCodigoSeloIpi
@@ -2772,6 +3237,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoSeloIpi.setHeight("-1px");
 		tfCodigoSeloIpi.setSizeFull();
 		tfCodigoSeloIpi.setNullRepresentation("");
+		tfCodigoSeloIpi.setImmediate(true);
+		tfCodigoSeloIpi.setId("tfCodigoSeloIpi");
+		tfCodigoSeloIpi.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIpi(tfCodigoSeloIpi.getId(), event);
+			}
+		});
 		glIpi.addComponent(tfCodigoSeloIpi, 2, 2);
 
 		return glIpi;
@@ -2803,10 +3282,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 				.setId("tfBaseCalculoBcImpostoImportacao");
 		tfBaseCalculoBcImpostoImportacao
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.adicionarCofins(
+						controller.adicionarIi(
 								tfBaseCalculoBcImpostoImportacao.getId(), event);
 					}
 				});
@@ -2826,10 +3310,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 				.setId("tfDespesasAduaneirasImpostoImportacao");
 		tfDespesasAduaneirasImpostoImportacao
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.adicionarCofins(
+						controller.adicionarIi(
 								tfDespesasAduaneirasImpostoImportacao.getId(),
 								event);
 					}
@@ -2848,10 +3337,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorImpostoImportacao.setId("tfValorImpostoImportacao");
 		tfValorImpostoImportacao
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.adicionarCofins(
+						controller.adicionarIi(
 								tfValorImpostoImportacao.getId(), event);
 					}
 				});
@@ -2865,14 +3359,19 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfIofImpostoImportacao.setSizeFull();
 		tfIofImpostoImportacao.setNullRepresentation("tfIofImpostoImportacao");
 		tfIofImpostoImportacao.setImmediate(true);
-		tfIofImpostoImportacao.setId("");
+		tfIofImpostoImportacao.setId("tfIofImpostoImportacao");
 		tfIofImpostoImportacao
 				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.adicionarCofins(
-								tfIofImpostoImportacao.getId(), event);
+						controller.adicionarIi(tfIofImpostoImportacao.getId(),
+								event);
 					}
 				});
 		glImpostoImportacao.addComponent(tfIofImpostoImportacao, 3, 0);
@@ -2900,6 +3399,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBaseCalculoBcIssqn.setHeight("-1px");
 		tfBaseCalculoBcIssqn.setSizeFull();
 		tfBaseCalculoBcIssqn.setNullRepresentation("");
+		tfBaseCalculoBcIssqn.setImmediate(true);
+		tfBaseCalculoBcIssqn.setId("tfBaseCalculoBcIssqn");
+		tfBaseCalculoBcIssqn.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIssqn(tfBaseCalculoBcIssqn.getId(), event);
+			}
+		});
 		glIssqn.addComponent(tfBaseCalculoBcIssqn, 0, 0);
 
 		// tfAliquotaIssqn
@@ -2909,6 +3422,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaIssqn.setHeight("-1px");
 		tfAliquotaIssqn.setSizeFull();
 		tfAliquotaIssqn.setNullRepresentation("");
+		tfAliquotaIssqn.setImmediate(true);
+		tfAliquotaIssqn.setId("tfAliquotaIssqn");
+		tfAliquotaIssqn.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIssqn(tfAliquotaIssqn.getId(), event);
+			}
+		});
 		glIssqn.addComponent(tfAliquotaIssqn, 1, 0);
 
 		// tfValorIssqn
@@ -2918,6 +3445,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorIssqn.setHeight("-1px");
 		tfValorIssqn.setSizeFull();
 		tfValorIssqn.setNullRepresentation("");
+		tfValorIssqn.setImmediate(true);
+		tfValorIssqn.setId("tfValorIssqn");
+		tfValorIssqn.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIssqn(tfValorIssqn.getId(), event);
+			}
+		});
 		glIssqn.addComponent(tfValorIssqn, 2, 0);
 
 		// tfMunicipioIssqn
@@ -2927,6 +3468,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfMunicipioIssqn.setHeight("-1px");
 		tfMunicipioIssqn.setSizeFull();
 		tfMunicipioIssqn.setNullRepresentation("");
+		tfMunicipioIssqn.setImmediate(true);
+		tfMunicipioIssqn.setId("tfMunicipioIssqn");
+		tfMunicipioIssqn.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIssqn(tfMunicipioIssqn.getId(), event);
+			}
+		});
 		glIssqn.addComponent(tfMunicipioIssqn, 3, 0);
 
 		// tfItemListaServicosIssqn
@@ -2936,6 +3491,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfItemListaServicosIssqn.setHeight("-1px");
 		tfItemListaServicosIssqn.setSizeFull();
 		tfItemListaServicosIssqn.setNullRepresentation("");
+		tfItemListaServicosIssqn.setImmediate(true);
+		tfItemListaServicosIssqn.setId("tfItemListaServicosIssqn");
+		tfItemListaServicosIssqn
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarIssqn(
+								tfItemListaServicosIssqn.getId(), event);
+					}
+				});
 		glIssqn.addComponent(tfItemListaServicosIssqn, 0, 1);
 
 		// tfTributacaoIssqn
@@ -2945,6 +3516,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTributacaoIssqn.setHeight("-1px");
 		tfTributacaoIssqn.setSizeFull();
 		tfTributacaoIssqn.setNullRepresentation("");
+		tfTributacaoIssqn.setImmediate(true);
+		tfTributacaoIssqn.setId("tfTributacaoIssqn");
+		tfTributacaoIssqn.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarIssqn(tfTributacaoIssqn.getId(), event);
+			}
+		});
 		glIssqn.addComponent(tfTributacaoIssqn, 1, 1);
 
 		return glIssqn;
