@@ -384,6 +384,200 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return glVeiculo;
 	}
 
+	public TextField getTfTipoOperacaoVeiculo() {
+		return tfTipoOperacaoVeiculo;
+	}
+
+	public void setTfTipoOperacaoVeiculo(TextField tfTipoOperacaoVeiculo) {
+		this.tfTipoOperacaoVeiculo = tfTipoOperacaoVeiculo;
+	}
+
+	public TextField getTfChassiVeiculo() {
+		return tfChassiVeiculo;
+	}
+
+	public void setTfChassiVeiculo(TextField tfChassiVeiculo) {
+		this.tfChassiVeiculo = tfChassiVeiculo;
+	}
+
+	public TextField getTfCodigoCorVeiculo() {
+		return tfCodigoCorVeiculo;
+	}
+
+	public void setTfCodigoCorVeiculo(TextField tfCodigoCorVeiculo) {
+		this.tfCodigoCorVeiculo = tfCodigoCorVeiculo;
+	}
+
+	public TextField getTfDescricaoCorVeiculo() {
+		return tfDescricaoCorVeiculo;
+	}
+
+	public void setTfDescricaoCorVeiculo(TextField tfDescricaoCorVeiculo) {
+		this.tfDescricaoCorVeiculo = tfDescricaoCorVeiculo;
+	}
+
+	public TextField getTfPotenciaMotorVeiculo() {
+		return tfPotenciaMotorVeiculo;
+	}
+
+	public void setTfPotenciaMotorVeiculo(TextField tfPotenciaMotorVeiculo) {
+		this.tfPotenciaMotorVeiculo = tfPotenciaMotorVeiculo;
+	}
+
+	public TextField getTfCilindradasVeiculo() {
+		return tfCilindradasVeiculo;
+	}
+
+	public void setTfCilindradasVeiculo(TextField tfCilindradasVeiculo) {
+		this.tfCilindradasVeiculo = tfCilindradasVeiculo;
+	}
+
+	public TextField getTfPesoLiquidoVeiculo() {
+		return tfPesoLiquidoVeiculo;
+	}
+
+	public void setTfPesoLiquidoVeiculo(TextField tfPesoLiquidoVeiculo) {
+		this.tfPesoLiquidoVeiculo = tfPesoLiquidoVeiculo;
+	}
+
+	public TextField getTfPesoBrutoVeiculo() {
+		return tfPesoBrutoVeiculo;
+	}
+
+	public void setTfPesoBrutoVeiculo(TextField tfPesoBrutoVeiculo) {
+		this.tfPesoBrutoVeiculo = tfPesoBrutoVeiculo;
+	}
+
+	public TextField getTfNumeroSerieVeiculo() {
+		return tfNumeroSerieVeiculo;
+	}
+
+	public void setTfNumeroSerieVeiculo(TextField tfNumeroSerieVeiculo) {
+		this.tfNumeroSerieVeiculo = tfNumeroSerieVeiculo;
+	}
+
+	public TextField getTfCombustivelVeiculo() {
+		return tfCombustivelVeiculo;
+	}
+
+	public void setTfCombustivelVeiculo(TextField tfCombustivelVeiculo) {
+		this.tfCombustivelVeiculo = tfCombustivelVeiculo;
+	}
+
+	public TextField getTfNumeroMotorVeiculo() {
+		return tfNumeroMotorVeiculo;
+	}
+
+	public void setTfNumeroMotorVeiculo(TextField tfNumeroMotorVeiculo) {
+		this.tfNumeroMotorVeiculo = tfNumeroMotorVeiculo;
+	}
+
+	public TextField getTfCapacidadeTracaoVeiculo() {
+		return tfCapacidadeTracaoVeiculo;
+	}
+
+	public void setTfCapacidadeTracaoVeiculo(TextField tfCapacidadeTracaoVeiculo) {
+		this.tfCapacidadeTracaoVeiculo = tfCapacidadeTracaoVeiculo;
+	}
+
+	public TextField getTfDistanciaEixosVeiculo() {
+		return tfDistanciaEixosVeiculo;
+	}
+
+	public void setTfDistanciaEixosVeiculo(TextField tfDistanciaEixosVeiculo) {
+		this.tfDistanciaEixosVeiculo = tfDistanciaEixosVeiculo;
+	}
+
+	public TextField getTfAnoModeloVeiculo() {
+		return tfAnoModeloVeiculo;
+	}
+
+	public void setTfAnoModeloVeiculo(TextField tfAnoModeloVeiculo) {
+		this.tfAnoModeloVeiculo = tfAnoModeloVeiculo;
+	}
+
+	public TextField getTfAnoFabricacaoVeiculo() {
+		return tfAnoFabricacaoVeiculo;
+	}
+
+	public void setTfAnoFabricacaoVeiculo(TextField tfAnoFabricacaoVeiculo) {
+		this.tfAnoFabricacaoVeiculo = tfAnoFabricacaoVeiculo;
+	}
+
+	public TextField getTfTipoPinturaVeiculo() {
+		return tfTipoPinturaVeiculo;
+	}
+
+	public void setTfTipoPinturaVeiculo(TextField tfTipoPinturaVeiculo) {
+		this.tfTipoPinturaVeiculo = tfTipoPinturaVeiculo;
+	}
+
+	public TextField getTfTipoVeiculo() {
+		return tfTipoVeiculo;
+	}
+
+	public void setTfTipoVeiculo(TextField tfTipoVeiculo) {
+		this.tfTipoVeiculo = tfTipoVeiculo;
+	}
+
+	public TextField getTfEspecieVeiculo() {
+		return tfEspecieVeiculo;
+	}
+
+	public void setTfEspecieVeiculo(TextField tfEspecieVeiculo) {
+		this.tfEspecieVeiculo = tfEspecieVeiculo;
+	}
+
+	public TextField getTfCondicaoVinVeiculo() {
+		return tfCondicaoVinVeiculo;
+	}
+
+	public void setTfCondicaoVinVeiculo(TextField tfCondicaoVinVeiculo) {
+		this.tfCondicaoVinVeiculo = tfCondicaoVinVeiculo;
+	}
+
+	public TextField getTfCondicaoVeiculo() {
+		return tfCondicaoVeiculo;
+	}
+
+	public void setTfCondicaoVeiculo(TextField tfCondicaoVeiculo) {
+		this.tfCondicaoVeiculo = tfCondicaoVeiculo;
+	}
+
+	public TextField getTfCodigoMarcaModeloVeiculo() {
+		return tfCodigoMarcaModeloVeiculo;
+	}
+
+	public void setTfCodigoMarcaModeloVeiculo(
+			TextField tfCodigoMarcaModeloVeiculo) {
+		this.tfCodigoMarcaModeloVeiculo = tfCodigoMarcaModeloVeiculo;
+	}
+
+	public TextField getTfCodigoCorDenatranVeiculo() {
+		return tfCodigoCorDenatranVeiculo;
+	}
+
+	public void setTfCodigoCorDenatranVeiculo(
+			TextField tfCodigoCorDenatranVeiculo) {
+		this.tfCodigoCorDenatranVeiculo = tfCodigoCorDenatranVeiculo;
+	}
+
+	public TextField getTfLotacaoVeiculo() {
+		return tfLotacaoVeiculo;
+	}
+
+	public void setTfLotacaoVeiculo(TextField tfLotacaoVeiculo) {
+		this.tfLotacaoVeiculo = tfLotacaoVeiculo;
+	}
+
+	public TextField getTfRestricaoVeiculo() {
+		return tfRestricaoVeiculo;
+	}
+
+	public void setTfRestricaoVeiculo(TextField tfRestricaoVeiculo) {
+		this.tfRestricaoVeiculo = tfRestricaoVeiculo;
+	}
+
 	/**
 	 * ISSQN
 	 */
@@ -491,6 +685,63 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	public GridLayout getGlCombustivel() {
 		return glCombustivel;
+	}
+
+	public TextField getTfCodigoAnpCombustivel() {
+		return tfCodigoAnpCombustivel;
+	}
+
+	public void setTfCodigoAnpCombustivel(TextField tfCodigoAnpCombustivel) {
+		this.tfCodigoAnpCombustivel = tfCodigoAnpCombustivel;
+	}
+
+	public TextField getTfCodifCombustivel() {
+		return tfCodifCombustivel;
+	}
+
+	public void setTfCodifCombustivel(TextField tfCodifCombustivel) {
+		this.tfCodifCombustivel = tfCodifCombustivel;
+	}
+
+	public TextField getTfQtdeTempAmbienteCombustivel() {
+		return tfQtdeTempAmbienteCombustivel;
+	}
+
+	public void setTfQtdeTempAmbienteCombustivel(
+			TextField tfQtdeTempAmbienteCombustivel) {
+		this.tfQtdeTempAmbienteCombustivel = tfQtdeTempAmbienteCombustivel;
+	}
+
+	public TextField getTfUfConsumoCombustivel() {
+		return tfUfConsumoCombustivel;
+	}
+
+	public void setTfUfConsumoCombustivel(TextField tfUfConsumoCombustivel) {
+		this.tfUfConsumoCombustivel = tfUfConsumoCombustivel;
+	}
+
+	public TextField getTfBcCideCombustivel() {
+		return tfBcCideCombustivel;
+	}
+
+	public void setTfBcCideCombustivel(TextField tfBcCideCombustivel) {
+		this.tfBcCideCombustivel = tfBcCideCombustivel;
+	}
+
+	public TextField getTfAliquotaCideCombustivel() {
+		return tfAliquotaCideCombustivel;
+	}
+
+	public void setTfAliquotaCideCombustivel(TextField tfAliquotaCideCombustivel) {
+		this.tfAliquotaCideCombustivel = tfAliquotaCideCombustivel;
+	}
+
+	public TextField getTfValorCideCombustivel() {
+		return tfValorCideCombustivel;
+	}
+
+	public void setTfValorCideCombustivel(TextField tfValorCideCombustivel) {
+		this.tfValorCideCombustivel = tfValorCideCombustivel;
 	}
 
 	/**
@@ -1150,257 +1401,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 	/**
 	 * GET SET
 	 */
-
-	public TextField getTfTipoOperacaoVeiculo() {
-		return tfTipoOperacaoVeiculo;
-	}
-
-	public void setTfTipoOperacaoVeiculo(TextField tfTipoOperacaoVeiculo) {
-		this.tfTipoOperacaoVeiculo = tfTipoOperacaoVeiculo;
-	}
-
-	public TextField getTfChassiVeiculo() {
-		return tfChassiVeiculo;
-	}
-
-	public void setTfChassiVeiculo(TextField tfChassiVeiculo) {
-		this.tfChassiVeiculo = tfChassiVeiculo;
-	}
-
-	public TextField getTfCodigoCorVeiculo() {
-		return tfCodigoCorVeiculo;
-	}
-
-	public void setTfCodigoCorVeiculo(TextField tfCodigoCorVeiculo) {
-		this.tfCodigoCorVeiculo = tfCodigoCorVeiculo;
-	}
-
-	public TextField getTfDescricaoCorVeiculo() {
-		return tfDescricaoCorVeiculo;
-	}
-
-	public void setTfDescricaoCorVeiculo(TextField tfDescricaoCorVeiculo) {
-		this.tfDescricaoCorVeiculo = tfDescricaoCorVeiculo;
-	}
-
-	public TextField getTfPotenciaMotorVeiculo() {
-		return tfPotenciaMotorVeiculo;
-	}
-
-	public void setTfPotenciaMotorVeiculo(TextField tfPotenciaMotorVeiculo) {
-		this.tfPotenciaMotorVeiculo = tfPotenciaMotorVeiculo;
-	}
-
-	public TextField getTfCilindradasVeiculo() {
-		return tfCilindradasVeiculo;
-	}
-
-	public void setTfCilindradasVeiculo(TextField tfCilindradasVeiculo) {
-		this.tfCilindradasVeiculo = tfCilindradasVeiculo;
-	}
-
-	public TextField getTfPesoLiquidoVeiculo() {
-		return tfPesoLiquidoVeiculo;
-	}
-
-	public void setTfPesoLiquidoVeiculo(TextField tfPesoLiquidoVeiculo) {
-		this.tfPesoLiquidoVeiculo = tfPesoLiquidoVeiculo;
-	}
-
-	public TextField getTfPesoBrutoVeiculo() {
-		return tfPesoBrutoVeiculo;
-	}
-
-	public void setTfPesoBrutoVeiculo(TextField tfPesoBrutoVeiculo) {
-		this.tfPesoBrutoVeiculo = tfPesoBrutoVeiculo;
-	}
-
-	public TextField getTfNumeroSerieVeiculo() {
-		return tfNumeroSerieVeiculo;
-	}
-
-	public void setTfNumeroSerieVeiculo(TextField tfNumeroSerieVeiculo) {
-		this.tfNumeroSerieVeiculo = tfNumeroSerieVeiculo;
-	}
-
-	public TextField getTfCombustivelVeiculo() {
-		return tfCombustivelVeiculo;
-	}
-
-	public void setTfCombustivelVeiculo(TextField tfCombustivelVeiculo) {
-		this.tfCombustivelVeiculo = tfCombustivelVeiculo;
-	}
-
-	public TextField getTfNumeroMotorVeiculo() {
-		return tfNumeroMotorVeiculo;
-	}
-
-	public void setTfNumeroMotorVeiculo(TextField tfNumeroMotorVeiculo) {
-		this.tfNumeroMotorVeiculo = tfNumeroMotorVeiculo;
-	}
-
-	public TextField getTfCapacidadeTracaoVeiculo() {
-		return tfCapacidadeTracaoVeiculo;
-	}
-
-	public void setTfCapacidadeTracaoVeiculo(TextField tfCapacidadeTracaoVeiculo) {
-		this.tfCapacidadeTracaoVeiculo = tfCapacidadeTracaoVeiculo;
-	}
-
-	public TextField getTfDistanciaEixosVeiculo() {
-		return tfDistanciaEixosVeiculo;
-	}
-
-	public void setTfDistanciaEixosVeiculo(TextField tfDistanciaEixosVeiculo) {
-		this.tfDistanciaEixosVeiculo = tfDistanciaEixosVeiculo;
-	}
-
-	public TextField getTfAnoModeloVeiculo() {
-		return tfAnoModeloVeiculo;
-	}
-
-	public void setTfAnoModeloVeiculo(TextField tfAnoModeloVeiculo) {
-		this.tfAnoModeloVeiculo = tfAnoModeloVeiculo;
-	}
-
-	public TextField getTfAnoFabricacaoVeiculo() {
-		return tfAnoFabricacaoVeiculo;
-	}
-
-	public void setTfAnoFabricacaoVeiculo(TextField tfAnoFabricacaoVeiculo) {
-		this.tfAnoFabricacaoVeiculo = tfAnoFabricacaoVeiculo;
-	}
-
-	public TextField getTfTipoPinturaVeiculo() {
-		return tfTipoPinturaVeiculo;
-	}
-
-	public void setTfTipoPinturaVeiculo(TextField tfTipoPinturaVeiculo) {
-		this.tfTipoPinturaVeiculo = tfTipoPinturaVeiculo;
-	}
-
-	public TextField getTfTipoVeiculo() {
-		return tfTipoVeiculo;
-	}
-
-	public void setTfTipoVeiculo(TextField tfTipoVeiculo) {
-		this.tfTipoVeiculo = tfTipoVeiculo;
-	}
-
-	public TextField getTfEspecieVeiculo() {
-		return tfEspecieVeiculo;
-	}
-
-	public void setTfEspecieVeiculo(TextField tfEspecieVeiculo) {
-		this.tfEspecieVeiculo = tfEspecieVeiculo;
-	}
-
-	public TextField getTfCondicaoVinVeiculo() {
-		return tfCondicaoVinVeiculo;
-	}
-
-	public void setTfCondicaoVinVeiculo(TextField tfCondicaoVinVeiculo) {
-		this.tfCondicaoVinVeiculo = tfCondicaoVinVeiculo;
-	}
-
-	public TextField getTfCondicaoVeiculo() {
-		return tfCondicaoVeiculo;
-	}
-
-	public void setTfCondicaoVeiculo(TextField tfCondicaoVeiculo) {
-		this.tfCondicaoVeiculo = tfCondicaoVeiculo;
-	}
-
-	public TextField getTfCodigoMarcaModeloVeiculo() {
-		return tfCodigoMarcaModeloVeiculo;
-	}
-
-	public void setTfCodigoMarcaModeloVeiculo(
-			TextField tfCodigoMarcaModeloVeiculo) {
-		this.tfCodigoMarcaModeloVeiculo = tfCodigoMarcaModeloVeiculo;
-	}
-
-	public TextField getTfCodigoCorDenatranVeiculo() {
-		return tfCodigoCorDenatranVeiculo;
-	}
-
-	public void setTfCodigoCorDenatranVeiculo(
-			TextField tfCodigoCorDenatranVeiculo) {
-		this.tfCodigoCorDenatranVeiculo = tfCodigoCorDenatranVeiculo;
-	}
-
-	public TextField getTfLotacaoVeiculo() {
-		return tfLotacaoVeiculo;
-	}
-
-	public void setTfLotacaoVeiculo(TextField tfLotacaoVeiculo) {
-		this.tfLotacaoVeiculo = tfLotacaoVeiculo;
-	}
-
-	public TextField getTfRestricaoVeiculo() {
-		return tfRestricaoVeiculo;
-	}
-
-	public void setTfRestricaoVeiculo(TextField tfRestricaoVeiculo) {
-		this.tfRestricaoVeiculo = tfRestricaoVeiculo;
-	}
-
-	public TextField getTfCodigoAnpCombustivel() {
-		return tfCodigoAnpCombustivel;
-	}
-
-	public void setTfCodigoAnpCombustivel(TextField tfCodigoAnpCombustivel) {
-		this.tfCodigoAnpCombustivel = tfCodigoAnpCombustivel;
-	}
-
-	public TextField getTfCodifCombustivel() {
-		return tfCodifCombustivel;
-	}
-
-	public void setTfCodifCombustivel(TextField tfCodifCombustivel) {
-		this.tfCodifCombustivel = tfCodifCombustivel;
-	}
-
-	public TextField getTfQtdeTempAmbienteCombustivel() {
-		return tfQtdeTempAmbienteCombustivel;
-	}
-
-	public void setTfQtdeTempAmbienteCombustivel(
-			TextField tfQtdeTempAmbienteCombustivel) {
-		this.tfQtdeTempAmbienteCombustivel = tfQtdeTempAmbienteCombustivel;
-	}
-
-	public TextField getTfUfConsumoCombustivel() {
-		return tfUfConsumoCombustivel;
-	}
-
-	public void setTfUfConsumoCombustivel(TextField tfUfConsumoCombustivel) {
-		this.tfUfConsumoCombustivel = tfUfConsumoCombustivel;
-	}
-
-	public TextField getTfBcCideCombustivel() {
-		return tfBcCideCombustivel;
-	}
-
-	public void setTfBcCideCombustivel(TextField tfBcCideCombustivel) {
-		this.tfBcCideCombustivel = tfBcCideCombustivel;
-	}
-
-	public TextField getTfAliquotaCideCombustivel() {
-		return tfAliquotaCideCombustivel;
-	}
-
-	public void setTfAliquotaCideCombustivel(TextField tfAliquotaCideCombustivel) {
-		this.tfAliquotaCideCombustivel = tfAliquotaCideCombustivel;
-	}
-
-	public TextField getTfValorCideCombustivel() {
-		return tfValorCideCombustivel;
-	}
-
-	public void setTfValorCideCombustivel(TextField tfValorCideCombustivel) {
-		this.tfValorCideCombustivel = tfValorCideCombustivel;
-	}
 
 	public SubFormComponent<NfeDetalheEntity, Integer> getSfNfeDetalhe() {
 		return sfNfeDetalhe;
@@ -3554,6 +3554,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoAnpCombustivel.setHeight("-1px");
 		tfCodigoAnpCombustivel.setSizeFull();
 		tfCodigoAnpCombustivel.setNullRepresentation("");
+		tfCodigoAnpCombustivel.setImmediate(true);
+		tfCodigoAnpCombustivel.setId("tfCodigoAnpCombustivel");
+		tfCodigoAnpCombustivel
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarCombustivel(
+								tfCodigoAnpCombustivel.getId(), event);
+					}
+				});
 		glCombustivel.addComponent(tfCodigoAnpCombustivel, 0, 0);
 
 		// tfCodifCombustivel
@@ -3563,6 +3579,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodifCombustivel.setHeight("-1px");
 		tfCodifCombustivel.setSizeFull();
 		tfCodifCombustivel.setNullRepresentation("");
+		tfCodifCombustivel.setImmediate(true);
+		tfCodifCombustivel.setId("tfCodifCombustivel");
+		tfCodifCombustivel.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarCombustivel(tfCodifCombustivel.getId(),
+						event);
+			}
+		});
 		glCombustivel.addComponent(tfCodifCombustivel, 1, 0);
 
 		// tfQtdeTempAmbienteCombustivel
@@ -3572,6 +3603,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQtdeTempAmbienteCombustivel.setHeight("-1px");
 		tfQtdeTempAmbienteCombustivel.setSizeFull();
 		tfQtdeTempAmbienteCombustivel.setNullRepresentation("");
+		tfQtdeTempAmbienteCombustivel.setImmediate(true);
+		tfQtdeTempAmbienteCombustivel.setId("tfQtdeTempAmbienteCombustivel");
+		tfQtdeTempAmbienteCombustivel
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarCombustivel(
+								tfQtdeTempAmbienteCombustivel.getId(), event);
+					}
+				});
 		glCombustivel.addComponent(tfQtdeTempAmbienteCombustivel, 2, 0);
 
 		// tfUfConsumoCombustivel
@@ -3581,6 +3628,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfUfConsumoCombustivel.setHeight("-1px");
 		tfUfConsumoCombustivel.setSizeFull();
 		tfUfConsumoCombustivel.setNullRepresentation("");
+		tfUfConsumoCombustivel.setImmediate(true);
+		tfUfConsumoCombustivel.setId("tfUfConsumoCombustivel");
+		tfUfConsumoCombustivel
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarCombustivel(
+								tfUfConsumoCombustivel.getId(), event);
+					}
+				});
 		glCombustivel.addComponent(tfUfConsumoCombustivel, 3, 0);
 
 		// tfBcCideCombustivel
@@ -3590,6 +3653,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBcCideCombustivel.setHeight("-1px");
 		tfBcCideCombustivel.setSizeFull();
 		tfBcCideCombustivel.setNullRepresentation("");
+		tfBcCideCombustivel.setImmediate(true);
+		tfBcCideCombustivel.setId("tfBcCideCombustivel");
+		tfBcCideCombustivel.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarCombustivel(tfBcCideCombustivel.getId(),
+						event);
+			}
+		});
 		glCombustivel.addComponent(tfBcCideCombustivel, 0, 1);
 
 		// tfAliquotaCideCombustivel
@@ -3599,6 +3677,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAliquotaCideCombustivel.setHeight("-1px");
 		tfAliquotaCideCombustivel.setSizeFull();
 		tfAliquotaCideCombustivel.setNullRepresentation("");
+		tfAliquotaCideCombustivel.setImmediate(true);
+		tfAliquotaCideCombustivel.setId("tfAliquotaCideCombustivel");
+		tfAliquotaCideCombustivel
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarCombustivel(
+								tfAliquotaCideCombustivel.getId(), event);
+					}
+				});
 		glCombustivel.addComponent(tfAliquotaCideCombustivel, 1, 1);
 
 		// tfValorCideCombustivel
@@ -3608,6 +3702,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfValorCideCombustivel.setHeight("-1px");
 		tfValorCideCombustivel.setSizeFull();
 		tfValorCideCombustivel.setNullRepresentation("");
+		tfValorCideCombustivel.setImmediate(true);
+		tfValorCideCombustivel.setId("tfValorCideCombustivel");
+		tfValorCideCombustivel
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarCombustivel(
+								tfValorCideCombustivel.getId(), event);
+					}
+				});
 		glCombustivel.addComponent(tfValorCideCombustivel, 2, 1);
 
 		return glCombustivel;
@@ -3633,6 +3743,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoOperacaoVeiculo.setHeight("-1px");
 		tfTipoOperacaoVeiculo.setSizeFull();
 		tfTipoOperacaoVeiculo.setNullRepresentation("");
+		tfTipoOperacaoVeiculo.setImmediate(true);
+		tfTipoOperacaoVeiculo.setId("tfTipoOperacaoVeiculo");
+		tfTipoOperacaoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfTipoOperacaoVeiculo.getId(),
+						event);
+			}
+		});
 		glVeiculo.addComponent(tfTipoOperacaoVeiculo, 0, 0);
 
 		// tfChassiVeiculo
@@ -3642,6 +3767,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfChassiVeiculo.setHeight("-1px");
 		tfChassiVeiculo.setSizeFull();
 		tfChassiVeiculo.setNullRepresentation("");
+		tfChassiVeiculo.setImmediate(true);
+		tfChassiVeiculo.setId("tfChassiVeiculo");
+		tfChassiVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfChassiVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfChassiVeiculo, 1, 0);
 
 		// tfCodigoCorVeiculo
@@ -3651,6 +3790,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoCorVeiculo.setHeight("-1px");
 		tfCodigoCorVeiculo.setSizeFull();
 		tfCodigoCorVeiculo.setNullRepresentation("");
+		tfCodigoCorVeiculo.setImmediate(true);
+		tfCodigoCorVeiculo.setId("tfCodigoCorVeiculo");
+		tfCodigoCorVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfCodigoCorVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfCodigoCorVeiculo, 2, 0);
 
 		// tfDescricaoCorVeiculo
@@ -3660,6 +3813,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDescricaoCorVeiculo.setHeight("-1px");
 		tfDescricaoCorVeiculo.setSizeFull();
 		tfDescricaoCorVeiculo.setNullRepresentation("");
+		tfDescricaoCorVeiculo.setImmediate(true);
+		tfDescricaoCorVeiculo.setId("tfDescricaoCorVeiculo");
+		tfDescricaoCorVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfDescricaoCorVeiculo.getId(),
+						event);
+			}
+		});
 		glVeiculo.addComponent(tfDescricaoCorVeiculo, 3, 0);
 
 		// tfPotenciaMotorVeiculo
@@ -3669,6 +3837,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPotenciaMotorVeiculo.setHeight("-1px");
 		tfPotenciaMotorVeiculo.setSizeFull();
 		tfPotenciaMotorVeiculo.setNullRepresentation("");
+		tfPotenciaMotorVeiculo.setImmediate(true);
+		tfPotenciaMotorVeiculo.setId("tfPotenciaMotorVeiculo");
+		tfPotenciaMotorVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfPotenciaMotorVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfPotenciaMotorVeiculo, 0, 1);
 
 		// tfCilindradasVeiculo
@@ -3678,6 +3862,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCilindradasVeiculo.setHeight("-1px");
 		tfCilindradasVeiculo.setSizeFull();
 		tfCilindradasVeiculo.setNullRepresentation("");
+		tfCilindradasVeiculo.setImmediate(true);
+		tfCilindradasVeiculo.setId("tfCilindradasVeiculo");
+		tfCilindradasVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfCilindradasVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfCilindradasVeiculo, 1, 1);
 
 		// tfPesoLiquidoVeiculo
@@ -3687,6 +3885,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPesoLiquidoVeiculo.setHeight("-1px");
 		tfPesoLiquidoVeiculo.setSizeFull();
 		tfPesoLiquidoVeiculo.setNullRepresentation("");
+		tfPesoLiquidoVeiculo.setImmediate(true);
+		tfPesoLiquidoVeiculo.setId("tfPesoLiquidoVeiculo");
+		tfPesoLiquidoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfPesoLiquidoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfPesoLiquidoVeiculo, 2, 1);
 
 		// tfPesoBrutoVeiculo
@@ -3696,6 +3908,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPesoBrutoVeiculo.setHeight("-1px");
 		tfPesoBrutoVeiculo.setSizeFull();
 		tfPesoBrutoVeiculo.setNullRepresentation("");
+		tfPesoBrutoVeiculo.setImmediate(true);
+		tfPesoBrutoVeiculo.setId("tfPesoBrutoVeiculo");
+		tfPesoBrutoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfPesoBrutoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfPesoBrutoVeiculo, 3, 1);
 
 		// tfNumeroSerieVeiculo
@@ -3705,6 +3931,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroSerieVeiculo.setHeight("-1px");
 		tfNumeroSerieVeiculo.setSizeFull();
 		tfNumeroSerieVeiculo.setNullRepresentation("");
+		tfNumeroSerieVeiculo.setImmediate(true);
+		tfNumeroSerieVeiculo.setId("tfNumeroSerieVeiculo");
+		tfNumeroSerieVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfNumeroSerieVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfNumeroSerieVeiculo, 0, 2);
 
 		// tfCombustivelVeiculo
@@ -3714,6 +3954,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCombustivelVeiculo.setHeight("-1px");
 		tfCombustivelVeiculo.setSizeFull();
 		tfCombustivelVeiculo.setNullRepresentation("");
+		tfCombustivelVeiculo.setImmediate(true);
+		tfCombustivelVeiculo.setId("tfCombustivelVeiculo");
+		tfCombustivelVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfCombustivelVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfCombustivelVeiculo, 1, 2);
 
 		// tfNumeroMotorVeiculo
@@ -3723,6 +3977,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroMotorVeiculo.setHeight("-1px");
 		tfNumeroMotorVeiculo.setSizeFull();
 		tfNumeroMotorVeiculo.setNullRepresentation("");
+		tfNumeroMotorVeiculo.setImmediate(true);
+		tfNumeroMotorVeiculo.setId("tfNumeroMotorVeiculo");
+		tfNumeroMotorVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfNumeroMotorVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfNumeroMotorVeiculo, 2, 2);
 
 		// tfCapacidadeTracaoVeiculo
@@ -3732,6 +4000,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCapacidadeTracaoVeiculo.setHeight("-1px");
 		tfCapacidadeTracaoVeiculo.setSizeFull();
 		tfCapacidadeTracaoVeiculo.setNullRepresentation("");
+		tfCapacidadeTracaoVeiculo.setImmediate(true);
+		tfCapacidadeTracaoVeiculo.setId("tfCapacidadeTracaoVeiculo");
+		tfCapacidadeTracaoVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfCapacidadeTracaoVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfCapacidadeTracaoVeiculo, 3, 2);
 
 		// tfDistanciaEixosVeiculo
@@ -3741,6 +4025,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDistanciaEixosVeiculo.setHeight("-1px");
 		tfDistanciaEixosVeiculo.setSizeFull();
 		tfDistanciaEixosVeiculo.setNullRepresentation("");
+		tfDistanciaEixosVeiculo.setImmediate(true);
+		tfDistanciaEixosVeiculo.setId("tfDistanciaEixosVeiculo");
+		tfDistanciaEixosVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfDistanciaEixosVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfDistanciaEixosVeiculo, 0, 3);
 
 		// tfAnoModeloVeiculo
@@ -3750,6 +4050,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAnoModeloVeiculo.setHeight("-1px");
 		tfAnoModeloVeiculo.setSizeFull();
 		tfAnoModeloVeiculo.setNullRepresentation("");
+		tfAnoModeloVeiculo.setImmediate(true);
+		tfAnoModeloVeiculo.setId("tfAnoModeloVeiculo");
+		tfAnoModeloVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfAnoModeloVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfAnoModeloVeiculo, 1, 3);
 
 		// tfAnoFabricacaoVeiculo
@@ -3759,6 +4073,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfAnoFabricacaoVeiculo.setHeight("-1px");
 		tfAnoFabricacaoVeiculo.setSizeFull();
 		tfAnoFabricacaoVeiculo.setNullRepresentation("");
+		tfAnoFabricacaoVeiculo.setImmediate(true);
+		tfAnoFabricacaoVeiculo.setId("tfAnoFabricacaoVeiculo");
+		tfAnoFabricacaoVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfAnoFabricacaoVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfAnoFabricacaoVeiculo, 2, 3);
 
 		// tfTipoPinturaVeiculo
@@ -3768,6 +4098,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoPinturaVeiculo.setHeight("-1px");
 		tfTipoPinturaVeiculo.setSizeFull();
 		tfTipoPinturaVeiculo.setNullRepresentation("");
+		tfTipoPinturaVeiculo.setImmediate(true);
+		tfTipoPinturaVeiculo.setId("tfTipoPinturaVeiculo");
+		tfTipoPinturaVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfTipoPinturaVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfTipoPinturaVeiculo, 3, 3);
 
 		// tfTipoVeiculo
@@ -3777,6 +4121,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoVeiculo.setHeight("-1px");
 		tfTipoVeiculo.setSizeFull();
 		tfTipoVeiculo.setNullRepresentation("");
+		tfTipoVeiculo.setImmediate(true);
+		tfTipoVeiculo.setId("tfTipoVeiculo");
+		tfTipoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfTipoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfTipoVeiculo, 0, 4);
 
 		// tfEspecieVeiculo
@@ -3786,6 +4144,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfEspecieVeiculo.setHeight("-1px");
 		tfEspecieVeiculo.setSizeFull();
 		tfEspecieVeiculo.setNullRepresentation("");
+		tfEspecieVeiculo.setImmediate(true);
+		tfEspecieVeiculo.setId("tfEspecieVeiculo");
+		tfEspecieVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfEspecieVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfEspecieVeiculo, 1, 4);
 
 		// tfCondicaoVinVeiculo
@@ -3795,6 +4167,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCondicaoVinVeiculo.setHeight("-1px");
 		tfCondicaoVinVeiculo.setSizeFull();
 		tfCondicaoVinVeiculo.setNullRepresentation("");
+		tfCondicaoVinVeiculo.setImmediate(true);
+		tfCondicaoVinVeiculo.setId("tfCondicaoVinVeiculo");
+		tfCondicaoVinVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfCondicaoVinVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfCondicaoVinVeiculo, 2, 4);
 
 		// tfCondicaoVeiculo
@@ -3804,6 +4190,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCondicaoVeiculo.setHeight("-1px");
 		tfCondicaoVeiculo.setSizeFull();
 		tfCondicaoVeiculo.setNullRepresentation("");
+		tfCondicaoVeiculo.setImmediate(true);
+		tfCondicaoVeiculo.setId("tfCondicaoVeiculo");
+		tfCondicaoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfCondicaoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfCondicaoVeiculo, 3, 4);
 
 		// tfCodigoMarcaModeloVeiculo
@@ -3813,6 +4213,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoMarcaModeloVeiculo.setHeight("-1px");
 		tfCodigoMarcaModeloVeiculo.setSizeFull();
 		tfCodigoMarcaModeloVeiculo.setNullRepresentation("");
+		tfCodigoMarcaModeloVeiculo.setImmediate(true);
+		tfCodigoMarcaModeloVeiculo.setId("tfCodigoMarcaModeloVeiculo");
+		tfCodigoMarcaModeloVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfCodigoMarcaModeloVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfCodigoMarcaModeloVeiculo, 0, 5);
 
 		// tfCodigoCorDenatranVeiculo
@@ -3822,6 +4238,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoCorDenatranVeiculo.setHeight("-1px");
 		tfCodigoCorDenatranVeiculo.setSizeFull();
 		tfCodigoCorDenatranVeiculo.setNullRepresentation("");
+		tfCodigoCorDenatranVeiculo.setImmediate(true);
+		tfCodigoCorDenatranVeiculo.setId("tfCodigoCorDenatranVeiculo");
+		tfCodigoCorDenatranVeiculo
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarVeiculo(
+								tfCodigoCorDenatranVeiculo.getId(), event);
+					}
+				});
 		glVeiculo.addComponent(tfCodigoCorDenatranVeiculo, 1, 5);
 
 		// tfLotacaoVeiculo
@@ -3831,6 +4263,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfLotacaoVeiculo.setHeight("-1px");
 		tfLotacaoVeiculo.setSizeFull();
 		tfLotacaoVeiculo.setNullRepresentation("");
+		tfLotacaoVeiculo.setImmediate(true);
+		tfLotacaoVeiculo.setId("tfLotacaoVeiculo");
+		tfLotacaoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfLotacaoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfLotacaoVeiculo, 2, 5);
 
 		// tfRestricaoVeiculo
@@ -3840,6 +4286,20 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfRestricaoVeiculo.setHeight("-1px");
 		tfRestricaoVeiculo.setSizeFull();
 		tfRestricaoVeiculo.setNullRepresentation("");
+		tfRestricaoVeiculo.setImmediate(true);
+		tfRestricaoVeiculo.setId("tfRestricaoVeiculo");
+		tfRestricaoVeiculo.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarVeiculo(tfRestricaoVeiculo.getId(), event);
+			}
+		});
 		glVeiculo.addComponent(tfRestricaoVeiculo, 3, 5);
 
 		return glVeiculo;

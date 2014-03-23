@@ -14,6 +14,8 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
+import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
@@ -265,6 +267,8 @@ public class ProdutoServicoFormController extends
 				limparNdiIpi();
 				limparNdiIssqn();
 				limparNdiPis();
+				limparNdeCombustivel();
+				limparNdeVeiculo();
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 			}
@@ -278,6 +282,8 @@ public class ProdutoServicoFormController extends
 			this.subView.getGlIpi().setEnabled(false);
 			this.subView.getGlImpostoImportacao().setEnabled(false);
 			this.subView.getGlIssqn().setEnabled(false);
+			this.subView.getGlCombustivel().setEnabled(false);
+			this.subView.getGlVeiculo().setEnabled(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -402,7 +408,23 @@ public class ProdutoServicoFormController extends
 
 			ent.setNfeDetalheImpostoPis(ndiPis);
 
-			// this.nfeDetalheDAO.saveOrUpdate(ent);
+			/**
+			 * COMBUSTÍVEL
+			 */
+
+			NfeDetEspecificoCombustivelEntity ndeCombustivel = new NfeDetEspecificoCombustivelEntity();
+			ndeCombustivel.setNfeDetalhe(ent);
+
+			ent.setNfeDetEspecificoCombustivel(ndeCombustivel);
+
+			/**
+			 * VEÍCULO
+			 */
+
+			NfeDetEspecificoVeiculoEntity ndeVeiculo = new NfeDetEspecificoVeiculoEntity();
+			ndeVeiculo.setNfeDetalhe(ent);
+
+			ent.setNfeDetEspecificoVeiculo(ndeVeiculo);
 
 			return ent;
 		} catch (Exception e) {
@@ -550,12 +572,92 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfValorPis().setValue(
 					entPis.getValorPis().toString().trim());
 
+			/**
+			 * COMBUSTÍVEL
+			 */
+
+			NfeDetEspecificoCombustivelEntity entCombustivel = item
+					.getNfeDetEspecificoCombustivel();
+
+			this.subView.getTfCodigoAnpCombustivel().setValue(
+					entCombustivel.getCodigoAnp().toString().trim());
+			this.subView.getTfCodifCombustivel().setValue(
+					entCombustivel.getCodif().trim());
+			this.subView.getTfQtdeTempAmbienteCombustivel().setValue(
+					entCombustivel.getQuantidadeTempAmbiente().toString()
+							.trim());
+			this.subView.getTfUfConsumoCombustivel().setValue(
+					entCombustivel.getUfConsumo().trim());
+			this.subView.getTfBcCideCombustivel().setValue(
+					entCombustivel.getBaseCalculoCide().toString().trim());
+			this.subView.getTfAliquotaCideCombustivel().setValue(
+					entCombustivel.getAliquotaCide().toString().trim());
+			this.subView.getTfValorCideCombustivel().setValue(
+					entCombustivel.getValorCide().toString().trim());
+
+			/**
+			 * COMBUSTÍVEL
+			 */
+
+			NfeDetEspecificoVeiculoEntity entVeiculo = item
+					.getNfeDetEspecificoVeiculo();
+
+			this.subView.getTfTipoOperacaoVeiculo().setValue(
+					entVeiculo.getTipoOperacao());
+			this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
+			this.subView.getTfCodigoCorVeiculo().setValue(
+					entVeiculo.getCodigoCor());
+			this.subView.getTfDescricaoCorVeiculo().setValue(
+					entVeiculo.getDescricaoCor());
+			this.subView.getTfPotenciaMotorVeiculo().setValue(
+					entVeiculo.getPotenciaMotor());
+			this.subView.getTfCilindradasVeiculo().setValue(
+					entVeiculo.getCilindradas());
+			this.subView.getTfPesoLiquidoVeiculo().setValue(
+					entVeiculo.getPesoLiquido());
+			this.subView.getTfPesoBrutoVeiculo().setValue(
+					entVeiculo.getPesoBruto());
+			this.subView.getTfNumeroSerieVeiculo().setValue(
+					entVeiculo.getNumeroSerie());
+			this.subView.getTfCombustivelVeiculo().setValue(
+					entVeiculo.getTipoCombustivel());
+			this.subView.getTfNumeroMotorVeiculo().setValue(
+					entVeiculo.getNumeroMotor());
+			this.subView.getTfCapacidadeTracaoVeiculo().setValue(
+					entVeiculo.getCapacidadeMaximaTracao());
+			this.subView.getTfDistanciaEixosVeiculo().setValue(
+					entVeiculo.getDistanciaEixos());
+			this.subView.getTfAnoModeloVeiculo().setValue(
+					entVeiculo.getAnoModelo());
+			this.subView.getTfAnoFabricacaoVeiculo().setValue(
+					entVeiculo.getAnoFabricacao());
+			this.subView.getTfTipoPinturaVeiculo().setValue(
+					entVeiculo.getTipoPintura());
+			this.subView.getTfTipoVeiculo().setValue(
+					entVeiculo.getTipoVeiculo());
+			this.subView.getTfEspecieVeiculo().setValue(
+					entVeiculo.getEspecieVeiculo());
+			this.subView.getTfCondicaoVinVeiculo().setValue(
+					entVeiculo.getCondicaoVin());
+			this.subView.getTfCondicaoVeiculo().setValue(
+					entVeiculo.getCondicaoVeiculo());
+			this.subView.getTfCodigoMarcaModeloVeiculo().setValue(
+					entVeiculo.getCodigoMarcaModelo());
+			this.subView.getTfCodigoCorDenatranVeiculo().setValue(
+					entVeiculo.getCor());
+			this.subView.getTfLotacaoVeiculo().setValue(
+					entVeiculo.getLotacao().toString());
+			this.subView.getTfRestricaoVeiculo().setValue(
+					entVeiculo.getRestricao());
+
 			this.subView.getGlIcms().setEnabled(true);
 			this.subView.getGlPis().setEnabled(true);
 			this.subView.getGlCofins().setEnabled(true);
 			this.subView.getGlIpi().setEnabled(true);
 			this.subView.getGlImpostoImportacao().setEnabled(true);
 			this.subView.getGlIssqn().setEnabled(true);
+			this.subView.getGlCombustivel().setEnabled(true);
+			this.subView.getGlVeiculo().setEnabled(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -659,31 +761,33 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfCstCofins":
-			ndiCofins.setCstCofins(s);
+			ndiCofins.setCstCofins(s.toString().trim());
 
 			break;
 		case "tfQtdVendidaCofins":
-			ndiCofins.setQuantidadeVendida(new BigDecimal(s));
+			ndiCofins.setQuantidadeVendida(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfBaseCalculoBcCofins":
-			ndiCofins.setBaseCalculoCofins(new BigDecimal(s));
+			ndiCofins.setBaseCalculoCofins(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaPercentualCofins":
-			ndiCofins.setAliquotaCofinsPercentual(new BigDecimal(s));
+			ndiCofins.setAliquotaCofinsPercentual(new BigDecimal(s.toString()
+					.trim()));
 
 			break;
 		case "tfAliquotaReaisCofins":
-			ndiCofins.setAliquotaCofinsReais(new BigDecimal(s));
+			ndiCofins
+					.setAliquotaCofinsReais(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorCofins":
-			ndiCofins.setValorCofins(new BigDecimal(s));
+			ndiCofins.setValorCofins(new BigDecimal(s.toString().trim()));
 
 			break;
 		}
@@ -708,99 +812,102 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfOrigemMercadoriaIcms":
-			ndiIcms.setOrigemMercadoria(s);
+			ndiIcms.setOrigemMercadoria(s.toString().trim());
 
 			break;
 		case "tfCstIcms":
-			ndiIcms.setCstIcms(s);
+			ndiIcms.setCstIcms(s.toString().trim());
 
 			break;
 		case "tfCsosnIcms":
-			ndiIcms.setCsosn(s);
+			ndiIcms.setCsosn(s.toString().trim());
 
 			break;
 		case "tfModalidadeBcIcms":
-			ndiIcms.setModalidadeBcIcms(s);
+			ndiIcms.setModalidadeBcIcms(s.toString().trim());
 
 			break;
 		case "tfTaxaReducaoBcIcms":
-			ndiIcms.setTaxaReducaoBcIcms(new BigDecimal(s));
+			ndiIcms.setTaxaReducaoBcIcms(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfBaseCalculoBcIcms":
-			ndiIcms.setBaseCalculoIcms(new BigDecimal(s));
+			ndiIcms.setBaseCalculoIcms(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaIcms":
-			ndiIcms.setAliquotaIcms(new BigDecimal(s));
+			ndiIcms.setAliquotaIcms(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorIcms":
-			ndiIcms.setValorIcms(new BigDecimal(s));
+			ndiIcms.setValorIcms(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfMotivoDesoneracaoIcms":
-			ndiIcms.setMotivoDesoneracaoIcms(s);
+			ndiIcms.setMotivoDesoneracaoIcms(s.toString().trim());
 
 			break;
 		case "tfModalidadeBcStIcms":
-			ndiIcms.setModalidadeBcIcmsSt(s);
+			ndiIcms.setModalidadeBcIcmsSt(s.toString().trim());
 
 			break;
 		case "tfPercentualMvaStIcms":
-			ndiIcms.setPercentualMvaIcmsSt(new BigDecimal(s));
+			ndiIcms.setPercentualMvaIcmsSt(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfTaxaReducaoBcStIcms":
-			ndiIcms.setPercentualReducaoBcIcmsSt(new BigDecimal(s));
+			ndiIcms.setPercentualReducaoBcIcmsSt(new BigDecimal(s.toString()
+					.trim()));
 
 			break;
 		case "tfBaseCalculoStIcms":
-			ndiIcms.setValorBaseCalculoIcmsSt(new BigDecimal(s));
+			ndiIcms.setValorBaseCalculoIcmsSt(new BigDecimal(s.toString()
+					.trim()));
 
 			break;
 		case "tfAliquotaStIcms":
-			ndiIcms.setAliquotaIcmsSt(new BigDecimal(s));
+			ndiIcms.setAliquotaIcmsSt(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorStIcms":
-			ndiIcms.setValorIcmsSt(new BigDecimal(s));
+			ndiIcms.setValorIcmsSt(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfBcStRetidoIcms":
-			ndiIcms.setValorBcIcmsStRetido(new BigDecimal(s));
+			ndiIcms.setValorBcIcmsStRetido(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorStRetidoIcms":
-			ndiIcms.setValorIcmsStRetido(new BigDecimal(s));
+			ndiIcms.setValorIcmsStRetido(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfBcStDestinoIcms":
-			ndiIcms.setValorBcIcmsStDestino(new BigDecimal(s));
+			ndiIcms.setValorBcIcmsStDestino(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorStDestinoIcms":
-			ndiIcms.setValorIcmsStDestino(new BigDecimal(s));
+			ndiIcms.setValorIcmsStDestino(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaCreditoSnIcms":
-			ndiIcms.setAliquotaCreditoIcmsSn(new BigDecimal(s));
+			ndiIcms.setAliquotaCreditoIcmsSn(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorCreditoSnIcms":
-			ndiIcms.setValorCreditoIcmsSn(new BigDecimal(s));
+			ndiIcms.setValorCreditoIcmsSn(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfPercentualBcOperacaoPropriaIcms":
-			ndiIcms.setPercentualBcOperacaoPropria(new BigDecimal(s));
+			ndiIcms.setPercentualBcOperacaoPropria(new BigDecimal(s.toString()
+					.trim()));
 
 			break;
 		case "tfUfStIcms":
-			ndiIcms.setUfSt(s);
+			ndiIcms.setUfSt(s.toString().trim());
 
 			break;
 		}
@@ -825,23 +932,23 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfBaseCalculoBcImpostoImportacao":
-			ndiIi.setValorBcIi(new BigDecimal(s));
+			ndiIi.setValorBcIi(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfDespesasAduaneirasImpostoImportacao":
-			ndiIi.setValorDespesasAduaneiras(new BigDecimal(s));
+			ndiIi.setValorDespesasAduaneiras(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorImpostoImportacao":
-			ndiIi.setValorImpostoImportacao(new BigDecimal(s));
+			ndiIi.setValorImpostoImportacao(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfIofImpostoImportacao":
-			ndiIi.setValorIof(new BigDecimal(s));
+			ndiIi.setValorIof(new BigDecimal(s.toString().trim()));
 
 			break;
 		}
@@ -862,7 +969,7 @@ public class ProdutoServicoFormController extends
 		// NfeDetalheImpostoIpiEntity ndiIpi = this.nfeDetalheSelecionado
 		// .getNfeDetalheImpostoIpi();
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeDetalheSelecionado);
@@ -884,31 +991,31 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfBaseCalculoBcIssqn":
-			ndiIssqn.setBaseCalculoIssqn(new BigDecimal(s));
+			ndiIssqn.setBaseCalculoIssqn(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaIssqn":
-			ndiIssqn.setAliquotaIssqn(new BigDecimal(s));
+			ndiIssqn.setAliquotaIssqn(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorIssqn":
-			ndiIssqn.setValorIssqn(new BigDecimal(s));
+			ndiIssqn.setValorIssqn(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfMunicipioIssqn":
-			ndiIssqn.setMunicipioIssqn(new Integer(s));
+			ndiIssqn.setMunicipioIssqn(new Integer(s.toString().trim()));
 
 			break;
 		case "tfItemListaServicosIssqn":
-			ndiIssqn.setItemListaServicos(new Integer(s));
+			ndiIssqn.setItemListaServicos(new Integer(s.toString().trim()));
 
 			break;
 		case "tfTributacaoIssqn":
-			ndiIssqn.setTributacaoIssqn(s);
+			ndiIssqn.setTributacaoIssqn(s.toString().trim());
 
 			break;
 		}
@@ -933,31 +1040,31 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		String s = event.getProperty().getValue().toString().trim();
+		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfCstPis":
-			ndiPis.setCstPis(s);
+			ndiPis.setCstPis(s.toString().trim());
 
 			break;
 		case "tfQtdVendidaPis":
-			ndiPis.setQuantidadeVendida(new BigDecimal(s));
+			ndiPis.setQuantidadeVendida(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfBaseCalculoBcPis":
-			ndiPis.setValorBaseCalculoPis(new BigDecimal(s));
+			ndiPis.setValorBaseCalculoPis(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaPercentualPis":
-			ndiPis.setAliquotaPisPercentual(new BigDecimal(s));
+			ndiPis.setAliquotaPisPercentual(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfAliquotaReaisPis":
-			ndiPis.setAliquotaPisReais(new BigDecimal(s));
+			ndiPis.setAliquotaPisReais(new BigDecimal(s.toString().trim()));
 
 			break;
 		case "tfValorPis":
-			ndiPis.setValorPis(new BigDecimal(s));
+			ndiPis.setValorPis(new BigDecimal(s.toString().trim()));
 
 			break;
 		}
@@ -969,6 +1076,183 @@ public class ProdutoServicoFormController extends
 				.remove(this.nfeDetalheSelecionado);
 
 		this.nfeDetalheSelecionado.setNfeDetalheImpostoPis(ndiPis);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.add(index, this.nfeDetalheSelecionado);
+	}
+
+	public void adicionarCombustivel(String id, ValueChangeEvent event) {
+		NfeDetEspecificoCombustivelEntity ndiCombustivel = this.nfeDetalheSelecionado
+				.getNfeDetEspecificoCombustivel();
+
+		if (ndiCombustivel == null) {
+			return;
+		}
+
+		Object s = event.getProperty().getValue();
+
+		switch (id) {
+		case "tfCodigoAnpCombustivel":
+			ndiCombustivel.setCodigoAnp(new Integer(s.toString().trim()));
+
+			break;
+		case "tfCodifCombustivel":
+			ndiCombustivel.setCodif(s.toString().trim());
+
+			break;
+		case "tfQtdeTempAmbienteCombustivel":
+			ndiCombustivel.setQuantidadeTempAmbiente(new BigDecimal(s
+					.toString().trim()));
+
+			break;
+		case "tfUfConsumoCombustivel":
+			ndiCombustivel.setUfConsumo(s.toString().trim());
+
+			break;
+		case "tfBcCideCombustivel":
+			ndiCombustivel.setBaseCalculoCide(new BigDecimal(s.toString()
+					.trim()));
+
+			break;
+		case "tfAliquotaCideCombustivel":
+			ndiCombustivel.setAliquotaCide(new BigDecimal(s.toString().trim()));
+
+			break;
+		case "tfValorCideCombustivel":
+			ndiCombustivel.setValorCide(new BigDecimal(s.toString().trim()));
+
+			break;
+		}
+
+		Integer index = this.subView.getSfNfeDetalhe().getDados()
+				.indexOf(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.remove(this.nfeDetalheSelecionado);
+
+		this.nfeDetalheSelecionado
+				.setNfeDetEspecificoCombustivel(ndiCombustivel);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.add(index, this.nfeDetalheSelecionado);
+	}
+
+	public void adicionarVeiculo(String id, ValueChangeEvent event) {
+		NfeDetEspecificoVeiculoEntity ndiVeiculo = this.nfeDetalheSelecionado
+				.getNfeDetEspecificoVeiculo();
+
+		if (ndiVeiculo == null) {
+			return;
+		}
+
+		Object s = event.getProperty().getValue();
+
+		switch (id) {
+		case "tfTipoOperacaoVeiculo":
+			ndiVeiculo.setTipoOperacao(s.toString().trim());
+
+			break;
+		case "tfChassiVeiculo":
+			ndiVeiculo.setChassi(s.toString().trim());
+
+			break;
+		case "tfCodigoCorVeiculo":
+			ndiVeiculo.setCodigoCor(s.toString().trim());
+
+			break;
+		case "tfDescricaoCorVeiculo":
+			ndiVeiculo.setDescricaoCor(s.toString().trim());
+
+			break;
+		case "tfPotenciaMotorVeiculo":
+			ndiVeiculo.setPotenciaMotor(s.toString().trim());
+
+			break;
+		case "tfCilindradasVeiculo":
+			ndiVeiculo.setCilindradas(s.toString().trim());
+
+			break;
+		case "tfPesoLiquidoVeiculo":
+			ndiVeiculo.setPesoLiquido(s.toString().trim());
+
+			break;
+		case "tfPesoBrutoVeiculo":
+			ndiVeiculo.setPesoBruto(s.toString().trim());
+
+			break;
+		case "tfNumeroSerieVeiculo":
+			ndiVeiculo.setNumeroSerie(s.toString().trim());
+
+			break;
+		case "tfCombustivelVeiculo":
+			ndiVeiculo.setTipoCombustivel(s.toString().trim());
+
+			break;
+		case "tfNumeroMotorVeiculo":
+			ndiVeiculo.setNumeroMotor(s.toString().trim());
+
+			break;
+		case "tfCapacidadeTracaoVeiculo":
+			ndiVeiculo.setCapacidadeMaximaTracao(s.toString().trim());
+
+			break;
+		case "tfDistanciaEixosVeiculo":
+			ndiVeiculo.setDistanciaEixos(s.toString().trim());
+
+			break;
+		case "tfAnoModeloVeiculo":
+			ndiVeiculo.setAnoModelo(s.toString().trim());
+
+			break;
+		case "tfAnoFabricacaoVeiculo":
+			ndiVeiculo.setAnoFabricacao(s.toString().trim());
+
+			break;
+		case "tfTipoPinturaVeiculo":
+			ndiVeiculo.setTipoPintura(s.toString().trim());
+
+			break;
+		case "tfTipoVeiculo":
+			ndiVeiculo.setTipoVeiculo(s.toString().trim());
+
+			break;
+		case "tfEspecieVeiculo":
+			ndiVeiculo.setEspecieVeiculo(s.toString().trim());
+
+			break;
+		case "tfCondicaoVinVeiculo":
+			ndiVeiculo.setCondicaoVin(s.toString().trim());
+
+			break;
+		case "tfCondicaoVeiculo":
+			ndiVeiculo.setCondicaoVeiculo(s.toString().trim());
+
+			break;
+		case "tfCodigoMarcaModeloVeiculo":
+			ndiVeiculo.setCodigoMarcaModelo(s.toString().trim());
+
+			break;
+		case "tfCodigoCorDenatranVeiculo":
+			ndiVeiculo.setCor(s.toString().trim());
+
+			break;
+		case "tfLotacaoVeiculo":
+			ndiVeiculo.setLotacao(new Integer(s.toString().trim()));
+
+			break;
+		case "tfRestricaoVeiculo":
+			ndiVeiculo.setRestricao(s.toString().trim());
+
+			break;
+		}
+
+		Integer index = this.subView.getSfNfeDetalhe().getDados()
+				.indexOf(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.remove(this.nfeDetalheSelecionado);
+
+		this.nfeDetalheSelecionado.setNfeDetEspecificoVeiculo(ndiVeiculo);
 
 		this.subView.getSfNfeDetalhe().getDados()
 				.add(index, this.nfeDetalheSelecionado);
@@ -1090,6 +1374,76 @@ public class ProdutoServicoFormController extends
 		this.subView.getTfAliquotaReaisPis().setValue(
 				entPis.getAliquotaPisReais().toString());
 		this.subView.getTfValorPis().setValue(entPis.getValorPis().toString());
+	}
+
+	private void limparNdeCombustivel() {
+		NfeDetEspecificoCombustivelEntity entCombustivel = new NfeDetEspecificoCombustivelEntity();
+
+		this.subView.getTfCodigoAnpCombustivel().setValue(
+				entCombustivel.getCodigoAnp().toString());
+		this.subView.getTfCodifCombustivel()
+				.setValue(entCombustivel.getCodif());
+		this.subView.getTfQtdeTempAmbienteCombustivel().setValue(
+				entCombustivel.getQuantidadeTempAmbiente().toString());
+		this.subView.getTfUfConsumoCombustivel().setValue(
+				entCombustivel.getUfConsumo());
+		this.subView.getTfBcCideCombustivel().setValue(
+				entCombustivel.getBaseCalculoCide().toString());
+		this.subView.getTfAliquotaCideCombustivel().setValue(
+				entCombustivel.getAliquotaCide().toString());
+		this.subView.getTfValorCideCombustivel().setValue(
+				entCombustivel.getValorCide().toString());
+	}
+
+	private void limparNdeVeiculo() {
+		NfeDetEspecificoVeiculoEntity entVeiculo = new NfeDetEspecificoVeiculoEntity();
+
+		this.subView.getTfTipoOperacaoVeiculo().setValue(
+				entVeiculo.getTipoOperacao());
+		this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
+		this.subView.getTfCodigoCorVeiculo()
+				.setValue(entVeiculo.getCodigoCor());
+		this.subView.getTfDescricaoCorVeiculo().setValue(
+				entVeiculo.getDescricaoCor());
+		this.subView.getTfPotenciaMotorVeiculo().setValue(
+				entVeiculo.getPotenciaMotor());
+		this.subView.getTfCilindradasVeiculo().setValue(
+				entVeiculo.getCilindradas());
+		this.subView.getTfPesoLiquidoVeiculo().setValue(
+				entVeiculo.getPesoLiquido());
+		this.subView.getTfPesoBrutoVeiculo()
+				.setValue(entVeiculo.getPesoBruto());
+		this.subView.getTfNumeroSerieVeiculo().setValue(
+				entVeiculo.getNumeroSerie());
+		this.subView.getTfCombustivelVeiculo().setValue(
+				entVeiculo.getTipoCombustivel());
+		this.subView.getTfNumeroMotorVeiculo().setValue(
+				entVeiculo.getNumeroMotor());
+		this.subView.getTfCapacidadeTracaoVeiculo().setValue(
+				entVeiculo.getCapacidadeMaximaTracao());
+		this.subView.getTfDistanciaEixosVeiculo().setValue(
+				entVeiculo.getDistanciaEixos());
+		this.subView.getTfAnoModeloVeiculo()
+				.setValue(entVeiculo.getAnoModelo());
+		this.subView.getTfAnoFabricacaoVeiculo().setValue(
+				entVeiculo.getAnoFabricacao());
+		this.subView.getTfTipoPinturaVeiculo().setValue(
+				entVeiculo.getTipoPintura());
+		this.subView.getTfTipoVeiculo().setValue(entVeiculo.getTipoVeiculo());
+		this.subView.getTfEspecieVeiculo().setValue(
+				entVeiculo.getEspecieVeiculo());
+		this.subView.getTfCondicaoVinVeiculo().setValue(
+				entVeiculo.getCondicaoVin());
+		this.subView.getTfCondicaoVeiculo().setValue(
+				entVeiculo.getCondicaoVeiculo());
+		this.subView.getTfCodigoMarcaModeloVeiculo().setValue(
+				entVeiculo.getCodigoMarcaModelo());
+		this.subView.getTfCodigoCorDenatranVeiculo().setValue(
+				entVeiculo.getCor());
+		this.subView.getTfLotacaoVeiculo().setValue(
+				entVeiculo.getLotacao().toString());
+		this.subView.getTfRestricaoVeiculo()
+				.setValue(entVeiculo.getRestricao());
 	}
 
 }

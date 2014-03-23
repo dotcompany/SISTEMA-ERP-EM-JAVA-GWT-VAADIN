@@ -263,6 +263,12 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetalheImpostoPisEntity nfeDetalheImpostoPis;
 
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetEspecificoCombustivelEntity nfeDetEspecificoCombustivel;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
+
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -575,6 +581,24 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setNfeDetalheImpostoPis(
 			NfeDetalheImpostoPisEntity nfeDetalheImpostoPis) {
 		this.nfeDetalheImpostoPis = nfeDetalheImpostoPis;
+	}
+
+	public NfeDetEspecificoCombustivelEntity getNfeDetEspecificoCombustivel() {
+		return nfeDetEspecificoCombustivel;
+	}
+
+	public void setNfeDetEspecificoCombustivel(
+			NfeDetEspecificoCombustivelEntity nfeDetEspecificoCombustivel) {
+		this.nfeDetEspecificoCombustivel = nfeDetEspecificoCombustivel;
+	}
+
+	public NfeDetEspecificoVeiculoEntity getNfeDetEspecificoVeiculo() {
+		return nfeDetEspecificoVeiculo;
+	}
+
+	public void setNfeDetEspecificoVeiculo(
+			NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo) {
+		this.nfeDetEspecificoVeiculo = nfeDetEspecificoVeiculo;
 	}
 
 	/**

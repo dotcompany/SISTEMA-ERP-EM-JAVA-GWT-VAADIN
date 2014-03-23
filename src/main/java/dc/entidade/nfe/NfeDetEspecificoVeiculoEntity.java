@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -223,10 +225,9 @@ public class NfeDetEspecificoVeiculoEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_nfe_detalhe")
-	@Caption(value = "NFE detalhe")
-	private Integer nfeDetalhe;
+	@OneToOne
+	@JoinColumn(name = "id_nfe_detalhe")
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * REFERENCIA - LIST
@@ -258,7 +259,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setTipoOperacao(String tipoOperacao) {
-		this.tipoOperacao = tipoOperacao;
+		this.tipoOperacao = (tipoOperacao == null ? "" : tipoOperacao
+				.toUpperCase());
 	}
 
 	public String getChassi() {
@@ -266,7 +268,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setChassi(String chassi) {
-		this.chassi = chassi;
+		this.chassi = (chassi == null ? "" : chassi.toUpperCase());
 	}
 
 	public String getCor() {
@@ -274,7 +276,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCor(String cor) {
-		this.cor = cor;
+		this.cor = (cor == null ? "" : cor.toUpperCase());
 	}
 
 	public String getDescricaoCor() {
@@ -282,7 +284,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setDescricaoCor(String descricaoCor) {
-		this.descricaoCor = descricaoCor;
+		this.descricaoCor = (descricaoCor == null ? "" : descricaoCor
+				.toUpperCase());
 	}
 
 	public String getPotenciaMotor() {
@@ -290,7 +293,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setPotenciaMotor(String potenciaMotor) {
-		this.potenciaMotor = potenciaMotor;
+		this.potenciaMotor = (potenciaMotor == null ? "" : potenciaMotor
+				.toUpperCase());
 	}
 
 	public String getCilindradas() {
@@ -298,7 +302,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCilindradas(String cilindradas) {
-		this.cilindradas = cilindradas;
+		this.cilindradas = (cilindradas == null ? "" : cilindradas
+				.toUpperCase());
 	}
 
 	public String getPesoLiquido() {
@@ -306,7 +311,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setPesoLiquido(String pesoLiquido) {
-		this.pesoLiquido = pesoLiquido;
+		this.pesoLiquido = (pesoLiquido == null ? "" : pesoLiquido
+				.toUpperCase());
 	}
 
 	public String getPesoBruto() {
@@ -314,7 +320,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setPesoBruto(String pesoBruto) {
-		this.pesoBruto = pesoBruto;
+		this.pesoBruto = (pesoBruto == null ? "" : pesoBruto.toUpperCase());
 	}
 
 	public String getNumeroSerie() {
@@ -322,7 +328,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setNumeroSerie(String numeroSerie) {
-		this.numeroSerie = numeroSerie;
+		this.numeroSerie = (numeroSerie == null ? "" : numeroSerie
+				.toUpperCase());
 	}
 
 	public String getTipoCombustivel() {
@@ -330,7 +337,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setTipoCombustivel(String tipoCombustivel) {
-		this.tipoCombustivel = tipoCombustivel;
+		this.tipoCombustivel = (tipoCombustivel == null ? "" : tipoCombustivel
+				.toUpperCase());
 	}
 
 	public String getNumeroMotor() {
@@ -338,7 +346,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setNumeroMotor(String numeroMotor) {
-		this.numeroMotor = numeroMotor;
+		this.numeroMotor = (numeroMotor == null ? "" : numeroMotor
+				.toUpperCase());
 	}
 
 	public String getCapacidadeMaximaTracao() {
@@ -346,7 +355,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCapacidadeMaximaTracao(String capacidadeMaximaTracao) {
-		this.capacidadeMaximaTracao = capacidadeMaximaTracao;
+		this.capacidadeMaximaTracao = (capacidadeMaximaTracao == null ? ""
+				: capacidadeMaximaTracao.toUpperCase());
 	}
 
 	public String getDistanciaEixos() {
@@ -354,7 +364,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setDistanciaEixos(String distanciaEixos) {
-		this.distanciaEixos = distanciaEixos;
+		this.distanciaEixos = (distanciaEixos == null ? "" : distanciaEixos
+				.toUpperCase());
 	}
 
 	public String getAnoModelo() {
@@ -362,7 +373,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setAnoModelo(String anoModelo) {
-		this.anoModelo = anoModelo;
+		this.anoModelo = (anoModelo == null ? "" : anoModelo.toUpperCase());
 	}
 
 	public String getAnoFabricacao() {
@@ -370,7 +381,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setAnoFabricacao(String anoFabricacao) {
-		this.anoFabricacao = anoFabricacao;
+		this.anoFabricacao = (anoFabricacao == null ? "" : anoFabricacao
+				.toUpperCase());
 	}
 
 	public String getTipoPintura() {
@@ -378,7 +390,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setTipoPintura(String tipoPintura) {
-		this.tipoPintura = tipoPintura;
+		this.tipoPintura = (tipoPintura == null ? "" : tipoPintura
+				.toUpperCase());
 	}
 
 	public String getTipoVeiculo() {
@@ -386,7 +399,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setTipoVeiculo(String tipoVeiculo) {
-		this.tipoVeiculo = tipoVeiculo;
+		this.tipoVeiculo = (tipoVeiculo == null ? "" : tipoVeiculo
+				.toUpperCase());
 	}
 
 	public String getEspecieVeiculo() {
@@ -394,7 +408,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setEspecieVeiculo(String especieVeiculo) {
-		this.especieVeiculo = especieVeiculo;
+		this.especieVeiculo = (especieVeiculo == null ? "" : especieVeiculo
+				.toUpperCase());
 	}
 
 	public String getCondicaoVin() {
@@ -402,7 +417,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCondicaoVin(String condicaoVin) {
-		this.condicaoVin = condicaoVin;
+		this.condicaoVin = (condicaoVin == null ? "" : condicaoVin
+				.toUpperCase());
 	}
 
 	public String getCondicaoVeiculo() {
@@ -410,7 +426,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCondicaoVeiculo(String condicaoVeiculo) {
-		this.condicaoVeiculo = condicaoVeiculo;
+		this.condicaoVeiculo = (condicaoVeiculo == null ? "" : condicaoVeiculo
+				.toUpperCase());
 	}
 
 	public String getCodigoMarcaModelo() {
@@ -418,7 +435,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCodigoMarcaModelo(String codigoMarcaModelo) {
-		this.codigoMarcaModelo = codigoMarcaModelo;
+		this.codigoMarcaModelo = (codigoMarcaModelo == null ? ""
+				: codigoMarcaModelo.toUpperCase());
 	}
 
 	public String getCodigoCor() {
@@ -426,7 +444,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCodigoCor(String codigoCor) {
-		this.codigoCor = codigoCor;
+		this.codigoCor = (codigoCor == null ? "" : codigoCor.toUpperCase());
 	}
 
 	public Integer getLotacao() {
@@ -434,7 +452,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setLotacao(Integer lotacao) {
-		this.lotacao = lotacao;
+		this.lotacao = (lotacao == null ? new Integer(0) : lotacao);
 	}
 
 	public String getRestricao() {
@@ -442,14 +460,14 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setRestricao(String restricao) {
-		this.restricao = restricao;
+		this.restricao = (restricao == null ? "" : restricao.toUpperCase());
 	}
 
-	public Integer getNfeDetalhe() {
+	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
-	public void setNfeDetalhe(Integer nfeDetalhe) {
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
 	}
 
