@@ -6,6 +6,8 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.visao.framework.util.ComponentUtil;
+
 public class StatusOsFormView extends CustomComponent {
 
 	private static final long serialVersionUID = 1L;
@@ -53,13 +55,9 @@ public class StatusOsFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(1);
-		fields.setColumns(2);
+		fields.setColumns(3);
 
-		tfDescricao = new TextField();
-		tfDescricao.setCaption("Descricao");
-		tfDescricao.setImmediate(false);
-		tfDescricao.setWidth("-1px");
-		tfDescricao.setHeight("-1px");
+		tfDescricao = ComponentUtil.buildTextField("Descrição");
 		fields.addComponent(tfDescricao, 0, 0, 1, 0);
 
 		return fields;

@@ -198,7 +198,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// common part: create layout
 		horizontalLayout_1 = new HorizontalLayout();
 		horizontalLayout_1.setImmediate(false);
-		horizontalLayout_1.setWidth("-1px");
+		horizontalLayout_1.setWidth("100%");
 		horizontalLayout_1.setHeight("-1px");
 		horizontalLayout_1.setMargin(false);
 		horizontalLayout_1.setSpacing(true);
@@ -207,7 +207,7 @@ public class ColaboradorFormView extends CustomComponent {
 		cmbPessoa = new ManyToOneCombo<>();
 		cmbPessoa.setCaption("Pessoa");
 		cmbPessoa.setImmediate(false);
-		cmbPessoa.setWidth("-1px");
+		cmbPessoa.setWidth("90%");
 		cmbPessoa.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbPessoa);
 
@@ -215,7 +215,7 @@ public class ColaboradorFormView extends CustomComponent {
 		cmbTipoColaborador = new ManyToOneCombo<>();
 		cmbTipoColaborador.setCaption("Tipo Colaborador");
 		cmbTipoColaborador.setImmediate(false);
-		cmbTipoColaborador.setWidth("-1px");
+		cmbTipoColaborador.setWidth("90%");
 		cmbTipoColaborador.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbTipoColaborador);
 
@@ -223,7 +223,7 @@ public class ColaboradorFormView extends CustomComponent {
 		cmbSituacaoColaborador = new ManyToOneCombo<>();
 		cmbSituacaoColaborador.setCaption("Situação Colaborador");
 		cmbSituacaoColaborador.setImmediate(false);
-		cmbSituacaoColaborador.setWidth("-1px");
+		cmbSituacaoColaborador.setWidth("90%");
 		cmbSituacaoColaborador.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbSituacaoColaborador);
 
@@ -231,7 +231,7 @@ public class ColaboradorFormView extends CustomComponent {
 		cmbSindicato = new ManyToOneCombo<>();
 		cmbSindicato.setCaption("Sindicato");
 		cmbSindicato.setImmediate(false);
-		cmbSindicato.setWidth("176px");
+		cmbSindicato.setWidth("90%");
 		cmbSindicato.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbSindicato);
 

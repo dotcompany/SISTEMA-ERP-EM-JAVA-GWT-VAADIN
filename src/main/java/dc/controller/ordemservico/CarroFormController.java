@@ -11,6 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
 import dc.controller.pessoal.ClienteListController;
@@ -119,7 +120,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 	@Override
 	protected void initSubView() {
-		subView = new CarroFormView();
+		subView = new CarroFormView(this);
 		
 		preencheCombos();
 	}
@@ -156,19 +157,13 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 		this.subView.getCbCombustivel().setModel(combustivel);
 
-		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
-				this.modeloDAO, super.getMainController());
-		
-		this.subView.getCbModelo().setModel(modelo);
-
 	}
 	
-	public void getModelo(String idMarca){
-		DefaultManyToOneComboModel<Modelo> modelo = new DefaultManyToOneComboModel<Modelo>(ModeloListController.class,
-				this.modeloDAO, super.getMainController());
+	public void getModelo(String classePesquisa, Integer idSelecionado){
+		DefaultManyToOneComboModelSelect<Modelo> modelo = new DefaultManyToOneComboModelSelect<Modelo>(ModeloListController.class,
+				this.modeloDAO, super.getMainController(),classePesquisa,idSelecionado);
 		
 		this.subView.getCbModelo().setModel(modelo);
-		
 	}
 	
 	

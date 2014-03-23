@@ -13,23 +13,23 @@ import java.util.Map;
 
 import com.vaadin.ui.Notification;
 
-import dc.controller.ordemservico.MarcaListController;
-import dc.controller.ordemservico.ModeloListController;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
+import dc.entidade.ordemservico.Marca;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
 import dc.visao.framework.geral.MainController;
 import dc.visao.spring.SecuritySessionProvider;
 
-public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
+public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<T> {
 
 	private AbstractCrudDAO<T> dao;
 	private Class ctrlClass;
+	private String classSelect;
+	private Integer idSelected;
 	private MainController mainController;
 	private int modalSize = 1; // Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
@@ -38,12 +38,14 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public static final int MEDIUM_SIZE_MODAL = 2;
 	public static final int SMALL_SIZE_MODAL = 3;
 
-	public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController) {
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,Integer idSelected) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
+		this.classSelect = classSelect;
+		this.idSelected = idSelected;
 	}
-
+	
 	public void setModalSize(int modalSizeType) {
 		this.modalSize = modalSizeType;
 	}
@@ -199,7 +201,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
 
-		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), null);
+		return dao.getAllForComboSelect(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), null, classSelect, idSelected);
 	}
 
 	@Override

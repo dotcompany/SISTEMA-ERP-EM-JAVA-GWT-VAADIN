@@ -53,11 +53,13 @@ public class CarroListController extends CRUDListController<Carro> {
 
 	@Override
 	public Class<? super Carro> getEntityClass() {
+		System.out.println("getEntityClass CarroListCrud");
 		return Carro.class;
 	}
 
 	@Override
 	protected List<Carro> pesquisaDefault() {
+System.out.println("pesquisaDefault CarroListCrud");
 		return dao.getAll(Carro.class);
 	}
 

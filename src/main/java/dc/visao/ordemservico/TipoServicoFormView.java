@@ -55,7 +55,7 @@ public class TipoServicoFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(1);
-		fields.setColumns(2);
+		fields.setColumns(3);
 
 		tfDescricao = ComponentUtil.buildTextField("Descrição");
 		fields.addComponent(tfDescricao, 0, 0, 1, 0);

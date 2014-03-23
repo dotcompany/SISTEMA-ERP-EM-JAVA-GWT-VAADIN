@@ -78,6 +78,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	private void configureDefaultComboFields() {
+
 		String[] defaultSearchFields = getDefaultSearchFields();
 
 		if (defaultSearchFields != null && defaultSearchFields.length != 0) {
@@ -178,11 +179,15 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public <T> List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu) {
+
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
+//			if(type.equals("Modelo")){
+//				crit.add(Restrictions.eq(type+".id", 1));
+//			}
 		}
 
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
@@ -190,6 +195,19 @@ public abstract class AbstractCrudDAO<T> {
 		return crit.addOrder(Order.asc(order)).list();
 	}
 
+	@Transactional
+	public <T> List<T> getAllForComboSelect(final Class<T> type, int idEmpresa, FmMenu menu, final String typeSelected, Integer idSelected) {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria crit = session.createCriteria(type);
+
+		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
+			crit.add(Restrictions.eq("empresa.id", idEmpresa));
+		}
+		crit.add(Restrictions.eq(typeSelected.toLowerCase()+".id", idSelected));
+		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
+
+		return crit.addOrder(Order.asc(order)).list();
+	}
 	public boolean isMultiEmpresa(Class c) {
 		return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
 	}

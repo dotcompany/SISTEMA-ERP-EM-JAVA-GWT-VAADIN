@@ -12,6 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.ServicoOsFormView;
 import dc.entidade.ordemservico.Grupo;
@@ -171,7 +172,7 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ServicoOsFormView();
+		subView = new ServicoOsFormView(this);
 		
 		preencheCombos();
 	}
@@ -189,11 +190,13 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 
 		this.subView.getCbGrupo().setModel(grupo);
 		
-		DefaultManyToOneComboModel<SubGrupo> subGrupo = new DefaultManyToOneComboModel<SubGrupo>(SubGrupoListController.class,
-				this.subGrupoDAO, super.getMainController());
-
+	}
+	
+	public void getSubgrupo(String classePesquisa, Integer idSelecionado){
+		DefaultManyToOneComboModelSelect<SubGrupo> subGrupo = new DefaultManyToOneComboModelSelect<SubGrupo>(SubGrupoListController.class,
+				this.subGrupoDAO, super.getMainController(),classePesquisa,idSelecionado);
+		
 		this.subView.getCbSubGrupo().setModel(subGrupo);
-
 	}
 	
 	@Override

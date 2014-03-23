@@ -53,12 +53,12 @@ public class SituacaoServicoFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(1);
-		fields.setColumns(2);
+		fields.setColumns(3);
 
 		tfDescricao = new TextField();
 		tfDescricao.setCaption("Descricao");
 		tfDescricao.setImmediate(false);
-		tfDescricao.setWidth("-1px");
+		tfDescricao.setWidth("100.0%");
 		tfDescricao.setHeight("-1px");
 		fields.addComponent(tfDescricao, 0, 0, 1, 0);
 
