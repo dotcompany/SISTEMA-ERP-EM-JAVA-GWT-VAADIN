@@ -120,11 +120,12 @@ public class ProdutoServicoFormController extends
 		try {
 			this.nfeCabecalhoDAO.saveOrUpdate(this.nfeCabecalho);
 
-			List auxLista = this.subView.getSfNfeDetalhe().getDados();
+			List<NfeDetalheEntity> auxLista = this.subView.getSfNfeDetalhe()
+					.getDados();
 
 			if (auxLista != null && !auxLista.isEmpty()) {
-				for (Object obj : auxLista) {
-					NfeDetalheEntity ent = (NfeDetalheEntity) obj;
+				for (NfeDetalheEntity ent : auxLista) {
+					// NfeDetalheEntity ent = (NfeDetalheEntity) obj;
 					ent.setNfeCabecalho(this.nfeCabecalho);
 
 					this.nfeDetalheDAO.saveOrUpdate(ent);
