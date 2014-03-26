@@ -2222,6 +2222,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfIdDestinatario.setHeight("-1px");
 		tfIdDestinatario.setSizeFull();
 		tfIdDestinatario.setNullRepresentation("");
+		tfIdDestinatario.setImmediate(true);
+		tfIdDestinatario.setId("tfIdDestinatario");
+		tfIdDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(tfIdDestinatario.getId(),
+						event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfIdDestinatario, 0, 0);
 
 		// tfCpfCnpjDestinatario
@@ -2231,6 +2246,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCpfCnpjDestinatario.setHeight("-1px");
 		tfCpfCnpjDestinatario.setSizeFull();
 		tfCpfCnpjDestinatario.setNullRepresentation("");
+		tfCpfCnpjDestinatario.setImmediate(true);
+		tfCpfCnpjDestinatario.setId("tfCpfCnpjDestinatario");
+		tfCpfCnpjDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(
+						tfCpfCnpjDestinatario.getId(), event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfCpfCnpjDestinatario, 1, 0);
 
 		// tfRazaoSocialDestinatario
@@ -2240,6 +2270,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfRazaoSocialDestinatario.setHeight("-1px");
 		tfRazaoSocialDestinatario.setSizeFull();
 		tfRazaoSocialDestinatario.setNullRepresentation("");
+		tfRazaoSocialDestinatario.setImmediate(true);
+		tfRazaoSocialDestinatario.setId("tfRazaoSocialDestinatario");
+		tfRazaoSocialDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfRazaoSocialDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfRazaoSocialDestinatario, 2, 0);
 
 		// tfCepDestinatario
@@ -2249,6 +2295,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCepDestinatario.setHeight("-1px");
 		tfCepDestinatario.setSizeFull();
 		tfCepDestinatario.setNullRepresentation("");
+		tfCepDestinatario.setImmediate(true);
+		tfCepDestinatario.setId("tfCepDestinatario");
+		tfCepDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(tfCepDestinatario.getId(),
+						event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfCepDestinatario, 0, 1);
 
 		// tfLogradouroDestinatario
@@ -2258,6 +2319,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfLogradouroDestinatario.setHeight("-1px");
 		tfLogradouroDestinatario.setSizeFull();
 		tfLogradouroDestinatario.setNullRepresentation("");
+		tfLogradouroDestinatario.setImmediate(true);
+		tfLogradouroDestinatario.setId("tfLogradouroDestinatario");
+		tfLogradouroDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfLogradouroDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfLogradouroDestinatario, 1, 1);
 
 		// tfLogradouroNumeroDestinatario
@@ -2267,6 +2344,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfLogradouroNumeroDestinatario.setHeight("-1px");
 		tfLogradouroNumeroDestinatario.setSizeFull();
 		tfLogradouroNumeroDestinatario.setNullRepresentation("");
+		tfLogradouroNumeroDestinatario.setImmediate(true);
+		tfLogradouroNumeroDestinatario.setId("tfLogradouroNumeroDestinatario");
+		tfLogradouroNumeroDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfLogradouroNumeroDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfLogradouroNumeroDestinatario, 2, 1);
 
 		// tfLogradouroComplementoDestinatario
@@ -2276,6 +2369,24 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfLogradouroComplementoDestinatario.setHeight("-1px");
 		tfLogradouroComplementoDestinatario.setSizeFull();
 		tfLogradouroComplementoDestinatario.setNullRepresentation("");
+		tfLogradouroComplementoDestinatario.setImmediate(true);
+		tfLogradouroComplementoDestinatario
+				.setId("tfLogradouroComplementoDestinatario");
+		tfLogradouroComplementoDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfLogradouroComplementoDestinatario.getId(),
+								event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfLogradouroComplementoDestinatario, 3,
 				1);
 
@@ -2286,6 +2397,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfBairroLogradouroDestinatario.setHeight("-1px");
 		tfBairroLogradouroDestinatario.setSizeFull();
 		tfBairroLogradouroDestinatario.setNullRepresentation("");
+		tfBairroLogradouroDestinatario.setImmediate(true);
+		tfBairroLogradouroDestinatario.setId("tfBairroLogradouroDestinatario");
+		tfBairroLogradouroDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfBairroLogradouroDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfBairroLogradouroDestinatario, 0, 2);
 
 		// tfCodigoIbgeDestinatario
@@ -2295,6 +2422,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoIbgeDestinatario.setHeight("-1px");
 		tfCodigoIbgeDestinatario.setSizeFull();
 		tfCodigoIbgeDestinatario.setNullRepresentation("");
+		tfCodigoIbgeDestinatario.setImmediate(true);
+		tfCodigoIbgeDestinatario.setId("tfCodigoIbgeDestinatario");
+		tfCodigoIbgeDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfCodigoIbgeDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfCodigoIbgeDestinatario, 1, 2);
 
 		// tfCidadeDestinatario
@@ -2304,6 +2447,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCidadeDestinatario.setHeight("-1px");
 		tfCidadeDestinatario.setSizeFull();
 		tfCidadeDestinatario.setNullRepresentation("");
+		tfCidadeDestinatario.setImmediate(true);
+		tfCidadeDestinatario.setId("tfCidadeDestinatario");
+		tfCidadeDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(
+						tfCidadeDestinatario.getId(), event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfCidadeDestinatario, 2, 2);
 
 		// tfUfDestinatario
@@ -2313,6 +2471,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfUfDestinatario.setHeight("-1px");
 		tfUfDestinatario.setSizeFull();
 		tfUfDestinatario.setNullRepresentation("");
+		tfUfDestinatario.setImmediate(true);
+		tfUfDestinatario.setId("tfUfDestinatario");
+		tfUfDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(tfUfDestinatario.getId(),
+						event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfUfDestinatario, 3, 2);
 
 		// tfInscricaoEstadualDestinatario
@@ -2322,6 +2495,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfInscricaoEstadualDestinatario.setHeight("-1px");
 		tfInscricaoEstadualDestinatario.setSizeFull();
 		tfInscricaoEstadualDestinatario.setNullRepresentation("");
+		tfInscricaoEstadualDestinatario.setImmediate(true);
+		tfInscricaoEstadualDestinatario
+				.setId("tfInscricaoEstadualDestinatario");
+		tfInscricaoEstadualDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfInscricaoEstadualDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfInscricaoEstadualDestinatario, 0, 3);
 
 		// tfTelefoneDestinatario
@@ -2331,6 +2521,22 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTelefoneDestinatario.setHeight("-1px");
 		tfTelefoneDestinatario.setSizeFull();
 		tfTelefoneDestinatario.setNullRepresentation("");
+		tfTelefoneDestinatario.setImmediate(true);
+		tfTelefoneDestinatario.setId("tfTelefoneDestinatario");
+		tfTelefoneDestinatario
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+			 * 
+			 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						controller.adicionarNfeDestinatario(
+								tfTelefoneDestinatario.getId(), event);
+					}
+				});
 		glNfeDestinatario.addComponent(tfTelefoneDestinatario, 1, 3);
 
 		// tfSuframaDestinatario
@@ -2340,6 +2546,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfSuframaDestinatario.setHeight("-1px");
 		tfSuframaDestinatario.setSizeFull();
 		tfSuframaDestinatario.setNullRepresentation("");
+		tfSuframaDestinatario.setImmediate(true);
+		tfSuframaDestinatario.setId("tfSuframaDestinatario");
+		tfSuframaDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(
+						tfSuframaDestinatario.getId(), event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfSuframaDestinatario, 2, 3);
 
 		// tfEmailDestinatario
@@ -2349,6 +2570,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfEmailDestinatario.setHeight("-1px");
 		tfEmailDestinatario.setSizeFull();
 		tfEmailDestinatario.setNullRepresentation("");
+		tfEmailDestinatario.setImmediate(true);
+		tfEmailDestinatario.setId("tfEmailDestinatario");
+		tfEmailDestinatario.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.adicionarNfeDestinatario(
+						tfEmailDestinatario.getId(), event);
+			}
+		});
 		glNfeDestinatario.addComponent(tfEmailDestinatario, 3, 3);
 
 		return glNfeDestinatario;

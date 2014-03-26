@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -169,10 +171,9 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	// id_nfe_cabecalho integer NOT NULL,
 
-	@Field
-	@Column(name = "id_nfe_cabecalho")
-	@Caption(value = "NFE cabeçalho")
-	private Integer nfeCabecalho;
+	@OneToOne
+	@JoinColumn(name = "id_nfe_cabecalho")
+	private NfeCabecalhoEntity nfeCabecalho;
 
 	// id_empresa integer,
 
@@ -206,7 +207,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
+		this.cpfCnpj = (cpfCnpj == null ? "" : cpfCnpj.toUpperCase());
 	}
 
 	public String getRazaoSocial() {
@@ -214,7 +215,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
+		this.razaoSocial = (razaoSocial == null ? "" : razaoSocial
+				.toUpperCase());
 	}
 
 	public String getLogradouro() {
@@ -222,7 +224,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro = (logradouro == null ? "" : logradouro.toUpperCase());
 	}
 
 	public String getNumero() {
@@ -230,7 +232,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = (numero == null ? "" : numero.toUpperCase());
 	}
 
 	public String getComplemento() {
@@ -238,7 +240,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+		this.complemento = (complemento == null ? "" : complemento
+				.toUpperCase());
 	}
 
 	public String getBairro() {
@@ -246,7 +249,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = (bairro == null ? "" : bairro.toUpperCase());
 	}
 
 	public Integer getCodigoMunicipio() {
@@ -254,7 +257,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoMunicipio(Integer codigoMunicipio) {
-		this.codigoMunicipio = codigoMunicipio;
+		this.codigoMunicipio = (codigoMunicipio == null ? new Integer(0)
+				: codigoMunicipio);
 	}
 
 	public String getNomeMunicipio() {
@@ -262,7 +266,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNomeMunicipio(String nomeMunicipio) {
-		this.nomeMunicipio = nomeMunicipio;
+		this.nomeMunicipio = (nomeMunicipio == null ? "" : nomeMunicipio
+				.toUpperCase());
 	}
 
 	public String getUf() {
@@ -270,7 +275,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setUf(String uf) {
-		this.uf = uf;
+		this.uf = (uf == null ? "" : uf.toUpperCase());
 	}
 
 	public String getCep() {
@@ -278,7 +283,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = (cep == null ? "" : cep.toUpperCase());
 	}
 
 	public Integer getCodigoPais() {
@@ -286,7 +291,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoPais(Integer codigoPais) {
-		this.codigoPais = codigoPais;
+		this.codigoPais = (codigoPais == null ? new Integer(0) : codigoPais);
 	}
 
 	public String getNomePais() {
@@ -294,7 +299,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNomePais(String nomePais) {
-		this.nomePais = nomePais;
+		this.nomePais = (nomePais == null ? "" : nomePais.toUpperCase());
 	}
 
 	public String getTelefone() {
@@ -302,7 +307,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		this.telefone = (telefone == null ? "" : telefone.toUpperCase());
 	}
 
 	public String getInscricaoEstadual() {
@@ -310,7 +315,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setInscricaoEstadual(String inscricaoEstadual) {
-		this.inscricaoEstadual = inscricaoEstadual;
+		this.inscricaoEstadual = (inscricaoEstadual == null ? ""
+				: inscricaoEstadual.toUpperCase());
 	}
 
 	public String getSuframa() {
@@ -318,7 +324,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSuframa(String suframa) {
-		this.suframa = suframa;
+		this.suframa = (suframa == null ? "" : suframa.toUpperCase());
 	}
 
 	public String getEmail() {
@@ -326,14 +332,14 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = (email == null ? "" : email.toUpperCase());
 	}
 
-	public Integer getNfeCabecalho() {
+	public NfeCabecalhoEntity getNfeCabecalho() {
 		return nfeCabecalho;
 	}
 
-	public void setNfeCabecalho(Integer nfeCabecalho) {
+	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
 		this.nfeCabecalho = nfeCabecalho;
 	}
 

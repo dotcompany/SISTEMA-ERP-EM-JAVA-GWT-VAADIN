@@ -14,6 +14,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
 import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
@@ -24,6 +25,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
+import dc.servicos.dao.nfe.NfeDestinatarioDAO;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
@@ -58,6 +60,9 @@ public class ProdutoServicoFormController extends
 
 	@Autowired
 	private NfeCabecalhoDAO nfeCabecalhoDAO;
+
+	@Autowired
+	private NfeDestinatarioDAO nfeDestinatarioDAO;
 
 	@Autowired
 	private NfeDetalheDAO nfeDetalheDAO;
@@ -275,6 +280,7 @@ public class ProdutoServicoFormController extends
 			}
 
 			montarNfeCabecalho();
+			montarDestinatario();
 			montarNfeDetalhe(id);
 
 			this.subView.getGlIcms().setEnabled(false);
@@ -329,6 +335,46 @@ public class ProdutoServicoFormController extends
 					this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
 			this.subView.getTfFormaPagamento().setValue(
 					this.nfeCabecalho.getIndicadorFormaPagamento().trim());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void montarDestinatario() {
+		try {
+			NfeDestinatarioEntity nfeDestinatario = this.nfeDestinatarioDAO
+					.getEntidade(this.nfeCabecalho);
+			nfeDestinatario.setNfeCabecalho(this.nfeCabecalho);
+			this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
+
+			this.subView.getTfEmailDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getEmail());
+			this.subView.getTfSuframaDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getSuframa());
+			this.subView.getTfTelefoneDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getTelefone());
+			this.subView.getTfInscricaoEstadualDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario()
+							.getInscricaoEstadual());
+			this.subView.getTfUfDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getUf());
+			// this.subView.getTfCidadeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().get);
+			// this.subView.getTfCodigoIbgeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getco);
+			this.subView.getTfBairroLogradouroDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getBairro());
+			this.subView.getTfLogradouroComplementoDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getComplemento());
+			this.subView.getTfLogradouroNumeroDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getNumero());
+			this.subView.getTfLogradouroDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getLogradouro());
+			this.subView.getTfCepDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getCep());
+			this.subView.getTfRazaoSocialDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getRazaoSocial());
+			this.subView.getTfCpfCnpjDestinatario().setValue(
+					this.nfeCabecalho.getNfeDestinatario().getCpfCnpj());
+			// this.subView.getTfIdDestinatario().setValue();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -801,6 +847,80 @@ public class ProdutoServicoFormController extends
 			break;
 		case "tfFormaPagamento":
 			this.nfeCabecalho.setIndicadorFormaPagamento(s.toString().trim());
+
+			break;
+		}
+	}
+
+	public void adicionarNfeDestinatario(String id, ValueChangeEvent event) {
+		NfeDestinatarioEntity nfeDestinatario = this.nfeCabecalho
+				.getNfeDestinatario();
+
+		if (nfeDestinatario == null) {
+			return;
+		}
+
+		Object s = event.getProperty().getValue();
+
+		switch (id) {
+		case "tfEmailDestinatario":
+			nfeDestinatario.setEmail(s.toString().trim());
+
+			break;
+		case "tfSuframaDestinatario":
+			nfeDestinatario.setSuframa(s.toString().trim());
+
+			break;
+		case "tfTelefoneDestinatario":
+			nfeDestinatario.setTelefone(s.toString().trim());
+
+			break;
+		case "tfInscricaoEstadualDestinatario":
+			nfeDestinatario.setInscricaoEstadual(s.toString().trim());
+
+			break;
+		case "tfUfDestinatario":
+			nfeDestinatario.setUf(s.toString().trim());
+
+			break;
+		case "tfCidadeDestinatario":
+			// nfeDestinatario.set
+
+			break;
+		case "tfCodigoIbgeDestinatario":
+			// nfeDestinatario.set
+
+			break;
+		case "tfBairroLogradouroDestinatario":
+			nfeDestinatario.setBairro(s.toString().trim());
+
+			break;
+		case "tfLogradouroComplementoDestinatario":
+			nfeDestinatario.setComplemento(s.toString().trim());
+
+			break;
+		case "tfLogradouroNumeroDestinatario":
+			nfeDestinatario.setNumero(s.toString().trim());
+
+			break;
+		case "tfLogradouroDestinatario":
+			nfeDestinatario.setLogradouro(s.toString().trim());
+
+			break;
+		case "tfCepDestinatario":
+			nfeDestinatario.setCep(s.toString().trim());
+
+			break;
+		case "tfRazaoSocialDestinatario":
+			nfeDestinatario.setRazaoSocial(s.toString().trim());
+
+			break;
+		case "tfCpfCnpjDestinatario":
+			nfeDestinatario.setCpfCnpj(s.toString().trim());
+
+			break;
+		case "tfIdDestinatario":
+			// nfeDestinatario.set
 
 			break;
 		}
