@@ -610,18 +610,4 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/**
-	 * TABELAS
-	 * 
-	 * @return
-	 */
-
-	public String[] getTabelaColunas() {
-		return new String[] { this.numeroItem.toString() };
-	}
-
-	public String[] getTabelaColunasDescrição() {
-		return new String[] { "Número do item" };
-	}
-
 }
