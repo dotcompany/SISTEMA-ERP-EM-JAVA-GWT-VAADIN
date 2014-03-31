@@ -926,6 +926,92 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
+	public void adicionarNfeDetalhe(String id, ValueChangeEvent event) {
+		if (this.nfeDetalheSelecionado == null) {
+			return;
+		}
+
+		Object s = event.getProperty().getValue();
+
+		switch (id) {
+		case "tfNumeroItem":
+
+			break;
+		case "tfCodigoProduto":
+
+			break;
+		case "tfGtin":
+
+			break;
+		case "tfNomeProduto":
+
+			break;
+		case "tfNcm":
+
+			break;
+		case "tfExTipi":
+
+			break;
+		case "tfCfop":
+
+			break;
+		case "tfUnidadeComercial":
+
+			break;
+		case "tfQuantidadeComercial":
+
+			break;
+		case "tfValorUnitarioComercial":
+
+			break;
+		case "tfValorBrutoProduto":
+
+			break;
+		case "tfGtinUnidadeTributavel":
+
+			break;
+		case "tfUnidadeTributavel":
+
+			break;
+		case "tfQuantidadeTributavel":
+
+			break;
+		case "tfValorUnitarioTributavel":
+
+			break;
+		case "tfValorFrete":
+
+			break;
+		case "tfValorSeguro":
+
+			break;
+		case "tfValorDesconto":
+
+			break;
+		case "tfValorOutrasDespesas":
+
+			break;
+		case "tfEntraTotal":
+
+			break;
+		case "tfValorSubtotal":
+
+			break;
+		case "tfValorTotal":
+
+			break;
+		case "tfNumeroPedidoCompra":
+
+			break;
+		case "tfItemPedidoCompra":
+
+			break;
+		case "tfInformacoesAdicionais":
+
+			break;
+		}
+	}
+
 	public void adicionarCofins(String id, ValueChangeEvent event) {
 		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoCofins();
