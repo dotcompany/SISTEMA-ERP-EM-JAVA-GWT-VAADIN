@@ -1,11 +1,9 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
-import org.vaadin.addons.lazyquerycontainer.AbstractBeanQuery;
 import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 
 import com.sun.istack.logging.Logger;
@@ -13,64 +11,14 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.framework.FmMenu;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
-
-	private Logger logger = Logger.getLogger(DCBeanQuery.class);
-	private String[] sortingFields = new String[0];
-	private boolean[] sortingStates = new boolean[0];
+public class DCBeanQuery extends AbstractDCBeanQuery {
 
 	public DCBeanQuery(QueryDefinition definition, Map<String, Object> queryConfiguration, Object[] sortPropertyIds, boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
-
-		logger.info("DCBeanQuery, instatiated");
-
-		logger.info("sort properties");
-
-		this.sortingFields = new String[sortPropertyIds.length];
-
-		for (int i = 0; i < sortPropertyIds.length; i++) {
-			logger.info(String.valueOf(sortPropertyIds[i]));
-			this.sortingFields[i] = String.valueOf(sortPropertyIds[i]);
-		}
-
-		logger.info("sort states");
-
-		for (int i = 0; i < sortStates.length; i++) {
-			logger.info(String.valueOf(sortStates[i]));
-		}
-
-		this.sortingStates = sortStates;
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	protected Serializable constructBean() {
-		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
-		Object instance = null;
-
-		try {
-			instance = pojoClass.getConstructor().newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return (Serializable) instance;
-	}
+	private Logger logger = Logger.getLogger(DCBeanQueryMultiEmpresa.class);
 
 	@Override
 	protected List<Serializable> loadBeans(int arg0, int arg1) {
@@ -81,17 +29,12 @@ public class DCBeanQuery extends AbstractBeanQuery<Serializable> {
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields, sortingStates, null);
+			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields, sortingStates, filters);
 		} else {
 			logger.info("null or empty search term, loading all..");
 
-			return dao.getAllPaged(pojoClass, arg0, arg1, sortingFields, sortingStates);
+			return dao.getAllPaged(pojoClass, arg0, arg1, sortingFields, sortingStates, filters);
 		}
-	}
-
-	@Override
-	protected void saveBeans(List<Serializable> arg0, List<Serializable> arg1, List<Serializable> arg2) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override

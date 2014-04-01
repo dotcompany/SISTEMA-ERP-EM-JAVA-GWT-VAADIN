@@ -26,14 +26,14 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomTable;
+import com.vaadin.ui.CustomTable.ColumnGenerator;
+import com.vaadin.ui.CustomTable.ColumnReorderEvent;
+import com.vaadin.ui.CustomTable.ColumnReorderListener;
+import com.vaadin.ui.CustomTable.ColumnResizeEvent;
+import com.vaadin.ui.CustomTable.ColumnResizeListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.Table.ColumnGenerator;
-import com.vaadin.ui.Table.ColumnReorderEvent;
-import com.vaadin.ui.Table.ColumnReorderListener;
-import com.vaadin.ui.Table.ColumnResizeEvent;
-import com.vaadin.ui.Table.ColumnResizeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -49,6 +49,8 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.visao.framework.DemoFilterDecorator;
+import dc.visao.framework.DemoFilterTable;
 import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.CustomListTable;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
@@ -286,6 +288,10 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		// Configura da tabela
 		table = new CustomListTable();
 
+		table.setFilterDecorator(new DemoFilterDecorator());
+		table.setFilterGenerator(new DemoFilterTable());
+		table.setFilterBarVisible(true);
+
 		table.setFileHandler(fileUtils);
 		table.setEntityName(getEntityClass().getSimpleName());
 
@@ -385,7 +391,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			int i = 1;
 
 			@Override
-			public Component generateCell(Table source, final Object itemId, Object columnId) {
+			public Component generateCell(CustomTable source, final Object itemId, Object columnId) {
 				final CompositeItem selectedBeanItem = (CompositeItem) source.getContainerDataSource().getItem(itemId);
 				final NestingBeanItem nestedItem = (NestingBeanItem) selectedBeanItem.getItem("bean");
 
@@ -663,7 +669,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		windowSelectionListener = listener;
 	}
 
-	public Table getTable() {
+	public CustomTable getTable() {
 		return table;
 	}
 

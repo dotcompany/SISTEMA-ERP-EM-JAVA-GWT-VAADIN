@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -185,9 +186,9 @@ public abstract class AbstractCrudDAO<T> {
 
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
-//			if(type.equals("Modelo")){
-//				crit.add(Restrictions.eq(type+".id", 1));
-//			}
+			// if(type.equals("Modelo")){
+			// crit.add(Restrictions.eq(type+".id", 1));
+			// }
 		}
 
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
@@ -203,11 +204,12 @@ public abstract class AbstractCrudDAO<T> {
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
 		}
-		crit.add(Restrictions.eq(typeSelected.toLowerCase()+".id", idSelected));
+		crit.add(Restrictions.eq(typeSelected.toLowerCase() + ".id", idSelected));
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
 
 		return crit.addOrder(Order.asc(order)).list();
 	}
+
 	public boolean isMultiEmpresa(Class c) {
 		return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
 	}
@@ -222,19 +224,24 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public List<T> fullTextSearch(String valor) {
-		return fullTextSearch(valor, new String[0], new boolean[0]);
+		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, new String[0], new boolean[0], null, null);
 	}
 
 	@Transactional
-	public List<T> fullTextSearch(String valor, String[] sortingFields, boolean[] states) {
+	public List<T> fullTextSearch(String valor, int first, int pageSize, String[] sortingFields, boolean[] sortingStates, Map<Object, String> filters) {
+		return fullTextSearch(valor, getSearchFields(), first, pageSize, sortingFields, sortingStates, null, filters);
+	}
+
+	@Transactional
+	public List<T> fullTextSearch(String valor, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
 		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 
-		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, sortingFields, states, null);
+		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, sortingFields, states, null, filters);
 	}
 
 	@Transactional
 	private List<T> fullTextSearch(String value, String[] searchFields, int first, int pageSize, String[] sortingFieldsStrings, boolean[] sortStates,
-			FmMenu menu) {
+			FmMenu menu, Map<Object, String> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
 		FieldComparatorSource cs = new FieldComparatorSource() {
 			@Override
@@ -347,8 +354,9 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu) {
-		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu);
+	public List fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu,
+			Map<Object, String> filters) {
+		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu, filters);
 	}
 
 	public String[] getSearchFields() {
@@ -383,7 +391,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List getAllPaged(Class clazz, int start, int pageSize, String[] sortingFields, boolean[] states) {
+	public List getAllPaged(Class clazz, int start, int pageSize, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(clazz);
 		configureHQLOrder(sortingFields, states, criteria);
 		criteria.setFirstResult(start);
