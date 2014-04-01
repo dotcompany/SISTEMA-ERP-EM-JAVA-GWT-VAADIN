@@ -267,6 +267,7 @@ public class ProdutoServicoFormController extends
 				this.nfeCabecalho = new NfeCabecalhoEntity();
 				this.nfeDetalheSelecionado = new NfeDetalheEntity();
 
+				limparNfeDetalhe();
 				limparNdiCofins();
 				limparNdiIcms();
 				limparNdiIi();
@@ -283,6 +284,7 @@ public class ProdutoServicoFormController extends
 			montarDestinatario();
 			montarNfeDetalhe(id);
 
+			this.subView.getGlNfeDetalhe().setEnabled(false);
 			this.subView.getGlIcms().setEnabled(false);
 			this.subView.getGlPis().setEnabled(false);
 			this.subView.getGlCofins().setEnabled(false);
@@ -488,6 +490,69 @@ public class ProdutoServicoFormController extends
 	public void selecionarNfeDetalhe(NfeDetalheEntity item) {
 		try {
 			this.nfeDetalheSelecionado = item;
+
+			/**
+			 * NFEDETALHE
+			 */
+
+			this.subView.getTfNumeroItem().setValue(
+					this.nfeDetalheSelecionado.getNumeroItem().toString());
+			this.subView.getTfCodigoProduto().setValue(
+					this.nfeDetalheSelecionado.getCodigoProduto());
+			this.subView.getTfGtin().setValue(
+					this.nfeDetalheSelecionado.getGtin());
+			this.subView.getTfNomeProduto().setValue(
+					this.nfeDetalheSelecionado.getNomeProduto());
+			this.subView.getTfNcm().setValue(
+					this.nfeDetalheSelecionado.getNcm());
+			this.subView.getTfExTipi().setValue(
+					this.nfeDetalheSelecionado.getExTipi().toString());
+			this.subView.getTfCfop().setValue(
+					this.nfeDetalheSelecionado.getCfop().toString());
+			this.subView.getTfUnidadeComercial().setValue(
+					this.nfeDetalheSelecionado.getUnidadeComercial());
+			this.subView.getTfQuantidadeComercial().setValue(
+					this.nfeDetalheSelecionado.getQuantidadeComercial()
+							.toString());
+			this.subView.getTfValorUnitarioComercial().setValue(
+					this.nfeDetalheSelecionado.getValorUnitarioComercial()
+							.toString());
+			this.subView.getTfValorBrutoProduto().setValue(
+					this.nfeDetalheSelecionado.getValorBrutoProduto()
+							.toString());
+			this.subView.getTfGtinUnidadeTributavel().setValue(
+					this.nfeDetalheSelecionado.getGtinUnidadeTributavel());
+			this.subView.getTfUnidadeTributavel().setValue(
+					this.nfeDetalheSelecionado.getUnidadeTributavel());
+			this.subView.getTfQuantidadeTributavel().setValue(
+					this.nfeDetalheSelecionado.getQuantidadeTributavel()
+							.toString());
+			this.subView.getTfValorUnitarioTributavel().setValue(
+					this.nfeDetalheSelecionado.getValorUnitarioTributavel()
+							.toString());
+			this.subView.getTfValorFrete().setValue(
+					this.nfeDetalheSelecionado.getValorFrete().toString());
+			this.subView.getTfValorSeguro().setValue(
+					this.nfeDetalheSelecionado.getValorSeguro().toString());
+			this.subView.getTfValorDesconto().setValue(
+					this.nfeDetalheSelecionado.getValorDesconto().toString());
+			this.subView.getTfValorOutrasDespesas().setValue(
+					this.nfeDetalheSelecionado.getValorOutrasDespesas()
+							.toString());
+			this.subView.getTfEntraTotal().setValue(
+					this.nfeDetalheSelecionado.getEntraTotal());
+			this.subView.getTfValorSubtotal().setValue(
+					this.nfeDetalheSelecionado.getValorSubtotal().toString());
+			this.subView.getTfValorTotal().setValue(
+					this.nfeDetalheSelecionado.getValorTotal().toString());
+			this.subView.getTfNumeroPedidoCompra().setValue(
+					this.nfeDetalheSelecionado.getNumeroPedidoCompra());
+			this.subView.getTfItemPedidoCompra()
+					.setValue(
+							this.nfeDetalheSelecionado.getItemPedidoCompra()
+									.toString());
+			this.subView.getTfInformacoesAdicionais().setValue(
+					this.nfeDetalheSelecionado.getInformacoesAdicionais());
 
 			/**
 			 * COFINS
@@ -749,6 +814,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfRestricaoVeiculo().setValue(
 					entVeiculo.getRestricao());
 
+			this.subView.getGlNfeDetalhe().setEnabled(true);
 			this.subView.getGlIcms().setEnabled(true);
 			this.subView.getGlPis().setEnabled(true);
 			this.subView.getGlCofins().setEnabled(true);
@@ -931,85 +997,146 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
+		Integer index = this.subView.getSfNfeDetalhe().getDados()
+				.indexOf(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.remove(this.nfeDetalheSelecionado);
+
 		Object s = event.getProperty().getValue();
 
 		switch (id) {
 		case "tfNumeroItem":
+			this.nfeDetalheSelecionado.setNumeroItem(new Integer(s.toString()
+					.trim()));
 
 			break;
 		case "tfCodigoProduto":
+			this.nfeDetalheSelecionado.setCodigoProduto(s.toString().trim());
 
 			break;
 		case "tfGtin":
+			this.nfeDetalheSelecionado.setGtin(s.toString().trim());
 
 			break;
 		case "tfNomeProduto":
+			this.nfeDetalheSelecionado.setNomeProduto(s.toString().trim());
 
 			break;
 		case "tfNcm":
+			this.nfeDetalheSelecionado.setNcm(s.toString().trim());
 
 			break;
 		case "tfExTipi":
+			this.nfeDetalheSelecionado.setExTipi(new Integer(s.toString()
+					.trim()));
 
 			break;
 		case "tfCfop":
+			this.nfeDetalheSelecionado
+					.setCfop(new Integer(s.toString().trim()));
 
 			break;
 		case "tfUnidadeComercial":
+			this.nfeDetalheSelecionado.setUnidadeComercial(s.toString().trim());
 
 			break;
 		case "tfQuantidadeComercial":
+			this.nfeDetalheSelecionado.setQuantidadeComercial(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorUnitarioComercial":
+			this.nfeDetalheSelecionado
+					.setValorUnitarioComercial(new BigDecimal(s.toString()
+							.trim()));
 
 			break;
 		case "tfValorBrutoProduto":
+			this.nfeDetalheSelecionado.setValorBrutoProduto(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfGtinUnidadeTributavel":
+			this.nfeDetalheSelecionado.setGtinUnidadeTributavel(s.toString()
+					.trim());
 
 			break;
 		case "tfUnidadeTributavel":
+			this.nfeDetalheSelecionado
+					.setUnidadeTributavel(s.toString().trim());
 
 			break;
 		case "tfQuantidadeTributavel":
+			this.nfeDetalheSelecionado.setQuantidadeTributavel(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorUnitarioTributavel":
+			this.nfeDetalheSelecionado
+					.setValorUnitarioTributavel(new BigDecimal(s.toString()
+							.trim()));
 
 			break;
 		case "tfValorFrete":
+			this.nfeDetalheSelecionado.setValorFrete(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorSeguro":
+			this.nfeDetalheSelecionado.setValorSeguro(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorDesconto":
+			this.nfeDetalheSelecionado.setValorDesconto(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorOutrasDespesas":
+			this.nfeDetalheSelecionado.setValorOutrasDespesas(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfEntraTotal":
+			this.nfeDetalheSelecionado.setEntraTotal(s.toString().trim());
 
 			break;
 		case "tfValorSubtotal":
+			this.nfeDetalheSelecionado.setValorSubtotal(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfValorTotal":
+			this.nfeDetalheSelecionado.setValorTotal(new BigDecimal(s
+					.toString().trim()));
 
 			break;
 		case "tfNumeroPedidoCompra":
+			this.nfeDetalheSelecionado.setNumeroPedidoCompra(s.toString()
+					.trim());
 
 			break;
 		case "tfItemPedidoCompra":
+			this.nfeDetalheSelecionado.setItemPedidoCompra(new Integer(s
+					.toString().trim()));
 
 			break;
 		case "tfInformacoesAdicionais":
+			this.nfeDetalheSelecionado.setInformacoesAdicionais(s.toString()
+					.trim());
 
 			break;
 		}
+
+		// Integer index = this.subView.getSfNfeDetalhe().getDados()
+		// .indexOf(this.nfeDetalheSelecionado);
+
+		// this.subView.getSfNfeDetalhe().getDados()
+		// .remove(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.add(index, this.nfeDetalheSelecionado);
 	}
 
 	public void adicionarCofins(String id, ValueChangeEvent event) {
@@ -1522,6 +1649,55 @@ public class ProdutoServicoFormController extends
 	 * 
 	 * @param item
 	 */
+
+	private void limparNfeDetalhe() {
+		NfeDetalheEntity nfeDetalhe = new NfeDetalheEntity();
+
+		this.subView.getTfNumeroItem().setValue(
+				nfeDetalhe.getNumeroItem().toString());
+		this.subView.getTfCodigoProduto().setValue(
+				nfeDetalhe.getCodigoProduto());
+		this.subView.getTfGtin().setValue(nfeDetalhe.getGtin());
+		this.subView.getTfNomeProduto().setValue(nfeDetalhe.getNomeProduto());
+		this.subView.getTfNcm().setValue(nfeDetalhe.getNcm());
+		this.subView.getTfExTipi().setValue(nfeDetalhe.getExTipi().toString());
+		this.subView.getTfCfop().setValue(nfeDetalhe.getCfop().toString());
+		this.subView.getTfUnidadeComercial().setValue(
+				nfeDetalhe.getUnidadeComercial());
+		this.subView.getTfQuantidadeComercial().setValue(
+				nfeDetalhe.getQuantidadeComercial().toString());
+		this.subView.getTfValorUnitarioComercial().setValue(
+				nfeDetalhe.getValorUnitarioComercial().toString());
+		this.subView.getTfValorBrutoProduto().setValue(
+				nfeDetalhe.getValorBrutoProduto().toString());
+		this.subView.getTfGtinUnidadeTributavel().setValue(
+				nfeDetalhe.getGtinUnidadeTributavel());
+		this.subView.getTfUnidadeTributavel().setValue(
+				nfeDetalhe.getUnidadeTributavel());
+		this.subView.getTfQuantidadeTributavel().setValue(
+				nfeDetalhe.getQuantidadeTributavel().toString());
+		this.subView.getTfValorUnitarioTributavel().setValue(
+				nfeDetalhe.getValorUnitarioTributavel().toString());
+		this.subView.getTfValorFrete().setValue(
+				nfeDetalhe.getValorFrete().toString());
+		this.subView.getTfValorSeguro().setValue(
+				nfeDetalhe.getValorSeguro().toString());
+		this.subView.getTfValorDesconto().setValue(
+				nfeDetalhe.getValorDesconto().toString());
+		this.subView.getTfValorOutrasDespesas().setValue(
+				nfeDetalhe.getValorOutrasDespesas().toString());
+		this.subView.getTfEntraTotal().setValue(nfeDetalhe.getEntraTotal());
+		this.subView.getTfValorSubtotal().setValue(
+				nfeDetalhe.getValorSubtotal().toString());
+		this.subView.getTfValorTotal().setValue(
+				nfeDetalhe.getValorTotal().toString());
+		this.subView.getTfNumeroPedidoCompra().setValue(
+				nfeDetalhe.getNumeroPedidoCompra());
+		this.subView.getTfItemPedidoCompra().setValue(
+				nfeDetalhe.getItemPedidoCompra().toString());
+		this.subView.getTfInformacoesAdicionais().setValue(
+				nfeDetalhe.getInformacoesAdicionais());
+	}
 
 	private void limparNdiCofins() {
 		NfeDetalheImpostoCofinsEntity entCofins = new NfeDetalheImpostoCofinsEntity();
