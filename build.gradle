@@ -147,7 +147,8 @@ dependencies {
 		compile 'ch.qos.logback:logback-classic:1.0.1'
 		compile 'ch.qos.logback:logback-core:1.0.1'
 		
-        providedCompile 'org.mortbay.jetty:jetty:6.1.26'
+        // providedCompile 'org.mortbay.jetty:jetty:6.1.26'
+        providedCompile 'org.eclipse.jetty.aggregate:jetty-aggregate-project:8.1.10.v20130312'
         
         // REST
         compile 'com.sun.jersey:jersey-servlet:1.17.1'

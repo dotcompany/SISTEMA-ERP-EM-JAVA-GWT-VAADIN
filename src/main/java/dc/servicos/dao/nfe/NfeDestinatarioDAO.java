@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -57,6 +58,28 @@ public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
 			return auxLista;
 		} catch (Exception e) {
 			return new ArrayList<NfeDestinatarioEntity>();
+		}
+	}
+
+	@Transactional
+	public NfeDestinatarioEntity getEntidade(NfeCabecalhoEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.nfeCabecalho = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent);
+
+			NfeDestinatarioEntity entidade = (NfeDestinatarioEntity) query
+					.uniqueResult();
+
+			if (entidade == null) {
+				entidade = new NfeDestinatarioEntity();
+			}
+
+			return entidade;
+		} catch (Exception e) {
+			return new NfeDestinatarioEntity();
 		}
 	}
 

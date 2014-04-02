@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -498,6 +500,9 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "id_view_contrato_dados_contratante")
 	@Caption(value = "View contrato dados contratante")
 	private Integer viewContratoDadosContratante;
+
+	@OneToOne(mappedBy = "nfeCabecalho", cascade = CascadeType.ALL)
+	private NfeDestinatarioEntity nfeDestinatario;
 
 	/**
 	 * REFERENCIA - LIST
@@ -1092,6 +1097,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setViewContratoDadosContratante(
 			Integer viewContratoDadosContratante) {
 		this.viewContratoDadosContratante = viewContratoDadosContratante;
+	}
+
+	public NfeDestinatarioEntity getNfeDestinatario() {
+		return nfeDestinatario;
+	}
+
+	public void setNfeDestinatario(NfeDestinatarioEntity nfeDestinatario) {
+		this.nfeDestinatario = nfeDestinatario;
 	}
 
 	public List<NfeDetalheEntity> getNfeDetalheList() {
