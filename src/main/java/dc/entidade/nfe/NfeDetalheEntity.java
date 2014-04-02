@@ -302,7 +302,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumeroItem(Integer numeroItem) {
-		this.numeroItem = numeroItem;
+		this.numeroItem = (numeroItem == null ? new Integer(0) : numeroItem);
 	}
 
 	public String getCodigoProduto() {
@@ -310,7 +310,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoProduto(String codigoProduto) {
-		this.codigoProduto = codigoProduto;
+		this.codigoProduto = (codigoProduto == null ? "" : codigoProduto
+				.toUpperCase());
 	}
 
 	public String getGtin() {
