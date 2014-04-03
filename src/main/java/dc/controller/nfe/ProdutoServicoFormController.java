@@ -21,6 +21,7 @@ import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
+import dc.entidade.nfe.NfeDetalheImpostoIpiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
@@ -284,7 +285,7 @@ public class ProdutoServicoFormController extends
 			nfeDestinatarioCarregar();
 			nfeDetalheCarregar(id);
 
-			this.subView.getGlNfeDetalhe().setEnabled(false);
+			// this.subView.getGlNfeDetalhe().setEnabled(false);
 			this.subView.getGlIcms().setEnabled(false);
 			this.subView.getGlPis().setEnabled(false);
 			this.subView.getGlCofins().setEnabled(false);
@@ -838,6 +839,8 @@ public class ProdutoServicoFormController extends
 	 */
 
 	public void nfeCabecalhoSetarValor(String id, ValueChangeEvent event) {
+		// TODO nfeCabecalhoSetarValor
+
 		if (this.nfeCabecalho == null) {
 			return;
 		}
@@ -921,6 +924,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void nfeDestinatarioSetarValor(String id, ValueChangeEvent event) {
+		// TODO nfeDestinatarioSetarValor
+
 		NfeDestinatarioEntity nfeDestinatario = this.nfeCabecalho
 				.getNfeDestinatario();
 
@@ -995,7 +1000,13 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void nfeDetalheSetarValor(String id, ValueChangeEvent event) {
-		if (this.nfeDetalheSelecionado == null) {
+		// TODO nfeDetalheSetarValor
+
+		boolean b = this.subView.getGlNfeDetalhe().isEnabled();
+
+		if (!b) {
+			System.out.println(b + " : " + !b);
+
 			return;
 		}
 
@@ -1127,6 +1138,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndiCofinsSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiCofinsSetarValor
+
 		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoCofins();
 
@@ -1178,6 +1191,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndiIcmsSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiIcmsSetarValor
+
 		NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoIcms();
 
@@ -1298,6 +1313,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndiIiSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiIiSetarValor
+
 		NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoIi();
 
@@ -1339,24 +1356,78 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndiIpiSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiIpiSetarValor
+
 		// NfeDetalheImpostoIpiEntity ndiIpi = this.nfeDetalheSelecionado
 		// .getNfeDetalheImpostoIpi();
 
+		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+
 		Object s = event.getProperty().getValue();
+
+		switch (id) {
+		case "tfCstIpi":
+			ndiIpi.setCstIpi(s.toString().trim());
+
+			break;
+		case "tfBaseCalculoBcIpi":
+			ndiIpi.setValorBaseCalculoIpi(new BigDecimal(s.toString().trim()));
+
+			break;
+		case "tfAliquotaIpi":
+			ndiIpi.setAliquotaIpi(new BigDecimal(s.toString().trim()));
+
+			break;
+		case "tfQtdUndTributavelIpi":
+			ndiIpi.setQuantidadeUnidadeTributavel(new BigDecimal(s.toString()
+					.trim()));
+
+			break;
+		case "tfValorUndTributavelIpi":
+			ndiIpi.setValorUnidadeTributavel(new BigDecimal(s.toString().trim()));
+
+			break;
+		case "tfValorIpi":
+			ndiIpi.setValorIpi(new BigDecimal(s.toString().trim()));
+
+			break;
+		case "tfEnquadramentoIpi":
+			ndiIpi.setEnquadramentoIpi(s.toString().trim());
+
+			break;
+		case "tfEnquadramentoLegalIpi":
+			ndiIpi.setEnquadramentoLegalIpi(s.toString().trim());
+
+			break;
+		case "tfCnpjProdutorIpi":
+			ndiIpi.setCnpjProdutor(s.toString().trim());
+
+			break;
+		case "tfQtdSeloIpi":
+			ndiIpi.setQuantidadeSeloIpi(new Integer(s.toString().trim()));
+
+			break;
+		case "tfCodigoSeloIpi":
+			ndiIpi.setCodigoSeloIpi(s.toString().trim());
+
+			break;
+		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeDetalheSelecionado);
 
-		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+		// this.subView.getSfNfeDetalhe().getDados()
+		// .remove(this.nfeDetalheSelecionado);
 
 		// this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
 
-		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+		// this.subView.getSfNfeDetalhe().getDados()
+		// .add(index, this.nfeDetalheSelecionado);
 	}
 
 	public void ndiIssqnSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiIssqnSetarValor
+
 		NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoIssqn();
 
@@ -1406,6 +1477,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndiPisSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndiPisSetarValor
+
 		NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheSelecionado
 				.getNfeDetalheImpostoPis();
 
@@ -1455,6 +1528,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndeCombustivelSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndeCombustivelSetarValor
+
 		NfeDetEspecificoCombustivelEntity ndiCombustivel = this.nfeDetalheSelecionado
 				.getNfeDetEspecificoCombustivel();
 
@@ -1511,6 +1586,8 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndeVeiculoSetarValor(String id, ValueChangeEvent event) {
+		// TODO ndeVeiculoSetarValor
+
 		NfeDetEspecificoVeiculoEntity ndiVeiculo = this.nfeDetalheSelecionado
 				.getNfeDetEspecificoVeiculo();
 

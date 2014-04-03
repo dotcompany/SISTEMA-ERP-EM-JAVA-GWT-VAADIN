@@ -2943,6 +2943,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		glNfeDetalhe.setSpacing(true);
 		glNfeDetalhe.setRows(9);
 		glNfeDetalhe.setColumns(4);
+		glNfeDetalhe.setEnabled(false);
 
 		// tfNumeroItem
 		tfNumeroItem = new TextField("Número do item:");
@@ -5976,12 +5977,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 	/**
 	 * NFEDETALHE - POPULAR
 	 * 
-	 * @param auxLista1
+	 * @param nfeDetalheList
 	 */
 
-	public void carregarSfNfeDetalhe(List<NfeDetalheEntity> auxLista1) {
+	public void carregarSfNfeDetalhe(List<NfeDetalheEntity> nfeDetalheList) {
 		try {
-			sfNfeDetalhe.fillWith(auxLista1);
+			sfNfeDetalhe.fillWith(nfeDetalheList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
