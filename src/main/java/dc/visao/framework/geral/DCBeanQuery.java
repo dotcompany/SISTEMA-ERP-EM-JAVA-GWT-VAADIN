@@ -27,9 +27,10 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
+		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			return dao.fullTextSearch(searchTerm, arg0, arg1, sortingFields, sortingStates, filters);
+		if (isSeach(searchTerm)) {
+			return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
 		} else {
 			logger.info("null or empty search term, loading all..");
 
@@ -46,8 +47,8 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 
 		int size = 0;
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			size = dao.fullTextSearchCount(searchTerm, menu);
+		if (isSeach(searchTerm)) {
+			size = dao.fullTextSearchCount(searchTerm, menu, filters);
 		} else {
 			size = dao.count(pojoClass);
 		}
@@ -56,6 +57,10 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 
 		return size;
 
+	}
+
+	private boolean isSeach(String searchTerm) {
+		return searchTerm != null && !searchTerm.trim().isEmpty() || (filters != null && filters.size() > 0);
 	}
 
 }

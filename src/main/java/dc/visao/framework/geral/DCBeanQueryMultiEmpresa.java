@@ -31,7 +31,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 		Integer idEmpresa = (Integer) getQueryConfiguration().get("id_empresa");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+		if (searchTerm != null && !searchTerm.trim().isEmpty() || filters != null) {
 
 			return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
 		} else {
@@ -52,7 +52,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 		int size = 0;
 
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-			size = dao.fullTextSearchCount(searchTerm, menu);
+			size = dao.fullTextSearchCount(searchTerm, menu, filters);
 		} else {
 			size = dao.countByEmpresa(pojoClass, idEmpresa);
 		}
