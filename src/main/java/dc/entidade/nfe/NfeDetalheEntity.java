@@ -557,14 +557,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nfeDetalheImpostoIi = nfeDetalheImpostoIi;
 	}
 
-	// public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() {
-	// return nfeDetalheImpostoIpi;
-	// }
-
-	// public void setNfeDetalheImpostoIpi(
-	// NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi) {
-	// this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
-	// }
+	/*
+	 * public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() { return
+	 * nfeDetalheImpostoIpi; }
+	 * 
+	 * public void setNfeDetalheImpostoIpi( NfeDetalheImpostoIpiEntity
+	 * nfeDetalheImpostoIpi) { this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
+	 * }
+	 */
 
 	public NfeDetalheImpostoIssqnEntity getNfeDetalheImpostoIssqn() {
 		return nfeDetalheImpostoIssqn;

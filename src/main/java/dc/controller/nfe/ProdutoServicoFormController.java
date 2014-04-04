@@ -285,15 +285,8 @@ public class ProdutoServicoFormController extends
 			nfeDestinatarioCarregar();
 			nfeDetalheCarregar(id);
 
-			// this.subView.getGlNfeDetalhe().setEnabled(false);
-			this.subView.getGlIcms().setEnabled(false);
-			this.subView.getGlPis().setEnabled(false);
-			this.subView.getGlCofins().setEnabled(false);
-			this.subView.getGlIpi().setEnabled(false);
-			this.subView.getGlImpostoImportacao().setEnabled(false);
-			this.subView.getGlIssqn().setEnabled(false);
-			this.subView.getGlCombustivel().setEnabled(false);
-			this.subView.getGlVeiculo().setEnabled(false);
+			abaHabilitar(false, false, false, false, false, false, false,
+					false, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -340,6 +333,9 @@ public class ProdutoServicoFormController extends
 					this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
 			this.subView.getTfFormaPagamento().setValue(
 					this.nfeCabecalho.getIndicadorFormaPagamento().trim());
+
+			this.subView.getPlNfeDetalheSubForm().setCaption(
+					"NFE CABEÇALHO " + this.nfeCabecalho.getNumero());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -668,8 +664,36 @@ public class ProdutoServicoFormController extends
 			 * IPI
 			 */
 
-			// NfeDetalheImpostoIpiEntity ndiIpi = new
-			// NfeDetalheImpostoIpiEntity();
+			NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+
+			if (ndiIpi == null) {
+				ndiIpi = new NfeDetalheImpostoIpiEntity();
+				// ndiIpi.setNfeDetalhe(this.nfeDetalheSelecionado);
+
+				// this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
+			}
+
+			this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
+			this.subView.getTfBaseCalculoBcIpi().setValue(
+					ndiIpi.getValorBaseCalculoIpi().toString());
+			this.subView.getTfAliquotaIpi().setValue(
+					ndiIpi.getAliquotaIpi().toString());
+			this.subView.getTfQtdUndTributavelIpi().setValue(
+					ndiIpi.getQuantidadeUnidadeTributavel().toString());
+			this.subView.getTfValorUndTributavelIpi().setValue(
+					ndiIpi.getValorUnidadeTributavel().toString());
+			this.subView.getTfValorIpi().setValue(
+					ndiIpi.getValorIpi().toString());
+			this.subView.getTfEnquadramentoIpi().setValue(
+					ndiIpi.getEnquadramentoIpi());
+			this.subView.getTfEnquadramentoLegalIpi().setValue(
+					ndiIpi.getEnquadramentoLegalIpi());
+			this.subView.getTfCnpjProdutorIpi().setValue(
+					ndiIpi.getCnpjProdutor());
+			this.subView.getTfQtdSeloIpi().setValue(
+					ndiIpi.getQuantidadeSeloIpi().toString());
+			this.subView.getTfCodigoSeloIpi().setValue(
+					ndiIpi.getCodigoSeloIpi());
 
 			/**
 			 * ISSQN
@@ -755,7 +779,7 @@ public class ProdutoServicoFormController extends
 					entCombustivel.getValorCide().toString().trim());
 
 			/**
-			 * COMBUSTÍVEL
+			 * VEÍCULO
 			 */
 
 			NfeDetEspecificoVeiculoEntity entVeiculo = item
@@ -817,18 +841,79 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfRestricaoVeiculo().setValue(
 					entVeiculo.getRestricao());
 
-			this.subView.getGlNfeDetalhe().setEnabled(true);
-			this.subView.getGlIcms().setEnabled(true);
-			this.subView.getGlPis().setEnabled(true);
-			this.subView.getGlCofins().setEnabled(true);
-			this.subView.getGlIpi().setEnabled(true);
-			this.subView.getGlImpostoImportacao().setEnabled(true);
-			this.subView.getGlIssqn().setEnabled(true);
-			this.subView.getGlCombustivel().setEnabled(true);
-			this.subView.getGlVeiculo().setEnabled(true);
+			abaHabilitar(true, true, true, true, true, true, true, true, true);
+
+			this.subView.getPlNdiCofins()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiDeclaracaoImportacao()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiIcms()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiIi()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiIpi()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiIssqn()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdiPis()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdeArmamento()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdeCombustivel()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdeMedicamento()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
+			this.subView.getPlNdeVeiculo()
+					.setCaption(
+							"NFE DETALHE "
+									+ this.nfeDetalheSelecionado
+											.getNumeroItem());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void abaHabilitar(boolean a1, boolean a2, boolean a3, boolean a4,
+			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9) {
+		this.subView.getGlNfeDetalhe().setEnabled(a1);
+		this.subView.getGlIcms().setEnabled(a2);
+		this.subView.getGlPis().setEnabled(a3);
+		this.subView.getGlCofins().setEnabled(a4);
+		this.subView.getGlIpi().setEnabled(a5);
+		this.subView.getGlImpostoImportacao().setEnabled(a6);
+		this.subView.getGlIssqn().setEnabled(a7);
+		this.subView.getGlCombustivel().setEnabled(a8);
+		this.subView.getGlVeiculo().setEnabled(a9);
 	}
 
 	/**
@@ -1005,8 +1090,6 @@ public class ProdutoServicoFormController extends
 		boolean b = this.subView.getGlNfeDetalhe().isEnabled();
 
 		if (!b) {
-			System.out.println(b + " : " + !b);
-
 			return;
 		}
 
@@ -1358,10 +1441,11 @@ public class ProdutoServicoFormController extends
 	public void ndiIpiSetarValor(String id, ValueChangeEvent event) {
 		// TODO ndiIpiSetarValor
 
-		// NfeDetalheImpostoIpiEntity ndiIpi = this.nfeDetalheSelecionado
-		// .getNfeDetalheImpostoIpi();
-
 		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+
+		if (ndiIpi == null) {
+			return;
+		}
 
 		Object s = event.getProperty().getValue();
 
@@ -1416,13 +1500,15 @@ public class ProdutoServicoFormController extends
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeDetalheSelecionado);
 
-		// this.subView.getSfNfeDetalhe().getDados()
-		// .remove(this.nfeDetalheSelecionado);
-
-		// this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
-
-		// this.subView.getSfNfeDetalhe().getDados()
-		// .add(index, this.nfeDetalheSelecionado);
+		/*
+		 * this.subView.getSfNfeDetalhe().getDados()
+		 * .remove(this.nfeDetalheSelecionado);
+		 * 
+		 * this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
+		 * 
+		 * this.subView.getSfNfeDetalhe().getDados() .add(index,
+		 * this.nfeDetalheSelecionado);
+		 */
 	}
 
 	public void ndiIssqnSetarValor(String id, ValueChangeEvent event) {
