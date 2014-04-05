@@ -27,6 +27,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.produto.Produto;
 
 /**
  * 
@@ -235,15 +236,21 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@Field
-	@Column(name = "id_produto")
-	@Caption(value = "Produto")
-	private Integer produto;
-
 	@ManyToOne
 	@JoinColumn(name = "id_nfe_cabecalho", nullable = false)
 	@Caption(value = "NFE cabeçalho")
 	private NfeCabecalhoEntity nfeCabecalho;
+
+	@OneToOne
+	@JoinColumn(name = "id_produto")
+	private Produto produto;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	// @OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
+	// private List<NfeDetalheImpostoCofinsEntity> nfeDetalheImpostoCofinsList;
 
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetalheImpostoCofinsEntity nfeDetalheImpostoCofins;
@@ -268,13 +275,6 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
-
-	/**
-	 * REFERENCIA - LIST
-	 */
-
-	// @OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
-	// private List<NfeDetalheImpostoCofinsEntity> nfeDetalheImpostoCofinsList;
 
 	/**
 	 * CONSTRUTOR
@@ -514,20 +514,20 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 				: informacoesAdicionais.toUpperCase());
 	}
 
-	public Integer getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Integer produto) {
-		this.produto = (produto == null ? new Integer(0) : produto);
-	}
-
 	public NfeCabecalhoEntity getNfeCabecalho() {
 		return nfeCabecalho;
 	}
 
 	public void setNfeCabecalho(NfeCabecalhoEntity nfeCabecalho) {
 		this.nfeCabecalho = nfeCabecalho;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public NfeDetalheImpostoCofinsEntity getNfeDetalheImpostoCofins() {

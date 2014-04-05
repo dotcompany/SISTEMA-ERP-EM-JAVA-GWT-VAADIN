@@ -14,6 +14,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
+import dc.controller.produto.ProdutoListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
@@ -25,6 +26,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIpiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
+import dc.entidade.produto.Produto;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
@@ -35,6 +37,9 @@ import dc.servicos.dao.nfe.NfeDetalheImpostoIiDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
+import dc.servicos.dao.produto.ProdutoDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
@@ -178,6 +183,8 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
+
+		popularCombo();
 	}
 
 	/*
@@ -501,8 +508,14 @@ public class ProdutoServicoFormController extends
 					this.nfeDetalheSelecionado.getCodigoProduto());
 			this.subView.getTfGtin().setValue(
 					this.nfeDetalheSelecionado.getGtin());
-			this.subView.getTfNomeProduto().setValue(
-					this.nfeDetalheSelecionado.getNomeProduto());
+			// this.subView.getTfNomeProduto().setValue(
+			// this.nfeDetalheSelecionado.getNomeProduto());
+			Produto produto = this.nfeDetalheSelecionado.getProduto();
+
+			if (produto != null) {
+				this.subView.getMtoProduto().setValue(produto);
+			}
+
 			this.subView.getTfNcm().setValue(
 					this.nfeDetalheSelecionado.getNcm());
 			this.subView.getTfExTipi().setValue(
@@ -1110,8 +1123,11 @@ public class ProdutoServicoFormController extends
 			this.nfeDetalheSelecionado.setGtin(s.toString().trim());
 
 			break;
-		case "tfNomeProduto":
-			this.nfeDetalheSelecionado.setNomeProduto(s.toString().trim());
+		case "mtoProduto":
+			ItemValue m = (ItemValue) s;
+			Produto produto = (Produto) m.getBean();
+
+			this.nfeDetalheSelecionado.setProduto(produto);
 
 			break;
 		case "tfNcm":
@@ -1810,7 +1826,11 @@ public class ProdutoServicoFormController extends
 		this.subView.getTfCodigoProduto().setValue(
 				nfeDetalhe.getCodigoProduto());
 		this.subView.getTfGtin().setValue(nfeDetalhe.getGtin());
-		this.subView.getTfNomeProduto().setValue(nfeDetalhe.getNomeProduto());
+		// this.subView.getTfNomeProduto().setValue(nfeDetalhe.getNomeProduto());
+		// this.subView.getCbLivro().setValue(this.pEntity.getLivro());
+		// this.subView.getMtoProduto().setValue(new Produto());
+
+		this.subView.getMtoProduto().setValue(nfeDetalhe.getProduto());
 		this.subView.getTfNcm().setValue(nfeDetalhe.getNcm());
 		this.subView.getTfExTipi().setValue(nfeDetalhe.getExTipi().toString());
 		this.subView.getTfCfop().setValue(nfeDetalhe.getCfop().toString());
@@ -2031,6 +2051,25 @@ public class ProdutoServicoFormController extends
 				entVeiculo.getLotacao().toString());
 		this.subView.getTfRestricaoVeiculo()
 				.setValue(entVeiculo.getRestricao());
+	}
+
+	/**
+	 * COMBOS
+	 */
+
+	@Autowired
+	private ProdutoDAO pDAO;
+
+	private void popularCombo() {
+		try {
+			DefaultManyToOneComboModel<Produto> model = new DefaultManyToOneComboModel<Produto>(
+					ProdutoListController.class, this.pDAO,
+					super.getMainController());
+
+			this.subView.getMtoProduto().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

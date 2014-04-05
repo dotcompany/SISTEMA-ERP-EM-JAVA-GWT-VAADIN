@@ -2,15 +2,18 @@ package dc.entidade.produto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,6 +29,7 @@ import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.tributario.GrupoTributario;
 
 /**
@@ -45,7 +49,8 @@ import dc.entidade.tributario.GrupoTributario;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Produto extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class Produto extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -264,6 +269,17 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@JoinColumn(name = "ID_NCM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private NCM ncm;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
+	private List<NfeDetalheEntity> nfeDetalheList;
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public Produto() {
 
@@ -843,7 +859,8 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 		return quantidadeEstoqueAnterior;
 	}
 
-	public void setQuantidadeEstoqueAnterior(BigDecimal quantidadeEstoqueAnterior) {
+	public void setQuantidadeEstoqueAnterior(
+			BigDecimal quantidadeEstoqueAnterior) {
 		this.quantidadeEstoqueAnterior = quantidadeEstoqueAnterior;
 	}
 
@@ -1013,6 +1030,14 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements Seria
 
 	public void setNcm(NCM ncm) {
 		this.ncm = ncm;
+	}
+
+	public List<NfeDetalheEntity> getNfeDetalheList() {
+		return nfeDetalheList;
+	}
+
+	public void setNfeDetalheList(List<NfeDetalheEntity> nfeDetalheList) {
+		this.nfeDetalheList = nfeDetalheList;
 	}
 
 }
