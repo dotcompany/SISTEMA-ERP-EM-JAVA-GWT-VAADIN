@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.servicos.dao.folhapagamento.movimento.HistoricoSalarialDAO;
@@ -241,7 +241,7 @@ public class HistoricoSalarialFormController extends
 	protected boolean validaSalvar() {
 		String salarioAtual = this.subView.getTfSalarioAtual().getValue();
 
-		if (!Validator.validateNotRequiredNumber(salarioAtual)) {
+		if (!ObjectValidator.validateNotRequiredNumber(salarioAtual)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfSalarioAtual(), msg);
@@ -252,7 +252,7 @@ public class HistoricoSalarialFormController extends
 		String percentualAumento = this.subView.getTfPercentualAumento()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(percentualAumento)) {
+		if (!ObjectValidator.validateNotRequiredNumber(percentualAumento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPercentualAumento(), msg);
@@ -262,7 +262,7 @@ public class HistoricoSalarialFormController extends
 
 		String salarioNovo = this.subView.getTfSalarioNovo().getValue();
 
-		if (!Validator.validateNotRequiredNumber(salarioNovo)) {
+		if (!ObjectValidator.validateNotRequiredNumber(salarioNovo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfSalarioNovo(), msg);
@@ -277,7 +277,7 @@ public class HistoricoSalarialFormController extends
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.Teste;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.entidade.patrimonio.IndiceAtualizacaoEntity;
 import dc.servicos.dao.patrimonio.IndiceAtualizacaoDAO;
@@ -195,7 +195,7 @@ public class IndiceAtualizacaoFormController extends
 		try {
 			String nome = (String) this.subView.getTfNome().getValue();
 
-			if (!Validator.validateString(nome)) {
+			if (!ObjectValidator.validateString(nome)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfNome(), msg);
@@ -205,7 +205,7 @@ public class IndiceAtualizacaoFormController extends
 
 			String valor = this.subView.getTfValor().getValue();
 
-			if (!Validator.validateNumber(valor)) {
+			if (!ObjectValidator.validateNumber(valor)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -216,7 +216,7 @@ public class IndiceAtualizacaoFormController extends
 			String valorAlternativo = this.subView.getTfValorAlternativo()
 					.getValue();
 
-			if (!Validator.validateNotRequiredNumber(valorAlternativo)) {
+			if (!ObjectValidator.validateNotRequiredNumber(valorAlternativo)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfValorAlternativo(),
@@ -227,7 +227,7 @@ public class IndiceAtualizacaoFormController extends
 
 			Object dataIndice = this.subView.getPdfDataIndice().getValue();
 
-			if (!Validator.validateDate(dataIndice)) {
+			if (!ObjectValidator.validateDate(dataIndice)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getPdfDataIndice(), msg);

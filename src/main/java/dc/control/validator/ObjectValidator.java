@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 
-public class Validator {
+public class ObjectValidator {
 
 	/**
 	 * 
@@ -180,6 +180,36 @@ public class Validator {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public synchronized static boolean validateValue(ValueChangeEvent event) {
+		boolean valido = true;
+
+		Object s = event.getProperty().getValue();
+
+		String s1 = s.toString();
+
+		if (s1.equals("")) {
+			valido = false;
+
+			return valido;
+		}
+
+		// s1 = s1.replaceAll("[^\\,0-9]+", "");
+
+		s1 = s1.replaceAll("[^\\,0-9]+", "");
+		s1 = s1.replaceFirst(",", ".");
+		s1 = s1.replaceAll("[\\,]+", "");
+
+		String[] s2 = s1.split("[.]");
+
+		if (s2.length != 2) {
+			valido = false;
+
+			return valido;
+		}
+
+		return valido;
 	}
 
 }

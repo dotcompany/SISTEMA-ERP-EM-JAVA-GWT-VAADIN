@@ -20,6 +20,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.control.converter.ObjectConverter;
+import dc.control.validator.ObjectValidator;
 import dc.controller.nfe.ProdutoServicoFormController;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
@@ -3068,7 +3069,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroItem.setImmediate(true);
 		tfNumeroItem.setId("tfNumeroItem");
 		tfNumeroItem.addTextChangeListener(new TextChangeListener() {
-			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void textChange(TextChangeEvent event) {
 				tfNumeroItem.setValue(ObjectConverter.integerToString(event));
@@ -3186,6 +3191,17 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfExTipi.setNullRepresentation("");
 		tfExTipi.setImmediate(true);
 		tfExTipi.setId("tfExTipi");
+		tfExTipi.addTextChangeListener(new TextChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void textChange(TextChangeEvent event) {
+				tfExTipi.setValue(ObjectConverter.integerToString(event));
+			}
+		});
 		tfExTipi.addValueChangeListener(new ValueChangeListener() {
 			/**
 			 * 
@@ -3210,6 +3226,17 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCfop.setNullRepresentation("");
 		tfCfop.setImmediate(true);
 		tfCfop.setId("tfCfop");
+		tfCfop.addTextChangeListener(new TextChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void textChange(TextChangeEvent event) {
+				tfCfop.setValue(ObjectConverter.integerToString(event));
+			}
+		});
 		tfCfop.addValueChangeListener(new ValueChangeListener() {
 			/**
 			 * 
@@ -3257,6 +3284,18 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQuantidadeComercial.setNullRepresentation("");
 		tfQuantidadeComercial.setImmediate(true);
 		tfQuantidadeComercial.setId("tfQuantidadeComercial");
+		tfQuantidadeComercial.addTextChangeListener(new TextChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void textChange(TextChangeEvent event) {
+				tfQuantidadeComercial.setValue(ObjectConverter
+						.valueToString(event));
+			}
+		});
 		tfQuantidadeComercial.addValueChangeListener(new ValueChangeListener() {
 			/**
 			 * 
@@ -3266,11 +3305,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfQuantidadeComercial.setValue(ObjectConverter
-						.valueToString(event));
+				if (ObjectValidator.validateValue(event)) {
+					// tfQuantidadeComercial.setValue(ObjectConverter
+					// .valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfQuantidadeComercial.getId(),
-						event);
+					controller.nfeDetalheSetarValor(
+							tfQuantidadeComercial.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfQuantidadeComercial, 2, 3);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppCatEntity;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppCatDAO;
@@ -223,7 +223,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 	protected boolean validaSalvar() {
 		String numeroCat = this.subView.getTfNumeroCat().getValue();
 
-		if (!Validator.validateNotRequiredInteger(numeroCat)) {
+		if (!ObjectValidator.validateNotRequiredInteger(numeroCat)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNumeroCat(), msg);
@@ -234,7 +234,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 		Object dataAfastamento = this.subView.getPdfDataAfastamento()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAfastamento)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAfastamento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAfastamento(), msg);
@@ -244,7 +244,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 
 		Object dataRegistro = this.subView.getPdfDataRegistro().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataRegistro)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataRegistro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataRegistro(), msg);
@@ -254,7 +254,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 
 		PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
-		if (!Validator.validateObject(ppp)) {
+		if (!ObjectValidator.validateObject(ppp)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbPpp(), msg);

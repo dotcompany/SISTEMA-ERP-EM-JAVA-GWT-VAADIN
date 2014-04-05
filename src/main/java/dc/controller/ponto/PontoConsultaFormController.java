@@ -16,7 +16,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.controller.ponto.exportacao.acjef.GeraArquivoACJEF;
 import dc.controller.ponto.exportacao.afdt.GeraArquivoAFDT;
 import dc.entidade.framework.Empresa;
@@ -130,7 +130,7 @@ public class PontoConsultaFormController extends BlankFormController {
 				Date dataInicial = subView.getDtDataInicial().getValue();
 				Date dataFinal = subView.getDtDataFinal().getValue();
 
-				if (!Validator.validateObject(dataInicial) || !Validator.validateObject(dataFinal)) {
+				if (!ObjectValidator.validateObject(dataInicial) || !ObjectValidator.validateObject(dataFinal)) {
 					mensagemErro("Nenhuma das datas podem ser nulas!");
 				} else if (dataFinal.compareTo(dataInicial) < 0) {
 					mensagemErro("Data inicial não pode ser maior que data final");

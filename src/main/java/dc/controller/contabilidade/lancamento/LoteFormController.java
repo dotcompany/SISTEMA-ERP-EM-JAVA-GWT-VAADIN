@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
 import dc.visao.contabilidade.lancamento.LoteFormView;
@@ -150,7 +150,7 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 	protected boolean validaSalvar() {
 		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInclusao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
@@ -160,7 +160,7 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 		Object dataLiberacao = this.subView.getPdfDataLiberacao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataLiberacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataLiberacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataLiberacao(), msg);

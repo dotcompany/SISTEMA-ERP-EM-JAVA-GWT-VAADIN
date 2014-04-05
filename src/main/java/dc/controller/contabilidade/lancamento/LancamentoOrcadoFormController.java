@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
@@ -191,7 +191,7 @@ public class LancamentoOrcadoFormController extends
 	protected boolean validaSalvar() {
 		String janeiro = this.subView.getTfJaneiro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(janeiro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(janeiro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfJaneiro(), msg);
@@ -201,7 +201,7 @@ public class LancamentoOrcadoFormController extends
 
 		String fevereiro = this.subView.getTfFevereiro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(fevereiro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(fevereiro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFevereiro(), msg);
@@ -211,7 +211,7 @@ public class LancamentoOrcadoFormController extends
 
 		String marco = this.subView.getTfMarco().getValue();
 
-		if (!Validator.validateNotRequiredNumber(marco)) {
+		if (!ObjectValidator.validateNotRequiredNumber(marco)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfMarco(), msg);
@@ -221,7 +221,7 @@ public class LancamentoOrcadoFormController extends
 
 		String abril = this.subView.getTfAbril().getValue();
 
-		if (!Validator.validateNotRequiredNumber(abril)) {
+		if (!ObjectValidator.validateNotRequiredNumber(abril)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfAbril(), msg);
@@ -231,7 +231,7 @@ public class LancamentoOrcadoFormController extends
 
 		String maio = this.subView.getTfMaio().getValue();
 
-		if (!Validator.validateNotRequiredNumber(maio)) {
+		if (!ObjectValidator.validateNotRequiredNumber(maio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfMaio(), msg);
@@ -241,7 +241,7 @@ public class LancamentoOrcadoFormController extends
 
 		String junho = this.subView.getTfJunho().getValue();
 
-		if (!Validator.validateNotRequiredNumber(junho)) {
+		if (!ObjectValidator.validateNotRequiredNumber(junho)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfJunho(), msg);
@@ -251,7 +251,7 @@ public class LancamentoOrcadoFormController extends
 
 		String julho = this.subView.getTfJulho().getValue();
 
-		if (!Validator.validateNotRequiredNumber(julho)) {
+		if (!ObjectValidator.validateNotRequiredNumber(julho)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfJulho(), msg);
@@ -261,7 +261,7 @@ public class LancamentoOrcadoFormController extends
 
 		String agosto = this.subView.getTfAgosto().getValue();
 
-		if (!Validator.validateNotRequiredNumber(agosto)) {
+		if (!ObjectValidator.validateNotRequiredNumber(agosto)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfAgosto(), msg);
@@ -271,7 +271,7 @@ public class LancamentoOrcadoFormController extends
 
 		String setembro = this.subView.getTfSetembro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(setembro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(setembro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfSetembro(), msg);
@@ -281,7 +281,7 @@ public class LancamentoOrcadoFormController extends
 
 		String outubro = this.subView.getTfOutubro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(outubro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(outubro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfOutubro(), msg);
@@ -291,7 +291,7 @@ public class LancamentoOrcadoFormController extends
 
 		String novembro = this.subView.getTfNovembro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(novembro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(novembro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNovembro(), msg);
@@ -301,7 +301,7 @@ public class LancamentoOrcadoFormController extends
 
 		String dezembro = this.subView.getTfDezembro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(dezembro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(dezembro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfDezembro(), msg);
@@ -315,7 +315,7 @@ public class LancamentoOrcadoFormController extends
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
-		if (!Validator.validateObject(conta)) {
+		if (!ObjectValidator.validateObject(conta)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbConta(), msg);

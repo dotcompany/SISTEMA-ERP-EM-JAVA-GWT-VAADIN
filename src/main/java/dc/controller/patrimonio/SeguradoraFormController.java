@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.servicos.dao.patrimonio.SeguradoraDAO;
@@ -180,7 +180,7 @@ public class SeguradoraFormController extends
 	protected boolean validaSalvar() {
 		String nome = (String) this.subView.getTfNome().getValue();
 
-		if (!Validator.validateString(nome)) {
+		if (!ObjectValidator.validateString(nome)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNome(), msg);
@@ -190,7 +190,7 @@ public class SeguradoraFormController extends
 
 		String contato = this.subView.getTfContato().getValue();
 
-		if (!Validator.validateString(contato)) {
+		if (!ObjectValidator.validateString(contato)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfContato(), msg);

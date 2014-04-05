@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.DepreciacaoBemEntity;
 import dc.servicos.dao.patrimonio.BemDAO;
@@ -243,7 +243,7 @@ public class DepreciacaoBemFormController extends
 			Object dataDepreciacao = this.subView.getPdfDataDepreciacao()
 					.getValue();
 
-			if (!Validator.validateNotRequiredDate(dataDepreciacao)) {
+			if (!ObjectValidator.validateNotRequiredDate(dataDepreciacao)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getPdfDataDepreciacao(),
@@ -254,7 +254,7 @@ public class DepreciacaoBemFormController extends
 
 			String dias = (String) this.subView.getTfDias().getValue();
 
-			if (!Validator.validateNotRequiredInteger(dias)) {
+			if (!ObjectValidator.validateNotRequiredInteger(dias)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfDias(), msg);
@@ -264,7 +264,7 @@ public class DepreciacaoBemFormController extends
 
 			String taxa = this.subView.getTfTaxa().getValue();
 
-			if (!Validator.validateNotRequiredNumber(taxa)) {
+			if (!ObjectValidator.validateNotRequiredNumber(taxa)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfTaxa(), msg);
@@ -274,7 +274,7 @@ public class DepreciacaoBemFormController extends
 
 			String indice = this.subView.getTfIndice().getValue();
 
-			if (!Validator.validateNotRequiredNumber(indice)) {
+			if (!ObjectValidator.validateNotRequiredNumber(indice)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfIndice(), msg);
@@ -284,7 +284,7 @@ public class DepreciacaoBemFormController extends
 
 			String valor = this.subView.getTfValor().getValue();
 
-			if (!Validator.validateNotRequiredNumber(valor)) {
+			if (!ObjectValidator.validateNotRequiredNumber(valor)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -295,7 +295,7 @@ public class DepreciacaoBemFormController extends
 			String depreciacaoAcumulada = this.subView
 					.getTfDepreciacaoAcumulada().getValue();
 
-			if (!Validator.validateNotRequiredNumber(depreciacaoAcumulada)) {
+			if (!ObjectValidator.validateNotRequiredNumber(depreciacaoAcumulada)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(
@@ -306,7 +306,7 @@ public class DepreciacaoBemFormController extends
 
 			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
 
-			if (!Validator.validateObject(bem)) {
+			if (!ObjectValidator.validateObject(bem)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getCbBem(), msg);

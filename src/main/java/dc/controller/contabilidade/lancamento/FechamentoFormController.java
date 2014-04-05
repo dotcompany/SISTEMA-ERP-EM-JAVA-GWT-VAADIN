@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.FechamentoEntity;
 import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
 import dc.visao.contabilidade.lancamento.FechamentoFormView;
@@ -148,7 +148,7 @@ public class FechamentoFormController extends
 	protected boolean validaSalvar() {
 		Object dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -158,7 +158,7 @@ public class FechamentoFormController extends
 
 		Object dataFim = this.subView.getPdfDataFim().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataFim(), msg);

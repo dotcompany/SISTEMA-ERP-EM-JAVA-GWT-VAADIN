@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.diversos.Setor;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.patrimonio.BemEntity;
@@ -649,7 +649,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataAquisicao = this.subView.getPdfDataAquisicao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAquisicao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAquisicao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAquisicao(), msg);
@@ -659,7 +659,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataAceite = this.subView.getPdfDataAceite().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAceite)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAceite)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAceite(), msg);
@@ -669,7 +669,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataCadastro = this.subView.getPdfDataCadastro().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataCadastro)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataCadastro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataCadastro(), msg);
@@ -680,7 +680,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Object dataContabilizado = this.subView.getPdfDataContabilizado()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataContabilizado)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataContabilizado)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataContabilizado(),
@@ -691,7 +691,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataVistoria = this.subView.getPdfDataVistoria().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataVistoria)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataVistoria)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataVistoria(), msg);
@@ -701,7 +701,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataMarcacao = this.subView.getPdfDataMarcacao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataMarcacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataMarcacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataMarcacao(), msg);
@@ -711,7 +711,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Object dataBaixa = this.subView.getPdfDataBaixa().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataBaixa)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataBaixa)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataBaixa(), msg);
@@ -722,7 +722,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Object vencimentoGarantia = this.subView.getPdfVencimentoGarantia()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(vencimentoGarantia)) {
+		if (!ObjectValidator.validateNotRequiredDate(vencimentoGarantia)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfVencimentoGarantia(),
@@ -754,7 +754,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		String valorOriginal = this.subView.getTfValorOriginal().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorOriginal)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorOriginal)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorOriginal(), msg);
@@ -764,7 +764,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		String valorCompra = this.subView.getTfValorCompra().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorCompra)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorCompra)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorCompra(), msg);
@@ -774,7 +774,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		String valorAtualizado = this.subView.getTfValorAtualizado().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorAtualizado)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorAtualizado)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorAtualizado(), msg);
@@ -784,7 +784,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		String valorBaixa = this.subView.getTfValorBaixa().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorBaixa)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorBaixa)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorBaixa(), msg);
@@ -816,7 +816,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Object inicioDepreciacao = this.subView.getPdfInicioDepreciacao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(inicioDepreciacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(inicioDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfInicioDepreciacao(),
@@ -828,7 +828,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Object ultimaDepreciacao = this.subView.getPdfUltimaDepreciacao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(ultimaDepreciacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(ultimaDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfUltimaDepreciacao(),
@@ -851,7 +851,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		String taxaAnualDepreciacao = this.subView.getTfTaxaAnualDepreciacao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxaAnualDepreciacao)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxaAnualDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfTaxaAnualDepreciacao(),
@@ -863,7 +863,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		String taxaMensalDepreciacao = this.subView
 				.getTfTaxaMensalDepreciacao().getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxaMensalDepreciacao)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxaMensalDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfTaxaMensalDepreciacao(),
@@ -875,7 +875,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		String taxaDepreciacaoAcelerada = this.subView
 				.getTfTaxaDepreciacaoAcelerada().getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxaDepreciacaoAcelerada)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxaDepreciacaoAcelerada)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -887,7 +887,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		String taxaDepreciacaoIncentivada = this.subView
 				.getTfTaxaDepreciacaoIncentivada().getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxaDepreciacaoIncentivada)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxaDepreciacaoIncentivada)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -899,7 +899,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView
 				.getCbTipoAquisicao().getValue();
 
-		if (!Validator.validateObject(tipoAquisicao)) {
+		if (!ObjectValidator.validateObject(tipoAquisicao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbTipoAquisicao(), msg);
@@ -910,7 +910,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView
 				.getCbEstadoConservacao().getValue();
 
-		if (!Validator.validateObject(estadoConservacao)) {
+		if (!ObjectValidator.validateObject(estadoConservacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbEstadoConservacao(), msg);
@@ -921,7 +921,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem()
 				.getValue();
 
-		if (!Validator.validateObject(grupoBem)) {
+		if (!ObjectValidator.validateObject(grupoBem)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbGrupoBem(), msg);
@@ -931,7 +931,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 		Setor setor = (Setor) this.subView.getCbSetor().getValue();
 
-		if (!Validator.validateObject(setor)) {
+		if (!ObjectValidator.validateObject(setor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbSetor(), msg);
@@ -942,7 +942,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor()
 				.getValue();
 
-		if (!Validator.validateObject(fornecedor)) {
+		if (!ObjectValidator.validateObject(fornecedor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbFornecedor(), msg);
@@ -953,7 +953,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);

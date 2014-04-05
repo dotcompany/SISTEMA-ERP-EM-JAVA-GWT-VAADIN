@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.financeiro.StatusParcela;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.visao.financeiro.StatusParcelaFormView;
@@ -95,17 +95,17 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
+		if (!ObjectValidator.validateString(subView.getTxtDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtProcedimento().getValue())) {
+		if (!ObjectValidator.validateString(subView.getTxtProcedimento().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtProcedimento(), "Não pode ficar em branco");
 			valido = false;
 		}
 		String situacao = subView.getTxtSituacao().getValue();
-		if (!Validator.validateString(subView.getTxtSituacao().getValue())) {
+		if (!ObjectValidator.validateString(subView.getTxtSituacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtSituacao(), "Não pode ficar em branco");
 			valido = false;
 		} else if (situacao.equals("01") || situacao.equals("02") || situacao.equals("03") || situacao.equals("04")) {

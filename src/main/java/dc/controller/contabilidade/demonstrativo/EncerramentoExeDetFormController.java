@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
@@ -173,7 +173,7 @@ public class EncerramentoExeDetFormController extends
 	protected boolean validaSalvar() {
 		String saldoAnterior = this.subView.getTfSaldoAnterior().getValue();
 
-		if (!Validator.validateNotRequiredNumber(saldoAnterior)) {
+		if (!ObjectValidator.validateNotRequiredNumber(saldoAnterior)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfSaldoAnterior(), msg);
@@ -183,7 +183,7 @@ public class EncerramentoExeDetFormController extends
 
 		String valorDebito = this.subView.getTfValorDebito().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorDebito)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorDebito)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorDebito(), msg);
@@ -193,7 +193,7 @@ public class EncerramentoExeDetFormController extends
 
 		String valorCredito = this.subView.getTfValorCredito().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorCredito)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorCredito)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorCredito(), msg);
@@ -203,7 +203,7 @@ public class EncerramentoExeDetFormController extends
 
 		String saldo = this.subView.getTfSaldo().getValue();
 
-		if (!Validator.validateNotRequiredNumber(saldo)) {
+		if (!ObjectValidator.validateNotRequiredNumber(saldo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfSaldo(), msg);
@@ -218,7 +218,7 @@ public class EncerramentoExeDetFormController extends
 		EncerramentoExeCabEntity encerramentoExeCab = this.subView
 				.getCbEncerramentoExeCab().getValue();
 
-		if (!Validator.validateObject(encerramentoExeCab)) {
+		if (!ObjectValidator.validateObject(encerramentoExeCab)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(),
@@ -229,7 +229,7 @@ public class EncerramentoExeDetFormController extends
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
-		if (!Validator.validateObject(conta)) {
+		if (!ObjectValidator.validateObject(conta)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbConta(), msg);

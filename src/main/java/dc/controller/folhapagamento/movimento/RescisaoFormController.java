@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.servicos.dao.folhapagamento.movimento.RescisaoDAO;
@@ -339,7 +339,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 	protected boolean validaSalvar() {
 		Object dataDemissao = this.subView.getPdfDataDemissao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataDemissao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataDemissao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataDemissao(), msg);
@@ -349,7 +349,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 
 		Object dataPagamento = this.subView.getPdfDataPagamento().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataPagamento)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataPagamento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataPagamento(), msg);
@@ -360,7 +360,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		Object dataAvisoPrevio = this.subView.getPdfDataAvisoPrevio()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAvisoPrevio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAvisoPrevio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAvisoPrevio(), msg);
@@ -370,7 +370,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 
 		String diasAvisoPrevio = this.subView.getTfDiasAvisoPrevio().getValue();
 
-		if (!Validator.validateNotRequiredInteger(diasAvisoPrevio)) {
+		if (!ObjectValidator.validateNotRequiredInteger(diasAvisoPrevio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfDiasAvisoPrevio(), msg);
@@ -381,7 +381,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		String pensaoAlimenticia = this.subView.getTfPensaoAlimenticia()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(pensaoAlimenticia)) {
+		if (!ObjectValidator.validateNotRequiredNumber(pensaoAlimenticia)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPensaoAlimenticia(), msg);
@@ -392,7 +392,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		String pensaoAlimenticiaFgts = this.subView
 				.getTfPensaoAlimenticiaFgts().getValue();
 
-		if (!Validator.validateNotRequiredNumber(pensaoAlimenticiaFgts)) {
+		if (!ObjectValidator.validateNotRequiredNumber(pensaoAlimenticiaFgts)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPensaoAlimenticiaFgts(),
@@ -404,7 +404,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		String fgtsValorRescisao = this.subView.getTfFgtsValorRescisao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(fgtsValorRescisao)) {
+		if (!ObjectValidator.validateNotRequiredNumber(fgtsValorRescisao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFgtsValorRescisao(), msg);
@@ -414,7 +414,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 
 		String fgtsSaldoBanco = this.subView.getTfFgtsSaldoBanco().getValue();
 
-		if (!Validator.validateNotRequiredNumber(fgtsSaldoBanco)) {
+		if (!ObjectValidator.validateNotRequiredNumber(fgtsSaldoBanco)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFgtsSaldoBanco(), msg);
@@ -425,7 +425,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		String fgtsComplementoSaldo = this.subView.getTfFgtsComplementoSaldo()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(fgtsComplementoSaldo)) {
+		if (!ObjectValidator.validateNotRequiredNumber(fgtsComplementoSaldo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFgtsComplementoSaldo(),
@@ -437,7 +437,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);

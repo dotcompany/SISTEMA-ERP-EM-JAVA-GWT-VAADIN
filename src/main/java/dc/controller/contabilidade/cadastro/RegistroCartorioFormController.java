@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.RegistroCartorioEntity;
 import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
 import dc.visao.contabilidade.cadastro.RegistroCartorioFormView;
@@ -156,7 +156,7 @@ public class RegistroCartorioFormController extends
 	protected boolean validaSalvar() {
 		Object dataRegistro = this.subView.getPdfDataRegistro().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataRegistro)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataRegistro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataRegistro(), msg);
@@ -166,7 +166,7 @@ public class RegistroCartorioFormController extends
 
 		String numero = this.subView.getTfNumero().getValue();
 
-		if (!Validator.validateNotRequiredNumber(numero)) {
+		if (!ObjectValidator.validateNotRequiredNumber(numero)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
@@ -176,7 +176,7 @@ public class RegistroCartorioFormController extends
 
 		String folha = this.subView.getTfFolha().getValue();
 
-		if (!Validator.validateNotRequiredNumber(folha)) {
+		if (!ObjectValidator.validateNotRequiredNumber(folha)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFolha(), msg);
@@ -186,7 +186,7 @@ public class RegistroCartorioFormController extends
 
 		String livro = this.subView.getTfLivro().getValue();
 
-		if (!Validator.validateNotRequiredNumber(livro)) {
+		if (!ObjectValidator.validateNotRequiredNumber(livro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfLivro(), msg);

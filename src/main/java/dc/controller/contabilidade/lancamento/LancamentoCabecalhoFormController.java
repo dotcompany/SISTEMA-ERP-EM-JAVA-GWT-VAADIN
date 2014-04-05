@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
@@ -165,7 +165,7 @@ public class LancamentoCabecalhoFormController extends
 	protected boolean validaSalvar() {
 		Object dataLancamento = this.subView.getPdfDataLancamento().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataLancamento)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataLancamento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataLancamento(), msg);
@@ -175,7 +175,7 @@ public class LancamentoCabecalhoFormController extends
 
 		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInclusao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
@@ -185,7 +185,7 @@ public class LancamentoCabecalhoFormController extends
 
 		String valor = this.subView.getTfValor().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valor)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -199,7 +199,7 @@ public class LancamentoCabecalhoFormController extends
 
 		LoteEntity lote = this.subView.getCbLote().getValue();
 
-		if (!Validator.validateObject(lote)) {
+		if (!ObjectValidator.validateObject(lote)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbLote(), msg);

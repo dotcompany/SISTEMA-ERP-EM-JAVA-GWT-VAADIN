@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
@@ -166,7 +166,7 @@ public class DreDetalheFormController extends
 	protected boolean validaSalvar() {
 		String valor = this.subView.getTfValor().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valor)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -181,7 +181,7 @@ public class DreDetalheFormController extends
 		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
 				.getValue();
 
-		if (!Validator.validateObject(dreCabecalho)) {
+		if (!ObjectValidator.validateObject(dreCabecalho)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbDreCabecalho(), msg);

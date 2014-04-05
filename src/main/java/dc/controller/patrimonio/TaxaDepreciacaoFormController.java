@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.TaxaDepreciacaoEntity;
 import dc.servicos.dao.patrimonio.TaxaDepreciacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -173,7 +173,7 @@ public class TaxaDepreciacaoFormController extends
 	protected boolean validaSalvar() {
 		String vida = (String) this.subView.getTfVida().getValue();
 
-		if (!Validator.validateNotRequiredNumber(vida)) {
+		if (!ObjectValidator.validateNotRequiredNumber(vida)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfVida(), msg);
@@ -183,7 +183,7 @@ public class TaxaDepreciacaoFormController extends
 
 		String taxa = (String) this.subView.getTfTaxa().getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxa)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxa)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfTaxa(), msg);

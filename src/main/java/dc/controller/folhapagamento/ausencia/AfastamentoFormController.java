@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
 import dc.entidade.pessoal.Colaborador;
@@ -233,7 +233,7 @@ public class AfastamentoFormController extends
 	protected boolean validaSalvar() {
 		Object dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -243,7 +243,7 @@ public class AfastamentoFormController extends
 
 		Object dataFim = this.subView.getPdfDataFim().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataFim(), msg);
@@ -253,7 +253,7 @@ public class AfastamentoFormController extends
 
 		String diasAfastado = this.subView.getTfDiasAfastado().getValue();
 
-		if (!Validator.validateNotRequiredInteger(diasAfastado)) {
+		if (!ObjectValidator.validateNotRequiredInteger(diasAfastado)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfDiasAfastado(), msg);
@@ -268,7 +268,7 @@ public class AfastamentoFormController extends
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);
@@ -279,7 +279,7 @@ public class AfastamentoFormController extends
 		TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView
 				.getCbTipoAfastamento().getValue();
 
-		if (!Validator.validateObject(tipoAfastamento)) {
+		if (!ObjectValidator.validateObject(tipoAfastamento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbTipoAfastamento(), msg);

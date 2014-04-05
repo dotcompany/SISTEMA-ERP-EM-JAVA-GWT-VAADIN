@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
@@ -181,7 +181,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	protected boolean validaSalvar() {
 		String numero = this.subView.getTfNumero().getValue();
 
-		if (!Validator.validateNotRequiredInteger(numero)) {
+		if (!ObjectValidator.validateNotRequiredInteger(numero)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
@@ -191,7 +191,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 		String paginaInicial = this.subView.getTfPaginaInicial().getValue();
 
-		if (!Validator.validateNotRequiredInteger(paginaInicial)) {
+		if (!ObjectValidator.validateNotRequiredInteger(paginaInicial)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPaginaInicial(), msg);
@@ -201,7 +201,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 		String paginaFinal = this.subView.getTfPaginaFinal().getValue();
 
-		if (!Validator.validateNotRequiredInteger(paginaFinal)) {
+		if (!ObjectValidator.validateNotRequiredInteger(paginaFinal)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPaginaFinal(), msg);
@@ -211,7 +211,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 		Object dataDespacho = this.subView.getPdfDataDespacho().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataDespacho)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataDespacho)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataDespacho(), msg);
@@ -221,7 +221,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 		Object dataAbertura = this.subView.getPdfDataAbertura().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAbertura)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAbertura)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAbertura(), msg);
@@ -232,7 +232,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 		Object dataEncerramento = this.subView.getPdfDataEncerramento()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataEncerramento)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataEncerramento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataEncerramento(), msg);
@@ -243,7 +243,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 		Object escrituracaoInicio = this.subView.getPdfEscrituracaoInicio()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(escrituracaoInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(escrituracaoInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoInicio(),
@@ -255,7 +255,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 		Object escrituracaoFim = this.subView.getPdfEscrituracaoFim()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(escrituracaoFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(escrituracaoFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoFim(), msg);
@@ -269,7 +269,7 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 		LivroEntity livro = this.subView.getCbLivro().getValue();
 
-		if (!Validator.validateObject(livro)) {
+		if (!ObjectValidator.validateObject(livro)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbLivro(), msg);

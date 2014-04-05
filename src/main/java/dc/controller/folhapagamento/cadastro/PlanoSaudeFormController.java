@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.pessoal.Colaborador;
@@ -227,7 +227,7 @@ public class PlanoSaudeFormController extends
 	protected boolean validaSalvar() {
 		Object dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -242,7 +242,7 @@ public class PlanoSaudeFormController extends
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);
@@ -253,7 +253,7 @@ public class PlanoSaudeFormController extends
 		OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView
 				.getCbOperadoraPlanoSaude().getValue();
 
-		if (!Validator.validateObject(operadoraPlanoSaude)) {
+		if (!ObjectValidator.validateObject(operadoraPlanoSaude)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbOperadoraPlanoSaude(),

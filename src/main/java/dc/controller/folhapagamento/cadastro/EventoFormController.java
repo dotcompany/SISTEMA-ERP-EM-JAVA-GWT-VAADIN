@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.cadastro.EventoDAO;
@@ -210,7 +210,7 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 	protected boolean validaSalvar() {
 		String taxa = this.subView.getTfTaxa().getValue();
 
-		if (!Validator.validateNotRequiredNumber(taxa)) {
+		if (!ObjectValidator.validateNotRequiredNumber(taxa)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfTaxa(), msg);

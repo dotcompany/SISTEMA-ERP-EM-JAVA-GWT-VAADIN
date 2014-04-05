@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.inss.RetencaoEntity;
 import dc.entidade.folhapagamento.inss.ServicoEntity;
@@ -196,7 +196,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	protected boolean validaSalvar() {
 		String valor13 = this.subView.getTfValor13().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valor13)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valor13)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValor13(), msg);
@@ -206,7 +206,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 
 		String valorMensal = this.subView.getTfValorMensal().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valorMensal)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valorMensal)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValorMensal(), msg);
@@ -216,7 +216,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 
 		InssEntity inss = (InssEntity) this.subView.getCbInss().getValue();
 
-		if (!Validator.validateObject(inss)) {
+		if (!ObjectValidator.validateObject(inss)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbInss(), msg);
@@ -227,7 +227,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 		ServicoEntity servico = (ServicoEntity) this.subView.getCbServico()
 				.getValue();
 
-		if (!Validator.validateObject(servico)) {
+		if (!ObjectValidator.validateObject(servico)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbServico(), msg);

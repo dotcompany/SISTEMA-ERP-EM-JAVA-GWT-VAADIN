@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
 import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
 import dc.visao.contabilidade.cadastro.AidfAimdfFormView;
@@ -155,7 +155,7 @@ public class AidfAimdfFormController extends
 	protected boolean validaSalvar() {
 		String numero = this.subView.getTfNumero().getValue();
 
-		if (!Validator.validateNotRequiredInteger(numero)) {
+		if (!ObjectValidator.validateNotRequiredInteger(numero)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
@@ -165,7 +165,7 @@ public class AidfAimdfFormController extends
 
 		Object dataValidade = this.subView.getPdfDataValidade().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataValidade)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataValidade)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataValidade(), msg);
@@ -176,7 +176,7 @@ public class AidfAimdfFormController extends
 		Object dataAutorizacao = this.subView.getPdfDataAutorizacao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataAutorizacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataAutorizacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataAutorizacao(), msg);

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.folhapagamento.movimento.PppFatorRiscoEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppDAO;
@@ -340,7 +340,7 @@ public class PppFatorRiscoFormController extends
 	protected boolean validaSalvar() {
 		Object dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -350,7 +350,7 @@ public class PppFatorRiscoFormController extends
 
 		Object dataTermino = this.subView.getPdfDataTermino().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataTermino)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataTermino)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataTermino(), msg);
@@ -360,7 +360,7 @@ public class PppFatorRiscoFormController extends
 
 		String caEpi = this.subView.getTfCaEpi().getValue();
 
-		if (!Validator.validateNotRequiredNumber(caEpi)) {
+		if (!ObjectValidator.validateNotRequiredNumber(caEpi)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfCaEpi(), msg);
@@ -370,7 +370,7 @@ public class PppFatorRiscoFormController extends
 
 		PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
-		if (!Validator.validateObject(ppp)) {
+		if (!ObjectValidator.validateObject(ppp)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbPpp(), msg);

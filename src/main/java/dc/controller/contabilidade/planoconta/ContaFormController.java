@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
@@ -187,7 +187,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	protected boolean validaSalvar() {
 		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInclusao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
@@ -201,7 +201,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
-		if (!Validator.validateObject(conta)) {
+		if (!ObjectValidator.validateObject(conta)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
@@ -211,7 +211,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 		PlanoContaEntity planoConta = this.subView.getCbPlanoConta().getValue();
 
-		if (!Validator.validateObject(planoConta)) {
+		if (!ObjectValidator.validateObject(planoConta)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbPlanoConta(), msg);
@@ -222,7 +222,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 		PlanoContaRefSpedEntity planoContaRefSped = this.subView
 				.getCbPlanoContaRefSped().getValue();
 
-		if (!Validator.validateObject(planoContaRefSped)) {
+		if (!ObjectValidator.validateObject(planoContaRefSped)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbPlanoContaRefSped(), msg);

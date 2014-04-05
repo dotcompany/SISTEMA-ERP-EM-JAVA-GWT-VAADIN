@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.framework.Empresa;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.servicos.dao.patrimonio.GrupoBemDAO;
@@ -222,7 +222,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 	protected boolean validaSalvar() {
 		String codigo = this.subView.getTfCodigo().getValue();
 
-		if (!Validator.validateString(codigo)) {
+		if (!ObjectValidator.validateString(codigo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfCodigo(), msg);
@@ -232,7 +232,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 		String nome = this.subView.getTfNome().getValue();
 
-		if (!Validator.validateString(nome)) {
+		if (!ObjectValidator.validateString(nome)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNome(), msg);
@@ -243,7 +243,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 		String contaAtivoImobilizado = this.subView
 				.getTfContaAtivoImobilizado().getValue();
 
-		if (!Validator.validateString(contaAtivoImobilizado)) {
+		if (!ObjectValidator.validateString(contaAtivoImobilizado)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfContaAtivoImobilizado(),
@@ -255,7 +255,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 		String contaDepreciacaoAcumulada = this.subView
 				.getTfContaDepreciacaoAcumulada().getValue();
 
-		if (!Validator.validateString(contaDepreciacaoAcumulada)) {
+		if (!ObjectValidator.validateString(contaDepreciacaoAcumulada)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -267,7 +267,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 		String contaDespesaDepreciacao = this.subView
 				.getTfContaDespesaDepreciacao().getValue();
 
-		if (!Validator.validateString(contaDespesaDepreciacao)) {
+		if (!ObjectValidator.validateString(contaDespesaDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -278,7 +278,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 		String codigoHistorico = this.subView.getTfCodigoHistorico().getValue();
 
-		if (!Validator.validateInteger(codigoHistorico)) {
+		if (!ObjectValidator.validateInteger(codigoHistorico)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfCodigoHistorico(), msg);

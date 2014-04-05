@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.servicos.dao.folhapagamento.movimento.PppDAO;
@@ -198,7 +198,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
 				.getValue();
 
-		if (!Validator.validateObject(colaborador)) {
+		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbColaborador(), msg);

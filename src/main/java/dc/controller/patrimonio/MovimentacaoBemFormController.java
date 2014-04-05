@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.MovimentacaoBemEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
@@ -236,7 +236,7 @@ public class MovimentacaoBemFormController extends
 		Object dataMovimentacao = this.subView.getPdfDataMovimentacao()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(dataMovimentacao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataMovimentacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataMovimentacao(), msg);
@@ -248,7 +248,7 @@ public class MovimentacaoBemFormController extends
 
 		BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
 
-		if (!Validator.validateObject(bem)) {
+		if (!ObjectValidator.validateObject(bem)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbBem(), msg);
@@ -259,7 +259,7 @@ public class MovimentacaoBemFormController extends
 		TipoMovimentacaoEntity tipoMovimentacao = (TipoMovimentacaoEntity) this.subView
 				.getCbTipoMovimentacao().getValue();
 
-		if (!Validator.validateObject(tipoMovimentacao)) {
+		if (!ObjectValidator.validateObject(tipoMovimentacao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbTipoMovimentacao(), msg);

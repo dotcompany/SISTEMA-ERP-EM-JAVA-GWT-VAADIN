@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
+import dc.control.converter.ObjectConverter;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
@@ -511,8 +512,8 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfUnidadeComercial().setValue(
 					this.nfeDetalheSelecionado.getUnidadeComercial());
 			this.subView.getTfQuantidadeComercial().setValue(
-					this.nfeDetalheSelecionado.getQuantidadeComercial()
-							.toString());
+					ObjectConverter.valueToString(this.nfeDetalheSelecionado
+							.getQuantidadeComercial()));
 			this.subView.getTfValorUnitarioComercial().setValue(
 					this.nfeDetalheSelecionado.getValorUnitarioComercial()
 							.toString());
@@ -1132,8 +1133,9 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfQuantidadeComercial":
-			this.nfeDetalheSelecionado.setQuantidadeComercial(new BigDecimal(s
-					.toString().trim()));
+			BigDecimal s1 = ObjectConverter.stringToValue(s.toString().trim());
+
+			this.nfeDetalheSelecionado.setQuantidadeComercial(s1);
 
 			break;
 		case "tfValorUnitarioComercial":

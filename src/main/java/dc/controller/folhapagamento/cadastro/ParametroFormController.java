@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.cadastro.ParametroEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.cadastro.ParametroDAO;
@@ -350,7 +350,7 @@ public class ParametroFormController extends
 		String percentualAdiantam13 = this.subView.getTfPercentualAdiantam13()
 				.getValue();
 
-		if (!Validator.validateNotRequiredNumber(percentualAdiantam13)) {
+		if (!ObjectValidator.validateNotRequiredNumber(percentualAdiantam13)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfPercentualAdiantam13(),

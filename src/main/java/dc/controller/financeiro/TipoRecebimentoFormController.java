@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.financeiro.TipoRecebimento;
 import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
 import dc.visao.financeiro.TipoRecebimentoFormView;
@@ -95,13 +95,13 @@ public class TipoRecebimentoFormController extends CRUDFormController<TipoRecebi
 
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
+		if (!ObjectValidator.validateString(subView.getTxtDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		String tipo = subView.getTxtTipo().getValue();
-		if (!Validator.validateString(subView.getTxtTipo().getValue())) {
+		if (!ObjectValidator.validateString(subView.getTxtTipo().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtTipo(), "Não pode ficar em branco");
 			valido = false;
 		} else if (tipo.equals("01") || tipo.equals("02") || tipo.equals("03")) {

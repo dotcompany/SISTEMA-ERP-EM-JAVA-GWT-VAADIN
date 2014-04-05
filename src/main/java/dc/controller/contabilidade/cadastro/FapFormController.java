@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.FapEntity;
 import dc.servicos.dao.contabilidade.cadastro.FapDAO;
 import dc.visao.contabilidade.cadastro.FapFormView;
@@ -147,7 +147,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 	protected boolean validaSalvar() {
 		String fap = this.subView.getTfFap().getValue();
 
-		if (!Validator.validateNotRequiredBigDecimal(fap)) {
+		if (!ObjectValidator.validateNotRequiredBigDecimal(fap)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfFap(), msg);
@@ -157,7 +157,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 
 		Object dataInicial = this.subView.getPdfDataInicial().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicial)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicial)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicial(), msg);
@@ -167,7 +167,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 
 		Object dataFinal = this.subView.getPdfDataFinal().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataFinal)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataFinal)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataFinal(), msg);

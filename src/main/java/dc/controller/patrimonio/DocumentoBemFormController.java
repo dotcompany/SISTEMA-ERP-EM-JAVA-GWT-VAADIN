@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.DocumentoBemEntity;
 import dc.servicos.dao.patrimonio.BemDAO;
@@ -197,7 +197,7 @@ public class DocumentoBemFormController extends
 	protected boolean validaSalvar() {
 		BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
 
-		if (!Validator.validateObject(bem)) {
+		if (!ObjectValidator.validateObject(bem)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbBem(), msg);

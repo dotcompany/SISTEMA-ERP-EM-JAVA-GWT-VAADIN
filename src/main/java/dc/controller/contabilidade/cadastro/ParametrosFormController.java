@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
 import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
 import dc.visao.contabilidade.cadastro.ParametrosFormView;
@@ -238,7 +238,7 @@ public class ParametrosFormController extends
 	protected boolean validaSalvar() {
 		String niveis = this.subView.getTfNiveis().getValue();
 
-		if (!Validator.validateNotRequiredInteger(niveis)) {
+		if (!ObjectValidator.validateNotRequiredInteger(niveis)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNiveis(), msg);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
@@ -208,7 +208,7 @@ public class ApoliceSeguroFormController extends
 		try {
 			String numero = (String) this.subView.getTfNumero().getValue();
 
-			if (!Validator.validateString(numero)) {
+			if (!ObjectValidator.validateString(numero)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfNumero(), msg);
@@ -219,7 +219,7 @@ public class ApoliceSeguroFormController extends
 			Object dataContratacao = this.subView.getPdfDataContratacao()
 					.getValue();
 
-			if (!Validator.validateNotRequiredDate(dataContratacao)) {
+			if (!ObjectValidator.validateNotRequiredDate(dataContratacao)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getPdfDataContratacao(),
@@ -231,7 +231,7 @@ public class ApoliceSeguroFormController extends
 			Object dataVencimento = this.subView.getPdfDataVencimento()
 					.getValue();
 
-			if (!Validator.validateNotRequiredDate(dataVencimento)) {
+			if (!ObjectValidator.validateNotRequiredDate(dataVencimento)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getPdfDataVencimento(),
@@ -242,7 +242,7 @@ public class ApoliceSeguroFormController extends
 
 			String valorPremio = this.subView.getTfValorPremio().getValue();
 
-			if (!Validator.validateNotRequiredNumber(valorPremio)) {
+			if (!ObjectValidator.validateNotRequiredNumber(valorPremio)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfValorPremio(), msg);
@@ -252,7 +252,7 @@ public class ApoliceSeguroFormController extends
 
 			String valorSegurado = this.subView.getTfValorSegurado().getValue();
 
-			if (!Validator.validateNotRequiredNumber(valorSegurado)) {
+			if (!ObjectValidator.validateNotRequiredNumber(valorSegurado)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getTfValorSegurado(), msg);
@@ -267,7 +267,7 @@ public class ApoliceSeguroFormController extends
 			SeguradoraEntity seguradora = (SeguradoraEntity) this.subView
 					.getCbSeguradora().getValue();
 
-			if (!Validator.validateObject(seguradora)) {
+			if (!ObjectValidator.validateObject(seguradora)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getCbSeguradora(), msg);
@@ -277,7 +277,7 @@ public class ApoliceSeguroFormController extends
 
 			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
 
-			if (!Validator.validateObject(bem)) {
+			if (!ObjectValidator.validateObject(bem)) {
 				String msg = "Não pode ficar em branco.";
 
 				adicionarErroDeValidacao(this.subView.getCbBem(), msg);

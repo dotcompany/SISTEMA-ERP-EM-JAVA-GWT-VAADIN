@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
 import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
@@ -158,7 +158,7 @@ public class IndiceValorFormController extends
 	protected boolean validaSalvar() {
 		Object dataIndice = this.subView.getPdfDataIndice().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataIndice)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataIndice)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataIndice(), msg);
@@ -168,7 +168,7 @@ public class IndiceValorFormController extends
 
 		String valor = this.subView.getTfValor().getValue();
 
-		if (!Validator.validateNotRequiredNumber(valor)) {
+		if (!ObjectValidator.validateNotRequiredNumber(valor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -182,7 +182,7 @@ public class IndiceValorFormController extends
 
 		IndiceEntity indice = this.subView.getCbIndice().getValue();
 
-		if (!Validator.validateObject(indice)) {
+		if (!ObjectValidator.validateObject(indice)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbIndice(), msg);

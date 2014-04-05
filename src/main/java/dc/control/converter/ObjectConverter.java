@@ -66,6 +66,17 @@ public class ObjectConverter {
 		}
 
 		s = s.replaceAll("[^\\,0-9]+", "");
+		s = s.replaceFirst(",", ".");
+		s = s.replaceAll("[\\,]+", "");
+		// s = s.replaceFirst(".", ",");
+
+		// 44.33 0.88
+
+		String[] s1 = s.split("[.]");
+
+		if (s1.length == 2) {
+			s = (s1[0].equals("") ? "0" : s1[0]) + "," + s1[1];
+		}
 
 		return s;
 	}
@@ -80,8 +91,29 @@ public class ObjectConverter {
 		}
 
 		s1 = s1.replaceAll("[^\\,0-9]+", "");
+		s1 = s1.replaceFirst(",", ".");
+		s1 = s1.replaceAll("[\\,]+", "");
+		// s1 = s1.replaceFirst(".", ",");
+
+		// 44.33 0.88
+
+		String[] s2 = s1.split("[.]");
+
+		if (s2.length == 2) {
+			s1 = (s2[0].equals("") ? "0" : s2[0]) + "," + s2[1];
+		}
 
 		return s1;
+	}
+
+	public synchronized static String valueToString(BigDecimal bd) {
+		if (bd.equals(new BigDecimal(0)) || bd == null) {
+			return "0,00";
+		}
+
+		String s = bd.toString().replaceAll("\\.", ",");
+
+		return s;
 	}
 
 	public synchronized static BigDecimal stringToValue(String s) {
@@ -90,6 +122,9 @@ public class ObjectConverter {
 		}
 
 		s = s.replaceAll("[^\\,0-9]+", "");
+		s = s.replaceFirst(",", "\\.");
+		s = s.replaceAll("[\\,]+", "");
+		// s = s.replaceAll(",", "\\.");
 
 		return new BigDecimal(s);
 	}

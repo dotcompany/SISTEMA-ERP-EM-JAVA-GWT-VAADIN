@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasColetivasDAO;
@@ -237,7 +237,7 @@ public class FeriasColetivasFormController extends
 	protected boolean validaSalvar() {
 		Date dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -247,7 +247,7 @@ public class FeriasColetivasFormController extends
 
 		Date dataFim = this.subView.getPdfDataFim().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataFim(), msg);
@@ -257,7 +257,7 @@ public class FeriasColetivasFormController extends
 
 		String diasGozo = this.subView.getTfDiasGozo().getValue();
 
-		if (!Validator.validateNotRequiredInteger(diasGozo)) {
+		if (!ObjectValidator.validateNotRequiredInteger(diasGozo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfDiasGozo(), msg);
@@ -268,7 +268,7 @@ public class FeriasColetivasFormController extends
 		Date abonoPecuniarioInicio = this.subView.getPdfAbonoPecuniarioInicio()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(abonoPecuniarioInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(abonoPecuniarioInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -280,7 +280,7 @@ public class FeriasColetivasFormController extends
 		Date abonoPecuniarioFim = this.subView.getPdfAbonoPecuniarioFim()
 				.getValue();
 
-		if (!Validator.validateNotRequiredDate(abonoPecuniarioFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(abonoPecuniarioFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfAbonoPecuniarioFim(),
@@ -291,7 +291,7 @@ public class FeriasColetivasFormController extends
 
 		String diasAbono = this.subView.getTfDiasAbono().getValue();
 
-		if (!Validator.validateNotRequiredInteger(diasAbono)) {
+		if (!ObjectValidator.validateNotRequiredInteger(diasAbono)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfDiasAbono(), msg);
@@ -301,7 +301,7 @@ public class FeriasColetivasFormController extends
 
 		Date dataPagamento = this.subView.getPdfDataPagamento().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataPagamento)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataPagamento)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataPagamento(), msg);

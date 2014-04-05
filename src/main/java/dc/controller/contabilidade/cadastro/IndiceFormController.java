@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.controller.financeiro.IndiceEconomicoListController;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.financeiro.IndiceEconomicoEntity;
@@ -161,7 +161,7 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	protected boolean validaSalvar() {
 		Object diarioPartirDe = this.subView.getPdfDiarioPartirDe().getValue();
 
-		if (!Validator.validateNotRequiredDate(diarioPartirDe)) {
+		if (!ObjectValidator.validateNotRequiredDate(diarioPartirDe)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDiarioPartirDe(), msg);
@@ -176,7 +176,7 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 		IndiceEconomicoEntity indiceEconomico = this.subView
 				.getCbIndiceEconomico().getValue();
 
-		if (!Validator.validateObject(indiceEconomico)) {
+		if (!ObjectValidator.validateObject(indiceEconomico)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbIndiceEconomico(), msg);

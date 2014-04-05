@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaFormView;
@@ -150,7 +150,7 @@ public class PlanoContaFormController extends
 	protected boolean validaSalvar() {
 		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInclusao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
@@ -160,7 +160,7 @@ public class PlanoContaFormController extends
 
 		String niveis = this.subView.getTfNiveis().getValue();
 
-		if (!Validator.validateNotRequiredInteger(niveis)) {
+		if (!ObjectValidator.validateNotRequiredInteger(niveis)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfNiveis(), msg);

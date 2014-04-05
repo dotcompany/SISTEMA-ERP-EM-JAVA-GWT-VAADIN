@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
@@ -154,7 +154,7 @@ public class PlanoContaRefSpedFormController extends
 	protected boolean validaSalvar() {
 		Object inicioValidade = this.subView.getPdfInicioValidade().getValue();
 
-		if (!Validator.validateNotRequiredDate(inicioValidade)) {
+		if (!ObjectValidator.validateNotRequiredDate(inicioValidade)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfInicioValidade(), msg);
@@ -164,7 +164,7 @@ public class PlanoContaRefSpedFormController extends
 
 		Object fimValidade = this.subView.getPdfFimValidade().getValue();
 
-		if (!Validator.validateNotRequiredDate(fimValidade)) {
+		if (!ObjectValidator.validateNotRequiredDate(fimValidade)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfFimValidade(), msg);

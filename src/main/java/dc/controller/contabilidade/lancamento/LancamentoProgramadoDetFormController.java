@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.cadastro.HistoricoListController;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
@@ -180,7 +180,7 @@ public class LancamentoProgramadoDetFormController extends
 	protected boolean validaSalvar() {
 		String valor = this.subView.getTfValor().getValue();
 
-		if (!Validator.validateNotRequiredBigDecimal(valor)) {
+		if (!ObjectValidator.validateNotRequiredBigDecimal(valor)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getTfValor(), msg);
@@ -195,7 +195,7 @@ public class LancamentoProgramadoDetFormController extends
 		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView
 				.getCbLancamentoProgramadoCab().getValue();
 
-		if (!Validator.validateObject(lancamentoProgramadoCab)) {
+		if (!ObjectValidator.validateObject(lancamentoProgramadoCab)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(
@@ -206,7 +206,7 @@ public class LancamentoProgramadoDetFormController extends
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
-		if (!Validator.validateObject(conta)) {
+		if (!ObjectValidator.validateObject(conta)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbConta(), msg);
@@ -216,7 +216,7 @@ public class LancamentoProgramadoDetFormController extends
 
 		HistoricoEntity historico = this.subView.getCbHistorico().getValue();
 
-		if (!Validator.validateObject(historico)) {
+		if (!ObjectValidator.validateObject(historico)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbHistorico(), msg);

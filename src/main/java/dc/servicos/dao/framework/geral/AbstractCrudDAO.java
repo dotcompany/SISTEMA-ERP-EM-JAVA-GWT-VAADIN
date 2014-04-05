@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -294,7 +294,7 @@ public abstract class AbstractCrudDAO<T> {
 
 		org.apache.lucene.search.Query booleanQuery = new BooleanQuery();
 
-		if (dc.control.validator.Validator.validateString(value)) {
+		if (dc.control.validator.ObjectValidator.validateString(value)) {
 			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
 			org.apache.lucene.search.Query query = qb.keyword().fuzzy().onFields(searchFields).matching(value).createQuery();
 			org.apache.lucene.search.Query[] queries = new org.apache.lucene.search.Query[] { query };
@@ -313,7 +313,7 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextSession fullTextSession = getFullTextSession();
 		org.apache.lucene.search.Query booleanQuery = new BooleanQuery();
 
-		if (Validator.validateString(value)) {
+		if (ObjectValidator.validateString(value)) {
 
 			org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
 			org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { multiEmpresaQuery };

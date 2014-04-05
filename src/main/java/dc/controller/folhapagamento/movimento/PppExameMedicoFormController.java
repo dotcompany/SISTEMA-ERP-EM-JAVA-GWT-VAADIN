@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.folhapagamento.movimento.PppExameMedicoEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppDAO;
@@ -225,7 +225,7 @@ public class PppExameMedicoFormController extends
 	protected boolean validaSalvar() {
 		Object dataUltimo = this.subView.getPdfDataUltimo().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataUltimo)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataUltimo)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataUltimo(), msg);
@@ -235,7 +235,7 @@ public class PppExameMedicoFormController extends
 
 		PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
-		if (!Validator.validateObject(ppp)) {
+		if (!ObjectValidator.validateObject(ppp)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getCbPpp(), msg);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.control.validator.Validator;
+import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeCabFormView;
@@ -149,7 +149,7 @@ public class EncerramentoExeCabFormController extends
 	protected boolean validaSalvar() {
 		Object dataInicio = this.subView.getPdfDataInicio().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInicio)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInicio)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInicio(), msg);
@@ -159,7 +159,7 @@ public class EncerramentoExeCabFormController extends
 
 		Object dataFim = this.subView.getPdfDataFim().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataFim)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataFim)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataFim(), msg);
@@ -169,7 +169,7 @@ public class EncerramentoExeCabFormController extends
 
 		Object dataInclusao = this.subView.getPdfDataInclusao().getValue();
 
-		if (!Validator.validateNotRequiredDate(dataInclusao)) {
+		if (!ObjectValidator.validateNotRequiredDate(dataInclusao)) {
 			String msg = "Não pode ficar em branco.";
 
 			adicionarErroDeValidacao(this.subView.getPdfDataInclusao(), msg);
