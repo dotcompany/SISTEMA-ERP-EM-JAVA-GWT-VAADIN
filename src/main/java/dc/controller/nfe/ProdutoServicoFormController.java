@@ -1132,8 +1132,12 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfQuantidadeComercial":
-			this.nfeDetalheSelecionado.setQuantidadeComercial(new BigDecimal(s
-					.toString().trim()));
+			String t = s.toString().trim();
+
+			t = t.replaceAll("R$ ", "").replaceAll(",", ".");
+
+			this.nfeDetalheSelecionado
+					.setQuantidadeComercial(new BigDecimal(t));
 
 			break;
 		case "tfValorUnitarioComercial":

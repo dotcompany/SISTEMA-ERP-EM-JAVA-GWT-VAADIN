@@ -3,6 +3,8 @@ package dc.control.validator;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+
 public class Validator {
 
 	/**
@@ -40,6 +42,22 @@ public class Validator {
 		if (valido) {
 			try {
 				Double.parseDouble(value);
+			} catch (NumberFormatException e) {
+				valido = false;
+			}
+		}
+
+		return valido;
+	}
+
+	public synchronized static Boolean validateNumber(ValueChangeEvent event) {
+		Object s = event.getProperty().getValue();
+
+		boolean valido = validateString(s.toString().trim());
+
+		if (valido) {
+			try {
+				Double.parseDouble(s.toString().trim());
 			} catch (NumberFormatException e) {
 				valido = false;
 			}
