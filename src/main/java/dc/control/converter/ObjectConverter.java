@@ -5,12 +5,22 @@ import java.math.BigDecimal;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 
+/**
+ * Esta classe tem como objetivo converter objetos para a camada de visão como
+ * para a camada de controle.
+ * 
+ * @author Gutemberg A. Da Silva
+ * @version 1.0
+ */
+
 public class ObjectConverter {
 
 	/**
+	 * Este método converte um Integer em String, retirando os caracteres
+	 * especiais.
 	 * 
 	 * @param event
-	 * @return
+	 * @return String
 	 */
 
 	public synchronized static String integerToString(TextChangeEvent event) {
@@ -25,6 +35,14 @@ public class ObjectConverter {
 
 		return s;
 	}
+
+	/**
+	 * Este método converte um Integer em String, retirando os caracteres
+	 * especiais.
+	 * 
+	 * @param event
+	 * @return String
+	 */
 
 	public synchronized static String integerToString(ValueChangeEvent event) {
 		Object s = event.getProperty().getValue();
@@ -41,6 +59,14 @@ public class ObjectConverter {
 		return s1;
 	}
 
+	/**
+	 * Este método converte um String para Integer, retirando os caracteres
+	 * especiais.
+	 * 
+	 * @param s
+	 * @return Integer
+	 */
+
 	public synchronized static Integer stringToInteger(String s) {
 		if (s.equals("")) {
 			return new Integer(0);
@@ -53,9 +79,11 @@ public class ObjectConverter {
 	}
 
 	/**
+	 * Este método converte um valor para String, retirando os caracteres
+	 * especiais.
 	 * 
 	 * @param event
-	 * @return
+	 * @return String
 	 */
 
 	public synchronized static String valueToString(TextChangeEvent event) {
@@ -80,6 +108,14 @@ public class ObjectConverter {
 
 		return s;
 	}
+
+	/**
+	 * Este método converte um valor para String, retirando os caracteres
+	 * especiais.
+	 * 
+	 * @param event
+	 * @return String
+	 */
 
 	public synchronized static String valueToString(ValueChangeEvent event) {
 		Object s = event.getProperty().getValue();
@@ -106,6 +142,14 @@ public class ObjectConverter {
 		return s1;
 	}
 
+	/**
+	 * Este método converte um valor para String, retirando os caracteres
+	 * especiais.
+	 * 
+	 * @param bd
+	 * @return String
+	 */
+
 	public synchronized static String valueToString(BigDecimal bd) {
 		if (bd.equals(new BigDecimal(0)) || bd == null) {
 			return "0,00";
@@ -115,6 +159,14 @@ public class ObjectConverter {
 
 		return s;
 	}
+
+	/**
+	 * Este método converte um String para valor, retirando os caracteres
+	 * especiais.
+	 * 
+	 * @param s
+	 * @return BigDecimal
+	 */
 
 	public synchronized static BigDecimal stringToValue(String s) {
 		if (s.equals("")) {
@@ -130,9 +182,11 @@ public class ObjectConverter {
 	}
 
 	/**
+	 * Este método converte um valor monetário para String, retirando os
+	 * caracteres especiais.
 	 * 
 	 * @param event
-	 * @return
+	 * @return String
 	 */
 
 	public synchronized static String moneyToString(TextChangeEvent event) {
@@ -147,6 +201,14 @@ public class ObjectConverter {
 		return s;
 	}
 
+	/**
+	 * Este método converte um valor monetário para String, retirando os
+	 * caracteres especiais.
+	 * 
+	 * @param event
+	 * @return String
+	 */
+
 	public synchronized static String moneyToString(ValueChangeEvent event) {
 		Object s = event.getProperty().getValue();
 
@@ -160,6 +222,14 @@ public class ObjectConverter {
 
 		return s1;
 	}
+
+	/**
+	 * Este método converte um String em valor monetário, retirando os
+	 * caracteres especiais.
+	 * 
+	 * @param s
+	 * @return BigDecimal
+	 */
 
 	public synchronized static BigDecimal stringToMoney(String s) {
 		if (s.equals("")) {

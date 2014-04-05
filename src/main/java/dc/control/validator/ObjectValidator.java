@@ -5,6 +5,15 @@ import java.util.Date;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 
+/**
+ * Esta classe tem como objetivo validar objetos para a camada de visão como
+ * para a camada de controle.
+ * 
+ * @author Gutemberg A. Da Silva
+ * @version 1.0
+ * 
+ */
+
 public class ObjectValidator {
 
 	/**
@@ -147,10 +156,13 @@ public class ObjectValidator {
 	}
 
 	/**
+	 * Este método valida um valor de data requerida. Usado na camada de
+	 * controle.
 	 * 
 	 * @param value
-	 * @return
+	 * @return Boolean
 	 */
+
 	public synchronized static Boolean validateDate(Object value) {
 		boolean valido = validateObject(value);
 
@@ -166,10 +178,13 @@ public class ObjectValidator {
 	}
 
 	/**
+	 * Este método valida um valor de data não requerida. Usado na camada de
+	 * controle.
 	 * 
 	 * @param value
-	 * @return
+	 * @return Boolean
 	 */
+
 	public synchronized static Boolean validateNotRequiredDate(Object value) {
 		try {
 			if (value != null) {
@@ -182,7 +197,14 @@ public class ObjectValidator {
 		}
 	}
 
-	public synchronized static boolean validateValue(ValueChangeEvent event) {
+	/**
+	 * Este método valida um valor, retirando os caracteres especiais.
+	 * 
+	 * @param event
+	 * @return Boolean
+	 */
+
+	public synchronized static Boolean validateValue(ValueChangeEvent event) {
 		boolean valido = true;
 
 		Object s = event.getProperty().getValue();
@@ -195,13 +217,11 @@ public class ObjectValidator {
 			return valido;
 		}
 
-		// s1 = s1.replaceAll("[^\\,0-9]+", "");
-
 		s1 = s1.replaceAll("[^\\,0-9]+", "");
 		s1 = s1.replaceFirst(",", ".");
 		s1 = s1.replaceAll("[\\,]+", "");
 
-		String[] s2 = s1.split("[.]");
+		String[] s2 = s1.split("\\.");
 
 		if (s2.length != 2) {
 			valido = false;

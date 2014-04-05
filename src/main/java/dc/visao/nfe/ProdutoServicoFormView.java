@@ -3306,9 +3306,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
 				if (ObjectValidator.validateValue(event)) {
-					// tfQuantidadeComercial.setValue(ObjectConverter
-					// .valueToString(event));
-
 					controller.nfeDetalheSetarValor(
 							tfQuantidadeComercial.getId(), event);
 				}
