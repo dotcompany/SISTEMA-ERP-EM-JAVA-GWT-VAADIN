@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -690,11 +691,6 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements
 	// this.idGrupoTributario = idGrupoTributario;
 	// }
 
-	@Override
-	public String toString() {
-		return nome;
-	}
-
 	public String getGtin() {
 		return gtin;
 	}
@@ -1038,6 +1034,15 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setNfeDetalheList(List<NfeDetalheEntity> nfeDetalheList) {
 		this.nfeDetalheList = nfeDetalheList;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

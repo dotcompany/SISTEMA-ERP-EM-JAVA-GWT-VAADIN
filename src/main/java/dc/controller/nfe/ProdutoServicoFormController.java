@@ -184,7 +184,7 @@ public class ProdutoServicoFormController extends
 	protected void initSubView() {
 		this.subView = new ProdutoServicoFormView(this);
 
-		popularCombo();
+		// popularCombo();
 	}
 
 	/*
@@ -496,6 +496,8 @@ public class ProdutoServicoFormController extends
 
 	public void nfeDetalheSelecionar(NfeDetalheEntity item) {
 		try {
+			popularCombo();
+
 			this.nfeDetalheSelecionado = item;
 
 			/**
@@ -504,8 +506,6 @@ public class ProdutoServicoFormController extends
 
 			this.subView.getTfNumeroItem().setValue(
 					this.nfeDetalheSelecionado.getNumeroItem().toString());
-			this.subView.getTfCodigoProduto().setValue(
-					this.nfeDetalheSelecionado.getCodigoProduto());
 			this.subView.getTfGtin().setValue(
 					this.nfeDetalheSelecionado.getGtin());
 			// this.subView.getTfNomeProduto().setValue(
@@ -514,6 +514,8 @@ public class ProdutoServicoFormController extends
 
 			if (produto != null) {
 				this.subView.getMtoProduto().setValue(produto);
+				this.subView.getTfCodigoProduto().setValue(
+						produto.getCodigoInterno());
 			}
 
 			this.subView.getTfNcm().setValue(
@@ -1115,10 +1117,10 @@ public class ProdutoServicoFormController extends
 					.trim()));
 
 			break;
-		case "tfCodigoProduto":
-			this.nfeDetalheSelecionado.setCodigoProduto(s.toString().trim());
+		// case "tfCodigoProduto":
+		// this.nfeDetalheSelecionado.setCodigoProduto(s.toString().trim());
 
-			break;
+		// break;
 		case "tfGtin":
 			this.nfeDetalheSelecionado.setGtin(s.toString().trim());
 
@@ -1128,6 +1130,8 @@ public class ProdutoServicoFormController extends
 			Produto produto = (Produto) m.getBean();
 
 			this.nfeDetalheSelecionado.setProduto(produto);
+			this.nfeDetalheSelecionado.setCodigoProduto(produto
+					.getCodigoInterno());
 
 			break;
 		case "tfNcm":

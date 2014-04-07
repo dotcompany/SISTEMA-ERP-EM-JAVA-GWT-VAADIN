@@ -1966,6 +1966,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		buildMainLayout();
 		setCompositionRoot(this.mainLayout);
+
+		// getUI().getSession().getLockInstance();
+		// getSession().getLockInstance();
 	}
 
 	/**
@@ -3097,28 +3100,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 		});
 		glNfeDetalhe.addComponent(tfNumeroItem, 0, 0);
 
-		// tfCodigoProduto
-		tfCodigoProduto = new TextField("Código do produto:");
-		tfCodigoProduto.setWidth("-1px");
-		tfCodigoProduto.setHeight("-1px");
-		tfCodigoProduto.setSizeFull();
-		tfCodigoProduto.setNullRepresentation("");
-		tfCodigoProduto.setImmediate(true);
-		tfCodigoProduto.setId("tfCodigoProduto");
-		tfCodigoProduto.addValueChangeListener(new ValueChangeListener() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfCodigoProduto.getId(), event);
-			}
-		});
-		glNfeDetalhe.addComponent(tfCodigoProduto, 1, 0);
-
 		// tfGtin
 		tfGtin = new TextField("GTIN:");
 		tfGtin.setWidth("-1px");
@@ -3139,12 +3120,44 @@ public class ProdutoServicoFormView extends CustomComponent {
 				controller.nfeDetalheSetarValor(tfGtin.getId(), event);
 			}
 		});
-		glNfeDetalhe.addComponent(tfGtin, 2, 0);
+		glNfeDetalhe.addComponent(tfGtin, 1, 0);
+
+		// tfNcm
+		tfNcm = new TextField("NCM:");
+		tfNcm.setWidth("-1px");
+		tfNcm.setHeight("-1px");
+		tfNcm.setSizeFull();
+		tfNcm.setNullRepresentation("");
+		tfNcm.setImmediate(true);
+		tfNcm.setId("tfNcm");
+		tfNcm.addValueChangeListener(new ValueChangeListener() {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				controller.nfeDetalheSetarValor(tfNcm.getId(), event);
+			}
+		});
+		glNfeDetalhe.addComponent(tfNcm, 2, 0);
+
+		// tfCodigoProduto
+		tfCodigoProduto = new TextField("Código do produto:");
+		tfCodigoProduto.setWidth("-1px");
+		tfCodigoProduto.setHeight("-1px");
+		tfCodigoProduto.setSizeFull();
+		tfCodigoProduto.setNullRepresentation("");
+		// tfCodigoProduto.setImmediate(true);
+		tfCodigoProduto.setId("tfCodigoProduto");
+		// tfCodigoProduto.setReadOnly(true);
+		glNfeDetalhe.addComponent(tfCodigoProduto, 0, 1);
 
 		// mtoProduto
 		mtoProduto = new ManyToOneCombo<>();
 		mtoProduto.setCaption("Produto:");
-		mtoProduto.setImmediate(false);
 		mtoProduto.setWidth("175px");
 		mtoProduto.setHeight("-1px");
 		mtoProduto.setSizeFull();
@@ -3159,32 +3172,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(mtoProduto.getId(), event);
+				if (ObjectValidator.validateObject(event.getProperty()
+						.getValue())) {
+					controller.nfeDetalheSetarValor(mtoProduto.getId(), event);
+				}
 			}
 		});
-		glNfeDetalhe.addComponent(mtoProduto, 0, 1);
-
-		// tfNcm
-		tfNcm = new TextField("NCM:");
-		tfNcm.setWidth("-1px");
-		tfNcm.setHeight("-1px");
-		tfNcm.setSizeFull();
-		tfNcm.setNullRepresentation("");
-		tfNcm.setImmediate(true);
-		tfNcm.setId("tfNcm");
-		tfNcm.addValueChangeListener(new ValueChangeListener() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfNcm.getId(), event);
-			}
-		});
-		glNfeDetalhe.addComponent(tfNcm, 1, 1);
+		glNfeDetalhe.addComponent(mtoProduto, 1, 1);
 
 		// tfExTipi
 		tfExTipi = new TextField("EX TIPI:");
