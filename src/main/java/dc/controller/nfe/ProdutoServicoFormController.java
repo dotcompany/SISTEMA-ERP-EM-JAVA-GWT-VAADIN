@@ -293,6 +293,8 @@ public class ProdutoServicoFormController extends
 			nfeDestinatarioCarregar();
 			nfeDetalheCarregar(id);
 
+			popularCombo();
+
 			abaHabilitar(false, false, false, false, false, false, false,
 					false, false);
 		} catch (Exception e) {
@@ -496,8 +498,6 @@ public class ProdutoServicoFormController extends
 
 	public void nfeDetalheSelecionar(NfeDetalheEntity item) {
 		try {
-			popularCombo();
-
 			this.nfeDetalheSelecionado = item;
 
 			/**

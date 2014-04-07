@@ -3093,9 +3093,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfNumeroItem.setValue(ObjectConverter.integerToString(event));
+				if (ObjectValidator.validateObject(tfNumeroItem.getValue())) {
+					tfNumeroItem.setValue(ObjectConverter
+							.integerToString(event));
 
-				controller.nfeDetalheSetarValor(tfNumeroItem.getId(), event);
+					controller.nfeDetalheSetarValor(tfNumeroItem.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfNumeroItem, 0, 0);
@@ -3117,7 +3120,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfGtin.getId(), event);
+				if (ObjectValidator.validateObject(tfGtin.getValue())) {
+					controller.nfeDetalheSetarValor(tfGtin.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfGtin, 1, 0);
@@ -3139,7 +3144,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfNcm.getId(), event);
+				if (ObjectValidator.validateObject(tfNcm.getValue())) {
+					controller.nfeDetalheSetarValor(tfNcm.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfNcm, 2, 0);
@@ -3208,9 +3215,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfExTipi.setValue(ObjectConverter.integerToString(event));
+				if (ObjectValidator.validateObject(tfExTipi.getValue())) {
+					tfExTipi.setValue(ObjectConverter.integerToString(event));
 
-				controller.nfeDetalheSetarValor(tfExTipi.getId(), event);
+					controller.nfeDetalheSetarValor(tfExTipi.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfExTipi, 2, 1);
@@ -3243,9 +3252,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfCfop.setValue(ObjectConverter.integerToString(event));
+				if (ObjectValidator.validateObject(tfCfop.getValue())) {
+					tfCfop.setValue(ObjectConverter.integerToString(event));
 
-				controller.nfeDetalheSetarValor(tfCfop.getId(), event);
+					controller.nfeDetalheSetarValor(tfCfop.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfCfop, 0, 3);
@@ -3267,8 +3278,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfUnidadeComercial.getId(),
-						event);
+				if (ObjectValidator.validateObject(tfUnidadeComercial
+						.getValue())) {
+					controller.nfeDetalheSetarValor(tfUnidadeComercial.getId(),
+							event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfUnidadeComercial, 1, 3);
@@ -3302,9 +3316,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateValue(event)) {
-					controller.nfeDetalheSetarValor(
-							tfQuantidadeComercial.getId(), event);
+				if (ObjectValidator.validateObject(tfQuantidadeComercial
+						.getValue())) {
+					if (ObjectValidator.validateValue(event)) {
+						controller.nfeDetalheSetarValor(
+								tfQuantidadeComercial.getId(), event);
+					}
 				}
 			}
 		});
@@ -3328,11 +3345,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						tfValorUnitarioComercial.setValue(ObjectConverter
-								.valueToString(event));
+						if (ObjectValidator
+								.validateObject(tfValorUnitarioComercial
+										.getValue())) {
+							tfValorUnitarioComercial.setValue(ObjectConverter
+									.valueToString(event));
 
-						controller.nfeDetalheSetarValor(
-								tfValorUnitarioComercial.getId(), event);
+							controller.nfeDetalheSetarValor(
+									tfValorUnitarioComercial.getId(), event);
+						}
 					}
 				});
 		glNfeDetalhe.addComponent(tfValorUnitarioComercial, 0, 4);
@@ -3354,11 +3375,14 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorBrutoProduto.setValue(ObjectConverter
-						.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorBrutoProduto
+						.getValue())) {
+					tfValorBrutoProduto.setValue(ObjectConverter
+							.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorBrutoProduto.getId(),
-						event);
+					controller.nfeDetalheSetarValor(
+							tfValorBrutoProduto.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorBrutoProduto, 1, 4);
@@ -3381,8 +3405,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.nfeDetalheSetarValor(
-								tfGtinUnidadeTributavel.getId(), event);
+						if (ObjectValidator
+								.validateObject(tfGtinUnidadeTributavel
+										.getValue())) {
+							controller.nfeDetalheSetarValor(
+									tfGtinUnidadeTributavel.getId(), event);
+						}
 					}
 				});
 		glNfeDetalhe.addComponent(tfGtinUnidadeTributavel, 2, 4);
@@ -3404,8 +3432,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfUnidadeTributavel.getId(),
-						event);
+				if (ObjectValidator.validateObject(tfUnidadeTributavel
+						.getValue())) {
+					controller.nfeDetalheSetarValor(
+							tfUnidadeTributavel.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfUnidadeTributavel, 3, 4);
@@ -3428,11 +3459,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						tfQuantidadeTributavel.setValue(ObjectConverter
-								.valueToString(event));
+						if (ObjectValidator
+								.validateObject(tfQuantidadeTributavel
+										.getValue())) {
+							tfQuantidadeTributavel.setValue(ObjectConverter
+									.valueToString(event));
 
-						controller.nfeDetalheSetarValor(
-								tfQuantidadeTributavel.getId(), event);
+							controller.nfeDetalheSetarValor(
+									tfQuantidadeTributavel.getId(), event);
+						}
 					}
 				});
 		glNfeDetalhe.addComponent(tfQuantidadeTributavel, 0, 5);
@@ -3455,11 +3490,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						tfValorUnitarioTributavel.setValue(ObjectConverter
-								.valueToString(event));
+						if (ObjectValidator
+								.validateObject(tfValorUnitarioTributavel
+										.getValue())) {
+							tfValorUnitarioTributavel.setValue(ObjectConverter
+									.valueToString(event));
 
-						controller.nfeDetalheSetarValor(
-								tfValorUnitarioTributavel.getId(), event);
+							controller.nfeDetalheSetarValor(
+									tfValorUnitarioTributavel.getId(), event);
+						}
 					}
 				});
 		glNfeDetalhe.addComponent(tfValorUnitarioTributavel, 1, 5);
@@ -3481,9 +3520,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorFrete.setValue(ObjectConverter.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorFrete.getValue())) {
+					tfValorFrete.setValue(ObjectConverter.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorFrete.getId(), event);
+					controller.nfeDetalheSetarValor(tfValorFrete.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorFrete, 2, 5);
@@ -3505,9 +3546,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorSeguro.setValue(ObjectConverter.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorSeguro.getValue())) {
+					tfValorSeguro.setValue(ObjectConverter.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorSeguro.getId(), event);
+					controller.nfeDetalheSetarValor(tfValorSeguro.getId(),
+							event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorSeguro, 0, 6);
@@ -3529,9 +3573,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorDesconto.setValue(ObjectConverter.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorDesconto.getValue())) {
+					tfValorDesconto.setValue(ObjectConverter
+							.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorDesconto.getId(), event);
+					controller.nfeDetalheSetarValor(tfValorDesconto.getId(),
+							event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorDesconto, 1, 6);
@@ -3553,11 +3601,14 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorOutrasDespesas.setValue(ObjectConverter
-						.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorOutrasDespesas
+						.getValue())) {
+					tfValorOutrasDespesas.setValue(ObjectConverter
+							.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorOutrasDespesas.getId(),
-						event);
+					controller.nfeDetalheSetarValor(
+							tfValorOutrasDespesas.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorOutrasDespesas, 2, 6);
@@ -3579,7 +3630,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfEntraTotal.getId(), event);
+				if (ObjectValidator.validateObject(tfEntraTotal.getValue())) {
+					controller.nfeDetalheSetarValor(tfEntraTotal.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfEntraTotal, 0, 7);
@@ -3601,9 +3654,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorSubtotal.setValue(ObjectConverter.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorSubtotal.getValue())) {
+					tfValorSubtotal.setValue(ObjectConverter
+							.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorSubtotal.getId(), event);
+					controller.nfeDetalheSetarValor(tfValorSubtotal.getId(),
+							event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorSubtotal, 1, 7);
@@ -3625,9 +3682,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfValorTotal.setValue(ObjectConverter.valueToString(event));
+				if (ObjectValidator.validateObject(tfValorTotal.getValue())) {
+					tfValorTotal.setValue(ObjectConverter.valueToString(event));
 
-				controller.nfeDetalheSetarValor(tfValorTotal.getId(), event);
+					controller.nfeDetalheSetarValor(tfValorTotal.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfValorTotal, 2, 7);
@@ -3649,8 +3708,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				controller.nfeDetalheSetarValor(tfNumeroPedidoCompra.getId(),
-						event);
+				if (ObjectValidator.validateObject(tfNumeroPedidoCompra
+						.getValue())) {
+					controller.nfeDetalheSetarValor(
+							tfNumeroPedidoCompra.getId(), event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfNumeroPedidoCompra, 0, 8);
@@ -3672,11 +3734,14 @@ public class ProdutoServicoFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				tfItemPedidoCompra.setValue(ObjectConverter
-						.integerToString(event));
+				if (ObjectValidator.validateObject(tfItemPedidoCompra
+						.getValue())) {
+					tfItemPedidoCompra.setValue(ObjectConverter
+							.integerToString(event));
 
-				controller.nfeDetalheSetarValor(tfItemPedidoCompra.getId(),
-						event);
+					controller.nfeDetalheSetarValor(tfItemPedidoCompra.getId(),
+							event);
+				}
 			}
 		});
 		glNfeDetalhe.addComponent(tfItemPedidoCompra, 1, 8);
@@ -3699,8 +3764,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						controller.nfeDetalheSetarValor(
-								tfInformacoesAdicionais.getId(), event);
+						if (ObjectValidator
+								.validateObject(tfInformacoesAdicionais
+										.getValue())) {
+							controller.nfeDetalheSetarValor(
+									tfInformacoesAdicionais.getId(), event);
+						}
 					}
 				});
 		glNfeDetalhe.addComponent(tfInformacoesAdicionais, 2, 8);
