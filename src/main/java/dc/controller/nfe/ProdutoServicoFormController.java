@@ -1834,7 +1834,7 @@ public class ProdutoServicoFormController extends
 		// this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 		// this.subView.getMtoProduto().setValue(new Produto());
 
-		this.subView.getMtoProduto().setValue(nfeDetalhe.getProduto());
+		// this.subView.getMtoProduto().setValue(nfeDetalhe.getProduto());
 		this.subView.getTfNcm().setValue(nfeDetalhe.getNcm());
 		this.subView.getTfExTipi().setValue(nfeDetalhe.getExTipi().toString());
 		this.subView.getTfCfop().setValue(nfeDetalhe.getCfop().toString());
