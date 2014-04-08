@@ -3056,8 +3056,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 		// common part: create layout
 		glNfeDetalhe = new GridLayout();
 		glNfeDetalhe.setImmediate(false);
-		// glNfeDetalhe.setWidth("100.0%");
-		// glNfeDetalhe.setHeight("100.0%");
 		glNfeDetalhe.setSizeUndefined();
 		glNfeDetalhe.setMargin(true);
 		glNfeDetalhe.setSpacing(true);
@@ -3137,8 +3135,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNcm.setId("tfNcm");
 		tfNcm.addValueChangeListener(new ValueChangeListener() {
 			/**
-					 * 
-					 */
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -3159,7 +3157,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfCodigoProduto.setNullRepresentation("");
 		// tfCodigoProduto.setImmediate(true);
 		tfCodigoProduto.setId("tfCodigoProduto");
-		// tfCodigoProduto.setReadOnly(true);
+		tfCodigoProduto.setEnabled(false);
 		glNfeDetalhe.addComponent(tfCodigoProduto, 0, 1);
 
 		// mtoProduto
