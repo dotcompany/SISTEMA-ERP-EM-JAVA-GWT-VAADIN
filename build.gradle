@@ -21,6 +21,9 @@ repositories {
 	maven{
 		url "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases"
 	}
+	maven{
+		url "https://oss.sonatype.org/content/repositories/sourceforge-releases"
+	}
 }
 	
 vaadin {
@@ -141,6 +144,13 @@ dependencies {
 		compile "org.springframework.security:spring-security-web:3.1.4.RELEASE"
 		compile 'org.springframework.security:spring-security-config:3.1.4.RELEASE'
 		
+		
+		// CAPTCHA
+		compile 'com.octo.captcha:jcaptcha-api:1.0'
+	   	compile 'com.octo.captcha:jcaptcha:2.0-alpha-1'	
+		compile ('com.octo.captcha:jcaptcha-integration-simple-servlet:2.0-alpha-1'){
+			exclude module: 'servlet-api'
+		}
 	   
 		compile 'org.slf4j:jcl-over-slf4j:1.7.1'
 		compile 'org.slf4j:slf4j-api:1.7.1'
