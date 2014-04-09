@@ -19,6 +19,15 @@ html, body {
             color: #C30;
         }
 </style>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+	$(document).ready(function() {
+		if($("#loginError").length){
+			$("#loginCaptcha").css("display", "block");
+		}
+	  }
+	  );
+</script>
 <link rel="stylesheet" type="text/css" href="../VAADIN/themes/dotcompany/styles.css">
 </head>
 
@@ -50,35 +59,47 @@ html, body {
               <!--Fim Bem vindo e nome empresa--> 
               
               <!--Início Formulários-->
-              <form method="post" action="${rc.getContextPath()}/j_spring_security_check">
-                <div class="v-horizontallayout v-layout v-horizontal v-widget fields v-horizontallayout-fields v-margin-top v-margin-right v-margin-bottom v-margin-left" style="">
-                  <div class="v-slot">
+              <form method="post" action="${rc.getContextPath()}/processLogin">
+                <div class="v-verticallayout v-layout v-vertical v-widget fields v-verticallayout-fields v-margin-top v-margin-right v-margin-bottom v-margin-left" style="">
+                  <div class="v-slot v-align-center">
                     <div class="v-widget v-has-caption v-caption-on-top" style="">
-                      <div class="v-caption" style=""><span class="v-captiontext">Usuário</span></div>
-                      <input  type="text" name="j_username" class="v-textfield v-widget v-textfield-focus" style="height:27px" tabindex="0" autofocus="autofocus">
+                      <div class="v-caption" style="">
+                      	<span class="v-captiontext">Usuário</span>
+	                    <span> 
+	                      <input type="text" name="j_username" class="v-textfield v-widget v-textfield-focus" style="height:27px" tabindex="0" autofocus="autofocus">
+	                    </span>
+    	              </div>
                      
+                      <div class="v-caption" style="">
+                      	<span class="v-captiontext">Senha</span>
+                      	<span style="padding-left:9px">
+	                      	<input type="password" name="j_password" class="v-textfield v-widget" style="height:27px" tabindex="0">
+                      	</span>
+	                   </div>
+	                   
+	                    <div id="loginCaptcha" class="v-caption" style="display:none">
+	                    	<span>
+	                    		<img src="jcaptcha.jpg" /> 
+	                    	</span>
+	                    	<span>
+		                    	<input type="text" id="jcaptcha" name="jcaptcha" class="v-textfield v-widget" style="height:27px; width:80px;" tabindex="0" />
+    						</span>
+    					</div>
                     </div>
                   </div>
                   <div class="v-spacing"></div>
-                  <div class="v-slot">
-                    <div class="v-widget v-has-caption v-caption-on-top" style="">
-                      <div class="v-caption" style=""><span class="v-captiontext">Senha</span></div>
-                      <input type="password" name="j_password" class="v-textfield v-widget" style="height:27px" tabindex="0">
-                    </div>
-                  </div>
-                  <div class="v-spacing"></div>
-                  <div class="v-slot v-slot-default v-align-bottom">
+                  <div class="v-slot v-slot-default v-align-bottom v-align-center">
                     <input type="submit" value="Entrar" class=" v-button-wrap v-button v-widget default v-button-default v-button-caption" style="height:27px">
                   </div>
                 </div>
               </form>
               <!--Fim Formulários-->
-              		<div class="v-slot v-slot-default v-align-bottom">
+              	  <div class="v-slot v-slot-default v-align-bottom">
                     <a href = "${rc.getContextPath()}/esqueciMinhaSenha" >Esqueceu a senha?</a>
                   </div>
               <#if isError?? && isError?string == "true">
-                <div class="error">Usuário e/ou senha incorretos. Verifique os dados e tente novamente</div>
-            </#if> 
+                <div id="loginError" class="error">Usuário e/ou senha incorretos. Verifique os dados e tente novamente</div>
+              </#if> 
             </div>
           </div>
         </div>
