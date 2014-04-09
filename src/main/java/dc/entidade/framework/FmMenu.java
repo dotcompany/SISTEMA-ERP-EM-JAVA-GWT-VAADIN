@@ -72,6 +72,11 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "sn_consulta_multiempresa")
 	private Integer consultaMultiempresa = new Integer(0);
 
+	@Field()
+	@Caption("Tabela com colunas filtráveis")
+	@Column(name = "sn_consulta_filter_table")
+	private Integer consultaFilterTable = new Integer(0);
+
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -219,6 +224,18 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	public Command getCommand() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Integer getConsultaFilterTable() {
+		return consultaFilterTable;
+	}
+
+	public void setConsultaFilterTable(Integer consultaFilterTable) {
+		this.consultaFilterTable = consultaFilterTable;
+	}
+
+	public boolean isConsultaFilterTable() {
+		return new Integer(1).equals(consultaFilterTable);
 	}
 
 	/**

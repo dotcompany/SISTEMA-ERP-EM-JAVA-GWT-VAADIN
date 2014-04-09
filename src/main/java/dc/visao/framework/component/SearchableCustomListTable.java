@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.tepi.filtertable.FilterTable;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.istack.logging.Logger;
 import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.Table;
 
 import dc.visao.spring.SecuritySessionProvider;
 
-public class CustomListTable extends Table {
+public class SearchableCustomListTable extends FilterTable {
+
+	public enum State {
+		CREATED, PROCESSING, PROCESSED, FINISHED;
+	}
 
 	private static final long serialVersionUID = 735711713125549382L;
-	public static Logger logger = Logger.getLogger(CustomListTable.class);
+	public static Logger logger = Logger.getLogger(SearchableCustomListTable.class);
 	private CompanyFileHandler fileHandler = new CompanyFileHandler();
 	private String entityName;
 
@@ -43,6 +48,7 @@ public class CustomListTable extends Table {
 			logger.info(String.valueOf(propertyId));
 			saveToFile();
 		}
+
 	}
 
 	public boolean loadFromFile() {
@@ -129,4 +135,59 @@ public class CustomListTable extends Table {
 
 	}
 
+	@Override
+	public void setRefreshingEnabled(boolean enabled) {
+
+		if (getColumnHeaders().length > 0 && enabled && false) {
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+
+			setFooterVisible(true);
+
+			String[] columnHeaders2 = getColumnHeaders();
+			String column = null;
+			for (String col : columnHeaders2) {
+				if (col != null && !"".equals(col)) {
+					column = col;
+					break;
+				}
+			}
+
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, null);
+			setColumnFooter(column, null);
+
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+			setColumnFooter(column, 13 + " registro(s) encontrado(s)");
+			markAsDirtyRecursive();
+			markAsDirty();
+			requestRepaintAll();
+
+		}
+		super.setRefreshingEnabled(enabled);
+
+		if (getColumnHeaders().length > 0 && enabled) {
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+
+			setFooterVisible(true);
+
+			String[] columnHeaders2 = getColumnHeaders();
+			String column = null;
+			for (String col : columnHeaders2) {
+				if (col != null && !"".equals(col)) {
+					column = col;
+					break;
+				}
+			}
+
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, null);
+			setColumnFooter(column, null);
+
+			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+			setColumnFooter(column, size() + " registro(s) encontrado(s)");
+			markAsDirtyRecursive();
+			markAsDirty();
+			requestRepaintAll();
+
+		}
+
+	}
 }

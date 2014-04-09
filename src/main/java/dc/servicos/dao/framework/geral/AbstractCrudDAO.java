@@ -71,7 +71,7 @@ public abstract class AbstractCrudDAO<T> {
 	@PostConstruct
 	public void init() {
 		configureDefaultComboFields();
-		Class entityClass = getEntityClass();
+		Class<T> entityClass = getEntityClass();
 
 		if (entityClass != null) {
 			configureComboFields(entityClass);
@@ -88,7 +88,7 @@ public abstract class AbstractCrudDAO<T> {
 		}
 	}
 
-	private void configureComboFields(Class entityClass) {
+	private void configureComboFields(Class<T> entityClass) {
 		logger.info("combo config for class: " + entityClass);
 		java.lang.reflect.Field[] entityFields = entityClass.getDeclaredFields();
 		logger.info("fields.." + entityFields);
@@ -130,6 +130,7 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public void save(T obj) {
 		if (obj instanceof AbstractMultiEmpresaModel) {
+			@SuppressWarnings("rawtypes")
 			AbstractMultiEmpresaModel a = (AbstractMultiEmpresaModel) obj;
 			a.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		}
@@ -158,8 +159,9 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public <T> void saveOrUpdate(final T o) {
+	public <E> void saveOrUpdate(final E o) {
 		if (o instanceof AbstractMultiEmpresaModel) {
+			@SuppressWarnings("rawtypes")
 			AbstractMultiEmpresaModel a = (AbstractMultiEmpresaModel) o;
 
 			if (a.getEmpresa() == null) {
@@ -171,7 +173,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public <T> List<T> getAll(final Class<T> type) {
+	public <E> List<E> getAll(final Class<E> type) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
@@ -179,16 +181,13 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public <T> List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu) {
+	public List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu) {
 
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
-			// if(type.equals("Modelo")){
-			// crit.add(Restrictions.eq(type+".id", 1));
-			// }
 		}
 
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
@@ -197,7 +196,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public <T> List<T> getAllForComboSelect(final Class<T> type, int idEmpresa, FmMenu menu, final String typeSelected, Integer idSelected) {
+	public List<T> getAllForComboSelect(final Class<T> type, int idEmpresa, FmMenu menu, final String typeSelected, Integer idSelected) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
@@ -210,11 +209,11 @@ public abstract class AbstractCrudDAO<T> {
 		return crit.addOrder(Order.asc(order)).list();
 	}
 
-	public boolean isMultiEmpresa(Class c) {
+	public boolean isMultiEmpresa(@SuppressWarnings("rawtypes") Class c) {
 		return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
 	}
 
-	public boolean isConsultaMultiEmpresa(Class c, FmMenu ent) {
+	public boolean isConsultaMultiEmpresa(@SuppressWarnings("rawtypes") Class c, FmMenu ent) {
 		if (ent != null) {
 			return isMultiEmpresa(c) && ent.isConsultaMultiempresa();
 		} else {
@@ -234,7 +233,6 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public List<T> fullTextSearch(String valor, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
-		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 
 		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, sortingFields, states, null, filters);
 	}
@@ -255,7 +253,8 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextQuery q = fullTextSession.createFullTextQuery(query, getEntityClass());
 
 		configureSorting(sortingFields, q);
-		// Colocar Paginação
+		// q.setFirstResult(first);
+		// q.setMaxResults(pageSize);
 		List<T> resultSet = q.list();
 
 		logger.info("found for: " + value);
@@ -282,11 +281,8 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextSession fullTextSession = getFullTextSession();
 
 		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession);
-		// TODO remover depois
-		return fullTextSession.createFullTextQuery(query, getEntityClass()).list().size();
 
-		// return fullTextSession.createFullTextQuery(query,
-		// getEntityClass()).getResultSize();
+		return fullTextSession.createFullTextQuery(query, getEntityClass()).list().size();
 	}
 
 	private org.apache.lucene.search.Query createSimpleFullTextQuery(String value, String[] searchFields, FullTextSession fullTextSession,
@@ -313,13 +309,11 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextSession fullTextSession = getFullTextSession();
 		org.apache.lucene.search.Query booleanQuery = new BooleanQuery();
 
-		if (ObjectValidator.validateString(value)) {
+		org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
+		org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { multiEmpresaQuery };
 
-			org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
-			org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { multiEmpresaQuery };
+		booleanQuery = booleanQuery.combine(empresaQuery);
 
-			booleanQuery = booleanQuery.combine(empresaQuery);
-		}
 		booleanQuery = generateFiltersQuery(filters, booleanQuery);
 
 		return booleanQuery;
@@ -332,12 +326,16 @@ public abstract class AbstractCrudDAO<T> {
 			int i = 0;
 			for (Object property : filters.keySet()) {
 				BooleanQuery boolQuery = new BooleanQuery();
+				String search = filters.get(property);
+				String[] words = search.split(" ");
+				StringBuffer sb = new StringBuffer();
+				for (String word : words) {
+					sb.append(word + "*");
+				}
 
-				boolQuery.add(new FuzzyQuery(new Term(property.toString(), filters.get(property))), Occur.MUST);// Colocar
-																												// fulltextseacrh
-																												// da
-																												// session
+				boolQuery.add(new FuzzyQuery(new Term(property.toString(), sb.substring(0, sb.length() - 1))), Occur.MUST);
 				queriesArray[i] = boolQuery;
+				i++;
 			}
 
 			booleanQuery = booleanQuery.combine(queriesArray);
@@ -353,32 +351,45 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	private org.apache.lucene.search.Query buildMultiEmpresaQuery(String value, String[] searchFields, FullTextSession fullTextSession, FmMenu menu) {
-		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
-		value = value.trim();
 
-		BooleanQuery booleanQuery = new BooleanQuery();
-		Analyzer an = fullTextSession.getSearchFactory().getAnalyzer("dc_combo_analyzer");
+		org.apache.lucene.search.Query luceneQueryForEmpresa = new org.apache.lucene.search.Query() {
 
-		QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
-		org.apache.lucene.search.Query query = qb.keyword().fuzzy().onFields(searchFields).matching(value).createQuery();
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String toString(String arg0) {
+
+				return null;
+			}
+		};
 
 		try {
-			if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
-				Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
-				QueryParser parser = new QueryParser(Version.LUCENE_31, "empresa.id", an2);
-				org.apache.lucene.search.Query luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
-				booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
+			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
+
+			Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
+			QueryParser parser = new QueryParser(Version.LUCENE_31, "empresa.id", an2);
+			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
+
+			BooleanQuery booleanQuery = new BooleanQuery();
+			if (ObjectValidator.validateString(value)) {
+				value = value.trim();
+
+				QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+				org.apache.lucene.search.Query query = qb.keyword().fuzzy().onFields(searchFields).matching(value).createQuery();
+				booleanQuery.add(query, Occur.MUST);
+
 			}
 
-			org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { booleanQuery };
-
-			query.combine(empresaQuery);
+			booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		return query;
+		return luceneQueryForEmpresa;
 	}
 
 	protected abstract String[] getDefaultSearchFields();
@@ -389,7 +400,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu,
+	public List<T> fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu,
 			Map<Object, String> filters) {
 		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu, filters);
 	}
@@ -418,21 +429,20 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public int count(Class c) {
-		// TODO Auto-generated method stub
+	public int count(Class<T> c) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
-		List l = criteria.setProjection(Projections.rowCount()).list();
+		List<T> l = criteria.setProjection(Projections.rowCount()).list();
 
 		return Integer.valueOf(l.get(0).toString());
 	}
 
 	@Transactional
-	public List getAllPaged(Class clazz, int start, int pageSize, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
+	public List<T> getAllPaged(Class<T> clazz, int start, int pageSize, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(clazz);
 		configureHQLOrder(sortingFields, states, criteria);
 		criteria.setFirstResult(start);
 		criteria.setMaxResults(pageSize);
-		List result = criteria.list();
+		List<T> result = criteria.list();
 
 		return result;
 	}
@@ -454,9 +464,7 @@ public abstract class AbstractCrudDAO<T> {
 			for (int i = 0; i < sortingFields.length; i++) {
 				if (states[i]) {
 					clause = clause + " " + sortingFields[i] + " DESC ,";
-					// criteria.addOrder(Order.desc(sortingFields[i]).ignoreCase().t);
 				} else {
-					// criteria.addOrder(Order.asc(sortingFields[i]).ignoreCase());
 					clause = clause + " " + sortingFields[i] + " ASC ,";
 				}
 			}
@@ -468,12 +476,8 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List<Serializable> getAllPagedByEmpresa(Class pojoClass, Integer idEmpresa, int start, int pageSize, String[] sortingFields,
+	public List<Serializable> getAllPagedByEmpresa(Class<T> pojoClass, Integer idEmpresa, int start, int pageSize, String[] sortingFields,
 			boolean[] states) {
-		// Criteria criteria =
-		// sessionFactory.getCurrentSession().createCriteria(pojoClass);
-		// criteria.add(Restrictions.di)
-
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"from " + pojoClass.getName() + " where empresa.id = :id_empresa " + getHQLOrderByClause(sortingFields, states));
 		query.setParameter("id_empresa", idEmpresa);
@@ -481,22 +485,14 @@ public abstract class AbstractCrudDAO<T> {
 
 		query.setMaxResults(pageSize);
 
-		List result = query.list();
-
-		/*
-		 * configureHQLOrder(sortingFields, states, criteria);
-		 * criteria.setFirstResult(start); criteria.setMaxResults(pageSize);
-		 * criteria.add(Restrictions.eq("empresa.id", idEmpresa));
-		 * criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY); List
-		 * result = criteria.list();
-		 */
+		List<Serializable> result = query.list();
 
 		return result;
 	}
 
 	@Transactional
-	public int countByEmpresa(Class c, Integer idEmpresa) {
-		List l = sessionFactory.getCurrentSession().createCriteria(c).add(Restrictions.eq("empresa.id", idEmpresa))
+	public int countByEmpresa(Class<T> c, Integer idEmpresa) {
+		List<T> l = sessionFactory.getCurrentSession().createCriteria(c).add(Restrictions.eq("empresa.id", idEmpresa))
 				.setProjection(Projections.rowCount()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
 		return Integer.valueOf(l.get(0).toString());
@@ -504,7 +500,6 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public List<T> comboTextSearch(String value, FmMenu menu) {
-		// TODO Auto-generated method stub
 		String[] fields = { comboCode, comboValue };
 
 		FullTextSession fullTextSession = getFullTextSession();
@@ -514,5 +509,4 @@ public abstract class AbstractCrudDAO<T> {
 
 		return resultSet;
 	}
-
 }

@@ -66,8 +66,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 		try {
 			this.pEntity.setCaption(this.subView.getTxtCaption().getValue());
 			this.pEntity.setUrlId(this.subView.getTxtURL().getValue());
-			this.pEntity.setControllerClass(this.subView.getTxtController()
-					.getValue());
+			this.pEntity.setControllerClass(this.subView.getTxtController().getValue());
 
 			boolean b1 = this.subView.getCkbPermissaoOperacao().getValue();
 
@@ -77,13 +76,12 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 			this.pEntity.setConsultaMultiempresa((b2 == true ? 1 : 0));
 
-			this.pEntity.setFmModulo((FmModulo) this.subView.getCbModulo()
-					.getValue());
+			this.pEntity.setConsultaFilterTable(this.subView.getCkbConsultaFilterTable().getValue() == true ? 1 : 0);
 
-			if (this.subView.getTipoMenu().isSelected(
-					FilhoEnum.FILHO_MENU.toString())) {
-				this.pEntity.setParent((FmMenu) this.subView.getCbMenu()
-						.getValue());
+			this.pEntity.setFmModulo((FmModulo) this.subView.getCbModulo().getValue());
+
+			if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MENU.toString())) {
+				this.pEntity.setParent((FmMenu) this.subView.getCbMenu().getValue());
 			}
 
 			this.pDAO.saveOrUpdate(this.pEntity);
@@ -180,8 +178,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (estaVazio(this.subView.getTxtCaption())
-				|| estaVazio(this.subView.getTxtURL())) {
+		if (estaVazio(this.subView.getTxtCaption()) || estaVazio(this.subView.getTxtURL())) {
 			return false;
 		}
 
@@ -278,14 +275,10 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 			this.subView.getTxtCaption().setValue(this.pEntity.getCaption());
 			this.subView.getTxtURL().setValue(this.pEntity.getUrlId());
-			this.subView.getTxtController().setValue(
-					this.pEntity.getControllerClass());
-			this.subView.getCkbPermissaoOperacao().setValue(
-					(this.pEntity.getPermissaoOperacao() == 1 ? true : false));
-			this.subView.getCkbConsultaMultiempresa()
-					.setValue(
-							(this.pEntity.getConsultaMultiempresa() == 1 ? true
-									: false));
+			this.subView.getTxtController().setValue(this.pEntity.getControllerClass());
+			this.subView.getCkbPermissaoOperacao().setValue((this.pEntity.getPermissaoOperacao() == 1 ? true : false));
+			this.subView.getCkbConsultaMultiempresa().setValue((this.pEntity.getConsultaMultiempresa() == 1 ? true : false));
+			this.subView.getCkbConsultaFilterTable().setValue(this.pEntity.isConsultaFilterTable());
 
 			/**
 			 * 
@@ -300,21 +293,16 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 				this.subView.getCbMenu().setVisible(false);
 				this.subView.getTxtController().setVisible(false);
 
-				if (this.subView.getTipoMenu().isSelected(
-						FilhoEnum.FILHO_MODULO.toString())) {
-					this.subView.getTipoMenu().select(
-							FilhoEnum.FILHO_MENU.toString());
+				if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MODULO.toString())) {
+					this.subView.getTipoMenu().select(FilhoEnum.FILHO_MENU.toString());
 				}
 
-				if (this.subView.getTipoMenu().isSelected(
-						FilhoEnum.FILHO_MENU.toString())) {
-					this.subView.getTipoMenu().select(
-							FilhoEnum.FILHO_MODULO.toString());
+				if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MENU.toString())) {
+					this.subView.getTipoMenu().select(FilhoEnum.FILHO_MODULO.toString());
 				}
 			} else {
 				if (this.pEntity.getParent() != null) {
-					this.subView.getTipoMenu().setValue(
-							FilhoEnum.FILHO_MENU.toString());
+					this.subView.getTipoMenu().setValue(FilhoEnum.FILHO_MENU.toString());
 
 					this.subView.getCbMenu().setVisible(true);
 					this.subView.getTxtController().setVisible(true);
@@ -351,8 +339,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	 */
 
 	public void verificarTipo(ValueChangeEvent event) {
-		if (event.getProperty().getValue()
-				.equals(FilhoEnum.FILHO_MENU.toString())) {
+		if (event.getProperty().getValue().equals(FilhoEnum.FILHO_MENU.toString())) {
 			this.subView.getCbMenu().setVisible(true);
 			this.subView.getTxtController().setVisible(true);
 		} else {

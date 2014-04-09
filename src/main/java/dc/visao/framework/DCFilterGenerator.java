@@ -1,23 +1,40 @@
 package dc.visao.framework;
 
+import java.io.Serializable;
+
 import org.tepi.filtertable.FilterGenerator;
 
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Or;
 import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Field;
 
-public class DemoFilterTable implements FilterGenerator {
+public class DCFilterGenerator implements FilterGenerator, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Filter generateFilter(Object propertyId, Object value) {
-		if ("nome".equals(propertyId)) {
+		if ("id".equals(propertyId)) {
 			/* Create an 'equals' filter for the ID field */
 			if (value != null && value instanceof String) {
 				try {
 					return new Compare.Equal(propertyId, Integer.parseInt((String) value));
 				} catch (NumberFormatException ignored) {
 					// If no integer was entered, just generate default filter
+				}
+			}
+		} else if ("checked".equals(propertyId)) {
+			if (value != null && value instanceof Boolean) {
+				if (Boolean.TRUE.equals(value)) {
+					return new Compare.Equal(propertyId, value);
+				} else {
+					return new Or(new Compare.Equal(propertyId, true), new Compare.Equal(propertyId, false));
 				}
 			}
 		}
@@ -27,42 +44,39 @@ public class DemoFilterTable implements FilterGenerator {
 
 	@Override
 	public Filter generateFilter(Object propertyId, Field<?> originatingField) {
-		if ("id".equals(propertyId)) {
-			/* Create an 'equals' filter for the ID field */
-			if (originatingField != null && originatingField.getValue() instanceof String) {
-				try {
-					return new Compare.Equal(propertyId, Integer.parseInt((String) originatingField.getValue()));
-				} catch (NumberFormatException ignored) {
-					// If no integer was entered, just generate default filter
-				}
-			}
-		}
-		// For other properties, use the default filter
+		// Use the default filter
 		return null;
 	}
 
 	@Override
 	public AbstractField<?> getCustomFilterComponent(Object propertyId) {
-		// TODO Auto-generated method stub
+		// removed custom filter component for id
+		if ("checked".equals(propertyId)) {
+			CheckBox box = new CheckBox();
+			return box;
+		}
 		return null;
 	}
 
 	@Override
 	public void filterRemoved(Object propertyId) {
-		// TODO Auto-generated method stub
-
+		// Notification n = new Notification("Filter removed from: " +
+		// propertyId, Notification.Type.TRAY_NOTIFICATION);
+		// n.setDelayMsec(800);
+		// n.show(Page.getCurrent());
 	}
 
 	@Override
 	public void filterAdded(Object propertyId, Class<? extends Filter> filterType, Object value) {
-		// TODO Auto-generated method stub
-
+		// Notification n = new Notification("Filter added to: " + propertyId,
+		// Notification.Type.TRAY_NOTIFICATION);
+		// n.setDelayMsec(800);
+		// n.show(Page.getCurrent());
 	}
 
 	@Override
 	public Filter filterGeneratorFailed(Exception reason, Object propertyId, Object value) {
-		// TODO Auto-generated method stub
+		/* Return null -> Does not add any filter on failure */
 		return null;
 	}
-
 }

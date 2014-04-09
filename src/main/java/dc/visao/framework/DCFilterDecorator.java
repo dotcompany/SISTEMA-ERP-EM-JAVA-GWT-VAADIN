@@ -1,5 +1,7 @@
 package dc.visao.framework;
 
+import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Locale;
 
 import org.tepi.filtertable.FilterDecorator;
@@ -9,9 +11,14 @@ import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.datefield.Resolution;
 
-import dc.visao.framework.component.CustomListTable.State;
+import dc.visao.framework.component.SearchableCustomListTable.State;
 
-public class DemoFilterDecorator implements FilterDecorator {
+public class DCFilterDecorator implements FilterDecorator, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String getEnumFilterDisplayName(Object propertyId, Object value) {
@@ -68,12 +75,6 @@ public class DemoFilterDecorator implements FilterDecorator {
 	}
 
 	@Override
-	public Locale getLocale() {
-		// will use the application locale
-		return null;
-	}
-
-	@Override
 	public String getFromCaption() {
 		return "Start date:";
 	}
@@ -97,20 +98,34 @@ public class DemoFilterDecorator implements FilterDecorator {
 
 	@Override
 	public boolean isTextFilterImmediate(Object propertyId) {
-		// TODO Auto-generated method stub
-		return false;
+		// use text change events for all the text fields
+		return true;
 	}
 
 	@Override
 	public int getTextChangeTimeout(Object propertyId) {
-		// TODO Auto-generated method stub
-		return 0;
+		// use the same timeout for all the text fields
+		return 500;
+	}
+
+	@Override
+	public String getAllItemsVisibleString() {
+		return "";
 	}
 
 	@Override
 	public Resolution getDateFieldResolution(Object propertyId) {
+		return Resolution.DAY;
+	}
+
+	public DateFormat getDateFormat(Object propertyId) {
+		return DateFormat.getDateInstance(DateFormat.SHORT, new Locale("pt", "BR"));
+	}
+
+	@Override
+	public boolean usePopupForNumericProperty(Object propertyId) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
@@ -120,7 +135,7 @@ public class DemoFilterDecorator implements FilterDecorator {
 	}
 
 	@Override
-	public String getAllItemsVisibleString() {
+	public Locale getLocale() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -130,11 +145,4 @@ public class DemoFilterDecorator implements FilterDecorator {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public boolean usePopupForNumericProperty(Object propertyId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

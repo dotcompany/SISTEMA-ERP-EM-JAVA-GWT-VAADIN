@@ -19,6 +19,10 @@ import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.dialogs.DefaultConfirmDialogFactory;
 
 import com.sun.istack.logging.Logger;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
+import com.vaadin.data.Container.PropertySetChangeEvent;
+import com.vaadin.data.Container.PropertySetChangeListener;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
@@ -49,10 +53,10 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
-import dc.visao.framework.DemoFilterDecorator;
-import dc.visao.framework.DemoFilterTable;
+import dc.visao.framework.DCFilterDecorator;
+import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
-import dc.visao.framework.component.CustomListTable;
+import dc.visao.framework.component.SearchableCustomListTable;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
@@ -70,7 +74,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	public static final int WINDOW_LIST = 1;
 	public static final int WINDOW_FORM = 2;
 	CRUDListView view;
-	private CustomListTable table;
+	private SearchableCustomListTable table;
 
 	private HashMap selected = new HashMap<Object, Object>();
 
@@ -286,11 +290,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		String valor = view.getTxtPesquisa().getValue();
 
 		// Configura da tabela
-		table = new CustomListTable();
+		FmMenu menu = getMenu();
 
-		table.setFilterDecorator(new DemoFilterDecorator());
-		table.setFilterGenerator(new DemoFilterTable());
-		table.setFilterBarVisible(true);
+		table = new SearchableCustomListTable();
+		if (menu.isConsultaFilterTable()) {
+			table.setFilterDecorator(new DCFilterDecorator());
+			table.setFilterGenerator(new DCFilterGenerator());
+			table.setFilterBarVisible(true);
+		}
 
 		table.setFileHandler(fileUtils);
 		table.setEntityName(getEntityClass().getSimpleName());
@@ -384,7 +391,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		 * return checkBox; } });
 		 */
 
-		table.addGeneratedColumn(CustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
+		table.addGeneratedColumn(SearchableCustomListTable.CUSTOM_SELECT_ID, new ColumnGenerator() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -448,7 +455,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 			selected.clear();
 			table.setWidth("100%");
-			table.setColumnWidth(CustomListTable.CUSTOM_SELECT_ID, 60);
+			table.setColumnWidth(SearchableCustomListTable.CUSTOM_SELECT_ID, 60);
 			logger.info("valor pesquisado: " + valor);
 
 			BeanQueryFactory queryFactory = null;
@@ -485,6 +492,29 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			table.setSizeFull();
 			table.setContainerDataSource(container);
 
+			container.addItemSetChangeListener(new ItemSetChangeListener() {
+
+				@Override
+				public void containerItemSetChange(ItemSetChangeEvent event) {
+					System.out.println("Mudei");
+					table.setFooterVisible(true);
+					table.setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+					table.setColumnFooter(table.getColumnHeaders()[1], table.size() + " registro(s) encontrado(s)");
+
+				}
+			});
+
+			container.addPropertySetChangeListener(new PropertySetChangeListener() {
+
+				@Override
+				public void containerPropertySetChange(PropertySetChangeEvent event) {
+					// table.setFooterVisible(true);
+					table.setFooterVisible(true);
+					table.setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
+					table.setColumnFooter(table.getColumnHeaders()[1], table.size() + " registro(s) encontrado(s)");
+				}
+			});
+
 			for (String prop : getColunas()) {
 				Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
 
@@ -500,7 +530,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 					// container.addNestedContainerProperty(prop);
 				}
 
-				if (prop.equals(CustomListTable.CUSTOM_SELECT_ID)) {
+				if (prop.equals(SearchableCustomListTable.CUSTOM_SELECT_ID)) {
 					table.setColumnExpandRatio(prop, 1);
 				} else {
 					table.setColumnExpandRatio(prop, 3);
@@ -510,15 +540,18 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			boolean loadedFromFile = table.loadFromFile();
 			// boolean loadedFromFile = false;
 			if (!loadedFromFile) {
-				Object[] cs = new Object[] { CustomListTable.CUSTOM_SELECT_ID };
+				Object[] cs = new Object[] { SearchableCustomListTable.CUSTOM_SELECT_ID };
 				Object[] allCollumns = ArrayUtils.addAll(cs, getColunas());
 				table.setVisibleColumns(allCollumns);
 			}
 
 			if (getColunas() != null && getColunas().length > 1) {
 				table.setFooterVisible(true);
-				table.setColumnFooter(CustomListTable.CUSTOM_SELECT_ID, "Total: ");
-				table.setColumnFooter(getColunas()[0], container.getItemIds().size() + " registro(s) encontrado(s)");
+				// table.setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID,
+				// "Total: ");
+				// table.setColumnFooter(getColunas()[0],
+				// container.getItemIds().size() +
+				// " registro(s) encontrado(s)");
 			}
 		} catch (Exception e) {
 			logger.info(e.getMessage());
