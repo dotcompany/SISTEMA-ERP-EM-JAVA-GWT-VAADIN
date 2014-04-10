@@ -471,8 +471,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Adiantamento")
 	private Integer adiantamento;
 
-	@Field
-	@Column(name = "id_tribut_operacao_fiscal")
+	@ManyToOne
+	@JoinColumn(name = "id_tribut_operacao_fiscal")
 	@Caption(value = "Tributário - Operação fiscal")
 	private OperacaoFiscal tributOperacaoFiscal;
 
@@ -481,8 +481,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Venda - Cabeçalho")
 	private Integer vendaCabecalho;
 
-	@Field
-	@Column(name = "id_fornecedor")
+	@ManyToOne
+	@JoinColumn(name = "id_fornecedor")
 	@Caption(value = "Fornecedor")
 	private Fornecedor fornecedor;
 
