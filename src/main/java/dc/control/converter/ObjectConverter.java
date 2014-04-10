@@ -243,4 +243,17 @@ public class ObjectConverter {
 		return new BigDecimal(s);
 	}
 
+	/**
+	 * Este método converte um ValueChangeEvent em Object.
+	 * 
+	 * @param event
+	 * @return Object
+	 */
+
+	public synchronized static Object eventToObject(ValueChangeEvent event) {
+		Object obj = event.getProperty().getValue();
+
+		return obj;
+	}
+
 }

@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -29,6 +31,9 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.Fornecedor;
+import dc.entidade.pessoal.Cliente;
+import dc.entidade.tributario.OperacaoFiscal;
 
 /**
  * 
@@ -469,7 +474,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Column(name = "id_tribut_operacao_fiscal")
 	@Caption(value = "Tributário - Operação fiscal")
-	private Integer tributOperacaoFiscal;
+	private OperacaoFiscal tributOperacaoFiscal;
 
 	@Field
 	@Column(name = "id_venda_cabecalho")
@@ -479,12 +484,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Column(name = "id_fornecedor")
 	@Caption(value = "Fornecedor")
-	private Integer fornecedor;
+	private Fornecedor fornecedor;
 
-	@Field
-	@Column(name = "id_cliente")
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
 	@Caption(value = "Cliente")
-	private Integer cliente;
+	private Cliente cliente;
 
 	@Field
 	@Column(name = "id_contabil_lanca_programado_det")
@@ -1034,11 +1039,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				: adiantamento);
 	}
 
-	public Integer getTributOperacaoFiscal() {
+	public OperacaoFiscal getTributOperacaoFiscal() {
 		return tributOperacaoFiscal;
 	}
 
-	public void setTributOperacaoFiscal(Integer tributOperacaoFiscal) {
+	public void setTributOperacaoFiscal(OperacaoFiscal tributOperacaoFiscal) {
 		this.tributOperacaoFiscal = tributOperacaoFiscal;
 	}
 
@@ -1050,19 +1055,19 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.vendaCabecalho = vendaCabecalho;
 	}
 
-	public Integer getFornecedor() {
+	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Integer fornecedor) {
+	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public Integer getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Integer cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 

@@ -1024,7 +1024,7 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
-	public void nfeDestinatarioSetarValor(String id, ValueChangeEvent event) {
+	public void nfeDestinatarioSetarValor(String id, Object obj) {
 		// TODO nfeDestinatarioSetarValor
 
 		NfeDestinatarioEntity nfeDestinatario = this.nfeCabecalho
@@ -1034,27 +1034,25 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfEmailDestinatario":
-			nfeDestinatario.setEmail(s.toString().trim());
+			nfeDestinatario.setEmail((String) obj);
 
 			break;
 		case "tfSuframaDestinatario":
-			nfeDestinatario.setSuframa(s.toString().trim());
+			nfeDestinatario.setSuframa((String) obj);
 
 			break;
 		case "tfTelefoneDestinatario":
-			nfeDestinatario.setTelefone(s.toString().trim());
+			nfeDestinatario.setTelefone((String) obj);
 
 			break;
 		case "tfInscricaoEstadualDestinatario":
-			nfeDestinatario.setInscricaoEstadual(s.toString().trim());
+			nfeDestinatario.setInscricaoEstadual((String) obj);
 
 			break;
 		case "tfUfDestinatario":
-			nfeDestinatario.setUf(s.toString().trim());
+			nfeDestinatario.setUf((String) obj);
 
 			break;
 		case "tfCidadeDestinatario":
@@ -1066,31 +1064,31 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfBairroLogradouroDestinatario":
-			nfeDestinatario.setBairro(s.toString().trim());
+			nfeDestinatario.setBairro((String) obj);
 
 			break;
 		case "tfLogradouroComplementoDestinatario":
-			nfeDestinatario.setComplemento(s.toString().trim());
+			nfeDestinatario.setComplemento((String) obj);
 
 			break;
 		case "tfLogradouroNumeroDestinatario":
-			nfeDestinatario.setNumero(s.toString().trim());
+			nfeDestinatario.setNumero((String) obj);
 
 			break;
 		case "tfLogradouroDestinatario":
-			nfeDestinatario.setLogradouro(s.toString().trim());
+			nfeDestinatario.setLogradouro((String) obj);
 
 			break;
 		case "tfCepDestinatario":
-			nfeDestinatario.setCep(s.toString().trim());
+			nfeDestinatario.setCep((String) obj);
 
 			break;
 		case "tfRazaoSocialDestinatario":
-			nfeDestinatario.setRazaoSocial(s.toString().trim());
+			nfeDestinatario.setRazaoSocial((String) obj);
 
 			break;
 		case "tfCpfCnpjDestinatario":
-			nfeDestinatario.setCpfCnpj(s.toString().trim());
+			nfeDestinatario.setCpfCnpj((String) obj);
 
 			break;
 		case "tfIdDestinatario":
@@ -1100,7 +1098,7 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
-	public void nfeDetalheSetarValor(String id, ValueChangeEvent event) {
+	public void nfeDetalheSetarValor(String id, Object obj) {
 		// TODO nfeDetalheSetarValor
 
 		boolean b = this.subView.getGlNfeDetalhe().isEnabled();
@@ -1109,12 +1107,10 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfNumeroItem":
-			this.nfeDetalheSelecionado.setNumeroItem(new Integer(s.toString()
-					.trim()));
+			this.nfeDetalheSelecionado.setNumeroItem(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		// case "tfCodigoProduto":
@@ -1122,11 +1118,11 @@ public class ProdutoServicoFormController extends
 
 		// break;
 		case "tfGtin":
-			this.nfeDetalheSelecionado.setGtin(s.toString().trim());
+			this.nfeDetalheSelecionado.setGtin((String) obj);
 
 			break;
 		case "mtoProduto":
-			ItemValue m = (ItemValue) s;
+			ItemValue m = (ItemValue) obj;
 			Produto produto = (Produto) m.getBean();
 
 			this.nfeDetalheSelecionado.setProduto(produto);
@@ -1135,114 +1131,109 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfNcm":
-			this.nfeDetalheSelecionado.setNcm(s.toString().trim());
+			this.nfeDetalheSelecionado.setNcm((String) obj);
 
 			break;
 		case "tfExTipi":
-			this.nfeDetalheSelecionado.setExTipi(new Integer(s.toString()
-					.trim()));
+			this.nfeDetalheSelecionado.setExTipi(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfCfop":
-			this.nfeDetalheSelecionado
-					.setCfop(new Integer(s.toString().trim()));
+			this.nfeDetalheSelecionado.setCfop(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfUnidadeComercial":
-			this.nfeDetalheSelecionado.setUnidadeComercial(s.toString().trim());
+			this.nfeDetalheSelecionado.setUnidadeComercial((String) obj);
 
 			break;
 		case "tfQuantidadeComercial":
-			BigDecimal s1 = ObjectConverter.stringToValue(s.toString().trim());
-
-			this.nfeDetalheSelecionado.setQuantidadeComercial(s1);
+			this.nfeDetalheSelecionado.setQuantidadeComercial(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorUnitarioComercial":
 			this.nfeDetalheSelecionado
-					.setValorUnitarioComercial(new BigDecimal(s.toString()
-							.trim()));
+					.setValorUnitarioComercial(ObjectConverter
+							.stringToValue((String) obj));
 
 			break;
 		case "tfValorBrutoProduto":
-			this.nfeDetalheSelecionado.setValorBrutoProduto(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorBrutoProduto(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfGtinUnidadeTributavel":
-			this.nfeDetalheSelecionado.setGtinUnidadeTributavel(s.toString()
-					.trim());
+			this.nfeDetalheSelecionado.setGtinUnidadeTributavel((String) obj);
 
 			break;
 		case "tfUnidadeTributavel":
-			this.nfeDetalheSelecionado
-					.setUnidadeTributavel(s.toString().trim());
+			this.nfeDetalheSelecionado.setUnidadeTributavel((String) obj);
 
 			break;
 		case "tfQuantidadeTributavel":
-			this.nfeDetalheSelecionado.setQuantidadeTributavel(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setQuantidadeTributavel(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorUnitarioTributavel":
 			this.nfeDetalheSelecionado
-					.setValorUnitarioTributavel(new BigDecimal(s.toString()
-							.trim()));
+					.setValorUnitarioTributavel(ObjectConverter
+							.stringToValue((String) obj));
 
 			break;
 		case "tfValorFrete":
-			this.nfeDetalheSelecionado.setValorFrete(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorFrete(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorSeguro":
-			this.nfeDetalheSelecionado.setValorSeguro(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorSeguro(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorDesconto":
-			this.nfeDetalheSelecionado.setValorDesconto(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorDesconto(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorOutrasDespesas":
-			this.nfeDetalheSelecionado.setValorOutrasDespesas(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorOutrasDespesas(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfEntraTotal":
-			this.nfeDetalheSelecionado.setEntraTotal(s.toString().trim());
+			this.nfeDetalheSelecionado.setEntraTotal((String) obj);
 
 			break;
 		case "tfValorSubtotal":
-			this.nfeDetalheSelecionado.setValorSubtotal(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorSubtotal(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorTotal":
-			this.nfeDetalheSelecionado.setValorTotal(new BigDecimal(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setValorTotal(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfNumeroPedidoCompra":
-			this.nfeDetalheSelecionado.setNumeroPedidoCompra(s.toString()
-					.trim());
+			this.nfeDetalheSelecionado.setNumeroPedidoCompra((String) obj);
 
 			break;
 		case "tfItemPedidoCompra":
-			this.nfeDetalheSelecionado.setItemPedidoCompra(new Integer(s
-					.toString().trim()));
+			this.nfeDetalheSelecionado.setItemPedidoCompra(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfInformacoesAdicionais":
-			this.nfeDetalheSelecionado.setInformacoesAdicionais(s.toString()
-					.trim());
+			this.nfeDetalheSelecionado.setInformacoesAdicionais((String) obj);
 
 			break;
 		}
 	}
 
-	public void ndiCofinsSetarValor(String id, ValueChangeEvent event) {
+	public void ndiCofinsSetarValor(String id, Object obj) {
 		// TODO ndiCofinsSetarValor
 
 		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheSelecionado
@@ -1252,33 +1243,34 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfCstCofins":
-			ndiCofins.setCstCofins(s.toString().trim());
+			ndiCofins.setCstCofins((String) obj);
 
 			break;
 		case "tfQtdVendidaCofins":
-			ndiCofins.setQuantidadeVendida(new BigDecimal(s.toString().trim()));
+			ndiCofins.setQuantidadeVendida(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfBaseCalculoBcCofins":
-			ndiCofins.setBaseCalculoCofins(new BigDecimal(s.toString().trim()));
+			ndiCofins.setBaseCalculoCofins(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaPercentualCofins":
-			ndiCofins.setAliquotaCofinsPercentual(new BigDecimal(s.toString()
-					.trim()));
+			ndiCofins.setAliquotaCofinsPercentual(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaReaisCofins":
-			ndiCofins
-					.setAliquotaCofinsReais(new BigDecimal(s.toString().trim()));
+			ndiCofins.setAliquotaCofinsReais(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorCofins":
-			ndiCofins.setValorCofins(new BigDecimal(s.toString().trim()));
+			ndiCofins.setValorCofins(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		}
@@ -1295,7 +1287,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndiIcmsSetarValor(String id, ValueChangeEvent event) {
+	public void ndiIcmsSetarValor(String id, Object obj) {
 		// TODO ndiIcmsSetarValor
 
 		NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheSelecionado
@@ -1305,102 +1297,110 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfOrigemMercadoriaIcms":
-			ndiIcms.setOrigemMercadoria(s.toString().trim());
+			ndiIcms.setOrigemMercadoria((String) obj);
 
 			break;
 		case "tfCstIcms":
-			ndiIcms.setCstIcms(s.toString().trim());
+			ndiIcms.setCstIcms((String) obj);
 
 			break;
 		case "tfCsosnIcms":
-			ndiIcms.setCsosn(s.toString().trim());
+			ndiIcms.setCsosn((String) obj);
 
 			break;
 		case "tfModalidadeBcIcms":
-			ndiIcms.setModalidadeBcIcms(s.toString().trim());
+			ndiIcms.setModalidadeBcIcms((String) obj);
 
 			break;
 		case "tfTaxaReducaoBcIcms":
-			ndiIcms.setTaxaReducaoBcIcms(new BigDecimal(s.toString().trim()));
+			ndiIcms.setTaxaReducaoBcIcms(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfBaseCalculoBcIcms":
-			ndiIcms.setBaseCalculoIcms(new BigDecimal(s.toString().trim()));
+			ndiIcms.setBaseCalculoIcms(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaIcms":
-			ndiIcms.setAliquotaIcms(new BigDecimal(s.toString().trim()));
+			ndiIcms.setAliquotaIcms(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorIcms":
-			ndiIcms.setValorIcms(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorIcms(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfMotivoDesoneracaoIcms":
-			ndiIcms.setMotivoDesoneracaoIcms(s.toString().trim());
+			ndiIcms.setMotivoDesoneracaoIcms((String) obj);
 
 			break;
 		case "tfModalidadeBcStIcms":
-			ndiIcms.setModalidadeBcIcmsSt(s.toString().trim());
+			ndiIcms.setModalidadeBcIcmsSt((String) obj);
 
 			break;
 		case "tfPercentualMvaStIcms":
-			ndiIcms.setPercentualMvaIcmsSt(new BigDecimal(s.toString().trim()));
+			ndiIcms.setPercentualMvaIcmsSt(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfTaxaReducaoBcStIcms":
-			ndiIcms.setPercentualReducaoBcIcmsSt(new BigDecimal(s.toString()
-					.trim()));
+			ndiIcms.setPercentualReducaoBcIcmsSt(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfBaseCalculoStIcms":
-			ndiIcms.setValorBaseCalculoIcmsSt(new BigDecimal(s.toString()
-					.trim()));
+			ndiIcms.setValorBaseCalculoIcmsSt(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaStIcms":
-			ndiIcms.setAliquotaIcmsSt(new BigDecimal(s.toString().trim()));
+			ndiIcms.setAliquotaIcmsSt(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorStIcms":
-			ndiIcms.setValorIcmsSt(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorIcmsSt(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfBcStRetidoIcms":
-			ndiIcms.setValorBcIcmsStRetido(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorBcIcmsStRetido(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorStRetidoIcms":
-			ndiIcms.setValorIcmsStRetido(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorIcmsStRetido(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfBcStDestinoIcms":
-			ndiIcms.setValorBcIcmsStDestino(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorBcIcmsStDestino(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorStDestinoIcms":
-			ndiIcms.setValorIcmsStDestino(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorIcmsStDestino(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaCreditoSnIcms":
-			ndiIcms.setAliquotaCreditoIcmsSn(new BigDecimal(s.toString().trim()));
+			ndiIcms.setAliquotaCreditoIcmsSn(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorCreditoSnIcms":
-			ndiIcms.setValorCreditoIcmsSn(new BigDecimal(s.toString().trim()));
+			ndiIcms.setValorCreditoIcmsSn(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfPercentualBcOperacaoPropriaIcms":
-			ndiIcms.setPercentualBcOperacaoPropria(new BigDecimal(s.toString()
-					.trim()));
+			ndiIcms.setPercentualBcOperacaoPropria(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfUfStIcms":
-			ndiIcms.setUfSt(s.toString().trim());
+			ndiIcms.setUfSt((String) obj);
 
 			break;
 		}
@@ -1417,7 +1417,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndiIiSetarValor(String id, ValueChangeEvent event) {
+	public void ndiIiSetarValor(String id, Object obj) {
 		// TODO ndiIiSetarValor
 
 		NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheSelecionado
@@ -1427,23 +1427,23 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfBaseCalculoBcImpostoImportacao":
-			ndiIi.setValorBcIi(new BigDecimal(s.toString().trim()));
+			ndiIi.setValorBcIi(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfDespesasAduaneirasImpostoImportacao":
-			ndiIi.setValorDespesasAduaneiras(new BigDecimal(s.toString().trim()));
+			ndiIi.setValorDespesasAduaneiras(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorImpostoImportacao":
-			ndiIi.setValorImpostoImportacao(new BigDecimal(s.toString().trim()));
+			ndiIi.setValorImpostoImportacao(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfIofImpostoImportacao":
-			ndiIi.setValorIof(new BigDecimal(s.toString().trim()));
+			ndiIi.setValorIof(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		}
@@ -1533,7 +1533,7 @@ public class ProdutoServicoFormController extends
 		 */
 	}
 
-	public void ndiIssqnSetarValor(String id, ValueChangeEvent event) {
+	public void ndiIssqnSetarValor(String id, Object obj) {
 		// TODO ndiIssqnSetarValor
 
 		NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheSelecionado
@@ -1543,31 +1543,33 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfBaseCalculoBcIssqn":
-			ndiIssqn.setBaseCalculoIssqn(new BigDecimal(s.toString().trim()));
+			ndiIssqn.setBaseCalculoIssqn(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaIssqn":
-			ndiIssqn.setAliquotaIssqn(new BigDecimal(s.toString().trim()));
+			ndiIssqn.setAliquotaIssqn(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorIssqn":
-			ndiIssqn.setValorIssqn(new BigDecimal(s.toString().trim()));
+			ndiIssqn.setValorIssqn(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfMunicipioIssqn":
-			ndiIssqn.setMunicipioIssqn(new Integer(s.toString().trim()));
+			ndiIssqn.setMunicipioIssqn(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfItemListaServicosIssqn":
-			ndiIssqn.setItemListaServicos(new Integer(s.toString().trim()));
+			ndiIssqn.setItemListaServicos(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfTributacaoIssqn":
-			ndiIssqn.setTributacaoIssqn(s.toString().trim());
+			ndiIssqn.setTributacaoIssqn((String) obj);
 
 			break;
 		}
@@ -1584,7 +1586,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndiPisSetarValor(String id, ValueChangeEvent event) {
+	public void ndiPisSetarValor(String id, Object obj) {
 		// TODO ndiPisSetarValor
 
 		NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheSelecionado
@@ -1594,31 +1596,33 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfCstPis":
-			ndiPis.setCstPis(s.toString().trim());
+			ndiPis.setCstPis((String) obj);
 
 			break;
 		case "tfQtdVendidaPis":
-			ndiPis.setQuantidadeVendida(new BigDecimal(s.toString().trim()));
+			ndiPis.setQuantidadeVendida(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfBaseCalculoBcPis":
-			ndiPis.setValorBaseCalculoPis(new BigDecimal(s.toString().trim()));
+			ndiPis.setValorBaseCalculoPis(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaPercentualPis":
-			ndiPis.setAliquotaPisPercentual(new BigDecimal(s.toString().trim()));
+			ndiPis.setAliquotaPisPercentual(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaReaisPis":
-			ndiPis.setAliquotaPisReais(new BigDecimal(s.toString().trim()));
+			ndiPis.setAliquotaPisReais(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorPis":
-			ndiPis.setValorPis(new BigDecimal(s.toString().trim()));
+			ndiPis.setValorPis(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		}
@@ -1635,7 +1639,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndeCombustivelSetarValor(String id, ValueChangeEvent event) {
+	public void ndeCombustivelSetarValor(String id, Object obj) {
 		// TODO ndeCombustivelSetarValor
 
 		NfeDetEspecificoCombustivelEntity ndiCombustivel = this.nfeDetalheSelecionado
@@ -1645,37 +1649,38 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfCodigoAnpCombustivel":
-			ndiCombustivel.setCodigoAnp(new Integer(s.toString().trim()));
+			ndiCombustivel.setCodigoAnp(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfCodifCombustivel":
-			ndiCombustivel.setCodif(s.toString().trim());
+			ndiCombustivel.setCodif((String) obj);
 
 			break;
 		case "tfQtdeTempAmbienteCombustivel":
-			ndiCombustivel.setQuantidadeTempAmbiente(new BigDecimal(s
-					.toString().trim()));
+			ndiCombustivel.setQuantidadeTempAmbiente(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfUfConsumoCombustivel":
-			ndiCombustivel.setUfConsumo(s.toString().trim());
+			ndiCombustivel.setUfConsumo((String) obj);
 
 			break;
 		case "tfBcCideCombustivel":
-			ndiCombustivel.setBaseCalculoCide(new BigDecimal(s.toString()
-					.trim()));
+			ndiCombustivel.setBaseCalculoCide(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaCideCombustivel":
-			ndiCombustivel.setAliquotaCide(new BigDecimal(s.toString().trim()));
+			ndiCombustivel.setAliquotaCide(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorCideCombustivel":
-			ndiCombustivel.setValorCide(new BigDecimal(s.toString().trim()));
+			ndiCombustivel.setValorCide(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		}
@@ -1693,7 +1698,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndeVeiculoSetarValor(String id, ValueChangeEvent event) {
+	public void ndeVeiculoSetarValor(String id, Object obj) {
 		// TODO ndeVeiculoSetarValor
 
 		NfeDetEspecificoVeiculoEntity ndiVeiculo = this.nfeDetalheSelecionado
@@ -1703,103 +1708,102 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfTipoOperacaoVeiculo":
-			ndiVeiculo.setTipoOperacao(s.toString().trim());
+			ndiVeiculo.setTipoOperacao((String) obj);
 
 			break;
 		case "tfChassiVeiculo":
-			ndiVeiculo.setChassi(s.toString().trim());
+			ndiVeiculo.setChassi((String) obj);
 
 			break;
 		case "tfCodigoCorVeiculo":
-			ndiVeiculo.setCodigoCor(s.toString().trim());
+			ndiVeiculo.setCodigoCor((String) obj);
 
 			break;
 		case "tfDescricaoCorVeiculo":
-			ndiVeiculo.setDescricaoCor(s.toString().trim());
+			ndiVeiculo.setDescricaoCor((String) obj);
 
 			break;
 		case "tfPotenciaMotorVeiculo":
-			ndiVeiculo.setPotenciaMotor(s.toString().trim());
+			ndiVeiculo.setPotenciaMotor((String) obj);
 
 			break;
 		case "tfCilindradasVeiculo":
-			ndiVeiculo.setCilindradas(s.toString().trim());
+			ndiVeiculo.setCilindradas((String) obj);
 
 			break;
 		case "tfPesoLiquidoVeiculo":
-			ndiVeiculo.setPesoLiquido(s.toString().trim());
+			ndiVeiculo.setPesoLiquido((String) obj);
 
 			break;
 		case "tfPesoBrutoVeiculo":
-			ndiVeiculo.setPesoBruto(s.toString().trim());
+			ndiVeiculo.setPesoBruto((String) obj);
 
 			break;
 		case "tfNumeroSerieVeiculo":
-			ndiVeiculo.setNumeroSerie(s.toString().trim());
+			ndiVeiculo.setNumeroSerie((String) obj);
 
 			break;
 		case "tfCombustivelVeiculo":
-			ndiVeiculo.setTipoCombustivel(s.toString().trim());
+			ndiVeiculo.setTipoCombustivel((String) obj);
 
 			break;
 		case "tfNumeroMotorVeiculo":
-			ndiVeiculo.setNumeroMotor(s.toString().trim());
+			ndiVeiculo.setNumeroMotor((String) obj);
 
 			break;
 		case "tfCapacidadeTracaoVeiculo":
-			ndiVeiculo.setCapacidadeMaximaTracao(s.toString().trim());
+			ndiVeiculo.setCapacidadeMaximaTracao((String) obj);
 
 			break;
 		case "tfDistanciaEixosVeiculo":
-			ndiVeiculo.setDistanciaEixos(s.toString().trim());
+			ndiVeiculo.setDistanciaEixos((String) obj);
 
 			break;
 		case "tfAnoModeloVeiculo":
-			ndiVeiculo.setAnoModelo(s.toString().trim());
+			ndiVeiculo.setAnoModelo((String) obj);
 
 			break;
 		case "tfAnoFabricacaoVeiculo":
-			ndiVeiculo.setAnoFabricacao(s.toString().trim());
+			ndiVeiculo.setAnoFabricacao((String) obj);
 
 			break;
 		case "tfTipoPinturaVeiculo":
-			ndiVeiculo.setTipoPintura(s.toString().trim());
+			ndiVeiculo.setTipoPintura((String) obj);
 
 			break;
 		case "tfTipoVeiculo":
-			ndiVeiculo.setTipoVeiculo(s.toString().trim());
+			ndiVeiculo.setTipoVeiculo((String) obj);
 
 			break;
 		case "tfEspecieVeiculo":
-			ndiVeiculo.setEspecieVeiculo(s.toString().trim());
+			ndiVeiculo.setEspecieVeiculo((String) obj);
 
 			break;
 		case "tfCondicaoVinVeiculo":
-			ndiVeiculo.setCondicaoVin(s.toString().trim());
+			ndiVeiculo.setCondicaoVin((String) obj);
 
 			break;
 		case "tfCondicaoVeiculo":
-			ndiVeiculo.setCondicaoVeiculo(s.toString().trim());
+			ndiVeiculo.setCondicaoVeiculo((String) obj);
 
 			break;
 		case "tfCodigoMarcaModeloVeiculo":
-			ndiVeiculo.setCodigoMarcaModelo(s.toString().trim());
+			ndiVeiculo.setCodigoMarcaModelo((String) obj);
 
 			break;
 		case "tfCodigoCorDenatranVeiculo":
-			ndiVeiculo.setCor(s.toString().trim());
+			ndiVeiculo.setCor((String) obj);
 
 			break;
 		case "tfLotacaoVeiculo":
-			ndiVeiculo.setLotacao(new Integer(s.toString().trim()));
+			ndiVeiculo
+					.setLotacao(ObjectConverter.stringToInteger((String) obj));
 
 			break;
 		case "tfRestricaoVeiculo":
-			ndiVeiculo.setRestricao(s.toString().trim());
+			ndiVeiculo.setRestricao((String) obj);
 
 			break;
 		}

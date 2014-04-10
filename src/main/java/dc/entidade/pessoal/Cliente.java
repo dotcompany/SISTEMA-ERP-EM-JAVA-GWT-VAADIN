@@ -34,6 +34,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.entidade.tributario.OperacaoFiscal;
 
 /**
  * 
@@ -154,7 +155,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_OPERACAO_FISCAL", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private dc.entidade.tributario.OperacaoFiscal operacaoFiscal;
+	private OperacaoFiscal operacaoFiscal;
 
 	/**
 	 * REFERENCIA - LIST

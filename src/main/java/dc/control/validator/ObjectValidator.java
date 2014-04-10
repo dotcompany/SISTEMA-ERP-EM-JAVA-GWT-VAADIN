@@ -197,6 +197,22 @@ public class ObjectValidator {
 		}
 	}
 
+	public synchronized static Boolean validateInteger(ValueChangeEvent event) {
+		Object s = event.getProperty().getValue();
+
+		boolean valido = validateString(s.toString().trim());
+
+		if (valido) {
+			try {
+				Integer.parseInt(s.toString().trim());
+			} catch (NumberFormatException e) {
+				valido = false;
+			}
+		}
+
+		return valido;
+	}
+
 	/**
 	 * Este método valida um valor, retirando os caracteres especiais.
 	 * 
@@ -230,6 +246,10 @@ public class ObjectValidator {
 		}
 
 		return valido;
+	}
+
+	public synchronized static boolean validateEventValue(ValueChangeEvent event) {
+		return event.getProperty().getValue() != null;
 	}
 
 }
