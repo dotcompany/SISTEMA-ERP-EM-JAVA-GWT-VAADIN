@@ -494,12 +494,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Column(name = "id_contabil_lanca_programado_det")
 	@Caption(value = "Contábil - Lança programado")
-	private Integer contabilLancaProgramadoDet;
+	private Integer contabilLancamentoProgramadoDet;
 
 	@Field
 	@Column(name = "id_contabil_dre_vinculo")
 	@Caption(value = "Contábil - Dre vínculo")
-	private Integer contabilDreVinculoEntity;
+	private Integer contabilDreVinculo;
 
 	@Field
 	@Column(name = "id_view_contrato_dados_contratante")
@@ -1071,20 +1071,23 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.cliente = cliente;
 	}
 
-	public Integer getContabilLancaProgramadoDet() {
-		return contabilLancaProgramadoDet;
+	public Integer getContabilLancamentoProgramadoDet() {
+		return contabilLancamentoProgramadoDet;
 	}
 
-	public void setContabilLancaProgramadoDet(Integer contabilLancaProgramadoDet) {
-		this.contabilLancaProgramadoDet = contabilLancaProgramadoDet;
+	public void setContabilLancamentoProgramadoDet(
+			Integer contabilLancamentoProgramadoDet) {
+		this.contabilLancamentoProgramadoDet = (contabilLancamentoProgramadoDet == null ? new Integer(
+				0) : contabilLancamentoProgramadoDet);
 	}
 
-	public Integer getContabilDreVinculoEntity() {
-		return contabilDreVinculoEntity;
+	public Integer getContabilDreVinculo() {
+		return contabilDreVinculo;
 	}
 
-	public void setContabilDreVinculoEntity(Integer contabilDreVinculoEntity) {
-		this.contabilDreVinculoEntity = contabilDreVinculoEntity;
+	public void setContabilDreVinculo(Integer contabilDreVinculo) {
+		this.contabilDreVinculo = (contabilDreVinculo == null ? new Integer(0)
+				: contabilDreVinculo);
 	}
 
 	public String getContatoEmail() {

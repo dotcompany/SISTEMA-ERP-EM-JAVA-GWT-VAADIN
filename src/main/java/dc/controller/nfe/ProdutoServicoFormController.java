@@ -14,6 +14,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
+import dc.controller.pessoal.ClienteListController;
 import dc.controller.produto.ProdutoListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
@@ -26,6 +27,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIpiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
+import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
@@ -37,6 +39,7 @@ import dc.servicos.dao.nfe.NfeDetalheImpostoIiDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
+import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
@@ -2066,15 +2069,24 @@ public class ProdutoServicoFormController extends
 	 */
 
 	@Autowired
-	private ProdutoDAO pDAO;
+	private ClienteDAO clienteDAO;
+
+	@Autowired
+	private ProdutoDAO produtoDAO;
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<Produto> model = new DefaultManyToOneComboModel<Produto>(
-					ProdutoListController.class, this.pDAO,
+			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(
+					ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
-			this.subView.getMtoProduto().setModel(model);
+			this.subView.getMtoCliente().setModel(model1);
+
+			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(
+					ProdutoListController.class, this.produtoDAO,
+					super.getMainController());
+
+			this.subView.getMtoProduto().setModel(model2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

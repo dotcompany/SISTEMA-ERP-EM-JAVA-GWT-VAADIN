@@ -2,17 +2,18 @@ package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -27,6 +28,7 @@ import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.nfe.NfeCabecalhoEntity;
 
 /**
  * 
@@ -34,8 +36,8 @@ import dc.entidade.framework.ComboValue;
  * 
  */
 
-//@Entity
-//@Table(name = "CONTABIL_LANCA_PROGRAMADO_DET")
+// @Entity
+// @Table(name = "CONTABIL_LANCA_PROGRAMADO_DET")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -103,6 +105,13 @@ public class LancamentoProgramadoDetEntity extends
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	/**
+	 * Módulo: NFE
+	 */
+
+	@OneToMany(mappedBy = "contabilLancamentoProgramadoDet", fetch = FetchType.LAZY)
+	private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
 	 * CONSTRUTOR
@@ -173,6 +182,14 @@ public class LancamentoProgramadoDetEntity extends
 
 	public void setHistorico(HistoricoEntity historico) {
 		this.historico = historico;
+	}
+
+	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+		return nfeCabecalhoList;
+	}
+
+	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
+		this.nfeCabecalhoList = nfeCabecalhoList;
 	}
 
 	/**

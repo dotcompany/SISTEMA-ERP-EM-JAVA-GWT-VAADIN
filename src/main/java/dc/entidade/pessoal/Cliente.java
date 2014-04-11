@@ -15,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -32,6 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.tributario.OperacaoFiscal;
@@ -59,17 +62,18 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_id_seq")
+	@SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Field
 	private Integer id;
 
 	@Field
 	@Caption("Desde")
 	@Column(name = "DESDE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
@@ -82,30 +86,35 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Observacao")
 	@Type(type = "text")
 	@Column(name = "OBSERVACAO", length = 65535)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
 	@Caption("Conta Tomador")
 	@Column(name = "CONTA_TOMADOR")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaTomador;
 
 	@Field
 	@Caption("Gera Financeiro")
 	@Column(name = "GERA_FINANCEIRO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character geraFinanceiro;
 
 	@Field
 	@Caption("Indicador Preco")
 	@Column(name = "INDICADOR_PRECO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String indicadorPreco;
 
 	@Field
 	@Caption("Porcento Desconto")
 	@Column(name = "PORCENTO_DESCONTO", precision = 18, scale = 6)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Double porcentoDesconto;
 
@@ -118,12 +127,14 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Limite Credito")
 	@Column(name = "LIMITE_CREDITO", precision = 18, scale = 6)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Double limiteCredito;
 
 	@Field
 	@Caption("Tipo Frete")
 	@Column(name = "TIPO_FRETE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character tipoFrete;
 
@@ -169,8 +180,16 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
-	 * 
+	 * TRANSIENT
 	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return "";
+	}
 
 	/**
 	 * CONSTRUTOR
@@ -326,12 +345,11 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 		this.contabilConta = contabilConta;
 	}
 
-	public dc.entidade.tributario.OperacaoFiscal getOperacaoFiscal() {
+	public OperacaoFiscal getOperacaoFiscal() {
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(
-			dc.entidade.tributario.OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(OperacaoFiscal operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
 
