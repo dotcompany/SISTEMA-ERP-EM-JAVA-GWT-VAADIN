@@ -16,6 +16,7 @@ import com.vaadin.ui.Component;
 import dc.control.converter.ObjectConverter;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.produto.ProdutoListController;
+import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
@@ -29,6 +30,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
+import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
@@ -41,6 +43,7 @@ import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
+import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
 import dc.visao.framework.geral.CRUDFormController;
@@ -313,8 +316,15 @@ public class ProdutoServicoFormController extends
 
 	private void nfeCabecalhoCarregar() {
 		try {
-			// this.subView.getTfOperacaoFiscalId().setValue(nfeCabecalho);
-			// this.subView.getTfOperacaoFiscal().setValue(nfeCabecalho.get);
+			OperacaoFiscal operacaoFiscal = this.nfeCabecalho
+					.getTributOperacaoFiscal();
+
+			if (operacaoFiscal != null) {
+				this.subView.getMtoOperacaoFiscal().setValue(operacaoFiscal);
+				// this.subView.getTfOperacaoFiscalId().setValue(
+				// operacaoFiscal.getDescricaoNaNF());
+			}
+
 			// this.subView.getTfVenda().setValue(nfeCabecalho.getVendaCabecalho().toString());
 			this.subView.getTfModeloNotaFiscal().setValue(
 					this.nfeCabecalho.getCodigoModelo().trim());
@@ -347,6 +357,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfFormaPagamento().setValue(
 					this.nfeCabecalho.getIndicadorFormaPagamento().trim());
 
+			//
 			this.subView.getPlNfeDetalheSubForm().setCaption(
 					"NFE CABEÇALHO " + this.nfeCabecalho.getNumero());
 		} catch (Exception e) {
@@ -389,6 +400,13 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfCpfCnpjDestinatario().setValue(
 					this.nfeCabecalho.getNfeDestinatario().getCpfCnpj());
 			// this.subView.getTfIdDestinatario().setValue();
+
+			Cliente cliente = this.nfeCabecalho.getCliente();
+
+			if (cliente != null) {
+				this.subView.getMtoCliente().setValue(
+						this.nfeCabecalho.getCliente());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -511,8 +529,7 @@ public class ProdutoServicoFormController extends
 					this.nfeDetalheSelecionado.getNumeroItem().toString());
 			this.subView.getTfGtin().setValue(
 					this.nfeDetalheSelecionado.getGtin());
-			// this.subView.getTfNomeProduto().setValue(
-			// this.nfeDetalheSelecionado.getNomeProduto());
+
 			Produto produto = this.nfeDetalheSelecionado.getProduto();
 
 			if (produto != null) {
@@ -942,22 +959,25 @@ public class ProdutoServicoFormController extends
 	 * @param event
 	 */
 
-	public void nfeCabecalhoSetarValor(String id, ValueChangeEvent event) {
+	public void nfeCabecalhoSetarValor(String id, Object obj) {
 		// TODO nfeCabecalhoSetarValor
 
 		if (this.nfeCabecalho == null) {
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
-		case "tfOperacaoFiscalId":
-			// this.nfeCabecalho.set
+		// case "mtoOperacaoFiscal":
+		// this.nfeCabecalho.set
 
-			break;
-		case "tfOperacaoFiscal":
-			// this.nfeCabecalho.set
+		// break;
+		case "mtoOperacaoFiscal":
+			ItemValue m = (ItemValue) obj;
+			OperacaoFiscal operacaoFiscal = (OperacaoFiscal) m.getBean();
+
+			this.nfeCabecalho.setTributOperacaoFiscal(operacaoFiscal);
+			// this.nfeCabecalho
+			// .setTipoOperacao(operacaoFiscal.getDescricaoNaNF());
 
 			break;
 		case "tfVenda":
@@ -965,63 +985,63 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfModeloNotaFiscal":
-			this.nfeCabecalho.setCodigoModelo(s.toString().trim());
+			this.nfeCabecalho.setCodigoModelo((String) obj);
 
 			break;
 		case "tfNaturezaOperacao":
-			this.nfeCabecalho.setNaturezaOperacao(s.toString().trim());
+			this.nfeCabecalho.setNaturezaOperacao((String) obj);
 
 			break;
 		case "tfChaveAcesso":
-			this.nfeCabecalho.setChaveAcesso(s.toString().trim());
+			this.nfeCabecalho.setChaveAcesso((String) obj);
 
 			break;
 		case "tfDigitoChaveAcesso":
-			this.nfeCabecalho.setDigitoChaveAcesso(s.toString().trim());
+			this.nfeCabecalho.setDigitoChaveAcesso((String) obj);
 
 			break;
 		case "tfCodigoNumerico":
-			this.nfeCabecalho.setCodigoNumerico(s.toString().trim());
+			this.nfeCabecalho.setCodigoNumerico((String) obj);
 
 			break;
 		case "tfSerie":
-			this.nfeCabecalho.setSerie(s.toString().trim());
+			this.nfeCabecalho.setSerie((String) obj);
 
 			break;
 		case "tfNumero":
-			this.nfeCabecalho.setNumero(s.toString().trim());
+			this.nfeCabecalho.setNumero((String) obj);
 
 			break;
 		case "pdfDataEmissao":
-			this.nfeCabecalho.setDataEmissao((Date) s);
+			this.nfeCabecalho.setDataEmissao((Date) obj);
 
 			break;
 		case "pdfDataEntradaSaida":
-			this.nfeCabecalho.setDataEntradaSaida((Date) s);
+			this.nfeCabecalho.setDataEntradaSaida((Date) obj);
 
 			break;
 		case "pdfHoraEntradaSaida":
-			this.nfeCabecalho.setHoraEntradaSaida(s.toString().trim());
+			this.nfeCabecalho.setHoraEntradaSaida((String) obj);
 
 			break;
 		case "tfTipoOperacao":
-			this.nfeCabecalho.setTipoOperacao(s.toString().trim());
+			this.nfeCabecalho.setTipoOperacao((String) obj);
 
 			break;
 		case "tfTipoEmissao":
-			this.nfeCabecalho.setTipoEmissao(s.toString().trim());
+			this.nfeCabecalho.setTipoEmissao((String) obj);
 
 			break;
 		case "tfFinalidadeEmissao":
-			this.nfeCabecalho.setFinalidadeEmissao(s.toString().trim());
+			this.nfeCabecalho.setFinalidadeEmissao((String) obj);
 
 			break;
 		case "tfFormatoImpressaoDanfe":
-			this.nfeCabecalho.setFormatoImpressaoDanfe(s.toString().trim());
+			this.nfeCabecalho.setFormatoImpressaoDanfe((String) obj);
 
 			break;
 		case "tfFormaPagamento":
-			this.nfeCabecalho.setIndicadorFormaPagamento(s.toString().trim());
+			this.nfeCabecalho.setIndicadorFormaPagamento((String) obj);
 
 			break;
 		}
@@ -1094,8 +1114,11 @@ public class ProdutoServicoFormController extends
 			nfeDestinatario.setCpfCnpj((String) obj);
 
 			break;
-		case "tfIdDestinatario":
-			// nfeDestinatario.set
+		case "mtoCliente":
+			ItemValue m = (ItemValue) obj;
+			Cliente cliente = (Cliente) m.getBean();
+
+			this.nfeCabecalho.setCliente(cliente);
 
 			break;
 		}
@@ -2074,6 +2097,9 @@ public class ProdutoServicoFormController extends
 	@Autowired
 	private ProdutoDAO produtoDAO;
 
+	@Autowired
+	private OperacaoFiscalDAO operacaoFiscalDAO;
+
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(
@@ -2087,6 +2113,12 @@ public class ProdutoServicoFormController extends
 					super.getMainController());
 
 			this.subView.getMtoProduto().setModel(model2);
+
+			DefaultManyToOneComboModel<OperacaoFiscal> model3 = new DefaultManyToOneComboModel<OperacaoFiscal>(
+					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
+					super.getMainController());
+
+			this.subView.getMtoOperacaoFiscal().setModel(model3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

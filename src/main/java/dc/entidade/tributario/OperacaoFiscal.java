@@ -1,7 +1,9 @@
 package dc.entidade.tributario;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,13 +31,20 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer> {
+public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opf")
-	@SequenceGenerator(name = "opf", sequenceName = "tribut_operacao_fiscal_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tribut_operacao_fiscal_id_seq")
+	@SequenceGenerator(name = "tribut_operacao_fiscal_id_seq", sequenceName = "tribut_operacao_fiscal_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
 	@ComboCode
-	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 

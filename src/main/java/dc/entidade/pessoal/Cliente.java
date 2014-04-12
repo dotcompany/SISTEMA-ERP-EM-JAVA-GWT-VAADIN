@@ -188,7 +188,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	public String getNome() {
-		return "";
+		return pessoa.getNome().toUpperCase().trim();
 	}
 
 	/**
