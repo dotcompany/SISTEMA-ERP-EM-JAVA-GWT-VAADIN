@@ -59,6 +59,9 @@ import dc.entidade.tributario.OperacaoFiscal;
 public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -121,6 +124,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Forma Desconto")
 	@Column(name = "FORMA_DESCONTO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character formaDesconto;
 
@@ -138,9 +142,10 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character tipoFrete;
 
-	/*
+	/**
 	 * Mapeamento Situação-Cliente
 	 */
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)

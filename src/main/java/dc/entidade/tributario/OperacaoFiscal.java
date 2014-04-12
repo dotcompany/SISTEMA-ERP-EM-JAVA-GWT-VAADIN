@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -28,7 +29,7 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 
 @Entity
 @Table(name = "tribut_operacao_fiscal")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
@@ -53,6 +54,8 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	// private Empresa empresa;
 
 	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer cfop;
 
 	@Field
@@ -96,6 +99,11 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -104,24 +112,16 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	// public Empresa getEmpresa() {
-	// return empresa;
-	// }
-	//
-	// public void setEmpresa(Empresa empresa) {
-	// this.empresa = empresa;
-	// }
-
-	public String getNome() {
-		return nome;
-	}
-
 	public Integer getCfop() {
 		return cfop;
 	}
 
 	public void setCfop(Integer cfop) {
 		this.cfop = cfop;
+	}
+
+	public String getNome() {
+		return nome;
 	}
 
 	public void setNome(String nome) {
