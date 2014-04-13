@@ -155,6 +155,21 @@ public class ObjectValidator {
 		return valido;
 	}
 
+	public synchronized static Boolean validateNotRequiredDate(
+			ValueChangeEvent event) {
+		boolean isValid = true;
+
+		try {
+			Object obj = event.getProperty().getValue();
+
+			Date d = (Date) obj;
+		} catch (Exception e) {
+			isValid = false;
+		}
+
+		return isValid;
+	}
+
 	/**
 	 * Este método valida um valor de data requerida. Usado na camada de
 	 * controle.

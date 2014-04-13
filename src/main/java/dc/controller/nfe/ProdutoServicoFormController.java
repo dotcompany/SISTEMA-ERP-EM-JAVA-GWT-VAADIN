@@ -1,7 +1,6 @@
 package dc.controller.nfe;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
@@ -1486,7 +1484,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.nfeDetalheSelecionado);
 	}
 
-	public void ndiIpiSetarValor(String id, ValueChangeEvent event) {
+	public void ndiIpiSetarValor(String id, Object obj) {
 		// TODO ndiIpiSetarValor
 
 		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
@@ -1495,52 +1493,53 @@ public class ProdutoServicoFormController extends
 			return;
 		}
 
-		Object s = event.getProperty().getValue();
-
 		switch (id) {
 		case "tfCstIpi":
-			ndiIpi.setCstIpi(s.toString().trim());
+			ndiIpi.setCstIpi((String) obj);
 
 			break;
 		case "tfBaseCalculoBcIpi":
-			ndiIpi.setValorBaseCalculoIpi(new BigDecimal(s.toString().trim()));
+			ndiIpi.setValorBaseCalculoIpi(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaIpi":
-			ndiIpi.setAliquotaIpi(new BigDecimal(s.toString().trim()));
+			ndiIpi.setAliquotaIpi(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfQtdUndTributavelIpi":
-			ndiIpi.setQuantidadeUnidadeTributavel(new BigDecimal(s.toString()
-					.trim()));
+			ndiIpi.setQuantidadeUnidadeTributavel(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorUndTributavelIpi":
-			ndiIpi.setValorUnidadeTributavel(new BigDecimal(s.toString().trim()));
+			ndiIpi.setValorUnidadeTributavel(ObjectConverter
+					.stringToValue((String) obj));
 
 			break;
 		case "tfValorIpi":
-			ndiIpi.setValorIpi(new BigDecimal(s.toString().trim()));
+			ndiIpi.setValorIpi(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfEnquadramentoIpi":
-			ndiIpi.setEnquadramentoIpi(s.toString().trim());
+			ndiIpi.setEnquadramentoIpi((String) obj);
 
 			break;
 		case "tfEnquadramentoLegalIpi":
-			ndiIpi.setEnquadramentoLegalIpi(s.toString().trim());
+			ndiIpi.setEnquadramentoLegalIpi((String) obj);
 
 			break;
 		case "tfCnpjProdutorIpi":
-			ndiIpi.setCnpjProdutor(s.toString().trim());
+			ndiIpi.setCnpjProdutor((String) obj);
 
 			break;
 		case "tfQtdSeloIpi":
-			ndiIpi.setQuantidadeSeloIpi(new Integer(s.toString().trim()));
+			ndiIpi.setQuantidadeSeloIpi(ObjectConverter
+					.stringToInteger((String) obj));
 
 			break;
 		case "tfCodigoSeloIpi":
-			ndiIpi.setCodigoSeloIpi(s.toString().trim());
+			ndiIpi.setCodigoSeloIpi((String) obj);
 
 			break;
 		}
