@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -262,7 +263,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private NfeDetalheImpostoIiEntity nfeDetalheImpostoIi;
 
 	// @OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
-	// private NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi;
+	@Transient
+	private NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi;
 
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetalheImpostoIssqnEntity nfeDetalheImpostoIssqn;
@@ -275,6 +277,9 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
+
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpIpiEntity nfeDetalheImpIpi;
 
 	/**
 	 * CONSTRUTOR
@@ -557,14 +562,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nfeDetalheImpostoIi = nfeDetalheImpostoIi;
 	}
 
-	/*
-	 * public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() { return
-	 * nfeDetalheImpostoIpi; }
-	 * 
-	 * public void setNfeDetalheImpostoIpi( NfeDetalheImpostoIpiEntity
-	 * nfeDetalheImpostoIpi) { this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
-	 * }
-	 */
+	public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() {
+		return nfeDetalheImpostoIpi;
+	}
+
+	public void setNfeDetalheImpostoIpi(
+			NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi) {
+		this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
+	}
 
 	public NfeDetalheImpostoIssqnEntity getNfeDetalheImpostoIssqn() {
 		return nfeDetalheImpostoIssqn;
@@ -600,6 +605,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setNfeDetEspecificoVeiculo(
 			NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo) {
 		this.nfeDetEspecificoVeiculo = nfeDetEspecificoVeiculo;
+	}
+
+	public NfeDetalheImpIpiEntity getNfeDetalheImpIpi() {
+		return nfeDetalheImpIpi;
+	}
+
+	public void setNfeDetalheImpIpi(NfeDetalheImpIpiEntity nfeDetalheImpIpi) {
+		this.nfeDetalheImpIpi = nfeDetalheImpIpi;
 	}
 
 	/**

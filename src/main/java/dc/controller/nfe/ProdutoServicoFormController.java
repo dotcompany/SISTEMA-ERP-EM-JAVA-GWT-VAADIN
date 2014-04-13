@@ -20,10 +20,10 @@ import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
 import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
+import dc.entidade.nfe.NfeDetalheImpIpiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
-import dc.entidade.nfe.NfeDetalheImpostoIpiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.pessoal.Cliente;
@@ -698,13 +698,16 @@ public class ProdutoServicoFormController extends
 			 * IPI
 			 */
 
-			NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+			// NfeDetalheImpostoIpiEntity ndiIpi = new
+			// NfeDetalheImpostoIpiEntity();
+
+			NfeDetalheImpIpiEntity ndiIpi = item.getNfeDetalheImpIpi();
 
 			if (ndiIpi == null) {
-				ndiIpi = new NfeDetalheImpostoIpiEntity();
-				// ndiIpi.setNfeDetalhe(this.nfeDetalheSelecionado);
+				ndiIpi = new NfeDetalheImpIpiEntity();
+				ndiIpi.setNfeDetalhe(this.nfeDetalheSelecionado);
 
-				// this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
+				this.nfeDetalheSelecionado.setNfeDetalheImpIpi(ndiIpi);
 			}
 
 			this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
@@ -723,7 +726,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfEnquadramentoLegalIpi().setValue(
 					ndiIpi.getEnquadramentoLegalIpi());
 			this.subView.getTfCnpjProdutorIpi().setValue(
-					ndiIpi.getCnpjProdutor());
+					ndiIpi.getCnpjProdutorIpi());
 			this.subView.getTfQtdSeloIpi().setValue(
 					ndiIpi.getQuantidadeSeloIpi().toString());
 			this.subView.getTfCodigoSeloIpi().setValue(
@@ -1487,11 +1490,16 @@ public class ProdutoServicoFormController extends
 	public void ndiIpiSetarValor(String id, Object obj) {
 		// TODO ndiIpiSetarValor
 
-		NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+		// NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
+
+		NfeDetalheImpIpiEntity ndiIpi = this.nfeDetalheSelecionado
+				.getNfeDetalheImpIpi();
 
 		if (ndiIpi == null) {
 			return;
 		}
+
+		ndiIpi.setEmpresa(this.nfeDetalheSelecionado.getEmpresa());
 
 		switch (id) {
 		case "tfCstIpi":
@@ -1530,7 +1538,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfCnpjProdutorIpi":
-			ndiIpi.setCnpjProdutor((String) obj);
+			ndiIpi.setCnpjProdutorIpi((String) obj);
 
 			break;
 		case "tfQtdSeloIpi":
@@ -1547,15 +1555,13 @@ public class ProdutoServicoFormController extends
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeDetalheSelecionado);
 
-		/*
-		 * this.subView.getSfNfeDetalhe().getDados()
-		 * .remove(this.nfeDetalheSelecionado);
-		 * 
-		 * this.nfeDetalheSelecionado.setNfeDetalheImpostoIpi(ndiIpi);
-		 * 
-		 * this.subView.getSfNfeDetalhe().getDados() .add(index,
-		 * this.nfeDetalheSelecionado);
-		 */
+		this.subView.getSfNfeDetalhe().getDados()
+				.remove(this.nfeDetalheSelecionado);
+
+		this.nfeDetalheSelecionado.setNfeDetalheImpIpi(ndiIpi);
+
+		this.subView.getSfNfeDetalhe().getDados()
+				.add(index, this.nfeDetalheSelecionado);
 	}
 
 	public void ndiIssqnSetarValor(String id, Object obj) {
@@ -1981,7 +1987,27 @@ public class ProdutoServicoFormController extends
 	}
 
 	private void ndiIpiLimpar() {
+		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
 
+		this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
+		this.subView.getTfBaseCalculoBcIpi().setValue(
+				ndiIpi.getValorBaseCalculoIpi().toString());
+		this.subView.getTfAliquotaIpi().setValue(
+				ndiIpi.getAliquotaIpi().toString());
+		this.subView.getTfQtdUndTributavelIpi().setValue(
+				ndiIpi.getQuantidadeUnidadeTributavel().toString());
+		this.subView.getTfValorUndTributavelIpi().setValue(
+				ndiIpi.getValorUnidadeTributavel().toString());
+		this.subView.getTfValorIpi().setValue(ndiIpi.getValorIpi().toString());
+		this.subView.getTfEnquadramentoIpi().setValue(
+				ndiIpi.getEnquadramentoIpi());
+		this.subView.getTfEnquadramentoLegalIpi().setValue(
+				ndiIpi.getEnquadramentoLegalIpi());
+		this.subView.getTfCnpjProdutorIpi().setValue(
+				ndiIpi.getCnpjProdutorIpi());
+		this.subView.getTfQtdSeloIpi().setValue(
+				ndiIpi.getQuantidadeSeloIpi().toString());
+		this.subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
 	}
 
 	private void ndiIssqnLimpar() {
