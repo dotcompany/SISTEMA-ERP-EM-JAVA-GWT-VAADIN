@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -499,7 +498,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List<T> getAllPaged(Class<T> clazz, int start, int pageSize, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
+	public List<T> getAllPaged(Class<T> clazz, int start, int pageSize, String[] sortingFields, boolean[] states, List<Filter> filters) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(clazz);
 		configureHQLOrder(sortingFields, states, criteria);
 		criteria.setFirstResult(start);
