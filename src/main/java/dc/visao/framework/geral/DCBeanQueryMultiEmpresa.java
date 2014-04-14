@@ -51,7 +51,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
 		int size = 0;
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+		if (searchTerm != null && !searchTerm.trim().isEmpty() || filters != null) {
 			size = dao.fullTextSearchCount(searchTerm, menu, filters);
 		} else {
 			size = dao.countByEmpresa(pojoClass, idEmpresa);

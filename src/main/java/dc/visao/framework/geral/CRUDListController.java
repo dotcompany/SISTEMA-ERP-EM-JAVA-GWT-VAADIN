@@ -2,6 +2,7 @@ package dc.visao.framework.geral;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -480,7 +481,14 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			LazyQueryContainer container = new LazyQueryContainer(queryFactory, getBeanIdProperty(), PAGE_SIZE, true);
 
 			for (String id_coluna : getColunas()) {
-				container.addContainerProperty(id_coluna, String.class, "", true, true);
+				if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Boolean.class)) {
+					container.addContainerProperty(id_coluna, Boolean.class, false, true, true);
+				} else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Date.class)) {
+					container.addContainerProperty(id_coluna, Date.class, null, true, true);
+				} else {
+
+					container.addContainerProperty(id_coluna, String.class, "", true, true);
+				}
 			}
 
 			container.addContainerProperty(LazyQueryView.DEBUG_PROPERTY_ID_QUERY_INDEX, Integer.class, 0, true, false);

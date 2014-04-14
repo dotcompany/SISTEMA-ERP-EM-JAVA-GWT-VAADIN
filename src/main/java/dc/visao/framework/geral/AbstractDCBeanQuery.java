@@ -2,7 +2,7 @@ package dc.visao.framework.geral;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +11,9 @@ import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
-import com.vaadin.data.util.filter.SimpleStringFilter;
 
 public abstract class AbstractDCBeanQuery extends AbstractBeanQuery<Serializable> {
-	protected Map<Object, String> filters = new HashMap<Object, String>();
+	protected List<Filter> filters = new ArrayList<Filter>();
 	protected String[] sortingFields = new String[0];
 	protected boolean[] sortingStates = new boolean[0];
 	private Logger logger = Logger.getLogger(AbstractDCBeanQuery.class);
@@ -22,15 +21,7 @@ public abstract class AbstractDCBeanQuery extends AbstractBeanQuery<Serializable
 	public AbstractDCBeanQuery(QueryDefinition definition, Map<String, Object> queryConfiguration, Object[] sortPropertyIds, boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
 
-		List<Filter> filters = definition.getFilters();
-		for (Filter filter : filters) {
-			if (filter instanceof SimpleStringFilter) {
-				SimpleStringFilter simpleStringFilter = (SimpleStringFilter) filter;
-				Object propertyId = simpleStringFilter.getPropertyId();
-				String filterString = simpleStringFilter.getFilterString();
-				this.filters.put(propertyId, filterString);
-			}
-		}
+		filters = definition.getFilters();
 
 		logger.info("sort properties");
 

@@ -2,21 +2,22 @@ package dc.servicos.dao.framework.geral;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
+import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -35,6 +36,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
+import com.vaadin.data.Container.Filter;
+import com.vaadin.data.util.filter.Between;
+import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Compare.Operation;
+import com.vaadin.data.util.filter.SimpleStringFilter;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -43,15 +49,9 @@ import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.FmMenu;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Wesley Jr /* Classe onde é Abstract, temos nela alguns métodos do
+/** @author Wesley Jr /* Classe onde é Abstract, temos nela alguns métodos do
  *         Save, do pesquisar também, onde aqui está um pouco da lógica do
- *         pesquisar que utilizamos dentro da Tela, para pegarmos
- * 
- *         informações!
- * 
- */
+ *         pesquisar que utilizamos dentro da Tela, para pegarmos informações! */
 
 @SuppressWarnings({ "unchecked" })
 public abstract class AbstractCrudDAO<T> {
@@ -227,19 +227,19 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List<T> fullTextSearch(String valor, int first, int pageSize, String[] sortingFields, boolean[] sortingStates, Map<Object, String> filters) {
+	public List<T> fullTextSearch(String valor, int first, int pageSize, String[] sortingFields, boolean[] sortingStates, List<Filter> filters) {
 		return fullTextSearch(valor, getSearchFields(), first, pageSize, sortingFields, sortingStates, null, filters);
 	}
 
 	@Transactional
-	public List<T> fullTextSearch(String valor, String[] sortingFields, boolean[] states, Map<Object, String> filters) {
+	public List<T> fullTextSearch(String valor, String[] sortingFields, boolean[] states, List<Filter> filters) {
 
 		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, sortingFields, states, null, filters);
 	}
 
 	@Transactional
 	private List<T> fullTextSearch(String value, String[] searchFields, int first, int pageSize, String[] sortingFieldsStrings, boolean[] sortStates,
-			FmMenu menu, Map<Object, String> filters) {
+			FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
 
 		SortField[] sortingFields = new SortField[sortingFieldsStrings.length];
@@ -263,7 +263,7 @@ public abstract class AbstractCrudDAO<T> {
 		return resultSet;
 	}
 
-	private org.apache.lucene.search.Query createQuery(String value, String[] searchFields, FmMenu menu, Map<Object, String> filters,
+	private org.apache.lucene.search.Query createQuery(String value, String[] searchFields, FmMenu menu, List<Filter> filters,
 			FullTextSession fullTextSession) {
 		org.apache.lucene.search.Query query;
 		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
@@ -277,7 +277,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public int fullTextSearchCount(String searchValue, FmMenu menu, Map<Object, String> filters) {
+	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
 
 		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession);
@@ -286,61 +286,123 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	private org.apache.lucene.search.Query createSimpleFullTextQuery(String value, String[] searchFields, FullTextSession fullTextSession,
-			Map<Object, String> filters) {
+			List<Filter> filters) {
 
-		org.apache.lucene.search.Query booleanQuery = new BooleanQuery();
+		BooleanQuery booleanQuery = createFieldQueryByValue(value, searchFields);
+
+		org.apache.lucene.search.Query filtersQuery = generateFiltersQuery(filters);
+		if (filtersQuery != null) {
+			booleanQuery.add(filtersQuery, Occur.MUST);
+		}
+		return booleanQuery;
+	}
+
+	private BooleanQuery createFieldQueryByValue(String value, String... searchFields) {
+		BooleanQuery booleanQuery = new BooleanQuery();
 
 		if (dc.control.validator.ObjectValidator.validateString(value)) {
-			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+			QueryBuilder qb = getFullTextSession().getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
 			org.apache.lucene.search.Query query = qb.keyword().fuzzy().onFields(searchFields).matching(value).createQuery();
-			org.apache.lucene.search.Query[] queries = new org.apache.lucene.search.Query[] { query };
 
-			booleanQuery = booleanQuery.combine(queries);
+			booleanQuery.add(query, Occur.MUST);
 
 		}
-
-		booleanQuery = generateFiltersQuery(filters, booleanQuery);
-
 		return booleanQuery;
 	}
 
-	private org.apache.lucene.search.Query createMultiEmpresaQuery(String value, String[] searchFields, FmMenu menu, Map<Object, String> filters) {
+	private org.apache.lucene.search.Query createMultiEmpresaQuery(String value, String[] searchFields, FmMenu menu, List<Filter> filters) {
 
 		FullTextSession fullTextSession = getFullTextSession();
-		org.apache.lucene.search.Query booleanQuery = new BooleanQuery();
+		org.apache.lucene.search.BooleanQuery booleanQuery = new BooleanQuery();
 
 		org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
-		org.apache.lucene.search.Query[] empresaQuery = new org.apache.lucene.search.Query[] { multiEmpresaQuery };
+		org.apache.lucene.search.Query filterQuery = generateFiltersQuery(filters);
 
-		booleanQuery = booleanQuery.combine(empresaQuery);
+		booleanQuery.add(multiEmpresaQuery, Occur.MUST);
 
-		booleanQuery = generateFiltersQuery(filters, booleanQuery);
+		if (filterQuery != null) {
+			booleanQuery.add(filterQuery, Occur.MUST);
+		}
 
 		return booleanQuery;
 	}
 
-	private org.apache.lucene.search.Query generateFiltersQuery(Map<Object, String> filters, org.apache.lucene.search.Query booleanQuery) {
+	private org.apache.lucene.search.Query generateFiltersQuery(List<Filter> filters) {
+
+		BooleanQuery booleanQuery = null;
 		if (filters != null && filters.size() > 0) {
-			org.apache.lucene.search.Query[] queriesArray = new org.apache.lucene.search.Query[filters.size()];
+			booleanQuery = new BooleanQuery();
 
-			int i = 0;
-			for (Object property : filters.keySet()) {
-				BooleanQuery boolQuery = new BooleanQuery();
-				String search = filters.get(property);
-				String[] words = search.split(" ");
-				StringBuffer sb = new StringBuffer();
-				for (String word : words) {
-					sb.append(word + "*");
+			for (Filter filter : filters) {
+				org.apache.lucene.search.Query query = null;
+
+				if (filter instanceof Compare) {
+					Compare castedFilter = ((Compare) filter);
+					Object property = castedFilter.getPropertyId();
+					Operation operation = castedFilter.getOperation();
+
+					if (operation.equals(Compare.Operation.EQUAL)) {// EQUAL,
+																	// GREATER,
+																	// NumericRangeQuery
+																	// LESS,
+																	// GREATER_OR_EQUAL,
+																	// LESS_OR_EQUAL
+						query = createFieldQueryByValue(castedFilter.getValue().toString(), property.toString());
+
+					} else if (operation.equals(Compare.Operation.GREATER_OR_EQUAL)) {
+						query = createDateQuery(castedFilter.getValue(), null, property);
+
+					} else if (operation.equals(Compare.Operation.LESS_OR_EQUAL)) {
+						query = createDateQuery(null, castedFilter.getValue(), property);
+
+					}
+
+				} else if (filter instanceof Between) {
+					Between castedFilter = ((Between) filter);
+					Object property = castedFilter.getPropertyId();
+
+					query = createDateQuery(castedFilter.getStartValue(), castedFilter.getEndValue(), property);
+
+				} else if (filter instanceof SimpleStringFilter) {
+
+					String property = ((SimpleStringFilter) filter).getPropertyId().toString();
+					String search = ((SimpleStringFilter) filter).getFilterString();
+
+					if (dc.control.validator.ObjectValidator.validateString(search)) {
+						query = createFieldQueryByValue(search, property);
+
+					}
+
 				}
-
-				boolQuery.add(new FuzzyQuery(new Term(property.toString(), sb.substring(0, sb.length() - 1))), Occur.MUST);
-				queriesArray[i] = boolQuery;
-				i++;
+				if (query != null) {
+					booleanQuery.add(query, Occur.MUST);
+				}
 			}
 
-			booleanQuery = booleanQuery.combine(queriesArray);
 		}
 		return booleanQuery;
+	}
+
+	private org.apache.lucene.search.Query createDateQuery(Object startValue, Object endValue, Object property) {
+		org.apache.lucene.search.Query query;
+		// 20131001030000000
+		String start = "00000000000000000";
+		String end = "99999999999999999";
+
+		if (startValue instanceof Date) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			start = sdf.format(startValue) + "000000000";
+
+		}
+
+		if (endValue instanceof Date) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			end = sdf.format(endValue) + "000000000";
+
+		}
+
+		query = new TermRangeQuery(property.toString(), start, end, true, true);
+		return query;
 	}
 
 	private void configureSorting(SortField[] sortingFields, FullTextQuery q) {
@@ -366,6 +428,7 @@ public abstract class AbstractCrudDAO<T> {
 			}
 		};
 
+		BooleanQuery booleanQuery = new BooleanQuery();
 		try {
 			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 
@@ -373,7 +436,6 @@ public abstract class AbstractCrudDAO<T> {
 			QueryParser parser = new QueryParser(Version.LUCENE_31, "empresa.id", an2);
 			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
 
-			BooleanQuery booleanQuery = new BooleanQuery();
 			if (ObjectValidator.validateString(value)) {
 				value = value.trim();
 
@@ -389,7 +451,7 @@ public abstract class AbstractCrudDAO<T> {
 			e.printStackTrace();
 		}
 
-		return luceneQueryForEmpresa;
+		return booleanQuery;
 	}
 
 	protected abstract String[] getDefaultSearchFields();
@@ -401,7 +463,7 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public List<T> fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu,
-			Map<Object, String> filters) {
+			List<Filter> filters) {
 		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu, filters);
 	}
 
