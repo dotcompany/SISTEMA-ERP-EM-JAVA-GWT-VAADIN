@@ -301,7 +301,7 @@ public class ProdutoServicoFormController extends
 			popularCombo();
 
 			abaHabilitar(false, false, false, false, false, false, false,
-					false, false);
+					false, false, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -521,7 +521,7 @@ public class ProdutoServicoFormController extends
 	}
 
 	/**
-	 * NFEDETALHE - MEDICAMENTO
+	 * NFEDETESPECIFICOMEDICAMENTO - ADICIONAR
 	 */
 
 	public NfeDetEspecificoMedicamentoEntity ndeMedicamentoAdicionar() {
@@ -920,7 +920,8 @@ public class ProdutoServicoFormController extends
 						.setNdeMedicamentoList(ndeMedicamentoList);
 			}
 
-			abaHabilitar(true, true, true, true, true, true, true, true, true);
+			abaHabilitar(true, true, true, true, true, true, true, true, true,
+					true);
 
 			this.subView.getPlNdiCofins()
 					.setCaption(
@@ -982,8 +983,21 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
+	/**
+	 * NFEDETESPECIFICOMEDICAMENTO - SELECIONAR
+	 */
+
+	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void abaHabilitar(boolean a1, boolean a2, boolean a3, boolean a4,
-			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9) {
+			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9,
+			boolean a10) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
 		this.subView.getGlIcms().setEnabled(a2);
 		this.subView.getGlPis().setEnabled(a3);
@@ -993,6 +1007,7 @@ public class ProdutoServicoFormController extends
 		this.subView.getGlIssqn().setEnabled(a7);
 		this.subView.getNdeGlCombustivel().setEnabled(a8);
 		this.subView.getNdeGlVeiculo().setEnabled(a9);
+		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
 	}
 
 	/**
