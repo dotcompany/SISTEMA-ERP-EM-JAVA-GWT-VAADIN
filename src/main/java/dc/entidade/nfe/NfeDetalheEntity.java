@@ -2,20 +2,22 @@ package dc.entidade.nfe;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -262,9 +264,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetalheImpostoIiEntity nfeDetalheImpostoIi;
 
-	// @OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
-	@Transient
-	private NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi;
+	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
+	private NfeDetalheImpIpiEntity nfeDetalheImpIpi;
 
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetalheImpostoIssqnEntity nfeDetalheImpostoIssqn;
@@ -278,8 +279,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
 
-	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
-	private NfeDetalheImpIpiEntity nfeDetalheImpIpi;
+	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.EAGER)
+	private List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList;
 
 	/**
 	 * CONSTRUTOR
@@ -562,13 +563,12 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nfeDetalheImpostoIi = nfeDetalheImpostoIi;
 	}
 
-	public NfeDetalheImpostoIpiEntity getNfeDetalheImpostoIpi() {
-		return nfeDetalheImpostoIpi;
+	public NfeDetalheImpIpiEntity getNfeDetalheImpIpi() {
+		return nfeDetalheImpIpi;
 	}
 
-	public void setNfeDetalheImpostoIpi(
-			NfeDetalheImpostoIpiEntity nfeDetalheImpostoIpi) {
-		this.nfeDetalheImpostoIpi = nfeDetalheImpostoIpi;
+	public void setNfeDetalheImpIpi(NfeDetalheImpIpiEntity nfeDetalheImpIpi) {
+		this.nfeDetalheImpIpi = nfeDetalheImpIpi;
 	}
 
 	public NfeDetalheImpostoIssqnEntity getNfeDetalheImpostoIssqn() {
@@ -607,12 +607,13 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nfeDetEspecificoVeiculo = nfeDetEspecificoVeiculo;
 	}
 
-	public NfeDetalheImpIpiEntity getNfeDetalheImpIpi() {
-		return nfeDetalheImpIpi;
+	public List<NfeDetEspecificoMedicamentoEntity> getNdeMedicamentoList() {
+		return ndeMedicamentoList;
 	}
 
-	public void setNfeDetalheImpIpi(NfeDetalheImpIpiEntity nfeDetalheImpIpi) {
-		this.nfeDetalheImpIpi = nfeDetalheImpIpi;
+	public void setNdeMedicamentoList(
+			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList) {
+		this.ndeMedicamentoList = ndeMedicamentoList;
 	}
 
 	/**

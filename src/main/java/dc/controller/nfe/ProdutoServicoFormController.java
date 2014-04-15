@@ -18,6 +18,7 @@ import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
+import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpIpiEntity;
@@ -300,7 +301,7 @@ public class ProdutoServicoFormController extends
 			popularCombo();
 
 			abaHabilitar(false, false, false, false, false, false, false,
-					false, false);
+					false, false, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -464,8 +465,10 @@ public class ProdutoServicoFormController extends
 			 * IPI
 			 */
 
-			// NfeDetalheImpostoIpiEntity ndiIpi = new
-			// NfeDetalheImpostoIpiEntity();
+			NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
+			ndiIpi.setNfeDetalhe(ent);
+
+			ent.setNfeDetalheImpIpi(ndiIpi);
 
 			/**
 			 * ISSQN
@@ -503,11 +506,36 @@ public class ProdutoServicoFormController extends
 
 			ent.setNfeDetEspecificoVeiculo(ndeVeiculo);
 
+			/**
+			 * MEDICAMENTO
+			 */
+
+			ent.setNdeMedicamentoList(new ArrayList<NfeDetEspecificoMedicamentoEntity>());
+
 			return ent;
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			return new NfeDetalheEntity();
+		}
+	}
+
+	/**
+	 * NFEDETESPECIFICOMEDICAMENTO - ADICIONAR
+	 */
+
+	public NfeDetEspecificoMedicamentoEntity ndeMedicamentoAdicionar() {
+		try {
+			NfeDetEspecificoMedicamentoEntity ent = new NfeDetEspecificoMedicamentoEntity();
+			ent.setNfeDetalhe(this.nfeDetalheSelecionado);
+
+			this.nfeDetalheSelecionado.getNdeMedicamentoList().add(ent);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new NfeDetEspecificoMedicamentoEntity();
 		}
 	}
 
@@ -878,7 +906,22 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfRestricaoVeiculo().setValue(
 					entVeiculo.getRestricao());
 
-			abaHabilitar(true, true, true, true, true, true, true, true, true);
+			/**
+			 * MEDICAMENTO
+			 */
+
+			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList = item
+					.getNdeMedicamentoList();
+
+			if (ndeMedicamentoList == null) {
+				ndeMedicamentoList = new ArrayList<NfeDetEspecificoMedicamentoEntity>();
+
+				this.nfeDetalheSelecionado
+						.setNdeMedicamentoList(ndeMedicamentoList);
+			}
+
+			abaHabilitar(true, true, true, true, true, true, true, true, true,
+					true);
 
 			this.subView.getPlNdiCofins()
 					.setCaption(
@@ -940,8 +983,21 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
+	/**
+	 * NFEDETESPECIFICOMEDICAMENTO - SELECIONAR
+	 */
+
+	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void abaHabilitar(boolean a1, boolean a2, boolean a3, boolean a4,
-			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9) {
+			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9,
+			boolean a10) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
 		this.subView.getGlIcms().setEnabled(a2);
 		this.subView.getGlPis().setEnabled(a3);
@@ -949,8 +1005,9 @@ public class ProdutoServicoFormController extends
 		this.subView.getGlIpi().setEnabled(a5);
 		this.subView.getGlImpostoImportacao().setEnabled(a6);
 		this.subView.getGlIssqn().setEnabled(a7);
-		this.subView.getGlCombustivel().setEnabled(a8);
-		this.subView.getGlVeiculo().setEnabled(a9);
+		this.subView.getNdeGlCombustivel().setEnabled(a8);
+		this.subView.getNdeGlVeiculo().setEnabled(a9);
+		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
 	}
 
 	/**

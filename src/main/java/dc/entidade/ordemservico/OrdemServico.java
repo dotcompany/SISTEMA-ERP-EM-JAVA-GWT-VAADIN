@@ -239,7 +239,7 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.valorComissaoAtendente = valorComissaoAtendente;
 	}
 
-	public BigDecimal getValorÇucroParcial() {
+	public BigDecimal getValorLucroParcial() {
 		return valorLucroParcial;
 	}
 
@@ -285,10 +285,6 @@ public class OrdemServico extends AbstractModel<Integer> {
 
 	public void setItensMaterialServico(List<MaterialServico> itensMaterialServico) {
 		this.itensMaterialServico = itensMaterialServico;
-	}
-
-	public BigDecimal getValorLucroParcial() {
-		return valorLucroParcial;
 	}
 
 	public List<AcessorioOs> getItensAcessorioOs() {

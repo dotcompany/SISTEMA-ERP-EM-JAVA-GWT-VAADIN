@@ -79,7 +79,7 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "NÃ£o pode ficar em branco");
 			valido = false;
 		}
 		

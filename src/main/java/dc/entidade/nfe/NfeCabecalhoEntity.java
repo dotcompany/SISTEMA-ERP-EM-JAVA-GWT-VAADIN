@@ -476,7 +476,8 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Tributário - Operação fiscal")
 	private OperacaoFiscal tributOperacaoFiscal;
 
-	@Field
+	// @ManyToOne
+	// @JoinColumn(name = "id_venda_cabecalho")
 	@Column(name = "id_venda_cabecalho")
 	@Caption(value = "Venda - Cabeçalho")
 	private Integer vendaCabecalho;

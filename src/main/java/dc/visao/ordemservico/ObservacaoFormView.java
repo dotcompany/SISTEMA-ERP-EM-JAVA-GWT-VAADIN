@@ -118,7 +118,7 @@ public class ObservacaoFormView extends CustomComponent {
 
 		// tfObservacaoOS
 		tfObservacaoOS = new TextArea();
-		tfObservacaoOS = ComponentUtil.buildTextArea("Observação laudo técnico");
+		tfObservacaoOS = ComponentUtil.buildTextArea("ObservaÃ§Ã£o laudo tÃ©cnico");
 		tfObservacaoOS.setNullRepresentation("");
 		tfObservacaoOS.setImmediate(false);
 		tfObservacaoOS.setWidth("100%");
