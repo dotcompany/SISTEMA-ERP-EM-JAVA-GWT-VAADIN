@@ -464,8 +464,10 @@ public class ProdutoServicoFormController extends
 			 * IPI
 			 */
 
-			// NfeDetalheImpostoIpiEntity ndiIpi = new
-			// NfeDetalheImpostoIpiEntity();
+			NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
+			ndiIpi.setNfeDetalhe(ent);
+
+			ent.setNfeDetalheImpIpi(ndiIpi);
 
 			/**
 			 * ISSQN
@@ -949,8 +951,8 @@ public class ProdutoServicoFormController extends
 		this.subView.getGlIpi().setEnabled(a5);
 		this.subView.getGlImpostoImportacao().setEnabled(a6);
 		this.subView.getGlIssqn().setEnabled(a7);
-		this.subView.getGlCombustivel().setEnabled(a8);
-		this.subView.getGlVeiculo().setEnabled(a9);
+		this.subView.getNdeGlCombustivel().setEnabled(a8);
+		this.subView.getNdeGlVeiculo().setEnabled(a9);
 	}
 
 	/**
