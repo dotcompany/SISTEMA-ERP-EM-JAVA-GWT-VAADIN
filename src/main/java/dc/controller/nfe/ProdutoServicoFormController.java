@@ -18,6 +18,7 @@ import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
+import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpIpiEntity;
@@ -505,11 +506,36 @@ public class ProdutoServicoFormController extends
 
 			ent.setNfeDetEspecificoVeiculo(ndeVeiculo);
 
+			/**
+			 * MEDICAMENTO
+			 */
+
+			ent.setNdeMedicamentoList(new ArrayList<NfeDetEspecificoMedicamentoEntity>());
+
 			return ent;
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			return new NfeDetalheEntity();
+		}
+	}
+
+	/**
+	 * NFEDETALHE - MEDICAMENTO
+	 */
+
+	public NfeDetEspecificoMedicamentoEntity ndeMedicamentoAdicionar() {
+		try {
+			NfeDetEspecificoMedicamentoEntity ent = new NfeDetEspecificoMedicamentoEntity();
+			ent.setNfeDetalhe(this.nfeDetalheSelecionado);
+
+			this.nfeDetalheSelecionado.getNdeMedicamentoList().add(ent);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new NfeDetEspecificoMedicamentoEntity();
 		}
 	}
 
@@ -879,6 +905,20 @@ public class ProdutoServicoFormController extends
 					entVeiculo.getLotacao().toString());
 			this.subView.getTfRestricaoVeiculo().setValue(
 					entVeiculo.getRestricao());
+
+			/**
+			 * MEDICAMENTO
+			 */
+
+			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList = item
+					.getNdeMedicamentoList();
+
+			if (ndeMedicamentoList == null) {
+				ndeMedicamentoList = new ArrayList<NfeDetEspecificoMedicamentoEntity>();
+
+				this.nfeDetalheSelecionado
+						.setNdeMedicamentoList(ndeMedicamentoList);
+			}
 
 			abaHabilitar(true, true, true, true, true, true, true, true, true);
 

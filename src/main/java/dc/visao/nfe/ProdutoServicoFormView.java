@@ -20,6 +20,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.control.validator.ObjectValidator;
 import dc.controller.nfe.ProdutoServicoFormController;
 import dc.entidade.nfe.NfeDeclaracaoImportacaoEntity;
+import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.entidade.pessoal.Cliente;
@@ -2017,7 +2018,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	private SubFormComponent<NfeDetalheEntity, Integer> sfNfeDetalhe;
 
-	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfMedicamento;
+	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfMedicamento;
 
 	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfArmamento;
 
@@ -2057,12 +2058,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 		this.sfNfeDetalhe = sfNfeDetalhe;
 	}
 
-	public SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> getSfMedicamento() {
+	public SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> getSfMedicamento() {
 		return sfMedicamento;
 	}
 
 	public void setSfMedicamento(
-			SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfMedicamento) {
+			SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfMedicamento) {
 		this.sfMedicamento = sfMedicamento;
 	}
 
@@ -6619,8 +6620,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 		glNdeMedicamento.setSizeUndefined();
 		glNdeMedicamento.setMargin(true);
 		glNdeMedicamento.setSpacing(true);
-		glNdeMedicamento.setRows(9);
-		glNdeMedicamento.setColumns(4);
+		glNdeMedicamento.setRows(6);
+		glNdeMedicamento.setColumns(3);
 		glNdeMedicamento.setEnabled(false);
 
 		// tfNumeroLoteMedicamento
@@ -6631,7 +6632,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroLoteMedicamento.setNullRepresentation("");
 		tfNumeroLoteMedicamento.setImmediate(true);
 		tfNumeroLoteMedicamento.setId("tfNumeroLoteMedicamento");
-		glNdeMedicamento.addComponent(tfRestricaoVeiculo, 0, 0);
+		glNdeMedicamento.addComponent(tfNumeroLoteMedicamento, 0, 0);
 
 		// tfQuantidadeLoteMedicamento
 		tfQuantidadeLoteMedicamento = new TextField("Quantidade do lote:");
@@ -6641,7 +6642,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQuantidadeLoteMedicamento.setNullRepresentation("");
 		tfQuantidadeLoteMedicamento.setImmediate(true);
 		tfQuantidadeLoteMedicamento.setId("tfQuantidadeLoteMedicamento");
-		glNdeMedicamento.addComponent(tfRestricaoVeiculo, 1, 0);
+		glNdeMedicamento.addComponent(tfQuantidadeLoteMedicamento, 1, 0);
 
 		// pdfDataFabricacaoMedicamento
 		pdfDataFabricacaoMedicamento = new PopupDateField("Data da fabricação:");
@@ -6650,7 +6651,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		pdfDataFabricacaoMedicamento.setSizeFull();
 		pdfDataFabricacaoMedicamento.setImmediate(true);
 		pdfDataFabricacaoMedicamento.setId("pdfDataFabricacaoMedicamento");
-		glNdeMedicamento.addComponent(tfRestricaoVeiculo, 2, 0);
+		glNdeMedicamento.addComponent(pdfDataFabricacaoMedicamento, 2, 0);
 
 		// pdfDataValidadeMedicamento
 		pdfDataValidadeMedicamento = new PopupDateField("Data da validade:");
@@ -6659,7 +6660,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		pdfDataValidadeMedicamento.setSizeFull();
 		pdfDataValidadeMedicamento.setImmediate(true);
 		pdfDataValidadeMedicamento.setId("pdfDataValidadeMedicamento");
-		glNdeMedicamento.addComponent(tfRestricaoVeiculo, 0, 1);
+		glNdeMedicamento.addComponent(pdfDataValidadeMedicamento, 0, 1);
 
 		// tfPrecoMaximoConsumidorMedicamento
 		tfPrecoMaximoConsumidorMedicamento = new TextField(
@@ -6671,7 +6672,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPrecoMaximoConsumidorMedicamento.setImmediate(true);
 		tfPrecoMaximoConsumidorMedicamento
 				.setId("tfPrecoMaximoConsumidorMedicamento");
-		glNdeMedicamento.addComponent(tfRestricaoVeiculo, 1, 1);
+		glNdeMedicamento.addComponent(tfPrecoMaximoConsumidorMedicamento, 1, 1);
 
 		return glNdeMedicamento;
 	}
@@ -6822,6 +6823,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 				return true;
 			}
 
+			@Override
 			protected NfeDetalheEntity getNovo() {
 				NfeDetalheEntity detalhe = controller.nfeDetalheAdicionar();
 
@@ -6841,13 +6843,14 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfNfeDetalhe;
 	}
 
-	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> buildMedicamentoSubForm() {
+	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> buildMedicamentoSubForm() {
 		// common part: create layout
-		sfMedicamento = new SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer>(
-				NfeDetalheImpostoCofinsEntity.class,
-				new String[] { "cstCofins", "quantidadeVendida",
-						"baseCalculoCofins" }, new String[] { "CST COFINS",
-						"Quantidade vendida", "Base de cálculo do COFINS" }) {
+		sfMedicamento = new SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer>(
+				NfeDetEspecificoMedicamentoEntity.class,
+				new String[] { "numeroLote", "quantidadeLote",
+						"precoMaximoConsumidor" }, new String[] {
+						"Número do lote", "Quantidade do lote",
+						"Preço máximo ao consumidor" }) {
 
 			/**
 			 * 
@@ -6875,9 +6878,18 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 			@Override
 			public boolean validateItems(
-					List<NfeDetalheImpostoCofinsEntity> items) {
+					List<NfeDetEspecificoMedicamentoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
+			}
+
+			@Override
+			protected NfeDetEspecificoMedicamentoEntity getNovo() {
+				// TODO Auto-generated method stub
+				NfeDetEspecificoMedicamentoEntity detalhe = controller
+						.ndeMedicamentoAdicionar();
+
+				return detalhe;
 			}
 
 		};
