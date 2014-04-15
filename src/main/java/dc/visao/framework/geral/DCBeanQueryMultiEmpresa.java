@@ -15,7 +15,6 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
 	public DCBeanQueryMultiEmpresa(QueryDefinition definition, Map<String, Object> queryConfiguration, Object[] sortPropertyIds, boolean[] sortStates) {
 		super(definition, queryConfiguration, sortPropertyIds, sortStates);
-		// TODO Auto-generated constructor stub
 	}
 
 	private Logger logger = Logger.getLogger(DCBeanQueryMultiEmpresa.class);
@@ -31,7 +30,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 		Integer idEmpresa = (Integer) getQueryConfiguration().get("id_empresa");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty() || filters != null) {
+		if (isSeach(searchTerm)) {
 
 			return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
 		} else {
@@ -51,7 +50,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
 		int size = 0;
 
-		if (searchTerm != null && !searchTerm.trim().isEmpty() || filters != null) {
+		if (isSeach(searchTerm)) {
 			size = dao.fullTextSearchCount(searchTerm, menu, filters);
 		} else {
 			size = dao.countByEmpresa(pojoClass, idEmpresa);

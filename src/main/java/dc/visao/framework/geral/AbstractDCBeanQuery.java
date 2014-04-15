@@ -77,4 +77,8 @@ public abstract class AbstractDCBeanQuery extends AbstractBeanQuery<Serializable
 	protected void saveBeans(List<Serializable> arg0, List<Serializable> arg1, List<Serializable> arg2) {
 		// TODO Auto-generated method stub
 	}
+
+	protected boolean isSeach(String searchTerm) {
+		return searchTerm != null && !searchTerm.trim().isEmpty() || (filters != null && filters.size() > 0);
+	}
 }

@@ -10,8 +10,6 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ComponentConnector;
@@ -20,71 +18,72 @@ import com.vaadin.client.extensions.AbstractExtensionConnector;
 import com.vaadin.client.ui.VOverlay;
 import com.vaadin.client.ui.VTextField;
 import com.vaadin.shared.ui.Connect;
-import com.vaadin.shared.ui.textfield.AbstractTextFieldState;
-import com.vaadin.ui.Notification;
 
 import dc.framework.SearchTextFieldExtension;
 
 @Connect(SearchTextFieldExtension.class)
 public class SearchTextFieldConnector extends AbstractExtensionConnector {
-		
-    @Override
-    protected void extend(ServerConnector target) {
-    
-        final Widget txtFieldWidget = ((ComponentConnector) target).getWidget();
-        
-        final VOverlay warning = new VOverlay();
-        final VTextField textField = (VTextField) ((ComponentConnector) target).getWidget();
-        warning.setOwner(txtFieldWidget);
-        warning.add(new HTML("Caps Lock está ativo!"));
-        System.out.println("Extending............................................");
-        txtFieldWidget.addDomHandler(new KeyPressHandler() {
-            @Override
-            public void onKeyPress(KeyPressEvent event) {
-            		doSearchScheduling(textField);
-            }
 
-			
-        }, KeyPressEvent.getType());
-        
-        txtFieldWidget.addDomHandler(new KeyDownHandler() {
-            @Override
-            public void onKeyDown(KeyDownEvent event) {
-            	if(event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE || event.getNativeKeyCode() == KeyCodes.KEY_DELETE){
-            		 doSearchScheduling(textField);
-            	}
-            }
-        }, KeyDownEvent.getType());
+	@Override
+	protected void extend(ServerConnector target) {
 
-        /*txtFieldWidget.addHandler(new ValueChangeHandler<String>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<String> event) {
-            
-                Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-                    @Override
-                    public void execute() {
-                    	MyComponentServerRpc rpc = getRpcProxy(MyComponentServerRpc.class);
-                    	rpc.search(textField.getValue());
-                      }
-                });
-            	
-                
-            }
-        }, ValueChangeEvent.getType());*/
-        
-        txtFieldWidget.addDomHandler(new MouseDownHandler() {
-			
+		final Widget txtFieldWidget = ((ComponentConnector) target).getWidget();
+
+		final VOverlay warning = new VOverlay();
+		final VTextField textField = (VTextField) ((ComponentConnector) target).getWidget();
+		warning.setOwner(txtFieldWidget);
+		warning.add(new HTML("Caps Lock está ativo!"));
+		System.out.println("Extending............................................");
+		txtFieldWidget.addDomHandler(new KeyPressHandler() {
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				doSearchScheduling(textField);
+			}
+
+		}, KeyPressEvent.getType());
+
+		txtFieldWidget.addDomHandler(new KeyDownHandler() {
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				if (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE || event.getNativeKeyCode() == KeyCodes.KEY_DELETE) {
+					doSearchScheduling(textField);
+				}
+			}
+		}, KeyDownEvent.getType());
+
+		/*
+		 * txtFieldWidget.addHandler(new ValueChangeHandler<String>() {
+		 * 
+		 * @Override public void onValueChange(ValueChangeEvent<String> event) {
+		 * 
+		 * Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+		 * 
+		 * @Override public void execute() { MyComponentServerRpc rpc =
+		 * getRpcProxy(MyComponentServerRpc.class);
+		 * rpc.search(textField.getValue()); } });
+		 * 
+		 * 
+		 * } }, ValueChangeEvent.getType());
+		 */
+
+		txtFieldWidget.addDomHandler(new MouseDownHandler() {
+
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
-				  /* MouseEventDetails details =MouseEventDetailsBuilder.buildMouseEventDetails(event.getNativeEvent());
-				   MyComponentServerRpc rpc = getRpcProxy(MyComponentServerRpc.class);
-				   rpc.clicked(details.getButtonName());*/
+				/*
+				 * MouseEventDetails details
+				 * =MouseEventDetailsBuilder.buildMouseEventDetails
+				 * (event.getNativeEvent()); MyComponentServerRpc rpc =
+				 * getRpcProxy(MyComponentServerRpc.class);
+				 * rpc.clicked(details.getButtonName());
+				 */
 			}
-		},MouseDownEvent.getType());
-        
-    }
-    
-    //will execute search after some time, only one because is delayed and last only
+		}, MouseDownEvent.getType());
+
+	}
+
+	// will execute search after some time, only one because is delayed and last
+	// only
 	private void doSearchScheduling(final VTextField textField) {
 
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -107,10 +106,10 @@ public class SearchTextFieldConnector extends AbstractExtensionConnector {
 				rpc.schedule();
 				return false;
 			}
-		}, 750);
+		}, 1000);
 	}
 
-    private boolean isCapsLockOn(KeyPressEvent e) {
-        return e.isShiftKeyDown() ^ Character.isUpperCase(e.getCharCode());
-    }
+	private boolean isCapsLockOn(KeyPressEvent e) {
+		return e.isShiftKeyDown() ^ Character.isUpperCase(e.getCharCode());
+	}
 }

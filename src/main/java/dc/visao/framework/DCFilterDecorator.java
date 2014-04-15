@@ -76,24 +76,24 @@ public class DCFilterDecorator implements FilterDecorator, Serializable {
 
 	@Override
 	public String getFromCaption() {
-		return "Start date:";
+		return "Data Inicial:";
 	}
 
 	@Override
 	public String getToCaption() {
-		return "End date:";
+		return "Data Final:";
 	}
 
 	@Override
 	public String getSetCaption() {
 		// use default caption
-		return null;
+		return "Filtrar";
 	}
 
 	@Override
 	public String getClearCaption() {
 		// use default caption
-		return null;
+		return "Limpar";
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class DCFilterDecorator implements FilterDecorator, Serializable {
 	@Override
 	public int getTextChangeTimeout(Object propertyId) {
 		// use the same timeout for all the text fields
-		return 500;
+		return 800;
 	}
 
 	@Override
@@ -124,25 +124,21 @@ public class DCFilterDecorator implements FilterDecorator, Serializable {
 
 	@Override
 	public boolean usePopupForNumericProperty(Object propertyId) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public String getDateFormatPattern(Object propertyId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Locale getLocale() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Locale("pt", "BR");
 	}
 
 	@Override
 	public NumberFilterPopupConfig getNumberFilterPopupConfig() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

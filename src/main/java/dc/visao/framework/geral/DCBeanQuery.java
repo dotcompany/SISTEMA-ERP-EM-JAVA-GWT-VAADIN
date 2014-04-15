@@ -59,8 +59,4 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 
 	}
 
-	private boolean isSeach(String searchTerm) {
-		return searchTerm != null && !searchTerm.trim().isEmpty() || (filters != null && filters.size() > 0);
-	}
-
 }

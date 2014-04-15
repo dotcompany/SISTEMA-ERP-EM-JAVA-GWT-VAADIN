@@ -1,6 +1,7 @@
 package dc.visao.framework.component;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -11,7 +12,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.istack.logging.Logger;
+import com.vaadin.data.Container;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
 
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -25,11 +29,6 @@ public class SearchableCustomListTable extends FilterTable {
 	public static Logger logger = Logger.getLogger(SearchableCustomListTable.class);
 	private CompanyFileHandler fileHandler = new CompanyFileHandler();
 	private String entityName;
-
-	/*
-	 * 
-	 * Selecionar (AJUSTES)
-	 */
 
 	public static final Object CUSTOM_SELECT_ID = "";
 	final CheckBox checkbox = new CheckBox();
@@ -132,46 +131,25 @@ public class SearchableCustomListTable extends FilterTable {
 
 	public void setFileHandler(CompanyFileHandler handle) {
 		this.fileHandler = handle;
-
 	}
 
 	@Override
 	public void setRefreshingEnabled(boolean enabled) {
 
-		if (getColumnHeaders().length > 0 && enabled && false) {
-			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-
-			setFooterVisible(true);
-
-			String[] columnHeaders2 = getColumnHeaders();
-			String column = null;
-			for (String col : columnHeaders2) {
-				if (col != null && !"".equals(col)) {
-					column = col;
-					break;
-				}
-			}
-
-			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, null);
-			setColumnFooter(column, null);
-
-			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			setColumnFooter(column, 13 + " registro(s) encontrado(s)");
-			markAsDirtyRecursive();
-			markAsDirty();
-			requestRepaintAll();
-
-		}
 		super.setRefreshingEnabled(enabled);
+		refreshFooter();
 
-		if (getColumnHeaders().length > 0 && enabled) {
+	}
+
+	private void refreshFooter() {
+		if (getVisibleColumns().length > 0) {
 			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
 
 			setFooterVisible(true);
 
-			String[] columnHeaders2 = getColumnHeaders();
-			String column = null;
-			for (String col : columnHeaders2) {
+			Object[] columnHeaders2 = getVisibleColumns();
+			Object column = null;
+			for (Object col : columnHeaders2) {
 				if (col != null && !"".equals(col)) {
 					column = col;
 					break;
@@ -183,11 +161,29 @@ public class SearchableCustomListTable extends FilterTable {
 
 			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
 			setColumnFooter(column, size() + " registro(s) encontrado(s)");
-			markAsDirtyRecursive();
-			markAsDirty();
-			requestRepaintAll();
 
 		}
+	}
 
+	@Override
+	public void setContainerDataSource(Container newDataSource) {
+		// TODO Auto-generated method stub
+		super.setContainerDataSource(newDataSource);
+
+		Map<Object, Component> columns = getColumnIdToFilterMap();
+
+		if (columns != null) {
+			for (Object property : columns.keySet()) {
+				AbstractField<?> component = (AbstractField<?>) columns.get(property);
+
+				component.addValueChangeListener(new ValueChangeListener() {
+
+					@Override
+					public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+						refreshFooter();
+					}
+				});
+			}
+		}
 	}
 }

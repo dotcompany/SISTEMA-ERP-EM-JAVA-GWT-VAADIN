@@ -20,10 +20,6 @@ import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.dialogs.DefaultConfirmDialogFactory;
 
 import com.sun.istack.logging.Logger;
-import com.vaadin.data.Container.ItemSetChangeEvent;
-import com.vaadin.data.Container.ItemSetChangeListener;
-import com.vaadin.data.Container.PropertySetChangeEvent;
-import com.vaadin.data.Container.PropertySetChangeListener;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
@@ -193,10 +189,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		 * fechar.setImmediate(true); fechar.setDescription("Fechar");
 		 */
 
-		/**
-		 * 
-		 * Wesley Jr (FECHAR)
-		 */
+		/** Wesley Jr (FECHAR) */
 
 		view.getBtnFechar().addClickListener(new ClickListener() {
 			@Override
@@ -340,10 +333,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		});
 
-		/**
-		 * 
-		 * Wesley Jr(Alterações CheckBox) NUMERAÇÃO
-		 */
+		/** Wesley Jr(Alterações CheckBox) NUMERAÇÃO */
 		// adiciona checkbox na ultima coluna para marcar para acoes como ex:
 		// remover
 		// table.setRowHeaderMode(Table.ROW_HEADER_MODE_INDEX);
@@ -499,29 +489,6 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			// table.markAsDirty();
 			table.setSizeFull();
 			table.setContainerDataSource(container);
-
-			container.addItemSetChangeListener(new ItemSetChangeListener() {
-
-				@Override
-				public void containerItemSetChange(ItemSetChangeEvent event) {
-					System.out.println("Mudei");
-					table.setFooterVisible(true);
-					table.setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-					table.setColumnFooter(table.getColumnHeaders()[1], table.size() + " registro(s) encontrado(s)");
-
-				}
-			});
-
-			container.addPropertySetChangeListener(new PropertySetChangeListener() {
-
-				@Override
-				public void containerPropertySetChange(PropertySetChangeEvent event) {
-					// table.setFooterVisible(true);
-					table.setFooterVisible(true);
-					table.setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-					table.setColumnFooter(table.getColumnHeaders()[1], table.size() + " registro(s) encontrado(s)");
-				}
-			});
 
 			for (String prop : getColunas()) {
 				Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class, getEntityClass(), prop);
@@ -744,9 +711,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		getFormController().setModuleId(id);
 	}
 
-	/**
-	 * VERIFICAR PERMISSÃO PARA SALVAR, CRIAR, REMOVER E EDITAR
-	 */
+	/** VERIFICAR PERMISSÃO PARA SALVAR, CRIAR, REMOVER E EDITAR */
 
 	@Autowired
 	private FmMenuDAO meDAO;
