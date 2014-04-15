@@ -279,7 +279,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
 
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.EAGER)
 	private List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList;
 
 	/**
