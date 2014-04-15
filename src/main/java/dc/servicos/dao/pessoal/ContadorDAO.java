@@ -35,13 +35,8 @@ public class ContadorDAO extends AbstractCrudDAO<Contador>{
 		return getSession().createQuery("from Contador").list();
 	}
 
-	@Transactional
-	public List<Contador> procuraNomeContendo(String query) {
-		return getSession().createQuery("from Contador where logradouro like :q").setParameter("q", "%" + query + "%").list();
-	}
-
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"logradouro","complemento", "bairro","cep","municipioIBGE","fax","telefone"};
+		return new String[] { "" };
 	}
 
 	

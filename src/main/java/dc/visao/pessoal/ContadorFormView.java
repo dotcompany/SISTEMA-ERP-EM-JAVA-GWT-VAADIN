@@ -107,9 +107,6 @@ public class ContadorFormView extends CustomComponent {
 		// cmbPessoa
 		cmbPessoa = new ManyToOneCombo<>();
 		cmbPessoa.setCaption("Pessoa");
-		cmbPessoa.setWidth("680px");
-		cmbPessoa.setHeight("-1px");
-		cmbPessoa.setSizeFull();
 		fields.addComponent(cmbPessoa, 0, 0);
 
 		// txtNumeroCRC

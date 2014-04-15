@@ -14,6 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ContadorListController extends CRUDListController<Contador> {
+	
 
 	@Autowired
 	ContadorDAO dao;
@@ -28,7 +29,7 @@ public class ContadorListController extends CRUDListController<Contador> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "logradouro", "complemento", "bairro", "cep", "municipioIBGE", "fax", "telefone" };
+		return new String[] { "logradouro", "bairro" };
 	}
 
 	@Override
@@ -66,5 +67,5 @@ public class ContadorListController extends CRUDListController<Contador> {
 	protected List<Contador> pesquisaDefault() {
 		return (List<Contador>) dao.getAll(getEntityClass());
 	}
-
+	
 }

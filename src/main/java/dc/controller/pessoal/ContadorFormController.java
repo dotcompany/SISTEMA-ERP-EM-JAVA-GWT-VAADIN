@@ -96,6 +96,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		subView.getTxtComplemento().setValue(currentBean.getComplemento());
 		subView.getTxtCep().setValue(currentBean.getCep());
 		subView.getTxtBairro().setValue(currentBean.getBairro());
+		subView.getTxtTelefone().setValue(currentBean.getFone());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 	}
 	
