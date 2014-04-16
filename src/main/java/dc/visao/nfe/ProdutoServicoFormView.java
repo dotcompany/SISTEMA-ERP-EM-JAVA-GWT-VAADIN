@@ -2022,7 +2022,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 	private SubFormComponent<NfeDetalheEntity, Integer> sfNfeDetalhe;
 
-	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfMedicamento;
+	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfNdeMedicamento;
 
 	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> sfArmamento;
 
@@ -2062,13 +2062,13 @@ public class ProdutoServicoFormView extends CustomComponent {
 		this.sfNfeDetalhe = sfNfeDetalhe;
 	}
 
-	public SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> getSfMedicamento() {
-		return sfMedicamento;
+	public SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> getSfNdeMedicamento() {
+		return sfNdeMedicamento;
 	}
 
-	public void setSfMedicamento(
-			SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfMedicamento) {
-		this.sfMedicamento = sfMedicamento;
+	public void setSfNdeMedicamento(
+			SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> sfNdeMedicamento) {
+		this.sfNdeMedicamento = sfNdeMedicamento;
 	}
 
 	public SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> getSfArmamento() {
@@ -2189,7 +2189,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// gridLayout_18
 		vlNdiIi = bvlNdiIi();
-		tabSheet_1.addTab(vlNdiIi, "Imposto Importação", null);
+		tabSheet_1.addTab(vlNdiIi, "Imposto importação", null);
 
 		// gridLayout_19
 		vlNdiIssqn = bvlNdiIssqn();
@@ -6599,7 +6599,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		plNdeMedicamentoSubForm.setSizeFull();
 		plNdeMedicamentoSubForm.setEnabled(false);
 
-		plNdeMedicamentoSubForm.setContent(buildMedicamentoSubForm());
+		plNdeMedicamentoSubForm.setContent(buildNdeMedicamentoSubForm());
 
 		return plNdeMedicamentoSubForm;
 	}
@@ -6637,6 +6637,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroLoteMedicamento.setNullRepresentation("");
 		tfNumeroLoteMedicamento.setImmediate(true);
 		tfNumeroLoteMedicamento.setId("tfNumeroLoteMedicamento");
+		tfNumeroLoteMedicamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeMedicamentoSetarValor(
+									tfNumeroLoteMedicamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeMedicamento.addComponent(tfNumeroLoteMedicamento, 0, 0);
 
 		// tfQuantidadeLoteMedicamento
@@ -6647,6 +6664,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfQuantidadeLoteMedicamento.setNullRepresentation("");
 		tfQuantidadeLoteMedicamento.setImmediate(true);
 		tfQuantidadeLoteMedicamento.setId("tfQuantidadeLoteMedicamento");
+		tfQuantidadeLoteMedicamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeMedicamentoSetarValor(
+									tfQuantidadeLoteMedicamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeMedicamento.addComponent(tfQuantidadeLoteMedicamento, 1, 0);
 
 		// pdfDataFabricacaoMedicamento
@@ -6656,6 +6690,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		pdfDataFabricacaoMedicamento.setSizeFull();
 		pdfDataFabricacaoMedicamento.setImmediate(true);
 		pdfDataFabricacaoMedicamento.setId("pdfDataFabricacaoMedicamento");
+		pdfDataFabricacaoMedicamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeMedicamentoSetarValor(
+									pdfDataFabricacaoMedicamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeMedicamento.addComponent(pdfDataFabricacaoMedicamento, 2, 0);
 
 		// pdfDataValidadeMedicamento
@@ -6665,6 +6716,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		pdfDataValidadeMedicamento.setSizeFull();
 		pdfDataValidadeMedicamento.setImmediate(true);
 		pdfDataValidadeMedicamento.setId("pdfDataValidadeMedicamento");
+		pdfDataValidadeMedicamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeMedicamentoSetarValor(
+									pdfDataValidadeMedicamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeMedicamento.addComponent(pdfDataValidadeMedicamento, 0, 1);
 
 		// tfPrecoMaximoConsumidorMedicamento
@@ -6677,6 +6745,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfPrecoMaximoConsumidorMedicamento.setImmediate(true);
 		tfPrecoMaximoConsumidorMedicamento
 				.setId("tfPrecoMaximoConsumidorMedicamento");
+		tfPrecoMaximoConsumidorMedicamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeMedicamentoSetarValor(
+									tfPrecoMaximoConsumidorMedicamento.getId(),
+									event.getProperty().getValue());
+						}
+					}
+				});
 		glNdeMedicamento.addComponent(tfPrecoMaximoConsumidorMedicamento, 1, 1);
 
 		return glNdeMedicamento;
@@ -6848,9 +6933,9 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return sfNfeDetalhe;
 	}
 
-	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> buildMedicamentoSubForm() {
+	private SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer> buildNdeMedicamentoSubForm() {
 		// common part: create layout
-		sfMedicamento = new SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer>(
+		sfNdeMedicamento = new SubFormComponent<NfeDetEspecificoMedicamentoEntity, Integer>(
 				NfeDetEspecificoMedicamentoEntity.class,
 				new String[] { "numeroLote", "quantidadeLote",
 						"precoMaximoConsumidor" }, new String[] {
@@ -6907,7 +6992,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		};
 
-		return sfMedicamento;
+		return sfNdeMedicamento;
 	}
 
 	private SubFormComponent<NfeDetalheImpostoCofinsEntity, Integer> buildArmamentoSubForm() {
@@ -7052,6 +7137,15 @@ public class ProdutoServicoFormView extends CustomComponent {
 	public void carregarSfNfeDetalhe(List<NfeDetalheEntity> nfeDetalheList) {
 		try {
 			sfNfeDetalhe.fillWith(nfeDetalheList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void carregarSfNdeMedicamento(
+			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList) {
+		try {
+			sfNdeMedicamento.fillWith(ndeMedicamentoList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

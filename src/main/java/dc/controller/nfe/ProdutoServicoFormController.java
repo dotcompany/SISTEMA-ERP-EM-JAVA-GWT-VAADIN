@@ -108,6 +108,8 @@ public class ProdutoServicoFormController extends
 
 	private NfeDetalheEntity nfeDetalheSelecionado;
 
+	private NfeDetEspecificoMedicamentoEntity ndeMedicamentoSelecionado;
+
 	/**
 	 * CONSTRUTOR
 	 */
@@ -120,11 +122,15 @@ public class ProdutoServicoFormController extends
 		if (this.nfeDetalheSelecionado == null) {
 			this.nfeDetalheSelecionado = new NfeDetalheEntity();
 		}
+
+		if (this.ndeMedicamentoSelecionado == null) {
+			this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
+		}
 	}
 
 	@Override
 	protected String getNome() {
-		return "Produto / Serviço";
+		return "Produto / serviço";
 	}
 
 	@Override
@@ -989,7 +995,20 @@ public class ProdutoServicoFormController extends
 
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
+			this.ndeMedicamentoSelecionado = item;
 
+			this.subView.getTfNumeroLoteMedicamento().setValue(
+					this.ndeMedicamentoSelecionado.getNumeroLote());
+			this.subView.getTfQuantidadeLoteMedicamento().setValue(
+					this.ndeMedicamentoSelecionado.getQuantidadeLote()
+							.toString());
+			this.subView.getPdfDataFabricacaoMedicamento().setValue(
+					this.ndeMedicamentoSelecionado.getDataFabricacao());
+			this.subView.getPdfDataValidadeMedicamento().setValue(
+					this.ndeMedicamentoSelecionado.getDataValidade());
+			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
+					this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor()
+							.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1906,6 +1925,62 @@ public class ProdutoServicoFormController extends
 
 		this.subView.getSfNfeDetalhe().getDados()
 				.add(index, this.nfeDetalheSelecionado);
+	}
+
+	public void ndeMedicamentoSetarValor(String id, Object obj) {
+		// TODO ndeMedicamentoSetarValor
+
+		// NfeDetEspecificoCombustivelEntity ndiCombustivel =
+		// this.nfeDetalheSelecionado
+		// .getNfeDetEspecificoCombustivel();
+
+		if (this.ndeMedicamentoSelecionado == null) {
+			return;
+		}
+
+		switch (id) {
+		case "tfNumeroLoteMedicamento":
+			this.ndeMedicamentoSelecionado.setNumeroLote((String) obj);
+
+			break;
+		case "tfQuantidadeLoteMedicamento":
+			this.ndeMedicamentoSelecionado.setQuantidadeLote(ObjectConverter
+					.stringToValue((String) obj));
+
+			break;
+		case "pdfDataFabricacaoMedicamento":
+			this.ndeMedicamentoSelecionado.setDataFabricacao((Date) obj);
+
+			break;
+		case "pdfDataValidadeMedicamento":
+			this.ndeMedicamentoSelecionado.setDataValidade((Date) obj);
+
+			break;
+		case "tfPrecoMaximoConsumidorMedicamento":
+			this.ndeMedicamentoSelecionado
+					.setPrecoMaximoConsumidor(ObjectConverter
+							.stringToValue((String) obj));
+
+			break;
+		}
+
+		Integer index = this.subView.getSfNdeMedicamento().getDados()
+				.indexOf(this.ndeMedicamentoSelecionado);
+
+		this.subView.getSfNdeMedicamento().getDados()
+				.remove(this.ndeMedicamentoSelecionado);
+
+		this.nfeDetalheSelecionado.getNdeMedicamentoList().remove(
+				this.ndeMedicamentoSelecionado);
+
+		this.ndeMedicamentoSelecionado
+				.setNfeDetalhe(this.nfeDetalheSelecionado);
+
+		this.subView.getSfNdeMedicamento().getDados()
+				.add(index, this.ndeMedicamentoSelecionado);
+
+		this.nfeDetalheSelecionado.getNdeMedicamentoList().add(
+				this.ndeMedicamentoSelecionado);
 	}
 
 	/**
