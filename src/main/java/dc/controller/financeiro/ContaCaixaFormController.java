@@ -114,7 +114,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 		this.subView.InitCbs(getContaCaixaTipo());
 
-		 /* DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class, 
+		  DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class, 
 				  this.agenciaDAO, super.getMainController()) {
 			  @Override
 				public String getCaptionProperty() {
@@ -132,7 +132,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 				}
 			};
 		  
-		  subView.getCmbContabilConta().setModel(contaModel);*/
+		  subView.getCmbContabilConta().setModel(contaModel);
 		  
 	}
 
@@ -231,7 +231,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected String getNome() {
-		return "Conta caixa";
+		return "Conta Caixa";
 	}
 
 	@Override
