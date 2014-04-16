@@ -33,6 +33,7 @@ import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
+import dc.servicos.dao.nfe.NfeDetEspecificoMedicamentoDAO;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
@@ -100,6 +101,9 @@ public class ProdutoServicoFormController extends
 	@Autowired
 	private NfeDetalheImpostoPisDAO nfeDetalheImpostoPisDAO;
 
+	@Autowired
+	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
+
 	/**
 	 * ENTITIES
 	 */
@@ -152,6 +156,11 @@ public class ProdutoServicoFormController extends
 					ent.setNfeCabecalho(this.nfeCabecalho);
 
 					this.nfeDetalheDAO.saveOrUpdate(ent);
+
+					for (NfeDetEspecificoMedicamentoEntity ent1 : ent
+							.getNdeMedicamentoList()) {
+						this.ndeMedicamentoDAO.saveOrUpdate(ent1);
+					}
 				}
 			}
 
@@ -426,6 +435,23 @@ public class ProdutoServicoFormController extends
 			}
 
 			this.subView.carregarSfNfeDetalhe(auxLista);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void ndeMedicamentoCarregar() {
+		try {
+			List<NfeDetEspecificoMedicamentoEntity> auxLista = new ArrayList<NfeDetEspecificoMedicamentoEntity>();
+
+			if (this.nfeDetalheSelecionado.getId() != null
+					&& !this.nfeDetalheSelecionado.getId().equals(0)) {
+				auxLista = this.ndeMedicamentoDAO
+						.getLista(this.nfeDetalheSelecionado);
+			}
+
+			this.subView.carregarSfNdeMedicamento(this.nfeDetalheSelecionado
+					.getNdeMedicamentoList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -925,6 +951,8 @@ public class ProdutoServicoFormController extends
 				this.nfeDetalheSelecionado
 						.setNdeMedicamentoList(ndeMedicamentoList);
 			}
+
+			ndeMedicamentoCarregar();
 
 			abaHabilitar(true, true, true, true, true, true, true, true, true,
 					true);
