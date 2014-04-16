@@ -124,7 +124,7 @@ public class ProdutoServicoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Produto / serviço";
+		return "Produto / Serviço";
 	}
 
 	@Override

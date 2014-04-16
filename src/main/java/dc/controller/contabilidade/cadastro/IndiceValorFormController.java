@@ -66,7 +66,7 @@ public class IndiceValorFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Índice valor";
+		return "Índice Valor";
 	}
 
 	@Override

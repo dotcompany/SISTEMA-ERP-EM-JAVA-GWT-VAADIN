@@ -2189,7 +2189,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// gridLayout_18
 		vlNdiIi = bvlNdiIi();
-		tabSheet_1.addTab(vlNdiIi, "Imposto importação", null);
+		tabSheet_1.addTab(vlNdiIi, "Imposto Importação", null);
 
 		// gridLayout_19
 		vlNdiIssqn = bvlNdiIssqn();

@@ -54,7 +54,7 @@ public class IndiceValorListController extends CRUDListController<IndiceValorEnt
 
 	@Override
 	protected String getTitulo() {
-		return "Índice valor";
+		return "Índice Valor";
 	}
 
 	@Override

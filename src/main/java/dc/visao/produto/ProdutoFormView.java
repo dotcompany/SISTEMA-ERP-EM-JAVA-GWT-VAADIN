@@ -697,7 +697,7 @@ public class ProdutoFormView extends CustomComponent {
 	}
 
 	public void buildPrincipalSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(5, 5);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
@@ -772,7 +772,7 @@ public class ProdutoFormView extends CustomComponent {
 	}
 
 	public void buildValorPrincipalSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(5, 5);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
@@ -861,7 +861,7 @@ public class ProdutoFormView extends CustomComponent {
 	}
 
 	public void buildComplementarSubForm() {
-		GridLayout layout = new GridLayout(7, 7);
+		GridLayout layout = new GridLayout(5, 5);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
