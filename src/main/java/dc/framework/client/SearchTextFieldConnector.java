@@ -106,7 +106,7 @@ public class SearchTextFieldConnector extends AbstractExtensionConnector {
 				rpc.schedule();
 				return false;
 			}
-		}, 1000);
+		}, 1300);
 	}
 
 	private boolean isCapsLockOn(KeyPressEvent e) {

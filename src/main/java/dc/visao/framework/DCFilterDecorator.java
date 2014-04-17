@@ -105,7 +105,7 @@ public class DCFilterDecorator implements FilterDecorator, Serializable {
 	@Override
 	public int getTextChangeTimeout(Object propertyId) {
 		// use the same timeout for all the text fields
-		return 800;
+		return 1300;
 	}
 
 	@Override
