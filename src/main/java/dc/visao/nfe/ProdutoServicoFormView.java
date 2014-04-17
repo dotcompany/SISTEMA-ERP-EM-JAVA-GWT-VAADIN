@@ -836,7 +836,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		return plNdeMedicamento;
 	}
 
-	public GridLayout getNdeGlMedicamento() {
+	public GridLayout getGlNdeMedicamento() {
 		return glNdeMedicamento;
 	}
 
@@ -6675,9 +6675,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
 						if (ObjectValidator.validateEventValue(event)) {
-							controller.ndeMedicamentoSetarValor(
-									tfQuantidadeLoteMedicamento.getId(), event
-											.getProperty().getValue());
+							if (ObjectValidator.validateValue(event)) {
+								controller.ndeMedicamentoSetarValor(
+										tfQuantidadeLoteMedicamento.getId(),
+										event.getProperty().getValue());
+							}
 						}
 					}
 				});
@@ -6701,9 +6703,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
 						if (ObjectValidator.validateEventValue(event)) {
-							controller.ndeMedicamentoSetarValor(
-									pdfDataFabricacaoMedicamento.getId(), event
-											.getProperty().getValue());
+							if (ObjectValidator.validateNotRequiredDate(event)) {
+								controller.ndeMedicamentoSetarValor(
+										pdfDataFabricacaoMedicamento.getId(),
+										event.getProperty().getValue());
+							}
 						}
 					}
 				});
@@ -6727,9 +6731,11 @@ public class ProdutoServicoFormView extends CustomComponent {
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
 						if (ObjectValidator.validateEventValue(event)) {
-							controller.ndeMedicamentoSetarValor(
-									pdfDataValidadeMedicamento.getId(), event
-											.getProperty().getValue());
+							if (ObjectValidator.validateNotRequiredDate(event)) {
+								controller.ndeMedicamentoSetarValor(
+										pdfDataValidadeMedicamento.getId(),
+										event.getProperty().getValue());
+							}
 						}
 					}
 				});
@@ -6756,9 +6762,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
 						if (ObjectValidator.validateEventValue(event)) {
-							controller.ndeMedicamentoSetarValor(
-									tfPrecoMaximoConsumidorMedicamento.getId(),
-									event.getProperty().getValue());
+							if (ObjectValidator.validateValue(event)) {
+								controller.ndeMedicamentoSetarValor(
+										tfPrecoMaximoConsumidorMedicamento
+												.getId(), event.getProperty()
+												.getValue());
+							}
 						}
 					}
 				});
