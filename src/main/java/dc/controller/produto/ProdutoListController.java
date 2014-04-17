@@ -17,8 +17,8 @@ import dc.visao.framework.geral.CRUDListController;
 public class ProdutoListController extends CRUDListController<Produto> {
 
 	/**
-	 * 
-	 */
+		 * 
+		 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -34,7 +34,8 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "gtin", "codigoInterno", "nome", "descricao", "descricaoPdv" };
+		return new String[] { "gtin", "codigoInterno", "nome", "descricao",
+				"descricaoPdv" };
 	}
 
 	@Override

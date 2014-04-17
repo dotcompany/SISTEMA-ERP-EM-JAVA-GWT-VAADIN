@@ -335,7 +335,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		carregarCombos();
 	}
 
-	private StreamResource createResource() {
+	public StreamResource createResource() {
 		final Documento documento = (Documento) subView.getCbmDocumento().getValue();
 		if (documento != null) {
 
@@ -597,7 +597,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		if (validaSalvar()) {
 			final Pessoa pessoa = (Pessoa) subView.getCbmPessoa().getValue();
 			if (pessoa == null || pessoa.getId() == null) {
-				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
+				throw new Exception("É necessário informar a pessoa para previsão das parcelas.");
 			}
 			final List<ContratoPrevFaturamento> contratoprevFaturamento = new ArrayList<ContratoPrevFaturamento>();
 			List<ContratoPrevFaturamento> dados = subView.getPrevisaoFaturamentoSubForm().getDados();
@@ -746,4 +746,5 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return true;
 	}
 
+	
 }
