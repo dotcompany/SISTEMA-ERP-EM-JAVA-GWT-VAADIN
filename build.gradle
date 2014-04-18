@@ -52,7 +52,7 @@ dependencies {
  		 compile files('libs/jrimum/jrimum-vallia-0.2.3-SNAPSHOT.jar')
  		 compile files('libs/jrimum/log4j-1.2.15.jar')
 		  
-		 compile('org.vaadin.addon:confirmdialog:2.0.4'){
+		 compile('org.vaadin.addon:confirmdialog:2.0.5'){
      		//excluding a particular transitive dependency:
      		exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
@@ -61,7 +61,7 @@ dependencies {
    			exclude module: 'vaadin-themes' //by artifact name
    		}
    		
-   		 compile('org.vaadin.addons:wizards-for-vaadin:1.0.0-beta1'){
+   		 compile('org.vaadin.addons:wizards-for-vaadin:1.1.0'){
      		//excluding a particular transitive dependency:
      		exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
@@ -102,18 +102,18 @@ dependencies {
          
         
 		// dependencies		
-		compile 'org.hibernate:hibernate-entitymanager:4.2.11.Final'
+		compile 'org.hibernate:hibernate-entitymanager:4.2.12.Final'
 		compile 'org.hibernate:hibernate-validator:5.0.1.Final'
 		
-		compile 'org.hibernate:hibernate-search:4.4.2.Final'
-		compile 'org.hibernate:hibernate-search-analyzers:4.4.2.Final'
-		compile 'org.hibernate:hibernate-c3p0:4.2.8.Final'
+		compile 'org.hibernate:hibernate-search:4.4.3.Final'
+		compile 'org.hibernate:hibernate-search-analyzers:4.4.3.Final'
+		compile 'org.hibernate:hibernate-c3p0:4.2.11.Final'
 		
 		compile 'com.itextpdf:itextpdf:5.0.6'
 		compile 'javax.mail:mail:1.4.7'
 		
 		compile 'mysql:mysql-connector-java:5.1.21'
-		compile 'org.postgresql:postgresql:9.3-1100-jdbc41'
+		compile 'org.postgresql:postgresql:9.3-1101-jdbc41'
          
 		
 		compile 'br.com.caelum.stella:caelum-stella-core:2.0-beta1'
@@ -128,15 +128,15 @@ dependencies {
 			exclude module: 'commons-logging'
 		}
 		
-		compile 'org.springframework:spring-core:3.2.5.RELEASE'
-		compile 'org.springframework:spring-expression:3.2.5.RELEASE'
-		compile 'org.springframework:spring-orm:3.2.5.RELEASE'
-		compile 'org.springframework.data:spring-data-jpa:1.4.2.RELEASE'
-		compile 'org.springframework:spring-jdbc:3.2.5.RELEASE'
-		compile 'org.springframework:spring-tx:3.2.5.RELEASE'
-		compile 'org.springframework:spring-web:3.2.5.RELEASE'
-		compile 'org.springframework:spring-webmvc:3.2.5.RELEASE'
-		compile 'org.springframework:spring-context-support:3.2.5.RELEASE'
+		compile 'org.springframework:spring-core:3.2.8.RELEASE'
+		compile 'org.springframework:spring-expression:3.2.8.RELEASE'
+		compile 'org.springframework:spring-orm:3.2.8.RELEASE'
+		compile 'org.springframework.data:spring-data-jpa:1.5.1.RELEASE'
+		compile 'org.springframework:spring-jdbc:3.2.8.RELEASE'
+		compile 'org.springframework:spring-tx:3.2.8.RELEASE'
+		compile 'org.springframework:spring-web:3.2.8.RELEASE'
+		compile 'org.springframework:spring-webmvc:3.2.8.RELEASE'
+		compile 'org.springframework:spring-context-support:3.2.8.RELEASE'
 		compile 'org.freemarker:freemarker:2.3.20'
 		
 		
@@ -178,19 +178,19 @@ dependencies {
 		compile 'org.vaadin.addons:imagecarousel:1.0.3'
 		
 		// Reports with JasperReports
-		compile ('net.sf.jasperreports:jasperreports:5.5.0') {
+		compile ('net.sf.jasperreports:jasperreports:5.5.1') {
         	exclude group:'eclipse'
         } 
 		compile 'com.lowagie:itext:2.1.7'
 		compile 'com.itextpdf:itextpdf:5.1.2'
 		
 		
-		compile 'org.apache.poi:poi:3.9'
-		compile 'org.apache.poi:poi-ooxml:3.9'
-		compile 'org.apache.poi:poi-scratchpad:3.9'
-		compile 'org.apache.poi:poi-ooxml-schemas:3.9'
+		compile 'org.apache.poi:poi:3.10-FINAL'
+		compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
+		compile 'org.apache.poi:poi-scratchpad:3.10-FINAL'
+		compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
 		compile 'org.apache.poi:ooxml-schemas:1.1'
-		compile 'joda-time:joda-time:2.2'
+		compile 'joda-time:joda-time:2.3'
 		
 		compile 'org.vaadin.addons:filteringtable:0.9.6.v7'
 }
