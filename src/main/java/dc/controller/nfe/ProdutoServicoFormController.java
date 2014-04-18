@@ -294,18 +294,20 @@ public class ProdutoServicoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.nfeCabecalho = new NfeCabecalhoEntity();
+
 				// this.nfeCabecalho
 				// .setNfeDestinatario(new NfeDestinatarioEntity());
 
-				// nfeDetalheLimpar();
-				// ndiCofinsLimpar();
-				// ndiIcmsLimpar();
-				// ndiIiLimpar();
-				// ndiIpiLimpar();
-				// ndiIssqnLimpar();
-				// ndiPisLimpar();
-				// ndeCombustivelLimpar();
-				// ndeVeiculoLimpar();
+				nfeDetalheLimpar();
+				ndiCofinsLimpar();
+				ndiIcmsLimpar();
+				ndiIiLimpar();
+				ndiIpiLimpar();
+				ndiIssqnLimpar();
+				ndiPisLimpar();
+				ndeCombustivelLimpar();
+				ndeVeiculoLimpar();
+				ndeMedicamentoLimpar();
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 			}
@@ -434,6 +436,94 @@ public class ProdutoServicoFormController extends
 				.carregarSfNfeDetalhe(this.nfeCabecalho.getNfeDetalheList());
 	}
 
+	private void ndiCofinsCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * COFINS
+		 */
+
+		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
+		ndiCofins.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpostoCofins(ndiCofins);
+	}
+
+	private void ndiIcmsCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * ICMS
+		 */
+
+		NfeDetalheImpostoIcmsEntity ndiIcms = new NfeDetalheImpostoIcmsEntity();
+		ndiIcms.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpostoIcms(ndiIcms);
+	}
+
+	private void ndiIiCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * IMPOSTO IMPORTAÇÃO
+		 */
+
+		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
+		ndiIi.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpostoIi(ndiIi);
+	}
+
+	private void ndiIpiCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * IPI
+		 */
+
+		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
+		ndiIpi.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpIpi(ndiIpi);
+	}
+
+	private void ndiIssqnCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * ISSQN
+		 */
+
+		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
+		ndiIssqn.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpostoIssqn(ndiIssqn);
+	}
+
+	private void ndiPisCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * PIS
+		 */
+
+		NfeDetalheImpostoPisEntity ndiPis = new NfeDetalheImpostoPisEntity();
+		ndiPis.setNfeDetalhe(ent);
+
+		ent.setNfeDetalheImpostoPis(ndiPis);
+	}
+
+	private void ndeCombustivelCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * COMBUSTÍVEL
+		 */
+
+		NfeDetEspecificoCombustivelEntity ndeCombustivel = new NfeDetEspecificoCombustivelEntity();
+		ndeCombustivel.setNfeDetalhe(ent);
+
+		ent.setNfeDetEspecificoCombustivel(ndeCombustivel);
+	}
+
+	private void ndeVeiculoCarregar(NfeDetalheEntity ent) throws Exception {
+		/**
+		 * VEÍCULO
+		 */
+
+		NfeDetEspecificoVeiculoEntity ndeVeiculo = new NfeDetEspecificoVeiculoEntity();
+		ndeVeiculo.setNfeDetalhe(ent);
+
+		ent.setNfeDetEspecificoVeiculo(ndeVeiculo);
+	}
+
 	private void ndeMedicamentoCarregar() throws Exception {
 		List<NfeDetEspecificoMedicamentoEntity> auxLista = this.nfeCabecalho
 				.getNfeDetalhe().getNdeMedicamentoList();
@@ -447,21 +537,6 @@ public class ProdutoServicoFormController extends
 
 		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
 				.getNdeMedicamentoList());
-
-		/*
-		 * List<NfeDetEspecificoMedicamentoEntity> auxLista = new
-		 * ArrayList<NfeDetEspecificoMedicamentoEntity>();
-		 * 
-		 * if (this.nfeCabecalho.getNfeDetalhe().getId() != null &&
-		 * !this.nfeCabecalho.getNfeDetalhe().getId().equals(0)) { auxLista =
-		 * this.ndeMedicamentoDAO.getLista(this.nfeCabecalho .getNfeDetalhe());
-		 * }
-		 * 
-		 * this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
-		 * 
-		 * this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe(
-		 * ) .getNdeMedicamentoList());
-		 */
 	}
 
 	/**
@@ -2312,6 +2387,9 @@ public class ProdutoServicoFormController extends
 	}
 
 	public void ndeMedicamentoLimpar() {
+		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+				.getNdeMedicamentoList());
+
 		this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
 
 		this.subView.getTfNumeroLoteMedicamento().setValue(
