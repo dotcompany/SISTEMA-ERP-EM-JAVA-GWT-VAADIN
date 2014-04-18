@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -476,8 +477,6 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Tributário - Operação fiscal")
 	private OperacaoFiscal tributOperacaoFiscal;
 
-	// @ManyToOne
-	// @JoinColumn(name = "id_venda_cabecalho")
 	@Column(name = "id_venda_cabecalho")
 	@Caption(value = "Venda - Cabeçalho")
 	private Integer vendaCabecalho;
@@ -514,11 +513,15 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	// @OneToMany(mappedBy = "nfeCabecalho", fetch = FetchType.LAZY)
-	// private List<NfeDestinatarioEntity> nfeDestinatarioList;
-
 	@OneToMany(mappedBy = "nfeCabecalho", fetch = FetchType.LAZY)
 	private List<NfeDetalheEntity> nfeDetalheList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	private NfeDetalheEntity nfeDetalhe;
 
 	/**
 	 * CONSTRUTOR
@@ -1122,6 +1125,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNfeDetalheList(List<NfeDetalheEntity> nfeDetalheList) {
 		this.nfeDetalheList = nfeDetalheList;
+	}
+
+	public NfeDetalheEntity getNfeDetalhe() {
+		return nfeDetalhe;
+	}
+
+	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
+		this.nfeDetalhe = nfeDetalhe;
 	}
 
 	/**

@@ -110,7 +110,7 @@ public class ProdutoServicoFormController extends
 
 	private NfeCabecalhoEntity nfeCabecalho;
 
-	private NfeDetalheEntity nfeDetalheSelecionado;
+	// private NfeDetalheEntity nfeDetalheSelecionado;
 
 	private NfeDetEspecificoMedicamentoEntity ndeMedicamentoSelecionado;
 
@@ -123,9 +123,9 @@ public class ProdutoServicoFormController extends
 			this.nfeCabecalho = new NfeCabecalhoEntity();
 		}
 
-		if (this.nfeDetalheSelecionado == null) {
-			this.nfeDetalheSelecionado = new NfeDetalheEntity();
-		}
+		// if (this.nfeDetalheSelecionado == null) {
+		// this.nfeDetalheSelecionado = new NfeDetalheEntity();
+		// }
 
 		if (this.ndeMedicamentoSelecionado == null) {
 			this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
@@ -294,24 +294,27 @@ public class ProdutoServicoFormController extends
 		try {
 			if (id.equals(0) || id == null) {
 				this.nfeCabecalho = new NfeCabecalhoEntity();
-				this.nfeDetalheSelecionado = new NfeDetalheEntity();
+				// this.nfeCabecalho
+				// .setNfeDestinatario(new NfeDestinatarioEntity());
 
-				nfeDetalheLimpar();
-				ndiCofinsLimpar();
-				ndiIcmsLimpar();
-				ndiIiLimpar();
-				ndiIpiLimpar();
-				ndiIssqnLimpar();
-				ndiPisLimpar();
-				ndeCombustivelLimpar();
-				ndeVeiculoLimpar();
+				// nfeDetalheLimpar();
+				// ndiCofinsLimpar();
+				// ndiIcmsLimpar();
+				// ndiIiLimpar();
+				// ndiIpiLimpar();
+				// ndiIssqnLimpar();
+				// ndiPisLimpar();
+				// ndeCombustivelLimpar();
+				// ndeVeiculoLimpar();
 			} else {
 				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
 			}
 
+			this.nfeCabecalho.setNfeDetalhe(new NfeDetalheEntity());
+
 			nfeCabecalhoCarregar();
 			nfeDestinatarioCarregar();
-			nfeDetalheCarregar(id);
+			nfeDetalheCarregar();
 
 			popularCombo();
 
@@ -328,133 +331,137 @@ public class ProdutoServicoFormController extends
 
 	// CARREGAR
 
-	private void nfeCabecalhoCarregar() {
-		try {
-			OperacaoFiscal operacaoFiscal = this.nfeCabecalho
-					.getTributOperacaoFiscal();
+	private void nfeCabecalhoCarregar() throws Exception {
+		OperacaoFiscal operacaoFiscal = this.nfeCabecalho
+				.getTributOperacaoFiscal();
 
-			if (operacaoFiscal != null) {
-				this.subView.getMtoOperacaoFiscal().setValue(operacaoFiscal);
-				// this.subView.getTfOperacaoFiscalId().setValue(
-				// operacaoFiscal.getDescricaoNaNF());
-			}
+		if (operacaoFiscal != null) {
+			this.subView.getMtoOperacaoFiscal().setValue(operacaoFiscal);
+			// this.subView.getTfOperacaoFiscalId().setValue(
+			// operacaoFiscal.getDescricaoNaNF());
+		}
 
-			// this.subView.getTfVenda().setValue(nfeCabecalho.getVendaCabecalho().toString());
-			this.subView.getTfModeloNotaFiscal().setValue(
-					this.nfeCabecalho.getCodigoModelo().trim());
-			this.subView.getTfNaturezaOperacao().setValue(
-					this.nfeCabecalho.getNaturezaOperacao().trim());
-			this.subView.getTfChaveAcesso().setValue(
-					this.nfeCabecalho.getChaveAcesso().trim());
-			this.subView.getTfDigitoChaveAcesso().setValue(
-					this.nfeCabecalho.getDigitoChaveAcesso().trim());
-			this.subView.getTfCodigoNumerico().setValue(
-					this.nfeCabecalho.getCodigoNumerico().trim());
-			this.subView.getTfSerie().setValue(
-					this.nfeCabecalho.getSerie().trim());
-			this.subView.getTfNumero().setValue(
-					this.nfeCabecalho.getNumero().trim());
-			this.subView.getPdfDataEmissao().setValue(
-					this.nfeCabecalho.getDataEmissao());
-			this.subView.getPdfDataEntradaSaida().setValue(
-					this.nfeCabecalho.getDataEntradaSaida());
-			this.subView.getTfHoraEntradaSaida().setValue(
-					this.nfeCabecalho.getHoraEntradaSaida());
-			this.subView.getTfTipoOperacao().setValue(
-					this.nfeCabecalho.getTipoOperacao().trim());
-			this.subView.getTfTipoEmissao().setValue(
-					this.nfeCabecalho.getTipoEmissao().trim());
-			this.subView.getTfFinalidadeEmissao().setValue(
-					this.nfeCabecalho.getFinalidadeEmissao().trim());
-			this.subView.getTfFormatoImpressaoDanfe().setValue(
-					this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
-			this.subView.getTfFormaPagamento().setValue(
-					this.nfeCabecalho.getIndicadorFormaPagamento().trim());
+		// this.subView.getTfVenda().setValue(nfeCabecalho.getVendaCabecalho().toString());
+		this.subView.getTfModeloNotaFiscal().setValue(
+				this.nfeCabecalho.getCodigoModelo().trim());
+		this.subView.getTfNaturezaOperacao().setValue(
+				this.nfeCabecalho.getNaturezaOperacao().trim());
+		this.subView.getTfChaveAcesso().setValue(
+				this.nfeCabecalho.getChaveAcesso().trim());
+		this.subView.getTfDigitoChaveAcesso().setValue(
+				this.nfeCabecalho.getDigitoChaveAcesso().trim());
+		this.subView.getTfCodigoNumerico().setValue(
+				this.nfeCabecalho.getCodigoNumerico().trim());
+		this.subView.getTfSerie().setValue(this.nfeCabecalho.getSerie().trim());
+		this.subView.getTfNumero().setValue(
+				this.nfeCabecalho.getNumero().trim());
+		this.subView.getPdfDataEmissao().setValue(
+				this.nfeCabecalho.getDataEmissao());
+		this.subView.getPdfDataEntradaSaida().setValue(
+				this.nfeCabecalho.getDataEntradaSaida());
+		this.subView.getTfHoraEntradaSaida().setValue(
+				this.nfeCabecalho.getHoraEntradaSaida());
+		this.subView.getTfTipoOperacao().setValue(
+				this.nfeCabecalho.getTipoOperacao().trim());
+		this.subView.getTfTipoEmissao().setValue(
+				this.nfeCabecalho.getTipoEmissao().trim());
+		this.subView.getTfFinalidadeEmissao().setValue(
+				this.nfeCabecalho.getFinalidadeEmissao().trim());
+		this.subView.getTfFormatoImpressaoDanfe().setValue(
+				this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
+		this.subView.getTfFormaPagamento().setValue(
+				this.nfeCabecalho.getIndicadorFormaPagamento().trim());
 
-			//
-			this.subView.getPlNfeDetalheSubForm().setCaption(
-					"NFE CABEÇALHO " + this.nfeCabecalho.getNumero());
-		} catch (Exception e) {
-			e.printStackTrace();
+		//
+		this.subView.getPlNfeDetalheSubForm().setCaption(
+				"NFE CABEÇALHO " + this.nfeCabecalho.getNumero());
+	}
+
+	private void nfeDestinatarioCarregar() throws Exception {
+		NfeDestinatarioEntity nfeDestinatario = this.nfeDestinatarioDAO
+				.getEntidade(this.nfeCabecalho);
+		nfeDestinatario.setNfeCabecalho(this.nfeCabecalho);
+
+		this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
+
+		this.subView.getTfEmailDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getEmail());
+		this.subView.getTfSuframaDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getSuframa());
+		this.subView.getTfTelefoneDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getTelefone());
+		this.subView.getTfInscricaoEstadualDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getInscricaoEstadual());
+		this.subView.getTfUfDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getUf());
+		// this.subView.getTfCidadeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().get);
+		// this.subView.getTfCodigoIbgeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getco);
+		this.subView.getTfBairroLogradouroDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getBairro());
+		this.subView.getTfLogradouroComplementoDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getComplemento());
+		this.subView.getTfLogradouroNumeroDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getNumero());
+		this.subView.getTfLogradouroDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getLogradouro());
+		this.subView.getTfCepDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getCep());
+		this.subView.getTfRazaoSocialDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getRazaoSocial());
+		this.subView.getTfCpfCnpjDestinatario().setValue(
+				this.nfeCabecalho.getNfeDestinatario().getCpfCnpj());
+		// this.subView.getTfIdDestinatario().setValue();
+
+		Cliente cliente = this.nfeCabecalho.getCliente();
+
+		if (cliente != null) {
+			this.subView.getMtoCliente().setValue(
+					this.nfeCabecalho.getCliente());
 		}
 	}
 
-	private void nfeDestinatarioCarregar() {
-		try {
-			NfeDestinatarioEntity nfeDestinatario = this.nfeDestinatarioDAO
-					.getEntidade(this.nfeCabecalho);
-			nfeDestinatario.setNfeCabecalho(this.nfeCabecalho);
-			this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
+	private void nfeDetalheCarregar() throws Exception {
+		List<NfeDetalheEntity> auxLista = new ArrayList<NfeDetalheEntity>();
 
-			this.subView.getTfEmailDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getEmail());
-			this.subView.getTfSuframaDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getSuframa());
-			this.subView.getTfTelefoneDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getTelefone());
-			this.subView.getTfInscricaoEstadualDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario()
-							.getInscricaoEstadual());
-			this.subView.getTfUfDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getUf());
-			// this.subView.getTfCidadeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().get);
-			// this.subView.getTfCodigoIbgeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getco);
-			this.subView.getTfBairroLogradouroDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getBairro());
-			this.subView.getTfLogradouroComplementoDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getComplemento());
-			this.subView.getTfLogradouroNumeroDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getNumero());
-			this.subView.getTfLogradouroDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getLogradouro());
-			this.subView.getTfCepDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getCep());
-			this.subView.getTfRazaoSocialDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getRazaoSocial());
-			this.subView.getTfCpfCnpjDestinatario().setValue(
-					this.nfeCabecalho.getNfeDestinatario().getCpfCnpj());
-			// this.subView.getTfIdDestinatario().setValue();
-
-			Cliente cliente = this.nfeCabecalho.getCliente();
-
-			if (cliente != null) {
-				this.subView.getMtoCliente().setValue(
-						this.nfeCabecalho.getCliente());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (this.nfeCabecalho.getId() != null
+				&& !this.nfeCabecalho.getId().equals(0)) {
+			auxLista = this.nfeDetalheDAO.getLista(this.nfeCabecalho);
 		}
+
+		this.nfeCabecalho.setNfeDetalheList(auxLista);
+
+		this.subView
+				.carregarSfNfeDetalhe(this.nfeCabecalho.getNfeDetalheList());
 	}
 
-	private void nfeDetalheCarregar(Serializable id) {
-		try {
-			List<NfeDetalheEntity> auxLista = new ArrayList<NfeDetalheEntity>();
+	private void ndeMedicamentoCarregar() throws Exception {
+		List<NfeDetEspecificoMedicamentoEntity> auxLista = this.nfeCabecalho
+				.getNfeDetalhe().getNdeMedicamentoList();
 
-			if (id != null && !id.equals(0)) {
-				auxLista = this.nfeDetalheDAO.getLista(this.nfeCabecalho);
-			}
-
-			this.subView.carregarSfNfeDetalhe(auxLista);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (auxLista == null) {
+			auxLista = this.ndeMedicamentoDAO.getLista(this.nfeCabecalho
+					.getNfeDetalhe());
 		}
-	}
 
-	private void ndeMedicamentoCarregar() {
-		try {
-			List<NfeDetEspecificoMedicamentoEntity> auxLista = new ArrayList<NfeDetEspecificoMedicamentoEntity>();
+		this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
 
-			if (this.nfeDetalheSelecionado.getId() != null
-					&& !this.nfeDetalheSelecionado.getId().equals(0)) {
-				auxLista = this.ndeMedicamentoDAO
-						.getLista(this.nfeDetalheSelecionado);
-			}
+		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+				.getNdeMedicamentoList());
 
-			this.subView.carregarSfNdeMedicamento(this.nfeDetalheSelecionado
-					.getNdeMedicamentoList());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		/*
+		 * List<NfeDetEspecificoMedicamentoEntity> auxLista = new
+		 * ArrayList<NfeDetEspecificoMedicamentoEntity>();
+		 * 
+		 * if (this.nfeCabecalho.getNfeDetalhe().getId() != null &&
+		 * !this.nfeCabecalho.getNfeDetalhe().getId().equals(0)) { auxLista =
+		 * this.ndeMedicamentoDAO.getLista(this.nfeCabecalho .getNfeDetalhe());
+		 * }
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
+		 * 
+		 * this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe(
+		 * ) .getNdeMedicamentoList());
+		 */
 	}
 
 	/**
@@ -544,11 +551,17 @@ public class ProdutoServicoFormController extends
 
 			ent.setNdeMedicamentoList(new ArrayList<NfeDetEspecificoMedicamentoEntity>());
 
+			/**
+			 * 
+			 */
+
+			this.nfeCabecalho.getNfeDetalheList().add(ent);
+
 			return ent;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new NfeDetalheEntity();
+			return null;
 		}
 	}
 
@@ -559,9 +572,10 @@ public class ProdutoServicoFormController extends
 	public NfeDetEspecificoMedicamentoEntity ndeMedicamentoAdicionar() {
 		try {
 			NfeDetEspecificoMedicamentoEntity ent = new NfeDetEspecificoMedicamentoEntity();
-			ent.setNfeDetalhe(this.nfeDetalheSelecionado);
+			ent.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-			this.nfeDetalheSelecionado.getNdeMedicamentoList().add(ent);
+			// this.nfeDetalheSelecionado.getNdeMedicamentoList().add(ent);
+			this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList().add(ent);
 
 			return ent;
 		} catch (Exception e) {
@@ -577,18 +591,19 @@ public class ProdutoServicoFormController extends
 
 	public void nfeDetalheSelecionar(NfeDetalheEntity item) {
 		try {
-			this.nfeDetalheSelecionado = item;
+			this.nfeCabecalho.setNfeDetalhe(item);
 
 			/**
 			 * NFEDETALHE
 			 */
 
 			this.subView.getTfNumeroItem().setValue(
-					this.nfeDetalheSelecionado.getNumeroItem().toString());
+					this.nfeCabecalho.getNfeDetalhe().getNumeroItem()
+							.toString());
 			this.subView.getTfGtin().setValue(
-					this.nfeDetalheSelecionado.getGtin());
+					this.nfeCabecalho.getNfeDetalhe().getGtin());
 
-			Produto produto = this.nfeDetalheSelecionado.getProduto();
+			Produto produto = this.nfeCabecalho.getNfeDetalhe().getProduto();
 
 			if (produto != null) {
 				this.subView.getMtoProduto().setValue(produto);
@@ -597,69 +612,75 @@ public class ProdutoServicoFormController extends
 			}
 
 			this.subView.getTfNcm().setValue(
-					this.nfeDetalheSelecionado.getNcm());
+					this.nfeCabecalho.getNfeDetalhe().getNcm());
 			this.subView.getTfExTipi().setValue(
-					this.nfeDetalheSelecionado.getExTipi().toString());
+					this.nfeCabecalho.getNfeDetalhe().getExTipi().toString());
 			this.subView.getTfCfop().setValue(
-					this.nfeDetalheSelecionado.getCfop().toString());
+					this.nfeCabecalho.getNfeDetalhe().getCfop().toString());
 			this.subView.getTfUnidadeComercial().setValue(
-					this.nfeDetalheSelecionado.getUnidadeComercial());
+					this.nfeCabecalho.getNfeDetalhe().getUnidadeComercial());
 			this.subView.getTfQuantidadeComercial().setValue(
-					ObjectConverter.valueToString(this.nfeDetalheSelecionado
-							.getQuantidadeComercial()));
+					ObjectConverter.valueToString(this.nfeCabecalho
+							.getNfeDetalhe().getQuantidadeComercial()));
 			this.subView.getTfValorUnitarioComercial().setValue(
-					this.nfeDetalheSelecionado.getValorUnitarioComercial()
-							.toString());
+					this.nfeCabecalho.getNfeDetalhe()
+							.getValorUnitarioComercial().toString());
 			this.subView.getTfValorBrutoProduto().setValue(
-					this.nfeDetalheSelecionado.getValorBrutoProduto()
+					this.nfeCabecalho.getNfeDetalhe().getValorBrutoProduto()
 							.toString());
 			this.subView.getTfGtinUnidadeTributavel().setValue(
-					this.nfeDetalheSelecionado.getGtinUnidadeTributavel());
+					this.nfeCabecalho.getNfeDetalhe()
+							.getGtinUnidadeTributavel());
 			this.subView.getTfUnidadeTributavel().setValue(
-					this.nfeDetalheSelecionado.getUnidadeTributavel());
+					this.nfeCabecalho.getNfeDetalhe().getUnidadeTributavel());
 			this.subView.getTfQuantidadeTributavel().setValue(
-					this.nfeDetalheSelecionado.getQuantidadeTributavel()
+					this.nfeCabecalho.getNfeDetalhe().getQuantidadeTributavel()
 							.toString());
 			this.subView.getTfValorUnitarioTributavel().setValue(
-					this.nfeDetalheSelecionado.getValorUnitarioTributavel()
-							.toString());
+					this.nfeCabecalho.getNfeDetalhe()
+							.getValorUnitarioTributavel().toString());
 			this.subView.getTfValorFrete().setValue(
-					this.nfeDetalheSelecionado.getValorFrete().toString());
+					this.nfeCabecalho.getNfeDetalhe().getValorFrete()
+							.toString());
 			this.subView.getTfValorSeguro().setValue(
-					this.nfeDetalheSelecionado.getValorSeguro().toString());
+					this.nfeCabecalho.getNfeDetalhe().getValorSeguro()
+							.toString());
 			this.subView.getTfValorDesconto().setValue(
-					this.nfeDetalheSelecionado.getValorDesconto().toString());
+					this.nfeCabecalho.getNfeDetalhe().getValorDesconto()
+							.toString());
 			this.subView.getTfValorOutrasDespesas().setValue(
-					this.nfeDetalheSelecionado.getValorOutrasDespesas()
+					this.nfeCabecalho.getNfeDetalhe().getValorOutrasDespesas()
 							.toString());
 			this.subView.getTfEntraTotal().setValue(
-					this.nfeDetalheSelecionado.getEntraTotal());
+					this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
 			this.subView.getTfValorSubtotal().setValue(
-					this.nfeDetalheSelecionado.getValorSubtotal().toString());
+					this.nfeCabecalho.getNfeDetalhe().getValorSubtotal()
+							.toString());
 			this.subView.getTfValorTotal().setValue(
-					this.nfeDetalheSelecionado.getValorTotal().toString());
+					this.nfeCabecalho.getNfeDetalhe().getValorTotal()
+							.toString());
 			this.subView.getTfNumeroPedidoCompra().setValue(
-					this.nfeDetalheSelecionado.getNumeroPedidoCompra());
-			this.subView.getTfItemPedidoCompra()
-					.setValue(
-							this.nfeDetalheSelecionado.getItemPedidoCompra()
-									.toString());
+					this.nfeCabecalho.getNfeDetalhe().getNumeroPedidoCompra());
+			this.subView.getTfItemPedidoCompra().setValue(
+					this.nfeCabecalho.getNfeDetalhe().getItemPedidoCompra()
+							.toString());
 			this.subView.getTfInformacoesAdicionais().setValue(
-					this.nfeDetalheSelecionado.getInformacoesAdicionais());
+					this.nfeCabecalho.getNfeDetalhe()
+							.getInformacoesAdicionais());
 
 			/**
 			 * COFINS
 			 */
 
-			NfeDetalheImpostoCofinsEntity entCofins = item
-					.getNfeDetalheImpostoCofins();
+			NfeDetalheImpostoCofinsEntity entCofins = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetalheImpostoCofins();
 
 			if (entCofins == null) {
 				entCofins = new NfeDetalheImpostoCofinsEntity();
-				entCofins.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entCofins.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado
-						.setNfeDetalheImpostoCofins(entCofins);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoCofins(
+						entCofins);
 			}
 
 			this.subView.getTfCstCofins().setValue(
@@ -679,14 +700,15 @@ public class ProdutoServicoFormController extends
 			 * ICMS
 			 */
 
-			NfeDetalheImpostoIcmsEntity entIcms = item
-					.getNfeDetalheImpostoIcms();
+			NfeDetalheImpostoIcmsEntity entIcms = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetalheImpostoIcms();
 
 			if (entIcms == null) {
 				entIcms = new NfeDetalheImpostoIcmsEntity();
-				entIcms.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entIcms.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado.setNfeDetalheImpostoIcms(entIcms);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(
+						entIcms);
 			}
 
 			this.subView.getTfOrigemMercadoriaIcms().setValue(
@@ -736,13 +758,14 @@ public class ProdutoServicoFormController extends
 			 * IMPOSTO IMPORTAÇÃO
 			 */
 
-			NfeDetalheImpostoIiEntity entIi = item.getNfeDetalheImpostoIi();
+			NfeDetalheImpostoIiEntity entIi = this.nfeCabecalho.getNfeDetalhe()
+					.getNfeDetalheImpostoIi();
 
 			if (entIi == null) {
 				entIi = new NfeDetalheImpostoIiEntity();
-				entIi.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entIi.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado.setNfeDetalheImpostoIi(entIi);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIi(entIi);
 			}
 
 			this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
@@ -761,13 +784,14 @@ public class ProdutoServicoFormController extends
 			// NfeDetalheImpostoIpiEntity ndiIpi = new
 			// NfeDetalheImpostoIpiEntity();
 
-			NfeDetalheImpIpiEntity ndiIpi = item.getNfeDetalheImpIpi();
+			NfeDetalheImpIpiEntity ndiIpi = this.nfeCabecalho.getNfeDetalhe()
+					.getNfeDetalheImpIpi();
 
 			if (ndiIpi == null) {
 				ndiIpi = new NfeDetalheImpIpiEntity();
-				ndiIpi.setNfeDetalhe(this.nfeDetalheSelecionado);
+				ndiIpi.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado.setNfeDetalheImpIpi(ndiIpi);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpIpi(ndiIpi);
 			}
 
 			this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
@@ -796,14 +820,15 @@ public class ProdutoServicoFormController extends
 			 * ISSQN
 			 */
 
-			NfeDetalheImpostoIssqnEntity entIssqn = item
-					.getNfeDetalheImpostoIssqn();
+			NfeDetalheImpostoIssqnEntity entIssqn = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetalheImpostoIssqn();
 
 			if (entIssqn == null) {
 				entIssqn = new NfeDetalheImpostoIssqnEntity();
-				entIssqn.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entIssqn.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado.setNfeDetalheImpostoIssqn(entIssqn);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIssqn(
+						entIssqn);
 			}
 
 			this.subView.getTfBaseCalculoBcIssqn().setValue(
@@ -823,13 +848,15 @@ public class ProdutoServicoFormController extends
 			 * PIS
 			 */
 
-			NfeDetalheImpostoPisEntity entPis = item.getNfeDetalheImpostoPis();
+			NfeDetalheImpostoPisEntity entPis = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetalheImpostoPis();
 
 			if (entPis == null) {
 				entPis = new NfeDetalheImpostoPisEntity();
-				entPis.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entPis.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado.setNfeDetalheImpostoPis(entPis);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoPis(
+						entPis);
 			}
 
 			this.subView.getTfCstPis().setValue(entPis.getCstPis().trim());
@@ -848,14 +875,14 @@ public class ProdutoServicoFormController extends
 			 * COMBUSTÍVEL
 			 */
 
-			NfeDetEspecificoCombustivelEntity entCombustivel = item
-					.getNfeDetEspecificoCombustivel();
+			NfeDetEspecificoCombustivelEntity entCombustivel = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetEspecificoCombustivel();
 
 			if (entCombustivel == null) {
 				entCombustivel = new NfeDetEspecificoCombustivelEntity();
-				entCombustivel.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entCombustivel.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado
+				this.nfeCabecalho.getNfeDetalhe()
 						.setNfeDetEspecificoCombustivel(entCombustivel);
 			}
 
@@ -879,15 +906,15 @@ public class ProdutoServicoFormController extends
 			 * VEÍCULO
 			 */
 
-			NfeDetEspecificoVeiculoEntity entVeiculo = item
-					.getNfeDetEspecificoVeiculo();
+			NfeDetEspecificoVeiculoEntity entVeiculo = this.nfeCabecalho
+					.getNfeDetalhe().getNfeDetEspecificoVeiculo();
 
 			if (entVeiculo == null) {
 				entVeiculo = new NfeDetEspecificoVeiculoEntity();
-				entVeiculo.setNfeDetalhe(this.nfeDetalheSelecionado);
+				entVeiculo.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
 
-				this.nfeDetalheSelecionado
-						.setNfeDetEspecificoVeiculo(entVeiculo);
+				this.nfeCabecalho.getNfeDetalhe().setNfeDetEspecificoVeiculo(
+						entVeiculo);
 			}
 
 			this.subView.getTfTipoOperacaoVeiculo().setValue(
@@ -942,16 +969,6 @@ public class ProdutoServicoFormController extends
 			 * MEDICAMENTO
 			 */
 
-			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList = item
-					.getNdeMedicamentoList();
-
-			if (ndeMedicamentoList == null) {
-				ndeMedicamentoList = new ArrayList<NfeDetEspecificoMedicamentoEntity>();
-
-				this.nfeDetalheSelecionado
-						.setNdeMedicamentoList(ndeMedicamentoList);
-			}
-
 			ndeMedicamentoCarregar();
 
 			abaHabilitar(true, true, true, true, true, true, true, true, true,
@@ -960,57 +977,57 @@ public class ProdutoServicoFormController extends
 			this.subView.getPlNdiCofins()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiDeclaracaoImportacao()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiIcms()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiIi()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiIpi()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiIssqn()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdiPis()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdeArmamento()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdeCombustivel()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdeMedicamento()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 			this.subView.getPlNdeVeiculo()
 					.setCaption(
 							"NFE DETALHE "
-									+ this.nfeDetalheSelecionado
+									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1242,8 +1259,8 @@ public class ProdutoServicoFormController extends
 
 		switch (id) {
 		case "tfNumeroItem":
-			this.nfeDetalheSelecionado.setNumeroItem(ObjectConverter
-					.stringToInteger((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setNumeroItem(
+					ObjectConverter.stringToInteger((String) obj));
 
 			break;
 		// case "tfCodigoProduto":
@@ -1251,116 +1268,118 @@ public class ProdutoServicoFormController extends
 
 		// break;
 		case "tfGtin":
-			this.nfeDetalheSelecionado.setGtin((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setGtin((String) obj);
 
 			break;
 		case "mtoProduto":
 			ItemValue m = (ItemValue) obj;
 			Produto produto = (Produto) m.getBean();
 
-			this.nfeDetalheSelecionado.setProduto(produto);
-			this.nfeDetalheSelecionado.setCodigoProduto(produto
-					.getCodigoInterno());
+			this.nfeCabecalho.getNfeDetalhe().setProduto(produto);
+			this.nfeCabecalho.getNfeDetalhe().setCodigoProduto(
+					produto.getCodigoInterno());
 
 			break;
 		case "tfNcm":
-			this.nfeDetalheSelecionado.setNcm((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setNcm((String) obj);
 
 			break;
 		case "tfExTipi":
-			this.nfeDetalheSelecionado.setExTipi(ObjectConverter
-					.stringToInteger((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setExTipi(
+					ObjectConverter.stringToInteger((String) obj));
 
 			break;
 		case "tfCfop":
-			this.nfeDetalheSelecionado.setCfop(ObjectConverter
-					.stringToInteger((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setCfop(
+					ObjectConverter.stringToInteger((String) obj));
 
 			break;
 		case "tfUnidadeComercial":
-			this.nfeDetalheSelecionado.setUnidadeComercial((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setUnidadeComercial((String) obj);
 
 			break;
 		case "tfQuantidadeComercial":
-			this.nfeDetalheSelecionado.setQuantidadeComercial(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setQuantidadeComercial(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorUnitarioComercial":
-			this.nfeDetalheSelecionado
-					.setValorUnitarioComercial(ObjectConverter
-							.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorUnitarioComercial(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorBrutoProduto":
-			this.nfeDetalheSelecionado.setValorBrutoProduto(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorBrutoProduto(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfGtinUnidadeTributavel":
-			this.nfeDetalheSelecionado.setGtinUnidadeTributavel((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setGtinUnidadeTributavel(
+					(String) obj);
 
 			break;
 		case "tfUnidadeTributavel":
-			this.nfeDetalheSelecionado.setUnidadeTributavel((String) obj);
+			this.nfeCabecalho.getNfeDetalhe()
+					.setUnidadeTributavel((String) obj);
 
 			break;
 		case "tfQuantidadeTributavel":
-			this.nfeDetalheSelecionado.setQuantidadeTributavel(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setQuantidadeTributavel(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorUnitarioTributavel":
-			this.nfeDetalheSelecionado
-					.setValorUnitarioTributavel(ObjectConverter
-							.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorUnitarioTributavel(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorFrete":
-			this.nfeDetalheSelecionado.setValorFrete(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorFrete(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorSeguro":
-			this.nfeDetalheSelecionado.setValorSeguro(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorSeguro(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorDesconto":
-			this.nfeDetalheSelecionado.setValorDesconto(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorDesconto(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorOutrasDespesas":
-			this.nfeDetalheSelecionado.setValorOutrasDespesas(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorOutrasDespesas(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfEntraTotal":
-			this.nfeDetalheSelecionado.setEntraTotal((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setEntraTotal((String) obj);
 
 			break;
 		case "tfValorSubtotal":
-			this.nfeDetalheSelecionado.setValorSubtotal(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorSubtotal(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorTotal":
-			this.nfeDetalheSelecionado.setValorTotal(ObjectConverter
-					.stringToValue((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setValorTotal(
+					ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfNumeroPedidoCompra":
-			this.nfeDetalheSelecionado.setNumeroPedidoCompra((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setNumeroPedidoCompra(
+					(String) obj);
 
 			break;
 		case "tfItemPedidoCompra":
-			this.nfeDetalheSelecionado.setItemPedidoCompra(ObjectConverter
-					.stringToInteger((String) obj));
+			this.nfeCabecalho.getNfeDetalhe().setItemPedidoCompra(
+					ObjectConverter.stringToInteger((String) obj));
 
 			break;
 		case "tfInformacoesAdicionais":
-			this.nfeDetalheSelecionado.setInformacoesAdicionais((String) obj);
+			this.nfeCabecalho.getNfeDetalhe().setInformacoesAdicionais(
+					(String) obj);
 
 			break;
 		}
@@ -1369,8 +1388,8 @@ public class ProdutoServicoFormController extends
 	public void ndiCofinsSetarValor(String id, Object obj) {
 		// TODO ndiCofinsSetarValor
 
-		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeDetalheSelecionado
-				.getNfeDetalheImpostoCofins();
+		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeCabecalho
+				.getNfeDetalhe().getNfeDetalheImpostoCofins();
 
 		if (ndiCofins == null) {
 			return;
@@ -1409,21 +1428,21 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpostoCofins(ndiCofins);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoCofins(ndiCofins);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIcmsSetarValor(String id, Object obj) {
 		// TODO ndiIcmsSetarValor
 
-		NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeDetalheSelecionado
+		NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpostoIcms();
 
 		if (ndiIcms == null) {
@@ -1539,21 +1558,21 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpostoIcms(ndiIcms);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(ndiIcms);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIiSetarValor(String id, Object obj) {
 		// TODO ndiIiSetarValor
 
-		NfeDetalheImpostoIiEntity ndiIi = this.nfeDetalheSelecionado
+		NfeDetalheImpostoIiEntity ndiIi = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpostoIi();
 
 		if (ndiIi == null) {
@@ -1582,15 +1601,15 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpostoIi(ndiIi);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIi(ndiIi);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIpiSetarValor(String id, Object obj) {
@@ -1598,14 +1617,14 @@ public class ProdutoServicoFormController extends
 
 		// NfeDetalheImpostoIpiEntity ndiIpi = new NfeDetalheImpostoIpiEntity();
 
-		NfeDetalheImpIpiEntity ndiIpi = this.nfeDetalheSelecionado
+		NfeDetalheImpIpiEntity ndiIpi = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpIpi();
 
 		if (ndiIpi == null) {
 			return;
 		}
 
-		ndiIpi.setEmpresa(this.nfeDetalheSelecionado.getEmpresa());
+		ndiIpi.setEmpresa(this.nfeCabecalho.getNfeDetalhe().getEmpresa());
 
 		switch (id) {
 		case "tfCstIpi":
@@ -1659,22 +1678,22 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpIpi(ndiIpi);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpIpi(ndiIpi);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIssqnSetarValor(String id, Object obj) {
 		// TODO ndiIssqnSetarValor
 
-		NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeDetalheSelecionado
-				.getNfeDetalheImpostoIssqn();
+		NfeDetalheImpostoIssqnEntity ndiIssqn = this.nfeCabecalho
+				.getNfeDetalhe().getNfeDetalheImpostoIssqn();
 
 		if (ndiIssqn == null) {
 			return;
@@ -1712,21 +1731,21 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpostoIssqn(ndiIssqn);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIssqn(ndiIssqn);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiPisSetarValor(String id, Object obj) {
 		// TODO ndiPisSetarValor
 
-		NfeDetalheImpostoPisEntity ndiPis = this.nfeDetalheSelecionado
+		NfeDetalheImpostoPisEntity ndiPis = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpostoPis();
 
 		if (ndiPis == null) {
@@ -1765,22 +1784,22 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetalheImpostoPis(ndiPis);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoPis(ndiPis);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndeCombustivelSetarValor(String id, Object obj) {
 		// TODO ndeCombustivelSetarValor
 
-		NfeDetEspecificoCombustivelEntity ndiCombustivel = this.nfeDetalheSelecionado
-				.getNfeDetEspecificoCombustivel();
+		NfeDetEspecificoCombustivelEntity ndiCombustivel = this.nfeCabecalho
+				.getNfeDetalhe().getNfeDetEspecificoCombustivel();
 
 		if (ndiCombustivel == null) {
 			return;
@@ -1823,23 +1842,23 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado
-				.setNfeDetEspecificoCombustivel(ndiCombustivel);
+		this.nfeCabecalho.getNfeDetalhe().setNfeDetEspecificoCombustivel(
+				ndiCombustivel);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndeVeiculoSetarValor(String id, Object obj) {
 		// TODO ndeVeiculoSetarValor
 
-		NfeDetEspecificoVeiculoEntity ndiVeiculo = this.nfeDetalheSelecionado
-				.getNfeDetEspecificoVeiculo();
+		NfeDetEspecificoVeiculoEntity ndiVeiculo = this.nfeCabecalho
+				.getNfeDetalhe().getNfeDetEspecificoVeiculo();
 
 		if (ndiVeiculo == null) {
 			return;
@@ -1946,15 +1965,16 @@ public class ProdutoServicoFormController extends
 		}
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeDetalheSelecionado);
+				.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeDetalheSelecionado);
+				.remove(this.nfeCabecalho.getNfeDetalhe());
 
-		this.nfeDetalheSelecionado.setNfeDetEspecificoVeiculo(ndiVeiculo);
+		this.nfeCabecalho.getNfeDetalhe()
+				.setNfeDetEspecificoVeiculo(ndiVeiculo);
 
 		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeDetalheSelecionado);
+				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndeMedicamentoSetarValor(String id, Object obj) {
@@ -2000,17 +2020,17 @@ public class ProdutoServicoFormController extends
 		this.subView.getSfNdeMedicamento().getDados()
 				.remove(this.ndeMedicamentoSelecionado);
 
-		this.nfeDetalheSelecionado.getNdeMedicamentoList().remove(
-				this.ndeMedicamentoSelecionado);
+		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+				.remove(this.ndeMedicamentoSelecionado);
 
-		this.ndeMedicamentoSelecionado
-				.setNfeDetalhe(this.nfeDetalheSelecionado);
+		this.ndeMedicamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+				.getNfeDetalhe());
 
 		this.subView.getSfNdeMedicamento().getDados()
 				.add(index, this.ndeMedicamentoSelecionado);
 
-		this.nfeDetalheSelecionado.getNdeMedicamentoList().add(
-				this.ndeMedicamentoSelecionado);
+		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+				.add(this.ndeMedicamentoSelecionado);
 	}
 
 	/**
@@ -2020,63 +2040,73 @@ public class ProdutoServicoFormController extends
 	 */
 
 	private void nfeDetalheLimpar() {
-		this.nfeDetalheSelecionado = new NfeDetalheEntity();
+		this.nfeCabecalho.setNfeDetalhe(new NfeDetalheEntity());
+		// this.nfeDetalheSelecionado = new NfeDetalheEntity();
 
 		this.subView.getTfNumeroItem().setValue(
-				this.nfeDetalheSelecionado.getNumeroItem().toString());
+				this.nfeCabecalho.getNfeDetalhe().getNumeroItem().toString());
 		this.subView.getTfCodigoProduto().setValue(
-				this.nfeDetalheSelecionado.getCodigoProduto());
-		this.subView.getTfGtin().setValue(this.nfeDetalheSelecionado.getGtin());
+				this.nfeCabecalho.getNfeDetalhe().getCodigoProduto());
+		this.subView.getTfGtin().setValue(
+				this.nfeCabecalho.getNfeDetalhe().getGtin());
 		// this.subView.getTfNomeProduto().setValue(nfeDetalhe.getNomeProduto());
 		// this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 		// this.subView.getMtoProduto().setValue(new Produto());
 
 		// this.subView.getMtoProduto().setValue(nfeDetalhe.getProduto());
-		this.subView.getTfNcm().setValue(this.nfeDetalheSelecionado.getNcm());
+		this.subView.getTfNcm().setValue(
+				this.nfeCabecalho.getNfeDetalhe().getNcm());
 		this.subView.getTfExTipi().setValue(
-				this.nfeDetalheSelecionado.getExTipi().toString());
+				this.nfeCabecalho.getNfeDetalhe().getExTipi().toString());
 		this.subView.getTfCfop().setValue(
-				this.nfeDetalheSelecionado.getCfop().toString());
+				this.nfeCabecalho.getNfeDetalhe().getCfop().toString());
 		this.subView.getTfUnidadeComercial().setValue(
-				this.nfeDetalheSelecionado.getUnidadeComercial());
+				this.nfeCabecalho.getNfeDetalhe().getUnidadeComercial());
 		this.subView.getTfQuantidadeComercial().setValue(
-				this.nfeDetalheSelecionado.getQuantidadeComercial().toString());
+				this.nfeCabecalho.getNfeDetalhe().getQuantidadeComercial()
+						.toString());
 		this.subView.getTfValorUnitarioComercial().setValue(
-				this.nfeDetalheSelecionado.getValorUnitarioComercial()
+				this.nfeCabecalho.getNfeDetalhe().getValorUnitarioComercial()
 						.toString());
 		this.subView.getTfValorBrutoProduto().setValue(
-				this.nfeDetalheSelecionado.getValorBrutoProduto().toString());
+				this.nfeCabecalho.getNfeDetalhe().getValorBrutoProduto()
+						.toString());
 		this.subView.getTfGtinUnidadeTributavel().setValue(
-				this.nfeDetalheSelecionado.getGtinUnidadeTributavel());
+				this.nfeCabecalho.getNfeDetalhe().getGtinUnidadeTributavel());
 		this.subView.getTfUnidadeTributavel().setValue(
-				this.nfeDetalheSelecionado.getUnidadeTributavel());
-		this.subView.getTfQuantidadeTributavel()
-				.setValue(
-						this.nfeDetalheSelecionado.getQuantidadeTributavel()
-								.toString());
+				this.nfeCabecalho.getNfeDetalhe().getUnidadeTributavel());
+		this.subView.getTfQuantidadeTributavel().setValue(
+				this.nfeCabecalho.getNfeDetalhe().getQuantidadeTributavel()
+						.toString());
 		this.subView.getTfValorUnitarioTributavel().setValue(
-				this.nfeDetalheSelecionado.getValorUnitarioTributavel()
+				this.nfeCabecalho.getNfeDetalhe().getValorUnitarioTributavel()
 						.toString());
 		this.subView.getTfValorFrete().setValue(
-				this.nfeDetalheSelecionado.getValorFrete().toString());
+				this.nfeCabecalho.getNfeDetalhe().getValorFrete().toString());
 		this.subView.getTfValorSeguro().setValue(
-				this.nfeDetalheSelecionado.getValorSeguro().toString());
-		this.subView.getTfValorDesconto().setValue(
-				this.nfeDetalheSelecionado.getValorDesconto().toString());
+				this.nfeCabecalho.getNfeDetalhe().getValorSeguro().toString());
+		this.subView.getTfValorDesconto()
+				.setValue(
+						this.nfeCabecalho.getNfeDetalhe().getValorDesconto()
+								.toString());
 		this.subView.getTfValorOutrasDespesas().setValue(
-				this.nfeDetalheSelecionado.getValorOutrasDespesas().toString());
+				this.nfeCabecalho.getNfeDetalhe().getValorOutrasDespesas()
+						.toString());
 		this.subView.getTfEntraTotal().setValue(
-				this.nfeDetalheSelecionado.getEntraTotal());
-		this.subView.getTfValorSubtotal().setValue(
-				this.nfeDetalheSelecionado.getValorSubtotal().toString());
+				this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
+		this.subView.getTfValorSubtotal()
+				.setValue(
+						this.nfeCabecalho.getNfeDetalhe().getValorSubtotal()
+								.toString());
 		this.subView.getTfValorTotal().setValue(
-				this.nfeDetalheSelecionado.getValorTotal().toString());
+				this.nfeCabecalho.getNfeDetalhe().getValorTotal().toString());
 		this.subView.getTfNumeroPedidoCompra().setValue(
-				this.nfeDetalheSelecionado.getNumeroPedidoCompra());
+				this.nfeCabecalho.getNfeDetalhe().getNumeroPedidoCompra());
 		this.subView.getTfItemPedidoCompra().setValue(
-				this.nfeDetalheSelecionado.getItemPedidoCompra().toString());
+				this.nfeCabecalho.getNfeDetalhe().getItemPedidoCompra()
+						.toString());
 		this.subView.getTfInformacoesAdicionais().setValue(
-				this.nfeDetalheSelecionado.getInformacoesAdicionais());
+				this.nfeCabecalho.getNfeDetalhe().getInformacoesAdicionais());
 	}
 
 	private void ndiCofinsLimpar() {
