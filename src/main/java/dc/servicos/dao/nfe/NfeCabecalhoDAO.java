@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -33,6 +34,9 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 
 	@Autowired
 	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
+
+	@Autowired
+	private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
 
 	/**
 	 * 
@@ -129,9 +133,20 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 
 				this.nfeDetalheDAO.saveOrUpdate(ent);
 
-				for (NfeDetEspecificoMedicamentoEntity ent1 : ent
-						.getNdeMedicamentoList()) {
-					this.ndeMedicamentoDAO.saveOrUpdate(ent1);
+				if (ent.getNdeMedicamentoList() != null
+						&& !ent.getNdeMedicamentoList().isEmpty()) {
+					for (NfeDetEspecificoMedicamentoEntity ent1 : ent
+							.getNdeMedicamentoList()) {
+						this.ndeMedicamentoDAO.saveOrUpdate(ent1);
+					}
+				}
+
+				if (ent.getNdeArmamentoList() != null
+						&& !ent.getNdeArmamentoList().isEmpty()) {
+					for (NfeDetEspecificoArmamentoEntity ent1 : ent
+							.getNdeArmamentoList()) {
+						this.ndeArmamentoDAO.saveOrUpdate(ent1);
+					}
 				}
 			}
 		}

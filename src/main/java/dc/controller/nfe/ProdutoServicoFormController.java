@@ -17,6 +17,7 @@ import dc.controller.produto.ProdutoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
+import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
 import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoVeiculoEntity;
@@ -33,6 +34,7 @@ import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
+import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
 import dc.servicos.dao.nfe.NfeDetEspecificoMedicamentoDAO;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
@@ -104,6 +106,9 @@ public class ProdutoServicoFormController extends
 	@Autowired
 	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
 
+	@Autowired
+	private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
+
 	/**
 	 * ENTITIES
 	 */
@@ -113,6 +118,8 @@ public class ProdutoServicoFormController extends
 	// private NfeDetalheEntity nfeDetalheSelecionado;
 
 	private NfeDetEspecificoMedicamentoEntity ndeMedicamentoSelecionado;
+
+	private NfeDetEspecificoArmamentoEntity ndeArmamentoSelecionado;
 
 	/**
 	 * CONSTRUTOR
@@ -129,6 +136,10 @@ public class ProdutoServicoFormController extends
 
 		if (this.ndeMedicamentoSelecionado == null) {
 			this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
+		}
+
+		if (this.ndeArmamentoSelecionado == null) {
+			this.ndeArmamentoSelecionado = new NfeDetEspecificoArmamentoEntity();
 		}
 	}
 
@@ -321,7 +332,7 @@ public class ProdutoServicoFormController extends
 			popularCombo();
 
 			abaHabilitar(false, false, false, false, false, false, false,
-					false, false, false);
+					false, false, false, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -528,7 +539,7 @@ public class ProdutoServicoFormController extends
 		List<NfeDetEspecificoMedicamentoEntity> auxLista = this.nfeCabecalho
 				.getNfeDetalhe().getNdeMedicamentoList();
 
-		if (auxLista == null) {
+		if (auxLista == null || auxLista.isEmpty()) {
 			auxLista = this.ndeMedicamentoDAO.getLista(this.nfeCabecalho
 					.getNfeDetalhe());
 		}
@@ -537,6 +548,21 @@ public class ProdutoServicoFormController extends
 
 		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
 				.getNdeMedicamentoList());
+	}
+
+	private void ndeArmamentoCarregar() throws Exception {
+		List<NfeDetEspecificoArmamentoEntity> auxLista = this.nfeCabecalho
+				.getNfeDetalhe().getNdeArmamentoList();
+
+		if (auxLista == null || auxLista.isEmpty()) {
+			auxLista = this.ndeArmamentoDAO.getLista(this.nfeCabecalho
+					.getNfeDetalhe());
+		}
+
+		this.nfeCabecalho.getNfeDetalhe().setNdeArmamentoList(auxLista);
+
+		this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
+				.getNdeArmamentoList());
 	}
 
 	/**
@@ -627,6 +653,12 @@ public class ProdutoServicoFormController extends
 			ent.setNdeMedicamentoList(new ArrayList<NfeDetEspecificoMedicamentoEntity>());
 
 			/**
+			 * ARMAMENTO
+			 */
+
+			ent.setNdeArmamentoList(new ArrayList<NfeDetEspecificoArmamentoEntity>());
+
+			/**
 			 * 
 			 */
 
@@ -656,7 +688,27 @@ public class ProdutoServicoFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new NfeDetEspecificoMedicamentoEntity();
+			return null;
+		}
+	}
+
+	/**
+	 * NFEDETESPECIFICOARMAMENTO - ADICIONAR
+	 */
+
+	public NfeDetEspecificoArmamentoEntity ndeArmamentoAdicionar() {
+		try {
+			NfeDetEspecificoArmamentoEntity ent = new NfeDetEspecificoArmamentoEntity();
+			ent.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
+
+			// this.nfeDetalheSelecionado.getNdeMedicamentoList().add(ent);
+			this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList().add(ent);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
 	}
 
@@ -1046,8 +1098,14 @@ public class ProdutoServicoFormController extends
 
 			ndeMedicamentoCarregar();
 
+			/**
+			 * ARMAMENTO
+			 */
+
+			ndeArmamentoCarregar();
+
 			abaHabilitar(true, true, true, true, true, true, true, true, true,
-					true);
+					true, true);
 
 			this.subView.getPlNdiCofins()
 					.setCaption(
@@ -1136,9 +1194,32 @@ public class ProdutoServicoFormController extends
 		}
 	}
 
+	/**
+	 * NFEDETESPECIFICOARMAMENTO - SELECIONAR
+	 */
+
+	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
+		try {
+			this.ndeArmamentoSelecionado = item;
+
+			this.subView.getTfDescricaoArmamento().setValue(
+					ndeArmamentoSelecionado.getTipoArma());
+			this.subView.getTfNumeroSerieArmaArmamento().setValue(
+					ndeArmamentoSelecionado.getNumeroSerieArma());
+			this.subView.getTfNumeroSerieCanoArmamento().setValue(
+					ndeArmamentoSelecionado.getNumeroSerieCano());
+			this.subView.getTfDescricaoArmamento().setValue(
+					ndeArmamentoSelecionado.getDescricao());
+
+			this.subView.getGlNdeArmamento().setEnabled(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void abaHabilitar(boolean a1, boolean a2, boolean a3, boolean a4,
 			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9,
-			boolean a10) {
+			boolean a10, boolean a11) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
 		this.subView.getGlIcms().setEnabled(a2);
 		this.subView.getGlPis().setEnabled(a3);
@@ -1149,6 +1230,7 @@ public class ProdutoServicoFormController extends
 		this.subView.getNdeGlCombustivel().setEnabled(a8);
 		this.subView.getNdeGlVeiculo().setEnabled(a9);
 		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
+		this.subView.getPlNdeArmamentoSubForm().setEnabled(a11);
 	}
 
 	/**

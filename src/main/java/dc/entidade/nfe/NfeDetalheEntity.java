@@ -279,8 +279,11 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne(mappedBy = "nfeDetalhe", cascade = CascadeType.ALL)
 	private NfeDetEspecificoVeiculoEntity nfeDetEspecificoVeiculo;
 
-	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
 	private List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList;
+
+	@OneToMany(mappedBy = "nfeDetalhe", fetch = FetchType.LAZY)
+	private List<NfeDetEspecificoArmamentoEntity> ndeArmamentoList;
 
 	/**
 	 * CONSTRUTOR
@@ -614,6 +617,15 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setNdeMedicamentoList(
 			List<NfeDetEspecificoMedicamentoEntity> ndeMedicamentoList) {
 		this.ndeMedicamentoList = ndeMedicamentoList;
+	}
+
+	public List<NfeDetEspecificoArmamentoEntity> getNdeArmamentoList() {
+		return ndeArmamentoList;
+	}
+
+	public void setNdeArmamentoList(
+			List<NfeDetEspecificoArmamentoEntity> ndeArmamentoList) {
+		this.ndeArmamentoList = ndeArmamentoList;
 	}
 
 	/**

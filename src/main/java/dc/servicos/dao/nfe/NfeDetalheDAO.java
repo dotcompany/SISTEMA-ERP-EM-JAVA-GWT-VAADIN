@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
+import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
+import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -21,6 +24,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
+
+	/**
+	 * DAOS
+	 */
+
+	@Autowired
+	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
+
+	@Autowired
+	private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
+
+	/**
+	 * 
+	 */
 
 	@Override
 	public Class<NfeDetalheEntity> getEntityClass() {
@@ -88,6 +105,18 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 			query.setParameter("ent", ent);
 
 			List<NfeDetalheEntity> auxLista = query.list();
+
+			// MEDICAMENTO / ARMAMENTO
+
+			for (NfeDetalheEntity ent1 : auxLista) {
+				List<NfeDetEspecificoMedicamentoEntity> auxLista1 = this.ndeMedicamentoDAO
+						.getLista(ent1);
+				List<NfeDetEspecificoArmamentoEntity> auxLista2 = this.ndeArmamentoDAO
+						.getLista(ent1);
+
+				ent1.setNdeMedicamentoList(auxLista1);
+				ent1.setNdeArmamentoList(auxLista2);
+			}
 
 			return auxLista;
 		} catch (Exception e) {
