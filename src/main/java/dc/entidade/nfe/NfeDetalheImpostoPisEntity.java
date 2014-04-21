@@ -134,7 +134,7 @@ public class NfeDetalheImpostoPisEntity extends
 	}
 
 	public void setCstPis(String cstPis) {
-		this.cstPis = (cstPis == null ? "" : cstPis.toUpperCase());
+		this.cstPis = (cstPis == null ? "" : cstPis.toUpperCase().trim());
 	}
 
 	public BigDecimal getQuantidadeVendida() {

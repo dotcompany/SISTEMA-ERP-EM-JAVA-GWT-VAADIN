@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -286,6 +287,16 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private List<NfeDetEspecificoArmamentoEntity> ndeArmamentoList;
 
 	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	private NfeDetEspecificoMedicamentoEntity ndeMedicamento;
+
+	@Transient
+	private NfeDetEspecificoArmamentoEntity ndeArmamento;
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -320,7 +331,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setCodigoProduto(String codigoProduto) {
 		this.codigoProduto = (codigoProduto == null ? "" : codigoProduto
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getGtin() {
@@ -328,7 +339,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setGtin(String gtin) {
-		this.gtin = (gtin == null ? "" : gtin.toUpperCase());
+		this.gtin = (gtin == null ? "" : gtin.toUpperCase().trim());
 	}
 
 	public String getNomeProduto() {
@@ -337,7 +348,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = (nomeProduto == null ? "" : nomeProduto
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getNcm() {
@@ -345,7 +356,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNcm(String ncm) {
-		this.ncm = (ncm == null ? "" : ncm.toUpperCase());
+		this.ncm = (ncm == null ? "" : ncm.toUpperCase().trim());
 	}
 
 	public Integer getExTipi() {
@@ -370,7 +381,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUnidadeComercial(String unidadeComercial) {
 		this.unidadeComercial = (unidadeComercial == null ? ""
-				: unidadeComercial.toUpperCase());
+				: unidadeComercial.toUpperCase().trim());
 	}
 
 	public BigDecimal getQuantidadeComercial() {
@@ -406,7 +417,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setGtinUnidadeTributavel(String gtinUnidadeTributavel) {
 		this.gtinUnidadeTributavel = (gtinUnidadeTributavel == null ? ""
-				: gtinUnidadeTributavel.toUpperCase());
+				: gtinUnidadeTributavel.toUpperCase().trim());
 	}
 
 	public String getUnidadeTributavel() {
@@ -415,7 +426,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUnidadeTributavel(String unidadeTributavel) {
 		this.unidadeTributavel = (unidadeTributavel == null ? ""
-				: unidadeTributavel.toUpperCase());
+				: unidadeTributavel.toUpperCase().trim());
 	}
 
 	public BigDecimal getQuantidadeTributavel() {
@@ -476,7 +487,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEntraTotal(String entraTotal) {
-		this.entraTotal = (entraTotal == null ? "" : entraTotal.toUpperCase());
+		this.entraTotal = (entraTotal == null ? "" : entraTotal.toUpperCase()
+				.trim());
 	}
 
 	public BigDecimal getValorSubtotal() {
@@ -502,7 +514,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNumeroPedidoCompra(String numeroPedidoCompra) {
 		this.numeroPedidoCompra = (numeroPedidoCompra == null ? ""
-				: numeroPedidoCompra.toUpperCase());
+				: numeroPedidoCompra.toUpperCase().trim());
 	}
 
 	public Integer getItemPedidoCompra() {
@@ -520,7 +532,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setInformacoesAdicionais(String informacoesAdicionais) {
 		this.informacoesAdicionais = (informacoesAdicionais == null ? ""
-				: informacoesAdicionais.toUpperCase());
+				: informacoesAdicionais.toUpperCase().trim());
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {
@@ -626,6 +638,23 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setNdeArmamentoList(
 			List<NfeDetEspecificoArmamentoEntity> ndeArmamentoList) {
 		this.ndeArmamentoList = ndeArmamentoList;
+	}
+
+	public NfeDetEspecificoMedicamentoEntity getNdeMedicamento() {
+		return ndeMedicamento;
+	}
+
+	public void setNdeMedicamento(
+			NfeDetEspecificoMedicamentoEntity ndeMedicamento) {
+		this.ndeMedicamento = ndeMedicamento;
+	}
+
+	public NfeDetEspecificoArmamentoEntity getNdeArmamento() {
+		return ndeArmamento;
+	}
+
+	public void setNdeArmamento(NfeDetEspecificoArmamentoEntity ndeArmamento) {
+		this.ndeArmamento = ndeArmamento;
 	}
 
 	/**

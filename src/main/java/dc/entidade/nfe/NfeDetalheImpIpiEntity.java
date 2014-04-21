@@ -170,7 +170,7 @@ public class NfeDetalheImpIpiEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setEnquadramentoIpi(String enquadramentoIpi) {
 		this.enquadramentoIpi = (enquadramentoIpi == null ? ""
-				: enquadramentoIpi.toUpperCase());
+				: enquadramentoIpi.toUpperCase().trim());
 	}
 
 	public String getCnpjProdutorIpi() {
@@ -179,7 +179,7 @@ public class NfeDetalheImpIpiEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setCnpjProdutorIpi(String cnpjProdutorIpi) {
 		this.cnpjProdutorIpi = (cnpjProdutorIpi == null ? "" : cnpjProdutorIpi
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCodigoSeloIpi() {
@@ -188,7 +188,7 @@ public class NfeDetalheImpIpiEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setCodigoSeloIpi(String codigoSeloIpi) {
 		this.codigoSeloIpi = (codigoSeloIpi == null ? "" : codigoSeloIpi
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public Integer getQuantidadeSeloIpi() {
@@ -206,7 +206,7 @@ public class NfeDetalheImpIpiEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setEnquadramentoLegalIpi(String enquadramentoLegalIpi) {
 		this.enquadramentoLegalIpi = (enquadramentoLegalIpi == null ? ""
-				: enquadramentoLegalIpi.toUpperCase());
+				: enquadramentoLegalIpi.toUpperCase().trim());
 	}
 
 	public String getCstIpi() {
@@ -214,7 +214,7 @@ public class NfeDetalheImpIpiEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCstIpi(String cstIpi) {
-		this.cstIpi = (cstIpi == null ? "" : cstIpi.toUpperCase());
+		this.cstIpi = (cstIpi == null ? "" : cstIpi.toUpperCase().trim());
 	}
 
 	public BigDecimal getValorBaseCalculoIpi() {

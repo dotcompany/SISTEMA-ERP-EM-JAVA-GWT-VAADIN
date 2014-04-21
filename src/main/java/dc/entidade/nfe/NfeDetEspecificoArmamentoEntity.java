@@ -120,7 +120,7 @@ public class NfeDetEspecificoArmamentoEntity extends
 	}
 
 	public void setTipoArma(String tipoArma) {
-		this.tipoArma = (tipoArma == null ? "" : tipoArma.toUpperCase());
+		this.tipoArma = (tipoArma == null ? "" : tipoArma.toUpperCase().trim());
 	}
 
 	public String getNumeroSerieArma() {
@@ -129,7 +129,7 @@ public class NfeDetEspecificoArmamentoEntity extends
 
 	public void setNumeroSerieArma(String numeroSerieArma) {
 		this.numeroSerieArma = (numeroSerieArma == null ? "" : numeroSerieArma
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getNumeroSerieCano() {
@@ -138,7 +138,7 @@ public class NfeDetEspecificoArmamentoEntity extends
 
 	public void setNumeroSerieCano(String numeroSerieCano) {
 		this.numeroSerieCano = (numeroSerieCano == null ? "" : numeroSerieCano
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -146,7 +146,8 @@ public class NfeDetEspecificoArmamentoEntity extends
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
+		this.descricao = (descricao == null ? "" : descricao.toUpperCase()
+				.trim());
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

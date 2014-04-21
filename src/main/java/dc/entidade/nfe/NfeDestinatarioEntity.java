@@ -207,7 +207,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = (cpfCnpj == null ? "" : cpfCnpj.toUpperCase());
+		this.cpfCnpj = (cpfCnpj == null ? "" : cpfCnpj.toUpperCase().trim());
 	}
 
 	public String getRazaoSocial() {
@@ -216,7 +216,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = (razaoSocial == null ? "" : razaoSocial
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getLogradouro() {
@@ -224,7 +224,8 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLogradouro(String logradouro) {
-		this.logradouro = (logradouro == null ? "" : logradouro.toUpperCase());
+		this.logradouro = (logradouro == null ? "" : logradouro.toUpperCase()
+				.trim());
 	}
 
 	public String getNumero() {
@@ -232,7 +233,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(String numero) {
-		this.numero = (numero == null ? "" : numero.toUpperCase());
+		this.numero = (numero == null ? "" : numero.toUpperCase().trim());
 	}
 
 	public String getComplemento() {
@@ -241,7 +242,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setComplemento(String complemento) {
 		this.complemento = (complemento == null ? "" : complemento
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getBairro() {
@@ -249,7 +250,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = (bairro == null ? "" : bairro.toUpperCase());
+		this.bairro = (bairro == null ? "" : bairro.toUpperCase().trim());
 	}
 
 	public Integer getCodigoMunicipio() {
@@ -267,7 +268,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNomeMunicipio(String nomeMunicipio) {
 		this.nomeMunicipio = (nomeMunicipio == null ? "" : nomeMunicipio
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getUf() {
@@ -275,7 +276,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setUf(String uf) {
-		this.uf = (uf == null ? "" : uf.toUpperCase());
+		this.uf = (uf == null ? "" : uf.toUpperCase().trim());
 	}
 
 	public String getCep() {
@@ -283,7 +284,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCep(String cep) {
-		this.cep = (cep == null ? "" : cep.toUpperCase());
+		this.cep = (cep == null ? "" : cep.toUpperCase().trim());
 	}
 
 	public Integer getCodigoPais() {
@@ -299,7 +300,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNomePais(String nomePais) {
-		this.nomePais = (nomePais == null ? "" : nomePais.toUpperCase());
+		this.nomePais = (nomePais == null ? "" : nomePais.toUpperCase().trim());
 	}
 
 	public String getTelefone() {
@@ -307,7 +308,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = (telefone == null ? "" : telefone.toUpperCase());
+		this.telefone = (telefone == null ? "" : telefone.toUpperCase().trim());
 	}
 
 	public String getInscricaoEstadual() {
@@ -316,7 +317,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setInscricaoEstadual(String inscricaoEstadual) {
 		this.inscricaoEstadual = (inscricaoEstadual == null ? ""
-				: inscricaoEstadual.toUpperCase());
+				: inscricaoEstadual.toUpperCase().trim());
 	}
 
 	public String getSuframa() {
@@ -324,7 +325,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSuframa(String suframa) {
-		this.suframa = (suframa == null ? "" : suframa.toUpperCase());
+		this.suframa = (suframa == null ? "" : suframa.toUpperCase().trim());
 	}
 
 	public String getEmail() {
@@ -332,7 +333,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEmail(String email) {
-		this.email = (email == null ? "" : email.toUpperCase());
+		this.email = (email == null ? "" : email.toUpperCase().trim());
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {

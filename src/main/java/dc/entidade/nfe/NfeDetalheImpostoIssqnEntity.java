@@ -179,7 +179,7 @@ public class NfeDetalheImpostoIssqnEntity extends
 
 	public void setTributacaoIssqn(String tributacaoIssqn) {
 		this.tributacaoIssqn = (tributacaoIssqn == null ? "" : tributacaoIssqn
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

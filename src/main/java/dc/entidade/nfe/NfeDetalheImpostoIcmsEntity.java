@@ -254,7 +254,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setOrigemMercadoria(String origemMercadoria) {
 		this.origemMercadoria = (origemMercadoria == null ? ""
-				: origemMercadoria.toUpperCase());
+				: origemMercadoria.toUpperCase().trim());
 	}
 
 	public String getCstIcms() {
@@ -262,7 +262,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setCstIcms(String cstIcms) {
-		this.cstIcms = (cstIcms == null ? "" : cstIcms.toUpperCase());
+		this.cstIcms = (cstIcms == null ? "" : cstIcms.toUpperCase().trim());
 	}
 
 	public String getCsosn() {
@@ -270,7 +270,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setCsosn(String csosn) {
-		this.csosn = (csosn == null ? "" : csosn.toUpperCase());
+		this.csosn = (csosn == null ? "" : csosn.toUpperCase().trim());
 	}
 
 	public String getModalidadeBcIcms() {
@@ -279,7 +279,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setModalidadeBcIcms(String modalidadeBcIcms) {
 		this.modalidadeBcIcms = (modalidadeBcIcms == null ? ""
-				: modalidadeBcIcms.toUpperCase());
+				: modalidadeBcIcms.toUpperCase().trim());
 	}
 
 	public BigDecimal getTaxaReducaoBcIcms() {
@@ -323,7 +323,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setMotivoDesoneracaoIcms(String motivoDesoneracaoIcms) {
 		this.motivoDesoneracaoIcms = (motivoDesoneracaoIcms == null ? ""
-				: motivoDesoneracaoIcms.toUpperCase());
+				: motivoDesoneracaoIcms.toUpperCase().trim());
 	}
 
 	public String getModalidadeBcIcmsSt() {
@@ -332,7 +332,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setModalidadeBcIcmsSt(String modalidadeBcIcmsSt) {
 		this.modalidadeBcIcmsSt = (modalidadeBcIcmsSt == null ? ""
-				: modalidadeBcIcmsSt.toUpperCase());
+				: modalidadeBcIcmsSt.toUpperCase().trim());
 	}
 
 	public BigDecimal getPercentualMvaIcmsSt() {
@@ -450,7 +450,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public void setUfSt(String ufSt) {
-		this.ufSt = (ufSt == null ? "" : ufSt.toUpperCase());
+		this.ufSt = (ufSt == null ? "" : ufSt.toUpperCase().trim());
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

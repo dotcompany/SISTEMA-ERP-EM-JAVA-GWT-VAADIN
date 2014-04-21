@@ -260,7 +260,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setTipoOperacao(String tipoOperacao) {
 		this.tipoOperacao = (tipoOperacao == null ? "" : tipoOperacao
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getChassi() {
@@ -268,7 +268,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setChassi(String chassi) {
-		this.chassi = (chassi == null ? "" : chassi.toUpperCase());
+		this.chassi = (chassi == null ? "" : chassi.toUpperCase().trim());
 	}
 
 	public String getCor() {
@@ -276,7 +276,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCor(String cor) {
-		this.cor = (cor == null ? "" : cor.toUpperCase());
+		this.cor = (cor == null ? "" : cor.toUpperCase().trim());
 	}
 
 	public String getDescricaoCor() {
@@ -285,7 +285,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setDescricaoCor(String descricaoCor) {
 		this.descricaoCor = (descricaoCor == null ? "" : descricaoCor
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getPotenciaMotor() {
@@ -294,7 +294,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setPotenciaMotor(String potenciaMotor) {
 		this.potenciaMotor = (potenciaMotor == null ? "" : potenciaMotor
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCilindradas() {
@@ -303,7 +303,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setCilindradas(String cilindradas) {
 		this.cilindradas = (cilindradas == null ? "" : cilindradas
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getPesoLiquido() {
@@ -312,7 +312,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setPesoLiquido(String pesoLiquido) {
 		this.pesoLiquido = (pesoLiquido == null ? "" : pesoLiquido
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getPesoBruto() {
@@ -320,7 +320,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setPesoBruto(String pesoBruto) {
-		this.pesoBruto = (pesoBruto == null ? "" : pesoBruto.toUpperCase());
+		this.pesoBruto = (pesoBruto == null ? "" : pesoBruto.toUpperCase()
+				.trim());
 	}
 
 	public String getNumeroSerie() {
@@ -329,7 +330,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setNumeroSerie(String numeroSerie) {
 		this.numeroSerie = (numeroSerie == null ? "" : numeroSerie
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getTipoCombustivel() {
@@ -338,7 +339,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setTipoCombustivel(String tipoCombustivel) {
 		this.tipoCombustivel = (tipoCombustivel == null ? "" : tipoCombustivel
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getNumeroMotor() {
@@ -347,7 +348,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setNumeroMotor(String numeroMotor) {
 		this.numeroMotor = (numeroMotor == null ? "" : numeroMotor
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCapacidadeMaximaTracao() {
@@ -356,7 +357,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setCapacidadeMaximaTracao(String capacidadeMaximaTracao) {
 		this.capacidadeMaximaTracao = (capacidadeMaximaTracao == null ? ""
-				: capacidadeMaximaTracao.toUpperCase());
+				: capacidadeMaximaTracao.toUpperCase().trim());
 	}
 
 	public String getDistanciaEixos() {
@@ -365,7 +366,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setDistanciaEixos(String distanciaEixos) {
 		this.distanciaEixos = (distanciaEixos == null ? "" : distanciaEixos
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getAnoModelo() {
@@ -373,7 +374,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setAnoModelo(String anoModelo) {
-		this.anoModelo = (anoModelo == null ? "" : anoModelo.toUpperCase());
+		this.anoModelo = (anoModelo == null ? "" : anoModelo.toUpperCase()
+				.trim());
 	}
 
 	public String getAnoFabricacao() {
@@ -382,7 +384,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setAnoFabricacao(String anoFabricacao) {
 		this.anoFabricacao = (anoFabricacao == null ? "" : anoFabricacao
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getTipoPintura() {
@@ -391,7 +393,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setTipoPintura(String tipoPintura) {
 		this.tipoPintura = (tipoPintura == null ? "" : tipoPintura
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getTipoVeiculo() {
@@ -400,7 +402,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setTipoVeiculo(String tipoVeiculo) {
 		this.tipoVeiculo = (tipoVeiculo == null ? "" : tipoVeiculo
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getEspecieVeiculo() {
@@ -409,7 +411,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setEspecieVeiculo(String especieVeiculo) {
 		this.especieVeiculo = (especieVeiculo == null ? "" : especieVeiculo
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCondicaoVin() {
@@ -418,7 +420,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setCondicaoVin(String condicaoVin) {
 		this.condicaoVin = (condicaoVin == null ? "" : condicaoVin
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCondicaoVeiculo() {
@@ -427,7 +429,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setCondicaoVeiculo(String condicaoVeiculo) {
 		this.condicaoVeiculo = (condicaoVeiculo == null ? "" : condicaoVeiculo
-				.toUpperCase());
+				.toUpperCase().trim());
 	}
 
 	public String getCodigoMarcaModelo() {
@@ -436,7 +438,7 @@ public class NfeDetEspecificoVeiculoEntity extends
 
 	public void setCodigoMarcaModelo(String codigoMarcaModelo) {
 		this.codigoMarcaModelo = (codigoMarcaModelo == null ? ""
-				: codigoMarcaModelo.toUpperCase());
+				: codigoMarcaModelo.toUpperCase().trim());
 	}
 
 	public String getCodigoCor() {
@@ -444,7 +446,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setCodigoCor(String codigoCor) {
-		this.codigoCor = (codigoCor == null ? "" : codigoCor.toUpperCase());
+		this.codigoCor = (codigoCor == null ? "" : codigoCor.toUpperCase()
+				.trim());
 	}
 
 	public Integer getLotacao() {
@@ -460,7 +463,8 @@ public class NfeDetEspecificoVeiculoEntity extends
 	}
 
 	public void setRestricao(String restricao) {
-		this.restricao = (restricao == null ? "" : restricao.toUpperCase());
+		this.restricao = (restricao == null ? "" : restricao.toUpperCase()
+				.trim());
 	}
 
 	public NfeDetalheEntity getNfeDetalhe() {

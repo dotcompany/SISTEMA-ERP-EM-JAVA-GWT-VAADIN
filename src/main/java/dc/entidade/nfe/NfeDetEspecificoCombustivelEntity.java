@@ -149,7 +149,7 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setCodif(String codif) {
-		this.codif = (codif == null ? "" : codif.toUpperCase());
+		this.codif = (codif == null ? "" : codif.toUpperCase().trim());
 	}
 
 	public BigDecimal getQuantidadeTempAmbiente() {
@@ -166,7 +166,8 @@ public class NfeDetEspecificoCombustivelEntity extends
 	}
 
 	public void setUfConsumo(String ufConsumo) {
-		this.ufConsumo = (ufConsumo == null ? "" : ufConsumo.toUpperCase());
+		this.ufConsumo = (ufConsumo == null ? "" : ufConsumo.toUpperCase()
+				.trim());
 	}
 
 	public BigDecimal getBaseCalculoCide() {

@@ -129,7 +129,8 @@ public class NfeDetEspecificoMedicamentoEntity extends
 	}
 
 	public void setNumeroLote(String numeroLote) {
-		this.numeroLote = (numeroLote == null ? "" : numeroLote.toUpperCase());
+		this.numeroLote = (numeroLote == null ? "" : numeroLote.toUpperCase()
+				.trim());
 	}
 
 	public BigDecimal getQuantidadeLote() {

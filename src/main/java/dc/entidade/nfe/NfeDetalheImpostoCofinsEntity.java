@@ -138,7 +138,8 @@ public class NfeDetalheImpostoCofinsEntity extends
 	}
 
 	public void setCstCofins(String cstCofins) {
-		this.cstCofins = (cstCofins == null ? "" : cstCofins.toUpperCase());
+		this.cstCofins = (cstCofins == null ? "" : cstCofins.toUpperCase()
+				.trim());
 	}
 
 	public BigDecimal getQuantidadeVendida() {
