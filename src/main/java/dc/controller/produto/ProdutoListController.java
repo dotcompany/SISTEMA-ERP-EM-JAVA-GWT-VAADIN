@@ -13,6 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
+@SuppressWarnings("unchecked")
 public class ProdutoListController extends CRUDListController<Produto> {
 
 	/**

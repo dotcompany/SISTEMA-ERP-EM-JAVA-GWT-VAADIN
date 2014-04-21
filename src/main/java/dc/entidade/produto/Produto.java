@@ -64,10 +64,12 @@ public class Produto extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Gtin")
 	@Column(name = "GTIN", length = 14)
 	private String gtin;
 
+	@Field
 	@Caption("Codigo Interno")
 	@Column(name = "CODIGO_INTERNO", length = 60)
 	private String codigoInterno;
