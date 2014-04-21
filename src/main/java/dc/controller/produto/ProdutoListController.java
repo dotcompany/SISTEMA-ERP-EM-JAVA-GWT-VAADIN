@@ -1,6 +1,5 @@
 package dc.controller.produto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +16,15 @@ import dc.visao.framework.geral.CRUDListController;
 public class ProdutoListController extends CRUDListController<Produto> {
 
 	/**
-		 * 
-		 */
+			 * 
+			 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ProdutoDAO dao;
+	ProdutoDAO dao;
 
 	@Autowired
-	private ProdutoFormController produtoFormController;
+	ProdutoFormController produtoFormController;
 
 	@Override
 	protected CRUDFormController<Produto> getFormController() {
@@ -34,8 +33,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "gtin", "codigoInterno", "nome", "descricao",
-				"descricaoPdv" };
+		return new String[] { "gtin", "codigoInterno", "nome", "descricao","descricaoPdv" };
 	}
 
 	@Override
@@ -50,13 +48,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	protected List<Produto> pesquisa(String valor) {
-		try {
-			return (List<Produto>) dao.fullTextSearch(valor);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<Produto>();
-		}
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -76,13 +68,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	protected List<Produto> pesquisaDefault() {
-		try {
-			return (List<Produto>) dao.getAll(getEntityClass());
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<Produto>();
-		}
+		return (List<Produto>) dao.getAll(getEntityClass());
 	}
 
 }

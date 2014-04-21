@@ -13,7 +13,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "serial" })
 public class ContratoListController extends CRUDListController<Contrato> {
 	
 	@Autowired
