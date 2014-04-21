@@ -6888,7 +6888,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 		glNdeArmamento.setMargin(true);
 		glNdeArmamento.setSpacing(true);
 		glNdeArmamento.setRows(6);
-		glNdeArmamento.setColumns(3);
+		glNdeArmamento.setColumns(2);
 		glNdeArmamento.setEnabled(false);
 
 		// tfTipoArmaArmamento
@@ -6899,6 +6899,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfTipoArmaArmamento.setNullRepresentation("");
 		tfTipoArmaArmamento.setImmediate(true);
 		tfTipoArmaArmamento.setId("tfTipoArmaArmamento");
+		tfTipoArmaArmamento.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				if (ObjectValidator.validateEventValue(event)) {
+					controller.ndeArmamentoSetarValor(tfTipoArmaArmamento
+							.getId(), event.getProperty().getValue());
+				}
+			}
+		});
 		glNdeArmamento.addComponent(tfTipoArmaArmamento, 0, 0);
 
 		// tfNumeroSerieArmaArmamento
@@ -6909,6 +6924,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroSerieArmaArmamento.setNullRepresentation("");
 		tfNumeroSerieArmaArmamento.setImmediate(true);
 		tfNumeroSerieArmaArmamento.setId("tfNumeroSerieArmaArmamento");
+		tfNumeroSerieArmaArmamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeArmamentoSetarValor(
+									tfNumeroSerieArmaArmamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeArmamento.addComponent(tfNumeroSerieArmaArmamento, 1, 0);
 
 		// tfNumeroSerieCanoArmamento
@@ -6919,6 +6951,23 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfNumeroSerieCanoArmamento.setNullRepresentation("");
 		tfNumeroSerieCanoArmamento.setImmediate(true);
 		tfNumeroSerieCanoArmamento.setId("tfNumeroSerieCanoArmamento");
+		tfNumeroSerieCanoArmamento
+				.addValueChangeListener(new ValueChangeListener() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						// TODO Auto-generated method stub
+						if (ObjectValidator.validateEventValue(event)) {
+							controller.ndeArmamentoSetarValor(
+									tfNumeroSerieCanoArmamento.getId(), event
+											.getProperty().getValue());
+						}
+					}
+				});
 		glNdeArmamento.addComponent(tfNumeroSerieCanoArmamento, 0, 1);
 
 		// tfDescricaoArmamento
@@ -6929,6 +6978,21 @@ public class ProdutoServicoFormView extends CustomComponent {
 		tfDescricaoArmamento.setNullRepresentation("");
 		tfDescricaoArmamento.setImmediate(true);
 		tfDescricaoArmamento.setId("tfDescricaoArmamento");
+		tfDescricaoArmamento.addValueChangeListener(new ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				// TODO Auto-generated method stub
+				if (ObjectValidator.validateEventValue(event)) {
+					controller.ndeArmamentoSetarValor(tfDescricaoArmamento
+							.getId(), event.getProperty().getValue());
+				}
+			}
+		});
 		glNdeArmamento.addComponent(tfDescricaoArmamento, 1, 1);
 
 		return glNdeArmamento;

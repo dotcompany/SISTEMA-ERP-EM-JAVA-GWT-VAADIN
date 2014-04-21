@@ -2190,6 +2190,51 @@ public class ProdutoServicoFormController extends
 				.add(this.ndeMedicamentoSelecionado);
 	}
 
+	public void ndeArmamentoSetarValor(String id, Object obj) {
+		// TODO ndeMedicamentoSetarValor
+
+		if (this.ndeMedicamentoSelecionado == null) {
+			return;
+		}
+
+		switch (id) {
+		case "tfTipoArmaArmamento":
+			this.ndeArmamentoSelecionado.setTipoArma((String) obj);
+
+			break;
+		case "tfNumeroSerieArmaArmamento":
+			this.ndeArmamentoSelecionado.setNumeroSerieArma((String) obj);
+
+			break;
+		case "tfNumeroSerieCanoArmamento":
+			this.ndeArmamentoSelecionado.setNumeroSerieCano((String) obj);
+
+			break;
+		case "tfDescricaoArmamento":
+			this.ndeArmamentoSelecionado.setDescricao((String) obj);
+
+			break;
+		}
+
+		Integer index = this.subView.getSfNdeArmamento().getDados()
+				.indexOf(this.ndeArmamentoSelecionado);
+
+		this.subView.getSfNdeArmamento().getDados()
+				.remove(this.ndeArmamentoSelecionado);
+
+		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+				.remove(this.ndeArmamentoSelecionado);
+
+		this.ndeArmamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+				.getNfeDetalhe());
+
+		this.subView.getSfNdeArmamento().getDados()
+				.add(index, this.ndeArmamentoSelecionado);
+
+		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+				.add(this.ndeArmamentoSelecionado);
+	}
+
 	/**
 	 * LIMPAR
 	 * 
