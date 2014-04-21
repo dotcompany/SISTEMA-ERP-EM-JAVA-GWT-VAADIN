@@ -2908,7 +2908,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfBaseCalculoIcmsTotalGeral
 		tfBaseCalculoIcmsTotalGeral = new TextField();
-		tfBaseCalculoIcmsTotalGeral.setCaption(":");
+		tfBaseCalculoIcmsTotalGeral.setCaption("Base de cálculo do ICMS:");
 		tfBaseCalculoIcmsTotalGeral.setWidth("-1px");
 		tfBaseCalculoIcmsTotalGeral.setHeight("-1px");
 		tfBaseCalculoIcmsTotalGeral.setSizeFull();
@@ -2920,7 +2920,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorIcmsTotalGeral
 		tfValorIcmsTotalGeral = new TextField();
-		tfValorIcmsTotalGeral.setCaption(":");
+		tfValorIcmsTotalGeral.setCaption("Valor do ICMS:");
 		tfValorIcmsTotalGeral.setWidth("-1px");
 		tfValorIcmsTotalGeral.setHeight("-1px");
 		tfValorIcmsTotalGeral.setSizeFull();
@@ -2931,7 +2931,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfBaseCalculoIcmsStTotalGeral
 		tfBaseCalculoIcmsStTotalGeral = new TextField();
-		tfBaseCalculoIcmsStTotalGeral.setCaption(":");
+		tfBaseCalculoIcmsStTotalGeral.setCaption("Base de cálculo do ICMS ST:");
 		tfBaseCalculoIcmsStTotalGeral.setWidth("-1px");
 		tfBaseCalculoIcmsStTotalGeral.setHeight("-1px");
 		tfBaseCalculoIcmsStTotalGeral.setSizeFull();
@@ -2943,7 +2943,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorIcmsStTotalGeral
 		tfValorIcmsStTotalGeral = new TextField();
-		tfValorIcmsStTotalGeral.setCaption(":");
+		tfValorIcmsStTotalGeral.setCaption("Valor do ICMS ST:");
 		tfValorIcmsStTotalGeral.setWidth("-1px");
 		tfValorIcmsStTotalGeral.setHeight("-1px");
 		tfValorIcmsStTotalGeral.setSizeFull();
@@ -2954,7 +2954,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorTotalProdutosTotalGeral
 		tfValorTotalProdutosTotalGeral = new TextField();
-		tfValorTotalProdutosTotalGeral.setCaption(":");
+		tfValorTotalProdutosTotalGeral.setCaption("Valor total dos produtos:");
 		tfValorTotalProdutosTotalGeral.setWidth("-1px");
 		tfValorTotalProdutosTotalGeral.setHeight("-1px");
 		tfValorTotalProdutosTotalGeral.setSizeFull();
@@ -2966,7 +2966,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorFreteTotalGeral
 		tfValorFreteTotalGeral = new TextField();
-		tfValorFreteTotalGeral.setCaption(":");
+		tfValorFreteTotalGeral.setCaption("Valor do frete:");
 		tfValorFreteTotalGeral.setWidth("-1px");
 		tfValorFreteTotalGeral.setHeight("-1px");
 		tfValorFreteTotalGeral.setSizeFull();
@@ -2977,7 +2977,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorSeguroTotalGeral
 		tfValorSeguroTotalGeral = new TextField();
-		tfValorSeguroTotalGeral.setCaption(":");
+		tfValorSeguroTotalGeral.setCaption("Valor do seguro:");
 		tfValorSeguroTotalGeral.setWidth("-1px");
 		tfValorSeguroTotalGeral.setHeight("-1px");
 		tfValorSeguroTotalGeral.setSizeFull();
@@ -2988,7 +2988,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorDescontoTotalGeral
 		tfValorDescontoTotalGeral = new TextField();
-		tfValorDescontoTotalGeral.setCaption(":");
+		tfValorDescontoTotalGeral.setCaption("Valor do desconto:");
 		tfValorDescontoTotalGeral.setWidth("-1px");
 		tfValorDescontoTotalGeral.setHeight("-1px");
 		tfValorDescontoTotalGeral.setSizeFull();
@@ -2999,7 +2999,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorImpostoImportacaoTotalGeral
 		tfValorImpostoImportacaoTotalGeral = new TextField();
-		tfValorImpostoImportacaoTotalGeral.setCaption(":");
+		tfValorImpostoImportacaoTotalGeral
+				.setCaption("Valor do imposto de importação:");
 		tfValorImpostoImportacaoTotalGeral.setWidth("-1px");
 		tfValorImpostoImportacaoTotalGeral.setHeight("-1px");
 		tfValorImpostoImportacaoTotalGeral.setSizeFull();
@@ -3012,7 +3013,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorIpiTotalGeral
 		tfValorIpiTotalGeral = new TextField();
-		tfValorIpiTotalGeral.setCaption(":");
+		tfValorIpiTotalGeral.setCaption("Valor do IPI:");
 		tfValorIpiTotalGeral.setWidth("-1px");
 		tfValorIpiTotalGeral.setHeight("-1px");
 		tfValorIpiTotalGeral.setSizeFull();
@@ -3023,7 +3024,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorPisTotalGeral
 		tfValorPisTotalGeral = new TextField();
-		tfValorPisTotalGeral.setCaption(":");
+		tfValorPisTotalGeral.setCaption("Valor do PIS:");
 		tfValorPisTotalGeral.setWidth("-1px");
 		tfValorPisTotalGeral.setHeight("-1px");
 		tfValorPisTotalGeral.setSizeFull();
@@ -3034,7 +3035,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorCofinsTotalGeral
 		tfValorCofinsTotalGeral = new TextField();
-		tfValorCofinsTotalGeral.setCaption(":");
+		tfValorCofinsTotalGeral.setCaption("Valor do COFINS:");
 		tfValorCofinsTotalGeral.setWidth("-1px");
 		tfValorCofinsTotalGeral.setHeight("-1px");
 		tfValorCofinsTotalGeral.setSizeFull();
@@ -3045,7 +3046,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorDespesasAcessoriasTotalGeral
 		tfValorDespesasAcessoriasTotalGeral = new TextField();
-		tfValorDespesasAcessoriasTotalGeral.setCaption(":");
+		tfValorDespesasAcessoriasTotalGeral
+				.setCaption("Valor das despesas acessórias:");
 		tfValorDespesasAcessoriasTotalGeral.setWidth("-1px");
 		tfValorDespesasAcessoriasTotalGeral.setHeight("-1px");
 		tfValorDespesasAcessoriasTotalGeral.setSizeFull();
@@ -3058,7 +3060,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorTotalTotalGeral
 		tfValorTotalTotalGeral = new TextField();
-		tfValorTotalTotalGeral.setCaption(":");
+		tfValorTotalTotalGeral.setCaption("Valor total:");
 		tfValorTotalTotalGeral.setWidth("-1px");
 		tfValorTotalTotalGeral.setHeight("-1px");
 		tfValorTotalTotalGeral.setSizeFull();
@@ -3085,7 +3087,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorServicosOutroTotal
 		tfValorServicosOutroTotal = new TextField();
-		tfValorServicosOutroTotal.setCaption(":");
+		tfValorServicosOutroTotal.setCaption("Valor dos serviços:");
 		tfValorServicosOutroTotal.setWidth("-1px");
 		tfValorServicosOutroTotal.setHeight("-1px");
 		tfValorServicosOutroTotal.setSizeFull();
@@ -3096,7 +3098,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfBaseCalculoIssqnOutroTotal
 		tfBaseCalculoIssqnOutroTotal = new TextField();
-		tfBaseCalculoIssqnOutroTotal.setCaption(":");
+		tfBaseCalculoIssqnOutroTotal.setCaption("Base de cálculo do ISSQN:");
 		tfBaseCalculoIssqnOutroTotal.setWidth("-1px");
 		tfBaseCalculoIssqnOutroTotal.setHeight("-1px");
 		tfBaseCalculoIssqnOutroTotal.setSizeFull();
@@ -3108,7 +3110,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorIssqnOutroTotal
 		tfValorIssqnOutroTotal = new TextField();
-		tfValorIssqnOutroTotal.setCaption(":");
+		tfValorIssqnOutroTotal.setCaption("Valor do ISSQN:");
 		tfValorIssqnOutroTotal.setWidth("-1px");
 		tfValorIssqnOutroTotal.setHeight("-1px");
 		tfValorIssqnOutroTotal.setSizeFull();
@@ -3119,7 +3121,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorPisIssqnOutroTotal
 		tfValorPisIssqnOutroTotal = new TextField();
-		tfValorPisIssqnOutroTotal.setCaption(":");
+		tfValorPisIssqnOutroTotal.setCaption("Valor do PIS / ISSQN:");
 		tfValorPisIssqnOutroTotal.setWidth("-1px");
 		tfValorPisIssqnOutroTotal.setHeight("-1px");
 		tfValorPisIssqnOutroTotal.setSizeFull();
@@ -3130,7 +3132,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorCofinsIssqnOutroTotal
 		tfValorCofinsIssqnOutroTotal = new TextField();
-		tfValorCofinsIssqnOutroTotal.setCaption(":");
+		tfValorCofinsIssqnOutroTotal.setCaption("Valor do COFINS:");
 		tfValorCofinsIssqnOutroTotal.setWidth("-1px");
 		tfValorCofinsIssqnOutroTotal.setHeight("-1px");
 		tfValorCofinsIssqnOutroTotal.setSizeFull();
@@ -3142,7 +3144,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorRetidoPisOutroTotal
 		tfValorRetidoPisOutroTotal = new TextField();
-		tfValorRetidoPisOutroTotal.setCaption(":");
+		tfValorRetidoPisOutroTotal.setCaption("Valor retido do PIS:");
 		tfValorRetidoPisOutroTotal.setWidth("-1px");
 		tfValorRetidoPisOutroTotal.setHeight("-1px");
 		tfValorRetidoPisOutroTotal.setSizeFull();
@@ -3153,7 +3155,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorRetidoCofinsOutroTotal
 		tfValorRetidoCofinsOutroTotal = new TextField();
-		tfValorRetidoCofinsOutroTotal.setCaption(":");
+		tfValorRetidoCofinsOutroTotal.setCaption("Valor retido do COFINS:");
 		tfValorRetidoCofinsOutroTotal.setWidth("-1px");
 		tfValorRetidoCofinsOutroTotal.setHeight("-1px");
 		tfValorRetidoCofinsOutroTotal.setSizeFull();
@@ -3165,7 +3167,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorRetidoCsllOutroTotal
 		tfValorRetidoCsllOutroTotal = new TextField();
-		tfValorRetidoCsllOutroTotal.setCaption(":");
+		tfValorRetidoCsllOutroTotal.setCaption("Valor retido do CSLL:");
 		tfValorRetidoCsllOutroTotal.setWidth("-1px");
 		tfValorRetidoCsllOutroTotal.setHeight("-1px");
 		tfValorRetidoCsllOutroTotal.setSizeFull();
@@ -3177,7 +3179,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfBaseCalculoIrrfOutroTotal
 		tfBaseCalculoIrrfOutroTotal = new TextField();
-		tfBaseCalculoIrrfOutroTotal.setCaption(":");
+		tfBaseCalculoIrrfOutroTotal.setCaption("Base de cálculo do IRRF:");
 		tfBaseCalculoIrrfOutroTotal.setWidth("-1px");
 		tfBaseCalculoIrrfOutroTotal.setHeight("-1px");
 		tfBaseCalculoIrrfOutroTotal.setSizeFull();
@@ -3189,7 +3191,7 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorRetidoIrrfOutroTotal
 		tfValorRetidoIrrfOutroTotal = new TextField();
-		tfValorRetidoIrrfOutroTotal.setCaption(":");
+		tfValorRetidoIrrfOutroTotal.setCaption("Valor retido do IRRF:");
 		tfValorRetidoIrrfOutroTotal.setWidth("-1px");
 		tfValorRetidoIrrfOutroTotal.setHeight("-1px");
 		tfValorRetidoIrrfOutroTotal.setSizeFull();
@@ -3201,7 +3203,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfBaseCalculoPrevidenciaOutroTotal
 		tfBaseCalculoPrevidenciaOutroTotal = new TextField();
-		tfBaseCalculoPrevidenciaOutroTotal.setCaption(":");
+		tfBaseCalculoPrevidenciaOutroTotal
+				.setCaption("Base de cálculo da previdência:");
 		tfBaseCalculoPrevidenciaOutroTotal.setWidth("-1px");
 		tfBaseCalculoPrevidenciaOutroTotal.setHeight("-1px");
 		tfBaseCalculoPrevidenciaOutroTotal.setSizeFull();
@@ -3214,7 +3217,8 @@ public class ProdutoServicoFormView extends CustomComponent {
 
 		// tfValorRetidoPrevidenciaOutroTotal
 		tfValorRetidoPrevidenciaOutroTotal = new TextField();
-		tfValorRetidoPrevidenciaOutroTotal.setCaption(":");
+		tfValorRetidoPrevidenciaOutroTotal
+				.setCaption("Valor retido da previdência:");
 		tfValorRetidoPrevidenciaOutroTotal.setWidth("-1px");
 		tfValorRetidoPrevidenciaOutroTotal.setHeight("-1px");
 		tfValorRetidoPrevidenciaOutroTotal.setSizeFull();
