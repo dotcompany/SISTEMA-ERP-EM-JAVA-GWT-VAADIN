@@ -1174,8 +1174,8 @@ public class ProdutoServicoFormController extends
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
 			this.subView.getGlNdeMedicamento().setEnabled(true);
-			// this.ndeMedicamentoSelecionado = item;
-			// this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
+
+			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
 
 			this.subView.getTfNumeroLoteMedicamento().setValue(
 					item.getNumeroLote());
@@ -1187,8 +1187,6 @@ public class ProdutoServicoFormController extends
 					item.getDataValidade());
 			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
 					item.getPrecoMaximoConsumidor().toString());
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1200,8 +1198,9 @@ public class ProdutoServicoFormController extends
 
 	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
 		try {
-			// this.ndeArmamentoSelecionado = item;
 			this.subView.getGlNdeArmamento().setEnabled(true);
+
+			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
 
 			this.subView.getTfTipoArmaArmamento().setValue(item.getTipoArma());
 			this.subView.getTfNumeroSerieArmaArmamento().setValue(
@@ -1210,8 +1209,6 @@ public class ProdutoServicoFormController extends
 					item.getNumeroSerieCano());
 			this.subView.getTfDescricaoArmamento()
 					.setValue(item.getDescricao());
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
