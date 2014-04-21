@@ -2193,7 +2193,7 @@ public class ProdutoServicoFormController extends
 	public void ndeArmamentoSetarValor(String id, Object obj) {
 		// TODO ndeMedicamentoSetarValor
 
-		if (this.ndeMedicamentoSelecionado == null) {
+		if (this.ndeArmamentoSelecionado == null) {
 			return;
 		}
 
