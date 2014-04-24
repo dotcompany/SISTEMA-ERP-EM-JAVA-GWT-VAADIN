@@ -13,7 +13,6 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings({ "unchecked", "serial" })
 public class ContratoListController extends CRUDListController<Contrato> {
 	
 	@Autowired
@@ -24,7 +23,7 @@ public class ContratoListController extends CRUDListController<Contrato> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "numero", "nome", "dataInicioVigencia", "dataFimVigencia", "valor" };
+		return new String[] { "numero", "nome", "dataCadastro", "observacao" };
 	}
 
 	@Override
@@ -63,5 +62,7 @@ public class ContratoListController extends CRUDListController<Contrato> {
 	protected List<Contrato> pesquisaDefault() {
 		return (List<Contrato>) dao.getAll(getEntityClass());
 	}
+	
+	
 
 }

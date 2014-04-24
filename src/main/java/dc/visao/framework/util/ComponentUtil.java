@@ -8,6 +8,7 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.PopupDateField;
+import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
@@ -85,6 +86,16 @@ public final class ComponentUtil {
 		lookupComponent.setSizeFull();
 
 		return lookupComponent;
+	}
+	
+	public static RichTextArea buildRichTextArea(String caption) {
+		RichTextArea richTextArea = new RichTextArea();
+		richTextArea.setNullRepresentation("");
+		richTextArea.setCaption(caption);
+		richTextArea.setImmediate(true);
+		richTextArea.setSizeFull();
+		
+		return richTextArea;
 	}
 
 	public static TextArea buildTextArea(String caption) {

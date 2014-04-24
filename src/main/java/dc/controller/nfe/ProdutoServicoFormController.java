@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
 import dc.controller.pessoal.ClienteListController;
-import dc.controller.produto.ProdutoListController;
+import dc.controller.produto.ProdutosListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
@@ -2555,7 +2555,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(
-					ProdutoListController.class, this.produtoDAO,
+					ProdutosListController.class, this.produtoDAO,
 					super.getMainController());
 
 			this.subView.getMtoProduto().setModel(model2);

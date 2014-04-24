@@ -37,13 +37,13 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainController;
-import dc.visao.produto.ProdutoFormView;
-import dc.visao.produto.ProdutoFormView.CLASSE;
-import dc.visao.produto.ProdutoFormView.IAT;
-import dc.visao.produto.ProdutoFormView.IPPT;
-import dc.visao.produto.ProdutoFormView.SIM_NAO;
-import dc.visao.produto.ProdutoFormView.TIPO_SPED;
-import dc.visao.produto.ProdutoFormView.TIPO_VENDA;
+import dc.visao.produto.ProdutosFormView;
+import dc.visao.produto.ProdutosFormView.CLASSE;
+import dc.visao.produto.ProdutosFormView.IAT;
+import dc.visao.produto.ProdutosFormView.IPPT;
+import dc.visao.produto.ProdutosFormView.SIM_NAO;
+import dc.visao.produto.ProdutosFormView.TIPO_SPED;
+import dc.visao.produto.ProdutosFormView.TIPO_VENDA;
 
 @Controller
 @Scope("prototype")
@@ -54,7 +54,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private ProdutoFormView subView;
+		private ProdutosFormView subView;
 
 		@Autowired
 		private ICMSCustomizadoDAO icmsCustomizadoDAO;
@@ -102,7 +102,7 @@ public class ProdutoFormController extends CRUDFormController<Produto> {
 
 		@Override
 		protected void initSubView() {
-			subView = new ProdutoFormView(this);
+			subView = new ProdutosFormView(this);
 			try {
 				DefaultManyToOneComboModel<SubGrupoProduto> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProduto>(
 						SubGrupoProdutoListController.class, subGrupoProdutoDAO, mainController);

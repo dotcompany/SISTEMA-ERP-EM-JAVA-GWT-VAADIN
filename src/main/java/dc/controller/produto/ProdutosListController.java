@@ -13,12 +13,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
-public class ProdutoListController extends CRUDListController<Produto> {
+public class ProdutosListController extends CRUDListController<Produto> {
 
-	/**
-			 * 
-			 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -34,7 +30,7 @@ public class ProdutoListController extends CRUDListController<Produto> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "gtin", "codigoInterno", "nome", "descricao","descricaoPdv" };
+		return new String[] { "gtin", "codigoInterno", "nome", "descricao" };
 	}
 
 	@Override
