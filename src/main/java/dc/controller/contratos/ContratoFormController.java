@@ -65,6 +65,7 @@ import dc.visao.contratos.ContratoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
+import dc.visao.framework.util.ComponentUtil;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
@@ -268,6 +269,26 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			public void buttonClick(ClickEvent event) {
 				try {
 					gerarParcelas();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					mensagemErro(e.getMessage());
+				}
+
+			}
+
+		});
+		
+		subView.getBtnArquivoContrato().addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					ComponentUtil.buildRichTextArea(" Template ");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					mensagemErro(e.getMessage());
