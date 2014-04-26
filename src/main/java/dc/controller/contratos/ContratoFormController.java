@@ -185,6 +185,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			adicionarErroDeValidacao(subView.getTxaObservacoes(), "Não pode ficar em branco");
 			valido = false;
 		}
+		
+		if (!Validator.validateString(subView.getTxaTemplate().getValue())) {
+			adicionarErroDeValidacao(subView.getTxaTemplate(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		return valido;
 	}

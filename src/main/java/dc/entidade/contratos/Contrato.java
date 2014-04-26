@@ -106,6 +106,9 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Observação")
 	private String observacao;
+	
+	@Caption(value = "Arquivo Contrato")
+	private String arquivoContrato;
 
 	@Caption(value = "Tipo Contrato")
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
@@ -247,6 +250,14 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	
+	public String getArquivoContrato() {
+		return arquivoContrato;
+	}
+
+	public void setArquivoContrato(String arquivoContrato) {
+		this.arquivoContrato = arquivoContrato;
 	}
 
 	public TipoContrato getTipoContrato() {
