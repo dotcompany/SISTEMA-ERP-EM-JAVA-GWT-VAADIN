@@ -1,19 +1,18 @@
 package dc.servicos.dao.sistema;
 
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.FmModulo;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa>{
+public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 
-	
-	
 	@Override
 	public Class<ContaEmpresa> getEntityClass() {
 		// TODO Auto-generated method stub
@@ -28,17 +27,24 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa>{
 
 	@Transactional
 	public ConfiguracaoContaEmpresa findConfiguracaoByIdConta(Integer contaId) {
-		// TODO Auto-generated method stub
-		return (ConfiguracaoContaEmpresa) getSession().createCriteria(ConfiguracaoContaEmpresa.class).add(Restrictions.eq("conta.id",contaId)).uniqueResult();
+
+		Criteria criteria = getSession().createCriteria(
+				ConfiguracaoContaEmpresa.class);
+		criteria.add(Restrictions.eq("conta.id", contaId));
+		criteria.createCriteria("modulos")
+				.setFetchMode("menus", FetchMode.JOIN);
+
+		// criteria.createCriteria("modulos.menus").setFetchMode("menusFilho",
+		// FetchMode.JOIN);
+
+		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
+
 	}
 
 	@Transactional
 	public ContaEmpresa findByEmail(String email) {
-		return (ContaEmpresa) getSession().createCriteria(ContaEmpresa.class).add(Restrictions.eq("email",email)).uniqueResult();
+		return (ContaEmpresa) getSession().createCriteria(ContaEmpresa.class)
+				.add(Restrictions.eq("email", email)).uniqueResult();
 	}
-
-	
-	
-	
 
 }
