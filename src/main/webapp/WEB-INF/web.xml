@@ -20,7 +20,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 	</context-param>
 	
 	<session-config>
-		<session-timeout>4</session-timeout>
+		<session-timeout>15</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
