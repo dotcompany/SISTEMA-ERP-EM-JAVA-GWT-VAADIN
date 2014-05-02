@@ -7,7 +7,7 @@
 }
 
 .v-vaadin-version:after {
-	content: "7.1.14";
+	content: "7.1.15";
 }
 
 .v-generated-body {
@@ -3898,7 +3898,6 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .dotcompany .v-treetable .v-table-row .v-table-cell-content, .dotcompany .v-treetable .v-table-row-odd .v-table-cell-content {
-	position: relative;
 	z-index: 10;
 }
 
