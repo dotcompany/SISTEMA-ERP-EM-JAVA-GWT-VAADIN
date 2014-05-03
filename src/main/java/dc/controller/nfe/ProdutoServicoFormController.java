@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
+import dc.control.enums.CrtEn;
+import dc.control.enums.CsosnEn;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.produto.ProdutosListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -1609,11 +1611,15 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfCstIcms":
-			ndiIcms.setCstIcms((String) obj);
+			CrtEn crt = (CrtEn) obj;
+
+			ndiIcms.setCstIcms(crt.name());
 
 			break;
 		case "tfCsosnIcms":
-			ndiIcms.setCsosn((String) obj);
+			CsosnEn csosn = (CsosnEn) obj;
+
+			ndiIcms.setCsosn(csosn.name());
 
 			break;
 		case "tfModalidadeBcIcms":
