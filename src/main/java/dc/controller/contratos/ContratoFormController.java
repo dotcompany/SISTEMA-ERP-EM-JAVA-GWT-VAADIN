@@ -631,10 +631,18 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				geraParcelas(pessoa, contratoprevFaturamento);
 			}
 		} else {
+			
 			mensagemErro("Preencha todos os campos corretamente!");
+
 		}
 
 	}
+	
+	/**
+	 * 
+	 * Wesley Jr
+	 * gera as Parcelas
+	 */
 
 	private void geraParcelas(Pessoa pessoa, final List<ContratoPrevFaturamento> contratopreFaturamento) {
 
