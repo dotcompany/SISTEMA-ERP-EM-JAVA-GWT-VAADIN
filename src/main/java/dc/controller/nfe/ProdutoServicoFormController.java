@@ -840,8 +840,8 @@ public class ProdutoServicoFormController extends
 
 			this.subView.getTfOrigemMercadoriaIcms().setValue(
 					entIcms.getOrigemMercadoria().trim());
-			this.subView.getTfCstIcms().setValue(entIcms.getCstIcms().trim());
-			this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn().trim());
+			// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms().trim());
+			// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn().trim());
 			this.subView.getTfModalidadeBcIcms().setValue(
 					entIcms.getModalidadeBcIcms().trim());
 			this.subView.getTfTaxaReducaoBcIcms().setValue(
@@ -2331,8 +2331,8 @@ public class ProdutoServicoFormController extends
 
 		this.subView.getTfOrigemMercadoriaIcms().setValue(
 				entIcms.getOrigemMercadoria());
-		this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
-		this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
+		// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
+		// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
 		this.subView.getTfModalidadeBcIcms().setValue(
 				entIcms.getModalidadeBcIcms());
 		this.subView.getTfTaxaReducaoBcIcms().setValue(
@@ -2565,9 +2565,22 @@ public class ProdutoServicoFormController extends
 					super.getMainController());
 
 			this.subView.getMtoOperacaoFiscal().setModel(model3);
+
+			/**
+			 * 
+			 */
+
+			/*
+			 * List<CrtEn> auxList = new ArrayList<CrtEn>();
+			 * 
+			 * for (CrtEn en : CrtEn.values()) { auxList.add(en); }
+			 * 
+			 * this.subView.getCbCstIcms().setData(auxList);
+			 */
+
+			this.subView.carregarComboBox();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }
