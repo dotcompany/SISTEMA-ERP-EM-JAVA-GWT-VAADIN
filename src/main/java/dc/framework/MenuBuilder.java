@@ -57,6 +57,7 @@ public class MenuBuilder implements Serializable {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 
 		final MenuBar menuBar = new MenuBar();
+		menuBar.setAutoOpen(true);
 
 		if (String.valueOf(FmModulo.ID_MODULO_ADM_DC).equals(moduleID)) {
 			buildAdmSistemaMenu(menuPanel, menuBar, mainController);
