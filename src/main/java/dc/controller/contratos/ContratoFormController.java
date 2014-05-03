@@ -281,8 +281,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		});
 
-		// para o wesley tá lançando NullPointerException. O btnArquivoContrato
-		// tá null
 		subView.getDtCadastro().setValue(new Date());
 
 		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
