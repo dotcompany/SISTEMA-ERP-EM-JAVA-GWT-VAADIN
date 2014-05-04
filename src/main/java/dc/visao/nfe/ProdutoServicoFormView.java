@@ -18,7 +18,6 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.control.enums.CrtEn;
 import dc.control.enums.CsosnEn;
 import dc.control.validator.ObjectValidator;
 import dc.controller.nfe.ProdutoServicoFormController;
@@ -7848,10 +7847,6 @@ public class ProdutoServicoFormView extends CustomComponent {
 	 */
 
 	public void carregarComboBox() {
-		for (CrtEn en : CrtEn.values()) {
-			this.cbCstIcms.addItem(en);
-		}
-
 		for (CsosnEn en : CsosnEn.values()) {
 			this.cbCsosnIcms.addItem(en);
 		}
