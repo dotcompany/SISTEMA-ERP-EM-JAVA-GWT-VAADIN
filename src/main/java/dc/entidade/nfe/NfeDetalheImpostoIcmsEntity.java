@@ -258,7 +258,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public String getCstIcms() {
-		return cstIcms;
+		return cstIcms.trim();
 	}
 
 	public void setCstIcms(String cstIcms) {
@@ -266,7 +266,7 @@ public class NfeDetalheImpostoIcmsEntity extends
 	}
 
 	public String getCsosn() {
-		return csosn;
+		return csosn.trim();
 	}
 
 	public void setCsosn(String csosn) {

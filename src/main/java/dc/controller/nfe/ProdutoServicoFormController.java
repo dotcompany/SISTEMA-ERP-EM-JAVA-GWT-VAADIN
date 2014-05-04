@@ -842,8 +842,23 @@ public class ProdutoServicoFormController extends
 
 			this.subView.getTfOrigemMercadoriaIcms().setValue(
 					entIcms.getOrigemMercadoria().trim());
-			// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms().trim());
-			// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn().trim());
+
+			if (entIcms.getCstIcms() != null && !entIcms.getCstIcms().isEmpty()) {
+				CrtEn crt = CrtEn.valueOf("_" + entIcms.getCstIcms());
+
+				this.subView.getCbCstIcms().setValue(crt);
+			} else {
+				this.subView.getCbCstIcms().setValue(null);
+			}
+
+			if (entIcms.getCsosn() != null && !entIcms.getCsosn().isEmpty()) {
+				CsosnEn csosn = CsosnEn.valueOf("_" + entIcms.getCsosn());
+
+				this.subView.getCbCsosnIcms().setValue(csosn);
+			} else {
+				this.subView.getCbCsosnIcms().setValue(null);
+			}
+
 			this.subView.getTfModalidadeBcIcms().setValue(
 					entIcms.getModalidadeBcIcms().trim());
 			this.subView.getTfTaxaReducaoBcIcms().setValue(
@@ -1612,14 +1627,16 @@ public class ProdutoServicoFormController extends
 			break;
 		case "tfCstIcms":
 			CrtEn crt = (CrtEn) obj;
+			String s1 = crt.name().substring(1);
 
-			ndiIcms.setCstIcms(crt.name());
+			ndiIcms.setCstIcms(s1);
 
 			break;
 		case "tfCsosnIcms":
 			CsosnEn csosn = (CsosnEn) obj;
+			String s2 = csosn.name().substring(1);
 
-			ndiIcms.setCsosn(csosn.name());
+			ndiIcms.setCsosn(s2);
 
 			break;
 		case "tfModalidadeBcIcms":
