@@ -24,6 +24,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
+import com.vaadin.server.Sizeable;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -36,6 +37,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
@@ -72,6 +74,7 @@ public class MainView extends CssLayout implements View {
 	public boolean showed = false;
 	private List<FmModulo> modules;
 	public static Logger logger = Logger.getLogger(MainView.class);
+	private boolean menuBarExpandida = true;
 
 	public MainView() {
 		this.addStyleName("root");
@@ -87,188 +90,45 @@ public class MainView extends CssLayout implements View {
 
 	private void buildSideBarMenu() {
 		logger.info("sidebarmenu compostion. ");
-		this.addComponent(new HorizontalLayout() {
+		this.addComponent(new HorizontalSplitPanel() {
 			{
 				setSizeFull();
 				addStyleName("main-view");
-				addComponent(new VerticalLayout() {
-					// Sidebar
-					{
-						addStyleName("sidebar");
-						setWidth(null);
-						setHeight("100%");
+				setLocked(true);
+				VerticalLayout leftRegion = leftRegion();
+				leftRegion.addLayoutClickListener(new LayoutClickListener() {
 
-						CssLayout homeLinkLayout = new CssLayout();
-						homeLinkLayout.addStyleName("branding");
-						Label logo = new Label(
-								"<span>SampleCompany</span> ERP",
-								ContentMode.HTML);
-						logo.setSizeUndefined();
-						homeLinkLayout.addComponent(logo);
-						homeLinkLayout
-								.addLayoutClickListener(new LayoutClickListener() {
-
-									@Override
-									public void layoutClick(
-											LayoutClickEvent event) {
-										if (event.getButton().equals(
-												LayoutClickEvent.BUTTON_LEFT)) {
-											MainUI ui = (MainUI) UI
-													.getCurrent();
-											if (ui != null) {
-												Navigator nav = ui
-														.getNavigator();
-												if (nav != null) {
-													nav.navigateTo("home");
-												}
-											}
-
-										}
-									}
-								});
-						addComponent(homeLinkLayout);
-
-						// SidebarMenu
-
-						// NanoScrollPanel nPanel = new NanoScrollPanel();
-						// nPanel.setSizeFull();
-						// nPanel.setWidth("100%");
-						// nPanel.setHeight("40px");
-						// nPanel.flashScrollbar();
-						// nPanel.setPreventPageScrolling(true);
-						// nPanel.setContent(sideBarMenu);
-						addComponent(sideBarMenu);
-						// addComponent(nPanel);
-						setExpandRatio(sideBarMenu, 1);
-
-						// User menu
-						addComponent(new VerticalLayout() {
-							{
-								setSizeUndefined();
-								addStyleName("user");
-								Image profilePic = new Image(
-										null,
-										new ThemeResource("img/profile-pic.png"));
-								profilePic.setWidth("34px");
-								addComponent(profilePic);
-
-								Label userName = new Label("Usuario");
-								Usuario usuario = SecuritySessionProvider
-										.getUsuario();
-								if (usuario != null) {
-									userName.setValue(usuario.getUsernome());
-									userName.setSizeUndefined();
-									addComponent(userName);
-								}
-
-								Command cmd = new Command() {
-									@Override
-									public void menuSelected(
-											MenuItem selectedItem) {
-										Notification
-												.show("Not implemented in this demo");
-									}
-								};
-
-								MenuBar settings = new MenuBar();
-								MenuItem settingsMenu = settings.addItem("",
-										null);
-								settingsMenu.setStyleName("icon-cog");
-								settingsMenu.addItem("Configurações", cmd);
-								settingsMenu.addItem("Preferências", cmd);
-								settingsMenu.addSeparator();
-								settingsMenu.addItem("Minha conta", cmd);
-								addComponent(settings);
-
-								Button exit = new NativeButton("Sair");
-								exit.addClickListener(new ClickListener() {
-
-									@Override
-									public void buttonClick(ClickEvent event) {
-										MainUI mUI = (MainUI) UI.getCurrent();
-										String logoutURL = mUI.getContextPath()
-												+ "/j_spring_security_logout";
-										getUI().getPage()
-												.setLocation(logoutURL);
-
-										// Close the VaadinSession
-										getSession().close();
-
-									}
-								});
-								exit.addStyleName("icon-cancel");
-								exit.setDescription("Sair");
-								addComponent(exit);
-
-							}
-						});
+					@Override
+					public void layoutClick(LayoutClickEvent event) {
+						// if (!menuBarExpandida) {
+						// ((HorizontalSplitPanel) event.getComponent()
+						// .getParent()).setSplitPosition(10.7f,
+						// Sizeable.Unit.PERCENTAGE);
+						// menuBarExpandida = true;
+						// }
 					}
 				});
+				setFirstComponent(leftRegion);
 
-				VerticalLayout rightSide = new VerticalLayout() {
+				VerticalLayout rightRegion = rightRegion();
+				rightRegion.addLayoutClickListener(new LayoutClickListener() {
 
-					{
-						addComponent(topMenu);
-						topMenu.setWidth("100%");
-						// topMenu.setHeight("8%");
-						topMenu.addStyleName("view-menu");
-						topMenu.setVisible(false);
-						setComponentAlignment(topMenu, Alignment.TOP_LEFT);
-
-						content.setSizeFull();
-						content.setStyleName("view-content");
-						addComponent(content);
-						setComponentAlignment(content, Alignment.TOP_CENTER);
-
-						addComponent(bottomBar);
-						// bottomBar.setWidth("100%");
-						// bottomBar.setHeight("100%");
-						bottomBar.addStyleName("view-bottom");
-
-						HorizontalLayout tasksPanel = new HorizontalLayout();
-
-						tasksPanel.addStyleName("taskbar");
-						tasksPanel.setHeight("100%");
-						tasksPanel.setWidth("100%");
-						tasksBar = new HorizontalLayout();
-						tasksBar.addStyleName("tasks-panel");
-						tasksBar.setImmediate(true);
-						tasksBar.setWidth("100%");
-						// tasksPanel.addStyleName(MenuBuilder.MODULE_MENU_BAR);
-						tasksPanel.addComponent(tasksBar);
-
-						MenuBar barMenu = new MenuBar();
-						barMenu.setImmediate(true);
-						tasksMenuItem = barMenu.addItem("", new ThemeResource(
-								"img/icone_lista_tarefas.png"), null);
-						barMenu.setStyleName("taskbar-menu");
-
-						tasksPanel.addComponent(barMenu);
-						tasksPanel.setComponentAlignment(barMenu,
-								Alignment.MIDDLE_RIGHT);
-
-						tasksPanel.setExpandRatio(tasksBar, 1);
-
-						bottomBar.addComponent(tasksPanel);
-						setComponentAlignment(bottomBar, Alignment.TOP_CENTER);
-						bottomBar.setVisible(false);
-
-						bottomBar.setHeight("30px");
-
-						// setExpandRatio(topMenu,(float) 4.2);
-						// setExpandRatio(content,(float) 91.6);
-						// setExpandRatio(bottomBar,(float) 4.2);
-
-						setExpandRatio(topMenu, (float) 3.2);
-						setExpandRatio(content, (float) 92.8);
+					@Override
+					public void layoutClick(LayoutClickEvent event) {
+						// if (menuBarExpandida) {
+						// event.getComponent().setSizeFull();
+						// ((HorizontalSplitPanel) event.getComponent()
+						// .getParent()).setSplitPosition(0.5f,
+						// Sizeable.Unit.PERCENTAGE);
+						// menuBarExpandida = false;
+						// }
 					}
-				};
-
-				rightSide.setHeight("100%");
-				addComponent(rightSide);
-				setExpandRatio(rightSide, 1);
+				});
+				setSecondComponent(rightRegion);
+				setSplitPosition(10.7f, Sizeable.Unit.PERCENTAGE);
 
 			}
+
 		});
 
 		sideBarMenu.removeAllComponents();
@@ -276,6 +136,177 @@ public class MainView extends CssLayout implements View {
 		sideBarMenu.addStyleName("menu");
 		sideBarMenu.setHeight("100%");
 
+	}
+
+	private VerticalLayout rightRegion() {
+		VerticalLayout rightSide = new VerticalLayout() {
+
+			{
+				addComponent(topMenu);
+				topMenu.setWidth("100%");
+				// topMenu.setHeight("8%");
+				topMenu.addStyleName("view-menu");
+				topMenu.setVisible(false);
+				setComponentAlignment(topMenu, Alignment.TOP_LEFT);
+
+				content.setSizeFull();
+				content.setStyleName("view-content");
+				addComponent(content);
+				setComponentAlignment(content, Alignment.TOP_CENTER);
+
+				addComponent(bottomBar);
+				// bottomBar.setWidth("100%");
+				// bottomBar.setHeight("100%");
+				bottomBar.addStyleName("view-bottom");
+
+				HorizontalLayout tasksPanel = new HorizontalLayout();
+
+				tasksPanel.addStyleName("taskbar");
+				tasksPanel.setHeight("100%");
+				tasksPanel.setWidth("100%");
+				tasksBar = new HorizontalLayout();
+				tasksBar.addStyleName("tasks-panel");
+				tasksBar.setImmediate(true);
+				tasksBar.setWidth("100%");
+				// tasksPanel.addStyleName(MenuBuilder.MODULE_MENU_BAR);
+				tasksPanel.addComponent(tasksBar);
+
+				MenuBar barMenu = new MenuBar();
+				barMenu.setImmediate(true);
+				tasksMenuItem = barMenu.addItem("", new ThemeResource(
+						"img/icone_lista_tarefas.png"), null);
+				barMenu.setStyleName("taskbar-menu");
+
+				tasksPanel.addComponent(barMenu);
+				tasksPanel.setComponentAlignment(barMenu,
+						Alignment.MIDDLE_RIGHT);
+
+				tasksPanel.setExpandRatio(tasksBar, 1);
+
+				bottomBar.addComponent(tasksPanel);
+				setComponentAlignment(bottomBar, Alignment.TOP_CENTER);
+				bottomBar.setVisible(false);
+
+				bottomBar.setHeight("30px");
+
+				// setExpandRatio(topMenu,(float) 4.2);
+				// setExpandRatio(content,(float) 91.6);
+				// setExpandRatio(bottomBar,(float) 4.2);
+
+				setExpandRatio(topMenu, (float) 3.2);
+				setExpandRatio(content, (float) 92.8);
+			}
+		};
+
+		rightSide.setHeight("100%");
+		return rightSide;
+	}
+
+	private VerticalLayout leftRegion() {
+		return new VerticalLayout() {
+			// Sidebar
+			{
+				addStyleName("sidebar");
+				setWidth(null);
+				setHeight("100%");
+
+				CssLayout homeLinkLayout = new CssLayout();
+				homeLinkLayout.addStyleName("branding");
+				Label logo = new Label("<span>SampleCompany</span> ERP",
+						ContentMode.HTML);
+				logo.setSizeUndefined();
+				homeLinkLayout.addComponent(logo);
+				homeLinkLayout
+						.addLayoutClickListener(new LayoutClickListener() {
+
+							@Override
+							public void layoutClick(LayoutClickEvent event) {
+								if (event.getButton().equals(
+										LayoutClickEvent.BUTTON_LEFT)) {
+									MainUI ui = (MainUI) UI.getCurrent();
+									if (ui != null) {
+										Navigator nav = ui.getNavigator();
+										if (nav != null) {
+											nav.navigateTo("home");
+										}
+									}
+
+								}
+							}
+						});
+				addComponent(homeLinkLayout);
+
+				// SidebarMenu
+
+				// NanoScrollPanel nPanel = new NanoScrollPanel();
+				// nPanel.setSizeFull();
+				// nPanel.setWidth("100%");
+				// nPanel.setHeight("40px");
+				// nPanel.flashScrollbar();
+				// nPanel.setPreventPageScrolling(true);
+				// nPanel.setContent(sideBarMenu);
+				addComponent(sideBarMenu);
+				// addComponent(nPanel);
+				setExpandRatio(sideBarMenu, 1);
+
+				// User menu
+				addComponent(new VerticalLayout() {
+					{
+						setSizeUndefined();
+						addStyleName("user");
+						Image profilePic = new Image(null, new ThemeResource(
+								"img/profile-pic.png"));
+						profilePic.setWidth("34px");
+						addComponent(profilePic);
+
+						Label userName = new Label("Usuario");
+						Usuario usuario = SecuritySessionProvider.getUsuario();
+						if (usuario != null) {
+							userName.setValue(usuario.getUsernome());
+							userName.setSizeUndefined();
+							addComponent(userName);
+						}
+
+						Command cmd = new Command() {
+							@Override
+							public void menuSelected(MenuItem selectedItem) {
+								Notification
+										.show("Not implemented in this demo");
+							}
+						};
+
+						MenuBar settings = new MenuBar();
+						MenuItem settingsMenu = settings.addItem("", null);
+						settingsMenu.setStyleName("icon-cog");
+						settingsMenu.addItem("Configurações", cmd);
+						settingsMenu.addItem("Preferências", cmd);
+						settingsMenu.addSeparator();
+						settingsMenu.addItem("Minha conta", cmd);
+						addComponent(settings);
+
+						Button exit = new NativeButton("Sair");
+						exit.addClickListener(new ClickListener() {
+
+							@Override
+							public void buttonClick(ClickEvent event) {
+								MainUI mUI = (MainUI) UI.getCurrent();
+								String logoutURL = mUI.getContextPath()
+										+ "/j_spring_security_logout";
+								getUI().getPage().setLocation(logoutURL);
+
+								// Close the VaadinSession
+								getSession().close();
+
+							}
+						});
+						exit.addStyleName("icon-cancel");
+						exit.setDescription("Sair");
+						addComponent(exit);
+
+					}
+				});
+			}
+		};
 	}
 
 	private void clearMenuSelection() {
@@ -319,6 +350,7 @@ public class MainView extends CssLayout implements View {
 
 	public void showModulesMenu() {
 		final Navigator nav = UI.getCurrent().getNavigator();
+		criarComboboxFilter(nav);
 		if (modules != null) {
 			for (final FmModulo m : modules) {
 
@@ -341,9 +373,6 @@ public class MainView extends CssLayout implements View {
 				viewNameToMenuButton.put("/" + m.getUrlID(), b);
 			}
 		}
-
-		criarComboboxFilter(nav);
-
 	}
 
 	private void criarComboboxFilter(final Navigator nav) {
@@ -365,6 +394,7 @@ public class MainView extends CssLayout implements View {
 		}
 
 		final ComboBox menuFilter = new ComboBox("", container);
+		menuFilter.setWidth("100%");
 		menuFilter.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		menuFilter.setItemCaptionPropertyId("caption");
 		menuFilter.addValueChangeListener(new Property.ValueChangeListener() {
