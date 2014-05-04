@@ -545,7 +545,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCodigoNumerico() {
-		return codigoNumerico.trim();
+		return codigoNumerico;
 	}
 
 	public void setCodigoNumerico(String codigoNumerico) {
@@ -554,7 +554,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getNaturezaOperacao() {
-		return naturezaOperacao.trim();
+		return naturezaOperacao;
 	}
 
 	public void setNaturezaOperacao(String naturezaOperacao) {
@@ -563,7 +563,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getIndicadorFormaPagamento() {
-		return indicadorFormaPagamento.trim();
+		return indicadorFormaPagamento;
 	}
 
 	public void setIndicadorFormaPagamento(String indicadorFormaPagamento) {
@@ -572,7 +572,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCodigoModelo() {
-		return codigoModelo.trim();
+		return codigoModelo;
 	}
 
 	public void setCodigoModelo(String codigoModelo) {
@@ -581,7 +581,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getSerie() {
-		return serie.trim();
+		return serie;
 	}
 
 	public void setSerie(String serie) {
@@ -589,7 +589,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getNumero() {
-		return numero.trim();
+		return numero;
 	}
 
 	public void setNumero(String numero) {
@@ -613,7 +613,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getHoraEntradaSaida() {
-		return horaEntradaSaida.trim();
+		return horaEntradaSaida;
 	}
 
 	public void setHoraEntradaSaida(String horaEntradaSaida) {
@@ -622,7 +622,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getTipoOperacao() {
-		return tipoOperacao.trim();
+		return tipoOperacao;
 	}
 
 	public void setTipoOperacao(String tipoOperacao) {
@@ -640,7 +640,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getFormatoImpressaoDanfe() {
-		return formatoImpressaoDanfe.trim();
+		return formatoImpressaoDanfe;
 	}
 
 	public void setFormatoImpressaoDanfe(String formatoImpressaoDanfe) {
@@ -649,7 +649,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getTipoEmissao() {
-		return tipoEmissao.trim();
+		return tipoEmissao;
 	}
 
 	public void setTipoEmissao(String tipoEmissao) {
@@ -658,7 +658,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getChaveAcesso() {
-		return chaveAcesso.trim();
+		return chaveAcesso;
 	}
 
 	public void setChaveAcesso(String chaveAcesso) {
@@ -667,7 +667,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getDigitoChaveAcesso() {
-		return digitoChaveAcesso.trim();
+		return digitoChaveAcesso;
 	}
 
 	public void setDigitoChaveAcesso(String digitoChaveAcesso) {
@@ -676,7 +676,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getAmbiente() {
-		return ambiente.trim();
+		return ambiente;
 	}
 
 	public void setAmbiente(String ambiente) {
@@ -685,7 +685,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getFinalidadeEmissao() {
-		return finalidadeEmissao.trim();
+		return finalidadeEmissao;
 	}
 
 	public void setFinalidadeEmissao(String finalidadeEmissao) {
@@ -694,7 +694,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getProcessoEmissao() {
-		return processoEmissao.trim();
+		return processoEmissao;
 	}
 
 	public void setProcessoEmissao(String processoEmissao) {
@@ -703,7 +703,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getVersaoProcessoEmissao() {
-		return versaoProcessoEmissao.trim();
+		return versaoProcessoEmissao;
 	}
 
 	public void setVersaoProcessoEmissao(String versaoProcessoEmissao) {
@@ -720,7 +720,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getJustificativaContingencia() {
-		return justificativaContingencia.trim();
+		return justificativaContingencia;
 	}
 
 	public void setJustificativaContingencia(String justificativaContingencia) {
@@ -957,7 +957,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getComexUfEmbarque() {
-		return comexUfEmbarque.trim();
+		return comexUfEmbarque;
 	}
 
 	public void setComexUfEmbarque(String comexUfEmbarque) {
@@ -966,7 +966,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getComexLocalEmbarque() {
-		return comexLocalEmbarque.trim();
+		return comexLocalEmbarque;
 	}
 
 	public void setComexLocalEmbarque(String comexLocalEmbarque) {
@@ -975,7 +975,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCompraNotaEmpenho() {
-		return compraNotaEmpenho.trim();
+		return compraNotaEmpenho;
 	}
 
 	public void setCompraNotaEmpenho(String compraNotaEmpenho) {
@@ -984,7 +984,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCompraPedido() {
-		return compraPedido.trim();
+		return compraPedido;
 	}
 
 	public void setCompraPedido(String compraPedido) {
@@ -993,7 +993,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCompraContrato() {
-		return compraContrato.trim();
+		return compraContrato;
 	}
 
 	public void setCompraContrato(String compraContrato) {
@@ -1002,7 +1002,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getInformacoesAddFisco() {
-		return informacoesAddFisco.trim();
+		return informacoesAddFisco;
 	}
 
 	public void setInformacoesAddFisco(String informacoesAddFisco) {
@@ -1011,7 +1011,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getInformacoesAddContribuinte() {
-		return informacoesAddContribuinte.trim();
+		return informacoesAddContribuinte;
 	}
 
 	public void setInformacoesAddContribuinte(String informacoesAddContribuinte) {
@@ -1020,7 +1020,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getStatusNota() {
-		return statusNota.trim();
+		return statusNota;
 	}
 
 	public void setStatusNota(String statusNota) {
@@ -1097,7 +1097,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getContatoEmail() {
-		return contatoEmail.trim();
+		return contatoEmail;
 	}
 
 	public void setContatoEmail(String contatoEmail) {
