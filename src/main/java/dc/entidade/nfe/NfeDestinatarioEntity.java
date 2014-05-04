@@ -128,14 +128,14 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Código do país")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoPais = new Integer(0);
+	private Integer codigoPais = new Integer(1053);
 
 	@Field
 	@Column(name = "nome_pais")
 	@Caption(value = "Nome do país")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nomePais = "";
+	private String nomePais = "BRASIL";
 
 	@Field
 	@Column(name = "telefone")
@@ -203,7 +203,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCpfCnpj() {
-		return cpfCnpj;
+		return cpfCnpj.trim();
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
@@ -211,7 +211,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getRazaoSocial() {
-		return razaoSocial;
+		return razaoSocial.trim();
 	}
 
 	public void setRazaoSocial(String razaoSocial) {
@@ -220,7 +220,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getLogradouro() {
-		return logradouro;
+		return logradouro.trim();
 	}
 
 	public void setLogradouro(String logradouro) {
@@ -229,7 +229,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getNumero() {
-		return numero;
+		return numero.trim();
 	}
 
 	public void setNumero(String numero) {
@@ -237,7 +237,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getComplemento() {
-		return complemento;
+		return complemento.trim();
 	}
 
 	public void setComplemento(String complemento) {
@@ -246,7 +246,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getBairro() {
-		return bairro;
+		return bairro.trim();
 	}
 
 	public void setBairro(String bairro) {
@@ -263,7 +263,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getNomeMunicipio() {
-		return nomeMunicipio;
+		return nomeMunicipio.trim();
 	}
 
 	public void setNomeMunicipio(String nomeMunicipio) {
@@ -272,7 +272,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getUf() {
-		return uf;
+		return uf.trim();
 	}
 
 	public void setUf(String uf) {
@@ -280,7 +280,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCep() {
-		return cep;
+		return cep.trim();
 	}
 
 	public void setCep(String cep) {
@@ -292,19 +292,20 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoPais(Integer codigoPais) {
-		this.codigoPais = (codigoPais == null ? new Integer(0) : codigoPais);
+		this.codigoPais = (codigoPais == null ? new Integer(1053) : codigoPais);
 	}
 
 	public String getNomePais() {
-		return nomePais;
+		return nomePais.trim();
 	}
 
 	public void setNomePais(String nomePais) {
-		this.nomePais = (nomePais == null ? "" : nomePais.toUpperCase().trim());
+		this.nomePais = (nomePais == null ? "BRASIL" : nomePais.toUpperCase()
+				.trim());
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return telefone.trim();
 	}
 
 	public void setTelefone(String telefone) {
@@ -312,7 +313,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getInscricaoEstadual() {
-		return inscricaoEstadual;
+		return inscricaoEstadual.trim();
 	}
 
 	public void setInscricaoEstadual(String inscricaoEstadual) {
@@ -321,7 +322,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getSuframa() {
-		return suframa;
+		return suframa.trim();
 	}
 
 	public void setSuframa(String suframa) {
@@ -329,7 +330,7 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getEmail() {
-		return email;
+		return email.trim();
 	}
 
 	public void setEmail(String email) {
