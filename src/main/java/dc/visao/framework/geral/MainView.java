@@ -24,7 +24,6 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -37,7 +36,6 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
@@ -90,11 +88,11 @@ public class MainView extends CssLayout implements View {
 
 	private void buildSideBarMenu() {
 		logger.info("sidebarmenu compostion. ");
-		this.addComponent(new HorizontalSplitPanel() {
+		this.addComponent(new HorizontalLayout() {
 			{
 				setSizeFull();
 				addStyleName("main-view");
-				setLocked(true);
+				// setLocked(true);
 				VerticalLayout leftRegion = leftRegion();
 				leftRegion.addLayoutClickListener(new LayoutClickListener() {
 
@@ -108,7 +106,8 @@ public class MainView extends CssLayout implements View {
 						// }
 					}
 				});
-				setFirstComponent(leftRegion);
+				// setFirstComponent(leftRegion);
+				addComponent(leftRegion);
 
 				VerticalLayout rightRegion = rightRegion();
 				rightRegion.addLayoutClickListener(new LayoutClickListener() {
@@ -124,8 +123,10 @@ public class MainView extends CssLayout implements View {
 						// }
 					}
 				});
-				setSecondComponent(rightRegion);
-				setSplitPosition(10.7f, Sizeable.Unit.PERCENTAGE);
+				// setSecondComponent(rightRegion);
+				// setSplitPosition(10.7f, Sizeable.Unit.PERCENTAGE);
+				addComponent(rightRegion);
+				setExpandRatio(rightRegion, 1);
 
 			}
 
