@@ -76,7 +76,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Natureza da operação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String naturezaOperacao = "";
+	private String naturezaOperacao = "VENDA DE MERCADORIA";
 
 	@Field
 	@Column(name = "indicador_forma_pagamento")
@@ -90,14 +90,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Código do modelo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoModelo = "";
+	private String codigoModelo = "55";
 
 	@Field
 	@Column(name = "serie")
 	@Caption(value = "Série")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String serie = "";
+	private String serie = "000";
 
 	@Field
 	@Column(name = "numero")
@@ -132,14 +132,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Tipo de operação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoOperacao = "";
+	private String tipoOperacao = "1";
 
 	@Field
 	@Column(name = "codigo_municipio")
 	@Caption(value = "Código do município")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoMunicipio = new Integer(0);
+	private Integer codigoMunicipio = 5300108;
 
 	@Field
 	@Column(name = "formato_impressao_danfe")
@@ -153,7 +153,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Tipo de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoEmissao = "";
+	private String tipoEmissao = "1";
 
 	@Field
 	@Column(name = "chave_acesso")
@@ -174,14 +174,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Ambiente")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ambiente = "";
+	private String ambiente = "2";
 
 	@Field
 	@Column(name = "finalidade_emissao")
 	@Caption(value = "Finalidade de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String finalidadeEmissao = "";
+	private String finalidadeEmissao = "1";
 
 	@Field
 	@Column(name = "processo_emissao")
@@ -195,7 +195,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Versão do processo de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String versaoProcessoEmissao = "";
+	private String versaoProcessoEmissao = "100";
 
 	@Field
 	@Column(name = "data_entrada_contingencia")
@@ -447,7 +447,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Status da nota")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String statusNota = "";
+	private String statusNota = "0";
 
 	@Field
 	@Column(name = "uf_emitente")
@@ -545,55 +545,55 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getCodigoNumerico() {
-		return codigoNumerico;
+		return codigoNumerico.trim();
 	}
 
 	public void setCodigoNumerico(String codigoNumerico) {
-		this.codigoNumerico = (codigoNumerico == null ? "" : codigoNumerico
-				.toUpperCase().trim());
+		this.codigoNumerico = (codigoNumerico == null ? "".trim()
+				: codigoNumerico.toUpperCase().trim());
 	}
 
 	public String getNaturezaOperacao() {
-		return naturezaOperacao;
+		return naturezaOperacao.trim();
 	}
 
 	public void setNaturezaOperacao(String naturezaOperacao) {
-		this.naturezaOperacao = (naturezaOperacao == null ? ""
-				: naturezaOperacao.toUpperCase().trim());
+		this.naturezaOperacao = (naturezaOperacao == null ? "VENDA DE MERCADORIA"
+				.trim() : naturezaOperacao.toUpperCase().trim());
 	}
 
 	public String getIndicadorFormaPagamento() {
-		return indicadorFormaPagamento;
+		return indicadorFormaPagamento.trim();
 	}
 
 	public void setIndicadorFormaPagamento(String indicadorFormaPagamento) {
 		this.indicadorFormaPagamento = (indicadorFormaPagamento == null ? ""
-				: indicadorFormaPagamento.toUpperCase().trim());
+				.trim() : indicadorFormaPagamento.toUpperCase().trim());
 	}
 
 	public String getCodigoModelo() {
-		return codigoModelo;
+		return codigoModelo.trim();
 	}
 
 	public void setCodigoModelo(String codigoModelo) {
-		this.codigoModelo = (codigoModelo == null ? "" : codigoModelo
+		this.codigoModelo = (codigoModelo == null ? "55".trim() : codigoModelo
 				.toUpperCase().trim());
 	}
 
 	public String getSerie() {
-		return serie;
+		return serie.trim();
 	}
 
 	public void setSerie(String serie) {
-		this.serie = (serie == null ? "" : serie.toUpperCase().trim());
+		this.serie = (serie == null ? "000".trim() : serie.toUpperCase().trim());
 	}
 
 	public String getNumero() {
-		return numero;
+		return numero.trim();
 	}
 
 	public void setNumero(String numero) {
-		this.numero = (numero == null ? "" : numero.toUpperCase().trim());
+		this.numero = (numero == null ? "".trim() : numero.toUpperCase().trim());
 	}
 
 	public Date getDataEmissao() {
@@ -613,20 +613,20 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getHoraEntradaSaida() {
-		return horaEntradaSaida;
+		return horaEntradaSaida.trim();
 	}
 
 	public void setHoraEntradaSaida(String horaEntradaSaida) {
-		this.horaEntradaSaida = (horaEntradaSaida == null ? ""
+		this.horaEntradaSaida = (horaEntradaSaida == null ? "".trim()
 				: horaEntradaSaida.toUpperCase().trim());
 	}
 
 	public String getTipoOperacao() {
-		return tipoOperacao;
+		return tipoOperacao.trim();
 	}
 
 	public void setTipoOperacao(String tipoOperacao) {
-		this.tipoOperacao = (tipoOperacao == null ? "" : tipoOperacao
+		this.tipoOperacao = (tipoOperacao == null ? "1".trim() : tipoOperacao
 				.toUpperCase().trim());
 	}
 
@@ -635,79 +635,80 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoMunicipio(Integer codigoMunicipio) {
-		this.codigoMunicipio = (codigoMunicipio == null ? new Integer(0)
+		this.codigoMunicipio = (codigoMunicipio == null ? 5300108
 				: codigoMunicipio);
 	}
 
 	public String getFormatoImpressaoDanfe() {
-		return formatoImpressaoDanfe;
+		return formatoImpressaoDanfe.trim();
 	}
 
 	public void setFormatoImpressaoDanfe(String formatoImpressaoDanfe) {
-		this.formatoImpressaoDanfe = (formatoImpressaoDanfe == null ? ""
+		this.formatoImpressaoDanfe = (formatoImpressaoDanfe == null ? "".trim()
 				: formatoImpressaoDanfe.toUpperCase().trim());
 	}
 
 	public String getTipoEmissao() {
-		return tipoEmissao;
+		return tipoEmissao.trim();
 	}
 
 	public void setTipoEmissao(String tipoEmissao) {
-		this.tipoEmissao = (tipoEmissao == null ? "" : tipoEmissao
+		this.tipoEmissao = (tipoEmissao == null ? "1".trim() : tipoEmissao
 				.toUpperCase().trim());
 	}
 
 	public String getChaveAcesso() {
-		return chaveAcesso;
+		return chaveAcesso.trim();
 	}
 
 	public void setChaveAcesso(String chaveAcesso) {
-		this.chaveAcesso = (chaveAcesso == null ? "" : chaveAcesso
+		this.chaveAcesso = (chaveAcesso == null ? "".trim() : chaveAcesso
 				.toUpperCase().trim());
 	}
 
 	public String getDigitoChaveAcesso() {
-		return digitoChaveAcesso;
+		return digitoChaveAcesso.trim();
 	}
 
 	public void setDigitoChaveAcesso(String digitoChaveAcesso) {
-		this.digitoChaveAcesso = (digitoChaveAcesso == null ? ""
+		this.digitoChaveAcesso = (digitoChaveAcesso == null ? "".trim()
 				: digitoChaveAcesso.toUpperCase().trim());
 	}
 
 	public String getAmbiente() {
-		return ambiente;
+		return ambiente.trim();
 	}
 
 	public void setAmbiente(String ambiente) {
-		this.ambiente = (ambiente == null ? "" : ambiente.toUpperCase().trim());
+		this.ambiente = (ambiente == null ? "2".trim() : ambiente.toUpperCase()
+				.trim());
 	}
 
 	public String getFinalidadeEmissao() {
-		return finalidadeEmissao;
+		return finalidadeEmissao.trim();
 	}
 
 	public void setFinalidadeEmissao(String finalidadeEmissao) {
-		this.finalidadeEmissao = (finalidadeEmissao == null ? ""
+		this.finalidadeEmissao = (finalidadeEmissao == null ? "1".trim()
 				: finalidadeEmissao.toUpperCase().trim());
 	}
 
 	public String getProcessoEmissao() {
-		return processoEmissao;
+		return processoEmissao.trim();
 	}
 
 	public void setProcessoEmissao(String processoEmissao) {
-		this.processoEmissao = (processoEmissao == null ? "" : processoEmissao
-				.toUpperCase().trim());
+		this.processoEmissao = (processoEmissao == null ? "".trim()
+				: processoEmissao.toUpperCase().trim());
 	}
 
 	public String getVersaoProcessoEmissao() {
-		return versaoProcessoEmissao;
+		return versaoProcessoEmissao.trim();
 	}
 
 	public void setVersaoProcessoEmissao(String versaoProcessoEmissao) {
-		this.versaoProcessoEmissao = (versaoProcessoEmissao == null ? ""
-				: versaoProcessoEmissao.toUpperCase().trim());
+		this.versaoProcessoEmissao = (versaoProcessoEmissao == null ? "100"
+				.trim() : versaoProcessoEmissao.toUpperCase().trim());
 	}
 
 	public Date getDataEntradaContingencia() {
@@ -719,12 +720,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getJustificativaContingencia() {
-		return justificativaContingencia;
+		return justificativaContingencia.trim();
 	}
 
 	public void setJustificativaContingencia(String justificativaContingencia) {
 		this.justificativaContingencia = (justificativaContingencia == null ? ""
-				: justificativaContingencia.toUpperCase().trim());
+				.trim() : justificativaContingencia.toUpperCase().trim());
 	}
 
 	public BigDecimal getBaseCalculoIcms() {
@@ -956,75 +957,75 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getComexUfEmbarque() {
-		return comexUfEmbarque;
+		return comexUfEmbarque.trim();
 	}
 
 	public void setComexUfEmbarque(String comexUfEmbarque) {
-		this.comexUfEmbarque = (comexUfEmbarque == null ? "" : comexUfEmbarque
-				.toUpperCase().trim());
+		this.comexUfEmbarque = (comexUfEmbarque == null ? "".trim()
+				: comexUfEmbarque.toUpperCase().trim());
 	}
 
 	public String getComexLocalEmbarque() {
-		return comexLocalEmbarque;
+		return comexLocalEmbarque.trim();
 	}
 
 	public void setComexLocalEmbarque(String comexLocalEmbarque) {
-		this.comexLocalEmbarque = (comexLocalEmbarque == null ? ""
+		this.comexLocalEmbarque = (comexLocalEmbarque == null ? "".trim()
 				: comexLocalEmbarque.toUpperCase().trim());
 	}
 
 	public String getCompraNotaEmpenho() {
-		return compraNotaEmpenho;
+		return compraNotaEmpenho.trim();
 	}
 
 	public void setCompraNotaEmpenho(String compraNotaEmpenho) {
-		this.compraNotaEmpenho = (compraNotaEmpenho == null ? ""
+		this.compraNotaEmpenho = (compraNotaEmpenho == null ? "".trim()
 				: compraNotaEmpenho.toUpperCase().trim());
 	}
 
 	public String getCompraPedido() {
-		return compraPedido;
+		return compraPedido.trim();
 	}
 
 	public void setCompraPedido(String compraPedido) {
-		this.compraPedido = (compraPedido == null ? "" : compraPedido
+		this.compraPedido = (compraPedido == null ? "".trim() : compraPedido
 				.toUpperCase().trim());
 	}
 
 	public String getCompraContrato() {
-		return compraContrato;
+		return compraContrato.trim();
 	}
 
 	public void setCompraContrato(String compraContrato) {
-		this.compraContrato = (compraContrato == null ? "" : compraContrato
-				.toUpperCase().trim());
+		this.compraContrato = (compraContrato == null ? "".trim()
+				: compraContrato.toUpperCase().trim());
 	}
 
 	public String getInformacoesAddFisco() {
-		return informacoesAddFisco;
+		return informacoesAddFisco.trim();
 	}
 
 	public void setInformacoesAddFisco(String informacoesAddFisco) {
-		this.informacoesAddFisco = (informacoesAddFisco == null ? ""
+		this.informacoesAddFisco = (informacoesAddFisco == null ? "".trim()
 				: informacoesAddFisco.toUpperCase().trim());
 	}
 
 	public String getInformacoesAddContribuinte() {
-		return informacoesAddContribuinte;
+		return informacoesAddContribuinte.trim();
 	}
 
 	public void setInformacoesAddContribuinte(String informacoesAddContribuinte) {
 		this.informacoesAddContribuinte = (informacoesAddContribuinte == null ? ""
-				: informacoesAddContribuinte.toUpperCase().trim());
+				.trim() : informacoesAddContribuinte.toUpperCase().trim());
 	}
 
 	public String getStatusNota() {
-		return statusNota;
+		return statusNota.trim();
 	}
 
 	public void setStatusNota(String statusNota) {
-		this.statusNota = (statusNota == null ? "" : statusNota.toUpperCase()
-				.trim());
+		this.statusNota = (statusNota == null ? "0".trim() : statusNota
+				.toUpperCase().trim());
 	}
 
 	public Integer getUfEmitente() {
@@ -1096,11 +1097,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public String getContatoEmail() {
-		return contatoEmail;
+		return contatoEmail.trim();
 	}
 
 	public void setContatoEmail(String contatoEmail) {
-		this.contatoEmail = (contatoEmail == null ? "" : contatoEmail
+		this.contatoEmail = (contatoEmail == null ? "".trim() : contatoEmail
 				.toUpperCase().trim());
 	}
 
