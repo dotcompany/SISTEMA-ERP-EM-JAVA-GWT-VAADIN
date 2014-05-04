@@ -378,14 +378,14 @@ public class ProdutoServicoFormController extends
 				this.nfeCabecalho.getHoraEntradaSaida());
 		this.subView.getTfTipoOperacao().setValue(
 				this.nfeCabecalho.getTipoOperacao().trim());
-		this.subView.getTfTipoEmissao().setValue(
-				this.nfeCabecalho.getTipoEmissao().trim());
-		this.subView.getTfFinalidadeEmissao().setValue(
-				this.nfeCabecalho.getFinalidadeEmissao().trim());
-		this.subView.getTfFormatoImpressaoDanfe().setValue(
-				this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
-		this.subView.getTfFormaPagamento().setValue(
-				this.nfeCabecalho.getIndicadorFormaPagamento().trim());
+		//this.subView.getTfTipoEmissao().setValue(
+		//		this.nfeCabecalho.getTipoEmissao().trim());
+		//this.subView.getTfFinalidadeEmissao().setValue(
+		//		this.nfeCabecalho.getFinalidadeEmissao().trim());
+		//this.subView.getTfFormatoImpressaoDanfe().setValue(
+		//		this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
+		//this.subView.getTfFormaPagamento().setValue(
+		//		this.nfeCabecalho.getIndicadorFormaPagamento().trim());
 
 		//
 		this.subView.getPlNfeDetalheSubForm().setCaption(
