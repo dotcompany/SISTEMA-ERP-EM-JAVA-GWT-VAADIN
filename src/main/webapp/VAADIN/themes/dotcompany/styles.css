@@ -6448,3 +6448,13 @@ body .dotcompany.v-app .v-app-loading {
 .dotcompany div.checkboxPanelOnTheMainScreen span.v-checkbox {
 	float: right;
 }
+
+.dotcompany .v-popupbutton-popup-v-datefield-popup {
+	background: #FFF;
+}
+
+.dotcompany .datefilterpopupcontent {
+	background: #FFF;
+	color: #222;
+	text-shadow: none;
+}

@@ -436,6 +436,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
+		table.setStyleName("sortTable");
 	}
 
 	public void doSearch(String valor) {
@@ -473,10 +474,27 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 			for (String id_coluna : getColunas()) {
 				if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Boolean.class)) {
 					container.addContainerProperty(id_coluna, Boolean.class, false, true, true);
-				} else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Date.class)) {
-					container.addContainerProperty(id_coluna, Date.class, null, true, true);
-				} else {
+				}
 
+				else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Date.class)) {
+					container.addContainerProperty(id_coluna, Date.class, null, true, true);
+				}
+
+				/*
+				 * else if
+				 * (getEntityClass().getDeclaredField(id_coluna).getType(
+				 * ).equals(Double.class)) {
+				 * container.addContainerProperty(id_coluna, Double.class, null,
+				 * true, true); }
+				 * 
+				 * else if
+				 * (getEntityClass().getDeclaredField(id_coluna).getType(
+				 * ).equals(Integer.class)) {
+				 * container.addContainerProperty(id_coluna, Integer.class,
+				 * null, true, true); }
+				 */
+
+				else {
 					container.addContainerProperty(id_coluna, String.class, "", true, true);
 				}
 			}
