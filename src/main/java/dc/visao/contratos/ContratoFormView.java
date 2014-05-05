@@ -266,7 +266,7 @@ public class ContratoFormView extends CustomComponent {
 		// common part: create layout
 		tabSheet_1 = new TabSheet();
 		tabSheet_1.setImmediate(false);
-		tabSheet_1.setWidth("100%");
+		tabSheet_1.setSizeFull();
 
 		// absoluteLayout_5
 		gridLayout_1 = buildGridLayout1();
@@ -413,7 +413,7 @@ public class ContratoFormView extends CustomComponent {
 		gridLayout_3.setImmediate(false);
 		gridLayout_3.setMargin(true);
 		gridLayout_3.setSpacing(true);
-		gridLayout_3.setWidth("100%");
+		gridLayout_3.setSizeFull();
 		
 		txaTemplate = ComponentUtil.buildRichTextArea("Template");
 		txaTemplate.setSizeFull();
