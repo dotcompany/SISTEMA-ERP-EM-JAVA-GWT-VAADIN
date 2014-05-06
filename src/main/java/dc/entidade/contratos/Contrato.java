@@ -107,6 +107,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Observação")
 	private String observacao;
 	
+	@Column(name = "ARQUIVO_CONTRATO")
 	@Caption(value = "Arquivo Contrato")
 	private String arquivoContrato;
 
