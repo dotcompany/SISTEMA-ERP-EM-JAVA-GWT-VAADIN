@@ -100,12 +100,14 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 					if (isNovo()) {
 						if (listController.autoriaCriacao()) {
 							actionSalvar();
+							changed = false;
 						} else {
 							mensagemErro(DcConstants.PERMISSAO_NEGADA);
 						}
 					} else {
 						if (listController.autoriaAlteracao()) {
 							actionSalvar();
+							changed = false;
 						} else {
 							mensagemErro(DcConstants.PERMISSAO_NEGADA);
 						}
