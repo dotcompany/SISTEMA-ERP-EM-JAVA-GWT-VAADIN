@@ -21,7 +21,7 @@ public class ProdutosListController extends CRUDListController<Produto> {
 	ProdutoDAO dao;
 
 	@Autowired
-	ProdutoFormController produtoFormController;
+	ProdutosFormController produtoFormController;
 
 	@Override
 	protected CRUDFormController<Produto> getFormController() {

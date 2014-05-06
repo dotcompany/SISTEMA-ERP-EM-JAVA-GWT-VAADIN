@@ -47,7 +47,7 @@ import dc.visao.produto.ProdutosFormView.TIPO_VENDA;
 
 @Controller
 @Scope("prototype")
-public class ProdutoFormController extends CRUDFormController<Produto> {
+public class ProdutosFormController extends CRUDFormController<Produto> {
 	
 		/**
 		 * 
