@@ -253,6 +253,7 @@ public class ContratosFormView extends CustomComponent {
 		// tabSheet_1
 		tabSheet_1 = buildTabSheet_1();
 		mainLayout.addComponent(tabSheet_1);
+		//mainLayout.setExpandRatio(tabSheet_1, 1.0f);
 
 		// tabSheet_2
 		tabSheet_2 = buildTabSheet_2();
