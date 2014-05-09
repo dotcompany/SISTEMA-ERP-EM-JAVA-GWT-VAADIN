@@ -61,7 +61,7 @@ import dc.servicos.dao.contratos.TipoContratoDAO;
 import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
-import dc.visao.contratos.ContratoFormView;
+import dc.visao.contratos.ContratosFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -76,7 +76,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ContratoFormView subView;
+	private ContratosFormView subView;
 
 	@Autowired
 	private ContratoDAO contratoDAO;
@@ -259,7 +259,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ContratoFormView(this);
+		subView = new ContratosFormView(this);
 
 		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
