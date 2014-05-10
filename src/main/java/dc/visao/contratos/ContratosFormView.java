@@ -420,7 +420,8 @@ public class ContratosFormView extends CustomComponent {
 		gridLayout_3.setWidth("100%");
 
 		txaTemplate = ComponentUtil.buildRichTextArea("Template");
-		txaTemplate.setSizeFull();
+		//txaTemplate.setWidth("100%");
+		//txaTemplate.setHeight("100%");
 		gridLayout_3.addComponent(txaTemplate, 0, 0);
 
 		return gridLayout_3;
@@ -754,7 +755,7 @@ public class ContratosFormView extends CustomComponent {
 		contrato.setNome(txtNome.getValue());
 		contrato.setNumero(txtNumero.getValue());
 		contrato.setObservacao(txaObservacoes.getValue());
-		// contrato.setArquivoContrato(txaTemplate.getValue());
+		contrato.setArquivoContrato(txaTemplate.getValue());
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
 		contrato.setTipoContrato((TipoContrato) cbmTipoContrato.getValue());
 		contrato.setValor((BigDecimal) txtValor.getConvertedValue());
@@ -776,7 +777,7 @@ public class ContratosFormView extends CustomComponent {
 		txtNome.setValue(contrato.getNome());
 		txtNumero.setValue(contrato.getNumero());
 		txaObservacoes.setValue(contrato.getObservacao());
-		// txaTemplate.setValue(contrato.getArquivoContrato());
+		txaTemplate.setValue(contrato.getArquivoContrato());
 		txtQuantidadeParcelas.setValue(String.valueOf(contrato.getQuantidadeParcelas()));
 		cbmTipoContrato.setValue(contrato.getTipoContrato());
 		txtValor.setConvertedValue(contrato.getValor());
