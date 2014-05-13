@@ -1,17 +1,30 @@
 package dc.controller.ordemservico;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 import dc.controller.financeiro.TipoPagamentoListController;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.pessoal.ColaboradorListController;
+import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.financeiro.LancamentoReceber;
+import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.ordemservico.Acessorio;
 import dc.entidade.ordemservico.AcessorioOs;
@@ -26,6 +39,7 @@ import dc.entidade.ordemservico.MaterialServico;
 import dc.entidade.ordemservico.Modelo;
 import dc.entidade.ordemservico.Observacao;
 import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.OrdemServicoEfetivacao;
 import dc.entidade.ordemservico.ServicoOs;
 import dc.entidade.ordemservico.SituacaoServico;
 import dc.entidade.ordemservico.StatusOs;
@@ -48,6 +62,7 @@ import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.MaterialServicoDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.servicos.dao.ordemservico.ObservacaoDAO;
+import dc.servicos.dao.ordemservico.OrdemServicoEfetivacaoDAO;
 import dc.servicos.dao.ordemservico.OrdemServicoDAO;
 import dc.servicos.dao.ordemservico.ServicoOsDAO;
 import dc.servicos.dao.ordemservico.SituacaoServicoDAO;
@@ -57,9 +72,12 @@ import dc.servicos.dao.ordemservico.VendaPecaDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
+import dc.visao.financeiro.LancamentoReceberFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.framework.geral.MainUI;
 import dc.visao.ordemservico.OrdemServicoFormView;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -142,10 +160,18 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	@Autowired
 	OrdemServicoDAO ordemServicoDAO;
 
+	@Autowired
+	OrdemServicoEfetivacaoDAO ordemServicoEfetivacaoDAO;
+
 	private OrdemServico currentBean;
 
 	OrdemServicoFormView subView;
 
+	final List<OrdemServicoEfetivacao> parcelasChequeOs = new ArrayList<OrdemServicoEfetivacao>();
+	final List<OrdemServicoEfetivacao> parcelasCarneOs = new ArrayList<OrdemServicoEfetivacao>();
+	final List<OrdemServicoEfetivacao> parcelasCartaoOs = new ArrayList<OrdemServicoEfetivacao>();
+	final List<OrdemServicoEfetivacao> parcelasBoletoOs = new ArrayList<OrdemServicoEfetivacao>();
+	
 	@Override
 	protected String getNome() {
 		return "Ordem de Serviço";
@@ -178,8 +204,98 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	protected void actionSalvarEfetivacao() {
+		subView.preencheBean(currentBean);
+
+		boolean valido = true;
+
+		if (((BigDecimal) subView.getValorTotalChequeOs()).compareTo(getTotalParcelaReceberCheque(parcelasChequeOs)) != 0) {
+			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(),"Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+		}
+
+		if (((BigDecimal) subView.getValorTotalCarneOs()).compareTo(getTotalParcelaReceberCarne(parcelasCarneOs)) != 0) {
+			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(),"Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+		}
+
+		if (((BigDecimal) subView.getValorTotalCartaoOs()).compareTo(getTotalParcelaReceberCartao(parcelasCartaoOs)) != 0) {
+			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(),"Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+		}
+		if (((BigDecimal) subView.getValorTotalBoletoOs()).compareTo(getTotalParcelaReceberBoleto(parcelasBoletoOs)) != 0) {
+			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(),"Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+		}
+
+		if (valido) {
+			try {
+
+				for (OrdemServicoEfetivacao p : parcelasChequeOs) {
+					p.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+				}
+				ordemServicoEfetivacaoDAO.saveOrUpdate(parcelasChequeOs);
+
+				for (OrdemServicoEfetivacao p : parcelasCarneOs) {
+					p.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+				}
+				ordemServicoEfetivacaoDAO.saveOrUpdate(parcelasCarneOs);
+
+				for (OrdemServicoEfetivacao p : parcelasCartaoOs) {
+					p.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+				}
+				ordemServicoEfetivacaoDAO.saveOrUpdate(parcelasCartaoOs);
+
+				for (OrdemServicoEfetivacao p : parcelasBoletoOs) {
+					p.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+				}
+				ordemServicoEfetivacaoDAO.saveOrUpdate(parcelasBoletoOs);
+				// notifiyFrameworkSaveOK(this.currentBean);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
+
+	private BigDecimal getTotalParcelaReceberCheque(List<OrdemServicoEfetivacao> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValorTotal());
+		}
+		return total;
+	}
+
+	private BigDecimal getTotalParcelaReceberCarne(List<OrdemServicoEfetivacao> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValorTotal());
+		}
+		return total;
+	}
+
+	private BigDecimal getTotalParcelaReceberCartao(List<OrdemServicoEfetivacao> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValorTotal());
+		}
+		return total;
+	}
+
+	private BigDecimal getTotalParcelaReceberBoleto(List<OrdemServicoEfetivacao> parcelas) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (int i = 0; i < parcelas.size(); i++) {
+			total = total.add(parcelas.get(i).getValorTotal());
+		}
+		return total;
+	}
+
 	private void preencheCombos() {
 
 		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
@@ -481,6 +597,32 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	protected void initSubView() {
 		subView = new OrdemServicoFormView(this);
 		preencheCombos();
+		
+		subView.getBtnFinalizar().addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					gerarParcelasOs();
+				} catch (Exception e) {
+					mensagemErro(e.getMessage());
+				}
+			}
+		});
+		
+		subView.getBtnGravarEfetivacao().addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					actionSalvarEfetivacao();
+				} catch (Exception e) {
+					mensagemErro(e.getMessage());
+				}
+			}
+		});
 	}
 
 	@Override
@@ -488,7 +630,588 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		currentBean = new OrdemServico();
 
 	}
+	
+	public boolean validaCampos(){
+		return true;
+	}
+	
+	//controller initSubView e deverá ser chamada quando clicar no botão o sair do campo para gerar parcelas
+	public void gerarParcelasOs() throws Exception {
+		if (validaCampos()) {
+			final List<OrdemServicoEfetivacao> parcelasChequeOs = new ArrayList<OrdemServicoEfetivacao>();
+			final List<OrdemServicoEfetivacao> parcelasCarneOs = new ArrayList<OrdemServicoEfetivacao>();
+			final List<OrdemServicoEfetivacao> parcelasCartaoOs = new ArrayList<OrdemServicoEfetivacao>();
+			final List<OrdemServicoEfetivacao> parcelasBoletoOs = new ArrayList<OrdemServicoEfetivacao>();
+			List<OrdemServicoEfetivacao> dadosCheque = subView.getParcelasChequeSubForm().getDados();
+			if (dadosCheque != null) {
+				parcelasChequeOs.addAll(subView.getParcelasChequeSubForm().getDados());
+			}
+			List<OrdemServicoEfetivacao> dadosCarne = subView.getParcelasCarneSubForm().getDados();
+			if (dadosCarne != null) {
+				parcelasCarneOs.addAll(subView.getParcelasCarneSubForm().getDados());
+			}
+			List<OrdemServicoEfetivacao> dadosCartao = subView.getParcelasCartaoSubForm().getDados();
+			if (dadosCartao != null) {
+				parcelasCartaoOs.addAll(subView.getParcelasCartaoSubForm().getDados());
+			}
+			List<OrdemServicoEfetivacao> dadosBoleto = subView.getParcelasBoletoSubForm().getDados();
+			if (dadosBoleto != null) {
+				parcelasBoletoOs.addAll(subView.getParcelasBoletoSubForm().getDados());
+			}
 
+			if (parcelasChequeOs != null && !parcelasChequeOs.isEmpty()) {
+				ConfirmDialog.show(MainUI.getCurrent(),
+								"Confirme a remoção","As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?",
+								"Sim", "Não", new ConfirmDialog.Listener() {
+									private static final long serialVersionUID = 1L;
+
+									public void onClose(ConfirmDialog dialog) {
+										if (dialog.isConfirmed()) {
+											excluiParcelasCheque(parcelasChequeOs);
+											geraParcelasChequeOs(parcelasChequeOs);
+										}
+									}
+								});
+			} else {
+				//if (parcelasChequeOs != null && parcelasChequeOs.size() > 0) {
+					geraParcelasChequeOs(parcelasChequeOs);
+				//}
+//				System.out.println("parcelasCarneOs.size(): "+parcelasCarneOs.size());
+//				if (parcelasCarneOs != null  && parcelasCarneOs.size() > 0) {
+//					geraParcelasCarneOs(parcelasCarneOs);
+//				}
+//				System.out.println("Dados cartao: "+parcelasCartaoOs);
+//				if (parcelasCartaoOs != null) {
+					geraParcelasCartaoOs(parcelasCartaoOs);
+//				}
+//				System.out.println("Dados boleto: "+parcelasBoletoOs);
+//				if (parcelasBoletoOs != null) {
+//					geraParcelasBoletoOs(parcelasBoletoOs);
+//				}
+			}
+		} else {
+			mensagemErro("Preencha todos os campos corretamente!");
+		}
+	}		
+		
+	// controller
+	private void geraParcelasChequeOs(final List<OrdemServicoEfetivacao> parcelasCheque) {
+		System.out.println("geraParcelasChequeOs");
+		subView.getParcelasChequeSubForm().removeAllItems();
+		subView.preencheBean(currentBean);
+
+		OrdemServico ordemServico = currentBean;
+		OrdemServicoEfetivacao parcelaChequeOs;
+		Date dataEmissão = new Date();
+
+		Calendar primeiroVencimento = Calendar.getInstance();
+		// primeiroVencimento.setTime(ordemServico.getPrimeiroVencimento());
+
+		primeiroVencimento.setTime(primeiroVencimento.getTime());
+
+		// para teste depois retirar
+		currentBean.setValorTotalOs(BigDecimal.valueOf(5000));
+		currentBean.setQuantidadeParcelaCheque(5);
+		currentBean.setPrimeiroVencimentoCheque(primeiroVencimento.getTime());
+		Cliente cli = new Cliente();
+		cli.setId(3);
+		currentBean.setCliente(cli);
+
+		BigDecimal valorParcela = currentBean.getValorTotalOs().divide(BigDecimal.valueOf(currentBean.getQuantidadeParcelaCheque()),RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+		System.out.println("Gerar parcelas cheque os 11");
+
+		String nossoNumero;
+		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+
+		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+
+		Date dataAtual = new Date();
+
+		for (int i = 0; i < currentBean.getQuantidadeParcelaCheque(); i++) {
+			parcelaChequeOs = new OrdemServicoEfetivacao();
+			parcelaChequeOs.setOrdemParcela(i + 1);
+			parcelaChequeOs.setDataEfetivacao(dataEmissão);
+			if (i > 0) {
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH,30);
+				parcelaChequeOs.setDias(30 * i);
+			}
+			parcelaChequeOs.setDataVencimento(primeiroVencimento.getTime());
+			nossoNumero = formatoNossoNumero5.format(currentBean.getCliente().getId());
+			nossoNumero += formatoNossoNumero4.format(currentBean.getQuantidadeParcelaCheque());
+			nossoNumero += formatoNossoNumero6.format(dataAtual);
+			parcelaChequeOs.setValorTotal(valorParcela);
+			somaParcelas = somaParcelas.add(valorParcela);
+
+			if (i == (currentBean.getQuantidadeParcelaCheque() - 1)) {
+				residuo = currentBean.getValorTotalOs().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaChequeOs.setValorTotal(valorParcela);
+			}
+
+			parcelasCheque.add(parcelaChequeOs);
+			novoParcelaChequeOs(parcelaChequeOs);
+		}
+		subView.getParcelasChequeSubForm().fillWith(parcelasCheque);
+	}
+
+	// controller
+	private void geraParcelasCarneOs(final List<OrdemServicoEfetivacao> parcelasCarne) {
+		System.out.println("geraParcelasCarneOs");
+
+		subView.getParcelasCarneSubForm().removeAllItems();
+		subView.preencheBean(currentBean);
+
+		OrdemServico ordemServico = currentBean;
+		OrdemServicoEfetivacao parcelaCarneOs;
+		Date dataEmissão = new Date();
+
+		Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(primeiroVencimento.getTime());
+
+		// para teste depois retirar
+		currentBean.setValorTotalOs(BigDecimal.valueOf(5000));
+		currentBean.setQuantidadeParcelaCarne(5);
+		currentBean.setPrimeiroVencimentoCarne(primeiroVencimento.getTime());
+		Cliente cli = new Cliente();
+		cli.setId(3);
+		currentBean.setCliente(cli);
+
+		BigDecimal valorParcela = currentBean.getValorTotalOs().divide(BigDecimal.valueOf(currentBean.getQuantidadeParcelaCarne()),RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+
+		String nossoNumero;
+		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+
+		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+
+		Date dataAtual = new Date();
+
+		for (int i = 0; i < currentBean.getQuantidadeParcelaCarne(); i++) {
+			parcelaCarneOs = new OrdemServicoEfetivacao();
+			parcelaCarneOs.setOrdemParcela(i + 1);
+			parcelaCarneOs.setDataEfetivacao(dataEmissão);
+			if (i > 0) {
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH,30);
+				parcelaCarneOs.setDias(30 * i);
+			}
+			parcelaCarneOs.setDataVencimento(primeiroVencimento.getTime());
+			nossoNumero = formatoNossoNumero5.format(currentBean.getCliente().getId());
+			nossoNumero += formatoNossoNumero4.format(currentBean.getQuantidadeParcelaCarne());
+			nossoNumero += formatoNossoNumero6.format(dataAtual);
+			parcelaCarneOs.setValorTotal(valorParcela);
+			somaParcelas = somaParcelas.add(valorParcela);
+
+			if (i == (currentBean.getQuantidadeParcelaCarne() - 1)) {
+				residuo = currentBean.getValorTotalOs().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaCarneOs.setValorTotal(valorParcela);
+			}
+
+			parcelasCarne.add(parcelaCarneOs);
+			novoParcelaCarneOs(parcelaCarneOs);
+		}
+		subView.getParcelasCarneSubForm().fillWith(parcelasCarne);
+	}
+	
+	// controller
+	private void geraParcelasCartaoOs(final List<OrdemServicoEfetivacao> parcelasCartao) {
+		subView.getParcelasCarneSubForm().removeAllItems();
+		subView.preencheBean(currentBean);
+
+		OrdemServico ordemServico = currentBean;
+		OrdemServicoEfetivacao parcelaCartaoOs;
+		Date dataEmissão = new Date();
+
+		Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(primeiroVencimento.getTime());
+
+		// para teste depois retirar
+		currentBean.setValorTotalOs(BigDecimal.valueOf(5000));
+		currentBean.setQuantidadeParcelaCarne(5);
+		currentBean.setPrimeiroVencimentoCartao(primeiroVencimento.getTime());
+		Cliente cli = new Cliente();
+		cli.setId(3);
+		currentBean.setCliente(cli);
+
+		BigDecimal valorParcela = currentBean.getValorTotalOs().divide(BigDecimal.valueOf(currentBean.getQuantidadeParcelaCartao()),RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+
+		String nossoNumero;
+		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+
+		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+
+		Date dataAtual = new Date();
+
+		for (int i = 0; i < currentBean.getQuantidadeParcelaCartao(); i++) {
+			parcelaCartaoOs = new OrdemServicoEfetivacao();
+			parcelaCartaoOs.setOrdemParcela(i + 1);
+			parcelaCartaoOs.setDataEfetivacao(dataEmissão);
+			if (i > 0) {
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH,30);
+				parcelaCartaoOs.setDias(30 * i);
+			}
+			parcelaCartaoOs.setDataVencimento(primeiroVencimento.getTime());
+			nossoNumero = formatoNossoNumero5.format(currentBean.getCliente().getId());
+			nossoNumero += formatoNossoNumero4.format(currentBean.getQuantidadeParcelaCartao());
+			nossoNumero += formatoNossoNumero6.format(dataAtual);
+			parcelaCartaoOs.setValorTotal(valorParcela);
+			somaParcelas = somaParcelas.add(valorParcela);
+
+			if (i == (currentBean.getQuantidadeParcelaCartao() - 1)) {
+				residuo = currentBean.getValorTotalOs().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaCartaoOs.setValorTotal(valorParcela);
+			}
+
+			parcelasCartao.add(parcelaCartaoOs);
+			novoParcelaCartaoOs(parcelaCartaoOs);
+		}
+		subView.getParcelasCartaoSubForm().fillWith(parcelasCartao);
+	}
+	
+	// controller
+	private void geraParcelasBoletoOs(final List<OrdemServicoEfetivacao> parcelasBoleto) {
+		subView.getParcelasBoletoSubForm().removeAllItems();
+		subView.preencheBean(currentBean);
+
+		OrdemServico ordemServico = currentBean;
+		OrdemServicoEfetivacao parcelaBoletoOs;
+		Date dataEmissão = new Date();
+
+		Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(primeiroVencimento.getTime());
+
+		// para teste depois retirar
+		currentBean.setValorTotalOs(BigDecimal.valueOf(5000));
+		currentBean.setQuantidadeParcelaBoleto(5);
+		currentBean.setPrimeiroVencimentoBoleto(primeiroVencimento.getTime());
+		Cliente cli = new Cliente();
+		cli.setId(3);
+		currentBean.setCliente(cli);
+
+		BigDecimal valorParcela = currentBean.getValorTotalOs().divide(BigDecimal.valueOf(currentBean.getQuantidadeParcelaBoleto()),RoundingMode.HALF_DOWN);
+		BigDecimal somaParcelas = BigDecimal.ZERO;
+		BigDecimal residuo = BigDecimal.ZERO;
+
+		String nossoNumero;
+		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+
+		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+
+		Date dataAtual = new Date();
+
+		for (int i = 0; i < currentBean.getQuantidadeParcelaCarne(); i++) {
+			parcelaBoletoOs = new OrdemServicoEfetivacao();
+			parcelaBoletoOs.setOrdemParcela(i + 1);
+			parcelaBoletoOs.setDataEfetivacao(dataEmissão);
+			if (i > 0) {
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH,30);
+				parcelaBoletoOs.setDias(30 * i);
+			}
+			parcelaBoletoOs.setDataVencimento(primeiroVencimento.getTime());
+			nossoNumero = formatoNossoNumero5.format(currentBean.getCliente().getId());
+			nossoNumero += formatoNossoNumero4.format(currentBean.getQuantidadeParcelaBoleto());
+			nossoNumero += formatoNossoNumero6.format(dataAtual);
+			parcelaBoletoOs.setValorTotal(valorParcela);
+			somaParcelas = somaParcelas.add(valorParcela);
+
+			if (i == (currentBean.getQuantidadeParcelaBoleto() - 1)) {
+				residuo = currentBean.getValorTotalOs().subtract(somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaBoletoOs.setValorTotal(valorParcela);
+			}
+
+			parcelasBoleto.add(parcelaBoletoOs);
+			novoParcelaBoletoOs(parcelaBoletoOs);
+		}
+		subView.getParcelasBoletoSubForm().fillWith(parcelasBoleto);
+	}
+
+//	 public OrdemServicoCheque novoParcelaChequeOs() {
+//		OrdemServicoCheque parcela = new OrdemServicoCheque();
+//		return novoParcelaReceber(parcela);
+//	}
+
+	public OrdemServicoEfetivacao novoParcelaChequeOs(OrdemServicoEfetivacao parcela) {
+		currentBean.addParcelaCheque(parcela);
+		return parcela;
+	}
+	public OrdemServicoEfetivacao novoParcelaCarneOs(OrdemServicoEfetivacao parcela) {
+		currentBean.addParcelaCarne(parcela);
+		return parcela;
+	}
+	public OrdemServicoEfetivacao novoParcelaCartaoOs(OrdemServicoEfetivacao parcela) {
+		currentBean.addParcelaCartao(parcela);
+		return parcela;
+	}
+	public OrdemServicoEfetivacao novoParcelaBoletoOs(OrdemServicoEfetivacao parcela) {
+		currentBean.addParcelaBoleto(parcela);
+		return parcela;
+	}
+
+//	public void removerParcelaReceber(List<OrdemServicoCheque> values) {
+//		for (OrdemServicoCheque value : values) {
+//			currentBean.removeParcelaChequeOs(value);
+//		}
+//	}
+
+
+
+
+
+
+
+//		public void gerarParcelasCarneOs() throws Exception {
+//
+//			if (validaCampos()) {
+//				final List<OrdemServicoCarne> parcelasCarneOs = new ArrayList<OrdemServicoCarne>();
+//				List<OrdemServicoCarne> dados = subView.getParcelasCarneSubForm().getDados();
+//				if (dados != null) {
+//					parcelasCarneOs.addAll(subView.getParcelasCarneSubForm().getDados());
+//				}
+//
+//				if (parcelasCarneOs != null && !parcelasCarneOs.isEmpty()) {
+//					ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+//							"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+//							new ConfirmDialog.Listener() {
+//								private static final long serialVersionUID = 1L;
+//
+//								public void onClose(ConfirmDialog dialog) {
+//									if (dialog.isConfirmed()) {
+//										excluiParcelasCarneOs(parcelasCarneOs);
+//										geraParcelasCarneOs(parcelasCarneOs);
+//									}
+//								}
+//							});
+//				} else {
+//					geraParcelasCarneOs(parcelasCarneOs);
+//				}
+//
+//			} else {
+//				mensagemErro("Preencha todos os campos corretamente!");
+//			}
+//
+//		}
+//		
+//	//controller
+//	private void geraParcelasCarneOs(final List<OrdemServicoCarne> parcelasCarne) {
+//
+//	  // gera as parcelas
+//	  subView.getCarneSubForm().removeAllItems();
+//	  subView.preencheBean(currentBean);
+//
+//	  OrdemServicoCarne carneOs = currentBean;
+//	  OrdemServicoCarne parcelaCarneOs;
+//	  Date dataEmissão = new Date();
+//
+//	  Calendar primeiroVencimento = Calendar.getInstance();
+//
+//	  primeiroVencimento.setTime(parcelaCarneOs.getDataVencimento());
+//
+//	  BigDecimal valorParcela = carneOs.getValorAReceber().divide(BigDecimal.valueOf(carneOs.getQuantidadeParcela()), RoundingMode.HALF_DOWN);
+//	  BigDecimal somaParcelas = BigDecimal.ZERO;
+//	  BigDecimal residuo = BigDecimal.ZERO;
+//
+//	  String nossoNumero;
+//	  DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+//	  DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+//
+//	  SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+//
+//	  Date dataAtual = new Date();
+//
+//	  for (int i = 0; i < carneOs.getQuantidadeParcela(); i++) {
+//	    parcelaCarneOs = new OrdemServicoCarne();
+//	    parcelaCarneOs.setContaCaixa(contaCaixa);
+//	    parcelaCarneOs.setNumeroParcela(i + 1);
+//	    parcelaCarneOs.setDataEmissao(dataEmissão);
+//
+//	   if (i > 0) {
+//	    primeiroVencimento.add(Calendar.DAY_OF_MONTH, carneOs.getIntervaloEntreParcelas());
+//	   }
+//	   parcelaCarneOs.setDataVencimento(primeiroVencimento.getTime());
+//	    parcelaCarneOs.setEmitiuBoleto("S");
+//
+//	   nossoNumero = formatoNossoNumero5.format(carneOs.getCliente().getId());
+//	   nossoNumero += formatoNossoNumero5.format(parcelaCarneOs.getContaCaixa().getId());
+//	    nossoNumero += formatoNossoNumero4.format(parcelaCarneOs.getNumeroParcela());
+//	   nossoNumero += formatoNossoNumero6.format(dataAtual);
+//	   parcelaCarneOs.setBoletoNossoNumero(nossoNumero);
+//	   parcelaCarneOs.setValor(valorParcela);
+//	    somaParcelas = somaParcelas.add(valorParcela);
+//
+//	   if (i == (carneOs.getQuantidadeParcela() - 1)) {
+//	    residuo = carneOs.getValorAReceber().subtract(somaParcelas);
+//	    valorParcela = valorParcela.add(residuo);
+//	     parcelaCarneOs.setValor(valorParcela);
+//	   }
+//
+//	   parcelasCarneOs.add(parcelaCarneOs);
+//	   novoParcelaReceber(parcelaCarneOs);
+//	  }
+//
+//	  subView.getParcelasSubForm().fillWith(parcelasCarneOs);
+//	 }
+//
+//	 public OrdemServicoCarne novoParcelaCarneOs() {
+//		OrdemServicoCarne parcela = new OrdemServicoCarne();
+//		return novoParcelaReceber(parcela);
+//	}
+//
+//	public OrdemServicoCarne novoParcelaReceber(OrdemServicoCarne parcela) {
+//		currentBean.addParcelaReceber(parcela);
+//		return parcela;
+//	}
+//
+//	public void removerParcelaReceber(List<OrdemServicoCarne> values) {
+//		for (OrdemServicoCarne value : values) {
+//			currentBean.removeParcelaCarneOs(value);
+//		}
+//	}
+//
+//
+//
+//
+//		public void gerarParcelasCartaoOs() throws Exception {
+//
+//			if (validaCampos()) {
+//				final List<OrdemServicoCartao> parcelasCartaoOs = new ArrayList<OrdemServicoCartao>();
+//				List<OrdemServicoCartao> dados = subView.getParcelasCartaoSubForm().getDados();
+//				if (dados != null) {
+//					parcelasCartaoOs.addAll(subView.getParcelasCartaoSubForm().getDados());
+//				}
+//
+//				if (parcelasCartaoOs != null && !parcelasCartaoOs.isEmpty()) {
+//					ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
+//							"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+//							new ConfirmDialog.Listener() {
+//								private static final long serialVersionUID = 1L;
+//
+//								public void onClose(ConfirmDialog dialog) {
+//									if (dialog.isConfirmed()) {
+//										excluiParcelasCartaoOs(parcelasCartaoOs);
+//										geraParcelasCartaoOs(parcelasCartaoOs);
+//									}
+//								}
+//							});
+//				} else {
+//					geraParcelasCartaoOs(parcelasCartaoOs);
+//				}
+//
+//			} else {
+//				mensagemErro("Preencha todos os campos corretamente!");
+//			}
+//
+//		}
+//		
+//	//controller
+//	private void geraParcelasCartaoOs(final List<OrdemServicoCartao> parcelasCarne) {
+//
+//	  // gera as parcelas
+//	  subView.getCartaoSubForm().removeAllItems();
+//	  subView.preencheBean(currentBean);
+//
+//	  OrdemServicoCartao cartaoOs = currentBean;
+//	  OrdemServicoCartao parcelaCartaoOs;
+//	  Date dataEmissão = new Date();
+//
+//	  Calendar primeiroVencimento = Calendar.getInstance();
+//
+//	  primeiroVencimento.setTime(parcelaCartaoOs.getDataVencimento());
+//
+//	  BigDecimal valorParcela = cartaoOs.getValorAReceber().divide(BigDecimal.valueOf(cartaoOs.getQuantidadeParcela()), RoundingMode.HALF_DOWN);
+//	  BigDecimal somaParcelas = BigDecimal.ZERO;
+//	  BigDecimal residuo = BigDecimal.ZERO;
+//
+//	  String nossoNumero;
+//	  DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
+//	  DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
+//
+//	  SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
+//
+//	  Date dataAtual = new Date();
+//
+//	  for (int i = 0; i < cartaoOs.getQuantidadeParcela(); i++) {
+//	    parcelaCartaoOs = new OrdemServicoCartao();
+//	    parcelaCartaoOs.setContaCaixa(contaCaixa);
+//	    parcelaCartaoOs.setNumeroParcela(i + 1);
+//	    parcelaCartaoOs.setDataEmissao(dataEmissão);
+//
+//	   if (i > 0) {
+//	    primeiroVencimento.add(Calendar.DAY_OF_MONTH, cartaoOs.getIntervaloEntreParcelas());
+//	   }
+//	   parcelaCartaoOs.setDataVencimento(primeiroVencimento.getTime());
+//	    parcelaCartaoOs.setEmitiuBoleto("S");
+//
+//	   nossoNumero = formatoNossoNumero5.format(cartaoOs.getCliente().getId());
+//	   nossoNumero += formatoNossoNumero5.format(parcelaCartaoOs.getContaCaixa().getId());
+//	    nossoNumero += formatoNossoNumero4.format(parcelaCartaoOs.getNumeroParcela());
+//	   nossoNumero += formatoNossoNumero6.format(dataAtual);
+//	   parcelaCartaoOs.setBoletoNossoNumero(nossoNumero);
+//	   parcelaCartaoOs.setValor(valorParcela);
+//	    somaParcelas = somaParcelas.add(valorParcela);
+//
+//	   if (i == (cartaoOs.getQuantidadeParcela() - 1)) {
+//	    residuo = cartaoOs.getValorAReceber().subtract(somaParcelas);
+//	    valorParcela = valorParcela.add(residuo);
+//	     parcelaCartaoOs.setValor(valorParcela);
+//	   }
+//
+//	   parcelasCartaoOs.add(parcelaCartaoOs);
+//	   novoParcelaReceber(parcelaCartaoOs);
+//	  }
+//
+//	  subView.getParcelasSubForm().fillWith(parcelasCartaoOs);
+//	 }
+//
+//	 public OrdemServicoCartao novoParcelaCartaoOs() {
+//		OrdemServicoCartao parcela = new OrdemServicoCartao();
+//		return novoParcelaReceber(parcela);
+//	}
+//
+//	public OrdemServicoCartao novoParcelaReceber(OrdemServicoCartao parcela) {
+//		currentBean.addParcelaReceber(parcela);
+//		return parcela;
+//	}
+//
+//	public void removerParcelaReceber(List<OrdemServicoCartao> values) {
+//		for (OrdemServicoCartao value : values) {
+//			currentBean.removeParcelaCartaoOs(value);
+//		}
+//	}
+	private void excluiParcelasCheque(List<OrdemServicoEfetivacao> parcelasReceber) {
+		List<OrdemServicoEfetivacao> persistentObjects = subView.getParcelasChequeSubForm().getDados();
+
+		for (int i = 0; i < persistentObjects.size(); i++) {
+//			parcelaChequeDAO.delete(persistentObjects.get(i));
+		}
+		parcelasReceber.clear();
+	}
+	private void excluiParcelasCarne(List<OrdemServicoEfetivacao> parcelasReceber) {
+		List<OrdemServicoEfetivacao> persistentObjects = subView.getParcelasCarneSubForm().getDados();
+
+		for (int i = 0; i < persistentObjects.size(); i++) {
+//			parcelaChequeDAO.delete(persistentObjects.get(i));
+		}
+		parcelasReceber.clear();
+	}
+	private void excluiParcelasCartao(List<OrdemServicoEfetivacao> parcelasReceber) {
+		List<OrdemServicoEfetivacao> persistentObjects = subView.getParcelasCartaoSubForm().getDados();
+
+		for (int i = 0; i < persistentObjects.size(); i++) {
+//			parcelaChequeDAO.delete(persistentObjects.get(i));
+		}
+		parcelasReceber.clear();
+	}
 	@Override
 	public String getViewIdentifier() {
 		return "ordemServicoForm";

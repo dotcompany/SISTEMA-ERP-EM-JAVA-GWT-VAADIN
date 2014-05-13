@@ -104,6 +104,42 @@ public class OrdemServico extends AbstractModel<Integer> {
 	@Column(name = "valor_lucro_parcial")
 	private BigDecimal valorLucroParcial;
 	
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_cheque")
+	private Integer quantidadeParcelaCheque;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_cheque")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoCheque;
+
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_carne")
+	private Integer quantidadeParcelaCarne;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_carne")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoCarne;
+
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_cartao")
+	private Integer quantidadeParcelaCartao;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_cartao")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoCartao;
+	
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_boleto")
+	private Integer quantidadeParcelaBoleto;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_boleto")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoBoleto;
+
 	@Field
 	@Caption("Data Cadastro")
 	@Column(name = "data_cadastro")
@@ -134,7 +170,11 @@ public class OrdemServico extends AbstractModel<Integer> {
 	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AcessorioOs> itensAcessorioOs = new ArrayList<AcessorioOs>();
-	
+
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<OrdemServicoEfetivacao> itensOrdemServicoEfetivacao = new ArrayList<OrdemServicoEfetivacao>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -239,7 +279,7 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.valorComissaoAtendente = valorComissaoAtendente;
 	}
 
-	public BigDecimal getValorLucroParcial() {
+	public BigDecimal getValorÇucroParcial() {
 		return valorLucroParcial;
 	}
 
@@ -287,12 +327,88 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.itensMaterialServico = itensMaterialServico;
 	}
 
+	public BigDecimal getValorLucroParcial() {
+		return valorLucroParcial;
+	}
+
 	public List<AcessorioOs> getItensAcessorioOs() {
 		return itensAcessorioOs;
 	}
 
 	public void setItensAcessorioOs(List<AcessorioOs> itensAcessorioOs) {
 		this.itensAcessorioOs = itensAcessorioOs;
+	}
+
+	public Integer getQuantidadeParcelaCheque() {
+		return quantidadeParcelaCheque;
+	}
+
+	public void setQuantidadeParcelaCheque(Integer quantidadeParcelaCheque) {
+		this.quantidadeParcelaCheque = quantidadeParcelaCheque;
+	}
+
+	public List<OrdemServicoEfetivacao> getItensOrdemServicoEfetivacao() {
+		return itensOrdemServicoEfetivacao;
+	}
+
+	public Date getPrimeiroVencimentoCheque() {
+		return primeiroVencimentoCheque;
+	}
+
+	public void setPrimeiroVencimentoCheque(Date primeiroVencimentoCheque) {
+		this.primeiroVencimentoCheque = primeiroVencimentoCheque;
+	}
+
+	public Integer getQuantidadeParcelaCarne() {
+		return quantidadeParcelaCarne;
+	}
+
+	public void setQuantidadeParcelaCarne(Integer quantidadeParcelaCarne) {
+		this.quantidadeParcelaCarne = quantidadeParcelaCarne;
+	}
+
+	public Date getPrimeiroVencimentoCarne() {
+		return primeiroVencimentoCarne;
+	}
+
+	public void setPrimeiroVencimentoCarne(Date primeiroVencimentoCarne) {
+		this.primeiroVencimentoCarne = primeiroVencimentoCarne;
+	}
+
+	public Integer getQuantidadeParcelaCartao() {
+		return quantidadeParcelaCartao;
+	}
+
+	public void setQuantidadeParcelaCartao(Integer quantidadeParcelaCartao) {
+		this.quantidadeParcelaCartao = quantidadeParcelaCartao;
+	}
+
+	public Date getPrimeiroVencimentoCartao() {
+		return primeiroVencimentoCartao;
+	}
+
+	public void setPrimeiroVencimentoCartao(Date primeiroVencimentoCartao) {
+		this.primeiroVencimentoCartao = primeiroVencimentoCartao;
+	}
+
+	public Integer getQuantidadeParcelaBoleto() {
+		return quantidadeParcelaBoleto;
+	}
+
+	public void setQuantidadeParcelaBoleto(Integer quantidadeParcelaBoleto) {
+		this.quantidadeParcelaBoleto = quantidadeParcelaBoleto;
+	}
+
+	public Date getPrimeiroVencimentoBoleto() {
+		return primeiroVencimentoBoleto;
+	}
+
+	public void setPrimeiroVencimentoBoleto(Date primeiroVencimentoBoleto) {
+		this.primeiroVencimentoBoleto = primeiroVencimentoBoleto;
+	}
+
+	public void setItensOrdemServicoEfetivacao(List<OrdemServicoEfetivacao> itensOrdemServicoEfetivacao) {
+		this.itensOrdemServicoEfetivacao = itensOrdemServicoEfetivacao;
 	}
 
 	public EntradaServico adicionarEntradaServico(EntradaServico entradaServico){
@@ -317,5 +433,25 @@ public class OrdemServico extends AbstractModel<Integer> {
 		getItensAcessorioOs().add(acessorioOs);
 		acessorioOs.setOrdemServico(this);
 		return acessorioOs;
+	}
+//	public void addParcelaEfetivacao(OrdemServicoEfetivacao parcela) {
+//		parcela.setOrdemServico(this);
+//		this.itensOrdemServicoEfetivacao.add(parcela);
+//	}
+	public void addParcelaCheque(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaCarne(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaCartao(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaBoleto(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
 	}
 }
