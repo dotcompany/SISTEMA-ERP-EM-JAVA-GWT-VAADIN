@@ -1,6 +1,7 @@
 package dc.controller.pessoal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,15 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.diversos.SetorListController;
+import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.NivelFormacaoListController;
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.Pessoa;
@@ -30,7 +35,9 @@ import dc.entidade.type.pessoal.FormaPagamentoType;
 import dc.entidade.type.pessoal.OptanteType;
 import dc.entidade.type.pessoal.SaiRaisType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.diversos.SetorDAO;
+import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.servicos.dao.geral.UFDAO;
@@ -88,6 +95,12 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 	@Autowired
 	private UFDAO ufDAO;
+
+	@Autowired
+	PlanoContaDAO planoContaDAO;
+
+	@Autowired
+	ContaCaixaDAO contaCaixaDAO;
 
 	private Colaborador currentBean;
 
@@ -187,6 +200,17 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		/*DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController());
 		subView.getCmbUf().setModel(modelUf);*/
+		
+			
+		DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(PlanoContaListController.class,
+				this.planoContaDAO, super.getMainController());
+			
+		this.subView.getCbPlanoConta().setModel(planoConta);
+
+		DefaultManyToOneComboModel<ContaCaixa> contaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
+				this.contaCaixaDAO, super.getMainController());
+
+		this.subView.getCbContaCaixa().setModel(contaCaixa);
 	}
 
 	@Override
@@ -213,6 +237,31 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		subView.getTxtConta().setValue(currentBean.getPagamentoConta());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
+		subView.getCbPriorizarPgto().setValue(currentBean.getPriorizarComissao());
+		subView.getCbComissaoOver().setValue(currentBean.getComissaoOver());
+			
+		BigDecimal salarioFixo = currentBean.getSalarioFixo();
+		if (salarioFixo != null) {
+			subView.getTxtSalarioFixo().setConvertedValue(salarioFixo);;
+		}
+		subView.getOptTipoComissaoServico().setValue(currentBean.getTipoComissaoServico());
+		subView.getOptTipoComissaoProduto().setValue(currentBean.getTipoComissaoProduto());
+
+		BigDecimal comissaoServico = currentBean.getValorComissaoServico();
+		if (comissaoServico != null) {
+			subView.getTxtComissaoServico().setConvertedValue(comissaoServico);;
+		}
+
+		BigDecimal comissaoProduto = currentBean.getValorComissaoProduto();
+		if (comissaoProduto != null) {
+			subView.getTxtComissaoProduto().setConvertedValue(comissaoProduto);;
+		}
+		subView.getCbPgtoComissao().setValue(currentBean.getPgtoComissaoSera());
+		subView.getCbLctoComissao().setValue(currentBean.getLctoComissao());
+		subView.getCbContaCaixa().setValue(currentBean.getContaCaixa());
+		subView.getCbPlanoConta().setValue(currentBean.getPlanoConta());
+
+		
 		/*subView.getCmbPessoa().setValue(currentBean.getPessoa());
 
 		subView.getCmbTipoColaborador().setValue(
@@ -320,6 +369,36 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		currentBean.setPagamentoBanco(subView.getTxtBanco().getValue());
 		currentBean.setPagamentoAgencia(subView.getTxtAgencia().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
+
+	    if(subView.getTxtSalarioFixo()!=null){
+			currentBean.setSalarioFixo((BigDecimal) subView.getTxtSalarioFixo().getConvertedValue());
+	    }
+
+		currentBean.setPriorizarComissao(Boolean.valueOf(subView.getCbPriorizarPgto().getValue().toString()));
+		currentBean.setComissaoOver(Boolean.valueOf(subView.getCbComissaoOver().getValue().toString()));
+		currentBean.setTipoComissaoServico((String) subView.getOptTipoComissaoServico().getValue());
+		currentBean.setTipoComissaoProduto((String) subView.getOptTipoComissaoProduto().getValue());
+
+	    if(subView.getTxtComissaoProduto()!=null){
+			currentBean.setValorComissaoProduto((BigDecimal) subView.getTxtComissaoProduto().getConvertedValue());
+	    }
+
+	    if(subView.getTxtComissaoServico()!=null){
+			currentBean.setValorComissaoServico((BigDecimal) subView.getTxtComissaoServico().getConvertedValue());
+	    }
+
+	    if(subView.getCbPgtoComissao().getValue()!=null){
+			currentBean.setPgtoComissaoSera(Integer.valueOf(subView.getCbPgtoComissao().getValue().toString()));
+		}
+		if(subView.getCbLctoComissao().getValue()!=null){
+			currentBean.setLctoComissao(Integer.valueOf(subView.getCbLctoComissao().getValue().toString()));
+		}
+		if(subView.getCbContaCaixa()!=null){
+			currentBean.setContaCaixa(subView.getCbContaCaixa().getValue());
+		}
+		if(subView.getCbPlanoConta()!=null){
+			currentBean.setPlanoConta(subView.getCbPlanoConta().getValue());
+		}
 
 		try {
 			colaboradorDAO.saveOrUpdate(currentBean);
