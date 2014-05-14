@@ -1,6 +1,7 @@
 package dc.entidade.pessoal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,9 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
+import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
@@ -277,6 +280,41 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	@IndexedEmbedded
 	@ComboValue
 	private Pessoa pessoa;
+
+		@Column(name = "salario_fixo")
+	private BigDecimal salarioFixo;
+
+	@Column(name = "tipo_comissao_servico")
+	private String tipoComissaoServico;
+
+	@Column(name = "valor_comissao_servico")
+	private BigDecimal valorComissaoServico;
+
+	@Column(name = "tipo_comissao_produto")
+	private String tipoComissaoProduto;
+
+	@Column(name = "valor_comissao_produto")
+	private BigDecimal valorComissaoProduto;
+
+	@Column(name = "priorizar_comissao")
+	private Boolean priorizarComissao;
+
+	@Column(name = "comissao_over")
+	private Boolean comissaoOver;
+
+	@Column(name = "pgto_comissao_sera")
+	private Integer pgtoComissaoSera;
+
+	@Column(name = "lcto_comissao")
+	private Integer lctoComissao;
+
+	@ManyToOne
+	@JoinColumn(name = "id_plano_conta", referencedColumnName = "id")
+	private PlanoConta planoConta;
+
+	@ManyToOne
+	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
+	private ContaCaixa contaCaixa;
 
 	/**
 	 * ********************************************************
@@ -796,6 +834,94 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 
 	public void setIdSindicato(Sindicato idSindicato) {
 		this.idSindicato = idSindicato;
+	}
+
+	public BigDecimal getSalarioFixo() {
+		return salarioFixo;
+	}
+
+	public void setSalarioFixo(BigDecimal salarioFixo) {
+		this.salarioFixo = salarioFixo;
+	}
+
+	public String getTipoComissaoServico() {
+		return tipoComissaoServico;
+	}
+
+	public void setTipoComissaoServico(String tipoComissaoServico) {
+		this.tipoComissaoServico = tipoComissaoServico;
+	}
+
+	public BigDecimal getValorComissaoServico() {
+		return valorComissaoServico;
+	}
+
+	public void setValorComissaoServico(BigDecimal valorComissaoServico) {
+		this.valorComissaoServico = valorComissaoServico;
+	}
+
+	public String getTipoComissaoProduto() {
+		return tipoComissaoProduto;
+	}
+
+	public void setTipoComissaoProduto(String tipoComissaoProduto) {
+		this.tipoComissaoProduto = tipoComissaoProduto;
+	}
+
+	public BigDecimal getValorComissaoProduto() {
+		return valorComissaoProduto;
+	}
+
+	public void setValorComissaoProduto(BigDecimal valorComissaoProduto) {
+		this.valorComissaoProduto = valorComissaoProduto;
+	}
+
+	public Boolean getPriorizarComissao() {
+		return priorizarComissao;
+	}
+
+	public void setPriorizarComissao(Boolean priorizarComissao) {
+		this.priorizarComissao = priorizarComissao;
+	}
+
+	public Boolean getComissaoOver() {
+		return comissaoOver;
+	}
+
+	public void setComissaoOver(Boolean comissaoOver) {
+		this.comissaoOver = comissaoOver;
+	}
+
+	public Integer getPgtoComissaoSera() {
+		return pgtoComissaoSera;
+	}
+
+	public void setPgtoComissaoSera(Integer pgtoComissaoSera) {
+		this.pgtoComissaoSera = pgtoComissaoSera;
+	}
+
+	public Integer getLctoComissao() {
+		return lctoComissao;
+	}
+
+	public void setLctoComissao(Integer lctoComissao) {
+		this.lctoComissao = lctoComissao;
+	}
+
+	public PlanoConta getPlanoConta() {
+		return planoConta;
+	}
+
+	public void setPlanoConta(PlanoConta planoConta) {
+		this.planoConta = planoConta;
+	}
+
+	public ContaCaixa getContaCaixa() {
+		return contaCaixa;
+	}
+
+	public void setContaCaixa(ContaCaixa contaCaixa) {
+		this.contaCaixa = contaCaixa;
 	}
 
 	@Override
