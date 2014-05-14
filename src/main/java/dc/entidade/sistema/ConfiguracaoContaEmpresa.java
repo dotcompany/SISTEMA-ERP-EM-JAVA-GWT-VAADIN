@@ -40,6 +40,7 @@ public class ConfiguracaoContaEmpresa extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@OneToOne()
+	@JoinColumn(name = "conta_id")
 	private ContaEmpresa conta;
 
 	@Field()

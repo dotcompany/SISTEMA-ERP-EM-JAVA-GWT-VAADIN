@@ -1,7 +1,6 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,11 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.framework.Empresa;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.framework.Papel;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
@@ -25,27 +21,26 @@ import dc.servicos.dao.sistema.UsuarioDAO;
 
 @Component
 @Scope("prototype")
-public class ConfiguraNovaContaController implements Serializable, ViewController{
-	
+public class ConfiguraNovaContaController implements Serializable, ViewController {
 
 	private static final long serialVersionUID = -3176469284004748548L;
 
 	@Autowired
 	transient FmModuloDAO dao;
-	
+
 	@Autowired
-	transient  ContaEmpresaDAO contaDao;
-	
+	transient ContaEmpresaDAO contaDao;
+
 	@Autowired
-	transient  UsuarioDAO userDao;
-	
+	transient UsuarioDAO userDao;
+
 	private ContaEmpresa currentBean;
-	
+
 	public static Logger logger = Logger.getLogger(ConfiguraNovaContaController.class);
-	
+
 	@PostConstruct
 	public void init() {
-	
+
 	}
 
 	public ContaEmpresa getCurrentBean() {
@@ -53,11 +48,10 @@ public class ConfiguraNovaContaController implements Serializable, ViewControlle
 	}
 
 	public void salvarPrimeiraPergunta(Object value, Integer contaId) {
-		ConfiguracaoContaEmpresa conf= contaDao.findConfiguracaoByIdConta(contaId);
-		if(conf == null){
+		ConfiguracaoContaEmpresa conf = contaDao.findConfiguracaoByIdConta(contaId);
+		if (conf == null) {
 			conf = new ConfiguracaoContaEmpresa();
-			conf.setConta(new ContaEmpresa());
-			conf.getConta().setId(contaId);
+			conf.setConta(contaDao.find(contaId));
 		}
 		conf.setPergunta1(String.valueOf(value));
 		contaDao.saveOrUpdate(conf);
@@ -68,7 +62,7 @@ public class ConfiguraNovaContaController implements Serializable, ViewControlle
 	}
 
 	public void salvarSegundaPergunta(Object value, Integer contaId) {
-		ConfiguracaoContaEmpresa conf= contaDao.findConfiguracaoByIdConta(contaId);
+		ConfiguracaoContaEmpresa conf = contaDao.findConfiguracaoByIdConta(contaId);
 		conf.setPergunta2(String.valueOf(value));
 		contaDao.saveOrUpdate(conf);
 	}
@@ -78,12 +72,11 @@ public class ConfiguraNovaContaController implements Serializable, ViewControlle
 	}
 
 	public void associaModulos(List<FmModulo> modulosSelecitonados, Integer contaId) {
-		ConfiguracaoContaEmpresa conf= contaDao.findConfiguracaoByIdConta(contaId);
+		ConfiguracaoContaEmpresa conf = contaDao.findConfiguracaoByIdConta(contaId);
 		conf.setModulos(modulosSelecitonados);
-		List<FmModulo> obrigatorios= dao.getModulosObrigatorios();
+		List<FmModulo> obrigatorios = dao.getModulosObrigatorios();
 		conf.getModulos().addAll(obrigatorios);
 		contaDao.saveOrUpdate(conf);
 	}
-	
 
 }

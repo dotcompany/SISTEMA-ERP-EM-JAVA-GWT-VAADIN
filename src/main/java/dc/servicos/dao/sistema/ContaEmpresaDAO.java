@@ -28,14 +28,8 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 	@Transactional
 	public ConfiguracaoContaEmpresa findConfiguracaoByIdConta(Integer contaId) {
 
-		Criteria criteria = getSession().createCriteria(
-				ConfiguracaoContaEmpresa.class);
+		Criteria criteria = getSession().createCriteria(ConfiguracaoContaEmpresa.class);
 		criteria.add(Restrictions.eq("conta.id", contaId));
-		criteria.createCriteria("modulos")
-				.setFetchMode("menus", FetchMode.JOIN);
-
-		// criteria.createCriteria("modulos.menus").setFetchMode("menusFilho",
-		// FetchMode.JOIN);
 
 		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
 
@@ -43,8 +37,20 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 
 	@Transactional
 	public ContaEmpresa findByEmail(String email) {
-		return (ContaEmpresa) getSession().createCriteria(ContaEmpresa.class)
-				.add(Restrictions.eq("email", email)).uniqueResult();
+		return (ContaEmpresa) getSession().createCriteria(ContaEmpresa.class).add(Restrictions.eq("email", email)).uniqueResult();
+	}
+
+	@Transactional
+	public ConfiguracaoContaEmpresa findConfiguracaoByIdContaWithModules(Integer contaId) {
+
+		Criteria criteria = getSession().createCriteria(ConfiguracaoContaEmpresa.class);
+		criteria.add(Restrictions.eq("conta.id", contaId));
+
+		criteria.createCriteria("modulos").setFetchMode("menus", FetchMode.JOIN);
+
+		// criteria.createCriteria("modulos.menus").setFetchMode("menusFilho",
+		// FetchMode.JOIN);
+		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
 	}
 
 }
