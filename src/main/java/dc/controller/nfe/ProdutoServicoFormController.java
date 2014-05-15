@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
-import dc.control.enums.CrtEn;
 import dc.control.enums.CsosnEn;
+import dc.control.enums.CstCofinsEn;
+import dc.control.enums.CstIcmsEn;
+import dc.control.enums.CstIpiEn;
+import dc.control.enums.CstPisEn;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.produto.ProdutosListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -378,14 +381,14 @@ public class ProdutoServicoFormController extends
 				this.nfeCabecalho.getHoraEntradaSaida());
 		this.subView.getTfTipoOperacao().setValue(
 				this.nfeCabecalho.getTipoOperacao().trim());
-		//this.subView.getTfTipoEmissao().setValue(
-		//		this.nfeCabecalho.getTipoEmissao().trim());
-		//this.subView.getTfFinalidadeEmissao().setValue(
-		//		this.nfeCabecalho.getFinalidadeEmissao().trim());
-		//this.subView.getTfFormatoImpressaoDanfe().setValue(
-		//		this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
-		//this.subView.getTfFormaPagamento().setValue(
-		//		this.nfeCabecalho.getIndicadorFormaPagamento().trim());
+		// this.subView.getTfTipoEmissao().setValue(
+		// this.nfeCabecalho.getTipoEmissao().trim());
+		// this.subView.getTfFinalidadeEmissao().setValue(
+		// this.nfeCabecalho.getFinalidadeEmissao().trim());
+		// this.subView.getTfFormatoImpressaoDanfe().setValue(
+		// this.nfeCabecalho.getFormatoImpressaoDanfe().trim());
+		// this.subView.getTfFormaPagamento().setValue(
+		// this.nfeCabecalho.getIndicadorFormaPagamento().trim());
 
 		//
 		this.subView.getPlNfeDetalheSubForm().setCaption(
@@ -812,8 +815,8 @@ public class ProdutoServicoFormController extends
 						entCofins);
 			}
 
-			this.subView.getTfCstCofins().setValue(
-					entCofins.getCstCofins().trim());
+			// this.subView.getTfCstCofins().setValue(
+			// entCofins.getCstCofins().trim());
 			this.subView.getTfQtdVendidaCofins().setValue(
 					entCofins.getQuantidadeVendida().toString().trim());
 			this.subView.getTfBaseCalculoBcCofins().setValue(
@@ -844,9 +847,10 @@ public class ProdutoServicoFormController extends
 					entIcms.getOrigemMercadoria().trim());
 
 			if (entIcms.getCstIcms() != null && !entIcms.getCstIcms().isEmpty()) {
-				CrtEn crt = CrtEn.valueOf("_" + entIcms.getCstIcms());
+				CstIcmsEn cstIcms = CstIcmsEn.valueOf("_"
+						+ entIcms.getCstIcms());
 
-				this.subView.getCbCstIcms().setValue(crt);
+				this.subView.getCbCstIcms().setValue(cstIcms);
 			} else {
 				this.subView.getCbCstIcms().setValue(null);
 			}
@@ -938,7 +942,7 @@ public class ProdutoServicoFormController extends
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpIpi(ndiIpi);
 			}
 
-			this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
+			// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
 			this.subView.getTfBaseCalculoBcIpi().setValue(
 					ndiIpi.getValorBaseCalculoIpi().toString());
 			this.subView.getTfAliquotaIpi().setValue(
@@ -1003,7 +1007,7 @@ public class ProdutoServicoFormController extends
 						entPis);
 			}
 
-			this.subView.getTfCstPis().setValue(entPis.getCstPis().trim());
+			// this.subView.getTfCstPis().setValue(entPis.getCstPis().trim());
 			this.subView.getTfQtdVendidaPis().setValue(
 					entPis.getQuantidadeVendida().toString().trim());
 			this.subView.getTfBaseCalculoBcPis().setValue(
@@ -1567,8 +1571,11 @@ public class ProdutoServicoFormController extends
 		}
 
 		switch (id) {
-		case "tfCstCofins":
-			ndiCofins.setCstCofins((String) obj);
+		case "cbCstCofins":
+			CstCofinsEn cstCofins = (CstCofinsEn) obj;
+			String s1 = cstCofins.name().substring(1);
+
+			ndiCofins.setCstCofins(s1);
 
 			break;
 		case "tfQtdVendidaCofins":
@@ -1625,9 +1632,9 @@ public class ProdutoServicoFormController extends
 			ndiIcms.setOrigemMercadoria((String) obj);
 
 			break;
-		case "tfCstIcms":
-			CrtEn crt = (CrtEn) obj;
-			String s1 = crt.name().substring(1);
+		case "cbCstIcms":
+			CstIcmsEn cstIcms = (CstIcmsEn) obj;
+			String s1 = cstIcms.name().substring(1);
 
 			ndiIcms.setCstIcms(s1);
 
@@ -1804,8 +1811,11 @@ public class ProdutoServicoFormController extends
 		ndiIpi.setEmpresa(this.nfeCabecalho.getNfeDetalhe().getEmpresa());
 
 		switch (id) {
-		case "tfCstIpi":
-			ndiIpi.setCstIpi((String) obj);
+		case "cbCstIpi":
+			CstIpiEn cstIpi = (CstIpiEn) obj;
+			String s1 = cstIpi.name().substring(1);
+
+			ndiIpi.setCstIpi(s1);
 
 			break;
 		case "tfBaseCalculoBcIpi":
@@ -1930,8 +1940,11 @@ public class ProdutoServicoFormController extends
 		}
 
 		switch (id) {
-		case "tfCstPis":
-			ndiPis.setCstPis((String) obj);
+		case "cbCstPis":
+			CstPisEn cstPis = (CstPisEn) obj;
+			String s1 = cstPis.name().substring(1);
+
+			ndiPis.setCstPis(s1);
 
 			break;
 		case "tfQtdVendidaPis":
@@ -2336,7 +2349,7 @@ public class ProdutoServicoFormController extends
 	private void ndiCofinsLimpar() {
 		NfeDetalheImpostoCofinsEntity entCofins = new NfeDetalheImpostoCofinsEntity();
 
-		this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
+		// this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
 		this.subView.getTfQtdVendidaCofins().setValue(
 				entCofins.getQuantidadeVendida().toString());
 		this.subView.getTfBaseCalculoBcCofins().setValue(
@@ -2412,7 +2425,7 @@ public class ProdutoServicoFormController extends
 	private void ndiIpiLimpar() {
 		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
 
-		this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
+		// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
 		this.subView.getTfBaseCalculoBcIpi().setValue(
 				ndiIpi.getValorBaseCalculoIpi().toString());
 		this.subView.getTfAliquotaIpi().setValue(
@@ -2453,7 +2466,7 @@ public class ProdutoServicoFormController extends
 	private void ndiPisLimpar() {
 		NfeDetalheImpostoPisEntity entPis = new NfeDetalheImpostoPisEntity();
 
-		this.subView.getTfCstPis().setValue(entPis.getCstPis());
+		// this.subView.getTfCstPis().setValue(entPis.getCstPis());
 		this.subView.getTfQtdVendidaPis().setValue(
 				entPis.getQuantidadeVendida().toString());
 		this.subView.getTfBaseCalculoBcPis().setValue(
@@ -2606,4 +2619,5 @@ public class ProdutoServicoFormController extends
 			e.printStackTrace();
 		}
 	}
+
 }
