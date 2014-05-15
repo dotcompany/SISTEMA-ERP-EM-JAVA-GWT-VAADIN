@@ -37,17 +37,14 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
  *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+ *         salvos no Banco de Dados. */
 @Entity
 @Table(name = "lancamento_pagar")
 @XmlRootElement
@@ -65,6 +62,7 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "PAGAMENTO_COMPARTILHADO")
 	@Caption("Pagamento Compartilhado")
+	@Field
 	private String pagamentoCompartilhado;
 
 	@Field
@@ -72,10 +70,12 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
 	private BigDecimal valorTotal;
 
+	@Field
 	@Column(name = "VALOR_A_PAGAR", precision = 14, scale = 0)
 	@Caption(value = "Valor à Pagar")
 	private BigDecimal valorAPagar;
 
+	@Field
 	@Caption(value = "Data Lançamento")
 	@Column(name = "DATA_LANCAMENTO")
 	@Temporal(TemporalType.DATE)
@@ -98,23 +98,28 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Fornecedor")
 	private Fornecedor fornecedor;
 
+	@Field
 	@Caption(value = "Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
 	private Integer quantidadeParcela;
 
+	@Field
 	@Caption(value = "Número Documento")
 	@Column(name = "NUMERO_DOCUMENTO")
 	private String numeroDocumento;
 
+	@Field
 	@Caption(value = "Primeiro Vencimento")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	private Date primeiroVencimento;
 
+	@Field
 	@Caption(value = "Código Módulo Lcto.")
 	@Column(name = "CODIGO_MODULO_LCTO")
 	private String codigoModuloLcto;
 
+	@Field
 	@Caption(value = "Intervalo Entre Parcelas")
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	private Integer intervaloEntreParcelas;
@@ -202,32 +207,24 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/**
-	 * @return the documentoOrigem
-	 */
+	/** @return the documentoOrigem */
 	public DocumentoOrigem getDocumentoOrigem() {
 		return documentoOrigem;
 	}
 
-	/**
-	 * @param documentoOrigem
-	 *            the documentoOrigem to set
-	 */
+	/** @param documentoOrigem
+	 *            the documentoOrigem to set */
 	public void setDocumentoOrigem(DocumentoOrigem documentoOrigem) {
 		this.documentoOrigem = documentoOrigem;
 	}
 
-	/**
-	 * @return the fornecedor
-	 */
+	/** @return the fornecedor */
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
-	/**
-	 * @param fornecedor
-	 *            the fornecedor to set
-	 */
+	/** @param fornecedor
+	 *            the fornecedor to set */
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}

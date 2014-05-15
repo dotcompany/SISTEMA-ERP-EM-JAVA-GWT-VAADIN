@@ -33,20 +33,16 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contratos.Contrato;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
  *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+ *         salvos no Banco de Dados. */
 @Entity
 @Table(name = "parcela_pagar")
 @XmlRootElement
@@ -65,20 +61,24 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DATA_EMISSAO")
 	@Temporal(TemporalType.DATE)
 	@Caption(value = "Data Emissão")
+	@Field
 	private Date dataEmissao;
 
 	@Caption(value = "Data Vencimento")
 	@Column(name = "DATA_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
+	@Field
 	private Date dataVencimento;
 
 	@Caption(value = "Desconto Até")
 	@Column(name = "DESCONTO_ATE")
 	@Temporal(TemporalType.DATE)
+	@Field
 	private Date descontoAte;
 
 	@Caption(value = "Sofre Retencao")
 	@Column(name = "SOFRE_RETENCAO")
+	@Field
 	private String sofreRetencao;
 
 	@Field
@@ -88,26 +88,32 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Taxa Juro")
 	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
+	@Field
 	private BigDecimal taxaJuro;
 
 	@Caption(value = "Taxa Multa")
 	@Column(name = "TAXA_MULTA", precision = 14, scale = 0)
+	@Field
 	private BigDecimal taxaMulta;
 
 	@Caption(value = "Taxa Desconto")
 	@Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
+	@Field
 	private BigDecimal taxaDesconto;
 
 	@Caption(value = "Valor Juro")
 	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
+	@Field
 	private BigDecimal valorJuro;
 
 	@Caption(value = "Valor Multa")
 	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
+	@Field
 	private BigDecimal valorMulta;
 
 	@Caption(value = "Valor Desconto")
 	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
+	@Field
 	private BigDecimal valorDesconto;
 
 	@Caption(value = "Status Parcela")
@@ -119,14 +125,18 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private LancamentoPagar lancamentoPagar;
-	
-	/*@Caption(value = "Contrato")
-	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Contrato contrato;*/
+
+	/*
+	 * @Caption(value = "Contrato")
+	 * 
+	 * @JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	 * 
+	 * @ManyToOne(optional = false) private Contrato contrato;
+	 */
 
 	@Caption(value = "Número Parcela")
 	@Column(name = "NUMERO_PARCELA")
+	@Field
 	private Integer numeroParcela;
 
 	@Caption(value = "Conta Caixa")
@@ -140,6 +150,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Transient
 	@Caption(value = "Valor Faltante")
+	@Field
 	private BigDecimal valorFaltante;
 
 	public ParcelaPagar() {
@@ -265,43 +276,33 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/**
-	 * @return the statusParcela
-	 */
+	/** @return the statusParcela */
 	public StatusParcela getStatusParcela() {
 		return statusParcela;
 	}
 
-	/**
-	 * @param statusParcela
-	 *            the statusParcela to set
-	 */
+	/** @param statusParcela
+	 *            the statusParcela to set */
 	public void setStatusParcela(StatusParcela statusParcela) {
 		this.statusParcela = statusParcela;
 	}
 
-	/**
-	 * @return the lancamentoPagar
-	 */
+	/** @return the lancamentoPagar */
 	public LancamentoPagar getLancamentoPagar() {
 		return lancamentoPagar;
 	}
 
-	/**
-	 * @param lancamentoPagar
-	 *            the lancamentoPagar to set
-	 */
+	/** @param lancamentoPagar
+	 *            the lancamentoPagar to set */
 	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
 		this.lancamentoPagar = lancamentoPagar;
 	}
-	
-	/*public Contrato getContrato() {
-		return contrato;
-	}
 
-	public void setContrato(Contrato contrato) {
-		this.contrato = contrato;
-	}*/
+	/*
+	 * public Contrato getContrato() { return contrato; }
+	 * 
+	 * public void setContrato(Contrato contrato) { this.contrato = contrato; }
+	 */
 
 	public Integer getNumeroParcela() {
 		return numeroParcela;

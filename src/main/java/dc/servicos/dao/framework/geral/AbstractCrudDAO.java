@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -30,12 +31,14 @@ import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.hibernate.search.query.dsl.TermTermination;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
+import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.Between;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Compare.Operation;
@@ -326,55 +329,74 @@ public abstract class AbstractCrudDAO<T> {
 		return booleanQuery;
 	}
 
-	private org.apache.lucene.search.Query generateFiltersQuery(List<Filter> filters) {
+	private org.apache.lucene.search.Query generateFiltersQuery(Collection<Filter> collection) {
 
 		BooleanQuery booleanQuery = null;
-		if (filters != null && filters.size() > 0) {
+		if (collection != null && collection.size() > 0) {
 			booleanQuery = new BooleanQuery();
 
-			for (Filter filter : filters) {
+			for (Filter filter : collection) {
 				org.apache.lucene.search.Query query = null;
-
-				if (filter instanceof Compare) {
-					Compare castedFilter = ((Compare) filter);
-					Object property = castedFilter.getPropertyId();
-					Operation operation = castedFilter.getOperation();
-
-					if (operation.equals(Compare.Operation.EQUAL)) {// EQUAL,
-																	// GREATER,
-																	// NumericRangeQuery
-																	// LESS,
-																	// GREATER_OR_EQUAL,
-																	// LESS_OR_EQUAL
-						query = createFieldQueryByValue(castedFilter.getValue().toString(), property.toString());
-
-					} else if (operation.equals(Compare.Operation.GREATER_OR_EQUAL)) {
-						query = createDateQuery(castedFilter.getValue(), null, property);
-
-					} else if (operation.equals(Compare.Operation.LESS_OR_EQUAL)) {
-						query = createDateQuery(null, castedFilter.getValue(), property);
-
+				if (filter instanceof And) {
+					And castedFilter = ((And) filter);
+					query = generateFiltersQuery(castedFilter.getFilters());
+					if (query != null) {
+						booleanQuery.add(query, Occur.MUST);
 					}
-
-				} else if (filter instanceof Between) {
-					Between castedFilter = ((Between) filter);
-					Object property = castedFilter.getPropertyId();
-
-					query = createDateQuery(castedFilter.getStartValue(), castedFilter.getEndValue(), property);
-
-				} else if (filter instanceof SimpleStringFilter) {
-
-					String property = ((SimpleStringFilter) filter).getPropertyId().toString();
-					String search = ((SimpleStringFilter) filter).getFilterString();
-
-					if (dc.control.validator.ObjectValidator.validateString(search)) {
-						query = createFieldQueryByValue(search, property);
-
-					}
-
 				}
-				if (query != null) {
-					booleanQuery.add(query, Occur.MUST);
+
+				try {
+					if (filter instanceof Compare) {
+						Compare castedFilter = ((Compare) filter);
+						Object property = castedFilter.getPropertyId();
+						Operation operation = castedFilter.getOperation();
+
+						if (operation.equals(Compare.Operation.EQUAL)) {// EQUAL,
+																		// GREATER,
+																		// NumericRangeQuery
+																		// LESS,
+																		// GREATER_OR_EQUAL,
+																		// LESS_OR_EQUAL
+							// query = createEqualQuery(castedFilter.getValue(),
+							// property);
+							query = createGreaterLessQuery(castedFilter.getValue(), castedFilter.getValue(), property);
+
+						} else if (operation.equals(Compare.Operation.GREATER_OR_EQUAL)) {
+							query = createGreaterLessQuery(castedFilter.getValue(), null, property);
+
+						} else if (operation.equals(Compare.Operation.LESS_OR_EQUAL)) {
+							query = createGreaterLessQuery(null, castedFilter.getValue(), property);
+						} else if (operation.equals(Compare.Operation.GREATER)) {
+							query = createGreaterLessQuery(castedFilter.getValue(), null, property);
+
+						} else if (operation.equals(Compare.Operation.LESS)) {
+							query = createGreaterLessQuery(null, castedFilter.getValue(), property);
+
+						}
+
+					} else if (filter instanceof Between) {
+						Between castedFilter = ((Between) filter);
+						Object property = castedFilter.getPropertyId();
+
+						query = createGreaterLessQuery(castedFilter.getStartValue(), castedFilter.getEndValue(), property);
+
+					} else if (filter instanceof SimpleStringFilter) {
+
+						String property = ((SimpleStringFilter) filter).getPropertyId().toString();
+						String search = ((SimpleStringFilter) filter).getFilterString();
+
+						if (dc.control.validator.ObjectValidator.validateString(search)) {
+							query = createFieldQueryByValue(search, property);
+
+						}
+
+					}
+					if (query != null) {
+						booleanQuery.add(query, Occur.MUST);
+					}
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 
@@ -385,8 +407,8 @@ public abstract class AbstractCrudDAO<T> {
 	private org.apache.lucene.search.Query createDateQuery(Object startValue, Object endValue, Object property) {
 		org.apache.lucene.search.Query query;
 		// 20131001030000000
-		String start = "00000000000000000";
-		String end = "99999999999999999";
+		String start = "*";
+		String end = "*";
 
 		if (startValue instanceof Date) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -402,6 +424,48 @@ public abstract class AbstractCrudDAO<T> {
 
 		query = new TermRangeQuery(property.toString(), start, end, true, true);
 		return query;
+	}
+
+	private org.apache.lucene.search.Query createGreaterLessQuery(Object startValue, Object endValue, Object property) {
+		org.apache.lucene.search.Query query;
+		// 20131001030000000
+		String start = "-99999999999999999";
+		String end = "99999999999999999";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		if (startValue != null) {
+			start = startValue.toString();
+		}
+
+		if (endValue != null) {
+			end = endValue.toString();
+		}
+
+		if (startValue instanceof Date) {
+			start = sdf.format(startValue) + "000000000";
+		}
+
+		if (endValue instanceof Date) {
+			end = sdf.format(endValue) + "000000000";
+		}
+
+		// if (startValue instanceof Number || endValue instanceof Number) {
+		// query = NumericRangeQuery.newDoubleRange(property.toString(), 8,
+		// Double.parseDouble(start), Double.parseDouble(end), true, true);
+		// } else {
+		query = new TermRangeQuery(property.toString(), start, end, true, true);
+		// }
+
+		return query;
+	}
+
+	private org.apache.lucene.search.Query createEqualQuery(Object value, Object property) {
+
+		FullTextSession fullTextSession = getFullTextSession();
+
+		QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+		TermTermination matching = qb.keyword().onField(property.toString()).matching(value);
+		return matching.createQuery();
 	}
 
 	private void configureSorting(SortField[] sortingFields, FullTextQuery q) {

@@ -1,6 +1,7 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -480,19 +481,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 					container.addContainerProperty(id_coluna, Date.class, null, true, true);
 				}
 
-				/*
-				 * else if
-				 * (getEntityClass().getDeclaredField(id_coluna).getType(
-				 * ).equals(Double.class)) {
-				 * container.addContainerProperty(id_coluna, Double.class, null,
-				 * true, true); }
-				 * 
-				 * else if
-				 * (getEntityClass().getDeclaredField(id_coluna).getType(
-				 * ).equals(Integer.class)) {
-				 * container.addContainerProperty(id_coluna, Integer.class,
-				 * null, true, true); }
-				 */
+				else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Double.class)) {
+					container.addContainerProperty(id_coluna, Double.class, null, false, true);
+				}
+
+				else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(Integer.class)) {
+					container.addContainerProperty(id_coluna, Integer.class, null, false, true);
+				} else if (getEntityClass().getDeclaredField(id_coluna).getType().equals(BigDecimal.class)) {
+					container.addContainerProperty(id_coluna, Double.class, null, false, true);
+				}
 
 				else {
 					container.addContainerProperty(id_coluna, String.class, "", true, true);
