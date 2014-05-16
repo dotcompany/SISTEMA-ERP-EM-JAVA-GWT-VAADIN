@@ -6459,11 +6459,7 @@ body .dotcompany.v-app .v-app-loading {
 	text-shadow: none;
 }
 
-.dotcompany .numberfilterpopupcontent{
+.dotcompany .numberfilterpopupcontent {
 	background: #FFF;
-	color:#000;
-}
-
-.dotcompany .numberfilterpopupcontent input{
-	
+	color: #000;
 }
