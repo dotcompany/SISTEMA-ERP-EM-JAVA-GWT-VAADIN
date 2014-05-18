@@ -22,7 +22,7 @@ import dc.visao.nfe.ProdutoServicoFormView;
 
 @Controller
 @Scope("prototype")
-public class NfeDetalheImpostoCofinsFormController extends
+public class NfeCabecalhoFormController extends
 		CRUDFormController<NfeDetalheImpostoCofinsEntity> {
 
 	/**
@@ -46,7 +46,7 @@ public class NfeDetalheImpostoCofinsFormController extends
 	 * CONSTRUTOR
 	 */
 
-	public NfeDetalheImpostoCofinsFormController() {
+	public NfeCabecalhoFormController() {
 		// this.ndiCofins = ndiCofins;
 	}
 
