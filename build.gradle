@@ -171,7 +171,7 @@ dependencies {
         } 
 		
    		
-		compile 'org.vaadin.addon:easyuploads:7.0.1'
+		compile 'org.vaadin.addon:easyuploads:7.2.0'
 		compile 'com.reveregroup.gwt:gwt-image-loader:1.1.4'
 		compile 'org.vaadin.addons:imageviewer:0.5.1.v7'  
 		compile 'org.vaadin.addons:imagescaler:2.0.0'
@@ -192,6 +192,6 @@ dependencies {
 		compile 'org.apache.poi:ooxml-schemas:1.1'
 		compile 'joda-time:joda-time:2.3'
 		
-		compile 'org.vaadin.addons:filteringtable:0.9.8.v7'
+		compile 'org.vaadin.addons:filteringtable:0.9.9.v7'
 		compile 'com.vaadin:vaadin-push:7.1.15'
 }
