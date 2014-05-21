@@ -2,6 +2,7 @@ package dc.visao.framework.component.manytoonecombo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -63,35 +64,55 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
+			try {
+				search(q);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		private Map<Thread, Boolean> searchStatus = new HashMap<Thread, Boolean>();
+
+		private synchronized void search(String q) throws InterruptedException {
 			if (q != null && q.length() >= 2) {
-				removeAllItems();
-
-				searchItemValue = new ItemValue();
-				searchItemValue.setType(ITEM_TYPE_SEARCH);
-				searchItemValue.setCaption("Pesquisa Avançada...");
-				searchItemValue.setFilter(q);
-				addItem(searchItemValue);
-
-				// cmbResult.setItemIcon(searchItemValue, new
-				// ThemeResource("components/img/close.png"));
-
-				// Adiciona os itens filtrados
-				if (model != null) {
-					List l = model.getResultado(q);
-					if (l != null && l.size() > 0) {
-						addAll(wrapValues(l));
-					}
+				for (Thread thread : searchStatus.keySet()) {
+					searchStatus.put(thread, false);
 				}
 
-				// Adiciona "criar novo"
-				createItemValue = new ItemValue();
-				createItemValue.setType(ITEM_TYPE_CREATE);
-				createItemValue.setCaption("Criar Novo Cadastro: " + q);
-				createItemValue.setFilter(q);
-				addItem(createItemValue);
-			} else {
-				removeAllItems();
-				addAll(wrapValues(model.getAll()));
+				searchStatus.put(Thread.currentThread(), true);
+
+				Thread.sleep(1300l);
+				if (searchStatus.get(Thread.currentThread())) {
+					searchStatus.clear();
+					removeAllItems();
+
+					searchItemValue = new ItemValue();
+					searchItemValue.setType(ITEM_TYPE_SEARCH);
+					searchItemValue.setCaption("Pesquisa Avançada...");
+					searchItemValue.setFilter(q);
+					addItem(searchItemValue);
+
+					// cmbResult.setItemIcon(searchItemValue, new
+					// ThemeResource("components/img/close.png"));
+
+					// Adiciona os itens filtrados
+					if (model != null) {
+						List l = model.getResultado(q);
+						if (l != null && l.size() > 0) {
+							addAll(wrapValues(l));
+						}
+					}
+
+					// Adiciona "criar novo"
+					createItemValue = new ItemValue();
+					createItemValue.setType(ITEM_TYPE_CREATE);
+					createItemValue.setCaption("Criar Novo Cadastro: " + q);
+					createItemValue.setFilter(q);
+					addItem(createItemValue);
+				} else {
+					removeAllItems();
+					addAll(wrapValues(model.getAll()));
+				}
 			}
 		}
 
