@@ -2,7 +2,6 @@ package dc.visao.framework.component.manytoonecombo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	private HorizontalLayout mainLayout;
 	private Button btnEdit;
-	private ComboBox cmbResult;
+	private DCComboBox cmbResult;
 	private ItemValue createItemValue;
 	private ItemValue searchItemValue;
 
@@ -64,55 +63,35 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
-			try {
-				search(q);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		private Map<Thread, Boolean> searchStatus = new HashMap<Thread, Boolean>();
-
-		private synchronized void search(String q) throws InterruptedException {
 			if (q != null && q.length() >= 2) {
-				for (Thread thread : searchStatus.keySet()) {
-					searchStatus.put(thread, false);
-				}
+				removeAllItems();
 
-				searchStatus.put(Thread.currentThread(), true);
+				searchItemValue = new ItemValue();
+				searchItemValue.setType(ITEM_TYPE_SEARCH);
+				searchItemValue.setCaption("Pesquisa Avançada...");
+				searchItemValue.setFilter(q);
+				addItem(searchItemValue);
 
-				Thread.sleep(1300l);
-				if (searchStatus.get(Thread.currentThread())) {
-					searchStatus.clear();
-					removeAllItems();
+				// cmbResult.setItemIcon(searchItemValue, new
+				// ThemeResource("components/img/close.png"));
 
-					searchItemValue = new ItemValue();
-					searchItemValue.setType(ITEM_TYPE_SEARCH);
-					searchItemValue.setCaption("Pesquisa Avançada...");
-					searchItemValue.setFilter(q);
-					addItem(searchItemValue);
-
-					// cmbResult.setItemIcon(searchItemValue, new
-					// ThemeResource("components/img/close.png"));
-
-					// Adiciona os itens filtrados
-					if (model != null) {
-						List l = model.getResultado(q);
-						if (l != null && l.size() > 0) {
-							addAll(wrapValues(l));
-						}
+				// Adiciona os itens filtrados
+				if (model != null) {
+					List l = model.getResultado(q);
+					if (l != null && l.size() > 0) {
+						addAll(wrapValues(l));
 					}
-
-					// Adiciona "criar novo"
-					createItemValue = new ItemValue();
-					createItemValue.setType(ITEM_TYPE_CREATE);
-					createItemValue.setCaption("Criar Novo Cadastro: " + q);
-					createItemValue.setFilter(q);
-					addItem(createItemValue);
-				} else {
-					removeAllItems();
-					addAll(wrapValues(model.getAll()));
 				}
+
+				// Adiciona "criar novo"
+				createItemValue = new ItemValue();
+				createItemValue.setType(ITEM_TYPE_CREATE);
+				createItemValue.setCaption("Criar Novo Cadastro: " + q);
+				createItemValue.setFilter(q);
+				addItem(createItemValue);
+			} else {
+				removeAllItems();
+				addAll(wrapValues(model.getAll()));
 			}
 		}
 
@@ -263,19 +242,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		setHeight("100.0%");
 
 		// cmbResult
-		cmbResult = new ComboBox() {
-			@Override
-			public void changeVariables(Object source, Map<String, Object> variables) {
-				String newFilter;
-				if ((newFilter = (String) variables.get("filter")) != null) {
-					filterString = newFilter;
-				}
-				super.changeVariables(source, variables);
-			}
-		};
+		cmbResult = new DCComboBox();
 
 		cmbResult.setImmediate(true);
-		cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
 
@@ -336,5 +305,20 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public T getItemValueBean(ItemValue item) {
 		return item.getBean();
 	}
+
+	class DCComboBox extends ComboBox {
+
+		@Override
+		public void changeVariables(final Object source, final Map<String, Object> variables) {
+
+			String newFilter;
+
+			if ((newFilter = (String) variables.get("filter")) != null) {
+				filterString = newFilter;
+			}
+
+			super.changeVariables(source, variables);
+		}
+	};
 
 }
