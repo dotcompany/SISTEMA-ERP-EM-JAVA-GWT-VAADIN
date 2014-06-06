@@ -59,9 +59,6 @@ import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
-import dc.entidade.financeiro.DocumentoOrigem;
-import dc.entidade.financeiro.LancamentoReceber;
-import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.ordemservico.Acessorio;
@@ -70,7 +67,6 @@ import dc.entidade.ordemservico.Carro;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.EntradaServico;
 import dc.entidade.ordemservico.Equipamento;
-import dc.entidade.ordemservico.FinanceiroOs;
 import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.MaterialServico;
@@ -158,14 +154,14 @@ public class OrdemServicoFormView extends CustomComponent {
 	private  ImageViewer imageViewer = new ImageViewer();
 	private final TextField selectedImage = new TextField();
 	private List<String> listArquivos = new ArrayList<String>();
-	
+	 
 	private OrdemServicoFormController controller;
 
 	private SubFormComponent<EntradaServico, Integer> entradaServicoSubForm;
 
 	private SubFormComponent<EntradaServico, Integer> entradaServicoFinanceiraSubForm;
 
-	private SubFormComponent<VendaPeca, Integer> vendaPecaSubForm;
+	private SubFormComponent<VendaPeca, Integer> vendaPecaSubForm = null;
 
 	private SubFormComponent<VendaPeca, Integer> vendaPecaFinanceiraSubForm;
 
@@ -199,7 +195,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	              lblComissaoAtendente, lblDesconto, lblLucroParcialServico;
 	
 	private Label lblDinheiro, lblCheque, lblCartao,lblBoleto, lblDuplicata, lblCarne, lblVale, lblCobrancaBancaria, 
-	              lblCobrancaCarteira, lblTotais, lblTroco, lblForma,lblValorEfetivacao,lblParcela;
+	              lblCobrancaCarteira, lblTotais, lblTroco;
 	
 	private TextField tfDinheiro, tfCheque, tfCartao,tfBoleto, tfDuplicata, tfCarne, tfVale, tfCobrancaBancaria, 
 					  tfCobrancaCarteira, tfTotais, tfQtParcelaDinheiro, tfQtParcelaCheque, tfQtParcelaCartao,tfQtParcelaBoleto, 
@@ -249,7 +245,9 @@ public class OrdemServicoFormView extends CustomComponent {
 	private BigDecimal valorTotalCarneOs = BigDecimal.ZERO;
 	private BigDecimal valorTotalCartaoOs = BigDecimal.ZERO;
 	private BigDecimal valorTotalBoletoOs = BigDecimal.ZERO;
-
+	private BigDecimal valorTotalEntradaServico = BigDecimal.ZERO;
+	private BigDecimal valorTotalMaterialServico = BigDecimal.ZERO;
+    
 	private Button btnGravarEfetivacao;
 	
 	public OrdemServicoFormView(OrdemServicoFormController controller) {
@@ -541,7 +539,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		sub.setHeight("100.0%");
 		sub.setSizeFull();
 		sub.setImmediate(true);
-
+		
 		entradaServicoSubForm = new SubFormComponent<EntradaServico, Integer>(
 				EntradaServico.class, new String[] { "vendedor","tecnico","servico","horaTrabalhada","quantidadeServico","valorOriginal",
 					"valorCobrado","valorSubtotal","percentualDesconto","valorDesconto","valorTotal","dataGarantia","percentualTecnico","comissaoTecnico"}, new String[] {
@@ -703,7 +701,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									pt = percentualTecnico.getValue().divide(new BigDecimal(100));
 									comissaoTecnico.setValue(pt.multiply(valorTotal.getValue()));
 								}
-
+								if(valorTotal.getValue()!=null){
+									preencheTotalEntradaServicoSubForm(entradaServicoSubForm.getDados());
+								}
 							}
 
 							@SuppressWarnings("unchecked")
@@ -728,6 +728,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 			@Override
 			public boolean validateItems(List<EntradaServico> items) {
+				
 				return true;
 			}
 		};
@@ -903,13 +904,7 @@ public class OrdemServicoFormView extends CustomComponent {
 								
 								if(propertyId.equals("valorUnitarioPago")){
 									if(valorTotal.getValue()!=null){
-										BigDecimal totalp = BigDecimal.ZERO;
-										if(tfTotalPeca.getValue()!=null){
-											totalp = new BigDecimal(tfTotalPeca.getValue());
-										}
-										totalp.add(valorTotal.getValue());
-										System.out.println("totalp: "+totalp);
-										tfTotalPeca.setValue(totalp.toString());
+										preencheTotalVendaPecaSubForm(vendaPecaSubForm.getDados());
 									}
 								}
 							}
@@ -940,10 +935,9 @@ public class OrdemServicoFormView extends CustomComponent {
 			public boolean validateItems(List<VendaPeca> items) {
 				return true;
 			}
-			
-
 		};
 
+		this.preencheTotalVendaPecaSubForm(vendaPecaSubForm.getDados());
 		sub.addTab(vendaPecaSubForm, "Venda Peça", null);
 
 		return sub;
@@ -1039,6 +1033,9 @@ public class OrdemServicoFormView extends CustomComponent {
 											return;
 										}else{
 											valorTotal.setValue(q.multiply(vu));
+										}
+										if(valorTotal.getValue()!=null){
+											preencheTotalMaterialServicoSubForm(materialServicoSubForm.getDados());
 										}
 									}
 								}
@@ -1377,7 +1374,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 		
 	public void buildAbaInformacaoFinanceira() {
-		
+
 		TabSheet finForms = new TabSheet();
 		finForms.setWidth("100.0%");
 		finForms.setHeight("100.0%");
@@ -1621,10 +1618,9 @@ public class OrdemServicoFormView extends CustomComponent {
 				VendaPeca.class, new String[] { "vendedor", "tecnico","produto","tipoPeca","quantidadeProduto","valorUnitario","valorUnitarioPago","valorSubtotal","percentualDesconto","valorDesconto","valorTotal"}, 
 				new String[] {"Vendedor", "Técnico", "Descrição produto","Tipo","Qtd", "Valor venda", "Valor vendido","Sub total", "Desconto %", "Valor desconto", "Valor Total"}
 				) {
-//, new String[] { "valorSubtotal", "valorDesconto","valorTotal" }
 			@Override
 			protected void adicionarBotoes(Table table) {
-
+				
 			}
 			
 
@@ -2228,10 +2224,10 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.addComponent(lblTotais, 0, 11,0,11);
 
 		// valor total
-		String tot = "5000";
+		String tot = tfTotalServico.getValue();
 		tfTotais = ComponentUtil.buildNumberField(null);
 		//tfTotais.setEnabled(false);
-		tfTotais.setValue(tot);
+		tfTotais.setValue(tfTotalServico.getValue());
 		gridLayout_1.addComponent(tfTotais, 1, 11,1,11);
 
 		tfTotalRestante = ComponentUtil.buildNumberField(null);
@@ -2300,11 +2296,11 @@ public class OrdemServicoFormView extends CustomComponent {
 //			totalCobrancaBancaria = BigDecimal.ZERO;
 //		}
 	}
-	
+	 
 	@AutoGenerated
 	@SuppressWarnings("serial")
 	private Component buildEfetivacaoChequeSubForm() {
-
+		
 		VerticalLayout efetivacaoChequeLayout = new VerticalLayout();
 		efetivacaoChequeLayout.setImmediate(false);
 		efetivacaoChequeLayout.setSizeFull();
@@ -2381,7 +2377,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		efetivacaoCartaoLayout.setSizeFull();
 		efetivacaoCartaoLayout.setMargin(false);
 		efetivacaoCartaoLayout.setSpacing(true);
-		
+//		efetivacaoCartaoLayout.setEnabled(false);
 		efetivacaoCartaoSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
 				OrdemServicoEfetivacao.class, new String[] { "bandeira","titular","numeroCartao","codigoSeguranca","dataValidade","dias","dataVencimento","valorTotal","comprovanteVenda"}, 
 				new String[] {"Bandeira","Titular","Nr. Cartão","Código Seg.","Validade","Dias","Vencimento","Valor","Comprovante Venda"}
@@ -2458,7 +2454,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		efetivacaoCarneLayout.setSpacing(true);
 		
 		efetivacaoCarneSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
-				OrdemServicoEfetivacao.class, new String[] { "numeroCarne","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
 				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
 				) {
 
@@ -2476,7 +2472,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							Object itemId, Object propertyId,
 							Component uiContext) {
 						
-						if ("numeroCarne".equals(propertyId)) {
+						if ("numeroDocumento".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
 							return textField;
 						}else if ("numeroOriginal".equals(propertyId)) {
@@ -2525,7 +2521,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		efetivacaoBoletoLayout.setSpacing(true);
 		
 		efetivacaoBoletoSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
-				OrdemServicoEfetivacao.class, new String[] { "numeroCarne","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
 				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
 				) {
 
@@ -2543,7 +2539,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							Object itemId, Object propertyId,
 							Component uiContext) {
 						
-						if ("numeroCarne".equals(propertyId)) {
+						if ("numeroDocumento".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
 							textField.setReadOnly(true);
 							return textField;
@@ -2971,14 +2967,6 @@ public class OrdemServicoFormView extends CustomComponent {
 		return cbCor;
 	}
 
-	public TextField getTfTotalPeca() {
-		return tfTotalPeca;
-	}
-
-	public void setTfTotalPeca(TextField tfTotalPeca) {
-		this.tfTotalPeca = tfTotalPeca;
-	}
-
 	public TextField getTfLucroPeca() {
 		return tfLucroPeca;
 	}
@@ -3389,8 +3377,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		return entradaServicoSubForm;
 	}
 
-	public void setEntradaServicoSubForm(
-			SubFormComponent<EntradaServico, Integer> entradaServicoSubForm) {
+	public void setEntradaServicoSubForm(SubFormComponent<EntradaServico, Integer> entradaServicoSubForm) {
 		this.entradaServicoSubForm = entradaServicoSubForm;
 	}
 
@@ -3398,8 +3385,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		return entradaServicoFinanceiraSubForm;
 	}
 
-	public void setEntradaServicoFinanceiraSubForm(
-			SubFormComponent<EntradaServico, Integer> entradaServicoFinanceiraSubForm) {
+	public void setEntradaServicoFinanceiraSubForm(SubFormComponent<EntradaServico, Integer> entradaServicoFinanceiraSubForm) {
 		this.entradaServicoFinanceiraSubForm = entradaServicoFinanceiraSubForm;
 	}
 
@@ -3407,8 +3393,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		return efetivacaoChequeSubForm;
 	}
 
-	public void setEfetivacaoChequeSubForm(
-			SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoChequeSubForm) {
+	public void setEfetivacaoChequeSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoChequeSubForm) {
 		this.efetivacaoChequeSubForm = efetivacaoChequeSubForm;
 	}
 
@@ -3470,6 +3455,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	public void setValorTotalBoletoOs(BigDecimal valorTotalBoletoOs) {
 		this.valorTotalBoletoOs = valorTotalBoletoOs;
 	}
+	
 
 	private List<FileResource> createImageList() {
         List<FileResource> img = new ArrayList<FileResource>();
@@ -3760,5 +3746,33 @@ public class OrdemServicoFormView extends CustomComponent {
 	public void setBtnFinalizar(Button btnFinalizar) {
 		this.btnFinalizar = btnFinalizar;
 	}
+
+	public TextField getTfTotalPeca() {
+		return tfTotalPeca;
+	}
+
+	public void setTfTotalPeca(TextField tfTotalPeca) {
+		this.tfTotalPeca = tfTotalPeca;
+	}
+
+	public void preencheTotalVendaPecaSubForm(List<VendaPeca> vendaPeca) {
+		if(vendaPeca!= null){
+			this.tfTotalPeca.setValue(vendaPecaSubForm.getTotalSumary(vendaPeca).toString());
+		}
+	}
 	
+	public void preencheTotalEntradaServicoSubForm(List<EntradaServico> entradaServico) {
+		if(entradaServico!= null){
+			valorTotalEntradaServico = valorTotalMaterialServico.add(entradaServicoSubForm.getTotalSumary(entradaServico));
+			this.tfTotalServico.setValue(valorTotalEntradaServico.toString());
+		}
+	}
+
+	public void preencheTotalMaterialServicoSubForm(List<MaterialServico> materialServico) {
+		if(materialServico!= null){
+			valorTotalMaterialServico = valorTotalEntradaServico.add(materialServicoSubForm.getTotalSumary(materialServico));
+			this.tfTotalServico.setValue(valorTotalMaterialServico.toString());
+		}
+	}
+
 }

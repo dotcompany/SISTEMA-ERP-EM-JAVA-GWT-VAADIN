@@ -147,6 +147,11 @@ public class OrdemServicoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "ordem_parcela")
 	private Integer ordemParcela;
 	
+	@Field
+	@Caption("Comprovante")
+	@Column(name = "comprovante_venda")
+	private String comprovanteVenda;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -313,6 +318,14 @@ public class OrdemServicoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
+	}
+
+	public String getComprovanteVenda() {
+		return comprovanteVenda;
+	}
+
+	public void setComprovanteVenda(String comprovanteVenda) {
+		this.comprovanteVenda = comprovanteVenda;
 	}
 	
 }

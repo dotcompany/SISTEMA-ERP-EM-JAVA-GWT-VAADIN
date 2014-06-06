@@ -710,7 +710,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		primeiroVencimento.setTime(primeiroVencimento.getTime());
 
 		// para teste depois retirar
-		currentBean.setValorTotalOs(BigDecimal.valueOf(5000));
+		
+		currentBean.setValorTotalOs(new BigDecimal(subView.getTfTotalServicoGeral().getValue()));
 		currentBean.setQuantidadeParcelaCheque(5);
 		currentBean.setPrimeiroVencimentoCheque(primeiroVencimento.getTime());
 		Cliente cli = new Cliente();
@@ -1290,7 +1291,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		subView.preencheVendaPecaFinanceiraSubForm(currentBean.getItensVendaPeca());
 		return c;
 	}
-	
+
 	public MaterialServico novoMaterialServico(){
 		MaterialServico c = new MaterialServico();
 		currentBean.adicionarMaterialServico(c);
@@ -1301,6 +1302,20 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		AcessorioOs c = new AcessorioOs();
 		currentBean.adicionarAcessorioOs(c);
 		return c;
+	} 
+
+	public void carregaTotais(){
+//		currentBean.setValorServico(BigDecimal.ZERO);
+		System.out.println("carregaTotais");
+		
+		if(subView.getEntradaServicoFinanceiraSubForm()!=null){
+			if(subView.getEntradaServicoFinanceiraSubForm().getDados()!=null){
+				for(EntradaServico es : subView.getEntradaServicoFinanceiraSubForm().getDados()){
+					System.out.println("es.getValorTotal(): "+es.getValorTotal());
+					currentBean.setValorServico(currentBean.getValorServico().add(es.getValorTotal()));
+				}
+			}
+		}
 	}
 }
 
