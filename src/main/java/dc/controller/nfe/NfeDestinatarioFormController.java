@@ -32,6 +32,17 @@ public class NfeDestinatarioFormController extends
 
 	private NfeDestinatarioFormView subView;
 
+	private NfeCabecalhoFormController nfeCabecalhoFormController;
+
+	public NfeCabecalhoFormController getNfeCabecalhoFormController() {
+		return nfeCabecalhoFormController;
+	}
+
+	public void setNfeCabecalhoFormController(
+			NfeCabecalhoFormController nfeCabecalhoFormController) {
+		this.nfeCabecalhoFormController = nfeCabecalhoFormController;
+	}
+
 	/**
 	 * DAO'S
 	 */
@@ -109,6 +120,8 @@ public class NfeDestinatarioFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		System.out.println(":::: cabecalho");
+
 		return true;
 	}
 
@@ -152,20 +165,6 @@ public class NfeDestinatarioFormController extends
 	 */
 
 	/**
-	 * NFEDETALHEIMPOSTOCOFINS
-	 */
-	public void ndiCofinsLaden() {
-		try {
-			// System.out.println(" ::::::::> "
-			// + this.pController.getNfeCabecalho().getId());
-
-			System.out.println();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * SETAR VALORES
 	 * 
 	 * @param id
@@ -173,7 +172,8 @@ public class NfeDestinatarioFormController extends
 	 */
 
 	public void nfeDestinatarioSetarValor(String id, Object obj) {
-		System.out.println(" ::::::: " + id + "  -  " + obj);
+		System.out.println(" ::::::: "
+				+ this.getNfeCabecalhoFormController().validaSalvar());
 		System.out.println();
 	}
 
