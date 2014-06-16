@@ -37,7 +37,7 @@ public class OrdemServicoListController extends CRUDListController<OrdemServico>
 	@Override
 	protected List<OrdemServico> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
-	}
+	} 
 	
 	@Override
 	public String getViewIdentifier() {
