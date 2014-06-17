@@ -1886,29 +1886,18 @@ public class ProdutoServicoFormController extends
 
 			if (crt == 1) {// 1 = Simples Nacional
 				if (cupomVinculado == false) {
-					if (csosn.equals("_101")) { // Tributada pelo Simples
-												// Nacional com permissão de
-												// crédito
+					if (csosn.equals(CsosnEn._101)) { // Tributada pelo Simples
+						// Nacional com permissão de
+						// crédito
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_102")) { // Tributada pelo Simples
-												// Nacional sem permissão de
-												// crédito
-						nfeDetalhe.getNfeDetalheImpostoIcms()
-								.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
-								BigDecimal.ZERO);
-						nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
-								BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("_103")) { // Isenção do ICMS no Simples
-												// Nacional para faixa de
-												// receita bruta
+					if (csosn.equals(CsosnEn._102)) { // Tributada pelo Simples
+						// Nacional sem permissão de
+						// crédito
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1917,11 +1906,10 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_201")) { // Tributada pelo Simples
-												// Nacional com permissão de
-												// crédito e com cobrança do
-												// ICMS por substituição
-												// tributária
+					if (csosn.equals(CsosnEn._103)) { // Isenção do ICMS no
+														// Simples
+						// Nacional para faixa de
+						// receita bruta
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1930,11 +1918,11 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_202")) { // Tributada pelo Simples
-												// Nacional sem permissão de
-												// crédito e com cobrança do
-												// ICMS por substituição
-												// tributária
+					if (csosn.equals(CsosnEn._201)) { // Tributada pelo Simples
+						// Nacional com permissão de
+						// crédito e com cobrança do
+						// ICMS por substituição
+						// tributária
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1943,11 +1931,11 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_300")) { // 300 - Imune - Classificam-se
-												// neste código as operações
-												// praticadas por optantes pelo
-												// Simples Nacional contempladas
-												// com imunidade do ICMS.
+					if (csosn.equals(CsosnEn._202)) { // Tributada pelo Simples
+						// Nacional sem permissão de
+						// crédito e com cobrança do
+						// ICMS por substituição
+						// tributária
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1956,14 +1944,12 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_400")) { // 400 - Não tributada pelo
-												// Simples Nacional -
-												// Classificam-se neste código
-												// as operações praticadas por
-												// optantes pelo Simples
-												// Nacional não sujeitas à
-												// tributação pelo ICMS dentro
-												// do Simples Nacional.
+					if (csosn.equals(CsosnEn._300)) { // 300 - Imune -
+														// Classificam-se
+						// neste código as operações
+						// praticadas por optantes pelo
+						// Simples Nacional contempladas
+						// com imunidade do ICMS.
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1972,17 +1958,15 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_500")) { // 500 - ICMS cobrado
-												// anteriormente por
-												// substituição tributária
-												// (substituído) ou por
-												// antecipação - Classificam-se
-												// neste código as operações
-												// sujeitas exclusivamente ao
-												// regime de substituição
-												// tributária na condição de
-												// substituído tributário ou no
-												// caso de antecipações.
+					if (csosn.equals(CsosnEn._400)) { // 400 - Não tributada
+														// pelo
+						// Simples Nacional -
+						// Classificam-se neste código
+						// as operações praticadas por
+						// optantes pelo Simples
+						// Nacional não sujeitas à
+						// tributação pelo ICMS dentro
+						// do Simples Nacional.
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -1991,12 +1975,32 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("_900")) { // 900 - Outros - Classificam-se
-												// neste código as demais
-												// operações que não se
-												// enquadrem nos códigos 101,
-												// 102, 103, 201, 202, 203, 300,
-												// 400 e 500.
+					if (csosn.equals(CsosnEn._500)) { // 500 - ICMS cobrado
+						// anteriormente por
+						// substituição tributária
+						// (substituído) ou por
+						// antecipação - Classificam-se
+						// neste código as operações
+						// sujeitas exclusivamente ao
+						// regime de substituição
+						// tributária na condição de
+						// substituído tributário ou no
+						// caso de antecipações.
+						nfeDetalhe.getNfeDetalheImpostoIcms()
+								.setBaseCalculoIcms(BigDecimal.ZERO);
+						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+								BigDecimal.ZERO);
+						nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+								BigDecimal.ZERO);
+					}
+
+					if (csosn.equals(CsosnEn._900)) { // 900 - Outros -
+														// Classificam-se
+						// neste código as demais
+						// operações que não se
+						// enquadrem nos códigos 101,
+						// 102, 103, 201, 202, 203, 300,
+						// 400 e 500.
 						nfeDetalhe.getNfeDetalheImpostoIcms()
 								.setBaseCalculoIcms(BigDecimal.ZERO);
 						nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
@@ -2041,7 +2045,7 @@ public class ProdutoServicoFormController extends
 			if (crt == 2 || crt == 3) {// 2 = Simples Nacional = excesso de
 				// sublimite da receita bruta | 3 -
 				// Reginme Normal
-				if (cstIcms.equals("00")) { // Tributada integralmente
+				if (cstIcms.equals(CstIcmsEn._00)) { // Tributada integralmente
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							nfeDetalhe.getValorUnitarioComercial());
 					// nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(nfeDetalhe.getProduto()
@@ -2059,7 +2063,8 @@ public class ProdutoServicoFormController extends
 							.getNfeDetalheImpostoIcms().getValorIcms());
 				}
 
-				if (cstIcms.equals("10")) { // Tributada e com cobrança do ICMS
+				if (cstIcms.equals(CstIcmsEn._10)) { // Tributada e com cobrança
+														// do ICMS
 					// por substituição tributária
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
@@ -2069,7 +2074,8 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("20")) { // Com redução de base de cálculo
+				if (cstIcms.equals(CstIcmsEn._20)) { // Com redução de base de
+														// cálculo
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
@@ -2078,7 +2084,8 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("30")) { // Isenta ou não tributada e com
+				if (cstIcms.equals(CstIcmsEn._30)) { // Isenta ou não tributada
+														// e com
 					// cobrança do ICMS por substituição
 					// tributária
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
@@ -2089,7 +2096,7 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("40")) { // 40 - Isenta;
+				if (cstIcms.equals(CstIcmsEn._40)) { // 40 - Isenta;
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
@@ -2098,7 +2105,7 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("41")) { // 41 - Nao tributada;
+				if (cstIcms.equals(CstIcmsEn._41)) { // 41 - Nao tributada;
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
@@ -2107,7 +2114,7 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("50")) { // 50 Suspensao;
+				if (cstIcms.equals(CstIcmsEn._50)) { // 50 Suspensao;
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
@@ -2116,7 +2123,7 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("51")) { // Diferimento
+				if (cstIcms.equals(CstIcmsEn._51)) { // Diferimento
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
@@ -2125,7 +2132,8 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("60")) { // ICMS cobrado anteriormente por
+				if (cstIcms.equals(CstIcmsEn._60)) { // ICMS cobrado
+														// anteriormente por
 					// substituição tributária
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
@@ -2135,7 +2143,8 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("70")) { // Com redução da base de cálculo e
+				if (cstIcms.equals(CstIcmsEn._70)) { // Com redução da base de
+														// cálculo e
 					// cobrança do ICMS por substituição
 					// tributária
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
@@ -2146,7 +2155,7 @@ public class ProdutoServicoFormController extends
 							BigDecimal.ZERO);
 				}
 
-				if (cstIcms.equals("90")) { // Outras
+				if (cstIcms.equals(CstIcmsEn._90)) { // Outras
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
 							BigDecimal.ZERO);
 					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
