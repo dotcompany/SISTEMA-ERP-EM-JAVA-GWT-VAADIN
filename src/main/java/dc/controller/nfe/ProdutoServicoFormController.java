@@ -404,6 +404,8 @@ public class ProdutoServicoFormController extends
 				&& !this.nfeCabecalho.getId().equals(0)) {
 			this.nfeCabecalho.setNfeDetalheList(this.nfeDetalheDAO
 					.getLista(this.nfeCabecalho));
+
+			efetuaCalculosDetalhe(false);
 		} else {
 			this.nfeCabecalho
 					.setNfeDetalheList(new ArrayList<NfeDetalheEntity>());
@@ -1061,6 +1063,8 @@ public class ProdutoServicoFormController extends
 
 			break;
 		}
+
+		efetuaCalculosDetalhe(false);
 	}
 
 	public void ndiCofinsSetarValor(String id, Object obj) {
@@ -1875,15 +1879,14 @@ public class ProdutoServicoFormController extends
 			// (nfeDetalhe.setModalidadeBcIcms)?
 			// nfeDetalhe.setModalidadeBcIcms("3");
 
-			CsosnEn csosn = CsosnEn.valueOf(nfeDetalhe
-					.getNfeDetalheImpostoIcms().getCsosn());
+			CsosnEn csosn = nfeDetalhe.getNfeDetalheImpostoIcms().getCsosnEn();
 
-			CstIcmsEn cstIcms = CstIcmsEn.valueOf(nfeDetalhe
-					.getNfeDetalheImpostoIcms().getCstIcms());
+			CstIcmsEn cstIcms = nfeDetalhe.getNfeDetalheImpostoIcms()
+					.getCstIcmsEn();
 
 			if (crt == 1) {// 1 = Simples Nacional
 				if (cupomVinculado == false) {
-					if (csosn.equals("101")) { // Tributada pelo Simples
+					if (csosn.equals("_101")) { // Tributada pelo Simples
 												// Nacional com permissão de
 												// crédito
 						nfeDetalhe.getNfeDetalheImpostoIcms()
@@ -1892,7 +1895,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("102")) { // Tributada pelo Simples
+					if (csosn.equals("_102")) { // Tributada pelo Simples
 												// Nacional sem permissão de
 												// crédito
 						nfeDetalhe.getNfeDetalheImpostoIcms()
@@ -1903,7 +1906,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("103")) { // Isenção do ICMS no Simples
+					if (csosn.equals("_103")) { // Isenção do ICMS no Simples
 												// Nacional para faixa de
 												// receita bruta
 						nfeDetalhe.getNfeDetalheImpostoIcms()
@@ -1914,7 +1917,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("201")) { // Tributada pelo Simples
+					if (csosn.equals("_201")) { // Tributada pelo Simples
 												// Nacional com permissão de
 												// crédito e com cobrança do
 												// ICMS por substituição
@@ -1927,7 +1930,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("202")) { // Tributada pelo Simples
+					if (csosn.equals("_202")) { // Tributada pelo Simples
 												// Nacional sem permissão de
 												// crédito e com cobrança do
 												// ICMS por substituição
@@ -1940,7 +1943,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("300")) { // 300 - Imune - Classificam-se
+					if (csosn.equals("_300")) { // 300 - Imune - Classificam-se
 												// neste código as operações
 												// praticadas por optantes pelo
 												// Simples Nacional contempladas
@@ -1953,7 +1956,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("400")) { // 400 - Não tributada pelo
+					if (csosn.equals("_400")) { // 400 - Não tributada pelo
 												// Simples Nacional -
 												// Classificam-se neste código
 												// as operações praticadas por
@@ -1969,7 +1972,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("500")) { // 500 - ICMS cobrado
+					if (csosn.equals("_500")) { // 500 - ICMS cobrado
 												// anteriormente por
 												// substituição tributária
 												// (substituído) ou por
@@ -1988,7 +1991,7 @@ public class ProdutoServicoFormController extends
 								BigDecimal.ZERO);
 					}
 
-					if (csosn.equals("900")) { // 900 - Outros - Classificam-se
+					if (csosn.equals("_900")) { // 900 - Outros - Classificam-se
 												// neste código as demais
 												// operações que não se
 												// enquadrem nos códigos 101,
