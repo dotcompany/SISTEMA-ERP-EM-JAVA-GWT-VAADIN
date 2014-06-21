@@ -1884,7 +1884,7 @@ public class ProdutoServicoFormController extends
 			CstIcmsEn cstIcms = nfeDetalhe.getNfeDetalheImpostoIcms()
 					.getCstIcmsEn();
 
-			if (crt == 1) {// 1 = Simples Nacional
+			if (crt == 1) { // 1 = Simples Nacional
 				if (cupomVinculado == false) {
 					if (csosn.equals(CsosnEn._101)) { // Tributada pelo Simples
 						// Nacional com permissão de
@@ -2042,7 +2042,7 @@ public class ProdutoServicoFormController extends
 
 			}
 
-			if (crt == 2 || crt == 3) {// 2 = Simples Nacional = excesso de
+			if (crt == 2 || crt == 3) { // 2 = Simples Nacional = excesso de
 				// sublimite da receita bruta | 3 -
 				// Reginme Normal
 				if (cstIcms.equals(CstIcmsEn._00)) { // Tributada integralmente
