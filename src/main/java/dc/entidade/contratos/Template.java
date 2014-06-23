@@ -58,6 +58,11 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	private String descricao;
+	
+	@Field
+	@Caption("Arquivo")
+	@Column(name = "ARQUIVO")
+	private String arquivo;
 
 	public Template() {
 	}
@@ -81,6 +86,14 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
+	}
 
 	public String getDescricao() {
 		return descricao;
@@ -100,6 +113,7 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((arquivo == null) ? 0 : arquivo.hashCode());
 		result = prime * result + ((getEmpresa() == null) ? 0 : getEmpresa().hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -120,6 +134,13 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
+		
+		if (arquivo == null) {
+			if (other.arquivo != null)
+				return false;
+		} else if (!arquivo.equals(other.arquivo))
+			return false;
+		
 		if (getEmpresa() == null) {
 			if (other.getEmpresa() != null)
 				return false;

@@ -1,5 +1,6 @@
 package dc.controller.contratos;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import dc.entidade.contratos.Template;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
 import dc.servicos.dao.contratos.TemplateDAO;
+import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.TemplateFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -33,6 +35,10 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	private TemplateDAO templateDAO;
 
 	private Template currentBean;
+	
+	private String homePath = System.getProperty("user.home");
+	private String customCompanyBaseFolder = "dc-erp";
+	private String diretorio = "template";
 
 	@Override
 	protected boolean validaSalvar() {
@@ -78,11 +84,27 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		String descricao = subView.getTxaDescricao().getValue();
+		String nomeArquivo = subView.getNomeArquivo();
+		String path = subView.getPath();
+	
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
 		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		if(nomeArquivo == null) nomeArquivo = "";
+		String pathArquivo = homePath + "\\ "+ customCompanyBaseFolder + "\\" + currentBean.getEmpresa().getIdEmpresa().intValue() + "\\" + diretorio + "\\" + nomeArquivo;
+		if(nomeArquivo.equals("")){
+			pathArquivo = null;
+		}
+		currentBean.setArquivo(pathArquivo);
 		try {
 			templateDAO.saveOrUpdate(currentBean);
+			// salvou cria o arquivo fisicamente
+			if(pathArquivo != null){
+			   File	tmpFile = new File(path);
+			   byte[] temp = Util.lerBytesArquivo(tmpFile);
+			   Util.gravarArquivo(pathArquivo, temp);
+			}
+			
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();

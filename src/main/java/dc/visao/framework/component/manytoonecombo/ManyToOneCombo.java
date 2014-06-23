@@ -63,13 +63,14 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
-			if (q != null && q.length() >= 2) {
+			if (q != null && q.length() >= 3) {
 				removeAllItems();
 
 				searchItemValue = new ItemValue();
 				searchItemValue.setType(ITEM_TYPE_SEARCH);
 				searchItemValue.setCaption("Pesquisa Avançada...");
 				searchItemValue.setFilter(q);
+				
 				addItem(searchItemValue);
 
 				// cmbResult.setItemIcon(searchItemValue, new
@@ -245,6 +246,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult = new DCComboBox();
 
 		cmbResult.setImmediate(true);
+		cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
 

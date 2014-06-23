@@ -31,6 +31,7 @@ public enum CsosnEn {
 	}, // - Tributada pelo Simples Nacional com permissão de crédito e com
 		// cobrança do ICMS por substituição tributária,
 
+	
 	_202 {
 		@Override
 		public String toString() {
