@@ -84,6 +84,7 @@ public class ContratoTipoServicoFormView extends CustomComponent {
 		txtNome = new TextField();
 		txtNome.setCaption("Nome");
 		txtNome.setImmediate(false);
+		txtNome.setRequired(true);
 		txtNome.setWidth("281px");
 		txtNome.setHeight("-1px");
 		gridLayout_1.addComponent(txtNome, 0, 0);
@@ -92,6 +93,7 @@ public class ContratoTipoServicoFormView extends CustomComponent {
 		txaDescricao = new TextArea();
 		txaDescricao.setCaption("Descrição");
 		txaDescricao.setImmediate(false);
+		txaDescricao.setRequired(true);
 		txaDescricao.setWidth("280px");
 		txaDescricao.setHeight("78px");
 		gridLayout_1.addComponent(txaDescricao, 0, 1);

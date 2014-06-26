@@ -7583,7 +7583,12 @@ public class ProdutoServicoFormView extends CustomComponent {
 			protected NfeDetalheEntity getNovo() {
 				NfeDetalheEntity detalhe = controller.nfeDetalheAdicionar();
 
+				// XxxModalFormView x = new XxxModalFormView(controller);
+
+				// super.getUI().addWindow(x);
+
 				return detalhe;
+				// return null;
 			}
 
 			@Override

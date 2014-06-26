@@ -13,6 +13,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -47,6 +48,7 @@ public class ContratoTipoServico extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+    @NotEmpty
 	private String descricao;
 
 	public ContratoTipoServico() {

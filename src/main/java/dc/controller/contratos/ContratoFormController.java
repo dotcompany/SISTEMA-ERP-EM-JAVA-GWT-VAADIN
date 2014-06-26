@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.text.MaskFormatter;
@@ -46,19 +45,19 @@ import dc.entidade.contratos.Contrato;
 import dc.entidade.contratos.ContratoHistFaturamento;
 import dc.entidade.contratos.ContratoHistoricoReajuste;
 import dc.entidade.contratos.ContratoPrevFaturamento;
+import dc.entidade.contratos.ContratoProduto;
 import dc.entidade.contratos.ContratoSolicitacaoServico;
+import dc.entidade.contratos.Template;
 import dc.entidade.contratos.TipoContrato;
 import dc.entidade.framework.Empresa;
-import dc.entidade.ged.Documento;
-import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contratos.ContratoDAO;
 import dc.servicos.dao.contratos.ContratoSolicitacaoServicoDAO;
+import dc.servicos.dao.contratos.TemplateDAO;
 import dc.servicos.dao.contratos.TipoContratoDAO;
-import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratosFormView;
@@ -83,6 +82,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
+	
+	@Autowired
+	private TemplateDAO templateDAO;
 
 	@Autowired
 	private PessoaDAO pessoaDAO;
@@ -97,7 +99,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	private ContratoSolicitacaoServicoDAO solicitacaoServicoDAO;
 
 	@Autowired
-	private DocumentoDAO documentoDAO;
+	private TemplateDAO documentoDAO;
 
 	private Contrato currentBean;
 
@@ -243,16 +245,16 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		// this.subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 		// subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
-		List<Documento> documentos = documentoDAO.getAll(Documento.class);
+		/*List<Template> documentos = documentoDAO.getAll(Template.class);
 
-		Iterator<Documento> iterator = documentos.iterator();
+		Iterator<Template> iterator = documentos.iterator();
 		while (iterator.hasNext()) {
-			Documento doc = iterator.next();
+			Template doc = iterator.next();
 			if (doc.getDocumentos().size() > 0 && !doc.getDocumentos().get(0).getCaminho().endsWith("docx")) {
 				iterator.remove();
 			}
 
-		}
+		}*/
 
 		// subView.carregaComboDocumento(documentos);
 	}
@@ -301,6 +303,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
 				this.tipoContratoDAO, super.getMainController());
+		
+		
+		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(TemplateListController.class,
+				this.templateDAO, super.getMainController());
 
 		/** Ajustes para receber os dados de Solicitação de Serviço pegando os
 		 * StatusSolicitação para aparecer no ComboBox */
@@ -316,6 +322,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getCbmPessoa().setModel(pessoaModel);
 		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
+		subView.getCbmDocumento().setModel(templateModel);
 		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
 		subView.getTxtValor().addBlurListener(new BlurListener() {
@@ -336,7 +343,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	public StreamResource createResource() {
-		final Documento documento = (Documento) subView.getCbmDocumento().getValue();
+		final Template documento = (Template) subView.getCbmDocumento().getValue();
 		if (documento != null) {
 
 			return new StreamResource(new StreamSource() {
@@ -563,6 +570,21 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		mensagemRemovidoOK();
 
 	}
+	
+	
+	public ContratoProduto novoContratoProduto() {
+		ContratoProduto contratoProduto = new ContratoProduto();
+		this.currentBean.addContratoHistFaturamento(contratoProduto);
+		return contratoProduto;
+	}
+
+	public void removerContratoProduto(List<ContratoProduto> values) {
+		for (ContratoProduto contrProduto : values) {
+			this.currentBean.removeContratoProduto(contrProduto);
+		}
+		mensagemRemovidoOK();
+
+	}
 
 	public ContratoPrevFaturamento novoContratoPrevFaturamento(ContratoPrevFaturamento contratoPreFaturamento) {
 		ContratoPrevFaturamento contratoPrevFaturamento = new ContratoPrevFaturamento();
@@ -745,8 +767,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return "contratoForm";
 	}
 
-	private static File getFileFromDocumento(Documento documento) {
-		File arquivo = new File(((List<DocumentoArquivo>) documento.getDocumentos()).get(0).getCaminho());
+	private static File getFileFromDocumento(Template documento) {
+		File arquivo = new File(documento.getArquivo());
 		return arquivo;
 	}
 

@@ -1944,7 +1944,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	public enum FORMA_PAGAMENTO {
 
-		VISTA("Á vista", "0"), PRAZO("Á prazo", "1"), OUTROS("Outros", "2");
+		VISTA("A vista", "0"), PRAZO("A prazo", "1"), OUTROS("Outros", "2");
 
 		private FORMA_PAGAMENTO(String label, String codigo) {
 			this.label = label;

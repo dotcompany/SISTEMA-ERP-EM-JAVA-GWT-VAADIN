@@ -107,10 +107,10 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Observação")
 	private String observacao;
 	
-	@Column(name = "ARQUIVO_CONTRATO")
+	/*@Column(name = "ARQUIVO_CONTRATO")
 	@Caption(value = "Arquivo Contrato")
 	private String arquivoContrato;
-
+*/
 	@Caption(value = "Tipo Contrato")
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -123,6 +123,11 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContratoSolicitacaoServico contratoSolicitacaoServico;
+	
+	@Caption(value = "Modelo Documento")
+	@JoinColumn(name = "ID_TEMPLATE", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Template template;
 	
 	/**
 	 * 
@@ -138,6 +143,10 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoHistFaturamento> contratosHistoricosFaturamentos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ContratoProduto> contratoProduto = new ArrayList<>();
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
@@ -253,14 +262,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 	
-	public String getArquivoContrato() {
-		return arquivoContrato;
-	}
-
-	public void setArquivoContrato(String arquivoContrato) {
-		this.arquivoContrato = arquivoContrato;
-	}
-
+	
 	public TipoContrato getTipoContrato() {
 		return tipoContrato;
 	}
@@ -275,6 +277,14 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
+	}
+	
+	public Template getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Template template) {
+		this.template = template;
 	}
 
 	public ContratoSolicitacaoServico getContratoSolicitacaoServico() {
@@ -341,12 +351,25 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 		return contratoHistFaturamento;
 	}
+	
+	public ContratoProduto addContratoHistFaturamento(ContratoProduto contratoProduto) {
+		getContratosProduto().add(contratoProduto);
+		contratoProduto.setContrato(this);
+		return contratoProduto;
+	}
 
 	public ContratoHistFaturamento removeContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().remove(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(null);
 
 		return contratoHistFaturamento;
+	}
+	
+	public ContratoProduto removeContratoProduto(ContratoProduto contratoProduto) {
+		getContratosProduto().remove(contratoProduto);
+		contratoProduto.setContrato(null);
+
+		return contratoProduto;
 	}
 
 	public ContratoHistoricoReajuste addContratoHistoricoReajuste(ContratoHistoricoReajuste contratoHistReajustes) {
@@ -379,6 +402,10 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	public List<ContratoHistFaturamento> getContratosHistoricosFaturamentos() {
 		return contratosHistoricosFaturamentos;
+	}
+	
+	public List<ContratoProduto> getContratosProduto() {
+		return contratoProduto;
 	}
 
 	public void setContratosHistoricosFaturamentos(List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {

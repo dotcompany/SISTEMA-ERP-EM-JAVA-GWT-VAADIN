@@ -937,7 +937,7 @@ public class PessoaFormView extends CustomComponent {
 
 	public enum Raca {
 
-		BRANCO("B - Branco", "B"), NEGRO("N - Negro", "N"), PARDO("P - Pardo", "P"), INDIO("I - Índio", "I");
+		BRANCO("B - Branco", "B"), NEGRO("N - Negro", "N"), PARDO("P - Pardo", "P"), INDIO("I - Indio", "I");
 
 		private Raca(String label, String codigo) {
 			this.label = label;

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -22,6 +23,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.CsosnEn;
+import dc.control.enums.CstIcmsEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -468,6 +471,28 @@ public class NfeDetalheImpostoIcmsEntity extends
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	public CsosnEn getCsosnEn() {
+		if (this.csosn == null || this.csosn.trim().equals("")) {
+			return null;
+		} else {
+			return CsosnEn.valueOf("_" + this.csosn.trim());
+		}
+	}
+
+	@Transient
+	public CstIcmsEn getCstIcmsEn() {
+		if (this.cstIcms == null || this.cstIcms.trim().equals("")) {
+			return null;
+		} else {
+			return CstIcmsEn.valueOf("_" + this.cstIcms.trim());
+		}
 	}
 
 }
