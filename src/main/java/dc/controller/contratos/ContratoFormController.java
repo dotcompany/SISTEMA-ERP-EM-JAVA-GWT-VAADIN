@@ -40,6 +40,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.pessoal.PessoaListController;
+import dc.controller.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.contratos.Contrato;
 import dc.entidade.contratos.ContratoHistFaturamento;
@@ -53,12 +54,14 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.pessoal.Cliente;
+import dc.entidade.produto.Produto;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contratos.ContratoDAO;
 import dc.servicos.dao.contratos.ContratoSolicitacaoServicoDAO;
 import dc.servicos.dao.contratos.TemplateDAO;
 import dc.servicos.dao.contratos.TipoContratoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
+import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contratos.ContratosFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -100,6 +103,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private TemplateDAO documentoDAO;
+	
+	@Autowired
+	private ProdutoDAO produtoDAO;
 
 	private Contrato currentBean;
 
@@ -303,6 +309,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
 				this.tipoContratoDAO, super.getMainController());
+		
+		DefaultManyToOneComboModel<Produto> modelProduto = new DefaultManyToOneComboModel<Produto>(ProdutosListController.class, this.produtoDAO ,
+				super.getMainController() );
+		subView.getCmbProduto().setModel(modelProduto);
+		
 		
 		
 		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(TemplateListController.class,
