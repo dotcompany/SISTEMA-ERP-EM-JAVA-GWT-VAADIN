@@ -39,6 +39,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.geral.UFListController;
 import dc.controller.pessoal.PessoaListController;
 import dc.controller.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilConta;
@@ -53,6 +54,7 @@ import dc.entidade.contratos.TipoContrato;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.UF;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -60,6 +62,7 @@ import dc.servicos.dao.contratos.ContratoDAO;
 import dc.servicos.dao.contratos.ContratoSolicitacaoServicoDAO;
 import dc.servicos.dao.contratos.TemplateDAO;
 import dc.servicos.dao.contratos.TipoContratoDAO;
+import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
@@ -107,6 +110,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	
 	@Autowired
 	private ProdutoDAO produtoDAO;
+	
+	@Autowired
+	private UFDAO ufDAO;
 
 	private Contrato currentBean;
 
@@ -316,6 +322,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getCmbProduto().setModel(modelProduto);
 		
 		
+		DefaultManyToOneComboModel<UF> templateUF = new DefaultManyToOneComboModel<UF>(UFListController.class,
+				this.ufDAO, super.getMainController());
 		
 		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(TemplateListController.class,
 				this.templateDAO, super.getMainController());
@@ -335,6 +343,12 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
+		
+		List<UF> ufs = templateUF.getAll();
+		
+		for (UF uf : ufs) {
+			subView.getCmbEstadoObjeto().addItem(uf);
+		}
 		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
 		subView.getTxtValor().addBlurListener(new BlurListener() {
