@@ -83,6 +83,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Autowired
 	private ContratoDAO contratoDAO;
 
+
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
 	
@@ -787,5 +788,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	protected boolean isFullSized() {
 		return true;
 	}
+	
+	public List<Produto> getProdutos() {
+		return produtoDAO.listaTodos();
+	}
+	
+	
 
 }
