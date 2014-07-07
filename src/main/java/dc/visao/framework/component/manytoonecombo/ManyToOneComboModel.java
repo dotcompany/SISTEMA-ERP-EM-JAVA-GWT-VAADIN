@@ -2,8 +2,6 @@ package dc.visao.framework.component.manytoonecombo;
 
 import java.util.List;
 
-import com.vaadin.ui.ComboBox;
-
 
 public interface ManyToOneComboModel<T> {
 	
