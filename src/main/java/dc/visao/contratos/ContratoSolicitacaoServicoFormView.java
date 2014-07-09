@@ -359,6 +359,7 @@ public class ContratoSolicitacaoServicoFormView extends CustomComponent {
 		this.cbCliente = cbCliente;
 	}
 
+	
 	public OptionGroup getGrpTipo() {
 		return grpTipo;
 	}
