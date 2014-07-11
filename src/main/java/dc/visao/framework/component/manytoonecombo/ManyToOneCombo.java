@@ -258,9 +258,11 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnEdit.setWidth("27px");
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
-		/*UI.getCurrent().getPage().getStyles()
+		try{
+		  UI.getCurrent().getPage().getStyles()
 				.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left; margin-left: -8px;}");
-		UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{float:left;} ");*/
+		  UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{float:left;} ");
+		}catch(Exception e){}
 
 		return mainLayout;
 	}
