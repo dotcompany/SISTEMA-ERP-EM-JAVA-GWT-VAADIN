@@ -35,12 +35,13 @@ public class PessoaListController extends CRUDListController<Pessoa> {
 
 	@Override
 	protected List<Pessoa> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		//return dao.fullTextSearch(valor);
+		return new ArrayList<Pessoa>();
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaContagemEstoque";
+		return "listaPessoa";
 	}
 
 	@Override
@@ -56,13 +57,7 @@ public class PessoaListController extends CRUDListController<Pessoa> {
 	@Override
 	protected List<Pessoa> pesquisaDefault() {
 
-		/*
-		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
-		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
-		 * e.printStackTrace(); }
-		 */
-		//
-		return new ArrayList<>();
+		return new ArrayList<Pessoa>();
 	}
 
 	@Override

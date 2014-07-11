@@ -85,6 +85,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private ContratoDAO contratoDAO;
+	
+	//@Autowired
+	//private MainController mainController;
 
 
 	@Autowired
@@ -305,7 +308,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				return "nome";
 			}
 		};
-
+		
+		//DefaultManyToOneComboModel<Pessoa> pessoaModel= new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class,pessoaDAO,mainController);
+		
+		
+	
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
 			@Override
