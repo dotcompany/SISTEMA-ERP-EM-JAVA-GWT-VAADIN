@@ -80,6 +80,8 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public List<T> getResultado(String q) {
+		System.out.println("");
+		
 		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 
 		FmMenu menu = ctrl.getMenu();

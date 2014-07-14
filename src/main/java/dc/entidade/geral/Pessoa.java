@@ -27,8 +27,6 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -54,66 +52,53 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pes")
 	@SequenceGenerator(name = "pes", sequenceName = "pessoa_id_seq", allocationSize = 1)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Tipo")
 	@Column(name = "TIPO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;
 
+	@Field
 	@Column(name = "CLIENTE")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Character cliente;
 
+	@Field
 	@Column(name = "FORNECEDOR")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Character fornecedor;
 
+	@Field
 	@Column(name = "COLABORADOR")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character colaborador;
 
+	@Field
 	@Column(name = "CONVENIO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Character convenio;
 
+	@Field
 	@Column(name = "CONTADOR")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Character contador;
 
+	@Field
 	@Column(name = "TRANSPORTADORA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Character transportadora;
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
