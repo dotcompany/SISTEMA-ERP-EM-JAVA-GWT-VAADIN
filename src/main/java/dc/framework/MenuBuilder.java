@@ -15,6 +15,7 @@ import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
 import dc.controller.adm.dotcompany.ParametroClienteListController;
+import dc.controller.relatorio.RelatorioListController;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
@@ -50,8 +51,7 @@ public class MenuBuilder implements Serializable {
 		return item;
 	}
 
-	public HorizontalLayout buildMenuPanel(String moduleID,
-			MainController mainController) {
+	public HorizontalLayout buildMenuPanel(String moduleID, MainController mainController) {
 		logger.info("Building menu for :" + moduleID);
 		HorizontalLayout menuPanel = new HorizontalLayout();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
@@ -71,35 +71,26 @@ public class MenuBuilder implements Serializable {
 
 	}
 
-	private void buildMenu(MenuBar bar, String moduleID,
-			HorizontalLayout menuPanel, MainController mainController,
-			Usuario usuario) {
+	private void buildMenu(MenuBar bar, String moduleID, HorizontalLayout menuPanel, MainController mainController, Usuario usuario) {
 		@SuppressWarnings("unchecked")
 		List<FmMenu> menusDoModulo = new ArrayList<FmMenu>();
 
 		if (usuario.getAdministrador()) {
-			menusDoModulo = dao.getAllMenusByModuleIdGrouped(Integer
-					.valueOf(moduleID));
+			menusDoModulo = dao.getAllMenusByModuleIdGrouped(Integer.valueOf(moduleID));
 		} else {
-			menusDoModulo = dao.getAllMenusByModuleIdGrouped(
-					Integer.valueOf(moduleID), usuario.getId());
+			menusDoModulo = dao.getAllMenusByModuleIdGrouped(Integer.valueOf(moduleID), usuario.getId());
 		}
 
-		HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus = buildFirstPass(
-				bar, menuPanel, menusDoModulo);
-		buildSecondPass(bar, menuPanel, menusDoModulo, estruturaMenus,
-				mainController, usuario, moduleID);
+		HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus = buildFirstPass(bar, menuPanel, menusDoModulo);
+		buildSecondPass(bar, menuPanel, menusDoModulo, estruturaMenus, mainController, usuario, moduleID);
 	}
 
-	private void buildSecondPass(MenuBar bar, HorizontalLayout menuPanel,
-			List<FmMenu> menusDoModulo,
-			HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus,
-			MainController mainController, Usuario u, String moduleID) {
+	private void buildSecondPass(MenuBar bar, HorizontalLayout menuPanel, List<FmMenu> menusDoModulo,
+			HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, MainController mainController, Usuario u, String moduleID) {
 		java.util.Iterator<FmMenu> it = menusDoModulo.iterator();
 		while (it.hasNext()) {
 			FmMenu m = it.next();
-			logger.info("Menu item:" + m.getCaption() + " -> PARENT: "
-					+ m.getParentId());
+			logger.info("Menu item:" + m.getCaption() + " -> PARENT: " + m.getParentId());
 			if (m.getParentId() != null) {
 				addChild(estruturaMenus, m, mainController, u, moduleID);
 			} else {
@@ -110,8 +101,7 @@ public class MenuBuilder implements Serializable {
 		menuPanel.addComponent(bar);
 	}
 
-	private HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> buildFirstPass(
-			MenuBar bar, HorizontalLayout menuPanel, List<FmMenu> menusDoModulo) {
+	private HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> buildFirstPass(MenuBar bar, HorizontalLayout menuPanel, List<FmMenu> menusDoModulo) {
 		HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus = new HashMap<Integer, HashMap<MenuItem, List<MenuItem>>>();
 		java.util.Iterator<FmMenu> it = menusDoModulo.iterator();
 		List<FmMenu> markForDelete = new ArrayList<FmMenu>();
@@ -132,11 +122,9 @@ public class MenuBuilder implements Serializable {
 		return estruturaMenus;
 	}
 
-	private void addChild(
-			HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus,
-			FmMenu m, MainController mainController, Usuario u, String moduleID) {
-		HashMap<MenuItem, List<MenuItem>> items = estruturaMenus.get(m
-				.getParentId());
+	private void addChild(HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, FmMenu m, MainController mainController, Usuario u,
+			String moduleID) {
+		HashMap<MenuItem, List<MenuItem>> items = estruturaMenus.get(m.getParentId());
 
 		if (items == null) {
 			logger.info("No parent found for this menu:" + m.getCaption());
@@ -144,8 +132,7 @@ public class MenuBuilder implements Serializable {
 			logger.info("Adding child for menu:" + m.getId());
 			List<MenuItem> listItems = items.values().iterator().next();
 			MenuItem parent = items.keySet().iterator().next();
-			MenuItem newChild = createModuleMenuChildItemItem(parent, m,
-					mainController, u, moduleID);
+			MenuItem newChild = createModuleMenuChildItemItem(parent, m, mainController, u, moduleID);
 			listItems.add(newChild);
 
 			logger.info("Adding as parent:" + m.getCaption());
@@ -158,9 +145,7 @@ public class MenuBuilder implements Serializable {
 
 	}
 
-	private MenuItem createModuleMenuChildItemItem(MenuItem parent,
-			final FmMenu m, final MainController main, final Usuario u,
-			final String moduleID) {
+	private MenuItem createModuleMenuChildItemItem(MenuItem parent, final FmMenu m, final MainController main, final Usuario u, final String moduleID) {
 		MenuItem item = parent.addItem(m.getCaption(), m.getCommand());
 
 		item.setCommand(new Command() {
@@ -175,20 +160,17 @@ public class MenuBuilder implements Serializable {
 		return item;
 	}
 
-	public void buildContent(FmMenu m, MainController main, Usuario u,
-			String moduleID) {
+	public void buildContent(FmMenu m, MainController main, Usuario u, String moduleID) {
 		Class<?> c;
 		try {
 			c = Class.forName(m.getControllerClass());
-			dc.visao.framework.geral.Controller ctrl = (Controller) main
-					.getEntityController(c);
+			dc.visao.framework.geral.Controller ctrl = (Controller) main.getEntityController(c);
 			if (ctrl instanceof ControllerAcesso) {
 				ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;
 				if (u.getAdministrador()) {
 					ctrlAcesso.setAcessoLiberado();
 				} else {
-					PapelMenu pf = daoPapel.getPapelMenuByPapelAndMenuID(u
-							.getPapel().getId(), m.getId());
+					PapelMenu pf = daoPapel.getPapelMenuByPapelAndMenuID(u.getPapel().getId(), m.getId());
 					ctrlAcesso.setPapelMenu(pf);
 				}
 
@@ -205,82 +187,65 @@ public class MenuBuilder implements Serializable {
 		}
 	}
 
-	private void buildAdmSistemaMenu(HorizontalLayout menuPanel,
-			final MenuBar menubar, final MainController mainController) {
+	private void buildAdmSistemaMenu(HorizontalLayout menuPanel, final MenuBar menubar, final MainController mainController) {
 		menuPanel.addComponent(menubar);
 
-		/**
-		 * 
-		 * Menu Administrativo @ Wesley Jr
-		 */
+		/** Menu Administrativo @ Wesley Jr */
 
-		MenuBar.MenuItem administrativo = this.createModuleMenuItem(menubar,
-				"Administrativo");
+		MenuBar.MenuItem administrativo = this.createModuleMenuItem(menubar, "Administrativo");
 
-		MenuBar.MenuItem parametroCliente = administrativo.addItem(
-				"Parâmetro Cliente", null, new Command() {
-					@Override
-					public void menuSelected(MenuItem selectedItem) {
-						Controller c = (Controller) mainController
-								.getEntityController(ParametroClienteListController.class);
-						showControllerSistema(mainController, c);
+		MenuBar.MenuItem parametroCliente = administrativo.addItem("Parâmetro Cliente", null, new Command() {
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				Controller c = (Controller) mainController.getEntityController(ParametroClienteListController.class);
+				showControllerSistema(mainController, c);
 
-					}
-				});
+			}
+		});
 
-		MenuBar.MenuItem cadastros = this.createModuleMenuItem(menubar,
-				"Cadastros");
+		MenuBar.MenuItem cadastros = this.createModuleMenuItem(menubar, "Cadastros");
 
-		MenuBar.MenuItem modulos = cadastros.addItem("Módulos", null,
-				new Command() {
+		MenuBar.MenuItem modulos = cadastros.addItem("Módulos", null, new Command() {
 
-					@Override
-					public void menuSelected(MenuItem selectedItem) {
-						Controller c = mainController
-								.getEntityController(FmModuloListController.class);
-						showControllerSistema(mainController, c);
-					}
-				});
-		MenuBar.MenuItem menus = cadastros.addItem("Menus", null,
-				new Command() {
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				Controller c = mainController.getEntityController(FmModuloListController.class);
+				showControllerSistema(mainController, c);
+			}
+		});
+		MenuBar.MenuItem menus = cadastros.addItem("Menus", null, new Command() {
 
-					@Override
-					public void menuSelected(MenuItem selectedItem) {
-						dc.visao.framework.geral.Controller c = (Controller) mainController
-								.getEntityController(FmMenuListController.class);
-						showControllerSistema(mainController, c);
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(FmMenuListController.class);
+				showControllerSistema(mainController, c);
 
-					}
+			}
 
-				});
+		});
 
-		MenuBar.MenuItem relatorios = cadastros.addItem("Relatórios", null,
-				new Command() {
+		MenuBar.MenuItem relatorios = cadastros.addItem("Relatórios", null, new Command() {
 
-					@Override
-					public void menuSelected(MenuItem selectedItem) {
-						dc.visao.framework.geral.Controller c = (Controller) mainController
-								.getEntityController(FmReportListController.class);
-						showControllerSistema(mainController, c);
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(RelatorioListController.class);
+				showControllerSistema(mainController, c);
 
-					}
+			}
 
-				});
+		});
 
 	}
 
-	private void showControllerSistema(final MainController mainController,
-			dc.visao.framework.geral.Controller c) {
+	private void showControllerSistema(final MainController mainController, dc.visao.framework.geral.Controller c) {
 		if (c instanceof ControllerAcesso) {
 			ControllerAcesso ctrlAcesso = (ControllerAcesso) c;
 			ctrlAcesso.setAcessoLiberado();
 		}
 
 		if (c instanceof dc.visao.framework.geral.Task) {
-			((dc.visao.framework.geral.Task) c).setModuleId(String
-					.valueOf(FmModulo.ID_MODULO_ADM_DC));
-			mainController
-					.showTaskableContent((dc.visao.framework.geral.Task) c);
+			((dc.visao.framework.geral.Task) c).setModuleId(String.valueOf(FmModulo.ID_MODULO_ADM_DC));
+			mainController.showTaskableContent((dc.visao.framework.geral.Task) c);
 		} else {
 			// main.show
 		}
