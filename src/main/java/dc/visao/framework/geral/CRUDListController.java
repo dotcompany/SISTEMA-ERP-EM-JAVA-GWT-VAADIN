@@ -24,6 +24,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
@@ -46,11 +47,13 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
+import dc.entidade.relatorio.Relatorio;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.servicos.dao.relatorio.RelatorioDAO;
 import dc.visao.framework.DCFilterDecorator;
 import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
@@ -89,6 +92,12 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 	@Autowired
 	private CompanyFileHandler fileUtils;
+
+	@Autowired
+	private FmMenuDAO fmMenuDAO;
+
+	@Autowired
+	private RelatorioDAO relatorioDAO;
 
 	private PapelMenu papelMenu;
 	private boolean acessoLiberado = false;
@@ -141,6 +150,15 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				}
 			}
 		});
+
+		// TODO Exibir só os que o user tiver permissão
+		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
+				SecuritySessionProvider.getUsuario());
+		for (Relatorio relatorio : relatorios) {
+			Button relatorioButton = new Button(relatorio.getNome());
+
+			view.getPopupButtonContent().addComponent(relatorioButton);
+		}
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
 			// We change the default order of the buttons

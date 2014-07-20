@@ -30,13 +30,13 @@
  
   </appender>
  
-<logger name="org.hibernate.type" level="info" additivity="false">
+<logger name="org.hibernate.type" level="debug" additivity="false">
   <appender-ref ref="STDOUT" />
   <appender-ref ref="FILE" />
 </logger>
 
 <logger name="org.hibernate">
-    <level value="info" />
+    <level value="debug" />
     <appender-ref ref="FILE"/>
 </logger>
 
