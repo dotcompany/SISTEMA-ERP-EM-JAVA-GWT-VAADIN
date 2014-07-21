@@ -27,7 +27,7 @@ repositories {
 }
 	
 vaadin {
-    version '7.2.3'
+    version '7.2.5'
     widgetset 'dc.framework.DCWidgetSet'
    	widgetsetGenerator 'dc.framework..OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -124,8 +124,8 @@ dependencies {
 		compile 'commons-dbcp:commons-dbcp:1.4'
 				
 		compile 'asm:asm:3.3.1'
-		compile 'org.springframework:spring-beans:3.2.9.RELEASE'
-		compile ('org.springframework:spring-context:3.2.9.RELEASE') {
+		compile 'org.springframework:spring-beans:3.2.5.RELEASE'
+		compile ('org.springframework:spring-context:3.2.5.RELEASE') {
 			exclude module: 'commons-logging'
 		}
 		
@@ -194,5 +194,5 @@ dependencies {
 		compile 'joda-time:joda-time:2.3'
 		
 		compile 'org.vaadin.addons:filteringtable:0.9.10.v7'
-		compile 'com.vaadin:vaadin-push:7.2.3'
+		compile 'com.vaadin:vaadin-push:7.2.5'
 }
