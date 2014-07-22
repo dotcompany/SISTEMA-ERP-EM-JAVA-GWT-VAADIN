@@ -154,10 +154,13 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		// TODO Exibir só os que o user tiver permissão
 		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
 				SecuritySessionProvider.getUsuario());
-		for (Relatorio relatorio : relatorios) {
-			Button relatorioButton = new Button(relatorio.getNome());
 
-			view.getPopupButtonContent().addComponent(relatorioButton);
+		if (relatorios != null) {
+			for (Relatorio relatorio : relatorios) {
+				Button relatorioButton = new Button(relatorio.getNome());
+
+				view.getPopupButtonContent().addComponent(relatorioButton);
+			}
 		}
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {

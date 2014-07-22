@@ -28,11 +28,15 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 
 	@Transactional
 	public List<Relatorio> findRelatoriosByMenuAndUser(FmMenu menu, Usuario usuario) {
-		final Session session = sessionFactory.getCurrentSession();
-		final Criteria crit = session.createCriteria(Relatorio.class);
 
-		crit.add(Restrictions.eq("menu", menu));
+		if (menu != null && menu.getId() != null) {
+			final Session session = sessionFactory.getCurrentSession();
+			final Criteria crit = session.createCriteria(Relatorio.class);
 
-		return crit.list();
+			crit.add(Restrictions.eq("menu", menu));
+
+			return crit.list();
+		} else
+			return null;
 	}
 }

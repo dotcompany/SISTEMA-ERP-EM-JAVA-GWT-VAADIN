@@ -27,6 +27,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.ui.MenuBar.Command;
 
 import dc.anotacoes.Caption;
+import dc.entidade.relatorio.Relatorio;
 
 @Entity
 @Table(name = "fm_menu")
@@ -77,9 +78,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "sn_consulta_filter_table")
 	private Integer consultaFilterTable = new Integer(0);
 
-	/**
-	 * REFERENCIA - FK
-	 */
+	/** REFERENCIA - FK */
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmModulo.class)
 	private FmModulo fmModulo;
@@ -87,9 +86,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private FmMenu parent;
 
-	/**
-	 * REFERENCIA - LIST
-	 */
+	/** REFERENCIA - LIST */
 
 	@OneToMany(mappedBy = "parent", orphanRemoval = true)
 	private List<FmMenu> menusFilho;
@@ -97,22 +94,19 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "menu", orphanRemoval = true)
 	private List<PapelMenu> papeisMenu;
 
-	/**
-	 * TRANSIENT
-	 */
+	@OneToMany(mappedBy = "menu", orphanRemoval = true)
+	private List<Relatorio> relatorios;
+
+	/** TRANSIENT */
 
 	@Transient
 	private Integer parentId = new Integer(0);
 
-	/**
-	 * LOG
-	 */
+	/** LOG */
 
 	private static Logger logger = Logger.getLogger(FmMenu.class);
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 	public FmMenu() {
 
 	}
@@ -121,9 +115,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * GET / SET
-	 */
+	/** GET / SET */
 
 	public Integer getId() {
 		return id;
@@ -238,9 +230,15 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 		return new Integer(1).equals(consultaFilterTable);
 	}
 
-	/**
-	 * HASHCODE E EQUALS
-	 */
+	public List<Relatorio> getRelatorios() {
+		return relatorios;
+	}
+
+	public void setRelatorios(List<Relatorio> relatorios) {
+		this.relatorios = relatorios;
+	}
+
+	/** HASHCODE E EQUALS */
 
 	// @Override
 	// public String toString() {
