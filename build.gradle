@@ -27,7 +27,7 @@ repositories {
 }
 	
 vaadin {
-    version '7.2.3'
+    version '7.2.5'
     widgetset 'dc.framework.DCWidgetSet'
    	widgetsetGenerator 'dc.framework..OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -102,12 +102,13 @@ dependencies {
          
         
 		// dependencies		
-		compile 'org.hibernate:hibernate-entitymanager:4.2.13.Final'
+		compile 'org.hibernate:hibernate-c3p0:4.2.14.Final'
+		compile 'org.hibernate:hibernate-entitymanager:4.2.14.Final'
 		compile 'org.hibernate:hibernate-validator:5.0.3.Final'
 		
 		compile 'org.hibernate:hibernate-search:4.4.3.Final'
 		compile 'org.hibernate:hibernate-search-analyzers:4.4.3.Final'
-		compile 'org.hibernate:hibernate-c3p0:4.2.13.Final'
+		
 		
 		compile 'com.itextpdf:itextpdf:5.0.6'
 		compile 'javax.mail:mail:1.4.7'
@@ -192,6 +193,6 @@ dependencies {
 		compile 'org.apache.poi:ooxml-schemas:1.1'
 		compile 'joda-time:joda-time:2.3'
 		
-		compile 'org.vaadin.addons:filteringtable:0.9.9.v7'
-		compile 'com.vaadin:vaadin-push:7.2.2'
+		compile 'org.vaadin.addons:filteringtable:0.9.10.v7'
+		compile 'com.vaadin:vaadin-push:7.2.5'
 }
