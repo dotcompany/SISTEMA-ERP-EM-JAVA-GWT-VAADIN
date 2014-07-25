@@ -38,6 +38,7 @@ import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
 import dc.entidade.tributario.OperacaoFiscal;
+import dc.servicos.business.NfeCabecalhoBusiness;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
@@ -81,7 +82,10 @@ public class ProdutoServicoFormController extends
 	 */
 
 	@Autowired
-	private NfeCabecalhoDAO nfeCabecalhoDAO;
+	private NfeCabecalhoBusiness<NfeCabecalhoEntity> nfeCabecalhoBusiness;
+
+	//@Autowired
+	//private NfeCabecalhoDAO nfeCabecalhoDAO;
 
 	@Autowired
 	private NfeDestinatarioDAO nfeDestinatarioDAO;
@@ -180,7 +184,8 @@ public class ProdutoServicoFormController extends
 			 * this.ndeMedicamentoDAO.saveOrUpdate(ent1); } } }
 			 */
 
-			this.nfeCabecalhoDAO.saveOrUpdateNfeCabecalho(this.nfeCabecalho);
+			//this.nfeCabecalho.saveOrUpdateNfeCabecalho(this.nfeCabecalho);
+			this.nfeCabecalhoBusiness.saveOrUpdate(this.nfeCabecalho);
 
 			notifiyFrameworkSaveOK(this.nfeCabecalho);
 		} catch (Exception e) {
@@ -256,7 +261,7 @@ public class ProdutoServicoFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.nfeCabecalhoDAO.deleteAllByIds(ids);
+			//this.nfeCabecalhoDAO.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -308,7 +313,7 @@ public class ProdutoServicoFormController extends
 	protected void removerEmCascata(List<Serializable> ids) {
 		try {
 			// this.pDAO.deleteAllByIds(ids);
-			this.nfeCabecalhoDAO.listarTodos(ids);
+			//this.nfeCabecalhoDAO.listarTodos(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -357,7 +362,8 @@ public class ProdutoServicoFormController extends
 
 				ProdutoServicoViewDTO.subViewClean(this.subView);
 			} else {
-				this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
+				//this.nfeCabecalho = this.nfeCabecalhoDAO.find(id);
+				this.nfeCabecalho = this.nfeCabecalhoBusiness.find(id);
 			}
 
 			// this.nfeCabecalho.setNfeDetalhe(new NfeDetalheEntity());
