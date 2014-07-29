@@ -1,4 +1,4 @@
-package dc.servicos.business;
+package dc.servicos.business.nfe;
 
 import java.io.Serializable;
 import java.util.ArrayList;

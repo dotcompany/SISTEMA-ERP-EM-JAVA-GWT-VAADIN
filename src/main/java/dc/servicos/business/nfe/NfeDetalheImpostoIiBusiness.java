@@ -1,9 +1,11 @@
-package dc.servicos.business;
+package dc.servicos.business.nfe;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface NfeCabecalhoBusiness<T> extends AbstractBusiness<T> {
+import dc.servicos.business.AbstractBusiness;
+
+public interface NfeDetalheImpostoIiBusiness<T> extends AbstractBusiness<T> {
 
 	public List<T> search(T entity) throws Exception;
 

@@ -38,7 +38,7 @@ import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
 import dc.entidade.tributario.OperacaoFiscal;
-import dc.servicos.business.NfeCabecalhoBusiness;
+import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
