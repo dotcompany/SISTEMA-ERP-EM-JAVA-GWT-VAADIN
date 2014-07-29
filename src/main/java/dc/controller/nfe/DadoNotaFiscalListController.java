@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.servicos.dao.nfe.NfeCabecalhoDAO;
+import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +19,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalhoEntity> {
+public class DadoNotaFiscalListController extends
+		CRUDListController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -31,7 +32,7 @@ public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalh
 	 */
 
 	@Autowired
-	private NfeCabecalhoDAO pDAO;
+	private NfeCabecalhoBusiness<NfeCabecalhoEntity> pBusiness;
 
 	/**
 	 * CONTROLLER'S
@@ -42,7 +43,8 @@ public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalh
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "tributOperacaoFiscal.nome", "ufEmitente", "codigoNumerico", "naturezaOperacao", "informacoesAddFisco",
+		return new String[] { "tributOperacaoFiscal.nome", "ufEmitente",
+				"codigoNumerico", "naturezaOperacao", "informacoesAddFisco",
 				"informacoesAddContribuinte", "statusNota" };
 	}
 
@@ -58,9 +60,13 @@ public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalh
 
 	@Override
 	protected List<NfeCabecalhoEntity> pesquisa(String valor) {
-		List<NfeCabecalhoEntity> auxLista = this.pDAO.fullTextSearch(valor);
+		try {
+			List<NfeCabecalhoEntity> auxLista = this.pBusiness.find(valor);
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -81,9 +87,13 @@ public class DadoNotaFiscalListController extends CRUDListController<NfeCabecalh
 
 	@Override
 	protected List<NfeCabecalhoEntity> pesquisaDefault() {
-		List<NfeCabecalhoEntity> auxLista = this.pDAO.listarTodos();
+		try {
+			List<NfeCabecalhoEntity> auxLista = this.pBusiness.listAll();
 
-		return auxLista;
+			return auxLista;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

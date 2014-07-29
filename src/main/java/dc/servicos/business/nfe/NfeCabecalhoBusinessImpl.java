@@ -42,6 +42,33 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 		this.mainDao.delete(entity);
 	}
 
+	@Transactional
+	@Override
+	public List<NfeCabecalhoEntity> find(String s) throws Exception {
+		List<NfeCabecalhoEntity> auxLista = this.mainDao.find(s);
+
+		return auxLista;
+	}
+
+	@Transactional
+	@Override
+	public NfeCabecalhoEntity find(Serializable id) throws Exception {
+		// TODO Auto-generated method stub
+		NfeCabecalhoEntity entity = this.mainDao.find(id);
+
+		return entity;
+	}
+
+	@Transactional
+	@Override
+	public List<NfeCabecalhoEntity> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		List<NfeCabecalhoEntity> auxLista = this.mainDao.listAll();
+
+		return auxLista;
+	}
+
+	@Transactional
 	@Override
 	public List<NfeCabecalhoEntity> search(NfeCabecalhoEntity entity)
 			throws Exception {
@@ -55,15 +82,6 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 	public void saveOrUpdate(NfeCabecalhoEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		this.mainDao.save(entity);
-	}
-
-	@Transactional
-	@Override
-	public NfeCabecalhoEntity find(Serializable id) throws Exception {
-		// TODO Auto-generated method stub
-		NfeCabecalhoEntity entity = this.mainDao.find(id);
-
-		return entity;
 	}
 
 }

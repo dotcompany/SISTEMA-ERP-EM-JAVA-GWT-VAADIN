@@ -48,23 +48,7 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	@Transactional
-	public List<NfeCabecalhoEntity> listarTodos() {
-		try {
-			String sql = "FROM :entity ent WHERE (1 = 1)";
-			sql = sql.replace(":entity", getEntityClass().getName());
-
-			Query query = super.getSession().createQuery(sql);
-
-			List<NfeCabecalhoEntity> auxLista = query.list();
-
-			return auxLista;
-		} catch (Exception e) {
-			return new ArrayList<NfeCabecalhoEntity>();
-		}
-	}
-
-	@Transactional
-	public List<NfeCabecalhoEntity> procuraNomeContendo(String s) {
+	public List<NfeCabecalhoEntity> find(String s) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.servico.nome LIKE :q";
 			sql = sql.replace(":entity", getEntityClass().getName());
@@ -81,24 +65,7 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 	}
 
 	@Transactional
-	public List<NfeCabecalhoEntity> listarTodos(List<Serializable> ids) {
-		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id IN (:lista)";
-			sql = sql.replace(":entity", getEntityClass().getName());
-
-			Query query = super.getSession().createQuery(sql);
-			query.setParameter("lista", ids);
-
-			List<NfeCabecalhoEntity> auxLista = query.list();
-
-			return auxLista;
-		} catch (Exception e) {
-			return new ArrayList<NfeCabecalhoEntity>();
-		}
-	}
-
-	@Transactional
-	public NfeCabecalhoEntity getEntidade(Serializable id) {
+	public NfeCabecalhoEntity getEntity(Serializable id) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id = :id";
 			sql = sql.replace(":entity", getEntityClass().getName());
@@ -116,6 +83,39 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 			return entidade;
 		} catch (Exception e) {
 			return new NfeCabecalhoEntity();
+		}
+	}
+
+	@Transactional
+	public List<NfeCabecalhoEntity> listAll() {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1)";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+
+			List<NfeCabecalhoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeCabecalhoEntity>();
+		}
+	}
+
+	@Transactional
+	public List<NfeCabecalhoEntity> listAll(List<Serializable> ids) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.id IN (:lista)";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("lista", ids);
+
+			List<NfeCabecalhoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			return new ArrayList<NfeCabecalhoEntity>();
 		}
 	}
 

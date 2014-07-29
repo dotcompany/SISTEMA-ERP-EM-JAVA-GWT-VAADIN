@@ -219,7 +219,7 @@ public class CopyOfProdutoServicoFormController extends
 
 	@Override
 	protected void initSubView() {
-		//this.subView = new ProdutoServicoFormView(this);
+		// this.subView = new ProdutoServicoFormView(this);
 
 		// popularCombo();
 	}
@@ -275,7 +275,7 @@ public class CopyOfProdutoServicoFormController extends
 	protected void removerEmCascata(List<Serializable> ids) {
 		try {
 			// this.pDAO.deleteAllByIds(ids);
-			this.nfeCabecalhoDAO.listarTodos(ids);
+			// this.nfeCabecalhoDAO.listarTodos(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -2811,127 +2811,187 @@ public class CopyOfProdutoServicoFormController extends
 				// sublimite da receita bruta | 3 -
 				// Reginme Normal
 				if (cstIcms.equals("00")) { // Tributada integralmente
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(nfeDetalhe
-							.getValorUnitarioComercial());
-					//nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(nfeDetalhe.getProduto()
-					//		.getTributacaoEstadual().getTaxaIcms());
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(nfeDetalhe.getNfeDetalheImpostoIcms().getAliquotaIcms()
-							.divide(BigDecimal.valueOf(100))
-							.multiply(nfeDetalhe.getNfeDetalheImpostoIcms().getBaseCalculoIcms()));
-					valorTotalIcms = valorTotalIcms.add(nfeDetalhe.getNfeDetalheImpostoIcms()
-							.getValorIcms());
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							nfeDetalhe.getValorUnitarioComercial());
+					// nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(nfeDetalhe.getProduto()
+					// .getTributacaoEstadual().getTaxaIcms());
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							nfeDetalhe
+									.getNfeDetalheImpostoIcms()
+									.getAliquotaIcms()
+									.divide(BigDecimal.valueOf(100))
+									.multiply(
+											nfeDetalhe
+													.getNfeDetalheImpostoIcms()
+													.getBaseCalculoIcms()));
+					valorTotalIcms = valorTotalIcms.add(nfeDetalhe
+							.getNfeDetalheImpostoIcms().getValorIcms());
 				}
 
 				if (cstIcms.equals("10")) { // Tributada e com cobrança do ICMS
 					// por substituição tributária
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("20")) { // Com redução de base de cálculo
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("30")) { // Isenta ou não tributada e com
 					// cobrança do ICMS por substituição
 					// tributária
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("40")) { // 40 - Isenta;
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("41")) { // 41 - Nao tributada;
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("50")) { // 50 Suspensao;
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("51")) { // Diferimento
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("60")) { // ICMS cobrado anteriormente por
 					// substituição tributária
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("70")) { // Com redução da base de cálculo e
 					// cobrança do ICMS por substituição
 					// tributária
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 
 				if (cstIcms.equals("90")) { // Outras
-					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+							BigDecimal.ZERO);
+					nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+							BigDecimal.ZERO);
 				}
 			} else { // if (crt == 2) || crt == 3) {
-				nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(BigDecimal.ZERO);
-				nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(BigDecimal.ZERO);
-				nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
+						BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpostoIcms().setAliquotaIcms(
+						BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpostoIcms().setValorIcms(
+						BigDecimal.ZERO);
 			}
 
 			nfeDetalhe.getNfeDetalheImpIpi().setCstIpi("99");
 
 			if (nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("01")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("02")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("03")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("04")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("05")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("51")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("52")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("53")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("54")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("55")) {
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("02")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("03")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("04")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("05")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("51")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("52")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("53")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("54")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("55")) {
 
-				nfeDetalhe.getNfeDetalheImpIpi().setValorBaseCalculoIpi(BigDecimal.ZERO);
-				nfeDetalhe.getNfeDetalheImpIpi().setAliquotaIpi(BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpIpi().setValorBaseCalculoIpi(
+						BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpIpi()
+						.setAliquotaIpi(BigDecimal.ZERO);
 				nfeDetalhe.getNfeDetalheImpIpi().setValorIpi(BigDecimal.ZERO);
 			}
 
 			if (nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("00")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("49")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("60")
-					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi().equals("99")) {
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("49")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("60")
+					|| nfeDetalhe.getNfeDetalheImpIpi().getCstIpi()
+							.equals("99")) {
 
-				nfeDetalhe.getNfeDetalheImpIpi().setValorBaseCalculoIpi(BigDecimal.ZERO);
-				nfeDetalhe.getNfeDetalheImpIpi().setAliquotaIpi(BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpIpi().setValorBaseCalculoIpi(
+						BigDecimal.ZERO);
+				nfeDetalhe.getNfeDetalheImpIpi()
+						.setAliquotaIpi(BigDecimal.ZERO);
 				nfeDetalhe.getNfeDetalheImpIpi().setValorIpi(BigDecimal.ZERO);
 			}
 
 			nfeDetalhe.getNfeDetalheImpostoCofins().setCstCofins("99");
-			nfeDetalhe.getNfeDetalheImpostoCofins().setBaseCalculoCofins(BigDecimal.ZERO);
-			nfeDetalhe.getNfeDetalheImpostoCofins().setValorCofins(BigDecimal.ZERO);
-			nfeDetalhe.getNfeDetalheImpostoCofins().setAliquotaCofinsReais(BigDecimal.ZERO);
+			nfeDetalhe.getNfeDetalheImpostoCofins().setBaseCalculoCofins(
+					BigDecimal.ZERO);
+			nfeDetalhe.getNfeDetalheImpostoCofins().setValorCofins(
+					BigDecimal.ZERO);
+			nfeDetalhe.getNfeDetalheImpostoCofins().setAliquotaCofinsReais(
+					BigDecimal.ZERO);
 
 			nfeDetalhe.getNfeDetalheImpostoPis().setCstPis("99");
-			nfeDetalhe.getNfeDetalheImpostoPis().setValorBaseCalculoPis(BigDecimal.ZERO);
-			nfeDetalhe.getNfeDetalheImpostoPis().setAliquotaPisReais(BigDecimal.ZERO);
+			nfeDetalhe.getNfeDetalheImpostoPis().setValorBaseCalculoPis(
+					BigDecimal.ZERO);
+			nfeDetalhe.getNfeDetalheImpostoPis().setAliquotaPisReais(
+					BigDecimal.ZERO);
 			nfeDetalhe.getNfeDetalheImpostoPis().setValorPis(BigDecimal.ZERO);
 		}
-		
+
 		nfeCabecalho.setValorIcms(valorTotalIcms);
 
 		for (int i = 0; i < listaNfeDetalhe.size(); i++) {
@@ -2961,248 +3021,198 @@ public class CopyOfProdutoServicoFormController extends
 			 */
 
 			// TODO : Os cálculos e atribuições abaixo estão corretos?
-			/*if (crt == 1) {// 1 = Simples Nacional
-				if (cupomVinculado == false) {
-					if (csosn.equals("101")) { // Tributada pelo Simples
-												// Nacional com permissão de
-												// crédito
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("102")) { // Tributada pelo Simples
-												// Nacional sem permissão de
-												// crédito
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("103")) { // Isenção do ICMS no Simples
-												// Nacional para faixa de
-												// receita bruta
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("201")) { // Tributada pelo Simples
-												// Nacional com permissão de
-												// crédito e com cobrança do
-												// ICMS por substituição
-												// tributária
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("202")) { // Tributada pelo Simples
-												// Nacional sem permissão de
-												// crédito e com cobrança do
-												// ICMS por substituição
-												// tributária
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("300")) { // 300 - Imune - Classificam-se
-												// neste código as operações
-												// praticadas por optantes pelo
-												// Simples Nacional contempladas
-												// com imunidade do ICMS.
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("400")) { // 400 - Não tributada pelo
-												// Simples Nacional -
-												// Classificam-se neste código
-												// as operações praticadas por
-												// optantes pelo Simples
-												// Nacional não sujeitas à
-												// tributação pelo ICMS dentro
-												// do Simples Nacional.
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("500")) { // 500 - ICMS cobrado
-												// anteriormente por
-												// substituição tributária
-												// (substituído) ou por
-												// antecipação - Classificam-se
-												// neste código as operações
-												// sujeitas exclusivamente ao
-												// regime de substituição
-												// tributária na condição de
-												// substituído tributário ou no
-												// caso de antecipações.
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-					if (csosn.equals("900")) { // 900 - Outros - Classificam-se
-												// neste código as demais
-												// operações que não se
-												// enquadrem nos códigos 101,
-												// 102, 103, 201, 202, 203, 300,
-												// 400 e 500.
-						nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-						nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-						nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					}
-
-				} // if (cupomVinculado == false) {
-				else {
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-				}
-
-				nfeDetalhe.setCstIpi("99");
-				nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
-				nfeDetalhe.setValorIpi(BigDecimal.ZERO);
-
-				nfeDetalhe.setCstCofins("99");
-				nfeDetalhe.setBaseCalculoCofins(BigDecimal.ZERO);
-				nfeDetalhe.setValorCofins(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaCofinsReais(BigDecimal.ZERO);
-
-				nfeDetalhe.setCstPis("99");
-				nfeDetalhe.setValorBaseCalculoPis(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaPisReais(BigDecimal.ZERO);
-				nfeDetalhe.setValorPis(BigDecimal.ZERO);
-
-			}// if (crt == 1) {//1 = Simples Nacional
-
-			if (crt == 2 || crt == 3) {// 2 = Simples Nacional = excesso de
-										// sublimite da receita bruta | 3 -
-										// Reginme Normal
-				if (cstIcms.equals("00")) { // Tributada integralmente
-					nfeDetalhe.setBaseCalculoIcms(nfeDetalhe
-							.getValorUnitarioComercial());
-					nfeDetalhe.setAliquotaIcms(nfeDetalhe.getProduto()
-							.getTributacaoEstadual().getTaxaIcms());
-					nfeDetalhe.setValorIcms(nfeDetalhe.getAliquotaIcms()
-							.divide(BigDecimal.valueOf(100))
-							.multiply(nfeDetalhe.getBaseCalculoIcms()));
-					valorTotalIcms = valorTotalIcms.add(nfeDetalhe
-							.getValorIcms());
-				}
-
-				if (cstIcms.equals("10")) { // Tributada e com cobrança do ICMS
-											// por substituição tributária
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("20")) { // Com redução de base de cálculo
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("30")) { // Isenta ou não tributada e com
-											// cobrança do ICMS por substituição
-											// tributária
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("40")) { // 40 - Isenta;
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("41")) { // 41 - Nao tributada;
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("50")) { // 50 Suspensao;
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("51")) { // Diferimento
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("60")) { // ICMS cobrado anteriormente por
-											// substituição tributária
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("70")) { // Com redução da base de cálculo e
-											// cobrança do ICMS por substituição
-											// tributária
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-
-				if (cstIcms.equals("90")) { // Outras
-					nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-					nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-					nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-				}
-			} else { // if (crt == 2) || crt == 3) {
-				nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
-				nfeDetalhe.setValorIcms(BigDecimal.ZERO);
-			}
-
-			nfeDetalhe.setCstIpi("99");
-
-			if (nfeDetalhe.getCstIpi().equals("01")
-					|| nfeDetalhe.getCstIpi().equals("02")
-					|| nfeDetalhe.getCstIpi().equals("03")
-					|| nfeDetalhe.getCstIpi().equals("04")
-					|| nfeDetalhe.getCstIpi().equals("05")
-					|| nfeDetalhe.getCstIpi().equals("51")
-					|| nfeDetalhe.getCstIpi().equals("52")
-					|| nfeDetalhe.getCstIpi().equals("53")
-					|| nfeDetalhe.getCstIpi().equals("54")
-					|| nfeDetalhe.getCstIpi().equals("55")) {
-
-				nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
-				nfeDetalhe.setValorIpi(BigDecimal.ZERO);
-			}
-
-			if (nfeDetalhe.getCstIpi().equals("00")
-					|| nfeDetalhe.getCstIpi().equals("49")
-					|| nfeDetalhe.getCstIpi().equals("60")
-					|| nfeDetalhe.getCstIpi().equals("99")) {
-
-				nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
-				nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
-				nfeDetalhe.setValorIpi(BigDecimal.ZERO);
-			}
-
-			nfeDetalhe.setCstCofins("99");
-			nfeDetalhe.setBaseCalculoCofins(BigDecimal.ZERO);
-			nfeDetalhe.setValorCofins(BigDecimal.ZERO);
-			nfeDetalhe.setAliquotaCofinsReais(BigDecimal.ZERO);
-
-			nfeDetalhe.setCstPis("99");
-			nfeDetalhe.setValorBaseCalculoPis(BigDecimal.ZERO);
-			nfeDetalhe.setAliquotaPisReais(BigDecimal.ZERO);
-			nfeDetalhe.setValorPis(BigDecimal.ZERO);*/
+			/*
+			 * if (crt == 1) {// 1 = Simples Nacional if (cupomVinculado ==
+			 * false) { if (csosn.equals("101")) { // Tributada pelo Simples //
+			 * Nacional com permissão de // crédito
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("102")) { // Tributada pelo Simples // Nacional
+			 * sem permissão de // crédito
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("103")) { // Isenção do ICMS no Simples //
+			 * Nacional para faixa de // receita bruta
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("201")) { // Tributada pelo Simples // Nacional
+			 * com permissão de // crédito e com cobrança do // ICMS por
+			 * substituição // tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("202")) { // Tributada pelo Simples // Nacional
+			 * sem permissão de // crédito e com cobrança do // ICMS por
+			 * substituição // tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("300")) { // 300 - Imune - Classificam-se //
+			 * neste código as operações // praticadas por optantes pelo //
+			 * Simples Nacional contempladas // com imunidade do ICMS.
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("400")) { // 400 - Não tributada pelo // Simples
+			 * Nacional - // Classificam-se neste código // as operações
+			 * praticadas por // optantes pelo Simples // Nacional não sujeitas
+			 * à // tributação pelo ICMS dentro // do Simples Nacional.
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("500")) { // 500 - ICMS cobrado // anteriormente
+			 * por // substituição tributária // (substituído) ou por //
+			 * antecipação - Classificam-se // neste código as operações //
+			 * sujeitas exclusivamente ao // regime de substituição //
+			 * tributária na condição de // substituído tributário ou no // caso
+			 * de antecipações. nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (csosn.equals("900")) { // 900 - Outros - Classificam-se //
+			 * neste código as demais // operações que não se // enquadrem nos
+			 * códigos 101, // 102, 103, 201, 202, 203, 300, // 400 e 500.
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * } // if (cupomVinculado == false) { else {
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO); }
+			 * 
+			 * nfeDetalhe.setCstIpi("99");
+			 * nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIpi(BigDecimal.ZERO);
+			 * 
+			 * nfeDetalhe.setCstCofins("99");
+			 * nfeDetalhe.setBaseCalculoCofins(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorCofins(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaCofinsReais(BigDecimal.ZERO);
+			 * 
+			 * nfeDetalhe.setCstPis("99");
+			 * nfeDetalhe.setValorBaseCalculoPis(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaPisReais(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorPis(BigDecimal.ZERO);
+			 * 
+			 * }// if (crt == 1) {//1 = Simples Nacional
+			 * 
+			 * if (crt == 2 || crt == 3) {// 2 = Simples Nacional = excesso de
+			 * // sublimite da receita bruta | 3 - // Reginme Normal if
+			 * (cstIcms.equals("00")) { // Tributada integralmente
+			 * nfeDetalhe.setBaseCalculoIcms(nfeDetalhe
+			 * .getValorUnitarioComercial());
+			 * nfeDetalhe.setAliquotaIcms(nfeDetalhe.getProduto()
+			 * .getTributacaoEstadual().getTaxaIcms());
+			 * nfeDetalhe.setValorIcms(nfeDetalhe.getAliquotaIcms()
+			 * .divide(BigDecimal.valueOf(100))
+			 * .multiply(nfeDetalhe.getBaseCalculoIcms())); valorTotalIcms =
+			 * valorTotalIcms.add(nfeDetalhe .getValorIcms()); }
+			 * 
+			 * if (cstIcms.equals("10")) { // Tributada e com cobrança do ICMS
+			 * // por substituição tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("20")) { // Com redução de base de cálculo
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("30")) { // Isenta ou não tributada e com //
+			 * cobrança do ICMS por substituição // tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("40")) { // 40 - Isenta;
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("41")) { // 41 - Nao tributada;
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("50")) { // 50 Suspensao;
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("51")) { // Diferimento
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("60")) { // ICMS cobrado anteriormente por //
+			 * substituição tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("70")) { // Com redução da base de cálculo e
+			 * // cobrança do ICMS por substituição // tributária
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * if (cstIcms.equals("90")) { // Outras
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); } } else { // if (crt
+			 * == 2) || crt == 3) {
+			 * nfeDetalhe.setBaseCalculoIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIcms(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIcms(BigDecimal.ZERO); }
+			 * 
+			 * nfeDetalhe.setCstIpi("99");
+			 * 
+			 * if (nfeDetalhe.getCstIpi().equals("01") ||
+			 * nfeDetalhe.getCstIpi().equals("02") ||
+			 * nfeDetalhe.getCstIpi().equals("03") ||
+			 * nfeDetalhe.getCstIpi().equals("04") ||
+			 * nfeDetalhe.getCstIpi().equals("05") ||
+			 * nfeDetalhe.getCstIpi().equals("51") ||
+			 * nfeDetalhe.getCstIpi().equals("52") ||
+			 * nfeDetalhe.getCstIpi().equals("53") ||
+			 * nfeDetalhe.getCstIpi().equals("54") ||
+			 * nfeDetalhe.getCstIpi().equals("55")) {
+			 * 
+			 * nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIpi(BigDecimal.ZERO); }
+			 * 
+			 * if (nfeDetalhe.getCstIpi().equals("00") ||
+			 * nfeDetalhe.getCstIpi().equals("49") ||
+			 * nfeDetalhe.getCstIpi().equals("60") ||
+			 * nfeDetalhe.getCstIpi().equals("99")) {
+			 * 
+			 * nfeDetalhe.setBaseCalculoIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaIpi(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorIpi(BigDecimal.ZERO); }
+			 * 
+			 * nfeDetalhe.setCstCofins("99");
+			 * nfeDetalhe.setBaseCalculoCofins(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorCofins(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaCofinsReais(BigDecimal.ZERO);
+			 * 
+			 * nfeDetalhe.setCstPis("99");
+			 * nfeDetalhe.setValorBaseCalculoPis(BigDecimal.ZERO);
+			 * nfeDetalhe.setAliquotaPisReais(BigDecimal.ZERO);
+			 * nfeDetalhe.setValorPis(BigDecimal.ZERO);
+			 */
 
 		}// for (int i = 0; i < listaNfeDetalhe.size(); i++) {
 
