@@ -1,7 +1,9 @@
 package dc.visao.framework.geral;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +31,14 @@ import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.dialogs.DefaultConfirmDialogFactory;
 
 import com.sun.istack.logging.Logger;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
+import com.vaadin.server.DownloadStream;
+import com.vaadin.server.Page;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -38,6 +53,7 @@ import com.vaadin.ui.CustomTable.ColumnResizeListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import dc.anotacoes.AnotacoesUtil;
@@ -48,12 +64,14 @@ import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
+import dc.entidade.relatorio.RelatorioParameterView;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.util.Validator;
 import dc.visao.framework.DCFilterDecorator;
 import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
@@ -156,8 +174,11 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 				SecuritySessionProvider.getUsuario());
 
 		if (relatorios != null) {
+
 			for (Relatorio relatorio : relatorios) {
 				Button relatorioButton = new Button(relatorio.getNome());
+
+				addButtonListenerReport(relatorioButton, relatorio);
 
 				view.getPopupButtonContent().addComponent(relatorioButton);
 			}
@@ -220,6 +241,111 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 			}
 		});
+	}
+
+	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
+
+		relatorioButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+
+					if (Validator.validateString(relatorio.getTelaParametros())) {
+
+						Class parameterViewClass = Class.forName(relatorio.getTelaParametros());
+						Object parameterView = parameterViewClass.newInstance();
+
+						final RelatorioParameterView relatorioParameterView = (RelatorioParameterView) parameterView;
+
+						VerticalLayout relatorioPopUp = new VerticalLayout();
+						relatorioPopUp.setMargin(true);
+						relatorioPopUp.setSpacing(true);
+						relatorioPopUp.addComponent(relatorioParameterView);
+
+						Button imprimir = new Button();
+						imprimir.setCaption("Imprimir");
+						relatorioPopUp.addComponent(imprimir);
+
+						openOnNewWindow(3, CRUDListController.WINDOW_LIST, relatorioPopUp);
+						imprimir.addClickListener(new ClickListener() {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
+							@Override
+							public void buttonClick(ClickEvent event) {
+								try {
+									printListener(relatorioParameterView.getParametersMap(), relatorioParameterView.getJRDataSource());
+								} catch (JRException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+							}
+						});
+
+					} else {
+						LazyQueryContainer containerDataSource = (LazyQueryContainer) table.getContainerDataSource();
+						List<?> itemIds = containerDataSource.getItemIds(0, Integer.MAX_VALUE);
+
+						List<Item> items = new ArrayList<>();
+						for (Object id : itemIds) {
+							Item item = containerDataSource.getItem(id);
+							items.add(item);
+
+						}
+
+						printListener(new HashMap<String, Object>(), new JRBeanCollectionDataSource(items));
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			private void printListener(Map<String, Object> params, JRDataSource dataSource) throws JRException {
+
+				if (dataSource == null) {
+					dataSource = new JREmptyDataSource();
+				}
+
+				JasperReport report = JasperCompileManager.compileReport(relatorio.getJasperPath());
+
+				final byte[] bytes = JasperRunManager.runReportToPdf(report, params, dataSource);
+
+				final StreamSource s = new StreamSource() {
+
+					public java.io.InputStream getStream() {
+						ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+						return bais;
+					}
+				};
+
+				String filename = relatorio.getNome().replace(" ", "_").concat(".pdf").toLowerCase();
+
+				filename = filename.replaceAll("[éèêë]", "e");
+				filename = filename.replaceAll("[áàäâã]", "a");
+				filename = filename.replaceAll("[úùüû]", "u");
+				filename = filename.replaceAll("[óòôõö]", "o");
+				filename = filename.replaceAll("[íìïî]", "i");
+				filename = filename.replaceAll("ç", "c");
+
+				StreamResource resource = new StreamResource(s, filename);
+
+				DownloadStream stream = resource.getStream();
+				stream.setContentType("application/pdf");
+				stream.setFileName(filename);
+				stream.setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+				stream.setParameter("Content-Length", String.valueOf(bytes.length));
+				resource.setCacheTime(5000);
+				resource.setMIMEType("application/pdf");
+				Page.getCurrent().open(resource, "_blank", false);
+			}
+		});
+
 	}
 
 	/*
@@ -655,6 +781,16 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	}
 
 	public void openOnNewWindow(int modalSize, final int mode) {
+		Component content = null;
+		if (mode == WINDOW_FORM) {
+			content = (Component) getFormController().getView();
+		} else if (mode == WINDOW_LIST) {
+			content = (Component) getView();
+		}
+		openOnNewWindow(modalSize, mode, content);
+	}
+
+	public void openOnNewWindow(int modalSize, final int mode, Component content) {
 		window = new Window() {
 
 			private static final long serialVersionUID = 1L;
@@ -673,11 +809,7 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 
 		};
 
-		if (mode == WINDOW_FORM) {
-			window.setContent((Component) getFormController().getView());
-		} else if (mode == WINDOW_LIST) {
-			window.setContent((Component) getView());
-		}
+		window.setContent(content);
 
 		window.center();
 

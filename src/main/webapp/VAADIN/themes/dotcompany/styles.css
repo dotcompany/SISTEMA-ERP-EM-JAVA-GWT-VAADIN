@@ -7,7 +7,7 @@
 }
 
 .v-vaadin-version:after {
-	content: "7.2.3";
+	content: "7.2.5";
 }
 
 .v-generated-body {
@@ -250,15 +250,15 @@
 }
 
 .v-debugwindow-row.FINE {
-	color: #777;
+	color: #737373;
 }
 
 .v-debugwindow-row.FINER {
-	color: #888;
+	color: gray;
 }
 
 .v-debugwindow-row.FINEST {
-	color: #888;
+	color: #8c8c8c;
 }
 
 .v-debugwindow-row > span.caption {
@@ -321,7 +321,7 @@
 }
 
 @font-face {
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 	src: url(../base/fonts/fontawesome-webfont.eot);
 	src: url(../base/fonts/fontawesome-webfont.eot?#iefix) format("embedded-opentype"), url(../base/fonts/fontawesome-webfont.woff) format("woff"), url(../base/fonts/fontawesome-webfont.ttf) format("truetype"), url(../base/fonts/fontawesome-webfont.svg) format("svg");
 	font-weight: normal;
@@ -329,7 +329,7 @@
 }
 
 .FontAwesome {
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 	font-style: normal;
 	font-weight: normal;
 	-webkit-font-smoothing: antialiased;
@@ -1736,6 +1736,11 @@ body .dotcompany.v-app .v-app-loading {
 	padding: 0;
 	border: 0;
 	margin: 0;
+}
+
+.dotcompany .v-contextmenu .gwt-MenuBar {
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .dotcompany .v-contextmenu .gwt-MenuItem div {
@@ -4255,7 +4260,7 @@ body .dotcompany.v-app .v-app-loading {
 
 .dotcompany.v-app, .dotcompany .v-drag-element, .dotcompany .v-contextmenu, .dotcompany .v-menubar-popup, .dotcompany .v-filterselect-suggestpopup, .dotcompany .v-datefield-popup, .dotcompany .v-popupview-popup, .dotcompany .v-Notification, .dotcompany .v-window, .dotcompany .v-tooltip {
 	color: #5a6066;
-	font: normal 13px / 1.5 "Open Sans", Arial, sans-serif;
+	font: normal 13px/1.5 "Open Sans", Arial, sans-serif;
 }
 
 .dotcompany .v-spacing {
@@ -6022,7 +6027,7 @@ body .dotcompany.v-app .v-app-loading {
 	background-color: rgba(40, 40, 40, 0.85);
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 	color: #a6a9aa;
-	font: normal 13px / 1.5 "Open Sans", Arial, sans-serif;
+	font: normal 13px/1.5 "Open Sans", Arial, sans-serif;
 	font-size: 12px;
 	-webkit-animation: fade-in 160ms ease-out;
 	-moz-animation: fade-in 160ms ease-out;

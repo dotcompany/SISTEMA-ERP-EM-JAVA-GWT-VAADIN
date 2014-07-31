@@ -53,6 +53,10 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 	@Caption(value = "Descrição")
 	private String descricao;
 
+	@Column(name = "tela_parametros")
+	@Caption(value = "Classe Tela de Parâmetros")
+	private String telaParametros;
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, targetEntity = FmMenu.class)
 	@JoinColumn(name = "id_fm_menu")
 	private FmMenu menu;
@@ -118,6 +122,14 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getTelaParametros() {
+		return telaParametros;
+	}
+
+	public void setTelaParametros(String telaParametros) {
+		this.telaParametros = telaParametros;
 	}
 
 }

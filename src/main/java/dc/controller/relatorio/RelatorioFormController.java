@@ -15,6 +15,7 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.relatorio.Relatorio;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -132,7 +133,17 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 
 	private void gravarAnexo() throws IOException {
 		File relatorioForm = (File) subView.getRelatorioUpload().getValue();
-		currentBean.setJasperPath(relatorioForm.getAbsolutePath());
+
+		String homePath = System.getProperty("user.home");
+		String customCompanyBaseFolder = "dc-erp/reports";
+		String arqOriginal = subView.getNomeRelatorio();
+
+		String caminho = homePath + "/" + customCompanyBaseFolder + "/" + currentBean.getMenu().getUrlId() + "/" + arqOriginal;
+
+		Util.copyFile(relatorioForm, new File(caminho));
+		currentBean.setJasperPath(caminho);
+
+		relatorioForm.delete();
 	}
 
 }
