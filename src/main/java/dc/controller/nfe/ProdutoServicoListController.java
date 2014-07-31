@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.servicos.dao.nfe.NfeCabecalhoDAO;
+import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -34,7 +34,7 @@ public class ProdutoServicoListController extends
 	 */
 
 	@Autowired
-	private NfeCabecalhoDAO pDAO;
+	private NfeCabecalhoBusiness<NfeCabecalhoEntity> pBusiness;
 
 	/**
 	 * CONTROLLER'S
@@ -62,8 +62,7 @@ public class ProdutoServicoListController extends
 	@Override
 	protected List<NfeCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<NfeCabecalhoEntity> auxLista = this.pDAO
-					.procuraNomeContendo(valor);
+			List<NfeCabecalhoEntity> auxLista = this.pBusiness.find(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -94,7 +93,7 @@ public class ProdutoServicoListController extends
 	@Override
 	protected List<NfeCabecalhoEntity> pesquisaDefault() {
 		try {
-			List<NfeCabecalhoEntity> auxLista = this.pDAO.listarTodos();
+			List<NfeCabecalhoEntity> auxLista = this.pBusiness.listAll();
 
 			return auxLista;
 		} catch (Exception e) {

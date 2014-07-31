@@ -1,4 +1,4 @@
-package dc.servicos.business;
+package dc.servicos.business.nfe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.servicos.dao.nfe.NfeCabecalhoDAO;
+import dc.entidade.nfe.NfeDetalheEntity;
+import dc.servicos.dao.nfe.NfeDetalheDAO;
 
 /**
  * 
@@ -18,10 +18,10 @@ import dc.servicos.dao.nfe.NfeCabecalhoDAO;
  * 
  */
 
-@Service("nfeCabecalhoBusinessImpl")
+@Service("nfeDetalheBusinessImpl")
 @Transactional(readOnly = true)
-public class NfeCabecalhoBusinessImpl implements Serializable,
-		NfeCabecalhoBusiness<NfeCabecalhoEntity> {
+public class NfeDetalheBusinessImpl implements Serializable,
+		NfeDetalheBusiness<NfeDetalheEntity> {
 
 	/**
 	 * 
@@ -29,39 +29,39 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	@Resource
-	private NfeCabecalhoDAO mainDao;
+	private NfeDetalheDAO mainDao;
 
-	public void setMainDao(NfeCabecalhoDAO mainDao) {
+	public void setMainDao(NfeDetalheDAO mainDao) {
 		this.mainDao = mainDao;
 	}
 
 	@Transactional
 	@Override
-	public void delete(NfeCabecalhoEntity entity) throws Exception {
+	public void delete(NfeDetalheEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		this.mainDao.delete(entity);
 	}
 
 	@Override
-	public List<NfeCabecalhoEntity> search(NfeCabecalhoEntity entity)
+	public List<NfeDetalheEntity> search(NfeDetalheEntity entity)
 			throws Exception {
-		List<NfeCabecalhoEntity> auxLista = new ArrayList<NfeCabecalhoEntity>();
+		List<NfeDetalheEntity> auxLista = new ArrayList<NfeDetalheEntity>();
 
 		return auxLista;
 	}
 
 	@Transactional
 	@Override
-	public void saveOrUpdate(NfeCabecalhoEntity entity) throws Exception {
+	public void saveOrUpdate(NfeDetalheEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		this.mainDao.save(entity);
 	}
 
 	@Transactional
 	@Override
-	public NfeCabecalhoEntity find(Serializable id) throws Exception {
+	public NfeDetalheEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
-		NfeCabecalhoEntity entity = this.mainDao.find(id);
+		NfeDetalheEntity entity = this.mainDao.find(id);
 
 		return entity;
 	}
