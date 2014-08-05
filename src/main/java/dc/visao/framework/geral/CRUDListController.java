@@ -173,15 +173,17 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
 				SecuritySessionProvider.getUsuario());
 
-		if (relatorios != null) {
+		if (relatorios != null && relatorios.size() > 0) {
 
 			for (Relatorio relatorio : relatorios) {
 				Button relatorioButton = new Button(relatorio.getNome());
 
 				addButtonListenerReport(relatorioButton, relatorio);
 
-				view.getPopupButtonContent().addComponent(relatorioButton);
+				view.getPopupButtonReportContent().addComponent(relatorioButton);
 			}
+		} else {
+			view.getPbReport().setVisible(false);
 		}
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
