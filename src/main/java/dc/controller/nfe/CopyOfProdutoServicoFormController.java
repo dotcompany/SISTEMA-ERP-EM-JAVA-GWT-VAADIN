@@ -401,7 +401,7 @@ public class CopyOfProdutoServicoFormController extends
 				.getEntidade(this.nfeCabecalho);
 		nfeDestinatario.setNfeCabecalho(this.nfeCabecalho);
 
-		this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
+		/*this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
 
 		this.subView.getTfEmailDestinatario().setValue(
 				this.nfeCabecalho.getNfeDestinatario().getEmail());
@@ -436,7 +436,7 @@ public class CopyOfProdutoServicoFormController extends
 		if (cliente != null) {
 			this.subView.getMtoCliente().setValue(
 					this.nfeCabecalho.getCliente());
-		}
+		}*/
 	}
 
 	private void nfeDetalheCarregar() throws Exception {
@@ -1009,7 +1009,7 @@ public class CopyOfProdutoServicoFormController extends
 			}
 
 			// this.subView.getTfCstPis().setValue(entPis.getCstPis().trim());
-			this.subView.getTfQtdVendidaPis().setValue(
+			/*this.subView.getTfQtdVendidaPis().setValue(
 					entPis.getQuantidadeVendida().toString().trim());
 			this.subView.getTfBaseCalculoBcPis().setValue(
 					entPis.getValorBaseCalculoPis().toString().trim());
@@ -1018,7 +1018,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfAliquotaReaisPis().setValue(
 					entPis.getAliquotaPisReais().toString().trim());
 			this.subView.getTfValorPis().setValue(
-					entPis.getValorPis().toString().trim());
+					entPis.getValorPis().toString().trim());*/
 
 			/**
 			 * COMBUSTÍVEL
@@ -1159,11 +1159,11 @@ public class CopyOfProdutoServicoFormController extends
 							"NFE DETALHE "
 									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
-			this.subView.getPlNdiPis()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiPis()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			this.subView.getPlNdeArmamentoSubForm()
 					.setCaption(
 							"NFE DETALHE "
@@ -1241,7 +1241,7 @@ public class CopyOfProdutoServicoFormController extends
 			boolean a10, boolean a11) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
 		this.subView.getGlIcms().setEnabled(a2);
-		this.subView.getGlPis().setEnabled(a3);
+		//this.subView.getGlPis().setEnabled(a3);
 		this.subView.getGlCofins().setEnabled(a4);
 		this.subView.getGlIpi().setEnabled(a5);
 		this.subView.getGlImpostoImportacao().setEnabled(a6);
@@ -2468,7 +2468,7 @@ public class CopyOfProdutoServicoFormController extends
 		NfeDetalheImpostoPisEntity entPis = new NfeDetalheImpostoPisEntity();
 
 		// this.subView.getTfCstPis().setValue(entPis.getCstPis());
-		this.subView.getTfQtdVendidaPis().setValue(
+		/*this.subView.getTfQtdVendidaPis().setValue(
 				entPis.getQuantidadeVendida().toString());
 		this.subView.getTfBaseCalculoBcPis().setValue(
 				entPis.getValorBaseCalculoPis().toString());
@@ -2476,7 +2476,7 @@ public class CopyOfProdutoServicoFormController extends
 				entPis.getAliquotaPisPercentual().toString());
 		this.subView.getTfAliquotaReaisPis().setValue(
 				entPis.getAliquotaPisReais().toString());
-		this.subView.getTfValorPis().setValue(entPis.getValorPis().toString());
+		this.subView.getTfValorPis().setValue(entPis.getValorPis().toString());*/
 	}
 
 	private void ndeCombustivelLimpar() {
@@ -2589,7 +2589,7 @@ public class CopyOfProdutoServicoFormController extends
 					ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
-			this.subView.getMtoCliente().setModel(model1);
+			//this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(
 					ProdutosListController.class, this.produtoDAO,

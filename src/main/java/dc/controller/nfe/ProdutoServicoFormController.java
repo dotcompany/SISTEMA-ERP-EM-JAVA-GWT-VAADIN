@@ -1829,7 +1829,7 @@ public class ProdutoServicoFormController extends
 					ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
-			this.subView.getMtoCliente().setModel(model1);
+			//this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(
 					ProdutosListController.class, this.produtoDAO,
