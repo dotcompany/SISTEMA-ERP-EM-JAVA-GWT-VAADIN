@@ -552,8 +552,8 @@ public class CopyOfProdutoServicoFormController extends
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
 
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
-				.getNdeMedicamentoList());
+		//this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		//		.getNdeMedicamentoList());
 	}
 
 	private void ndeArmamentoCarregar() throws Exception {
@@ -567,8 +567,8 @@ public class CopyOfProdutoServicoFormController extends
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeArmamentoList(auxLista);
 
-		this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
-				.getNdeArmamentoList());
+		//this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
+		//		.getNdeArmamentoList());
 	}
 
 	/**
@@ -1035,7 +1035,7 @@ public class CopyOfProdutoServicoFormController extends
 						.setNfeDetEspecificoCombustivel(entCombustivel);
 			}
 
-			this.subView.getTfCodigoAnpCombustivel().setValue(
+			/*this.subView.getTfCodigoAnpCombustivel().setValue(
 					entCombustivel.getCodigoAnp().toString().trim());
 			this.subView.getTfCodifCombustivel().setValue(
 					entCombustivel.getCodif().trim());
@@ -1049,7 +1049,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfAliquotaCideCombustivel().setValue(
 					entCombustivel.getAliquotaCide().toString().trim());
 			this.subView.getTfValorCideCombustivel().setValue(
-					entCombustivel.getValorCide().toString().trim());
+					entCombustivel.getValorCide().toString().trim());*/
 
 			/**
 			 * VEÍCULO
@@ -1066,7 +1066,7 @@ public class CopyOfProdutoServicoFormController extends
 						entVeiculo);
 			}
 
-			this.subView.getTfTipoOperacaoVeiculo().setValue(
+			/*this.subView.getTfTipoOperacaoVeiculo().setValue(
 					entVeiculo.getTipoOperacao());
 			this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
 			this.subView.getTfCodigoCorVeiculo().setValue(
@@ -1112,7 +1112,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfLotacaoVeiculo().setValue(
 					entVeiculo.getLotacao().toString());
 			this.subView.getTfRestricaoVeiculo().setValue(
-					entVeiculo.getRestricao());
+					entVeiculo.getRestricao());*/
 
 			/**
 			 * MEDICAMENTO
@@ -1164,26 +1164,26 @@ public class CopyOfProdutoServicoFormController extends
 			//				"NFE DETALHE "
 			//						+ this.nfeCabecalho.getNfeDetalhe()
 			//								.getNumeroItem());
-			this.subView.getPlNdeArmamentoSubForm()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
-			this.subView.getPlNdeCombustivel()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
-			this.subView.getPlNdeMedicamentoSubForm()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
-			this.subView.getPlNdeVeiculo()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdeArmamentoSubForm()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
+			//this.subView.getPlNdeCombustivel()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
+			//this.subView.getPlNdeMedicamentoSubForm()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
+			//this.subView.getPlNdeVeiculo()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1195,7 +1195,7 @@ public class CopyOfProdutoServicoFormController extends
 
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
-			this.subView.getGlNdeMedicamento().setEnabled(true);
+			/*this.subView.getGlNdeMedicamento().setEnabled(true);
 
 			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
 
@@ -1208,7 +1208,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getPdfDataValidadeMedicamento().setValue(
 					item.getDataValidade());
 			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
-					item.getPrecoMaximoConsumidor().toString());
+					item.getPrecoMaximoConsumidor().toString());*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1220,7 +1220,7 @@ public class CopyOfProdutoServicoFormController extends
 
 	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
 		try {
-			this.subView.getGlNdeArmamento().setEnabled(true);
+			/*this.subView.getGlNdeArmamento().setEnabled(true);
 
 			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
 
@@ -1230,7 +1230,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfNumeroSerieCanoArmamento().setValue(
 					item.getNumeroSerieCano());
 			this.subView.getTfDescricaoArmamento()
-					.setValue(item.getDescricao());
+					.setValue(item.getDescricao());*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1246,10 +1246,10 @@ public class CopyOfProdutoServicoFormController extends
 		//this.subView.getGlIpi().setEnabled(a5);
 		//this.subView.getGlImpostoImportacao().setEnabled(a6);
 		//this.subView.getGlIssqn().setEnabled(a7);
-		this.subView.getNdeGlCombustivel().setEnabled(a8);
-		this.subView.getNdeGlVeiculo().setEnabled(a9);
-		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
-		this.subView.getPlNdeArmamentoSubForm().setEnabled(a11);
+		//this.subView.getNdeGlCombustivel().setEnabled(a8);
+		//this.subView.getNdeGlVeiculo().setEnabled(a9);
+		//this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
+		//this.subView.getPlNdeArmamentoSubForm().setEnabled(a11);
 	}
 
 	/**
@@ -2204,7 +2204,7 @@ public class CopyOfProdutoServicoFormController extends
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeMedicamento().getDados()
+		/*Integer index = this.subView.getSfNdeMedicamento().getDados()
 				.indexOf(this.ndeMedicamentoSelecionado);
 
 		this.subView.getSfNdeMedicamento().getDados()
@@ -2220,7 +2220,7 @@ public class CopyOfProdutoServicoFormController extends
 				.add(index, this.ndeMedicamentoSelecionado);
 
 		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
-				.add(this.ndeMedicamentoSelecionado);
+				.add(this.ndeMedicamentoSelecionado);*/
 	}
 
 	public void ndeArmamentoSetarValor(String id, Object obj) {
@@ -2252,7 +2252,7 @@ public class CopyOfProdutoServicoFormController extends
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeArmamento().getDados()
+		/*Integer index = this.subView.getSfNdeArmamento().getDados()
 				.indexOf(this.ndeArmamentoSelecionado);
 
 		this.subView.getSfNdeArmamento().getDados()
@@ -2268,7 +2268,7 @@ public class CopyOfProdutoServicoFormController extends
 				.add(index, this.ndeArmamentoSelecionado);
 
 		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
-				.add(this.ndeArmamentoSelecionado);
+				.add(this.ndeArmamentoSelecionado);*/
 	}
 
 	/**
@@ -2482,7 +2482,7 @@ public class CopyOfProdutoServicoFormController extends
 	private void ndeCombustivelLimpar() {
 		NfeDetEspecificoCombustivelEntity entCombustivel = new NfeDetEspecificoCombustivelEntity();
 
-		this.subView.getTfCodigoAnpCombustivel().setValue(
+		/*this.subView.getTfCodigoAnpCombustivel().setValue(
 				entCombustivel.getCodigoAnp().toString());
 		this.subView.getTfCodifCombustivel()
 				.setValue(entCombustivel.getCodif());
@@ -2495,13 +2495,13 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfAliquotaCideCombustivel().setValue(
 				entCombustivel.getAliquotaCide().toString());
 		this.subView.getTfValorCideCombustivel().setValue(
-				entCombustivel.getValorCide().toString());
+				entCombustivel.getValorCide().toString());*/
 	}
 
 	private void ndeVeiculoLimpar() {
 		NfeDetEspecificoVeiculoEntity entVeiculo = new NfeDetEspecificoVeiculoEntity();
 
-		this.subView.getTfTipoOperacaoVeiculo().setValue(
+		/*this.subView.getTfTipoOperacaoVeiculo().setValue(
 				entVeiculo.getTipoOperacao());
 		this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
 		this.subView.getTfCodigoCorVeiculo()
@@ -2546,11 +2546,11 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfLotacaoVeiculo().setValue(
 				entVeiculo.getLotacao().toString());
 		this.subView.getTfRestricaoVeiculo()
-				.setValue(entVeiculo.getRestricao());
+				.setValue(entVeiculo.getRestricao());*/
 	}
 
 	public void ndeMedicamentoLimpar() {
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		/*this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
 				.getNdeMedicamentoList());
 
 		this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
@@ -2567,7 +2567,7 @@ public class CopyOfProdutoServicoFormController extends
 				this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor()
 						.toString());
 
-		this.subView.getGlNdeMedicamento().setEnabled(false);
+		this.subView.getGlNdeMedicamento().setEnabled(false);*/
 	}
 
 	/**

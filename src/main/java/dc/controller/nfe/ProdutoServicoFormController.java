@@ -432,8 +432,8 @@ public class ProdutoServicoFormController extends
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
 
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
-				.getNdeMedicamentoList());
+		//this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		//		.getNdeMedicamentoList());
 	}
 
 	private void ndeArmamentoCarregar() throws Exception {
@@ -447,8 +447,8 @@ public class ProdutoServicoFormController extends
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeArmamentoList(auxLista);
 
-		this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
-				.getNdeArmamentoList());
+		//this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
+		//		.getNdeArmamentoList());
 	}
 
 	/**
@@ -721,7 +721,7 @@ public class ProdutoServicoFormController extends
 
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
-			this.subView.getGlNdeMedicamento().setEnabled(true);
+			/*this.subView.getGlNdeMedicamento().setEnabled(true);
 
 			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
 
@@ -734,7 +734,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getPdfDataValidadeMedicamento().setValue(
 					item.getDataValidade());
 			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
-					item.getPrecoMaximoConsumidor().toString());
+					item.getPrecoMaximoConsumidor().toString());*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -746,7 +746,7 @@ public class ProdutoServicoFormController extends
 
 	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
 		try {
-			this.subView.getGlNdeArmamento().setEnabled(true);
+			/*this.subView.getGlNdeArmamento().setEnabled(true);
 
 			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
 
@@ -756,7 +756,7 @@ public class ProdutoServicoFormController extends
 			this.subView.getTfNumeroSerieCanoArmamento().setValue(
 					item.getNumeroSerieCano());
 			this.subView.getTfDescricaoArmamento()
-					.setValue(item.getDescricao());
+					.setValue(item.getDescricao());*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1716,7 +1716,7 @@ public class ProdutoServicoFormController extends
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeMedicamento().getDados()
+		/*Integer index = this.subView.getSfNdeMedicamento().getDados()
 				.indexOf(this.ndeMedicamentoSelecionado);
 
 		this.subView.getSfNdeMedicamento().getDados()
@@ -1732,7 +1732,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.ndeMedicamentoSelecionado);
 
 		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
-				.add(this.ndeMedicamentoSelecionado);
+				.add(this.ndeMedicamentoSelecionado);*/
 	}
 
 	public void ndeArmamentoSetarValor(String id, Object obj) {
@@ -1764,7 +1764,7 @@ public class ProdutoServicoFormController extends
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeArmamento().getDados()
+		/*Integer index = this.subView.getSfNdeArmamento().getDados()
 				.indexOf(this.ndeArmamentoSelecionado);
 
 		this.subView.getSfNdeArmamento().getDados()
@@ -1780,7 +1780,7 @@ public class ProdutoServicoFormController extends
 				.add(index, this.ndeArmamentoSelecionado);
 
 		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
-				.add(this.ndeArmamentoSelecionado);
+				.add(this.ndeArmamentoSelecionado);*/
 	}
 
 	/**
@@ -1790,12 +1790,12 @@ public class ProdutoServicoFormController extends
 	 */
 
 	public void ndeMedicamentoLimpar() {
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
-				.getNdeMedicamentoList());
+		//this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		//		.getNdeMedicamentoList());
 
 		this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
 
-		this.subView.getTfNumeroLoteMedicamento().setValue(
+		/*this.subView.getTfNumeroLoteMedicamento().setValue(
 				this.ndeMedicamentoSelecionado.getNumeroLote());
 		this.subView.getTfQuantidadeLoteMedicamento().setValue(
 				this.ndeMedicamentoSelecionado.getQuantidadeLote().toString());
@@ -1807,7 +1807,7 @@ public class ProdutoServicoFormController extends
 				this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor()
 						.toString());
 
-		this.subView.getGlNdeMedicamento().setEnabled(false);
+		this.subView.getGlNdeMedicamento().setEnabled(false);*/
 	}
 
 	/**

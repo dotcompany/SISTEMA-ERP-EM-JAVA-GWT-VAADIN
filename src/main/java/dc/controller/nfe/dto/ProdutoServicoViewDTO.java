@@ -433,23 +433,27 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// .setNfeDetEspecificoCombustivel(entCombustivel);
 		// }
 
-		subView.getPlNdeCombustivel().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getPlNdeCombustivel().setCaption(
+		// "NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
-		subView.getTfCodigoAnpCombustivel().setValue(
-				entCombustivel.getCodigoAnp().toString().trim());
-		subView.getTfCodifCombustivel().setValue(
-				entCombustivel.getCodif().trim());
-		subView.getTfQtdeTempAmbienteCombustivel().setValue(
-				entCombustivel.getQuantidadeTempAmbiente().toString().trim());
-		subView.getTfUfConsumoCombustivel().setValue(
-				entCombustivel.getUfConsumo().trim());
-		subView.getTfBcCideCombustivel().setValue(
-				entCombustivel.getBaseCalculoCide().toString().trim());
-		subView.getTfAliquotaCideCombustivel().setValue(
-				entCombustivel.getAliquotaCide().toString().trim());
-		subView.getTfValorCideCombustivel().setValue(
-				entCombustivel.getValorCide().toString().trim());
+		subView.getNdeCombustivelFormView().getTfCodigoAnpCombustivel()
+				.setValue(entCombustivel.getCodigoAnp().toString().trim());
+		subView.getNdeCombustivelFormView().getTfCodifCombustivel()
+				.setValue(entCombustivel.getCodif().trim());
+		subView.getNdeCombustivelFormView()
+				.getTfQtdeTempAmbienteCombustivel()
+				.setValue(
+						entCombustivel.getQuantidadeTempAmbiente().toString()
+								.trim());
+		subView.getNdeCombustivelFormView().getTfUfConsumoCombustivel()
+				.setValue(entCombustivel.getUfConsumo().trim());
+		subView.getNdeCombustivelFormView()
+				.getTfBcCideCombustivel()
+				.setValue(entCombustivel.getBaseCalculoCide().toString().trim());
+		subView.getNdeCombustivelFormView().getTfAliquotaCideCombustivel()
+				.setValue(entCombustivel.getAliquotaCide().toString().trim());
+		subView.getNdeCombustivelFormView().getTfValorCideCombustivel()
+				.setValue(entCombustivel.getValorCide().toString().trim());
 	}
 
 	public static synchronized void setNdeVeiculoSubView(
@@ -466,43 +470,57 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// entVeiculo);
 		// }
 
-		subView.getPlNdeVeiculo().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getPlNdeVeiculo().setCaption(
+		// "NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
-		subView.getTfTipoOperacaoVeiculo().setValue(
-				entVeiculo.getTipoOperacao());
-		subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
-		subView.getTfCodigoCorVeiculo().setValue(entVeiculo.getCodigoCor());
-		subView.getTfDescricaoCorVeiculo().setValue(
-				entVeiculo.getDescricaoCor());
-		subView.getTfPotenciaMotorVeiculo().setValue(
-				entVeiculo.getPotenciaMotor());
-		subView.getTfCilindradasVeiculo().setValue(entVeiculo.getCilindradas());
-		subView.getTfPesoLiquidoVeiculo().setValue(entVeiculo.getPesoLiquido());
-		subView.getTfPesoBrutoVeiculo().setValue(entVeiculo.getPesoBruto());
-		subView.getTfNumeroSerieVeiculo().setValue(entVeiculo.getNumeroSerie());
-		subView.getTfCombustivelVeiculo().setValue(
-				entVeiculo.getTipoCombustivel());
-		subView.getTfNumeroMotorVeiculo().setValue(entVeiculo.getNumeroMotor());
-		subView.getTfCapacidadeTracaoVeiculo().setValue(
-				entVeiculo.getCapacidadeMaximaTracao());
-		subView.getTfDistanciaEixosVeiculo().setValue(
-				entVeiculo.getDistanciaEixos());
-		subView.getTfAnoModeloVeiculo().setValue(entVeiculo.getAnoModelo());
-		subView.getTfAnoFabricacaoVeiculo().setValue(
-				entVeiculo.getAnoFabricacao());
-		subView.getTfTipoPinturaVeiculo().setValue(entVeiculo.getTipoPintura());
-		subView.getTfTipoVeiculo().setValue(entVeiculo.getTipoVeiculo());
-		subView.getTfEspecieVeiculo().setValue(entVeiculo.getEspecieVeiculo());
-		subView.getTfCondicaoVinVeiculo().setValue(entVeiculo.getCondicaoVin());
-		subView.getTfCondicaoVeiculo()
+		subView.getNdeVeiculoFormView().getTfTipoOperacaoVeiculo()
+				.setValue(entVeiculo.getTipoOperacao());
+		subView.getNdeVeiculoFormView().getTfChassiVeiculo()
+				.setValue(entVeiculo.getChassi());
+		subView.getNdeVeiculoFormView().getTfCodigoCorVeiculo()
+				.setValue(entVeiculo.getCodigoCor());
+		subView.getNdeVeiculoFormView().getTfDescricaoCorVeiculo()
+				.setValue(entVeiculo.getDescricaoCor());
+		subView.getNdeVeiculoFormView().getTfPotenciaMotorVeiculo()
+				.setValue(entVeiculo.getPotenciaMotor());
+		subView.getNdeVeiculoFormView().getTfCilindradasVeiculo()
+				.setValue(entVeiculo.getCilindradas());
+		subView.getNdeVeiculoFormView().getTfPesoLiquidoVeiculo()
+				.setValue(entVeiculo.getPesoLiquido());
+		subView.getNdeVeiculoFormView().getTfPesoBrutoVeiculo()
+				.setValue(entVeiculo.getPesoBruto());
+		subView.getNdeVeiculoFormView().getTfNumeroSerieVeiculo()
+				.setValue(entVeiculo.getNumeroSerie());
+		subView.getNdeVeiculoFormView().getTfCombustivelVeiculo()
+				.setValue(entVeiculo.getTipoCombustivel());
+		subView.getNdeVeiculoFormView().getTfNumeroMotorVeiculo()
+				.setValue(entVeiculo.getNumeroMotor());
+		subView.getNdeVeiculoFormView().getTfCapacidadeTracaoVeiculo()
+				.setValue(entVeiculo.getCapacidadeMaximaTracao());
+		subView.getNdeVeiculoFormView().getTfDistanciaEixosVeiculo()
+				.setValue(entVeiculo.getDistanciaEixos());
+		subView.getNdeVeiculoFormView().getTfAnoModeloVeiculo()
+				.setValue(entVeiculo.getAnoModelo());
+		subView.getNdeVeiculoFormView().getTfAnoFabricacaoVeiculo()
+				.setValue(entVeiculo.getAnoFabricacao());
+		subView.getNdeVeiculoFormView().getTfTipoPinturaVeiculo()
+				.setValue(entVeiculo.getTipoPintura());
+		subView.getNdeVeiculoFormView().getTfTipoVeiculo()
+				.setValue(entVeiculo.getTipoVeiculo());
+		subView.getNdeVeiculoFormView().getTfEspecieVeiculo()
+				.setValue(entVeiculo.getEspecieVeiculo());
+		subView.getNdeVeiculoFormView().getTfCondicaoVinVeiculo()
+				.setValue(entVeiculo.getCondicaoVin());
+		subView.getNdeVeiculoFormView().getTfCondicaoVeiculo()
 				.setValue(entVeiculo.getCondicaoVeiculo());
-		subView.getTfCodigoMarcaModeloVeiculo().setValue(
-				entVeiculo.getCodigoMarcaModelo());
-		subView.getTfCodigoCorDenatranVeiculo().setValue(entVeiculo.getCor());
-		subView.getTfLotacaoVeiculo().setValue(
-				entVeiculo.getLotacao().toString());
-		subView.getTfRestricaoVeiculo().setValue(entVeiculo.getRestricao());
+		subView.getNdeVeiculoFormView().getTfCodigoMarcaModeloVeiculo()
+				.setValue(entVeiculo.getCodigoMarcaModelo());
+		subView.getNdeVeiculoFormView().getTfCodigoCorDenatranVeiculo()
+				.setValue(entVeiculo.getCor());
+		subView.getNdeVeiculoFormView().getTfLotacaoVeiculo()
+				.setValue(entVeiculo.getLotacao().toString());
+		subView.getNdeVeiculoFormView().getTfRestricaoVeiculo()
+				.setValue(entVeiculo.getRestricao());
 	}
 
 	/**
@@ -716,19 +734,21 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 		NfeDetEspecificoCombustivelEntity ndeCombustivel = new NfeDetEspecificoCombustivelEntity();
 
-		subView.getTfCodigoAnpCombustivel().setValue(
-				ndeCombustivel.getCodigoAnp().toString());
-		subView.getTfCodifCombustivel().setValue(ndeCombustivel.getCodif());
-		subView.getTfQtdeTempAmbienteCombustivel().setValue(
-				ndeCombustivel.getQuantidadeTempAmbiente().toString());
-		subView.getTfUfConsumoCombustivel().setValue(
-				ndeCombustivel.getUfConsumo());
-		subView.getTfBcCideCombustivel().setValue(
-				ndeCombustivel.getBaseCalculoCide().toString());
-		subView.getTfAliquotaCideCombustivel().setValue(
-				ndeCombustivel.getAliquotaCide().toString());
-		subView.getTfValorCideCombustivel().setValue(
-				ndeCombustivel.getValorCide().toString());
+		subView.getNdeCombustivelFormView().getTfCodigoAnpCombustivel()
+				.setValue(ndeCombustivel.getCodigoAnp().toString());
+		subView.getNdeCombustivelFormView().getTfCodifCombustivel()
+				.setValue(ndeCombustivel.getCodif());
+		subView.getNdeCombustivelFormView()
+				.getTfQtdeTempAmbienteCombustivel()
+				.setValue(ndeCombustivel.getQuantidadeTempAmbiente().toString());
+		subView.getNdeCombustivelFormView().getTfUfConsumoCombustivel()
+				.setValue(ndeCombustivel.getUfConsumo());
+		subView.getNdeCombustivelFormView().getTfBcCideCombustivel()
+				.setValue(ndeCombustivel.getBaseCalculoCide().toString());
+		subView.getNdeCombustivelFormView().getTfAliquotaCideCombustivel()
+				.setValue(ndeCombustivel.getAliquotaCide().toString());
+		subView.getNdeCombustivelFormView().getTfValorCideCombustivel()
+				.setValue(ndeCombustivel.getValorCide().toString());
 
 		/**
 		 * 
@@ -736,40 +756,54 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 		NfeDetEspecificoVeiculoEntity entVeiculo = new NfeDetEspecificoVeiculoEntity();
 
-		subView.getTfTipoOperacaoVeiculo().setValue(
-				entVeiculo.getTipoOperacao());
-		subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
-		subView.getTfCodigoCorVeiculo().setValue(entVeiculo.getCodigoCor());
-		subView.getTfDescricaoCorVeiculo().setValue(
-				entVeiculo.getDescricaoCor());
-		subView.getTfPotenciaMotorVeiculo().setValue(
-				entVeiculo.getPotenciaMotor());
-		subView.getTfCilindradasVeiculo().setValue(entVeiculo.getCilindradas());
-		subView.getTfPesoLiquidoVeiculo().setValue(entVeiculo.getPesoLiquido());
-		subView.getTfPesoBrutoVeiculo().setValue(entVeiculo.getPesoBruto());
-		subView.getTfNumeroSerieVeiculo().setValue(entVeiculo.getNumeroSerie());
-		subView.getTfCombustivelVeiculo().setValue(
-				entVeiculo.getTipoCombustivel());
-		subView.getTfNumeroMotorVeiculo().setValue(entVeiculo.getNumeroMotor());
-		subView.getTfCapacidadeTracaoVeiculo().setValue(
-				entVeiculo.getCapacidadeMaximaTracao());
-		subView.getTfDistanciaEixosVeiculo().setValue(
-				entVeiculo.getDistanciaEixos());
-		subView.getTfAnoModeloVeiculo().setValue(entVeiculo.getAnoModelo());
-		subView.getTfAnoFabricacaoVeiculo().setValue(
-				entVeiculo.getAnoFabricacao());
-		subView.getTfTipoPinturaVeiculo().setValue(entVeiculo.getTipoPintura());
-		subView.getTfTipoVeiculo().setValue(entVeiculo.getTipoVeiculo());
-		subView.getTfEspecieVeiculo().setValue(entVeiculo.getEspecieVeiculo());
-		subView.getTfCondicaoVinVeiculo().setValue(entVeiculo.getCondicaoVin());
-		subView.getTfCondicaoVeiculo()
+		subView.getNdeVeiculoFormView().getTfTipoOperacaoVeiculo()
+				.setValue(entVeiculo.getTipoOperacao());
+		subView.getNdeVeiculoFormView().getTfChassiVeiculo()
+				.setValue(entVeiculo.getChassi());
+		subView.getNdeVeiculoFormView().getTfCodigoCorVeiculo()
+				.setValue(entVeiculo.getCodigoCor());
+		subView.getNdeVeiculoFormView().getTfDescricaoCorVeiculo()
+				.setValue(entVeiculo.getDescricaoCor());
+		subView.getNdeVeiculoFormView().getTfPotenciaMotorVeiculo()
+				.setValue(entVeiculo.getPotenciaMotor());
+		subView.getNdeVeiculoFormView().getTfCilindradasVeiculo()
+				.setValue(entVeiculo.getCilindradas());
+		subView.getNdeVeiculoFormView().getTfPesoLiquidoVeiculo()
+				.setValue(entVeiculo.getPesoLiquido());
+		subView.getNdeVeiculoFormView().getTfPesoBrutoVeiculo()
+				.setValue(entVeiculo.getPesoBruto());
+		subView.getNdeVeiculoFormView().getTfNumeroSerieVeiculo()
+				.setValue(entVeiculo.getNumeroSerie());
+		subView.getNdeVeiculoFormView().getTfCombustivelVeiculo()
+				.setValue(entVeiculo.getTipoCombustivel());
+		subView.getNdeVeiculoFormView().getTfNumeroMotorVeiculo()
+				.setValue(entVeiculo.getNumeroMotor());
+		subView.getNdeVeiculoFormView().getTfCapacidadeTracaoVeiculo()
+				.setValue(entVeiculo.getCapacidadeMaximaTracao());
+		subView.getNdeVeiculoFormView().getTfDistanciaEixosVeiculo()
+				.setValue(entVeiculo.getDistanciaEixos());
+		subView.getNdeVeiculoFormView().getTfAnoModeloVeiculo()
+				.setValue(entVeiculo.getAnoModelo());
+		subView.getNdeVeiculoFormView().getTfAnoFabricacaoVeiculo()
+				.setValue(entVeiculo.getAnoFabricacao());
+		subView.getNdeVeiculoFormView().getTfTipoPinturaVeiculo()
+				.setValue(entVeiculo.getTipoPintura());
+		subView.getNdeVeiculoFormView().getTfTipoVeiculo()
+				.setValue(entVeiculo.getTipoVeiculo());
+		subView.getNdeVeiculoFormView().getTfEspecieVeiculo()
+				.setValue(entVeiculo.getEspecieVeiculo());
+		subView.getNdeVeiculoFormView().getTfCondicaoVinVeiculo()
+				.setValue(entVeiculo.getCondicaoVin());
+		subView.getNdeVeiculoFormView().getTfCondicaoVeiculo()
 				.setValue(entVeiculo.getCondicaoVeiculo());
-		subView.getTfCodigoMarcaModeloVeiculo().setValue(
-				entVeiculo.getCodigoMarcaModelo());
-		subView.getTfCodigoCorDenatranVeiculo().setValue(entVeiculo.getCor());
-		subView.getTfLotacaoVeiculo().setValue(
-				entVeiculo.getLotacao().toString());
-		subView.getTfRestricaoVeiculo().setValue(entVeiculo.getRestricao());
+		subView.getNdeVeiculoFormView().getTfCodigoMarcaModeloVeiculo()
+				.setValue(entVeiculo.getCodigoMarcaModelo());
+		subView.getNdeVeiculoFormView().getTfCodigoCorDenatranVeiculo()
+				.setValue(entVeiculo.getCor());
+		subView.getNdeVeiculoFormView().getTfLotacaoVeiculo()
+				.setValue(entVeiculo.getLotacao().toString());
+		subView.getNdeVeiculoFormView().getTfRestricaoVeiculo()
+				.setValue(entVeiculo.getRestricao());
 
 		// this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
 		// .getNdeMedicamentoList());
@@ -805,10 +839,10 @@ public class ProdutoServicoViewDTO implements Serializable {
 			// subView.getGlIpi().setEnabled(false);
 			// subView.getGlImpostoImportacao().setEnabled(false);
 			// subView.getGlIssqn().setEnabled(false);
-			subView.getNdeGlCombustivel().setEnabled(false);
-			subView.getNdeGlVeiculo().setEnabled(false);
-			subView.getPlNdeMedicamentoSubForm().setEnabled(false);
-			subView.getPlNdeArmamentoSubForm().setEnabled(false);
+			// subView.getNdeGlCombustivel().setEnabled(false);
+			// subView.getNdeGlVeiculo().setEnabled(false);
+			// subView.getPlNdeMedicamentoSubForm().setEnabled(false);
+			// subView.getPlNdeArmamentoSubForm().setEnabled(false);
 		} else {
 			subView.getGlNfeDetalhe().setEnabled(true);
 			// subView.getGlIcms().setEnabled(true);
@@ -817,10 +851,10 @@ public class ProdutoServicoViewDTO implements Serializable {
 			// subView.getGlIpi().setEnabled(true);
 			// subView.getGlImpostoImportacao().setEnabled(true);
 			// subView.getGlIssqn().setEnabled(true);
-			subView.getNdeGlCombustivel().setEnabled(true);
-			subView.getNdeGlVeiculo().setEnabled(true);
-			subView.getPlNdeMedicamentoSubForm().setEnabled(true);
-			subView.getPlNdeArmamentoSubForm().setEnabled(true);
+			// subView.getNdeGlCombustivel().setEnabled(true);
+			// subView.getNdeGlVeiculo().setEnabled(true);
+			// subView.getPlNdeMedicamentoSubForm().setEnabled(true);
+			// subView.getPlNdeArmamentoSubForm().setEnabled(true);
 		}
 	}
 
