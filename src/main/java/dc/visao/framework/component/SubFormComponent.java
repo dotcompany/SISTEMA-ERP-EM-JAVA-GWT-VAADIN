@@ -337,7 +337,7 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 
 	}
 
-	public BigDecimal getTotalSumary(List<T> dados) {
+	public Double getTotalSumary(List<T> dados) {
 		this.dados = dados;
 		BigDecimal totalRetorno = new BigDecimal(0);
 		for (String key : totalizador.keySet()) {
@@ -349,13 +349,11 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 					Object value = ReflectionUtils.getField(field, t);
 					if (value != null && key.equals("valorTotal")) {
 						totalRetorno = totalRetorno.add(total.add((BigDecimal) value));
-						System.out.println("value getTotalSumary: "+value+" key: "+key );
-						System.out.println("TotalRetorno: "+totalRetorno );
 					}
 				}
 			}
 		}
-		return totalRetorno;
+		return totalRetorno.doubleValue();
 	}
 	
 	private NumberFormat getFormat() {
