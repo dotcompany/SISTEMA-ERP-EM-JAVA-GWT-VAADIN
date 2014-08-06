@@ -2154,7 +2154,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		VerticalLayout efetivacaoChequeLayout = new VerticalLayout();
 		efetivacaoChequeLayout.setImmediate(false);
 		efetivacaoChequeLayout.setSizeFull();
-		efetivacaoChequeLayout.setMargin(true);
+		efetivacaoChequeLayout.setMargin(false);
 		efetivacaoChequeLayout.setSpacing(true);
 
 		this.efetivacaoChequeSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
@@ -2286,7 +2286,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	private Component buildEfetivacaoCarneSubForm() {
 		VerticalLayout efetivacaoCarneLayout = new VerticalLayout();
 		efetivacaoCarneLayout.setImmediate(false);
-		efetivacaoCarneLayout.setSizeFull();
+//		efetivacaoCarneLayout.setSizeFull();
 		efetivacaoCarneLayout.setMargin(false);
 		efetivacaoCarneLayout.setSpacing(true);
 		
@@ -2346,7 +2346,8 @@ public class OrdemServicoFormView extends CustomComponent {
 	@SuppressWarnings("serial")
 	private Component buildEfetivacaoBoletoSubForm() {
 		VerticalLayout efetivacaoBoletoLayout = new VerticalLayout();
-		efetivacaoBoletoLayout.setSizeFull();
+		setSizeFull();
+
 		efetivacaoBoletoSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
 				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
 				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
@@ -2595,10 +2596,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 			@Override
 			protected void adicionarBotoes(Table table) {
-
 			}
-			
-
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -2725,19 +2723,19 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 
 	public void preencheParcelasDuplicataSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
-		efetivacaoBoletoSubForm.fillWith(ordemServicoEfetivacao);
+		efetivacaoDuplicataSubForm.fillWith(ordemServicoEfetivacao);
 	}
 
 	public void preencheParcelasValeSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
-		efetivacaoBoletoSubForm.fillWith(ordemServicoEfetivacao);
+		efetivacaoValeSubForm.fillWith(ordemServicoEfetivacao);
 	}
 
 	public void preencheParcelasCobrancaBancariaSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
-		efetivacaoBoletoSubForm.fillWith(ordemServicoEfetivacao);
+		efetivacaoCobrancaBancariaSubForm.fillWith(ordemServicoEfetivacao);
 	}
 
 	public void preencheParcelasCobrancaCarteiraSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
-		efetivacaoBoletoSubForm.fillWith(ordemServicoEfetivacao);
+		efetivacaoCobrancaCarteiraSubForm.fillWith(ordemServicoEfetivacao);
 	}
 
 	public enum Tipo {
