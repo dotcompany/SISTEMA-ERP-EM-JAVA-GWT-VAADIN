@@ -19,6 +19,7 @@ import com.vaadin.server.Page;
 import com.vaadin.server.UserError;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
@@ -29,7 +30,10 @@ import com.vaadin.ui.TextField;
 
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
+import dc.entidade.relatorio.Relatorio;
 import dc.framework.DcConstants;
+import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.relatorio.RelatorioDAO;
 import dc.visao.spring.SecuritySessionProvider;
 
 /** @author Wesley Jr /* Nessa classe temos a configuração da Tela, todos os
@@ -64,6 +68,10 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 	private boolean newAttemptOpen;
 	private boolean changed = false;
 	private ChangeListener changeListener = new ChangeListener();
+	@Autowired
+	private RelatorioDAO relatorioDAO;
+	@Autowired
+	private FmMenuDAO fmMenuDAO;
 
 	@PostConstruct
 	public void init() {
@@ -130,6 +138,23 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 				}
 			}
 		});
+
+		// TODO Exibir só os que o user tiver permissão
+		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
+				SecuritySessionProvider.getUsuario());
+
+		if (relatorios != null && relatorios.size() > 0) {
+
+			for (Relatorio relatorio : relatorios) {
+				Button relatorioButton = new Button(relatorio.getNome());
+
+				addButtonListenerReport(relatorioButton, relatorio);
+
+				view.getPopupButtonReportContent().addComponent(relatorioButton);
+			}
+		} else {
+			view.getPbReport().setVisible(false);
+		}
 
 		view.getBtnCancelar().addClickListener(new ClickListener() {
 			@Override
@@ -365,6 +390,12 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 			}
 
 		}
+
+	}
+
+	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
+
+		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this.listController));
 
 	}
 
