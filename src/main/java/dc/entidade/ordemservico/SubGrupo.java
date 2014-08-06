@@ -95,4 +95,9 @@ public class SubGrupo extends AbstractMultiEmpresaModel<Integer> {
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}	
 }

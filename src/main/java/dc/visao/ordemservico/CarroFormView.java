@@ -122,19 +122,14 @@ public class CarroFormView extends CustomComponent {
 			}
 			
 		});
-		fields.addComponent(cbCliente, 0,1,1,1);
+		fields.addComponent(cbCliente, 0,1,0,1);
 
 		tfRazao = ComponentUtil.buildTextField("Razão");
-		fields.addComponent(tfRazao,2,1,3,1);
+		fields.addComponent(tfRazao,1,1,2,1);
 		
 		tfPlaca = ComponentUtil.buildMaskedTextField("Placa", "UUU-####");
 		fields.addComponent(tfPlaca,0,2,0,2);
 		
-
-		cbCor = new ManyToOneCombo<Cor>();
-		cbCor.setCaption("Cor");
-		fields.addComponent(cbCor, 1, 2, 2, 2);
-
 		cbMarca = new ManyToOneCombo<Marca>();
 		cbMarca.setCaption("Marca");
 		cbMarca.addValueChangeListener(new ValueChangeListener() {
@@ -146,31 +141,35 @@ public class CarroFormView extends CustomComponent {
 			}
 			
 		});
-		fields.addComponent(cbMarca, 0, 3, 1, 3);
+		fields.addComponent(cbMarca, 0, 3, 0, 3);
 
 		cbModelo = new ManyToOneCombo<Modelo>();
 		cbModelo.setCaption("Modelo");
-		fields.addComponent(cbModelo, 2, 3, 3, 3);
- 
-		cbCombustivel = new ManyToOneCombo<>();
+		fields.addComponent(cbModelo, 1, 3, 1, 3);
+
+		cbCor = new ManyToOneCombo<Cor>();
+		cbCor.setCaption("Cor");
+		fields.addComponent(cbCor, 0, 4, 0, 4);
+
+		cbCombustivel = new ManyToOneCombo<Combustivel>();
 		cbCombustivel.setCaption("Combustível");
-		fields.addComponent(cbCombustivel, 0, 4, 1, 4);
+		fields.addComponent(cbCombustivel, 1, 4, 1, 4);
 
 		tfAno = new TextField();
 		tfAno.setCaption("Ano");
-		fields.addComponent(tfAno, 2, 4, 2, 4);
+		fields.addComponent(tfAno, 0, 5, 0, 5);
 
 		tfMotorizacao = new TextField();
 		tfMotorizacao.setCaption("Motorização");
-		fields.addComponent(tfMotorizacao, 3, 4, 3, 4);
+		fields.addComponent(tfMotorizacao, 1, 5, 1, 5);
 
 		tfChassi = new TextField();
 		tfChassi.setCaption("Chassi");
-		fields.addComponent(tfChassi,0,5,0,5);
+		fields.addComponent(tfChassi,2,5,2,5);
 		
-		taObservacao = new TextArea();
-		taObservacao.setCaption("Observação");
-		fields.addComponent(taObservacao, 1, 5,4,6);
+		// txtDescricao
+		taObservacao = ComponentUtil.buildTextArea("Observação");
+		fields.addComponent(taObservacao,0,6);
 
 		return fields;
 	}

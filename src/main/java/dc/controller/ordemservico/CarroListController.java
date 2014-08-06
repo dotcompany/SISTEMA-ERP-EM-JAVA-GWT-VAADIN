@@ -28,8 +28,6 @@ public class CarroListController extends CRUDListController<Carro> {
 	public String[] getColunas() {
 		return new String[] {"placa","cliente","marca"};
 	}
-	
-	
 
 	@Override
 	protected String getTitulo() {

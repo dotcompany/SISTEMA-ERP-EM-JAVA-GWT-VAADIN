@@ -19,8 +19,10 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.FieldEvents;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.FileResource;
@@ -59,6 +61,7 @@ import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
+import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.ordemservico.Acessorio;
@@ -154,81 +157,55 @@ public class OrdemServicoFormView extends CustomComponent {
 	private  ImageViewer imageViewer = new ImageViewer();
 	private final TextField selectedImage = new TextField();
 	private List<String> listArquivos = new ArrayList<String>();
-	 
 	private OrdemServicoFormController controller;
-
 	private SubFormComponent<EntradaServico, Integer> entradaServicoSubForm;
-
 	private SubFormComponent<EntradaServico, Integer> entradaServicoFinanceiraSubForm;
-
 	private SubFormComponent<VendaPeca, Integer> vendaPecaSubForm = null;
-
 	private SubFormComponent<VendaPeca, Integer> vendaPecaFinanceiraSubForm;
-
 	private SubFormComponent<MaterialServico, Integer> materialServicoSubForm;
-
 	private SubFormComponent<AcessorioOs, Integer> acessorioOsSubForm;
-
 	private SubFormComponent<OrdemServico, Integer> osAgrupadaSubForm;
-
+	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoDinheiroSubForm;
 	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoChequeSubForm;
-
 	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCartaoSubForm;
-
 	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCarneSubForm;
 	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoBoletoSubForm;
-
+	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoDuplicataSubForm;
+	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoValeSubForm;
+	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCobrancaBancariaSubForm;
+	private SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCobrancaCarteiraSubForm;
 	private PopupDateField pdfDataEntrada,pdfDataEfetiv, pdfProximaRevisao, pdfEntrega, pdfDataNotaFiscal;
-	 
 	private TextField tfNumeroOS,tfNumeroComanda, tfRazao, tfEndereco, tfCidade, tfBairro, tfUf, tfFone, tfkm, tfData;
-	 
 	private TextField tfCliente, tfNumOsFabricante, tfNumNotaFiscal, tfApelido, tfSerial, tfMarca, tfModelo, tfAno, tfMotorizacao, tfCombustivel, tfChassi;
-
 	private TextArea taObservacaoLaudoTecnico,taObservacaoLaudoFerramentas, taTermoGarantia,taObservacaoLocal, taObservacaoOS, taObservacaoDefeito,taObservacaoFoto;
-
 	private TextField tfTotalServicoGeral,tfTotalProdutoGeral,tfTotalFreteGeral,tfTotalOutrosGeral,tfDescontoGeral,tfTotalGeral;
-	
 	private TextField tfTotalPeca, tfLucroPeca, tfTotalServico, tfLucroServico, tfComissaoTecnico, tfComissaoVendedor, tfComissaoAtendente,
 	                  tfDesconto, tfLucroParcialServico;
-
 	private Label lblTotalPeca, lblLucroPeca,lblTotalServico, lblLucroServico, lblComissaoTecnico, lblComissaoVendedor,
 	              lblComissaoAtendente, lblDesconto, lblLucroParcialServico;
-	
 	private Label lblDinheiro, lblCheque, lblCartao,lblBoleto, lblDuplicata, lblCarne, lblVale, lblCobrancaBancaria, 
 	              lblCobrancaCarteira, lblTotais, lblTroco;
-	
-	private TextField tfDinheiro, tfCheque, tfCartao,tfBoleto, tfDuplicata, tfCarne, tfVale, tfCobrancaBancaria, 
+	private TextField tfDinheiro,tfCheque, tfCartao,tfBoleto, tfDuplicata, tfCarne, tfVale, tfCobrancaBancaria, 
 					  tfCobrancaCarteira, tfTotais, tfQtParcelaDinheiro, tfQtParcelaCheque, tfQtParcelaCartao,tfQtParcelaBoleto, 
-					  tfQtParcelaDuplicata, tQtParcelafCarne, tfQtParcelaVale, tfQtParcelaCobrancaBancaria, 
+					  tfQtParcelaDuplicata, tfQtParcelaCarne, tfQtParcelaVale, tfQtParcelaCobrancaBancaria, 
 					  tfQtParcelaCobrancaCarteira, tfTroco, tfTotalRestante;
-    
 	private CheckBox chbPgtoUnico;
-	
 	private ManyToOneCombo<Cliente> cbCliente;
-
 	private ManyToOneCombo<Carro> cbPlaca;
-
 	private ManyToOneCombo<Revenda> cbRevenda;
-
 	private ManyToOneCombo<Equipamento> cbEquipamento;
-
 	private ManyToOneCombo<Equipamento> cbEquipamentoGarantia;
-
 	private ManyToOneCombo<Marca> cbMarca;
 	private ManyToOneCombo<Marca> cbMarcaGarantia;
-
 	private ManyToOneCombo<Modelo> cbModelo;
 	private ManyToOneCombo<Cor> cbCor;
 	private ManyToOneCombo<Modelo> cbModeloGarantia;
 	private ManyToOneCombo<Cor> cbCorGarantia;
-	
 	private ManyToOneCombo<StatusOs> cbStatus;
 	private ManyToOneCombo<SituacaoServico> cbSituacaoServico;
 	private ManyToOneCombo<Colaborador> cbAtendente;
-	
 	private ManyToOneCombo<TipoServico> cbTipoServico;
 	private ManyToOneCombo<TipoPagamento> cbFormaPagamento;
-
 	private BigDecimal troco = BigDecimal.ZERO;
 	private BigDecimal totalGeral = BigDecimal.ZERO;
 	private BigDecimal totalRestante = BigDecimal.ZERO;
@@ -245,9 +222,11 @@ public class OrdemServicoFormView extends CustomComponent {
 	private BigDecimal valorTotalCarneOs = BigDecimal.ZERO;
 	private BigDecimal valorTotalCartaoOs = BigDecimal.ZERO;
 	private BigDecimal valorTotalBoletoOs = BigDecimal.ZERO;
-	private BigDecimal valorTotalEntradaServico = BigDecimal.ZERO;
-	private BigDecimal valorTotalMaterialServico = BigDecimal.ZERO;
-    
+	private Double valorTotalEntradaServico = 0D;
+	private Double valorTotalMaterialServico = 0D;
+	private Double valorVendaPeca = 0D;
+	private Double valorTotalGeral = 0D;
+	private Double valorTotalDesconto = 0D;
 	private Button btnGravarEfetivacao;
 	
 	public OrdemServicoFormView(OrdemServicoFormController controller) {
@@ -732,7 +711,6 @@ public class OrdemServicoFormView extends CustomComponent {
 				return true;
 			}
 		};
-
 		sub.addTab(entradaServicoSubForm, "Entrada servico", null);
 
 		return sub;
@@ -782,7 +760,6 @@ public class OrdemServicoFormView extends CustomComponent {
 							for (Colaborador vd : vendedores) {
 								combobox.addItem(vd);
 							}
-
 							return combobox;
 						}else if ("tecnico".equals(propertyId)) {
 							ComboBox combobox = ComponentUtil.buildComboBox(null);
@@ -1495,7 +1472,6 @@ public class OrdemServicoFormView extends CustomComponent {
 					"valorCobrado","valorSubtotal","percentualDesconto","valorDesconto","valorTotal","dataGarantia","percentualTecnico","comissaoTecnico"}, new String[] {
 						"Vendedor","Técnico","Serviço","Hr.","Qtd","Valor Original","Valor Feito","Sub total","Desconto %","Desconto R$", "Valor Total","Garantia","Técnico %","Comissão Técnico"}
 				) {
-//, new String[] {"horaTrabalhada","quantidadeServico","valorSubtotal","valorDesconto","valorTotal"}
 			@Override
 			protected void adicionarBotoes(Table table) {
 
@@ -1776,7 +1752,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		finForms.setWidth("100.0%");
 		finForms.setHeight("100.0%");
 		finForms.setSizeFull();
-		finForms.setImmediate(true);
+		finForms.setImmediate(false);
 
 		GridLayout gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
@@ -1790,119 +1766,63 @@ public class OrdemServicoFormView extends CustomComponent {
 		horizontalLayout_1 = buildHorizontalLayout_1();
 		gridLayout_1.addComponent(horizontalLayout_1, 0, 0,9,0);
 		
-		lblDinheiro = new Label();
-		lblDinheiro.setCaption("Dinheiro:");
-		lblDinheiro.setHeight("-1px");
-		gridLayout_1.addComponent(lblDinheiro, 0, 1,0,1);
-
-		// Total em dinheiro
-		tfDinheiro = ComponentUtil.buildCurrencyField(null);
-		tfDinheiro.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-
-				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					dinheiro = (BigDecimal) tfDinheiro.getConvertedValue();
-
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
-			}
-		});
-		gridLayout_1.addComponent(tfDinheiro, 1, 1,1,1);
-
-		// Parcela em dinheiro
-		tfQtParcelaDinheiro = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaDinheiro, 2, 1,2,1);
-		
 		lblCheque = new Label();
 		lblCheque.setCaption("Cheque:");
 		lblCheque.setHeight("-1px");
-		gridLayout_1.addComponent(lblCheque, 0, 2,0,2);
+		gridLayout_1.addComponent(lblCheque, 0, 1,0,1);
 
 		// Total em cheque
 		tfCheque = ComponentUtil.buildCurrencyField(null);
-		tfCheque.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		tfCheque.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 3940783102372378576L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
+                System.out.println("On blur cheque");
 				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					cheque = (BigDecimal) tfCheque.getConvertedValue();
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				cheque = (BigDecimal) tfCheque.getConvertedValue();
 
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
 			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
 		});
-		gridLayout_1.addComponent(tfCheque, 1, 2,1,2);
-		
+		gridLayout_1.addComponent(tfCheque, 1, 1,1,1);
+
 		// Parcela em cheque
 		tfQtParcelaCheque = ComponentUtil.buildNumberField(null);
-		tfQtParcelaCheque.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		gridLayout_1.addComponent(tfQtParcelaCheque, 2, 1,2,1);
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				buildEfetivacaoChequeSubForm();
-			}
-		});
-		gridLayout_1.addComponent(tfQtParcelaCheque, 2, 2,2,2);
 
 		lblCartao = new Label();
 		lblCartao.setCaption("Cartão:");
 		lblCartao.setHeight("-1px");
-		gridLayout_1.addComponent(lblCartao, 0, 3,0,3);
+		gridLayout_1.addComponent(lblCartao, 0, 2,0,2);
 
 		// Total em cartão
 		tfCartao = ComponentUtil.buildCurrencyField(null);
-		tfCartao.addValueChangeListener(new ValueChangeListener() {
+		tfCartao.addBlurListener(new BlurListener() {
 			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
 				if(totalRestante !=null){
 					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
 					cartao = (BigDecimal) tfCartao.getConvertedValue();
-
+	
 					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
 					else if (cheque == null) cheque = BigDecimal.ZERO;
 					else if (cartao == null) cartao = BigDecimal.ZERO;
@@ -1912,7 +1832,6 @@ public class OrdemServicoFormView extends CustomComponent {
 					else if (vale == null) vale = BigDecimal.ZERO;
 					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
 					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
 					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
 					tfTotalRestante.setValue(totalRestante.toString());
 				}
@@ -1922,39 +1841,68 @@ public class OrdemServicoFormView extends CustomComponent {
 					troco = BigDecimal.ZERO;
 				}
 				tfTroco.setValue(troco.toString());
-			}
+            }
 		});
-		gridLayout_1.addComponent(tfCartao, 1, 3,1,3);
-		
-		// Parcela em cartão
-		tfQtParcelaCartao = ComponentUtil.buildNumberField(null);
-		tfQtParcelaCartao.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		gridLayout_1.addComponent(tfCartao, 1, 2,1,2);
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				buildEfetivacaoCartaoSubForm();
-			}
+		// Parcela cartao
+		tfQtParcelaCartao = ComponentUtil.buildNumberField(null);
+		gridLayout_1.addComponent(tfQtParcelaCartao, 2, 2,2,2);
+
+		lblCarne = new Label();
+		lblCarne.setCaption("Carnê:");
+		lblCarne.setHeight("-1px");
+		gridLayout_1.addComponent(lblCarne, 0, 3,0,3);
+
+		// Total em carne
+		tfCarne = ComponentUtil.buildCurrencyField(null);
+		tfCarne.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 1L;
+			public void blur(BlurEvent event) {
+				if(totalRestante !=null){
+					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+					carne = (BigDecimal) tfCarne.getConvertedValue();
+	
+					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+					else if (cheque == null) cheque = BigDecimal.ZERO;
+					else if (cartao == null) cartao = BigDecimal.ZERO;
+					else if (boleto == null) boleto = BigDecimal.ZERO;
+					else if (duplicata == null) duplicata = BigDecimal.ZERO;
+					else if (carne == null) carne = BigDecimal.ZERO;
+					else if (vale == null) vale = BigDecimal.ZERO;
+					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+					tfTotalRestante.setValue(totalRestante.toString());
+				}
+				if(totalRestante.doubleValue() >= 0){
+					troco = totalRestante;
+				}else{
+					troco = BigDecimal.ZERO;
+				}
+				tfTroco.setValue(troco.toString());
+            }
 		});
-		gridLayout_1.addComponent(tfQtParcelaCartao, 2, 3,2,3);
+		gridLayout_1.addComponent(tfCarne, 1, 3,1,3);
+
+		// Parcela carnê
+		tfQtParcelaCarne = ComponentUtil.buildNumberField(null);
+		gridLayout_1.addComponent(tfQtParcelaCarne, 2, 3,2,3);
 
 		lblBoleto = new Label();
 		lblBoleto.setCaption("Boleto:");
 		lblBoleto.setHeight("-1px");
 		gridLayout_1.addComponent(lblBoleto, 0, 4,0,4);
 
-		// Total em boleto
+		// Total boleto
 		tfBoleto = ComponentUtil.buildCurrencyField(null);
-		tfBoleto.addValueChangeListener(new ValueChangeListener() {
+		tfBoleto.addBlurListener(new BlurListener() {
 			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
 				if(totalRestante !=null){
 					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
 					boleto = (BigDecimal) tfBoleto.getConvertedValue();
-
+	
 					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
 					else if (cheque == null) cheque = BigDecimal.ZERO;
 					else if (cartao == null) cartao = BigDecimal.ZERO;
@@ -1964,7 +1912,6 @@ public class OrdemServicoFormView extends CustomComponent {
 					else if (vale == null) vale = BigDecimal.ZERO;
 					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
 					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
 					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
 					tfTotalRestante.setValue(totalRestante.toString());
 				}
@@ -1974,250 +1921,177 @@ public class OrdemServicoFormView extends CustomComponent {
 					troco = BigDecimal.ZERO;
 				}
 				tfTroco.setValue(troco.toString());
-			}
+            }
 		});
 		gridLayout_1.addComponent(tfBoleto, 1, 4,1,4);
-		
-		// Parcela em cartão
-		tfQtParcelaBoleto = ComponentUtil.buildNumberField(null);
-		tfQtParcelaBoleto.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				buildEfetivacaoBoletoSubForm();
-			}
-		});
+		tfQtParcelaBoleto = ComponentUtil.buildNumberField(null);
 		gridLayout_1.addComponent(tfQtParcelaBoleto, 2, 4,2,4);
 
+		//Duplicata
 		lblDuplicata = new Label();
 		lblDuplicata.setCaption("Duplicata:");
 		lblDuplicata.setHeight("-1px");
-		gridLayout_1.addComponent(lblDuplicata, 0, 5,0,5);
+		gridLayout_1.addComponent(lblDuplicata, 4, 1,4,1);
 
 		// Total em duplicata
 		tfDuplicata = ComponentUtil.buildCurrencyField(null);
-		tfDuplicata.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		tfDuplicata.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 3940783102372378576L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
 				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					duplicata = (BigDecimal) tfDuplicata.getConvertedValue();
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				duplicata = (BigDecimal) tfDuplicata.getConvertedValue();
 
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
 			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
 		});
-		gridLayout_1.addComponent(tfDuplicata, 1, 5,1,5);
-		
-		// Parcela em duplicata
+		gridLayout_1.addComponent(tfDuplicata, 5, 1,5,1);
+
 		tfQtParcelaDuplicata = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaDuplicata, 2, 5,2,5);
-
-		lblCarne = new Label();
-		lblCarne.setCaption("Carnê:");
-		lblCarne.setHeight("-1px");
-		gridLayout_1.addComponent(lblCarne, 0, 6,0,6);
-
-		// Total em carnê
-		tfCarne = ComponentUtil.buildCurrencyField(null);
-		tfCarne.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
-				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					carne = (BigDecimal) tfCarne.getConvertedValue();
-
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
-			}
-		});
-		gridLayout_1.addComponent(tfCarne, 1, 6,1,6);
+		gridLayout_1.addComponent(tfQtParcelaDuplicata, 6, 1,6,1);
 		
-		// Parcela em carnê
-		tQtParcelafCarne = ComponentUtil.buildNumberField(null);
-		tQtParcelafCarne.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				buildEfetivacaoCarneSubForm();
-			}
-		});
-		gridLayout_1.addComponent(tQtParcelafCarne, 2, 6,2,6);
-
+		//Vale
 		lblVale = new Label();
 		lblVale.setCaption("Vale:");
 		lblVale.setHeight("-1px");
-		gridLayout_1.addComponent(lblVale, 0, 7,0,7);
+		gridLayout_1.addComponent(lblVale, 4, 2,4,2);
 
-		// Total em vale
+		// Total em duplicata
 		tfVale = ComponentUtil.buildCurrencyField(null);
-		tfVale.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		tfVale.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 3940783102372378576L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
 				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					vale = (BigDecimal) tfVale.getConvertedValue();
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				vale = (BigDecimal) tfVale.getConvertedValue();
 
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
 			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
 		});
-		gridLayout_1.addComponent(tfVale, 1, 7,1,7);
-		
-		// Parcela em vale
+		gridLayout_1.addComponent(tfVale, 5, 2,5,2);
+
 		tfQtParcelaVale = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaVale, 2, 7,2,7);
-
-		lblCobrancaBancaria = new Label();
-		lblCobrancaBancaria.setCaption("Cobrança bancária:");
-		lblCobrancaBancaria.setHeight("-1px");
-		gridLayout_1.addComponent(lblCobrancaBancaria, 0, 8,0,8);
-
-		// Total em cobrança bancária
-		tfCobrancaBancaria = ComponentUtil.buildCurrencyField(null);
-		tfCobrancaBancaria.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
-				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					cobrancaBancaria = (BigDecimal) tfCobrancaBancaria.getConvertedValue();
-
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
-			}
-		});
-		gridLayout_1.addComponent(tfCobrancaBancaria, 1, 8,1,8);
+		gridLayout_1.addComponent(tfQtParcelaVale, 6, 2,6,2);
 		
-		// Parcela em cobrança bancária
-		tfQtParcelaCobrancaBancaria = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaCobrancaBancaria, 2, 8,2,8);
+		//Cobrança bancaria
+		lblCobrancaBancaria = new Label();
+		lblCobrancaBancaria.setCaption("Cobrança bancária");
+		lblCobrancaBancaria.setHeight("-1px");
+		gridLayout_1.addComponent(lblCobrancaBancaria, 4, 3,4,3);
 
+		// Total em Cobrança bancaria
+		tfCobrancaBancaria = ComponentUtil.buildCurrencyField(null);
+		tfCobrancaBancaria.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 3940783102372378576L;
+
+			public void blur(BlurEvent event) {
+				if(totalRestante !=null){
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				cobrancaBancaria = (BigDecimal) tfCobrancaBancaria.getConvertedValue();
+
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
+			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
+		});
+		gridLayout_1.addComponent(tfCobrancaBancaria, 5, 3,5,3);
+
+		tfQtParcelaCobrancaBancaria = ComponentUtil.buildNumberField(null);
+		gridLayout_1.addComponent(tfQtParcelaCobrancaBancaria, 6, 3,6,3);
+		
+		//Cobrança carteira
 		lblCobrancaCarteira = new Label();
 		lblCobrancaCarteira.setCaption("Cobrança carteira:");
 		lblCobrancaCarteira.setHeight("-1px");
-		gridLayout_1.addComponent(lblCobrancaCarteira, 0, 9,0,9);
+		gridLayout_1.addComponent(lblCobrancaCarteira, 4, 4,4,4);
 
-		// Total em cobrança carteira
+		// Total em Cobrança bancaria
 		tfCobrancaCarteira = ComponentUtil.buildCurrencyField(null);
-		tfCobrancaCarteira.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 1L;
+		tfCobrancaCarteira.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 3940783102372378576L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				
+			public void blur(BlurEvent event) {
 				if(totalRestante !=null){
-					totalGeral = (BigDecimal) tfTotais.getConvertedValue();
-					cobrancaCarteira = (BigDecimal) tfCobrancaCarteira.getConvertedValue();
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				cobrancaCarteira = (BigDecimal) tfCobrancaCarteira.getConvertedValue();
 
-					if(dinheiro == null) dinheiro = BigDecimal.ZERO;
-					else if (cheque == null) cheque = BigDecimal.ZERO;
-					else if (cartao == null) cartao = BigDecimal.ZERO;
-					else if (boleto == null) boleto = BigDecimal.ZERO;
-					else if (duplicata == null) duplicata = BigDecimal.ZERO;
-					else if (carne == null) carne = BigDecimal.ZERO;
-					else if (vale == null) vale = BigDecimal.ZERO;
-					else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
-					else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
-					
-					totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
-					tfTotalRestante.setValue(totalRestante.toString());
-				}
-				if(totalRestante.doubleValue() >= 0){
-					troco = totalRestante;
-				}else{
-					troco = BigDecimal.ZERO;
-				}
-				tfTroco.setValue(troco.toString());
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
 			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
 		});
-		gridLayout_1.addComponent(tfCobrancaCarteira, 1, 9,1,9);
-		
-		// Parcela em cobrança carteira
-		tfQtParcelaCobrancaCarteira = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaCobrancaCarteira, 2, 9,2,9);
+		gridLayout_1.addComponent(tfCobrancaCarteira, 5, 4,5,4);
 
+		tfQtParcelaCobrancaCarteira = ComponentUtil.buildNumberField(null);
+		gridLayout_1.addComponent(tfQtParcelaCobrancaCarteira, 6, 4,6,4);
+		
 		lblTotais = new Label();
 		lblTotais.setCaption("Totais:");
 		lblTotais.setHeight("-1px");
@@ -2227,7 +2101,6 @@ public class OrdemServicoFormView extends CustomComponent {
 		String tot = tfTotalServico.getValue();
 		tfTotais = ComponentUtil.buildNumberField(null);
 		//tfTotais.setEnabled(false);
-		tfTotais.setValue(tfTotalServico.getValue());
 		gridLayout_1.addComponent(tfTotais, 1, 11,1,11);
 
 		tfTotalRestante = ComponentUtil.buildNumberField(null);
@@ -2251,9 +2124,9 @@ public class OrdemServicoFormView extends CustomComponent {
 		btnFinalizar.setCaption("Finalizar");
 		gridLayout_1.addComponent(btnFinalizar, 4, 12,4,12);
 		
-		btnGravarEfetivacao = new Button();
-		btnGravarEfetivacao.setCaption("Gravar efetivação");
-		gridLayout_1.addComponent(btnGravarEfetivacao, 5, 12,5,12);
+//		btnGravarEfetivacao = new Button();
+//		btnGravarEfetivacao.setCaption("Gravar efetivação");
+//		gridLayout_1.addComponent(btnGravarEfetivacao, 5, 12,5,12);
 		
 		subFormEfetivacao = new TabSheet();
 		subFormEfetivacao.setImmediate(true);
@@ -2263,51 +2136,28 @@ public class OrdemServicoFormView extends CustomComponent {
 		subFormEfetivacao.addTab(buildEfetivacaoCartaoSubForm(), "Cartão", null);
 		subFormEfetivacao.addTab(buildEfetivacaoCarneSubForm(), "Carnê", null);
 		subFormEfetivacao.addTab(buildEfetivacaoBoletoSubForm(), "Boleto", null);
+		subFormEfetivacao.addTab(buildEfetivacaoDuplicataSubForm(), "Duplicata", null);
+		subFormEfetivacao.addTab(buildEfetivacaoValeSubForm(), "Vale", null);
+		subFormEfetivacao.addTab(buildEfetivacaoCobrancaBancariaSubForm(), "Cobrança bancária", null);
+		subFormEfetivacao.addTab(buildEfetivacaoCobrancaCarteiraSubForm(), "Cobrança carteira", null);
 
 		gridLayout_1.addComponent(subFormEfetivacao,0,13,9,13);
 
 		finForms.addTab(gridLayout_1, "Efetivação OS", null);
 
 		subForms.addTab(finForms, "Efetivação O.S", null);
-		
-//		BigDecimal troco = BigDecimal.ZERO;
-//		BigDecimal totalGeral = BigDecimal.ZERO;
-//		System.out.println("tfTotais.getValue() antes if: "+tfTotais.getValue());
-//		if(tfTotais.getValue()!=null){
-//			totalGeral = ((BigDecimal) tfTotais.getConvertedValue());
-//			System.out.println("totalGeral if: "+totalGeral);
-//			
-//		}
-
-//		BigDecimal totalCobrancaBancaria = BigDecimal.ZERO;
-//		if(tfCobrancaCarteira.getValue()!=null){
-//			totalCobrancaBancaria = (BigDecimal) tfCobrancaCarteira.getConvertedValue();
-//			
-//			System.out.println("tfTotais.getConvertedValue(): "+tfTotais.getConvertedValue());
-//			System.out.println("totalGeral: "+totalGeral);
-//			System.out.println("totalCobrancaBancaria: "+totalCobrancaBancaria);
-//			System.out.println("troco antes: "+troco);
-//			troco = totalGeral.subtract(totalCobrancaBancaria);
-//			System.out.println("troco depois: "+troco);
-////			vt = vs.subtract(pd.multiply(vs));
-//			
-////			valorTotal.setValue(q.multiply(vu));
-//		}else{
-//			totalCobrancaBancaria = BigDecimal.ZERO;
-//		}
 	}
 	 
 	@AutoGenerated
 	@SuppressWarnings("serial")
-	private Component buildEfetivacaoChequeSubForm() {
-		
+	public Component buildEfetivacaoChequeSubForm() {
 		VerticalLayout efetivacaoChequeLayout = new VerticalLayout();
 		efetivacaoChequeLayout.setImmediate(false);
 		efetivacaoChequeLayout.setSizeFull();
 		efetivacaoChequeLayout.setMargin(false);
 		efetivacaoChequeLayout.setSpacing(true);
-		
-		efetivacaoChequeSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
+
+		this.efetivacaoChequeSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
 				OrdemServicoEfetivacao.class, new String[] { "banco","agencia","contaCorrente","numeroCheque","correntista","dias","dataVencimento","valorTotal"}, 
 				new String[] {"Banco","Agencia","Nr. conta","Nr. cheque","Correntista","Dias","Vencimento","Valor"}
 				) {
@@ -2316,17 +2166,15 @@ public class OrdemServicoFormView extends CustomComponent {
 			protected void adicionarBotoes(Table table) {
 
 			}
-			
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
 					@Override
-					public Field<?> createField(Container container,
-							Object itemId, Object propertyId,
-							Component uiContext) {
-
+					public Field<?> createField(Container container,Object itemId, Object propertyId,Component uiContext) {
+						
 						if ("banco".equals(propertyId)) {
+							System.out.println("createField: ");
 							TextField textField = ComponentUtil.buildNumberField(null);
 							return textField;
 						}else if ("agencia".equals(propertyId)) {
@@ -2355,13 +2203,11 @@ public class OrdemServicoFormView extends CustomComponent {
 					}
 				};
 			}
-
 			@Override
 			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
 				return true;
 			}
 		};
-
 		efetivacaoChequeLayout.addComponent(this.efetivacaoChequeSubForm);
 		efetivacaoChequeLayout.setExpandRatio(efetivacaoChequeSubForm, 1);
 
@@ -2371,13 +2217,11 @@ public class OrdemServicoFormView extends CustomComponent {
 	@AutoGenerated
 	@SuppressWarnings("serial")
 	private Component buildEfetivacaoCartaoSubForm() {
-
 		VerticalLayout efetivacaoCartaoLayout = new VerticalLayout();
 		efetivacaoCartaoLayout.setImmediate(false);
 		efetivacaoCartaoLayout.setSizeFull();
 		efetivacaoCartaoLayout.setMargin(false);
 		efetivacaoCartaoLayout.setSpacing(true);
-//		efetivacaoCartaoLayout.setEnabled(false);
 		efetivacaoCartaoSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
 				OrdemServicoEfetivacao.class, new String[] { "bandeira","titular","numeroCartao","codigoSeguranca","dataValidade","dias","dataVencimento","valorTotal","comprovanteVenda"}, 
 				new String[] {"Bandeira","Titular","Nr. Cartão","Código Seg.","Validade","Dias","Vencimento","Valor","Comprovante Venda"}
@@ -2385,10 +2229,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 			@Override
 			protected void adicionarBotoes(Table table) {
-
 			}
-			
-
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -2428,15 +2269,12 @@ public class OrdemServicoFormView extends CustomComponent {
 						return null;
 					}
 				};
-				
 			}
-
 			@Override
 			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
 				return true;
 			}
 		};
-
 		efetivacaoCartaoLayout.addComponent(this.efetivacaoCartaoSubForm);
 		efetivacaoCartaoLayout.setExpandRatio(efetivacaoCartaoSubForm, 1);
 
@@ -2446,10 +2284,9 @@ public class OrdemServicoFormView extends CustomComponent {
 	@AutoGenerated
 	@SuppressWarnings("serial")
 	private Component buildEfetivacaoCarneSubForm() {
-
 		VerticalLayout efetivacaoCarneLayout = new VerticalLayout();
 		efetivacaoCarneLayout.setImmediate(false);
-		efetivacaoCarneLayout.setSizeFull();
+//		efetivacaoCarneLayout.setSizeFull();
 		efetivacaoCarneLayout.setMargin(false);
 		efetivacaoCarneLayout.setSpacing(true);
 		
@@ -2460,10 +2297,8 @@ public class OrdemServicoFormView extends CustomComponent {
 
 			@Override
 			protected void adicionarBotoes(Table table) {
-
 			}
 			
-
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -2495,15 +2330,12 @@ public class OrdemServicoFormView extends CustomComponent {
 						return null;
 					}
 				};
-				
 			}
-
 			@Override
 			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
 				return true;
 			}
 		};
-
 		efetivacaoCarneLayout.addComponent(this.efetivacaoCarneSubForm);
 		efetivacaoCarneLayout.setExpandRatio(efetivacaoCarneSubForm, 1);
 
@@ -2513,14 +2345,126 @@ public class OrdemServicoFormView extends CustomComponent {
 	@AutoGenerated
 	@SuppressWarnings("serial")
 	private Component buildEfetivacaoBoletoSubForm() {
-
 		VerticalLayout efetivacaoBoletoLayout = new VerticalLayout();
-		efetivacaoBoletoLayout.setImmediate(false);
-		efetivacaoBoletoLayout.setSizeFull();
-		efetivacaoBoletoLayout.setMargin(false);
-		efetivacaoBoletoLayout.setSpacing(true);
-		
+		setSizeFull();
+
 		efetivacaoBoletoSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
+				) {
+
+			@Override
+			protected void adicionarBotoes(Table table) {
+
+			}
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						
+						if ("numeroDocumento".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroOriginal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroNotaFiscal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dias".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dataVencimento".equals(propertyId)) {
+							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
+							return popupDateField;
+						}else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							return textField;
+						}
+						return null;
+					}
+				};
+			}
+
+			@Override
+			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
+				return true;
+			}
+		};
+		efetivacaoBoletoLayout.addComponent(this.efetivacaoBoletoSubForm);
+		efetivacaoBoletoLayout.setExpandRatio(this.efetivacaoBoletoSubForm, 1);
+
+		return efetivacaoBoletoLayout;
+	}
+	
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildEfetivacaoDuplicataSubForm() {
+		VerticalLayout efetivacaoDuplicataLayout = new VerticalLayout();
+		efetivacaoDuplicataLayout.setSizeFull();
+		
+		efetivacaoDuplicataSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
+				) {
+
+			@Override
+			protected void adicionarBotoes(Table table) {
+			}
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						
+						if ("numeroDocumento".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroOriginal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroNotaFiscal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dias".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dataVencimento".equals(propertyId)) {
+							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
+							return popupDateField;
+						}else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							return textField;
+						}
+						return null;
+					}
+				};
+			}
+			@Override
+			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
+				return true;
+			}
+		};
+
+		efetivacaoDuplicataLayout.addComponent(this.efetivacaoDuplicataSubForm);
+		efetivacaoDuplicataLayout.setExpandRatio(this.efetivacaoDuplicataSubForm, 1);
+
+		return efetivacaoDuplicataLayout;
+	}
+	
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildEfetivacaoValeSubForm() {
+
+		VerticalLayout efetivacaoValeLayout = new VerticalLayout();
+		efetivacaoValeLayout.setSizeFull();
+		
+		efetivacaoValeSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
 				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
 				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
 				) {
@@ -2541,29 +2485,23 @@ public class OrdemServicoFormView extends CustomComponent {
 						
 						if ("numeroDocumento".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
-							textField.setReadOnly(true);
 							return textField;
 						}else if ("numeroOriginal".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
-							textField.setReadOnly(true);
 							return textField;
 						}else if ("numeroNotaFiscal".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
-							textField.setReadOnly(true);
+							return textField;
 						}else if ("dias".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
-							textField.setReadOnly(true);
 							return textField;
 						}else if ("dataVencimento".equals(propertyId)) {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
-							popupDateField.setReadOnly(true);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildCurrencyField(null);
-							textField.setReadOnly(true);
 							return textField;
 						}
-
 						return null;
 					}
 				};
@@ -2576,10 +2514,132 @@ public class OrdemServicoFormView extends CustomComponent {
 			}
 		};
 
-		efetivacaoBoletoLayout.addComponent(this.efetivacaoBoletoSubForm);
-		efetivacaoBoletoLayout.setExpandRatio(this.efetivacaoBoletoSubForm, 1);
+		efetivacaoValeLayout.addComponent(this.efetivacaoValeSubForm);
+		efetivacaoValeLayout.setExpandRatio(this.efetivacaoValeSubForm, 1);
 
-		return efetivacaoBoletoLayout;
+		return efetivacaoValeLayout;
+	}
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildEfetivacaoCobrancaBancariaSubForm() {
+
+		VerticalLayout efetivacaoCobrancaBancariaLayout = new VerticalLayout();
+		efetivacaoCobrancaBancariaLayout.setSizeFull();
+		
+		efetivacaoCobrancaBancariaSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
+				) {
+
+			@Override
+			protected void adicionarBotoes(Table table) {
+
+			}
+			
+
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						
+						if ("numeroDocumento".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroOriginal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroNotaFiscal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dias".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dataVencimento".equals(propertyId)) {
+							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
+							return popupDateField;
+						}else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							return textField;
+						}
+						return null;
+					}
+				};
+				
+			}
+
+			@Override
+			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
+				return true;
+			}
+		};
+
+		efetivacaoCobrancaBancariaLayout.addComponent(this.efetivacaoCobrancaBancariaSubForm);
+		efetivacaoCobrancaBancariaLayout.setExpandRatio(this.efetivacaoCobrancaBancariaSubForm, 1);
+
+		return efetivacaoCobrancaBancariaLayout;
+	}
+	
+	@AutoGenerated
+	@SuppressWarnings("serial")
+	private Component buildEfetivacaoCobrancaCarteiraSubForm() {
+
+		VerticalLayout efetivacaoCobrancaCarteiraLayout = new VerticalLayout();
+		efetivacaoCobrancaCarteiraLayout.setSizeFull();
+		
+		efetivacaoCobrancaCarteiraSubForm = new SubFormComponent<OrdemServicoEfetivacao, Integer>(
+				OrdemServicoEfetivacao.class, new String[] { "numeroDocumento","numeroOriginal","numeroNotaFiscal","valorTotal","dias","dataVencimento"}, 
+				new String[] { "Número","Original","Numero NF","Valor","Dias","Vencimento"}
+				) {
+
+			@Override
+			protected void adicionarBotoes(Table table) {
+			}
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						
+						if ("numeroDocumento".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroOriginal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("numeroNotaFiscal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dias".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}else if ("dataVencimento".equals(propertyId)) {
+							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
+							return popupDateField;
+						}else if ("valorTotal".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildCurrencyField(null);
+							return textField;
+						}
+						return null;
+					}
+				};
+				
+			}
+
+			@Override
+			public boolean validateItems(List<OrdemServicoEfetivacao> items) {
+				return true;
+			}
+		};
+
+		efetivacaoCobrancaCarteiraLayout.addComponent(this.efetivacaoCobrancaCarteiraSubForm);
+		efetivacaoCobrancaCarteiraLayout.setExpandRatio(this.efetivacaoCobrancaCarteiraSubForm, 1);
+
+		return efetivacaoCobrancaCarteiraLayout;
 	}
 	
 	public void preencheBean(OrdemServico currentBean) {
@@ -2588,6 +2648,10 @@ public class OrdemServicoFormView extends CustomComponent {
 	
 	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasChequeSubForm() {
 		return efetivacaoChequeSubForm;
+	}
+
+	public void setParcelasChequeSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoChequeSubForm) {
+		this.efetivacaoChequeSubForm = efetivacaoChequeSubForm;
 	}
 
 	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasCartaoSubForm() {
@@ -2602,6 +2666,78 @@ public class OrdemServicoFormView extends CustomComponent {
 		return efetivacaoBoletoSubForm;
 	}
 	
+	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasDinheiroSubForm() {
+		return efetivacaoDinheiroSubForm;
+	}
+
+	public void setParcelasDinheiroSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoDinheiroSubForm) {
+		this.efetivacaoDinheiroSubForm = efetivacaoDinheiroSubForm;
+	}
+
+	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasDuplicataSubForm() {
+		return efetivacaoDuplicataSubForm;
+	}
+
+	public void setParcelasDuplicataSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoDuplicataSubForm) {
+		this.efetivacaoDuplicataSubForm = efetivacaoDuplicataSubForm;
+	}
+
+	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasValeSubForm() {
+		return efetivacaoValeSubForm;
+	}
+
+	public void setParcelasValeSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoValeSubForm) {
+		this.efetivacaoValeSubForm = efetivacaoValeSubForm;
+	}
+
+	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasCobrancaBancariaSubForm() {
+		return efetivacaoCobrancaBancariaSubForm;
+	}
+
+	public void setParcelasCobrancaBancariaSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCobrancaBancariaSubForm) {
+		this.efetivacaoCobrancaBancariaSubForm = efetivacaoCobrancaBancariaSubForm;
+	}
+
+	public SubFormComponent<OrdemServicoEfetivacao, Integer> getParcelasCobrancaCarteiraSubForm() {
+		return efetivacaoCobrancaCarteiraSubForm;
+	}
+
+	public void setParcelasCobrancaCarteiraSubForm(SubFormComponent<OrdemServicoEfetivacao, Integer> efetivacaoCobrancaCarteiraSubForm) {
+		this.efetivacaoCobrancaCarteiraSubForm = efetivacaoCobrancaCarteiraSubForm;
+	}
+
+	public void preencheParcelasChequeSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoChequeSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasCarneSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoCarneSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasCartaoSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoCartaoSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasBoletoSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoBoletoSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasDuplicataSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoDuplicataSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasValeSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoValeSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasCobrancaBancariaSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoCobrancaBancariaSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
+	public void preencheParcelasCobrancaCarteiraSubForm(List<OrdemServicoEfetivacao> ordemServicoEfetivacao) {
+		efetivacaoCobrancaCarteiraSubForm.fillWith(ordemServicoEfetivacao);
+	}
+
 	public enum Tipo {
 
 		GENUINA("GENUÍNA", "G"), NAOGENUINA("NÃO GENUÍNA", "N");
@@ -3304,8 +3440,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		return cbEquipamentoGarantia;
 	}
 
-	public void setCbEquipamentoGarantia(
-			ManyToOneCombo<Equipamento> cbEquipamentoGarantia) {
+	public void setCbEquipamentoGarantia(ManyToOneCombo<Equipamento> cbEquipamentoGarantia) {
 		this.cbEquipamentoGarantia = cbEquipamentoGarantia;
 	}
 
@@ -3455,7 +3590,78 @@ public class OrdemServicoFormView extends CustomComponent {
 	public void setValorTotalBoletoOs(BigDecimal valorTotalBoletoOs) {
 		this.valorTotalBoletoOs = valorTotalBoletoOs;
 	}
+
+	public TextField getTfTotais() {
+		return tfTotais;
+	}
+
+	public void setTfTotais(TextField tfTotais) {
+		this.tfTotais = tfTotais;
+	}
+
+	public TextField getTfQtParcelaCheque() {
+		return tfQtParcelaCheque;
+	}
+
+	public void setTfQtParcelaCheque(TextField tfQtParcelaCheque) {
+		this.tfQtParcelaCheque = tfQtParcelaCheque;
+	}
+
+	public TextField getTfCheque() {
+		return tfCheque;
+	}
+
+	public void setTfCheque(TextField tfCheque) {
+		this.tfCheque = tfCheque;
+	}
+
+	public TextField getTfQtParcelaCarne() {
+		return tfQtParcelaCarne;
+	}
+
+	public void setTfQtParcelaCarne(TextField tfQtParcelaCarne) {
+		this.tfQtParcelaCarne = tfQtParcelaCarne;
+	}
+
+	public TextField getTfCartao() {
+		return tfCartao;
+	}
+
+	public void setTfCartao(TextField tfCartao) {
+		this.tfCartao = tfCartao;
+	}
+
+	public TextField getTfCarne() {
+		return tfCarne;
+	}
+
+	public void setTfCarne(TextField tfCarne) {
+		this.tfCarne = tfCarne;
+	}
+
+	public TextField getTfQtParcelaCartao() {
+		return tfQtParcelaCartao;
+	}
+
+	public void setTfQtParcelaCartao(TextField tfQtParcelaCartao) {
+		this.tfQtParcelaCartao = tfQtParcelaCartao;
+	}
 	
+	public TextField getTfBoleto() {
+		return tfBoleto;
+	}
+
+	public void setTfBoleto(TextField tfBoleto) {
+		this.tfBoleto = tfBoleto;
+	}
+
+	public TextField getTfQtParcelaBoleto() {
+		return tfQtParcelaBoleto;
+	}
+
+	public void setTfQtParcelaBoleto(TextField tfQtParcelaBoleto) {
+		this.tfQtParcelaBoleto = tfQtParcelaBoleto;
+	}
 
 	private List<FileResource> createImageList() {
         List<FileResource> img = new ArrayList<FileResource>();
@@ -3722,13 +3928,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 
 	public void preencheEntradaServicoFinanceiraSubForm(List<EntradaServico> entradaServico) {
-//		BigDecimal totalEntradaServico = BigDecimal.ZERO;
 		entradaServicoFinanceiraSubForm.fillWith(entradaServico);
-//		for(EntradaServico es : entradaServico){
-//			totalEntradaServico.add(es.getValorTotal());
-//		}
-//		tfTotalServico.setValue(totalEntradaServico.toString());
-
 	}
 
 	public void preencheMaterialServicoSubForm(List<MaterialServico> materialServico) {
@@ -3755,24 +3955,131 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.tfTotalPeca = tfTotalPeca;
 	}
 
+	public TextField getTfDinheiro() {
+		return tfDinheiro;
+	}
+
+	public void setTfDinheiro(TextField tfDinheiro) {
+		this.tfDinheiro = tfDinheiro;
+	}
+
+	public TextField getTfDuplicata() {
+		return tfDuplicata;
+	}
+
+	public void setTfDuplicata(TextField tfDuplicata) {
+		this.tfDuplicata = tfDuplicata;
+	}
+
+	public TextField getTfVale() {
+		return tfVale;
+	}
+
+	public void setTfVale(TextField tfVale) {
+		this.tfVale = tfVale;
+	}
+
+	public TextField getTfCobrancaBancaria() {
+		return tfCobrancaBancaria;
+	}
+
+	public void setTfCobrancaBancaria(TextField tfCobrancaBancaria) {
+		this.tfCobrancaBancaria = tfCobrancaBancaria;
+	}
+
+	public TextField getTfCobrancaCarteira() {
+		return tfCobrancaCarteira;
+	}
+
+	public void setTfCobrancaCarteira(TextField tfCobrancaCarteira) {
+		this.tfCobrancaCarteira = tfCobrancaCarteira;
+	}
+
+	public TextField getTfQtParcelaDinheiro() {
+		return tfQtParcelaDinheiro;
+	}
+
+	public void setTfQtParcelaDinheiro(TextField tfQtParcelaDinheiro) {
+		this.tfQtParcelaDinheiro = tfQtParcelaDinheiro;
+	}
+
+	public TextField getTfQtParcelaDuplicata() {
+		return tfQtParcelaDuplicata;
+	}
+
+	public void setTfQtParcelaDuplicata(TextField tfQtParcelaDuplicata) {
+		this.tfQtParcelaDuplicata = tfQtParcelaDuplicata;
+	}
+
+	public TextField getTfQtParcelaVale() {
+		return tfQtParcelaVale;
+	}
+
+	public void setTfQtParcelaVale(TextField tfQtParcelaVale) {
+		this.tfQtParcelaVale = tfQtParcelaVale;
+	}
+
+	public TextField getTfQtParcelaCobrancaBancaria() {
+		return tfQtParcelaCobrancaBancaria;
+	}
+
+	public void setTfQtParcelaCobrancaBancaria(TextField tfQtParcelaCobrancaBancaria) {
+		this.tfQtParcelaCobrancaBancaria = tfQtParcelaCobrancaBancaria;
+	}
+
+	public TextField getTfQtParcelaCobrancaCarteira() {
+		return tfQtParcelaCobrancaCarteira;
+	}
+
+	public void setTfQtParcelaCobrancaCarteira(TextField tfQtParcelaCobrancaCarteira) {
+		this.tfQtParcelaCobrancaCarteira = tfQtParcelaCobrancaCarteira;
+	}
+
 	public void preencheTotalVendaPecaSubForm(List<VendaPeca> vendaPeca) {
 		if(vendaPeca!= null){
-			this.tfTotalPeca.setValue(vendaPecaSubForm.getTotalSumary(vendaPeca).toString());
+			System.out.println("Total geral 4: "+valorTotalGeral);
+			
+			this.tfTotalPeca.setValue(vendaPecaSubForm.getTotalSumary(vendaPeca).toString().replace(".", ","));
+			valorVendaPeca = vendaPecaSubForm.getTotalSumary(vendaPeca);
+			valorTotalGeral = valorTotalGeral + valorVendaPeca;
+			this.tfTotais.setValue(valorTotalGeral.toString().replace(".", ","));
 		}
 	}
-	
 	public void preencheTotalEntradaServicoSubForm(List<EntradaServico> entradaServico) {
 		if(entradaServico!= null){
-			valorTotalEntradaServico = valorTotalMaterialServico.add(entradaServicoSubForm.getTotalSumary(entradaServico));
-			this.tfTotalServico.setValue(valorTotalEntradaServico.toString());
+			System.out.println("Total geral 1: "+valorTotalGeral);
+			valorTotalEntradaServico = valorTotalMaterialServico + entradaServicoSubForm.getTotalSumary(entradaServico);
+			this.tfTotalServico.setValue(valorTotalEntradaServico.toString().replace(".", ","));			
+			valorTotalGeral = valorTotalGeral + valorTotalEntradaServico;
+			System.out.println("Total geral 2: "+valorTotalGeral);
+			this.tfTotais.setValue(valorTotalGeral.toString().replace(".", ","));
+			System.out.println("tfTotais  3: "+tfTotais.getValue());
 		}
 	}
 
 	public void preencheTotalMaterialServicoSubForm(List<MaterialServico> materialServico) {
 		if(materialServico!= null){
-			valorTotalMaterialServico = valorTotalEntradaServico.add(materialServicoSubForm.getTotalSumary(materialServico));
-			this.tfTotalServico.setValue(valorTotalMaterialServico.toString());
+			System.out.println("Total geral 5: "+valorTotalGeral);
+			valorTotalMaterialServico = valorTotalEntradaServico + materialServicoSubForm.getTotalSumary(materialServico);
+			this.tfTotalServico.setValue(valorTotalMaterialServico.toString().replace(".", ","));
+			this.tfTotais.setValue(valorTotalMaterialServico.toString().replace(".", ","));
+			valorTotalGeral = valorTotalGeral + valorTotalMaterialServico;
+			this.tfTotais.setValue(valorTotalGeral.toString().replace(".", ","));
 		}
 	}
+	
+//	public void preencheTotalEntradaServicoSubForm(List<EntradaServico> entradaServico) {
+//		if(entradaServico!= null){
+//			valorTotalEntradaServico = valorTotalMaterialServico.add(entradaServicoSubForm.getTotalSumary(entradaServico));
+//			this.tfTotalServico.setValue(valorTotalEntradaServico.toString());
+//		}
+//	}
+//
+//	public void preencheTotalMaterialServicoSubForm(List<MaterialServico> materialServico) {
+//		if(materialServico!= null){
+//			valorTotalMaterialServico = valorTotalEntradaServico.add(materialServicoSubForm.getTotalSumary(materialServico));
+//			this.tfTotalServico.setValue(valorTotalMaterialServico.toString());
+//		}
+//	}
 
 }

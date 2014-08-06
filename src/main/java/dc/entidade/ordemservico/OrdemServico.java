@@ -140,6 +140,43 @@ public class OrdemServico extends AbstractModel<Integer> {
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoBoleto;
 
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_duplicata")
+	private Integer quantidadeParcelaDuplicata;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_duplicata")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoDuplicata;
+	
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_vale")
+	private Integer quantidadeParcelaVale;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_vale")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoVale;
+
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_cobranca_bancaria")
+	private Integer quantidadeParcelaCobrancaBancaria;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_cobranca_bancaria")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoCobrancaBancaria;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_vencimento_cobranca_carteira")
+	@Caption(value = "Primeiro Vencimento")
+	private Date primeiroVencimentoCobrancaCarteira;
+
+	@Caption(value = "Quantidade parcelas")
+	@Column(name = "qtd_parcela_cobranca_carteira")
+	private Integer quantidadeParcelaCobrancaCarteira;
+	
+
 	@Field
 	@Caption("Data Cadastro")
 	@Column(name = "data_cadastro")
@@ -279,7 +316,9 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.valorComissaoAtendente = valorComissaoAtendente;
 	}
 
-	
+	public BigDecimal getValorÇucroParcial() {
+		return valorLucroParcial;
+	}
 
 	public void setValorLucroParcial(BigDecimal valorLucroParcial) {
 		this.valorLucroParcial = valorLucroParcial;
@@ -405,8 +444,76 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.primeiroVencimentoBoleto = primeiroVencimentoBoleto;
 	}
 
+	public Integer getQuantidadeParcelaDuplicata() {
+		return quantidadeParcelaDuplicata;
+	}
+
+	public void setQuantidadeParcelaDuplicata(Integer quantidadeParcelaDuplicata) {
+		this.quantidadeParcelaDuplicata = quantidadeParcelaDuplicata;
+	}
+
+	public Date getPrimeiroVencimentoDuplicata() {
+		return primeiroVencimentoDuplicata;
+	}
+
+	public void setPrimeiroVencimentoDuplicata(Date primeiroVencimentoDuplicata) {
+		this.primeiroVencimentoDuplicata = primeiroVencimentoDuplicata;
+	}
+
+	public Integer getQuantidadeParcelaVale() {
+		return quantidadeParcelaVale;
+	}
+
+	public void setQuantidadeParcelaVale(Integer quantidadeParcelaVale) {
+		this.quantidadeParcelaVale = quantidadeParcelaVale;
+	}
+
+	public Date getPrimeiroVencimentoVale() {
+		return primeiroVencimentoVale;
+	}
+
+	public void setPrimeiroVencimentoVale(Date primeiroVencimentoVale) {
+		this.primeiroVencimentoVale = primeiroVencimentoVale;
+	}
+
 	public void setItensOrdemServicoEfetivacao(List<OrdemServicoEfetivacao> itensOrdemServicoEfetivacao) {
 		this.itensOrdemServicoEfetivacao = itensOrdemServicoEfetivacao;
+	}
+
+	public Integer getQuantidadeParcelaCobrancaBancaria() {
+		return quantidadeParcelaCobrancaBancaria;
+	}
+
+	public void setQuantidadeParcelaCobrancaBancaria(
+			Integer quantidadeParcelaCobrancaBancaria) {
+		this.quantidadeParcelaCobrancaBancaria = quantidadeParcelaCobrancaBancaria;
+	}
+
+	public Date getPrimeiroVencimentoCobrancaBancaria() {
+		return primeiroVencimentoCobrancaBancaria;
+	}
+
+	public void setPrimeiroVencimentoCobrancaBancaria(
+			Date primeiroVencimentoCobrancaBancaria) {
+		this.primeiroVencimentoCobrancaBancaria = primeiroVencimentoCobrancaBancaria;
+	}
+
+	public Date getPrimeiroVencimentoCobrancaCarteira() {
+		return primeiroVencimentoCobrancaCarteira;
+	}
+
+	public void setPrimeiroVencimentoCobrancaCarteira(
+			Date primeiroVencimentoCobrancaCarteira) {
+		this.primeiroVencimentoCobrancaCarteira = primeiroVencimentoCobrancaCarteira;
+	}
+
+	public Integer getQuantidadeParcelaCobrancaCarteira() {
+		return quantidadeParcelaCobrancaCarteira;
+	}
+
+	public void setQuantidadeParcelaCobrancaCarteira(
+			Integer quantidadeParcelaCobrancaCarteira) {
+		this.quantidadeParcelaCobrancaCarteira = quantidadeParcelaCobrancaCarteira;
 	}
 
 	public EntradaServico adicionarEntradaServico(EntradaServico entradaServico){
@@ -432,10 +539,6 @@ public class OrdemServico extends AbstractModel<Integer> {
 		acessorioOs.setOrdemServico(this);
 		return acessorioOs;
 	}
-//	public void addParcelaEfetivacao(OrdemServicoEfetivacao parcela) {
-//		parcela.setOrdemServico(this);
-//		this.itensOrdemServicoEfetivacao.add(parcela);
-//	}
 	public void addParcelaCheque(OrdemServicoEfetivacao parcela) {
 		parcela.setOrdemServico(this);
 		this.itensOrdemServicoEfetivacao.add(parcela);
@@ -449,6 +552,22 @@ public class OrdemServico extends AbstractModel<Integer> {
 		this.itensOrdemServicoEfetivacao.add(parcela);
 	}
 	public void addParcelaBoleto(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaDuplicata(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaVale(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaCobrancaBancaria(OrdemServicoEfetivacao parcela) {
+		parcela.setOrdemServico(this);
+		this.itensOrdemServicoEfetivacao.add(parcela);
+	}
+	public void addParcelaCobrancaCarteira(OrdemServicoEfetivacao parcela) {
 		parcela.setOrdemServico(this);
 		this.itensOrdemServicoEfetivacao.add(parcela);
 	}
