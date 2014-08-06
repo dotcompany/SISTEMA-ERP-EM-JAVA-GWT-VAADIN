@@ -46,6 +46,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fm_menu_id_seq")
 	@SequenceGenerator(name = "fm_menu_id_seq", sequenceName = "fm_menu_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
 	private Integer id;
 
 	@Field
@@ -56,6 +57,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	@Field()
 	@Caption("Caption")
 	@Column(name = "CAPTION")
+	@ComboValue
 	private String caption = "";
 
 	@Field()

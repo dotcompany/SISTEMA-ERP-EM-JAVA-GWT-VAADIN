@@ -17,6 +17,7 @@ import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
+import dc.visao.framework.FmMenuListController;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.relatorio.RelatorioFormView;
@@ -83,7 +84,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 	protected void initSubView() {
 		subView = new RelatorioFormView();
 
-		DefaultManyToOneComboModel<FmMenu> menusModel = new DefaultManyToOneComboModel<FmMenu>(FmMenu.class, this.fmMenuDAO,
+		DefaultManyToOneComboModel<FmMenu> menusModel = new DefaultManyToOneComboModel<FmMenu>(FmMenuListController.class, this.fmMenuDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {

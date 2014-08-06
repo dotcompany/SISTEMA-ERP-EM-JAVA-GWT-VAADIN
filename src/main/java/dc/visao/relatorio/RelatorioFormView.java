@@ -68,6 +68,7 @@ public class RelatorioFormView extends CustomComponent {
 		cbTipos = ComponentUtil.buildComboBox("Tipo Relatório");
 		cbTipos.addItem(TipoRelatorio.LISTAGEM);
 		cbTipos.addItem(TipoRelatorio.FORMULARIO);
+		cbTipos.addItem(TipoRelatorio.LISTAGEM_FORMULARIO);
 		mainLayout.addComponent(cbTipos, 0, 2);
 
 		txTelaParametros = ComponentUtil.buildTextField("Tela de parâmetros");

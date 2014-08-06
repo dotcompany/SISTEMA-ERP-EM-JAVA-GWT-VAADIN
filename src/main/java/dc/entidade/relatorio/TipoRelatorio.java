@@ -2,7 +2,7 @@ package dc.entidade.relatorio;
 
 public enum TipoRelatorio {
 
-	LISTAGEM(1, "Listagem"), FORMULARIO(2, "Formulário");
+	LISTAGEM(1, "Listagem"), FORMULARIO(2, "Formulário"), LISTAGEM_FORMULARIO(3, "Listagem/Formuláio");
 	private TipoRelatorio(Integer tipo, String label) {
 		this.tipo = tipo;
 		this.label = label;
