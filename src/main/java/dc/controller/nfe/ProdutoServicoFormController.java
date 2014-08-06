@@ -1855,7 +1855,7 @@ public class ProdutoServicoFormController extends
 			 * this.subView.getCbCstIcms().setData(auxList);
 			 */
 
-			this.subView.carregarComboBox();
+			//this.subView.carregarComboBox();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

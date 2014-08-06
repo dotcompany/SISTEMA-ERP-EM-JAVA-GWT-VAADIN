@@ -187,21 +187,24 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// entCofins);
 		// }
 
-		subView.getPlNdiCofins().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getNdiCofinsFormView().getPlNdiCofins()
+		// .setCaption("NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
 		// this.subView.getTfCstCofins().setValue(
 		// entCofins.getCstCofins().trim());
-		subView.getTfQtdVendidaCofins().setValue(
-				ndiCofins.getQuantidadeVendida().toString().trim());
-		subView.getTfBaseCalculoBcCofins().setValue(
-				ndiCofins.getBaseCalculoCofins().toString().trim());
-		subView.getTfAliquotaPercentualCofins().setValue(
-				ndiCofins.getAliquotaCofinsPercentual().toString().trim());
-		subView.getTfAliquotaReaisCofins().setValue(
-				ndiCofins.getAliquotaCofinsReais().toString().trim());
-		subView.getTfValorCofins().setValue(
-				ndiCofins.getValorCofins().toString().trim());
+		subView.getNdiCofinsFormView().getTfQtdVendidaCofins()
+				.setValue(ndiCofins.getQuantidadeVendida().toString().trim());
+		subView.getNdiCofinsFormView().getTfBaseCalculoBcCofins()
+				.setValue(ndiCofins.getBaseCalculoCofins().toString().trim());
+		subView.getNdiCofinsFormView()
+				.getTfAliquotaPercentualCofins()
+				.setValue(
+						ndiCofins.getAliquotaCofinsPercentual().toString()
+								.trim());
+		subView.getNdiCofinsFormView().getTfAliquotaReaisCofins()
+				.setValue(ndiCofins.getAliquotaCofinsReais().toString().trim());
+		subView.getNdiCofinsFormView().getTfValorCofins()
+				.setValue(ndiCofins.getValorCofins().toString().trim());
 	}
 
 	public static synchronized void setNdiIcmsSubView(
@@ -217,11 +220,11 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(entIcms);
 		// }
 
-		subView.getPlNdiIcms().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getPlNdiIcms().setCaption(
+		// "NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
-		subView.getTfOrigemMercadoriaIcms().setValue(
-				entIcms.getOrigemMercadoria().trim());
+		subView.getNdiIcmsFormView().getTfOrigemMercadoriaIcms()
+				.setValue(entIcms.getOrigemMercadoria().trim());
 
 		// this.subView.getCbCstIcms().setValue(entIcms.getCstIcms() == null
 		// ? null : CstIcmsEn.valueOf("_"
@@ -230,57 +233,62 @@ public class ProdutoServicoViewDTO implements Serializable {
 		if (!entIcms.getCstIcms().isEmpty()) {
 			CstIcmsEn cstIcms = CstIcmsEn.valueOf("_" + entIcms.getCstIcms());
 
-			subView.getCbCstIcms().setValue(cstIcms);
+			subView.getNdiIcmsFormView().getCbCstIcms().setValue(cstIcms);
 		} else {
-			subView.getCbCstIcms().setValue(null);
+			subView.getNdiIcmsFormView().getCbCstIcms().setValue(null);
 		}
 
 		if (!entIcms.getCsosn().isEmpty()) {
 			CsosnEn csosn = CsosnEn.valueOf("_" + entIcms.getCsosn());
 
-			subView.getCbCsosnIcms().setValue(csosn);
+			subView.getNdiIcmsFormView().getCbCsosnIcms().setValue(csosn);
 		} else {
-			subView.getCbCsosnIcms().setValue(null);
+			subView.getNdiIcmsFormView().getCbCsosnIcms().setValue(null);
 		}
 
-		subView.getTfModalidadeBcIcms().setValue(
-				entIcms.getModalidadeBcIcms().trim());
-		subView.getTfTaxaReducaoBcIcms().setValue(
-				entIcms.getTaxaReducaoBcIcms().toString().trim());
-		subView.getTfBaseCalculoBcIcms().setValue(
-				entIcms.getBaseCalculoIcms().toString().trim());
-		subView.getTfAliquotaIcms().setValue(
-				entIcms.getAliquotaIcms().toString().trim());
-		subView.getTfValorIcms().setValue(
-				entIcms.getValorIcms().toString().trim());
-		subView.getTfMotivoDesoneracaoIcms().setValue(
-				entIcms.getMotivoDesoneracaoIcms().trim());
-		subView.getTfModalidadeBcStIcms().setValue(
-				entIcms.getModalidadeBcIcmsSt().trim());
-		subView.getTfPercentualMvaStIcms().setValue(
-				entIcms.getPercentualMvaIcmsSt().toString().trim());
+		subView.getNdiIcmsFormView().getTfModalidadeBcIcms()
+				.setValue(entIcms.getModalidadeBcIcms().trim());
+		subView.getNdiIcmsFormView().getTfTaxaReducaoBcIcms()
+				.setValue(entIcms.getTaxaReducaoBcIcms().toString().trim());
+		subView.getNdiIcmsFormView().getTfBaseCalculoBcIcms()
+				.setValue(entIcms.getBaseCalculoIcms().toString().trim());
+		subView.getNdiIcmsFormView().getTfAliquotaIcms()
+				.setValue(entIcms.getAliquotaIcms().toString().trim());
+		subView.getNdiIcmsFormView().getTfValorIcms()
+				.setValue(entIcms.getValorIcms().toString().trim());
+		subView.getNdiIcmsFormView().getTfMotivoDesoneracaoIcms()
+				.setValue(entIcms.getMotivoDesoneracaoIcms().trim());
+		subView.getNdiIcmsFormView().getTfModalidadeBcStIcms()
+				.setValue(entIcms.getModalidadeBcIcmsSt().trim());
+		subView.getNdiIcmsFormView().getTfPercentualMvaStIcms()
+				.setValue(entIcms.getPercentualMvaIcmsSt().toString().trim());
 		// this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
-		subView.getTfBaseCalculoStIcms().setValue(
-				entIcms.getValorBaseCalculoIcmsSt().toString().trim());
-		subView.getTfAliquotaStIcms().setValue(
-				entIcms.getAliquotaIcmsSt().toString().trim());
-		subView.getTfValorStIcms().setValue(
-				entIcms.getValorIcmsSt().toString().trim());
-		subView.getTfBcStRetidoIcms().setValue(
-				entIcms.getValorBcIcmsStRetido().toString().trim());
-		subView.getTfValorStRetidoIcms().setValue(
-				entIcms.getValorIcmsStRetido().toString().trim());
-		subView.getTfBcStDestinoIcms().setValue(
-				entIcms.getValorBcIcmsStDestino().toString().trim());
-		subView.getTfValorStDestinoIcms().setValue(
-				entIcms.getValorIcmsStDestino().toString().trim());
-		subView.getTfAliquotaCreditoSnIcms().setValue(
-				entIcms.getAliquotaCreditoIcmsSn().toString().trim());
-		subView.getTfValorCreditoSnIcms().setValue(
-				entIcms.getValorCreditoIcmsSn().toString().trim());
-		subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
-				entIcms.getPercentualBcOperacaoPropria().toString().trim());
-		subView.getTfUfStIcms().setValue(entIcms.getUfSt().trim());
+		subView.getNdiIcmsFormView()
+				.getTfBaseCalculoStIcms()
+				.setValue(entIcms.getValorBaseCalculoIcmsSt().toString().trim());
+		subView.getNdiIcmsFormView().getTfAliquotaStIcms()
+				.setValue(entIcms.getAliquotaIcmsSt().toString().trim());
+		subView.getNdiIcmsFormView().getTfValorStIcms()
+				.setValue(entIcms.getValorIcmsSt().toString().trim());
+		subView.getNdiIcmsFormView().getTfBcStRetidoIcms()
+				.setValue(entIcms.getValorBcIcmsStRetido().toString().trim());
+		subView.getNdiIcmsFormView().getTfValorStRetidoIcms()
+				.setValue(entIcms.getValorIcmsStRetido().toString().trim());
+		subView.getNdiIcmsFormView().getTfBcStDestinoIcms()
+				.setValue(entIcms.getValorBcIcmsStDestino().toString().trim());
+		subView.getNdiIcmsFormView().getTfValorStDestinoIcms()
+				.setValue(entIcms.getValorIcmsStDestino().toString().trim());
+		subView.getNdiIcmsFormView().getTfAliquotaCreditoSnIcms()
+				.setValue(entIcms.getAliquotaCreditoIcmsSn().toString().trim());
+		subView.getNdiIcmsFormView().getTfValorCreditoSnIcms()
+				.setValue(entIcms.getValorCreditoIcmsSn().toString().trim());
+		subView.getNdiIcmsFormView()
+				.getTfPercentualBcOperacaoPropriaIcms()
+				.setValue(
+						entIcms.getPercentualBcOperacaoPropria().toString()
+								.trim());
+		subView.getNdiIcmsFormView().getTfUfStIcms()
+				.setValue(entIcms.getUfSt().trim());
 	}
 
 	public static synchronized void setNdiIiSubView(
@@ -323,25 +331,30 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpIpi(ndiIpi);
 		// }
 
-		subView.getPlNdiIpi().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getNdiIpiFormView().getPlNdiIpi()
+		// .setCaption("NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
 		// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-		subView.getTfBaseCalculoBcIpi().setValue(
-				ndiIpi.getValorBaseCalculoIpi().toString());
-		subView.getTfAliquotaIpi().setValue(ndiIpi.getAliquotaIpi().toString());
-		subView.getTfQtdUndTributavelIpi().setValue(
-				ndiIpi.getQuantidadeUnidadeTributavel().toString());
-		subView.getTfValorUndTributavelIpi().setValue(
-				ndiIpi.getValorUnidadeTributavel().toString());
-		subView.getTfValorIpi().setValue(ndiIpi.getValorIpi().toString());
-		subView.getTfEnquadramentoIpi().setValue(ndiIpi.getEnquadramentoIpi());
-		subView.getTfEnquadramentoLegalIpi().setValue(
-				ndiIpi.getEnquadramentoLegalIpi());
-		subView.getTfCnpjProdutorIpi().setValue(ndiIpi.getCnpjProdutorIpi());
-		subView.getTfQtdSeloIpi().setValue(
-				ndiIpi.getQuantidadeSeloIpi().toString());
-		subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
+		subView.getNdiIpiFormView().getTfBaseCalculoBcIpi()
+				.setValue(ndiIpi.getValorBaseCalculoIpi().toString());
+		subView.getNdiIpiFormView().getTfAliquotaIpi()
+				.setValue(ndiIpi.getAliquotaIpi().toString());
+		subView.getNdiIpiFormView().getTfQtdUndTributavelIpi()
+				.setValue(ndiIpi.getQuantidadeUnidadeTributavel().toString());
+		subView.getNdiIpiFormView().getTfValorUndTributavelIpi()
+				.setValue(ndiIpi.getValorUnidadeTributavel().toString());
+		subView.getNdiIpiFormView().getTfValorIpi()
+				.setValue(ndiIpi.getValorIpi().toString());
+		subView.getNdiIpiFormView().getTfEnquadramentoIpi()
+				.setValue(ndiIpi.getEnquadramentoIpi());
+		subView.getNdiIpiFormView().getTfEnquadramentoLegalIpi()
+				.setValue(ndiIpi.getEnquadramentoLegalIpi());
+		subView.getNdiIpiFormView().getTfCnpjProdutorIpi()
+				.setValue(ndiIpi.getCnpjProdutorIpi());
+		subView.getNdiIpiFormView().getTfQtdSeloIpi()
+				.setValue(ndiIpi.getQuantidadeSeloIpi().toString());
+		subView.getNdiIpiFormView().getTfCodigoSeloIpi()
+				.setValue(ndiIpi.getCodigoSeloIpi());
 	}
 
 	public static synchronized void setNdiIssqnSubView(
@@ -556,16 +569,16 @@ public class ProdutoServicoViewDTO implements Serializable {
 		NfeDetalheImpostoCofinsEntity ndiCofins = new NfeDetalheImpostoCofinsEntity();
 
 		// this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
-		subView.getTfQtdVendidaCofins().setValue(
-				ndiCofins.getQuantidadeVendida().toString());
-		subView.getTfBaseCalculoBcCofins().setValue(
-				ndiCofins.getBaseCalculoCofins().toString());
-		subView.getTfAliquotaPercentualCofins().setValue(
-				ndiCofins.getAliquotaCofinsPercentual().toString());
-		subView.getTfAliquotaReaisCofins().setValue(
-				ndiCofins.getAliquotaCofinsReais().toString());
-		subView.getTfValorCofins().setValue(
-				ndiCofins.getValorCofins().toString());
+		subView.getNdiCofinsFormView().getTfQtdVendidaCofins()
+				.setValue(ndiCofins.getQuantidadeVendida().toString());
+		subView.getNdiCofinsFormView().getTfBaseCalculoBcCofins()
+				.setValue(ndiCofins.getBaseCalculoCofins().toString());
+		subView.getNdiCofinsFormView().getTfAliquotaPercentualCofins()
+				.setValue(ndiCofins.getAliquotaCofinsPercentual().toString());
+		subView.getNdiCofinsFormView().getTfAliquotaReaisCofins()
+				.setValue(ndiCofins.getAliquotaCofinsReais().toString());
+		subView.getNdiCofinsFormView().getTfValorCofins()
+				.setValue(ndiCofins.getValorCofins().toString());
 
 		/**
 		 * 
@@ -573,46 +586,49 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 		NfeDetalheImpostoIcmsEntity entIcms = new NfeDetalheImpostoIcmsEntity();
 
-		subView.getTfOrigemMercadoriaIcms().setValue(
-				entIcms.getOrigemMercadoria());
+		subView.getNdiIcmsFormView().getTfOrigemMercadoriaIcms()
+				.setValue(entIcms.getOrigemMercadoria());
 		// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
 		// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
-		subView.getTfModalidadeBcIcms().setValue(entIcms.getModalidadeBcIcms());
-		subView.getTfTaxaReducaoBcIcms().setValue(
-				entIcms.getTaxaReducaoBcIcms().toString());
-		subView.getTfBaseCalculoBcIcms().setValue(
-				entIcms.getBaseCalculoIcms().toString());
-		subView.getTfAliquotaIcms().setValue(
-				entIcms.getAliquotaIcms().toString());
-		subView.getTfValorIcms().setValue(entIcms.getValorIcms().toString());
-		subView.getTfMotivoDesoneracaoIcms().setValue(
-				entIcms.getMotivoDesoneracaoIcms());
-		subView.getTfModalidadeBcStIcms().setValue(
-				entIcms.getModalidadeBcIcmsSt());
-		subView.getTfPercentualMvaStIcms().setValue(
-				entIcms.getPercentualMvaIcmsSt().toString());
+		subView.getNdiIcmsFormView().getTfModalidadeBcIcms()
+				.setValue(entIcms.getModalidadeBcIcms());
+		subView.getNdiIcmsFormView().getTfTaxaReducaoBcIcms()
+				.setValue(entIcms.getTaxaReducaoBcIcms().toString());
+		subView.getNdiIcmsFormView().getTfBaseCalculoBcIcms()
+				.setValue(entIcms.getBaseCalculoIcms().toString());
+		subView.getNdiIcmsFormView().getTfAliquotaIcms()
+				.setValue(entIcms.getAliquotaIcms().toString());
+		subView.getNdiIcmsFormView().getTfValorIcms()
+				.setValue(entIcms.getValorIcms().toString());
+		subView.getNdiIcmsFormView().getTfMotivoDesoneracaoIcms()
+				.setValue(entIcms.getMotivoDesoneracaoIcms());
+		subView.getNdiIcmsFormView().getTfModalidadeBcStIcms()
+				.setValue(entIcms.getModalidadeBcIcmsSt());
+		subView.getNdiIcmsFormView().getTfPercentualMvaStIcms()
+				.setValue(entIcms.getPercentualMvaIcmsSt().toString());
 		// this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
-		subView.getTfBaseCalculoStIcms().setValue(
-				entIcms.getValorBaseCalculoIcmsSt().toString());
-		subView.getTfAliquotaStIcms().setValue(
-				entIcms.getAliquotaIcmsSt().toString());
-		subView.getTfValorStIcms()
+		subView.getNdiIcmsFormView().getTfBaseCalculoStIcms()
+				.setValue(entIcms.getValorBaseCalculoIcmsSt().toString());
+		subView.getNdiIcmsFormView().getTfAliquotaStIcms()
+				.setValue(entIcms.getAliquotaIcmsSt().toString());
+		subView.getNdiIcmsFormView().getTfValorStIcms()
 				.setValue(entIcms.getValorIcmsSt().toString());
-		subView.getTfBcStRetidoIcms().setValue(
-				entIcms.getValorBcIcmsStRetido().toString());
-		subView.getTfValorStRetidoIcms().setValue(
-				entIcms.getValorIcmsStRetido().toString());
-		subView.getTfBcStDestinoIcms().setValue(
-				entIcms.getValorBcIcmsStDestino().toString());
-		subView.getTfValorStDestinoIcms().setValue(
-				entIcms.getValorIcmsStDestino().toString());
-		subView.getTfAliquotaCreditoSnIcms().setValue(
-				entIcms.getAliquotaCreditoIcmsSn().toString());
-		subView.getTfValorCreditoSnIcms().setValue(
-				entIcms.getValorCreditoIcmsSn().toString());
-		subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
-				entIcms.getPercentualBcOperacaoPropria().toString());
-		subView.getTfUfStIcms().setValue(entIcms.getUfSt());
+		subView.getNdiIcmsFormView().getTfBcStRetidoIcms()
+				.setValue(entIcms.getValorBcIcmsStRetido().toString());
+		subView.getNdiIcmsFormView().getTfValorStRetidoIcms()
+				.setValue(entIcms.getValorIcmsStRetido().toString());
+		subView.getNdiIcmsFormView().getTfBcStDestinoIcms()
+				.setValue(entIcms.getValorBcIcmsStDestino().toString());
+		subView.getNdiIcmsFormView().getTfValorStDestinoIcms()
+				.setValue(entIcms.getValorIcmsStDestino().toString());
+		subView.getNdiIcmsFormView().getTfAliquotaCreditoSnIcms()
+				.setValue(entIcms.getAliquotaCreditoIcmsSn().toString());
+		subView.getNdiIcmsFormView().getTfValorCreditoSnIcms()
+				.setValue(entIcms.getValorCreditoIcmsSn().toString());
+		subView.getNdiIcmsFormView().getTfPercentualBcOperacaoPropriaIcms()
+				.setValue(entIcms.getPercentualBcOperacaoPropria().toString());
+		subView.getNdiIcmsFormView().getTfUfStIcms()
+				.setValue(entIcms.getUfSt());
 
 		/**
 		 * 
@@ -636,21 +652,26 @@ public class ProdutoServicoViewDTO implements Serializable {
 		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
 
 		// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-		subView.getTfBaseCalculoBcIpi().setValue(
-				ndiIpi.getValorBaseCalculoIpi().toString());
-		subView.getTfAliquotaIpi().setValue(ndiIpi.getAliquotaIpi().toString());
-		subView.getTfQtdUndTributavelIpi().setValue(
-				ndiIpi.getQuantidadeUnidadeTributavel().toString());
-		subView.getTfValorUndTributavelIpi().setValue(
-				ndiIpi.getValorUnidadeTributavel().toString());
-		subView.getTfValorIpi().setValue(ndiIpi.getValorIpi().toString());
-		subView.getTfEnquadramentoIpi().setValue(ndiIpi.getEnquadramentoIpi());
-		subView.getTfEnquadramentoLegalIpi().setValue(
-				ndiIpi.getEnquadramentoLegalIpi());
-		subView.getTfCnpjProdutorIpi().setValue(ndiIpi.getCnpjProdutorIpi());
-		subView.getTfQtdSeloIpi().setValue(
-				ndiIpi.getQuantidadeSeloIpi().toString());
-		subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
+		subView.getNdiIpiFormView().getTfBaseCalculoBcIpi()
+				.setValue(ndiIpi.getValorBaseCalculoIpi().toString());
+		subView.getNdiIpiFormView().getTfAliquotaIpi()
+				.setValue(ndiIpi.getAliquotaIpi().toString());
+		subView.getNdiIpiFormView().getTfQtdUndTributavelIpi()
+				.setValue(ndiIpi.getQuantidadeUnidadeTributavel().toString());
+		subView.getNdiIpiFormView().getTfValorUndTributavelIpi()
+				.setValue(ndiIpi.getValorUnidadeTributavel().toString());
+		subView.getNdiIpiFormView().getTfValorIpi()
+				.setValue(ndiIpi.getValorIpi().toString());
+		subView.getNdiIpiFormView().getTfEnquadramentoIpi()
+				.setValue(ndiIpi.getEnquadramentoIpi());
+		subView.getNdiIpiFormView().getTfEnquadramentoLegalIpi()
+				.setValue(ndiIpi.getEnquadramentoLegalIpi());
+		subView.getNdiIpiFormView().getTfCnpjProdutorIpi()
+				.setValue(ndiIpi.getCnpjProdutorIpi());
+		subView.getNdiIpiFormView().getTfQtdSeloIpi()
+				.setValue(ndiIpi.getQuantidadeSeloIpi().toString());
+		subView.getNdiIpiFormView().getTfCodigoSeloIpi()
+				.setValue(ndiIpi.getCodigoSeloIpi());
 
 		/**
 		 * 
@@ -776,10 +797,10 @@ public class ProdutoServicoViewDTO implements Serializable {
 			ProdutoServicoFormView subView) {
 		if (nfeDetalhe == null) {
 			subView.getGlNfeDetalhe().setEnabled(false);
-			subView.getGlIcms().setEnabled(false);
+			// subView.getGlIcms().setEnabled(false);
 			// subView.getGlPis().setEnabled(false);
-			subView.getGlCofins().setEnabled(false);
-			subView.getGlIpi().setEnabled(false);
+			// subView.getGlCofins().setEnabled(false);
+			// subView.getGlIpi().setEnabled(false);
 			subView.getGlImpostoImportacao().setEnabled(false);
 			subView.getGlIssqn().setEnabled(false);
 			subView.getNdeGlCombustivel().setEnabled(false);
@@ -788,10 +809,10 @@ public class ProdutoServicoViewDTO implements Serializable {
 			subView.getPlNdeArmamentoSubForm().setEnabled(false);
 		} else {
 			subView.getGlNfeDetalhe().setEnabled(true);
-			subView.getGlIcms().setEnabled(true);
+			// subView.getGlIcms().setEnabled(true);
 			// subView.getGlPis().setEnabled(true);
-			subView.getGlCofins().setEnabled(true);
-			subView.getGlIpi().setEnabled(true);
+			// subView.getGlCofins().setEnabled(true);
+			// subView.getGlIpi().setEnabled(true);
 			subView.getGlImpostoImportacao().setEnabled(true);
 			subView.getGlIssqn().setEnabled(true);
 			subView.getNdeGlCombustivel().setEnabled(true);

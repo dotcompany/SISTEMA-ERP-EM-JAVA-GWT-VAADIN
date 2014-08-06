@@ -818,7 +818,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			// this.subView.getTfCstCofins().setValue(
 			// entCofins.getCstCofins().trim());
-			this.subView.getTfQtdVendidaCofins().setValue(
+			/*this.subView.getTfQtdVendidaCofins().setValue(
 					entCofins.getQuantidadeVendida().toString().trim());
 			this.subView.getTfBaseCalculoBcCofins().setValue(
 					entCofins.getBaseCalculoCofins().toString().trim());
@@ -827,7 +827,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfAliquotaReaisCofins().setValue(
 					entCofins.getAliquotaCofinsReais().toString().trim());
 			this.subView.getTfValorCofins().setValue(
-					entCofins.getValorCofins().toString().trim());
+					entCofins.getValorCofins().toString().trim());*/
 
 			/**
 			 * ICMS
@@ -844,7 +844,7 @@ public class CopyOfProdutoServicoFormController extends
 						entIcms);
 			}
 
-			this.subView.getTfOrigemMercadoriaIcms().setValue(
+			/*this.subView.getTfOrigemMercadoriaIcms().setValue(
 					entIcms.getOrigemMercadoria().trim());
 
 			if (entIcms.getCstIcms() != null && !entIcms.getCstIcms().isEmpty()) {
@@ -901,7 +901,7 @@ public class CopyOfProdutoServicoFormController extends
 					entIcms.getValorCreditoIcmsSn().toString().trim());
 			this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
 					entIcms.getPercentualBcOperacaoPropria().toString().trim());
-			this.subView.getTfUfStIcms().setValue(entIcms.getUfSt().trim());
+			this.subView.getTfUfStIcms().setValue(entIcms.getUfSt().trim());*/
 
 			/**
 			 * IMPOSTO IMPORTAÇÃO
@@ -944,7 +944,7 @@ public class CopyOfProdutoServicoFormController extends
 			}
 
 			// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-			this.subView.getTfBaseCalculoBcIpi().setValue(
+			/*this.subView.getTfBaseCalculoBcIpi().setValue(
 					ndiIpi.getValorBaseCalculoIpi().toString());
 			this.subView.getTfAliquotaIpi().setValue(
 					ndiIpi.getAliquotaIpi().toString());
@@ -963,7 +963,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfQtdSeloIpi().setValue(
 					ndiIpi.getQuantidadeSeloIpi().toString());
 			this.subView.getTfCodigoSeloIpi().setValue(
-					ndiIpi.getCodigoSeloIpi());
+					ndiIpi.getCodigoSeloIpi());*/
 
 			/**
 			 * ISSQN
@@ -1129,31 +1129,31 @@ public class CopyOfProdutoServicoFormController extends
 			abaHabilitar(true, true, true, true, true, true, true, true, true,
 					true, true);
 
-			this.subView.getPlNdiCofins()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiCofins()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			this.subView.getPlNdiDeclaracaoImportacao()
 					.setCaption(
 							"NFE DETALHE "
 									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
-			this.subView.getPlNdiIcms()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiIcms()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			this.subView.getPlNdiIi()
 					.setCaption(
 							"NFE DETALHE "
 									+ this.nfeCabecalho.getNfeDetalhe()
 											.getNumeroItem());
-			this.subView.getPlNdiIpi()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiIpi()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			this.subView.getPlNdiIssqn()
 					.setCaption(
 							"NFE DETALHE "
@@ -1240,10 +1240,10 @@ public class CopyOfProdutoServicoFormController extends
 			boolean a5, boolean a6, boolean a7, boolean a8, boolean a9,
 			boolean a10, boolean a11) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
-		this.subView.getGlIcms().setEnabled(a2);
+		//this.subView.getGlIcms().setEnabled(a2);
 		//this.subView.getGlPis().setEnabled(a3);
-		this.subView.getGlCofins().setEnabled(a4);
-		this.subView.getGlIpi().setEnabled(a5);
+		//this.subView.getGlCofins().setEnabled(a4);
+		//this.subView.getGlIpi().setEnabled(a5);
 		this.subView.getGlImpostoImportacao().setEnabled(a6);
 		this.subView.getGlIssqn().setEnabled(a7);
 		this.subView.getNdeGlCombustivel().setEnabled(a8);
@@ -2351,7 +2351,7 @@ public class CopyOfProdutoServicoFormController extends
 		NfeDetalheImpostoCofinsEntity entCofins = new NfeDetalheImpostoCofinsEntity();
 
 		// this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
-		this.subView.getTfQtdVendidaCofins().setValue(
+		/*this.subView.getTfQtdVendidaCofins().setValue(
 				entCofins.getQuantidadeVendida().toString());
 		this.subView.getTfBaseCalculoBcCofins().setValue(
 				entCofins.getBaseCalculoCofins().toString());
@@ -2360,13 +2360,13 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfAliquotaReaisCofins().setValue(
 				entCofins.getAliquotaCofinsReais().toString());
 		this.subView.getTfValorCofins().setValue(
-				entCofins.getValorCofins().toString());
+				entCofins.getValorCofins().toString());*/
 	}
 
 	private void ndiIcmsLimpar() {
 		NfeDetalheImpostoIcmsEntity entIcms = new NfeDetalheImpostoIcmsEntity();
 
-		this.subView.getTfOrigemMercadoriaIcms().setValue(
+		/*this.subView.getTfOrigemMercadoriaIcms().setValue(
 				entIcms.getOrigemMercadoria());
 		// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
 		// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
@@ -2407,7 +2407,7 @@ public class CopyOfProdutoServicoFormController extends
 				entIcms.getValorCreditoIcmsSn().toString());
 		this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
 				entIcms.getPercentualBcOperacaoPropria().toString());
-		this.subView.getTfUfStIcms().setValue(entIcms.getUfSt());
+		this.subView.getTfUfStIcms().setValue(entIcms.getUfSt());*/
 	}
 
 	private void ndiIiLimpar() {
@@ -2427,7 +2427,7 @@ public class CopyOfProdutoServicoFormController extends
 		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
 
 		// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-		this.subView.getTfBaseCalculoBcIpi().setValue(
+		/*this.subView.getTfBaseCalculoBcIpi().setValue(
 				ndiIpi.getValorBaseCalculoIpi().toString());
 		this.subView.getTfAliquotaIpi().setValue(
 				ndiIpi.getAliquotaIpi().toString());
@@ -2444,7 +2444,7 @@ public class CopyOfProdutoServicoFormController extends
 				ndiIpi.getCnpjProdutorIpi());
 		this.subView.getTfQtdSeloIpi().setValue(
 				ndiIpi.getQuantidadeSeloIpi().toString());
-		this.subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
+		this.subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());*/
 	}
 
 	private void ndiIssqnLimpar() {
@@ -2615,7 +2615,7 @@ public class CopyOfProdutoServicoFormController extends
 			 * this.subView.getCbCstIcms().setData(auxList);
 			 */
 
-			this.subView.carregarComboBox();
+			//this.subView.carregarComboBox();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -223,7 +223,7 @@ public class NfeDetalheImpostoIcmsFormController extends
 
 	public void ndiCofinsMachen() {
 		try {
-			this.subView.getTfQtdVendidaCofins().setValue(
+			/*this.subView.getTfQtdVendidaCofins().setValue(
 					this.ndiCofins.getQuantidadeVendida().toString().trim());
 			this.subView.getTfBaseCalculoBcCofins().setValue(
 					this.ndiCofins.getBaseCalculoCofins().toString().trim());
@@ -233,7 +233,7 @@ public class NfeDetalheImpostoIcmsFormController extends
 			this.subView.getTfAliquotaReaisCofins().setValue(
 					this.ndiCofins.getAliquotaCofinsReais().toString().trim());
 			this.subView.getTfValorCofins().setValue(
-					this.ndiCofins.getValorCofins().toString().trim());
+					this.ndiCofins.getValorCofins().toString().trim());*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
