@@ -303,17 +303,17 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIi(entIi);
 		// }
 
-		subView.getPlNdiIi().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getPlNdiIi().setCaption(
+		// "NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
-		subView.getTfBaseCalculoBcImpostoImportacao().setValue(
-				entIi.getValorBcIi().toString().trim());
-		subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
-				entIi.getValorDespesasAduaneiras().toString().trim());
-		subView.getTfValorImpostoImportacao().setValue(
-				entIi.getValorImpostoImportacao().toString().trim());
-		subView.getTfIofImpostoImportacao().setValue(
-				entIi.getValorIof().toString().trim());
+		subView.getNdiIiFormView().getTfBaseCalculoBcImpostoImportacao()
+				.setValue(entIi.getValorBcIi().toString().trim());
+		subView.getNdiIiFormView().getTfDespesasAduaneirasImpostoImportacao()
+				.setValue(entIi.getValorDespesasAduaneiras().toString().trim());
+		subView.getNdiIiFormView().getTfValorImpostoImportacao()
+				.setValue(entIi.getValorImpostoImportacao().toString().trim());
+		subView.getNdiIiFormView().getTfIofImpostoImportacao()
+				.setValue(entIi.getValorIof().toString().trim());
 	}
 
 	public static synchronized void setNdiIpiSubView(
@@ -371,21 +371,21 @@ public class ProdutoServicoViewDTO implements Serializable {
 		// entIssqn);
 		// }
 
-		subView.getPlNdiIssqn().setCaption(
-				"NFE DETALHE: " + nfeDetalhe.getNumeroItem());
+		// subView.getPlNdiIssqn().setCaption(
+		// "NFE DETALHE: " + nfeDetalhe.getNumeroItem());
 
-		subView.getTfBaseCalculoBcIssqn().setValue(
-				entIssqn.getBaseCalculoIssqn().toString().trim());
-		subView.getTfAliquotaIssqn().setValue(
-				entIssqn.getAliquotaIssqn().toString().trim());
-		subView.getTfValorIssqn().setValue(
-				entIssqn.getValorIssqn().toString().trim());
-		subView.getTfMunicipioIssqn().setValue(
-				entIssqn.getMunicipioIssqn().toString().trim());
-		subView.getTfItemListaServicosIssqn().setValue(
-				entIssqn.getItemListaServicos().toString().trim());
-		subView.getTfTributacaoIssqn().setValue(
-				entIssqn.getTributacaoIssqn().trim());
+		subView.getNdiIssqnFormView().getTfBaseCalculoBcIssqn()
+				.setValue(entIssqn.getBaseCalculoIssqn().toString().trim());
+		subView.getNdiIssqnFormView().getTfAliquotaIssqn()
+				.setValue(entIssqn.getAliquotaIssqn().toString().trim());
+		subView.getNdiIssqnFormView().getTfValorIssqn()
+				.setValue(entIssqn.getValorIssqn().toString().trim());
+		subView.getNdiIssqnFormView().getTfMunicipioIssqn()
+				.setValue(entIssqn.getMunicipioIssqn().toString().trim());
+		subView.getNdiIssqnFormView().getTfItemListaServicosIssqn()
+				.setValue(entIssqn.getItemListaServicos().toString().trim());
+		subView.getNdiIssqnFormView().getTfTributacaoIssqn()
+				.setValue(entIssqn.getTributacaoIssqn().trim());
 	}
 
 	public static synchronized void setNdiPisSubView(
@@ -636,14 +636,14 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 		NfeDetalheImpostoIiEntity ndiIi = new NfeDetalheImpostoIiEntity();
 
-		subView.getTfBaseCalculoBcImpostoImportacao().setValue(
-				ndiIi.getValorBcIi().toString());
-		subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
-				ndiIi.getValorDespesasAduaneiras().toString());
-		subView.getTfValorImpostoImportacao().setValue(
-				ndiIi.getValorImpostoImportacao().toString());
-		subView.getTfIofImpostoImportacao().setValue(
-				ndiIi.getValorIof().toString());
+		subView.getNdiIiFormView().getTfBaseCalculoBcImpostoImportacao()
+				.setValue(ndiIi.getValorBcIi().toString());
+		subView.getNdiIiFormView().getTfDespesasAduaneirasImpostoImportacao()
+				.setValue(ndiIi.getValorDespesasAduaneiras().toString());
+		subView.getNdiIiFormView().getTfValorImpostoImportacao()
+				.setValue(ndiIi.getValorImpostoImportacao().toString());
+		subView.getNdiIiFormView().getTfIofImpostoImportacao()
+				.setValue(ndiIi.getValorIof().toString());
 
 		/**
 		 * 
@@ -679,16 +679,18 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 		NfeDetalheImpostoIssqnEntity ndiIssqn = new NfeDetalheImpostoIssqnEntity();
 
-		subView.getTfBaseCalculoBcIssqn().setValue(
-				ndiIssqn.getBaseCalculoIssqn().toString());
-		subView.getTfAliquotaIssqn().setValue(
-				ndiIssqn.getAliquotaIssqn().toString());
-		subView.getTfValorIssqn().setValue(ndiIssqn.getValorIssqn().toString());
-		subView.getTfMunicipioIssqn().setValue(
-				ndiIssqn.getMunicipioIssqn().toString());
-		subView.getTfItemListaServicosIssqn().setValue(
-				ndiIssqn.getItemListaServicos().toString());
-		subView.getTfTributacaoIssqn().setValue(ndiIssqn.getTributacaoIssqn());
+		subView.getNdiIssqnFormView().getTfBaseCalculoBcIssqn()
+				.setValue(ndiIssqn.getBaseCalculoIssqn().toString());
+		subView.getNdiIssqnFormView().getTfAliquotaIssqn()
+				.setValue(ndiIssqn.getAliquotaIssqn().toString());
+		subView.getNdiIssqnFormView().getTfValorIssqn()
+				.setValue(ndiIssqn.getValorIssqn().toString());
+		subView.getNdiIssqnFormView().getTfMunicipioIssqn()
+				.setValue(ndiIssqn.getMunicipioIssqn().toString());
+		subView.getNdiIssqnFormView().getTfItemListaServicosIssqn()
+				.setValue(ndiIssqn.getItemListaServicos().toString());
+		subView.getNdiIssqnFormView().getTfTributacaoIssqn()
+				.setValue(ndiIssqn.getTributacaoIssqn());
 
 		/**
 		 * 
@@ -801,8 +803,8 @@ public class ProdutoServicoViewDTO implements Serializable {
 			// subView.getGlPis().setEnabled(false);
 			// subView.getGlCofins().setEnabled(false);
 			// subView.getGlIpi().setEnabled(false);
-			subView.getGlImpostoImportacao().setEnabled(false);
-			subView.getGlIssqn().setEnabled(false);
+			// subView.getGlImpostoImportacao().setEnabled(false);
+			// subView.getGlIssqn().setEnabled(false);
 			subView.getNdeGlCombustivel().setEnabled(false);
 			subView.getNdeGlVeiculo().setEnabled(false);
 			subView.getPlNdeMedicamentoSubForm().setEnabled(false);
@@ -813,8 +815,8 @@ public class ProdutoServicoViewDTO implements Serializable {
 			// subView.getGlPis().setEnabled(true);
 			// subView.getGlCofins().setEnabled(true);
 			// subView.getGlIpi().setEnabled(true);
-			subView.getGlImpostoImportacao().setEnabled(true);
-			subView.getGlIssqn().setEnabled(true);
+			// subView.getGlImpostoImportacao().setEnabled(true);
+			// subView.getGlIssqn().setEnabled(true);
 			subView.getNdeGlCombustivel().setEnabled(true);
 			subView.getNdeGlVeiculo().setEnabled(true);
 			subView.getPlNdeMedicamentoSubForm().setEnabled(true);

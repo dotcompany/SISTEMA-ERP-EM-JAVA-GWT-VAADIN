@@ -917,14 +917,14 @@ public class CopyOfProdutoServicoFormController extends
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIi(entIi);
 			}
 
-			this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
+			/*this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
 					entIi.getValorBcIi().toString().trim());
 			this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
 					entIi.getValorDespesasAduaneiras().toString().trim());
 			this.subView.getTfValorImpostoImportacao().setValue(
 					entIi.getValorImpostoImportacao().toString().trim());
 			this.subView.getTfIofImpostoImportacao().setValue(
-					entIi.getValorIof().toString().trim());
+					entIi.getValorIof().toString().trim());*/
 
 			/**
 			 * IPI
@@ -980,7 +980,7 @@ public class CopyOfProdutoServicoFormController extends
 						entIssqn);
 			}
 
-			this.subView.getTfBaseCalculoBcIssqn().setValue(
+			/*this.subView.getTfBaseCalculoBcIssqn().setValue(
 					entIssqn.getBaseCalculoIssqn().toString().trim());
 			this.subView.getTfAliquotaIssqn().setValue(
 					entIssqn.getAliquotaIssqn().toString().trim());
@@ -991,7 +991,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfItemListaServicosIssqn().setValue(
 					entIssqn.getItemListaServicos().toString().trim());
 			this.subView.getTfTributacaoIssqn().setValue(
-					entIssqn.getTributacaoIssqn().trim());
+					entIssqn.getTributacaoIssqn().trim());*/
 
 			/**
 			 * PIS
@@ -1144,21 +1144,21 @@ public class CopyOfProdutoServicoFormController extends
 			//				"NFE DETALHE "
 			//						+ this.nfeCabecalho.getNfeDetalhe()
 			//								.getNumeroItem());
-			this.subView.getPlNdiIi()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiIi()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			//this.subView.getPlNdiIpi()
 			//		.setCaption(
 			//				"NFE DETALHE "
 			//						+ this.nfeCabecalho.getNfeDetalhe()
 			//								.getNumeroItem());
-			this.subView.getPlNdiIssqn()
-					.setCaption(
-							"NFE DETALHE "
-									+ this.nfeCabecalho.getNfeDetalhe()
-											.getNumeroItem());
+			//this.subView.getPlNdiIssqn()
+			//		.setCaption(
+			//				"NFE DETALHE "
+			//						+ this.nfeCabecalho.getNfeDetalhe()
+			//								.getNumeroItem());
 			//this.subView.getPlNdiPis()
 			//		.setCaption(
 			//				"NFE DETALHE "
@@ -1244,8 +1244,8 @@ public class CopyOfProdutoServicoFormController extends
 		//this.subView.getGlPis().setEnabled(a3);
 		//this.subView.getGlCofins().setEnabled(a4);
 		//this.subView.getGlIpi().setEnabled(a5);
-		this.subView.getGlImpostoImportacao().setEnabled(a6);
-		this.subView.getGlIssqn().setEnabled(a7);
+		//this.subView.getGlImpostoImportacao().setEnabled(a6);
+		//this.subView.getGlIssqn().setEnabled(a7);
 		this.subView.getNdeGlCombustivel().setEnabled(a8);
 		this.subView.getNdeGlVeiculo().setEnabled(a9);
 		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
@@ -2413,14 +2413,14 @@ public class CopyOfProdutoServicoFormController extends
 	private void ndiIiLimpar() {
 		NfeDetalheImpostoIiEntity entIi = new NfeDetalheImpostoIiEntity();
 
-		this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
+		/*this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
 				entIi.getValorBcIi().toString());
 		this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
 				entIi.getValorDespesasAduaneiras().toString());
 		this.subView.getTfValorImpostoImportacao().setValue(
 				entIi.getValorImpostoImportacao().toString());
 		this.subView.getTfIofImpostoImportacao().setValue(
-				entIi.getValorIof().toString());
+				entIi.getValorIof().toString());*/
 	}
 
 	private void ndiIpiLimpar() {
@@ -2450,7 +2450,7 @@ public class CopyOfProdutoServicoFormController extends
 	private void ndiIssqnLimpar() {
 		NfeDetalheImpostoIssqnEntity entIssqn = new NfeDetalheImpostoIssqnEntity();
 
-		this.subView.getTfBaseCalculoBcIssqn().setValue(
+		/*this.subView.getTfBaseCalculoBcIssqn().setValue(
 				entIssqn.getBaseCalculoIssqn().toString());
 		this.subView.getTfAliquotaIssqn().setValue(
 				entIssqn.getAliquotaIssqn().toString());
@@ -2461,7 +2461,7 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfItemListaServicosIssqn().setValue(
 				entIssqn.getItemListaServicos().toString());
 		this.subView.getTfTributacaoIssqn().setValue(
-				entIssqn.getTributacaoIssqn());
+				entIssqn.getTributacaoIssqn());*/
 	}
 
 	private void ndiPisLimpar() {
