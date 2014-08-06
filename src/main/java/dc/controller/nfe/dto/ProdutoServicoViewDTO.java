@@ -833,24 +833,24 @@ public class ProdutoServicoViewDTO implements Serializable {
 			ProdutoServicoFormView subView) {
 		if (nfeDetalhe == null) {
 			subView.getGlNfeDetalhe().setEnabled(false);
-			// subView.getGlIcms().setEnabled(false);
-			// subView.getGlPis().setEnabled(false);
-			// subView.getGlCofins().setEnabled(false);
-			// subView.getGlIpi().setEnabled(false);
-			// subView.getGlImpostoImportacao().setEnabled(false);
-			// subView.getGlIssqn().setEnabled(false);
+			subView.getNdiIcmsFormView().getGlNdiIcms().setEnabled(false);
+			subView.getNdiPisFormView().getGlNdiPis().setEnabled(false);
+			subView.getNdiCofinsFormView().getGlNdiCofins().setEnabled(false);
+			subView.getNdiIpiFormView().getGlNdiIpi().setEnabled(false);
+			subView.getNdiIiFormView().getGlNdiIi().setEnabled(false);
+			subView.getNdiIssqnFormView().getGlNdiIssqn().setEnabled(false);
 			// subView.getNdeGlCombustivel().setEnabled(false);
 			// subView.getNdeGlVeiculo().setEnabled(false);
 			// subView.getPlNdeMedicamentoSubForm().setEnabled(false);
 			// subView.getPlNdeArmamentoSubForm().setEnabled(false);
 		} else {
 			subView.getGlNfeDetalhe().setEnabled(true);
-			// subView.getGlIcms().setEnabled(true);
-			// subView.getGlPis().setEnabled(true);
-			// subView.getGlCofins().setEnabled(true);
-			// subView.getGlIpi().setEnabled(true);
-			// subView.getGlImpostoImportacao().setEnabled(true);
-			// subView.getGlIssqn().setEnabled(true);
+			subView.getNdiIcmsFormView().getGlNdiIcms().setEnabled(true);
+			subView.getNdiPisFormView().getGlNdiPis().setEnabled(true);
+			subView.getNdiCofinsFormView().getGlNdiCofins().setEnabled(true);
+			subView.getNdiIpiFormView().getGlNdiIpi().setEnabled(true);
+			subView.getNdiIiFormView().getGlNdiIi().setEnabled(true);
+			subView.getNdiIssqnFormView().getGlNdiIssqn().setEnabled(true);
 			// subView.getNdeGlCombustivel().setEnabled(true);
 			// subView.getNdeGlVeiculo().setEnabled(true);
 			// subView.getPlNdeMedicamentoSubForm().setEnabled(true);

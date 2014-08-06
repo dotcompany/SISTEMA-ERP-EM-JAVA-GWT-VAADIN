@@ -119,6 +119,10 @@ public class NfeDetalheImpostoIcmsFormView extends CustomComponent {
 		return titulo;
 	}
 
+	public GridLayout getGlNdiIcms() {
+		return glNdiIcms;
+	}
+
 	public TextField getTfOrigemMercadoriaIcms() {
 		return tfOrigemMercadoriaIcms;
 	}
@@ -351,8 +355,6 @@ public class NfeDetalheImpostoIcmsFormView extends CustomComponent {
 		// common part: create layout
 		glNdiIcms = new GridLayout();
 		glNdiIcms.setImmediate(false);
-		// glIcms.setWidth("100.0%");
-		// glIcms.setHeight("100.0%");
 		glNdiIcms.setSizeUndefined();
 		glNdiIcms.setMargin(true);
 		glNdiIcms.setSpacing(true);
