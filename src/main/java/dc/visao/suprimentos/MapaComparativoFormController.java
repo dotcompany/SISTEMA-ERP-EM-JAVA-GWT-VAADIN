@@ -24,48 +24,47 @@ import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 
 	MapaComparativoFormView subView;
-	
+
 	@Autowired
 	CotacaoDAO cotacaoDao;
-	
+
 	@Autowired
 	PedidoCompraDAO pedidoCompraDAO;
-	
+
 	@Autowired
 	FornecedorDAO fornecedorDao;
-	
+
 	@Autowired
 	RequisicaoDetalheDAO requisicaoDetalheDao;
-	
+
 	@Autowired
 	TipoPedidoDAO tipoPedidoDAO;
 
 	private Cotacao currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Mapa Comparativo";
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
-			
+
 			List<FornecedorCotacao> fornecedores = currentBean.getCompraFornecedorCotacaos();
-			
+
 			for (FornecedorCotacao cotacao : fornecedores) {
 				List<CotacaoDetalhe> cotacaoDetalhes = cotacao.getCotacaoDetalhes();
-				
+
 				PedidoCompra pedidoCompra = null;
-				
+
 				for (CotacaoDetalhe detalhe : cotacaoDetalhes) {
 					boolean existePedido = pedidoCompraDAO.existsPedidoDetalheByCotacao(detalhe.getId());
 					if (!existePedido) {
@@ -79,7 +78,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 							pedidoCompra.setValorSubtotal(cotacao.getValorSubtotal());
 							pedidoCompra.setFormaPagamento(cotacao.getVendaCondicoesPagamento());
 						}
-						
+
 						PedidoDetalhe pedidoDetalhe = new PedidoDetalhe();
 						pedidoDetalhe.setProduto(detalhe.getProduto());
 						pedidoDetalhe.setQuantidade(detalhe.getQuantidadePedida());
@@ -88,21 +87,21 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 						pedidoDetalhe.setValorDesconto(detalhe.getValorDesconto());
 						pedidoDetalhe.setValorSubtotal(detalhe.getValorUnitario().multiply(detalhe.getQuantidadePedida()));
 						pedidoDetalhe.setValorTotal(pedidoDetalhe.getValorSubtotal().subtract(pedidoDetalhe.getValorDesconto()));
-						
+
 						pedidoCompra.addPedidoDetalhe(pedidoDetalhe);
 					}
 				}
-				
+
 				pedidoCompraDAO.save(pedidoCompra);
 			}
-			
+
 			cotacaoDao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -110,10 +109,10 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 		currentBean = cotacaoDao.find(id);
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getCalDataCotacao().setValue(currentBean.getDataCotacao());
-		
+
 		subView.fillCompraFornecedorCotacoesSubForm(currentBean.getCompraFornecedorCotacaos());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new MapaComparativoFormView();
@@ -127,7 +126,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		cotacaoDao.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
@@ -155,12 +154,11 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 		return cotacaoDetalhe;
 	}
 
-	public void removerRequisicaoCotacaoDetalhes(
-			List<RequisicaoCotacaoDetalhe> values) {
+	public void removerRequisicaoCotacaoDetalhes(List<RequisicaoCotacaoDetalhe> values) {
 		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : values) {
 			currentBean.removeCompraReqCotacaoDetalhe(requisicaoCotacaoDetalhe);
 		}
-		mensagemRemovidoOK();		
+		mensagemRemovidoOK();
 	}
 
 	public List<Fornecedor> buscarFornecedores() {
@@ -184,15 +182,21 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 	public String getViewIdentifier() {
 		return "mapaComparativoForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Cotacao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

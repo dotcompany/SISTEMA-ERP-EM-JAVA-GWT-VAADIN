@@ -13,18 +13,17 @@ import dc.entidade.suprimentos.TipoPedido;
 import dc.servicos.dao.suprimentos.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 
 	TipoPedidoFormView subView;
-	
+
 	@Autowired
 	TipoPedidoDAO tipoPedidoDAO;
 
 	private TipoPedido currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Tipo Pedido Compra";
@@ -35,19 +34,19 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setCodigo(subView.getTxtCodigo().getValue());
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			tipoPedidoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new TipoPedidoFormView();
@@ -72,7 +71,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		tipoPedidoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
@@ -87,13 +86,19 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "tipoPedidoForm";
+	}
+
+	@Override
+	public TipoPedido getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

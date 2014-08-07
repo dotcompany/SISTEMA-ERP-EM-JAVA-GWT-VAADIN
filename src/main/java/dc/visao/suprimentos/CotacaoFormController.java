@@ -19,24 +19,23 @@ import dc.servicos.dao.suprimentos.CotacaoDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class CotacaoFormController extends CRUDFormController<Cotacao> {
 
 	CotacaoFormView subView;
-	
+
 	@Autowired
 	CotacaoDAO cotacaoDao;
-	
+
 	@Autowired
 	FornecedorDAO fornecedorDao;
-	
+
 	@Autowired
 	RequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private Cotacao currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "cotação de Compra";
@@ -47,19 +46,19 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
 			currentBean.setSituacao("A");
 			cotacaoDao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -68,11 +67,11 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getCalDataCotacao().setValue(currentBean.getDataCotacao());
-		
+
 		subView.fillCompraFornecedorCotacoesSubForm(currentBean.getCompraFornecedorCotacaos());
 		subView.fillReqCotacaoDetalhesSubForm(currentBean.getCompraReqCotacaoDetalhes());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new CotacaoFormView(this);
@@ -86,7 +85,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		cotacaoDao.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
@@ -115,12 +114,11 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		return cotacaoDetalhe;
 	}
 
-	public void removerRequisicaoCotacaoDetalhes(
-			List<RequisicaoCotacaoDetalhe> values) {
+	public void removerRequisicaoCotacaoDetalhes(List<RequisicaoCotacaoDetalhe> values) {
 		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : values) {
 			currentBean.removeCompraReqCotacaoDetalhe(requisicaoCotacaoDetalhe);
 		}
-		mensagemRemovidoOK();		
+		mensagemRemovidoOK();
 	}
 
 	public List<Fornecedor> buscarFornecedores() {
@@ -145,10 +143,16 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		// TODO Auto-generated method stub
 		return "cotacaoForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public Cotacao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

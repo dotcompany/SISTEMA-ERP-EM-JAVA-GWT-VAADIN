@@ -13,18 +13,17 @@ import dc.entidade.suprimentos.TipoRequisicao;
 import dc.servicos.dao.suprimentos.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisicao> {
 
 	TipoRequisicaoFormView subView;
-	
+
 	@Autowired
 	TipoRequisicaoDAO tipoRequisicaoDAO;
 
 	private TipoRequisicao currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Tipo Requisição";
@@ -35,20 +34,20 @@ public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisi
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setCodigo(subView.getTxtCodigo().getValue());
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setIdEmpresa(1);
 			tipoRequisicaoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisi
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new TipoRequisicaoFormView();
@@ -73,7 +72,7 @@ public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisi
 	@Override
 	protected void remover(List<Serializable> ids) {
 		tipoRequisicaoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
@@ -93,6 +92,12 @@ public class TipoRequisicaoFormController extends CRUDFormController<TipoRequisi
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "tipoRequisicaoForm";
+	}
+
+	@Override
+	public TipoRequisicao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

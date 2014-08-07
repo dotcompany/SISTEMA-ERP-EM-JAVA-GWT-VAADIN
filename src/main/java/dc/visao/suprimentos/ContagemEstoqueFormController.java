@@ -28,7 +28,7 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 
 	@Autowired
 	ContagemEstoqueDAO dao;
-	
+
 	@Autowired
 	ProdutoDAO produtoDAO;
 
@@ -43,12 +43,10 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 	protected boolean validaSalvar() {
 		boolean valido = true;
 		if (!Validator.validateObject(subView.getDataContagem().getValue())) {
-			adicionarErroDeValidacao(subView.getDataContagem(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDataContagem(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
-		
+
 		return valido;
 	}
 
@@ -70,33 +68,30 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 		subView.getDataContagem().setValue(currentBean.getData());
 		subView.fillContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
 	}
-	
-	public Empresa empresaAtual(){
+
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setData(subView.getDataContagem().getValue());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
-		
 
 	}
 
 	@Override
 	protected void quandoNovo() {
-			subView.fillContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		
+		subView.fillContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+
 	}
-	
-	
 
 	@Override
 	protected Component getSubView() {
@@ -107,37 +102,42 @@ public class ContagemEstoqueFormController extends CRUDFormController<ContagemEs
 	protected String getNome() {
 		return "Contagem Estoque";
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-	for(Serializable i : ids){
-		ContagemEstoque c = dao.find(i);
-		c.setContagemDetalhes(null);
-	}
+		for (Serializable i : ids) {
+			ContagemEstoque c = dao.find(i);
+			c.setContagemDetalhes(null);
+		}
 		dao.deleteAllByIds(ids);
 
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
 
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
-	
-	public ContagemEstoqueDetalhe novoContagemEstoqueDetalhe(){
+
+	public ContagemEstoqueDetalhe novoContagemEstoqueDetalhe() {
 		ContagemEstoqueDetalhe detalhe = new ContagemEstoqueDetalhe();
 		currentBean.addContagemDetalhe(detalhe);
 		return detalhe;
 	}
-	
+
 	public List<Produto> buscarProdutos() {
 		return produtoDAO.getAll(Produto.class);
 	}
-	
-	
+
+	@Override
+	public ContagemEstoque getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 
 }

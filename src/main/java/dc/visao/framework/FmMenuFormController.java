@@ -28,22 +28,16 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 	private FmMenuFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private FmMenuDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private FmMenu pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public FmMenuFormController() {
 		if (this.pEntity == null) {
@@ -206,9 +200,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 		this.subView.carregarCmbMenu(this.menuListarTodos(modulo));
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<FmModulo> moduloListarTodos() {
 		List<FmModulo> auxLista = new ArrayList<FmModulo>();
@@ -252,18 +244,14 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	 * this.subView.populaMenus(menus); }
 	 */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -348,4 +336,8 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 		}
 	}
 
+	@Override
+	public FmMenu getModelBean() {
+		return pEntity;
+	}
 }

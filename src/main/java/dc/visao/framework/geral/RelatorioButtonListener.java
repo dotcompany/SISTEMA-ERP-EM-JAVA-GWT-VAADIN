@@ -1,6 +1,7 @@
 package dc.visao.framework.geral;
 
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.vaadin.addons.lazyquerycontainer.LazyQueryContainer;
 
-import com.vaadin.data.Item;
 import com.vaadin.server.DownloadStream;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
@@ -26,29 +26,27 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.RelatorioParameterView;
-import dc.servicos.util.Validator;
+import dc.entidade.relatorio.TipoRelatorio;
 
 public class RelatorioButtonListener implements ClickListener {
 	private final Relatorio relatorio;
 	private final CRUDListController crudListController;
+	private final RelatorioParameterView relatorioParameterView;
 
-	public RelatorioButtonListener(Relatorio relatorio, CRUDListController crudListController) {
+	public RelatorioButtonListener(Relatorio relatorio, CRUDListController crudListController, RelatorioParameterView parameterView) {
 		this.relatorio = relatorio;
 		this.crudListController = crudListController;
+		this.relatorioParameterView = parameterView;
 	}
 
 	@Override
 	public void buttonClick(ClickEvent event) {
 		try {
 
-			if (Validator.validateString(relatorio.getTelaParametros())) {
-
-				Class parameterViewClass = Class.forName(relatorio.getTelaParametros());
-				Object parameterView = parameterViewClass.newInstance();
-
-				final RelatorioParameterView relatorioParameterView = (RelatorioParameterView) parameterView;
+			if (relatorioParameterView != null) {
 
 				VerticalLayout relatorioPopUp = new VerticalLayout();
 				relatorioPopUp.setMargin(true);
@@ -80,17 +78,28 @@ public class RelatorioButtonListener implements ClickListener {
 				});
 
 			} else {
-				LazyQueryContainer containerDataSource = (LazyQueryContainer) crudListController.getTable().getContainerDataSource();
-				List<?> itemIds = containerDataSource.getItemIds(0, Integer.MAX_VALUE);
 
-				List<Item> items = new ArrayList<>();
-				for (Object id : itemIds) {
-					Item item = containerDataSource.getItem(id);
-					items.add(item);
+				JRDataSource dataSource;
+				if (TipoRelatorio.getEnum(relatorio.getTipo()).equals(TipoRelatorio.LISTAGEM)) {
+					LazyQueryContainer containerDataSource = (LazyQueryContainer) crudListController.getTable().getContainerDataSource();
 
+					List<?> itemIds = containerDataSource.getItemIds(0, Integer.MAX_VALUE);
+
+					List<AbstractModel> items = new ArrayList<>();
+					for (Object id : itemIds) {
+						AbstractModel bean = (AbstractModel) crudListController.getMainDao().find((Serializable) id);
+						items.add(bean);
+					}
+
+					dataSource = new JRBeanCollectionDataSource(items);
+				} else {
+					List<AbstractModel> modelBeanList = new ArrayList<>();
+					AbstractModel modelBean = this.crudListController.getFormController().getModelBean();
+					modelBeanList.add(modelBean);
+					dataSource = new JRBeanCollectionDataSource(modelBeanList);
 				}
 
-				printListener(new HashMap<String, Object>(), new JRBeanCollectionDataSource(items));
+				printListener(new HashMap<String, Object>(), dataSource);
 			}
 
 		} catch (Exception e) {

@@ -25,31 +25,31 @@ public class FmReportFormController extends CRUDFormController<FmReport> {
 	@Override
 	protected void criarNovoBean() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void actionSalvar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void quandoNovo() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -67,13 +67,19 @@ public class FmReportFormController extends CRUDFormController<FmReport> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public FmReport getModelBean() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

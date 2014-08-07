@@ -1,5 +1,6 @@
 package dc.entidade.ponto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +24,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
 @Table(name = "PONTO_ABONO")
-public class PontoAbono {
+public class PontoAbono extends AbstractModel<Serializable> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -153,8 +155,7 @@ public class PontoAbono {
 		return pontoAbonoUtilizacoes;
 	}
 
-	public void setPontoAbonoUtilizacoes(
-			List<PontoAbonoUtilizacao> pontoAbonoUtilizacoes) {
+	public void setPontoAbonoUtilizacoes(List<PontoAbonoUtilizacao> pontoAbonoUtilizacoes) {
 		this.pontoAbonoUtilizacoes = pontoAbonoUtilizacoes;
 	}
 

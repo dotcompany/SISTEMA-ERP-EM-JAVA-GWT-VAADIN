@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.vaadin.addons.lazyquerycontainer.BeanQueryFactory;
 import org.vaadin.addons.lazyquerycontainer.CompositeItem;
 import org.vaadin.addons.lazyquerycontainer.LazyQueryContainer;
@@ -43,17 +44,21 @@ import com.vaadin.ui.Window;
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
 import dc.control.util.ClasseUtil;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
+import dc.entidade.relatorio.RelatorioParameterView;
+import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.util.Validator;
 import dc.visao.framework.DCFilterDecorator;
 import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
@@ -62,7 +67,7 @@ import dc.visao.framework.component.manytoonecombo.ModalWindowSaveListener;
 import dc.visao.framework.component.manytoonecombo.ModalWindowSelectionListener;
 import dc.visao.spring.SecuritySessionProvider;
 
-public abstract class CRUDListController<E> extends ControllerTask implements Controller, ControllerAcesso {
+public abstract class CRUDListController<E extends AbstractModel> extends ControllerTask implements Controller, ControllerAcesso {
 
 	/**
 	 * 
@@ -105,6 +110,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 	private Window window = null;
 	private ModalWindowSaveListener saveListener;
 	private ModalWindowSelectionListener windowSelectionListener;
+	@Autowired(required = true)
+	private transient ApplicationContext applicationContext;
 
 	@PostConstruct
 	protected void init() {
@@ -152,8 +159,8 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		});
 
 		// TODO Exibir só os que o user tiver permissão
-		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
-				SecuritySessionProvider.getUsuario());
+		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUserAndType(fmMenuDAO.getMenu(this.getClass().getName()),
+				SecuritySessionProvider.getUsuario(), TipoRelatorio.LISTAGEM);
 
 		if (relatorios != null && relatorios.size() > 0) {
 
@@ -227,10 +234,18 @@ public abstract class CRUDListController<E> extends ControllerTask implements Co
 		});
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
-
-		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this));
-
+		RelatorioParameterView relatorioParameterView = null;
+		if (Validator.validateString(relatorio.getTelaParametros())) {
+			try {
+				Class clazz = Class.forName(relatorio.getTelaParametros());
+				relatorioParameterView = (RelatorioParameterView) applicationContext.getBean(clazz);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this, relatorioParameterView));
 	}
 
 	/*

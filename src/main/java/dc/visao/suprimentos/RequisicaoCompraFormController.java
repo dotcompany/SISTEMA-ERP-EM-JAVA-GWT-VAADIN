@@ -22,8 +22,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class RequisicaoCompraFormController extends
-		CRUDFormController<Requisicao> {
+public class RequisicaoCompraFormController extends CRUDFormController<Requisicao> {
 
 	RequisicaoCompraFormView subView;
 
@@ -54,12 +53,9 @@ public class RequisicaoCompraFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setTipoRequisicao((TipoRequisicao) subView
-					.getCmbTipoRequisicao().getValue());
-			currentBean.setColaborador((Colaborador) subView
-					.getLkpRequisitante().getValue());
-			currentBean.setDataRequisicao(subView.getCalDataRequisicao()
-					.getValue());
+			currentBean.setTipoRequisicao((TipoRequisicao) subView.getCmbTipoRequisicao().getValue());
+			currentBean.setColaborador((Colaborador) subView.getLkpRequisitante().getValue());
+			currentBean.setDataRequisicao(subView.getCalDataRequisicao().getValue());
 			requisicaoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -75,8 +71,7 @@ public class RequisicaoCompraFormController extends
 		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
 		subView.getCmbTipoRequisicao().select(currentBean.getTipoRequisicao());
 		subView.getLkpRequisitante().select(currentBean.getColaborador());
-		subView.getCalDataRequisicao()
-				.setValue(currentBean.getDataRequisicao());
+		subView.getCalDataRequisicao().setValue(currentBean.getDataRequisicao());
 
 		subView.fillRequisicaoDetalhesSubForm(currentBean.getRequisicaoDetalhes());
 	}
@@ -84,8 +79,7 @@ public class RequisicaoCompraFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new RequisicaoCompraFormView(this);
-		subView.fillCmbTipoRequisicao(tipoRequisicaoDAO
-				.getAll(TipoRequisicao.class));
+		subView.fillCmbTipoRequisicao(tipoRequisicaoDAO.getAll(TipoRequisicao.class));
 		subView.fillCmbRequisitante(colaboradorDAO.getAll(Colaborador.class));
 	}
 
@@ -136,10 +130,16 @@ public class RequisicaoCompraFormController extends
 	public String getViewIdentifier() {
 		return "requisicaoCompraForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public Requisicao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

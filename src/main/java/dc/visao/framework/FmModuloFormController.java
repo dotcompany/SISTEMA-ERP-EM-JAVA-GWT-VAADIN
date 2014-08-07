@@ -7,34 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.server.ErrorMessage;
-import com.vaadin.server.Page;
-import com.vaadin.server.ErrorMessage.ErrorLevel;
-import com.vaadin.server.UserError;
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
 
-import dc.entidade.financeiro.Banco;
 import dc.entidade.framework.FmModulo;
-import dc.framework.ModuleView;
-import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.visao.framework.geral.CRUDFormController;
-
 
 @Controller
 @Scope("prototype")
 public class FmModuloFormController extends CRUDFormController<FmModulo> {
 
 	FmModuloFormView subView;
-	
+
 	@Autowired
 	FmModuloDAO fmDAO;
 
 	private FmModulo currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Módulo";
@@ -45,22 +34,21 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setCaption(subView.getTxtCaption().getValue());
 			currentBean.setUrlID(subView.getTxtURL().getValue());
-			String vViewName = subView.getTxtViewName().getValue() ;
+			String vViewName = subView.getTxtViewName().getValue();
 			currentBean.setViewName(vViewName);
 			fmDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -68,13 +56,16 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 		subView.getTxtViewName().setValue(currentBean.getViewName());
 		subView.getTxtCaption().setValue(currentBean.getCaption());
 		subView.getTxtURL().setValue(currentBean.getUrlID());
-			
+
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -82,7 +73,10 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 		subView = new FmModuloFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new FmModulo();
@@ -90,25 +84,25 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 fmDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		fmDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(estaVazio(subView.getTxtCaption()) && estaVazio(subView.getTxtURL())){
+		if (estaVazio(subView.getTxtCaption()) && estaVazio(subView.getTxtURL())) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		 fmDAO.deleteAll(objetos);
-		 mensagemRemovidoOK();
-		
+		fmDAO.deleteAll(objetos);
+		mensagemRemovidoOK();
+
 	}
 
 	@Override
@@ -117,9 +111,10 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 		return "fmModuloForm";
 	}
 
-	
-
-	
-
+	@Override
+	public FmModulo getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 
 }

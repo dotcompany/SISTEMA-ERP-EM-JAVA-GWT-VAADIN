@@ -1,5 +1,7 @@
 package dc.visao.relatorio;
 
+import java.io.File;
+
 import org.vaadin.easyuploads.FileBuffer;
 import org.vaadin.easyuploads.UploadField;
 import org.vaadin.easyuploads.UploadField.FieldType;
@@ -101,6 +103,9 @@ public class RelatorioFormView extends CustomComponent {
 		comboMenus.setValue(currentBean.getMenu());
 		cbTipos.setValue(TipoRelatorio.getEnum(currentBean.getTipo()));
 		txTelaParametros.setValue(currentBean.getTelaParametros());
+		File relatorio = new File(currentBean.getJasperPath());
+		relatorioUpload.setValue(relatorio);
+		setNomeRelatorio(relatorio.getName());
 	}
 
 	public TextField getTxNome() {

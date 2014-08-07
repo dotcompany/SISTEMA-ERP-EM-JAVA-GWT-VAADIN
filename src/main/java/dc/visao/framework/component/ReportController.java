@@ -20,6 +20,11 @@ import dc.visao.framework.geral.ControllerTask;
 
 public class ReportController extends ControllerTask implements Controller, ControllerAcesso {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static Logger logger = Logger.getLogger(ReportController.class);
 
 	private ReportView view;
@@ -48,41 +53,35 @@ public class ReportController extends ControllerTask implements Controller, Cont
 		return UUID.randomUUID().toString();
 	}
 
-
 	@Override
 	public void setAcessoLiberado() {
 	}
 
-
 	@Override
 	public void setPapelMenu(PapelMenu pf) {
 	}
-	
+
 	public void loadReport() {
 		try {
 			JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("reports/teste.jasper");
 			JasperPrint print = JasperFillManager.fillReport(report, new HashMap<String, Object>());
 			byte[] pdfStream = JasperExportManager.exportReportToPdf(print);
-			
+
 			view.showReport(pdfStream);
-			
+
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
-	public void dispose(){
-		
+	public void dispose() {
+
 	}
-	
-	
-	
+
 	@Override
-	public void setChildModuleID(String id){
-		//nothinf for now
+	public void setChildModuleID(String id) {
+		// nothinf for now
 	}
-	
-	
 
 }

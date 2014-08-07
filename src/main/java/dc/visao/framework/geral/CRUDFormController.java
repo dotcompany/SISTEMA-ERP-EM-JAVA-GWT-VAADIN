@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -31,9 +32,12 @@ import com.vaadin.ui.TextField;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
 import dc.entidade.relatorio.Relatorio;
+import dc.entidade.relatorio.RelatorioParameterView;
+import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.util.Validator;
 import dc.visao.spring.SecuritySessionProvider;
 
 /** @author Wesley Jr /* Nessa classe temos a configuração da Tela, todos os
@@ -41,7 +45,7 @@ import dc.visao.spring.SecuritySessionProvider;
  *         botões SALVAR, CRIAR Tem o Método também do CARREGAR, que pega as
  *         informações contida na Tela, que está salvo no Banco de Dados */
 
-public abstract class CRUDFormController<E> extends ControllerTask implements Controller, Serializable {
+public abstract class CRUDFormController<E extends AbstractModel> extends ControllerTask implements Controller, Serializable {
 
 	/**
 	 * 
@@ -72,6 +76,9 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 	private RelatorioDAO relatorioDAO;
 	@Autowired
 	private FmMenuDAO fmMenuDAO;
+
+	@Autowired(required = true)
+	private transient ApplicationContext applicationContext;
 
 	@PostConstruct
 	public void init() {
@@ -153,8 +160,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 	}
 
 	private void configuraBotaoRelatorio() {
-		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getListController().getClass().getName()),
-				SecuritySessionProvider.getUsuario());
+		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUserAndType(
+				fmMenuDAO.getMenu(this.getListController().getClass().getName()), SecuritySessionProvider.getUsuario(), TipoRelatorio.FORMULARIO);
 
 		if (relatorios != null && relatorios.size() > 0) {
 
@@ -398,10 +405,18 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
-
-		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this.listController));
-
+		RelatorioParameterView relatorioParameterView = null;
+		if (Validator.validateString(relatorio.getTelaParametros())) {
+			try {
+				Class clazz = Class.forName(relatorio.getTelaParametros());
+				relatorioParameterView = (RelatorioParameterView) applicationContext.getBean(clazz);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this.listController, relatorioParameterView));
 	}
 
 	public abstract E getModelBean();

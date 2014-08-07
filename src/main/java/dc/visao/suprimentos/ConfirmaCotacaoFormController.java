@@ -22,24 +22,23 @@ import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-
 @Controller
 @Scope("prototype")
 public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 
 	ConfirmaCotacaoFormView subView;
-	
+
 	@Autowired
 	CotacaoDAO cotacaoDao;
-	
+
 	@Autowired
 	FornecedorDAO fornecedorDao;
-	
+
 	@Autowired
 	RequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private Cotacao currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Confirma cotação";
@@ -50,18 +49,18 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
+		try {
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
 			cotacaoDao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -69,49 +68,48 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		currentBean = cotacaoDao.find(id);
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getCalDataCotacao().setValue(currentBean.getDataCotacao());
-		
+
 		List<FornecedorCotacao> fornecedorCotacaos = currentBean.getCompraFornecedorCotacaos();
 		subView.fillCompraFornecedorCotacoesSubForm(fornecedorCotacaos);
-		
-		
+
 		List<RequisicaoCotacaoDetalhe> compraReqCotacaoDetalhes = currentBean.getCompraReqCotacaoDetalhes();
 		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
 			RequisicaoDetalhe requisicaoDetalhe = requisicaoCotacaoDetalhe.getRequisicaoDetalhe();
 
 			COTACOES: for (FornecedorCotacao fornecedorCotacao : fornecedorCotacaos) {
 				List<CotacaoDetalhe> cotacaoDetalhes = fornecedorCotacao.getCotacaoDetalhes();
-				
+
 				for (CotacaoDetalhe cotacaoDetalhe : cotacaoDetalhes) {
 					if (cotacaoDetalhe.getProduto().equals(requisicaoDetalhe.getProduto())
 							&& cotacaoDetalhe.getQuantidade().equals(requisicaoDetalhe.getQuantidade())) {
 						continue COTACOES;
 					}
 				}
-				
+
 				CotacaoDetalhe cotacaoDetalhe = new CotacaoDetalhe();
 				cotacaoDetalhe.setProduto(requisicaoDetalhe.getProduto());
 				cotacaoDetalhe.setQuantidade(requisicaoDetalhe.getQuantidade());
 				fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
-				
+
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new ConfirmaCotacaoFormView();
-		
-		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class, this.fornecedorDao,
-				super.getMainController()) {
+
+		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class,
+				this.fornecedorDao, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa";
 			}
 		};
-		
-		//subView.getCmbFornecedor().setModel(fornecedorModel);
+
+		// subView.getCmbFornecedor().setModel(fornecedorModel);
 	}
 
 	@Override
@@ -156,17 +154,22 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		}
 		mensagemRemovidoOK();
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "confirmaCotacaoForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
+	@Override
+	public Cotacao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 
 }

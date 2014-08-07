@@ -158,4 +158,10 @@ public class PedidoCompraFormController extends CRUDFormController<PedidoCompra>
 		return true;
 	}
 
+	@Override
+	public PedidoCompra getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }
