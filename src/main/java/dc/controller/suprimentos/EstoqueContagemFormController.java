@@ -14,16 +14,11 @@ import dc.servicos.dao.suprimentos.EstoqueContagemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.EstoqueContagemFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class EstoqueContagemFormController extends
-		CRUDFormController<EstoqueContagemEntity> {
+public class EstoqueContagemFormController extends CRUDFormController<EstoqueContagemEntity> {
 
 	/**
 	 * 
@@ -32,22 +27,16 @@ public class EstoqueContagemFormController extends
 
 	private EstoqueContagemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private EstoqueContagemDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private EstoqueContagemEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public EstoqueContagemFormController() {
 		if (this.pEntity == null) {
@@ -134,8 +123,12 @@ public class EstoqueContagemFormController extends
 		return "";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	@Override
+	public EstoqueContagemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
+	}
+
+	/** COMBOS */
 
 }

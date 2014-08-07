@@ -14,26 +14,19 @@ import dc.servicos.dao.tabelas.SefipCodigoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.SefipCodigoMovimentacaoFormView;
 
-
-
-/**
-*
-* @author Wesley Jr
-/*
- *
-*/
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
 public class SefipCodigoMovimentacaoFormController extends CRUDFormController<SefipCodigoMovimentacao> {
 
 	SefipCodigoMovimentacaoFormView subView;
-	
+
 	@Autowired
 	SefipCodigoMovimentacaoDAO sefipCodigoMovimentacaoDAO;
 
 	private SefipCodigoMovimentacao currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Código Movimentação - SEFIP";
@@ -44,34 +37,36 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
+
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
-		try{
+		try {
 			sefipCodigoMovimentacaoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = sefipCodigoMovimentacaoDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtAplicacao().setValue(currentBean.getAplicacao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -79,7 +74,10 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 		subView = new SefipCodigoMovimentacaoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SefipCodigoMovimentacao();
@@ -88,15 +86,16 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 	@Override
 	protected void remover(List<Serializable> ids) {
 		sefipCodigoMovimentacaoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null || subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -109,6 +108,12 @@ public class SefipCodigoMovimentacaoFormController extends CRUDFormController<Se
 	@Override
 	public String getViewIdentifier() {
 		return "sefipCodigoMovimentacaoForm";
+	}
+
+	@Override
+	public SefipCodigoMovimentacao getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

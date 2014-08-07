@@ -19,8 +19,7 @@ import dc.visao.ponto.PontoBancoHorasFormView;
 
 @Controller
 @Scope("prototype")
-public class PontoBancoHorasFormController extends
-		CRUDFormController<PontoBancoHoras> {
+public class PontoBancoHorasFormController extends CRUDFormController<PontoBancoHoras> {
 
 	/**
 	 * 
@@ -41,29 +40,24 @@ public class PontoBancoHorasFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxQuantidade().getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidade(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxQuantidade(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getDtDataTrabalho().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDataTrabalho(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtDataTrabalho(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbSituacao().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
 
 		return valido;
 	}
@@ -132,6 +126,12 @@ public class PontoBancoHorasFormController extends
 	@Override
 	public String getViewIdentifier() {
 		return "pontoBancoHorasFormController";
+	}
+
+	@Override
+	public PontoBancoHoras getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

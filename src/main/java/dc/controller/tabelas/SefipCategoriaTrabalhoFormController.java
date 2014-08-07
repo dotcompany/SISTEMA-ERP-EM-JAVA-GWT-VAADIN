@@ -14,26 +14,19 @@ import dc.servicos.dao.tabelas.SefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.SefipCategoriaTrabalhoFormView;
 
-
-
-/**
-*
-* @author Wesley Jr
-/*
- *
-*/
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
 public class SefipCategoriaTrabalhoFormController extends CRUDFormController<SefipCategoriaTrabalho> {
 
 	SefipCategoriaTrabalhoFormView subView;
-	
+
 	@Autowired
 	SefipCategoriaTrabalhoDAO sefipDAO;
 
 	private SefipCategoriaTrabalho currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Categoria de Trabalho - SEFIP";
@@ -44,30 +37,32 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
+
 		currentBean.setNome(subView.getTxtNome().getValue());
-		try{
+		try {
 			sefipDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = sefipDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());	
+		subView.getTxtNome().setValue(currentBean.getNome());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -75,7 +70,10 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 		subView = new SefipCategoriaTrabalhoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SefipCategoriaTrabalho();
@@ -84,15 +82,16 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 	@Override
 	protected void remover(List<Serializable> ids) {
 		sefipDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -105,6 +104,12 @@ public class SefipCategoriaTrabalhoFormController extends CRUDFormController<Sef
 	@Override
 	public String getViewIdentifier() {
 		return "sefipForm";
+	}
+
+	@Override
+	public SefipCategoriaTrabalho getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

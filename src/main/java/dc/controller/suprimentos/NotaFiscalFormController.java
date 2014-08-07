@@ -3,9 +3,11 @@ package dc.controller.suprimentos;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
 import com.vaadin.ui.Component;
 
 import dc.entidade.produto.Produto;
@@ -35,13 +37,11 @@ import dc.visao.suprimentos.NotaFiscalFormView.FORMA_EMISSAO;
 import dc.visao.suprimentos.NotaFiscalFormView.FORMA_PAGAMENTO;
 import dc.visao.suprimentos.NotaFiscalFormView.TIPO_DANFE;
 import dc.visao.suprimentos.NotaFiscalFormView.TIPO_OPERACAO;
-import dc.visao.suprimentos.ReajusteEstoqueFormView.TipoReajuste;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class NotaFiscalFormController
-extends CRUDFormController<NotaFiscal>{
+public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 	@Autowired
 	NotaFiscalDAO dao;
@@ -66,7 +66,7 @@ extends CRUDFormController<NotaFiscal>{
 
 	@Autowired
 	NFeFaturaDAO faturaDAO;
-	
+
 	@Autowired
 	DuplicataDAO duplicataDAO;
 
@@ -87,7 +87,7 @@ extends CRUDFormController<NotaFiscal>{
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setStatus((String)subView.getCmbStatus().getValue());
+			currentBean.setStatus((String) subView.getCmbStatus().getValue());
 			currentBean.setChaveAcesso(subView.getTxtChaveAcesso().getValue());
 			currentBean.setNumero(subView.getTxtNumero().getValue());
 
@@ -97,23 +97,17 @@ extends CRUDFormController<NotaFiscal>{
 
 			currentBean.setDataEntradaSaida(subView.getDataEntradaSaida().getValue());
 			currentBean.setHoraEntradaSaida(subView.getHoraEntradaSaida().getValue());
-			
-			currentBean.setTipoOperacao(((TIPO_OPERACAO)subView.getTipoOperacao()
-					.getValue()).getCodigo());		
-			
-			currentBean.setFormaPagamento(((FORMA_PAGAMENTO)subView.getFormaPagamento()
-					.getValue()).getCodigo());
-			
-			currentBean.setFormaEmissao(((FORMA_EMISSAO)subView.getFormaEmissao()
-					.getValue()).getCodigo());
-			
-			currentBean.setFinalidadeEmissao(((FINALIDADE_EMISSAO)subView.getFinalidadeEmissao()
-					.getValue()).getCodigo());
-			
-			currentBean.setTipoImpressaoDanfe(((TIPO_DANFE)subView.getTipoDanfe()
-					.getValue()).getCodigo());
-			
-					
+
+			currentBean.setTipoOperacao(((TIPO_OPERACAO) subView.getTipoOperacao().getValue()).getCodigo());
+
+			currentBean.setFormaPagamento(((FORMA_PAGAMENTO) subView.getFormaPagamento().getValue()).getCodigo());
+
+			currentBean.setFormaEmissao(((FORMA_EMISSAO) subView.getFormaEmissao().getValue()).getCodigo());
+
+			currentBean.setFinalidadeEmissao(((FINALIDADE_EMISSAO) subView.getFinalidadeEmissao().getValue()).getCodigo());
+
+			currentBean.setTipoImpressaoDanfe(((TIPO_DANFE) subView.getTipoDanfe().getValue()).getCodigo());
+
 			currentBean.setNaturezaOperacao(subView.getNatureza().getValue());
 
 			currentBean.setBaseCalculoIcms(new BigDecimal(subView.getBaseICMS().getValue()));
@@ -132,10 +126,10 @@ extends CRUDFormController<NotaFiscal>{
 
 			currentBean.setInformacoesContribuinte(subView.getInfoContrib().getValue());
 			currentBean.setInformacoesFisco(subView.getInfoFisco().getValue());
-			
+
 			dao.saveOrUpdate(currentBean);
 
-			salvarEmitente();	
+			salvarEmitente();
 			salvarLocalEntrega();
 			salvarLocalRetirada();
 			salvarTransporte();
@@ -149,25 +143,25 @@ extends CRUDFormController<NotaFiscal>{
 
 	}
 
-	public void salvarFatura(){
+	public void salvarFatura() {
 		NfeFatura fatura = faturaDAO.buscaFaturaPorNota(currentBean);
 
-		if(fatura == null){
+		if (fatura == null) {
 			fatura = new NfeFatura();
 		}
 
-		if(subView.getNumeroFatura()!=null && !(subView.getNumeroFatura().getValue().isEmpty()) ){
+		if (subView.getNumeroFatura() != null && !(subView.getNumeroFatura().getValue().isEmpty())) {
 			fatura.setNumero(subView.getNumeroFatura().getValue());
 
-			if(subView.getValorOriginalFatura()!=null){
+			if (subView.getValorOriginalFatura() != null) {
 				fatura.setValorOriginal(new BigDecimal(subView.getValorOriginalFatura().getValue()));
 			}
 
-			if(subView.getValorDescontoFatura()!=null){
+			if (subView.getValorDescontoFatura() != null) {
 				fatura.setValorDesconto(new BigDecimal(subView.getValorDescontoFatura().getValue()));
 			}
 
-			if(subView.getValorLiquidoFatura()!=null){
+			if (subView.getValorLiquidoFatura() != null) {
 				fatura.setValorLiquido(new BigDecimal(subView.getValorLiquidoFatura().getValue()));
 			}
 
@@ -177,193 +171,187 @@ extends CRUDFormController<NotaFiscal>{
 
 	}
 
-	public void salvarTransporte(){
+	public void salvarTransporte() {
 		NFeTransporte transporte = transporteDAO.buscaTransportePorNota(currentBean);
 
-		if(transporte == null){
+		if (transporte == null) {
 			transporte = new NFeTransporte();
 		}
 
-		if(subView.getCpfTransp()!=null &&  !(subView.getCpfTransp().getValue().isEmpty())){
+		if (subView.getCpfTransp() != null && !(subView.getCpfTransp().getValue().isEmpty())) {
 			transporte.setCpfCnpj(subView.getCpfTransp().getValue());
 		}
 
-			if(subView.getRazaoSocialTransp()!=null){
-				transporte.setRazaoSocial(subView.getRazaoSocialTransp().getValue());
-			}
+		if (subView.getRazaoSocialTransp() != null) {
+			transporte.setRazaoSocial(subView.getRazaoSocialTransp().getValue());
+		}
 
-			if(subView.getInscricaoEstadualTransp()!=null){
-				transporte.setInscricaoEstadual(subView.getInscricaoEstadualTransp().getValue());
-			}
+		if (subView.getInscricaoEstadualTransp() != null) {
+			transporte.setInscricaoEstadual(subView.getInscricaoEstadualTransp().getValue());
+		}
 
-			if(subView.getLogradouroTransp()!=null){
-				transporte.setLogradouro(subView.getLogradouroTransp().getValue());
-			}
+		if (subView.getLogradouroTransp() != null) {
+			transporte.setLogradouro(subView.getLogradouroTransp().getValue());
+		}
 
-			if(subView.getCidadeTransp()!=null){
-				transporte.setCidade(subView.getCidadeTransp().getValue());
-			}
+		if (subView.getCidadeTransp() != null) {
+			transporte.setCidade(subView.getCidadeTransp().getValue());
+		}
 
-			if(subView.getCodigoMunicipioTransp()!=null && !(subView.getCodigoMunicipioTransp().getValue().isEmpty())){
-				transporte.setCodigoIBGE(new Integer(subView.getCodigoMunicipioTransp().getValue()));
-			}
+		if (subView.getCodigoMunicipioTransp() != null && !(subView.getCodigoMunicipioTransp().getValue().isEmpty())) {
+			transporte.setCodigoIBGE(new Integer(subView.getCodigoMunicipioTransp().getValue()));
+		}
 
-			if(subView.getUfTransp()!=null){
-				transporte.setUf(subView.getUfTransp().getValue());
-			}
+		if (subView.getUfTransp() != null) {
+			transporte.setUf(subView.getUfTransp().getValue());
+		}
 
-			if(subView.getCfopTransp()!=null && !(subView.getCfopTransp().getValue().isEmpty())){
-				transporte.setCfop(new Integer(subView.getCfopTransp().getValue()));
-			}
+		if (subView.getCfopTransp() != null && !(subView.getCfopTransp().getValue().isEmpty())) {
+			transporte.setCfop(new Integer(subView.getCfopTransp().getValue()));
+		}
 
-			if(subView.getBaseCalculoTransp()!=null && !(subView.getBaseCalculoTransp().getValue().isEmpty())){
-				transporte.setBaseCalculo(new BigDecimal(subView.getBaseCalculoTransp().getValue()));
-			}
+		if (subView.getBaseCalculoTransp() != null && !(subView.getBaseCalculoTransp().getValue().isEmpty())) {
+			transporte.setBaseCalculo(new BigDecimal(subView.getBaseCalculoTransp().getValue()));
+		}
 
-			if(subView.getAliquotaTransp()!=null && !(subView.getAliquotaTransp().getValue().isEmpty())){
-				transporte.setAliquota(new BigDecimal(subView.getAliquotaTransp().getValue()));
-			}
+		if (subView.getAliquotaTransp() != null && !(subView.getAliquotaTransp().getValue().isEmpty())) {
+			transporte.setAliquota(new BigDecimal(subView.getAliquotaTransp().getValue()));
+		}
 
-			if(subView.getValorServicoTransp()!=null && !(subView.getValorServicoTransp().getValue().isEmpty()) ){
-				transporte.setValorServico(new BigDecimal(subView.getValorServicoTransp().getValue()));
-			}
+		if (subView.getValorServicoTransp() != null && !(subView.getValorServicoTransp().getValue().isEmpty())) {
+			transporte.setValorServico(new BigDecimal(subView.getValorServicoTransp().getValue()));
+		}
 
-			if(subView.getIcmsRetidoTransp()!=null && !(subView.getIcmsRetidoTransp().getValue().isEmpty())){
-				transporte.setValorIcmsRetido(new BigDecimal(subView.getIcmsRetidoTransp().getValue()));
-			}
+		if (subView.getIcmsRetidoTransp() != null && !(subView.getIcmsRetidoTransp().getValue().isEmpty())) {
+			transporte.setValorIcmsRetido(new BigDecimal(subView.getIcmsRetidoTransp().getValue()));
+		}
 
+		if (subView.getUfVeiculo() != null) {
+			transporte.setUfVeiculo(subView.getUfVeiculo().getValue());
+		}
 
+		if (subView.getPlacaVeiculo() != null) {
+			transporte.setPlacaVeiculo(subView.getPlacaVeiculo().getValue());
+		}
 
-			if(subView.getUfVeiculo()!=null){
-				transporte.setUfVeiculo(subView.getUfVeiculo().getValue());
-			}
+		if (subView.getRntcVeiculo() != null) {
+			transporte.setRntcVeiculo(subView.getRntcVeiculo().getValue());
+		}
 
-			if(subView.getPlacaVeiculo()!=null){
-				transporte.setPlacaVeiculo(subView.getPlacaVeiculo().getValue());
-			}
-
-			if(subView.getRntcVeiculo()!=null){
-				transporte.setRntcVeiculo(subView.getRntcVeiculo().getValue());
-			}
-
-			transporte.setNotaFiscal(currentBean);
-			transporteDAO.saveOrUpdate(transporte);
-		
+		transporte.setNotaFiscal(currentBean);
+		transporteDAO.saveOrUpdate(transporte);
 
 	}
 
-	public void salvarEmitente(){
+	public void salvarEmitente() {
 		NotaFiscalEmitente emitente = emitenteDAO.findByNota(currentBean);
 
-		
-		
-		if(emitente == null){
+		if (emitente == null) {
 			emitente = new NotaFiscalEmitente();
 		}
 
-		if(subView.getCpfCnpjEm()!=null &&  !(subView.getCpfCnpjEm().getValue().isEmpty())){
+		if (subView.getCpfCnpjEm() != null && !(subView.getCpfCnpjEm().getValue().isEmpty())) {
 			emitente.setCpfCnpj(subView.getCpfCnpjEm().getValue());
 
-			if(subView.getRazaoEm()!=null){
+			if (subView.getRazaoEm() != null) {
 				emitente.setRazaoSocial(subView.getRazaoEm().getValue());
 			}
 
-			if(subView.getFantasiaEm()!=null){
+			if (subView.getFantasiaEm() != null) {
 				emitente.setNomeFantasia(subView.getFantasiaEm().getValue());
 			}
 
-			if(subView.getCep()!=null){
+			if (subView.getCep() != null) {
 				emitente.setCep(subView.getCep().getValue());
 			}
 
-			if(subView.getLogradouro()!=null){
+			if (subView.getLogradouro() != null) {
 				emitente.setLogradouro(subView.getLogradouro().getValue());
 			}
 
-			if(subView.getNumero()!=null){
+			if (subView.getNumero() != null) {
 				emitente.setNumero(subView.getNumero().getValue());
 			}
 
-			if(subView.getComplemento()!=null){
+			if (subView.getComplemento() != null) {
 				emitente.setComplemento(subView.getComplemento().getValue());
 			}
 
-			if(subView.getBairro()!=null){
+			if (subView.getBairro() != null) {
 				emitente.setBairro(subView.getBairro().getValue());
 			}
 
-			if(subView.getCodigoMunicipio()!=null && !(subView.getCodigoMunicipio().getValue().isEmpty())){
+			if (subView.getCodigoMunicipio() != null && !(subView.getCodigoMunicipio().getValue().isEmpty())) {
 				emitente.setCodigoIBGE(new Integer(subView.getCodigoMunicipio().getValue()));
 			}
 
-			if(subView.getCidade()!=null){
+			if (subView.getCidade() != null) {
 				emitente.setCidade(subView.getCidade().getValue());
 			}
 
-			if(subView.getUf()!=null){
+			if (subView.getUf() != null) {
 				emitente.setUf(subView.getUf().getValue());
 			}
 
-			if(subView.getInscricao()!=null){
+			if (subView.getInscricao() != null) {
 				emitente.setInscricaoEstadual(subView.getInscricao().getValue());
 			}
 
-			if(subView.getTelefone()!=null){
+			if (subView.getTelefone() != null) {
 				emitente.setTelefone(subView.getTelefone().getValue());
 			}
-			
-			if(subView.getCrt()!=null){
-				emitente.setCrt(((CRT)subView.getCrt()
-						.getValue()).getCodigo());
+
+			if (subView.getCrt() != null) {
+				emitente.setCrt(((CRT) subView.getCrt().getValue()).getCodigo());
 			}
 
-			//String codigoMunicipio = subView.getCodigoMunicipio().getValue();
+			// String codigoMunicipio = subView.getCodigoMunicipio().getValue();
 
 			emitente.setNota(currentBean);
 			emitenteDAO.saveOrUpdate(emitente);
 		}
 	}
 
-	public void salvarLocalEntrega(){
+	public void salvarLocalEntrega() {
 		NfeLocalEntrega entrega = localEntregaDAO.buscaEntregaPorNota(currentBean);
 
-		if(entrega==null){
+		if (entrega == null) {
 			entrega = new NfeLocalEntrega();
 		}
 
-		if( subView.getCnpjEnt()!=null && !(subView.getCnpjEnt().getValue().isEmpty())){
+		if (subView.getCnpjEnt() != null && !(subView.getCnpjEnt().getValue().isEmpty())) {
 			entrega.setCpfCnpj(subView.getCnpjEnt().getValue());
 		}
 
-		if(subView.getLogradouroEnt()!=null && !(subView.getLogradouroEnt().getValue().isEmpty())){
+		if (subView.getLogradouroEnt() != null && !(subView.getLogradouroEnt().getValue().isEmpty())) {
 			entrega.setLogradouro(subView.getLogradouroEnt().getValue());
 		}
 
-		if(subView.getNumeroEnt()!=null && !(subView.getNumeroEnt().getValue().isEmpty())){
+		if (subView.getNumeroEnt() != null && !(subView.getNumeroEnt().getValue().isEmpty())) {
 			entrega.setNumero(subView.getNumeroEnt().getValue());
 		}
 
-		if(subView.getComplementoEnt()!=null && !(subView.getComplementoEnt().getValue().isEmpty())){
+		if (subView.getComplementoEnt() != null && !(subView.getComplementoEnt().getValue().isEmpty())) {
 			entrega.setComplemento(subView.getComplementoEnt().getValue());
 		}
 
-		if(subView.getBairroEnt()!=null && !(subView.getBairroEnt().getValue().isEmpty())){
+		if (subView.getBairroEnt() != null && !(subView.getBairroEnt().getValue().isEmpty())) {
 			entrega.setBairro(subView.getBairroEnt().getValue());
 		}
 
-		if(subView.getBairroEnt()!=null && !(subView.getBairroEnt().getValue().isEmpty())){
+		if (subView.getBairroEnt() != null && !(subView.getBairroEnt().getValue().isEmpty())) {
 			entrega.setBairro(subView.getBairroEnt().getValue());
 		}
 
-		if(subView.getIbgeEnt()!=null && !(subView.getIbgeEnt().getValue().isEmpty())){
+		if (subView.getIbgeEnt() != null && !(subView.getIbgeEnt().getValue().isEmpty())) {
 			entrega.setCodigoMunicipio(new Integer(subView.getIbgeEnt().getValue()));
 		}
 
-		if(subView.getCidadeEnt()!=null && !(subView.getCidadeEnt().getValue().isEmpty())){
+		if (subView.getCidadeEnt() != null && !(subView.getCidadeEnt().getValue().isEmpty())) {
 			entrega.setCidade(subView.getCidadeEnt().getValue());
 		}
 
-		if(subView.getUfEnt()!=null && !(subView.getUfEnt().getValue().isEmpty())){
+		if (subView.getUfEnt() != null && !(subView.getUfEnt().getValue().isEmpty())) {
 			entrega.setUf(subView.getUfEnt().getValue());
 		}
 
@@ -371,54 +359,52 @@ extends CRUDFormController<NotaFiscal>{
 		localEntregaDAO.saveOrUpdate(entrega);
 	}
 
-	public void salvarLocalRetirada(){
+	public void salvarLocalRetirada() {
 		NfeLocalRetirada retirada = localRetiradaDAO.buscaRetiradaPorNota(currentBean);
 
-		if(retirada==null){
+		if (retirada == null) {
 			retirada = new NfeLocalRetirada();
 		}
 
-		if(subView.getCnpjRet()!=null && !(subView.getCnpjRet().getValue().isEmpty())){
+		if (subView.getCnpjRet() != null && !(subView.getCnpjRet().getValue().isEmpty())) {
 			retirada.setCpfCnpj(subView.getCnpjRet().getValue());
 		}
 
-		if(subView.getLogradouroRet()!=null && !(subView.getLogradouroRet().getValue().isEmpty())){
+		if (subView.getLogradouroRet() != null && !(subView.getLogradouroRet().getValue().isEmpty())) {
 			retirada.setLogradouro(subView.getLogradouroRet().getValue());
 		}
 
-		if(subView.getNumeroRet()!=null && !(subView.getNumeroRet().getValue().isEmpty())){
+		if (subView.getNumeroRet() != null && !(subView.getNumeroRet().getValue().isEmpty())) {
 			retirada.setNumero(subView.getNumeroRet().getValue());
 		}
 
-		if(subView.getComplementoRet()!=null && !(subView.getComplementoRet().getValue().isEmpty())){
+		if (subView.getComplementoRet() != null && !(subView.getComplementoRet().getValue().isEmpty())) {
 			retirada.setComplemento(subView.getComplementoRet().getValue());
 		}
 
-		if(subView.getBairroRet()!=null && !(subView.getBairroRet().getValue().isEmpty())){
+		if (subView.getBairroRet() != null && !(subView.getBairroRet().getValue().isEmpty())) {
 			retirada.setBairro(subView.getBairroRet().getValue());
 		}
 
-		if(subView.getBairroRet()!=null && !(subView.getBairroRet().getValue().isEmpty())){
+		if (subView.getBairroRet() != null && !(subView.getBairroRet().getValue().isEmpty())) {
 			retirada.setBairro(subView.getBairroRet().getValue());
 		}
 
-		if(subView.getIbgeRet()!=null && !(subView.getIbgeRet().getValue().isEmpty())){
+		if (subView.getIbgeRet() != null && !(subView.getIbgeRet().getValue().isEmpty())) {
 			retirada.setCodigoMunicipio(new Integer(subView.getIbgeRet().getValue()));
 		}
 
-		if(subView.getCidadeRet()!=null && !(subView.getCidadeRet().getValue().isEmpty())){
+		if (subView.getCidadeRet() != null && !(subView.getCidadeRet().getValue().isEmpty())) {
 			retirada.setCidade(subView.getCidadeRet().getValue());
 		}
 
-		if(subView.getUfRet()!=null && !(subView.getUfRet().getValue().isEmpty())){
+		if (subView.getUfRet() != null && !(subView.getUfRet().getValue().isEmpty())) {
 			retirada.setUf(subView.getUfRet().getValue());
 		}
 
 		retirada.setNotaFiscal(currentBean);
 		localRetiradaDAO.saveOrUpdate(retirada);
 	}
-
-
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -445,8 +431,7 @@ extends CRUDFormController<NotaFiscal>{
 		subView.getInfoContrib().setValue(currentBean.getInformacoesContribuinte());
 		subView.getTxtSerie().setValue(currentBean.getSerie());
 		subView.getTxtNumero().setValue(currentBean.getNumero());
-		
-		
+
 		subView.carregarFormaPagamento();
 		subView.carregarFormaEmissao();
 		subView.carregarTipoOperacao();
@@ -456,9 +441,9 @@ extends CRUDFormController<NotaFiscal>{
 		subView.carregarView(currentBean);
 
 		carregarEmitente();
-		carregarCuponsVinculados();	
+		carregarCuponsVinculados();
 		carregarNotasReferenciadas();
-		carregarLocalEntrega(); 
+		carregarLocalEntrega();
 		carregarLocalRetirada();
 		carregarTransporte();
 		carregarFatura();
@@ -466,10 +451,10 @@ extends CRUDFormController<NotaFiscal>{
 
 	}
 
-	public void carregarFatura(){
+	public void carregarFatura() {
 		NfeFatura fatura = faturaDAO.buscaFaturaPorNota(currentBean);
 
-		if(fatura != null){
+		if (fatura != null) {
 			subView.getNumeroFatura().setValue(fatura.getNumero());
 			subView.getValorOriginalFatura().setValue(fatura.getValorOriginal().toString());
 			subView.getValorDescontoFatura().setValue(fatura.getValorDesconto().toString());
@@ -477,44 +462,51 @@ extends CRUDFormController<NotaFiscal>{
 		}
 	}
 
-	public void carregarTransporte(){
-		try{
+	public void carregarTransporte() {
+		try {
 			NFeTransporte transporte = transporteDAO.buscaTransportePorNota(currentBean);
-			if(transporte!=null){
+			if (transporte != null) {
 				subView.getCpfTransp().setValue(transporte.getCpfCnpj());
 				subView.getRazaoSocialTransp().setValue(transporte.getRazaoSocial());
 				subView.getInscricaoEstadualTransp().setValue(transporte.getInscricaoEstadual());
 				subView.getLogradouroTransp().setValue(transporte.getLogradouro());
 				subView.getCidadeTransp().setValue(transporte.getCidade());
 				subView.getUfTransp().setValue(transporte.getUf());
-				if(transporte.getCodigoIBGE()!=null )subView.getCodigoMunicipioTransp().setValue(transporte.getCodigoIBGE().toString());
-				if(transporte.getCfop()!=null )subView.getCfopTransp().setValue(transporte.getCfop().toString());
-				if(transporte.getBaseCalculo()!=null )subView.getBaseCalculoTransp().setValue(transporte.getBaseCalculo().toString());
-				if(transporte.getAliquota()!=null )subView.getAliquotaTransp().setValue(transporte.getAliquota().toString());
-				if(transporte.getValorServico()!=null )	subView.getValorServicoTransp().setValue(transporte.getValorServico().toString());
-				if(transporte.getValorIcmsRetido()!=null )subView.getIcmsRetidoTransp().setValue(transporte.getValorIcmsRetido().toString());
-				if(transporte.getUfVeiculo()!=null )subView.getUfVeiculo().setValue(transporte.getUfVeiculo().toString());
+				if (transporte.getCodigoIBGE() != null)
+					subView.getCodigoMunicipioTransp().setValue(transporte.getCodigoIBGE().toString());
+				if (transporte.getCfop() != null)
+					subView.getCfopTransp().setValue(transporte.getCfop().toString());
+				if (transporte.getBaseCalculo() != null)
+					subView.getBaseCalculoTransp().setValue(transporte.getBaseCalculo().toString());
+				if (transporte.getAliquota() != null)
+					subView.getAliquotaTransp().setValue(transporte.getAliquota().toString());
+				if (transporte.getValorServico() != null)
+					subView.getValorServicoTransp().setValue(transporte.getValorServico().toString());
+				if (transporte.getValorIcmsRetido() != null)
+					subView.getIcmsRetidoTransp().setValue(transporte.getValorIcmsRetido().toString());
+				if (transporte.getUfVeiculo() != null)
+					subView.getUfVeiculo().setValue(transporte.getUfVeiculo().toString());
 				subView.getPlacaVeiculo().setValue(transporte.getPlacaVeiculo());
 				subView.getRntcVeiculo().setValue(transporte.getRntcVeiculo());
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println("PROBLEMA AO CARREGAR TRANSPORTE");
 			e.printStackTrace();
 		}
 	}
 
-	public void carregarEmitente(){
+	public void carregarEmitente() {
 
-		try{
+		try {
 			NotaFiscalEmitente emitente = emitenteDAO.findByNota(currentBean);
 			subView.carregarViewCRT(emitente);
-			if(emitente!=null) {
+			if (emitente != null) {
 
 				subView.getCpfCnpjEm().setValue(emitente.getCpfCnpj());
 				subView.getRazaoEm().setValue(emitente.getRazaoSocial());
 				subView.getFantasiaEm().setValue(emitente.getNomeFantasia());
-                subView.getCep().setValue(emitente.getCep());
+				subView.getCep().setValue(emitente.getCep());
 				subView.getLogradouro().setValue(emitente.getLogradouro());
 				subView.getNumero().setValue(emitente.getNumero());
 				subView.getComplemento().setValue(emitente.getComplemento());
@@ -528,87 +520,87 @@ extends CRUDFormController<NotaFiscal>{
 				subView.getTelefone().setValue(emitente.getTelefone());
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println("PROBLEMA AO CARREGAR EMITENTE");
 			e.printStackTrace();
 		}
 
 	}
 
-	public void carregarLocalEntrega(){
+	public void carregarLocalEntrega() {
 		NfeLocalEntrega entrega = localEntregaDAO.buscaEntregaPorNota(currentBean);
 
-		try{
-			if(entrega!=null){
+		try {
+			if (entrega != null) {
 				subView.getCnpjEnt().setValue(entrega.getCpfCnpj());
 				subView.getLogradouroEnt().setValue(entrega.getLogradouro());
 				subView.getNumeroEnt().setValue(entrega.getNumero());
 				subView.getComplementoEnt().setValue(entrega.getComplemento());
 				subView.getBairroEnt().setValue(entrega.getBairro());
-				if(entrega.getCodigoMunicipio()!=null)subView.getIbgeEnt().setValue(entrega.getCodigoMunicipio().toString());
+				if (entrega.getCodigoMunicipio() != null)
+					subView.getIbgeEnt().setValue(entrega.getCodigoMunicipio().toString());
 				subView.getCidadeEnt().setValue(entrega.getCidade());
 				subView.getUfEnt().setValue(entrega.getUf());
-			}	  
-		}catch(Exception e){
+			}
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
 
-	public void carregarLocalRetirada(){
+	public void carregarLocalRetirada() {
 		NfeLocalRetirada retirada = localRetiradaDAO.buscaRetiradaPorNota(currentBean);
 
-		try{
-			if(retirada!=null){
+		try {
+			if (retirada != null) {
 				subView.getCnpjRet().setValue(retirada.getCpfCnpj());
 				subView.getLogradouroRet().setValue(retirada.getLogradouro());
 				subView.getNumeroRet().setValue(retirada.getNumero());
 				subView.getComplementoRet().setValue(retirada.getComplemento());
 				subView.getBairroRet().setValue(retirada.getBairro());
-			    if(retirada.getCodigoMunicipio()!=null)subView.getIbgeRet().setValue(retirada.getCodigoMunicipio().toString());
+				if (retirada.getCodigoMunicipio() != null)
+					subView.getIbgeRet().setValue(retirada.getCodigoMunicipio().toString());
 				subView.getCidadeRet().setValue(retirada.getCidade());
 				subView.getUfRet().setValue(retirada.getUf());
-			}	  
-		}catch(Exception e){
+			}
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
 
-	public void carregarCuponsVinculados(){
-		try{
+	public void carregarCuponsVinculados() {
+		try {
 			currentBean.setCuponsVinculados(cupomDAO.buscaCuponsPorNota(currentBean));
-			subView.preencheCupomSubForm(currentBean.getCuponsVinculados());	 
-		}catch(Exception e){
+			subView.preencheCupomSubForm(currentBean.getCuponsVinculados());
+		} catch (Exception e) {
 			System.out.println("PROBLEMA AO CARREGAR CUPONS VINCULADOS");
 			e.printStackTrace();
 		}
 
 	}
 
-	public void carregarNotasReferenciadas(){
-		try{
+	public void carregarNotasReferenciadas() {
+		try {
 			currentBean.setNotasReferenciados(notaReferenciadaDAO.buscaNotasReferenciadas(currentBean));
-			subView.preencherNotasSubForm(currentBean.getNotasReferenciadas());	
-		}catch(Exception e){
+			subView.preencherNotasSubForm(currentBean.getNotasReferenciadas());
+		} catch (Exception e) {
 			System.out.println("PROBLEMA AO CARREGAR NOTAS REFERENCIADAS");
 			e.printStackTrace();
 		}
 
 	}
-	
-	public void carregarDuplicatas(){
-		try{
+
+	public void carregarDuplicatas() {
+		try {
 			currentBean.setDuplicatas(duplicataDAO.buscarDuplicatasPorNota(currentBean));
-			subView.preencherDuplicatasSubForm(currentBean.getDuplicatas());	
-		}catch(Exception e){
+			subView.preencherDuplicatasSubForm(currentBean.getDuplicatas());
+		} catch (Exception e) {
 			System.out.println("PROBLEMA AO CARREGAR NOTAS DUPLICATAS");
 			e.printStackTrace();
 		}
 
 	}
-
-
 
 	@Override
 	protected void initSubView() {
@@ -648,33 +640,37 @@ extends CRUDFormController<NotaFiscal>{
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-	public NfeDuplicata novaDuplicata(){
+	public NfeDuplicata novaDuplicata() {
 		NfeDuplicata d = new NfeDuplicata();
 		currentBean.adicionarDuplicata(d);
 		return d;
 	}
 
-	public CupomVinculado novoCupom(){
+	public CupomVinculado novoCupom() {
 		CupomVinculado c = new CupomVinculado();
 		currentBean.adicionarCupom(c);
 		return c;
 	}
-	
-	public Produto novoProduto(Produto p){
+
+	public Produto novoProduto(Produto p) {
 		currentBean.adicionarProduto(p);
 		return p;
 	}
 
-	public NotaReferenciada novaNota(){
+	public NotaReferenciada novaNota() {
 		NotaReferenciada n = new NotaReferenciada();
 		currentBean.adicionarNota(n);
 		return n;
 	}
 
-
+	@Override
+	public NotaFiscal getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 
 }

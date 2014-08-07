@@ -17,26 +17,19 @@ import dc.servicos.dao.tabelas.SalarioMinimoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.SalarioMinimoFormView;
 
-
-
-/**
-*
-* @author Wesley Jr
-/*
- *
-*/
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
 public class SalarioMinimoFormController extends CRUDFormController<SalarioMinimo> {
 
 	private SalarioMinimoFormView subView;
-	
+
 	@Autowired
 	private SalarioMinimoDAO salarioMinimoDAO;
 
 	private SalarioMinimo currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Salário Mínimo";
@@ -47,88 +40,84 @@ public class SalarioMinimoFormController extends CRUDFormController<SalarioMinim
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
+
 		String msgErro = "Erro ao realizar operação";
-		try{
-			
+		try {
+
 			Date vigencia = subView.getDataVigencia().getValue();
 			String valorMensal = subView.getTxtValorMensal().getValue();
 			String valorDiario = subView.getTxtValorDiario().getValue();
 			String valorHora = subView.getTxtValorHora().getValue();
 			String normaLegal = subView.getTxtNormaLegal().getValue();
 			Date dou = subView.getDtDou().getValue();
-			
-			if(vigencia == null){
+
+			if (vigencia == null) {
 				msgErro = "Informe a Data de Vigência";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			if(valorMensal==null || valorMensal.isEmpty()) {
+
+			if (valorMensal == null || valorMensal.isEmpty()) {
 				msgErro = "Informe o Valor Mensal";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			if(valorDiario==null || valorDiario.isEmpty()) {
+
+			if (valorDiario == null || valorDiario.isEmpty()) {
 				msgErro = "Informe o Valor Diário";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			if(valorHora==null || valorHora.isEmpty()) {
+
+			if (valorHora == null || valorHora.isEmpty()) {
 				msgErro = "Informe o Valor Hora";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			if(normaLegal == null){
+
+			if (normaLegal == null) {
 				msgErro = "Informe a Norma Legal";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			if(dou == null){
+
+			if (dou == null) {
 				msgErro = "Informe a Data DOU";
 				throw new ErroValidacaoException(msgErro);
 			}
-			
-			
+
 			valorMensal = formataValor(valorMensal);
 			valorDiario = formataValor(valorDiario);
 			valorHora = formataValor(valorHora);
-			
+
 			currentBean.setVigencia(vigencia);
 			currentBean.setValorMensal(new BigDecimal(valorMensal));
 			currentBean.setValorDiario(new BigDecimal(valorDiario));
 			currentBean.setValorHora(new BigDecimal(valorHora));
 			currentBean.setNormaLegal(normaLegal);
 			currentBean.setDou(dou);
-			
+
 			salarioMinimoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
-			
-		}catch(ErroValidacaoException e){
+
+		} catch (ErroValidacaoException e) {
 			mensagemErro(msgErro);
-		}catch(Exception e){
+		} catch (Exception e) {
 			mensagemErro(msgErro);
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	public String formataValor(String valor){
+	public String formataValor(String valor) {
 		String format = "";
-		format = valor.replace("R$","").
-				substring(0,valor.indexOf(",")).
-				
-				replaceAll( ",","" ).trim();
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
+
+		replaceAll(",", "").trim();
 		return format;
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = salarioMinimoDAO.find(id);
-		
+
 		subView.getDataVigencia().setValue(currentBean.getVigencia());
 		subView.getTxtValorMensal().setValue(currentBean.getValorMensal().toString());
 		subView.getTxtValorDiario().setValue(currentBean.getValorDiario().toString());
@@ -136,11 +125,14 @@ public class SalarioMinimoFormController extends CRUDFormController<SalarioMinim
 		subView.getTxtNormaLegal().setValue(currentBean.getNormaLegal());
 		subView.getDtDou().setValue(currentBean.getDou());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -148,7 +140,10 @@ public class SalarioMinimoFormController extends CRUDFormController<SalarioMinim
 		subView = new SalarioMinimoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SalarioMinimo();
@@ -160,11 +155,11 @@ public class SalarioMinimoFormController extends CRUDFormController<SalarioMinim
 		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
+
 		return valido;
 	}
 
@@ -175,6 +170,12 @@ public class SalarioMinimoFormController extends CRUDFormController<SalarioMinim
 	@Override
 	public String getViewIdentifier() {
 		return "salarioMinimoForm";
+	}
+
+	@Override
+	public SalarioMinimo getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

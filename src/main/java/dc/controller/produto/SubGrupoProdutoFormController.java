@@ -31,7 +31,7 @@ public class SubGrupoProdutoFormController extends CRUDFormController<SubGrupoPr
 
 	@Autowired
 	private SubGrupoProdutoDAO subGrupoProdutoDAO;
-	
+
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
 
@@ -42,14 +42,12 @@ public class SubGrupoProdutoFormController extends CRUDFormController<SubGrupoPr
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -64,10 +62,10 @@ public class SubGrupoProdutoFormController extends CRUDFormController<SubGrupoPr
 	@Override
 	protected void initSubView() {
 		subView = new SubGrupoProdutoFormView();
-		
-		DefaultManyToOneComboModel<GrupoProduto> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
-				GrupoProdutoListController.class, grupoProdutoDAO, super.getMainController());
-		
+
+		DefaultManyToOneComboModel<GrupoProduto> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(GrupoProdutoListController.class,
+				grupoProdutoDAO, super.getMainController());
+
 		subView.getCmbGrupoProduto().setModel(modelGrupoProduto);
 	}
 
@@ -77,10 +75,10 @@ public class SubGrupoProdutoFormController extends CRUDFormController<SubGrupoPr
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		
-		DefaultManyToOneComboModel<GrupoProduto> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
-				GrupoProdutoListController.class, grupoProdutoDAO, super.getMainController());
-		
+
+		DefaultManyToOneComboModel<GrupoProduto> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(GrupoProdutoListController.class,
+				grupoProdutoDAO, super.getMainController());
+
 		subView.getCmbGrupoProduto().setModel(modelGrupoProduto);
 	}
 
@@ -133,6 +131,12 @@ public class SubGrupoProdutoFormController extends CRUDFormController<SubGrupoPr
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public SubGrupoProduto getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

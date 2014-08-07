@@ -25,16 +25,15 @@ import dc.visao.suprimentos.RequisicaoInternaFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class RequisicaoInternaFormController extends
-CRUDFormController<RequisicaoInterna>{
-	
+public class RequisicaoInternaFormController extends CRUDFormController<RequisicaoInterna> {
+
 	RequisicaoInternaFormView subView;
-	
+
 	@Autowired
 	RequisicaoInternaDAO dao;
-	
+
 	private RequisicaoInterna currentBean;
-	
+
 	@Autowired
 	ProdutoDAO produtoDAO;
 
@@ -42,18 +41,18 @@ CRUDFormController<RequisicaoInterna>{
 	protected String getNome() {
 		return "Requisição Interna";
 	}
-	
+
 	@Override
 	protected Component getSubView() {
 		return subView;
 	}
-	
-	public Colaborador buscaColaborador(){
+
+	public Colaborador buscaColaborador() {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Colaborador col = usuario.getColaborador();
 		return col;
 	}
-	
+
 	@Override
 	protected void actionSalvar() {
 		try {
@@ -67,19 +66,19 @@ CRUDFormController<RequisicaoInterna>{
 		}
 
 	}
-	
+
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find((Integer) id);
 		subView.getDataRequisicao().setValue(currentBean.getDataRequisicao());
 		subView.fillRequisicaoDetalhesSubForm(currentBean.getDetalhes());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new RequisicaoInternaFormView(this);
 	}
-	
+
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new RequisicaoInterna();
@@ -93,14 +92,13 @@ CRUDFormController<RequisicaoInterna>{
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
+
 		Date dataRequisicao = (Date) subView.getDataRequisicao().getValue();
 		if (!Validator.validateObject(dataRequisicao)) {
-			adicionarErroDeValidacao(subView.getDataRequisicao(),
-					"Informe a Data da Requisição!");
+			adicionarErroDeValidacao(subView.getDataRequisicao(), "Informe a Data da Requisição!");
 			valido = false;
 		}
-				
+
 		System.out.println("");
 		return valido;
 	}
@@ -108,34 +106,40 @@ CRUDFormController<RequisicaoInterna>{
 	@Override
 	protected void quandoNovo() {
 		subView.fillRequisicaoDetalhesSubForm(currentBean.getDetalhes());
-		
+
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public RequisicaoInternaDetalhe novoRequisicaoDetalhe(){
+	public RequisicaoInternaDetalhe novoRequisicaoDetalhe() {
 		RequisicaoInternaDetalhe detalhe = new RequisicaoInternaDetalhe();
 		currentBean.addRequisicaoDetalhe(detalhe);
 		return detalhe;
 	}
-	
+
 	public List<Produto> buscarProdutos() {
 		return produtoDAO.getAll(Produto.class);
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public RequisicaoInterna getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

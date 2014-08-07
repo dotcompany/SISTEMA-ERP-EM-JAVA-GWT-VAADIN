@@ -195,4 +195,10 @@ public class PontoHorarioFormController extends CRUDFormController<PontoHorario>
 		return "pontoHorarioFormController";
 	}
 
+	@Override
+	public PontoHorario getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

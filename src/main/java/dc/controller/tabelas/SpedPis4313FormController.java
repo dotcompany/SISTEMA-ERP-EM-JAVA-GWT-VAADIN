@@ -14,26 +14,19 @@ import dc.servicos.dao.tabelas.SpedPis4313DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.SpedPis4313FormView;
 
-
-
-/**
-*
-* @author Wesley Jr
-/*
- *
-*/
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
 public class SpedPis4313FormController extends CRUDFormController<SpedPis4313> {
 
 	SpedPis4313FormView subView;
-	
+
 	@Autowired
 	SpedPis4313DAO spedPis4313DAO;
 
 	private SpedPis4313 currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Sped Pis 4313";
@@ -44,36 +37,38 @@ public class SpedPis4313FormController extends CRUDFormController<SpedPis4313> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
+
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 		subView.getDtFimVigencia().setValue(currentBean.getFimVigencia());
 		subView.getDtInicioVigencia().setValue(currentBean.getInicioVigencia());
-		try{
+		try {
 			spedPis4313DAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = spedPis4313DAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 		subView.getDtInicioVigencia().setValue(currentBean.getInicioVigencia());
 		subView.getDtFimVigencia().setValue(currentBean.getFimVigencia());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -81,7 +76,10 @@ public class SpedPis4313FormController extends CRUDFormController<SpedPis4313> {
 		subView = new SpedPis4313FormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SpedPis4313();
@@ -90,15 +88,16 @@ public class SpedPis4313FormController extends CRUDFormController<SpedPis4313> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		spedPis4313DAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null || subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -111,6 +110,12 @@ public class SpedPis4313FormController extends CRUDFormController<SpedPis4313> {
 	@Override
 	public String getViewIdentifier() {
 		return "spedPis4313Form";
+	}
+
+	@Override
+	public SpedPis4313 getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

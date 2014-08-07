@@ -30,17 +30,13 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.UsuarioFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
@@ -221,6 +217,12 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "usuarioForm";
+	}
+
+	@Override
+	public Usuario getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

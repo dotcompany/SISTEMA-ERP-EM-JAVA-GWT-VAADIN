@@ -173,4 +173,10 @@ public class PontoEscalaFormController extends CRUDFormController<PontoEscala> {
 	protected boolean isFullSized() {
 		return true;
 	}
+
+	@Override
+	public PontoEscala getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 }

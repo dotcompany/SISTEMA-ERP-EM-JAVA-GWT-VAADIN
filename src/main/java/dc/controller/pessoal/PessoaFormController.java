@@ -81,31 +81,31 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	protected void criarNovoBean() {
 		currentBean = new Pessoa();
 	}
-	
+
 	@Override
 	protected void initSubView() {
-		
-		try {
-			
-		subView = new PessoaFormView(this);
-		
-		DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(EstadoCivilListController.class,
-				this.estadoCivilDAO, super.getMainController()) {
 
-		@Override
-		public String getCaptionProperty() {
-			return "nome";
-			
-		}
-			
-    };
-    this.subView.getCmbEstadoCivil().setModel(estadoCivilModel);
-		
-	}catch (Exception e) {
+		try {
+
+			subView = new PessoaFormView(this);
+
+			DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(EstadoCivilListController.class,
+					this.estadoCivilDAO, super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+
+				}
+
+			};
+			this.subView.getCmbEstadoCivil().setModel(estadoCivilModel);
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
-		
+
 	}
 
 	@Override
@@ -350,6 +350,12 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	public List<UF> getUfs() {
 		return ufDAO.listaTodos();
+	}
+
+	@Override
+	public Pessoa getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

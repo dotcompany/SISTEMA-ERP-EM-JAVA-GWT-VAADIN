@@ -17,8 +17,7 @@ import dc.visao.pessoal.SituacaoColaboradorFormView;
 
 @Controller
 @Scope("prototype")
-public class SituacaoColaboradorFormController extends
-		CRUDFormController<SituacaoColaborador> {
+public class SituacaoColaboradorFormController extends CRUDFormController<SituacaoColaborador> {
 
 	/**
 	 * 
@@ -37,8 +36,7 @@ public class SituacaoColaboradorFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -114,6 +112,12 @@ public class SituacaoColaboradorFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public SituacaoColaborador getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

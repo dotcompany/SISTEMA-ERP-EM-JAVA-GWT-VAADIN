@@ -14,11 +14,7 @@ import dc.servicos.dao.tabelas.CstIcmsBDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CstIcmsBFormView;
 
-/**
- * 
- * @author Wesley Jr /*
- * 
- */
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
@@ -100,12 +96,10 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
+		if (subView.getTxtDescricao().getValue() == null || subView.getTxtDescricao().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 
 			return false;
 		}
@@ -117,16 +111,21 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsB> {
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
-	
+
 	@Override
 	public boolean isFullSized() {
 		return true;
 	}
 
-
 	@Override
 	public String getViewIdentifier() {
 		return "cstIcmsBForm";
+	}
+
+	@Override
+	public CstIcmsB getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

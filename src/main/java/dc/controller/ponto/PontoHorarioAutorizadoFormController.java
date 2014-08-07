@@ -19,8 +19,7 @@ import dc.visao.ponto.PontoHorarioAutorizadoFormView;
 
 @Controller
 @Scope("prototype")
-public class PontoHorarioAutorizadoFormController extends
-		CRUDFormController<PontoHorarioAutorizado> {
+public class PontoHorarioAutorizadoFormController extends CRUDFormController<PontoHorarioAutorizado> {
 
 	/**
 	 * 
@@ -41,86 +40,71 @@ public class PontoHorarioAutorizadoFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxCargaHoraria().getValue())) {
-			adicionarErroDeValidacao(subView.getTxCargaHoraria(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxCargaHoraria(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxDataHorario().getValue())) {
-			adicionarErroDeValidacao(subView.getTxDataHorario(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxDataHorario(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxEntrada01().getValue())) {
-			adicionarErroDeValidacao(subView.getTxEntrada01(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxEntrada01(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxEntrada02().getValue())) {
-			adicionarErroDeValidacao(subView.getTxEntrada02(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxEntrada02(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxEntrada03().getValue())) {
-			adicionarErroDeValidacao(subView.getTxEntrada03(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxEntrada03(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxEntrada04().getValue())) {
-			adicionarErroDeValidacao(subView.getTxEntrada04(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxEntrada04(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxEntrada05().getValue())) {
-			adicionarErroDeValidacao(subView.getTxEntrada05(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxEntrada05(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxSaida01().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaida01(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaida01(), "Não pode ficar em branco");
 			valido = false;
 		}
 		if (!Validator.validateString(subView.getTxSaida02().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaida02(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaida02(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxSaida03().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaida03(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaida03(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxSaida04().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaida04(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaida04(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxSaida05().getValue())) {
-			adicionarErroDeValidacao(subView.getTxSaida05(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxSaida05(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxHoraFechamentoDia()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxHoraFechamentoDia(),
-					"Não pode ficar em branco");
+		if (!Validator.validateString(subView.getTxHoraFechamentoDia().getValue())) {
+			adicionarErroDeValidacao(subView.getTxHoraFechamentoDia(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbColaborador(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbColaborador(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -191,6 +175,12 @@ public class PontoHorarioAutorizadoFormController extends
 	@Override
 	public String getViewIdentifier() {
 		return "pontoHorarioAutorizadoFormController";
+	}
+
+	@Override
+	public PontoHorarioAutorizado getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

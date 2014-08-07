@@ -24,8 +24,7 @@ import dc.visao.tributario.OperacaoFiscalFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalFormController extends
-		CRUDFormController<OperacaoFiscal> {
+public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscal> {
 
 	OperacaoFiscalFormView subView;
 
@@ -33,7 +32,7 @@ public class OperacaoFiscalFormController extends
 	OperacaoFiscalDAO dao;
 
 	OperacaoFiscal currentBean;
-	
+
 	@Autowired
 	CfopDAO cfopDAO;
 
@@ -78,26 +77,24 @@ public class OperacaoFiscalFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Cfop cfop = (Cfop)subView.getCfop().getValue();
-			
-            if(cfop == null){
-            	throw new ErroValidacaoException(
-						"Informe o Campo CFOP!");
-            }
-			
+			Cfop cfop = (Cfop) subView.getCfop().getValue();
+
+			if (cfop == null) {
+				throw new ErroValidacaoException("Informe o Campo CFOP!");
+			}
+
 			String descricao = subView.getDescricao().getValue();
 			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
 			String descricaoNF = subView.getDescricaoNaNf().getValue();
 			if (!(Validator.validateString(descricaoNF)))
-				throw new ErroValidacaoException(
-						"Informe o Campo Descrição na NF");
+				throw new ErroValidacaoException("Informe o Campo Descrição na NF");
 
 			currentBean.setNome(descricao);
 			currentBean.setDescricaoNaNF(descricaoNF);
 			currentBean.setObservacao(subView.getObservacao().getValue());
-		    currentBean.setCfop(cfop.getId());
+			currentBean.setCfop(cfop.getId());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
@@ -130,7 +127,7 @@ public class OperacaoFiscalFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-       dao.deleteAllByIds(ids);
+		dao.deleteAllByIds(ids);
 	}
 
 	@Override
@@ -142,13 +139,19 @@ public class OperacaoFiscalFormController extends
 	public boolean isFullSized() {
 		return true;
 	}
-	
-	public BeanItemContainer<Cfop> carregarCfop(){
+
+	public BeanItemContainer<Cfop> carregarCfop() {
 		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
-		for(Cfop obj : cfopDAO.listaTodos()){
+		for (Cfop obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;
+	}
+
+	@Override
+	public OperacaoFiscal getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

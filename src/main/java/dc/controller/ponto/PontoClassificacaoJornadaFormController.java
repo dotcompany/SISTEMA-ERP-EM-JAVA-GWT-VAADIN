@@ -42,17 +42,17 @@ public class PontoClassificacaoJornadaFormController extends CRUDFormController<
 			adicionarErroDeValidacao(subView.getTxNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateNumber(subView.getTxCodigo().getValue())) {
 			adicionarErroDeValidacao(subView.getTxCodigo(), "Número inválido");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbDescontarHoras().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbDescontarHoras(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbPadrao().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbPadrao(), "Não pode ficar em branco");
 			valido = false;
@@ -121,6 +121,12 @@ public class PontoClassificacaoJornadaFormController extends CRUDFormController<
 	@Override
 	public String getViewIdentifier() {
 		return "pontoClassificacaoJornadaFormController";
+	}
+
+	@Override
+	public PontoClassificacaoJornada getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

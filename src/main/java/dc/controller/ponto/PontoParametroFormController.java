@@ -85,12 +85,12 @@ public class PontoParametroFormController extends CRUDFormController<PontoParame
 			adicionarErroDeValidacao(subView.getTxPeriodoMinimo(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbTratamentoHoraMais().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbTratamentoHoraMais(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbTratamentoHoraMenos().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbTratamentoHoraMenos(), "Não pode ficar em branco");
 			valido = false;
@@ -159,6 +159,12 @@ public class PontoParametroFormController extends CRUDFormController<PontoParame
 	@Override
 	public String getViewIdentifier() {
 		return "PontoParametroFormController";
+	}
+
+	@Override
+	public PontoParametro getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

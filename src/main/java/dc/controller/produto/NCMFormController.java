@@ -124,4 +124,10 @@ public class NCMFormController extends CRUDFormController<NCM> {
 		return subView;
 	}
 
+	@Override
+	public NCM getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

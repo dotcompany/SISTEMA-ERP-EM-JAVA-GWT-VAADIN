@@ -137,4 +137,10 @@ public class PontoRelogioFormController extends CRUDFormController<PontoRelogio>
 		return "pontoRelogioFormController";
 	}
 
+	@Override
+	public PontoRelogio getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

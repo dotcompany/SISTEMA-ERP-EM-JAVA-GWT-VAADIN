@@ -14,11 +14,7 @@ import dc.servicos.dao.tabelas.CBODAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CBOFormView;
 
-/**
- * 
- * @author Wesley Jr /*
- * 
- */
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
@@ -100,12 +96,10 @@ public class CBOFormController extends CRUDFormController<CBO> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 
 			return false;
 		}
@@ -128,5 +122,11 @@ public class CBOFormController extends CRUDFormController<CBO> {
 
 		return true;
 	}
-	
+
+	@Override
+	public CBO getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

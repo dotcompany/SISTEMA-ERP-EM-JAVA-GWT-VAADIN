@@ -23,8 +23,7 @@ import dc.visao.pessoal.TransportadoraFormView;
 
 @Controller
 @Scope("prototype")
-public class TransportadoraFormController extends
-		CRUDFormController<Transportadora> {
+public class TransportadoraFormController extends CRUDFormController<Transportadora> {
 
 	/**
 	 * 
@@ -47,20 +46,19 @@ public class TransportadoraFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
+
 		if (!Validator.validateObject(subView.getCmbPessoa().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbPessoa(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbContContabil().getValue())) {
 			adicionarErroDeValidacao(subView.getCmbContContabil(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacao(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtObservacao(), "Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -75,9 +73,8 @@ public class TransportadoraFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new TransportadoraFormView();
-		
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
-				PessoaListController.class, this.pessoaDAO,
+
+		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController()) {
 
 			@Override
@@ -85,17 +82,16 @@ public class TransportadoraFormController extends
 				return "nome";
 			}
 		};
-			
+
 		this.subView.getCmbPessoa().setModel(model);
 
-		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-		@Override
-		public String getCaptionProperty() {
-			return "descricao";
-		}
-	};
+		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				this.contabilContaDAO, super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+		};
 
 		this.subView.getCmbContContabil().setModel(model1);
 	}
@@ -111,8 +107,7 @@ public class TransportadoraFormController extends
 	@Override
 	protected void actionSalvar() {
 		currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
-		currentBean.setContaContabil((ContabilConta) subView
-				.getCmbContContabil().getValue());
+		currentBean.setContaContabil((ContabilConta) subView.getCmbContContabil().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 
 		try {
@@ -159,6 +154,12 @@ public class TransportadoraFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Transportadora getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

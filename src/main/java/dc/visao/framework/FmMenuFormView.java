@@ -280,7 +280,7 @@ public class FmMenuFormView extends CustomComponent {
 
 		// ckbConsultaMultiempresa
 		ckbConsultaMultiempresa = new CheckBox();
-		ckbConsultaMultiempresa.setCaption("Não Permitir Consulta Multiempresa:");
+		ckbConsultaMultiempresa.setCaption("Permitir Consulta Multiempresa:");
 		ckbConsultaMultiempresa.setImmediate(false);
 		ckbConsultaMultiempresa.setWidth("-1px");
 		ckbConsultaMultiempresa.setHeight("-1px");
@@ -288,7 +288,8 @@ public class FmMenuFormView extends CustomComponent {
 
 		// ckbPermissaoOperacao
 		ckbConsultaFilterTable = new CheckBox();
-		ckbConsultaFilterTable.setCaption("Permitir Filtrar Registros Na Tabela:");
+		ckbConsultaFilterTable
+				.setCaption("Permitir Filtrar Registros Na Tabela:");
 		ckbConsultaFilterTable.setImmediate(false);
 		ckbConsultaFilterTable.setWidth("-1px");
 		ckbConsultaFilterTable.setHeight("-1px");
@@ -362,13 +363,15 @@ public class FmMenuFormView extends CustomComponent {
 	 */
 
 	public void carregarCmbModulo(List<FmModulo> lista) {
-		BeanItemContainer<FmModulo> bic = new BeanItemContainer<FmModulo>(FmModulo.class, lista);
+		BeanItemContainer<FmModulo> bic = new BeanItemContainer<FmModulo>(
+				FmModulo.class, lista);
 		this.cbModulo.setContainerDataSource(bic);
 		this.cbModulo.setItemCaptionPropertyId("caption");
 	}
 
 	public void carregarCmbMenu(List<FmMenu> lista) {
-		BeanItemContainer<FmMenu> bic = new BeanItemContainer<FmMenu>(FmMenu.class, lista);
+		BeanItemContainer<FmMenu> bic = new BeanItemContainer<FmMenu>(
+				FmMenu.class, lista);
 		this.cbMenu.setContainerDataSource(bic);
 		this.cbMenu.setItemCaptionPropertyId("caption");
 	}

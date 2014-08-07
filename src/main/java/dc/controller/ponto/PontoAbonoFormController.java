@@ -165,4 +165,10 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 		return true;
 	}
 
+	@Override
+	public PontoAbono getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

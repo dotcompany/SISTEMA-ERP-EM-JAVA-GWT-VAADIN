@@ -202,11 +202,18 @@ public class NfeDetalheImpostoIcmsFormController extends CRUDFormController<NfeD
 
 	public void ndiCofinsMachen() {
 		try {
-			this.subView.getTfQtdVendidaCofins().setValue(this.ndiCofins.getQuantidadeVendida().toString().trim());
-			this.subView.getTfBaseCalculoBcCofins().setValue(this.ndiCofins.getBaseCalculoCofins().toString().trim());
-			this.subView.getTfAliquotaPercentualCofins().setValue(this.ndiCofins.getAliquotaCofinsPercentual().toString().trim());
-			this.subView.getTfAliquotaReaisCofins().setValue(this.ndiCofins.getAliquotaCofinsReais().toString().trim());
-			this.subView.getTfValorCofins().setValue(this.ndiCofins.getValorCofins().toString().trim());
+			/*
+			 * this.subView.getTfQtdVendidaCofins().setValue(
+			 * this.ndiCofins.getQuantidadeVendida().toString().trim());
+			 * this.subView.getTfBaseCalculoBcCofins().setValue(
+			 * this.ndiCofins.getBaseCalculoCofins().toString().trim());
+			 * this.subView.getTfAliquotaPercentualCofins().setValue(
+			 * this.ndiCofins.getAliquotaCofinsPercentual().toString() .trim());
+			 * this.subView.getTfAliquotaReaisCofins().setValue(
+			 * this.ndiCofins.getAliquotaCofinsReais().toString().trim());
+			 * this.subView.getTfValorCofins().setValue(
+			 * this.ndiCofins.getValorCofins().toString().trim());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -147,4 +147,10 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		relatorioForm.delete();
 	}
 
+	@Override
+	public Relatorio getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+
 }

@@ -83,7 +83,7 @@ public class NfeDestinatarioFormController extends CRUDFormController<NfeDestina
 
 	@Override
 	protected void initSubView() {
-		this.subView = new NfeDestinatarioFormView(this);
+		//this.subView = new NfeDestinatarioFormView(this);
 	}
 
 	/*

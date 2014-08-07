@@ -18,15 +18,11 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.FeriadosFormView;
 
-/**
- * 
- * @author Wesley Jr /*
- * 
- */
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
-public class FeriadosFormController extends	CRUDFormController<Feriados> {
+public class FeriadosFormController extends CRUDFormController<Feriados> {
 
 	/**
 	 * 
@@ -37,7 +33,7 @@ public class FeriadosFormController extends	CRUDFormController<Feriados> {
 
 	@Autowired
 	private FeriadosDAO feriadosDAO;
-	
+
 	@Autowired
 	private UFDAO ufDAO;
 
@@ -85,9 +81,8 @@ public class FeriadosFormController extends	CRUDFormController<Feriados> {
 	@Override
 	protected void initSubView() {
 		subView = new FeriadosFormView();
-		
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class,
-				this.ufDAO, super.getMainController()) {
+
+		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class, this.ufDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "nome";
@@ -115,7 +110,7 @@ public class FeriadosFormController extends	CRUDFormController<Feriados> {
 	@Override
 	protected boolean validaSalvar() {
 		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 
 			return false;
 		}
@@ -132,11 +127,17 @@ public class FeriadosFormController extends	CRUDFormController<Feriados> {
 	public String getViewIdentifier() {
 		return "feriadosForm";
 	}
-	
+
 	@Override
 	protected boolean isFullSized() {
 
 		return true;
+	}
+
+	@Override
+	public Feriados getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

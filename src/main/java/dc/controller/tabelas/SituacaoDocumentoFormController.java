@@ -14,26 +14,19 @@ import dc.servicos.dao.tabelas.SituacaoDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.SituacaoDocumentoFormView;
 
-
-
-/**
-*
-* @author Wesley Jr
-/*
- *
-*/
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
 public class SituacaoDocumentoFormController extends CRUDFormController<SituacaoDocumento> {
 
 	SituacaoDocumentoFormView subView;
-	
+
 	@Autowired
 	SituacaoDocumentoDAO situacaoDocumentoDAO;
 
 	private SituacaoDocumento currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Situação Documento";
@@ -44,32 +37,34 @@ public class SituacaoDocumentoFormController extends CRUDFormController<Situacao
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		
+
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		try{
+		try {
 			situacaoDocumentoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = situacaoDocumentoDAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());	
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -77,7 +72,10 @@ public class SituacaoDocumentoFormController extends CRUDFormController<Situacao
 		subView = new SituacaoDocumentoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SituacaoDocumento();
@@ -85,16 +83,17 @@ public class SituacaoDocumentoFormController extends CRUDFormController<Situacao
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 situacaoDocumentoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		situacaoDocumentoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtDescricao().getValue() ==  null || subView.getTxtDescricao().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),"Não pode ficar em Branco!");
+		if (subView.getTxtDescricao().getValue() == null || subView.getTxtDescricao().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -107,6 +106,12 @@ public class SituacaoDocumentoFormController extends CRUDFormController<Situacao
 	@Override
 	public String getViewIdentifier() {
 		return "situacaoDocumentoForm";
+	}
+
+	@Override
+	public SituacaoDocumento getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

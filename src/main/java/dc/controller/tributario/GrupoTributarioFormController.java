@@ -22,8 +22,7 @@ import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioFormController extends
-		CRUDFormController<GrupoTributario> {
+public class GrupoTributarioFormController extends CRUDFormController<GrupoTributario> {
 
 	GrupoTributarioFormView subView;
 
@@ -77,13 +76,10 @@ public class GrupoTributarioFormController extends
 			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
-			if (!(Validator.validateObject(subView.getCmbOrigemMercadoria()
-					.getValue()))) {
-				throw new ErroValidacaoException(
-						"Informe o Campo Origem da Mercadoria");
+			if (!(Validator.validateObject(subView.getCmbOrigemMercadoria().getValue()))) {
+				throw new ErroValidacaoException("Informe o Campo Origem da Mercadoria");
 			} else {
-				origem = ((ORIGEM_MERCADORIA) (subView.getCmbOrigemMercadoria()
-						.getValue())).getCodigo();
+				origem = ((ORIGEM_MERCADORIA) (subView.getCmbOrigemMercadoria().getValue())).getCodigo();
 			}
 
 			currentBean.setEmpresa(empresaAtual());
@@ -137,6 +133,12 @@ public class GrupoTributarioFormController extends
 
 	public List<GrupoTributario> trazerTodos() {
 		return dao.listaTodos();
+	}
+
+	@Override
+	public GrupoTributario getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

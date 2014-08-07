@@ -14,11 +14,7 @@ import dc.servicos.dao.tabelas.CstPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tabelas.CstPisFormView;
 
-/**
- * 
- * @author Wesley Jr /*
- * 
- */
+/** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
@@ -98,12 +94,10 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
+		if (subView.getTxtDescricao().getValue() == null || subView.getTxtDescricao().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 
 			return false;
 		}
@@ -119,6 +113,12 @@ public class CstPisFormController extends CRUDFormController<CstPis> {
 	@Override
 	public String getViewIdentifier() {
 		return "cstPisForm";
+	}
+
+	@Override
+	public CstPis getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

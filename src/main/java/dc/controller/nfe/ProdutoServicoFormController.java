@@ -401,7 +401,8 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
 
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList());
+		// this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		// .getNdeMedicamentoList());
 	}
 
 	private void ndeArmamentoCarregar() throws Exception {
@@ -413,7 +414,8 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeArmamentoList(auxLista);
 
-		this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList());
+		// this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
+		// .getNdeArmamentoList());
 	}
 
 	/** NFEDETALHE - ADICIONAR */
@@ -633,15 +635,22 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
-			this.subView.getGlNdeMedicamento().setEnabled(true);
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
-
-			this.subView.getTfNumeroLoteMedicamento().setValue(item.getNumeroLote());
-			this.subView.getTfQuantidadeLoteMedicamento().setValue(item.getQuantidadeLote().toString());
-			this.subView.getPdfDataFabricacaoMedicamento().setValue(item.getDataFabricacao());
-			this.subView.getPdfDataValidadeMedicamento().setValue(item.getDataValidade());
-			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(item.getPrecoMaximoConsumidor().toString());
+			/*
+			 * this.subView.getGlNdeMedicamento().setEnabled(true);
+			 * 
+			 * this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
+			 * 
+			 * this.subView.getTfNumeroLoteMedicamento().setValue(
+			 * item.getNumeroLote());
+			 * this.subView.getTfQuantidadeLoteMedicamento().setValue(
+			 * item.getQuantidadeLote().toString());
+			 * this.subView.getPdfDataFabricacaoMedicamento().setValue(
+			 * item.getDataFabricacao());
+			 * this.subView.getPdfDataValidadeMedicamento().setValue(
+			 * item.getDataValidade());
+			 * this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
+			 * item.getPrecoMaximoConsumidor().toString());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -651,14 +660,19 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 
 	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
 		try {
-			this.subView.getGlNdeArmamento().setEnabled(true);
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
-
-			this.subView.getTfTipoArmaArmamento().setValue(item.getTipoArma());
-			this.subView.getTfNumeroSerieArmaArmamento().setValue(item.getNumeroSerieArma());
-			this.subView.getTfNumeroSerieCanoArmamento().setValue(item.getNumeroSerieCano());
-			this.subView.getTfDescricaoArmamento().setValue(item.getDescricao());
+			/*
+			 * this.subView.getGlNdeArmamento().setEnabled(true);
+			 * 
+			 * this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
+			 * 
+			 * this.subView.getTfTipoArmaArmamento().setValue(item.getTipoArma())
+			 * ; this.subView.getTfNumeroSerieArmaArmamento().setValue(
+			 * item.getNumeroSerieArma());
+			 * this.subView.getTfNumeroSerieCanoArmamento().setValue(
+			 * item.getNumeroSerieCano());
+			 * this.subView.getTfDescricaoArmamento()
+			 * .setValue(item.getDescricao());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1519,17 +1533,25 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeMedicamento().getDados().indexOf(this.ndeMedicamentoSelecionado);
-
-		this.subView.getSfNdeMedicamento().getDados().remove(this.ndeMedicamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList().remove(this.ndeMedicamentoSelecionado);
-
-		this.ndeMedicamentoSelecionado.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
-
-		this.subView.getSfNdeMedicamento().getDados().add(index, this.ndeMedicamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList().add(this.ndeMedicamentoSelecionado);
+		/*
+		 * Integer index = this.subView.getSfNdeMedicamento().getDados()
+		 * .indexOf(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.subView.getSfNdeMedicamento().getDados()
+		 * .remove(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+		 * .remove(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.ndeMedicamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+		 * .getNfeDetalhe());
+		 * 
+		 * this.subView.getSfNdeMedicamento().getDados() .add(index,
+		 * this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+		 * .add(this.ndeMedicamentoSelecionado);
+		 */
 	}
 
 	public void ndeArmamentoSetarValor(String id, Object obj) {
@@ -1560,17 +1582,25 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeArmamento().getDados().indexOf(this.ndeArmamentoSelecionado);
-
-		this.subView.getSfNdeArmamento().getDados().remove(this.ndeArmamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList().remove(this.ndeArmamentoSelecionado);
-
-		this.ndeArmamentoSelecionado.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
-
-		this.subView.getSfNdeArmamento().getDados().add(index, this.ndeArmamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList().add(this.ndeArmamentoSelecionado);
+		/*
+		 * Integer index = this.subView.getSfNdeArmamento().getDados()
+		 * .indexOf(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.subView.getSfNdeArmamento().getDados()
+		 * .remove(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+		 * .remove(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.ndeArmamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+		 * .getNfeDetalhe());
+		 * 
+		 * this.subView.getSfNdeArmamento().getDados() .add(index,
+		 * this.ndeArmamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+		 * .add(this.ndeArmamentoSelecionado);
+		 */
 	}
 
 	/** LIMPAR
@@ -1578,17 +1608,26 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 	 * @param item */
 
 	public void ndeMedicamentoLimpar() {
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList());
+		// this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		// .getNdeMedicamentoList());
 
 		this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
 
-		this.subView.getTfNumeroLoteMedicamento().setValue(this.ndeMedicamentoSelecionado.getNumeroLote());
-		this.subView.getTfQuantidadeLoteMedicamento().setValue(this.ndeMedicamentoSelecionado.getQuantidadeLote().toString());
-		this.subView.getPdfDataFabricacaoMedicamento().setValue(this.ndeMedicamentoSelecionado.getDataFabricacao());
-		this.subView.getPdfDataValidadeMedicamento().setValue(this.ndeMedicamentoSelecionado.getDataValidade());
-		this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor().toString());
-
-		this.subView.getGlNdeMedicamento().setEnabled(false);
+		/*
+		 * this.subView.getTfNumeroLoteMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getNumeroLote());
+		 * this.subView.getTfQuantidadeLoteMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getQuantidadeLote().toString());
+		 * this.subView.getPdfDataFabricacaoMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getDataFabricacao());
+		 * this.subView.getPdfDataValidadeMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getDataValidade());
+		 * this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor()
+		 * .toString());
+		 * 
+		 * this.subView.getGlNdeMedicamento().setEnabled(false);
+		 */
 	}
 
 	/** COMBOS */
@@ -1607,7 +1646,7 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
-			this.subView.getMtoCliente().setModel(model1);
+			// this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(ProdutosListController.class, this.produtoDAO,
 					super.getMainController());
@@ -1631,7 +1670,7 @@ public class ProdutoServicoFormController extends CRUDFormController<NfeCabecalh
 			 * this.subView.getCbCstIcms().setData(auxList);
 			 */
 
-			this.subView.carregarComboBox();
+			// this.subView.carregarComboBox();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

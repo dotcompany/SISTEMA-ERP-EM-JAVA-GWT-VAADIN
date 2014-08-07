@@ -17,8 +17,7 @@ import dc.visao.pessoal.TipoRelacionamentoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoRelacionamentoFormController extends
-		CRUDFormController<TipoRelacionamento> {
+public class TipoRelacionamentoFormController extends CRUDFormController<TipoRelacionamento> {
 
 	/**
 	 * 
@@ -37,8 +36,7 @@ public class TipoRelacionamentoFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -114,6 +112,12 @@ public class TipoRelacionamentoFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public TipoRelacionamento getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

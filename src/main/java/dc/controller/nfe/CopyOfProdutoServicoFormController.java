@@ -368,29 +368,45 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 		NfeDestinatarioEntity nfeDestinatario = this.nfeDestinatarioDAO.getEntidade(this.nfeCabecalho);
 		nfeDestinatario.setNfeCabecalho(this.nfeCabecalho);
 
-		this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
-
-		this.subView.getTfEmailDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getEmail());
-		this.subView.getTfSuframaDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getSuframa());
-		this.subView.getTfTelefoneDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getTelefone());
-		this.subView.getTfInscricaoEstadualDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getInscricaoEstadual());
-		this.subView.getTfUfDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getUf());
-		// this.subView.getTfCidadeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().get);
-		// this.subView.getTfCodigoIbgeDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getco);
-		this.subView.getTfBairroLogradouroDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getBairro());
-		this.subView.getTfLogradouroComplementoDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getComplemento());
-		this.subView.getTfLogradouroNumeroDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getNumero());
-		this.subView.getTfLogradouroDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getLogradouro());
-		this.subView.getTfCepDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getCep());
-		this.subView.getTfRazaoSocialDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getRazaoSocial());
-		this.subView.getTfCpfCnpjDestinatario().setValue(this.nfeCabecalho.getNfeDestinatario().getCpfCnpj());
-		// this.subView.getTfIdDestinatario().setValue();
-
-		Cliente cliente = this.nfeCabecalho.getCliente();
-
-		if (cliente != null) {
-			this.subView.getMtoCliente().setValue(this.nfeCabecalho.getCliente());
-		}
+		/*
+		 * this.nfeCabecalho.setNfeDestinatario(nfeDestinatario);
+		 * 
+		 * this.subView.getTfEmailDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getEmail());
+		 * this.subView.getTfSuframaDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getSuframa());
+		 * this.subView.getTfTelefoneDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getTelefone());
+		 * this.subView.getTfInscricaoEstadualDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getInscricaoEstadual());
+		 * this.subView.getTfUfDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getUf()); //
+		 * this.subView.getTfCidadeDestinatario
+		 * ().setValue(this.nfeCabecalho.getNfeDestinatario().get); //
+		 * this.subView
+		 * .getTfCodigoIbgeDestinatario().setValue(this.nfeCabecalho.
+		 * getNfeDestinatario().getco);
+		 * this.subView.getTfBairroLogradouroDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getBairro());
+		 * this.subView.getTfLogradouroComplementoDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getComplemento());
+		 * this.subView.getTfLogradouroNumeroDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getNumero());
+		 * this.subView.getTfLogradouroDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getLogradouro());
+		 * this.subView.getTfCepDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getCep());
+		 * this.subView.getTfRazaoSocialDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getRazaoSocial());
+		 * this.subView.getTfCpfCnpjDestinatario().setValue(
+		 * this.nfeCabecalho.getNfeDestinatario().getCpfCnpj()); //
+		 * this.subView.getTfIdDestinatario().setValue();
+		 * 
+		 * Cliente cliente = this.nfeCabecalho.getCliente();
+		 * 
+		 * if (cliente != null) { this.subView.getMtoCliente().setValue(
+		 * this.nfeCabecalho.getCliente()); }
+		 */
 	}
 
 	private void nfeDetalheCarregar() throws Exception {
@@ -486,7 +502,8 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeMedicamentoList(auxLista);
 
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList());
+		// this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe()
+		// .getNdeMedicamentoList());
 	}
 
 	private void ndeArmamentoCarregar() throws Exception {
@@ -498,7 +515,8 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 		this.nfeCabecalho.getNfeDetalhe().setNdeArmamentoList(auxLista);
 
-		this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList());
+		// this.subView.carregarSfNdeArmamento(this.nfeCabecalho.getNfeDetalhe()
+		// .getNdeArmamentoList());
 	}
 
 	/** NFEDETALHE - ADICIONAR */
@@ -676,11 +694,18 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 			// this.subView.getTfCstCofins().setValue(
 			// entCofins.getCstCofins().trim());
-			this.subView.getTfQtdVendidaCofins().setValue(entCofins.getQuantidadeVendida().toString().trim());
-			this.subView.getTfBaseCalculoBcCofins().setValue(entCofins.getBaseCalculoCofins().toString().trim());
-			this.subView.getTfAliquotaPercentualCofins().setValue(entCofins.getAliquotaCofinsPercentual().toString().trim());
-			this.subView.getTfAliquotaReaisCofins().setValue(entCofins.getAliquotaCofinsReais().toString().trim());
-			this.subView.getTfValorCofins().setValue(entCofins.getValorCofins().toString().trim());
+			/*
+			 * this.subView.getTfQtdVendidaCofins().setValue(
+			 * entCofins.getQuantidadeVendida().toString().trim());
+			 * this.subView.getTfBaseCalculoBcCofins().setValue(
+			 * entCofins.getBaseCalculoCofins().toString().trim());
+			 * this.subView.getTfAliquotaPercentualCofins().setValue(
+			 * entCofins.getAliquotaCofinsPercentual().toString().trim());
+			 * this.subView.getTfAliquotaReaisCofins().setValue(
+			 * entCofins.getAliquotaCofinsReais().toString().trim());
+			 * this.subView.getTfValorCofins().setValue(
+			 * entCofins.getValorCofins().toString().trim());
+			 */
 
 			/** ICMS */
 
@@ -693,44 +718,62 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(entIcms);
 			}
 
-			this.subView.getTfOrigemMercadoriaIcms().setValue(entIcms.getOrigemMercadoria().trim());
-
-			if (entIcms.getCstIcms() != null && !entIcms.getCstIcms().isEmpty()) {
-				CstIcmsEn cstIcms = CstIcmsEn.valueOf("_" + entIcms.getCstIcms());
-
-				this.subView.getCbCstIcms().setValue(cstIcms);
-			} else {
-				this.subView.getCbCstIcms().setValue(null);
-			}
-
-			if (entIcms.getCsosn() != null && !entIcms.getCsosn().isEmpty()) {
-				CsosnEn csosn = CsosnEn.valueOf("_" + entIcms.getCsosn());
-
-				this.subView.getCbCsosnIcms().setValue(csosn);
-			} else {
-				this.subView.getCbCsosnIcms().setValue(null);
-			}
-
-			this.subView.getTfModalidadeBcIcms().setValue(entIcms.getModalidadeBcIcms().trim());
-			this.subView.getTfTaxaReducaoBcIcms().setValue(entIcms.getTaxaReducaoBcIcms().toString().trim());
-			this.subView.getTfBaseCalculoBcIcms().setValue(entIcms.getBaseCalculoIcms().toString().trim());
-			this.subView.getTfAliquotaIcms().setValue(entIcms.getAliquotaIcms().toString().trim());
-			this.subView.getTfValorIcms().setValue(entIcms.getValorIcms().toString().trim());
-			this.subView.getTfMotivoDesoneracaoIcms().setValue(entIcms.getMotivoDesoneracaoIcms().trim());
-			this.subView.getTfModalidadeBcStIcms().setValue(entIcms.getModalidadeBcIcmsSt().trim());
-			this.subView.getTfPercentualMvaStIcms().setValue(entIcms.getPercentualMvaIcmsSt().toString().trim());
-			// this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
-			this.subView.getTfBaseCalculoStIcms().setValue(entIcms.getValorBaseCalculoIcmsSt().toString().trim());
-			this.subView.getTfAliquotaStIcms().setValue(entIcms.getAliquotaIcmsSt().toString().trim());
-			this.subView.getTfValorStIcms().setValue(entIcms.getValorIcmsSt().toString().trim());
-			this.subView.getTfBcStRetidoIcms().setValue(entIcms.getValorBcIcmsStRetido().toString().trim());
-			this.subView.getTfValorStRetidoIcms().setValue(entIcms.getValorIcmsStRetido().toString().trim());
-			this.subView.getTfBcStDestinoIcms().setValue(entIcms.getValorBcIcmsStDestino().toString().trim());
-			this.subView.getTfValorStDestinoIcms().setValue(entIcms.getValorIcmsStDestino().toString().trim());
-			this.subView.getTfAliquotaCreditoSnIcms().setValue(entIcms.getAliquotaCreditoIcmsSn().toString().trim());
-			this.subView.getTfValorCreditoSnIcms().setValue(entIcms.getValorCreditoIcmsSn().toString().trim());
-			this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(entIcms.getPercentualBcOperacaoPropria().toString().trim());
-			this.subView.getTfUfStIcms().setValue(entIcms.getUfSt().trim());
+			/*
+			 * this.subView.getTfOrigemMercadoriaIcms().setValue(
+			 * entIcms.getOrigemMercadoria().trim());
+			 * 
+			 * if (entIcms.getCstIcms() != null &&
+			 * !entIcms.getCstIcms().isEmpty()) { CstIcmsEn cstIcms =
+			 * CstIcmsEn.valueOf("_" + entIcms.getCstIcms());
+			 * 
+			 * this.subView.getCbCstIcms().setValue(cstIcms); } else {
+			 * this.subView.getCbCstIcms().setValue(null); }
+			 * 
+			 * if (entIcms.getCsosn() != null && !entIcms.getCsosn().isEmpty())
+			 * { CsosnEn csosn = CsosnEn.valueOf("_" + entIcms.getCsosn());
+			 * 
+			 * this.subView.getCbCsosnIcms().setValue(csosn); } else {
+			 * this.subView.getCbCsosnIcms().setValue(null); }
+			 * 
+			 * this.subView.getTfModalidadeBcIcms().setValue(
+			 * entIcms.getModalidadeBcIcms().trim());
+			 * this.subView.getTfTaxaReducaoBcIcms().setValue(
+			 * entIcms.getTaxaReducaoBcIcms().toString().trim());
+			 * this.subView.getTfBaseCalculoBcIcms().setValue(
+			 * entIcms.getBaseCalculoIcms().toString().trim());
+			 * this.subView.getTfAliquotaIcms().setValue(
+			 * entIcms.getAliquotaIcms().toString().trim());
+			 * this.subView.getTfValorIcms().setValue(
+			 * entIcms.getValorIcms().toString().trim());
+			 * this.subView.getTfMotivoDesoneracaoIcms().setValue(
+			 * entIcms.getMotivoDesoneracaoIcms().trim());
+			 * this.subView.getTfModalidadeBcStIcms().setValue(
+			 * entIcms.getModalidadeBcIcmsSt().trim());
+			 * this.subView.getTfPercentualMvaStIcms().setValue(
+			 * entIcms.getPercentualMvaIcmsSt().toString().trim()); //
+			 * this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
+			 * this.subView.getTfBaseCalculoStIcms().setValue(
+			 * entIcms.getValorBaseCalculoIcmsSt().toString().trim());
+			 * this.subView.getTfAliquotaStIcms().setValue(
+			 * entIcms.getAliquotaIcmsSt().toString().trim());
+			 * this.subView.getTfValorStIcms().setValue(
+			 * entIcms.getValorIcmsSt().toString().trim());
+			 * this.subView.getTfBcStRetidoIcms().setValue(
+			 * entIcms.getValorBcIcmsStRetido().toString().trim());
+			 * this.subView.getTfValorStRetidoIcms().setValue(
+			 * entIcms.getValorIcmsStRetido().toString().trim());
+			 * this.subView.getTfBcStDestinoIcms().setValue(
+			 * entIcms.getValorBcIcmsStDestino().toString().trim());
+			 * this.subView.getTfValorStDestinoIcms().setValue(
+			 * entIcms.getValorIcmsStDestino().toString().trim());
+			 * this.subView.getTfAliquotaCreditoSnIcms().setValue(
+			 * entIcms.getAliquotaCreditoIcmsSn().toString().trim());
+			 * this.subView.getTfValorCreditoSnIcms().setValue(
+			 * entIcms.getValorCreditoIcmsSn().toString().trim());
+			 * this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
+			 * entIcms.getPercentualBcOperacaoPropria().toString().trim());
+			 * this.subView.getTfUfStIcms().setValue(entIcms.getUfSt().trim());
+			 */
 
 			/** IMPOSTO IMPORTAÇÃO */
 
@@ -743,10 +786,16 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIi(entIi);
 			}
 
-			this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(entIi.getValorBcIi().toString().trim());
-			this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(entIi.getValorDespesasAduaneiras().toString().trim());
-			this.subView.getTfValorImpostoImportacao().setValue(entIi.getValorImpostoImportacao().toString().trim());
-			this.subView.getTfIofImpostoImportacao().setValue(entIi.getValorIof().toString().trim());
+			/*
+			 * this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
+			 * entIi.getValorBcIi().toString().trim());
+			 * this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
+			 * entIi.getValorDespesasAduaneiras().toString().trim());
+			 * this.subView.getTfValorImpostoImportacao().setValue(
+			 * entIi.getValorImpostoImportacao().toString().trim());
+			 * this.subView.getTfIofImpostoImportacao().setValue(
+			 * entIi.getValorIof().toString().trim());
+			 */
 
 			/** IPI */
 
@@ -763,16 +812,28 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			}
 
 			// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-			this.subView.getTfBaseCalculoBcIpi().setValue(ndiIpi.getValorBaseCalculoIpi().toString());
-			this.subView.getTfAliquotaIpi().setValue(ndiIpi.getAliquotaIpi().toString());
-			this.subView.getTfQtdUndTributavelIpi().setValue(ndiIpi.getQuantidadeUnidadeTributavel().toString());
-			this.subView.getTfValorUndTributavelIpi().setValue(ndiIpi.getValorUnidadeTributavel().toString());
-			this.subView.getTfValorIpi().setValue(ndiIpi.getValorIpi().toString());
-			this.subView.getTfEnquadramentoIpi().setValue(ndiIpi.getEnquadramentoIpi());
-			this.subView.getTfEnquadramentoLegalIpi().setValue(ndiIpi.getEnquadramentoLegalIpi());
-			this.subView.getTfCnpjProdutorIpi().setValue(ndiIpi.getCnpjProdutorIpi());
-			this.subView.getTfQtdSeloIpi().setValue(ndiIpi.getQuantidadeSeloIpi().toString());
-			this.subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
+			/*
+			 * this.subView.getTfBaseCalculoBcIpi().setValue(
+			 * ndiIpi.getValorBaseCalculoIpi().toString());
+			 * this.subView.getTfAliquotaIpi().setValue(
+			 * ndiIpi.getAliquotaIpi().toString());
+			 * this.subView.getTfQtdUndTributavelIpi().setValue(
+			 * ndiIpi.getQuantidadeUnidadeTributavel().toString());
+			 * this.subView.getTfValorUndTributavelIpi().setValue(
+			 * ndiIpi.getValorUnidadeTributavel().toString());
+			 * this.subView.getTfValorIpi().setValue(
+			 * ndiIpi.getValorIpi().toString());
+			 * this.subView.getTfEnquadramentoIpi().setValue(
+			 * ndiIpi.getEnquadramentoIpi());
+			 * this.subView.getTfEnquadramentoLegalIpi().setValue(
+			 * ndiIpi.getEnquadramentoLegalIpi());
+			 * this.subView.getTfCnpjProdutorIpi().setValue(
+			 * ndiIpi.getCnpjProdutorIpi());
+			 * this.subView.getTfQtdSeloIpi().setValue(
+			 * ndiIpi.getQuantidadeSeloIpi().toString());
+			 * this.subView.getTfCodigoSeloIpi().setValue(
+			 * ndiIpi.getCodigoSeloIpi());
+			 */
 
 			/** ISSQN */
 
@@ -785,12 +846,20 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIssqn(entIssqn);
 			}
 
-			this.subView.getTfBaseCalculoBcIssqn().setValue(entIssqn.getBaseCalculoIssqn().toString().trim());
-			this.subView.getTfAliquotaIssqn().setValue(entIssqn.getAliquotaIssqn().toString().trim());
-			this.subView.getTfValorIssqn().setValue(entIssqn.getValorIssqn().toString().trim());
-			this.subView.getTfMunicipioIssqn().setValue(entIssqn.getMunicipioIssqn().toString().trim());
-			this.subView.getTfItemListaServicosIssqn().setValue(entIssqn.getItemListaServicos().toString().trim());
-			this.subView.getTfTributacaoIssqn().setValue(entIssqn.getTributacaoIssqn().trim());
+			/*
+			 * this.subView.getTfBaseCalculoBcIssqn().setValue(
+			 * entIssqn.getBaseCalculoIssqn().toString().trim());
+			 * this.subView.getTfAliquotaIssqn().setValue(
+			 * entIssqn.getAliquotaIssqn().toString().trim());
+			 * this.subView.getTfValorIssqn().setValue(
+			 * entIssqn.getValorIssqn().toString().trim());
+			 * this.subView.getTfMunicipioIssqn().setValue(
+			 * entIssqn.getMunicipioIssqn().toString().trim());
+			 * this.subView.getTfItemListaServicosIssqn().setValue(
+			 * entIssqn.getItemListaServicos().toString().trim());
+			 * this.subView.getTfTributacaoIssqn().setValue(
+			 * entIssqn.getTributacaoIssqn().trim());
+			 */
 
 			/** PIS */
 
@@ -804,11 +873,18 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			}
 
 			// this.subView.getTfCstPis().setValue(entPis.getCstPis().trim());
-			this.subView.getTfQtdVendidaPis().setValue(entPis.getQuantidadeVendida().toString().trim());
-			this.subView.getTfBaseCalculoBcPis().setValue(entPis.getValorBaseCalculoPis().toString().trim());
-			this.subView.getTfAliquotaPercentualPis().setValue(entPis.getAliquotaPisPercentual().toString().trim());
-			this.subView.getTfAliquotaReaisPis().setValue(entPis.getAliquotaPisReais().toString().trim());
-			this.subView.getTfValorPis().setValue(entPis.getValorPis().toString().trim());
+			/*
+			 * this.subView.getTfQtdVendidaPis().setValue(
+			 * entPis.getQuantidadeVendida().toString().trim());
+			 * this.subView.getTfBaseCalculoBcPis().setValue(
+			 * entPis.getValorBaseCalculoPis().toString().trim());
+			 * this.subView.getTfAliquotaPercentualPis().setValue(
+			 * entPis.getAliquotaPisPercentual().toString().trim());
+			 * this.subView.getTfAliquotaReaisPis().setValue(
+			 * entPis.getAliquotaPisReais().toString().trim());
+			 * this.subView.getTfValorPis().setValue(
+			 * entPis.getValorPis().toString().trim());
+			 */
 
 			/** COMBUSTÍVEL */
 
@@ -821,13 +897,22 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetEspecificoCombustivel(entCombustivel);
 			}
 
-			this.subView.getTfCodigoAnpCombustivel().setValue(entCombustivel.getCodigoAnp().toString().trim());
-			this.subView.getTfCodifCombustivel().setValue(entCombustivel.getCodif().trim());
-			this.subView.getTfQtdeTempAmbienteCombustivel().setValue(entCombustivel.getQuantidadeTempAmbiente().toString().trim());
-			this.subView.getTfUfConsumoCombustivel().setValue(entCombustivel.getUfConsumo().trim());
-			this.subView.getTfBcCideCombustivel().setValue(entCombustivel.getBaseCalculoCide().toString().trim());
-			this.subView.getTfAliquotaCideCombustivel().setValue(entCombustivel.getAliquotaCide().toString().trim());
-			this.subView.getTfValorCideCombustivel().setValue(entCombustivel.getValorCide().toString().trim());
+			/*
+			 * this.subView.getTfCodigoAnpCombustivel().setValue(
+			 * entCombustivel.getCodigoAnp().toString().trim());
+			 * this.subView.getTfCodifCombustivel().setValue(
+			 * entCombustivel.getCodif().trim());
+			 * this.subView.getTfQtdeTempAmbienteCombustivel().setValue(
+			 * entCombustivel.getQuantidadeTempAmbiente().toString() .trim());
+			 * this.subView.getTfUfConsumoCombustivel().setValue(
+			 * entCombustivel.getUfConsumo().trim());
+			 * this.subView.getTfBcCideCombustivel().setValue(
+			 * entCombustivel.getBaseCalculoCide().toString().trim());
+			 * this.subView.getTfAliquotaCideCombustivel().setValue(
+			 * entCombustivel.getAliquotaCide().toString().trim());
+			 * this.subView.getTfValorCideCombustivel().setValue(
+			 * entCombustivel.getValorCide().toString().trim());
+			 */
 
 			/** VEÍCULO */
 
@@ -840,30 +925,56 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 				this.nfeCabecalho.getNfeDetalhe().setNfeDetEspecificoVeiculo(entVeiculo);
 			}
 
-			this.subView.getTfTipoOperacaoVeiculo().setValue(entVeiculo.getTipoOperacao());
-			this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
-			this.subView.getTfCodigoCorVeiculo().setValue(entVeiculo.getCodigoCor());
-			this.subView.getTfDescricaoCorVeiculo().setValue(entVeiculo.getDescricaoCor());
-			this.subView.getTfPotenciaMotorVeiculo().setValue(entVeiculo.getPotenciaMotor());
-			this.subView.getTfCilindradasVeiculo().setValue(entVeiculo.getCilindradas());
-			this.subView.getTfPesoLiquidoVeiculo().setValue(entVeiculo.getPesoLiquido());
-			this.subView.getTfPesoBrutoVeiculo().setValue(entVeiculo.getPesoBruto());
-			this.subView.getTfNumeroSerieVeiculo().setValue(entVeiculo.getNumeroSerie());
-			this.subView.getTfCombustivelVeiculo().setValue(entVeiculo.getTipoCombustivel());
-			this.subView.getTfNumeroMotorVeiculo().setValue(entVeiculo.getNumeroMotor());
-			this.subView.getTfCapacidadeTracaoVeiculo().setValue(entVeiculo.getCapacidadeMaximaTracao());
-			this.subView.getTfDistanciaEixosVeiculo().setValue(entVeiculo.getDistanciaEixos());
-			this.subView.getTfAnoModeloVeiculo().setValue(entVeiculo.getAnoModelo());
-			this.subView.getTfAnoFabricacaoVeiculo().setValue(entVeiculo.getAnoFabricacao());
-			this.subView.getTfTipoPinturaVeiculo().setValue(entVeiculo.getTipoPintura());
-			this.subView.getTfTipoVeiculo().setValue(entVeiculo.getTipoVeiculo());
-			this.subView.getTfEspecieVeiculo().setValue(entVeiculo.getEspecieVeiculo());
-			this.subView.getTfCondicaoVinVeiculo().setValue(entVeiculo.getCondicaoVin());
-			this.subView.getTfCondicaoVeiculo().setValue(entVeiculo.getCondicaoVeiculo());
-			this.subView.getTfCodigoMarcaModeloVeiculo().setValue(entVeiculo.getCodigoMarcaModelo());
-			this.subView.getTfCodigoCorDenatranVeiculo().setValue(entVeiculo.getCor());
-			this.subView.getTfLotacaoVeiculo().setValue(entVeiculo.getLotacao().toString());
-			this.subView.getTfRestricaoVeiculo().setValue(entVeiculo.getRestricao());
+			/*
+			 * this.subView.getTfTipoOperacaoVeiculo().setValue(
+			 * entVeiculo.getTipoOperacao());
+			 * this.subView.getTfChassiVeiculo().setValue
+			 * (entVeiculo.getChassi());
+			 * this.subView.getTfCodigoCorVeiculo().setValue(
+			 * entVeiculo.getCodigoCor());
+			 * this.subView.getTfDescricaoCorVeiculo().setValue(
+			 * entVeiculo.getDescricaoCor());
+			 * this.subView.getTfPotenciaMotorVeiculo().setValue(
+			 * entVeiculo.getPotenciaMotor());
+			 * this.subView.getTfCilindradasVeiculo().setValue(
+			 * entVeiculo.getCilindradas());
+			 * this.subView.getTfPesoLiquidoVeiculo().setValue(
+			 * entVeiculo.getPesoLiquido());
+			 * this.subView.getTfPesoBrutoVeiculo().setValue(
+			 * entVeiculo.getPesoBruto());
+			 * this.subView.getTfNumeroSerieVeiculo().setValue(
+			 * entVeiculo.getNumeroSerie());
+			 * this.subView.getTfCombustivelVeiculo().setValue(
+			 * entVeiculo.getTipoCombustivel());
+			 * this.subView.getTfNumeroMotorVeiculo().setValue(
+			 * entVeiculo.getNumeroMotor());
+			 * this.subView.getTfCapacidadeTracaoVeiculo().setValue(
+			 * entVeiculo.getCapacidadeMaximaTracao());
+			 * this.subView.getTfDistanciaEixosVeiculo().setValue(
+			 * entVeiculo.getDistanciaEixos());
+			 * this.subView.getTfAnoModeloVeiculo().setValue(
+			 * entVeiculo.getAnoModelo());
+			 * this.subView.getTfAnoFabricacaoVeiculo().setValue(
+			 * entVeiculo.getAnoFabricacao());
+			 * this.subView.getTfTipoPinturaVeiculo().setValue(
+			 * entVeiculo.getTipoPintura());
+			 * this.subView.getTfTipoVeiculo().setValue(
+			 * entVeiculo.getTipoVeiculo());
+			 * this.subView.getTfEspecieVeiculo().setValue(
+			 * entVeiculo.getEspecieVeiculo());
+			 * this.subView.getTfCondicaoVinVeiculo().setValue(
+			 * entVeiculo.getCondicaoVin());
+			 * this.subView.getTfCondicaoVeiculo().setValue(
+			 * entVeiculo.getCondicaoVeiculo());
+			 * this.subView.getTfCodigoMarcaModeloVeiculo().setValue(
+			 * entVeiculo.getCodigoMarcaModelo());
+			 * this.subView.getTfCodigoCorDenatranVeiculo().setValue(
+			 * entVeiculo.getCor());
+			 * this.subView.getTfLotacaoVeiculo().setValue(
+			 * entVeiculo.getLotacao().toString());
+			 * this.subView.getTfRestricaoVeiculo().setValue(
+			 * entVeiculo.getRestricao());
+			 */
 
 			/** MEDICAMENTO */
 
@@ -875,17 +986,57 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 			abaHabilitar(true, true, true, true, true, true, true, true, true, true, true);
 
-			this.subView.getPlNdiCofins().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
+			// this.subView.getPlNdiCofins()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
 			this.subView.getPlNdiDeclaracaoImportacao().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdiIcms().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdiIi().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdiIpi().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdiIssqn().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdiPis().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdeArmamentoSubForm().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdeCombustivel().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdeMedicamentoSubForm().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
-			this.subView.getPlNdeVeiculo().setCaption("NFE DETALHE " + this.nfeCabecalho.getNfeDetalhe().getNumeroItem());
+			// this.subView.getPlNdiIcms()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdiIi()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdiIpi()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdiIssqn()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdiPis()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdeArmamentoSubForm()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdeCombustivel()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdeMedicamentoSubForm()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
+			// this.subView.getPlNdeVeiculo()
+			// .setCaption(
+			// "NFE DETALHE "
+			// + this.nfeCabecalho.getNfeDetalhe()
+			// .getNumeroItem());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -895,15 +1046,22 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 	public void ndeMedicamentoSelecionar(NfeDetEspecificoMedicamentoEntity item) {
 		try {
-			this.subView.getGlNdeMedicamento().setEnabled(true);
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
-
-			this.subView.getTfNumeroLoteMedicamento().setValue(item.getNumeroLote());
-			this.subView.getTfQuantidadeLoteMedicamento().setValue(item.getQuantidadeLote().toString());
-			this.subView.getPdfDataFabricacaoMedicamento().setValue(item.getDataFabricacao());
-			this.subView.getPdfDataValidadeMedicamento().setValue(item.getDataValidade());
-			this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(item.getPrecoMaximoConsumidor().toString());
+			/*
+			 * this.subView.getGlNdeMedicamento().setEnabled(true);
+			 * 
+			 * this.nfeCabecalho.getNfeDetalhe().setNdeMedicamento(item);
+			 * 
+			 * this.subView.getTfNumeroLoteMedicamento().setValue(
+			 * item.getNumeroLote());
+			 * this.subView.getTfQuantidadeLoteMedicamento().setValue(
+			 * item.getQuantidadeLote().toString());
+			 * this.subView.getPdfDataFabricacaoMedicamento().setValue(
+			 * item.getDataFabricacao());
+			 * this.subView.getPdfDataValidadeMedicamento().setValue(
+			 * item.getDataValidade());
+			 * this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
+			 * item.getPrecoMaximoConsumidor().toString());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -913,14 +1071,19 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 	public void ndeArmamentoSelecionar(NfeDetEspecificoArmamentoEntity item) {
 		try {
-			this.subView.getGlNdeArmamento().setEnabled(true);
-
-			this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
-
-			this.subView.getTfTipoArmaArmamento().setValue(item.getTipoArma());
-			this.subView.getTfNumeroSerieArmaArmamento().setValue(item.getNumeroSerieArma());
-			this.subView.getTfNumeroSerieCanoArmamento().setValue(item.getNumeroSerieCano());
-			this.subView.getTfDescricaoArmamento().setValue(item.getDescricao());
+			/*
+			 * this.subView.getGlNdeArmamento().setEnabled(true);
+			 * 
+			 * this.nfeCabecalho.getNfeDetalhe().setNdeArmamento(item);
+			 * 
+			 * this.subView.getTfTipoArmaArmamento().setValue(item.getTipoArma())
+			 * ; this.subView.getTfNumeroSerieArmaArmamento().setValue(
+			 * item.getNumeroSerieArma());
+			 * this.subView.getTfNumeroSerieCanoArmamento().setValue(
+			 * item.getNumeroSerieCano());
+			 * this.subView.getTfDescricaoArmamento()
+			 * .setValue(item.getDescricao());
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -929,16 +1092,16 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 	private void abaHabilitar(boolean a1, boolean a2, boolean a3, boolean a4, boolean a5, boolean a6, boolean a7, boolean a8, boolean a9,
 			boolean a10, boolean a11) {
 		this.subView.getGlNfeDetalhe().setEnabled(a1);
-		this.subView.getGlIcms().setEnabled(a2);
-		this.subView.getGlPis().setEnabled(a3);
-		this.subView.getGlCofins().setEnabled(a4);
-		this.subView.getGlIpi().setEnabled(a5);
-		this.subView.getGlImpostoImportacao().setEnabled(a6);
-		this.subView.getGlIssqn().setEnabled(a7);
-		this.subView.getNdeGlCombustivel().setEnabled(a8);
-		this.subView.getNdeGlVeiculo().setEnabled(a9);
-		this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
-		this.subView.getPlNdeArmamentoSubForm().setEnabled(a11);
+		// this.subView.getGlIcms().setEnabled(a2);
+		// this.subView.getGlPis().setEnabled(a3);
+		// this.subView.getGlCofins().setEnabled(a4);
+		// this.subView.getGlIpi().setEnabled(a5);
+		// this.subView.getGlImpostoImportacao().setEnabled(a6);
+		// this.subView.getGlIssqn().setEnabled(a7);
+		// this.subView.getNdeGlCombustivel().setEnabled(a8);
+		// this.subView.getNdeGlVeiculo().setEnabled(a9);
+		// this.subView.getPlNdeMedicamentoSubForm().setEnabled(a10);
+		// this.subView.getPlNdeArmamentoSubForm().setEnabled(a11);
 	}
 
 	/** SETAR VALORES
@@ -1794,17 +1957,25 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeMedicamento().getDados().indexOf(this.ndeMedicamentoSelecionado);
-
-		this.subView.getSfNdeMedicamento().getDados().remove(this.ndeMedicamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList().remove(this.ndeMedicamentoSelecionado);
-
-		this.ndeMedicamentoSelecionado.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
-
-		this.subView.getSfNdeMedicamento().getDados().add(index, this.ndeMedicamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList().add(this.ndeMedicamentoSelecionado);
+		/*
+		 * Integer index = this.subView.getSfNdeMedicamento().getDados()
+		 * .indexOf(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.subView.getSfNdeMedicamento().getDados()
+		 * .remove(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+		 * .remove(this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.ndeMedicamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+		 * .getNfeDetalhe());
+		 * 
+		 * this.subView.getSfNdeMedicamento().getDados() .add(index,
+		 * this.ndeMedicamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList()
+		 * .add(this.ndeMedicamentoSelecionado);
+		 */
 	}
 
 	public void ndeArmamentoSetarValor(String id, Object obj) {
@@ -1835,17 +2006,25 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			break;
 		}
 
-		Integer index = this.subView.getSfNdeArmamento().getDados().indexOf(this.ndeArmamentoSelecionado);
-
-		this.subView.getSfNdeArmamento().getDados().remove(this.ndeArmamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList().remove(this.ndeArmamentoSelecionado);
-
-		this.ndeArmamentoSelecionado.setNfeDetalhe(this.nfeCabecalho.getNfeDetalhe());
-
-		this.subView.getSfNdeArmamento().getDados().add(index, this.ndeArmamentoSelecionado);
-
-		this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList().add(this.ndeArmamentoSelecionado);
+		/*
+		 * Integer index = this.subView.getSfNdeArmamento().getDados()
+		 * .indexOf(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.subView.getSfNdeArmamento().getDados()
+		 * .remove(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+		 * .remove(this.ndeArmamentoSelecionado);
+		 * 
+		 * this.ndeArmamentoSelecionado.setNfeDetalhe(this.nfeCabecalho
+		 * .getNfeDetalhe());
+		 * 
+		 * this.subView.getSfNdeArmamento().getDados() .add(index,
+		 * this.ndeArmamentoSelecionado);
+		 * 
+		 * this.nfeCabecalho.getNfeDetalhe().getNdeArmamentoList()
+		 * .add(this.ndeArmamentoSelecionado);
+		 */
 	}
 
 	/** LIMPAR
@@ -1891,141 +2070,243 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 		NfeDetalheImpostoCofinsEntity entCofins = new NfeDetalheImpostoCofinsEntity();
 
 		// this.subView.getTfCstCofins().setValue(entCofins.getCstCofins());
-		this.subView.getTfQtdVendidaCofins().setValue(entCofins.getQuantidadeVendida().toString());
-		this.subView.getTfBaseCalculoBcCofins().setValue(entCofins.getBaseCalculoCofins().toString());
-		this.subView.getTfAliquotaPercentualCofins().setValue(entCofins.getAliquotaCofinsPercentual().toString());
-		this.subView.getTfAliquotaReaisCofins().setValue(entCofins.getAliquotaCofinsReais().toString());
-		this.subView.getTfValorCofins().setValue(entCofins.getValorCofins().toString());
+		/*
+		 * this.subView.getTfQtdVendidaCofins().setValue(
+		 * entCofins.getQuantidadeVendida().toString());
+		 * this.subView.getTfBaseCalculoBcCofins().setValue(
+		 * entCofins.getBaseCalculoCofins().toString());
+		 * this.subView.getTfAliquotaPercentualCofins().setValue(
+		 * entCofins.getAliquotaCofinsPercentual().toString());
+		 * this.subView.getTfAliquotaReaisCofins().setValue(
+		 * entCofins.getAliquotaCofinsReais().toString());
+		 * this.subView.getTfValorCofins().setValue(
+		 * entCofins.getValorCofins().toString());
+		 */
 	}
 
 	private void ndiIcmsLimpar() {
 		NfeDetalheImpostoIcmsEntity entIcms = new NfeDetalheImpostoIcmsEntity();
 
-		this.subView.getTfOrigemMercadoriaIcms().setValue(entIcms.getOrigemMercadoria());
-		// this.subView.getTfCstIcms().setValue(entIcms.getCstIcms());
-		// this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
-		this.subView.getTfModalidadeBcIcms().setValue(entIcms.getModalidadeBcIcms());
-		this.subView.getTfTaxaReducaoBcIcms().setValue(entIcms.getTaxaReducaoBcIcms().toString());
-		this.subView.getTfBaseCalculoBcIcms().setValue(entIcms.getBaseCalculoIcms().toString());
-		this.subView.getTfAliquotaIcms().setValue(entIcms.getAliquotaIcms().toString());
-		this.subView.getTfValorIcms().setValue(entIcms.getValorIcms().toString());
-		this.subView.getTfMotivoDesoneracaoIcms().setValue(entIcms.getMotivoDesoneracaoIcms());
-		this.subView.getTfModalidadeBcStIcms().setValue(entIcms.getModalidadeBcIcmsSt());
-		this.subView.getTfPercentualMvaStIcms().setValue(entIcms.getPercentualMvaIcmsSt().toString());
-		// this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
-		this.subView.getTfBaseCalculoStIcms().setValue(entIcms.getValorBaseCalculoIcmsSt().toString());
-		this.subView.getTfAliquotaStIcms().setValue(entIcms.getAliquotaIcmsSt().toString());
-		this.subView.getTfValorStIcms().setValue(entIcms.getValorIcmsSt().toString());
-		this.subView.getTfBcStRetidoIcms().setValue(entIcms.getValorBcIcmsStRetido().toString());
-		this.subView.getTfValorStRetidoIcms().setValue(entIcms.getValorIcmsStRetido().toString());
-		this.subView.getTfBcStDestinoIcms().setValue(entIcms.getValorBcIcmsStDestino().toString());
-		this.subView.getTfValorStDestinoIcms().setValue(entIcms.getValorIcmsStDestino().toString());
-		this.subView.getTfAliquotaCreditoSnIcms().setValue(entIcms.getAliquotaCreditoIcmsSn().toString());
-		this.subView.getTfValorCreditoSnIcms().setValue(entIcms.getValorCreditoIcmsSn().toString());
-		this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(entIcms.getPercentualBcOperacaoPropria().toString());
-		this.subView.getTfUfStIcms().setValue(entIcms.getUfSt());
+		/*
+		 * this.subView.getTfOrigemMercadoriaIcms().setValue(
+		 * entIcms.getOrigemMercadoria()); //
+		 * this.subView.getTfCstIcms().setValue(entIcms.getCstIcms()); //
+		 * this.subView.getTfCsosnIcms().setValue(entIcms.getCsosn());
+		 * this.subView.getTfModalidadeBcIcms().setValue(
+		 * entIcms.getModalidadeBcIcms());
+		 * this.subView.getTfTaxaReducaoBcIcms().setValue(
+		 * entIcms.getTaxaReducaoBcIcms().toString());
+		 * this.subView.getTfBaseCalculoBcIcms().setValue(
+		 * entIcms.getBaseCalculoIcms().toString());
+		 * this.subView.getTfAliquotaIcms().setValue(
+		 * entIcms.getAliquotaIcms().toString());
+		 * this.subView.getTfValorIcms().setValue(
+		 * entIcms.getValorIcms().toString());
+		 * this.subView.getTfMotivoDesoneracaoIcms().setValue(
+		 * entIcms.getMotivoDesoneracaoIcms());
+		 * this.subView.getTfModalidadeBcStIcms().setValue(
+		 * entIcms.getModalidadeBcIcmsSt());
+		 * this.subView.getTfPercentualMvaStIcms().setValue(
+		 * entIcms.getPercentualMvaIcmsSt().toString()); //
+		 * this.subView.getTfTaxaReducaoBcStIcms().setValue(entIcms.get);
+		 * this.subView.getTfBaseCalculoStIcms().setValue(
+		 * entIcms.getValorBaseCalculoIcmsSt().toString());
+		 * this.subView.getTfAliquotaStIcms().setValue(
+		 * entIcms.getAliquotaIcmsSt().toString());
+		 * this.subView.getTfValorStIcms().setValue(
+		 * entIcms.getValorIcmsSt().toString());
+		 * this.subView.getTfBcStRetidoIcms().setValue(
+		 * entIcms.getValorBcIcmsStRetido().toString());
+		 * this.subView.getTfValorStRetidoIcms().setValue(
+		 * entIcms.getValorIcmsStRetido().toString());
+		 * this.subView.getTfBcStDestinoIcms().setValue(
+		 * entIcms.getValorBcIcmsStDestino().toString());
+		 * this.subView.getTfValorStDestinoIcms().setValue(
+		 * entIcms.getValorIcmsStDestino().toString());
+		 * this.subView.getTfAliquotaCreditoSnIcms().setValue(
+		 * entIcms.getAliquotaCreditoIcmsSn().toString());
+		 * this.subView.getTfValorCreditoSnIcms().setValue(
+		 * entIcms.getValorCreditoIcmsSn().toString());
+		 * this.subView.getTfPercentualBcOperacaoPropriaIcms().setValue(
+		 * entIcms.getPercentualBcOperacaoPropria().toString());
+		 * this.subView.getTfUfStIcms().setValue(entIcms.getUfSt());
+		 */
 	}
 
 	private void ndiIiLimpar() {
 		NfeDetalheImpostoIiEntity entIi = new NfeDetalheImpostoIiEntity();
 
-		this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(entIi.getValorBcIi().toString());
-		this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(entIi.getValorDespesasAduaneiras().toString());
-		this.subView.getTfValorImpostoImportacao().setValue(entIi.getValorImpostoImportacao().toString());
-		this.subView.getTfIofImpostoImportacao().setValue(entIi.getValorIof().toString());
+		/*
+		 * this.subView.getTfBaseCalculoBcImpostoImportacao().setValue(
+		 * entIi.getValorBcIi().toString());
+		 * this.subView.getTfDespesasAduaneirasImpostoImportacao().setValue(
+		 * entIi.getValorDespesasAduaneiras().toString());
+		 * this.subView.getTfValorImpostoImportacao().setValue(
+		 * entIi.getValorImpostoImportacao().toString());
+		 * this.subView.getTfIofImpostoImportacao().setValue(
+		 * entIi.getValorIof().toString());
+		 */
 	}
 
 	private void ndiIpiLimpar() {
 		NfeDetalheImpIpiEntity ndiIpi = new NfeDetalheImpIpiEntity();
 
 		// this.subView.getTfCstIpi().setValue(ndiIpi.getCstIpi());
-		this.subView.getTfBaseCalculoBcIpi().setValue(ndiIpi.getValorBaseCalculoIpi().toString());
-		this.subView.getTfAliquotaIpi().setValue(ndiIpi.getAliquotaIpi().toString());
-		this.subView.getTfQtdUndTributavelIpi().setValue(ndiIpi.getQuantidadeUnidadeTributavel().toString());
-		this.subView.getTfValorUndTributavelIpi().setValue(ndiIpi.getValorUnidadeTributavel().toString());
-		this.subView.getTfValorIpi().setValue(ndiIpi.getValorIpi().toString());
-		this.subView.getTfEnquadramentoIpi().setValue(ndiIpi.getEnquadramentoIpi());
-		this.subView.getTfEnquadramentoLegalIpi().setValue(ndiIpi.getEnquadramentoLegalIpi());
-		this.subView.getTfCnpjProdutorIpi().setValue(ndiIpi.getCnpjProdutorIpi());
-		this.subView.getTfQtdSeloIpi().setValue(ndiIpi.getQuantidadeSeloIpi().toString());
-		this.subView.getTfCodigoSeloIpi().setValue(ndiIpi.getCodigoSeloIpi());
+		/*
+		 * this.subView.getTfBaseCalculoBcIpi().setValue(
+		 * ndiIpi.getValorBaseCalculoIpi().toString());
+		 * this.subView.getTfAliquotaIpi().setValue(
+		 * ndiIpi.getAliquotaIpi().toString());
+		 * this.subView.getTfQtdUndTributavelIpi().setValue(
+		 * ndiIpi.getQuantidadeUnidadeTributavel().toString());
+		 * this.subView.getTfValorUndTributavelIpi().setValue(
+		 * ndiIpi.getValorUnidadeTributavel().toString());
+		 * this.subView.getTfValorIpi
+		 * ().setValue(ndiIpi.getValorIpi().toString());
+		 * this.subView.getTfEnquadramentoIpi().setValue(
+		 * ndiIpi.getEnquadramentoIpi());
+		 * this.subView.getTfEnquadramentoLegalIpi().setValue(
+		 * ndiIpi.getEnquadramentoLegalIpi());
+		 * this.subView.getTfCnpjProdutorIpi().setValue(
+		 * ndiIpi.getCnpjProdutorIpi());
+		 * this.subView.getTfQtdSeloIpi().setValue(
+		 * ndiIpi.getQuantidadeSeloIpi().toString());
+		 * this.subView.getTfCodigoSeloIpi
+		 * ().setValue(ndiIpi.getCodigoSeloIpi());
+		 */
 	}
 
 	private void ndiIssqnLimpar() {
 		NfeDetalheImpostoIssqnEntity entIssqn = new NfeDetalheImpostoIssqnEntity();
 
-		this.subView.getTfBaseCalculoBcIssqn().setValue(entIssqn.getBaseCalculoIssqn().toString());
-		this.subView.getTfAliquotaIssqn().setValue(entIssqn.getAliquotaIssqn().toString());
-		this.subView.getTfValorIssqn().setValue(entIssqn.getValorIssqn().toString());
-		this.subView.getTfMunicipioIssqn().setValue(entIssqn.getMunicipioIssqn().toString());
-		this.subView.getTfItemListaServicosIssqn().setValue(entIssqn.getItemListaServicos().toString());
-		this.subView.getTfTributacaoIssqn().setValue(entIssqn.getTributacaoIssqn());
+		/*
+		 * this.subView.getTfBaseCalculoBcIssqn().setValue(
+		 * entIssqn.getBaseCalculoIssqn().toString());
+		 * this.subView.getTfAliquotaIssqn().setValue(
+		 * entIssqn.getAliquotaIssqn().toString());
+		 * this.subView.getTfValorIssqn().setValue(
+		 * entIssqn.getValorIssqn().toString());
+		 * this.subView.getTfMunicipioIssqn().setValue(
+		 * entIssqn.getMunicipioIssqn().toString());
+		 * this.subView.getTfItemListaServicosIssqn().setValue(
+		 * entIssqn.getItemListaServicos().toString());
+		 * this.subView.getTfTributacaoIssqn().setValue(
+		 * entIssqn.getTributacaoIssqn());
+		 */
 	}
 
 	private void ndiPisLimpar() {
 		NfeDetalheImpostoPisEntity entPis = new NfeDetalheImpostoPisEntity();
 
 		// this.subView.getTfCstPis().setValue(entPis.getCstPis());
-		this.subView.getTfQtdVendidaPis().setValue(entPis.getQuantidadeVendida().toString());
-		this.subView.getTfBaseCalculoBcPis().setValue(entPis.getValorBaseCalculoPis().toString());
-		this.subView.getTfAliquotaPercentualPis().setValue(entPis.getAliquotaPisPercentual().toString());
-		this.subView.getTfAliquotaReaisPis().setValue(entPis.getAliquotaPisReais().toString());
-		this.subView.getTfValorPis().setValue(entPis.getValorPis().toString());
+		/*
+		 * this.subView.getTfQtdVendidaPis().setValue(
+		 * entPis.getQuantidadeVendida().toString());
+		 * this.subView.getTfBaseCalculoBcPis().setValue(
+		 * entPis.getValorBaseCalculoPis().toString());
+		 * this.subView.getTfAliquotaPercentualPis().setValue(
+		 * entPis.getAliquotaPisPercentual().toString());
+		 * this.subView.getTfAliquotaReaisPis().setValue(
+		 * entPis.getAliquotaPisReais().toString());
+		 * this.subView.getTfValorPis()
+		 * .setValue(entPis.getValorPis().toString());
+		 */
 	}
 
 	private void ndeCombustivelLimpar() {
 		NfeDetEspecificoCombustivelEntity entCombustivel = new NfeDetEspecificoCombustivelEntity();
 
-		this.subView.getTfCodigoAnpCombustivel().setValue(entCombustivel.getCodigoAnp().toString());
-		this.subView.getTfCodifCombustivel().setValue(entCombustivel.getCodif());
-		this.subView.getTfQtdeTempAmbienteCombustivel().setValue(entCombustivel.getQuantidadeTempAmbiente().toString());
-		this.subView.getTfUfConsumoCombustivel().setValue(entCombustivel.getUfConsumo());
-		this.subView.getTfBcCideCombustivel().setValue(entCombustivel.getBaseCalculoCide().toString());
-		this.subView.getTfAliquotaCideCombustivel().setValue(entCombustivel.getAliquotaCide().toString());
-		this.subView.getTfValorCideCombustivel().setValue(entCombustivel.getValorCide().toString());
+		/*
+		 * this.subView.getTfCodigoAnpCombustivel().setValue(
+		 * entCombustivel.getCodigoAnp().toString());
+		 * this.subView.getTfCodifCombustivel()
+		 * .setValue(entCombustivel.getCodif());
+		 * this.subView.getTfQtdeTempAmbienteCombustivel().setValue(
+		 * entCombustivel.getQuantidadeTempAmbiente().toString());
+		 * this.subView.getTfUfConsumoCombustivel().setValue(
+		 * entCombustivel.getUfConsumo());
+		 * this.subView.getTfBcCideCombustivel().setValue(
+		 * entCombustivel.getBaseCalculoCide().toString());
+		 * this.subView.getTfAliquotaCideCombustivel().setValue(
+		 * entCombustivel.getAliquotaCide().toString());
+		 * this.subView.getTfValorCideCombustivel().setValue(
+		 * entCombustivel.getValorCide().toString());
+		 */
 	}
 
 	private void ndeVeiculoLimpar() {
 		NfeDetEspecificoVeiculoEntity entVeiculo = new NfeDetEspecificoVeiculoEntity();
 
-		this.subView.getTfTipoOperacaoVeiculo().setValue(entVeiculo.getTipoOperacao());
-		this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
-		this.subView.getTfCodigoCorVeiculo().setValue(entVeiculo.getCodigoCor());
-		this.subView.getTfDescricaoCorVeiculo().setValue(entVeiculo.getDescricaoCor());
-		this.subView.getTfPotenciaMotorVeiculo().setValue(entVeiculo.getPotenciaMotor());
-		this.subView.getTfCilindradasVeiculo().setValue(entVeiculo.getCilindradas());
-		this.subView.getTfPesoLiquidoVeiculo().setValue(entVeiculo.getPesoLiquido());
-		this.subView.getTfPesoBrutoVeiculo().setValue(entVeiculo.getPesoBruto());
-		this.subView.getTfNumeroSerieVeiculo().setValue(entVeiculo.getNumeroSerie());
-		this.subView.getTfCombustivelVeiculo().setValue(entVeiculo.getTipoCombustivel());
-		this.subView.getTfNumeroMotorVeiculo().setValue(entVeiculo.getNumeroMotor());
-		this.subView.getTfCapacidadeTracaoVeiculo().setValue(entVeiculo.getCapacidadeMaximaTracao());
-		this.subView.getTfDistanciaEixosVeiculo().setValue(entVeiculo.getDistanciaEixos());
-		this.subView.getTfAnoModeloVeiculo().setValue(entVeiculo.getAnoModelo());
-		this.subView.getTfAnoFabricacaoVeiculo().setValue(entVeiculo.getAnoFabricacao());
-		this.subView.getTfTipoPinturaVeiculo().setValue(entVeiculo.getTipoPintura());
-		this.subView.getTfTipoVeiculo().setValue(entVeiculo.getTipoVeiculo());
-		this.subView.getTfEspecieVeiculo().setValue(entVeiculo.getEspecieVeiculo());
-		this.subView.getTfCondicaoVinVeiculo().setValue(entVeiculo.getCondicaoVin());
-		this.subView.getTfCondicaoVeiculo().setValue(entVeiculo.getCondicaoVeiculo());
-		this.subView.getTfCodigoMarcaModeloVeiculo().setValue(entVeiculo.getCodigoMarcaModelo());
-		this.subView.getTfCodigoCorDenatranVeiculo().setValue(entVeiculo.getCor());
-		this.subView.getTfLotacaoVeiculo().setValue(entVeiculo.getLotacao().toString());
-		this.subView.getTfRestricaoVeiculo().setValue(entVeiculo.getRestricao());
+		/*
+		 * this.subView.getTfTipoOperacaoVeiculo().setValue(
+		 * entVeiculo.getTipoOperacao());
+		 * this.subView.getTfChassiVeiculo().setValue(entVeiculo.getChassi());
+		 * this.subView.getTfCodigoCorVeiculo()
+		 * .setValue(entVeiculo.getCodigoCor());
+		 * this.subView.getTfDescricaoCorVeiculo().setValue(
+		 * entVeiculo.getDescricaoCor());
+		 * this.subView.getTfPotenciaMotorVeiculo().setValue(
+		 * entVeiculo.getPotenciaMotor());
+		 * this.subView.getTfCilindradasVeiculo().setValue(
+		 * entVeiculo.getCilindradas());
+		 * this.subView.getTfPesoLiquidoVeiculo().setValue(
+		 * entVeiculo.getPesoLiquido()); this.subView.getTfPesoBrutoVeiculo()
+		 * .setValue(entVeiculo.getPesoBruto());
+		 * this.subView.getTfNumeroSerieVeiculo().setValue(
+		 * entVeiculo.getNumeroSerie());
+		 * this.subView.getTfCombustivelVeiculo().setValue(
+		 * entVeiculo.getTipoCombustivel());
+		 * this.subView.getTfNumeroMotorVeiculo().setValue(
+		 * entVeiculo.getNumeroMotor());
+		 * this.subView.getTfCapacidadeTracaoVeiculo().setValue(
+		 * entVeiculo.getCapacidadeMaximaTracao());
+		 * this.subView.getTfDistanciaEixosVeiculo().setValue(
+		 * entVeiculo.getDistanciaEixos()); this.subView.getTfAnoModeloVeiculo()
+		 * .setValue(entVeiculo.getAnoModelo());
+		 * this.subView.getTfAnoFabricacaoVeiculo().setValue(
+		 * entVeiculo.getAnoFabricacao());
+		 * this.subView.getTfTipoPinturaVeiculo().setValue(
+		 * entVeiculo.getTipoPintura());
+		 * this.subView.getTfTipoVeiculo().setValue
+		 * (entVeiculo.getTipoVeiculo());
+		 * this.subView.getTfEspecieVeiculo().setValue(
+		 * entVeiculo.getEspecieVeiculo());
+		 * this.subView.getTfCondicaoVinVeiculo().setValue(
+		 * entVeiculo.getCondicaoVin());
+		 * this.subView.getTfCondicaoVeiculo().setValue(
+		 * entVeiculo.getCondicaoVeiculo());
+		 * this.subView.getTfCodigoMarcaModeloVeiculo().setValue(
+		 * entVeiculo.getCodigoMarcaModelo());
+		 * this.subView.getTfCodigoCorDenatranVeiculo().setValue(
+		 * entVeiculo.getCor()); this.subView.getTfLotacaoVeiculo().setValue(
+		 * entVeiculo.getLotacao().toString());
+		 * this.subView.getTfRestricaoVeiculo()
+		 * .setValue(entVeiculo.getRestricao());
+		 */
 	}
 
 	public void ndeMedicamentoLimpar() {
-		this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe().getNdeMedicamentoList());
-
-		this.ndeMedicamentoSelecionado = new NfeDetEspecificoMedicamentoEntity();
-
-		this.subView.getTfNumeroLoteMedicamento().setValue(this.ndeMedicamentoSelecionado.getNumeroLote());
-		this.subView.getTfQuantidadeLoteMedicamento().setValue(this.ndeMedicamentoSelecionado.getQuantidadeLote().toString());
-		this.subView.getPdfDataFabricacaoMedicamento().setValue(this.ndeMedicamentoSelecionado.getDataFabricacao());
-		this.subView.getPdfDataValidadeMedicamento().setValue(this.ndeMedicamentoSelecionado.getDataValidade());
-		this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor().toString());
-
-		this.subView.getGlNdeMedicamento().setEnabled(false);
+		/*
+		 * this.subView.carregarSfNdeMedicamento(this.nfeCabecalho.getNfeDetalhe(
+		 * ) .getNdeMedicamentoList());
+		 * 
+		 * this.ndeMedicamentoSelecionado = new
+		 * NfeDetEspecificoMedicamentoEntity();
+		 * 
+		 * this.subView.getTfNumeroLoteMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getNumeroLote());
+		 * this.subView.getTfQuantidadeLoteMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getQuantidadeLote().toString());
+		 * this.subView.getPdfDataFabricacaoMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getDataFabricacao());
+		 * this.subView.getPdfDataValidadeMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getDataValidade());
+		 * this.subView.getTfPrecoMaximoConsumidorMedicamento().setValue(
+		 * this.ndeMedicamentoSelecionado.getPrecoMaximoConsumidor()
+		 * .toString());
+		 * 
+		 * this.subView.getGlNdeMedicamento().setEnabled(false);
+		 */
 	}
 
 	/** COMBOS */
@@ -2044,7 +2325,7 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
-			this.subView.getMtoCliente().setModel(model1);
+			// this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(ProdutosListController.class, this.produtoDAO,
 					super.getMainController());
@@ -2068,7 +2349,7 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			 * this.subView.getCbCstIcms().setData(auxList);
 			 */
 
-			this.subView.carregarComboBox();
+			// this.subView.carregarComboBox();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

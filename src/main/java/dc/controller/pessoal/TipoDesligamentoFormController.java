@@ -17,8 +17,7 @@ import dc.visao.pessoal.TipoDesligamentoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoDesligamentoFormController extends
-		CRUDFormController<TipoDesligamento> {
+public class TipoDesligamentoFormController extends CRUDFormController<TipoDesligamento> {
 
 	/**
 	 * 
@@ -37,8 +36,7 @@ public class TipoDesligamentoFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -110,6 +108,12 @@ public class TipoDesligamentoFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public TipoDesligamento getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

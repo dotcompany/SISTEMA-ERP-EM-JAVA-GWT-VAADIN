@@ -2,7 +2,6 @@ package dc.controller.suprimentos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.geral.Usuario;
 import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.entidade.suprimentos.ReajusteEstoqueDetalhe;
 import dc.servicos.dao.produto.ProdutoDAO;
@@ -27,13 +26,11 @@ import dc.visao.suprimentos.ReajusteEstoqueFormView.TipoReajuste;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ReajusteEstoqueFormController
-extends CRUDFormController<ReajusteEstoque>{
-
+public class ReajusteEstoqueFormController extends CRUDFormController<ReajusteEstoque> {
 
 	@Autowired
 	ReajusteEstoqueDAO dao;
-	
+
 	@Autowired
 	ProdutoDAO produtoDAO;
 
@@ -51,7 +48,7 @@ extends CRUDFormController<ReajusteEstoque>{
 		return subView;
 	}
 
-	public Colaborador buscaColaborador(){
+	public Colaborador buscaColaborador() {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Colaborador col = usuario.getColaborador();
 		return col;
@@ -62,8 +59,7 @@ extends CRUDFormController<ReajusteEstoque>{
 		try {
 			currentBean.setDataReajuste(subView.getDataReajuste().getValue());
 			currentBean.setPorcentagem(new BigDecimal(subView.getPorcentagem().getValue()));
-			currentBean.setTipo(((TipoReajuste)subView.getCmbTipoReajuste()
-					.getValue()).getCodigo());
+			currentBean.setTipo(((TipoReajuste) subView.getCmbTipoReajuste().getValue()).getCodigo());
 			currentBean.setColaborador(buscaColaborador());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -80,7 +76,7 @@ extends CRUDFormController<ReajusteEstoque>{
 		subView.carregarTipoReajuste();
 		subView.getDataReajuste().setValue(currentBean.getDataReajuste());
 		subView.getPorcentagem().setValue(currentBean.getPorcentagem().toString());
-	   subView.preencherDetalhesSubForm(currentBean.getDetalhes());
+		subView.preencherDetalhesSubForm(currentBean.getDetalhes());
 		subView.carregarView(currentBean);
 		System.out.println("");
 	}
@@ -105,20 +101,17 @@ extends CRUDFormController<ReajusteEstoque>{
 	protected boolean validaSalvar() {
 		boolean valido = true;
 		if (!Validator.validateObject(subView.getPorcentagem().getValue())) {
-			adicionarErroDeValidacao(subView.getPorcentagem(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getPorcentagem(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getCmbTipoReajuste().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTipoReajuste(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoReajuste(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateNumber(subView.getPorcentagem().getValue())) {
-			adicionarErroDeValidacao(subView.getPorcentagem(),
-					"Valor Inválido");
+			adicionarErroDeValidacao(subView.getPorcentagem(), "Valor Inválido");
 			valido = false;
 		}
 		return valido;
@@ -126,15 +119,15 @@ extends CRUDFormController<ReajusteEstoque>{
 
 	@Override
 	protected void quandoNovo() {
-       subView.preencherDetalhesSubForm(currentBean.getDetalhes());
+		subView.preencherDetalhesSubForm(currentBean.getDetalhes());
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		try{
+		try {
 			dao.deleteAllByIds(ids);
 			mensagemRemovidoOK();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -145,20 +138,26 @@ extends CRUDFormController<ReajusteEstoque>{
 		// TODO Auto-generated method stub
 		remover(objetos);
 	}
-	
-	public ReajusteEstoqueDetalhe novoDetalhe(){
+
+	public ReajusteEstoqueDetalhe novoDetalhe() {
 		ReajusteEstoqueDetalhe detalhe = new ReajusteEstoqueDetalhe();
 		currentBean.addDetalhe(detalhe);
 		return detalhe;
 	}
-	
+
 	public List<Produto> buscarProdutos() {
 		return produtoDAO.getAll(Produto.class);
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public ReajusteEstoque getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }
