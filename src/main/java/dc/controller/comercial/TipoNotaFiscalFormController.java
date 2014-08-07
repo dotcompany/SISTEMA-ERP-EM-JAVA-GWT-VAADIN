@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.TipoNotaFiscal;
-import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.servicos.util.Validator;
@@ -54,20 +53,20 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
-		
+
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtModelo().setValue(currentBean.getModelo());
 		subView.getTxtSerie().setValue(currentBean.getSerie());
 		subView.getTxtTemplate().setValue(currentBean.getTemplate());
 		subView.getTxtNumeroItens().setValue(currentBean.getNumeroItens().toString());
-		subView.getTxtUltimoImpresso().setValue(currentBean.getUltimoImpresso().toString()); 
+		subView.getTxtUltimoImpresso().setValue(currentBean.getUltimoImpresso().toString());
 	}
 
 	@Override
 	protected void actionSalvar() {
 
-		try{
+		try {
 
 			String nome = subView.getTxtNome().getValue();
 			String descricao = subView.getTxtDescricao().getValue();
@@ -77,7 +76,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 			String numeroItens = subView.getTxtNumeroItens().getValue();
 			String ultimoImpresso = subView.getTxtUltimoImpresso().getValue();
 
-			if(!Validator.validateString(nome)){
+			if (!Validator.validateString(nome)) {
 				throw new ErroValidacaoException("Informe o Nome!");
 			}
 
@@ -87,18 +86,19 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 			currentBean.setSerie(serie);
 			currentBean.setTemplate(template);
 
-			if(Validator.validateString(numeroItens))currentBean.setNumeroItens(new Integer(numeroItens));
-			if(Validator.validateString(ultimoImpresso))currentBean.setUltimoImpresso(new Integer(ultimoImpresso));
+			if (Validator.validateString(numeroItens))
+				currentBean.setNumeroItens(new Integer(numeroItens));
+			if (Validator.validateString(ultimoImpresso))
+				currentBean.setUltimoImpresso(new Integer(ultimoImpresso));
 
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
-		}  catch(ErroValidacaoException e){
-			 mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (ErroValidacaoException e) {
+			mensagemErro(e.montaMensagemErro());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 
@@ -131,6 +131,9 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	}
 
-
+	@Override
+	public TipoNotaFiscal getModelBean() {
+		return currentBean;
+	}
 
 }

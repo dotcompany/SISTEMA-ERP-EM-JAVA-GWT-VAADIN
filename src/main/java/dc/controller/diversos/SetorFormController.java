@@ -36,14 +36,12 @@ public class SetorFormController extends CRUDFormController<Setor> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -117,6 +115,11 @@ public class SetorFormController extends CRUDFormController<Setor> {
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Setor getModelBean() {
+		return currentBean;
 	}
 
 }

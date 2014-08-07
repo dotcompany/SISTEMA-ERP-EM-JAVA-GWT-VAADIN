@@ -18,16 +18,11 @@ import dc.servicos.dao.patrimonio.DocumentoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DocumentoBemFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DocumentoBemFormController extends
-		CRUDFormController<DocumentoBemEntity> {
+public class DocumentoBemFormController extends CRUDFormController<DocumentoBemEntity> {
 
 	/**
 	 * 
@@ -36,9 +31,7 @@ public class DocumentoBemFormController extends
 
 	private DocumentoBemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DocumentoBemDAO pDAO;
@@ -46,9 +39,7 @@ public class DocumentoBemFormController extends
 	@Autowired
 	private BemDAO bDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DocumentoBemEntity pEntity;
 
@@ -218,9 +209,7 @@ public class DocumentoBemFormController extends
 		return "patrimonio_documento_bem_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<BemEntity> bemListarTodos() {
 		List<BemEntity> auxLista = new ArrayList<BemEntity>();
@@ -230,13 +219,17 @@ public class DocumentoBemFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public DocumentoBemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -245,9 +245,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		return "clienteForm";
 	}
 
-	/**
-	 * COMBO
-	 */
+	/** COMBO */
 	public List<String> getClienteGerarFinanceiroType() {
 		try {
 			List<String> siLista = new ArrayList<String>();
@@ -312,6 +310,12 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public Cliente getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

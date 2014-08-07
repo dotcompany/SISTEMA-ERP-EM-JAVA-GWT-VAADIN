@@ -90,7 +90,6 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 		mensagemRemovidoOK();
 	}
 
-	
 	@Override
 	protected boolean validaSalvar() {
 
@@ -100,17 +99,17 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtSiglaDocumento().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtSiglaDocumento(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -122,5 +121,10 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "documentoorigemForm";
+	}
+
+	@Override
+	public DocumentoOrigem getModelBean() {
+		return currentBean;
 	}
 }

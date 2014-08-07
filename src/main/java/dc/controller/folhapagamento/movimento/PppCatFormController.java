@@ -19,11 +19,7 @@ import dc.servicos.dao.folhapagamento.movimento.PppDAO;
 import dc.visao.folhapagamento.movimento.PppCatFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -36,9 +32,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 
 	private PppCatFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PppCatDAO pDAO;
@@ -46,15 +40,11 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 	@Autowired
 	private PppDAO pppDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PppCatEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PppCatFormController() {
 		if (this.pEntity == null) {
@@ -75,10 +65,8 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer numeroCat = Integer.parseInt(this.subView.getTfNumeroCat()
-					.getValue());
-			Date dataAfastamento = this.subView.getPdfDataAfastamento()
-					.getValue();
+			Integer numeroCat = Integer.parseInt(this.subView.getTfNumeroCat().getValue());
+			Date dataAfastamento = this.subView.getPdfDataAfastamento().getValue();
 			Date dataRegistro = this.subView.getPdfDataRegistro().getValue();
 
 			PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
@@ -100,12 +88,9 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 			try {
 				this.pEntity = new PppCatEntity();
 
-				this.subView.getTfNumeroCat().setValue(
-						String.valueOf(this.pEntity.getNumeroCat()));
-				this.subView.getPdfDataAfastamento().setValue(
-						this.pEntity.getDataAfastamento());
-				this.subView.getPdfDataRegistro().setValue(
-						this.pEntity.getDataRegistro());
+				this.subView.getTfNumeroCat().setValue(String.valueOf(this.pEntity.getNumeroCat()));
+				this.subView.getPdfDataAfastamento().setValue(this.pEntity.getDataAfastamento());
+				this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
 
 				this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -123,12 +108,9 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfNumeroCat().setValue(
-					String.valueOf(this.pEntity.getNumeroCat()));
-			this.subView.getPdfDataAfastamento().setValue(
-					this.pEntity.getDataAfastamento());
-			this.subView.getPdfDataRegistro().setValue(
-					this.pEntity.getDataRegistro());
+			this.subView.getTfNumeroCat().setValue(String.valueOf(this.pEntity.getNumeroCat()));
+			this.subView.getPdfDataAfastamento().setValue(this.pEntity.getDataAfastamento());
+			this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -153,12 +135,9 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getTfNumeroCat().setValue(
-					String.valueOf(this.pEntity.getNumeroCat()));
-			this.subView.getPdfDataAfastamento().setValue(
-					this.pEntity.getDataAfastamento());
-			this.subView.getPdfDataRegistro().setValue(
-					this.pEntity.getDataRegistro());
+			this.subView.getTfNumeroCat().setValue(String.valueOf(this.pEntity.getNumeroCat()));
+			this.subView.getPdfDataAfastamento().setValue(this.pEntity.getDataAfastamento());
+			this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -188,12 +167,9 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getTfNumeroCat().setValue(
-					String.valueOf(this.pEntity.getNumeroCat()));
-			this.subView.getPdfDataAfastamento().setValue(
-					this.pEntity.getDataAfastamento());
-			this.subView.getPdfDataRegistro().setValue(
-					this.pEntity.getDataRegistro());
+			this.subView.getTfNumeroCat().setValue(String.valueOf(this.pEntity.getNumeroCat()));
+			this.subView.getPdfDataAfastamento().setValue(this.pEntity.getDataAfastamento());
+			this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -231,8 +207,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 			return false;
 		}
 
-		Object dataAfastamento = this.subView.getPdfDataAfastamento()
-				.getValue();
+		Object dataAfastamento = this.subView.getPdfDataAfastamento().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataAfastamento)) {
 			String msg = "Não pode ficar em branco.";
@@ -275,9 +250,7 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 		return "folhapagamento_movimento_ppp_cat_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<PppEntity> pppListarTodos() {
 		List<PppEntity> auxLista = new ArrayList<PppEntity>();
@@ -287,13 +260,17 @@ public class PppCatFormController extends CRUDFormController<PppCatEntity> {
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public PppCatEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

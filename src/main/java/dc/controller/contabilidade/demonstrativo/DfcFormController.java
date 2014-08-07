@@ -15,11 +15,7 @@ import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
 import dc.visao.contabilidade.demonstrativo.DfcFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -32,22 +28,16 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 
 	private DfcFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DfcDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DfcEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DfcFormController() {
 		if (this.pEntity == null) {
@@ -153,22 +143,16 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -191,6 +175,12 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public DfcEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

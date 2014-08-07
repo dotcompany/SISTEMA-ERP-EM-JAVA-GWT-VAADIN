@@ -16,16 +16,11 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.TipoMovimentacaoFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class TipoMovimentacaoFormController extends
-		CRUDFormController<TipoMovimentacaoEntity> {
+public class TipoMovimentacaoFormController extends CRUDFormController<TipoMovimentacaoEntity> {
 
 	/**
 	 * 
@@ -34,16 +29,12 @@ public class TipoMovimentacaoFormController extends
 
 	private TipoMovimentacaoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private TipoMovimentacaoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private TipoMovimentacaoEntity pEntity;
 
@@ -74,18 +65,13 @@ public class TipoMovimentacaoFormController extends
 			this.pEntity.setNome(nome);
 			this.pEntity.setDescricao(descricao);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -190,17 +176,19 @@ public class TipoMovimentacaoFormController extends
 		return "patrimonio_tipo_movimentacao_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public TipoMovimentacaoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

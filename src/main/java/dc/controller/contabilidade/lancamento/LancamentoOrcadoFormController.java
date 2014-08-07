@@ -20,16 +20,11 @@ import dc.visao.contabilidade.lancamento.LancamentoOrcadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoOrcadoFormController extends
-		CRUDFormController<LancamentoOrcadoEntity> {
+public class LancamentoOrcadoFormController extends CRUDFormController<LancamentoOrcadoEntity> {
 
 	/**
 	 * 
@@ -38,9 +33,7 @@ public class LancamentoOrcadoFormController extends
 
 	private LancamentoOrcadoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoOrcadoDAO pDAO;
@@ -48,15 +41,11 @@ public class LancamentoOrcadoFormController extends
 	@Autowired
 	private ContaDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoOrcadoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoOrcadoFormController() {
 		if (this.pEntity == null) {
@@ -78,30 +67,18 @@ public class LancamentoOrcadoFormController extends
 	protected void actionSalvar() {
 		try {
 			String ano = this.subView.getTfAno().getValue();
-			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro()
-					.getValue());
-			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro()
-					.getValue());
-			Double marco = Double.parseDouble(this.subView.getTfMarco()
-					.getValue());
-			Double abril = Double.parseDouble(this.subView.getTfAbril()
-					.getValue());
-			Double maio = Double.parseDouble(this.subView.getTfMaio()
-					.getValue());
-			Double junho = Double.parseDouble(this.subView.getTfJunho()
-					.getValue());
-			Double julho = Double.parseDouble(this.subView.getTfJulho()
-					.getValue());
-			Double agosto = Double.parseDouble(this.subView.getTfAgosto()
-					.getValue());
-			Double setembro = Double.parseDouble(this.subView.getTfSetembro()
-					.getValue());
-			Double outubro = Double.parseDouble(this.subView.getTfOutubro()
-					.getValue());
-			Double novembro = Double.parseDouble(this.subView.getTfNovembro()
-					.getValue());
-			Double dezembro = Double.parseDouble(this.subView.getTfDezembro()
-					.getValue());
+			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro().getValue());
+			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro().getValue());
+			Double marco = Double.parseDouble(this.subView.getTfMarco().getValue());
+			Double abril = Double.parseDouble(this.subView.getTfAbril().getValue());
+			Double maio = Double.parseDouble(this.subView.getTfMaio().getValue());
+			Double junho = Double.parseDouble(this.subView.getTfJunho().getValue());
+			Double julho = Double.parseDouble(this.subView.getTfJulho().getValue());
+			Double agosto = Double.parseDouble(this.subView.getTfAgosto().getValue());
+			Double setembro = Double.parseDouble(this.subView.getTfSetembro().getValue());
+			Double outubro = Double.parseDouble(this.subView.getTfOutubro().getValue());
+			Double novembro = Double.parseDouble(this.subView.getTfNovembro().getValue());
+			Double dezembro = Double.parseDouble(this.subView.getTfDezembro().getValue());
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
 
@@ -309,9 +286,7 @@ public class LancamentoOrcadoFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
@@ -342,14 +317,11 @@ public class LancamentoOrcadoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<ContaEntity> model = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model);
@@ -358,18 +330,14 @@ public class LancamentoOrcadoFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -384,33 +352,27 @@ public class LancamentoOrcadoFormController extends
 			}
 
 			this.subView.getTfAno().setValue(this.pEntity.getAno());
-			this.subView.getTfJaneiro().setValue(
-					this.pEntity.getJaneiro().toString());
-			this.subView.getTfFevereiro().setValue(
-					this.pEntity.getFevereiro().toString());
-			this.subView.getTfMarco().setValue(
-					this.pEntity.getMarco().toString());
-			this.subView.getTfAbril().setValue(
-					this.pEntity.getAbril().toString());
-			this.subView.getTfMaio()
-					.setValue(this.pEntity.getMaio().toString());
-			this.subView.getTfJunho().setValue(
-					this.pEntity.getJunho().toString());
-			this.subView.getTfJulho().setValue(
-					this.pEntity.getJulho().toString());
-			this.subView.getTfAgosto().setValue(
-					this.pEntity.getAgosto().toString());
-			this.subView.getTfSetembro().setValue(
-					this.pEntity.getSetembro().toString());
-			this.subView.getTfOutubro().setValue(
-					this.pEntity.getOutubro().toString());
-			this.subView.getTfNovembro().setValue(
-					this.pEntity.getNovembro().toString());
-			this.subView.getTfDezembro().setValue(
-					this.pEntity.getDezembro().toString());
+			this.subView.getTfJaneiro().setValue(this.pEntity.getJaneiro().toString());
+			this.subView.getTfFevereiro().setValue(this.pEntity.getFevereiro().toString());
+			this.subView.getTfMarco().setValue(this.pEntity.getMarco().toString());
+			this.subView.getTfAbril().setValue(this.pEntity.getAbril().toString());
+			this.subView.getTfMaio().setValue(this.pEntity.getMaio().toString());
+			this.subView.getTfJunho().setValue(this.pEntity.getJunho().toString());
+			this.subView.getTfJulho().setValue(this.pEntity.getJulho().toString());
+			this.subView.getTfAgosto().setValue(this.pEntity.getAgosto().toString());
+			this.subView.getTfSetembro().setValue(this.pEntity.getSetembro().toString());
+			this.subView.getTfOutubro().setValue(this.pEntity.getOutubro().toString());
+			this.subView.getTfNovembro().setValue(this.pEntity.getNovembro().toString());
+			this.subView.getTfDezembro().setValue(this.pEntity.getDezembro().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoOrcadoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

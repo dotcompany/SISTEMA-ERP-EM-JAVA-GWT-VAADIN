@@ -21,11 +21,7 @@ import dc.visao.contabilidade.cadastro.IndiceFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -38,9 +34,7 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 
 	private IndiceFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private IndiceDAO pDAO;
@@ -48,15 +42,11 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	@Autowired
 	private IndiceEconomicoDAO ieDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private IndiceEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public IndiceFormController() {
 		if (this.pEntity == null) {
@@ -78,12 +68,10 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	protected void actionSalvar() {
 		try {
 			String periocidade = this.subView.getTfPeriodicidade().getValue();
-			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe()
-					.getValue();
+			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe().getValue();
 			String mensalMesAno = this.subView.getTfMensalMesAno().getValue();
 
-			IndiceEconomicoEntity indiceEconomico = this.subView
-					.getCbIndiceEconomico().getValue();
+			IndiceEconomicoEntity indiceEconomico = this.subView.getCbIndiceEconomico().getValue();
 
 			this.pEntity.setPeriodicidade(periocidade);
 			this.pEntity.setDiarioPartirDe(diarioPartirDe);
@@ -169,12 +157,9 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		IndiceEconomicoEntity indiceEconomico = this.subView
-				.getCbIndiceEconomico().getValue();
+		IndiceEconomicoEntity indiceEconomico = this.subView.getCbIndiceEconomico().getValue();
 
 		if (!ObjectValidator.validateObject(indiceEconomico)) {
 			String msg = "Não pode ficar em branco.";
@@ -203,40 +188,33 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<IndiceEconomicoEntity> model = new DefaultManyToOneComboModel<IndiceEconomicoEntity>(
-					IndiceEconomicoListController.class, this.ieDAO,
-					super.getMainController()) {
+					IndiceEconomicoListController.class, this.ieDAO, super.getMainController()) {
 
 				@Override
 				public String getCaptionProperty() {
 					return "nome";
 				}
 			};
-				
+
 			this.subView.getCbIndiceEconomico().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -248,19 +226,20 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbIndiceEconomico().setValue(
-						this.pEntity.getIndiceEconomico());
+				this.subView.getCbIndiceEconomico().setValue(this.pEntity.getIndiceEconomico());
 			}
 
-			this.subView.getTfPeriodicidade().setValue(
-					this.pEntity.getPeriodicidade());
-			this.subView.getPdfDiarioPartirDe().setValue(
-					this.pEntity.getDiarioPartirDe());
-			this.subView.getTfMensalMesAno().setValue(
-					this.pEntity.getMensalMesAno());
+			this.subView.getTfPeriodicidade().setValue(this.pEntity.getPeriodicidade());
+			this.subView.getPdfDiarioPartirDe().setValue(this.pEntity.getDiarioPartirDe());
+			this.subView.getTfMensalMesAno().setValue(this.pEntity.getMensalMesAno());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public IndiceEntity getModelBean() {
+		return pEntity;
 	}
 
 }

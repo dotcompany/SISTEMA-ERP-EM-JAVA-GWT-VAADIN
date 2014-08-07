@@ -18,7 +18,7 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
+public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,8 +44,8 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 		try {
 
 			boolean valido = validaSalvar();
-			
-			if(valido) {
+
+			if (valido) {
 				currentBean.setLimparBdAut(Boolean.valueOf(subView.getCbLimparBD().getValue().toString()));
 				currentBean.setVendedorProduto(Boolean.valueOf(subView.getCbVendedorProduto().getValue().toString()));
 				currentBean.setValorPagoPeca(Boolean.valueOf(subView.getCbValorPagoPeca().getValue().toString()));
@@ -62,9 +62,8 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 				currentBean.setObsPadraoOsSimples(subView.getTaObsPadraoSimpes().getValue());
 				currentBean.setObsPadrao(subView.getTaObsPadrao().getValue());
 				currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-				
 
-				System.out.println("Vai salvar: "+currentBean.getLimparBdAut());
+				System.out.println("Vai salvar: " + currentBean.getLimparBdAut());
 				dao.saveOrUpdate(currentBean);
 				notifiyFrameworkSaveOK(this.currentBean);
 
@@ -74,16 +73,15 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 		}
 	}
 
-
-
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find((Integer) id);
-		
+
 		subView.getCbLimparBD().setValue(currentBean.getLimparBdAut());
 		subView.getCbVendedorProduto().setValue(currentBean.getVendedorProduto());
 		subView.getCbValorPagoPeca().setValue(currentBean.getValorPagoPeca());
-		subView.getCbDesconto().setValue(currentBean.getDescontoGeral());;
+		subView.getCbDesconto().setValue(currentBean.getDescontoGeral());
+		;
 		subView.getCbTecnicoProduto().setValue(currentBean.getTecnicoProduto());
 		subView.getCbVendedorAtendente().setValue(currentBean.getVendedorAtendente());
 		subView.getCbVendedorServico().setValue(currentBean.getVendedorServico());
@@ -97,7 +95,6 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 		subView.getTaObsPadrao().setValue(currentBean.getObsPadrao());
 	}
 
-	
 	@Override
 	protected void initSubView() {
 		subView = new ParametroOsFormView(this);
@@ -117,7 +114,7 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 	@Override
 	protected boolean validaSalvar() {
 		System.out.println("Chegou no valida salvar");
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateObject(subView.getCbLimparBD().getValue())) {
@@ -175,11 +172,16 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs>{
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-}
+	@Override
+	public ParametroOs getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
 
+}

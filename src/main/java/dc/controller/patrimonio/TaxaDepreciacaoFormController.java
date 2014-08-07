@@ -15,16 +15,11 @@ import dc.servicos.dao.patrimonio.TaxaDepreciacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.TaxaDepreciacaoFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class TaxaDepreciacaoFormController extends
-		CRUDFormController<TaxaDepreciacaoEntity> {
+public class TaxaDepreciacaoFormController extends CRUDFormController<TaxaDepreciacaoEntity> {
 
 	/**
 	 * 
@@ -33,22 +28,16 @@ public class TaxaDepreciacaoFormController extends
 
 	private TaxaDepreciacaoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private TaxaDepreciacaoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private TaxaDepreciacaoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public TaxaDepreciacaoFormController() {
 		if (this.pEntity == null) {
@@ -71,10 +60,8 @@ public class TaxaDepreciacaoFormController extends
 		try {
 			String ncm = this.subView.getTfNcm().getValue();
 			String bem = this.subView.getTfBem().getValue();
-			Double vida = Double.parseDouble(this.subView.getTfVida()
-					.getValue());
-			Double taxa = Double.parseDouble(this.subView.getTfTaxa()
-					.getValue());
+			Double vida = Double.parseDouble(this.subView.getTfVida().getValue());
+			Double taxa = Double.parseDouble(this.subView.getTfTaxa().getValue());
 
 			this.pEntity.setNcm(ncm);
 			this.pEntity.setBem(bem);
@@ -93,10 +80,8 @@ public class TaxaDepreciacaoFormController extends
 
 			this.subView.getTfNcm().setValue(this.pEntity.getNcm());
 			this.subView.getTfBem().setValue(this.pEntity.getBem());
-			this.subView.getTfVida().setValue(
-					String.valueOf(this.pEntity.getVida()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfVida().setValue(String.valueOf(this.pEntity.getVida()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		}
 	}
 
@@ -107,10 +92,8 @@ public class TaxaDepreciacaoFormController extends
 
 			this.subView.getTfNcm().setValue(this.pEntity.getNcm());
 			this.subView.getTfBem().setValue(this.pEntity.getBem());
-			this.subView.getTfVida().setValue(
-					String.valueOf(this.pEntity.getVida()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfVida().setValue(String.valueOf(this.pEntity.getVida()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -129,10 +112,8 @@ public class TaxaDepreciacaoFormController extends
 
 			this.subView.getTfNcm().setValue(this.pEntity.getNcm());
 			this.subView.getTfBem().setValue(this.pEntity.getBem());
-			this.subView.getTfVida().setValue(
-					String.valueOf(this.pEntity.getVida()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfVida().setValue(String.valueOf(this.pEntity.getVida()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -155,10 +136,8 @@ public class TaxaDepreciacaoFormController extends
 
 		this.subView.getTfNcm().setValue(this.pEntity.getNcm());
 		this.subView.getTfBem().setValue(this.pEntity.getBem());
-		this.subView.getTfVida().setValue(
-				String.valueOf(this.pEntity.getVida()));
-		this.subView.getTfTaxa().setValue(
-				String.valueOf(this.pEntity.getTaxa()));
+		this.subView.getTfVida().setValue(String.valueOf(this.pEntity.getVida()));
+		this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 	}
 
 	@Override
@@ -204,13 +183,17 @@ public class TaxaDepreciacaoFormController extends
 		return "patrimonio_taxa_depreciacao_fc";
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public TaxaDepreciacaoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

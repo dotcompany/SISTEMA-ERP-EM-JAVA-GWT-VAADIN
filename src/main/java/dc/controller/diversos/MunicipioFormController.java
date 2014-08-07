@@ -36,8 +36,7 @@ public class MunicipioFormController extends CRUDFormController<Municipio> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -109,6 +108,11 @@ public class MunicipioFormController extends CRUDFormController<Municipio> {
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Municipio getModelBean() {
+		return currentBean;
 	}
 
 }

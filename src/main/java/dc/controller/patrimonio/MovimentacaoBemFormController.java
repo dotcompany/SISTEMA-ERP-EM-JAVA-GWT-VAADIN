@@ -21,16 +21,11 @@ import dc.servicos.dao.patrimonio.TipoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.MovimentacaoBemFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class MovimentacaoBemFormController extends
-		CRUDFormController<MovimentacaoBemEntity> {
+public class MovimentacaoBemFormController extends CRUDFormController<MovimentacaoBemEntity> {
 
 	/**
 	 * 
@@ -39,9 +34,7 @@ public class MovimentacaoBemFormController extends
 
 	private MovimentacaoBemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private MovimentacaoBemDAO pDAO;
@@ -52,9 +45,7 @@ public class MovimentacaoBemFormController extends
 	@Autowired
 	private TipoMovimentacaoDAO tmDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private MovimentacaoBemEntity pEntity;
 
@@ -77,13 +68,11 @@ public class MovimentacaoBemFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Date dataMovimentacao = this.subView.getPdfDataMovimentacao()
-					.getValue();
+			Date dataMovimentacao = this.subView.getPdfDataMovimentacao().getValue();
 			String responsavel = this.subView.getTfResponsavel().getValue();
 
 			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
-			TipoMovimentacaoEntity tipoMovimentacao = (TipoMovimentacaoEntity) this.subView
-					.getCbTipoMovimentacao().getValue();
+			TipoMovimentacaoEntity tipoMovimentacao = (TipoMovimentacaoEntity) this.subView.getCbTipoMovimentacao().getValue();
 
 			this.pEntity.setDataMovimentacao(dataMovimentacao);
 			this.pEntity.setResponsavel(responsavel);
@@ -101,18 +90,14 @@ public class MovimentacaoBemFormController extends
 		} finally {
 			this.pEntity = new MovimentacaoBemEntity();
 
-			this.subView.getPdfDataMovimentacao().setValue(
-					this.pEntity.getDataMovimentacao());
-			this.subView.getTfResponsavel().setValue(
-					this.pEntity.getResponsavel());
+			this.subView.getPdfDataMovimentacao().setValue(this.pEntity.getDataMovimentacao());
+			this.subView.getTfResponsavel().setValue(this.pEntity.getResponsavel());
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbTipoMovimentacao(this
-					.tipoMovimentacaoListarTodos());
+			this.subView.carregarCmbTipoMovimentacao(this.tipoMovimentacaoListarTodos());
 
 			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbTipoMovimentacao().setValue(
-					this.pEntity.getTipoMovimentacao());
+			this.subView.getCbTipoMovimentacao().setValue(this.pEntity.getTipoMovimentacao());
 		}
 	}
 
@@ -122,17 +107,13 @@ public class MovimentacaoBemFormController extends
 			this.pEntity = this.pDAO.find(id);
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbTipoMovimentacao(this
-					.tipoMovimentacaoListarTodos());
+			this.subView.carregarCmbTipoMovimentacao(this.tipoMovimentacaoListarTodos());
 
-			this.subView.getPdfDataMovimentacao().setValue(
-					this.pEntity.getDataMovimentacao());
-			this.subView.getTfResponsavel().setValue(
-					this.pEntity.getResponsavel());
+			this.subView.getPdfDataMovimentacao().setValue(this.pEntity.getDataMovimentacao());
+			this.subView.getTfResponsavel().setValue(this.pEntity.getResponsavel());
 
 			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbTipoMovimentacao().setValue(
-					this.pEntity.getTipoMovimentacao());
+			this.subView.getCbTipoMovimentacao().setValue(this.pEntity.getTipoMovimentacao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -157,18 +138,14 @@ public class MovimentacaoBemFormController extends
 				this.tmDAO = new TipoMovimentacaoDAO();
 			}
 
-			this.subView.getPdfDataMovimentacao().setValue(
-					this.pEntity.getDataMovimentacao());
-			this.subView.getTfResponsavel().setValue(
-					this.pEntity.getResponsavel());
+			this.subView.getPdfDataMovimentacao().setValue(this.pEntity.getDataMovimentacao());
+			this.subView.getTfResponsavel().setValue(this.pEntity.getResponsavel());
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbTipoMovimentacao(this
-					.tipoMovimentacaoListarTodos());
+			this.subView.carregarCmbTipoMovimentacao(this.tipoMovimentacaoListarTodos());
 
 			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbTipoMovimentacao().setValue(
-					this.pEntity.getTipoMovimentacao());
+			this.subView.getCbTipoMovimentacao().setValue(this.pEntity.getTipoMovimentacao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -198,18 +175,14 @@ public class MovimentacaoBemFormController extends
 				this.tmDAO = new TipoMovimentacaoDAO();
 			}
 
-			this.subView.getPdfDataMovimentacao().setValue(
-					this.pEntity.getDataMovimentacao());
-			this.subView.getTfResponsavel().setValue(
-					this.pEntity.getResponsavel());
+			this.subView.getPdfDataMovimentacao().setValue(this.pEntity.getDataMovimentacao());
+			this.subView.getTfResponsavel().setValue(this.pEntity.getResponsavel());
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
-			this.subView.carregarCmbTipoMovimentacao(this
-					.tipoMovimentacaoListarTodos());
+			this.subView.carregarCmbTipoMovimentacao(this.tipoMovimentacaoListarTodos());
 
 			this.subView.getCbBem().setValue(this.pEntity.getBem());
-			this.subView.getCbTipoMovimentacao().setValue(
-					this.pEntity.getTipoMovimentacao());
+			this.subView.getCbTipoMovimentacao().setValue(this.pEntity.getTipoMovimentacao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -233,8 +206,7 @@ public class MovimentacaoBemFormController extends
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		Object dataMovimentacao = this.subView.getPdfDataMovimentacao()
-				.getValue();
+		Object dataMovimentacao = this.subView.getPdfDataMovimentacao().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataMovimentacao)) {
 			String msg = "Não pode ficar em branco.";
@@ -256,8 +228,7 @@ public class MovimentacaoBemFormController extends
 			return false;
 		}
 
-		TipoMovimentacaoEntity tipoMovimentacao = (TipoMovimentacaoEntity) this.subView
-				.getCbTipoMovimentacao().getValue();
+		TipoMovimentacaoEntity tipoMovimentacao = (TipoMovimentacaoEntity) this.subView.getCbTipoMovimentacao().getValue();
 
 		if (!ObjectValidator.validateObject(tipoMovimentacao)) {
 			String msg = "Não pode ficar em branco.";
@@ -280,9 +251,7 @@ public class MovimentacaoBemFormController extends
 		return "patrimonio_movimentacao_bem_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<BemEntity> bemListarTodos() {
 		List<BemEntity> auxLista = new ArrayList<BemEntity>();
@@ -300,13 +269,17 @@ public class MovimentacaoBemFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public MovimentacaoBemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

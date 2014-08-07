@@ -14,16 +14,11 @@ import dc.servicos.dao.nfe.NfeDestinatarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NfeDestinatarioFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class NfeDestinatarioFormController extends
-		CRUDFormController<NfeDestinatarioEntity> {
+public class NfeDestinatarioFormController extends CRUDFormController<NfeDestinatarioEntity> {
 
 	/**
 	 * 
@@ -38,27 +33,20 @@ public class NfeDestinatarioFormController extends
 		return nfeCabecalhoFormController;
 	}
 
-	public void setNfeCabecalhoFormController(
-			NfeCabecalhoFormController nfeCabecalhoFormController) {
+	public void setNfeCabecalhoFormController(NfeCabecalhoFormController nfeCabecalhoFormController) {
 		this.nfeCabecalhoFormController = nfeCabecalhoFormController;
 	}
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private NfeDestinatarioDAO nfeDestinatarioDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private NfeDestinatarioEntity nfeDestinatario;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public NfeDestinatarioFormController() {
 		// this.ndiCofins = ndiCofins;
@@ -135,22 +123,16 @@ public class NfeDestinatarioFormController extends
 		return "";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -160,21 +142,22 @@ public class NfeDestinatarioFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
-	/**
-	 * SETAR VALORES
+	/** SETAR VALORES
 	 * 
 	 * @param id
-	 * @param event
-	 */
+	 * @param event */
 
 	public void nfeDestinatarioSetarValor(String id, Object obj) {
-		System.out.println(" ::::::: "
-				+ this.getNfeCabecalhoFormController().validaSalvar());
+		System.out.println(" ::::::: " + this.getNfeCabecalhoFormController().validaSalvar());
 		System.out.println();
+	}
+
+	@Override
+	public NfeDestinatarioEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return nfeDestinatario;
 	}
 
 }

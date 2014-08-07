@@ -45,7 +45,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Autowired
 	private DocumentoDAO documentoDAO;
-	
+
 	@Autowired
 	private MainController mainController;
 
@@ -56,7 +56,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	private ColaboradorDAO colaboradorDAO;
 
 	private Documento currentBean;
-	
+
 	@Autowired
 	private CompanyFileHandler companyFileHandler;
 
@@ -91,7 +91,6 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 			valido = false;
 		}
 
-
 		if (subView.getCkbAssinado().getValue()) {
 			File arquivoCertificado = (File) subView.getUpAssinatura().getValue();
 			if (!Validator.validateObject(arquivoCertificado) || !arquivoCertificado.exists()) {
@@ -119,22 +118,22 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		subView.setIdEmpresa(getIDEmpresa());
 		subView.setListArquivos(new ArrayList<String>());
 	}
-	
+
 	public String getIDEmpresa() {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Empresa empresa = usuario.getConta().getEmpresa();
 		return empresa.getId().toString();
-		
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new DocumentoFormView();
 		companyFileHandler = new CompanyFileHandler();
-		DefaultManyToOneComboModel<TipoDocumento> model= new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class,tipoDocumentoDAO,mainController);
+		DefaultManyToOneComboModel<TipoDocumento> model = new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class,
+				tipoDocumentoDAO, mainController);
 		subView.getCmbTipoDocumento().setModel(model);
-		
+
 	}
 
 	@Override
@@ -148,22 +147,20 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		subView.getCkbPodeExcluir().setValue(currentBean.getPodeExcluir());
 		subView.getCkbAssinado().setValue(currentBean.getAssinado());
 		subView.setListArquivos(new ArrayList<String>());
-		
+
 		List<DocumentoArquivo> listArquivos = currentBean.getDocumentos();
-		
-	    subView.setIdDocumento(currentBean.getId().toString());
-		
+
+		subView.setIdDocumento(currentBean.getId().toString());
+
 		subView.setIdEmpresa(getIDEmpresa());
-		
-		for(int i = 0; i < listArquivos.size(); i++){
+
+		for (int i = 0; i < listArquivos.size(); i++) {
 			String arquivo = listArquivos.get(i).getCaminho();
-			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i+1));
+			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i + 1));
 		}
-	
-		
+
 		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());
-		
-	
+
 	}
 
 	@Override
@@ -179,15 +176,15 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		currentBean.setAssinado(false);
 
 		try {
-			
+
 			Integer id = currentBean.getId();
-			if(id == null){
+			if (id == null) {
 				id = new Integer(0);
 			}
-			
+
 			documentoDAO.saveOrUpdate(currentBean);
-		   	gravarAnexo(currentBean);
-					
+			gravarAnexo(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -201,92 +198,84 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		String caminho = null;
 		String hash = null;
 		List<String> listArquivos = subView.getListArquivos();
-		
-		
-		for(int i = 0 ; i < listArquivos.size(); i++){
+
+		for (int i = 0; i < listArquivos.size(); i++) {
 			String file = listArquivos.get(i);
-			
+
 			tmpFile = new File(file);
-			
-			try{hash = Util.md5Arquivo(tmpFile.getAbsolutePath());}catch(Exception e){
+
+			try {
+				hash = Util.md5Arquivo(tmpFile.getAbsolutePath());
+			} catch (Exception e) {
 				hash = "0";
 			}
-			
-			if(file.indexOf(hash) == -1 && !hash.equals("0")){
-					
-					byte[] temp = Util.lerBytesArquivo(tmpFile);
-					
-					String homePath = System.getProperty("user.home");
-					String customCompanyBaseFolder = "dc-erp";
-					String arqOriginal =  file;
-					
-					String copyArquivo = homePath + "/"+ customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() +  "/" + documento.getId() + "/" + file;
-					
-					caminho = homePath + "/"+ customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() +  "/" + documento.getId() + "/" +  hash + getExtensao(file);
-					
-					Util.copyFile(new File(arqOriginal), new File(caminho));
-		
-					File arquivo = Util.gravarArquivo(caminho, temp);
-		
-					if (arquivo != null && arquivo.exists()) {
-		
-						if (currentBean.getAssinado()) {
-							File certificado = (File) subView.getUpAssinatura().getValue();
-							byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, subView
-									.getPwSenhaCertificado().getValue().toCharArray());
-							// usa o array de bytes e salva
-							Util.gravarArquivo(hash, assinatura);
-						}
-					}
-		
-					DocumentoArquivo doc = new DocumentoArquivo();
-					doc.setCaminho(caminho);
-					doc.setHash(hash);
-					doc.setExtensaoArquivo(getExtensao(caminho));
-		
-					doc.setDocumento(currentBean);
-					currentBean.getDocumentos().add(doc);
-		
-					VersaoDocumento versao = verificaVersao(doc);
-					if(versao != null)
-					   documentoDAO.saveOrUpdate(versao);
-					try {
-						tmpFile.delete();
-				
-					} catch (Exception e) {
-					}
-			}
-		}
-		
-		
-	/*
-		List<DocumentoArquivo> list = documento.getDocumentos();
-		for(int i = 0 ; i < list.size(); i++){
-			try{
-				DocumentoArquivo documentoArquivo = list.get(i);
-				String hashArq = documentoArquivo.getHash();
-				boolean bAchou = false;
-				for(int j = 0 ; j < listArquivos.size(); j++){
-					String file = listArquivos.get(i);
-					
-					tmpFile = new File(file);
-					
-					try{hash = Util.md5Arquivo(tmpFile.getAbsolutePath());}catch(Exception e){
-						hash = "0";
-					}
-					
-					if(file.indexOf(hashArq) != -1){
-						bAchou = true;
+
+			if (file.indexOf(hash) == -1 && !hash.equals("0")) {
+
+				byte[] temp = Util.lerBytesArquivo(tmpFile);
+
+				String homePath = System.getProperty("user.home");
+				String customCompanyBaseFolder = "dc-erp";
+				String arqOriginal = file;
+
+				String copyArquivo = homePath + "/" + customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() + "/" + documento.getId()
+						+ "/" + file;
+
+				caminho = homePath + "/" + customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() + "/" + documento.getId() + "/" + hash
+						+ getExtensao(file);
+
+				Util.copyFile(new File(arqOriginal), new File(caminho));
+
+				File arquivo = Util.gravarArquivo(caminho, temp);
+
+				if (arquivo != null && arquivo.exists()) {
+
+					if (currentBean.getAssinado()) {
+						File certificado = (File) subView.getUpAssinatura().getValue();
+						byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, subView.getPwSenhaCertificado()
+								.getValue().toCharArray());
+						// usa o array de bytes e salva
+						Util.gravarArquivo(hash, assinatura);
 					}
 				}
-				
-				if(!bAchou)
-				    documentoDAO.deleteDocumentoArquivo(documentoArquivo);
-			}catch(Exception e){}
+
+				DocumentoArquivo doc = new DocumentoArquivo();
+				doc.setCaminho(caminho);
+				doc.setHash(hash);
+				doc.setExtensaoArquivo(getExtensao(caminho));
+
+				doc.setDocumento(currentBean);
+				currentBean.getDocumentos().add(doc);
+
+				VersaoDocumento versao = verificaVersao(doc);
+				if (versao != null)
+					documentoDAO.saveOrUpdate(versao);
+				try {
+					tmpFile.delete();
+
+				} catch (Exception e) {
+				}
+			}
 		}
-		
-*/
-		
+
+		/*
+		 * List<DocumentoArquivo> list = documento.getDocumentos(); for(int i =
+		 * 0 ; i < list.size(); i++){ try{ DocumentoArquivo documentoArquivo =
+		 * list.get(i); String hashArq = documentoArquivo.getHash(); boolean
+		 * bAchou = false; for(int j = 0 ; j < listArquivos.size(); j++){ String
+		 * file = listArquivos.get(i);
+		 * 
+		 * tmpFile = new File(file);
+		 * 
+		 * try{hash =
+		 * Util.md5Arquivo(tmpFile.getAbsolutePath());}catch(Exception e){ hash
+		 * = "0"; }
+		 * 
+		 * if(file.indexOf(hashArq) != -1){ bAchou = true; } }
+		 * 
+		 * if(!bAchou) documentoDAO.deleteDocumentoArquivo(documentoArquivo);
+		 * }catch(Exception e){} }
+		 */
 
 	}
 
@@ -303,7 +292,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 			DocumentoArquivo arquivoOriginal = original.getDocumentos().iterator().next();
 
-		     if (!arquivoOriginal.getHash().equals(doc.getHash())) {
+			if (!arquivoOriginal.getHash().equals(doc.getHash())) {
 
 				versao = new VersaoDocumento();
 				versao.setAcao(acao);
@@ -391,5 +380,11 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "documentoForm";
+	}
+
+	@Override
+	public Documento getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 }

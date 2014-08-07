@@ -108,4 +108,9 @@ public class PlanoContaFormController extends CRUDFormController<PlanoConta> {
 		// TODO Auto-generated method stub
 		return "planoContaForm";
 	}
+
+	@Override
+	public PlanoConta getModelBean() {
+		return currentBean;
+	}
 }

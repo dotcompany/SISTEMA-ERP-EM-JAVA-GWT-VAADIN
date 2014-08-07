@@ -14,11 +14,7 @@ import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.ServicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -31,22 +27,16 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 
 	private ServicoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private ServicoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private ServicoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public ServicoFormController() {
 		if (this.pEntity == null) {
@@ -160,22 +150,16 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 		return "folhapagamento_inss_servico_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -190,6 +174,12 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ServicoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

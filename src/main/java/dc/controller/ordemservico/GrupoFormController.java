@@ -9,16 +9,13 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.Grupo;
+import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.GrupoFormView;
-import dc.entidade.ordemservico.Grupo;
-import dc.servicos.dao.ordemservico.GrupoDAO;
 
-/**
-*
-* @author Paulo Sérgio
-*/ 
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -27,12 +24,12 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 	private static final long serialVersionUID = 1L;
 
 	GrupoFormView subView;
-	
+
 	@Autowired
 	GrupoDAO grupoDAO;
-	
+
 	private Grupo currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Grupo";
@@ -43,28 +40,31 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
-		try{
+		try {
 			grupoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = grupoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -72,7 +72,10 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 		subView = new GrupoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Grupo();
@@ -80,21 +83,21 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 grupoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		grupoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -106,4 +109,10 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 	public String getViewIdentifier() {
 		return "corForm";
 	}
-} 
+
+	@Override
+	public Grupo getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

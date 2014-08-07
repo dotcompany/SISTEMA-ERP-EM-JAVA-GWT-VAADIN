@@ -12,7 +12,6 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ParcelaCondicaoPagamento;
-import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.ParcelaDAO;
@@ -70,32 +69,32 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 
-		if(faturamentoMinimo!=null){
+		if (faturamentoMinimo != null) {
 			subView.getTxtFaturamentoMinimo().setValue(faturamentoMinimo.toString());
 		}
 
-		if(faturamentoMaximo!=null){
+		if (faturamentoMaximo != null) {
 			subView.getTxtFaturamentoMaximo().setValue(faturamentoMaximo.toString());
 		}
 
-		if(indiceCorrecao!=null){
+		if (indiceCorrecao != null) {
 			subView.getTxtIndiceCorrecao().setValue(indiceCorrecao.toString());
 		}
 
-		if(diasTolerancia!=null){
+		if (diasTolerancia != null) {
 			subView.getTxtDiasTolerancia().setValue(diasTolerancia.toString());
 		}
 
-		if(valorTolerancia!=null){
+		if (valorTolerancia != null) {
 			subView.getTxtValorTolerancia().setValue(valorTolerancia.toString());
 		}
 
-		if(prazoMedio!=null){
+		if (prazoMedio != null) {
 			subView.getTxtPrazoMedio().setValue(prazoMedio.toString());
 		}
 
 		List<ParcelaCondicaoPagamento> parcelas = currentBean.getParcelas();
-		if(parcelas!=null){
+		if (parcelas != null) {
 			subView.preencherSubForm(parcelas);
 		}
 
@@ -113,46 +112,46 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 		String valorTolerancia = subView.getTxtValorTolerancia().getValue();
 		String prazoMedio = subView.getTxtPrazoMedio().getValue();
 
-		try{
+		try {
 
-			if(!Validator.validateString(nome)){
+			if (!Validator.validateString(nome)) {
 				throw new ErroValidacaoException("Informe o Nome!");
 			}
 
 			currentBean.setNome(nome);
 			currentBean.setDescricao(descricao);
 
-			if(Validator.validateString(faturamentoMinimo)){
+			if (Validator.validateString(faturamentoMinimo)) {
 				currentBean.setFaturamentoMinimo(new BigDecimal(formataValor(faturamentoMinimo)));
 			}
 
-			if(Validator.validateString(faturamentoMaximo)){
+			if (Validator.validateString(faturamentoMaximo)) {
 				currentBean.setFaturamentoMaximo(new BigDecimal(formataValor(faturamentoMaximo)));
 			}
 
-			if(Validator.validateString(indiceCorrecao)){
-				indiceCorrecao = indiceCorrecao.replace( ",",".");
+			if (Validator.validateString(indiceCorrecao)) {
+				indiceCorrecao = indiceCorrecao.replace(",", ".");
 				currentBean.setIndiceCorrecao(new BigDecimal(indiceCorrecao));
 			}
 
-			if(Validator.validateString(diasTolerancia)){
+			if (Validator.validateString(diasTolerancia)) {
 				currentBean.setDiasTolerancia(new Integer(diasTolerancia));
 			}
 
-			if(Validator.validateString(valorTolerancia)){
+			if (Validator.validateString(valorTolerancia)) {
 				currentBean.setValorTolerancia(new BigDecimal(formataValor(valorTolerancia)));
 			}
 
-			if(Validator.validateString(prazoMedio)){
+			if (Validator.validateString(prazoMedio)) {
 				currentBean.setPrazoMedio(new Integer(prazoMedio));
 			}
 
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
-		}  catch(ErroValidacaoException e){
+		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -177,17 +176,17 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-		try{
-			for(Serializable id : ids){
+		try {
+			for (Serializable id : ids) {
 				CondicaoPagamento condicao = dao.find(id);
-				for(ParcelaCondicaoPagamento parcela : condicao.getParcelas()){
+				for (ParcelaCondicaoPagamento parcela : condicao.getParcelas()) {
 					parcelaDAO.delete(parcela);
 				}
 			}
-           
+
 			dao.deleteAllByIds(ids);
 			mensagemRemovidoOK();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			mensagemErro("Problema ao remover");
 		}
@@ -205,19 +204,23 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 		return true;
 	}
 
-	public String formataValor(String valor){
+	public String formataValor(String valor) {
 		String format = "";
-		format = valor.replace("R$","").
-				substring(0,valor.indexOf(",")).
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
-				replaceAll( ",","" ).trim();
+		replaceAll(",", "").trim();
 		return format;
 	}
 
-	public ParcelaCondicaoPagamento adicionarParcela(){
+	public ParcelaCondicaoPagamento adicionarParcela() {
 		ParcelaCondicaoPagamento parcela = new ParcelaCondicaoPagamento();
 		currentBean.adicionarParcela(parcela);
 		return parcela;
+	}
+
+	@Override
+	public CondicaoPagamento getModelBean() {
+		return currentBean;
 	}
 
 }

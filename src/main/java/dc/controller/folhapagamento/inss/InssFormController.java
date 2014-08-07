@@ -16,11 +16,7 @@ import dc.visao.folhapagamento.inss.InssFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -33,22 +29,16 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 
 	private InssFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private InssDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private InssEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public InssFormController() {
 		if (this.pEntity == null) {
@@ -73,18 +63,13 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 
 			this.pEntity.setCompetencia(competencia);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -173,22 +158,16 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 		return "folhapagamento_inss_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -198,11 +177,16 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public InssEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -25,16 +25,11 @@ import dc.visao.contabilidade.lancamento.LancamentoDetalheFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoDetalheFormController extends
-		CRUDFormController<LancamentoDetalheEntity> {
+public class LancamentoDetalheFormController extends CRUDFormController<LancamentoDetalheEntity> {
 
 	/**
 	 * 
@@ -43,9 +38,7 @@ public class LancamentoDetalheFormController extends
 
 	private LancamentoDetalheFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoDetalheDAO pDAO;
@@ -59,15 +52,11 @@ public class LancamentoDetalheFormController extends
 	@Autowired
 	private LancamentoCabecalhoDAO lcDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoDetalheEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoDetalheFormController() {
 		if (this.pEntity == null) {
@@ -88,17 +77,13 @@ public class LancamentoDetalheFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			String descricaoHistorico = this.subView.getTfDescricaoHistorico()
-					.getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			String descricaoHistorico = this.subView.getTfDescricaoHistorico().getValue();
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 			String tipo = this.subView.getTfTipo().getValue();
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
-			HistoricoEntity historico = this.subView.getCbHistorico()
-					.getValue();
-			LancamentoCabecalhoEntity lancamentoCabecalho = this.subView
-					.getCbLancamentoCabecalho().getValue();
+			HistoricoEntity historico = this.subView.getCbHistorico().getValue();
+			LancamentoCabecalhoEntity lancamentoCabecalho = this.subView.getCbLancamentoCabecalho().getValue();
 
 			this.pEntity.setDescricaoHistorico(descricaoHistorico);
 			this.pEntity.setValor(valor);
@@ -186,9 +171,7 @@ public class LancamentoDetalheFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
@@ -210,14 +193,12 @@ public class LancamentoDetalheFormController extends
 			return false;
 		}
 
-		LancamentoCabecalhoEntity lancamentoCabecalho = this.subView
-				.getCbLancamentoCabecalho().getValue();
+		LancamentoCabecalhoEntity lancamentoCabecalho = this.subView.getCbLancamentoCabecalho().getValue();
 
 		if (!ObjectValidator.validateObject(lancamentoCabecalho)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getCbLancamentoCabecalho(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getCbLancamentoCabecalho(), msg);
 
 			return false;
 		}
@@ -241,27 +222,22 @@ public class LancamentoDetalheFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model1);
 
-			DefaultManyToOneComboModel<HistoricoEntity> model2 = new DefaultManyToOneComboModel<HistoricoEntity>(
-					HistoricoListController.class, this.hDAO,
-					super.getMainController());
+			DefaultManyToOneComboModel<HistoricoEntity> model2 = new DefaultManyToOneComboModel<HistoricoEntity>(HistoricoListController.class,
+					this.hDAO, super.getMainController());
 
 			this.subView.getCbHistorico().setModel(model2);
 
 			DefaultManyToOneComboModel<LancamentoCabecalhoEntity> model3 = new DefaultManyToOneComboModel<LancamentoCabecalhoEntity>(
-					LancamentoCabecalhoListController.class, this.lcDAO,
-					super.getMainController());
+					LancamentoCabecalhoListController.class, this.lcDAO, super.getMainController());
 
 			this.subView.getCbLancamentoCabecalho().setModel(model3);
 		} catch (Exception e) {
@@ -269,18 +245,14 @@ public class LancamentoDetalheFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -296,20 +268,22 @@ public class LancamentoDetalheFormController extends
 				this.pEntity = this.pDAO.find(id);
 
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbHistorico().setValue(
-						this.pEntity.getHistorico());
-				this.subView.getCbLancamentoCabecalho().setValue(
-						this.pEntity.getLancamentoCabecalho());
+				this.subView.getCbHistorico().setValue(this.pEntity.getHistorico());
+				this.subView.getCbLancamentoCabecalho().setValue(this.pEntity.getLancamentoCabecalho());
 			}
 
-			this.subView.getTfDescricaoHistorico().setValue(
-					this.pEntity.getDescricaoHistorico());
-			this.subView.getTfValor().setValue(
-					this.pEntity.getValor().toString());
+			this.subView.getTfDescricaoHistorico().setValue(this.pEntity.getDescricaoHistorico());
+			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoDetalheEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

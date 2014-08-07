@@ -14,16 +14,11 @@ import dc.servicos.dao.ordemservico.LaudoTecnicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.LaudoTecnicoFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LaudoTecnicoFormController extends
-		CRUDFormController<LaudoTecnicoEntity> {
+public class LaudoTecnicoFormController extends CRUDFormController<LaudoTecnicoEntity> {
 
 	/**
 	 * 
@@ -32,22 +27,16 @@ public class LaudoTecnicoFormController extends
 
 	private LaudoTecnicoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LaudoTecnicoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LaudoTecnicoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LaudoTecnicoFormController() {
 		if (this.pEntity == null) {
@@ -151,17 +140,19 @@ public class LaudoTecnicoFormController extends
 		return "ordemservico_laudotecnico_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public LaudoTecnicoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

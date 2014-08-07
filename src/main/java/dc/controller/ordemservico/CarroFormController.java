@@ -9,29 +9,26 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.controller.pessoal.ClienteListController;
+import dc.entidade.ordemservico.Carro;
+import dc.entidade.ordemservico.Combustivel;
+import dc.entidade.ordemservico.Cor;
+import dc.entidade.ordemservico.Marca;
+import dc.entidade.ordemservico.Modelo;
+import dc.entidade.pessoal.Cliente;
+import dc.servicos.dao.ordemservico.CarroDAO;
+import dc.servicos.dao.ordemservico.CombustivelDAO;
+import dc.servicos.dao.ordemservico.CorDAO;
+import dc.servicos.dao.ordemservico.MarcaDAO;
+import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
-import dc.controller.pessoal.ClienteListController;
-import dc.entidade.ordemservico.Combustivel;
-import dc.entidade.ordemservico.Cor;
-import dc.entidade.ordemservico.Marca;
-import dc.entidade.ordemservico.Carro;
-import dc.entidade.ordemservico.Modelo;
-import dc.entidade.pessoal.Cliente;
-import dc.servicos.dao.ordemservico.CombustivelDAO;
-import dc.servicos.dao.ordemservico.CorDAO;
-import dc.servicos.dao.ordemservico.MarcaDAO;
-import dc.servicos.dao.ordemservico.CarroDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
-import dc.servicos.dao.pessoal.ClienteDAO;
 
-/**
-*
-* @author Paulo Sérgio
-*/ 
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -40,7 +37,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	private static final long serialVersionUID = 1L;
 
 	CarroFormView subView;
-	
+
 	@Autowired
 	CarroDAO carroDAO;
 
@@ -58,9 +55,9 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 	@Autowired
 	CombustivelDAO combustivelDAO;
-	
+
 	private Carro currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Carro";
@@ -71,10 +68,10 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		String placa = subView.getTfPlaca().getValue();
-		if(Validator.validateString(placa)){
+		if (Validator.validateString(placa)) {
 			placa = placa.replace("-", "").trim();
 			currentBean.setPlaca(placa);
 		}
@@ -87,14 +84,13 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		currentBean.setAno(Integer.parseInt(subView.getTfAno().getValue().toString()));
 		currentBean.setChassi(subView.getTfChassi().getValue());
 		currentBean.setObservacao(subView.getTaObservacao().getValue());
-		try{
+		try {
 			carroDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -109,28 +105,35 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		subView.getTfAno().setValue(currentBean.getAno().toString());
 		subView.getTfChassi().setValue(currentBean.getChassi());
 		subView.getTaObservacao().setValue(currentBean.getObservacao());
-		
+
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new CarroFormView(this);
-		
+
 		preencheCombos();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Carro();
 	}
-	
+
 	private void preencheCombos() {
 
 		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
@@ -142,13 +145,12 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		};
 		this.subView.getCbCliente().setModel(cliente);
 
-		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class,
-				this.marcaDAO, super.getMainController());
+		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class, this.marcaDAO,
+				super.getMainController());
 
 		this.subView.getCbMarca().setModel(marca);
-		
-		DefaultManyToOneComboModel<Cor> cor = new DefaultManyToOneComboModel<Cor>(CorListController.class,
-				this.corDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<Cor> cor = new DefaultManyToOneComboModel<Cor>(CorListController.class, this.corDAO, super.getMainController());
 
 		this.subView.getCbCor().setModel(cor);
 
@@ -158,32 +160,31 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		this.subView.getCbCombustivel().setModel(combustivel);
 
 	}
-	
-	public void getModelo(String classePesquisa, Integer idSelecionado){
-		DefaultManyToOneComboModelSelect<Modelo> modelo = new DefaultManyToOneComboModelSelect<Modelo>(ModeloListController.class,
-				this.modeloDAO, super.getMainController(),classePesquisa,idSelecionado);
-		
+
+	public void getModelo(String classePesquisa, Integer idSelecionado) {
+		DefaultManyToOneComboModelSelect<Modelo> modelo = new DefaultManyToOneComboModelSelect<Modelo>(ModeloListController.class, this.modeloDAO,
+				super.getMainController(), classePesquisa, idSelecionado);
+
 		this.subView.getCbModelo().setModel(modelo);
 	}
-	
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 carroDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		carroDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTfPlaca().getValue())) {
 			adicionarErroDeValidacao(subView.getTfPlaca(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -195,4 +196,10 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	public String getViewIdentifier() {
 		return "carroForm";
 	}
-} 
+
+	@Override
+	public Carro getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

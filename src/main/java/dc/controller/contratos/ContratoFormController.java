@@ -85,14 +85,13 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private ContratoDAO contratoDAO;
-	
-	//@Autowired
-	//private MainController mainController;
 
+	// @Autowired
+	// private MainController mainController;
 
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
-	
+
 	@Autowired
 	private TemplateDAO templateDAO;
 
@@ -110,10 +109,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Autowired
 	private TemplateDAO documentoDAO;
-	
+
 	@Autowired
 	private ProdutoDAO produtoDAO;
-	
+
 	@Autowired
 	private UFDAO ufDAO;
 
@@ -202,10 +201,11 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		/*if (!Validator.validateString(subView.getTxaTemplate().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaTemplate(), "Não pode ficar em branco");
-			valido = false;
-		}*/
+		/*
+		 * if (!Validator.validateString(subView.getTxaTemplate().getValue())) {
+		 * adicionarErroDeValidacao(subView.getTxaTemplate(),
+		 * "Não pode ficar em branco"); valido = false; }
+		 */
 
 		return valido;
 	}
@@ -261,16 +261,17 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		// this.subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 		// subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
-		/*List<Template> documentos = documentoDAO.getAll(Template.class);
-
-		Iterator<Template> iterator = documentos.iterator();
-		while (iterator.hasNext()) {
-			Template doc = iterator.next();
-			if (doc.getDocumentos().size() > 0 && !doc.getDocumentos().get(0).getCaminho().endsWith("docx")) {
-				iterator.remove();
-			}
-
-		}*/
+		/*
+		 * List<Template> documentos = documentoDAO.getAll(Template.class);
+		 * 
+		 * Iterator<Template> iterator = documentos.iterator(); while
+		 * (iterator.hasNext()) { Template doc = iterator.next(); if
+		 * (doc.getDocumentos().size() > 0 &&
+		 * !doc.getDocumentos().get(0).getCaminho().endsWith("docx")) {
+		 * iterator.remove(); }
+		 * 
+		 * }
+		 */
 
 		// subView.carregaComboDocumento(documentos);
 	}
@@ -308,11 +309,10 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				return "nome";
 			}
 		};
-		
-		//DefaultManyToOneComboModel<Pessoa> pessoaModel= new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class,pessoaDAO,mainController);
-		
-		
-	
+
+		// DefaultManyToOneComboModel<Pessoa> pessoaModel= new
+		// DefaultManyToOneComboModel<Pessoa>(PessoaListController.class,pessoaDAO,mainController);
+
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
 			@Override
@@ -323,17 +323,15 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(TipoContratoListController.class,
 				this.tipoContratoDAO, super.getMainController());
-		
-		DefaultManyToOneComboModel<Produto> modelProduto = new DefaultManyToOneComboModel<Produto>(ProdutosListController.class, this.produtoDAO ,
-				super.getMainController() );
+
+		DefaultManyToOneComboModel<Produto> modelProduto = new DefaultManyToOneComboModel<Produto>(ProdutosListController.class, this.produtoDAO,
+				super.getMainController());
 		subView.getCmbProduto().setModel(modelProduto);
-		
-		
-		DefaultManyToOneComboModel<UF> templateUF = new DefaultManyToOneComboModel<UF>(UFListController.class,
-				this.ufDAO, super.getMainController());
-		
-		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(TemplateListController.class,
-				this.templateDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<UF> templateUF = new DefaultManyToOneComboModel<UF>(UFListController.class, this.ufDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(TemplateListController.class, this.templateDAO,
+				super.getMainController());
 
 		/** Ajustes para receber os dados de Solicitação de Serviço pegando os
 		 * StatusSolicitação para aparecer no ComboBox */
@@ -350,9 +348,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
-		
+
 		List<UF> ufs = templateUF.getAll();
-		
+
 		for (UF uf : ufs) {
 			subView.getCmbEstadoObjeto().addItem(uf);
 		}
@@ -603,8 +601,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		mensagemRemovidoOK();
 
 	}
-	
-	
+
 	public ContratoProduto novoContratoProduto() {
 		ContratoProduto contratoProduto = new ContratoProduto();
 		this.currentBean.addContratoHistFaturamento(contratoProduto);
@@ -686,18 +683,14 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				geraParcelas(pessoa, contratoprevFaturamento);
 			}
 		} else {
-			
+
 			mensagemErro("Preencha todos os campos corretamente!");
 
 		}
 
 	}
-	
-	/**
-	 * 
-	 * Wesley Jr
-	 * gera as Parcelas
-	 */
+
+	/** Wesley Jr gera as Parcelas */
 
 	private void geraParcelas(Pessoa pessoa, final List<ContratoPrevFaturamento> contratopreFaturamento) {
 
@@ -809,11 +802,14 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	protected boolean isFullSized() {
 		return true;
 	}
-	
+
 	public List<Produto> getProdutos() {
 		return produtoDAO.listaTodos();
 	}
-	
-	
+
+	@Override
+	public Contrato getModelBean() {
+		return currentBean;
+	}
 
 }

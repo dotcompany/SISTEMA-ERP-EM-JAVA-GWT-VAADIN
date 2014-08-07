@@ -20,16 +20,11 @@ import dc.visao.folhapagamento.ausencia.FeriasPeriodoAquisitivoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class FeriasPeriodoAquisitivoFormController extends
-		CRUDFormController<FeriasPeriodoAquisitivoEntity> {
+public class FeriasPeriodoAquisitivoFormController extends CRUDFormController<FeriasPeriodoAquisitivoEntity> {
 
 	/**
 	 * 
@@ -38,9 +33,7 @@ public class FeriasPeriodoAquisitivoFormController extends
 
 	private FeriasPeriodoAquisitivoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private FeriasPeriodoAquisitivoDAO pDAO;
@@ -48,15 +41,11 @@ public class FeriasPeriodoAquisitivoFormController extends
 	@Autowired
 	private ColaboradorDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private FeriasPeriodoAquisitivoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public FeriasPeriodoAquisitivoFormController() {
 		if (this.pEntity == null) {
@@ -79,30 +68,19 @@ public class FeriasPeriodoAquisitivoFormController extends
 		try {
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			String situacao = this.subView.getTfSituacao().getValue();
-			Date limiteParaGozo = this.subView.getPdfLimiteParaGozo()
-					.getValue();
-			String descontarFaltas = this.subView.getTfDescontarFaltas()
-					.getValue();
-			String desconsiderarAfastamento = this.subView
-					.getTfDesconsiderarAfastamento().getValue();
-			Integer afastamentoPrevidencia = Integer.parseInt(this.subView
-					.getTfAfastamentoPrevidencia().getValue());
-			Integer afastamentoSemRemun = Integer.parseInt(this.subView
-					.getTfAfastamentoSemRemun().getValue());
-			Integer afastamentoComRemun = Integer.parseInt(this.subView
-					.getTfAfastamentoComRemun().getValue());
-			Integer diasDireito = Integer.parseInt(this.subView
-					.getTfDiasDireito().getValue());
-			Integer diasGozados = Integer.parseInt(this.subView
-					.getTfDiasGozados().getValue());
-			Integer diasFaltas = Integer.parseInt(this.subView
-					.getTfDiasFaltas().getValue());
-			Integer diasRestantes = Integer.parseInt(this.subView
-					.getTfDiasRestantes().getValue());
+			Date limiteParaGozo = this.subView.getPdfLimiteParaGozo().getValue();
+			String descontarFaltas = this.subView.getTfDescontarFaltas().getValue();
+			String desconsiderarAfastamento = this.subView.getTfDesconsiderarAfastamento().getValue();
+			Integer afastamentoPrevidencia = Integer.parseInt(this.subView.getTfAfastamentoPrevidencia().getValue());
+			Integer afastamentoSemRemun = Integer.parseInt(this.subView.getTfAfastamentoSemRemun().getValue());
+			Integer afastamentoComRemun = Integer.parseInt(this.subView.getTfAfastamentoComRemun().getValue());
+			Integer diasDireito = Integer.parseInt(this.subView.getTfDiasDireito().getValue());
+			Integer diasGozados = Integer.parseInt(this.subView.getTfDiasGozados().getValue());
+			Integer diasFaltas = Integer.parseInt(this.subView.getTfDiasFaltas().getValue());
+			Integer diasRestantes = Integer.parseInt(this.subView.getTfDiasRestantes().getValue());
 			Date dataFim = this.subView.getPdfDataFim().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setSituacao(situacao);
@@ -119,18 +97,13 @@ public class FeriasPeriodoAquisitivoFormController extends
 			this.pEntity.setDataFim(dataFim);
 			this.pEntity.setColaborador(colaborador);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -335,9 +308,7 @@ public class FeriasPeriodoAquisitivoFormController extends
 		return "folhapagamento_ausencia_ferias_periodo_aquisitivo_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -347,18 +318,14 @@ public class FeriasPeriodoAquisitivoFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -368,38 +335,32 @@ public class FeriasPeriodoAquisitivoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getTfSituacao().setValue(this.pEntity.getSituacao());
-			this.subView.getPdfLimiteParaGozo().setValue(
-					this.pEntity.getLimiteParaGozo());
-			this.subView.getTfDescontarFaltas().setValue(
-					this.pEntity.getDescontarFaltas());
-			this.subView.getTfDesconsiderarAfastamento().setValue(
-					this.pEntity.getDesconsiderarAfastamento());
-			this.subView.getTfAfastamentoPrevidencia().setValue(
-					this.pEntity.getAfastamentoPrevidencia().toString());
-			this.subView.getTfAfastamentoSemRemun().setValue(
-					this.pEntity.getAfastamentoSemRemun().toString());
-			this.subView.getTfAfastamentoComRemun().setValue(
-					this.pEntity.getAfastamentoComRemun().toString());
-			this.subView.getTfDiasDireito().setValue(
-					this.pEntity.getDiasDireito().toString());
-			this.subView.getTfDiasGozados().setValue(
-					this.pEntity.getDiasGozados().toString());
-			this.subView.getTfDiasFaltas().setValue(
-					this.pEntity.getDiasFaltas().toString());
-			this.subView.getTfDiasRestantes().setValue(
-					this.pEntity.getDiasRestantes().toString());
+			this.subView.getPdfLimiteParaGozo().setValue(this.pEntity.getLimiteParaGozo());
+			this.subView.getTfDescontarFaltas().setValue(this.pEntity.getDescontarFaltas());
+			this.subView.getTfDesconsiderarAfastamento().setValue(this.pEntity.getDesconsiderarAfastamento());
+			this.subView.getTfAfastamentoPrevidencia().setValue(this.pEntity.getAfastamentoPrevidencia().toString());
+			this.subView.getTfAfastamentoSemRemun().setValue(this.pEntity.getAfastamentoSemRemun().toString());
+			this.subView.getTfAfastamentoComRemun().setValue(this.pEntity.getAfastamentoComRemun().toString());
+			this.subView.getTfDiasDireito().setValue(this.pEntity.getDiasDireito().toString());
+			this.subView.getTfDiasGozados().setValue(this.pEntity.getDiasGozados().toString());
+			this.subView.getTfDiasFaltas().setValue(this.pEntity.getDiasFaltas().toString());
+			this.subView.getTfDiasRestantes().setValue(this.pEntity.getDiasRestantes().toString());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public FeriasPeriodoAquisitivoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

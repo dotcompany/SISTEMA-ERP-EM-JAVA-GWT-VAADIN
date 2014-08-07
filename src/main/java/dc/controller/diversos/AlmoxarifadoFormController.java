@@ -17,7 +17,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoFormController extends	CRUDFormController<Almoxarifado> {
+public class AlmoxarifadoFormController extends CRUDFormController<Almoxarifado> {
 
 	/**
 	 * 
@@ -36,8 +36,7 @@ public class AlmoxarifadoFormController extends	CRUDFormController<Almoxarifado>
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -109,6 +108,11 @@ public class AlmoxarifadoFormController extends	CRUDFormController<Almoxarifado>
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Almoxarifado getModelBean() {
+		return currentBean;
 	}
 
 }

@@ -17,16 +17,11 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.EstadoConservacaoFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class EstadoConservacaoFormController extends
-		CRUDFormController<EstadoConservacaoEntity> {
+public class EstadoConservacaoFormController extends CRUDFormController<EstadoConservacaoEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class EstadoConservacaoFormController extends
 
 	private EstadoConservacaoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private EstadoConservacaoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private EstadoConservacaoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public EstadoConservacaoFormController() {
 		if (this.pEntity == null) {
@@ -79,18 +68,13 @@ public class EstadoConservacaoFormController extends
 			this.pEntity.setNome(nome);
 			this.pEntity.setDescricao(descricao);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -215,17 +199,19 @@ public class EstadoConservacaoFormController extends
 		return "patrimonio_estado_conservacao_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public EstadoConservacaoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

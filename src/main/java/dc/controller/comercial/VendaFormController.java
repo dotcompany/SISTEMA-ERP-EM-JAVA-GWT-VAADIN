@@ -17,18 +17,15 @@ import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.comercial.Venda;
-import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.OrcamentoDAO;
 import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
-import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDetalheDAO;
 import dc.servicos.dao.folhapagamento.VendedorDAO;
@@ -37,7 +34,6 @@ import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.VendaFormView;
 import dc.visao.comercial.VendaFormView.TIPO_VENDA;
-import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -102,10 +98,10 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
 
-		if(currentBean.getOrcamento()==null){
+		if (currentBean.getOrcamento() == null) {
 			subView.getCmbTipoVenda().setValue(TIPO_VENDA.VENDA_DIRETA);
 			subView.getCmbOrcamento().setReadOnly(true);
-		}else{
+		} else {
 			subView.getCmbTipoVenda().setValue(TIPO_VENDA.ORCAMENTO);
 			subView.getCmbOrcamento().setReadOnly(false);
 			subView.getCmbOrcamento().setValue(currentBean.getOrcamento());
@@ -121,39 +117,39 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		subView.getDataVenda().setValue(currentBean.getDataVenda());
 		subView.getTxtHoraSaida().setValue(currentBean.getHoraSaida());
 
-		if(currentBean.getNumeroFatura()!=null){
-			subView.getTxtNumeroFatura().setValue(currentBean.getNumeroFatura().toString());	
-		}		
+		if (currentBean.getNumeroFatura() != null) {
+			subView.getTxtNumeroFatura().setValue(currentBean.getNumeroFatura().toString());
+		}
 
 		subView.getTxtLocalEntrega().setValue(currentBean.getLocalEntrega());
 		subView.getTxtLocalCobranca().setValue(currentBean.getLocalCobranca());
 
-		if(currentBean.getValorSubTotal()!=null){
+		if (currentBean.getValorSubTotal() != null) {
 			subView.getTxtValorSubTotal().setValue(currentBean.getValorSubTotal().toString());
 		}
-		if(currentBean.getValorFrete()!=null){
+		if (currentBean.getValorFrete() != null) {
 			subView.getTxtValorFrete().setValue(currentBean.getValorFrete().toString());
 		}
-		if(currentBean.getTaxaComissao()!=null){
+		if (currentBean.getTaxaComissao() != null) {
 			subView.getTxtTaxaComissao().setValue(currentBean.getTaxaComissao().toString());
 		}
-		if(currentBean.getValorComissao()!=null){
+		if (currentBean.getValorComissao() != null) {
 			subView.getTxtValorComissao().setValue(currentBean.getValorComissao().toString());
 		}
-		if(currentBean.getTaxaDesconto()!=null){
+		if (currentBean.getTaxaDesconto() != null) {
 			subView.getTxtTaxaDesconto().setValue(currentBean.getTaxaDesconto().toString());
 		}
-		if(currentBean.getValorDesconto()!=null){
-			subView.getTxtValorDesconto().setValue(currentBean.getValorDesconto().toString());	
+		if (currentBean.getValorDesconto() != null) {
+			subView.getTxtValorDesconto().setValue(currentBean.getValorDesconto().toString());
 		}
-		if(currentBean.getValorTotal()!=null){
+		if (currentBean.getValorTotal() != null) {
 			subView.getTxtValorTotal().setValue(currentBean.getValorTotal().toString());
 		}
 
 		subView.getTxtObservacoes().setValue(currentBean.getObservacao());
 
 		List<VendaDetalhe> detalhes = detalheDAO.detalhesPorVenda(currentBean);
-		if(detalhes!=null){
+		if (detalhes != null) {
 			subView.preencheSubForm(detalhes);
 		}
 	}
@@ -161,28 +157,28 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	@Override
 	protected void actionSalvar() {
 
-		try{
+		try {
 
-			TipoNotaFiscal tipoNotaFiscal = (TipoNotaFiscal)subView.getCmbTipoNotaFiscal().getValue();
-			if(!Validator.validateObject(tipoNotaFiscal)){
+			TipoNotaFiscal tipoNotaFiscal = (TipoNotaFiscal) subView.getCmbTipoNotaFiscal().getValue();
+			if (!Validator.validateObject(tipoNotaFiscal)) {
 				throw new ErroValidacaoException("Informe Tipo de Nota Fiscal");
 			}
-			Cliente cliente = (Cliente)subView.getCmbCliente().getValue();
-			if(!Validator.validateObject(cliente)){
+			Cliente cliente = (Cliente) subView.getCmbCliente().getValue();
+			if (!Validator.validateObject(cliente)) {
 				throw new ErroValidacaoException("Informe o Cliente");
 			}
 
-			VendedorEntity vendedor = (VendedorEntity)subView.getCmbVendedor().getValue();
-			if(!Validator.validateObject(vendedor)){
+			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor().getValue();
+			if (!Validator.validateObject(vendedor)) {
 				throw new ErroValidacaoException("Informe o Vendedor");
 			}
 
-			CondicaoPagamento condicao = (CondicaoPagamento)subView.getCmbCondicoesPagamento().getValue();
-			if(!Validator.validateObject(condicao)){
+			CondicaoPagamento condicao = (CondicaoPagamento) subView.getCmbCondicoesPagamento().getValue();
+			if (!Validator.validateObject(condicao)) {
 				throw new ErroValidacaoException("Informe a Condição de Pagamento");
 			}
 
-			Orcamento orcamento = (Orcamento)subView.getCmbOrcamento().getValue();
+			Orcamento orcamento = (Orcamento) subView.getCmbOrcamento().getValue();
 			currentBean.setOrcamento(orcamento);
 
 			currentBean.setTipoNotaFiscal(tipoNotaFiscal);
@@ -200,11 +196,10 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			currentBean.setHoraSaida(horaSaida);
 
 			String fatura = subView.getTxtNumeroFatura().getValue();
-			if(Validator.validateString(fatura)){
+			if (Validator.validateString(fatura)) {
 				Integer numeroFatura = new Integer(fatura);
 				currentBean.setNumeroFatura(numeroFatura);
 			}
-
 
 			String localEntrega = subView.getTxtLocalEntrega().getValue();
 			currentBean.setLocalEntrega(localEntrega);
@@ -213,43 +208,43 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			currentBean.setLocalCobranca(localCobranca);
 
 			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
-			if(Validator.validateString(valorSubTotal)){
+			if (Validator.validateString(valorSubTotal)) {
 				valorSubTotal = formataMoeda(valorSubTotal);
 				currentBean.setValorSubTotal(new BigDecimal(valorSubTotal));
 			}
 
 			String valorFrete = subView.getTxtValorFrete().getValue();
-			if(Validator.validateString(valorFrete)){
+			if (Validator.validateString(valorFrete)) {
 				valorFrete = formataMoeda(valorFrete);
 				currentBean.setValorFrete(new BigDecimal(valorFrete));
 			}
 
 			String taxaComissao = subView.getTxtTaxaComissao().getValue();
-			if(Validator.validateString(taxaComissao)){
+			if (Validator.validateString(taxaComissao)) {
 				taxaComissao = formataBigDecimal(taxaComissao);
 				currentBean.setTaxaComissao(new BigDecimal(taxaComissao));
 			}
 
 			String valorComissao = subView.getTxtValorComissao().getValue();
-			if(Validator.validateString(valorComissao)){
+			if (Validator.validateString(valorComissao)) {
 				valorComissao = formataMoeda(valorComissao);
 				currentBean.setValorComissao(new BigDecimal(valorComissao));
 			}
 
 			String taxaDesconto = subView.getTxtTaxaDesconto().getValue();
-			if(Validator.validateString(taxaDesconto)){
+			if (Validator.validateString(taxaDesconto)) {
 				taxaDesconto = formataBigDecimal(taxaDesconto);
 				currentBean.setTaxaDesconto(new BigDecimal(taxaDesconto));
 			}
 
 			String valorDesconto = subView.getTxtValorDesconto().getValue();
-			if(Validator.validateString(valorDesconto)){
+			if (Validator.validateString(valorDesconto)) {
 				valorDesconto = formataMoeda(valorDesconto);
 				currentBean.setValorDesconto(new BigDecimal(valorDesconto));
 			}
 
 			String valorTotal = subView.getTxtValorTotal().getValue();
-			if(Validator.validateString(valorTotal)){
+			if (Validator.validateString(valorTotal)) {
 				valorTotal = formataMoeda(valorTotal);
 				currentBean.setValorTotal(new BigDecimal(valorTotal));
 			}
@@ -257,17 +252,14 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			String observacao = subView.getTxtObservacoes().getValue();
 			currentBean.setObservacao(observacao);
 
-
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
-		}  catch(ErroValidacaoException e){
+		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
 
 	}
 
@@ -300,11 +292,11 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-	public VendaDetalhe novoDetalhe(){
+	public VendaDetalhe novoDetalhe() {
 		VendaDetalhe detalhe = new VendaDetalhe();
 		List<VendaDetalhe> detalhes = detalheDAO.detalhesPorVenda(currentBean);
 		detalhe.setVenda(currentBean);
@@ -313,79 +305,82 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		return detalhe;
 	}
 
-	public BeanItemContainer<VendedorEntity> carregarVendedores(){
+	public BeanItemContainer<VendedorEntity> carregarVendedores() {
 		BeanItemContainer<VendedorEntity> container = new BeanItemContainer<>(VendedorEntity.class);
-		for(VendedorEntity c : vendedorDAO.listarTodos()){
+		for (VendedorEntity c : vendedorDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Cliente> carregarClientes(){
+	public BeanItemContainer<Cliente> carregarClientes() {
 		BeanItemContainer<Cliente> container = new BeanItemContainer<>(Cliente.class);
-		for(Cliente c : clienteDAO.listaTodos()){
+		for (Cliente c : clienteDAO.listaTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<CondicaoPagamento> carregarCondicoesPagamento(){
+	public BeanItemContainer<CondicaoPagamento> carregarCondicoesPagamento() {
 		BeanItemContainer<CondicaoPagamento> container = new BeanItemContainer<>(CondicaoPagamento.class);
-		for(CondicaoPagamento c : condicaoPagamentoDAO.listarTodos()){
+		for (CondicaoPagamento c : condicaoPagamentoDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<TipoNotaFiscal> carregarTipoNotaFiscal(){
+	public BeanItemContainer<TipoNotaFiscal> carregarTipoNotaFiscal() {
 		BeanItemContainer<TipoNotaFiscal> container = new BeanItemContainer<>(TipoNotaFiscal.class);
-		for(TipoNotaFiscal c : tipoNotaFiscalDAO.listarTodos()){
+		for (TipoNotaFiscal c : tipoNotaFiscalDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Produto> carregarProdutos(){
+	public BeanItemContainer<Produto> carregarProdutos() {
 		BeanItemContainer<Produto> container = new BeanItemContainer<>(Produto.class);
-		for(Produto p : produtoDAO.listaTodos()){
+		for (Produto p : produtoDAO.listaTodos()) {
 			container.addBean(p);
 		}
 		return container;
 	}
 
-	public String formataMoeda(String valor){
+	public String formataMoeda(String valor) {
 		String format = "";
-		format = valor.replace("R$","").
-				substring(0,valor.indexOf(",")).
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
-				replaceAll( ",","" ).trim();
+		replaceAll(",", "").trim();
 		return format;
 	}
 
-	public String formataBigDecimal(String valor){
+	public String formataBigDecimal(String valor) {
 		String format = "";
-		format = valor.replace(",",".");
+		format = valor.replace(",", ".");
 		return format;
 	}
 
-	public BeanItemContainer<Orcamento> carregarOrcamentos(){
+	public BeanItemContainer<Orcamento> carregarOrcamentos() {
 		BeanItemContainer<Orcamento> container = new BeanItemContainer<>(Orcamento.class);
-		for(Orcamento p : orcamentoDAO.listaTodos()){
+		for (Orcamento p : orcamentoDAO.listaTodos()) {
 			container.addBean(p);
 		}
 		return container;
 	}
 
-
-	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento){
+	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento) {
 		return itemOrcamentoDAO.findByOrcamento(orcamento);
 	}
-	
-	public void preencherDetalhes(List<VendaDetalhe> detalhes){
+
+	public void preencherDetalhes(List<VendaDetalhe> detalhes) {
 		currentBean.setDetalhes(detalhes);
-		for(VendaDetalhe detalhe : detalhes){
+		for (VendaDetalhe detalhe : detalhes) {
 			detalhe.setVenda(currentBean);
 		}
+	}
+
+	@Override
+	public Venda getModelBean() {
+		return currentBean;
 	}
 
 }

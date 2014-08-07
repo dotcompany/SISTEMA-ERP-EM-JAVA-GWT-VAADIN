@@ -510,4 +510,9 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		return naturezaFinanceiraDAO.listaTodos();
 	}
 
+	@Override
+	public LancamentoPagar getModelBean() {
+		return currentBean;
+	}
+
 }

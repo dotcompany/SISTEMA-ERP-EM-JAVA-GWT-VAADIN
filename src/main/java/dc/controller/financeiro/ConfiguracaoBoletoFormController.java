@@ -178,4 +178,9 @@ public class ConfiguracaoBoletoFormController extends CRUDFormController<Configu
 		// TODO Auto-generated method stub
 		return "configuracaoBoletoForm";
 	}
+
+	@Override
+	public ConfiguracaoBoleto getModelBean() {
+		return currentBean;
+	}
 }

@@ -21,16 +21,11 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.cadastro.PlanoSaudeFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class PlanoSaudeFormController extends
-		CRUDFormController<PlanoSaudeEntity> {
+public class PlanoSaudeFormController extends CRUDFormController<PlanoSaudeEntity> {
 
 	/**
 	 * 
@@ -39,9 +34,7 @@ public class PlanoSaudeFormController extends
 
 	private PlanoSaudeFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PlanoSaudeDAO pDAO;
@@ -52,15 +45,11 @@ public class PlanoSaudeFormController extends
 	@Autowired
 	private OperadoraPlanoSaudeDAO opsDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PlanoSaudeEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PlanoSaudeFormController() {
 		if (this.pEntity == null) {
@@ -84,10 +73,8 @@ public class PlanoSaudeFormController extends
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			String beneficiario = this.subView.getTfBeneficiario().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
-			OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView
-					.getCbOperadoraPlanoSaude().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView.getCbOperadoraPlanoSaude().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setBeneficiario(beneficiario);
@@ -105,19 +92,14 @@ public class PlanoSaudeFormController extends
 		} finally {
 			this.pEntity = new PlanoSaudeEntity();
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getTfBeneficiario().setValue(
-					this.pEntity.getBeneficiario());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getTfBeneficiario().setValue(this.pEntity.getBeneficiario());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbOperadoraPlanoSaude(this
-					.operadoraPlanoSaudeListarTodos());
+			this.subView.carregarCmbOperadoraPlanoSaude(this.operadoraPlanoSaudeListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbOperadoraPlanoSaude().setValue(
-					this.pEntity.getOperadoraPlanoSaude());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbOperadoraPlanoSaude().setValue(this.pEntity.getOperadoraPlanoSaude());
 		}
 	}
 
@@ -126,19 +108,14 @@ public class PlanoSaudeFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getTfBeneficiario().setValue(
-					this.pEntity.getBeneficiario());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getTfBeneficiario().setValue(this.pEntity.getBeneficiario());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbOperadoraPlanoSaude(this
-					.operadoraPlanoSaudeListarTodos());
+			this.subView.carregarCmbOperadoraPlanoSaude(this.operadoraPlanoSaudeListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbOperadoraPlanoSaude().setValue(
-					this.pEntity.getOperadoraPlanoSaude());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbOperadoraPlanoSaude().setValue(this.pEntity.getOperadoraPlanoSaude());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -155,19 +132,14 @@ public class PlanoSaudeFormController extends
 		try {
 			this.pEntity = new PlanoSaudeEntity();
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getTfBeneficiario().setValue(
-					this.pEntity.getBeneficiario());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getTfBeneficiario().setValue(this.pEntity.getBeneficiario());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbOperadoraPlanoSaude(this
-					.operadoraPlanoSaudeListarTodos());
+			this.subView.carregarCmbOperadoraPlanoSaude(this.operadoraPlanoSaudeListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbOperadoraPlanoSaude().setValue(
-					this.pEntity.getOperadoraPlanoSaude());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbOperadoraPlanoSaude().setValue(this.pEntity.getOperadoraPlanoSaude());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -189,19 +161,14 @@ public class PlanoSaudeFormController extends
 		try {
 			this.pEntity = new PlanoSaudeEntity();
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getTfBeneficiario().setValue(
-					this.pEntity.getBeneficiario());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getTfBeneficiario().setValue(this.pEntity.getBeneficiario());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbOperadoraPlanoSaude(this
-					.operadoraPlanoSaudeListarTodos());
+			this.subView.carregarCmbOperadoraPlanoSaude(this.operadoraPlanoSaudeListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbOperadoraPlanoSaude().setValue(
-					this.pEntity.getOperadoraPlanoSaude());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbOperadoraPlanoSaude().setValue(this.pEntity.getOperadoraPlanoSaude());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -235,12 +202,9 @@ public class PlanoSaudeFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
-				.getValue();
+		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -250,14 +214,12 @@ public class PlanoSaudeFormController extends
 			return false;
 		}
 
-		OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView
-				.getCbOperadoraPlanoSaude().getValue();
+		OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView.getCbOperadoraPlanoSaude().getValue();
 
 		if (!ObjectValidator.validateObject(operadoraPlanoSaude)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getCbOperadoraPlanoSaude(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getCbOperadoraPlanoSaude(), msg);
 
 			return false;
 		}
@@ -275,9 +237,7 @@ public class PlanoSaudeFormController extends
 		return "folhapagamento_cadastro_plano_saude_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -295,13 +255,17 @@ public class PlanoSaudeFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public PlanoSaudeEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -19,16 +19,11 @@ import dc.servicos.dao.folhapagamento.movimento.PppExameMedicoDAO;
 import dc.visao.folhapagamento.movimento.PppExameMedicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class PppExameMedicoFormController extends
-		CRUDFormController<PppExameMedicoEntity> {
+public class PppExameMedicoFormController extends CRUDFormController<PppExameMedicoEntity> {
 
 	/**
 	 * 
@@ -37,9 +32,7 @@ public class PppExameMedicoFormController extends
 
 	private PppExameMedicoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PppExameMedicoDAO pDAO;
@@ -47,15 +40,11 @@ public class PppExameMedicoFormController extends
 	@Autowired
 	private PppDAO pppDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PppExameMedicoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PppExameMedicoFormController() {
 		if (this.pEntity == null) {
@@ -80,8 +69,7 @@ public class PppExameMedicoFormController extends
 			String tipo = this.subView.getTfTipo().getValue();
 			String natureza = this.subView.getTfNatureza().getValue();
 			String exame = this.subView.getTfExame().getValue();
-			String indicacaoResultados = this.subView
-					.getTfIndicacaoResultados().getValue();
+			String indicacaoResultados = this.subView.getTfIndicacaoResultados().getValue();
 
 			PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
@@ -103,13 +91,11 @@ public class PppExameMedicoFormController extends
 		} finally {
 			this.pEntity = new PppExameMedicoEntity();
 
-			this.subView.getPdfDataUltimo().setValue(
-					this.pEntity.getDataUltimo());
+			this.subView.getPdfDataUltimo().setValue(this.pEntity.getDataUltimo());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
 			this.subView.getTfExame().setValue(this.pEntity.getExame());
-			this.subView.getTfIndicacaoResultados().setValue(
-					this.pEntity.getIndicacaoResultados());
+			this.subView.getTfIndicacaoResultados().setValue(this.pEntity.getIndicacaoResultados());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -122,13 +108,11 @@ public class PppExameMedicoFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataUltimo().setValue(
-					this.pEntity.getDataUltimo());
+			this.subView.getPdfDataUltimo().setValue(this.pEntity.getDataUltimo());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
 			this.subView.getTfExame().setValue(this.pEntity.getExame());
-			this.subView.getTfIndicacaoResultados().setValue(
-					this.pEntity.getIndicacaoResultados());
+			this.subView.getTfIndicacaoResultados().setValue(this.pEntity.getIndicacaoResultados());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -153,13 +137,11 @@ public class PppExameMedicoFormController extends
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataUltimo().setValue(
-					this.pEntity.getDataUltimo());
+			this.subView.getPdfDataUltimo().setValue(this.pEntity.getDataUltimo());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
 			this.subView.getTfExame().setValue(this.pEntity.getExame());
-			this.subView.getTfIndicacaoResultados().setValue(
-					this.pEntity.getIndicacaoResultados());
+			this.subView.getTfIndicacaoResultados().setValue(this.pEntity.getIndicacaoResultados());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -189,13 +171,11 @@ public class PppExameMedicoFormController extends
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataUltimo().setValue(
-					this.pEntity.getDataUltimo());
+			this.subView.getPdfDataUltimo().setValue(this.pEntity.getDataUltimo());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
 			this.subView.getTfExame().setValue(this.pEntity.getExame());
-			this.subView.getTfIndicacaoResultados().setValue(
-					this.pEntity.getIndicacaoResultados());
+			this.subView.getTfIndicacaoResultados().setValue(this.pEntity.getIndicacaoResultados());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -256,9 +236,7 @@ public class PppExameMedicoFormController extends
 		return "folhapagamento_movimento_ppp_exame_medico_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<PppEntity> pppListarTodos() {
 		List<PppEntity> auxLista = new ArrayList<PppEntity>();
@@ -268,13 +246,17 @@ public class PppExameMedicoFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public PppExameMedicoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

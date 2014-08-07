@@ -18,16 +18,11 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.HistoricoSalarialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class HistoricoSalarialFormController extends
-		CRUDFormController<HistoricoSalarialEntity> {
+public class HistoricoSalarialFormController extends CRUDFormController<HistoricoSalarialEntity> {
 
 	/**
 	 * 
@@ -36,9 +31,7 @@ public class HistoricoSalarialFormController extends
 
 	private HistoricoSalarialFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private HistoricoSalarialDAO pDAO;
@@ -46,15 +39,11 @@ public class HistoricoSalarialFormController extends
 	@Autowired
 	private ColaboradorDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private HistoricoSalarialEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public HistoricoSalarialFormController() {
 		if (this.pEntity == null) {
@@ -76,17 +65,13 @@ public class HistoricoSalarialFormController extends
 	protected void actionSalvar() {
 		try {
 			String competencia = this.subView.getTfCompetencia().getValue();
-			Double salarioAtual = Double.parseDouble(this.subView
-					.getTfSalarioAtual().getValue());
-			Double percentualAumento = Double.parseDouble(this.subView
-					.getTfPercentualAumento().getValue());
-			Double salarioNovo = Double.parseDouble(this.subView
-					.getTfSalarioNovo().getValue());
+			Double salarioAtual = Double.parseDouble(this.subView.getTfSalarioAtual().getValue());
+			Double percentualAumento = Double.parseDouble(this.subView.getTfPercentualAumento().getValue());
+			Double salarioNovo = Double.parseDouble(this.subView.getTfSalarioNovo().getValue());
 			String validoAPartir = this.subView.getTfValidoAPartir().getValue();
 			String motivo = this.subView.getTfMotivo().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setCompetencia(competencia);
 			this.pEntity.setSalarioAtual(salarioAtual);
@@ -107,22 +92,16 @@ public class HistoricoSalarialFormController extends
 		} finally {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(
-					String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(
-					String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(
-					String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(
-					this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		}
 	}
 
@@ -131,22 +110,16 @@ public class HistoricoSalarialFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(
-					String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(
-					String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(
-					String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(
-					this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -163,22 +136,16 @@ public class HistoricoSalarialFormController extends
 		try {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(
-					String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(
-					String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(
-					String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(
-					this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -200,22 +167,16 @@ public class HistoricoSalarialFormController extends
 		try {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(
-					String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(
-					String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(
-					String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(
-					this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -249,8 +210,7 @@ public class HistoricoSalarialFormController extends
 			return false;
 		}
 
-		String percentualAumento = this.subView.getTfPercentualAumento()
-				.getValue();
+		String percentualAumento = this.subView.getTfPercentualAumento().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(percentualAumento)) {
 			String msg = "Não pode ficar em branco.";
@@ -270,12 +230,9 @@ public class HistoricoSalarialFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
-				.getValue();
+		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -298,9 +255,7 @@ public class HistoricoSalarialFormController extends
 		return "folhapagamento_movimento_historico_salarial_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -310,13 +265,17 @@ public class HistoricoSalarialFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public HistoricoSalarialEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.SituacaoServico;
+import dc.servicos.dao.ordemservico.SituacaoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.SituacaoServicoFormView;
-import dc.entidade.ordemservico.SituacaoServico;
-import dc.servicos.dao.ordemservico.SituacaoServicoDAO;
 
 @Controller
 @Scope("prototype")
@@ -22,12 +22,12 @@ public class SituacaoServicoFormController extends CRUDFormController<SituacaoSe
 	private static final long serialVersionUID = 1L;
 
 	SituacaoServicoFormView subView;
-	
+
 	@Autowired
 	SituacaoServicoDAO situacaoServicoDAO;
-	
+
 	private SituacaoServico currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Situação de Serviço";
@@ -38,28 +38,27 @@ public class SituacaoServicoFormController extends CRUDFormController<SituacaoSe
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
-		    currentBean.setDescricao(subView.getTfDescricao().getValue());
+		try {
+			currentBean.setDescricao(subView.getTfDescricao().getValue());
 			situacaoServicoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = situacaoServicoDAO.find(id);
-		
+
 		subView.getTfDescricao().setValue(currentBean.getDescricao());
 	}
-	
+
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -71,27 +70,27 @@ public class SituacaoServicoFormController extends CRUDFormController<SituacaoSe
 	protected void criarNovoBean() {
 		currentBean = new SituacaoServico();
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 situacaoServicoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		situacaoServicoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
- 
-	@Override 
+
+	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 	}
 
@@ -99,4 +98,10 @@ public class SituacaoServicoFormController extends CRUDFormController<SituacaoSe
 	public String getViewIdentifier() {
 		return "tipoServicoForm";
 	}
-} 
+
+	@Override
+	public SituacaoServico getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

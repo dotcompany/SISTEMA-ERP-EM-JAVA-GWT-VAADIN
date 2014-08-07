@@ -14,16 +14,11 @@ import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.DadoNfeFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DadoNfeFormController extends
-		CRUDFormController<NfeCabecalhoEntity> {
+public class DadoNfeFormController extends CRUDFormController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -32,20 +27,14 @@ public class DadoNfeFormController extends
 
 	private DadoNfeFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private NfeCabecalhoDAO nfeCabecalhoDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DadoNfeFormController() {
 
@@ -147,17 +136,19 @@ public class DadoNfeFormController extends
 		return "";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public NfeCabecalhoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

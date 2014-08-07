@@ -19,16 +19,11 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.ValeTransporteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class ValeTransporteFormController extends
-		CRUDFormController<ValeTransporteEntity> {
+public class ValeTransporteFormController extends CRUDFormController<ValeTransporteEntity> {
 
 	/**
 	 * 
@@ -37,9 +32,7 @@ public class ValeTransporteFormController extends
 
 	private ValeTransporteFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private ValeTransporteDAO pDAO;
@@ -50,15 +43,11 @@ public class ValeTransporteFormController extends
 	@Autowired
 	private TransporteItinerarioDAO tiDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private ValeTransporteEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public ValeTransporteFormController() {
 		if (this.pEntity == null) {
@@ -79,13 +68,10 @@ public class ValeTransporteFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer quantidade = Integer.parseInt(this.subView
-					.getTfQuantidade().getValue());
+			Integer quantidade = Integer.parseInt(this.subView.getTfQuantidade().getValue());
 
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
-			TransporteItinerarioEntity transporteItinerario = (TransporteItinerarioEntity) this.subView
-					.getCbTransporteItinerario().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			TransporteItinerarioEntity transporteItinerario = (TransporteItinerarioEntity) this.subView.getCbTransporteItinerario().getValue();
 
 			this.pEntity.setQuantidade(quantidade);
 
@@ -102,17 +88,13 @@ public class ValeTransporteFormController extends
 		} finally {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(
-					String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this
-					.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
 		}
 	}
 
@@ -121,17 +103,13 @@ public class ValeTransporteFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfQuantidade().setValue(
-					String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this
-					.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -148,17 +126,13 @@ public class ValeTransporteFormController extends
 		try {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(
-					String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this
-					.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -180,17 +154,13 @@ public class ValeTransporteFormController extends
 		try {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(
-					String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this
-					.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -227,9 +197,7 @@ public class ValeTransporteFormController extends
 		return "folhapagamento_movimento_vale_transporte_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -247,13 +215,17 @@ public class ValeTransporteFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public ValeTransporteEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

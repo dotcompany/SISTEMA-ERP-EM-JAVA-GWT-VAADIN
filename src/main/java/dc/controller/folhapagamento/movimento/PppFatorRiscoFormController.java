@@ -18,16 +18,11 @@ import dc.servicos.dao.folhapagamento.movimento.PppFatorRiscoDAO;
 import dc.visao.folhapagamento.movimento.PppFatorRiscoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class PppFatorRiscoFormController extends
-		CRUDFormController<PppFatorRiscoEntity> {
+public class PppFatorRiscoFormController extends CRUDFormController<PppFatorRiscoEntity> {
 
 	/**
 	 * 
@@ -36,9 +31,7 @@ public class PppFatorRiscoFormController extends
 
 	private PppFatorRiscoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	// @Autowired
 	private PppFatorRiscoDAO pDAO;
@@ -46,15 +39,11 @@ public class PppFatorRiscoFormController extends
 	// @Autowired
 	private PppDAO pppDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PppFatorRiscoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PppFatorRiscoFormController() {
 		if (this.pEntity == null) {
@@ -80,22 +69,15 @@ public class PppFatorRiscoFormController extends
 			String tipo = this.subView.getTfTipo().getValue();
 			String fatorRisco = this.subView.getTfFatorRisco().getValue();
 			String intensidade = this.subView.getTfIntensidade().getValue();
-			String tecnicaUtilizada = this.subView.getTfTecnicaUtilizada()
-					.getValue();
+			String tecnicaUtilizada = this.subView.getTfTecnicaUtilizada().getValue();
 			String epcEficaz = this.subView.getTfEpcEficaz().getValue();
 			String epiEficaz = this.subView.getTfEpiEficaz().getValue();
-			Integer caEpi = Integer.parseInt(this.subView.getTfCaEpi()
-					.getValue());
-			String atendimentoNr061 = this.subView.getTfAtendimentoNr061()
-					.getValue();
-			String atendimentoNr062 = this.subView.getTfAtendimentoNr062()
-					.getValue();
-			String atendimentoNr063 = this.subView.getTfAtendimentoNr063()
-					.getValue();
-			String atendimentoNr064 = this.subView.getTfAtendimentoNr064()
-					.getValue();
-			String atendimentoNr065 = this.subView.getTfAtendimentoNr065()
-					.getValue();
+			Integer caEpi = Integer.parseInt(this.subView.getTfCaEpi().getValue());
+			String atendimentoNr061 = this.subView.getTfAtendimentoNr061().getValue();
+			String atendimentoNr062 = this.subView.getTfAtendimentoNr062().getValue();
+			String atendimentoNr063 = this.subView.getTfAtendimentoNr063().getValue();
+			String atendimentoNr064 = this.subView.getTfAtendimentoNr064().getValue();
+			String atendimentoNr065 = this.subView.getTfAtendimentoNr065().getValue();
 
 			PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
@@ -391,9 +373,7 @@ public class PppFatorRiscoFormController extends
 		return "folhapagamento_movimento_ppp_fator_risco_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<PppEntity> pppListarTodos() {
 		List<PppEntity> auxLista = new ArrayList<PppEntity>();
@@ -403,18 +383,14 @@ public class PppFatorRiscoFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -424,31 +400,20 @@ public class PppFatorRiscoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
-			this.subView.getTfFatorRisco().setValue(
-					this.pEntity.getFatorRisco());
-			this.subView.getTfIntensidade().setValue(
-					this.pEntity.getIntensidade());
-			this.subView.getTfTecnicaUtilizada().setValue(
-					this.pEntity.getTecnicaUtilizada());
+			this.subView.getTfFatorRisco().setValue(this.pEntity.getFatorRisco());
+			this.subView.getTfIntensidade().setValue(this.pEntity.getIntensidade());
+			this.subView.getTfTecnicaUtilizada().setValue(this.pEntity.getTecnicaUtilizada());
 			this.subView.getTfEpcEficaz().setValue(this.pEntity.getEpcEficaz());
 			this.subView.getTfEpiEficaz().setValue(this.pEntity.getEpiEficaz());
-			this.subView.getTfCaEpi().setValue(
-					String.valueOf(this.pEntity.getCaEpi()));
-			this.subView.getTfAtendimentoNr061().setValue(
-					this.pEntity.getAtendimentoNr061());
-			this.subView.getTfAtendimentoNr062().setValue(
-					this.pEntity.getAtendimentoNr062());
-			this.subView.getTfAtendimentoNr063().setValue(
-					this.pEntity.getAtendimentoNr063());
-			this.subView.getTfAtendimentoNr064().setValue(
-					this.pEntity.getAtendimentoNr064());
-			this.subView.getTfAtendimentoNr065().setValue(
-					this.pEntity.getAtendimentoNr065());
+			this.subView.getTfCaEpi().setValue(String.valueOf(this.pEntity.getCaEpi()));
+			this.subView.getTfAtendimentoNr061().setValue(this.pEntity.getAtendimentoNr061());
+			this.subView.getTfAtendimentoNr062().setValue(this.pEntity.getAtendimentoNr062());
+			this.subView.getTfAtendimentoNr063().setValue(this.pEntity.getAtendimentoNr063());
+			this.subView.getTfAtendimentoNr064().setValue(this.pEntity.getAtendimentoNr064());
+			this.subView.getTfAtendimentoNr065().setValue(this.pEntity.getAtendimentoNr065());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
 
@@ -456,6 +421,12 @@ public class PppFatorRiscoFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public PppFatorRiscoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

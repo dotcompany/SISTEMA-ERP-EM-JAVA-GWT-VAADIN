@@ -121,4 +121,9 @@ public class TipoContratoFormController extends CRUDFormController<TipoContrato>
 		return "tipoContratoFormController";
 	}
 
+	@Override
+	public TipoContrato getModelBean() {
+		return currentBean;
+	}
+
 }

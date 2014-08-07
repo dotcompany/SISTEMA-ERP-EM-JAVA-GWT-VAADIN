@@ -111,4 +111,9 @@ public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoCon
 		// TODO Auto-generated method stub
 		return "planoContaRefSpedForm";
 	}
+
+	@Override
+	public PlanoContaRefSped getModelBean() {
+		return currentBean;
+	}
 }

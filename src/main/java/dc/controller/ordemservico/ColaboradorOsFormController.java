@@ -10,25 +10,22 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.ordemservico.ColaboradorOsFormView;
+import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.ordemservico.ColaboradorOs;
-import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.TipoColaboradorOs;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.ordemservico.ColaboradorOsDAO;
 import dc.servicos.dao.ordemservico.TipoColaboradorOsDAO;
-import dc.controller.contabilidade.planoconta.PlanoContaListController;
-/**
-*
-* @author Paulo Sérgio
-*/ 
+import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.ordemservico.ColaboradorOsFormView;
+
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -37,7 +34,7 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	private static final long serialVersionUID = 1L;
 
 	ColaboradorOsFormView subView;
-	
+
 	@Autowired
 	ColaboradorOsDAO colaboradorOsDAO;
 
@@ -51,7 +48,7 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	ContaCaixaDAO contaCaixaDAO;
 
 	private ColaboradorOs currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Colaborador O.S";
@@ -62,78 +59,77 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-	    currentBean.setNome(subView.getTfNome().getValue());
-	    currentBean.setFilial(Integer.valueOf(subView.getTfFilial().getValue()));
-		if(subView.getPdfDataAdmissao()!=null){
+		currentBean.setNome(subView.getTfNome().getValue());
+		currentBean.setFilial(Integer.valueOf(subView.getTfFilial().getValue()));
+		if (subView.getPdfDataAdmissao() != null) {
 			currentBean.setDataAdmissao(subView.getPdfDataAdmissao().getValue());
 		}
-		if(subView.getPdfDataDemissao()!=null){
+		if (subView.getPdfDataDemissao() != null) {
 			currentBean.setDataDemissao(subView.getPdfDataDemissao().getValue());
 		}
 
-		if(subView.getPdfDataNascimento()!=null){
+		if (subView.getPdfDataNascimento() != null) {
 			currentBean.setDataNascimento(subView.getPdfDataNascimento().getValue());
 		}
 
-		if(subView.getCbTipoColaborador()!=null){
+		if (subView.getCbTipoColaborador() != null) {
 			currentBean.setTipoColaboradorOs(subView.getCbTipoColaborador().getValue());
 		}
-	    currentBean.setCpfCnpj(subView.getTfCpfCnpj().getValue());
-	    currentBean.setRgInscEstadual(subView.getTfRgInscEstadual().getValue());
-	    currentBean.setTelefone(subView.getTfTelefone().getValue());
-	    currentBean.setCelular(subView.getTfCelular().getValue());
-	    currentBean.setCep(subView.getTfCep().getValue());
-	    currentBean.setEndereco(subView.getTfEndereco().getValue());
-	    currentBean.setBairro(subView.getTfBairro().getValue());
-	    currentBean.setCidade(subView.getTfCidade().getValue());
-	    currentBean.setUf(subView.getTfUf().getValue());
-	    currentBean.setEmail(subView.getTfEmail().getValue());
+		currentBean.setCpfCnpj(subView.getTfCpfCnpj().getValue());
+		currentBean.setRgInscEstadual(subView.getTfRgInscEstadual().getValue());
+		currentBean.setTelefone(subView.getTfTelefone().getValue());
+		currentBean.setCelular(subView.getTfCelular().getValue());
+		currentBean.setCep(subView.getTfCep().getValue());
+		currentBean.setEndereco(subView.getTfEndereco().getValue());
+		currentBean.setBairro(subView.getTfBairro().getValue());
+		currentBean.setCidade(subView.getTfCidade().getValue());
+		currentBean.setUf(subView.getTfUf().getValue());
+		currentBean.setEmail(subView.getTfEmail().getValue());
 
-	    if(subView.getTfSalarioFixo()!=null){
+		if (subView.getTfSalarioFixo() != null) {
 			currentBean.setSalarioFixo((BigDecimal) subView.getTfSalarioFixo().getConvertedValue());
-	    }
+		}
 
 		currentBean.setPriorizarComissao(Boolean.valueOf(subView.getCbPriorizarPgto().getValue().toString()));
 		currentBean.setComissaoOver(Boolean.valueOf(subView.getCbComissaoOver().getValue().toString()));
 		currentBean.setTipoComissaoServico((String) subView.getOptTipoComissaoServico().getValue());
 		currentBean.setTipoComissaoProduto((String) subView.getOptTipoComissaoProduto().getValue());
 
-	    if(subView.getTfComissaoProduto()!=null){
+		if (subView.getTfComissaoProduto() != null) {
 			currentBean.setValorComissaoProduto((BigDecimal) subView.getTfComissaoProduto().getConvertedValue());
-	    }
+		}
 
-	    if(subView.getTfComissaoServico()!=null){
+		if (subView.getTfComissaoServico() != null) {
 			currentBean.setValorComissaoServico((BigDecimal) subView.getTfComissaoServico().getConvertedValue());
-	    }
+		}
 
-	    if(subView.getCbPgtoComissao().getValue()!=null){
+		if (subView.getCbPgtoComissao().getValue() != null) {
 			currentBean.setPgtoComissaoSera(Integer.valueOf(subView.getCbPgtoComissao().getValue().toString()));
 		}
-		if(subView.getCbLctoComissao().getValue()!=null){
+		if (subView.getCbLctoComissao().getValue() != null) {
 			currentBean.setLctoComissao(Integer.valueOf(subView.getCbLctoComissao().getValue().toString()));
 		}
-		if(subView.getCbContaCaixa()!=null){
+		if (subView.getCbContaCaixa() != null) {
 			currentBean.setContaCaixa(subView.getCbContaCaixa().getValue());
 		}
-		if(subView.getCbPlanoConta()!=null){
+		if (subView.getCbPlanoConta() != null) {
 			currentBean.setPlanoConta(subView.getCbPlanoConta().getValue());
 		}
-		try{
+		try {
 			colaboradorOsDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = colaboradorOsDAO.find(id);
-		
-		if(currentBean != null){
+
+		if (currentBean != null) {
 			subView.getTfNome().setValue(currentBean.getNome());
 			subView.getTfFilial().setValue(currentBean.getFilial().toString());
 			subView.getCbTipoColaborador().setValue(currentBean.getTipoColaboradorOs());
@@ -153,21 +149,24 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 			subView.getTfEmail().setValue(currentBean.getEmail());
 			subView.getCbPriorizarPgto().setValue(currentBean.getPriorizarComissao());
 			subView.getCbComissaoOver().setValue(currentBean.getComissaoOver());
-			
+
 			BigDecimal salarioFixo = currentBean.getSalarioFixo();
 			if (salarioFixo != null) {
-				subView.getTfSalarioFixo().setConvertedValue(salarioFixo);;
+				subView.getTfSalarioFixo().setConvertedValue(salarioFixo);
+				;
 			}
 			subView.getOptTipoComissaoServico().setValue(currentBean.getTipoComissaoServico());
 			subView.getOptTipoComissaoProduto().setValue(currentBean.getTipoComissaoProduto());
 
 			BigDecimal comissaoServico = currentBean.getValorComissaoServico();
 			if (comissaoServico != null) {
-				subView.getTfComissaoServico().setConvertedValue(comissaoServico);;
+				subView.getTfComissaoServico().setConvertedValue(comissaoServico);
+				;
 			}
 			BigDecimal comissaoProduto = currentBean.getValorComissaoProduto();
 			if (comissaoProduto != null) {
-				subView.getTfComissaoProduto().setConvertedValue(comissaoProduto);;
+				subView.getTfComissaoProduto().setConvertedValue(comissaoProduto);
+				;
 			}
 			subView.getCbPgtoComissao().setValue(currentBean.getPgtoComissaoSera());
 			subView.getCbLctoComissao().setValue(currentBean.getLctoComissao());
@@ -175,42 +174,48 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 			subView.getCbPlanoConta().setValue(currentBean.getPlanoConta());
 		}
 
-
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ColaboradorOsFormView(); 
-		
+		subView = new ColaboradorOsFormView();
+
 		preencheCombos();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new ColaboradorOs();
 	}
-	
+
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<TipoColaboradorOs> tipo = new DefaultManyToOneComboModel<TipoColaboradorOs>(TipoColaboradorOsListController.class, this.tipoColaboradorOsDAO,
-				super.getMainController()) {
+		DefaultManyToOneComboModel<TipoColaboradorOs> tipo = new DefaultManyToOneComboModel<TipoColaboradorOs>(TipoColaboradorOsListController.class,
+				this.tipoColaboradorOsDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "descricao";
 			}
 		};
 		this.subView.getCbTipoColaborador().setModel(tipo);
-		
+
 		DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(PlanoContaListController.class,
 				this.planoContaDAO, super.getMainController());
-		
+
 		this.subView.getCbPlanoConta().setModel(planoConta);
 
 		DefaultManyToOneComboModel<ContaCaixa> contaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
@@ -218,28 +223,28 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 
 		this.subView.getCbContaCaixa().setModel(contaCaixa);
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 colaboradorOsDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		colaboradorOsDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTfNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTfNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
- 
-	@Override 
+
+	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 	}
 
@@ -247,17 +252,23 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	public String getViewIdentifier() {
 		return "colaboradorOsForm";
 	}
-	
-	public String formataMoeda(String valor){
+
+	public String formataMoeda(String valor) {
 		String format = "";
-		System.out.println("valor.replace: "+valor.replace("R$","").substring(0,valor.indexOf(",")));
-		format = valor.replace("R$","").substring(0,valor.indexOf(",")).replaceAll( ",","." ).trim();
+		System.out.println("valor.replace: " + valor.replace("R$", "").substring(0, valor.indexOf(",")));
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).replaceAll(",", ".").trim();
 		return format;
 	}
-	
-	public String formataBigDecimal(String valor){
+
+	public String formataBigDecimal(String valor) {
 		String format = "";
-		format = valor.replace(",",".");
+		format = valor.replace(",", ".");
 		return format;
 	}
-} 
+
+	@Override
+	public ColaboradorOs getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

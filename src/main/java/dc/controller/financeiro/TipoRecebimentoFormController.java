@@ -121,4 +121,9 @@ public class TipoRecebimentoFormController extends CRUDFormController<TipoRecebi
 		// TODO Auto-generated method stub
 		return "tipoRecebimentoForm";
 	}
+
+	@Override
+	public TipoRecebimento getModelBean() {
+		return currentBean;
+	}
 }

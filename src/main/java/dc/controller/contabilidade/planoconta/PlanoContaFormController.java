@@ -17,16 +17,11 @@ import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller(value = "contabilidadePlanoContaFormController")
 @Scope("prototype")
-public class PlanoContaFormController extends
-		CRUDFormController<PlanoContaEntity> {
+public class PlanoContaFormController extends CRUDFormController<PlanoContaEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class PlanoContaFormController extends
 
 	private PlanoContaFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PlanoContaDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PlanoContaEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PlanoContaFormController() {
 		if (this.pEntity == null) {
@@ -74,8 +63,7 @@ public class PlanoContaFormController extends
 			String nome = this.subView.getTfNome().getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
 			String mascara = this.subView.getTfMascara().getValue();
-			Integer niveis = Integer.parseInt(this.subView.getTfNiveis()
-					.getValue());
+			Integer niveis = Integer.parseInt(this.subView.getTfNiveis().getValue());
 
 			this.pEntity.setNome(nome);
 			this.pEntity.setDataInclusao(dataInclusao);
@@ -187,22 +175,16 @@ public class PlanoContaFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -213,14 +195,18 @@ public class PlanoContaFormController extends
 			}
 
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
 			this.subView.getTfMascara().setValue(this.pEntity.getMascara());
-			this.subView.getTfNiveis().setValue(
-					this.pEntity.getNiveis().toString());
+			this.subView.getTfNiveis().setValue(this.pEntity.getNiveis().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public PlanoContaEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

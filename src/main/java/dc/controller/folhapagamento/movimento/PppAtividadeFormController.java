@@ -19,16 +19,11 @@ import dc.servicos.dao.folhapagamento.movimento.PppDAO;
 import dc.visao.folhapagamento.movimento.PppAtividadeFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class PppAtividadeFormController extends
-		CRUDFormController<PppAtividadeEntity> {
+public class PppAtividadeFormController extends CRUDFormController<PppAtividadeEntity> {
 
 	/**
 	 * 
@@ -37,9 +32,7 @@ public class PppAtividadeFormController extends
 
 	private PppAtividadeFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PppAtividadeDAO pDAO;
@@ -47,15 +40,11 @@ public class PppAtividadeFormController extends
 	@Autowired
 	private PppDAO pppDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PppAtividadeEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PppAtividadeFormController() {
 		if (this.pEntity == null) {
@@ -98,10 +87,8 @@ public class PppAtividadeFormController extends
 		} finally {
 			this.pEntity = new PppAtividadeEntity();
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -115,10 +102,8 @@ public class PppAtividadeFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -144,10 +129,8 @@ public class PppAtividadeFormController extends
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -178,10 +161,8 @@ public class PppAtividadeFormController extends
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -253,9 +234,7 @@ public class PppAtividadeFormController extends
 		return "folhapagamento_movimento_ppp_atividade_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<PppEntity> pppListarTodos() {
 		List<PppEntity> auxLista = new ArrayList<PppEntity>();
@@ -265,13 +244,17 @@ public class PppAtividadeFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public PppAtividadeEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

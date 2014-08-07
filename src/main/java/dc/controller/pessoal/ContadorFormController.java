@@ -48,14 +48,12 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtLogradouro().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtLogradouro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtComplemento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtComplemento(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtComplemento(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -71,8 +69,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	protected void initSubView() {
 		this.subView = new ContadorFormView(this);
 
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(
-				PessoaListController.class, this.pessoaDAO,
+		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -82,10 +79,13 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 
 		subView.getCmbPessoa().setModel(model);
 
-		/*DefaultManyToOneComboModel<UF> model1 = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController());
-
-		subView.getCmbUf().setModel(model1);*/
+		/*
+		 * DefaultManyToOneComboModel<UF> model1 = new
+		 * DefaultManyToOneComboModel<UF>( UFListController.class, this.ufDAO,
+		 * super.getMainController());
+		 * 
+		 * subView.getCmbUf().setModel(model1);
+		 */
 	}
 
 	@Override
@@ -99,22 +99,21 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		subView.getTxtTelefone().setValue(currentBean.getFone());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 	}
-	
-	void carregarCombos(){
-		carregarUFs();
-     }
-	
 
-	public List<UF> listarUfs(){
+	void carregarCombos() {
+		carregarUFs();
+	}
+
+	public List<UF> listarUfs() {
 		return ufDAO.listaTodos();
 	}
-	
-	public BeanItemContainer<String> carregarUFs(){
+
+	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
 		List<UF> ufs = listarUfs();
 		for (UF u : ufs) {
 			container.addBean(u.getSigla());
-		}	
+		}
 
 		return container;
 	}
@@ -172,6 +171,12 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Contador getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

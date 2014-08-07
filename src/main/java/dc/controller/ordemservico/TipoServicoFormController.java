@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.TipoServico;
+import dc.servicos.dao.ordemservico.TipoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoServicoFormView;
-import dc.entidade.ordemservico.TipoServico;
-import dc.servicos.dao.ordemservico.TipoServicoDAO;
 
 @Controller
 @Scope("prototype")
@@ -22,15 +22,15 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 	private static final long serialVersionUID = 1L;
 
 	TipoServicoFormView subView;
-	
+
 	@Autowired
 	TipoServicoDAO tipoServicoDAO;
-	
+
 	private TipoServico currentBean;
-	
+
 	@Override
 	protected String getNome() {
-		return "Tipo de Serviço"; 
+		return "Tipo de Serviço";
 	}
 
 	@Override
@@ -38,28 +38,27 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
-		try{
-		    currentBean.setDescricao(subView.getTfDescricao().getValue());
+		try {
+			currentBean.setDescricao(subView.getTfDescricao().getValue());
 			tipoServicoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = tipoServicoDAO.find(id);
-		
+
 		subView.getTfDescricao().setValue(currentBean.getDescricao());
 	}
-	
+
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -67,32 +66,35 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 		subView = new TipoServicoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new TipoServico();
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 tipoServicoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		tipoServicoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
- 
-	@Override 
+
+	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 	}
 
@@ -100,4 +102,10 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 	public String getViewIdentifier() {
 		return "tipoServicoForm";
 	}
-} 
+
+	@Override
+	public TipoServico getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

@@ -21,16 +21,11 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.ausencia.AfastamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class AfastamentoFormController extends
-		CRUDFormController<AfastamentoEntity> {
+public class AfastamentoFormController extends CRUDFormController<AfastamentoEntity> {
 
 	/**
 	 * 
@@ -39,9 +34,7 @@ public class AfastamentoFormController extends
 
 	private AfastamentoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private AfastamentoDAO pDAO;
@@ -52,15 +45,11 @@ public class AfastamentoFormController extends
 	@Autowired
 	private TipoAfastamentoDAO taDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private AfastamentoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public AfastamentoFormController() {
 		if (this.pEntity == null) {
@@ -81,15 +70,12 @@ public class AfastamentoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer diasAfastado = Integer.parseInt(this.subView
-					.getTfDiasAfastado().getValue());
+			Integer diasAfastado = Integer.parseInt(this.subView.getTfDiasAfastado().getValue());
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			Date dataFim = this.subView.getPdfDataFim().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
-			TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView
-					.getCbTipoAfastamento().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView.getCbTipoAfastamento().getValue();
 
 			this.pEntity.setDiasAfastado(diasAfastado);
 			this.pEntity.setDataInicio(dataInicio);
@@ -107,20 +93,15 @@ public class AfastamentoFormController extends
 		} finally {
 			this.pEntity = new AfastamentoEntity();
 
-			this.subView.getTfDiasAfastado().setValue(
-					String.valueOf(this.pEntity.getDiasAfastado()));
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getTfDiasAfastado().setValue(String.valueOf(this.pEntity.getDiasAfastado()));
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTipoAfastamento(this
-					.tipoAfastamentoListarTodos());
+			this.subView.carregarCmbTipoAfastamento(this.tipoAfastamentoListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTipoAfastamento().setValue(
-					this.pEntity.getTipoAfastamento());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTipoAfastamento().setValue(this.pEntity.getTipoAfastamento());
 		}
 	}
 
@@ -129,20 +110,15 @@ public class AfastamentoFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfDiasAfastado().setValue(
-					String.valueOf(this.pEntity.getDiasAfastado()));
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getTfDiasAfastado().setValue(String.valueOf(this.pEntity.getDiasAfastado()));
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTipoAfastamento(this
-					.tipoAfastamentoListarTodos());
+			this.subView.carregarCmbTipoAfastamento(this.tipoAfastamentoListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTipoAfastamento().setValue(
-					this.pEntity.getTipoAfastamento());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTipoAfastamento().setValue(this.pEntity.getTipoAfastamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -159,20 +135,15 @@ public class AfastamentoFormController extends
 		try {
 			this.pEntity = new AfastamentoEntity();
 
-			this.subView.getTfDiasAfastado().setValue(
-					String.valueOf(this.pEntity.getDiasAfastado()));
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getTfDiasAfastado().setValue(String.valueOf(this.pEntity.getDiasAfastado()));
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTipoAfastamento(this
-					.tipoAfastamentoListarTodos());
+			this.subView.carregarCmbTipoAfastamento(this.tipoAfastamentoListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTipoAfastamento().setValue(
-					this.pEntity.getTipoAfastamento());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTipoAfastamento().setValue(this.pEntity.getTipoAfastamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -194,20 +165,15 @@ public class AfastamentoFormController extends
 		try {
 			this.pEntity = new AfastamentoEntity();
 
-			this.subView.getTfDiasAfastado().setValue(
-					String.valueOf(this.pEntity.getDiasAfastado()));
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getTfDiasAfastado().setValue(String.valueOf(this.pEntity.getDiasAfastado()));
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTipoAfastamento(this
-					.tipoAfastamentoListarTodos());
+			this.subView.carregarCmbTipoAfastamento(this.tipoAfastamentoListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
-			this.subView.getCbTipoAfastamento().setValue(
-					this.pEntity.getTipoAfastamento());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbTipoAfastamento().setValue(this.pEntity.getTipoAfastamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -261,12 +227,9 @@ public class AfastamentoFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
-				.getValue();
+		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -276,8 +239,7 @@ public class AfastamentoFormController extends
 			return false;
 		}
 
-		TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView
-				.getCbTipoAfastamento().getValue();
+		TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView.getCbTipoAfastamento().getValue();
 
 		if (!ObjectValidator.validateObject(tipoAfastamento)) {
 			String msg = "Não pode ficar em branco.";
@@ -300,9 +262,7 @@ public class AfastamentoFormController extends
 		return "folhapagamento_ausencia_afastamento_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -320,13 +280,16 @@ public class AfastamentoFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public AfastamentoEntity getModelBean() {
+		return pEntity;
 	}
 
 }

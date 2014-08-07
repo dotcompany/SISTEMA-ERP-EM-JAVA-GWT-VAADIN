@@ -17,8 +17,7 @@ import dc.visao.pessoal.AtividadeForCliFormView;
 
 @Controller
 @Scope("prototype")
-public class AtividadeForCliFormController extends
-		CRUDFormController<AtividadeForCli> {
+public class AtividadeForCliFormController extends CRUDFormController<AtividadeForCli> {
 
 	/**
 	 * 
@@ -37,14 +36,12 @@ public class AtividadeForCliFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -118,6 +115,12 @@ public class AtividadeForCliFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public AtividadeForCli getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

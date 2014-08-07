@@ -17,16 +17,11 @@ import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeCabFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeCabFormController extends
-		CRUDFormController<EncerramentoExeCabEntity> {
+public class EncerramentoExeCabFormController extends CRUDFormController<EncerramentoExeCabEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class EncerramentoExeCabFormController extends
 
 	private EncerramentoExeCabFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private EncerramentoExeCabDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private EncerramentoExeCabEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public EncerramentoExeCabFormController() {
 		if (this.pEntity == null) {
@@ -196,22 +185,16 @@ public class EncerramentoExeCabFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -221,15 +204,19 @@ public class EncerramentoExeCabFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public EncerramentoExeCabEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -20,17 +20,13 @@ import dc.visao.financeiro.ChequeFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
@@ -66,15 +62,12 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNumero(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCmbTalonarioCheque()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTalonarioCheque(),
-					"Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCmbTalonarioCheque().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbTalonarioCheque(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -112,17 +105,17 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	@Override
 	protected void initSubView() {
 		subView = new ChequeFormView();
-		
+
 		this.subView.InitCbs(getChequeStatusCheque());
 
-		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(
-				TalonarioChequeListController.class, this.talonarioChequeDAO,super.getMainController()) {
-		
+		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(TalonarioChequeListController.class,
+				this.talonarioChequeDAO, super.getMainController()) {
+
 			@Override
-		public String getCaptionProperty() {
-			return "talao";
-		}
-	};
+			public String getCaptionProperty() {
+				return "talao";
+			}
+		};
 
 		this.subView.getCmbTalonarioCheque().setModel(model);
 	}
@@ -151,10 +144,8 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	public String getViewIdentifier() {
 		return "chequeForm";
 	}
-	
-	/**
-	 * COMBO
-	 */
+
+	/** COMBO */
 	public List<String> getChequeStatusCheque() {
 		try {
 			List<String> siLista = new ArrayList<String>();
@@ -169,6 +160,11 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 
 			return null;
 		}
+	}
+
+	@Override
+	public Cheque getModelBean() {
+		return currentBean;
 	}
 
 }

@@ -245,4 +245,9 @@ public class FornecedorFormController extends CRUDFormController<Fornecedor> {
 		// TODO Auto-generated method stub
 		return "fornecedorForm";
 	}
+
+	@Override
+	public Fornecedor getModelBean() {
+		return currentBean;
+	}
 }

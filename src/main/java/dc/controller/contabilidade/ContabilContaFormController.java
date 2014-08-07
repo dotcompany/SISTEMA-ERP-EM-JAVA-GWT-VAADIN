@@ -186,4 +186,9 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 		// TODO Auto-generated method stub
 		return "contabilContaForm";
 	}
+
+	@Override
+	public ContabilConta getModelBean() {
+		return currentBean;
+	}
 }

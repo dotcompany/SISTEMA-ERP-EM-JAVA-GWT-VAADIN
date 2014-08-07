@@ -17,16 +17,11 @@ import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
-public class PlanoContaRefSpedFormController extends
-		CRUDFormController<PlanoContaRefSpedEntity> {
+public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class PlanoContaRefSpedFormController extends
 
 	private PlanoContaRefSpedFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PlanoContaRefSpedDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PlanoContaRefSpedEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PlanoContaRefSpedFormController() {
 		if (this.pEntity == null) {
@@ -74,8 +63,7 @@ public class PlanoContaRefSpedFormController extends
 			String codCtaRef = this.subView.getTfCodCtaRef().getValue();
 			String descricao = this.subView.getTfDescricao().getValue();
 			String orientacoes = this.subView.getTfOrientacoes().getValue();
-			Date inicioValidade = this.subView.getPdfInicioValidade()
-					.getValue();
+			Date inicioValidade = this.subView.getPdfInicioValidade().getValue();
 			Date fimValidade = this.subView.getPdfFimValidade().getValue();
 			String tipo = this.subView.getTfTipo().getValue();
 
@@ -191,22 +179,16 @@ public class PlanoContaRefSpedFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -218,16 +200,19 @@ public class PlanoContaRefSpedFormController extends
 
 			this.subView.getTfCodCtaRef().setValue(this.pEntity.getCodCtaRef());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfOrientacoes().setValue(
-					this.pEntity.getOrientacoes());
-			this.subView.getPdfInicioValidade().setValue(
-					this.pEntity.getInicioValidade());
-			this.subView.getPdfFimValidade().setValue(
-					this.pEntity.getFimValidade());
+			this.subView.getTfOrientacoes().setValue(this.pEntity.getOrientacoes());
+			this.subView.getPdfInicioValidade().setValue(this.pEntity.getInicioValidade());
+			this.subView.getPdfFimValidade().setValue(this.pEntity.getFimValidade());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public PlanoContaRefSpedEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

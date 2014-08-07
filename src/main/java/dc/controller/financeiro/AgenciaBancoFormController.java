@@ -21,22 +21,17 @@ import dc.visao.financeiro.AgenciaBancoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
-public class AgenciaBancoFormController extends
-		CRUDFormController<AgenciaBanco> {
+public class AgenciaBancoFormController extends CRUDFormController<AgenciaBanco> {
 
 	/**
 	 * 
@@ -87,71 +82,71 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		
+
 		currentBean = agenciaDAO.find(id);
-		
-		try{
+
+		try {
 			carregarCombos();
-			
-			if(Validator.validateObject(currentBean.getUf())){
-				subView.getCmbUF().setValue(currentBean.getUf());	
+
+			if (Validator.validateObject(currentBean.getUf())) {
+				subView.getCmbUF().setValue(currentBean.getUf());
 			}
-			
-			if(Validator.validateObject(currentBean.getNome())){
+
+			if (Validator.validateObject(currentBean.getNome())) {
 				subView.getTxtNomee().setValue(currentBean.getNome());
 			}
-			if(Validator.validateObject(currentBean.getLogradouro())){
+			if (Validator.validateObject(currentBean.getLogradouro())) {
 				subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
 			}
-			if(Validator.validateObject(currentBean.getBairro())){
+			if (Validator.validateObject(currentBean.getBairro())) {
 				subView.getTxtBairro().setValue(currentBean.getBairro());
 			}
-			if(Validator.validateObject(currentBean.getBairro())){
+			if (Validator.validateObject(currentBean.getBairro())) {
 				subView.getTxtBairro().setValue(currentBean.getBairro());
 			}
-			if(Validator.validateObject(currentBean.getMunicipio())){
+			if (Validator.validateObject(currentBean.getMunicipio())) {
 				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
 			}
-			if(Validator.validateObject(currentBean.getCep())){
+			if (Validator.validateObject(currentBean.getCep())) {
 				subView.getTxtCep().setValue(currentBean.getCep());
 			}
-			if(Validator.validateObject(currentBean.getContato())){
+			if (Validator.validateObject(currentBean.getContato())) {
 				subView.getTxtContato().setValue(currentBean.getContato());
 			}
-			if(Validator.validateObject(currentBean.getGerente())){
+			if (Validator.validateObject(currentBean.getGerente())) {
 				subView.getTxtGerente().setValue(currentBean.getGerente());
 			}
-			if(Validator.validateObject(currentBean.getTelefone())){
+			if (Validator.validateObject(currentBean.getTelefone())) {
 				subView.getTxtTelefone().setValue(currentBean.getTelefone());
 			}
-			if(Validator.validateObject(currentBean.getNumero())){
+			if (Validator.validateObject(currentBean.getNumero())) {
 				subView.getTxtNumero().setValue(currentBean.getNumero());
 			}
-		
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-		void carregarCombos(){
-			carregarUFs();
-	     }
-		
 
-		public List<UF> listarUfs(){
-			return ufDAO.listaTodos();
-		}
-		
-		public BeanItemContainer<String> carregarUFs(){
-			BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
-			List<UF> ufs = listarUfs();
-			for (UF u : ufs) {
-				container.addBean(u.getSigla());
-			}	
+	void carregarCombos() {
+		carregarUFs();
+	}
 
-			return container;
+	public List<UF> listarUfs() {
+		return ufDAO.listaTodos();
+	}
+
+	public BeanItemContainer<String> carregarUFs() {
+		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
+		List<UF> ufs = listarUfs();
+		for (UF u : ufs) {
+			container.addBean(u.getSigla());
 		}
-		
+
+		return container;
+	}
+
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
 	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
@@ -165,27 +160,25 @@ public class AgenciaBancoFormController extends
 	protected void initSubView() {
 		this.subView = new AgenciaBancoFormView(this);
 
-		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(
-				BancoListController.class, this.bancoDAO,super.getMainController()) {
+		DefaultManyToOneComboModel<Banco> modelBanco = new DefaultManyToOneComboModel<Banco>(BancoListController.class, this.bancoDAO,
+				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "nome";
 			}
 		};
-		
+
 		this.subView.getCmbBanco().setModel(modelBanco);
 
-
-		/*DefaultManyToOneComboModel<UF> modelUf = new DefaultManyToOneComboModel<UF>(
-				UFListController.class, this.ufDAO, super.getMainController()) {
-		
-		@Override
-		public String getCaptionProperty() {
-			return "nome";
-		}
-	};
-
-		this.subView.getCmbUF().setModel(modelUf);*/
+		/*
+		 * DefaultManyToOneComboModel<UF> modelUf = new
+		 * DefaultManyToOneComboModel<UF>( UFListController.class, this.ufDAO,
+		 * super.getMainController()) {
+		 * 
+		 * @Override public String getCaptionProperty() { return "nome"; } };
+		 * 
+		 * this.subView.getCmbUF().setModel(modelUf);
+		 */
 
 		// subView.InitCbs(bancoDAO.listaTodos(), ufDAO.listaTodos());
 	}
@@ -213,66 +206,54 @@ public class AgenciaBancoFormController extends
 
 		if (!Validator.validateString(subView.getTxtNomee().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtNomee(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNomee(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtNomee(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNomee(), "Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtLogradouro().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtLogradouro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtLogradouro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtBairro().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtBairro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtBairro(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtBairro(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtBairro(), "Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtNumero(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtNumero(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtCep().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtCep(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtCep(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtCep(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtCep(), "Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtMunicipio().getValue())) {
 
-			adicionarErroDeValidacao(subView.getTxtMunicipio(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtMunicipio(), "Não pode ficar em branco");
 
-			adicionarErroDeValidacao(subView.getTxtMunicipio(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtMunicipio(), "Não pode ficar em branco");
 
 			valido = false;
 		}
@@ -292,6 +273,11 @@ public class AgenciaBancoFormController extends
 	@Override
 	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public AgenciaBanco getModelBean() {
+		return currentBean;
 	}
 
 }

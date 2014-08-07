@@ -17,16 +17,11 @@ import dc.visao.folhapagamento.cadastro.GuiaAcumuladaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class GuiaAcumuladaFormController extends
-		CRUDFormController<GuiaAcumuladaEntity> {
+public class GuiaAcumuladaFormController extends CRUDFormController<GuiaAcumuladaEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class GuiaAcumuladaFormController extends
 
 	private GuiaAcumuladaFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private GuiaAcumuladaDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private GuiaAcumuladaEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public GuiaAcumuladaFormController() {
 		if (this.pEntity == null) {
@@ -72,28 +61,17 @@ public class GuiaAcumuladaFormController extends
 	protected void actionSalvar() {
 		try {
 			String gpsTipo = this.subView.getTfGpsTipo().getValue();
-			String gpsCompetencia = this.subView.getTfGpsCompetencia()
-					.getValue();
-			Double gpsValorInss = Double.parseDouble(this.subView
-					.getTfGpsValorInss().getValue());
-			Double gpsValorOutrasEnt = Double.parseDouble(this.subView
-					.getTfGpsValorOutrasEnt().getValue());
-			Date gpsDataPagamento = this.subView.getPdfGpsDataPagamento()
-					.getValue();
-			String irrfCompetencia = this.subView.getTfIrrfCompetencia()
-					.getValue();
-			Integer irrfCodigoRecolhimento = Integer.parseInt(this.subView
-					.getTfIrrfCodigoRecolhimento().getValue());
-			Double irrfValorAcumulado = Double.parseDouble(this.subView
-					.getTfIrrfValorAcumulado().getValue());
-			Date irrfDataPagamento = this.subView.getPdfIrrfDataPagamento()
-					.getValue();
-			String pisCompetencia = this.subView.getTfPisCompetencia()
-					.getValue();
-			Double pisValorAcumulado = Double.parseDouble(this.subView
-					.getTfPisValorAcumulado().getValue());
-			Date pisDataPagamento = this.subView.getPdfPisDataPagamento()
-					.getValue();
+			String gpsCompetencia = this.subView.getTfGpsCompetencia().getValue();
+			Double gpsValorInss = Double.parseDouble(this.subView.getTfGpsValorInss().getValue());
+			Double gpsValorOutrasEnt = Double.parseDouble(this.subView.getTfGpsValorOutrasEnt().getValue());
+			Date gpsDataPagamento = this.subView.getPdfGpsDataPagamento().getValue();
+			String irrfCompetencia = this.subView.getTfIrrfCompetencia().getValue();
+			Integer irrfCodigoRecolhimento = Integer.parseInt(this.subView.getTfIrrfCodigoRecolhimento().getValue());
+			Double irrfValorAcumulado = Double.parseDouble(this.subView.getTfIrrfValorAcumulado().getValue());
+			Date irrfDataPagamento = this.subView.getPdfIrrfDataPagamento().getValue();
+			String pisCompetencia = this.subView.getTfPisCompetencia().getValue();
+			Double pisValorAcumulado = Double.parseDouble(this.subView.getTfPisValorAcumulado().getValue());
+			Date pisDataPagamento = this.subView.getPdfPisDataPagamento().getValue();
 
 			this.pEntity.setGpsTipo(gpsTipo);
 			this.pEntity.setGpsCompetencia(gpsCompetencia);
@@ -108,18 +86,13 @@ public class GuiaAcumuladaFormController extends
 			this.pEntity.setPisValorAcumulado(pisValorAcumulado);
 			this.pEntity.setPisDataPagamento(pisDataPagamento);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -296,18 +269,14 @@ public class GuiaAcumuladaFormController extends
 		return "folhapagamento_cadastro_guia_acumulada_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -318,31 +287,26 @@ public class GuiaAcumuladaFormController extends
 			}
 
 			this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			this.subView.getTfGpsCompetencia().setValue(
-					this.pEntity.getGpsCompetencia());
-			this.subView.getTfGpsValorInss().setValue(
-					this.pEntity.getGpsValorInss().toString());
-			this.subView.getTfGpsValorOutrasEnt().setValue(
-					this.pEntity.getGpsValorOutrasEnt().toString());
-			this.subView.getPdfGpsDataPagamento().setValue(
-					this.pEntity.getGpsDataPagamento());
-			this.subView.getTfIrrfCompetencia().setValue(
-					this.pEntity.getIrrfCompetencia());
-			this.subView.getTfIrrfCodigoRecolhimento().setValue(
-					this.pEntity.getIrrfCodigoRecolhimento().toString());
-			this.subView.getTfIrrfValorAcumulado().setValue(
-					this.pEntity.getIrrfValorAcumulado().toString());
-			this.subView.getPdfIrrfDataPagamento().setValue(
-					this.pEntity.getIrrfDataPagamento());
-			this.subView.getTfPisCompetencia().setValue(
-					this.pEntity.getPisCompetencia());
-			this.subView.getTfPisValorAcumulado().setValue(
-					this.pEntity.getPisValorAcumulado().toString());
-			this.subView.getPdfPisDataPagamento().setValue(
-					this.pEntity.getPisDataPagamento());
+			this.subView.getTfGpsCompetencia().setValue(this.pEntity.getGpsCompetencia());
+			this.subView.getTfGpsValorInss().setValue(this.pEntity.getGpsValorInss().toString());
+			this.subView.getTfGpsValorOutrasEnt().setValue(this.pEntity.getGpsValorOutrasEnt().toString());
+			this.subView.getPdfGpsDataPagamento().setValue(this.pEntity.getGpsDataPagamento());
+			this.subView.getTfIrrfCompetencia().setValue(this.pEntity.getIrrfCompetencia());
+			this.subView.getTfIrrfCodigoRecolhimento().setValue(this.pEntity.getIrrfCodigoRecolhimento().toString());
+			this.subView.getTfIrrfValorAcumulado().setValue(this.pEntity.getIrrfValorAcumulado().toString());
+			this.subView.getPdfIrrfDataPagamento().setValue(this.pEntity.getIrrfDataPagamento());
+			this.subView.getTfPisCompetencia().setValue(this.pEntity.getPisCompetencia());
+			this.subView.getTfPisValorAcumulado().setValue(this.pEntity.getPisValorAcumulado().toString());
+			this.subView.getPdfPisDataPagamento().setValue(this.pEntity.getPisDataPagamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public GuiaAcumuladaEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

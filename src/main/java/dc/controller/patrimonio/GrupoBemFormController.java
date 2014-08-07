@@ -17,11 +17,7 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.GrupoBemFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -34,22 +30,16 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 	private GrupoBemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private GrupoBemDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private GrupoBemEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public GrupoBemFormController() {
 		if (this.pEntity == null) {
@@ -72,35 +62,25 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 		try {
 			String codigo = this.subView.getTfCodigo().getValue();
 			String nome = this.subView.getTfNome().getValue();
-			String contaAtivoImobilizado = this.subView
-					.getTfContaAtivoImobilizado().getValue();
-			String contaDepreciacaoAcumulada = this.subView
-					.getTfContaDepreciacaoAcumulada().getValue();
-			String contaDespesaDepreciacao = this.subView
-					.getTfContaDespesaDepreciacao().getValue();
-			Integer codigoHistorico = Integer.parseInt(this.subView
-					.getTfCodigoHistorico().getValue());
+			String contaAtivoImobilizado = this.subView.getTfContaAtivoImobilizado().getValue();
+			String contaDepreciacaoAcumulada = this.subView.getTfContaDepreciacaoAcumulada().getValue();
+			String contaDespesaDepreciacao = this.subView.getTfContaDespesaDepreciacao().getValue();
+			Integer codigoHistorico = Integer.parseInt(this.subView.getTfCodigoHistorico().getValue());
 
 			this.pEntity.setCodigo(codigo);
 			this.pEntity.setNome(nome);
 			this.pEntity.setContaAtivoImobilizado(contaAtivoImobilizado);
-			this.pEntity
-					.setContaDepreciacaoAcumulada(contaDepreciacaoAcumulada);
+			this.pEntity.setContaDepreciacaoAcumulada(contaDepreciacaoAcumulada);
 			this.pEntity.setContaDespesaDepreciacao(contaDespesaDepreciacao);
 			this.pEntity.setCodigoHistorico(codigoHistorico);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -114,14 +94,10 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfContaAtivoImobilizado().setValue(
-					this.pEntity.getContaAtivoImobilizado());
-			this.subView.getTfContaDepreciacaoAcumulada().setValue(
-					this.pEntity.getContaDepreciacaoAcumulada());
-			this.subView.getTfContaDespesaDepreciacao().setValue(
-					this.pEntity.getContaDespesaDepreciacao());
-			this.subView.getTfCodigoHistorico().setValue(
-					String.valueOf(this.pEntity.getCodigoHistorico()));
+			this.subView.getTfContaAtivoImobilizado().setValue(this.pEntity.getContaAtivoImobilizado());
+			this.subView.getTfContaDepreciacaoAcumulada().setValue(this.pEntity.getContaDepreciacaoAcumulada());
+			this.subView.getTfContaDespesaDepreciacao().setValue(this.pEntity.getContaDespesaDepreciacao());
+			this.subView.getTfCodigoHistorico().setValue(String.valueOf(this.pEntity.getCodigoHistorico()));
 		}
 	}
 
@@ -132,14 +108,10 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfContaAtivoImobilizado().setValue(
-					this.pEntity.getContaAtivoImobilizado());
-			this.subView.getTfContaDepreciacaoAcumulada().setValue(
-					this.pEntity.getContaDepreciacaoAcumulada());
-			this.subView.getTfContaDespesaDepreciacao().setValue(
-					this.pEntity.getContaDespesaDepreciacao());
-			this.subView.getTfCodigoHistorico().setValue(
-					String.valueOf(this.pEntity.getCodigoHistorico()));
+			this.subView.getTfContaAtivoImobilizado().setValue(this.pEntity.getContaAtivoImobilizado());
+			this.subView.getTfContaDepreciacaoAcumulada().setValue(this.pEntity.getContaDepreciacaoAcumulada());
+			this.subView.getTfContaDespesaDepreciacao().setValue(this.pEntity.getContaDespesaDepreciacao());
+			this.subView.getTfCodigoHistorico().setValue(String.valueOf(this.pEntity.getCodigoHistorico()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -158,14 +130,10 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfContaAtivoImobilizado().setValue(
-					this.pEntity.getContaAtivoImobilizado());
-			this.subView.getTfContaDepreciacaoAcumulada().setValue(
-					this.pEntity.getContaDepreciacaoAcumulada());
-			this.subView.getTfContaDespesaDepreciacao().setValue(
-					this.pEntity.getContaDespesaDepreciacao());
-			this.subView.getTfCodigoHistorico().setValue(
-					String.valueOf(this.pEntity.getCodigoHistorico()));
+			this.subView.getTfContaAtivoImobilizado().setValue(this.pEntity.getContaAtivoImobilizado());
+			this.subView.getTfContaDepreciacaoAcumulada().setValue(this.pEntity.getContaDepreciacaoAcumulada());
+			this.subView.getTfContaDespesaDepreciacao().setValue(this.pEntity.getContaDespesaDepreciacao());
+			this.subView.getTfCodigoHistorico().setValue(String.valueOf(this.pEntity.getCodigoHistorico()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -189,14 +157,10 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			this.subView.getTfCodigo().setValue(this.pEntity.getCodigo());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfContaAtivoImobilizado().setValue(
-					this.pEntity.getContaAtivoImobilizado());
-			this.subView.getTfContaDepreciacaoAcumulada().setValue(
-					this.pEntity.getContaDepreciacaoAcumulada());
-			this.subView.getTfContaDespesaDepreciacao().setValue(
-					this.pEntity.getContaDespesaDepreciacao());
-			this.subView.getTfCodigoHistorico().setValue(
-					String.valueOf(this.pEntity.getCodigoHistorico()));
+			this.subView.getTfContaAtivoImobilizado().setValue(this.pEntity.getContaAtivoImobilizado());
+			this.subView.getTfContaDepreciacaoAcumulada().setValue(this.pEntity.getContaDepreciacaoAcumulada());
+			this.subView.getTfContaDespesaDepreciacao().setValue(this.pEntity.getContaDespesaDepreciacao());
+			this.subView.getTfCodigoHistorico().setValue(String.valueOf(this.pEntity.getCodigoHistorico()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -240,38 +204,32 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 			return false;
 		}
 
-		String contaAtivoImobilizado = this.subView
-				.getTfContaAtivoImobilizado().getValue();
+		String contaAtivoImobilizado = this.subView.getTfContaAtivoImobilizado().getValue();
 
 		if (!ObjectValidator.validateString(contaAtivoImobilizado)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getTfContaAtivoImobilizado(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getTfContaAtivoImobilizado(), msg);
 
 			return false;
 		}
 
-		String contaDepreciacaoAcumulada = this.subView
-				.getTfContaDepreciacaoAcumulada().getValue();
+		String contaDepreciacaoAcumulada = this.subView.getTfContaDepreciacaoAcumulada().getValue();
 
 		if (!ObjectValidator.validateString(contaDepreciacaoAcumulada)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(
-					this.subView.getTfContaDepreciacaoAcumulada(), msg);
+			adicionarErroDeValidacao(this.subView.getTfContaDepreciacaoAcumulada(), msg);
 
 			return false;
 		}
 
-		String contaDespesaDepreciacao = this.subView
-				.getTfContaDespesaDepreciacao().getValue();
+		String contaDespesaDepreciacao = this.subView.getTfContaDespesaDepreciacao().getValue();
 
 		if (!ObjectValidator.validateString(contaDespesaDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(
-					this.subView.getTfContaDespesaDepreciacao(), msg);
+			adicionarErroDeValidacao(this.subView.getTfContaDespesaDepreciacao(), msg);
 
 			return false;
 		}
@@ -299,17 +257,19 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 		return "patrimonio_grupo_bem_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public GrupoBemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

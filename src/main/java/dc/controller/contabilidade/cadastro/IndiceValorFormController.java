@@ -20,16 +20,11 @@ import dc.visao.contabilidade.cadastro.IndiceValorFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class IndiceValorFormController extends
-		CRUDFormController<IndiceValorEntity> {
+public class IndiceValorFormController extends CRUDFormController<IndiceValorEntity> {
 
 	/**
 	 * 
@@ -38,9 +33,7 @@ public class IndiceValorFormController extends
 
 	private IndiceValorFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private IndiceValorDAO pDAO;
@@ -48,15 +41,11 @@ public class IndiceValorFormController extends
 	@Autowired
 	private IndiceDAO iDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private IndiceValorEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public IndiceValorFormController() {
 		if (this.pEntity == null) {
@@ -78,8 +67,7 @@ public class IndiceValorFormController extends
 	protected void actionSalvar() {
 		try {
 			Date dataIndice = this.subView.getPdfDataIndice().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			IndiceEntity indice = this.subView.getCbIndice().getValue();
 
@@ -176,9 +164,7 @@ public class IndiceValorFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		IndiceEntity indice = this.subView.getCbIndice().getValue();
 
@@ -209,14 +195,11 @@ public class IndiceValorFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<IndiceEntity> model = new DefaultManyToOneComboModel<IndiceEntity>(
-					IndiceListController.class, this.iDAO,
+			DefaultManyToOneComboModel<IndiceEntity> model = new DefaultManyToOneComboModel<IndiceEntity>(IndiceListController.class, this.iDAO,
 					super.getMainController());
 
 			this.subView.getCbIndice().setModel(model);
@@ -225,18 +208,14 @@ public class IndiceValorFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -250,13 +229,17 @@ public class IndiceValorFormController extends
 				this.subView.getCbIndice().setValue(this.pEntity.getIndice());
 			}
 
-			this.subView.getPdfDataIndice().setValue(
-					this.pEntity.getDataIndice());
-			this.subView.getTfValor().setValue(
-					this.pEntity.getValor().toString());
+			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
+			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public IndiceValorEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

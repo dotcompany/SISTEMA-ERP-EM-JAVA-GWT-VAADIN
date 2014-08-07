@@ -16,16 +16,11 @@ import dc.visao.folhapagamento.movimento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class FechamentoFormController extends
-		CRUDFormController<FechamentoEntity> {
+public class FechamentoFormController extends CRUDFormController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -34,22 +29,16 @@ public class FechamentoFormController extends
 
 	private FechamentoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private FechamentoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private FechamentoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public FechamentoFormController() {
 		if (this.pEntity == null) {
@@ -70,26 +59,19 @@ public class FechamentoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			String fechamentoAtual = this.subView.getTfFechamentoAtual()
-					.getValue();
-			String proximoFechamento = this.subView.getTfProximoFechamento()
-					.getValue();
+			String fechamentoAtual = this.subView.getTfFechamentoAtual().getValue();
+			String proximoFechamento = this.subView.getTfProximoFechamento().getValue();
 
 			this.pEntity.setFechamentoAtual(fechamentoAtual);
 			this.pEntity.setProximoFechamento(proximoFechamento);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -101,10 +83,8 @@ public class FechamentoFormController extends
 		} finally {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(
-					this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(
-					this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
 		}
 	}
 
@@ -113,10 +93,8 @@ public class FechamentoFormController extends
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfFechamentoAtual().setValue(
-					this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(
-					this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -133,10 +111,8 @@ public class FechamentoFormController extends
 		try {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(
-					this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(
-					this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -158,10 +134,8 @@ public class FechamentoFormController extends
 		try {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(
-					this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(
-					this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -198,17 +172,19 @@ public class FechamentoFormController extends
 		return "folhapagamento_movimento_fechamento_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public FechamentoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

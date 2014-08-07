@@ -20,16 +20,11 @@ import dc.visao.contabilidade.lancamento.LancamentoCabecalhoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoCabecalhoFormController extends
-		CRUDFormController<LancamentoCabecalhoEntity> {
+public class LancamentoCabecalhoFormController extends CRUDFormController<LancamentoCabecalhoEntity> {
 
 	/**
 	 * 
@@ -38,9 +33,7 @@ public class LancamentoCabecalhoFormController extends
 
 	private LancamentoCabecalhoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoCabecalhoDAO pDAO;
@@ -48,15 +41,11 @@ public class LancamentoCabecalhoFormController extends
 	@Autowired
 	private LoteDAO lDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoCabecalhoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoCabecalhoFormController() {
 		if (this.pEntity == null) {
@@ -77,13 +66,11 @@ public class LancamentoCabecalhoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Date dataLancamento = this.subView.getPdfDataLancamento()
-					.getValue();
+			Date dataLancamento = this.subView.getPdfDataLancamento().getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
 			String tipo = this.subView.getTfTipo().getValue();
 			String liberado = this.subView.getTfLiberado().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			LoteEntity lote = this.subView.getCbLote().getValue();
 
@@ -193,9 +180,7 @@ public class LancamentoCabecalhoFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		LoteEntity lote = this.subView.getCbLote().getValue();
 
@@ -226,14 +211,11 @@ public class LancamentoCabecalhoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<LoteEntity> model = new DefaultManyToOneComboModel<LoteEntity>(
-					LoteListController.class, this.lDAO,
+			DefaultManyToOneComboModel<LoteEntity> model = new DefaultManyToOneComboModel<LoteEntity>(LoteListController.class, this.lDAO,
 					super.getMainController());
 
 			this.subView.getCbLote().setModel(model);
@@ -242,18 +224,14 @@ public class LancamentoCabecalhoFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -267,17 +245,20 @@ public class LancamentoCabecalhoFormController extends
 				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
-			this.subView.getPdfDataLancamento().setValue(
-					this.pEntity.getDataLancamento());
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLancamento().setValue(this.pEntity.getDataLancamento());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
-			this.subView.getTfValor().setValue(
-					this.pEntity.getValor().toString());
+			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoCabecalhoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

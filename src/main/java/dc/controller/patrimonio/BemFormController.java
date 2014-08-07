@@ -29,11 +29,7 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.BemFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -46,9 +42,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 
 	private BemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private BemDAO pDAO;
@@ -71,15 +65,11 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 	@Autowired
 	private ColaboradorDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private BemEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public BemFormController() {
 		if (this.pEntity == null) {
@@ -107,54 +97,34 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			Date dataAquisicao = this.subView.getPdfDataAquisicao().getValue();
 			Date dataAceite = this.subView.getPdfDataAceite().getValue();
 			Date dataCadastro = this.subView.getPdfDataCadastro().getValue();
-			Date dataContabilizado = this.subView.getPdfDataContabilizado()
-					.getValue();
+			Date dataContabilizado = this.subView.getPdfDataContabilizado().getValue();
 			Date dataVistoria = this.subView.getPdfDataVistoria().getValue();
 			Date dataMarcacao = this.subView.getPdfDataMarcacao().getValue();
 			Date dataBaixa = this.subView.getPdfDataBaixa().getValue();
-			Date vencimentoGarantia = this.subView.getPdfVencimentoGarantia()
-					.getValue();
-			String numeroNotaFiscal = this.subView.getTfNumeroNotaFiscal()
-					.getValue();
+			Date vencimentoGarantia = this.subView.getPdfVencimentoGarantia().getValue();
+			String numeroNotaFiscal = this.subView.getTfNumeroNotaFiscal().getValue();
 			String chaveNfe = this.subView.getTfChaveNfe().getValue();
-			Double valorOriginal = Double.parseDouble(this.subView
-					.getTfValorOriginal().getValue());
-			Double valorCompra = Double.parseDouble(this.subView
-					.getTfValorCompra().getValue());
-			Double valorAtualizado = Double.parseDouble(this.subView
-					.getTfValorAtualizado().getValue());
-			Double valorBaixa = Double.parseDouble(this.subView
-					.getTfValorBaixa().getValue());
+			Double valorOriginal = Double.parseDouble(this.subView.getTfValorOriginal().getValue());
+			Double valorCompra = Double.parseDouble(this.subView.getTfValorCompra().getValue());
+			Double valorAtualizado = Double.parseDouble(this.subView.getTfValorAtualizado().getValue());
+			Double valorBaixa = Double.parseDouble(this.subView.getTfValorBaixa().getValue());
 			String deprecia = this.subView.getTfDeprecia().getValue();
-			String metodoDepreciacao = this.subView.getTfMetodoDepreciacao()
-					.getValue();
-			Date inicioDepreciacao = this.subView.getPdfInicioDepreciacao()
-					.getValue();
-			Date ultimaDepreciacao = this.subView.getPdfUltimaDepreciacao()
-					.getValue();
-			String tipoDepreciacao = this.subView.getTfTipoDepreciacao()
-					.getValue();
-			Double taxaAnualDepreciacao = Double.parseDouble(this.subView
-					.getTfTaxaAnualDepreciacao().getValue());
-			Double taxaMensalDepreciacao = Double.parseDouble(this.subView
-					.getTfTaxaMensalDepreciacao().getValue());
-			Double taxaDepreciacaoAcelerada = Double.parseDouble(this.subView
-					.getTfTaxaDepreciacaoAcelerada().getValue());
-			Double taxaDepreciacaoIncentivada = Double.parseDouble(this.subView
-					.getTfTaxaDepreciacaoIncentivada().getValue());
+			String metodoDepreciacao = this.subView.getTfMetodoDepreciacao().getValue();
+			Date inicioDepreciacao = this.subView.getPdfInicioDepreciacao().getValue();
+			Date ultimaDepreciacao = this.subView.getPdfUltimaDepreciacao().getValue();
+			String tipoDepreciacao = this.subView.getTfTipoDepreciacao().getValue();
+			Double taxaAnualDepreciacao = Double.parseDouble(this.subView.getTfTaxaAnualDepreciacao().getValue());
+			Double taxaMensalDepreciacao = Double.parseDouble(this.subView.getTfTaxaMensalDepreciacao().getValue());
+			Double taxaDepreciacaoAcelerada = Double.parseDouble(this.subView.getTfTaxaDepreciacaoAcelerada().getValue());
+			Double taxaDepreciacaoIncentivada = Double.parseDouble(this.subView.getTfTaxaDepreciacaoIncentivada().getValue());
 			String funcao = this.subView.getTfFuncao().getValue();
 
-			TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView
-					.getCbTipoAquisicao().getValue();
-			EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView
-					.getCbEstadoConservacao().getValue();
-			GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView
-					.getCbGrupoBem().getValue();
+			TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView.getCbTipoAquisicao().getValue();
+			EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView.getCbEstadoConservacao().getValue();
+			GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem().getValue();
 			Setor setor = (Setor) this.subView.getCbSetor().getValue();
-			Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor()
-					.getValue();
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
+			Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setNumeroNb(numeroNb);
 			this.pEntity.setNome(nome);
@@ -182,8 +152,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			this.pEntity.setTaxaAnualDepreciacao(taxaAnualDepreciacao);
 			this.pEntity.setTaxaMensalDepreciacao(taxaMensalDepreciacao);
 			this.pEntity.setTaxaDepreciacaoAcelerada(taxaDepreciacaoAcelerada);
-			this.pEntity
-					.setTaxaDepreciacaoIncentivada(taxaDepreciacaoIncentivada);
+			this.pEntity.setTaxaDepreciacaoIncentivada(taxaDepreciacaoIncentivada);
 			this.pEntity.setFuncao(funcao);
 
 			this.pEntity.setTipoAquisicao(tipoAquisicao);
@@ -206,75 +175,45 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			this.subView.getTfNumeroNb().setValue(this.pEntity.getNumeroNb());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfNumeroSerie().setValue(
-					this.pEntity.getNumeroSerie());
-			this.subView.getPdfDataAquisicao().setValue(
-					this.pEntity.getDataAquisicao());
-			this.subView.getPdfDataAceite().setValue(
-					this.pEntity.getDataAceite());
-			this.subView.getPdfDataCadastro().setValue(
-					this.pEntity.getDataCadastro());
-			this.subView.getPdfDataContabilizado().setValue(
-					this.pEntity.getDataContabilizado());
-			this.subView.getPdfDataVistoria().setValue(
-					this.pEntity.getDataVistoria());
-			this.subView.getPdfDataMarcacao().setValue(
-					this.pEntity.getDataMarcacao());
-			this.subView.getPdfDataBaixa()
-					.setValue(this.pEntity.getDataBaixa());
-			this.subView.getPdfVencimentoGarantia().setValue(
-					this.pEntity.getVencimentoGarantia());
-			this.subView.getTfNumeroNotaFiscal().setValue(
-					this.pEntity.getNumeroNotaFiscal());
+			this.subView.getTfNumeroSerie().setValue(this.pEntity.getNumeroSerie());
+			this.subView.getPdfDataAquisicao().setValue(this.pEntity.getDataAquisicao());
+			this.subView.getPdfDataAceite().setValue(this.pEntity.getDataAceite());
+			this.subView.getPdfDataCadastro().setValue(this.pEntity.getDataCadastro());
+			this.subView.getPdfDataContabilizado().setValue(this.pEntity.getDataContabilizado());
+			this.subView.getPdfDataVistoria().setValue(this.pEntity.getDataVistoria());
+			this.subView.getPdfDataMarcacao().setValue(this.pEntity.getDataMarcacao());
+			this.subView.getPdfDataBaixa().setValue(this.pEntity.getDataBaixa());
+			this.subView.getPdfVencimentoGarantia().setValue(this.pEntity.getVencimentoGarantia());
+			this.subView.getTfNumeroNotaFiscal().setValue(this.pEntity.getNumeroNotaFiscal());
 			this.subView.getTfChaveNfe().setValue(this.pEntity.getChaveNfe());
-			this.subView.getTfValorOriginal().setValue(
-					String.valueOf(this.pEntity.getValorOriginal()));
-			this.subView.getTfValorCompra().setValue(
-					String.valueOf(this.pEntity.getValorCompra()));
-			this.subView.getTfValorAtualizado().setValue(
-					String.valueOf(this.pEntity.getValorAtualizado()));
-			this.subView.getTfValorBaixa().setValue(
-					String.valueOf(this.pEntity.getValorBaixa()));
+			this.subView.getTfValorOriginal().setValue(String.valueOf(this.pEntity.getValorOriginal()));
+			this.subView.getTfValorCompra().setValue(String.valueOf(this.pEntity.getValorCompra()));
+			this.subView.getTfValorAtualizado().setValue(String.valueOf(this.pEntity.getValorAtualizado()));
+			this.subView.getTfValorBaixa().setValue(String.valueOf(this.pEntity.getValorBaixa()));
 			this.subView.getTfDeprecia().setValue(this.pEntity.getDeprecia());
-			this.subView.getTfMetodoDepreciacao().setValue(
-					this.pEntity.getMetodoDepreciacao());
-			this.subView.getPdfInicioDepreciacao().setValue(
-					this.pEntity.getInicioDepreciacao());
-			this.subView.getPdfUltimaDepreciacao().setValue(
-					this.pEntity.getUltimaDepreciacao());
-			this.subView.getTfTipoDepreciacao().setValue(
-					this.pEntity.getTipoDepreciacao());
-			this.subView.getTfTaxaAnualDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
-			this.subView.getTfTaxaMensalDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
-			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(
-					String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
-			this.subView.getTfTaxaDepreciacaoIncentivada()
-					.setValue(
-							String.valueOf(this.pEntity
-									.getTaxaDepreciacaoIncentivada()));
+			this.subView.getTfMetodoDepreciacao().setValue(this.pEntity.getMetodoDepreciacao());
+			this.subView.getPdfInicioDepreciacao().setValue(this.pEntity.getInicioDepreciacao());
+			this.subView.getPdfUltimaDepreciacao().setValue(this.pEntity.getUltimaDepreciacao());
+			this.subView.getTfTipoDepreciacao().setValue(this.pEntity.getTipoDepreciacao());
+			this.subView.getTfTaxaAnualDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
+			this.subView.getTfTaxaMensalDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
+			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
+			this.subView.getTfTaxaDepreciacaoIncentivada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoIncentivada()));
 			this.subView.getTfFuncao().setValue(this.pEntity.getFuncao());
 
-			this.subView.carregarCmbTipoAquisicao(this
-					.tipoAquisicaoListarTodos());
-			this.subView.carregarCmbEstadoConservacao(this
-					.estadoConservacaoListarTodos());
+			this.subView.carregarCmbTipoAquisicao(this.tipoAquisicaoListarTodos());
+			this.subView.carregarCmbEstadoConservacao(this.estadoConservacaoListarTodos());
 			this.subView.carregarCmbGrupoBem(this.grupoBemListarTodos());
 			this.subView.carregarCmbSetor(this.setorListarTodos());
 			this.subView.carregarCmbFornecedor(this.fornecedorListarTodos());
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbTipoAquisicao().setValue(
-					this.pEntity.getTipoAquisicao());
-			this.subView.getCbEstadoConservacao().setValue(
-					this.pEntity.getEstadoConservacao());
+			this.subView.getCbTipoAquisicao().setValue(this.pEntity.getTipoAquisicao());
+			this.subView.getCbEstadoConservacao().setValue(this.pEntity.getEstadoConservacao());
 			this.subView.getCbGrupoBem().setValue(this.pEntity.getGrupoBem());
 			this.subView.getCbSetor().setValue(this.pEntity.getSetor());
-			this.subView.getCbFornecedor().setValue(
-					this.pEntity.getFornecedor());
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbFornecedor().setValue(this.pEntity.getFornecedor());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		}
 	}
 
@@ -286,75 +225,45 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			this.subView.getTfNumeroNb().setValue(this.pEntity.getNumeroNb());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfNumeroSerie().setValue(
-					this.pEntity.getNumeroSerie());
-			this.subView.getPdfDataAquisicao().setValue(
-					this.pEntity.getDataAquisicao());
-			this.subView.getPdfDataAceite().setValue(
-					this.pEntity.getDataAceite());
-			this.subView.getPdfDataCadastro().setValue(
-					this.pEntity.getDataCadastro());
-			this.subView.getPdfDataContabilizado().setValue(
-					this.pEntity.getDataContabilizado());
-			this.subView.getPdfDataVistoria().setValue(
-					this.pEntity.getDataVistoria());
-			this.subView.getPdfDataMarcacao().setValue(
-					this.pEntity.getDataMarcacao());
-			this.subView.getPdfDataBaixa()
-					.setValue(this.pEntity.getDataBaixa());
-			this.subView.getPdfVencimentoGarantia().setValue(
-					this.pEntity.getVencimentoGarantia());
-			this.subView.getTfNumeroNotaFiscal().setValue(
-					this.pEntity.getNumeroNotaFiscal());
+			this.subView.getTfNumeroSerie().setValue(this.pEntity.getNumeroSerie());
+			this.subView.getPdfDataAquisicao().setValue(this.pEntity.getDataAquisicao());
+			this.subView.getPdfDataAceite().setValue(this.pEntity.getDataAceite());
+			this.subView.getPdfDataCadastro().setValue(this.pEntity.getDataCadastro());
+			this.subView.getPdfDataContabilizado().setValue(this.pEntity.getDataContabilizado());
+			this.subView.getPdfDataVistoria().setValue(this.pEntity.getDataVistoria());
+			this.subView.getPdfDataMarcacao().setValue(this.pEntity.getDataMarcacao());
+			this.subView.getPdfDataBaixa().setValue(this.pEntity.getDataBaixa());
+			this.subView.getPdfVencimentoGarantia().setValue(this.pEntity.getVencimentoGarantia());
+			this.subView.getTfNumeroNotaFiscal().setValue(this.pEntity.getNumeroNotaFiscal());
 			this.subView.getTfChaveNfe().setValue(this.pEntity.getChaveNfe());
-			this.subView.getTfValorOriginal().setValue(
-					String.valueOf(this.pEntity.getValorOriginal()));
-			this.subView.getTfValorCompra().setValue(
-					String.valueOf(this.pEntity.getValorCompra()));
-			this.subView.getTfValorAtualizado().setValue(
-					String.valueOf(this.pEntity.getValorAtualizado()));
-			this.subView.getTfValorBaixa().setValue(
-					String.valueOf(this.pEntity.getValorBaixa()));
+			this.subView.getTfValorOriginal().setValue(String.valueOf(this.pEntity.getValorOriginal()));
+			this.subView.getTfValorCompra().setValue(String.valueOf(this.pEntity.getValorCompra()));
+			this.subView.getTfValorAtualizado().setValue(String.valueOf(this.pEntity.getValorAtualizado()));
+			this.subView.getTfValorBaixa().setValue(String.valueOf(this.pEntity.getValorBaixa()));
 			this.subView.getTfDeprecia().setValue(this.pEntity.getDeprecia());
-			this.subView.getTfMetodoDepreciacao().setValue(
-					this.pEntity.getMetodoDepreciacao());
-			this.subView.getPdfInicioDepreciacao().setValue(
-					this.pEntity.getInicioDepreciacao());
-			this.subView.getPdfUltimaDepreciacao().setValue(
-					this.pEntity.getUltimaDepreciacao());
-			this.subView.getTfTipoDepreciacao().setValue(
-					this.pEntity.getTipoDepreciacao());
-			this.subView.getTfTaxaAnualDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
-			this.subView.getTfTaxaMensalDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
-			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(
-					String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
-			this.subView.getTfTaxaDepreciacaoIncentivada()
-					.setValue(
-							String.valueOf(this.pEntity
-									.getTaxaDepreciacaoIncentivada()));
+			this.subView.getTfMetodoDepreciacao().setValue(this.pEntity.getMetodoDepreciacao());
+			this.subView.getPdfInicioDepreciacao().setValue(this.pEntity.getInicioDepreciacao());
+			this.subView.getPdfUltimaDepreciacao().setValue(this.pEntity.getUltimaDepreciacao());
+			this.subView.getTfTipoDepreciacao().setValue(this.pEntity.getTipoDepreciacao());
+			this.subView.getTfTaxaAnualDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
+			this.subView.getTfTaxaMensalDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
+			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
+			this.subView.getTfTaxaDepreciacaoIncentivada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoIncentivada()));
 			this.subView.getTfFuncao().setValue(this.pEntity.getFuncao());
 
-			this.subView.carregarCmbTipoAquisicao(this
-					.tipoAquisicaoListarTodos());
-			this.subView.carregarCmbEstadoConservacao(this
-					.estadoConservacaoListarTodos());
+			this.subView.carregarCmbTipoAquisicao(this.tipoAquisicaoListarTodos());
+			this.subView.carregarCmbEstadoConservacao(this.estadoConservacaoListarTodos());
 			this.subView.carregarCmbGrupoBem(this.grupoBemListarTodos());
 			this.subView.carregarCmbSetor(this.setorListarTodos());
 			this.subView.carregarCmbFornecedor(this.fornecedorListarTodos());
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbTipoAquisicao().setValue(
-					this.pEntity.getTipoAquisicao());
-			this.subView.getCbEstadoConservacao().setValue(
-					this.pEntity.getEstadoConservacao());
+			this.subView.getCbTipoAquisicao().setValue(this.pEntity.getTipoAquisicao());
+			this.subView.getCbEstadoConservacao().setValue(this.pEntity.getEstadoConservacao());
 			this.subView.getCbGrupoBem().setValue(this.pEntity.getGrupoBem());
 			this.subView.getCbSetor().setValue(this.pEntity.getSetor());
-			this.subView.getCbFornecedor().setValue(
-					this.pEntity.getFornecedor());
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbFornecedor().setValue(this.pEntity.getFornecedor());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -398,75 +307,45 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			this.subView.getTfNumeroNb().setValue(this.pEntity.getNumeroNb());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfNumeroSerie().setValue(
-					this.pEntity.getNumeroSerie());
-			this.subView.getPdfDataAquisicao().setValue(
-					this.pEntity.getDataAquisicao());
-			this.subView.getPdfDataAceite().setValue(
-					this.pEntity.getDataAceite());
-			this.subView.getPdfDataCadastro().setValue(
-					this.pEntity.getDataCadastro());
-			this.subView.getPdfDataContabilizado().setValue(
-					this.pEntity.getDataContabilizado());
-			this.subView.getPdfDataVistoria().setValue(
-					this.pEntity.getDataVistoria());
-			this.subView.getPdfDataMarcacao().setValue(
-					this.pEntity.getDataMarcacao());
-			this.subView.getPdfDataBaixa()
-					.setValue(this.pEntity.getDataBaixa());
-			this.subView.getPdfVencimentoGarantia().setValue(
-					this.pEntity.getVencimentoGarantia());
-			this.subView.getTfNumeroNotaFiscal().setValue(
-					this.pEntity.getNumeroNotaFiscal());
+			this.subView.getTfNumeroSerie().setValue(this.pEntity.getNumeroSerie());
+			this.subView.getPdfDataAquisicao().setValue(this.pEntity.getDataAquisicao());
+			this.subView.getPdfDataAceite().setValue(this.pEntity.getDataAceite());
+			this.subView.getPdfDataCadastro().setValue(this.pEntity.getDataCadastro());
+			this.subView.getPdfDataContabilizado().setValue(this.pEntity.getDataContabilizado());
+			this.subView.getPdfDataVistoria().setValue(this.pEntity.getDataVistoria());
+			this.subView.getPdfDataMarcacao().setValue(this.pEntity.getDataMarcacao());
+			this.subView.getPdfDataBaixa().setValue(this.pEntity.getDataBaixa());
+			this.subView.getPdfVencimentoGarantia().setValue(this.pEntity.getVencimentoGarantia());
+			this.subView.getTfNumeroNotaFiscal().setValue(this.pEntity.getNumeroNotaFiscal());
 			this.subView.getTfChaveNfe().setValue(this.pEntity.getChaveNfe());
-			this.subView.getTfValorOriginal().setValue(
-					String.valueOf(this.pEntity.getValorOriginal()));
-			this.subView.getTfValorCompra().setValue(
-					String.valueOf(this.pEntity.getValorCompra()));
-			this.subView.getTfValorAtualizado().setValue(
-					String.valueOf(this.pEntity.getValorAtualizado()));
-			this.subView.getTfValorBaixa().setValue(
-					String.valueOf(this.pEntity.getValorBaixa()));
+			this.subView.getTfValorOriginal().setValue(String.valueOf(this.pEntity.getValorOriginal()));
+			this.subView.getTfValorCompra().setValue(String.valueOf(this.pEntity.getValorCompra()));
+			this.subView.getTfValorAtualizado().setValue(String.valueOf(this.pEntity.getValorAtualizado()));
+			this.subView.getTfValorBaixa().setValue(String.valueOf(this.pEntity.getValorBaixa()));
 			this.subView.getTfDeprecia().setValue(this.pEntity.getDeprecia());
-			this.subView.getTfMetodoDepreciacao().setValue(
-					this.pEntity.getMetodoDepreciacao());
-			this.subView.getPdfInicioDepreciacao().setValue(
-					this.pEntity.getInicioDepreciacao());
-			this.subView.getPdfUltimaDepreciacao().setValue(
-					this.pEntity.getUltimaDepreciacao());
-			this.subView.getTfTipoDepreciacao().setValue(
-					this.pEntity.getTipoDepreciacao());
-			this.subView.getTfTaxaAnualDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
-			this.subView.getTfTaxaMensalDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
-			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(
-					String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
-			this.subView.getTfTaxaDepreciacaoIncentivada()
-					.setValue(
-							String.valueOf(this.pEntity
-									.getTaxaDepreciacaoIncentivada()));
+			this.subView.getTfMetodoDepreciacao().setValue(this.pEntity.getMetodoDepreciacao());
+			this.subView.getPdfInicioDepreciacao().setValue(this.pEntity.getInicioDepreciacao());
+			this.subView.getPdfUltimaDepreciacao().setValue(this.pEntity.getUltimaDepreciacao());
+			this.subView.getTfTipoDepreciacao().setValue(this.pEntity.getTipoDepreciacao());
+			this.subView.getTfTaxaAnualDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
+			this.subView.getTfTaxaMensalDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
+			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
+			this.subView.getTfTaxaDepreciacaoIncentivada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoIncentivada()));
 			this.subView.getTfFuncao().setValue(this.pEntity.getFuncao());
 
-			this.subView.carregarCmbTipoAquisicao(this
-					.tipoAquisicaoListarTodos());
-			this.subView.carregarCmbEstadoConservacao(this
-					.estadoConservacaoListarTodos());
+			this.subView.carregarCmbTipoAquisicao(this.tipoAquisicaoListarTodos());
+			this.subView.carregarCmbEstadoConservacao(this.estadoConservacaoListarTodos());
 			this.subView.carregarCmbGrupoBem(this.grupoBemListarTodos());
 			this.subView.carregarCmbSetor(this.setorListarTodos());
 			this.subView.carregarCmbFornecedor(this.fornecedorListarTodos());
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbTipoAquisicao().setValue(
-					this.pEntity.getTipoAquisicao());
-			this.subView.getCbEstadoConservacao().setValue(
-					this.pEntity.getEstadoConservacao());
+			this.subView.getCbTipoAquisicao().setValue(this.pEntity.getTipoAquisicao());
+			this.subView.getCbEstadoConservacao().setValue(this.pEntity.getEstadoConservacao());
 			this.subView.getCbGrupoBem().setValue(this.pEntity.getGrupoBem());
 			this.subView.getCbSetor().setValue(this.pEntity.getSetor());
-			this.subView.getCbFornecedor().setValue(
-					this.pEntity.getFornecedor());
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbFornecedor().setValue(this.pEntity.getFornecedor());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -515,75 +394,45 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			this.subView.getTfNumeroNb().setValue(this.pEntity.getNumeroNb());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfNumeroSerie().setValue(
-					this.pEntity.getNumeroSerie());
-			this.subView.getPdfDataAquisicao().setValue(
-					this.pEntity.getDataAquisicao());
-			this.subView.getPdfDataAceite().setValue(
-					this.pEntity.getDataAceite());
-			this.subView.getPdfDataCadastro().setValue(
-					this.pEntity.getDataCadastro());
-			this.subView.getPdfDataContabilizado().setValue(
-					this.pEntity.getDataContabilizado());
-			this.subView.getPdfDataVistoria().setValue(
-					this.pEntity.getDataVistoria());
-			this.subView.getPdfDataMarcacao().setValue(
-					this.pEntity.getDataMarcacao());
-			this.subView.getPdfDataBaixa()
-					.setValue(this.pEntity.getDataBaixa());
-			this.subView.getPdfVencimentoGarantia().setValue(
-					this.pEntity.getVencimentoGarantia());
-			this.subView.getTfNumeroNotaFiscal().setValue(
-					this.pEntity.getNumeroNotaFiscal());
+			this.subView.getTfNumeroSerie().setValue(this.pEntity.getNumeroSerie());
+			this.subView.getPdfDataAquisicao().setValue(this.pEntity.getDataAquisicao());
+			this.subView.getPdfDataAceite().setValue(this.pEntity.getDataAceite());
+			this.subView.getPdfDataCadastro().setValue(this.pEntity.getDataCadastro());
+			this.subView.getPdfDataContabilizado().setValue(this.pEntity.getDataContabilizado());
+			this.subView.getPdfDataVistoria().setValue(this.pEntity.getDataVistoria());
+			this.subView.getPdfDataMarcacao().setValue(this.pEntity.getDataMarcacao());
+			this.subView.getPdfDataBaixa().setValue(this.pEntity.getDataBaixa());
+			this.subView.getPdfVencimentoGarantia().setValue(this.pEntity.getVencimentoGarantia());
+			this.subView.getTfNumeroNotaFiscal().setValue(this.pEntity.getNumeroNotaFiscal());
 			this.subView.getTfChaveNfe().setValue(this.pEntity.getChaveNfe());
-			this.subView.getTfValorOriginal().setValue(
-					String.valueOf(this.pEntity.getValorOriginal()));
-			this.subView.getTfValorCompra().setValue(
-					String.valueOf(this.pEntity.getValorCompra()));
-			this.subView.getTfValorAtualizado().setValue(
-					String.valueOf(this.pEntity.getValorAtualizado()));
-			this.subView.getTfValorBaixa().setValue(
-					String.valueOf(this.pEntity.getValorBaixa()));
+			this.subView.getTfValorOriginal().setValue(String.valueOf(this.pEntity.getValorOriginal()));
+			this.subView.getTfValorCompra().setValue(String.valueOf(this.pEntity.getValorCompra()));
+			this.subView.getTfValorAtualizado().setValue(String.valueOf(this.pEntity.getValorAtualizado()));
+			this.subView.getTfValorBaixa().setValue(String.valueOf(this.pEntity.getValorBaixa()));
 			this.subView.getTfDeprecia().setValue(this.pEntity.getDeprecia());
-			this.subView.getTfMetodoDepreciacao().setValue(
-					this.pEntity.getMetodoDepreciacao());
-			this.subView.getPdfInicioDepreciacao().setValue(
-					this.pEntity.getInicioDepreciacao());
-			this.subView.getPdfUltimaDepreciacao().setValue(
-					this.pEntity.getUltimaDepreciacao());
-			this.subView.getTfTipoDepreciacao().setValue(
-					this.pEntity.getTipoDepreciacao());
-			this.subView.getTfTaxaAnualDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
-			this.subView.getTfTaxaMensalDepreciacao().setValue(
-					String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
-			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(
-					String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
-			this.subView.getTfTaxaDepreciacaoIncentivada()
-					.setValue(
-							String.valueOf(this.pEntity
-									.getTaxaDepreciacaoIncentivada()));
+			this.subView.getTfMetodoDepreciacao().setValue(this.pEntity.getMetodoDepreciacao());
+			this.subView.getPdfInicioDepreciacao().setValue(this.pEntity.getInicioDepreciacao());
+			this.subView.getPdfUltimaDepreciacao().setValue(this.pEntity.getUltimaDepreciacao());
+			this.subView.getTfTipoDepreciacao().setValue(this.pEntity.getTipoDepreciacao());
+			this.subView.getTfTaxaAnualDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaAnualDepreciacao()));
+			this.subView.getTfTaxaMensalDepreciacao().setValue(String.valueOf(this.pEntity.getTaxaMensalDepreciacao()));
+			this.subView.getTfTaxaDepreciacaoAcelerada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoAcelerada()));
+			this.subView.getTfTaxaDepreciacaoIncentivada().setValue(String.valueOf(this.pEntity.getTaxaDepreciacaoIncentivada()));
 			this.subView.getTfFuncao().setValue(this.pEntity.getFuncao());
 
-			this.subView.carregarCmbTipoAquisicao(this
-					.tipoAquisicaoListarTodos());
-			this.subView.carregarCmbEstadoConservacao(this
-					.estadoConservacaoListarTodos());
+			this.subView.carregarCmbTipoAquisicao(this.tipoAquisicaoListarTodos());
+			this.subView.carregarCmbEstadoConservacao(this.estadoConservacaoListarTodos());
 			this.subView.carregarCmbGrupoBem(this.grupoBemListarTodos());
 			this.subView.carregarCmbSetor(this.setorListarTodos());
 			this.subView.carregarCmbFornecedor(this.fornecedorListarTodos());
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbTipoAquisicao().setValue(
-					this.pEntity.getTipoAquisicao());
-			this.subView.getCbEstadoConservacao().setValue(
-					this.pEntity.getEstadoConservacao());
+			this.subView.getCbTipoAquisicao().setValue(this.pEntity.getTipoAquisicao());
+			this.subView.getCbEstadoConservacao().setValue(this.pEntity.getEstadoConservacao());
 			this.subView.getCbGrupoBem().setValue(this.pEntity.getGrupoBem());
 			this.subView.getCbSetor().setValue(this.pEntity.getSetor());
-			this.subView.getCbFornecedor().setValue(
-					this.pEntity.getFornecedor());
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbFornecedor().setValue(this.pEntity.getFornecedor());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -677,14 +526,12 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Object dataContabilizado = this.subView.getPdfDataContabilizado()
-				.getValue();
+		Object dataContabilizado = this.subView.getPdfDataContabilizado().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataContabilizado)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfDataContabilizado(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getPdfDataContabilizado(), msg);
 
 			return false;
 		}
@@ -719,14 +566,12 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Object vencimentoGarantia = this.subView.getPdfVencimentoGarantia()
-				.getValue();
+		Object vencimentoGarantia = this.subView.getPdfVencimentoGarantia().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(vencimentoGarantia)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfVencimentoGarantia(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getPdfVencimentoGarantia(), msg);
 
 			return false;
 		}
@@ -813,26 +658,22 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		// return false;
 		// }
 
-		Object inicioDepreciacao = this.subView.getPdfInicioDepreciacao()
-				.getValue();
+		Object inicioDepreciacao = this.subView.getPdfInicioDepreciacao().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(inicioDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfInicioDepreciacao(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getPdfInicioDepreciacao(), msg);
 
 			return false;
 		}
 
-		Object ultimaDepreciacao = this.subView.getPdfUltimaDepreciacao()
-				.getValue();
+		Object ultimaDepreciacao = this.subView.getPdfUltimaDepreciacao().getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(ultimaDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfUltimaDepreciacao(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getPdfUltimaDepreciacao(), msg);
 
 			return false;
 		}
@@ -848,56 +689,47 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		// return false;
 		// }
 
-		String taxaAnualDepreciacao = this.subView.getTfTaxaAnualDepreciacao()
-				.getValue();
+		String taxaAnualDepreciacao = this.subView.getTfTaxaAnualDepreciacao().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(taxaAnualDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getTfTaxaAnualDepreciacao(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getTfTaxaAnualDepreciacao(), msg);
 
 			return false;
 		}
 
-		String taxaMensalDepreciacao = this.subView
-				.getTfTaxaMensalDepreciacao().getValue();
+		String taxaMensalDepreciacao = this.subView.getTfTaxaMensalDepreciacao().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(taxaMensalDepreciacao)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getTfTaxaMensalDepreciacao(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getTfTaxaMensalDepreciacao(), msg);
 
 			return false;
 		}
 
-		String taxaDepreciacaoAcelerada = this.subView
-				.getTfTaxaDepreciacaoAcelerada().getValue();
+		String taxaDepreciacaoAcelerada = this.subView.getTfTaxaDepreciacaoAcelerada().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(taxaDepreciacaoAcelerada)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(
-					this.subView.getTfTaxaDepreciacaoAcelerada(), msg);
+			adicionarErroDeValidacao(this.subView.getTfTaxaDepreciacaoAcelerada(), msg);
 
 			return false;
 		}
 
-		String taxaDepreciacaoIncentivada = this.subView
-				.getTfTaxaDepreciacaoIncentivada().getValue();
+		String taxaDepreciacaoIncentivada = this.subView.getTfTaxaDepreciacaoIncentivada().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(taxaDepreciacaoIncentivada)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(
-					this.subView.getTfTaxaDepreciacaoIncentivada(), msg);
+			adicionarErroDeValidacao(this.subView.getTfTaxaDepreciacaoIncentivada(), msg);
 
 			return false;
 		}
 
-		TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView
-				.getCbTipoAquisicao().getValue();
+		TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView.getCbTipoAquisicao().getValue();
 
 		if (!ObjectValidator.validateObject(tipoAquisicao)) {
 			String msg = "Não pode ficar em branco.";
@@ -907,8 +739,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView
-				.getCbEstadoConservacao().getValue();
+		EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView.getCbEstadoConservacao().getValue();
 
 		if (!ObjectValidator.validateObject(estadoConservacao)) {
 			String msg = "Não pode ficar em branco.";
@@ -918,8 +749,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem()
-				.getValue();
+		GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem().getValue();
 
 		if (!ObjectValidator.validateObject(grupoBem)) {
 			String msg = "Não pode ficar em branco.";
@@ -939,8 +769,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor()
-				.getValue();
+		Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor().getValue();
 
 		if (!ObjectValidator.validateObject(fornecedor)) {
 			String msg = "Não pode ficar em branco.";
@@ -950,8 +779,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
-				.getValue();
+		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -974,9 +802,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		return "patrimonio_bem_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<TipoAquisicaoEntity> tipoAquisicaoListarTodos() {
 		List<TipoAquisicaoEntity> auxLista = new ArrayList<TipoAquisicaoEntity>();
@@ -1026,13 +852,17 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public BemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

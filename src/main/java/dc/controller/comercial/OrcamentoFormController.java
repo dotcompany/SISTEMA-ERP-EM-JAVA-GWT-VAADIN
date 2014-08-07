@@ -17,25 +17,21 @@ import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
-import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Transportadora;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.OrcamentoDAO;
-import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.servicos.dao.folhapagamento.VendedorDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.TransportadoraDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.OrcamentoFormView;
-import dc.visao.comercial.TipoNotaFiscalFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -68,9 +64,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	ProdutoDAO produtoDAO;
 
 	@Autowired
-	FreteDAO  freteDAO;
-
-
+	FreteDAO freteDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -99,7 +93,6 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
 
-
 		subView.getCmbVendedor().setValue(currentBean.getVendedor());
 		subView.getCmbCliente().setValue(currentBean.getCliente());
 		subView.getCmbCondicaoPagamento().setValue(currentBean.getCondicaoPagamento());
@@ -119,31 +112,31 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		BigDecimal valorDesconto = currentBean.getValorDesconto();
 		BigDecimal valorTotal = currentBean.getValorTotal();
 
-		if(valorSubTotal!=null ){
+		if (valorSubTotal != null) {
 			subView.getTxtValorSubTotal().setValue(valorSubTotal.toString());
 		}
 
-		if(valorFrete!=null ){
+		if (valorFrete != null) {
 			subView.getTxtValorFrete().setValue(valorFrete.toString());
 		}
 
-		if(taxaComissao!=null ){
+		if (taxaComissao != null) {
 			subView.getTxtTaxaComissao().setValue(taxaComissao.toString());
 		}
 
-		if(valorComissao!=null ){
+		if (valorComissao != null) {
 			subView.getTxtValorComissao().setValue(valorComissao.toString());
 		}
 
-		if(taxaDesconto!=null ){
+		if (taxaDesconto != null) {
 			subView.getTxtTaxaDesconto().setValue(taxaDesconto.toString());
 		}
 
-		if(valorDesconto!=null ){
+		if (valorDesconto != null) {
 			subView.getTxtValorDesconto().setValue(valorDesconto.toString());
 		}
 
-		if(valorTotal!=null ){
+		if (valorTotal != null) {
 			subView.getTxtValorTotal().setValue(valorTotal.toString());
 		}
 
@@ -155,12 +148,12 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	@Override
 	protected void actionSalvar() {
 
-		try{
+		try {
 
-			CondicaoPagamento condicao = (CondicaoPagamento)subView.getCmbCondicaoPagamento().getValue();
-			VendedorEntity vendedor = (VendedorEntity)subView.getCmbVendedor().getValue();
-			Cliente cliente = (Cliente)subView.getCmbCliente().getValue();
-			Transportadora  transportadora = (Transportadora)subView.getCmbTransportadora().getValue(); 
+			CondicaoPagamento condicao = (CondicaoPagamento) subView.getCmbCondicaoPagamento().getValue();
+			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor().getValue();
+			Cliente cliente = (Cliente) subView.getCmbCliente().getValue();
+			Transportadora transportadora = (Transportadora) subView.getCmbTransportadora().getValue();
 
 			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
 			String valorFrete = subView.getTxtValorFrete().getValue();
@@ -173,31 +166,31 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 			String observacao = subView.getTxtDescricao().getValue();
 
-			if(!Validator.validateObject(vendedor)){
+			if (!Validator.validateObject(vendedor)) {
 				throw new ErroValidacaoException("Informe o Vendedor");
 			}
 
-			if(!Validator.validateObject(cliente)){
+			if (!Validator.validateObject(cliente)) {
 				throw new ErroValidacaoException("Informe o Cliente");
 			}
-			
-			if(!Validator.validateObject(condicao)){
+
+			if (!Validator.validateObject(condicao)) {
 				throw new ErroValidacaoException("Informe a Condição de Pagamento");
 			}
 
-			if(Validator.validateObject(condicao)){
+			if (Validator.validateObject(condicao)) {
 				currentBean.setCondicaoPagamento(condicao);
 			}
 
-			if(Validator.validateObject(vendedor)){
+			if (Validator.validateObject(vendedor)) {
 				currentBean.setVendedor(vendedor);
 			}
 
-			if(Validator.validateObject(cliente)){
+			if (Validator.validateObject(cliente)) {
 				currentBean.setCliente(cliente);
 			}
 
-			if(Validator.validateObject(transportadora)){
+			if (Validator.validateObject(transportadora)) {
 				currentBean.setTransportadora(transportadora);
 			}
 
@@ -210,42 +203,42 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 			currentBean.setDataValidade(dataValidade);
 			currentBean.setObservacao(observacao);
 
-			if(Validator.validateString(valorSubTotal)){
+			if (Validator.validateString(valorSubTotal)) {
 				currentBean.setValorSubTotal(formataValor(valorSubTotal));
 			}
 
-			if(Validator.validateString(valorFrete)){
+			if (Validator.validateString(valorFrete)) {
 				currentBean.setValorFrete(formataValor(valorFrete));
 			}
 
-			if(Validator.validateString(taxaComissao)){
+			if (Validator.validateString(taxaComissao)) {
 				taxaComissao = taxaComissao.replace(",", ".");
 				currentBean.setTaxaComissao(new BigDecimal(taxaComissao));
 			}
 
-			if(Validator.validateString(valorComissao)){
+			if (Validator.validateString(valorComissao)) {
 				currentBean.setValorComissao(formataValor(valorComissao));
 			}
 
-			if(Validator.validateString(taxaDesconto)){
+			if (Validator.validateString(taxaDesconto)) {
 				taxaDesconto = taxaDesconto.replace(",", ".");
 				currentBean.setTaxaDesconto(new BigDecimal(taxaDesconto));
 			}
 
-			if(Validator.validateString(valorDesconto)){
+			if (Validator.validateString(valorDesconto)) {
 				currentBean.setValorDesconto(formataValor(valorDesconto));
 			}
 
-			if(Validator.validateString(valorTotal)){
+			if (Validator.validateString(valorTotal)) {
 				currentBean.setValorTotal(formataValor(valorTotal));
 			}
 
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
-		}catch(ErroValidacaoException e){
+		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
@@ -271,23 +264,20 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 
-		try{
-			for(Serializable id : ids){
+		try {
+			for (Serializable id : ids) {
 				Orcamento orcamento = dao.find(id);
 				List<ItemOrcamento> itens = itemOrcamentoDAO.findByOrcamento(orcamento);
-				for(ItemOrcamento item : itens){
+				for (ItemOrcamento item : itens) {
 					itemOrcamentoDAO.delete(item);
 				}
 			}
 			dao.deleteAllByIds(ids);
 			mensagemRemovidoOK();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			mensagemErro("Problema ao remover!");
 		}
-
-
-
 
 	}
 
@@ -298,74 +288,74 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-	public ItemOrcamento adicionarItem(){
+	public ItemOrcamento adicionarItem() {
 		ItemOrcamento item = new ItemOrcamento();
 		List<ItemOrcamento> lista = itemOrcamentoDAO.findByOrcamento(currentBean);
-		if(lista==null) lista = new ArrayList<ItemOrcamento>();
+		if (lista == null)
+			lista = new ArrayList<ItemOrcamento>();
 		currentBean.setItens(lista);
 		currentBean.getItens().add(item);
 		item.setOrcamento(currentBean);
 		return item;
 	}
 
-	public BeanItemContainer<CondicaoPagamento> carregarCondicoes(){
+	public BeanItemContainer<CondicaoPagamento> carregarCondicoes() {
 		BeanItemContainer<CondicaoPagamento> container = new BeanItemContainer<>(CondicaoPagamento.class);
-		for(CondicaoPagamento c : condicaoPagamentoDAO.listarTodos()){
+		for (CondicaoPagamento c : condicaoPagamentoDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Cliente> carregarClientes(){
+	public BeanItemContainer<Cliente> carregarClientes() {
 		BeanItemContainer<Cliente> container = new BeanItemContainer<>(Cliente.class);
-		for(Cliente c : clienteDAO.listaTodos()){
+		for (Cliente c : clienteDAO.listaTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Transportadora> carregarTransportadoras(){
+	public BeanItemContainer<Transportadora> carregarTransportadoras() {
 		BeanItemContainer<Transportadora> container = new BeanItemContainer<>(Transportadora.class);
-		for(Transportadora c : transportadoraDAO.listaTodos()){
+		for (Transportadora c : transportadoraDAO.listaTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<VendedorEntity> carregarVendedores(){
+	public BeanItemContainer<VendedorEntity> carregarVendedores() {
 		BeanItemContainer<VendedorEntity> container = new BeanItemContainer<>(VendedorEntity.class);
-		for(VendedorEntity c : vendedorDAO.listarTodos()){
+		for (VendedorEntity c : vendedorDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Produto> carregarProdutos(){
+	public BeanItemContainer<Produto> carregarProdutos() {
 		BeanItemContainer<Produto> container = new BeanItemContainer<>(Produto.class);
-		for(Produto p : produtoDAO.listaTodos()){
+		for (Produto p : produtoDAO.listaTodos()) {
 			container.addBean(p);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Frete> carregarFretes(){
+	public BeanItemContainer<Frete> carregarFretes() {
 		BeanItemContainer<Frete> container = new BeanItemContainer<>(Frete.class);
-		for(Frete f : freteDAO.listaTodos()){
+		for (Frete f : freteDAO.listaTodos()) {
 			container.addBean(f);
 		}
 		return container;
 	}
 
-	public BigDecimal formataValor(String valor){
+	public BigDecimal formataValor(String valor) {
 		String format = "";
-		format = valor.replace("R$","").
-				substring(0,valor.indexOf(",")).
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
-				replaceAll( ",","" ).trim();
+		replaceAll(",", "").trim();
 		return new BigDecimal(format);
 	}
 
@@ -377,6 +367,9 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		this.produtoDAO = produtoDAO;
 	}
 
-
+	@Override
+	public Orcamento getModelBean() {
+		return currentBean;
+	}
 
 }

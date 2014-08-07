@@ -168,4 +168,9 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 	public String getViewIdentifier() {
 		return "naturezafinanceiraForm";
 	}
+
+	@Override
+	public NaturezaFinanceira getModelBean() {
+		return currentBean;
+	}
 }

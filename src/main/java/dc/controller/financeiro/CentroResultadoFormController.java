@@ -18,22 +18,17 @@ import dc.visao.financeiro.CentroResultadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no CentroResultado
  *         de Dados Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
-public class CentroResultadoFormController extends
-		CRUDFormController<CentroResultado> {
+public class CentroResultadoFormController extends CRUDFormController<CentroResultado> {
 
 	/**
 	 * 
@@ -99,8 +94,7 @@ public class CentroResultadoFormController extends
 		// subView.InitCbPlanoCentroResultado(planoresultadoDAO.listaTodos());
 
 		DefaultManyToOneComboModel<PlanoCentroResultado> model = new DefaultManyToOneComboModel<PlanoCentroResultado>(
-				PlanoCentroResultadoListController.class,
-				this.planoresultadoDAO, super.getMainController());
+				PlanoCentroResultadoListController.class, this.planoresultadoDAO, super.getMainController());
 
 		this.subView.getCmbPlanoCentroResultado().setModel(model);
 	}
@@ -130,14 +124,12 @@ public class CentroResultadoFormController extends
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtClassficacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtClassficacao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtClassficacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -148,14 +140,17 @@ public class CentroResultadoFormController extends
 		 * "Não pode ficar em branco"); valido = false; }
 		 */
 
-		if (!Validator.validateObject(subView.getCmbPlanoCentroResultado()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getCmbPlanoCentroResultado(),
-					"Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCmbPlanoCentroResultado().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbPlanoCentroResultado(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		return valido;
+	}
+
+	@Override
+	public CentroResultado getModelBean() {
+		return currentBean;
 	}
 
 }

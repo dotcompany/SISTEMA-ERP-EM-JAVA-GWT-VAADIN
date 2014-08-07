@@ -9,16 +9,13 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.Defeito;
+import dc.servicos.dao.ordemservico.DefeitoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.DefeitoFormView;
-import dc.entidade.ordemservico.Defeito;
-import dc.servicos.dao.ordemservico.DefeitoDAO;
 
-/**
-*
-* @author Paulo Sérgio
-*/
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -26,13 +23,13 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 
 	private static final long serialVersionUID = 1L;
 
-	DefeitoFormView subView; 
-	
+	DefeitoFormView subView;
+
 	@Autowired
 	DefeitoDAO defeitoDAO;
-	
+
 	private Defeito currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Defeito";
@@ -43,28 +40,31 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
-		try{
+		try {
 			defeitoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = defeitoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -72,7 +72,10 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 		subView = new DefeitoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Defeito();
@@ -80,21 +83,21 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 defeitoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		defeitoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -106,4 +109,10 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 	public String getViewIdentifier() {
 		return "defeitoForm";
 	}
-} 
+
+	@Override
+	public Defeito getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

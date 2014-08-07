@@ -19,12 +19,12 @@ import dc.visao.geral.ContatoFormView;
 public class ContatoFormController extends CRUDFormController<Contato> {
 
 	ContatoFormView subView;
-	
+
 	@Autowired
 	ContatoDAO contatoDAO;
 
 	private Contato currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Contato";
@@ -35,7 +35,7 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		String email = subView.getTxtEmail().getValue();
@@ -47,15 +47,14 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		currentBean.setFoneComercial(foneComercial);
 		currentBean.setFoneResidencial(foneResidencial);
 		currentBean.setFoneCelular(foneCelular);
-		try{
+		try {
 			contatoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -66,11 +65,14 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		subView.getTxtFoneResidencial().setValue(currentBean.getFoneResidencial());
 		subView.getTxtFoneCelular().setValue(currentBean.getFoneCelular());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -78,7 +80,10 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		subView = new ContatoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Contato();
@@ -86,16 +91,17 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 contatoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		contatoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -104,13 +110,18 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "contatoForm";
+	}
+
+	@Override
+	public Contato getModelBean() {
+		return currentBean;
 	}
 
 }

@@ -15,11 +15,7 @@ import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NotaFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -32,22 +28,16 @@ public class NotaFormController extends CRUDFormController<LivroEntity> {
 
 	private NotaFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LivroDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LivroEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public NotaFormController() {
 		if (this.pEntity == null) {
@@ -68,14 +58,14 @@ public class NotaFormController extends CRUDFormController<LivroEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			//String descricao = this.subView.getTfDescricao().getValue();
-			//String competencia = this.subView.getTfCompetencia().getValue();
-			//String formaEscrituracao = this.subView.getTfFormaEscrituracao()
-			//		.getValue();
+			// String descricao = this.subView.getTfDescricao().getValue();
+			// String competencia = this.subView.getTfCompetencia().getValue();
+			// String formaEscrituracao = this.subView.getTfFormaEscrituracao()
+			// .getValue();
 
-			//this.pEntity.setDescricao(descricao);
-			//this.pEntity.setCompetencia(competencia);
-			//this.pEntity.setFormaEscrituracao(formaEscrituracao);
+			// this.pEntity.setDescricao(descricao);
+			// this.pEntity.setCompetencia(competencia);
+			// this.pEntity.setFormaEscrituracao(formaEscrituracao);
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -162,22 +152,16 @@ public class NotaFormController extends CRUDFormController<LivroEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -187,14 +171,20 @@ public class NotaFormController extends CRUDFormController<LivroEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			//this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			//this.subView.getTfCompetencia().setValue(
-			//		this.pEntity.getCompetencia());
-			//this.subView.getTfFormaEscrituracao().setValue(
-			//		this.pEntity.getFormaEscrituracao());
+			// this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
+			// this.subView.getTfCompetencia().setValue(
+			// this.pEntity.getCompetencia());
+			// this.subView.getTfFormaEscrituracao().setValue(
+			// this.pEntity.getFormaEscrituracao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LivroEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

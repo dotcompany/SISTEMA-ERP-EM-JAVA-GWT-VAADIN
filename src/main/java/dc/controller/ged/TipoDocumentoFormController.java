@@ -126,4 +126,9 @@ public class TipoDocumentoFormController extends CRUDFormController<TipoDocument
 		return "tipoDocumentoForm";
 	}
 
+	@Override
+	public TipoDocumento getModelBean() {
+		return currentBean;
+	}
+
 }

@@ -15,11 +15,7 @@ import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.InformacaoGeralFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -32,22 +28,16 @@ public class InformacaoGeralFormController extends CRUDFormController<Informacao
 
 	private InformacaoGeralFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private InformacaoGeralDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private InformacaoGeralEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public InformacaoGeralFormController() {
 		if (this.pEntity == null) {
@@ -151,17 +141,19 @@ public class InformacaoGeralFormController extends CRUDFormController<Informacao
 		return "ordemservico_informacaogeral_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public InformacaoGeral getModelBean() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

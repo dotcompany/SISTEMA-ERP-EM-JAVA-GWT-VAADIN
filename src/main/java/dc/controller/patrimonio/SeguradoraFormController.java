@@ -17,16 +17,11 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.SeguradoraFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class SeguradoraFormController extends
-		CRUDFormController<SeguradoraEntity> {
+public class SeguradoraFormController extends CRUDFormController<SeguradoraEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class SeguradoraFormController extends
 
 	private SeguradoraFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private SeguradoraDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private SeguradoraEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public SeguradoraFormController() {
 		if (this.pEntity == null) {
@@ -79,18 +68,13 @@ public class SeguradoraFormController extends
 			this.pEntity.setContato(contato);
 			this.pEntity.setTelefone(telefone);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -213,17 +197,19 @@ public class SeguradoraFormController extends
 		return "patrimonio_seguradora_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public SeguradoraEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

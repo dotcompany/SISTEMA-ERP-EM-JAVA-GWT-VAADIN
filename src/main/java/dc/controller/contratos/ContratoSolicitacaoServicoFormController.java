@@ -221,4 +221,9 @@ public class ContratoSolicitacaoServicoFormController extends CRUDFormController
 		return true;
 	}
 
+	@Override
+	public ContratoSolicitacaoServico getModelBean() {
+		return currentBean;
+	}
+
 }

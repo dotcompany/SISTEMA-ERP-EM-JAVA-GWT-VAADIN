@@ -46,8 +46,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			valido = false;
 		}
 
@@ -62,10 +61,8 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	@Override
 	protected void initSubView() {
 		subView = new CargoFormView();
-		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(
-				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(
-				CBOListController.class, cboDAO, super.getMainController());
+		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(CBOListController.class, cboDAO, super.getMainController());
+		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(CBOListController.class, cboDAO, super.getMainController());
 		subView.getCmbCBO1994().setModel(modelCBO);
 		subView.getCmbCBO2002().setModel(modelCBO2);
 		// subView.InitCbs(cboDAO.listaTodos());
@@ -77,11 +74,9 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricaoo().setValue(currentBean.getDescricao());
-		
-		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(
-				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(
-				CBOListController.class, cboDAO, super.getMainController());
+
+		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(CBOListController.class, cboDAO, super.getMainController());
+		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(CBOListController.class, cboDAO, super.getMainController());
 		subView.getCmbCBO1994().setModel(modelCBO);
 		subView.getCmbCBO2002().setModel(modelCBO2);
 
@@ -93,9 +88,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setDescricao(subView.getTxtDescricaoo().getValue());
 
-		Double salario = Double.parseDouble(this.subView.getTxtSalario()
-				.getValue().isEmpty() ? "0.0" : this.subView.getTxtSalario()
-				.getValue());
+		Double salario = Double.parseDouble(this.subView.getTxtSalario().getValue().isEmpty() ? "0.0" : this.subView.getTxtSalario().getValue());
 
 		this.currentBean.setSalario(salario);
 
@@ -147,6 +140,12 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public Cargo getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

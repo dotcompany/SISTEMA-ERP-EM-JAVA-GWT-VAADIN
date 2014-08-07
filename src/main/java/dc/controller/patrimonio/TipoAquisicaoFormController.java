@@ -16,16 +16,11 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.TipoAquisicaoFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class TipoAquisicaoFormController extends
-		CRUDFormController<TipoAquisicaoEntity> {
+public class TipoAquisicaoFormController extends CRUDFormController<TipoAquisicaoEntity> {
 
 	/**
 	 * 
@@ -34,22 +29,16 @@ public class TipoAquisicaoFormController extends
 
 	private TipoAquisicaoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private TipoAquisicaoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private TipoAquisicaoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public TipoAquisicaoFormController() {
 		if (this.pEntity == null) {
@@ -78,18 +67,13 @@ public class TipoAquisicaoFormController extends
 			this.pEntity.setNome(nome);
 			this.pEntity.setDescricao(descricao);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -190,8 +174,7 @@ public class TipoAquisicaoFormController extends
 	}
 
 	public void autocomplete(Empresa ent) {
-		adicionarErroDeValidacao(this.subView.getTfNome(),
-				"Não pode ficar em branco" + ent);
+		adicionarErroDeValidacao(this.subView.getTfNome(), "Não pode ficar em branco" + ent);
 	}
 
 	@Override
@@ -199,17 +182,19 @@ public class TipoAquisicaoFormController extends
 		return "patrimonio_tipo_aquisicao_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public TipoAquisicaoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -380,4 +380,9 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 			calculaTotalRecebido();
 		}
 	}
+
+	@Override
+	public ParcelaReceber getModelBean() {
+		return parcelaReceber;
+	}
 }

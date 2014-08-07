@@ -75,7 +75,10 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 		subView.getDtDataInclusao().setValue(currentBean.getDataInclusao());
 	}
 
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 
 	@Override
 	protected void quandoNovo() {
@@ -113,7 +116,7 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateObject(subView.getDtDataInclusao().getValue())) {
 			adicionarErroDeValidacao(subView.getDtDataInclusao(), "Não pode ficar em branco");
 			valido = false;
@@ -136,5 +139,10 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 	@Override
 	public String getViewIdentifier() {
 		return "planocentroresultadoForm";
+	}
+
+	@Override
+	public PlanoCentroResultado getModelBean() {
+		return currentBean;
 	}
 }

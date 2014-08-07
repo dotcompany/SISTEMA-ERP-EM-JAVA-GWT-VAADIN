@@ -35,7 +35,7 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	private TemplateDAO templateDAO;
 
 	private Template currentBean;
-	
+
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";
 	private String diretorio = "template";
@@ -86,25 +86,27 @@ public class TemplateFormController extends CRUDFormController<Template> {
 		String descricao = subView.getTxaDescricao().getValue();
 		String nomeArquivo = subView.getNomeArquivo();
 		String path = subView.getPath();
-	
+
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
 		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-		if(nomeArquivo == null) nomeArquivo = "";
-		String pathArquivo = homePath + "\\ "+ customCompanyBaseFolder + "\\" + currentBean.getEmpresa().getIdEmpresa().intValue() + "\\" + diretorio + "\\" + nomeArquivo;
-		if(nomeArquivo.equals("")){
+		if (nomeArquivo == null)
+			nomeArquivo = "";
+		String pathArquivo = homePath + "\\ " + customCompanyBaseFolder + "\\" + currentBean.getEmpresa().getIdEmpresa().intValue() + "\\"
+				+ diretorio + "\\" + nomeArquivo;
+		if (nomeArquivo.equals("")) {
 			pathArquivo = null;
 		}
 		currentBean.setArquivo(pathArquivo);
 		try {
 			templateDAO.saveOrUpdate(currentBean);
 			// salvou cria o arquivo fisicamente
-			if(pathArquivo != null){
-			   File	tmpFile = new File(path);
-			   byte[] temp = Util.lerBytesArquivo(tmpFile);
-			   Util.gravarArquivo(pathArquivo, temp);
+			if (pathArquivo != null) {
+				File tmpFile = new File(path);
+				byte[] temp = Util.lerBytesArquivo(tmpFile);
+				Util.gravarArquivo(pathArquivo, temp);
 			}
-			
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -141,6 +143,11 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	@Override
 	public String getViewIdentifier() {
 		return "templateFormController";
+	}
+
+	@Override
+	public Template getModelBean() {
+		return currentBean;
 	}
 
 }

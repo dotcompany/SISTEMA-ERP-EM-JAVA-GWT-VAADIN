@@ -14,23 +14,19 @@ import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.CidadeFormView;
 
-
-/**
-*
-* @author Wesley Jr
-* **/
+/** @author Wesley Jr **/
 
 @Controller
 @Scope("prototype")
 public class CidadeFormController extends CRUDFormController<Cidade> {
 
 	CidadeFormView subView;
-	
+
 	@Autowired
 	CidadeDAO cidadeDAO;
 
 	private Cidade currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Cidade";
@@ -41,30 +37,32 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		currentBean.setNome(nome);
-		try{
+		try {
 			cidadeDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = cidadeDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -72,7 +70,10 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 		subView = new CidadeFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Cidade();
@@ -80,16 +81,17 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 cidadeDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		cidadeDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -98,13 +100,18 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return "cidadeForm";
+	}
+
+	@Override
+	public Cidade getModelBean() {
+		return currentBean;
 	}
 
 }

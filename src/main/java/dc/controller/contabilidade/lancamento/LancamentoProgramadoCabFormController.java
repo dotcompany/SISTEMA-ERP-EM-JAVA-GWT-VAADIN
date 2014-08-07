@@ -20,16 +20,11 @@ import dc.visao.contabilidade.lancamento.LancamentoProgramadoCabFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoCabFormController extends
-		CRUDFormController<LancamentoProgramadoCabEntity> {
+public class LancamentoProgramadoCabFormController extends CRUDFormController<LancamentoProgramadoCabEntity> {
 
 	/**
 	 * 
@@ -38,9 +33,7 @@ public class LancamentoProgramadoCabFormController extends
 
 	private LancamentoProgramadoCabFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoProgramadoCabDAO pDAO;
@@ -48,15 +41,11 @@ public class LancamentoProgramadoCabFormController extends
 	@Autowired
 	private LoteDAO lDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoProgramadoCabEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoProgramadoCabFormController() {
 		if (this.pEntity == null) {
@@ -191,9 +180,7 @@ public class LancamentoProgramadoCabFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		LoteEntity lote = this.subView.getCbLote().getValue();
 
@@ -224,14 +211,11 @@ public class LancamentoProgramadoCabFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<LoteEntity> model1 = new DefaultManyToOneComboModel<LoteEntity>(
-					LoteListController.class, this.lDAO,
+			DefaultManyToOneComboModel<LoteEntity> model1 = new DefaultManyToOneComboModel<LoteEntity>(LoteListController.class, this.lDAO,
 					super.getMainController());
 
 			this.subView.getCbLote().setModel(model1);
@@ -240,18 +224,14 @@ public class LancamentoProgramadoCabFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -265,17 +245,20 @@ public class LancamentoProgramadoCabFormController extends
 				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
-			this.subView.getPdfDataRealizada().setValue(
-					this.pEntity.getDataRealizada());
-			this.subView.getPdfDataPrevista().setValue(
-					this.pEntity.getDataPrevista());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
+			this.subView.getPdfDataRealizada().setValue(this.pEntity.getDataRealizada());
+			this.subView.getPdfDataPrevista().setValue(this.pEntity.getDataPrevista());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoProgramadoCabEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

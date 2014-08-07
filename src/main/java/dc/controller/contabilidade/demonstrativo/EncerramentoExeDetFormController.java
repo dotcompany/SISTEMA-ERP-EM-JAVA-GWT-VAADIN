@@ -22,16 +22,11 @@ import dc.visao.contabilidade.demonstrativo.EncerramentoExeDetFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeDetFormController extends
-		CRUDFormController<EncerramentoExeDetEntity> {
+public class EncerramentoExeDetFormController extends CRUDFormController<EncerramentoExeDetEntity> {
 
 	/**
 	 * 
@@ -40,9 +35,7 @@ public class EncerramentoExeDetFormController extends
 
 	private EncerramentoExeDetFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private EncerramentoExeDetDAO pDAO;
@@ -53,15 +46,11 @@ public class EncerramentoExeDetFormController extends
 	@Autowired
 	private ContaDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private EncerramentoExeDetEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public EncerramentoExeDetFormController() {
 		if (this.pEntity == null) {
@@ -82,17 +71,12 @@ public class EncerramentoExeDetFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Double saldoAnterior = Double.parseDouble(this.subView
-					.getTfSaldoAnterior().getValue());
-			Double valorDebito = Double.parseDouble(this.subView
-					.getTfValorDebito().getValue());
-			Double valorCredito = Double.parseDouble(this.subView
-					.getTfValorCredito().getValue());
-			Double saldo = Double.parseDouble(this.subView.getTfSaldo()
-					.getValue());
+			Double saldoAnterior = Double.parseDouble(this.subView.getTfSaldoAnterior().getValue());
+			Double valorDebito = Double.parseDouble(this.subView.getTfValorDebito().getValue());
+			Double valorCredito = Double.parseDouble(this.subView.getTfValorCredito().getValue());
+			Double saldo = Double.parseDouble(this.subView.getTfSaldo().getValue());
 
-			EncerramentoExeCabEntity encerramentoExeCab = this.subView
-					.getCbEncerramentoExeCab().getValue();
+			EncerramentoExeCabEntity encerramentoExeCab = this.subView.getCbEncerramentoExeCab().getValue();
 			ContaEntity conta = this.subView.getCbConta().getValue();
 
 			this.pEntity.setSaldoAnterior(saldoAnterior);
@@ -211,18 +195,14 @@ public class EncerramentoExeDetFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		EncerramentoExeCabEntity encerramentoExeCab = this.subView
-				.getCbEncerramentoExeCab().getValue();
+		EncerramentoExeCabEntity encerramentoExeCab = this.subView.getCbEncerramentoExeCab().getValue();
 
 		if (!ObjectValidator.validateObject(encerramentoExeCab)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(),
-					msg);
+			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(), msg);
 
 			return false;
 		}
@@ -256,20 +236,16 @@ public class EncerramentoExeDetFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<EncerramentoExeCabEntity> model1 = new DefaultManyToOneComboModel<EncerramentoExeCabEntity>(
-					EncerramentoExeCabListController.class, this.eecDAO,
-					super.getMainController());
+					EncerramentoExeCabListController.class, this.eecDAO, super.getMainController());
 
 			this.subView.getCbEncerramentoExeCab().setModel(model1);
 
-			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model2);
@@ -278,18 +254,14 @@ public class EncerramentoExeDetFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -302,22 +274,23 @@ public class EncerramentoExeDetFormController extends
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbEncerramentoExeCab().setValue(
-						this.pEntity.getEncerramentoExeCab());
+				this.subView.getCbEncerramentoExeCab().setValue(this.pEntity.getEncerramentoExeCab());
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			}
 
-			this.subView.getTfSaldoAnterior().setValue(
-					this.pEntity.getSaldoAnterior().toString());
-			this.subView.getTfValorDebito().setValue(
-					this.pEntity.getValorDebito().toString());
-			this.subView.getTfValorCredito().setValue(
-					this.pEntity.getValorCredito().toString());
-			this.subView.getTfSaldo().setValue(
-					this.pEntity.getSaldo().toString());
+			this.subView.getTfSaldoAnterior().setValue(this.pEntity.getSaldoAnterior().toString());
+			this.subView.getTfValorDebito().setValue(this.pEntity.getValorDebito().toString());
+			this.subView.getTfValorCredito().setValue(this.pEntity.getValorCredito().toString());
+			this.subView.getTfSaldo().setValue(this.pEntity.getSaldo().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public EncerramentoExeDetEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

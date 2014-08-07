@@ -16,16 +16,11 @@ import dc.visao.folhapagamento.ausencia.TipoAfastamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class TipoAfastamentoFormController extends
-		CRUDFormController<TipoAfastamentoEntity> {
+public class TipoAfastamentoFormController extends CRUDFormController<TipoAfastamentoEntity> {
 
 	/**
 	 * 
@@ -34,22 +29,16 @@ public class TipoAfastamentoFormController extends
 
 	private TipoAfastamentoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private TipoAfastamentoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private TipoAfastamentoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public TipoAfastamentoFormController() {
 		if (this.pEntity == null) {
@@ -78,18 +67,13 @@ public class TipoAfastamentoFormController extends
 			this.pEntity.setNome(nome);
 			this.pEntity.setDescricao(descricao);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -194,17 +178,19 @@ public class TipoAfastamentoFormController extends
 		return "folhapagamento_ausencia_tipo_afastamento_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public TipoAfastamentoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

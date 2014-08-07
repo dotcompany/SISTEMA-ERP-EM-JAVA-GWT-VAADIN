@@ -17,16 +17,11 @@ import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
 import dc.visao.contabilidade.lancamento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller(value = "contabilidadeFechamentoFormController")
 @Scope("prototype")
-public class FechamentoFormController extends
-		CRUDFormController<FechamentoEntity> {
+public class FechamentoFormController extends CRUDFormController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class FechamentoFormController extends
 
 	private FechamentoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private FechamentoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private FechamentoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public FechamentoFormController() {
 		if (this.pEntity == null) {
@@ -73,8 +62,7 @@ public class FechamentoFormController extends
 		try {
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			Date dataFim = this.subView.getPdfDataFim().getValue();
-			String criterioLancamento = this.subView.getTfCriterioLancamento()
-					.getValue();
+			String criterioLancamento = this.subView.getTfCriterioLancamento().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setDataFim(dataFim);
@@ -185,22 +173,16 @@ public class FechamentoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -210,14 +192,18 @@ public class FechamentoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(
-					this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getTfCriterioLancamento().setValue(
-					this.pEntity.getCriterioLancamento());
+			this.subView.getTfCriterioLancamento().setValue(this.pEntity.getCriterioLancamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public FechamentoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

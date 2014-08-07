@@ -19,21 +19,17 @@ import dc.visao.financeiro.AdiantamentoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
-public class AdiantamentoFormController extends	CRUDFormController<Adiantamento> {
+public class AdiantamentoFormController extends CRUDFormController<Adiantamento> {
 
 	/**
 	 * 
@@ -62,7 +58,7 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 
 	@Override
 	protected void actionSalvar() {
-		
+
 		subView.preencheAdiantamento(currentBean);
 
 		try {
@@ -75,7 +71,7 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 
 	@Override
 	protected void carregar(Serializable id) {
-		
+
 		currentBean = adiantamentoDAO.find(id);
 		subView.preencheAdiantamentoForm(currentBean);
 
@@ -94,16 +90,15 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 	protected void initSubView() {
 		this.subView = new AdiantamentoFormView();
 
-		DefaultManyToOneComboModel<LancamentoPagar> modelBanco = new DefaultManyToOneComboModel<LancamentoPagar>(
-				LancamentoPagarListController.class, this.lancamentoPagarDAO,super.getMainController()) {
+		DefaultManyToOneComboModel<LancamentoPagar> modelBanco = new DefaultManyToOneComboModel<LancamentoPagar>(LancamentoPagarListController.class,
+				this.lancamentoPagarDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "valorTotal";
 			}
 		};
-		
-		this.subView.getCmbLancamentoPagar().setModel(modelBanco);
 
+		this.subView.getCmbLancamentoPagar().setModel(modelBanco);
 
 	}
 
@@ -129,9 +124,9 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 
 		return valido;
 	}
-	
+
 	private boolean validaCampos() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtObservacoes().getValue())) {
@@ -145,7 +140,7 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 			valido = false;
 		}
 
-		Date dataAdiantamento= (Date) subView.getDtAdiantamento().getValue();
+		Date dataAdiantamento = (Date) subView.getDtAdiantamento().getValue();
 		if (!Validator.validateObject(dataAdiantamento)) {
 			adicionarErroDeValidacao(subView.getDtAdiantamento(), "Não pode ficar em branco");
 			valido = false;
@@ -171,6 +166,11 @@ public class AdiantamentoFormController extends	CRUDFormController<Adiantamento>
 	@Override
 	public boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public Adiantamento getModelBean() {
+		return currentBean;
 	}
 
 }

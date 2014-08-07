@@ -15,16 +15,11 @@ import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends
-		CRUDFormController<BalancoPatrimonialEntity> {
+public class BalancoPatrimonialFormController extends CRUDFormController<BalancoPatrimonialEntity> {
 
 	/**
 	 * 
@@ -33,22 +28,16 @@ public class BalancoPatrimonialFormController extends
 
 	private BalancoPatrimonialFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private BalancoPatrimonialDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private BalancoPatrimonialEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public BalancoPatrimonialFormController() {
 		if (this.pEntity == null) {
@@ -154,22 +143,16 @@ public class BalancoPatrimonialFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -192,6 +175,12 @@ public class BalancoPatrimonialFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public BalancoPatrimonialEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

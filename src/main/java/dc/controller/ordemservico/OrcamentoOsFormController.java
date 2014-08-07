@@ -37,10 +37,9 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 
 	@Autowired
 	ModeloDAO modeloDAO;
-	
+
 	@Autowired
 	private OrcamentoOsDAO orcamentoOsDAO;
-
 
 	@Autowired
 	private OrcamentoItemOsDAO orcamentoItemOsDAO;
@@ -60,16 +59,16 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			
-			if(!Validator.validateObject(subView.getTfNomeVendedor().getValue())){
+
+			if (!Validator.validateObject(subView.getTfNomeVendedor().getValue())) {
 				throw new ErroValidacaoException("Informe o Vendedor");
-			}else{
+			} else {
 				currentBean.setNomeVendedor(subView.getTfNomeVendedor().getValue());
-			} 
-			
-			if(!Validator.validateObject(subView.getTfNome().getValue())){
+			}
+
+			if (!Validator.validateObject(subView.getTfNome().getValue())) {
 				throw new ErroValidacaoException("Informe o Nome");
-			}else{
+			} else {
 				currentBean.setNome(subView.getTfNome().getValue());
 			}
 
@@ -79,29 +78,28 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 			currentBean.setAno(Integer.valueOf(subView.getTfAno().getValue()));
 			currentBean.setMotor(subView.getTfCvMotor().getValue());
 			currentBean.setMotorizacao(subView.getTfMotorizacao().getValue());
-			
 
-			if(!Validator.validateObject(subView.getTfPlaca().getValue())){
+			if (!Validator.validateObject(subView.getTfPlaca().getValue())) {
 				throw new ErroValidacaoException("Informe a Placa");
-			}else{
+			} else {
 				currentBean.setPlaca(subView.getTfPlaca().getValue());
 			}
 
-			if(!Validator.validateObject(subView.getTfMarca().getValue())){
+			if (!Validator.validateObject(subView.getTfMarca().getValue())) {
 				throw new ErroValidacaoException("Informe a Marca");
-			}else{
+			} else {
 				currentBean.setMarca(subView.getTfMarca().getValue());
 			}
 
-			if(!Validator.validateObject(subView.getTfCor().getValue())){
+			if (!Validator.validateObject(subView.getTfCor().getValue())) {
 				throw new ErroValidacaoException("Informe a Cor");
-			}else{
+			} else {
 				currentBean.setCor(subView.getTfCor().getValue());
 			}
 
-			if(!Validator.validateObject(subView.getTfModelo().getValue())){
+			if (!Validator.validateObject(subView.getTfModelo().getValue())) {
 				throw new ErroValidacaoException("Informe o Modelo");
-			}else{
+			} else {
 				currentBean.setModelo(subView.getTfModelo().getValue());
 			}
 
@@ -117,7 +115,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = orcamentoOsDAO.find((Integer) id);
-		
+
 		subView.getTfNomeVendedor().setValue(currentBean.getNomeVendedor());
 		subView.getTfFormaPagamento().setValue(currentBean.getFormaPagamento());
 		subView.getTfNome().setValue(currentBean.getNome());
@@ -177,7 +175,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	protected void removerEmCascata(List<Serializable> ids) {
 		remover(ids);
 	}
-	
+
 	public OrcamentoOsItem novoOrcamentoOsItem() {
 		OrcamentoOsItem item = new OrcamentoOsItem();
 		currentBean.addOrcamentoOsItem(item);
@@ -195,13 +193,19 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	public String getViewIdentifier() {
 		return "orcamentoOsForm";
 	}
-	
+
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
 	public List<OrcamentoOs> getOrcamentoOsItens() {
 		return orcamentoOsDAO.listaTodos();
+	}
+
+	@Override
+	public OrcamentoOs getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 }

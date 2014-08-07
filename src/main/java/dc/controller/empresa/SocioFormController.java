@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.google.web.bindery.requestfactory.vm.impl.Deobfuscator;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
@@ -34,7 +33,6 @@ import dc.visao.empresa.SocioFormView;
 import dc.visao.empresa.SocioFormView.DIRIGENTE;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
-import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
@@ -95,14 +93,14 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
 		List<ParticipacaoSocietaria> participacoes = participacaoSocietariaDAO.findBySocio(currentBean);
 
-		try{
+		try {
 			carregarCombos();
 
-			if(Validator.validateObject(currentBean.getPessoa())){
+			if (Validator.validateObject(currentBean.getPessoa())) {
 				subView.getCmbSocio().setValue(currentBean.getPessoa());
 			}
 
-			if(Validator.validateObject(currentBean.getQuadroSocietario())){
+			if (Validator.validateObject(currentBean.getQuadroSocietario())) {
 				subView.getCmbQuadroSocietario().setValue(currentBean.getQuadroSocietario());
 			}
 
@@ -110,97 +108,90 @@ public class SocioFormController extends CRUDFormController<Socio> {
 			subView.getTxtNumero().setValue(currentBean.getNumero().toString());
 			subView.getTxtComplemento().setValue(currentBean.getComplemento());
 
-			if(Validator.validateObject(currentBean.getBairro())){
-				subView.getTxtBairro().setValue(currentBean.getBairro());	
+			if (Validator.validateObject(currentBean.getBairro())) {
+				subView.getTxtBairro().setValue(currentBean.getBairro());
 			}
 
-			if(Validator.validateObject(currentBean.getUf())){
-				subView.getCmbUF().setValue(currentBean.getUf());	
+			if (Validator.validateObject(currentBean.getUf())) {
+				subView.getCmbUF().setValue(currentBean.getUf());
 			}
 
-
-			if(Validator.validateObject(currentBean.getMunicipio())){
-				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());	
+			if (Validator.validateObject(currentBean.getMunicipio())) {
+				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
 			}
 
-
-			if(Validator.validateObject(currentBean.getCep())){
+			if (Validator.validateObject(currentBean.getCep())) {
 				subView.getTxtCep().setValue(currentBean.getCep());
 			}
 
-			if(Validator.validateObject(currentBean.getFone())){
+			if (Validator.validateObject(currentBean.getFone())) {
 				subView.getTxtFone().setValue(currentBean.getFone());
 			}
 
-			if(Validator.validateObject(currentBean.getCelular())){
+			if (Validator.validateObject(currentBean.getCelular())) {
 				subView.getTxtCelular().setValue(currentBean.getCelular());
 			}
 
-			if(Validator.validateObject(currentBean.getEmail())){
+			if (Validator.validateObject(currentBean.getEmail())) {
 				subView.getTxtEmail().setValue(currentBean.getEmail());
 			}
 
-			if(Validator.validateObject(currentBean.getParticipacao())){
+			if (Validator.validateObject(currentBean.getParticipacao())) {
 				subView.getTxtParticipacao().setValue(currentBean.getParticipacao().toString());
 			}
 
-			if(Validator.validateObject(currentBean.getQuotas())){
+			if (Validator.validateObject(currentBean.getQuotas())) {
 				subView.getTxtQuotas().setValue(currentBean.getQuotas().toString());
 			}
 
-			if(Validator.validateObject(currentBean.getIntegralizar())){
+			if (Validator.validateObject(currentBean.getIntegralizar())) {
 				subView.getTxtIntegralizar().setValue(currentBean.getIntegralizar().toString());
 			}
 
-			if(Validator.validateObject(currentBean.getDataIngresso())){
+			if (Validator.validateObject(currentBean.getDataIngresso())) {
 				subView.getDataIngresso().setValue(currentBean.getDataIngresso());
 			}
 
-			if(Validator.validateObject(currentBean.getDataSaida())){
+			if (Validator.validateObject(currentBean.getDataSaida())) {
 				subView.getDataSaida().setValue(currentBean.getDataSaida());
 			}
 
-			if(dependentes!=null) {
+			if (dependentes != null) {
 				subView.preencherSubFormDependente(dependentes);
 			}
 
-			if(participacoes!=null) {
+			if (participacoes != null) {
 
-				for(ParticipacaoSocietaria p : participacoes){
+				for (ParticipacaoSocietaria p : participacoes) {
 
-					if(p.getDirigente()!=null && !(p.getDirigente().isEmpty()))
+					if (p.getDirigente() != null && !(p.getDirigente().isEmpty()))
 						p.setDirigenteEnum(DIRIGENTE.getDirigente(p.getDirigente()));
 				}
-
 
 				subView.preencherSubFormParticipacao(participacoes);
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
-
 	}
 
-	void carregarCombos(){
+	void carregarCombos() {
 		carregarPessoas();
 		carregarUFs();
 	}
 
-	public Empresa empresaAtual(){
+	public Empresa empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override
 	protected void actionSalvar() {
 
-
-		try{
-			Pessoa socio = (Pessoa)subView.getCmbSocio().getValue();
-			QuadroSocietario quadro = (QuadroSocietario)subView.getCmbQuadroSocietario().getValue(); 
-
+		try {
+			Pessoa socio = (Pessoa) subView.getCmbSocio().getValue();
+			QuadroSocietario quadro = (QuadroSocietario) subView.getCmbQuadroSocietario().getValue();
 
 			String logradouro = subView.getTxtLogradouro().getValue();
 			String numero = subView.getTxtNumero().getValue();
@@ -208,13 +199,12 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 			String bairro = subView.getTxtBairro().getValue();
 			String municipio = subView.getTxtMunicipio().getValue();
-			String uf = (String)subView.getCmbUF().getValue();
+			String uf = (String) subView.getCmbUF().getValue();
 			String cep = subView.getTxtCep().getValue();
 
 			String fone = subView.getTxtFone().getValue();
 			String celular = subView.getTxtCelular().getValue();
 			String email = subView.getTxtEmail().getValue();
-
 
 			String participacao = subView.getTxtParticipacao().getValue();
 			String quotas = subView.getTxtQuotas().getValue();
@@ -222,102 +212,96 @@ public class SocioFormController extends CRUDFormController<Socio> {
 			Date dataIngresso = subView.getDataIngresso().getValue();
 			Date dataSaida = subView.getDataSaida().getValue();
 
-			if(Validator.validateObject(socio)){
+			if (Validator.validateObject(socio)) {
 				currentBean.setPessoa(socio);
 			}
 
-			if(Validator.validateObject(quadro)){
+			if (Validator.validateObject(quadro)) {
 				currentBean.setQuadroSocietario(quadro);
 			}
 
-			if(Validator.validateObject(logradouro)){
+			if (Validator.validateObject(logradouro)) {
 				currentBean.setLogradouro(logradouro);
 			}
 
-			if(Validator.validateObject(numero)){
+			if (Validator.validateObject(numero)) {
 				currentBean.setNumero(new Integer(numero));
 			}
 
-			if(Validator.validateObject(complemento)){
+			if (Validator.validateObject(complemento)) {
 				currentBean.setComplemento(complemento);
 			}
 
-			if(Validator.validateObject(bairro)){
+			if (Validator.validateObject(bairro)) {
 				currentBean.setBairro(bairro);
 			}
 
-			if(Validator.validateObject(municipio)){
+			if (Validator.validateObject(municipio)) {
 				currentBean.setMunicipio(municipio);
 			}
 
-			if(Validator.validateObject(uf)){
+			if (Validator.validateObject(uf)) {
 				currentBean.setUf(uf);
 			}
 
-			if(Validator.validateObject(cep)){
+			if (Validator.validateObject(cep)) {
 				currentBean.setCep(cep);
 			}
 
-			if(Validator.validateObject(fone)){
+			if (Validator.validateObject(fone)) {
 				currentBean.setFone(fone);
 			}
 
-			if(Validator.validateObject(celular)){
-				currentBean.setCelular(celular);			
+			if (Validator.validateObject(celular)) {
+				currentBean.setCelular(celular);
 			}
 
-			if(Validator.validateObject(email)){
+			if (Validator.validateObject(email)) {
 				currentBean.setEmail(email);
 			}
 
-			if(Validator.validateObject(participacao)){
+			if (Validator.validateObject(participacao)) {
 				currentBean.setParticipacao(new BigDecimal(formataValor(participacao)));
 			}
 
-			if(Validator.validateObject(quotas)){
+			if (Validator.validateObject(quotas)) {
 				currentBean.setQuotas(new Integer(quotas));
 			}
 
-			if(Validator.validateObject(integralizar)){
+			if (Validator.validateObject(integralizar)) {
 				currentBean.setIntegralizar(new BigDecimal(formataValor(integralizar)));
 			}
 
-			if(Validator.validateObject(dataIngresso)){
+			if (Validator.validateObject(dataIngresso)) {
 				currentBean.setDataIngresso(dataIngresso);
 			}
 
-			if(Validator.validateObject(dataSaida)){
+			if (Validator.validateObject(dataSaida)) {
 				currentBean.setDataSaida(dataSaida);
 			}
 
 			dao.saveOrUpdate(currentBean);
 
 			List<ParticipacaoSocietaria> participacoes = subView.getParticipacoesSubForm().getDados();
-			for(ParticipacaoSocietaria p : participacoes){
+			for (ParticipacaoSocietaria p : participacoes) {
 
 				p.setDirigente(p.getDirigenteEnum().getCodigo());
 				participacaoSocietariaDAO.saveOrUpdate(p);
 			}
 
-
-
 			notifiyFrameworkSaveOK(currentBean);
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
-
 	}
-
-
 
 	@Override
 	protected void quandoNovo() {
-		try{
-			//subView.filEstoqueDetalhesSubForm(currentBean.getDetalhes());
-		}catch(Exception e){
+		try {
+			// subView.filEstoqueDetalhesSubForm(currentBean.getDetalhes());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -339,6 +323,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		dao.deleteAllByIds(ids);
 
 	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
@@ -346,85 +331,90 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	}
 
 	@Override
-	public boolean isFullSized(){
+	public boolean isFullSized() {
 		return true;
 	}
 
-	public Dependente adicionarDependente(){
+	public Dependente adicionarDependente() {
 		Dependente dep = new Dependente();
 		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
-		if(dependentes == null) dependentes = new ArrayList<Dependente>();
+		if (dependentes == null)
+			dependentes = new ArrayList<Dependente>();
 		currentBean.setDependentes(dependentes);
 		currentBean.getDependentes().add(dep);
 		dep.setSocio(currentBean);
 		return dep;
 	}
 
-	public ParticipacaoSocietaria adicionarParticipacao(){
+	public ParticipacaoSocietaria adicionarParticipacao() {
 		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
 		List<ParticipacaoSocietaria> lista = participacaoSocietariaDAO.findBySocio(currentBean);
-		if(lista == null) lista = new ArrayList<ParticipacaoSocietaria>();
+		if (lista == null)
+			lista = new ArrayList<ParticipacaoSocietaria>();
 		currentBean.setParticipacoes(lista);
 		currentBean.getParticipacoes().add(p);
 		p.setSocio(currentBean);
 		return p;
 	}
 
-	public List<TipoRelacionamento> carregarTipoRelacionamento(){
+	public List<TipoRelacionamento> carregarTipoRelacionamento() {
 		List<TipoRelacionamento> lista = new ArrayList<TipoRelacionamento>();
-		for(TipoRelacionamento tipo : tipoRelacionamentoDAO.listaTodos()){
+		for (TipoRelacionamento tipo : tipoRelacionamentoDAO.listaTodos()) {
 			lista.add(tipo);
 		}
 		return lista;
 	}
 
-	public List<UF> listarUfs(){
+	public List<UF> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 
-	public BeanItemContainer<String> carregarUFs(){
+	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
 		List<UF> ufs = listarUfs();
 		for (UF u : ufs) {
 			container.addBean(u.getSigla());
-		}	
+		}
 
 		return container;
 	}
 
-	public List<Pessoa>listarPessoas(){
+	public List<Pessoa> listarPessoas() {
 		return pessoaDAO.listaTodos();
 	}
 
-	public List<QuadroSocietario>listarQuadros(){
+	public List<QuadroSocietario> listarQuadros() {
 		return quadroSocietarioDAO.listaTodos();
 	}
 
-	public BeanItemContainer<Pessoa> carregarPessoas(){
-		BeanItemContainer<Pessoa> container=  new BeanItemContainer<>(Pessoa.class);
-		for(Pessoa p : listarPessoas()){
+	public BeanItemContainer<Pessoa> carregarPessoas() {
+		BeanItemContainer<Pessoa> container = new BeanItemContainer<>(Pessoa.class);
+		for (Pessoa p : listarPessoas()) {
 			container.addItem(p);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<QuadroSocietario> carregarQuadros(){
-		BeanItemContainer<QuadroSocietario> container=  new BeanItemContainer<>(QuadroSocietario.class);
-		for(QuadroSocietario p : listarQuadros()){
+	public BeanItemContainer<QuadroSocietario> carregarQuadros() {
+		BeanItemContainer<QuadroSocietario> container = new BeanItemContainer<>(QuadroSocietario.class);
+		for (QuadroSocietario p : listarQuadros()) {
 			container.addItem(p);
 		}
 		return container;
 
-
 	}
 
-	public String formataValor(String valor){
+	public String formataValor(String valor) {
 		String format = "";
-		format = valor.replace("R$","").
-				substring(0,valor.indexOf(",")).
+		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
-				replaceAll( ",","" ).trim();
+		replaceAll(",", "").trim();
 		return format;
+	}
+
+	@Override
+	public Socio getModelBean() {
+		return currentBean;
 	}
 
 }

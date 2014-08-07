@@ -139,8 +139,21 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 			}
 		});
 
-		// TODO Exibir só os que o user tiver permissão
-		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getClass().getName()),
+		view.getBtnCancelar().addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+
+				if (changed) {
+					confirmClose();
+				} else {
+					closeFormTaskOrWindow();
+				}
+			}
+		});
+	}
+
+	private void configuraBotaoRelatorio() {
+		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUser(fmMenuDAO.getMenu(this.getListController().getClass().getName()),
 				SecuritySessionProvider.getUsuario());
 
 		if (relatorios != null && relatorios.size() > 0) {
@@ -155,18 +168,6 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 		} else {
 			view.getPbReport().setVisible(false);
 		}
-
-		view.getBtnCancelar().addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-
-				if (changed) {
-					confirmClose();
-				} else {
-					closeFormTaskOrWindow();
-				}
-			}
-		});
 	}
 
 	private void closeFormTaskOrWindow() {
@@ -236,6 +237,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 		this.novo = false;
 		carregar(id);
 		addChangeListeners();
+		// TODO Exibir só os que o user tiver permissão
+		configuraBotaoRelatorio();
 	}
 
 	public void criarNovo() {
@@ -243,6 +246,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 		this.novo = true;
 		novo();
 		addChangeListeners();
+		// TODO Exibir só os que o user tiver permissão
+		configuraBotaoRelatorio();
 	}
 
 	protected abstract void carregar(Serializable id);
@@ -398,6 +403,8 @@ public abstract class CRUDFormController<E> extends ControllerTask implements Co
 		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this.listController));
 
 	}
+
+	public abstract E getModelBean();
 
 	class ChangeListener implements ValueChangeListener {
 

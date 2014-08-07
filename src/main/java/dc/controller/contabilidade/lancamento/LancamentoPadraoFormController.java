@@ -15,16 +15,11 @@ import dc.servicos.dao.contabilidade.lancamento.LancamentoPadraoDAO;
 import dc.visao.contabilidade.lancamento.LancamentoPadraoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoPadraoFormController extends
-		CRUDFormController<LancamentoPadraoEntity> {
+public class LancamentoPadraoFormController extends CRUDFormController<LancamentoPadraoEntity> {
 
 	/**
 	 * 
@@ -33,22 +28,16 @@ public class LancamentoPadraoFormController extends
 
 	private LancamentoPadraoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoPadraoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoPadraoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoPadraoFormController() {
 		if (this.pEntity == null) {
@@ -160,22 +149,16 @@ public class LancamentoPadraoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -190,6 +173,12 @@ public class LancamentoPadraoFormController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoPadraoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

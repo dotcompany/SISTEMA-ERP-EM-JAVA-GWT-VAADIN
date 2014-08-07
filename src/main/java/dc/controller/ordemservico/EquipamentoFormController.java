@@ -15,10 +15,7 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.EquipamentoFormView;
 
-/**
-*
-* @author Paulo Sérgio
-*/ 
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -27,12 +24,12 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	private static final long serialVersionUID = 1L;
 
 	EquipamentoFormView subView;
-	
+
 	@Autowired
 	EquipamentoDAO equipamentoDAO;
-	
+
 	private Equipamento currentBean;
-	 
+
 	@Override
 	protected String getNome() {
 		return "Equipamento";
@@ -43,20 +40,19 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setFilial(Integer.parseInt(subView.getTfFilial().getValue()));
 		currentBean.setEquipamento(subView.getTfEquipamento().getValue());
 		currentBean.setDescricao(subView.getTfDescricao().getValue());
 		currentBean.setObservacao(subView.getTaObservacao().getValue());
-		try{
+		try {
 			equipamentoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -66,35 +62,38 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 		subView.getTfDescricao().setValue(currentBean.getEquipamento());
 		subView.getTaObservacao().setValue(currentBean.getObservacao());
 	}
-	
+
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new EquipamentoFormView();
-		
-	//	preencheCombos();
+
+		// preencheCombos();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Equipamento();
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 equipamentoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		equipamentoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 		if (!Validator.validateString(subView.getTfFilial().getValue())) {
 			adicionarErroDeValidacao(subView.getTfFilial(), "Não pode ficar em branco");
@@ -109,7 +108,7 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -121,4 +120,10 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	public String getViewIdentifier() {
 		return "equipamentoForm";
 	}
-} 
+
+	@Override
+	public Equipamento getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

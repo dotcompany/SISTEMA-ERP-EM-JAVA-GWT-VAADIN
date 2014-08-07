@@ -15,11 +15,7 @@ import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.contabilidade.livrocontabil.LivroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -32,22 +28,16 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 
 	private LivroFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LivroDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LivroEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LivroFormController() {
 		if (this.pEntity == null) {
@@ -70,8 +60,7 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String competencia = this.subView.getTfCompetencia().getValue();
-			String formaEscrituracao = this.subView.getTfFormaEscrituracao()
-					.getValue();
+			String formaEscrituracao = this.subView.getTfFormaEscrituracao().getValue();
 
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setCompetencia(competencia);
@@ -162,22 +151,16 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -188,13 +171,17 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 			}
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfCompetencia().setValue(
-					this.pEntity.getCompetencia());
-			this.subView.getTfFormaEscrituracao().setValue(
-					this.pEntity.getFormaEscrituracao());
+			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfFormaEscrituracao().setValue(this.pEntity.getFormaEscrituracao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LivroEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

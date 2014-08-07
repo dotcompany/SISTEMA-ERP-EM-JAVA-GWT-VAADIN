@@ -15,30 +15,25 @@ import dc.servicos.util.Validator;
 import dc.visao.financeiro.BancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
-*
-* @author Wesley Jr
-/*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no Banco de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
- * formos pesquisar na Tela.
- *
-*/
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+ *         que tem todos os controllers da Tela, onde quando extendemos herdamos
+ *         os métodos que temos na tela principal. Temos o botão Novo que é para
+ *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
+ *         o Button Salvar que é para salvar as informações no Banco de Dados
+ *         Temos o carregar também que é para pegar as informações que
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
 public class BancoFormController extends CRUDFormController<Banco> {
 
 	private BancoFormView subView;
-	
+
 	@Autowired
 	private BancoDAO bancoDAO;
-	
+
 	private Banco currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Banco";
@@ -49,32 +44,34 @@ public class BancoFormController extends CRUDFormController<Banco> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setCodigo(subView.getTxtCodigo().getValue());
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setUrl(subView.getTxtURL().getValue());
-		try{
+		try {
 			bancoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = bancoDAO.find(id);
 		subView.getTxtCodigo().setValue(currentBean.getCodigo());
 		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtURL().setValue(currentBean.getUrl());	
+		subView.getTxtURL().setValue(currentBean.getUrl());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -82,7 +79,10 @@ public class BancoFormController extends CRUDFormController<Banco> {
 		subView = new BancoFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Banco();
@@ -90,8 +90,8 @@ public class BancoFormController extends CRUDFormController<Banco> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 bancoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		bancoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
 	@Override
@@ -101,29 +101,26 @@ public class BancoFormController extends CRUDFormController<Banco> {
 
 		return valido;
 	}
-	
+
 	private boolean validaCampos() {
-		
+
 		boolean valido = true;
-		
+
 		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtURL().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtURL(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtURL(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -134,5 +131,10 @@ public class BancoFormController extends CRUDFormController<Banco> {
 	@Override
 	public String getViewIdentifier() {
 		return "bancoForm";
+	}
+
+	@Override
+	public Banco getModelBean() {
+		return currentBean;
 	}
 }

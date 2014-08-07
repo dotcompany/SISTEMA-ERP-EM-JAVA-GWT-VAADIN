@@ -12,22 +12,16 @@ import com.vaadin.ui.Component;
 
 import dc.control.converter.Teste;
 import dc.control.validator.ObjectValidator;
-import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.entidade.patrimonio.IndiceAtualizacaoEntity;
 import dc.servicos.dao.patrimonio.IndiceAtualizacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.IndiceAtualizacaoFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class IndiceAtualizacaoFormController extends
-		CRUDFormController<IndiceAtualizacaoEntity> {
+public class IndiceAtualizacaoFormController extends CRUDFormController<IndiceAtualizacaoEntity> {
 
 	/**
 	 * 
@@ -36,22 +30,16 @@ public class IndiceAtualizacaoFormController extends
 
 	private IndiceAtualizacaoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private IndiceAtualizacaoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private IndiceAtualizacaoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public IndiceAtualizacaoFormController() {
 		if (this.pEntity == null) {
@@ -73,13 +61,11 @@ public class IndiceAtualizacaoFormController extends
 	protected void actionSalvar() {
 		try {
 			IndiceAtualizacaoEntity pEntity111 = (IndiceAtualizacaoEntity) Teste.entityToSubview(this.subView, this.pEntity);
-			
+
 			Date dataIndice = this.subView.getPdfDataIndice().getValue();
 			String nome = this.subView.getTfNome().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
-			Double valorAlternativo = Double.parseDouble(this.subView
-					.getTfValorAlternativo().getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
+			Double valorAlternativo = Double.parseDouble(this.subView.getTfValorAlternativo().getValue());
 
 			this.pEntity.setDataIndice(dataIndice);
 			this.pEntity.setNome(nome);
@@ -96,13 +82,10 @@ public class IndiceAtualizacaoFormController extends
 		} finally {
 			this.pEntity = new IndiceAtualizacaoEntity();
 
-			this.subView.getPdfDataIndice().setValue(
-					this.pEntity.getDataIndice());
+			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
-			this.subView.getTfValorAlternativo().setValue(
-					String.valueOf(this.pEntity.getValorAlternativo()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfValorAlternativo().setValue(String.valueOf(this.pEntity.getValorAlternativo()));
 		}
 	}
 
@@ -111,13 +94,10 @@ public class IndiceAtualizacaoFormController extends
 		try {
 			this.pEntity = pDAO.find(id);
 
-			this.subView.getPdfDataIndice().setValue(
-					this.pEntity.getDataIndice());
+			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
-			this.subView.getTfValorAlternativo().setValue(
-					String.valueOf(this.pEntity.getValorAlternativo()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfValorAlternativo().setValue(String.valueOf(this.pEntity.getValorAlternativo()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -134,13 +114,10 @@ public class IndiceAtualizacaoFormController extends
 		try {
 			this.pEntity = new IndiceAtualizacaoEntity();
 
-			this.subView.getPdfDataIndice().setValue(
-					this.pEntity.getDataIndice());
+			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
-			this.subView.getTfValorAlternativo().setValue(
-					String.valueOf(this.pEntity.getValorAlternativo()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfValorAlternativo().setValue(String.valueOf(this.pEntity.getValorAlternativo()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -162,13 +139,10 @@ public class IndiceAtualizacaoFormController extends
 		try {
 			this.pEntity = new IndiceAtualizacaoEntity();
 
-			this.subView.getPdfDataIndice().setValue(
-					this.pEntity.getDataIndice());
+			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
-			this.subView.getTfValorAlternativo().setValue(
-					String.valueOf(this.pEntity.getValorAlternativo()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfValorAlternativo().setValue(String.valueOf(this.pEntity.getValorAlternativo()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -213,14 +187,12 @@ public class IndiceAtualizacaoFormController extends
 				return false;
 			}
 
-			String valorAlternativo = this.subView.getTfValorAlternativo()
-					.getValue();
+			String valorAlternativo = this.subView.getTfValorAlternativo().getValue();
 
 			if (!ObjectValidator.validateNotRequiredNumber(valorAlternativo)) {
 				String msg = "Não pode ficar em branco.";
 
-				adicionarErroDeValidacao(this.subView.getTfValorAlternativo(),
-						msg);
+				adicionarErroDeValidacao(this.subView.getTfValorAlternativo(), msg);
 
 				return false;
 			}
@@ -251,13 +223,17 @@ public class IndiceAtualizacaoFormController extends
 		return "patrimonio_indice_atualizacao_fc";
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public IndiceAtualizacaoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

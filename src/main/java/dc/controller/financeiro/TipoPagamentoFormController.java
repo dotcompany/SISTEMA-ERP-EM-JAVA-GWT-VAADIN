@@ -121,4 +121,9 @@ public class TipoPagamentoFormController extends CRUDFormController<TipoPagament
 		// TODO Auto-generated method stub
 		return "tipoPagamentoForm";
 	}
+
+	@Override
+	public TipoPagamento getModelBean() {
+		return currentBean;
+	}
 }

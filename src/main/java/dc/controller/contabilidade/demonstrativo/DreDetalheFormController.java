@@ -19,16 +19,11 @@ import dc.visao.contabilidade.demonstrativo.DreDetalheFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DreDetalheFormController extends
-		CRUDFormController<DreDetalheEntity> {
+public class DreDetalheFormController extends CRUDFormController<DreDetalheEntity> {
 
 	/**
 	 * 
@@ -37,9 +32,7 @@ public class DreDetalheFormController extends
 
 	private DreDetalheFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DreDetalheDAO pDAO;
@@ -47,15 +40,11 @@ public class DreDetalheFormController extends
 	@Autowired
 	private DreCabecalhoDAO dcDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DreDetalheEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DreDetalheFormController() {
 		if (this.pEntity == null) {
@@ -81,11 +70,9 @@ public class DreDetalheFormController extends
 			String formaCalculo = this.subView.getTfFormaCalculo().getValue();
 			String sinal = this.subView.getTfSinal().getValue();
 			String natureza = this.subView.getTfNatureza().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
-			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
-					.getValue();
+			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho().getValue();
 
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setDescricao(descricao);
@@ -174,12 +161,9 @@ public class DreDetalheFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
-				.getValue();
+		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho().getValue();
 
 		if (!ObjectValidator.validateObject(dreCabecalho)) {
 			String msg = "Não pode ficar em branco.";
@@ -208,15 +192,12 @@ public class DreDetalheFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<DreCabecalhoEntity> model = new DefaultManyToOneComboModel<DreCabecalhoEntity>(
-					DreCabecalhoListController.class, this.dcDAO,
-					super.getMainController());
+					DreCabecalhoListController.class, this.dcDAO, super.getMainController());
 
 			this.subView.getCbDreCabecalho().setModel(model);
 		} catch (Exception e) {
@@ -224,18 +205,14 @@ public class DreDetalheFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -247,22 +224,24 @@ public class DreDetalheFormController extends
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbDreCabecalho().setValue(
-						this.pEntity.getDreCabecalho());
+				this.subView.getCbDreCabecalho().setValue(this.pEntity.getDreCabecalho());
 			}
 
-			this.subView.getTfClassificacao().setValue(
-					this.pEntity.getClassificacao());
+			this.subView.getTfClassificacao().setValue(this.pEntity.getClassificacao());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfFormaCalculo().setValue(
-					this.pEntity.getFormaCalculo());
+			this.subView.getTfFormaCalculo().setValue(this.pEntity.getFormaCalculo());
 			this.subView.getTfSinal().setValue(this.pEntity.getSinal());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
-			this.subView.getTfValor().setValue(
-					this.pEntity.getValor().toString());
+			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public DreDetalheEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

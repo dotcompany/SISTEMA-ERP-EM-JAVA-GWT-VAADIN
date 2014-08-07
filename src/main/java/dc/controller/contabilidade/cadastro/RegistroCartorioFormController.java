@@ -17,16 +17,11 @@ import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
 import dc.visao.contabilidade.cadastro.RegistroCartorioFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class RegistroCartorioFormController extends
-		CRUDFormController<RegistroCartorioEntity> {
+public class RegistroCartorioFormController extends CRUDFormController<RegistroCartorioEntity> {
 
 	/**
 	 * 
@@ -35,22 +30,16 @@ public class RegistroCartorioFormController extends
 
 	private RegistroCartorioFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private RegistroCartorioDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private RegistroCartorioEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public RegistroCartorioFormController() {
 		if (this.pEntity == null) {
@@ -73,12 +62,9 @@ public class RegistroCartorioFormController extends
 		try {
 			String nomeCartorio = this.subView.getTfNomeCartorio().getValue();
 			Date dataRegistro = this.subView.getPdfDataRegistro().getValue();
-			Integer numero = Integer.parseInt(this.subView.getTfNumero()
-					.getValue());
-			Integer folha = Integer.parseInt(this.subView.getTfFolha()
-					.getValue());
-			Integer livro = Integer.parseInt(this.subView.getTfLivro()
-					.getValue());
+			Integer numero = Integer.parseInt(this.subView.getTfNumero().getValue());
+			Integer folha = Integer.parseInt(this.subView.getTfFolha().getValue());
+			Integer livro = Integer.parseInt(this.subView.getTfLivro().getValue());
 			String nire = this.subView.getTfNire().getValue();
 
 			this.pEntity.setNomeCartorio(nomeCartorio);
@@ -213,22 +199,16 @@ public class RegistroCartorioFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -238,20 +218,21 @@ public class RegistroCartorioFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfNomeCartorio().setValue(
-					this.pEntity.getNomeCartorio());
-			this.subView.getPdfDataRegistro().setValue(
-					this.pEntity.getDataRegistro());
-			this.subView.getTfNumero().setValue(
-					this.pEntity.getNumero().toString());
-			this.subView.getTfFolha().setValue(
-					this.pEntity.getFolha().toString());
-			this.subView.getTfLivro().setValue(
-					this.pEntity.getLivro().toString());
+			this.subView.getTfNomeCartorio().setValue(this.pEntity.getNomeCartorio());
+			this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
+			this.subView.getTfNumero().setValue(this.pEntity.getNumero().toString());
+			this.subView.getTfFolha().setValue(this.pEntity.getFolha().toString());
+			this.subView.getTfLivro().setValue(this.pEntity.getLivro().toString());
 			this.subView.getTfNire().setValue(this.pEntity.getNire());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public RegistroCartorioEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

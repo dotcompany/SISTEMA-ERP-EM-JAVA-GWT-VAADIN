@@ -18,11 +18,7 @@ import dc.servicos.dao.contabilidade.cadastro.FapDAO;
 import dc.visao.contabilidade.cadastro.FapFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -35,22 +31,16 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 
 	private FapFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private FapDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private FapEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public FapFormController() {
 		if (this.pEntity == null) {
@@ -194,22 +184,16 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -220,13 +204,16 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 			}
 
 			this.subView.getTfFap().setValue(this.pEntity.getFap().toString());
-			this.subView.getPdfDataInicial().setValue(
-					this.pEntity.getDataInicial());
-			this.subView.getPdfDataFinal()
-					.setValue(this.pEntity.getDataFinal());
+			this.subView.getPdfDataInicial().setValue(this.pEntity.getDataInicial());
+			this.subView.getPdfDataFinal().setValue(this.pEntity.getDataFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public FapEntity getModelBean() {
+		return pEntity;
 	}
 
 }

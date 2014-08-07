@@ -14,16 +14,11 @@ import dc.servicos.dao.folhapagamento.movimento.LancamentoDAO;
 import dc.visao.folhapagamento.movimento.LancamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoFormController extends
-		CRUDFormController<LancamentoEntity> {
+public class LancamentoFormController extends CRUDFormController<LancamentoEntity> {
 
 	/**
 	 * 
@@ -32,22 +27,16 @@ public class LancamentoFormController extends
 
 	private LancamentoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoFormController() {
 		if (this.pEntity == null) {
@@ -131,8 +120,12 @@ public class LancamentoFormController extends
 		return "folhapagamento_movimento_lancamento_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	@Override
+	public LancamentoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
+	}
+
+	/** COMBOS */
 
 }

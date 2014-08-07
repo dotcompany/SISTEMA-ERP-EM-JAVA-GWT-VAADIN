@@ -147,7 +147,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		subView.getTxValorPago().setEnabled(false);
 		subView.getDtDataVencimento().setEnabled(false);
 		subView.getTxValorPagar().setEnabled(false);
-		
+
 		preencheCombos();
 	}
 
@@ -381,5 +381,10 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		public void blur(BlurEvent event) {
 			calculaTotalPago();
 		}
+	}
+
+	@Override
+	public ParcelaPagar getModelBean() {
+		return parcelaPagar;
 	}
 }

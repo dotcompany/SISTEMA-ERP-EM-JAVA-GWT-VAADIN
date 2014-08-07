@@ -20,8 +20,6 @@ import dc.visao.financeiro.TalonarioChequeFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-
-
 @Controller
 @Scope("prototype")
 public class TalonarioChequeFormController extends CRUDFormController<TalonarioCheque> {
@@ -35,7 +33,7 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 
 	@Autowired
 	private TalonarioChequeDAO talonarioChequeDAO;
-	
+
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
 
@@ -46,20 +44,17 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtTalao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTalao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtTalao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNumero(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCmbContaCaixa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbContaCaixa(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbContaCaixa(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -74,37 +69,36 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 	@Override
 	protected void initSubView() {
 		subView = new TalonarioChequeFormView();
-		
+
 		this.subView.InitCbs(getTalonarioChequeTipo());
-		
-		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
-				ContaCaixaListController.class, this.contaCaixaDAO,
+
+		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class, this.contaCaixaDAO,
 				super.getMainController()) {
-		
-		@Override
-		public String getCaptionProperty() {
-			return "nome";
-			
-		  }
-	};
+
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+
+			}
+		};
 
 		this.subView.getCmbContaCaixa().setModel(model);
-		
+
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = talonarioChequeDAO.find(id);
-		
+
 		subView.getTxtTalao().setValue(currentBean.getTalao());
-		
+
 	}
 
 	@Override
 	protected void actionSalvar() {
-		
+
 		currentBean.setTalao(subView.getTxtTalao().getValue());
-		
+
 		try {
 			talonarioChequeDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -139,15 +133,13 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "talonarioChequeFormController";
 	}
-	
-	/**
-	 * COMBO
-	 */
+
+	/** COMBO */
 	public List<String> getTalonarioChequeTipo() {
 		try {
 			List<String> siLista = new ArrayList<String>();
@@ -164,5 +156,9 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 		}
 	}
 
+	@Override
+	public TalonarioCheque getModelBean() {
+		return currentBean;
+	}
 
 }

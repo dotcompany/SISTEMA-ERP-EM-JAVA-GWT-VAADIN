@@ -14,18 +14,17 @@ import dc.servicos.dao.geral.testeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.TesteFormView;
 
-
 @Controller
 @Scope("prototype")
 public class TesteFormController extends CRUDFormController<Teste> {
 
 	TesteFormView subView;
-	
+
 	@Autowired
 	testeDAO testeDAO;
 
 	private Teste currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Teste";
@@ -36,33 +35,35 @@ public class TesteFormController extends CRUDFormController<Teste> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		String descricao = subView.getTxtDescricao().getValue();
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
-		try{
+		try {
 			testeDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = testeDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());		
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar Programação customizada para essa ação aqui. Ou então deixar em branco, para comportamento padrão */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar Programação customizada
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
@@ -70,7 +71,10 @@ public class TesteFormController extends CRUDFormController<Teste> {
 		subView = new TesteFormView();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Teste();
@@ -78,16 +82,17 @@ public class TesteFormController extends CRUDFormController<Teste> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 testeDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		testeDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if(subView.getTxtNome().getValue() ==  null || subView.getTxtNome().getValue().isEmpty()){
-			//Utilizar adicionarErroDeValidacao() para adicionar mensagem de erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),"Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
+			// erro para o campo que esta sendo validado
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
 			return false;
 		}
 		return true;
@@ -101,6 +106,11 @@ public class TesteFormController extends CRUDFormController<Teste> {
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Teste getModelBean() {
+		return currentBean;
 	}
 
 }

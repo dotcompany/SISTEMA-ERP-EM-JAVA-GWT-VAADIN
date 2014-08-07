@@ -733,4 +733,9 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			return configuracao;
 		}
 	}
+
+	@Override
+	public LancamentoReceber getModelBean() {
+		return currentBean;
+	}
 }

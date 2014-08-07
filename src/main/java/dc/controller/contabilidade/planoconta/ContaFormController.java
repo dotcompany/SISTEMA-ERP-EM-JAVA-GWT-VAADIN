@@ -22,11 +22,7 @@ import dc.visao.contabilidade.planoconta.ContaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -39,9 +35,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 	private ContaFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private ContaDAO pDAO;
@@ -52,15 +46,11 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	@Autowired
 	private PlanoContaRefSpedDAO pcrsDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private ContaEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public ContaFormController() {
 		if (this.pEntity == null) {
@@ -87,19 +77,15 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
 			String situacao = this.subView.getTfSituacao().getValue();
 			String natureza = this.subView.getTfNatureza().getValue();
-			String patrimonioResultado = this.subView
-					.getTfPatrimonioResultado().getValue();
+			String patrimonioResultado = this.subView.getTfPatrimonioResultado().getValue();
 			String dfc = this.subView.getTfDfc().getValue();
 			String ordem = this.subView.getTfOrdem().getValue();
-			String codigoReduzido = this.subView.getTfCodigoReduzido()
-					.getValue();
+			String codigoReduzido = this.subView.getTfCodigoReduzido().getValue();
 			String codigoEfd = this.subView.getTfCodigoEfd().getValue();
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
-			PlanoContaEntity planoConta = this.subView.getCbPlanoConta()
-					.getValue();
-			PlanoContaRefSpedEntity planoContaRefSped = this.subView
-					.getCbPlanoContaRefSped().getValue();
+			PlanoContaEntity planoConta = this.subView.getCbPlanoConta().getValue();
+			PlanoContaRefSpedEntity planoContaRefSped = this.subView.getCbPlanoContaRefSped().getValue();
 
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setTipo(tipo);
@@ -195,9 +181,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
 		ContaEntity conta = this.subView.getCbConta().getValue();
 
@@ -219,8 +203,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			return false;
 		}
 
-		PlanoContaRefSpedEntity planoContaRefSped = this.subView
-				.getCbPlanoContaRefSped().getValue();
+		PlanoContaRefSpedEntity planoContaRefSped = this.subView.getCbPlanoContaRefSped().getValue();
 
 		if (!ObjectValidator.validateObject(planoContaRefSped)) {
 			String msg = "Não pode ficar em branco.";
@@ -249,27 +232,22 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.pDAO,
+			DefaultManyToOneComboModel<ContaEntity> model1 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.pDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model1);
 
-			DefaultManyToOneComboModel<PlanoContaEntity> model2 = new DefaultManyToOneComboModel<PlanoContaEntity>(
-					PlanoContaListController.class, this.pcDAO,
-					super.getMainController());
+			DefaultManyToOneComboModel<PlanoContaEntity> model2 = new DefaultManyToOneComboModel<PlanoContaEntity>(PlanoContaListController.class,
+					this.pcDAO, super.getMainController());
 
 			this.subView.getCbPlanoConta().setModel(model2);
 
 			DefaultManyToOneComboModel<PlanoContaRefSpedEntity> model3 = new DefaultManyToOneComboModel<PlanoContaRefSpedEntity>(
-					PlanoContaRefSpedListController.class, this.pcrsDAO,
-					super.getMainController());
+					PlanoContaRefSpedListController.class, this.pcrsDAO, super.getMainController());
 
 			this.subView.getCbPlanoContaRefSped().setModel(model3);
 		} catch (Exception e) {
@@ -277,18 +255,14 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -304,30 +278,30 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 				this.pEntity = this.pDAO.find(id);
 
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbPlanoConta().setValue(
-						this.pEntity.getPlanoConta());
-				this.subView.getCbPlanoContaRefSped().setValue(
-						this.pEntity.getPlanoContaRefSped());
+				this.subView.getCbPlanoConta().setValue(this.pEntity.getPlanoConta());
+				this.subView.getCbPlanoContaRefSped().setValue(this.pEntity.getPlanoContaRefSped());
 			}
 
-			this.subView.getTfClassificacao().setValue(
-					this.pEntity.getClassificacao());
+			this.subView.getTfClassificacao().setValue(this.pEntity.getClassificacao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
 			this.subView.getTfSituacao().setValue(this.pEntity.getSituacao());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
-			this.subView.getTfPatrimonioResultado().setValue(
-					this.pEntity.getPatrimonioResultado());
+			this.subView.getTfPatrimonioResultado().setValue(this.pEntity.getPatrimonioResultado());
 			this.subView.getTfDfc().setValue(this.pEntity.getDfc());
 			this.subView.getTfOrdem().setValue(this.pEntity.getOrdem());
-			this.subView.getTfCodigoReduzido().setValue(
-					this.pEntity.getCodigoReduzido());
+			this.subView.getTfCodigoReduzido().setValue(this.pEntity.getCodigoReduzido());
 			this.subView.getTfCodigoEfd().setValue(this.pEntity.getCodigoEfd());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ContaEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -9,12 +9,11 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.ordemservico.Acessorio;
+import dc.servicos.dao.ordemservico.AcessorioDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.AcessorioFormView;
-import dc.entidade.ordemservico.Acessorio;
-import dc.servicos.dao.ordemservico.AcessorioDAO;
-
 
 @Controller
 @Scope("prototype")
@@ -23,12 +22,12 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 	private static final long serialVersionUID = 1L;
 
 	AcessorioFormView subView;
-	
+
 	@Autowired
 	AcessorioDAO acessorioDAO;
-	
+
 	private Acessorio currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "Acessorio";
@@ -39,24 +38,23 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
-		try{
+		try {
 			acessorioDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = acessorioDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 	}
-	
+
 	@Override
 	protected void initSubView() {
 		subView = new AcessorioFormView();
@@ -70,19 +68,19 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		acessorioDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -98,6 +96,12 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 	@Override
 	protected void quandoNovo() {
 		// TODO Auto-generated method stub
-		
+
 	}
-} 
+
+	@Override
+	public Acessorio getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

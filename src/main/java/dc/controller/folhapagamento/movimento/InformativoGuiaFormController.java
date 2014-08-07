@@ -14,16 +14,11 @@ import dc.servicos.dao.folhapagamento.movimento.InformativoGuiaDAO;
 import dc.visao.folhapagamento.movimento.InformativoGuiaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class InformativoGuiaFormController extends
-		CRUDFormController<InformativoGuiaEntity> {
+public class InformativoGuiaFormController extends CRUDFormController<InformativoGuiaEntity> {
 
 	/**
 	 * 
@@ -32,22 +27,16 @@ public class InformativoGuiaFormController extends
 
 	private InformativoGuiaFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private InformativoGuiaDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private InformativoGuiaEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public InformativoGuiaFormController() {
 		if (this.pEntity == null) {
@@ -131,8 +120,12 @@ public class InformativoGuiaFormController extends
 		return "folhapagamento_movimento_informativo_guia_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	@Override
+	public InformativoGuiaEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
+	}
+
+	/** COMBOS */
 
 }

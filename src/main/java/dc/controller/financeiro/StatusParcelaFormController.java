@@ -125,4 +125,9 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 		// TODO Auto-generated method stub
 		return "statusParcelaForm";
 	}
+
+	@Override
+	public StatusParcela getModelBean() {
+		return currentBean;
+	}
 }

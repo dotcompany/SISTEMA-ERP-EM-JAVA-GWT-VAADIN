@@ -12,16 +12,11 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.DadoNotaFiscalFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DadoNotaFiscalFormController extends
-		CRUDFormController<NfeCabecalhoEntity> {
+public class DadoNotaFiscalFormController extends CRUDFormController<NfeCabecalhoEntity> {
 
 	/**
 	 * 
@@ -30,17 +25,11 @@ public class DadoNotaFiscalFormController extends
 
 	private DadoNotaFiscalFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DadoNotaFiscalFormController() {
 
@@ -99,8 +88,8 @@ public class DadoNotaFiscalFormController extends
 	protected void initSubView() {
 		this.subView = new DadoNotaFiscalFormView();
 
-		//this.subView.getTfOperacaoFiscal().setValue("teste");
-		//this.subView.getTfTcl().setValue("teste11");
+		// this.subView.getTfOperacaoFiscal().setValue("teste");
+		// this.subView.getTfTcl().setValue("teste11");
 	}
 
 	/*
@@ -145,17 +134,19 @@ public class DadoNotaFiscalFormController extends
 		return "";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public NfeCabecalhoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

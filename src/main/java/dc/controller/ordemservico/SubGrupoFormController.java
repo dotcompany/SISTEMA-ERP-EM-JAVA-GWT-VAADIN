@@ -9,19 +9,16 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.ordemservico.SubGrupoFormView;
 import dc.entidade.ordemservico.Grupo;
 import dc.entidade.ordemservico.SubGrupo;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
+import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.ordemservico.SubGrupoFormView;
 
-/**
-*
-* @author Paulo Sérgio
-*/ 
+/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -30,15 +27,15 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 	private static final long serialVersionUID = 1L;
 
 	SubGrupoFormView subView;
-	
+
 	@Autowired
 	SubGrupoDAO subGrupoDAO;
-	
+
 	@Autowired
 	GrupoDAO grupoDAO;
 
 	private SubGrupo currentBean;
-	
+
 	@Override
 	protected String getNome() {
 		return "SubGrupo";
@@ -49,18 +46,17 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 		return subView;
 	}
 
-	@Override  
+	@Override
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setGrupo(subView.getCbGrupo().getValue());
-		try{
+		try {
 			subGrupoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);	
-		}catch (Exception e){
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -68,51 +64,58 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getCbGrupo().setValue(currentBean.getGrupo());
 	}
-	
-	/* Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento padrÃ£o */
+
+	/*
+	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
+	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
+	 * padrÃ£o
+	 */
 	@Override
 	protected void quandoNovo() {
-		
+
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new SubGrupoFormView();
-		
+
 		preencheCombos();
 	}
 
-	/* Deve sempre atribuir a current Bean uma nova instancia do bean do formulario.*/
+	/*
+	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
+	 * formulario.
+	 */
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new SubGrupo();
 	}
-	
+
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Grupo> grupo = new DefaultManyToOneComboModel<Grupo>(GrupoListController.class,
-				this.grupoDAO, super.getMainController());
+		DefaultManyToOneComboModel<Grupo> grupo = new DefaultManyToOneComboModel<Grupo>(GrupoListController.class, this.grupoDAO,
+				super.getMainController());
 
 		this.subView.getCbGrupo().setModel(grupo);
 	}
-	
+
 	@Override
 	protected void remover(List<Serializable> ids) {
-		 subGrupoDAO.deleteAllByIds(ids);
-		 mensagemRemovidoOK();
+		subGrupoDAO.deleteAllByIds(ids);
+		mensagemRemovidoOK();
 	}
 
-	/* Implementar validacao de campos antes de salvar. */ 
+	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		
+
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		return valido;
 	}
 
@@ -124,4 +127,10 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 	public String getViewIdentifier() {
 		return "subGrupoForm";
 	}
-} 
+
+	@Override
+	public SubGrupo getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
+	}
+}

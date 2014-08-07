@@ -17,11 +17,7 @@ import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
 import dc.visao.contabilidade.lancamento.LoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -34,22 +30,16 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 	private LoteFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LoteDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LoteEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LoteFormController() {
 		if (this.pEntity == null) {
@@ -187,22 +177,16 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -214,15 +198,18 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
-			this.subView.getPdfDataInclusao().setValue(
-					this.pEntity.getDataInclusao());
-			this.subView.getPdfDataLiberacao().setValue(
-					this.pEntity.getDataLiberacao());
-			this.subView.getTfProgramado().setValue(
-					this.pEntity.getProgramado());
+			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLiberacao().setValue(this.pEntity.getDataLiberacao());
+			this.subView.getTfProgramado().setValue(this.pEntity.getProgramado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LoteEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

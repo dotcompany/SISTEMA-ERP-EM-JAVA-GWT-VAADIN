@@ -14,16 +14,11 @@ import dc.servicos.dao.folhapagamento.movimento.AlteracaoSalarialDAO;
 import dc.visao.folhapagamento.movimento.AlteracaoSalarialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class AlteracaoSalarialFormController extends
-		CRUDFormController<AlteracaoSalarialEntity> {
+public class AlteracaoSalarialFormController extends CRUDFormController<AlteracaoSalarialEntity> {
 
 	/**
 	 * 
@@ -32,22 +27,16 @@ public class AlteracaoSalarialFormController extends
 
 	private AlteracaoSalarialFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private AlteracaoSalarialDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private AlteracaoSalarialEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public AlteracaoSalarialFormController() {
 		if (this.pEntity == null) {
@@ -131,8 +120,12 @@ public class AlteracaoSalarialFormController extends
 		return "folhapagamento_movimento_alteracao_salarial_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	@Override
+	public AlteracaoSalarialEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
+	}
+
+	/** COMBOS */
 
 }

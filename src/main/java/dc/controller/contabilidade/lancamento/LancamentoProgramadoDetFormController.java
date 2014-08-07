@@ -26,16 +26,11 @@ import dc.visao.contabilidade.lancamento.LancamentoProgramadoDetFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoDetFormController extends
-		CRUDFormController<LancamentoProgramadoDetEntity> {
+public class LancamentoProgramadoDetFormController extends CRUDFormController<LancamentoProgramadoDetEntity> {
 
 	/**
 	 * 
@@ -44,9 +39,7 @@ public class LancamentoProgramadoDetFormController extends
 
 	private LancamentoProgramadoDetFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private LancamentoProgramadoDetDAO pDAO;
@@ -60,15 +53,11 @@ public class LancamentoProgramadoDetFormController extends
 	@Autowired
 	private HistoricoDAO hDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private LancamentoProgramadoDetEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public LancamentoProgramadoDetFormController() {
 		if (this.pEntity == null) {
@@ -89,18 +78,14 @@ public class LancamentoProgramadoDetFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			String descricaoHistorico = this.subView.getTfDescricaoHistorico()
-					.getValue();
-			BigDecimal valor = new BigDecimal(this.subView.getTfValor()
-					.getValue());
+			String descricaoHistorico = this.subView.getTfDescricaoHistorico().getValue();
+			BigDecimal valor = new BigDecimal(this.subView.getTfValor().getValue());
 			String tipo = this.subView.getTfTipo().getValue();
 
-			LancamentoProgramadoCabEntity lancamentoProgramadoCab = (LancamentoProgramadoCabEntity) this.subView
-					.getCbLancamentoProgramadoCab().getValue();
-			ContaEntity conta = (ContaEntity) this.subView.getCbConta()
+			LancamentoProgramadoCabEntity lancamentoProgramadoCab = (LancamentoProgramadoCabEntity) this.subView.getCbLancamentoProgramadoCab()
 					.getValue();
-			HistoricoEntity historico = (HistoricoEntity) this.subView
-					.getCbHistorico().getValue();
+			ContaEntity conta = (ContaEntity) this.subView.getCbConta().getValue();
+			HistoricoEntity historico = (HistoricoEntity) this.subView.getCbHistorico().getValue();
 
 			this.pEntity.setDescricaoHistorico(descricaoHistorico);
 			this.pEntity.setValor(valor);
@@ -188,18 +173,14 @@ public class LancamentoProgramadoDetFormController extends
 			return false;
 		}
 
-		/**
-		 * REQUIRED
-		 */
+		/** REQUIRED */
 
-		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView
-				.getCbLancamentoProgramadoCab().getValue();
+		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView.getCbLancamentoProgramadoCab().getValue();
 
 		if (!ObjectValidator.validateObject(lancamentoProgramadoCab)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(
-					this.subView.getCbLancamentoProgramadoCab(), msg);
+			adicionarErroDeValidacao(this.subView.getCbLancamentoProgramadoCab(), msg);
 
 			return false;
 		}
@@ -243,27 +224,22 @@ public class LancamentoProgramadoDetFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<LancamentoProgramadoCabEntity> model1 = new DefaultManyToOneComboModel<LancamentoProgramadoCabEntity>(
-					LancamentoProgramadoCabListController.class, this.lpcDAO,
-					super.getMainController());
+					LancamentoProgramadoCabListController.class, this.lpcDAO, super.getMainController());
 
 			this.subView.getCbLancamentoProgramadoCab().setModel(model1);
 
-			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model2);
 
-			DefaultManyToOneComboModel<HistoricoEntity> model3 = new DefaultManyToOneComboModel<HistoricoEntity>(
-					HistoricoListController.class, this.hDAO,
-					super.getMainController());
+			DefaultManyToOneComboModel<HistoricoEntity> model3 = new DefaultManyToOneComboModel<HistoricoEntity>(HistoricoListController.class,
+					this.hDAO, super.getMainController());
 
 			this.subView.getCbHistorico().setModel(model3);
 		} catch (Exception e) {
@@ -271,18 +247,14 @@ public class LancamentoProgramadoDetFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -297,21 +269,23 @@ public class LancamentoProgramadoDetFormController extends
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbLancamentoProgramadoCab().setValue(
-						this.pEntity.getLancamentoProgramadoCab());
+				this.subView.getCbLancamentoProgramadoCab().setValue(this.pEntity.getLancamentoProgramadoCab());
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbHistorico().setValue(
-						this.pEntity.getHistorico());
+				this.subView.getCbHistorico().setValue(this.pEntity.getHistorico());
 			}
 
-			this.subView.getTfDescricaoHistorico().setValue(
-					this.pEntity.getDescricaoHistorico());
-			this.subView.getTfValor().setValue(
-					this.pEntity.getValor().toString());
+			this.subView.getTfDescricaoHistorico().setValue(this.pEntity.getDescricaoHistorico());
+			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public LancamentoProgramadoDetEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

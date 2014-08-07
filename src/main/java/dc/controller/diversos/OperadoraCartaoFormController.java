@@ -22,17 +22,13 @@ import dc.visao.diversos.OperadoraCartaoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- * 
- */
+ *         desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
@@ -47,10 +43,10 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Autowired
 	private OperadoraCartaoDAO operadoraDAO;
-	
+
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
-	
+
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
@@ -70,7 +66,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	protected void actionSalvar() {
 
 		subView.preencheOperadoraCartao(currentBean);
-		
+
 		try {
 			operadoraDAO.saveOrUpdate(currentBean);
 
@@ -99,30 +95,28 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Override
 	protected void initSubView() {
 		subView = new OperadoraCartaoFormView();
-		
-		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
-				ContaCaixaListController.class, this.contaCaixaDAO,
+
+		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class, this.contaCaixaDAO,
 				super.getMainController()) {
-		
-		@Override
-		public String getCaptionProperty() {
-			return "nome";
-			
-		  }
-	};
+
+			@Override
+			public String getCaptionProperty() {
+				return "nome";
+
+			}
+		};
 
 		this.subView.getCmbContaCaixa().setModel(model);
-		
-		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-		
-		@Override
-		public String getCaptionProperty() {
-			return "descricao";
-			
-		  }
-	};
+
+		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				this.contabilContaDAO, super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+
+			}
+		};
 
 		this.subView.getCmbContabilConta().setModel(model1);
 	}
@@ -150,33 +144,33 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 		return valido;
 	}
-	
+
 	private boolean validaCampos() {
-		
+
 		boolean valido = true;
-		
+
 		ContabilConta contabilConta = (ContabilConta) subView.getCmbContabilConta().getValue();
 		if (!Validator.validateObject(contabilConta)) {
 			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		ContaCaixa contaCaixa = (ContaCaixa) subView.getCmbContaCaixa().getValue();
 		if (!Validator.validateObject(contaCaixa)) {
 			adicionarErroDeValidacao(subView.getCmbContaCaixa(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtBandeira().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtBandeira(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateNumber(subView.getTxtVencimentoAluguel().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtVencimentoAluguel(), "Número inválido");
 			valido = false;
@@ -193,6 +187,11 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Override
 	public String getViewIdentifier() {
 		return "operadoraCartaoForm";
+	}
+
+	@Override
+	public OperadoraCartao getModelBean() {
+		return currentBean;
 	}
 
 }

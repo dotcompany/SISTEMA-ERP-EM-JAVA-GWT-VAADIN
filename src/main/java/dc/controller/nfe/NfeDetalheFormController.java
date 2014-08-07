@@ -14,16 +14,11 @@ import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class NfeDetalheFormController extends
-		CRUDFormController<NfeDetalheImpostoCofinsEntity> {
+public class NfeDetalheFormController extends CRUDFormController<NfeDetalheImpostoCofinsEntity> {
 
 	/**
 	 * 
@@ -32,19 +27,13 @@ public class NfeDetalheFormController extends
 
 	private ProdutoServicoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private NfeDetalheImpostoCofinsEntity ndiCofins;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public NfeDetalheFormController() {
 		// this.ndiCofins = ndiCofins;
@@ -175,22 +164,16 @@ public class NfeDetalheFormController extends
 		return "";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -200,13 +183,9 @@ public class NfeDetalheFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
-	/**
-	 * NFEDETALHEIMPOSTOCOFINS
-	 */
+	/** NFEDETALHEIMPOSTOCOFINS */
 	public NfeDetalheImpostoCofinsEntity ndiCofinsHinzufugen() {
 		try {
 			if (this.ndiCofins == null) {
@@ -223,28 +202,20 @@ public class NfeDetalheFormController extends
 
 	public void ndiCofinsMachen() {
 		try {
-			this.subView.getTfQtdVendidaCofins().setValue(
-					this.ndiCofins.getQuantidadeVendida().toString().trim());
-			this.subView.getTfBaseCalculoBcCofins().setValue(
-					this.ndiCofins.getBaseCalculoCofins().toString().trim());
-			this.subView.getTfAliquotaPercentualCofins().setValue(
-					this.ndiCofins.getAliquotaCofinsPercentual().toString()
-							.trim());
-			this.subView.getTfAliquotaReaisCofins().setValue(
-					this.ndiCofins.getAliquotaCofinsReais().toString().trim());
-			this.subView.getTfValorCofins().setValue(
-					this.ndiCofins.getValorCofins().toString().trim());
+			this.subView.getTfQtdVendidaCofins().setValue(this.ndiCofins.getQuantidadeVendida().toString().trim());
+			this.subView.getTfBaseCalculoBcCofins().setValue(this.ndiCofins.getBaseCalculoCofins().toString().trim());
+			this.subView.getTfAliquotaPercentualCofins().setValue(this.ndiCofins.getAliquotaCofinsPercentual().toString().trim());
+			this.subView.getTfAliquotaReaisCofins().setValue(this.ndiCofins.getAliquotaCofinsReais().toString().trim());
+			this.subView.getTfValorCofins().setValue(this.ndiCofins.getValorCofins().toString().trim());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * SETAR VALORES
+	/** SETAR VALORES
 	 * 
 	 * @param id
-	 * @param event
-	 */
+	 * @param event */
 
 	public void ndiCofinsSetarValor(String id, Object obj) {
 		// TODO ndiCofinsSetarValor
@@ -257,28 +228,23 @@ public class NfeDetalheFormController extends
 
 			break;
 		case "tfQtdVendidaCofins":
-			this.ndiCofins.setQuantidadeVendida(ObjectConverter
-					.stringToValue((String) obj));
+			this.ndiCofins.setQuantidadeVendida(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfBaseCalculoBcCofins":
-			this.ndiCofins.setBaseCalculoCofins(ObjectConverter
-					.stringToValue((String) obj));
+			this.ndiCofins.setBaseCalculoCofins(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaPercentualCofins":
-			this.ndiCofins.setAliquotaCofinsPercentual(ObjectConverter
-					.stringToValue((String) obj));
+			this.ndiCofins.setAliquotaCofinsPercentual(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfAliquotaReaisCofins":
-			this.ndiCofins.setAliquotaCofinsReais(ObjectConverter
-					.stringToValue((String) obj));
+			this.ndiCofins.setAliquotaCofinsReais(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		case "tfValorCofins":
-			this.ndiCofins.setValorCofins(ObjectConverter
-					.stringToValue((String) obj));
+			this.ndiCofins.setValorCofins(ObjectConverter.stringToValue((String) obj));
 
 			break;
 		}
@@ -296,6 +262,12 @@ public class NfeDetalheFormController extends
 		 * this.subView.getSfNfeDetalhe().getDados() .add(index,
 		 * this.nfeCabecalho.getNfeDetalhe());
 		 */
+	}
+
+	@Override
+	public NfeDetalheImpostoCofinsEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return ndiCofins;
 	}
 
 }

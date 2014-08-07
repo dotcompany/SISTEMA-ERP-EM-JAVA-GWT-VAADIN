@@ -19,16 +19,11 @@ import dc.servicos.dao.patrimonio.DepreciacaoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DepreciacaoBemFormView;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DepreciacaoBemFormController extends
-		CRUDFormController<DepreciacaoBemEntity> {
+public class DepreciacaoBemFormController extends CRUDFormController<DepreciacaoBemEntity> {
 
 	/**
 	 * 
@@ -37,9 +32,7 @@ public class DepreciacaoBemFormController extends
 
 	private DepreciacaoBemFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DepreciacaoBemDAO pDAO;
@@ -47,15 +40,11 @@ public class DepreciacaoBemFormController extends
 	@Autowired
 	private BemDAO bDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DepreciacaoBemEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DepreciacaoBemFormController() {
 		if (this.pEntity == null) {
@@ -76,18 +65,12 @@ public class DepreciacaoBemFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Date dataDepreciacao = this.subView.getPdfDataDepreciacao()
-					.getValue();
-			Double depreciacaoAcumulada = Double.parseDouble(this.subView
-					.getTfDepreciacaoAcumulada().getValue());
-			Integer dias = Integer
-					.parseInt(this.subView.getTfDias().getValue());
-			Double indice = Double.parseDouble(this.subView.getTfIndice()
-					.getValue());
-			Double taxa = Double.parseDouble(this.subView.getTfTaxa()
-					.getValue());
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			Date dataDepreciacao = this.subView.getPdfDataDepreciacao().getValue();
+			Double depreciacaoAcumulada = Double.parseDouble(this.subView.getTfDepreciacaoAcumulada().getValue());
+			Integer dias = Integer.parseInt(this.subView.getTfDias().getValue());
+			Double indice = Double.parseDouble(this.subView.getTfIndice().getValue());
+			Double taxa = Double.parseDouble(this.subView.getTfTaxa().getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			BemEntity bem = (BemEntity) this.subView.getCbBem().getValue();
 
@@ -111,19 +94,14 @@ public class DepreciacaoBemFormController extends
 			this.pEntity = new DepreciacaoBemEntity();
 
 			this.subView.getPdfDataDepreciacao().setValue(null);
-			this.subView.getTfDepreciacaoAcumulada().setValue(
-					String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
-			this.subView.getTfDias().setValue(
-					String.valueOf(this.pEntity.getDias()));
-			this.subView.getTfIndice().setValue(
-					String.valueOf(this.pEntity.getIndice()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfDepreciacaoAcumulada().setValue(String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
+			this.subView.getTfDias().setValue(String.valueOf(this.pEntity.getDias()));
+			this.subView.getTfIndice().setValue(String.valueOf(this.pEntity.getIndice()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
 
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
 		}
 	}
 
@@ -135,16 +113,11 @@ public class DepreciacaoBemFormController extends
 			this.subView.carregarCmbBem(this.bemListarTodos());
 
 			this.subView.getPdfDataDepreciacao().setValue(null);
-			this.subView.getTfDepreciacaoAcumulada().setValue(
-					String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
-			this.subView.getTfDias().setValue(
-					String.valueOf(this.pEntity.getDias()));
-			this.subView.getTfIndice().setValue(
-					String.valueOf(this.pEntity.getIndice()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfDepreciacaoAcumulada().setValue(String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
+			this.subView.getTfDias().setValue(String.valueOf(this.pEntity.getDias()));
+			this.subView.getTfIndice().setValue(String.valueOf(this.pEntity.getIndice()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
 
 			this.subView.getCbBem().setValue(this.pEntity.getBem());
 		} catch (Exception e) {
@@ -168,16 +141,11 @@ public class DepreciacaoBemFormController extends
 			}
 
 			this.subView.getPdfDataDepreciacao().setValue(null);
-			this.subView.getTfDepreciacaoAcumulada().setValue(
-					String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
-			this.subView.getTfDias().setValue(
-					String.valueOf(this.pEntity.getDias()));
-			this.subView.getTfIndice().setValue(
-					String.valueOf(this.pEntity.getIndice()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfDepreciacaoAcumulada().setValue(String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
+			this.subView.getTfDias().setValue(String.valueOf(this.pEntity.getDias()));
+			this.subView.getTfIndice().setValue(String.valueOf(this.pEntity.getIndice()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
 
@@ -208,16 +176,11 @@ public class DepreciacaoBemFormController extends
 			}
 
 			this.subView.getPdfDataDepreciacao().setValue(null);
-			this.subView.getTfDepreciacaoAcumulada().setValue(
-					String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
-			this.subView.getTfDias().setValue(
-					String.valueOf(this.pEntity.getDias()));
-			this.subView.getTfIndice().setValue(
-					String.valueOf(this.pEntity.getIndice()));
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
-			this.subView.getTfValor().setValue(
-					String.valueOf(this.pEntity.getValor()));
+			this.subView.getTfDepreciacaoAcumulada().setValue(String.valueOf(this.pEntity.getDepreciacaoAcumulada()));
+			this.subView.getTfDias().setValue(String.valueOf(this.pEntity.getDias()));
+			this.subView.getTfIndice().setValue(String.valueOf(this.pEntity.getIndice()));
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfValor().setValue(String.valueOf(this.pEntity.getValor()));
 
 			this.subView.carregarCmbBem(this.bemListarTodos());
 
@@ -240,14 +203,12 @@ public class DepreciacaoBemFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			Object dataDepreciacao = this.subView.getPdfDataDepreciacao()
-					.getValue();
+			Object dataDepreciacao = this.subView.getPdfDataDepreciacao().getValue();
 
 			if (!ObjectValidator.validateNotRequiredDate(dataDepreciacao)) {
 				String msg = "Não pode ficar em branco.";
 
-				adicionarErroDeValidacao(this.subView.getPdfDataDepreciacao(),
-						msg);
+				adicionarErroDeValidacao(this.subView.getPdfDataDepreciacao(), msg);
 
 				return false;
 			}
@@ -292,14 +253,12 @@ public class DepreciacaoBemFormController extends
 				return false;
 			}
 
-			String depreciacaoAcumulada = this.subView
-					.getTfDepreciacaoAcumulada().getValue();
+			String depreciacaoAcumulada = this.subView.getTfDepreciacaoAcumulada().getValue();
 
 			if (!ObjectValidator.validateNotRequiredNumber(depreciacaoAcumulada)) {
 				String msg = "Não pode ficar em branco.";
 
-				adicionarErroDeValidacao(
-						this.subView.getTfDepreciacaoAcumulada(), msg);
+				adicionarErroDeValidacao(this.subView.getTfDepreciacaoAcumulada(), msg);
 
 				return false;
 			}
@@ -330,9 +289,7 @@ public class DepreciacaoBemFormController extends
 		return "patrimonio_apolice_seguro_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<BemEntity> bemListarTodos() {
 		List<BemEntity> auxLista = new ArrayList<BemEntity>();
@@ -342,13 +299,17 @@ public class DepreciacaoBemFormController extends
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public DepreciacaoBemEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

@@ -17,11 +17,7 @@ import dc.visao.folhapagamento.cadastro.EventoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -34,22 +30,16 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 
 	private EventoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private EventoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private EventoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public EventoFormController() {
 		if (this.pEntity == null) {
@@ -75,8 +65,7 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			String tipo = this.subView.getTfTipo().getValue();
 			String unidade = this.subView.getTfUnidade().getValue();
 			String baseCalculo = this.subView.getTfBaseCalculo().getValue();
-			Double taxa = Double.parseDouble(this.subView.getTfTaxa()
-					.getValue());
+			Double taxa = Double.parseDouble(this.subView.getTfTaxa().getValue());
 
 			this.pEntity.setCodigo(codigo);
 			this.pEntity.setDescricao(descricao);
@@ -85,18 +74,13 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.pEntity.setBaseCalculo(baseCalculo);
 			this.pEntity.setTaxa(taxa);
 
-			/**
-			 * Empresa vinda da conta do usuário logado
-			 */
+			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
-			/**
-			 * **************************************
-			 */
+			/** ************************************** */
 
 			this.pDAO.saveOrUpdate(this.pEntity);
 
@@ -112,10 +96,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(
-					this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		}
 	}
 
@@ -128,10 +110,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(
-					this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -152,10 +132,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(
-					this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -181,10 +159,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(
-					this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(
-					String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -231,8 +207,12 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 		return "folhapagamento_cadastro_evento_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	@Override
+	public EventoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
+	}
+
+	/** COMBOS */
 
 }

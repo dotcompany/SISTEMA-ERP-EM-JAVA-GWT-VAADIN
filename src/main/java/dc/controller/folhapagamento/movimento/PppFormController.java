@@ -18,11 +18,7 @@ import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.PppFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
@@ -35,9 +31,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 
 	private PppFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private PppDAO pDAO;
@@ -45,15 +39,11 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	@Autowired
 	private ColaboradorDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private PppEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public PppFormController() {
 		if (this.pEntity == null) {
@@ -75,8 +65,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	protected void actionSalvar() {
 		try {
 			String observacao = this.subView.getTfObservacao().getValue();
-			Colaborador colaborador = (Colaborador) this.subView
-					.getCbColaborador().getValue();
+			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setObservacao(observacao);
 			this.pEntity.setColaborador(colaborador);
@@ -91,11 +80,9 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		} finally {
 			this.pEntity = new PppEntity();
 
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 		}
@@ -106,13 +93,11 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -133,13 +118,11 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -165,13 +148,11 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getTfObservacao().setValue(
-					this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(
-					this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -195,8 +176,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador()
-				.getValue();
+		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -219,9 +199,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		return "folhapagamento_movimento_ppp_fc";
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	public List<Colaborador> colaboradorListarTodos() {
 		List<Colaborador> auxLista = new ArrayList<Colaborador>();
@@ -231,13 +209,17 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		return auxLista;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
+	}
+
+	@Override
+	public PppEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

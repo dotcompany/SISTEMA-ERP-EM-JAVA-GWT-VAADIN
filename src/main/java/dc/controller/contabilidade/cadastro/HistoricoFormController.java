@@ -15,16 +15,11 @@ import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.contabilidade.cadastro.HistoricoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class HistoricoFormController extends
-		CRUDFormController<HistoricoEntity> {
+public class HistoricoFormController extends CRUDFormController<HistoricoEntity> {
 
 	/**
 	 * 
@@ -33,22 +28,16 @@ public class HistoricoFormController extends
 
 	private HistoricoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private HistoricoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private HistoricoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public HistoricoFormController() {
 		if (this.pEntity == null) {
@@ -71,8 +60,7 @@ public class HistoricoFormController extends
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String historico = this.subView.getTfHistorico().getValue();
-			String pedeComplemento = this.subView.getTfPedeComplemento()
-					.getValue();
+			String pedeComplemento = this.subView.getTfPedeComplemento().getValue();
 
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setHistorico(historico);
@@ -163,22 +151,16 @@ public class HistoricoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -190,11 +172,15 @@ public class HistoricoFormController extends
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfHistorico().setValue(this.pEntity.getHistorico());
-			this.subView.getTfPedeComplemento().setValue(
-					this.pEntity.getPedeComplemento());
+			this.subView.getTfPedeComplemento().setValue(this.pEntity.getPedeComplemento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public HistoricoEntity getModelBean() {
+		return pEntity;
 	}
 
 }

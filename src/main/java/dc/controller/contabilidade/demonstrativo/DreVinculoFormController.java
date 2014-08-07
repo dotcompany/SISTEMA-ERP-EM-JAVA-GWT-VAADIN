@@ -21,16 +21,11 @@ import dc.visao.contabilidade.demonstrativo.DreVinculoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DreVinculoFormController extends
-		CRUDFormController<DreVinculoEntity> {
+public class DreVinculoFormController extends CRUDFormController<DreVinculoEntity> {
 
 	/**
 	 * 
@@ -39,9 +34,7 @@ public class DreVinculoFormController extends
 
 	private DreVinculoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DreVinculoDAO pDAO;
@@ -52,15 +45,11 @@ public class DreVinculoFormController extends
 	@Autowired
 	private ContaDAO cDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DreVinculoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DreVinculoFormController() {
 		if (this.pEntity == null) {
@@ -81,10 +70,8 @@ public class DreVinculoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			DreDetalheEntity dreDetalhe = (DreDetalheEntity) this.subView
-					.getCbDreDetalhe().getValue();
-			ContaEntity conta = (ContaEntity) this.subView.getCbConta()
-					.getValue();
+			DreDetalheEntity dreDetalhe = (DreDetalheEntity) this.subView.getCbDreDetalhe().getValue();
+			ContaEntity conta = (ContaEntity) this.subView.getCbConta().getValue();
 
 			this.pEntity.setDreDetalhe(dreDetalhe);
 			this.pEntity.setConta(conta);
@@ -176,20 +163,16 @@ public class DreVinculoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<DreDetalheEntity> model1 = new DefaultManyToOneComboModel<DreDetalheEntity>(
-					DreDetalheListController.class, this.ddDAO,
-					super.getMainController());
+			DefaultManyToOneComboModel<DreDetalheEntity> model1 = new DefaultManyToOneComboModel<DreDetalheEntity>(DreDetalheListController.class,
+					this.ddDAO, super.getMainController());
 
 			this.subView.getCbDreDetalhe().setModel(model1);
 
-			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
-					ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model2);
@@ -198,18 +181,14 @@ public class DreVinculoFormController extends
 		}
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -219,12 +198,17 @@ public class DreVinculoFormController extends
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getCbDreDetalhe().setValue(
-					this.pEntity.getDreDetalhe());
+			this.subView.getCbDreDetalhe().setValue(this.pEntity.getDreDetalhe());
 			this.subView.getCbConta().setValue(this.pEntity.getConta());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public DreVinculoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }

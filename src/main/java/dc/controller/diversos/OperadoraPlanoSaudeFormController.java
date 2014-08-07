@@ -21,7 +21,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class OperadoraPlanoSaudeFormController extends	CRUDFormController<OperadoraPlanoSaude> {
+public class OperadoraPlanoSaudeFormController extends CRUDFormController<OperadoraPlanoSaude> {
 
 	/**
 	 * 
@@ -45,14 +45,12 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtRegistroANS().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtRegistroANS(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtRegistroANS(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -68,16 +66,15 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 	protected void initSubView() {
 		subView = new OperadoraPlanoSaudeFormView();
 
-		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-		
-		@Override
-		public String getCaptionProperty() {
-			return "descricao";
-			
-		  }
-	};
+		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+				this.contabilContaDAO, super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+
+			}
+		};
 
 		this.subView.getCmbContabilConta().setModel(model);
 	}
@@ -118,7 +115,10 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 		 * subView.getCmbContabilConta().setModel(model);
 		 */
 
-		/*this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta());*/
+		/*
+		 * this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta
+		 * ());
+		 */
 	}
 
 	@Override
@@ -170,6 +170,11 @@ public class OperadoraPlanoSaudeFormController extends	CRUDFormController<Operad
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public OperadoraPlanoSaude getModelBean() {
+		return currentBean;
 	}
 
 }

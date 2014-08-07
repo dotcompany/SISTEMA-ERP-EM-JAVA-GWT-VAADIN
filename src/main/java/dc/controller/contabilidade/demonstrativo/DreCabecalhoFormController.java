@@ -15,16 +15,11 @@ import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
 import dc.visao.contabilidade.demonstrativo.DreCabecalhoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")
-public class DreCabecalhoFormController extends
-		CRUDFormController<DreCabecalhoEntity> {
+public class DreCabecalhoFormController extends CRUDFormController<DreCabecalhoEntity> {
 
 	/**
 	 * 
@@ -33,22 +28,16 @@ public class DreCabecalhoFormController extends
 
 	private DreCabecalhoFormView subView;
 
-	/**
-	 * DAO'S
-	 */
+	/** DAO'S */
 
 	@Autowired
 	private DreCabecalhoDAO pDAO;
 
-	/**
-	 * ENTITIES
-	 */
+	/** ENTITIES */
 
 	private DreCabecalhoEntity pEntity;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public DreCabecalhoFormController() {
 		if (this.pEntity == null) {
@@ -71,8 +60,7 @@ public class DreCabecalhoFormController extends
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String padrao = this.subView.getTfPadrao().getValue();
-			String periodoInicial = this.subView.getTfPeriodoInicial()
-					.getValue();
+			String periodoInicial = this.subView.getTfPeriodoInicial().getValue();
 			String periodoFinal = this.subView.getTfPeriodoFinal().getValue();
 
 			this.pEntity.setDescricao(descricao);
@@ -165,22 +153,16 @@ public class DreCabecalhoFormController extends
 		return sUrl;
 	}
 
-	/**
-	 * COMBOS
-	 */
+	/** COMBOS */
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	@Override
 	protected boolean isFullSized() {
 		return true;
 	}
 
-	/**
-	 * **************************************
-	 */
+	/** ************************************** */
 
 	private void novoObjeto(Serializable id) {
 		try {
@@ -192,13 +174,17 @@ public class DreCabecalhoFormController extends
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfPadrao().setValue(this.pEntity.getPadrao());
-			this.subView.getTfPeriodoInicial().setValue(
-					this.pEntity.getPeriodoInicial());
-			this.subView.getTfPeriodoFinal().setValue(
-					this.pEntity.getPeriodoFinal());
+			this.subView.getTfPeriodoInicial().setValue(this.pEntity.getPeriodoInicial());
+			this.subView.getTfPeriodoFinal().setValue(this.pEntity.getPeriodoFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public DreCabecalhoEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return pEntity;
 	}
 
 }
