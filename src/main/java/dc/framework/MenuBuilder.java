@@ -16,6 +16,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 
 import dc.controller.adm.dotcompany.ParametroClienteListController;
 import dc.controller.relatorio.RelatorioListController;
+import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
@@ -229,6 +230,17 @@ public class MenuBuilder implements Serializable {
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
 				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(RelatorioListController.class);
+				showControllerSistema(mainController, c);
+
+			}
+
+		});
+
+		MenuBar.MenuItem seguimentos = cadastros.addItem("Seguimentos", null, new Command() {
+
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				dc.visao.framework.geral.Controller c = (Controller) mainController.getEntityController(SeguimentoListController.class);
 				showControllerSistema(mainController, c);
 
 			}

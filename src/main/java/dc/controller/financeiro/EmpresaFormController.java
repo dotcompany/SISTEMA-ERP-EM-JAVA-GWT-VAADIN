@@ -15,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
 import dc.entidade.framework.Fpas;
+import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Cnae;
 import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
@@ -28,6 +30,7 @@ import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.geral.ContatoDAO;
 import dc.servicos.dao.geral.EnderecoDAO;
@@ -37,6 +40,7 @@ import dc.visao.financeiro.EmpresaFormView;
 import dc.visao.financeiro.enums.CrtType;
 import dc.visao.financeiro.enums.TipoRegimeType;
 import dc.visao.financeiro.enums.TipoType;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 /**
@@ -98,6 +102,9 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Autowired
 	CnaeDAO cnaeDAO;
+
+	@Autowired
+	SeguimentoDAO seguimentoDAO;
 
 	private Empresa currentBean;
 
@@ -425,6 +432,11 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		subView = new EmpresaFormView(this);
 
 		this.subView.InitCbs(getEmpresaCrtType(), getEmpresaTipoRegimeType(), getEmpresaTipoType());
+
+		DefaultManyToOneComboModel<Seguimento> seguimentos = new DefaultManyToOneComboModel<Seguimento>(SeguimentoListController.class,
+				this.seguimentoDAO, super.getMainController());
+
+		this.subView.getComboSeguimentos().setModel(seguimentos);
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -48,9 +49,11 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 	private String jasperPath;
 	@Column()
 	@Caption(value = "Nome")
+	@Field
 	private String nome;
 	@Column()
 	@Caption(value = "Descrição")
+	@Field
 	private String descricao;
 
 	@Column(name = "tela_parametros")
@@ -62,6 +65,7 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 	private FmMenu menu;
 
 	@Column()
+	@Field
 	private Integer tipo;
 
 	@OneToMany(mappedBy = "relatorio", orphanRemoval = true)

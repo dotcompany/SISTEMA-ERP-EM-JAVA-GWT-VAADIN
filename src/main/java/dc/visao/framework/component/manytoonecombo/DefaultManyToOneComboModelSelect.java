@@ -17,7 +17,6 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
-import dc.entidade.ordemservico.Marca;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
@@ -38,14 +37,15 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 	public static final int MEDIUM_SIZE_MODAL = 2;
 	public static final int SMALL_SIZE_MODAL = 3;
 
-	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,Integer idSelected) {
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,
+			Integer idSelected) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
 		this.classSelect = classSelect;
 		this.idSelected = idSelected;
 	}
-	
+
 	public void setModalSize(int modalSizeType) {
 		this.modalSize = modalSizeType;
 	}
@@ -201,7 +201,10 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
 
-		return dao.getAllForComboSelect(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), null, classSelect, idSelected);
+		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
+
+		return dao.getAllForComboSelect(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu,
+				classSelect, idSelected);
 	}
 
 	@Override

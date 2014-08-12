@@ -1,0 +1,23 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   src/main/java/dc/controller/financeiro/EmpresaFormController.java
+#	new file:   src/main/java/dc/controller/sistema/SeguimentoFormController.java
+#	new file:   src/main/java/dc/controller/sistema/SeguimentoListController.java
+#	modified:   src/main/java/dc/entidade/framework/Empresa.java
+#	new file:   src/main/java/dc/entidade/framework/Seguimento.java
+#	modified:   src/main/java/dc/entidade/relatorio/Relatorio.java
+#	modified:   src/main/java/dc/framework/MenuBuilder.java
+#	modified:   src/main/java/dc/servicos/dao/framework/geral/AbstractCrudDAO.java
+#	modified:   src/main/java/dc/servicos/dao/framework/geral/FmMenuDAO.java
+#	new file:   src/main/java/dc/servicos/dao/framework/geral/SeguimentoDAO.java
+#	modified:   src/main/java/dc/visao/financeiro/EmpresaFormView.java
+#	modified:   src/main/java/dc/visao/framework/component/manytoonecombo/DefaultManyToOneComboModel.java
+#	modified:   src/main/java/dc/visao/framework/component/manytoonecombo/DefaultManyToOneComboModelSelect.java
+#	new file:   src/main/java/dc/visao/sistema/SeguimentoFormView.java
+#
+

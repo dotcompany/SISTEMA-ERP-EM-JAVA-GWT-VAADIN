@@ -7,13 +7,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -49,17 +53,14 @@ import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
  *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+ *         salvos no Banco de Dados. */
 
 @Entity
 @Table(name = "empresa")
@@ -75,14 +76,12 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
 	private Integer id;
-	
-	private String tipo;//1-Matriz 2-Filial 3-Depósito
-	/**O campo tipo apenas identifica se é Matriz,Filial ou 
-	 * Depósito,já o campo idMatriz armazena o id da empresa
-	 * escolhida como matriz
-	 *  */
-	
-	@Column(name="id_matriz")
+
+	private String tipo;// 1-Matriz 2-Filial 3-Depósito
+	/** O campo tipo apenas identifica se é Matriz,Filial ou Depósito,já o campo
+	 * idMatriz armazena o id da empresa escolhida como matriz */
+
+	@Column(name = "id_matriz")
 	private Integer idMatriz;
 
 	@Column(name = "ID_EMPRESA")
@@ -96,7 +95,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@Column(name = "ID_CONTADOR")
 	private Integer idContador;
-	
+
 //	@OneToOne
 //	@JoinColumn(name="id_contador")
 //	private Contador contador;
@@ -189,15 +188,12 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToOne(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private ContaEmpresa conta;
-	
-	@Column(name="codigo_cnae_principal")
+
+	@Column(name = "codigo_cnae_principal")
 	private String cnaePrincipal;
 
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * 
-	 * @module PATRIMONIO
-	 */
+	/** @autor Gutemberg A. Da Silva
+	 * @module PATRIMONIO */
 
 	@OneToMany(mappedBy = "empresa")
 	private List<TipoAquisicaoEntity> tipoAquisicaoList;
@@ -214,16 +210,13 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "empresa")
 	private List<GrupoBemEntity> grupoBemList;
 
-	/**
-	 * @autor Wesley Júnior
-	 * 
-	 * @module ADMINISTRATIVO
-	 */
+	/** @autor Wesley Júnior
+	 * @module ADMINISTRATIVO */
 
 	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
 	private List<Contato> contatos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "empresa",  orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
@@ -256,11 +249,8 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 * @Fetch(FetchMode.JOIN) private Fpas fpas;
 	 */
 
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * 
-	 * @module FOLHAPAGAMENTO
-	 */
+	/** @autor Gutemberg A. Da Silva
+	 * @module FOLHAPAGAMENTO */
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<TipoAfastamentoEntity> tipoAfastamentoList;
@@ -292,18 +282,17 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<GuiaAcumuladaEntity> guiaAcumuladaList;
 
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * 
-	 * @module FINANCEIRO
-	 */
+	/** @autor Gutemberg A. Da Silva
+	 * @module FINANCEIRO */
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<ContaCaixa> contaCaixaList;
 
-	/**
-	 * CONSTRUTOR
-	 */
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "empresa_seguimento", joinColumns = { @JoinColumn(name = "empresa_id") }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id ") })
+	private List<Seguimento> seguimentos;
+
+	/** CONSTRUTOR */
 
 	public Empresa() {
 
@@ -323,9 +312,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	/**
-	 * GETS E SETS
-	 */
+	/** GETS E SETS */
 
 	public Integer getId() {
 		return id;
@@ -471,8 +458,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.tipoRegime = tipoRegime;
 	}
 
-	
-
 	public BigDecimal getAliquotaPis() {
 		return aliquotaPis;
 	}
@@ -553,8 +538,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.idFpas = idFpas;
 	}
 
-	
-
 	public Integer getIdContador() {
 		return idContador;
 	}
@@ -583,8 +566,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return tipoMovimentacaoList;
 	}
 
-	public void setTipoMovimentacaoList(
-			List<TipoMovimentacaoEntity> tipoMovimentacaoList) {
+	public void setTipoMovimentacaoList(List<TipoMovimentacaoEntity> tipoMovimentacaoList) {
 		this.tipoMovimentacaoList = tipoMovimentacaoList;
 	}
 
@@ -592,8 +574,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return estadoConservacaoList;
 	}
 
-	public void setEstadoConservacaoList(
-			List<EstadoConservacaoEntity> estadoConservacaoList) {
+	public void setEstadoConservacaoList(List<EstadoConservacaoEntity> estadoConservacaoList) {
 		this.estadoConservacaoList = estadoConservacaoList;
 	}
 
@@ -609,8 +590,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return tipoAfastamentoList;
 	}
 
-	public void setTipoAfastamentoList(
-			List<TipoAfastamentoEntity> tipoAfastamentoList) {
+	public void setTipoAfastamentoList(List<TipoAfastamentoEntity> tipoAfastamentoList) {
 		this.tipoAfastamentoList = tipoAfastamentoList;
 	}
 
@@ -618,8 +598,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return feriasColetivasList;
 	}
 
-	public void setFeriasColetivasList(
-			List<FeriasColetivasEntity> feriasColetivasList) {
+	public void setFeriasColetivasList(List<FeriasColetivasEntity> feriasColetivasList) {
 		this.feriasColetivasList = feriasColetivasList;
 	}
 
@@ -651,8 +630,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return lancamentoCabecalhoList;
 	}
 
-	public void setLancamentoCabecalhoList(
-			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+	public void setLancamentoCabecalhoList(List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
 		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
 	}
 
@@ -660,8 +638,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return lancamentoComissaoList;
 	}
 
-	public void setLancamentoComissaoList(
-			List<LancamentoComissaoEntity> lancamentoComissaoList) {
+	public void setLancamentoComissaoList(List<LancamentoComissaoEntity> lancamentoComissaoList) {
 		this.lancamentoComissaoList = lancamentoComissaoList;
 	}
 
@@ -669,8 +646,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return lancamentoDetalheList;
 	}
 
-	public void setLancamentoDetalheList(
-			List<LancamentoDetalheEntity> lancamentoDetalheList) {
+	public void setLancamentoDetalheList(List<LancamentoDetalheEntity> lancamentoDetalheList) {
 		this.lancamentoDetalheList = lancamentoDetalheList;
 	}
 
@@ -678,8 +654,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return feriasPeriodoAquisitivoList;
 	}
 
-	public void setFeriasPeriodoAquisitivoList(
-			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList) {
+	public void setFeriasPeriodoAquisitivoList(List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList) {
 		this.feriasPeriodoAquisitivoList = feriasPeriodoAquisitivoList;
 	}
 
@@ -705,10 +680,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 		return contato;
 	}
-	
-	
-
-	
 
 	public String getContato() {
 		return contato;
@@ -812,10 +783,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setIdMatriz(Integer idMatriz) {
 		this.idMatriz = idMatriz;
 	}
-	
-	
-	
-	
 
 	/*
 	 * public Contador getContador() { return contador; }

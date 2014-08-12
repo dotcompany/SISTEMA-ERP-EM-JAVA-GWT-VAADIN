@@ -13,14 +13,11 @@ import java.util.Map;
 
 import com.vaadin.ui.Notification;
 
-import dc.controller.ordemservico.MarcaListController;
-import dc.controller.ordemservico.ModeloListController;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
 import dc.visao.framework.geral.MainController;
@@ -81,7 +78,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	@Override
 	public List<T> getResultado(String q) {
 		System.out.println("");
-		
+
 		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 
 		FmMenu menu = ctrl.getMenu();
@@ -200,8 +197,9 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public List<T> getAll() {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
+		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
 
-		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), null);
+		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu);
 	}
 
 	@Override
