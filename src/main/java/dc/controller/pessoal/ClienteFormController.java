@@ -124,7 +124,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ClienteFormView();
+		subView = new ClienteFormView(this);
 		
 		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
