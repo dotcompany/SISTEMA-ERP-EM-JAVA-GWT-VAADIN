@@ -1,6 +1,7 @@
 package dc.entidade.pessoal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -105,7 +106,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "GERA_FINANCEIRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character geraFinanceiro;
+	private String geraFinanceiro;
 
 	@Field
 	@Caption("Indicador Preco")
@@ -116,31 +117,31 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Field
 	@Caption("Porcento Desconto")
-	@Column(name = "PORCENTO_DESCONTO", precision = 18, scale = 6)
+	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double porcentoDesconto;
+	private BigDecimal porcentoDesconto;
 
 	@Field
 	@Caption("Forma Desconto")
 	@Column(name = "FORMA_DESCONTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character formaDesconto;
+	private String formaDesconto;
 
 	@Field
 	@Caption("Limite Credito")
-	@Column(name = "LIMITE_CREDITO", precision = 18, scale = 6)
+	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double limiteCredito;
+	private BigDecimal limiteCredito;
 
 	@Field
 	@Caption("Tipo Frete")
 	@Column(name = "TIPO_FRETE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character tipoFrete;
+	private String tipoFrete;
 
 	/**
 	 * Mapeamento Situação-Cliente
@@ -286,11 +287,11 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 		this.contaTomador = contaTomador;
 	}
 
-	public Character getGeraFinanceiro() {
+	public String getGeraFinanceiro() {
 		return geraFinanceiro;
 	}
 
-	public void setGeraFinanceiro(Character geraFinanceiro) {
+	public void setGeraFinanceiro(String geraFinanceiro) {
 		this.geraFinanceiro = geraFinanceiro;
 	}
 
@@ -302,35 +303,35 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 		this.indicadorPreco = indicadorPreco;
 	}
 
-	public Double getPorcentoDesconto() {
+	public BigDecimal getPorcentoDesconto() {
 		return porcentoDesconto;
 	}
 
-	public void setPorcentoDesconto(Double porcentoDesconto) {
+	public void setPorcentoDesconto(BigDecimal porcentoDesconto) {
 		this.porcentoDesconto = porcentoDesconto;
 	}
 
-	public Character getFormaDesconto() {
+	public String getFormaDesconto() {
 		return formaDesconto;
 	}
 
-	public void setFormaDesconto(Character formaDesconto) {
+	public void setFormaDesconto(String formaDesconto) {
 		this.formaDesconto = formaDesconto;
 	}
 
-	public Double getLimiteCredito() {
+	public BigDecimal getLimiteCredito() {
 		return limiteCredito;
 	}
 
-	public void setLimiteCredito(Double limiteCredito) {
+	public void setLimiteCredito(BigDecimal limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
 
-	public Character getTipoFrete() {
+	public String getTipoFrete() {
 		return tipoFrete;
 	}
 
-	public void setTipoFrete(Character tipoFrete) {
+	public void setTipoFrete(String tipoFrete) {
 		this.tipoFrete = tipoFrete;
 	}
 

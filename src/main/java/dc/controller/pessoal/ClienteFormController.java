@@ -2,6 +2,7 @@ package dc.controller.pessoal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,8 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateObject(subView.getDtDesde().getValue())) {
+		Date dataDesde = (Date) subView.getDtDesde().getValue();
+		if (!Validator.validateObject(dataDesde)) {
 			adicionarErroDeValidacao(subView.getDtDesde(), "Não pode ficar em branco");
 			valido = false;
 		}
@@ -78,13 +80,13 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtTaxaDesconto().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTaxaDesconto(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxtTaxaDesconto().getConvertedValue().toString())) {
+			adicionarErroDeValidacao(subView.getTxtTaxaDesconto(), "Número inválido");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtLimiteCredito().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtLimiteCredito(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxtLimiteCredito().getConvertedValue().toString())) {
+			adicionarErroDeValidacao(subView.getTxtLimiteCredito(), "Número Inválido");
 			valido = false;
 		}
 
@@ -123,6 +125,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	protected void initSubView() {
 		subView = new ClienteFormView();
+		
 		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
@@ -163,8 +166,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 		 */
 
 		/*
-		 * this.subView.getCmbGerarFinanceiro().setData(
-		 * getClienteGerarFinanceiroType());
+		 * this.subView.getCmbGerarFinanceiro().setData(getClienteGerarFinanceiroType());
 		 * this.subView.getCmbIndicadorPreco().
 		 * setData(getClienteIndicadorPrecoType());
 		 * this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
@@ -179,7 +181,10 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = clienteDAO.find(id);
-		subView.getDtDesde().setValue(currentBean.getDesde());
+		
+		subView.preencheClienteForm(currentBean);
+		
+		/*subView.getDtDesde().setValue(currentBean.getDesde());
 		subView.getTxtContaTomador().setValue(currentBean.getContaTomador());
 		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
@@ -191,18 +196,24 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 
 		subView.getCmbContaContabil().setValue(currentBean.getContabilConta());
 
-		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());
+		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());*/
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setContaTomador(subView.getTxtContaTomador().getValue());
+		
+		subView.preencheCliente(currentBean);
+
+		boolean valido = true;
+		
+		
+		/*currentBean.setContaTomador(subView.getTxtContaTomador().getValue());
 		currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
 		currentBean.setSituacao((SituacaoForCli) subView.getCmbSituacao().getValue());
 		currentBean.setAtividadeForCli((AtividadeForCli) subView.getCmbAtividade().getValue());
 		currentBean.setContabilConta((ContabilConta) subView.getCmbContaContabil().getValue());
 		currentBean.setOperacaoFiscal((OperacaoFiscal) subView.getCmbOperacaoFiscal().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
+		currentBean.setObservacao(subView.getTxtObservacao().getValue());*/
 
 		try {
 			clienteDAO.saveOrUpdate(currentBean);
