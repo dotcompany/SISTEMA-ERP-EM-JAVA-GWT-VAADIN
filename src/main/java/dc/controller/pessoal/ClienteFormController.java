@@ -19,10 +19,6 @@ import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.SituacaoForCli;
 import dc.entidade.tributario.OperacaoFiscal;
-import dc.entidade.type.pessoal.FormaDescontoType;
-import dc.entidade.type.pessoal.GerarFinanceiroType;
-import dc.entidade.type.pessoal.IndicadorPrecoType;
-import dc.entidade.type.pessoal.TipoFreteType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
@@ -33,6 +29,10 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.pessoal.ClienteFormView;
+import dc.entidade.type.pessoal.GerarFinanceiroType;
+import dc.entidade.type.pessoal.TipoFreteType;
+import dc.entidade.type.pessoal.FormaDescontoType;
+import dc.entidade.type.pessoal.IndicadorPrecoType;
 
 @Controller
 @Scope("prototype")
@@ -79,9 +79,9 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			adicionarErroDeValidacao(subView.getTxtContaTomador(), "Não pode ficar em branco");
 			valido = false;
 		}
-
-		if (!Validator.validateNumber(subView.getTxtTaxaDesconto().getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxtTaxaDesconto(), "Número inválido");
+		
+		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtObservacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -217,6 +217,24 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 
 		try {
 			clienteDAO.saveOrUpdate(currentBean);
+			
+			/*GERAR_FINANCEIRO enumGeraFinanceiro = (GERAR_FINANCEIRO) subView.getCmbGerarFinanceiro().getValue();
+			if (Validator.validateObject(enumGeraFinanceiro)) {
+				String geraFinanceiro = (enumGeraFinanceiro).getCodigo();
+				currentBean.setGeraFinanceiro(geraFinanceiro);
+			}
+			
+			FORMA_DESCONTO enumFormaDesconto = (FORMA_DESCONTO) subView.getCmbFormaDesconto().getValue();
+			if (Validator.validateObject(enumFormaDesconto)) {
+				String formaDesconto = (enumFormaDesconto).getCodigo();
+				currentBean.setFormaDesconto(formaDesconto);
+			}
+			
+			TIPO_FRETE enumTipoFrete = (TIPO_FRETE) subView.getCmbTipoFrete().getValue();
+			if (Validator.validateObject(enumTipoFrete)) {
+				String tipoFrete = (enumTipoFrete).getCodigo();
+				currentBean.setTipoFrete(tipoFrete);
+			}*/
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {

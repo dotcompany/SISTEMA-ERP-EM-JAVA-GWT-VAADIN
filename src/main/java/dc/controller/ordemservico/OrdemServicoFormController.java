@@ -213,26 +213,26 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		boolean valido = true;
 
 		if (((BigDecimal) subView.getValorTotalChequeOs()).compareTo(getTotalParcelaReceberCheque(parcelasChequeOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCarneOs()).compareTo(getTotalParcelaReceberCarne(parcelasCarneOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCartaoOs()).compareTo(getTotalParcelaReceberCartao(parcelasCartaoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 		if (((BigDecimal) subView.getValorTotalBoletoOs()).compareTo(getTotalParcelaReceberBoleto(parcelasBoletoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (valido) {
