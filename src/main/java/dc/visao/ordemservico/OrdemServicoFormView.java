@@ -1765,11 +1765,48 @@ public class OrdemServicoFormView extends CustomComponent {
 		// horizontalLayout_1
 		horizontalLayout_1 = buildHorizontalLayout_1();
 		gridLayout_1.addComponent(horizontalLayout_1, 0, 0,9,0);
-		
+
+		lblDinheiro = new Label();
+		lblDinheiro.setCaption("Dinheiro:");
+		lblDinheiro.setHeight("-1px");
+		gridLayout_1.addComponent(lblDinheiro, 0, 1,0,1);
+
+		// Total em dinheiro
+		tfDinheiro = ComponentUtil.buildCurrencyField(null);
+		tfDinheiro.addBlurListener(new BlurListener() {
+			private static final long serialVersionUID = 7193164095496582979L;
+
+			public void blur(BlurEvent event) {
+				if(totalRestante !=null){
+				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
+				dinheiro = (BigDecimal) tfDinheiro.getConvertedValue();
+
+				if(dinheiro == null) dinheiro = BigDecimal.ZERO;
+				else if (cheque == null) cheque = BigDecimal.ZERO;
+				else if (cartao == null) cartao = BigDecimal.ZERO;
+				else if (boleto == null) boleto = BigDecimal.ZERO;
+				else if (duplicata == null) duplicata = BigDecimal.ZERO;
+				else if (carne == null) carne = BigDecimal.ZERO;
+				else if (vale == null) vale = BigDecimal.ZERO;
+				else if (cobrancaBancaria == null) cobrancaBancaria = BigDecimal.ZERO;
+				else if (cobrancaCarteira == null) cobrancaCarteira = BigDecimal.ZERO;
+				totalRestante = totalGeral.subtract(dinheiro).subtract(cheque).subtract(boleto).subtract(cartao).subtract(duplicata).subtract(carne).subtract(vale).subtract(cobrancaBancaria).subtract(cobrancaCarteira).multiply(new BigDecimal(-1.0));
+				tfTotalRestante.setValue(totalRestante.toString());
+			}
+			if(totalRestante.doubleValue() >= 0){
+				troco = totalRestante;
+			}else{
+				troco = BigDecimal.ZERO;
+			}
+			tfTroco.setValue(troco.toString());
+            }
+		});
+		gridLayout_1.addComponent(tfDinheiro, 1, 1,1,1);
+
 		lblCheque = new Label();
 		lblCheque.setCaption("Cheque:");
 		lblCheque.setHeight("-1px");
-		gridLayout_1.addComponent(lblCheque, 0, 1,0,1);
+		gridLayout_1.addComponent(lblCheque, 0, 2,0,2);
 
 		// Total em cheque
 		tfCheque = ComponentUtil.buildCurrencyField(null);
@@ -1777,7 +1814,6 @@ public class OrdemServicoFormView extends CustomComponent {
 			private static final long serialVersionUID = 3940783102372378576L;
 
 			public void blur(BlurEvent event) {
-                System.out.println("On blur cheque");
 				if(totalRestante !=null){
 				totalGeral = (BigDecimal) tfTotais.getConvertedValue();
 				cheque = (BigDecimal) tfCheque.getConvertedValue();
@@ -1802,17 +1838,17 @@ public class OrdemServicoFormView extends CustomComponent {
 			tfTroco.setValue(troco.toString());
             }
 		});
-		gridLayout_1.addComponent(tfCheque, 1, 1,1,1);
+		gridLayout_1.addComponent(tfCheque, 1, 2,1,2);
 
 		// Parcela em cheque
 		tfQtParcelaCheque = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaCheque, 2, 1,2,1);
+		gridLayout_1.addComponent(tfQtParcelaCheque, 2, 2,2,2);
 
 
 		lblCartao = new Label();
 		lblCartao.setCaption("Cartão:");
 		lblCartao.setHeight("-1px");
-		gridLayout_1.addComponent(lblCartao, 0, 2,0,2);
+		gridLayout_1.addComponent(lblCartao, 0, 3,0,3);
 
 		// Total em cartão
 		tfCartao = ComponentUtil.buildCurrencyField(null);
@@ -1843,16 +1879,16 @@ public class OrdemServicoFormView extends CustomComponent {
 				tfTroco.setValue(troco.toString());
             }
 		});
-		gridLayout_1.addComponent(tfCartao, 1, 2,1,2);
+		gridLayout_1.addComponent(tfCartao, 1, 3,1,3);
 
 		// Parcela cartao
 		tfQtParcelaCartao = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaCartao, 2, 2,2,2);
+		gridLayout_1.addComponent(tfQtParcelaCartao, 2, 3,2,3);
 
 		lblCarne = new Label();
 		lblCarne.setCaption("Carnê:");
 		lblCarne.setHeight("-1px");
-		gridLayout_1.addComponent(lblCarne, 0, 3,0,3);
+		gridLayout_1.addComponent(lblCarne, 0, 4,0,4);
 
 		// Total em carne
 		tfCarne = ComponentUtil.buildCurrencyField(null);
@@ -1883,16 +1919,16 @@ public class OrdemServicoFormView extends CustomComponent {
 				tfTroco.setValue(troco.toString());
             }
 		});
-		gridLayout_1.addComponent(tfCarne, 1, 3,1,3);
+		gridLayout_1.addComponent(tfCarne, 1, 4,1,4);
 
 		// Parcela carnê
 		tfQtParcelaCarne = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaCarne, 2, 3,2,3);
+		gridLayout_1.addComponent(tfQtParcelaCarne, 2, 4,2,4);
 
 		lblBoleto = new Label();
 		lblBoleto.setCaption("Boleto:");
 		lblBoleto.setHeight("-1px");
-		gridLayout_1.addComponent(lblBoleto, 0, 4,0,4);
+		gridLayout_1.addComponent(lblBoleto, 0, 5,0,5);
 
 		// Total boleto
 		tfBoleto = ComponentUtil.buildCurrencyField(null);
@@ -1923,10 +1959,10 @@ public class OrdemServicoFormView extends CustomComponent {
 				tfTroco.setValue(troco.toString());
             }
 		});
-		gridLayout_1.addComponent(tfBoleto, 1, 4,1,4);
+		gridLayout_1.addComponent(tfBoleto, 1, 5,1,5);
 
 		tfQtParcelaBoleto = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfQtParcelaBoleto, 2, 4,2,4);
+		gridLayout_1.addComponent(tfQtParcelaBoleto, 2, 5,2,5);
 
 		//Duplicata
 		lblDuplicata = new Label();
@@ -2127,10 +2163,16 @@ public class OrdemServicoFormView extends CustomComponent {
 //		btnGravarEfetivacao = new Button();
 //		btnGravarEfetivacao.setCaption("Gravar efetivação");
 //		gridLayout_1.addComponent(btnGravarEfetivacao, 5, 12,5,12);
-		
+
+		HorizontalLayout verticalSubFormEfetivacao = new HorizontalLayout();
+		verticalSubFormEfetivacao.setImmediate(false);
+		verticalSubFormEfetivacao.setSizeFull();
+		verticalSubFormEfetivacao.setMargin(false);
+		verticalSubFormEfetivacao.setSpacing(true);
+
 		subFormEfetivacao = new TabSheet();
-		subFormEfetivacao.setImmediate(true);
-		subFormEfetivacao.setSizeFull();
+		//subFormEfetivacao.setImmediate(true);
+		//subFormEfetivacao.setSizeFull();
 
 		subFormEfetivacao.addTab(buildEfetivacaoChequeSubForm(), "Cheque", null);
 		subFormEfetivacao.addTab(buildEfetivacaoCartaoSubForm(), "Cartão", null);
@@ -2141,7 +2183,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		subFormEfetivacao.addTab(buildEfetivacaoCobrancaBancariaSubForm(), "Cobrança bancária", null);
 		subFormEfetivacao.addTab(buildEfetivacaoCobrancaCarteiraSubForm(), "Cobrança carteira", null);
 
-		gridLayout_1.addComponent(subFormEfetivacao,0,13,9,13);
+		verticalSubFormEfetivacao.addComponent(subFormEfetivacao);
+		gridLayout_1.addComponent(verticalSubFormEfetivacao,0,13,9,13);
 
 		finForms.addTab(gridLayout_1, "Efetivação OS", null);
 
