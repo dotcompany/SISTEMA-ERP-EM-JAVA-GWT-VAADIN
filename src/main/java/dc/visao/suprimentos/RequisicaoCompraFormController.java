@@ -56,6 +56,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 			currentBean.setTipoRequisicao((TipoRequisicao) subView.getCmbTipoRequisicao().getValue());
 			currentBean.setColaborador((Colaborador) subView.getLkpRequisitante().getValue());
 			currentBean.setDataRequisicao(subView.getCalDataRequisicao().getValue());
+			currentBean.setObservacao(subView.getTxtObservacao().getValue());
 			requisicaoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -72,6 +73,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 		subView.getCmbTipoRequisicao().select(currentBean.getTipoRequisicao());
 		subView.getLkpRequisitante().select(currentBean.getColaborador());
 		subView.getCalDataRequisicao().setValue(currentBean.getDataRequisicao());
+		subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
 		subView.fillRequisicaoDetalhesSubForm(currentBean.getRequisicaoDetalhes());
 	}

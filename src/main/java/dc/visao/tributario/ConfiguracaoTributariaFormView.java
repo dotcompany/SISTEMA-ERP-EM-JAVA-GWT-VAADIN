@@ -25,10 +25,10 @@ import dc.controller.tributario.ConfiguracaoTributariaFormController;
 import dc.controller.tributario.GrupoTributarioFormController;
 import dc.entidade.geral.UF;
 import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
-import dc.entidade.tabelas.CodigoApuracaoEfd;
 import dc.entidade.tabelas.CstCofins;
 import dc.entidade.tabelas.CstIpi;
 import dc.entidade.tabelas.CstPis;
+import dc.entidade.tabelas.EfdTabela435;
 import dc.entidade.tabelas.TipoReceitaDipi;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributario;
@@ -221,14 +221,14 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		txtDescricaoCstPis.setWidth("700");
 		layout.addComponent(txtDescricaoCstPis,1,0,8,0);
 
-		txtEfdPis = ComponentUtil.buildTextField("Código Apuração EFD");
+		txtEfdPis = ComponentUtil.buildTextField("EFD Tabela 435");
 		txtEfdPis.setMaxLength(2);
 		txtEfdPis.addValueChangeListener(new Property.ValueChangeListener() {
 			@Override  
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String)event.getProperty().getValue();	
 				if(codigo!=null && !(codigo.isEmpty())){
-					CodigoApuracaoEfd efd = controller.consultarEfd(codigo);
+					EfdTabela435 efd = controller.consultarEfd(codigo);
 					if(efd!=null)
 						txtDescricaoEfdPis.setValue(efd.getDescricao());
 				}
@@ -297,7 +297,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String)event.getProperty().getValue();	
 				if(codigo!=null && !(codigo.isEmpty())){
-					CodigoApuracaoEfd efd = controller.consultarEfd(codigo);
+					EfdTabela435 efd = controller.consultarEfd(codigo);
 					if(efd!=null)
 						txtDescricaoEfdCofins.setValue(efd.getDescricao());
 				}

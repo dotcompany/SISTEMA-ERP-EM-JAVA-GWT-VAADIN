@@ -17,16 +17,16 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "codigo_apuracao_efd")
+@Table(name = "efd_tabela_435")
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class CodigoApuracaoEfd extends AbstractMultiEmpresaModel<Integer> {
+public class EfdTabela435 extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd")
-	@SequenceGenerator(name = "efd", sequenceName = "codigo_apuracao_efd_id_seq", allocationSize = 1, initialValue = 0)
+	@SequenceGenerator(name = "efd", sequenceName = "efd_tabela_435_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
 	

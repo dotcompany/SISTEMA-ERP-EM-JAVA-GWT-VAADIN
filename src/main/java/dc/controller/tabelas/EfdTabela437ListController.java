@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tabelas.BaseCreditoPis;
-import dc.servicos.dao.tabelas.BaseCreditoPisDAO;
+import dc.entidade.tabelas.EfdTabela437;
+import dc.servicos.dao.tabelas.EfdTabela437DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class BaseCreditoPisListController extends CRUDListController<BaseCreditoPis> {
+public class EfdTabela437ListController extends CRUDListController<EfdTabela437> {
 
 	/**
 	 * 
@@ -26,10 +26,10 @@ public class BaseCreditoPisListController extends CRUDListController<BaseCredito
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	BaseCreditoPisDAO dao;
+	EfdTabela437DAO dao;
 
 	@Autowired
-	BaseCreditoPisFormController pController;
+	EfdTabela437FormController pController;
 
 	@Override
 	public String[] getColunas() {
@@ -37,29 +37,29 @@ public class BaseCreditoPisListController extends CRUDListController<BaseCredito
 	}
 
 	@Override
-	public Class<? super BaseCreditoPis> getEntityClass() {
-		return BaseCreditoPis.class;
+	public Class<? super EfdTabela437> getEntityClass() {
+		return EfdTabela437.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Base Crédito PIS";
+		return "EFD Tabela 437";
 	}
 
 	@Override
-	protected List<BaseCreditoPis> pesquisa(String valor) {
+	protected List<EfdTabela437> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<BaseCreditoPis> getFormController() {
+	protected CRUDFormController<EfdTabela437> getFormController() {
 		return pController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaBaseCreditoPis";
+		return "listaEfdTabela437";
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class BaseCreditoPisListController extends CRUDListController<BaseCredito
 	}
 
 	@Override
-	protected List<BaseCreditoPis> pesquisaDefault() {
-		return (List<BaseCreditoPis>) dao.getAll(getEntityClass());
+	protected List<EfdTabela437> pesquisaDefault() {
+		return (List<EfdTabela437>) dao.getAll(getEntityClass());
 	}
 
 }

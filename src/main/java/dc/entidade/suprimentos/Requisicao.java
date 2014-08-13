@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,11 +21,14 @@ import javax.persistence.TemporalType;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Colaborador;
 
 /**
@@ -47,6 +51,15 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "data_requisicao")
 	@Caption("Data de Requisição")
 	private Date dataRequisicao;
+	
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_colaborador")
@@ -79,6 +92,14 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDataRequisicao(Date dataRequisicao) {
 		this.dataRequisicao = dataRequisicao;
+	}
+	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public Colaborador getColaborador() {

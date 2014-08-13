@@ -14,12 +14,12 @@ import com.vaadin.ui.Component;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UF;
 import dc.entidade.tabelas.Cfop;
-import dc.entidade.tabelas.CodigoApuracaoEfd;
 import dc.entidade.tabelas.Csosnb;
 import dc.entidade.tabelas.CstCofins;
 import dc.entidade.tabelas.CstIcmsB;
 import dc.entidade.tabelas.CstIpi;
 import dc.entidade.tabelas.CstPis;
+import dc.entidade.tabelas.EfdTabela435;
 import dc.entidade.tabelas.TipoReceitaDipi;
 import dc.entidade.tributario.CofinsConfiguracaoTributaria;
 import dc.entidade.tributario.ConfiguracaoTributaria;
@@ -31,12 +31,12 @@ import dc.entidade.tributario.PISConfiguracaoTributaria;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.tabelas.CfopDAO;
-import dc.servicos.dao.tabelas.CodigoApuracaoEfdDAO;
 import dc.servicos.dao.tabelas.CsosnbDAO;
 import dc.servicos.dao.tabelas.CstCofinsDAO;
 import dc.servicos.dao.tabelas.CstIcmsBDAO;
 import dc.servicos.dao.tabelas.CstIpiDAO;
 import dc.servicos.dao.tabelas.CstPisDAO;
+import dc.servicos.dao.tabelas.EfdTabela435DAO;
 import dc.servicos.dao.tabelas.TipoReceitaDipiDAO;
 import dc.servicos.dao.tributario.CofinsConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
@@ -86,7 +86,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	CstIpiDAO cstIpiDAO;
 
 	@Autowired
-	CodigoApuracaoEfdDAO efdDAO;
+	EfdTabela435DAO efdDAO;
 
 	@Autowired
 	TipoReceitaDipiDAO dipiDAO;
@@ -524,7 +524,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return cstIpiDAO.procuraPorCodigo(codigo);
 	}
 
-	public CodigoApuracaoEfd consultarEfd(String codigo) {
+	public EfdTabela435 consultarEfd(String codigo) {
 		return efdDAO.procuraPorCodigo(codigo);
 	}
 

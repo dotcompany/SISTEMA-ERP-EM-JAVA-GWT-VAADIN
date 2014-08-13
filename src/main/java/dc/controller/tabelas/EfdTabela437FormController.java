@@ -9,32 +9,32 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.tabelas.BaseCreditoPis;
-import dc.servicos.dao.tabelas.BaseCreditoPisDAO;
+import dc.entidade.tabelas.EfdTabela437;
+import dc.servicos.dao.tabelas.EfdTabela437DAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.tabelas.BaseCreditoPisFormView;
+import dc.visao.tabelas.EfdTabela437FormView;
 
 /** @author Wesley Jr /* */
 
 @Controller
 @Scope("prototype")
-public class BaseCreditoPisFormController extends CRUDFormController<BaseCreditoPis> {
+public class EfdTabela437FormController extends CRUDFormController<EfdTabela437> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	BaseCreditoPisFormView subView;
+	EfdTabela437FormView subView;
 
 	@Autowired
-	BaseCreditoPisDAO baseCreditoPisDAO;
+	EfdTabela437DAO efdTabela437DAO;
 
-	private BaseCreditoPis currentBean;
+	private EfdTabela437 currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Base Crédito PIS";
+		return "EFD Tabela 437";
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 
 		try {
-			baseCreditoPisDAO.saveOrUpdate(currentBean);
+			efdTabela437DAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = baseCreditoPisDAO.find(id);
+		currentBean = efdTabela437DAO.find(id);
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 
@@ -71,7 +71,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 
 	@Override
 	protected void initSubView() {
-		subView = new BaseCreditoPisFormView();
+		subView = new EfdTabela437FormView();
 	}
 
 	/*
@@ -80,12 +80,12 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new BaseCreditoPis();
+		currentBean = new EfdTabela437();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		baseCreditoPisDAO.deleteAllByIds(ids);
+		efdTabela437DAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
 
@@ -110,7 +110,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 
 	@Override
 	public String getViewIdentifier() {
-		return "baseCreditoPisForm";
+		return "efdTabela437Form";
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class BaseCreditoPisFormController extends CRUDFormController<BaseCredito
 	}
 
 	@Override
-	public BaseCreditoPis getModelBean() {
+	public EfdTabela437 getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -8,8 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tabelas.CodigoApuracaoEfd;
 import dc.entidade.tabelas.CstPis;
+import dc.entidade.tabelas.EfdTabela435;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -23,11 +23,11 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CodigoApuracaoEfdDAO extends AbstractCrudDAO<CodigoApuracaoEfd>{
+public class EfdTabela435DAO extends AbstractCrudDAO<EfdTabela435>{
 
 	@Override
-	public Class<CodigoApuracaoEfd> getEntityClass() {
-		return CodigoApuracaoEfd.class;
+	public Class<EfdTabela435> getEntityClass() {
+		return EfdTabela435.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -35,13 +35,13 @@ public class CodigoApuracaoEfdDAO extends AbstractCrudDAO<CodigoApuracaoEfd>{
 	}
 
 	@Transactional
-	public CodigoApuracaoEfd procuraPorCodigo(String codigo){
-		CodigoApuracaoEfd cod = null;
-		Criteria c = getSession().createCriteria(CodigoApuracaoEfd.class);
+	public EfdTabela435 procuraPorCodigo(String codigo){
+		EfdTabela435 cod = null;
+		Criteria c = getSession().createCriteria(EfdTabela435.class);
 		if(codigo!=null && !(codigo.isEmpty())){
 			c.add(Restrictions.eq("codigo", codigo));
 		}
-		cod = (CodigoApuracaoEfd)c.uniqueResult();
+		cod = (EfdTabela435)c.uniqueResult();
 		return cod;
 	}
 }

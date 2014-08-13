@@ -29,19 +29,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "base_credito_pis")
+@Table(name = "efd_tabela_437")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class BaseCreditoPis extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class EfdTabela437 extends AbstractMultiEmpresaModel<Integer> implements	Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "base_credito_pis_id_seq")
-	@SequenceGenerator(name = "base_credito_pis_id_seq", sequenceName = "base_credito_pis_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd_tabela_437_id_seq")
+	@SequenceGenerator(name = "efd_tabela_437_id_seq", sequenceName = "efd_tabela_437_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -62,11 +61,11 @@ public class BaseCreditoPis extends AbstractMultiEmpresaModel<Integer> implement
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	public BaseCreditoPis() {
+	public EfdTabela437() {
 
 	}
 
-	public BaseCreditoPis(Integer id) {
+	public EfdTabela437(Integer id) {
 		this.id = id;
 	}
 
