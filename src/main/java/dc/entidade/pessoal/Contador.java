@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -139,10 +140,6 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
-	@JoinColumn(name = "ID_Pessoa", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Pessoa idPessoa;
-
 	public Contador() {
 
 	}
@@ -255,14 +252,6 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.email = email;
 	}
 
-	public Pessoa getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Pessoa idPessoa) {
-		this.idPessoa = idPessoa;
-	}
-
 	public String getUf() {
 		return uf;
 	}
@@ -273,7 +262,7 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	@Override
 	public String toString() {
-		return idPessoa.getNome();
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

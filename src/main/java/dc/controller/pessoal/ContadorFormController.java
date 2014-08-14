@@ -36,9 +36,6 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	private ContadorDAO contadorDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
-
-	@Autowired
 	private UFDAO ufDAO;
 
 	private Contador currentBean;
@@ -68,16 +65,6 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	@Override
 	protected void initSubView() {
 		this.subView = new ContadorFormView(this);
-
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-		};
-
-		subView.getCmbPessoa().setModel(model);
 
 		/*
 		 * DefaultManyToOneComboModel<UF> model1 = new
@@ -125,7 +112,6 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		currentBean.setCep(subView.getTxtCep().getValue());
 		currentBean.setFone(subView.getTxtTelefone().getValue());
 		currentBean.setFax(subView.getTxtFax().getValue());
-		currentBean.setIdPessoa((Pessoa) subView.getCmbPessoa().getValue());
 
 		try {
 			contadorDAO.saveOrUpdate(currentBean);
