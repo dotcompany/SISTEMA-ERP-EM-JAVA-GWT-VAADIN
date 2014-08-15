@@ -139,6 +139,32 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
+	
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 150)
+	private String nome;
+	
+	@Field
+	@Caption("Cpf")
+	@Column(name = "CPF", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cpf;
+	
+	@Field
+	@Caption("Cnpj")
+	@Column(name = "CNPJ", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnpj;
+	
+	@Field
+	@Caption("Site")
+	@Column(name = "SITE", length = 150)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String site;
 
 	public Contador() {
 
@@ -258,6 +284,38 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 	@Override

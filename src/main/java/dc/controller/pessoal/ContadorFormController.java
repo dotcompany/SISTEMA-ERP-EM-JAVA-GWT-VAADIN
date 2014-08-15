@@ -43,6 +43,11 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
+		
+		if (!Validator.validateString(subView.getTxtNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		if (!Validator.validateString(subView.getTxtLogradouro().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em branco");
@@ -85,6 +90,10 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		subView.getTxtBairro().setValue(currentBean.getBairro());
 		subView.getTxtTelefone().setValue(currentBean.getFone());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
+		subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTxtCnpj().setValue(currentBean.getCnpj());
+		subView.getTxtCpf().setValue(currentBean.getCpf());
+		subView.getTxtSite().setValue(currentBean.getSite());
 	}
 
 	void carregarCombos() {
@@ -112,6 +121,10 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 		currentBean.setCep(subView.getTxtCep().getValue());
 		currentBean.setFone(subView.getTxtTelefone().getValue());
 		currentBean.setFax(subView.getTxtFax().getValue());
+		currentBean.setNome(subView.getTxtNome().getValue());
+		currentBean.setCnpj(subView.getTxtCnpj().getValue());
+		currentBean.setCpf(subView.getTxtCpf().getValue());
+		currentBean.setSite(subView.getTxtSite().getValue());
 
 		try {
 			contadorDAO.saveOrUpdate(currentBean);
