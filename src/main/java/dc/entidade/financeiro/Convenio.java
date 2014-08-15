@@ -139,13 +139,6 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
 	private String nome;
 	
 	@Field
-	@Caption("Cpf")
-	@Column(name = "CPF", length = 50)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String cpf;
-	
-	@Field
 	@Caption("Cnpj")
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
@@ -319,14 +312,6 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getCnpj() {
