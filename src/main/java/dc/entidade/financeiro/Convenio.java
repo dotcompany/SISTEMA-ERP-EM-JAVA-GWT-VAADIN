@@ -132,6 +132,39 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
     
     @Column(name="CEP", length = 8)
     private String cep;
+    
+    @Field
+	@Caption("Nome")
+	@Column(name = "NOME", length = 150)
+	private String nome;
+	
+	@Field
+	@Caption("Cpf")
+	@Column(name = "CPF", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cpf;
+	
+	@Field
+	@Caption("Cnpj")
+	@Column(name = "CNPJ", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnpj;
+	
+	@Field
+	@Caption("Site")
+	@Column(name = "SITE", length = 150)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String site;
+	
+	@Field
+	@Caption("Email")
+	@Column(name = "EMAIL", length = 150)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String email;
 
     /*
      * Mapeamento Empresa-Convenio
@@ -141,11 +174,6 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
     @Fetch(FetchMode.JOIN)
     private Empresa idEmpresa;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PESSOA",insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
-    private Pessoa idPessoa;
-
     public Convenio() {
     }
 
@@ -217,14 +245,6 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.idEmpresa = idEmpresa;
 	}
 
-	public Pessoa getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Pessoa idPessoa) {
-		this.idPessoa = idPessoa;
-	}
-
 	@Override
     public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
@@ -292,5 +312,46 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }
 
