@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -38,19 +39,18 @@ import dc.entidade.framework.Empresa;
 
 
 @Entity
-@Table(name = "contato")
+@Table(name = "pessoa_contato")
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Contato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PessoaContato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_contato")
+	@SequenceGenerator(name = "pessoa_contato", sequenceName = "pessoa_contato_id_seq", allocationSize = 1)
+	private Integer id;
     
 //    @Column(name = "id_empresa")
 //    private Integer empresaId;
@@ -98,10 +98,10 @@ public class Contato extends AbstractMultiEmpresaModel<Integer> implements Seria
     @ManyToOne(optional = false)
     private Pessoa pessoa;
 
-    public Contato() {
+    public PessoaContato() {
     }
 
-    public Contato(Integer id) {
+    public PessoaContato(Integer id) {
         this.id = id;
     }
 
@@ -182,15 +182,4 @@ public class Contato extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.pessoa = pessoa;
 	}
 
-	/*public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
-	
-	
-
 }
-

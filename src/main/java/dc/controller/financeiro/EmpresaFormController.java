@@ -22,7 +22,6 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.framework.Fpas;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Cnae;
-import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.pessoal.Contador;
 import dc.framework.exception.ErroValidacaoException;
@@ -32,7 +31,6 @@ import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
-import dc.servicos.dao.geral.ContatoDAO;
 import dc.servicos.dao.geral.EnderecoDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
@@ -93,9 +91,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Autowired
 	EmpresaCnaeDAO empresaCnaeDAO;
-
-	@Autowired
-	ContatoDAO contatoDAO;
 
 	@Autowired
 	EnderecoDAO enderecoDAO;
@@ -268,11 +263,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 			empresaDAO.saveOrUpdate(currentBean);
 
-			for (Contato c : currentBean.getContatos()) {
-				c.setEmpresa(currentBean);
-				contatoDAO.saveOrUpdate(c);
-			}
-
 			for (Endereco e : currentBean.getEnderecos()) {
 				e.setEmpresa(currentBean);
 				String cep = e.getCep().replace(".", "").replace("-", "").trim();
@@ -415,10 +405,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 
 		try {
-			List<Contato> contatos = contatoDAO.listaPorEmpresa(currentBean);
-			currentBean.setContatos(contatos);
-			subView.fillContatoSubForm(contatos);
-
 			List<Endereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
 			currentBean.setEndereco(enderecos);
 			subView.fillEnderecoSubForm(enderecos);
@@ -452,21 +438,6 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Contato novoContato() {
-		Contato contato = new Contato();
-		this.currentBean.addContato(contato);
-
-		return contato;
-	}
-
-	public void removerContato(List<Contato> values) {
-		for (Contato contato : values) {
-			this.currentBean.removeContato(contato);
-		}
-
-		mensagemRemovidoOK();
 	}
 
 	public Endereco novoEndereco() {

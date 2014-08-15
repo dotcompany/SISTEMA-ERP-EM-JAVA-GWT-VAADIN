@@ -9,25 +9,25 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.Contato;
-import dc.servicos.dao.geral.ContatoDAO;
+import dc.entidade.geral.PessoaContato;
+import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.ContatoFormView;
+import dc.visao.geral.PessoaContatoFormView;
 
 @Controller
 @Scope("prototype")
-public class ContatoFormController extends CRUDFormController<Contato> {
+public class PessoaContatoFormController extends CRUDFormController<PessoaContato> {
 
-	ContatoFormView subView;
+	PessoaContatoFormView subView;
 
 	@Autowired
-	ContatoDAO contatoDAO;
+	PessoaContatoDAO pessoaContatoDAO;
 
-	private Contato currentBean;
+	private PessoaContato currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Contato";
+		return "Pessoa Contato";
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 		currentBean.setFoneResidencial(foneResidencial);
 		currentBean.setFoneCelular(foneCelular);
 		try {
-			contatoDAO.saveOrUpdate(currentBean);
+			pessoaContatoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = contatoDAO.find(id);
+		currentBean = pessoaContatoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 		subView.getTxtFoneComercial().setValue(currentBean.getFoneComercial());
@@ -77,7 +77,7 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ContatoFormView();
+		subView = new PessoaContatoFormView();
 	}
 
 	/*
@@ -86,12 +86,12 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Contato();
+		currentBean = new PessoaContato();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		contatoDAO.deleteAllByIds(ids);
+		pessoaContatoDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
 	}
 
@@ -116,11 +116,11 @@ public class ContatoFormController extends CRUDFormController<Contato> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "contatoForm";
+		return "pessoaContatoForm";
 	}
 
 	@Override
-	public Contato getModelBean() {
+	public PessoaContato getModelBean() {
 		return currentBean;
 	}
 

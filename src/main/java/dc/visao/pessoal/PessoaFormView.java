@@ -26,8 +26,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.pessoal.PessoaFormController;
-import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
+import dc.entidade.geral.PessoaContato;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.EstadoCivil;
 import dc.visao.framework.component.IntegerConverter;
@@ -105,7 +105,7 @@ public class PessoaFormView extends CustomComponent {
 	private String FISICA = "F";
 	private String JURIDICA = "J";
 
-	private SubFormComponent<Contato, Integer> contatosSubForm;
+	private SubFormComponent<PessoaContato, Integer> contatosSubForm;
 	private SubFormComponent<Endereco, Integer> enderecosSubForm;
 
 	private GridLayout layoutFisica;
@@ -188,7 +188,7 @@ public class PessoaFormView extends CustomComponent {
 
 	public void buildAbaContatos() {
 
-		subForms.addTab(buildContatosSubForm(), "Contatos", null);
+		subForms.addTab(buildContatosSubForm(), "Pessoa Contato", null);
 	}
 
 	// private TabSheet buildContatosSubForm() {
@@ -432,7 +432,6 @@ public class PessoaFormView extends CustomComponent {
 		group.addItem("Fornecedor");
 		group.addItem("Colaborador");
 		group.addItem("Convênio");
-		group.addItem("Contador");
 		group.addItem("Transportadora");
 		group.setStyleName("v-select-optiongroup-horizontal");
 		fields.addComponent(group, 0, 2, 5, 2);
@@ -528,7 +527,7 @@ public class PessoaFormView extends CustomComponent {
 	private SubFormComponent buildContatosSubForm() {
 		// common part: create layout
 
-		contatosSubForm = new SubFormComponent<Contato, Integer>(Contato.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
+		contatosSubForm = new SubFormComponent<PessoaContato, Integer>(PessoaContato.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
 				"foneCelular" }, new String[] { "Nome", "Email", "Fone Comercial", "Fone Residencial", "Fone Celular" }) {
 
 			@Override
@@ -567,13 +566,13 @@ public class PessoaFormView extends CustomComponent {
 				};
 			}
 
-			protected Contato getNovo() {
-				Contato detalhe = formController.novoContato();
+			protected PessoaContato getNovo() {
+				PessoaContato detalhe = formController.novoContato();
 				return detalhe;
 			}
 
 			@Override
-			public boolean validateItems(List<Contato> items) {
+			public boolean validateItems(List<PessoaContato> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1130,11 +1129,11 @@ public class PessoaFormView extends CustomComponent {
 		this.cmbEstadoCivil = cmbEstadoCivil;
 	}
 
-	public SubFormComponent<Contato, Integer> getContatosSubForm() {
+	public SubFormComponent<PessoaContato, Integer> getContatosSubForm() {
 		return contatosSubForm;
 	}
 
-	public void setContatosSubForm(SubFormComponent<Contato, Integer> contatosSubForm) {
+	public void setContatosSubForm(SubFormComponent<PessoaContato, Integer> contatosSubForm) {
 		this.contatosSubForm = contatosSubForm;
 	}
 

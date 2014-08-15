@@ -6,30 +6,23 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Contato;
+import dc.entidade.geral.PessoaContato;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ContatoDAO extends AbstractCrudDAO<Contato>{
+public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContato>{
 
 	@Override
-	public Class<Contato> getEntityClass() {
-		return Contato.class;
+	public Class<PessoaContato> getEntityClass() {
+		return PessoaContato.class;
 	}
 	
 	@Transactional
-	public List<Contato> listaTodos() {
-		return getSession().createQuery("from Contato").list();
+	public List<PessoaContato> listaTodos() {
+		return getSession().createQuery("from PessoaContato").list();
 	}
 	
-	@Transactional
-	public List<Contato> listaPorEmpresa(Empresa empresa) {
-		return getSession().createQuery("from Contato c where c.empresa = :emp ")
-				.setParameter("emp", empresa)
-				.list();
-	}
-
 	@Override
 	protected String[] getDefaultSearchFields() {
 

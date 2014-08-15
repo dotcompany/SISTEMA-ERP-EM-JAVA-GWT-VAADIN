@@ -16,9 +16,9 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaContato;
 import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.PessoaJuridica;
 import dc.entidade.geral.UF;
@@ -132,9 +132,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		if (isEnabled(currentBean.getConvenio())) {
 			selected.add("Convênio");
 		}
-		if (isEnabled(currentBean.getContador())) {
-			selected.add("Contador");
-		}
 		if (isEnabled(currentBean.getTransportadora())) {
 			selected.add("Transportadora");
 		}
@@ -220,8 +217,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 					currentBean.setColaborador('1');
 				} else if ("Convênio".equals(value)) {
 					currentBean.setConvenio('1');
-				} else if ("Contador".equals(value)) {
-					currentBean.setContador('1');
 				} else if ("Transportadora".equals(value)) {
 					currentBean.setTransportadora('1');
 				}
@@ -330,8 +325,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		return true;
 	}
 
-	public Contato novoContato() {
-		Contato c = new Contato();
+	public PessoaContato novoContato() {
+		PessoaContato c = new PessoaContato();
 		currentBean.adicionarContato(c);
 		return c;
 	}

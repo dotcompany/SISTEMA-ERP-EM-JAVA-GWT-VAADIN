@@ -44,7 +44,6 @@ import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
-import dc.entidade.geral.Contato;
 import dc.entidade.geral.Endereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
@@ -212,9 +211,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	/** @autor Wesley Júnior
 	 * @module ADMINISTRATIVO */
-
-	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<Contato> contatos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -666,7 +662,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.contaCaixaList = contaCaixaList;
 	}
 
-	public Contato addContato(Contato contato) {
+	/*public Contato addContato(Contato contato) {
 		this.getContatos().size();
 		getContatos().add(contato);
 		contato.setEmpresa(this);
@@ -679,7 +675,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		contato.setEmpresa(null);
 
 		return contato;
-	}
+	}*/
 
 	public String getContato() {
 		return contato;
@@ -687,14 +683,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setContato(String contato) {
 		this.contato = contato;
-	}
-
-	public List<Contato> getContatos() {
-		return contatos;
-	}
-
-	public void setContatos(List<Contato> contatos) {
-		this.contatos = contatos;
 	}
 
 	public Endereco addEndereco(Endereco enderecos) {

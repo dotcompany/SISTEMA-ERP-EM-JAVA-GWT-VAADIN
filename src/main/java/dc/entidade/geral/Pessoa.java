@@ -93,9 +93,9 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@Column(name = "CONVENIO")
 	private Character convenio;
 
-	@Field
+	/*@Field
 	@Column(name = "CONTADOR")
-	private Character contador;
+	private Character contador;*/
 
 	@Field
 	@Column(name = "TRANSPORTADORA")
@@ -103,7 +103,7 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<Contato> contatos = new ArrayList<>();
+	private List<PessoaContato> contatos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -209,13 +209,13 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.convenio = convenio;
 	}
 
-	public Character getContador() {
+	/*public Character getContador() {
 		return contador;
 	}
 
 	public void setContador(Character contador) {
 		this.contador = contador;
-	}
+	}*/
 
 	public Character getTransportadora() {
 		return transportadora;
@@ -225,17 +225,17 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.transportadora = transportadora;
 	}
 
-	public List<Contato> getContatos() {
+	public List<PessoaContato> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(List<Contato> contatos) {
+	public void setContatos(List<PessoaContato> contatos) {
 		this.contatos = contatos;
 	}
 
-	public void adicionarContato(Contato c) {
+	public void adicionarContato(PessoaContato c) {
 		getContatos().add(c);
-		c.setEmpresa(this.getEmpresa());
+		//c.setEmpresa(this.getEmpresa());
 		c.setPessoa(this);
 	}
 

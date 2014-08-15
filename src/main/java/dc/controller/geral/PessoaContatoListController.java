@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.Contato;
-import dc.servicos.dao.geral.ContatoDAO;
+import dc.entidade.geral.PessoaContato;
+import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,13 +18,13 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ContatoListController extends CRUDListController<Contato> {
+public class PessoaContatoListController extends CRUDListController<PessoaContato> {
 
 	@Autowired
-	ContatoDAO dao;
+	PessoaContatoDAO dao;
 
 	@Autowired
-	ContatoFormController contatoFormController;
+	PessoaContatoFormController pessoaContatoFormController;
 
 	@Override
 	public String[] getColunas() {
@@ -32,30 +32,30 @@ public class ContatoListController extends CRUDListController<Contato> {
 	}
 
 	@Override
-	public Class<? super Contato> getEntityClass() {
-		return Contato.class;
+	public Class<? super PessoaContato> getEntityClass() {
+		return PessoaContato.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Contato";
+		return "Pessoa Contato";
 	}
 
 	@Override
-	protected List<Contato> pesquisa(String valor) {
+	protected List<PessoaContato> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Contato> getFormController() {
-		return contatoFormController;
+	protected CRUDFormController<PessoaContato> getFormController() {
+		return pessoaContatoFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaContatos";
+		return "listaPessoaContatos";
 	}
 
 	@Override
@@ -65,9 +65,9 @@ public class ContatoListController extends CRUDListController<Contato> {
 	}
 
 	@Override
-	protected List<Contato> pesquisaDefault() {
+	protected List<PessoaContato> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<Contato>) dao.getAll(getEntityClass());
+		return (List<PessoaContato>) dao.getAll(getEntityClass());
 	}
 
 }
