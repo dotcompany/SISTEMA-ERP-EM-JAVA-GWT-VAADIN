@@ -280,6 +280,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	protected void initSubView() {
 		subView = new ContratosFormView(this);
 
+
 		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
 			/**
@@ -299,7 +300,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			}
 
 		});
-
+		
 		subView.getDtCadastro().setValue(new Date());
 
 		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
@@ -309,9 +310,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				return "nome";
 			}
 		};
-
-		// DefaultManyToOneComboModel<Pessoa> pessoaModel= new
-		// DefaultManyToOneComboModel<Pessoa>(PessoaListController.class,pessoaDAO,mainController);
 
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
@@ -518,6 +516,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Override
 	protected void carregar(Serializable id) {
 
+
 		currentBean = contratoDAO.find(id);
 		subView.preencheContratoForm(currentBean);
 		StreamResource myResource = createResource();
@@ -526,7 +525,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			fileDownloader.extend(subView.getBtnGerarContrato());
 		}
 	}
-
+		
 	@Override
 	protected void actionSalvar() {
 		subView.preencheContrato(currentBean);
@@ -577,7 +576,6 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-
 	}
 
 	public Contrato getCurrentBean() {
