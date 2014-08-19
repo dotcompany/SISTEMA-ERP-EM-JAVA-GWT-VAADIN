@@ -14,9 +14,11 @@ import com.vaadin.ui.Component;
 
 import dc.control.converter.ObjectConverter;
 import dc.control.enums.CsosnEn;
-import dc.control.enums.CstCofinsEn;
 import dc.control.enums.CstIcmsEn;
-import dc.control.enums.CstIpiEn;
+import dc.controller.nfe.dto.NfeDetalheImpIpiDTO;
+import dc.controller.nfe.dto.NfeDetalheImpostoCofinsDTO;
+import dc.controller.nfe.dto.NfeDetalheImpostoIcmsDTO;
+import dc.controller.nfe.dto.NfeDetalheImpostoIiDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoIssqnDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoPisDTO;
 import dc.controller.nfe.dto.ProdutoServicoViewDTO;
@@ -200,7 +202,8 @@ public class ProdutoServicoFormController extends
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento
+	 * padrão
 	 */
 	@Override
 	protected void quandoNovo() {
@@ -1005,50 +1008,17 @@ public class ProdutoServicoFormController extends
 		efetuaCalculosDetalhe(false);
 	}
 
+	/**
+	 * 
+	 * 
+	 */
+
 	public void ndiCofinsSetarValor(String id, Object obj) {
 		// TODO ndiCofinsSetarValor
 
 		NfeDetalheImpostoCofinsEntity ndiCofins = this.nfeCabecalho
 				.getNfeDetalhe().getNfeDetalheImpostoCofins();
-
-		if (ndiCofins == null) {
-			return;
-		}
-
-		switch (id) {
-		case "cbCstCofins":
-			CstCofinsEn cstCofins = (CstCofinsEn) obj;
-			String s1 = cstCofins.name().substring(1);
-
-			ndiCofins.setCstCofins(s1);
-
-			break;
-		case "tfQtdVendidaCofins":
-			ndiCofins.setQuantidadeVendida(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfBaseCalculoBcCofins":
-			ndiCofins.setBaseCalculoCofins(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaPercentualCofins":
-			ndiCofins.setAliquotaCofinsPercentual(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaReaisCofins":
-			ndiCofins.setAliquotaCofinsReais(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorCofins":
-			ndiCofins.setValorCofins(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		}
+		NfeDetalheImpostoCofinsDTO.setarValor(ndiCofins, id, obj);
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeCabecalho.getNfeDetalhe());
@@ -1067,124 +1037,7 @@ public class ProdutoServicoFormController extends
 
 		NfeDetalheImpostoIcmsEntity ndiIcms = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpostoIcms();
-
-		if (ndiIcms == null) {
-			return;
-		}
-
-		switch (id) {
-		case "tfOrigemMercadoriaIcms":
-			ndiIcms.setOrigemMercadoria((String) obj);
-
-			break;
-		case "cbCstIcms":
-			CstIcmsEn cstIcms = (CstIcmsEn) obj;
-			String s1 = cstIcms.name().substring(1);
-
-			ndiIcms.setCstIcms(s1);
-
-			break;
-		case "tfCsosnIcms":
-			CsosnEn csosn = (CsosnEn) obj;
-			String s2 = csosn.name().substring(1);
-
-			ndiIcms.setCsosn(s2);
-
-			break;
-		case "tfModalidadeBcIcms":
-			ndiIcms.setModalidadeBcIcms((String) obj);
-
-			break;
-		case "tfTaxaReducaoBcIcms":
-			ndiIcms.setTaxaReducaoBcIcms(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfBaseCalculoBcIcms":
-			ndiIcms.setBaseCalculoIcms(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaIcms":
-			ndiIcms.setAliquotaIcms(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfValorIcms":
-			ndiIcms.setValorIcms(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfMotivoDesoneracaoIcms":
-			ndiIcms.setMotivoDesoneracaoIcms((String) obj);
-
-			break;
-		case "tfModalidadeBcStIcms":
-			ndiIcms.setModalidadeBcIcmsSt((String) obj);
-
-			break;
-		case "tfPercentualMvaStIcms":
-			ndiIcms.setPercentualMvaIcmsSt(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfTaxaReducaoBcStIcms":
-			ndiIcms.setPercentualReducaoBcIcmsSt(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfBaseCalculoStIcms":
-			ndiIcms.setValorBaseCalculoIcmsSt(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaStIcms":
-			ndiIcms.setAliquotaIcmsSt(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorStIcms":
-			ndiIcms.setValorIcmsSt(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfBcStRetidoIcms":
-			ndiIcms.setValorBcIcmsStRetido(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorStRetidoIcms":
-			ndiIcms.setValorIcmsStRetido(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfBcStDestinoIcms":
-			ndiIcms.setValorBcIcmsStDestino(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorStDestinoIcms":
-			ndiIcms.setValorIcmsStDestino(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaCreditoSnIcms":
-			ndiIcms.setAliquotaCreditoIcmsSn(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorCreditoSnIcms":
-			ndiIcms.setValorCreditoIcmsSn(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfPercentualBcOperacaoPropriaIcms":
-			ndiIcms.setPercentualBcOperacaoPropria(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfUfStIcms":
-			ndiIcms.setUfSt((String) obj);
-
-			break;
-		}
+		NfeDetalheImpostoIcmsDTO.setarValor(ndiIcms, id, obj);
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeCabecalho.getNfeDetalhe());
@@ -1203,31 +1056,7 @@ public class ProdutoServicoFormController extends
 
 		NfeDetalheImpostoIiEntity ndiIi = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpostoIi();
-
-		if (ndiIi == null) {
-			return;
-		}
-
-		switch (id) {
-		case "tfBaseCalculoBcImpostoImportacao":
-			ndiIi.setValorBcIi(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfDespesasAduaneirasImpostoImportacao":
-			ndiIi.setValorDespesasAduaneiras(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorImpostoImportacao":
-			ndiIi.setValorImpostoImportacao(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfIofImpostoImportacao":
-			ndiIi.setValorIof(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		}
+		ndiIi = NfeDetalheImpostoIiDTO.setarValor(ndiIi, id, obj);
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeCabecalho.getNfeDetalhe());
@@ -1248,66 +1077,7 @@ public class ProdutoServicoFormController extends
 
 		NfeDetalheImpIpiEntity ndiIpi = this.nfeCabecalho.getNfeDetalhe()
 				.getNfeDetalheImpIpi();
-
-		if (ndiIpi == null) {
-			return;
-		}
-
-		ndiIpi.setEmpresa(this.nfeCabecalho.getNfeDetalhe().getEmpresa());
-
-		switch (id) {
-		case "cbCstIpi":
-			CstIpiEn cstIpi = (CstIpiEn) obj;
-			String s1 = cstIpi.name().substring(1);
-
-			ndiIpi.setCstIpi(s1);
-
-			break;
-		case "tfBaseCalculoBcIpi":
-			ndiIpi.setValorBaseCalculoIpi(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfAliquotaIpi":
-			ndiIpi.setAliquotaIpi(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfQtdUndTributavelIpi":
-			ndiIpi.setQuantidadeUnidadeTributavel(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorUndTributavelIpi":
-			ndiIpi.setValorUnidadeTributavel(ObjectConverter
-					.stringToValue((String) obj));
-
-			break;
-		case "tfValorIpi":
-			ndiIpi.setValorIpi(ObjectConverter.stringToValue((String) obj));
-
-			break;
-		case "tfEnquadramentoIpi":
-			ndiIpi.setEnquadramentoIpi((String) obj);
-
-			break;
-		case "tfEnquadramentoLegalIpi":
-			ndiIpi.setEnquadramentoLegalIpi((String) obj);
-
-			break;
-		case "tfCnpjProdutorIpi":
-			ndiIpi.setCnpjProdutorIpi((String) obj);
-
-			break;
-		case "tfQtdSeloIpi":
-			ndiIpi.setQuantidadeSeloIpi(ObjectConverter
-					.stringToInteger((String) obj));
-
-			break;
-		case "tfCodigoSeloIpi":
-			ndiIpi.setCodigoSeloIpi((String) obj);
-
-			break;
-		}
+		NfeDetalheImpIpiDTO.setarValor(ndiIpi, id, obj);
 
 		Integer index = this.subView.getSfNfeDetalhe().getDados()
 				.indexOf(this.nfeCabecalho.getNfeDetalhe());
@@ -1358,6 +1128,11 @@ public class ProdutoServicoFormController extends
 		this.subView.getSfNfeDetalhe().getDados()
 				.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
+
+	/**
+	 * 
+	 * 
+	 */
 
 	public void ndeCombustivelSetarValor(String id, Object obj) {
 		// TODO ndeCombustivelSetarValor
@@ -1934,7 +1709,8 @@ public class ProdutoServicoFormController extends
 							.getNfeDetalheImpostoIcms().getValorIcms());
 				}
 
-				if (cstIcms.equals(CstIcmsEn._10)) { // Tributada e com cobrança
+				if (cstIcms.equals(CstIcmsEn._10)) { // Tributada e com
+														// cobrança
 														// do ICMS
 					// por substituição tributária
 					nfeDetalhe.getNfeDetalheImpostoIcms().setBaseCalculoIcms(
