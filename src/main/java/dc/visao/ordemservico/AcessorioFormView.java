@@ -27,14 +27,13 @@ public class AcessorioFormView extends CustomComponent {
 		// common part: create layout
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("-1px");
-		mainLayout.setHeight("-1px");
+		mainLayout.setWidth("100.0%");
+		mainLayout.setHeight("100.0%");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		
 		// top-level component properties
 		setWidth("-1px");
-		setHeight("-1px");
 		
 		// verticalLayout_1
 		verticalLayout_1 = buildVerticalLayout_1();
