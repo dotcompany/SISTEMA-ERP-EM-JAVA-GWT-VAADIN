@@ -19,6 +19,7 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
@@ -27,7 +28,7 @@ import dc.entidade.produto.Produto;
 @Table(name = "os_material_servico")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class MaterialServico extends AbstractModel<Integer> {
+public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

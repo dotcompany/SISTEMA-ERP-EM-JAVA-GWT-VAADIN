@@ -31,6 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Cliente;
@@ -39,7 +40,7 @@ import dc.entidade.pessoal.Cliente;
 @Table(name = "os_ordem_servico")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class OrdemServico extends AbstractModel<Integer> {
+public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

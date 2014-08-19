@@ -19,13 +19,14 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "os_laudo_tecnico")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class LaudoTecnico extends AbstractModel<Integer> {
+public class LaudoTecnico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

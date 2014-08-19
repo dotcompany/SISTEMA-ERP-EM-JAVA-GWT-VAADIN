@@ -17,13 +17,14 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "os_observacao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Observacao extends AbstractModel<Integer> {
+public class Observacao extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 

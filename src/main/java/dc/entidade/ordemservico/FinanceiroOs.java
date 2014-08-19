@@ -25,6 +25,7 @@ import org.hibernate.search.annotations.Field;
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Cliente;
@@ -33,7 +34,7 @@ import dc.entidade.pessoal.Cliente;
 @Table(name = "os_financeiro")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class FinanceiroOs extends AbstractModel<Integer> {
+public class FinanceiroOs extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
