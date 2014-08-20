@@ -54,6 +54,7 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.pessoal.Cliente;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
@@ -64,8 +65,8 @@ import dc.servicos.dao.financeiro.LancamentoReceberDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
-import dc.servicos.dao.geral.EnderecoDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
@@ -150,7 +151,7 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	private PessoaDAO pessoaDAO;
 
 	@Autowired
-	private EnderecoDAO enderecoDAO;
+	private PessoaEnderecoDAO enderecoDAO;
 
 	@Autowired
 	private BancoDAO bancoDAO;
@@ -642,17 +643,17 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		}
 		Sacado sacado = new Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
 
-		Endereco enderecoSacado = new Endereco();
+		PessoaEndereco enderecoSacado = new PessoaEndereco();
 
-		dc.entidade.geral.Endereco endereco = enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
+		dc.entidade.geral.PessoaEndereco endereco = (PessoaEndereco) enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
 
-		enderecoSacado.setUF(UnidadeFederativa.valueOfSigla(endereco.getUf().getSigla()));
-		enderecoSacado.setLocalidade(endereco.getCidade());
-		enderecoSacado.setCep(new CEP(endereco.getCep()));
+		enderecoSacado.setUf(endereco.getUf());
+		enderecoSacado.setCidade(endereco.getCidade());
+		enderecoSacado.setCep(endereco.getCep());
 		enderecoSacado.setBairro(endereco.getBairro());
 		enderecoSacado.setLogradouro(endereco.getLogradouro());
-		enderecoSacado.setNumero(String.valueOf(endereco.getNumero()));
-		sacado.addEndereco(enderecoSacado);
+		enderecoSacado.setNumero(endereco.getNumero());
+		//sacado.addEndereco(enderecoSacado);
 
 		Banco banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getIdBanco());
 		ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.suportados.get(banco.getCodigo()).create());

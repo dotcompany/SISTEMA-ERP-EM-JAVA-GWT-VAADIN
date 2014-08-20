@@ -26,8 +26,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.pessoal.PessoaFormController;
-import dc.entidade.geral.Endereco;
 import dc.entidade.geral.PessoaContato;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.EstadoCivil;
 import dc.visao.framework.component.IntegerConverter;
@@ -106,7 +106,7 @@ public class PessoaFormView extends CustomComponent {
 	private String JURIDICA = "J";
 
 	private SubFormComponent<PessoaContato, Integer> contatosSubForm;
-	private SubFormComponent<Endereco, Integer> enderecosSubForm;
+	private SubFormComponent<PessoaEndereco, Integer> enderecosSubForm;
 
 	private GridLayout layoutFisica;
 
@@ -591,7 +591,7 @@ public class PessoaFormView extends CustomComponent {
 		String[] headers = new String[] { "Logradouro", "Número", "Complemento", "Bairro", "Cidade", "CEP", "Município Ibge", "UF", "Fone", "Fax",
 				"Principal", "Entrega", "Cobrança", "Correspondência" };
 
-		enderecosSubForm = new SubFormComponent<Endereco, Integer>(Endereco.class, atributos, headers) {
+		enderecosSubForm = new SubFormComponent<PessoaEndereco, Integer>(PessoaEndereco.class, atributos, headers) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -642,13 +642,13 @@ public class PessoaFormView extends CustomComponent {
 				};
 			}
 
-			protected Endereco getNovo() {
-				Endereco endereco = formController.novoEndereco();
+			protected PessoaEndereco getNovo() {
+				PessoaEndereco endereco = formController.novoEndereco();
 				return endereco;
 			}
 
 			@Override
-			public boolean validateItems(List<Endereco> items) {
+			public boolean validateItems(List<PessoaEndereco> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1137,11 +1137,11 @@ public class PessoaFormView extends CustomComponent {
 		this.contatosSubForm = contatosSubForm;
 	}
 
-	public SubFormComponent<Endereco, Integer> getEnderecosSubForm() {
+	public SubFormComponent<PessoaEndereco, Integer> getEnderecosSubForm() {
 		return enderecosSubForm;
 	}
 
-	public void setEnderecosSubForm(SubFormComponent<Endereco, Integer> enderecosSubForm) {
+	public void setEnderecosSubForm(SubFormComponent<PessoaEndereco, Integer> enderecosSubForm) {
 		this.enderecosSubForm = enderecosSubForm;
 	}
 

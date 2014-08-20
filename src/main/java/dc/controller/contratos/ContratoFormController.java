@@ -52,8 +52,8 @@ import dc.entidade.contratos.ContratoSolicitacaoServico;
 import dc.entidade.contratos.Template;
 import dc.entidade.contratos.TipoContrato;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.produto.Produto;
@@ -381,7 +381,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 					Empresa empresa = documento.getEmpresa();
 
-					Endereco enderecoEmpresa = new Endereco();// TODO
+					PessoaEndereco enderecoEmpresa = new PessoaEndereco();// TODO
 
 					Cliente dadosContratante = currentBean.getContratoSolicitacaoServico().getCliente();
 

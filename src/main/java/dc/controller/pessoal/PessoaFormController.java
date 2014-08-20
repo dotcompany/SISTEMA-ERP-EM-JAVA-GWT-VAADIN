@@ -16,9 +16,9 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Endereco;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.PessoaContato;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.PessoaJuridica;
 import dc.entidade.geral.UF;
@@ -331,8 +331,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		return c;
 	}
 
-	public Endereco novoEndereco() {
-		Endereco end = new Endereco();
+	public PessoaEndereco novoEndereco() {
+		PessoaEndereco end = new PessoaEndereco();
 		currentBean.adicionarEndereco(end);
 
 		return end;
