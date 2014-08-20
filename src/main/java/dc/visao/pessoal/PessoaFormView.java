@@ -431,7 +431,6 @@ public class PessoaFormView extends CustomComponent {
 		group.addItem("Cliente");
 		group.addItem("Fornecedor");
 		group.addItem("Colaborador");
-		group.addItem("Convênio");
 		group.addItem("Transportadora");
 		group.setStyleName("v-select-optiongroup-horizontal");
 		fields.addComponent(group, 0, 2, 5, 2);
