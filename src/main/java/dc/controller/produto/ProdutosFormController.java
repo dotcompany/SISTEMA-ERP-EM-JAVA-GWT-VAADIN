@@ -130,7 +130,7 @@ public class ProdutosFormController extends CRUDFormController<Produto> {
 			// //
 			DefaultManyToOneComboModel<GrupoProduto> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
 					GrupoProdutoListController.class, grupoProdutoDAO, mainController);
-			subView.getCmbGrupo().setModel(comboGrupoProduto);
+			subView.getCmbGrupoProduto().setModel(comboGrupoProduto);
 			// //
 			DefaultManyToOneComboModel<NCM> comboNCM = new DefaultManyToOneComboModel<NCM>(NCMListController.class, ncmDAO, mainController);
 			subView.getCmbNcm().setModel(comboNCM);
@@ -309,7 +309,7 @@ public class ProdutosFormController extends CRUDFormController<Produto> {
 			}
 
 			subView.getCmbAlmoxarifado().setValue(currentBean.getAlmoxarifado());
-			subView.getCmbGrupo().setValue(currentBean.getGrupo());
+			subView.getCmbGrupoProduto().setValue(currentBean.getGrupo());
 			subView.getCmbNcm().setValue(currentBean.getNcm());
 
 		} catch (Exception e) {
