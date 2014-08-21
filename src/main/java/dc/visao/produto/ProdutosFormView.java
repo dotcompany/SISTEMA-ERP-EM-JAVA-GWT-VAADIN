@@ -281,11 +281,11 @@ public class ProdutosFormView extends CustomComponent {
 		fields.addComponent(cmbTemIcmsCustomizado, 0, 2);
 		fields.addComponent(cmbGrupoProduto, 1, 2);
 		// ////
-		/*cmbIcmsCustomizado = new ManyToOneCombo<>();
+	    /*cmbIcmsCustomizado = new ManyToOneCombo<>();
 		cmbIcmsCustomizado.setCaption("ICMS Customizado");
 		//cmbIcmsCustomizado.setImmediate(false);
-		//cmbIcmsCustomizado.setWidth("456px");
-		//cmbIcmsCustomizado.setHeight("-1px");*/
+		cmbIcmsCustomizado.setWidth("456px");
+		cmbIcmsCustomizado.setHeight("-1px");*/
 		
 		
 		return fields;
@@ -984,14 +984,6 @@ public class ProdutosFormView extends CustomComponent {
 		this.cmbTemIcmsCustomizado = cmbTemIcmsCustomizado;
 	}
 
-	public ManyToOneCombo<ICMSCustomizado> getCmbIcmsCustomizado() {
-		return cmbIcmsCustomizado;
-	}
-
-	public void setCmbIcmsCustomizado(ManyToOneCombo<ICMSCustomizado> cmbIcmsCustomizado) {
-		this.cmbIcmsCustomizado = cmbIcmsCustomizado;
-	}
-
 	public ComboBox getCmbTipoItemSped() {
 		return cmbTipoItemSped;
 	}
@@ -1458,7 +1450,14 @@ public class ProdutosFormView extends CustomComponent {
 	public void setFields(GridLayout fields) {
 		this.fields = fields;
 	}
-	
-	
+
+	public ManyToOneCombo<ICMSCustomizado> getCmbIcmsCustomizado() {
+		return cmbIcmsCustomizado;
+	}
+
+	public void setCmbIcmsCustomizado(
+			ManyToOneCombo<ICMSCustomizado> cmbIcmsCustomizado) {
+		this.cmbIcmsCustomizado = cmbIcmsCustomizado;
+	}
 	
 }

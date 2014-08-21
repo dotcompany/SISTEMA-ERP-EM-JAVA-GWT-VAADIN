@@ -120,13 +120,15 @@ public class ProdutosFormController extends CRUDFormController<Produto> {
 					AlmoxarifadoListController.class, almoxarifadoDAO, mainController);
 			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
 			// //
+			
+			DefaultManyToOneComboModel<ICMSCustomizado> comboIcmsCustomizado = new DefaultManyToOneComboModel<ICMSCustomizado>(
+					ICMSCustomizadoListController.class, icmsCustomizadoDAO, mainController);
+			subView.getCmbIcmsCustomizado().setModel(comboIcmsCustomizado);
+			// //
+			
 			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(
 					GrupoTributarioListController.class, grupoTributarioDAO, mainController);
 			subView.getCmbGrupoTributario().setModel(comboGrupo);
-			// //
-			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(
-					ICMSCustomizadoListController.class, icmsCustomizadoDAO, mainController);
-			subView.getCmbIcmsCustomizado().setModel(comboIcms);
 			// //
 			DefaultManyToOneComboModel<GrupoProduto> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
 					GrupoProdutoListController.class, grupoProdutoDAO, mainController);
