@@ -195,4 +195,6 @@ dependencies {
 		
 		compile 'org.vaadin.addons:filteringtable:0.9.10.v7'
 		compile 'com.vaadin:vaadin-push:7.2.5'
+		compile 'it.zero11.vaadin:asyncfiltercombobox:0.2.0'
+	
 }

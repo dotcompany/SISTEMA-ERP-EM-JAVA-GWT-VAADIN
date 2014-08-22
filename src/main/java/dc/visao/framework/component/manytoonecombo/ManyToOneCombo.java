@@ -1,5 +1,7 @@
 package dc.visao.framework.component.manytoonecombo;
 
+import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -244,6 +246,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		// cmbResult
 		cmbResult = new DCComboBox();
+		cmbResult.setFilterChangeTimeout(2000);
 
 		cmbResult.setImmediate(true);
 		cmbResult.setSizeFull();
@@ -310,7 +313,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		return item.getBean();
 	}
 
-	class DCComboBox extends ComboBox {
+	class DCComboBox extends AsyncFilterComboBox {
 
 		@Override
 		public void changeVariables(final Object source, final Map<String, Object> variables) {

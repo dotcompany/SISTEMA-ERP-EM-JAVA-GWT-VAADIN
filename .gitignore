@@ -8,3 +8,10 @@ d:/
 src/main/webapp/VAADIN/widgetsets/
 src/main/webapp/VAADIN/gwt-unitCache/
 .classpath
+build/*
+build/c:/
+build/c/
+c/
+*.gen
+c/*
+*segments_1*
