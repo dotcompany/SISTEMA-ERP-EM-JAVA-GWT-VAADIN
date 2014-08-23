@@ -193,7 +193,7 @@ public class ProdutosFormView extends CustomComponent {
 		fields.setImmediate(false);
 		fields.setWidth("100.0%");
 		fields.setMargin(true);
-		fields.setSpacing(false);
+		fields.setSpacing(true);
 		fields.setRows(7);
 		fields.setColumns(7);
 
@@ -324,7 +324,7 @@ public class ProdutosFormView extends CustomComponent {
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
 		layout.setMargin(true);
-		layout.setSpacing(true);
+		layout.setSpacing(false);
 		layout.setSizeFull();
 
 		txtGtin = ComponentUtil.buildTextField("GTIN");
@@ -343,7 +343,7 @@ public class ProdutosFormView extends CustomComponent {
 		cmbNcm = new ManyToOneCombo<>();
 		cmbNcm.setCaption("NCM");
 		cmbNcm.setImmediate(false);
-		cmbNcm.setWidth("150px");
+		cmbNcm.setWidth("250px");
 		cmbNcm.setHeight("-1px");
 
 		// cmbInativo
@@ -368,10 +368,10 @@ public class ProdutosFormView extends CustomComponent {
 		layout.addComponent(cmbInativo, 3, 0);
 		layout.addComponent(cmbClasse, 4, 0);
 
-		txtNome = new TextField();
-		txtNome.setCaption("Nome");
+		txtNome = ComponentUtil.buildTextField("Nome");
 		txtNome.setImmediate(false);
 		txtNome.setWidth("300px");
+		txtNome.setHeight("-1px");
 
 		// txtDescricaoPdv
 		txtDescricaoPdv = ComponentUtil.buildTextField("Descrição PDV");
@@ -380,8 +380,7 @@ public class ProdutosFormView extends CustomComponent {
 		txtDescricaoPdv.setHeight("-1px");
 
 		// // txtDescricao
-		txtDescricao = new TextField();
-		txtDescricao.setCaption("Descrição");
+		txtDescricao = ComponentUtil.buildTextField("Descrição");
 		txtDescricao.setImmediate(false);
 		txtDescricao.setWidth("300px");
 		txtDescricao.setHeight("-1px");
