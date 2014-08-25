@@ -14,10 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -284,9 +281,8 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<ContaCaixa> contaCaixaList;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
-	@JoinTable(name = "empresa_seguimento", joinColumns = { @JoinColumn(name = "empresa_id") }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id ") })
-	private List<Seguimento> seguimentos;
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmpresaSeguimento> empresaSeguimentos;
 
 	/** CONSTRUTOR */
 
@@ -662,20 +658,17 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.contaCaixaList = contaCaixaList;
 	}
 
-	/*public Contato addContato(Contato contato) {
-		this.getContatos().size();
-		getContatos().add(contato);
-		contato.setEmpresa(this);
-
-		return contato;
-	}
-
-	public Contato removeContato(Contato contato) {
-		getContatos().remove(contato);
-		contato.setEmpresa(null);
-
-		return contato;
-	}*/
+	/*
+	 * public Contato addContato(Contato contato) { this.getContatos().size();
+	 * getContatos().add(contato); contato.setEmpresa(this);
+	 * 
+	 * return contato; }
+	 * 
+	 * public Contato removeContato(Contato contato) {
+	 * getContatos().remove(contato); contato.setEmpresa(null);
+	 * 
+	 * return contato; }
+	 */
 
 	public String getContato() {
 		return contato;
@@ -770,6 +763,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setIdMatriz(Integer idMatriz) {
 		this.idMatriz = idMatriz;
+	}
+
+	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
+		return empresaSeguimentos;
+	}
+
+	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
+		this.empresaSeguimentos = empresaSeguimentos;
 	}
 
 	/*

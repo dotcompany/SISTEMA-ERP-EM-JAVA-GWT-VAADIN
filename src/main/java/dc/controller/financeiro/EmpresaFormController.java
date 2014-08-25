@@ -19,6 +19,7 @@ import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.empresa.EmpresaCnae;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Fpas;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Cnae;
@@ -28,6 +29,7 @@ import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
+import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
@@ -100,6 +102,9 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Autowired
 	SeguimentoDAO seguimentoDAO;
+
+	@Autowired
+	EmpresaSeguimentoDAO empresaSeguimentoDAO;
 
 	private Empresa currentBean;
 
@@ -260,6 +265,12 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 				currentBean.setIdMatriz(e.getId());
 
 			}
+			List<EmpresaSeguimento> empresaSeguimentos = subView.getSeguimentos();
+			for (EmpresaSeguimento empresaSeguimento : empresaSeguimentos) {
+				empresaSeguimento.setEmpresa(currentBean);
+			}
+
+			currentBean.setEmpresaSeguimentos(empresaSeguimentos);
 
 			empresaDAO.saveOrUpdate(currentBean);
 
@@ -297,6 +308,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 	@Override
 	protected void carregar(Serializable id) {
+		carregaCombos();
 		currentBean = empresaDAO.find(id);
 
 		subView.getTxtRazaoSocial().setValue(currentBean.getRazaoSocial());
@@ -407,16 +419,27 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		try {
 			List<Endereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
 			currentBean.setEndereco(enderecos);
+			carregarSeguimentos();
 			subView.fillEnderecoSubForm(enderecos);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void carregarSeguimentos() {
+		currentBean.setEmpresaSeguimentos(empresaSeguimentoDAO.listaPorEmpresa(currentBean));
+
+		subView.setEmpresaSeguimentos(currentBean.getEmpresaSeguimentos());
+	}
+
 	@Override
 	protected void initSubView() {
 		subView = new EmpresaFormView(this);
 
+		carregaCombos();
+	}
+
+	private void carregaCombos() {
 		this.subView.InitCbs(getEmpresaCrtType(), getEmpresaTipoRegimeType(), getEmpresaTipoType());
 
 		DefaultManyToOneComboModel<Seguimento> seguimentos = new DefaultManyToOneComboModel<Seguimento>(SeguimentoListController.class,
@@ -428,6 +451,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Empresa();
+		carregaCombos();
 	}
 
 	@Override

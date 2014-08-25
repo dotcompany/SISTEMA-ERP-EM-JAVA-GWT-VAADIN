@@ -141,8 +141,9 @@ public abstract class CRUDFormController<E extends AbstractModel> extends Contro
 					mainController.showTaskableContent(CRUDFormController.this);
 				} else {
 					listController.showOnWindow(view);
-					criarNovo();
+
 				}
+				criarNovo();
 			}
 		});
 

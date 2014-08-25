@@ -11,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,11 +38,14 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Field
 	private Integer id;
 
 	@Column()
 	@Caption(value = "Nome")
 	@Field
+	@ComboValue
 	private String nome;
 
 	@Column()
@@ -52,9 +53,8 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 	@Field
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
-	@JoinTable(name = "empresa_seguimento", joinColumns = { @JoinColumn(name = "seguimento_id") }, inverseJoinColumns = { @JoinColumn(name = "empresa_id ") })
-	private List<Empresa> empresas;
+	@OneToMany(mappedBy = "seguimento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmpresaSeguimento> empresaSeguimentos;
 
 	@Override
 	public Integer getId() {
@@ -81,4 +81,33 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return nome;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Seguimento other = (Seguimento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

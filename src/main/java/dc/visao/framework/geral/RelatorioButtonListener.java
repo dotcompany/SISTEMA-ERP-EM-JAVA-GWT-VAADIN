@@ -113,9 +113,16 @@ public class RelatorioButtonListener implements ClickListener {
 			dataSource = new JREmptyDataSource();
 		}
 
-		JasperReport report = JasperCompileManager.compileReport(relatorio.getJasperPath());
+		final byte[] bytes;
 
-		final byte[] bytes = JasperRunManager.runReportToPdf(report, params, dataSource);
+		if (isJasper()) {
+			bytes = JasperRunManager.runReportToPdf(relatorio.getJasperPath(), params, dataSource);
+		} else if (isJrXml()) {
+			JasperReport report = JasperCompileManager.compileReport(relatorio.getJasperPath());
+			bytes = JasperRunManager.runReportToPdf(report, params, dataSource);
+		} else {
+			bytes = new byte[0];
+		}
 
 		final StreamSource s = new StreamSource() {
 
@@ -144,6 +151,24 @@ public class RelatorioButtonListener implements ClickListener {
 		resource.setCacheTime(5000);
 		resource.setMIMEType("application/pdf");
 		Page.getCurrent().open(resource, "_blank", false);
+	}
+
+	private boolean isJrXml() {
+		return ".jrxml".equalsIgnoreCase(getExtensao(relatorio.getJasperPath()));
+	}
+
+	private boolean isJasper() {
+		return ".jasper".equalsIgnoreCase(getExtensao(relatorio.getJasperPath()));
+	}
+
+	private String getExtensao(String caminho) {
+		if (caminho != null && !caminho.isEmpty()) {
+			int indiceExtensao = caminho.lastIndexOf(".");
+			if (indiceExtensao > -1) {
+				return caminho.substring(indiceExtensao, caminho.length());
+			}
+		}
+		return "";
 	}
 
 }
