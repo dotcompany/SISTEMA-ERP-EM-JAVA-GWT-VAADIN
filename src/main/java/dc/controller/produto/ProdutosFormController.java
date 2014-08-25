@@ -120,17 +120,19 @@ public class ProdutosFormController extends CRUDFormController<Produto> {
 					AlmoxarifadoListController.class, almoxarifadoDAO, mainController);
 			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
 			// //
+			
+			DefaultManyToOneComboModel<ICMSCustomizado> comboIcmsCustomizado = new DefaultManyToOneComboModel<ICMSCustomizado>(
+					ICMSCustomizadoListController.class, icmsCustomizadoDAO, mainController);
+			subView.getCmbIcmsCustomizado().setModel(comboIcmsCustomizado);
+			// //
+			
 			DefaultManyToOneComboModel<GrupoTributario> comboGrupo = new DefaultManyToOneComboModel<GrupoTributario>(
 					GrupoTributarioListController.class, grupoTributarioDAO, mainController);
 			subView.getCmbGrupoTributario().setModel(comboGrupo);
 			// //
-			DefaultManyToOneComboModel<ICMSCustomizado> comboIcms = new DefaultManyToOneComboModel<ICMSCustomizado>(
-					ICMSCustomizadoListController.class, icmsCustomizadoDAO, mainController);
-			subView.getCmbIcmsCustomizado().setModel(comboIcms);
-			// //
 			DefaultManyToOneComboModel<GrupoProduto> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoProduto>(
 					GrupoProdutoListController.class, grupoProdutoDAO, mainController);
-			subView.getCmbGrupo().setModel(comboGrupoProduto);
+			subView.getCmbGrupoProduto().setModel(comboGrupoProduto);
 			// //
 			DefaultManyToOneComboModel<NCM> comboNCM = new DefaultManyToOneComboModel<NCM>(NCMListController.class, ncmDAO, mainController);
 			subView.getCmbNcm().setModel(comboNCM);
@@ -309,7 +311,7 @@ public class ProdutosFormController extends CRUDFormController<Produto> {
 			}
 
 			subView.getCmbAlmoxarifado().setValue(currentBean.getAlmoxarifado());
-			subView.getCmbGrupo().setValue(currentBean.getGrupo());
+			subView.getCmbGrupoProduto().setValue(currentBean.getGrupo());
 			subView.getCmbNcm().setValue(currentBean.getNcm());
 
 		} catch (Exception e) {

@@ -89,7 +89,9 @@ public class CarroFormView extends CustomComponent {
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
+		
 		setWidth("100.0%");
+
 		// setHeight("100.0%");
 
 		fields = buildFields();

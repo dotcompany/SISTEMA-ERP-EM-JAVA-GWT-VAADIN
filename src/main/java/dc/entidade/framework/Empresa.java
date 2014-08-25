@@ -41,13 +41,13 @@ import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
-import dc.entidade.geral.Endereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 import dc.entidade.sistema.ContaEmpresa;
+import dc.entidade.geral.PessoaEndereco;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -210,7 +210,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 * @module ADMINISTRATIVO */
 
 	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<Endereco> enderecos = new ArrayList<>();
+	private List<PessoaEndereco> enderecos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<Pais> paisList;
@@ -678,25 +678,25 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.contato = contato;
 	}
 
-	public Endereco addEndereco(Endereco enderecos) {
+	public PessoaEndereco addEndereco(PessoaEndereco enderecos) {
 		getEnderecos().add(enderecos);
 		enderecos.setEmpresa(this);
 
 		return enderecos;
 	}
 
-	public Endereco removeEndereco(Endereco enderecos) {
+	public PessoaEndereco removeEndereco(PessoaEndereco enderecos) {
 		getEnderecos().remove(enderecos);
 		enderecos.setEmpresa(null);
 
 		return enderecos;
 	}
 
-	public List<Endereco> getEnderecos() {
+	public List<PessoaEndereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEndereco(List<Endereco> enderecos) {
+	public void setEndereco(List<PessoaEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 

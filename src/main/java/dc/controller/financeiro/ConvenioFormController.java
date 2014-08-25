@@ -14,6 +14,7 @@ import dc.entidade.financeiro.Convenio;
 import dc.entidade.geral.UF;
 import dc.servicos.dao.financeiro.ConvenioDAO;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConvenioFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -55,6 +56,8 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		try {
 
 			currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
+			currentBean.setNome(subView.getTxtNome().getValue());
+			currentBean.setCnpj(subView.getTxtCnpj().getValue());
 			currentBean.setDataVencimento(subView.getDnDataVencimento().getValue());
 			currentBean.setNumero(subView.getTxtNumero().getValue());
 			currentBean.setBairro(subView.getTxtBairro().getValue());
@@ -74,6 +77,9 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = convenioDAO.find(id);
+		
+		subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTxtCnpj().setValue(currentBean.getCnpj());
 		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
 		subView.getTxtNumero().setValue(currentBean.getNumero());
 		subView.getTxtBairro().setValue(currentBean.getBairro());
@@ -141,21 +147,20 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 
 	/* Implementar validacao de campos antes de salvar. */
 
+	@Override
 	protected boolean validaSalvar() {
-
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
 		boolean valido = true;
-
-		if (subView.getTxtLogradouro().getValue() == null || subView.getTxtLogradouro().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em Branco!");
-			return false;
+		
+		if (!Validator.validateString(subView.getTxtNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			valido = false;
 		}
+
+		if (!Validator.validateString(subView.getTxtLogradouro().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em branco");
+			valido = false;
+		}
+
 		return valido;
 	}
 

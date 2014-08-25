@@ -107,7 +107,7 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<Endereco> enderecos = new ArrayList<>();
+	private List<PessoaEndereco> enderecos = new ArrayList<>();
 
 	public Pessoa() {
 
@@ -239,18 +239,18 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		c.setPessoa(this);
 	}
 
-	public void adicionarEndereco(Endereco end) {
+	public void adicionarEndereco(PessoaEndereco end) {
 		getEnderecos().add(end);
 		end.setEmpresa(this.getEmpresa());
 		end.setPessoa(this);
 
 	}
 
-	public List<Endereco> getEnderecos() {
+	public List<PessoaEndereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(List<PessoaEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 }

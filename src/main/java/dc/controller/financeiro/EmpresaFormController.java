@@ -23,7 +23,7 @@ import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Fpas;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Cnae;
-import dc.entidade.geral.Endereco;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.pessoal.Contador;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
@@ -33,7 +33,7 @@ import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
-import dc.servicos.dao.geral.EnderecoDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
@@ -95,7 +95,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 	EmpresaCnaeDAO empresaCnaeDAO;
 
 	@Autowired
-	EnderecoDAO enderecoDAO;
+	PessoaEnderecoDAO enderecoDAO;
 
 	@Autowired
 	CnaeDAO cnaeDAO;
@@ -274,7 +274,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 			empresaDAO.saveOrUpdate(currentBean);
 
-			for (Endereco e : currentBean.getEnderecos()) {
+			for (PessoaEndereco e : currentBean.getEnderecos()) {
 				e.setEmpresa(currentBean);
 				String cep = e.getCep().replace(".", "").replace("-", "").trim();
 				e.setCep(cep);
@@ -417,7 +417,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 
 		try {
-			List<Endereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
+			List<PessoaEndereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
 			currentBean.setEndereco(enderecos);
 			carregarSeguimentos();
 			subView.fillEnderecoSubForm(enderecos);
@@ -464,15 +464,15 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 	}
 
-	public Endereco novoEndereco() {
-		Endereco endereco = new Endereco();
+	public PessoaEndereco novoEndereco() {
+		PessoaEndereco endereco = new PessoaEndereco();
 		this.currentBean.addEndereco(endereco);
 
 		return endereco;
 	}
 
-	public void removerEndereco(List<Endereco> values) {
-		for (Endereco endereco : values) {
+	public void removerEndereco(List<PessoaEndereco> values) {
+		for (PessoaEndereco endereco : values) {
 			this.currentBean.removeEndereco(endereco);
 		}
 

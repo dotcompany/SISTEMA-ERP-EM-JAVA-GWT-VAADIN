@@ -18,8 +18,10 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 
 import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
 
@@ -36,11 +38,11 @@ import dc.entidade.framework.Empresa;
  */
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "pessoa_endereco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,9 +51,6 @@ public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Basic(optional = false)
 	@Column(name = "ID", nullable = false)
 	private Integer id;
-
-	// @Column(name = "EMPRESA_ID")
-	// private Integer empresaId;
 
 	/*
 	 * @Basic(optional = false)
@@ -98,9 +97,10 @@ public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Column(name = "MUNICIPIO_IBGE")
 	private Integer municipioIbge;
 
-	@JoinColumn(name = "ID_UF", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private UF uf;
+	//@JoinColumn(name = "ID_UF", referencedColumnName = "ID")
+	//@ManyToOne(optional = false)
+	@Column(name = "UF")
+	private String uf;
 
 	@Field
 	@Caption("Fone")
@@ -136,10 +136,10 @@ public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@ManyToOne
 	private Pessoa pessoa;
 
-	public Endereco() {
+	public PessoaEndereco() {
 	}
 
-	public Endereco(Integer id) {
+	public PessoaEndereco(Integer id) {
 		this.id = id;
 	}
 
@@ -236,11 +236,11 @@ public class Endereco extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.municipioIbge = municipioIbge;
 	}
 
-	public UF getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 

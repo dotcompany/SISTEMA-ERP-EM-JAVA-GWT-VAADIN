@@ -215,10 +215,10 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
 				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
+					//if (ObjectValidator.validateValue(event)) {
 						controller.ndiPisSetarValor(tfQtdVendidaPis.getId(),
 								event.getProperty().getValue());
-					}
+					//}
 				}
 			}
 		});
@@ -242,10 +242,10 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
 				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
+					//if (ObjectValidator.validateValue(event)) {
 						controller.ndiPisSetarValor(tfBaseCalculoBcPis.getId(),
 								event.getProperty().getValue());
-					}
+					//}
 				}
 			}
 		});

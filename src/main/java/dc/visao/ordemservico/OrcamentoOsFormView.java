@@ -99,7 +99,7 @@ public class OrcamentoOsFormView extends CustomComponent {
 
 		// top-level component properties
 		setWidth("100.0%");
-//		setHeight("100.0%");
+		setHeight("100.0%");
 
 		// fields
 		fields = buildFields();
@@ -177,9 +177,11 @@ public class OrcamentoOsFormView extends CustomComponent {
 	@SuppressWarnings("serial")
 	private TabSheet buildSubFormOrcamentoOs() {
 		// common part: create layout
+		
 		//TabSheet sub = new TabSheet();
+		
 		tabSheet.setWidth("100.0%");
-		tabSheet.setHeight("-1px");
+		//tabSheet.setHeight("100.0%");
 		tabSheet.setSizeFull();
 		tabSheet.setImmediate(true);
 
