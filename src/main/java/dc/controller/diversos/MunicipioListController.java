@@ -21,10 +21,10 @@ public class MunicipioListController extends CRUDListController<Municipio> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private MunicipioDAO dao;
+	MunicipioDAO dao;
 
 	@Autowired
-	private MunicipioFormController municipioFormController;
+	MunicipioFormController municipioFormController;
 
 	@Override
 	protected CRUDFormController<Municipio> getFormController() {

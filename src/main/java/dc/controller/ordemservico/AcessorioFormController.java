@@ -30,7 +30,7 @@ public class AcessorioFormController extends CRUDFormController<Acessorio> {
 
 	@Override
 	protected String getNome() {
-		return "Acessorio";
+		return "Acessório";
 	}
 
 	@Override

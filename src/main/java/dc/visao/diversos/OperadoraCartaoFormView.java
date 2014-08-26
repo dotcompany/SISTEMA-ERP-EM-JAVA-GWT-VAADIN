@@ -14,6 +14,7 @@ import dc.entidade.diversos.OperadoraCartao;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class OperadoraCartaoFormView extends CustomComponent {
 
@@ -80,14 +81,15 @@ public class OperadoraCartaoFormView extends CustomComponent {
 		// common part: create layout
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("100%");
-		mainLayout.setHeight("100%");
+		//mainLayout.setWidth("100%");
+		//mainLayout.setHeight("100%");
+		mainLayout.setSizeFull();
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
 		setWidth("100.0%");
-		setHeight("100.0%");
+		//setHeight("100.0%");
 
 		// panel_1
 		panel_1 = buildPanel_1();
@@ -133,7 +135,6 @@ public class OperadoraCartaoFormView extends CustomComponent {
 		gridLayout_1 = new GridLayout();
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
-		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
 		gridLayout_1.setRows(20);
@@ -144,94 +145,56 @@ public class OperadoraCartaoFormView extends CustomComponent {
 		cmbContaCaixa = new ManyToOneCombo<>();
 		cmbContaCaixa.setCaption("Conta Caixa");
 		cmbContaCaixa.setImmediate(false);
-		cmbContaCaixa.setWidth("240px");
-		cmbContaCaixa.setHeight("-1px");
-		cmbContaCaixa.setSizeFull();
-		gridLayout_1.addComponent(cmbContaCaixa, 0 , 0);
+		gridLayout_1.addComponent(cmbContaCaixa, 0 , 0, 1, 0);
 		
 		// cmbContabilConta
 		cmbContabilConta = new ManyToOneCombo<>();
 		cmbContabilConta.setCaption("Contábil Conta");
 		cmbContabilConta.setImmediate(false);
-		cmbContabilConta.setWidth("240px");
-		cmbContabilConta.setHeight("-1px");
-		cmbContabilConta.setSizeFull();
-		gridLayout_1.addComponent(cmbContabilConta, 0 , 1);
+		gridLayout_1.addComponent(cmbContabilConta, 0 , 1, 1, 1);
 		
 		// txtBandeira
-		txtBandeira = new TextField();
-		txtBandeira.setCaption("Bandeira");
+		txtBandeira = ComponentUtil.buildTextField("Bandeira");
 		txtBandeira.setImmediate(false);
-		txtBandeira.setWidth("-1px");
-		txtBandeira.setHeight("-1px");
 		txtBandeira.setRequired(true);
-		txtBandeira.setSizeFull();
 		gridLayout_1.addComponent(txtBandeira, 0 , 2);
 
 		// txtNome
-		txtNome = new TextField();
-		txtNome.setCaption("Nome");
+		txtNome = ComponentUtil.buildTextField("Nome");
 		txtNome.setImmediate(false);
-		txtNome.setWidth("-1px");
-		txtNome.setHeight("-1px");
 		txtNome.setRequired(true);
-		txtNome.setSizeFull();
 		gridLayout_1.addComponent(txtNome, 1, 2);
 
 		// txtTaxaAdm
-		txtTaxaAdm = new TextField();
-		txtTaxaAdm.setCaption("Taxa ADM");
+		txtTaxaAdm = ComponentUtil.buildCurrencyField("Taxa ADM");
 		txtTaxaAdm.setImmediate(false);
-		txtTaxaAdm.setWidth("-1px");
-		txtTaxaAdm.setHeight("-1px");
-		txtTaxaAdm.setSizeFull();
 		gridLayout_1.addComponent(txtTaxaAdm, 0, 3);
 
 		// txtTaxaAdmDebito
-		txtTaxaAdmDebito = new TextField();
-		txtTaxaAdmDebito.setCaption("Taxa ADM Débito");
+		txtTaxaAdmDebito = ComponentUtil.buildCurrencyField("Taxa ADM Débito");
 		txtTaxaAdmDebito.setImmediate(false);
-		txtTaxaAdmDebito.setWidth("-1px");
-		txtTaxaAdmDebito.setHeight("-1px");
-		txtTaxaAdmDebito.setSizeFull();
 		gridLayout_1.addComponent(txtTaxaAdmDebito, 1, 3);
 
 		// txtValorAluguelPosPin
-		txtValorAluguelPosPin = new TextField();
-		txtValorAluguelPosPin.setCaption("Valor Aluguel Pos Pin");
+		txtValorAluguelPosPin = ComponentUtil.buildCurrencyField("Valor Aluguel Pos Pin");
 		txtValorAluguelPosPin.setImmediate(false);
-		txtValorAluguelPosPin.setWidth("-1px");
-		txtValorAluguelPosPin.setHeight("-1px");
-		txtValorAluguelPosPin.setSizeFull();
 		gridLayout_1.addComponent(txtValorAluguelPosPin, 2, 3);
 
 		// txtVencimentoAluguel
-		txtVencimentoAluguel = new TextField();
-		txtVencimentoAluguel.setCaption("Vencimento Aluguel");
+		txtVencimentoAluguel = ComponentUtil.buildTextField("Vencimento Aluguel");
 		txtVencimentoAluguel.setImmediate(false);
-		txtVencimentoAluguel.setWidth("-1px");
-		txtVencimentoAluguel.setHeight("-1px");
-		txtVencimentoAluguel.setSizeFull();
 		txtVencimentoAluguel.setRequired(true);
 		//txtVencimentoAluguel.setConverter(new IntegerConverter());
 		gridLayout_1.addComponent(txtVencimentoAluguel, 3, 3);
 
 		// txtTelefone1
-		txtTelefone1 = new TextField();
-		txtTelefone1.setCaption("Telefone 1");
+		txtTelefone1 = ComponentUtil.buildTextField("Telefone 1");
 		txtTelefone1.setImmediate(false);
-		txtTelefone1.setWidth("-1px");
-		txtTelefone1.setHeight("-1px");
-		txtTelefone1.setSizeFull();
 		gridLayout_1.addComponent(txtTelefone1, 0, 4);
 
 		// txtTelefone2
-		txtTelefone2 = new TextField();
-		txtTelefone2.setCaption("Telefone 2");
+		txtTelefone2 = ComponentUtil.buildTextField("Telefone 2");
 		txtTelefone2.setImmediate(false);
-		txtTelefone2.setWidth("-1px");
-		txtTelefone2.setHeight("-1px");
-		txtTelefone2.setSizeFull();
 		gridLayout_1.addComponent(txtTelefone2, 1, 4);
 
 		return gridLayout_1;
