@@ -119,9 +119,9 @@ public class EstadoFormView extends CustomComponent {
 		// txtSigla
 		txtSigla = new TextField();
 		txtSigla.setCaption("Sigla");
-		txtSigla.setImmediate(false);
 		txtSigla.setWidth("340px");
 		txtSigla.setHeight("-1px");
+		txtSigla.setImmediate(false);
 		horizontalLayout_1.addComponent(txtSigla);
 
 		// txtCodigoIBGE
