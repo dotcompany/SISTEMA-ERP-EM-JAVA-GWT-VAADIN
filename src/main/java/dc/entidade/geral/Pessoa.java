@@ -93,10 +93,6 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@Column(name = "CONVENIO")
 	private Character convenio;
 
-	/*@Field
-	@Column(name = "CONTADOR")
-	private Character contador;*/
-
 	@Field
 	@Column(name = "TRANSPORTADORA")
 	private Character transportadora;
