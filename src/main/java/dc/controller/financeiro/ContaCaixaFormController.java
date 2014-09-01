@@ -79,7 +79,10 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected void criarNovoBean() {
-		try {
+		
+		currentBean = new ContaCaixa();
+		
+		/*try {
 			this.currentBean = new ContaCaixa();
 
 			this.subView.getTxtNome().setValue(currentBean.getNome());
@@ -93,11 +96,12 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
 	protected void initSubView() {
+		
 		subView = new ContaCaixaFormView();
 
 		this.subView.InitCbs(getContaCaixaTipo());
@@ -182,7 +186,8 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected void quandoNovo() {
-		try {
+		
+		/*try {
 			this.currentBean = new ContaCaixa();
 
 			this.subView.getTxtNome().setValue(currentBean.getNome());
@@ -196,7 +201,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override

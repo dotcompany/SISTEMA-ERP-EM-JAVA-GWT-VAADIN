@@ -105,7 +105,7 @@ public class NCMFormView extends CustomComponent {
 		txtObservacao = new TextField();
 		txtObservacao.setCaption("Observação");
 		txtObservacao.setImmediate(false);
-		txtObservacao.setWidth("680px");
+		txtObservacao.setWidth("690px");
 		txtObservacao.setHeight("-1px");
 		horizontalLayout_2.addComponent(txtObservacao);
 		
