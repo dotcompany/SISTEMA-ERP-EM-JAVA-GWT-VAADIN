@@ -153,9 +153,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		if (isEnabled(currentBean.getColaborador())) {
 			selected.add("Colaborador");
 		}
-		if (isEnabled(currentBean.getConvenio())) {
-			selected.add("Convênio");
-		}
 		if (isEnabled(currentBean.getTransportadora())) {
 			selected.add("Transportadora");
 		}
@@ -239,8 +236,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 					currentBean.setCliente('1');
 				} else if ("Colaborador".equals(value)) {
 					currentBean.setColaborador('1');
-				} else if ("Convênio".equals(value)) {
-					currentBean.setConvenio('1');
 				} else if ("Transportadora".equals(value)) {
 					currentBean.setTransportadora('1');
 				}

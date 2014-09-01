@@ -43,11 +43,6 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "soc", sequenceName = "socio_id_seq", allocationSize = 1)
 	private Integer id;
 
-	@OneToOne
-	@JoinColumn(name="id_pessoa")
-	@Caption(value="Nome")
-	Pessoa pessoa;
-
 	@ManyToOne
 	@JoinColumn(name="id_quadro_societario")
 	QuadroSocietario quadroSocietario;
@@ -102,14 +97,6 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 
 	public QuadroSocietario getQuadroSocietario() {

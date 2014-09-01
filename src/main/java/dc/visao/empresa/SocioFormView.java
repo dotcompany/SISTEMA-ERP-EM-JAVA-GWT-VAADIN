@@ -38,7 +38,7 @@ public class SocioFormView extends CustomComponent {
 
 	Socio currentBean;
 
-	ComboBox cmbSocio, cmbQuadroSocietario,cmbUF;
+	ComboBox cmbQuadroSocietario,cmbUF;
 
 	TextField txtLogradouro, txtNumero, txtComplemento;
 
@@ -75,15 +75,10 @@ public class SocioFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 
-		cmbSocio = ComponentUtil.buildComboBox("Sócio");
-		cmbSocio.setContainerDataSource(controller.carregarPessoas());
-		cmbSocio.setRequired(true);
-		fields.addComponent(cmbSocio, 0, 0);
-
 		cmbQuadroSocietario = ComponentUtil.buildComboBox("Quadro Societário");
 		cmbQuadroSocietario.setContainerDataSource(controller.carregarQuadros());
 		cmbQuadroSocietario.setRequired(true);
-		fields.addComponent(cmbQuadroSocietario, 1, 0);
+		fields.addComponent(cmbQuadroSocietario, 0, 0);
 
 		txtLogradouro = ComponentUtil.buildTextField("Logradouro");
 		fields.addComponent(txtLogradouro, 0, 1, 1, 1);
@@ -192,14 +187,6 @@ public class SocioFormView extends CustomComponent {
 
 	public void setCurrentBean(Socio currentBean) {
 		this.currentBean = currentBean;
-	}
-
-	public ComboBox getCmbSocio() {
-		return cmbSocio;
-	}
-
-	public void setCmbSocio(ComboBox cmbSocio) {
-		this.cmbSocio = cmbSocio;
 	}
 
 	public ComboBox getCmbQuadroSocietario() {

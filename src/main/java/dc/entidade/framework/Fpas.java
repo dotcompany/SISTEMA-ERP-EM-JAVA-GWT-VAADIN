@@ -78,7 +78,7 @@ public class Fpas extends AbstractMultiEmpresaModel<Integer> implements Serializ
     private BigDecimal percentualInssPatronal;
     
     @Column(name = "CODIGO_TERCEIRO")
-    private BigDecimal codigoTerceiro;
+    private String codigoTerceiro;
     
     @Column(name = "PERCENTUAL_TERCEIROS")
     private BigDecimal percentualTerceiros;
@@ -134,11 +134,11 @@ public class Fpas extends AbstractMultiEmpresaModel<Integer> implements Serializ
         this.percentualInssPatronal = percentualInssPatronal;
     }
 
-    public BigDecimal getCodigoTerceiro() {
+    public String getCodigoTerceiro() {
         return codigoTerceiro;
     }
 
-    public void setCodigoTerceiro(BigDecimal codigoTerceiro) {
+    public void setCodigoTerceiro(String codigoTerceiro) {
         this.codigoTerceiro = codigoTerceiro;
     }
 
