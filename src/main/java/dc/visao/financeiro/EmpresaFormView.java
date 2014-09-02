@@ -279,11 +279,11 @@ public class EmpresaFormView extends CustomComponent {
 		tableSeguimentos.setEditable(false);
 		tableSeguimentos.setSelectable(true);
 
-		tableSeguimentos.setColumnHeader(NAME_PROPERTY, "Nome");
-		tableSeguimentos.setColumnHeader(DISCRIPTION_PROPERTY, "Descrição");
+		// tableSeguimentos.setColumnHeader(NAME_PROPERTY, "Nome");
+		// tableSeguimentos.setColumnHeader(DISCRIPTION_PROPERTY, "Descrição");
 
-		tableSeguimentos.setColumnExpandRatio(NAME_PROPERTY, 1.0f);
-		tableSeguimentos.setColumnExpandRatio(DISCRIPTION_PROPERTY, 2.0f);
+		// tableSeguimentos.setColumnExpandRatio(NAME_PROPERTY, 1.0f);
+		// tableSeguimentos.setColumnExpandRatio(DISCRIPTION_PROPERTY, 2.0f);
 		vltSeguimentos.addComponent(tableSeguimentos);
 
 		tableSeguimentos.addItemClickListener(new ItemClickListener() {
@@ -296,7 +296,7 @@ public class EmpresaFormView extends CustomComponent {
 
 		Object[] cs = new Object[] { NAME_PROPERTY, DISCRIPTION_PROPERTY };
 
-		tableSeguimentos.setVisibleColumns(cs);
+		// tableSeguimentos.setVisibleColumns(cs);
 
 		vltSeguimentos.setExpandRatio(hl, 1f);
 		vltSeguimentos.setExpandRatio(tableSeguimentos, 3f);
@@ -543,9 +543,9 @@ public class EmpresaFormView extends CustomComponent {
 	 */
 
 	private SubFormComponent<PessoaEndereco, Integer> buildEnderecoSubForm() {
-		enderecoSubForm = new SubFormComponent<PessoaEndereco, Integer>(PessoaEndereco.class, new String[] { "logradouro", "numero", "complemento", "bairro",
-				"cidade", "cep", "municipioIbge", "fone" }, new String[] { "Logradouro", "Número", "Complemento", "Bairro", "Cidade", "Cep",
-				"Município Ibge", "Telefone" }) {
+		enderecoSubForm = new SubFormComponent<PessoaEndereco, Integer>(PessoaEndereco.class, new String[] { "logradouro", "numero", "complemento",
+				"bairro", "cidade", "cep", "municipioIbge", "fone" }, new String[] { "Logradouro", "Número", "Complemento", "Bairro", "Cidade",
+				"Cep", "Município Ibge", "Telefone" }) {
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {

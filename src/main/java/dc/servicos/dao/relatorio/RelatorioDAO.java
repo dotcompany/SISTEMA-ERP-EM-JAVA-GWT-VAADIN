@@ -1,6 +1,7 @@
 package dc.servicos.dao.relatorio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,19 +40,50 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 		if (menu != null && menu.getId() != null) {
 			final Session session = sessionFactory.getCurrentSession();
 
-			String hql = "select distinct r from Relatorio r " + "join r.usuarios u " + "join r.papeis p " + "join r.empresas e "
-					+ " join r.seguimentos s " + " where r.menu = :menu and r.tipo = :tipo and " + " r.u in (:usuarios)";
+			String hql = "select distinct r from Relatorio r " + " left join r.usuarios u " + " left join r.papeis p " + " left join r.empresas e "
+					+ " left join r.seguimentos s " + " where r.menu = :menu and r.tipo = :tipo  ";
+
+			List<Seguimento> seguimentos = new ArrayList<>();
+			if (!usuario.getAdministrador()) {
+				seguimentos = session.createQuery("from EmpresaSeguimento e where e.empresa = :emp")
+						.setParameter("emp", usuario.getConta().getEmpresa()).list();
+
+				String seguimentosString = "";
+				if (seguimentos.size() > 0) {
+					seguimentosString = " or s.id in (:seguimentos) ";
+				}
+
+				hql += " and ( p.id in (:papeis) or u.id in (:usuarios) or e.id in (:empresas) " + seguimentosString + " )";
+			}
 
 			Query query = session.createQuery(hql);
 			query.setEntity("menu", menu);
 			query.setInteger("tipo", tipoRelatorio.getTipo());
 
-			query.setParameterList("usuarios", new Usuario[] { usuario });
-			// List<Article> articles = query.list();
+			// Forçar sempre exibir para o admin
+			if (!usuario.getAdministrador()) {
+
+				query.setParameterList("papeis", new Integer[] { usuario.getPapel().getId() });
+				query.setParameterList("usuarios", new Integer[] { usuario.getId() });
+				query.setParameterList("empresas", new Integer[] { usuario.getConta().getEmpresa().getId() });
+				if (seguimentos.size() > 0) {
+					query.setParameterList("seguimentos", getSeguimentosIds(seguimentos));
+				}
+			}
 
 			return query.list();
 		} else
 			return null;
+	}
+
+	private Integer[] getSeguimentosIds(List<Seguimento> seguimentos) {
+		if (seguimentos != null) {
+			Integer[] ids = new Integer[seguimentos.size()];
+			for (int i = 0; i < seguimentos.size(); i++) {
+				ids[i] = seguimentos.get(i).getId();
+			}
+		}
+		return new Integer[] {};
 	}
 
 	@Override
