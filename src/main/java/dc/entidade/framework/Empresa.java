@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,13 +43,14 @@ import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
+import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
+import dc.entidade.relatorio.Relatorio;
 import dc.entidade.sistema.ContaEmpresa;
-import dc.entidade.geral.PessoaEndereco;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -283,6 +286,9 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EmpresaSeguimento> empresaSeguimentos;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
+	private Set<Relatorio> relatorios;
 
 	/** CONSTRUTOR */
 

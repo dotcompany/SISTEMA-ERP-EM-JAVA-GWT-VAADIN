@@ -37,25 +37,21 @@ import dc.entidade.framework.Papel;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
  *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
  *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
  *         algumas anotações, na classe e em alguns campos, onde temos as
  *         anotações que é o Field e Caption, o Caption colocamos o nome do
  *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+ *         salvos no Banco de Dados. */
 
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable, UserDetails {
+public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Serializable, UserDetails {
 
 	/**
 	 * 
@@ -104,20 +100,15 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "usernome")
 	private String usernome;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
-			CascadeType.DETACH })
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.DETACH })
 	private ContaEmpresa conta;
 
-	/**
-	 * TRANSIENT
-	 */
+	/** TRANSIENT */
 
 	@Transient
 	private Integer consultaMultiempresa = new Integer(0);
 
-	/**
-	 * CONSTRUTOR
-	 */
+	/** CONSTRUTOR */
 
 	public Usuario() {
 
@@ -127,9 +118,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
-	/**
-	 * GETS AND SETS
-	 */
+	/** GETS AND SETS */
 
 	public Integer getId() {
 		return id;
@@ -176,32 +165,24 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/**
-	 * @return the colaborador
-	 */
+	/** @return the colaborador */
 	public Colaborador getColaborador() {
 		return colaborador;
 	}
 
-	/**
-	 * @param colaborador
-	 *            the colaborador to set
-	 */
+	/** @param colaborador
+	 *            the colaborador to set */
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
 
-	/**
-	 * @return the papel
-	 */
+	/** @return the papel */
 	public Papel getPapel() {
 		return papel;
 	}
 
-	/**
-	 * @param papel
-	 *            the papel to set
-	 */
+	/** @param papel
+	 *            the papel to set */
 	public void setPapel(Papel papel) {
 		this.papel = papel;
 	}
@@ -272,8 +253,6 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
-		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
-				0) : consultaMultiempresa);
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(0) : consultaMultiempresa);
 	}
-
 }

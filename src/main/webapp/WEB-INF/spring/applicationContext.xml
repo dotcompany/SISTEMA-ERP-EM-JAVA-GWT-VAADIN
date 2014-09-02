@@ -78,8 +78,8 @@
 				<prop key="hibernate.cache.provider_class">net.sf.hibernate.cache.OSCacheProvider </prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 				<!-- Em produção, usar hbm2ddl = "validate", NUNCA update ou create-drop -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>

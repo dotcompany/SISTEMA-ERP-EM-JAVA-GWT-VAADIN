@@ -1,7 +1,7 @@
 package dc.entidade.relatorio;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -12,8 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,7 +25,11 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.Empresa;
 import dc.entidade.framework.FmMenu;
+import dc.entidade.framework.Papel;
+import dc.entidade.framework.Seguimento;
+import dc.entidade.geral.Usuario;
 
 @Entity
 @Table(name = "relatorio")
@@ -68,8 +73,21 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 	@Field
 	private Integer tipo;
 
-	@OneToMany(mappedBy = "relatorio", orphanRemoval = true)
-	private List<RelatorioPapel> relatorioPapeis;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "relatorio_papel", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "papel_id", nullable = false, updatable = false) })
+	private Set<Papel> papeis;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "relatorio_seguimento", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id", nullable = false, updatable = false) })
+	private Set<Seguimento> seguimentos;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "relatorio_empresa", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "empresa_id", nullable = false, updatable = false) })
+	private Set<Empresa> empresas;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "relatorio_usuario", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "usuario_id", nullable = false, updatable = false) })
+	private Set<Usuario> usuarios;
 
 	@Override
 	public Integer getId() {
@@ -108,14 +126,6 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 		this.menu = menu;
 	}
 
-	public List<RelatorioPapel> getRelatorioPapeis() {
-		return relatorioPapeis;
-	}
-
-	public void setRelatorioPapeis(List<RelatorioPapel> relatorioPapeis) {
-		this.relatorioPapeis = relatorioPapeis;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -134,6 +144,38 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	public void setTelaParametros(String telaParametros) {
 		this.telaParametros = telaParametros;
+	}
+
+	public Set<Seguimento> getSeguimentos() {
+		return seguimentos;
+	}
+
+	public void setSeguimentos(Set<Seguimento> seguimentos) {
+		this.seguimentos = seguimentos;
+	}
+
+	public Set<Papel> getPapeis() {
+		return papeis;
+	}
+
+	public void setPapeis(Set<Papel> papeis) {
+		this.papeis = papeis;
+	}
+
+	public Set<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(Set<Empresa> empresas) {
+		this.empresas = empresas;
+	}
+
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

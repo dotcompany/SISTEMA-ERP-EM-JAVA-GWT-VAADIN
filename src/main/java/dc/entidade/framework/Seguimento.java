@@ -110,4 +110,12 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 			return false;
 		return true;
 	}
+
+	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
+		return empresaSeguimentos;
+	}
+
+	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
+		this.empresaSeguimentos = empresaSeguimentos;
+	}
 }

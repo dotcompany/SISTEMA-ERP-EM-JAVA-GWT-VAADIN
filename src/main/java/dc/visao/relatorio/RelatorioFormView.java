@@ -400,7 +400,7 @@ public class RelatorioFormView extends CustomComponent {
 		tablePapel.addItemClickListener(new ItemClickListener() {
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				seguimentoSelecionado = seguimentoContainer.getItem(event.getItemId()).getBean();
+				papelSelecionado = papelContainer.getItem(event.getItemId()).getBean();
 
 			}
 		});
@@ -557,6 +557,14 @@ public class RelatorioFormView extends CustomComponent {
 		currentBean.setTipo(((TipoRelatorio) cbTipos.getValue()).getTipo());
 		currentBean.setMenu(comboMenus.getValue());
 		currentBean.setTelaParametros(txTelaParametros.getValue());
+
+		// currentBean.setSeguimentos(seguimentos);
+		// currentBean.setPapeis(papeis);
+		// currentBean.setEmpresas(empresas);
+		// currentBean.setUsuarios(usuarios);
+
+		// currentBean.getUsuarios().retainAll(usuarioContainer.getItemIds());
+		// currentBean.getUsuarios().addAll(usuarioContainer.getItemIds());
 	}
 
 	public void preencheForm(Relatorio currentBean) {
@@ -568,6 +576,24 @@ public class RelatorioFormView extends CustomComponent {
 		File relatorio = new File(currentBean.getJasperPath());
 		relatorioUpload.setValue(relatorio);
 		setNomeRelatorio(relatorio.getName());
+
+		seguimentoContainer.removeAllItems();
+		papelContainer.removeAllItems();
+		empresaContainer.removeAllItems();
+		usuarioContainer.removeAllItems();
+
+		if (currentBean.getSeguimentos() != null) {
+			seguimentoContainer.addAll(currentBean.getSeguimentos());
+		}
+		if (currentBean.getPapeis() != null) {
+			papelContainer.addAll(currentBean.getPapeis());
+		}
+		if (currentBean.getEmpresas() != null) {
+			empresaContainer.addAll(currentBean.getEmpresas());
+		}
+		if (currentBean.getUsuarios() != null) {
+			usuarioContainer.addAll(currentBean.getUsuarios());
+		}
 	}
 
 	public TextField getTxNome() {
@@ -673,6 +699,70 @@ public class RelatorioFormView extends CustomComponent {
 
 	public void mensagemErro(String message) {
 		new Notification(DcConstants.ERROR_TITLE, message, Type.ERROR_MESSAGE, true).show(Page.getCurrent());
+	}
+
+	public ManyToOneCombo<Seguimento> getComboSeguimentos() {
+		return comboSeguimentos;
+	}
+
+	public void setComboSeguimentos(ManyToOneCombo<Seguimento> comboSeguimentos) {
+		this.comboSeguimentos = comboSeguimentos;
+	}
+
+	public ManyToOneCombo<Empresa> getComboEmpresas() {
+		return comboEmpresas;
+	}
+
+	public void setComboEmpresas(ManyToOneCombo<Empresa> comboEmpresas) {
+		this.comboEmpresas = comboEmpresas;
+	}
+
+	public ManyToOneCombo<Papel> getComboPapeis() {
+		return comboPapeis;
+	}
+
+	public void setComboPapeis(ManyToOneCombo<Papel> comboPapeis) {
+		this.comboPapeis = comboPapeis;
+	}
+
+	public ManyToOneCombo<Usuario> getComboUsuarios() {
+		return comboUsuarios;
+	}
+
+	public void setComboUsuarios(ManyToOneCombo<Usuario> comboUsuarios) {
+		this.comboUsuarios = comboUsuarios;
+	}
+
+	public BeanItemContainer<Seguimento> getSeguimentoContainer() {
+		return seguimentoContainer;
+	}
+
+	public void setSeguimentoContainer(BeanItemContainer<Seguimento> seguimentoContainer) {
+		this.seguimentoContainer = seguimentoContainer;
+	}
+
+	public BeanItemContainer<Empresa> getEmpresaContainer() {
+		return empresaContainer;
+	}
+
+	public void setEmpresaContainer(BeanItemContainer<Empresa> empresaContainer) {
+		this.empresaContainer = empresaContainer;
+	}
+
+	public BeanItemContainer<Papel> getPapelContainer() {
+		return papelContainer;
+	}
+
+	public void setPapelContainer(BeanItemContainer<Papel> papelContainer) {
+		this.papelContainer = papelContainer;
+	}
+
+	public BeanItemContainer<Usuario> getUsuarioContainer() {
+		return usuarioContainer;
+	}
+
+	public void setUsuarioContainer(BeanItemContainer<Usuario> usuarioContainer) {
+		this.usuarioContainer = usuarioContainer;
 	}
 
 }

@@ -159,7 +159,7 @@ public abstract class AbstractCrudDAO<T> {
 		}
 	}
 
-	@Transactional
+	@Transactional()
 	public <E> void saveOrUpdate(final E o) {
 		if (o instanceof AbstractMultiEmpresaModel) {
 			@SuppressWarnings("rawtypes")
