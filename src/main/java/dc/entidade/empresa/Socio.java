@@ -46,6 +46,10 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_quadro_societario")
 	QuadroSocietario quadroSocietario;
+	
+	String nome;
+	
+	String cpf;
 
 	String logradouro;
 
@@ -105,6 +109,22 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setQuadroSocietario(QuadroSocietario quadroSocietario) {
 		this.quadroSocietario = quadroSocietario;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getLogradouro() {
