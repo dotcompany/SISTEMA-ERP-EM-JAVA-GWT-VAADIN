@@ -94,6 +94,9 @@ public class SocioFormController extends CRUDFormController<Socio> {
 			if (Validator.validateObject(currentBean.getQuadroSocietario())) {
 				subView.getCmbQuadroSocietario().setValue(currentBean.getQuadroSocietario());
 			}
+			
+			subView.getTxtNome().setValue(currentBean.getNome());
+			subView.getTxtCpf().setValue(currentBean.getCpf());
 
 			subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
 			subView.getTxtNumero().setValue(currentBean.getNumero().toString());
@@ -182,6 +185,9 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		try {
 			QuadroSocietario quadro = (QuadroSocietario) subView.getCmbQuadroSocietario().getValue();
 
+			String nome = subView.getTxtNome().getValue();
+			String cpf = subView.getTxtCpf().getValue();
+			
 			String logradouro = subView.getTxtLogradouro().getValue();
 			String numero = subView.getTxtNumero().getValue();
 			String complemento = subView.getTxtComplemento().getValue();
@@ -203,6 +209,14 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 			if (Validator.validateObject(quadro)) {
 				currentBean.setQuadroSocietario(quadro);
+			}
+			
+			if (Validator.validateObject(nome)) {
+				currentBean.setNome(nome);
+			}
+			
+			if (Validator.validateObject(cpf)) {
+				currentBean.setCpf(cpf);
 			}
 
 			if (Validator.validateObject(logradouro)) {

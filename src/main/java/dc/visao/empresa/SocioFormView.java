@@ -39,6 +39,8 @@ public class SocioFormView extends CustomComponent {
 	Socio currentBean;
 
 	ComboBox cmbQuadroSocietario,cmbUF;
+	
+	TextField txtNome, txtCpf;
 
 	TextField txtLogradouro, txtNumero, txtComplemento;
 
@@ -79,6 +81,12 @@ public class SocioFormView extends CustomComponent {
 		cmbQuadroSocietario.setContainerDataSource(controller.carregarQuadros());
 		cmbQuadroSocietario.setRequired(true);
 		fields.addComponent(cmbQuadroSocietario, 0, 0);
+		
+		txtNome = ComponentUtil.buildTextField("Nome");
+		fields.addComponent(txtNome, 1, 0, 2, 0);
+		
+		txtCpf = ComponentUtil.buildTextField("CPF");
+		fields.addComponent(txtCpf, 3, 0);
 
 		txtLogradouro = ComponentUtil.buildTextField("Logradouro");
 		fields.addComponent(txtLogradouro, 0, 1, 1, 1);
@@ -195,6 +203,22 @@ public class SocioFormView extends CustomComponent {
 
 	public void setCmbQuadroSocietario(ComboBox cmbQuadroSocietario) {
 		this.cmbQuadroSocietario = cmbQuadroSocietario;
+	}
+	
+	public TextField getTxtNome() {
+		return txtNome;
+	}
+
+	public void setTxtNome(TextField txtNome) {
+		this.txtNome = txtNome;
+	}
+
+	public TextField getTxtCpf() {
+		return txtCpf;
+	}
+
+	public void setTxtCpf(TextField txtCpf) {
+		this.txtCpf = txtCpf;
 	}
 
 	public TextField getTxtLogradouro() {
