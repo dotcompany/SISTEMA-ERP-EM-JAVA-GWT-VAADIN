@@ -32,7 +32,7 @@ public class CombustivelFormController extends CRUDFormController<Combustivel> {
 
 	@Override
 	protected String getNome() {
-		return "Combustivel";
+		return "Combustível";
 	}
 
 	@Override

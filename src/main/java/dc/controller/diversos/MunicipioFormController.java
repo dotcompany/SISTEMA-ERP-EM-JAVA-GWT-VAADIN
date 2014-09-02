@@ -55,6 +55,7 @@ public class MunicipioFormController extends CRUDFormController<Municipio> {
 
 	@Override
 	protected void carregar(Serializable id) {
+		
 		currentBean = municipioDAO.find(id);
 
 		subView.getTxtNome().setValue(currentBean.getNome());
@@ -85,8 +86,8 @@ public class MunicipioFormController extends CRUDFormController<Municipio> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
+		
 		municipioDAO.deleteAllByIds(ids);
-
 		mensagemRemovidoOK();
 	}
 

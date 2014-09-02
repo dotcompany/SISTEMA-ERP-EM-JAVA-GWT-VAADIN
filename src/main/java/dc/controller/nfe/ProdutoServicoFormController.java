@@ -1039,16 +1039,16 @@ public class ProdutoServicoFormController extends
 				.getNfeDetalheImpostoIcms();
 		NfeDetalheImpostoIcmsDTO.setarValor(ndiIcms, id, obj);
 
-		Integer index = this.subView.getSfNfeDetalhe().getDados()
-				.indexOf(this.nfeCabecalho.getNfeDetalhe());
+		//Integer index = this.subView.getSfNfeDetalhe().getDados()
+		//		.indexOf(this.nfeCabecalho.getNfeDetalhe());
 
-		this.subView.getSfNfeDetalhe().getDados()
-				.remove(this.nfeCabecalho.getNfeDetalhe());
+		//this.subView.getSfNfeDetalhe().getDados()
+		//		.remove(this.nfeCabecalho.getNfeDetalhe());
 
 		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(ndiIcms);
 
-		this.subView.getSfNfeDetalhe().getDados()
-				.add(index, this.nfeCabecalho.getNfeDetalhe());
+		//this.subView.getSfNfeDetalhe().getDados()
+		//		.add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIiSetarValor(String id, Object obj) {

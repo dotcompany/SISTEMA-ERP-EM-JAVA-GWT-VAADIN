@@ -18,7 +18,6 @@ import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.TipoRelacionamento;
 import dc.servicos.dao.empresa.DependenteDAO;
@@ -26,7 +25,6 @@ import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.servicos.dao.geral.UFDAO;
-import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
@@ -48,9 +46,6 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 	@Autowired
 	TipoRelacionamentoDAO tipoRelacionamentoDAO;
-
-	@Autowired
-	PessoaDAO pessoaDAO;
 
 	@Autowired
 	QuadroSocietarioDAO quadroSocietarioDAO;
@@ -95,10 +90,6 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 		try {
 			carregarCombos();
-
-			if (Validator.validateObject(currentBean.getPessoa())) {
-				subView.getCmbSocio().setValue(currentBean.getPessoa());
-			}
 
 			if (Validator.validateObject(currentBean.getQuadroSocietario())) {
 				subView.getCmbQuadroSocietario().setValue(currentBean.getQuadroSocietario());
@@ -178,7 +169,6 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	}
 
 	void carregarCombos() {
-		carregarPessoas();
 		carregarUFs();
 	}
 
@@ -190,7 +180,6 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	protected void actionSalvar() {
 
 		try {
-			Pessoa socio = (Pessoa) subView.getCmbSocio().getValue();
 			QuadroSocietario quadro = (QuadroSocietario) subView.getCmbQuadroSocietario().getValue();
 
 			String logradouro = subView.getTxtLogradouro().getValue();
@@ -211,10 +200,6 @@ public class SocioFormController extends CRUDFormController<Socio> {
 			String integralizar = subView.getTxtIntegralizar().getValue();
 			Date dataIngresso = subView.getDataIngresso().getValue();
 			Date dataSaida = subView.getDataSaida().getValue();
-
-			if (Validator.validateObject(socio)) {
-				currentBean.setPessoa(socio);
-			}
 
 			if (Validator.validateObject(quadro)) {
 				currentBean.setQuadroSocietario(quadro);
@@ -379,20 +364,8 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		return container;
 	}
 
-	public List<Pessoa> listarPessoas() {
-		return pessoaDAO.listaTodos();
-	}
-
 	public List<QuadroSocietario> listarQuadros() {
 		return quadroSocietarioDAO.listaTodos();
-	}
-
-	public BeanItemContainer<Pessoa> carregarPessoas() {
-		BeanItemContainer<Pessoa> container = new BeanItemContainer<>(Pessoa.class);
-		for (Pessoa p : listarPessoas()) {
-			container.addItem(p);
-		}
-		return container;
 	}
 
 	public BeanItemContainer<QuadroSocietario> carregarQuadros() {

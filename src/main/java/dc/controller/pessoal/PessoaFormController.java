@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
+import dc.controller.produto.SubGrupoProdutoListController;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.PessoaContato;
@@ -23,11 +24,14 @@ import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.PessoaJuridica;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.produto.Produto;
+import dc.entidade.produto.SubGrupoProduto;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.PessoaFisicaDAO;
 import dc.servicos.dao.pessoal.PessoaJuridicaDAO;
+import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -67,12 +71,32 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "PessoaForm";
+		return "pessoaForm";
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
+		
+		if (!Validator.validateObject(subView.getCmbTipoPessoa().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbTipoPessoa(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateString(subView.getTxtEmail().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtEmail(), "Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTxtNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateString(subView.getTxtSite().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtSite(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		return valido;
 	}
@@ -84,11 +108,11 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected void initSubView() {
+		
+		subView = new PessoaFormView(this);
 
 		try {
-
-			subView = new PessoaFormView(this);
-
+			
 			DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(EstadoCivilListController.class,
 					this.estadoCivilDAO, super.getMainController()) {
 
@@ -128,9 +152,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		}
 		if (isEnabled(currentBean.getColaborador())) {
 			selected.add("Colaborador");
-		}
-		if (isEnabled(currentBean.getConvenio())) {
-			selected.add("Convênio");
 		}
 		if (isEnabled(currentBean.getTransportadora())) {
 			selected.add("Transportadora");
@@ -215,13 +236,12 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 					currentBean.setCliente('1');
 				} else if ("Colaborador".equals(value)) {
 					currentBean.setColaborador('1');
-				} else if ("Convênio".equals(value)) {
-					currentBean.setConvenio('1');
 				} else if ("Transportadora".equals(value)) {
 					currentBean.setTransportadora('1');
 				}
 
 			}
+			
 
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
 
@@ -231,9 +251,11 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 				salvarPessoaJuridica();
 			}
 
+			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
-			mensagemErro("Erro!!");
+			
+			//mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
 	}
@@ -293,11 +315,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected void quandoNovo() {
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -313,16 +330,25 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		dao.deleteAllByIds(ids);
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		System.out.println("");
 	}
 
 	@Override
 	public boolean isFullSized() {
 		return true;
+	}
+	
+	public Pessoa getCurrentBean() {
+		return currentBean;
+	}
+
+	public void setCurrentBean(Pessoa currentBean) {
+		this.currentBean = currentBean;
 	}
 
 	public PessoaContato novoContato() {
@@ -349,7 +375,6 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	public Pessoa getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 

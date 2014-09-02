@@ -31,7 +31,7 @@ public class CombustivelListController extends CRUDListController<Combustivel> {
 
 	@Override
 	protected String getTitulo() {
-		return "Combustivel";
+		return "Combustível";
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package dc.visao.framework.component.manytoonecombo;
 
+import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.porotype.iconfont.FontAwesome.Icon;
 import com.sun.istack.logging.Logger;
@@ -17,17 +23,20 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
+import dc.framework.ConfigProperties;
+
 @SuppressWarnings("serial")
+@Component
 public class ManyToOneCombo<T> extends CustomComponent {
 
 	private HorizontalLayout mainLayout;
@@ -44,6 +53,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public static int ITEM_TYPE_CREATE = 1;
 	public static int ITEM_TYPE_SEARCH = 2;
 
+	
 	public static Logger logger = Logger.getLogger(ManyToOneCombo.class);
 
 	public ManyToOneCombo() {
@@ -244,6 +254,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		// cmbResult
 		cmbResult = new DCComboBox();
+		
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(VaadinServlet.getCurrent().getServletContext());
+
+		ConfigProperties config = (ConfigProperties) ctx.getBean(ConfigProperties.class);
+		cmbResult.setFilterChangeTimeout(config.COMBO_DELAYVALUE);
+		//cmbResult.setFilterChangeTimeout(5000);
 
 		cmbResult.setImmediate(true);
 		cmbResult.setSizeFull();
@@ -310,7 +326,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		return item.getBean();
 	}
 
-	class DCComboBox extends ComboBox {
+	class DCComboBox extends AsyncFilterComboBox {
 
 		@Override
 		public void changeVariables(final Object source, final Map<String, Object> variables) {

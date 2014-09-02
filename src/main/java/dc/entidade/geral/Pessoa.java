@@ -89,13 +89,9 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character colaborador;
 
-	@Field
-	@Column(name = "CONVENIO")
-	private Character convenio;
-
 	/*@Field
-	@Column(name = "CONTADOR")
-	private Character contador;*/
+	@Column(name = "CONVENIO")
+	private Character convenio;*/
 
 	@Field
 	@Column(name = "TRANSPORTADORA")
@@ -201,13 +197,13 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.colaborador = colaborador;
 	}
 
-	public Character getConvenio() {
+	/*public Character getConvenio() {
 		return convenio;
 	}
 
 	public void setConvenio(Character convenio) {
 		this.convenio = convenio;
-	}
+	}*/
 
 	/*public Character getContador() {
 		return contador;

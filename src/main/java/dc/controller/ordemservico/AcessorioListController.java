@@ -32,7 +32,7 @@ public class AcessorioListController extends CRUDListController<Acessorio> {
 
 	@Override
 	protected String getTitulo() {
-		return "Acessorio";
+		return "Acessório";
 	}
 
 	@Override
