@@ -203,7 +203,9 @@ public class EmpresaFormView extends CustomComponent {
 
 		comboSeguimentos = new ManyToOneCombo<Seguimento>();
 		comboSeguimentos.setCaption("Seguimento");
-		comboSeguimentos.setSizeFull();
+		comboSeguimentos.setWidth("400px");
+		comboSeguimentos.setHeight("-1px");
+		//comboSeguimentos.setSizeFull();
 
 		hl.addComponent(comboSeguimentos);
 
