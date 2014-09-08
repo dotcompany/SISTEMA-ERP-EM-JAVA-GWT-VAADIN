@@ -3,7 +3,6 @@ package dc.framework;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import org.vaadin.hene.popupbutton.widgetset.client.ui.PopupButtonConnector;
 
 import com.google.gwt.core.ext.typeinfo.JClassType;
@@ -20,10 +19,13 @@ import com.vaadin.client.ui.window.WindowConnector;
 import com.vaadin.server.widgetsetutils.ConnectorBundleLoaderFactory;
 import com.vaadin.shared.ui.Connect.LoadStyle;
 
+import dc.visao.framework.component.manytoonecombo.connector.ButtonHintConnector;
+
 public class OptimizedConnectorBundleLoaderFactory extends ConnectorBundleLoaderFactory {
 	private Set<String> eagerConnectors = new HashSet<String>();
 	{
 		eagerConnectors.add(PasswordFieldConnector.class.getName());
+		eagerConnectors.add(ButtonHintConnector.class.getName());
 		eagerConnectors.add(VerticalLayoutConnector.class.getName());
 		eagerConnectors.add(HorizontalLayoutConnector.class.getName());
 		eagerConnectors.add(ButtonConnector.class.getName());

@@ -3,8 +3,6 @@ package dc.visao.framework.component.manytoonecombo;
 import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +22,6 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
-import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
@@ -36,6 +33,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
 import dc.framework.ConfigProperties;
+import dc.visao.framework.component.manytoonecombo.extensions.ButtonHintExtension;
 
 @SuppressWarnings("serial")
 @Component
@@ -70,10 +68,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		// lblEdit
 		layout.setSpacing(false);
 		this.btnNew = new Button();
+		
 		btnNew.setCaption(Icon.file.toString());
 		btnNew.setHtmlContentAllowed(true);
 		btnNew.setId("lblNew");
 		btnNew.setWidth("22px");
+		btnNew.setIconAlternateText("Criar Novo");
+		btnNew.setDescription("Criar Novo");
 		btnNew.addClickListener(new ClickListener() {
 			
 			@Override
@@ -102,6 +103,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnAdvancedSearch.setHtmlContentAllowed(true);
 		btnAdvancedSearch.setId("lblAdvSearch");
 		btnAdvancedSearch.setWidth("22px");
+		btnAdvancedSearch.setIconAlternateText("Busca avançada");
+		btnAdvancedSearch.setDescription("Busca avançada");
 		btnAdvancedSearch.addClickListener(new ClickListener() {
 			
 			@Override
@@ -328,12 +331,17 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnEdit.setHtmlContentAllowed(true);
 		btnEdit.setId("lblEdit");
 		btnEdit.setWidth("22px");
+		btnEdit.setIconAlternateText("Editar");
+		btnEdit.setDescription("Editar");
+		//ButtonHintExtension.addHint("Editar",btnEdit);
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
 		try{
 		  UI.getCurrent().getPage().getStyles()
 				.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
 		  UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{float:left;} ");
+		  
+		  
 		}catch(Exception e){}
 
 		return mainLayout;
