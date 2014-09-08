@@ -790,7 +790,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends Contro
 	private void permissaoOperacao() {
 		Usuario usuario = ClasseUtil.getUsuario();
 
-		if (!usuario.getLogin().equals("admin@dotcompanyerp.com.br")) {
+		if (!usuario.getLogin().equals(DcConstants.ADMIN_USERNAME)) {
 			List<FmModulo> auxLista = this.mDAO.getModuloLista(usuario);
 
 			List<FmMenu> auxLista1 = this.meDAO.getMenuLista(auxLista, this.getFormController().getListController().getClass().getName());

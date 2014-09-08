@@ -3,13 +3,14 @@ package dc.visao.framework.component.manytoonecombo;
 import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -23,6 +24,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
@@ -41,6 +43,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	private HorizontalLayout mainLayout;
 	private Button btnEdit;
+	private Button btnNew;
 	private DCComboBox cmbResult;
 	private ItemValue createItemValue;
 	private ItemValue searchItemValue;
@@ -58,8 +61,61 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	public ManyToOneCombo() {
 		buildMainLayout();
+		addCustomButtons(mainLayout);
 		setCompositionRoot(mainLayout);
 
+	}
+
+	private void addCustomButtons(HorizontalLayout layout) {
+		// lblEdit
+		layout.setSpacing(false);
+		this.btnNew = new Button();
+		btnNew.setCaption(Icon.file.toString());
+		btnNew.setHtmlContentAllowed(true);
+		btnNew.setId("lblNew");
+		btnNew.setWidth("22px");
+		btnNew.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				ItemValue val = (ItemValue) cmbResult.getValue();
+				if(val != null && val.getFilter() != null ){
+					model.onCriarNovo(val.getFilter());
+				}else{
+					model.onCriarNovo("");
+				}
+				
+			}
+		});
+		
+		layout.addComponent(btnNew);
+		layout.setComponentAlignment(btnNew, Alignment.BOTTOM_LEFT);
+		try{
+			  UI.getCurrent().getPage().getStyles()
+					.add("#lblNew i { font-size: 12pt; } #lblNew { padding: 5px 1px 3px 4px; float:left; }");
+			}catch(Exception e){}
+		
+		
+		Button btnAdvancedSearch = new Button();
+		btnAdvancedSearch.setCaption(Icon.search.toString());
+		btnAdvancedSearch.setHtmlContentAllowed(true);
+		btnAdvancedSearch.setId("lblAdvSearch");
+		btnAdvancedSearch.setWidth("22px");
+		btnAdvancedSearch.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				model.onAdvancedSearch();
+			}
+		});
+		
+		layout.addComponent(btnAdvancedSearch);
+		layout.setComponentAlignment(btnAdvancedSearch, Alignment.BOTTOM_LEFT);
+		try{
+			  UI.getCurrent().getPage().getStyles()
+					.add("#lblAdvSearch i { font-size: 12pt; } #lblAdvSearch { padding: 5px 1px 3px 4px; float:left;}");
+			}catch(Exception e){}
 	}
 
 	@SuppressWarnings("serial")
@@ -243,13 +299,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	private HorizontalLayout buildMainLayout() {
 		mainLayout = new HorizontalLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("100%");
+		mainLayout.setWidthUndefined();
 		mainLayout.setHeight("100%");
 		mainLayout.setMargin(false);
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
-		setWidth("100.0%");
+		//setWidth("100.0%");
 		setHeight("100.0%");
 
 		// cmbResult
@@ -271,12 +327,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnEdit.setCaption(Icon.edit.toString());
 		btnEdit.setHtmlContentAllowed(true);
 		btnEdit.setId("lblEdit");
-		btnEdit.setWidth("27px");
+		btnEdit.setWidth("22px");
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
 		try{
 		  UI.getCurrent().getPage().getStyles()
-				.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left; margin-left: -8px;}");
+				.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
 		  UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{float:left;} ");
 		}catch(Exception e){}
 
@@ -299,6 +355,11 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		this.model = model;
 		if (model instanceof DefaultManyToOneComboModel) {
 			((DefaultManyToOneComboModel) this.model).setCombo(this);
+			if (((DefaultManyToOneComboModel) this.model).permissionToCreateOrEdit()){
+				btnEdit.setVisible(false);
+				btnNew.setVisible(false);
+			}
+			
 		}
 		setupActions();
 	}

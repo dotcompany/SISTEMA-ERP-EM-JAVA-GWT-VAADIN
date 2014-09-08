@@ -198,7 +198,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
 		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
-
 		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu);
 	}
 
@@ -231,6 +230,16 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		ctrl.openOnNewWindow(modalSize, CRUDListController.WINDOW_LIST);
 
+	}
+
+	public boolean permissionToCreateOrEdit() {
+		// TODO Auto-generated method stub
+		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
+		if (menu.getPermissaoOperacao() == 1){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }
