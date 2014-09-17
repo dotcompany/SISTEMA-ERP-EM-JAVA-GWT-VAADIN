@@ -25,7 +25,6 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
@@ -38,6 +37,7 @@ import com.vaadin.ui.CustomTable.ColumnResizeEvent;
 import com.vaadin.ui.CustomTable.ColumnResizeListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -50,7 +50,6 @@ import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
-import dc.entidade.relatorio.RelatorioParameterView;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -58,7 +57,6 @@ import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.DCFilterDecorator;
 import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
@@ -158,21 +156,14 @@ public abstract class CRUDListController<E extends AbstractModel> extends Contro
 			}
 		});
 
-		// TODO Exibir só os que o user tiver permissão
 		List<Relatorio> relatorios = relatorioDAO.findRelatoriosByMenuAndUserAndType(fmMenuDAO.getMenu(this.getClass().getName()),
 				SecuritySessionProvider.getUsuario(), TipoRelatorio.LISTAGEM);
 
 		if (relatorios != null && relatorios.size() > 0) {
+			RelatorioMenuBuilder builder = new RelatorioMenuBuilder();
+			MenuBar relatorioMenu = builder.buildRelatorioMenu(relatorios, this, applicationContext);
 
-			for (Relatorio relatorio : relatorios) {
-				Button relatorioButton = new Button(relatorio.getNome());
-
-				addButtonListenerReport(relatorioButton, relatorio);
-
-				view.getPopupButtonReportContent().addComponent(relatorioButton);
-			}
-		} else {
-			view.getPbReport().setVisible(false);
+			view.getHorizontalLayout_3().addComponent(relatorioMenu, 0);
 		}
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
@@ -232,20 +223,6 @@ public abstract class CRUDListController<E extends AbstractModel> extends Contro
 
 			}
 		});
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
-		RelatorioParameterView relatorioParameterView = null;
-		if (Validator.validateString(relatorio.getTelaParametros())) {
-			try {
-				Class clazz = Class.forName(relatorio.getTelaParametros());
-				relatorioParameterView = (RelatorioParameterView) applicationContext.getBean(clazz);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this, relatorioParameterView));
 	}
 
 	/*

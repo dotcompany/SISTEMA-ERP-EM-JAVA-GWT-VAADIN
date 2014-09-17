@@ -182,11 +182,11 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu) {
+	public List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu, Boolean getAll) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
-		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
+		if (!getAll && isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
 		}
 
@@ -214,12 +214,20 @@ public abstract class AbstractCrudDAO<T> {
 		return AbstractMultiEmpresaModel.class.isAssignableFrom(c);
 	}
 
-	public boolean isConsultaMultiEmpresa(@SuppressWarnings("rawtypes") Class c, FmMenu ent) {
+	public boolean isConsultaMultiEmpresa(@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll) {
+		if (getAll != null && getAll) {
+			return false;
+		}
+
 		if (ent != null) {
 			return isMultiEmpresa(c) && ent.isConsultaMultiempresa();
 		} else {
 			return isMultiEmpresa(c);
 		}
+	}
+
+	public boolean isConsultaMultiEmpresa(@SuppressWarnings("rawtypes") Class c, FmMenu ent) {
+		return isConsultaMultiEmpresa(c, ent, false);
 	}
 
 	@Transactional
@@ -248,7 +256,7 @@ public abstract class AbstractCrudDAO<T> {
 			sortingFields[i] = new SortField(sortingFieldsStrings[i], SortField.STRING, sortStates[i]);
 		}
 
-		org.apache.lucene.search.Query query = createQuery(value, searchFields, menu, filters, fullTextSession);
+		org.apache.lucene.search.Query query = createQuery(value, searchFields, menu, filters, fullTextSession, null);
 
 		FullTextQuery q = fullTextSession.createFullTextQuery(query, getEntityClass());
 
@@ -264,10 +272,10 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	private org.apache.lucene.search.Query createQuery(String value, String[] searchFields, FmMenu menu, List<Filter> filters,
-			FullTextSession fullTextSession) {
+			FullTextSession fullTextSession, Boolean getAll) {
 		org.apache.lucene.search.Query query;
 
-		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
+		if (isConsultaMultiEmpresa(getEntityClass(), menu, getAll)) {
 			query = createMultiEmpresaQuery(value, searchFields, menu, filters);
 		} else {
 			query = createSimpleFullTextQuery(value, searchFields, fullTextSession, filters);
@@ -280,7 +288,7 @@ public abstract class AbstractCrudDAO<T> {
 	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
 
-		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession);
+		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);
 
 		return fullTextSession.createFullTextQuery(query, getEntityClass()).list().size();
 	}
@@ -613,12 +621,12 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
-	public List<T> comboTextSearch(String value, FmMenu menu) {
+	public List<T> comboTextSearch(String value, FmMenu menu, Boolean getAll) {
 		String[] fields = { comboCode, comboValue };
 
 		FullTextSession fullTextSession = getFullTextSession();
 		List<T> resultSet = new ArrayList<T>();
-		org.apache.lucene.search.Query booleanQuery = createQuery(value, fields, menu, null, fullTextSession);
+		org.apache.lucene.search.Query booleanQuery = createQuery(value, fields, menu, null, fullTextSession, getAll);
 		resultSet = fullTextSession.createFullTextQuery(booleanQuery, getEntityClass()).setFirstResult(0).list();
 
 		return resultSet;

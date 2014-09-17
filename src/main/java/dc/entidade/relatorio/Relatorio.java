@@ -1,6 +1,7 @@
 package dc.entidade.relatorio;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -75,19 +77,26 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_papel", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "papel_id", nullable = false, updatable = false) })
-	private Set<Papel> papeis;
+	private Set<Papel> papeis = new HashSet<>();;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_seguimento", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id", nullable = false, updatable = false) })
-	private Set<Seguimento> seguimentos;
+	private Set<Seguimento> seguimentos = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_empresa", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "empresa_id", nullable = false, updatable = false) })
-	private Set<Empresa> empresas;
+	private Set<Empresa> empresas = new HashSet<>();;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_usuario", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "usuario_id", nullable = false, updatable = false) })
-	private Set<Usuario> usuarios;
+	private Set<Usuario> usuarios = new HashSet<>();;
+
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "parent_id")
+	private Relatorio relatorioParent;
+
+	@OneToMany(mappedBy = "relatorioParent")
+	private Set<Relatorio> relatoriosChildren = new HashSet<Relatorio>();
 
 	@Override
 	public Integer getId() {
@@ -176,6 +185,27 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Relatorio getRelatorioParent() {
+		return relatorioParent;
+	}
+
+	public void setRelatorioParent(Relatorio relatorioParent) {
+		this.relatorioParent = relatorioParent;
+	}
+
+	public Set<Relatorio> getRelatoriosChildren() {
+		return relatoriosChildren;
+	}
+
+	public void setRelatoriosChildren(Set<Relatorio> relatoriosChildren) {
+		this.relatoriosChildren = relatoriosChildren;
+	}
+
+	@Override
+	public String toString() {
+		return this.getNome();
 	}
 
 }

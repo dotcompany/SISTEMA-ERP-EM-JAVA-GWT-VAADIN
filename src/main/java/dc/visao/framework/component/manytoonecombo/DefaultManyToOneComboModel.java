@@ -30,15 +30,21 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	private MainController mainController;
 	private int modalSize = 1; // Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
+	private Boolean getAll;
 
 	public static final int FULL_SIZE_MODAL = 1;
 	public static final int MEDIUM_SIZE_MODAL = 2;
 	public static final int SMALL_SIZE_MODAL = 3;
 
 	public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController) {
+		this(controllerClass, dao, mainController, false);
+	}
+
+	public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, Boolean getAll) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
+		this.getAll = getAll;
 	}
 
 	public void setModalSize(int modalSizeType) {
@@ -83,7 +89,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		FmMenu menu = ctrl.getMenu();
 
-		return dao.comboTextSearch(q, menu);
+		return dao.comboTextSearch(q, menu, getAll);
 	}
 
 	@Override
@@ -198,7 +204,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
 		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
-		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu);
+		return dao.getAllForCombo(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu, this.getAll);
 	}
 
 	@Override
@@ -235,9 +241,9 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public boolean permissionToCreateOrEdit() {
 		// TODO Auto-generated method stub
 		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
-		if (menu.getPermissaoOperacao() == 1){
+		if (menu.getPermissaoOperacao() == 1) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

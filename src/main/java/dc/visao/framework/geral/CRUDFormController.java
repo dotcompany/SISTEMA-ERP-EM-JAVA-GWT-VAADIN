@@ -20,24 +20,23 @@ import com.vaadin.server.Page;
 import com.vaadin.server.UserError;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractField;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.Layout;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
 import dc.entidade.relatorio.Relatorio;
-import dc.entidade.relatorio.RelatorioParameterView;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.relatorio.RelatorioDAO;
-import dc.servicos.util.Validator;
 import dc.visao.spring.SecuritySessionProvider;
 
 /** @author Wesley Jr /* Nessa classe temos a configuração da Tela, todos os
@@ -165,16 +164,10 @@ public abstract class CRUDFormController<E extends AbstractModel> extends Contro
 				fmMenuDAO.getMenu(this.getListController().getClass().getName()), SecuritySessionProvider.getUsuario(), TipoRelatorio.FORMULARIO);
 
 		if (relatorios != null && relatorios.size() > 0) {
-
-			for (Relatorio relatorio : relatorios) {
-				Button relatorioButton = new Button(relatorio.getNome());
-
-				addButtonListenerReport(relatorioButton, relatorio);
-
-				view.getPopupButtonReportContent().addComponent(relatorioButton);
-			}
-		} else {
-			view.getPbReport().setVisible(false);
+			RelatorioMenuBuilder builder = new RelatorioMenuBuilder();
+			MenuBar relatorioMenu = builder.buildRelatorioMenu(relatorios, this.listController, applicationContext);
+			view.getHorizontalLayout_3().addComponent(relatorioMenu, 0);
+			view.getHorizontalLayout_3().setComponentAlignment(relatorioMenu, new Alignment(34));
 		}
 	}
 
@@ -406,20 +399,6 @@ public abstract class CRUDFormController<E extends AbstractModel> extends Contro
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void addButtonListenerReport(Button relatorioButton, final Relatorio relatorio) {
-		RelatorioParameterView relatorioParameterView = null;
-		if (Validator.validateString(relatorio.getTelaParametros())) {
-			try {
-				Class clazz = Class.forName(relatorio.getTelaParametros());
-				relatorioParameterView = (RelatorioParameterView) applicationContext.getBean(clazz);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		relatorioButton.addClickListener(new RelatorioButtonListener(relatorio, this.listController, relatorioParameterView));
-	}
-
 	public abstract E getModelBean();
 
 	class ChangeListener implements ValueChangeListener {
@@ -432,7 +411,6 @@ public abstract class CRUDFormController<E extends AbstractModel> extends Contro
 		@Override
 		public void valueChange(ValueChangeEvent event) {
 			changed = true;
-
 		}
 
 	}

@@ -1,7 +1,10 @@
 package dc.controller.relatorio;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +13,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vaadin.server.FileDownloader;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Component;
 
 import dc.controller.financeiro.EmpresaListController;
@@ -95,6 +101,17 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		currentBean = relatorioDAO.find(id);
 
 		subView.preencheForm(currentBean);
+
+		if (currentBean.getJasperPath() != null) {
+			subView.getBtnDownload().setVisible(true);
+			StreamResource myResource = createResource();
+			if (myResource != null) {
+				FileDownloader fileDownloader = new FileDownloader(myResource);
+				fileDownloader.extend(subView.getBtnDownload());
+			}
+		} else {
+			subView.getBtnDownload().setVisible(false);
+		}
 	}
 
 	/*
@@ -118,21 +135,24 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 			}
 		};
 
+		DefaultManyToOneComboModel<Relatorio> relatoriosModel = new DefaultManyToOneComboModel<Relatorio>(RelatorioListController.class,
+				this.relatorioDAO, super.getMainController(), true);
+
 		DefaultManyToOneComboModel<Seguimento> seguimentoModel = new DefaultManyToOneComboModel<Seguimento>(SeguimentoListController.class,
-				this.seguimentoDAO, super.getMainController());
+				this.seguimentoDAO, super.getMainController(), true);
 
 		DefaultManyToOneComboModel<Usuario> usuarioModel = new DefaultManyToOneComboModel<Usuario>(UsuarioListController.class, this.usuarioDAO,
-				super.getMainController()) {
+				super.getMainController(), true) {
 			@Override
 			public String getCaptionProperty() {
 				return "login";
 			}
 		};
 		DefaultManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(PapelListController.class, this.papelDAO,
-				super.getMainController());
+				super.getMainController(), true);
 
 		DefaultManyToOneComboModel<Empresa> empresa = new DefaultManyToOneComboModel<Empresa>(EmpresaListController.class, this.empresaDAO,
-				super.getMainController()) {
+				super.getMainController(), true) {
 			@Override
 			public String getCaptionProperty() {
 				return "nomeFantasia";
@@ -144,6 +164,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		subView.getComboEmpresas().setModel(empresa);
 		subView.getComboPapeis().setModel(papelModel);
 		subView.getComboUsuarios().setModel(usuarioModel);
+		subView.getComboRelatorios().setModel(relatoriosModel);
 	}
 
 	/*
@@ -198,6 +219,26 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 
 			relatorioForm.delete();
 		}
+	}
+
+	public StreamResource createResource() {
+		return new StreamResource(new StreamSource() {
+			@Override
+			public InputStream getStream() {
+				try {
+					return new FileInputStream(currentBean.getJasperPath());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
+		}, getFileName(currentBean.getJasperPath()));
+	}
+
+	private String getFileName(String jasperPath) {
+		String[] split = jasperPath.split("\\\\|/");
+		return split[split.length - 1];
 	}
 
 	@Override

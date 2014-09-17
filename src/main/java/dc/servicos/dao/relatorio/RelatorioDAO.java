@@ -129,7 +129,7 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			empresas.add((Empresa) sessionFactory.getCurrentSession().get(Empresa.class, empresa.getId()));
 		}
 
-		Relatorio dbBean;
+		Relatorio dbBean = null;
 		if (relatorio.getId() != null) {
 			dbBean = find(relatorio.getId());
 			dbBean.getPapeis().retainAll(papeis);
@@ -147,9 +147,6 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			dbBean.getSeguimentos().retainAll(seguimentos);
 			seguimentos.removeAll(dbBean.getSeguimentos());
 			dbBean.getSeguimentos().addAll(seguimentos);
-		} else {
-			dbBean = relatorio;
-			dbBean.setPapeis(papeis);
 		}
 		return dbBean;
 	}

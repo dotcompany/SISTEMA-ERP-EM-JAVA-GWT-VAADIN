@@ -32,6 +32,7 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 	private MainController mainController;
 	private int modalSize = 1; // Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
+	private Boolean getAll;
 
 	public static final int FULL_SIZE_MODAL = 1;
 	public static final int MEDIUM_SIZE_MODAL = 2;
@@ -39,11 +40,17 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 
 	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,
 			Integer idSelected) {
+		this(controllerClass, dao, mainController, classSelect, idSelected, false);
+	}
+
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,
+			Integer idSelected, Boolean getAll) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
 		this.classSelect = classSelect;
 		this.idSelected = idSelected;
+		this.getAll = getAll;
 	}
 
 	public void setModalSize(int modalSizeType) {
@@ -86,7 +93,7 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 
 		FmMenu menu = ctrl.getMenu();
 
-		return dao.comboTextSearch(q, menu);
+		return dao.comboTextSearch(q, menu, this.getAll);
 	}
 
 	@Override

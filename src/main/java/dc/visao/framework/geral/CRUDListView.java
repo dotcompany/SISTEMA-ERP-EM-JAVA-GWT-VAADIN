@@ -177,12 +177,12 @@ public class CRUDListView extends CustomComponent implements View {
 		horizontalLayout_2 = buildHorizontalLayout_2();
 		mainLayout.addComponent(horizontalLayout_2);
 
-		popupButtonContent = buildPopupButtonContentLayout();
+		// popupButtonContent = buildPopupButtonContentLayout();
 
-		PopupButton pb = new PopupButton("Ações");
-		pb.setContent(popupButtonContent);
+		// PopupButton pb = new PopupButton("Ações");
+		// pb.setContent(popupButtonContent);
 
-		mainLayout.addComponent(pb);
+		// mainLayout.addComponent(pb);
 
 		// vltTabela
 		vltTabela = new VerticalLayout();
@@ -320,13 +320,6 @@ public class CRUDListView extends CustomComponent implements View {
 		horizontalLayout_3.setHeight("-1px");
 		horizontalLayout_3.setMargin(false);
 
-		popupButtonReportContent = buildPopupButtonReportLayout();
-
-		pbReport = new PopupButton("Relatórios");
-		pbReport.setContent(popupButtonReportContent);
-
-		horizontalLayout_3.addComponent(pbReport);
-
 		// btnCriar
 		btnCriar = new Button();
 		btnCriar.setCaption("Criar");
@@ -355,16 +348,6 @@ public class CRUDListView extends CustomComponent implements View {
 		return horizontalLayout_3;
 	}
 
-	private VerticalLayout buildPopupButtonReportLayout() {
-		popupButtonReportContent = new VerticalLayout();
-		popupButtonReportContent.setImmediate(false);
-		popupButtonReportContent.setWidth("-1px");
-		popupButtonReportContent.setHeight("-1px");
-		popupButtonReportContent.setMargin(true);
-		popupButtonReportContent.setSpacing(true);
-		return popupButtonReportContent;
-	}
-
 	public HorizontalLayout getPopupButtonContent() {
 		return popupButtonContent;
 	}
@@ -387,6 +370,22 @@ public class CRUDListView extends CustomComponent implements View {
 
 	public void setPbReport(PopupButton pbReport) {
 		this.pbReport = pbReport;
+	}
+
+	public HorizontalLayout getHorizontalLayout_2() {
+		return horizontalLayout_2;
+	}
+
+	public void setHorizontalLayout_2(HorizontalLayout horizontalLayout_2) {
+		this.horizontalLayout_2 = horizontalLayout_2;
+	}
+
+	public HorizontalLayout getHorizontalLayout_3() {
+		return horizontalLayout_3;
+	}
+
+	public void setHorizontalLayout_3(HorizontalLayout horizontalLayout_3) {
+		this.horizontalLayout_3 = horizontalLayout_3;
 	}
 
 	/*

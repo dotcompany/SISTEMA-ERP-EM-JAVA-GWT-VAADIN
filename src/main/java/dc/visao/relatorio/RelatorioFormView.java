@@ -1,7 +1,5 @@
 package dc.visao.relatorio;
 
-import java.io.File;
-
 import org.vaadin.dialogs.ConfirmDialog;
 import org.vaadin.easyuploads.FileBuffer;
 import org.vaadin.easyuploads.UploadField;
@@ -68,6 +66,7 @@ public class RelatorioFormView extends CustomComponent {
 	private ComboBox cbTipos;
 
 	private ManyToOneCombo<FmMenu> comboMenus;
+	private ManyToOneCombo<Relatorio> comboRelatorios;
 
 	private ManyToOneCombo<Seguimento> comboSeguimentos;
 	private Table tableSeguimentos;
@@ -88,6 +87,8 @@ public class RelatorioFormView extends CustomComponent {
 	private Table tableUsuarios;
 	private BeanItemContainer<Usuario> usuarioContainer;
 	private Usuario usuarioSelecionado;
+
+	private Button btnDownload;
 
 	public RelatorioFormView() {
 		buildMainLayout();
@@ -518,8 +519,8 @@ public class RelatorioFormView extends CustomComponent {
 		detalhesLayout.setHeight("-1px");
 		detalhesLayout.setMargin(true);
 		detalhesLayout.setSpacing(true);
-		detalhesLayout.setRows(6);
-		detalhesLayout.setColumns(1);
+		detalhesLayout.setRows(7);
+		detalhesLayout.setColumns(3);
 
 		// top-level component properties
 		setWidth("100.0%");
@@ -543,12 +544,22 @@ public class RelatorioFormView extends CustomComponent {
 		relatorioUpload = new UploadField();
 		relatorioUpload.setCaption("Relatório");
 		relatorioUpload.setImmediate(false);
+		relatorioUpload.setHeight("-1px");
+		relatorioUpload.setWidth("-1px");
 		detalhesLayout.addComponent(relatorioUpload, 0, 4);
+
+		btnDownload = new Button("Download Arquivo Relatório");
+		detalhesLayout.addComponent(btnDownload, 1, 4);
 
 		comboMenus = new ManyToOneCombo<FmMenu>();
 		comboMenus.setCaption("Menu");
 		comboMenus.setSizeFull();
 		detalhesLayout.addComponent(comboMenus, 0, 5);
+
+		comboRelatorios = new ManyToOneCombo<Relatorio>();
+		comboRelatorios.setCaption("Relatório Pai");
+		comboRelatorios.setSizeFull();
+		detalhesLayout.addComponent(comboRelatorios, 0, 6);
 	}
 
 	public void preencheBean(Relatorio currentBean) {
@@ -557,25 +568,20 @@ public class RelatorioFormView extends CustomComponent {
 		currentBean.setTipo(((TipoRelatorio) cbTipos.getValue()).getTipo());
 		currentBean.setMenu(comboMenus.getValue());
 		currentBean.setTelaParametros(txTelaParametros.getValue());
+		currentBean.setRelatorioParent(comboRelatorios.getValue());
 
-		// currentBean.setSeguimentos(seguimentos);
-		// currentBean.setPapeis(papeis);
-		// currentBean.setEmpresas(empresas);
-		// currentBean.setUsuarios(usuarios);
-
-		// currentBean.getUsuarios().retainAll(usuarioContainer.getItemIds());
-		// currentBean.getUsuarios().addAll(usuarioContainer.getItemIds());
 	}
 
 	public void preencheForm(Relatorio currentBean) {
 		txNome.setValue(currentBean.getNome());
 		txDescricao.setValue(currentBean.getDescricao());
 		comboMenus.setValue(currentBean.getMenu());
+
+		if (currentBean.getRelatorioParent() != null) {
+			comboRelatorios.setValue(currentBean.getRelatorioParent());
+		}
 		cbTipos.setValue(TipoRelatorio.getEnum(currentBean.getTipo()));
 		txTelaParametros.setValue(currentBean.getTelaParametros());
-		File relatorio = new File(currentBean.getJasperPath());
-		relatorioUpload.setValue(relatorio);
-		setNomeRelatorio(relatorio.getName());
 
 		seguimentoContainer.removeAllItems();
 		papelContainer.removeAllItems();
@@ -763,6 +769,22 @@ public class RelatorioFormView extends CustomComponent {
 
 	public void setUsuarioContainer(BeanItemContainer<Usuario> usuarioContainer) {
 		this.usuarioContainer = usuarioContainer;
+	}
+
+	public ManyToOneCombo<Relatorio> getComboRelatorios() {
+		return comboRelatorios;
+	}
+
+	public void setComboRelatorios(ManyToOneCombo<Relatorio> comboRelatorios) {
+		this.comboRelatorios = comboRelatorios;
+	}
+
+	public Button getBtnDownload() {
+		return btnDownload;
+	}
+
+	public void setBtnDownload(Button btnDownload) {
+		this.btnDownload = btnDownload;
 	}
 
 }
