@@ -25,7 +25,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.3.0";
+	content: "7.3.1";
 }
 
 .v-generated-body {
@@ -6276,7 +6276,7 @@ body .dotcompany.v-app .v-app-loading {
 	color: #000;
 }
 
-.relatorio-bar{
+.dotcompany .relatorio-bar {
 	color: #5a6066;
 	padding: 0.1em 1.4em;
 	padding-bottom: 0.25em;
@@ -6300,7 +6300,6 @@ body .dotcompany.v-app .v-app-loading {
 	background: -ms-linear-gradient(top, #ffffff 0%, #fafafa 5%, #eaebec 94%, #e2e3e4 100%);
 }
 
-
-.v-menubar-submenu-relatorio-bar{
+.dotcompany .v-menubar-submenu-relatorio-bar {
 	border: none !important;
 }
