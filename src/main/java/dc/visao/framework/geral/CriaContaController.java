@@ -50,6 +50,7 @@ public class CriaContaController implements Serializable, ViewController {
 		logger.info(String.valueOf(c) + c.getNome() + c.getEmail());
 		try{
 			currentBean.getEmpresa().setRazaoSocial(currentBean.getEmpresa().getNomeFantasia());
+			currentBean.getEmpresa().setConta(currentBean);
 			currentBean.getUsuarioCriador().setLogin(currentBean.getEmail());
 			currentBean.getUsuarioCriador().setAdministrador(true);
 			currentBean.getUsuarioCriador().setUsernome(currentBean.getNome());

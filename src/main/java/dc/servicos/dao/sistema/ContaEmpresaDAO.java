@@ -6,6 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.framework.Papel;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -51,6 +52,14 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 		// criteria.createCriteria("modulos.menus").setFetchMode("menusFilho",
 		// FetchMode.JOIN);
 		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
+	}
+	
+	@Override
+	@Transactional
+	public void save(ContaEmpresa currentBean) {
+		Papel p = (Papel) getSession().get(Papel.class, Papel.MASTER_ID);
+		currentBean.getUsuarioCriador().setPapel(p);
+		super.save(currentBean);
 	}
 
 }

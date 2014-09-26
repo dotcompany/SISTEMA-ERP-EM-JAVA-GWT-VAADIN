@@ -185,6 +185,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Column(name = "CEI", length = 12)
 	private String cei;
 
+	public ContaEmpresa getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaEmpresa conta) {
+		this.conta = conta;
+	}
+
 	@OneToOne(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private ContaEmpresa conta;
 

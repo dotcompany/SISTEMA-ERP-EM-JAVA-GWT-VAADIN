@@ -1,14 +1,17 @@
 package dc.visao.framework.geral;
 
+import java.util.List;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Usuario;
 import dc.visao.spring.SecuritySessionProvider;
 
-public class WizardFirstStep extends BaseWizardStep{
-	
+public class WizardFirstStep extends BaseWizardStep {
+
 	private OptionGroup group;
 	private ConfiguraNovaContaController controller;
 
@@ -19,32 +22,23 @@ public class WizardFirstStep extends BaseWizardStep{
 
 	@Override
 	protected void fillMainPanel(VerticalLayout mainPanel) {
-		Label question = new Label("Que tipo de notas fiscais ELETRÔNICAS (NF-e) Você precisa emitir?");
-        question.setSizeUndefined();
-        question.addStyleName("h4");
-        
-        mainPanel.addComponent(question);
-        
-        group = new OptionGroup("");
-         
-        group.addItem("Automação Comercial");
-        group.addItem("Lojas");
-        group.addItem("Distribuidora");
-        group.addItem("Comércio e serviço");
-        group.addItem("serviço");
-        group.addItem("Confecção");
-        group.addItem("Industria");
-        group.addItem("Industria e Comércio");
-        group.addItem("Centro automotivo");
-        group.addItem("Livraria");
-        group.addItem("Óticas");
-        group.addItem("Moto Peças");
-        group.addItem("Conserto de Veículos pesados");
-        group.addItem("Personalizado");
-        group.addItem("Locação");
-        group.addItem("Outros");
-        mainPanel.addComponent(group);
-		
+		Label question = new Label(
+				"Que tipo de notas fiscais ELETRÔNICAS (NF-e) Você precisa emitir?");
+		question.setSizeUndefined();
+		question.addStyleName("h4");
+
+		mainPanel.addComponent(question);
+
+		List<Seguimento> seguimentos = this.controller.getSeguimentoDao()
+				.getAll(Seguimento.class);
+
+		group = new OptionGroup("");
+
+		for (Seguimento seguimento : seguimentos) {
+			group.addItem(seguimento);
+		}
+		mainPanel.addComponent(group);
+
 	}
 
 	@Override
@@ -62,8 +56,8 @@ public class WizardFirstStep extends BaseWizardStep{
 	protected void saveConfiguration() {
 		Usuario u = SecuritySessionProvider.getUsuario();
 		Integer contaId = u.getConta().getId();
-		controller.salvarPrimeiraPergunta(group.getValue(),contaId);
-		
+		controller.salvarPrimeiraPergunta(group.getValue(), contaId);
+
 	}
 
 }
