@@ -1139,6 +1139,62 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	/**
+	 * Cálculos
+	 */
+
+	private BigDecimal calcularMercadoriaValor() {
+		if (this.nfeDetalheList == null || this.nfeDetalheList.isEmpty()
+				|| this.nfeDetalheList.size() == 0) {
+			return new BigDecimal(0.0);
+		}
+
+		BigDecimal mercadoria = new BigDecimal(0.0);
+
+		for (NfeDetalheEntity nfeDetalhe : this.nfeDetalheList) {
+			mercadoria = mercadoria.add(nfeDetalhe.getValorBrutoProduto());
+		}
+
+		return mercadoria;
+	}
+
+	private BigDecimal calcularIpi() {
+		Double d = calcularMercadoriaValor().doubleValue()
+				+ this.valorDespesasAcessorias.doubleValue()
+				+ this.valorSeguro.doubleValue();
+
+		return new BigDecimal(d);
+	}
+
+	private BigDecimal calcularIcms() {
+		Double d = calcularMercadoriaValor().doubleValue()
+				+ this.valorDespesasAcessorias.doubleValue()
+				+ this.valorSeguro.doubleValue()
+				+ this.valorFrete.doubleValue()
+				- this.valorDesconto.doubleValue()
+				+ calcularIpi().doubleValue();
+
+		return new BigDecimal(d);
+	}
+
+	private Double calcularIss() {
+		if (this.nfeDetalheList == null || this.nfeDetalheList.isEmpty()
+				|| this.nfeDetalheList.size() == 0) {
+			return new Double(0.0);
+		}
+
+		return new Double(0.0);
+	}
+
+	private Double calcularPis() {
+		if (this.nfeDetalheList == null || this.nfeDetalheList.isEmpty()
+				|| this.nfeDetalheList.size() == 0) {
+			return new Double(0.0);
+		}
+
+		return new Double(0.0);
+	}
+
+	/**
 	 * TO STRING
 	 */
 
