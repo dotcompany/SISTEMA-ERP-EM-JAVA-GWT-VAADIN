@@ -6,6 +6,10 @@
 	overflow: hidden;
 }
 
+.v-radiobutton {
+	-webkit-user-select: none;
+}
+
 @-webkit-keyframes v-notification-animate-out {
 		100% {
 		opacity: 0;
@@ -25,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.3.1";
+	content: "7.3.3";
 }
 
 .v-generated-body {
@@ -611,6 +615,11 @@
 
 .dotcompany .v-browserframe {
 	font-size: 0;
+}
+
+.v-webkit.v-ios .dotcompany .v-browserframe {
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
 }
 
 .dotcompany .v-browserframe > span {
@@ -1562,6 +1571,11 @@ body .dotcompany.v-app .v-app-loading {
 
 .v-ios5.v-webkit .dotcompany .v-scrollable {
 	-webkit-overflow-scrolling: none;
+}
+
+.dotcompany .v-scrollable.v-panel-content > .v-widget {
+	vertical-align: middle;
+	overflow: hidden;
 }
 
 .dotcompany.v-overlay-container {
