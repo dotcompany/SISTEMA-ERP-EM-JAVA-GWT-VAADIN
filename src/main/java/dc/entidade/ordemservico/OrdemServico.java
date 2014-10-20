@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -30,7 +31,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -38,8 +38,9 @@ import dc.entidade.pessoal.Cliente;
 
 @Entity
 @Table(name = "os_ordem_servico")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -53,7 +54,7 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 	private Integer id;
 
 	@Caption(value = "Cliente")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	private Cliente cliente;
 
@@ -104,7 +105,11 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Valor Lucro Parcial")
 	@Column(name = "valor_lucro_parcial")
 	private BigDecimal valorLucroParcial;
-	
+
+	@Caption(value = "Valor Lucro Peça")
+	@Column(name = "valor_lucro_peca")
+	private BigDecimal valorLucroPeca;
+
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_cheque")
 	private Integer quantidadeParcelaCheque;
@@ -193,6 +198,11 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataExclusao;
 
+	
+	@Caption(value = "O.S Efetivada")
+	@Column(name = "os_efetivada")
+	private Boolean efetivada;
+	
 	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<EntradaServico> itensEntradaServico = new ArrayList<EntradaServico>();
@@ -317,7 +327,7 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 		this.valorComissaoAtendente = valorComissaoAtendente;
 	}
 
-	public BigDecimal getValorÇucroParcial() {
+	public BigDecimal getValorLucroParcial() {
 		return valorLucroParcial;
 	}
 
@@ -363,10 +373,6 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setItensMaterialServico(List<MaterialServico> itensMaterialServico) {
 		this.itensMaterialServico = itensMaterialServico;
-	}
-
-	public BigDecimal getValorLucroParcial() {
-		return valorLucroParcial;
 	}
 
 	public List<AcessorioOs> getItensAcessorioOs() {
@@ -517,6 +523,22 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 		this.quantidadeParcelaCobrancaCarteira = quantidadeParcelaCobrancaCarteira;
 	}
 
+	public BigDecimal getValorLucroPeca() {
+		return valorLucroPeca;
+	}
+
+	public void setValorLucroPeca(BigDecimal valorLucroPeca) {
+		this.valorLucroPeca = valorLucroPeca;
+	}
+	
+	public Boolean getEfetivada() {
+		return efetivada;
+	}
+
+	public void setEfetivada(Boolean efetivada) {
+		this.efetivada = efetivada;
+	}
+
 	public EntradaServico adicionarEntradaServico(EntradaServico entradaServico){
 		getItensEntradaServico().add(entradaServico);
 		entradaServico.setOrdemServico(this);
@@ -542,6 +564,7 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 	}
 	public void addParcelaCheque(OrdemServicoEfetivacao parcela) {
 		parcela.setOrdemServico(this);
+		System.out.println("Id efetivacao ordemServico: "+parcela.getTipoEfetivacao().getId());
 		this.itensOrdemServicoEfetivacao.add(parcela);
 	}
 	public void addParcelaCarne(OrdemServicoEfetivacao parcela) {
