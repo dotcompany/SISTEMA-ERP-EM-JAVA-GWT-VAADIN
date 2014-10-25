@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
@@ -151,7 +152,15 @@ public class OrdemServicoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Comprovante")
 	@Column(name = "comprovante_venda")
 	private String comprovanteVenda;
-	
+
+	@Caption("Tipo")
+	@Transient
+	private String tipo;
+
+	@Caption("Quantidade")
+	@Transient
+	private Integer quantidade;
+
 	public Integer getId() {
 		return id;
 	}
@@ -327,5 +336,20 @@ public class OrdemServicoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 	public void setComprovanteVenda(String comprovanteVenda) {
 		this.comprovanteVenda = comprovanteVenda;
 	}
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
 }
