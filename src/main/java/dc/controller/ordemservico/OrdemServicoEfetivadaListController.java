@@ -6,61 +6,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.TipoEfetivacao;
-import dc.servicos.dao.ordemservico.TipoEfetivacaoDAO;
+import dc.entidade.ordemservico.OrdemServico;
+import dc.servicos.dao.ordemservico.OrdemServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoEfetivacaoListController extends CRUDListController<TipoEfetivacao> {
+public class OrdemServicoEfetivadaListController extends CRUDListController<OrdemServico> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoEfetivacaoDAO dao;
+	OrdemServicoDAO dao; 
 	
 	@Autowired
-	TipoEfetivacaoFormController formController;
+	private OrdemServicoFormController formController;
 	
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"codigo","descricao"};
+		return new String[] {"dataCadastro","cliente","valorTotalOs"};
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Descrição";
+		return "Ordem de serviço Efetivada";
 	}
 
 	@Override
-	protected List<TipoEfetivacao> pesquisa(String valor) {
+	protected List<OrdemServico> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
-	}
+	} 
 	
 	@Override
 	public String getViewIdentifier() {
-		return "listaTipoEfetivacao";
+		return "listaOrdemServicoEfetivada";
 	}
 
 	@Override
-	protected CRUDFormController<TipoEfetivacao> getFormController() {
+	protected CRUDFormController<OrdemServico> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super TipoEfetivacao> getEntityClass() {
-		return TipoEfetivacao.class;
+	public Class<? super OrdemServico> getEntityClass() {
+		return OrdemServico.class;
 	}
 
 	@Override
-	protected List<TipoEfetivacao> pesquisaDefault() {
-		return dao.getAll(TipoEfetivacao.class);
+	protected List<OrdemServico> pesquisaDefault() {
+		return dao.getAll(OrdemServico.class);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
 	}
+
 }

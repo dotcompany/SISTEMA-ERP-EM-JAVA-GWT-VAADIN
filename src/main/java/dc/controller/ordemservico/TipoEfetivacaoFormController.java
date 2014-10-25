@@ -42,6 +42,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 
 	@Override
 	protected void actionSalvar() {
+		currentBean.setCodigo(Integer.parseInt(subView.getTxtCodigo().getValue()));
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try {
 			tipoEfetivacaoDAO.saveOrUpdate(currentBean);
@@ -54,6 +55,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = tipoEfetivacaoDAO.find(id);
+		subView.getTxtCodigo().setValue(currentBean.getCodigo().toString());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 	}
 

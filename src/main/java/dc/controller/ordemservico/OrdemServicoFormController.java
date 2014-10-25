@@ -17,26 +17,24 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 import dc.controller.financeiro.TipoPagamentoListController;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.pessoal.ColaboradorListController;
-import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.geral.Pessoa;
 import dc.entidade.ordemservico.Acessorio;
 import dc.entidade.ordemservico.AcessorioOs;
 import dc.entidade.ordemservico.Carro;
-import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.EntradaServico;
-import dc.entidade.ordemservico.Equipamento;
 import dc.entidade.ordemservico.InformacaoGeral;
 import dc.entidade.ordemservico.LaudoTecnico;
-import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.MaterialServico;
-import dc.entidade.ordemservico.Modelo;
 import dc.entidade.ordemservico.Observacao;
 import dc.entidade.ordemservico.OrdemServico;
 import dc.entidade.ordemservico.OrdemServicoEfetivacao;
@@ -46,12 +44,9 @@ import dc.entidade.ordemservico.StatusOs;
 import dc.entidade.ordemservico.TipoEfetivacao;
 import dc.entidade.ordemservico.TipoServico;
 import dc.entidade.ordemservico.VendaPeca;
-import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.pessoal.SituacaoForCli;
 import dc.entidade.produto.Produto;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.servicos.dao.ordemservico.AcessorioDAO;
 import dc.servicos.dao.ordemservico.AcessorioOsDAO;
@@ -81,7 +76,6 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
-import dc.visao.framework.util.ComponentUtil;
 import dc.visao.ordemservico.OrdemServicoFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -185,6 +179,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	final List<OrdemServicoEfetivacao> parcelasCobrancaBancariaOs = new ArrayList<OrdemServicoEfetivacao>();
 	final List<OrdemServicoEfetivacao> parcelasCobrancaCarteiraOs = new ArrayList<OrdemServicoEfetivacao>();
 	private Cliente cliente = new Cliente();
+	Window subWindow;
 
 	@Override
 	protected String getNome() {
@@ -241,13 +236,16 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 
 				if(currentBean.getItensOrdemServicoEfetivacao().size() > 0){
 					currentBean.setEfetivada(true);
+//					subView.getBtnEfetivacao().setCaption("Financeiro");
 				}
+
 				dao.saveOrUpdate(this.currentBean);   
 
 				salvarInformacaoGeral();
 				salvarLaudoTecnico();  
 				salvarObservacao();
 				
+				removeModal();
 				notifiyFrameworkSaveOK(this.currentBean);
 			
 			}
@@ -354,10 +352,10 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		Observacao observacao = new Observacao();
 
 		if (currentBean != null) {
-			if (subView.getTaObservacaoOS() != null) {
+			if(!subView.getTaObservacaoOS().equals("")) {
 				observacao.setObservacaoOs(subView.getTaObservacaoOS().getValue());
 			}
-			if (subView.getTaObservacaoLocal() != null) {
+			if(!subView.getTaObservacaoLocal().equals("")) {
 				observacao.setFicandoLocal(subView.getTaObservacaoLocal().getValue());
 			}
 			observacao.setOrdemServico(currentBean);
@@ -553,9 +551,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	protected void carregar(Serializable id) {
 		currentBean = dao.find((Integer) id);
 		subView.preencheForm(currentBean);
-//		if(currentBean.getItensOrdemServicoEfetivacao().size() > 0){
-//			subView.getBtnEfetivacao().setCaption("Financeiro");
-//		}
 		carregarInformacaoGeral();
 		carregarLaudoTecnico();
 		carregarEntradaServico();
@@ -719,6 +714,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		if(this.currentBean.getValorTotalOs()!=null){
 			subView.getTfTotais().setConvertedValue(this.currentBean.getValorTotalOs());
 		}
+		if(this.currentBean.getEfetivada()!=null && this.currentBean.getEfetivada()){
+			subView.getBtnEfetivacao().setCaption("Financeiro");
+		}else{
+			subView.getBtnEfetivacao().setCaption("Efetivar OS");
+		}
+
 	}
 	
 	@Override
@@ -744,8 +745,72 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 				}
 			}
 		});
+
+		subView.getBtnEfetivacao().addClickListener(new Button.ClickListener() {
+			private static final long serialVersionUID = 1L;
+			public void buttonClick(ClickEvent event) {
+				System.out.println("btnEfetivacao 1");
+				if(subView.getCbCliente().getValue() == null){
+					mensagemErro("Antes de gravar, escolha o cliente, e grave novamente.");
+					return;
+				}
+				System.out.println("btnEfetivacao 2");
+				if(subView.getCbPlaca().getValue() == null){
+					mensagemErro("Antes de gravar, escolha primeiramente a placa do carro, e grave novamente.");
+					return;
+				}
+				subWindow = new Window("Financeiro da Ordem de Serviço");
+		        VerticalLayout subContent = new VerticalLayout();
+		        subContent.setMargin(true);
+		        
+        		GridLayout gridLayout = null;
+				
+				if(currentBean.getEfetivada()!=null){
+					if(!currentBean.getEfetivada()){
+						ConfirmDialog.show(MainUI.getCurrent(), "Efetivar Ordem Serviço",
+								"Tem certeza que deseja efetivar esta OS? depois de efetivado não poderá ser alterado.", "Sim", "Não",
+								new ConfirmDialog.Listener() {
+									private static final long serialVersionUID = 1L;
+		
+									public void onClose(ConfirmDialog dialog) {
+										if (dialog.isConfirmed()) {
+											excluiParcelas(parcelasChequeOs);
+											geraParcelasChequeOs(parcelasChequeOs);
+										}
+							}
+						});
+					}else{
+						if(currentBean.getEfetivada()){
+					        subWindow.setModal(true);
+					        subWindow.setWidth("57%");
+			        		gridLayout = subView.buildAbaEfetivacaoOsFinanceiro(currentBean);
+			        		subView.preencheGeralFinanceiroSubForm(currentBean.getItensOrdemServicoEfetivacao());
+			        		subView.preencheTituloFinanceiroSubForm(currentBean.getItensOrdemServicoEfetivacao());
+			        		subView.preencheParcelasChequeSubForm(currentBean.getItensOrdemServicoEfetivacao());
+						}else{
+					        subWindow.setModal(false);
+					        subWindow.setWidth("59%");
+			        		gridLayout = subView.buildAbaEfetivacaoOs();
+						}
+					}
+				}else{
+			        subWindow.setModal(false);
+			        subWindow.setWidth("59%");
+	        		gridLayout = subView.buildAbaEfetivacaoOs();
+				}
+        		subContent.addComponent(gridLayout);
+		        subWindow.setContent(subContent);
+		        subWindow.setHeight("70%");
+		        subWindow.center();
+		        UI.getCurrent().addWindow(subWindow);
+			 }
+		});	
 	}
 
+	public void removeModal(){
+        UI.getCurrent().removeWindow(subWindow);
+	}
+	
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new OrdemServico();
@@ -791,7 +856,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			}
 			
 			List<OrdemServicoEfetivacao> dadosCartao = subView.getParcelasCartaoSubForm().getDados();
-			System.out.println("dadosCartao: "+dadosCartao);
 			if (dadosCartao != null) {
 				parcelasCartaoOs.addAll(subView.getParcelasCartaoSubForm().getDados());
 			}
@@ -964,55 +1028,41 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	}
 
 	private void geraParcelasChequeOs(final List<OrdemServicoEfetivacao> parcelasCheque) {
-		System.out.println("geraParcelasChequeOs 1");
 		subView.getParcelasChequeSubForm().removeAllItems();
-		System.out.println("geraParcelasChequeOs 2");
 		subView.preencheBean(currentBean);
-		System.out.println("geraParcelasChequeOs 3");
 
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaChequeOs;
-		System.out.println("geraParcelasChequeOs 4");
 
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(13);
-		System.out.println("geraParcelasChequeOs 5");
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(2);
 
 		Date dataEmissão = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(primeiroVencimento.getTime());
-		System.out.println("geraParcelasChequeOs 6");
 
 		if (!subView.getTfCheque().getConvertedValue().toString().equals("")) {
-			System.out.println("geraParcelasChequeOs 7");
-
 			BigDecimal vlrTotalCheque = (BigDecimal) subView.getTfCheque().getConvertedValue();
 			currentBean.setValorTotalOs(vlrTotalCheque);
 		}
-		System.out.println("geraParcelasChequeOs 8");
 
 		currentBean.setQuantidadeParcelaCheque(Integer.valueOf(subView.getTfQtParcelaCheque().getConvertedValue().toString()));
 		currentBean.setPrimeiroVencimentoCheque(primeiroVencimento.getTime());
-		System.out.println("geraParcelasChequeOs 9");
 
 		BigDecimal valorParcela = currentBean.getValorTotalOs().divide(BigDecimal.valueOf(currentBean.getQuantidadeParcelaCheque()),
 				RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
-		System.out.println("geraParcelasChequeOs 10");
 
 		String nossoNumero;
 		DecimalFormat formatoNossoNumero4 = new DecimalFormat("0000");
 		DecimalFormat formatoNossoNumero5 = new DecimalFormat("00000");
-		System.out.println("geraParcelasChequeOs 11");
 
 		SimpleDateFormat formatoNossoNumero6 = new SimpleDateFormat("D");
 
 		Date dataAtual = new Date();
-		System.out.println("geraParcelasChequeOs 12");
 
 		for (int i = 0; i < currentBean.getQuantidadeParcelaCheque(); i++) {
-			System.out.println("geraParcelasChequeOs 13");
 			parcelaChequeOs = new OrdemServicoEfetivacao();
 			parcelaChequeOs.setOrdemParcela(i);
 			parcelaChequeOs.setDataEfetivacao(dataEmissão);
@@ -1028,22 +1078,15 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			parcelaChequeOs.setValorTotal(valorParcela);
 			somaParcelas = somaParcelas.add(valorParcela);
 
-			System.out.println("geraParcelasChequeOs 14");
-
 			if (i == (currentBean.getQuantidadeParcelaCheque() - 1)) {
 				residuo = currentBean.getValorTotalOs().subtract(somaParcelas);
 				valorParcela = valorParcela.add(residuo);
 				parcelaChequeOs.setValorTotal(valorParcela);
 			}
-			System.out.println("geraParcelasChequeOs 15");
 			parcelasCheque.add(parcelaChequeOs);
-			System.out.println("geraParcelasChequeOs 16");
 			novoParcelaChequeOs(parcelaChequeOs);
-			System.out.println("geraParcelasChequeOs 17");
 		}
-		System.out.println("geraParcelasChequeOs 18");
 		if(parcelasCheque.size() > 0) {
-			System.out.println("geraParcelasChequeOs 19");
 			subView.preencheParcelasChequeSubForm(parcelasCheque);
 		}
 	}
@@ -1055,7 +1098,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcela;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(17);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(6);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1115,7 +1158,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaCartaoOs;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(14);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(3);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1177,7 +1220,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcela;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(15);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(4);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1237,7 +1280,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaDuplicataOs;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(16);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(5);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1298,7 +1341,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaValeOs;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(18);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(7);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1358,7 +1401,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaCobrancaBancariaOs;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(19);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(8);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1418,7 +1461,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		OrdemServico ordemServico = currentBean;
 		OrdemServicoEfetivacao parcelaCobrancaCarteiraOs;
 		TipoEfetivacao tipoEfetivacao = new TipoEfetivacao();
-		tipoEfetivacao = tipoEfetivacaoDAO.find(20);
+		tipoEfetivacao = tipoEfetivacaoDAO.findByCodigo(9);
 		Date dataEmissão = new Date();
 
 		Calendar primeiroVencimento = Calendar.getInstance();
@@ -1472,9 +1515,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	}
 
 	public OrdemServicoEfetivacao novoParcelaChequeOs(OrdemServicoEfetivacao parcela) {
-		System.out.println("novoParcelaChequeOs 1: "+parcela);
 		currentBean.addParcelaCheque(parcela);
-		System.out.println("novoParcelaChequeOs 2: ");
 		return parcela;
 	}
 
@@ -1639,5 +1680,120 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		this.currentBean = currentBean;
 	}
 
-	
+	public List montaFinanceiro(List<OrdemServicoEfetivacao> listOrdemServicoEfetivacao) {
+		List<OrdemServicoEfetivacao> listGeral = new ArrayList<OrdemServicoEfetivacao>();
+		int idOs = listOrdemServicoEfetivacao.get(0).getTipoEfetivacao().getCodigo();
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		String tipo = "";
+		int quantidade = 0;
+		int i = 1;
+		
+		for(OrdemServicoEfetivacao os : listOrdemServicoEfetivacao){
+			os.setQuantidade(1);
+			if(os.getTipoEfetivacao().getCodigo() != idOs){
+				OrdemServicoEfetivacao totalizador = new OrdemServicoEfetivacao();	
+				totalizador.setValorTotal(valorTotal);
+				totalizador.setTipo(tipo);
+				totalizador.setQuantidade(quantidade);
+				quantidade = 0;
+				listGeral.add(totalizador);
+				valorTotal = new BigDecimal(0);
+				idOs = os.getTipoEfetivacao().getCodigo();
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 1){
+				tipo = "Dinheiro";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 2){
+				tipo = "Cheque";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 3){
+				tipo = "Cartão";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 4){
+				tipo = "Boleto";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 5){
+				tipo = "Duplicata";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 6){
+				tipo = "Carnê";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 7){
+				tipo = "Vale";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 8){
+				tipo = "Cobrança bancária";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(os.getTipoEfetivacao().getCodigo() == 9){
+				tipo = "Cobrança carteira";
+				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
+					quantidade += os.getQuantidade();
+				}else {
+					quantidade = os.getQuantidade();
+				}
+				valorTotal = valorTotal.add(os.getValorTotal());
+			}
+			if(i == listOrdemServicoEfetivacao.size()){
+				OrdemServicoEfetivacao totalizador = new OrdemServicoEfetivacao();	
+				totalizador.setValorTotal(valorTotal);
+				totalizador.setTipo(tipo);
+				totalizador.setQuantidade(quantidade);
+				listGeral.add(totalizador);
+				quantidade = 0;
+				valorTotal = new BigDecimal(0);
+				idOs = os.getTipoEfetivacao().getCodigo();
+			}
+			i++;
+		}
+		return listGeral;
+	}
+
 }
