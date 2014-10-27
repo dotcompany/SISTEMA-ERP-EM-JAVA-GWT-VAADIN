@@ -4,6 +4,7 @@ import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
 import dc.framework.ConfigProperties;
-import dc.visao.framework.component.manytoonecombo.extensions.ButtonHintExtension;
 
 @SuppressWarnings("serial")
 @Component
@@ -54,7 +54,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public static int ITEM_TYPE_CREATE = 1;
 	public static int ITEM_TYPE_SEARCH = 2;
 
-	
 	public static Logger logger = Logger.getLogger(ManyToOneCombo.class);
 
 	public ManyToOneCombo() {
@@ -68,7 +67,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		// lblEdit
 		layout.setSpacing(false);
 		this.btnNew = new Button();
-		
+
 		btnNew.setCaption(Icon.file.toString());
 		btnNew.setHtmlContentAllowed(true);
 		btnNew.setId("lblNew");
@@ -76,28 +75,30 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnNew.setIconAlternateText("Criar Novo");
 		btnNew.setDescription("Criar Novo");
 		btnNew.addClickListener(new ClickListener() {
-			
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 				ItemValue val = (ItemValue) cmbResult.getValue();
-				if(val != null && val.getFilter() != null ){
+				if (val != null && val.getFilter() != null) {
 					model.onCriarNovo(val.getFilter());
-				}else{
+				} else {
 					model.onCriarNovo("");
 				}
-				
+
 			}
 		});
-		
+
 		layout.addComponent(btnNew);
 		layout.setComponentAlignment(btnNew, Alignment.BOTTOM_LEFT);
-		try{
-			  UI.getCurrent().getPage().getStyles()
+		try {
+			UI.getCurrent()
+					.getPage()
+					.getStyles()
 					.add("#lblNew i { font-size: 12pt; } #lblNew { padding: 5px 1px 3px 4px; float:left; }");
-			}catch(Exception e){}
-		
-		
+		} catch (Exception e) {
+		}
+
 		Button btnAdvancedSearch = new Button();
 		btnAdvancedSearch.setCaption(Icon.search.toString());
 		btnAdvancedSearch.setHtmlContentAllowed(true);
@@ -106,19 +107,22 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnAdvancedSearch.setIconAlternateText("Busca avançada");
 		btnAdvancedSearch.setDescription("Busca avançada");
 		btnAdvancedSearch.addClickListener(new ClickListener() {
-			
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				model.onAdvancedSearch();
 			}
 		});
-		
+
 		layout.addComponent(btnAdvancedSearch);
 		layout.setComponentAlignment(btnAdvancedSearch, Alignment.BOTTOM_LEFT);
-		try{
-			  UI.getCurrent().getPage().getStyles()
+		try {
+			UI.getCurrent()
+					.getPage()
+					.getStyles()
 					.add("#lblAdvSearch i { font-size: 12pt; } #lblAdvSearch { padding: 5px 1px 3px 4px; float:left;}");
-			}catch(Exception e){}
+		} catch (Exception e) {
+		}
 	}
 
 	@SuppressWarnings("serial")
@@ -139,7 +143,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				searchItemValue.setType(ITEM_TYPE_SEARCH);
 				searchItemValue.setCaption("Pesquisa Avançada...");
 				searchItemValue.setFilter(q);
-				
+
 				addItem(searchItemValue);
 
 				// cmbResult.setItemIcon(searchItemValue, new
@@ -225,7 +229,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		public String getCaption() {
 			try {
 				if (type == ITEM_TYPE_BEAN) {
-					return BeanUtils.getProperty(bean, model.getCaptionProperty()).toString();
+					return BeanUtils.getProperty(bean,
+							model.getCaptionProperty()).toString();
 				} else {
 					return this.caption;
 				}
@@ -308,17 +313,20 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		mainLayout.setSpacing(true);
 
 		// top-level component properties
-		//setWidth("100.0%");
+		// setWidth("100.0%");
 		setHeight("100.0%");
 
 		// cmbResult
 		cmbResult = new DCComboBox();
-		
-		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(VaadinServlet.getCurrent().getServletContext());
 
-		ConfigProperties config = (ConfigProperties) ctx.getBean(ConfigProperties.class);
+		WebApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(VaadinServlet.getCurrent()
+						.getServletContext());
+
+		ConfigProperties config = (ConfigProperties) ctx
+				.getBean(ConfigProperties.class);
 		cmbResult.setFilterChangeTimeout(config.COMBO_DELAYVALUE);
-		//cmbResult.setFilterChangeTimeout(5000);
+		// cmbResult.setFilterChangeTimeout(5000);
 
 		cmbResult.setImmediate(true);
 		cmbResult.setSizeFull();
@@ -333,16 +341,19 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		btnEdit.setWidth("22px");
 		btnEdit.setIconAlternateText("Editar");
 		btnEdit.setDescription("Editar");
-		//ButtonHintExtension.addHint("Editar",btnEdit);
+		// ButtonHintExtension.addHint("Editar",btnEdit);
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
-		try{
-		  UI.getCurrent().getPage().getStyles()
-				.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
-		  UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{float:left;} ");
-		  
-		  
-		}catch(Exception e){}
+		try {
+			UI.getCurrent()
+					.getPage()
+					.getStyles()
+					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
+			UI.getCurrent().getPage().getStyles()
+					.add(".manyToOneCombo{float:left;} ");
+
+		} catch (Exception e) {
+		}
 
 		return mainLayout;
 	}
@@ -363,11 +374,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		this.model = model;
 		if (model instanceof DefaultManyToOneComboModel) {
 			((DefaultManyToOneComboModel) this.model).setCombo(this);
-			if (((DefaultManyToOneComboModel) this.model).permissionToCreateOrEdit()){
+			if (((DefaultManyToOneComboModel) this.model)
+					.permissionToCreateOrEdit()) {
 				btnEdit.setVisible(false);
 				btnNew.setVisible(false);
 			}
-			
+
 		}
 		setupActions();
 	}
@@ -378,6 +390,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.getContainerDataSource().removeAllItems();
 		cmbResult.getContainerDataSource().addItem(item);
 		cmbResult.setValue(item);
+
+		List<T> resultado = model.getAll();
+		for (T t : resultado) {
+			item = new ItemValue();
+			item.setBean(t);
+			cmbResult.getContainerDataSource().addItem(item);
+		}
 	}
 
 	public void addValueChangeListener(ValueChangeListener listener) {
@@ -398,7 +417,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	class DCComboBox extends AsyncFilterComboBox {
 
 		@Override
-		public void changeVariables(final Object source, final Map<String, Object> variables) {
+		public void changeVariables(final Object source,
+				final Map<String, Object> variables) {
 
 			String newFilter;
 
