@@ -35,7 +35,14 @@ public class TipoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
+	@Field
+	@Caption("Código")
+	@Column(name = "codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigo;
+
 	@Field
 	@Caption("Descrição")
 	@Column(name = "descricao")
@@ -57,6 +64,14 @@ public class TipoEfetivacao extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 }
