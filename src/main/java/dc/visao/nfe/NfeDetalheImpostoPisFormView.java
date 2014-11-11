@@ -189,7 +189,7 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
+				if (ObjectValidator.blankOrNull(event)) {
 					controller.ndiPisSetarValor(cbCstPis.getId(), event
 							.getProperty().getValue());
 				}
@@ -214,11 +214,13 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					//if (ObjectValidator.validateValue(event)) {
-						controller.ndiPisSetarValor(tfQtdVendidaPis.getId(),
-								event.getProperty().getValue());
-					//}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiPisSetarValor(tfQtdVendidaPis.getId(), event
+							.getProperty().getValue());
+					// }
+				} else {
+					System.out.println(event);
 				}
 			}
 		});
@@ -241,11 +243,11 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					//if (ObjectValidator.validateValue(event)) {
-						controller.ndiPisSetarValor(tfBaseCalculoBcPis.getId(),
-								event.getProperty().getValue());
-					//}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiPisSetarValor(tfBaseCalculoBcPis.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -269,12 +271,11 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiPisSetarValor(
-										tfAliquotaPercentualPis.getId(), event
-												.getProperty().getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiPisSetarValor(tfAliquotaPercentualPis
+									.getId(), event.getProperty().getValue());
+							// }
 						}
 					}
 				});
@@ -297,11 +298,11 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiPisSetarValor(tfAliquotaReaisPis.getId(),
-								event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiPisSetarValor(tfAliquotaReaisPis.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -324,11 +325,11 @@ public class NfeDetalheImpostoPisFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiPisSetarValor(tfValorPis.getId(), event
-								.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiPisSetarValor(tfValorPis.getId(), event
+							.getProperty().getValue());
+					// }
 				}
 			}
 		});

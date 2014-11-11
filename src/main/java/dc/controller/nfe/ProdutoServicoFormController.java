@@ -202,8 +202,7 @@ public class ProdutoServicoFormController extends
 
 	/*
 	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento
-	 * padrão
+	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
 	 */
 	@Override
 	protected void quandoNovo() {
@@ -1039,16 +1038,16 @@ public class ProdutoServicoFormController extends
 				.getNfeDetalheImpostoIcms();
 		NfeDetalheImpostoIcmsDTO.setarValor(ndiIcms, id, obj);
 
-		//Integer index = this.subView.getSfNfeDetalhe().getDados()
-		//		.indexOf(this.nfeCabecalho.getNfeDetalhe());
+		// Integer index = this.subView.getSfNfeDetalhe().getDados()
+		// .indexOf(this.nfeCabecalho.getNfeDetalhe());
 
-		//this.subView.getSfNfeDetalhe().getDados()
-		//		.remove(this.nfeCabecalho.getNfeDetalhe());
+		// this.subView.getSfNfeDetalhe().getDados()
+		// .remove(this.nfeCabecalho.getNfeDetalhe());
 
 		this.nfeCabecalho.getNfeDetalhe().setNfeDetalheImpostoIcms(ndiIcms);
 
-		//this.subView.getSfNfeDetalhe().getDados()
-		//		.add(index, this.nfeCabecalho.getNfeDetalhe());
+		// this.subView.getSfNfeDetalhe().getDados()
+		// .add(index, this.nfeCabecalho.getNfeDetalhe());
 	}
 
 	public void ndiIiSetarValor(String id, Object obj) {

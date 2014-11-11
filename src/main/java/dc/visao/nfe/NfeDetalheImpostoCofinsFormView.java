@@ -191,7 +191,7 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
+				if (ObjectValidator.blankOrNull(event)) {
 					controller.ndiCofinsSetarValor(cbCstCofins.getId(), event
 							.getProperty().getValue());
 				}
@@ -216,11 +216,11 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiCofinsSetarValor(tfQtdVendidaCofins
-								.getId(), event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiCofinsSetarValor(tfQtdVendidaCofins.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -243,11 +243,11 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiCofinsSetarValor(tfBaseCalculoBcCofins
-								.getId(), event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiCofinsSetarValor(tfBaseCalculoBcCofins
+							.getId(), event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -271,12 +271,12 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiCofinsSetarValor(
-										tfAliquotaPercentualCofins.getId(),
-										event.getProperty().getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiCofinsSetarValor(
+									tfAliquotaPercentualCofins.getId(), event
+											.getProperty().getValue());
+							// }
 						}
 					}
 				});
@@ -299,11 +299,11 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiCofinsSetarValor(tfAliquotaReaisCofins
-								.getId(), event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiCofinsSetarValor(tfAliquotaReaisCofins
+							.getId(), event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -326,11 +326,11 @@ public class NfeDetalheImpostoCofinsFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiCofinsSetarValor(tfValorCofins.getId(),
-								event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiCofinsSetarValor(tfValorCofins.getId(), event
+							.getProperty().getValue());
+					// }
 				}
 			}
 		});

@@ -171,13 +171,12 @@ public class NfeDetalheImpostoIiFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiIiSetarValor(
-										tfBaseCalculoBcImpostoImportacao
-												.getId(), event.getProperty()
-												.getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiIiSetarValor(
+									tfBaseCalculoBcImpostoImportacao.getId(),
+									event.getProperty().getValue());
+							// }
 						}
 					}
 				});
@@ -203,13 +202,13 @@ public class NfeDetalheImpostoIiFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiIiSetarValor(
-										tfDespesasAduaneirasImpostoImportacao
-												.getId(), event.getProperty()
-												.getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiIiSetarValor(
+									tfDespesasAduaneirasImpostoImportacao
+											.getId(), event.getProperty()
+											.getValue());
+							// }
 						}
 					}
 				});
@@ -233,12 +232,11 @@ public class NfeDetalheImpostoIiFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiIiSetarValor(
-										tfValorImpostoImportacao.getId(), event
-												.getProperty().getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiIiSetarValor(tfValorImpostoImportacao
+									.getId(), event.getProperty().getValue());
+							// }
 						}
 					}
 				});
@@ -262,12 +260,11 @@ public class NfeDetalheImpostoIiFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateValue(event)) {
-								controller.ndiIiSetarValor(
-										tfIofImpostoImportacao.getId(), event
-												.getProperty().getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateValue(event)) {
+							controller.ndiIiSetarValor(tfIofImpostoImportacao
+									.getId(), event.getProperty().getValue());
+							// }
 						}
 					}
 				});

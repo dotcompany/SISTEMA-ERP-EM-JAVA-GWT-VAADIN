@@ -189,11 +189,11 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiIssqnSetarValor(tfBaseCalculoBcIssqn
-								.getId(), event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiIssqnSetarValor(tfBaseCalculoBcIssqn.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -216,11 +216,11 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiIssqnSetarValor(tfAliquotaIssqn.getId(),
-								event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiIssqnSetarValor(tfAliquotaIssqn.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -243,11 +243,11 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateValue(event)) {
-						controller.ndiIssqnSetarValor(tfValorIssqn.getId(),
-								event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateValue(event)) {
+					controller.ndiIssqnSetarValor(tfValorIssqn.getId(), event
+							.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -270,11 +270,11 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
-					if (ObjectValidator.validateInteger(event)) {
-						controller.ndiIssqnSetarValor(tfMunicipioIssqn.getId(),
-								event.getProperty().getValue());
-					}
+				if (ObjectValidator.blankOrNull(event)) {
+					// if (ObjectValidator.validateInteger(event)) {
+					controller.ndiIssqnSetarValor(tfMunicipioIssqn.getId(),
+							event.getProperty().getValue());
+					// }
 				}
 			}
 		});
@@ -298,12 +298,12 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
 						// TODO Auto-generated method stub
-						if (ObjectValidator.validateEventValue(event)) {
-							if (ObjectValidator.validateInteger(event)) {
-								controller.ndiIssqnSetarValor(
-										tfItemListaServicosIssqn.getId(), event
-												.getProperty().getValue());
-							}
+						if (ObjectValidator.blankOrNull(event)) {
+							// if (ObjectValidator.validateInteger(event)) {
+							controller.ndiIssqnSetarValor(
+									tfItemListaServicosIssqn.getId(), event
+											.getProperty().getValue());
+							// }
 						}
 					}
 				});
@@ -326,7 +326,7 @@ public class NfeDetalheImpostoIssqnFormView extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				// TODO Auto-generated method stub
-				if (ObjectValidator.validateEventValue(event)) {
+				if (ObjectValidator.blankOrNull(event)) {
 					controller.ndiIssqnSetarValor(tfTributacaoIssqn.getId(),
 							event.getProperty().getValue());
 				}

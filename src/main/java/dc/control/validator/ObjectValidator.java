@@ -267,4 +267,20 @@ public class ObjectValidator {
 		return event.getProperty().getValue() != null;
 	}
 
+	/**
+	 * Verifica se o campo está com valor nulo ou vazio retornando um valor
+	 * booleano.
+	 * 
+	 * @param event
+	 * @return boolean
+	 */
+	public synchronized static boolean blankOrNull(ValueChangeEvent event) {
+		if (event.getProperty().getValue() == null
+				|| event.getProperty().getValue().toString().equals("")) {
+			return Boolean.FALSE;
+		}
+
+		return Boolean.TRUE;
+	}
+
 }
