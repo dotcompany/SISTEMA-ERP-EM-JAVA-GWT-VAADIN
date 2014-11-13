@@ -23,37 +23,37 @@ import dc.entidade.produto.Produto;
 @Table(name = "venda_orcamento_detalhe")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer>{
-	
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer> {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
 	@SequenceGenerator(name = "tnf", sequenceName = "venda_orcamento_detalhe_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_venda_orcamento_cabecalho")
+	@JoinColumn(name = "id_venda_orcamento_cabecalho")
 	Orcamento orcamento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_produto")
+	@JoinColumn(name = "id_produto")
 	Produto produto;
-	
+
 	BigDecimal quantidade;
-	
-	@Column(name="valor_unitario")
+
+	@Column(name = "valor_unitario")
 	BigDecimal valorUnitario;
-	
-	@Column(name="valor_subtotal")
+
+	@Column(name = "valor_subtotal")
 	BigDecimal valorSubTotal;
-	
-	@Column(name="taxa_desconto")
+
+	@Column(name = "taxa_desconto")
 	BigDecimal taxaDesconto;
-	
-	@Column(name="valor_desconto")
+
+	@Column(name = "valor_desconto")
 	BigDecimal valorDesconto;
-	
-	@Column(name="valor_total")
+
+	@Column(name = "valor_total")
 	BigDecimal valorTotal;
 
 	public Integer getId() {
@@ -127,7 +127,5 @@ public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer>{
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
-	
 
 }

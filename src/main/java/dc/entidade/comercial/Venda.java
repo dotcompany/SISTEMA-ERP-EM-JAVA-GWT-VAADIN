@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +27,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.pessoal.Cliente;
 
 @Entity
@@ -121,8 +119,9 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	 * Módulo: NFE
 	 */
 
-	@OneToMany(mappedBy = "vendaCabecalho", fetch = FetchType.LAZY)
-	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+	// @OneToMany(mappedBy = "vendaCabecalho", fetch = FetchType.LAZY)
+	// @Fetch(FetchMode.SUBSELECT)
+	// private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
 	 * 
@@ -316,13 +315,14 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	 * Módulo: NFE
 	 */
 
-	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
-		return nfeCabecalhoList;
-	}
+	// public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+	// return nfeCabecalhoList;
+	// }
 
-	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
-		this.nfeCabecalhoList = nfeCabecalhoList;
-	}
+	// public void setNfeCabecalhoList(List<NfeCabecalhoEntity>
+	// nfeCabecalhoList) {
+	// this.nfeCabecalhoList = nfeCabecalhoList;
+	// }
 
 	/**
 	 * 

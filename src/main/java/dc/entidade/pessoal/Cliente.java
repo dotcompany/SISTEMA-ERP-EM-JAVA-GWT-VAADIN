@@ -3,7 +3,6 @@ package dc.entidade.pessoal;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -37,7 +35,6 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.Pessoa;
-import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.tributario.OperacaoFiscal;
 
 /**
@@ -182,8 +179,8 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	 * Módulo: NFE
 	 */
 
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+	// @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	// private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
 	 * TRANSIENT
@@ -363,13 +360,14 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	 * Módulo: NFE
 	 */
 
-	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
-		return nfeCabecalhoList;
-	}
+	// public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+	// return nfeCabecalhoList;
+	// }
 
-	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
-		this.nfeCabecalhoList = nfeCabecalhoList;
-	}
+	// public void setNfeCabecalhoList(List<NfeCabecalhoEntity>
+	// nfeCabecalhoList) {
+	// this.nfeCabecalhoList = nfeCabecalhoList;
+	// }
 
 	/**
 	 * 
