@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.3.3";
+	content: "7.3.4";
 }
 
 .v-generated-body {
@@ -3761,6 +3761,10 @@ body .dotcompany.v-app .v-app-loading {
 	position: relative;
 	margin: 0;
 	overflow: hidden;
+}
+
+.dotcompany .v-upload-immediate .v-button {
+	width: 100%;
 }
 
 .v-ff .dotcompany .v-upload-immediate, .v-op .dotcompany .v-upload-immediate {
