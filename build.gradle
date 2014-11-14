@@ -71,7 +71,7 @@ dependencies {
    		}
    		
    		
-   		compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:2.1.16'){
+   		compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:7.3.3.6'){
    			exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
    			exclude module: 'vaadin-client' //by artifact name
