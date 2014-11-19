@@ -1,16 +1,13 @@
 package dc.entidade.tributario;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,7 +22,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.nfe.NfeCabecalhoEntity;
 
 @Entity
 @Table(name = "tribut_operacao_fiscal")
@@ -84,8 +80,8 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	 * Módulo: NFE
 	 */
 
-	@OneToMany(mappedBy = "tributOperacaoFiscal", fetch = FetchType.LAZY)
-	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+	// @OneToMany(mappedBy = "tributOperacaoFiscal", fetch = FetchType.LAZY)
+	// private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
 	 * 
@@ -148,13 +144,14 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	 * Módulo: NFE
 	 */
 
-	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
-		return nfeCabecalhoList;
-	}
+	// public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
+	// return nfeCabecalhoList;
+	// }
 
-	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
-		this.nfeCabecalhoList = nfeCabecalhoList;
-	}
+	// public void setNfeCabecalhoList(List<NfeCabecalhoEntity>
+	// nfeCabecalhoList) {
+	// this.nfeCabecalhoList = nfeCabecalhoList;
+	// }
 
 	/**
 	 * 

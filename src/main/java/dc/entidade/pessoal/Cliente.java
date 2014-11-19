@@ -179,7 +179,8 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	 * Módulo: NFE
 	 */
 
-	// @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	// @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+	// @Fetch(FetchMode.SUBSELECT)
 	// private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
