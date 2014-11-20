@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -207,6 +206,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -378,9 +378,14 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	 * TO STRING
 	 */
 
+	// @Override
+	// public String toString() {
+	// return ToStringBuilder.reflectionToString(this);
+	// }
+
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return pessoa.getNome();
 	}
 
 }

@@ -1,10 +1,12 @@
 package dc.entidade.comercial;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,84 +20,166 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Transportadora;
 
 @Entity
 @Table(name = "venda_orcamento_cabecalho")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
+public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
-	@SequenceGenerator(name = "tnf", sequenceName = "venda_orcamento_cabecalho_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "tnf", sequenceName = "venda_orcamento_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Field
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_cadastro")
+	@Caption(value = "Data de cadastro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataCadastro;
+
+	@Field
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_entrega")
+	@Caption(value = "Data de entrega")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataEntrega;
+
+	@Field
+	@Temporal(TemporalType.DATE)
+	@Column(name = "validade")
+	@Caption(value = "Data de validade")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataValidade;
+
+	@Field
+	@Column(name = "valor_subtotal")
+	@Caption(value = "Valor subtotal")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorSubTotal;
+
+	@Field
+	@Column(name = "valor_frete")
+	@Caption(value = "Valor do frete")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorFrete;
+
+	@Field
+	@Column(name = "taxa_comissao")
+	@Caption(value = "Taxa de comissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal taxaComissao;
+
+	@Field
+	@Column(name = "valor_comissao")
+	@Caption(value = "Valor da comissão")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorComissao;
+
+	@Field
+	@Column(name = "taxa_desconto")
+	@Caption(value = "Taxa de desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal taxaDesconto;
+
+	@Field
+	@Column(name = "valor_desconto")
+	@Caption(value = "Valor do desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDesconto;
+
+	@Field
+	@Column(name = "valor_total")
+	@Caption(value = "Valor total")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorTotal;
+
+	@Field
+	@Column(name = "observacao")
+	@Caption(value = "Observação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor")
 	@Caption("Vendedor")
-	VendedorEntity vendedor;
+	private VendedorEntity vendedor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	@Caption("Cliente")
-	Cliente cliente;
+	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_venda_condicoes_pagamento")
-	CondicaoPagamento condicaoPagamento;
+	@Caption("Condições de pagamento")
+	private CondicaoPagamento condicaoPagamento;
 
 	@ManyToOne
 	@JoinColumn(name = "id_transportadora")
-	Transportadora transportadora;
+	@Caption("Transportadora")
+	private Transportadora transportadora;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_cadastro")
-	Date dataCadastro;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_entrega")
-	Date dataEntrega;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "validade")
-	Date dataValidade;
-
-	@Column(name = "valor_subtotal")
-	BigDecimal valorSubTotal;
-
-	@Column(name = "valor_frete")
-	BigDecimal valorFrete;
-
-	@Column(name = "taxa_comissao")
-	BigDecimal taxaComissao;
-
-	@Column(name = "valor_comissao")
-	BigDecimal valorComissao;
-
-	@Column(name = "taxa_desconto")
-	BigDecimal taxaDesconto;
-
-	@Column(name = "valor_desconto")
-	BigDecimal valorDesconto;
-
-	@Column(name = "valor_total")
-	BigDecimal valorTotal;
-
-	String observacao;
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "orcamento", orphanRemoval = true, cascade = CascadeType.ALL)
-	List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
+	private List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public Orcamento() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -230,18 +314,21 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 
-	@Override
-	public String toString() {
-		return "Vendedor:" + vendedor.toString() + ", Cliente:"
-				+ cliente.toString() + "]";
-	}
-
 	public Transportadora getTransportadora() {
 		return transportadora;
 	}
 
 	public void setTransportadora(Transportadora transportadora) {
 		this.transportadora = transportadora;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

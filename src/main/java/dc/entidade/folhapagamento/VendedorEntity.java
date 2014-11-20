@@ -30,8 +30,8 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class VendedorEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class VendedorEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 *
@@ -49,13 +49,13 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer> implement
 	 * @module FOLHAPAGAMENTO
 	 */
 
-//	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
-//	private List<LancamentoComissaoEntity> lancamentoComissaoList;
+	// @OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
+	// private List<LancamentoComissaoEntity> lancamentoComissaoList;
 
 	@ManyToOne
-	@JoinColumn(name="id_colaborador")
-	Colaborador colaborador; 
-	
+	@JoinColumn(name = "id_colaborador")
+	private Colaborador colaborador;
+
 	/**
 	 * CONSTRUTOR
 	 */
@@ -77,14 +77,14 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer> implement
 		this.id = id;
 	}
 
-//	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
-//		return lancamentoComissaoList;
-//	}
-//
-//	public void setLancamentoComissaoList(
-//			List<LancamentoComissaoEntity> lancamentoComissaoList) {
-//		this.lancamentoComissaoList = lancamentoComissaoList;
-//	}
+	// public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
+	// return lancamentoComissaoList;
+	// }
+	//
+	// public void setLancamentoComissaoList(
+	// List<LancamentoComissaoEntity> lancamentoComissaoList) {
+	// this.lancamentoComissaoList = lancamentoComissaoList;
+	// }
 
 	/**
 	 * TO STRING
@@ -94,7 +94,5 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer> implement
 	public String toString() {
 		return colaborador.getPessoa().getNome();
 	}
-	
-	
 
 }

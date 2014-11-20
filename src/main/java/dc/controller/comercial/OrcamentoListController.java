@@ -15,11 +15,16 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 public class OrcamentoListController extends CRUDListController<Orcamento> {
 
-	@Autowired
-	OrcamentoDAO dao;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	OrcamentoFormController formController;
+	private OrcamentoDAO dao;
+
+	@Autowired
+	private OrcamentoFormController formController;
 
 	@Override
 	public String[] getColunas() {
