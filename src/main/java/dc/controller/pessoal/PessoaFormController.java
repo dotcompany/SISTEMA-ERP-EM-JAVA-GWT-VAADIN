@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
-import dc.controller.produto.SubGrupoProdutoListController;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Pessoa;
 import dc.entidade.geral.PessoaContato;
@@ -24,8 +23,6 @@ import dc.entidade.geral.PessoaFisica;
 import dc.entidade.geral.PessoaJuridica;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.EstadoCivil;
-import dc.entidade.produto.Produto;
-import dc.entidade.produto.SubGrupoProduto;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -43,12 +40,16 @@ import dc.visao.pessoal.PessoaFormView.TipoRegime;
 import dc.visao.pessoal.PessoaFormView.TipoSangue;
 import dc.visao.pessoal.TipoPessoa;
 import dc.visao.spring.SecuritySessionProvider;
-import dc.visao.suprimentos.NotaFiscalFormView.CRT;
+import dc.visao.suprimentos.estoque.NotaFiscalFormView.CRT;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
 public class PessoaFormController extends CRUDFormController<Pessoa> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	PessoaFormView subView;
 
@@ -77,24 +78,28 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
-		
+
 		if (!Validator.validateObject(subView.getCmbTipoPessoa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTipoPessoa(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoPessoa(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtEmail().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtEmail(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtEmail(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
-		
+
 		if (!Validator.validateString(subView.getTxtSite().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSite(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtSite(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -108,13 +113,14 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected void initSubView() {
-		
+
 		subView = new PessoaFormView(this);
 
 		try {
-			
-			DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(EstadoCivilListController.class,
-					this.estadoCivilDAO, super.getMainController()) {
+
+			DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(
+					EstadoCivilListController.class, this.estadoCivilDAO,
+					super.getMainController()) {
 
 				@Override
 				public String getCaptionProperty() {
@@ -137,7 +143,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		currentBean = dao.find((Integer) id);
 
 		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getCmbTipoPessoa().setValue(TipoPessoa.getTipoPessoa(currentBean.getTipo()));
+		subView.getCmbTipoPessoa().setValue(
+				TipoPessoa.getTipoPessoa(currentBean.getTipo()));
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 		subView.getTxtSite().setValue(currentBean.getSite());
 
@@ -178,7 +185,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		subView.getTxtInscricaoMunicipal().setValue(pj.getInscricaoMunicipal());
 		subView.getDataConstituicao().setValue(pj.getDataConstituicao());
 		subView.getTxtSuframa().setValue(pj.getSuframa());
-		subView.getCmbTipoRegime().setValue(TipoRegime.getTipoRegime(String.valueOf(pj.getTipoRegime())));
+		subView.getCmbTipoRegime().setValue(
+				TipoRegime.getTipoRegime(String.valueOf(pj.getTipoRegime())));
 		subView.getCmbCrt().setValue(CRT.getCRT(String.valueOf(pj.getCrt())));
 
 	}
@@ -196,17 +204,26 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		subView.getTxtOrgaoEmissor().setValue(pf.getOrgaoRg());
 		subView.getDataEmissaoRG().setValue(pf.getDataEmissaoRg());
 		subView.getTxtCNH().setValue(pf.getCnhNumero());
-		subView.getCmbCategoriaCNH().setValue(CNHCategoria.getCNHCategoria(String.valueOf(pf.getCnhCategoria())));
+		subView.getCmbCategoriaCNH().setValue(
+				CNHCategoria.getCNHCategoria(String.valueOf(pf
+						.getCnhCategoria())));
 		subView.getDtCNHEmissao().setValue(pf.getCnhVencimento());
 		subView.getCmbEstadoCivil().setValue(pf.getEstadoCivil());
-		subView.getCmbRaca().setValue(Raca.getRaca(String.valueOf(pf.getRaca())));
-		subView.getCmbTipoSanguineo().setValue(TipoSangue.getTipoSangue(pf.getTipoSangue()));
+		subView.getCmbRaca().setValue(
+				Raca.getRaca(String.valueOf(pf.getRaca())));
+		subView.getCmbTipoSanguineo().setValue(
+				TipoSangue.getTipoSangue(pf.getTipoSangue()));
 		subView.getTxtNumeroReservista().setValue(pf.getReservistaNumero());
-		subView.getCmbCategoriaReservista().setValue(CategoriaReservista.getCategoriaReservista(String.valueOf(pf.getReservistaCategoria())));
-		subView.getGrpSexo().setValue("F".equals(pf.getSexo()) ? "Feminino" : "Masculino");
+		subView.getCmbCategoriaReservista().setValue(
+				CategoriaReservista.getCategoriaReservista(String.valueOf(pf
+						.getReservistaCategoria())));
+		subView.getGrpSexo().setValue(
+				"F".equals(pf.getSexo()) ? "Feminino" : "Masculino");
 		subView.getTxtTituloEleitor().setValue(pf.getTituloEleitoralNumero());
-		subView.getTxtTituloSecao().setConvertedValue(pf.getTituloEleitoralSecao());
-		subView.getTxtTituloZona().setConvertedValue(pf.getTituloEleitoralZona());
+		subView.getTxtTituloSecao().setConvertedValue(
+				pf.getTituloEleitoralSecao());
+		subView.getTxtTituloZona().setConvertedValue(
+				pf.getTituloEleitoralZona());
 	}
 
 	private boolean isEnabled(Character enabled) {
@@ -221,13 +238,15 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa().getValue();
+			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa()
+					.getValue();
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setTipo(tpPessoa.getCodigo());
 			currentBean.setEmail(subView.getTxtEmail().getValue());
 			currentBean.setSite(subView.getTxtSite().getValue());
 
-			List<String> values = new ArrayList<String>((Collection<String>) subView.getGroup().getValue());
+			List<String> values = new ArrayList<String>(
+					(Collection<String>) subView.getGroup().getValue());
 
 			for (String value : values) {
 				if ("Fornecedor".equals(value)) {
@@ -241,9 +260,9 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 				}
 
 			}
-			
 
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getEmpresa());
 
 			if ("F".equals(tpPessoa.getCodigo())) {
 				salvarPessoaFisica();
@@ -254,8 +273,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
-			
-			//mensagemErro("Erro!!");
+
+			// mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
 	}
@@ -273,7 +292,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		pj.setDataConstituicao(subView.getDataConstituicao().getValue());
 		pj.setPessoa(currentBean);
 		pj.setSuframa(subView.getTxtSuframa().getValue());
-		pj.setTipoRegime(subView.getCmbTipoRegime().getValue().toString().charAt(0));
+		pj.setTipoRegime(subView.getCmbTipoRegime().getValue().toString()
+				.charAt(0));
 		pj.setCrt(subView.getCmbCrt().getValue().toString().charAt(0));
 		dao.saveOrUpdate(currentBean);
 		pessoaJuridicaDAO.saveOrUpdate(pj);
@@ -298,17 +318,24 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		pf.setOrgaoRg(subView.getTxtOrgaoEmissor().getValue());
 		pf.setDataEmissaoRg(subView.getDataEmissaoRG().getValue());
 		pf.setCnhNumero(subView.getTxtCNH().getValue());
-		pf.setCnhCategoria(((CNHCategoria) subView.getCmbCategoriaCNH().getValue()).getCodigo().charAt(0));
+		pf.setCnhCategoria(((CNHCategoria) subView.getCmbCategoriaCNH()
+				.getValue()).getCodigo().charAt(0));
 		pf.setCnhVencimento(subView.getDtCNHEmissao().getValue());
 		pf.setEstadoCivil((EstadoCivil) subView.getCmbEstadoCivil().getValue());
-		pf.setRaca(((Raca) subView.getCmbRaca().getValue()).getCodigo().charAt(0));
-		pf.setTipoSangue(((TipoSangue) subView.getCmbTipoSanguineo().getValue()).getCodigo());
+		pf.setRaca(((Raca) subView.getCmbRaca().getValue()).getCodigo().charAt(
+				0));
+		pf.setTipoSangue(((TipoSangue) subView.getCmbTipoSanguineo().getValue())
+				.getCodigo());
 		pf.setReservistaNumero(subView.getTxtNumeroReservista().getValue());
-		pf.setReservistaCategoria(Integer.parseInt(((CategoriaReservista) subView.getCmbCategoriaReservista().getValue()).getCodigo()));
+		pf.setReservistaCategoria(Integer
+				.parseInt(((CategoriaReservista) subView
+						.getCmbCategoriaReservista().getValue()).getCodigo()));
 		pf.setSexo(subView.getGrpSexo().getValue().toString().charAt(0));
 		pf.setTituloEleitoralNumero(subView.getTxtTituloEleitor().getValue());
-		pf.setTituloEleitoralSecao((Integer) subView.getTxtTituloSecao().getConvertedValue());
-		pf.setTituloEleitoralZona((Integer) subView.getTxtTituloZona().getConvertedValue());
+		pf.setTituloEleitoralSecao((Integer) subView.getTxtTituloSecao()
+				.getConvertedValue());
+		pf.setTituloEleitoralZona((Integer) subView.getTxtTituloZona()
+				.getConvertedValue());
 		dao.saveOrUpdate(currentBean);
 		pessoaFisicaDAO.saveOrUpdate(pf);
 	}
@@ -330,7 +357,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		dao.deleteAllByIds(ids);
-		
+
 		mensagemRemovidoOK();
 	}
 
@@ -342,7 +369,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	public boolean isFullSized() {
 		return true;
 	}
-	
+
 	public Pessoa getCurrentBean() {
 		return currentBean;
 	}
@@ -365,7 +392,8 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	public ManyToOneComboModel<UF> getUfModel() {
-		ManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class, ufDAO, this.getMainController());
+		ManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(
+				UFListController.class, ufDAO, this.getMainController());
 		return model;
 	}
 
