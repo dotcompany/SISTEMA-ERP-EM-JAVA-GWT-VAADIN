@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.EstoqueContagemEntity;
 import dc.servicos.dao.suprimentos.EstoqueContagemDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -120,7 +121,7 @@ public class EstoqueContagemFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

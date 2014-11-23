@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.suprimentos.Cotacao;
 import dc.entidade.suprimentos.CotacaoDetalhe;
@@ -211,7 +212,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "mapaComparativoForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

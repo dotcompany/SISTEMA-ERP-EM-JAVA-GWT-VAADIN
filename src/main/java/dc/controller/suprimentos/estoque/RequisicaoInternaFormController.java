@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
@@ -93,7 +94,7 @@ public class RequisicaoInternaFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "requisicaoInternaForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

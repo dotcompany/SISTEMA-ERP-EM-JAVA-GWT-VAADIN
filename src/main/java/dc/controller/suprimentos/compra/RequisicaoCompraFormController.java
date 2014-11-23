@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.Requisicao;
@@ -148,7 +149,7 @@ public class RequisicaoCompraFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "requisicaoCompraForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

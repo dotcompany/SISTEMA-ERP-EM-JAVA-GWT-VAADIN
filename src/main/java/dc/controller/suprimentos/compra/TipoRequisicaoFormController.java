@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.TipoRequisicao;
 import dc.servicos.dao.suprimentos.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -101,7 +102,7 @@ public class TipoRequisicaoFormController extends
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "tipoRequisicaoForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

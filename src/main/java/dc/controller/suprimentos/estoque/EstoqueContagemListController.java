@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.EstoqueContagemEntity;
 import dc.servicos.dao.suprimentos.EstoqueContagemDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -72,7 +73,7 @@ public class EstoqueContagemListController extends
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.TipoRequisicao;
 import dc.servicos.dao.suprimentos.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -44,7 +45,7 @@ public class TipoRequisicaoListController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaTipoRequisicao";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.NotaFiscal;
 import dc.servicos.dao.suprimentos.NotaFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -48,7 +49,7 @@ public class NotaFiscalListController extends CRUDListController<NotaFiscal> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaNfe";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

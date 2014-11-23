@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contratos.Template;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
@@ -149,7 +150,7 @@ public class TemplateFormController extends CRUDFormController<Template> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "templateFormController";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

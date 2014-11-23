@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.suprimentos.Cotacao;
 import dc.entidade.suprimentos.FornecedorCotacao;
@@ -93,6 +94,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		cotacaoDao.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
@@ -156,7 +158,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "cotacaoForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

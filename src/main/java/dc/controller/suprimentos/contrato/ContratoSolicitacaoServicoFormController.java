@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.controller.diversos.SetorListController;
 import dc.controller.geral.FornecedorListController;
 import dc.controller.pessoal.ClienteListController;
@@ -228,7 +229,7 @@ public class ContratoSolicitacaoServicoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return null;
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

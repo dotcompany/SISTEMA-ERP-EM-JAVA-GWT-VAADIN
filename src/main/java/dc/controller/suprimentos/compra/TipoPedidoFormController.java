@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.TipoPedido;
 import dc.servicos.dao.suprimentos.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -99,7 +100,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "tipoPedidoForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

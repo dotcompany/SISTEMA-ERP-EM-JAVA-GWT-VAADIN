@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.framework.Empresa;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ContagemEstoque;
@@ -42,7 +43,7 @@ public class ContagemEstoqueFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "contagemEstoqueForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

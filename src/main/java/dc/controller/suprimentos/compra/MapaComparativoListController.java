@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.Cotacao;
 import dc.servicos.dao.suprimentos.CotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -43,7 +44,7 @@ public class MapaComparativoListController extends CRUDListController<Cotacao> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaCotacao";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

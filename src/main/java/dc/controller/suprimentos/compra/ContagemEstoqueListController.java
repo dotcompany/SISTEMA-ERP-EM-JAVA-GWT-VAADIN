@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.suprimentos.ContagemEstoque;
 import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -44,7 +45,7 @@ public class ContagemEstoqueListController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaContagemEstoque";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

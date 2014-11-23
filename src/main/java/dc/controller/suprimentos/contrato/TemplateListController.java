@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.contratos.Template;
 import dc.servicos.dao.contratos.TemplateDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -54,7 +55,7 @@ public class TemplateListController extends CRUDListController<Template> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaTemplate";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.CupomVinculado;
 import dc.entidade.suprimentos.NFeTransporte;
@@ -721,7 +722,7 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "entradaNfeForm";
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override
