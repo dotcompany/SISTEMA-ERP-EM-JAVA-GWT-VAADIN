@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -25,149 +26,157 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
+import dc.entidade.suprimentos.CupomVinculado;
+import dc.entidade.suprimentos.NfeDuplicata;
+import dc.entidade.suprimentos.NotaReferenciada;
 
 @Entity
 @Table(name = "nfe_cabecalho")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Caption("Id")
-//	private Integer id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Caption("Id")
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_cabecalho_id_seq", allocationSize = 1)
 	private Integer id;
 
-	//ABA Dados da NF-E
-	@Column(name="status_nota")
+	// ABA Dados da NF-E
+	@Column(name = "status_nota")
 	@Caption("Status")
 	String status;
 
-	@Column(name="chave_acesso")
+	@Column(name = "chave_acesso")
 	@Caption("Chave de Acesso")
 	String chaveAcesso;
 
 	@Caption("Número")
 	String numero;
 
-	@Column(name="codigo_modelo")
+	@Column(name = "codigo_modelo")
 	@Caption("Modelo")
 	String modelo;
 
 	@Caption("Série")
 	String serie;
-	
+
 	@Caption("Data de Emissão")
-	@Column(name="data_emissao")
+	@Column(name = "data_emissao")
 	@Temporal(TemporalType.DATE)
 	Date dataEmissao;
-	
+
 	@Caption("Data de Entrada Saida")
-	@Column(name="data_entrada_saida")
+	@Column(name = "data_entrada_saida")
 	@Temporal(TemporalType.DATE)
 	Date dataEntradaSaida;
-	
+
 	@Caption("Hora de Entrada Saida")
-	@Column(name="hora_entrada_saida")
+	@Column(name = "hora_entrada_saida")
 	String horaEntradaSaida;
-	
+
 	@Caption("Tipo de Operação")
-	@Column(name="tipo_operacao")
+	@Column(name = "tipo_operacao")
 	String tipoOperacao;
-	
+
 	@Caption("Forma de Pagamento")
-	@Column(name="indicador_forma_pagamento")
+	@Column(name = "indicador_forma_pagamento")
 	String formaPagamento;
-	
+
 	@Caption("Forma de Emissão")
-	@Column(name="tipo_emissao")
+	@Column(name = "tipo_emissao")
 	String formaEmissao;
-	
+
 	@Caption("Finalidade de Emissão")
-	@Column(name="finalidade_emissao")
+	@Column(name = "finalidade_emissao")
 	String finalidadeEmissao;
-	
+
 	@Caption("Tipo de Impressão DANFE")
-	@Column(name="formato_impressao_danfe")
+	@Column(name = "formato_impressao_danfe")
 	String tipoImpressaoDanfe;
-	
+
 	@Caption("Natureza da Operacão")
-	@Column(name="natureza_operacao")
+	@Column(name = "natureza_operacao")
 	String naturezaOperacao;
-	
+
 	@Caption("Base de Cálculo ICMS")
-	@Column(name="base_calculo_icms")
+	@Column(name = "base_calculo_icms")
 	BigDecimal baseCalculoIcms;
-	
+
 	@Caption("Valor do Cálculo ICMS")
-	@Column(name="valor_icms")
+	@Column(name = "valor_icms")
 	BigDecimal valorIcms;
-	
+
 	@Caption("Base de Cálculo ICMS ST")
-	@Column(name="base_calculo_icms_st")
+	@Column(name = "base_calculo_icms_st")
 	BigDecimal baseCalculoIcmsSt;
-	
+
 	@Caption("Valor do Cálculo ICMS ST")
-	@Column(name="valor_icms_st")
+	@Column(name = "valor_icms_st")
 	BigDecimal valorIcmsSt;
-	
+
 	@Caption("Valor do COFINS")
-	@Column(name="valor_cofins")
+	@Column(name = "valor_cofins")
 	BigDecimal valorCofins;
-	
+
 	@Caption("Valor do Frete")
-	@Column(name="valor_frete")
+	@Column(name = "valor_frete")
 	BigDecimal valorFrete;
-	
+
 	@Caption("Valor do Seguro")
-	@Column(name="valor_seguro")
+	@Column(name = "valor_seguro")
 	BigDecimal valorSeguro;
-	
+
 	@Caption("Outras Desp.Acessórias")
-	@Column(name="valor_despesas_acessorias")
+	@Column(name = "valor_despesas_acessorias")
 	BigDecimal outrasDespesasAcessorias;
-	
+
 	@Caption("Valor Total do PIS")
-	@Column(name="valor_pis")
+	@Column(name = "valor_pis")
 	BigDecimal valorPis;
-	
+
 	@Caption("Descontos")
-	@Column(name="valor_desconto")
+	@Column(name = "valor_desconto")
 	BigDecimal valorDescontos;
-	
+
 	@Caption("Total Produtos")
-	@Column(name="valor_total_produtos")
+	@Column(name = "valor_total_produtos")
 	BigDecimal valorTotalProdutos;
-	
+
 	@Caption("Total Nota")
-	@Column(name="valor_total")
+	@Column(name = "valor_total")
 	BigDecimal valorTotalNota;
-	
-	@OneToMany(mappedBy="notaFiscal",cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<NfeDuplicata> duplicatas = new ArrayList<NfeDuplicata>();
 
-	@OneToMany(mappedBy="notaFiscal",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<CupomVinculado> cuponsVinculados = new ArrayList<CupomVinculado>();
 
-	@OneToMany(mappedBy="notaFiscal",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<NotaReferenciada> notasReferenciadas = new ArrayList<NotaReferenciada>();
 
 	@Caption("Informações de Interesse do FISCO")
-	@Column(name="informacoes_add_fisco")
+	@Column(name = "informacoes_add_fisco")
 	String informacoesFisco;
-	
+
 	@Caption("Informações de Interesse do Contribuinte")
-	@Column(name="informacoes_add_contribuinte")
+	@Column(name = "informacoes_add_contribuinte")
 	String informacoesContribuinte;
-	
+
 	@Transient
 	List<Produto> produtos = new ArrayList<>();
-		
+
 	public Integer getId() {
 		return id;
 	}
@@ -224,8 +233,6 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		this.duplicatas = duplicatas;
 	}
 
-
-
 	public List<NotaReferenciada> getNotasReferenciadas() {
 		return notasReferenciadas;
 	}
@@ -241,7 +248,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	public void setCuponsVinculados(List<CupomVinculado> cuponsVinculados) {
 		this.cuponsVinculados = cuponsVinculados;
 	}
-	
+
 	public Date getDataEmissao() {
 		return dataEmissao;
 	}
@@ -273,8 +280,6 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	public void setTipoOperacao(String tipoOperacao) {
 		this.tipoOperacao = tipoOperacao;
 	}
-
-	
 
 	public String getFormaPagamento() {
 		return formaPagamento;
@@ -412,7 +417,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorTotalNota(BigDecimal valorTotalNota) {
 		this.valorTotalNota = valorTotalNota;
 	}
-	
+
 	public String getInformacoesFisco() {
 		return informacoesFisco;
 	}
@@ -428,7 +433,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	public void setInformacoesContribuinte(String informacoesContribuinte) {
 		this.informacoesContribuinte = informacoesContribuinte;
 	}
-	
+
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -437,24 +442,24 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		this.produtos = produtos;
 	}
 
-	public NfeDuplicata adicionarDuplicata(NfeDuplicata d){
+	public NfeDuplicata adicionarDuplicata(NfeDuplicata d) {
 		getDuplicatas().add(d);
 		d.setNotaFiscal(this);
 		return d;
 	}
 
-	public CupomVinculado adicionarCupom(CupomVinculado cupom){
+	public CupomVinculado adicionarCupom(CupomVinculado cupom) {
 		getCuponsVinculados().add(cupom);
 		cupom.setNotaFiscal(this);
 		return cupom;
 	}
-	
-	public Produto adicionarProduto(Produto p){
+
+	public Produto adicionarProduto(Produto p) {
 		getProdutos().add(p);
 		return p;
 	}
 
-	public NotaReferenciada adicionarNota(NotaReferenciada notaReferenciada){
+	public NotaReferenciada adicionarNota(NotaReferenciada notaReferenciada) {
 		getNotasReferenciadas().add(notaReferenciada);
 		notaReferenciada.setNotaFiscal(this);
 		return notaReferenciada;

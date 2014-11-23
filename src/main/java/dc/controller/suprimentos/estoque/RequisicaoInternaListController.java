@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.RequisicaoInterna;
-import dc.servicos.dao.suprimentos.RequisicaoInternaDAO;
+import dc.entidade.suprimentos.estoque.RequisicaoInterna;
+import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 

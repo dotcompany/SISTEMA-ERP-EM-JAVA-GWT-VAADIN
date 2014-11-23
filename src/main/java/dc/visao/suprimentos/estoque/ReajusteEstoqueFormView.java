@@ -26,8 +26,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.estoque.ReajusteEstoqueFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ReajusteEstoque;
 import dc.entidade.suprimentos.ReajusteEstoqueDetalhe;
+import dc.entidade.suprimentos.estoque.ReajusteEstoque;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;

@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.suprimentos.NfeDuplicata;
-import dc.entidade.suprimentos.NotaFiscal;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Component
 public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> {
-
 
 	@Override
 	public Class<NfeDuplicata> getEntityClass() {
@@ -27,14 +26,14 @@ public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> {
 		return null;
 	}
 
-	@Transactional  
-	public List<NfeDuplicata> buscarDuplicatasPorNota(NotaFiscal nota){
+	@Transactional
+	public List<NfeDuplicata> buscarDuplicatasPorNota(NotaFiscal nota) {
 		List<NfeDuplicata> lista = new ArrayList<>();
 		Criteria c = getSession().createCriteria(NfeDuplicata.class);
-		c.add(Restrictions.eq("notaFiscal",nota));
+		c.add(Restrictions.eq("notaFiscal", nota));
 		lista = c.list();
+
 		return lista;
 	}
-
 
 }

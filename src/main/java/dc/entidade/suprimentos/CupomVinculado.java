@@ -20,42 +20,46 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_cupom_fiscal_referenciado")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class CupomVinculado extends AbstractMultiEmpresaModel<Integer> {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_cupom_fiscal_referenciado_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@Caption("Modelo")
-	@Column(name="modelo_documento_fiscal")
+	@Column(name = "modelo_documento_fiscal")
 	String modelo;
-	
+
 	@Caption("Data de emissão")
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_emissao_cupom")
+	@Column(name = "data_emissao_cupom")
 	Date dataEmissao;
-	
+
 	@Caption("COO")
 	Integer coo;
-	
+
 	@Caption("N�mero Caixa")
-	@Column(name="numero_caixa")
+	@Column(name = "numero_caixa")
 	Integer numeroCaixa;
-	
+
 	@Caption("N�mero Série ECF")
-	@Column(name="numero_serie_ecf")
+	@Column(name = "numero_serie_ecf")
 	String numeroSerieEcf;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal notaFiscal;
 
 	public Integer getId() {
@@ -113,11 +117,5 @@ public class CupomVinculado extends AbstractMultiEmpresaModel<Integer> {
 	public void setNotaFiscal(NotaFiscal notaFiscal) {
 		this.notaFiscal = notaFiscal;
 	}
-	
-	
-	
-	
-	
-	
 
 }

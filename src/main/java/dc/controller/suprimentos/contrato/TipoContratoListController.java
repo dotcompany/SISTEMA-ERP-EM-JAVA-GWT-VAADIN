@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contratos.TipoContrato;
-import dc.servicos.dao.contratos.TipoContratoDAO;
+import dc.entidade.suprimentos.contrato.TipoContrato;
+import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 

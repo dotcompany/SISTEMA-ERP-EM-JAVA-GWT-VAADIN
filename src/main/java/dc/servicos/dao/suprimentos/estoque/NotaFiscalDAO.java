@@ -1,19 +1,17 @@
-package dc.servicos.dao.suprimentos;
+package dc.servicos.dao.suprimentos.estoque;
 
 import java.io.Serializable;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.suprimentos.NotaFiscal;
-import dc.entidade.suprimentos.Requisicao;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @Transactional
-public class NotaFiscalDAO
-extends AbstractCrudDAO<NotaFiscal>{
-	
+public class NotaFiscalDAO extends AbstractCrudDAO<NotaFiscal> {
+
 	@Override
 	public Class<NotaFiscal> getEntityClass() {
 		return NotaFiscal.class;
@@ -27,7 +25,7 @@ extends AbstractCrudDAO<NotaFiscal>{
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"id"};
+		return new String[] { "id" };
 	}
 
 }

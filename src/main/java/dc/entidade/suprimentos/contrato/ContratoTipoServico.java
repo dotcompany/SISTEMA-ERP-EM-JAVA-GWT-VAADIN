@@ -1,4 +1,4 @@
-package dc.entidade.contratos;
+package dc.entidade.suprimentos.contrato;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,61 +13,45 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * 
- * @author Wesley Jr
- *
- */
-
 @Entity
-@Table(name = "TEMPLATE")
+@Table(name = "CONTRATO_TIPO_SERVICO")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Template extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoTipoServico extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template")
-	@SequenceGenerator(name = "template", sequenceName = "template_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
 	@Field
-	@Caption("Id")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption("Id")
 	private Integer id;
 
-	@Column(name = "NOME")
 	@Field
 	@Caption("Nome")
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Column(name = "NOME")
 	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+    @NotEmpty
 	private String descricao;
-	
-	@Field
-	@Caption("Arquivo")
-	@Column(name = "ARQUIVO")
-	private String arquivo;
 
-	public Template() {
-	}
-	
-	public Template(Integer id) {
-		this.id = id;
+	public ContratoTipoServico() {
 	}
 
 	public Integer getId() {
@@ -85,14 +68,6 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	public String getArquivo() {
-		return arquivo;
-	}
-
-	public void setArquivo(String arquivo) {
-		this.arquivo = arquivo;
 	}
 
 	public String getDescricao() {
@@ -113,7 +88,6 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((arquivo == null) ? 0 : arquivo.hashCode());
 		result = prime * result + ((getEmpresa() == null) ? 0 : getEmpresa().hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -128,19 +102,12 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Template other = (Template) obj;
+		ContratoTipoServico other = (ContratoTipoServico) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		
-		if (arquivo == null) {
-			if (other.arquivo != null)
-				return false;
-		} else if (!arquivo.equals(other.arquivo))
-			return false;
-		
 		if (getEmpresa() == null) {
 			if (other.getEmpresa() != null)
 				return false;
@@ -158,5 +125,4 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 			return false;
 		return true;
 	}
-
 }

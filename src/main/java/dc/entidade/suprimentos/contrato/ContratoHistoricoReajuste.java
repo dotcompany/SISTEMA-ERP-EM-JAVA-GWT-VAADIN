@@ -1,4 +1,4 @@
-package dc.entidade.contratos;
+package dc.entidade.suprimentos.contrato;
 
 import java.math.BigDecimal;
 import java.util.Date;

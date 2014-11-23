@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.NotaFiscal;
-import dc.servicos.dao.suprimentos.NotaFiscalDAO;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
+import dc.servicos.dao.suprimentos.estoque.NotaFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 

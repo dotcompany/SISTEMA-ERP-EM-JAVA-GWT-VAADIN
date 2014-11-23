@@ -18,8 +18,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.estoque.RequisicaoInternaFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.RequisicaoInterna;
 import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
+import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 

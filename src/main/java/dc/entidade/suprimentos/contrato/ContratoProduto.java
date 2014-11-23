@@ -1,4 +1,4 @@
-package dc.entidade.contratos;
+package dc.entidade.suprimentos.contrato;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,15 +17,17 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.produto.Produto;
 
 @Entity
-@Table(name = "CONTRATO_TEMPLATE")
+@Table(name = "CONTRATO_PRODUTO")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
@@ -31,15 +35,15 @@ public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	private Integer id;
 
-	@Field
-	@Column(name = "NOME")
-	private String nome;
-
-	@Field
-	@Column(name = "DESCRICAO")
-	private String descricao;
-
-	public ContratoTemplate() {
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Contrato contrato;
+	
+	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Produto produto;
+	
+	public ContratoProduto() {
 	}
 
 	public Integer getId() {
@@ -49,26 +53,28 @@ public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getNome() {
-		return nome;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+	
+
+
+
+	public Contrato getContrato() {
+		return contrato;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
 	}
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.contratos.java.ContratoTemplateVO[id=" + id + "]";
+		return "com.t2tierp.contratos.java.ContratoProdutoVO[id=" + id + "]";
 	}
 
 }

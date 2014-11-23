@@ -10,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.contratos.ContratoTipoServico;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
-import dc.servicos.dao.contratos.ContratoTipoServicoDAO;
+import dc.entidade.suprimentos.contrato.ContratoTipoServico;
+import dc.servicos.dao.suprimentos.contrato.ContratoTipoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;

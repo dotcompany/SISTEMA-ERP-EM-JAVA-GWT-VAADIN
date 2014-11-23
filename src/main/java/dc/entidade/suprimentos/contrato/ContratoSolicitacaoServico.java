@@ -1,4 +1,4 @@
-package dc.entidade.contratos;
+package dc.entidade.suprimentos.contrato;
 
 import java.util.Date;
 

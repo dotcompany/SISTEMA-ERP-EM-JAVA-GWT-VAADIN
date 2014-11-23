@@ -17,32 +17,37 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_fatura")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NfeFatura extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_fatura_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal notaFiscal;
-	
+
 	String numero;
-	
-	@Column(name="valor_original")
+
+	@Column(name = "valor_original")
 	BigDecimal valorOriginal;
-	
-	@Column(name="valor_desconto")
+
+	@Column(name = "valor_desconto")
 	BigDecimal valorDesconto;
-	
-	@Column(name="valor_liquido")
+
+	@Column(name = "valor_liquido")
 	BigDecimal valorLiquido;
 
 	public Integer getId() {
@@ -92,7 +97,5 @@ public class NfeFatura extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorLiquido(BigDecimal valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
-	
-	
-	
+
 }

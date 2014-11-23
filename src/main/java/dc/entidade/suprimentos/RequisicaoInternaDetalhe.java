@@ -11,27 +11,33 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
+import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 
 @Entity
 @Table(name = "requisicao_interna_detalhe")
-@SuppressWarnings("serial")
-public class RequisicaoInternaDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoInternaDetalhe extends
+		AbstractMultiEmpresaModel<Integer> {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	private Integer id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "req")
 	@SequenceGenerator(name = "req", sequenceName = "requisicao_interna_detalhe_id_seq", allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name="id_produto")
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
 	@ManyToOne
-	@JoinColumn(name="id_req_interna_cabecalho")
+	@JoinColumn(name = "id_req_interna_cabecalho")
 	RequisicaoInterna requisicao;
 
 	Integer quantidade;

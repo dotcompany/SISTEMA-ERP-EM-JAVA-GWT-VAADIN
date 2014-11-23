@@ -11,12 +11,12 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.contratos.ContratoSolicitacaoServico;
-import dc.entidade.contratos.ContratoTipoServico;
 import dc.entidade.diversos.Setor;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
+import dc.entidade.suprimentos.contrato.ContratoSolicitacaoServico;
+import dc.entidade.suprimentos.contrato.ContratoTipoServico;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 

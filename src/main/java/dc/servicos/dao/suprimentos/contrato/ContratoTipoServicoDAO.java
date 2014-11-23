@@ -1,8 +1,8 @@
-package dc.servicos.dao.contratos;
+package dc.servicos.dao.suprimentos.contrato;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.contratos.ContratoTipoServico;
+import dc.entidade.suprimentos.contrato.ContratoTipoServico;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -18,4 +18,5 @@ public class ContratoTipoServicoDAO extends
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
+
 }

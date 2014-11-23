@@ -1,4 +1,4 @@
-package dc.entidade.contratos;
+package dc.entidade.suprimentos.contrato;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,16 +21,14 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.Pessoa;
 
 @Entity
-@Table(name = "CONTRATO_PREV_FATURAMENTO")
+@Table(name = "CONTRATO_HIST_FATURAMENTO")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoHistFaturamento extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -39,31 +37,21 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "ID")
 	@Field
 	private Integer id;
-	
-	@Field
-	@Column(name = "NUMERO_PARCELA")
-	@Caption(value = "Número Parcelas")
-	private Integer numeroParcela;
 
-	@Field
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_PREVISTA")
-	private Date dataPrevista;
-
+	@Column(name = "DATA_FATURA")
 	@Field
+	private Date dataFatura;
+
 	@Column(name = "VALOR")
+	@Field
 	private BigDecimal valor;
-	
+
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Contrato contrato;
-	
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Pessoa pessoa;
-	
 
-	public ContratoPrevFaturamento() {
+	public ContratoHistFaturamento() {
 	}
 
 	public Integer getId() {
@@ -73,21 +61,13 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public Integer getNumeroParcela() {
-		return numeroParcela;
+
+	public Date getDataFatura() {
+		return dataFatura;
 	}
 
-	public void setNumeroParcela(Integer numeroParcela) {
-		this.numeroParcela = numeroParcela;
-	}
-
-	public Date getDataPrevista() {
-		return dataPrevista;
-	}
-
-	public void setDataPrevista(Date dataPrevista) {
-		this.dataPrevista = dataPrevista;
+	public void setDataFatura(Date dataFatura) {
+		this.dataFatura = dataFatura;
 	}
 
 	public BigDecimal getValor() {
@@ -105,18 +85,10 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
-	
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.contratos.java.ContratoPrevFaturamentoVO[id=" + id + "]";
+		return "com.t2tierp.contratos.java.ContratoHistFaturamentoVO[id=" + id + "]";
 	}
 
 }

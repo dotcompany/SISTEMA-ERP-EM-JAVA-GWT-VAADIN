@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,8 +27,8 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EstoqueContagemEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class EstoqueContagemEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 

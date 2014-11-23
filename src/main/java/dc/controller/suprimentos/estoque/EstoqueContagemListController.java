@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.EstoqueContagemEntity;
-import dc.servicos.dao.suprimentos.EstoqueContagemDAO;
+import dc.entidade.suprimentos.estoque.EstoqueContagemEntity;
+import dc.servicos.dao.suprimentos.estoque.EstoqueContagemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 

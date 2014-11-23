@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -27,19 +28,25 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
+import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
 
 @Entity
 @Table(name = "requisicao_interna_cabecalho")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Caption("Id")
-//	private Integer id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Caption("Id")
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "req")
 	@SequenceGenerator(name = "req", sequenceName = "requisicao_interna_cabecalho_id_seq", allocationSize = 1)
@@ -49,11 +56,11 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "data_requisicao")
 	@Caption("Data de requisição")
 	private Date dataRequisicao;
-	
+
 	@Caption("Colaborador")
 	@ManyToOne
-	@JoinColumn(name="id_colaborador")
-	private Colaborador colaborador; 
+	@JoinColumn(name = "id_colaborador")
+	private Colaborador colaborador;
 
 	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
@@ -83,7 +90,8 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 		this.detalhes = detalhes;
 	}
 
-	public RequisicaoInternaDetalhe addRequisicaoDetalhe(RequisicaoInternaDetalhe requisicaoDetalhe){
+	public RequisicaoInternaDetalhe addRequisicaoDetalhe(
+			RequisicaoInternaDetalhe requisicaoDetalhe) {
 		getDetalhes().add(requisicaoDetalhe);
 		requisicaoDetalhe.setRequisicao(this);
 		return requisicaoDetalhe;

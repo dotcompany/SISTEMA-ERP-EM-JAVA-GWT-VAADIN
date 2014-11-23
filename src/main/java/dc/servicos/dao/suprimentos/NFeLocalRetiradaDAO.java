@@ -4,13 +4,14 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import dc.entidade.suprimentos.NfeLocalRetirada;
-import dc.entidade.suprimentos.NotaFiscal;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Component
 public class NFeLocalRetiradaDAO extends AbstractCrudDAO<NfeLocalRetirada> {
-	
+
 	@Override
 	public Class<NfeLocalRetirada> getEntityClass() {
 		return NfeLocalRetirada.class;
@@ -22,13 +23,12 @@ public class NFeLocalRetiradaDAO extends AbstractCrudDAO<NfeLocalRetirada> {
 		return null;
 	}
 
-	@Transactional  
-	public NfeLocalRetirada buscaRetiradaPorNota(NotaFiscal nota){
-		
+	@Transactional
+	public NfeLocalRetirada buscaRetiradaPorNota(NotaFiscal nota) {
 		Criteria c = getSession().createCriteria(NfeLocalRetirada.class);
-		c.add(Restrictions.eq("notaFiscal",nota));
-		return (NfeLocalRetirada)c.uniqueResult();
+		c.add(Restrictions.eq("notaFiscal", nota));
+
+		return (NfeLocalRetirada) c.uniqueResult();
 	}
 
 }
-

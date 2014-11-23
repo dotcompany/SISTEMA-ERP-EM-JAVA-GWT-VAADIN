@@ -55,9 +55,9 @@ import dc.controller.suprimentos.estoque.NotaFiscalFormController;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.CupomVinculado;
 import dc.entidade.suprimentos.NfeDuplicata;
-import dc.entidade.suprimentos.NotaFiscal;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
 import dc.entidade.suprimentos.NotaReferenciada;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 

@@ -1,4 +1,4 @@
-package dc.servicos.dao.suprimentos;
+package dc.servicos.dao.suprimentos.estoque;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.patrimonio.ApoliceSeguroEntity;
-import dc.entidade.suprimentos.EstoqueContagemEntity;
+import dc.entidade.suprimentos.estoque.EstoqueContagemEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

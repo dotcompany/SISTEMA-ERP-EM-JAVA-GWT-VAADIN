@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -30,20 +31,26 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
-
+import dc.entidade.suprimentos.ReajusteEstoqueDetalhe;
 
 @Entity
 @Table(name = "estoque_reajuste_cabecalho")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Caption("Id")
-//	private Integer id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Caption("Id")
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "estoque_reajuste_cabecalho_id_seq", allocationSize = 1)
@@ -58,17 +65,17 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implemen
 	private BigDecimal porcentagem;
 
 	@Caption("Tipo de Reajuste")
-	@Column(name="tipo_reajuste")
+	@Column(name = "tipo_reajuste")
 	private String tipo;
-	
+
 	@Caption("Tipo de Reajuste")
 	@Transient
 	private String tipoString;
 
 	@Caption("Colaborador")
 	@ManyToOne
-	@JoinColumn(name="id_colaborador")
-	private Colaborador colaborador; 
+	@JoinColumn(name = "id_colaborador")
+	private Colaborador colaborador;
 
 	@OneToMany(mappedBy = "reajuste", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
@@ -78,7 +85,7 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implemen
 	static Integer AUMENTAR = 1;
 
 	@Transient
-	static 	Integer DIMINUIR = 2;
+	static Integer DIMINUIR = 2;
 
 	public Integer getId() {
 		return id;
@@ -111,7 +118,6 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implemen
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
 
 	public BigDecimal getPorcentagem() {
 		return porcentagem;
@@ -129,37 +135,33 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer> implemen
 		this.detalhes = detalhes;
 	}
 
-	public ReajusteEstoqueDetalhe addDetalhe(ReajusteEstoqueDetalhe detalhe){
+	public ReajusteEstoqueDetalhe addDetalhe(ReajusteEstoqueDetalhe detalhe) {
 		getDetalhes().add(detalhe);
 		detalhe.setReajuste(this);
 		return detalhe;
 	}
 
-
-	public static BigDecimal valorAumentado(BigDecimal valorOriginal,BigDecimal porcentagem,Integer tipo){
+	public static BigDecimal valorAumentado(BigDecimal valorOriginal,
+			BigDecimal porcentagem, Integer tipo) {
 		BigDecimal valorFinal = new BigDecimal(0);
 		BigDecimal valorPorcentagem = porcentagem.multiply(valorOriginal);
-		if(tipo.equals(AUMENTAR)){
-			valorFinal = valorOriginal.add(valorPorcentagem);	 
+		if (tipo.equals(AUMENTAR)) {
+			valorFinal = valorOriginal.add(valorPorcentagem);
 		}
-		
-		if(tipo.equals( DIMINUIR)){
-			valorFinal = valorOriginal.subtract(valorPorcentagem);	 
+
+		if (tipo.equals(DIMINUIR)) {
+			valorFinal = valorOriginal.subtract(valorPorcentagem);
 		}
 
 		return valorFinal;
 	}
 
 	public String getTipoString() {
-		return tipo.equals("1")?"Aumentar" : "Diminuir" ;
+		return tipo.equals("1") ? "Aumentar" : "Diminuir";
 	}
 
 	public void setTipoString(String tipoString) {
 		this.tipoString = tipoString;
 	}
-	
-	
-
-
 
 }

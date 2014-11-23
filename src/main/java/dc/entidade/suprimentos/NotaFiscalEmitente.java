@@ -15,60 +15,65 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_emitente")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Caption("Id")
-//	private Integer id;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Caption("Id")
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emt")
 	@SequenceGenerator(name = "emt", sequenceName = "nfe_emitente_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@OneToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal nota;
-	
-	@Column(name="cpf_cnpj")
+
+	@Column(name = "cpf_cnpj")
 	String cpfCnpj;
-	
-	@Column(name="razao_social")
+
+	@Column(name = "razao_social")
 	String razaoSocial;
-	
-	@Column(name="fantasia")
+
+	@Column(name = "fantasia")
 	String nomeFantasia;
-	
+
 	String cep;
-	
+
 	String logradouro;
-	
+
 	String numero;
-	
+
 	String complemento;
-	
+
 	String bairro;
-	
-	@Column(name="codigo_municipio")
+
+	@Column(name = "codigo_municipio")
 	Integer codigoIBGE;
-	
-	@Column(name="nome_municipio")
+
+	@Column(name = "nome_municipio")
 	String cidade;
-	
+
 	String uf;
-	
-	@Column(name="inscricao_estadual")
+
+	@Column(name = "inscricao_estadual")
 	String inscricaoEstadual;
-	
+
 	String telefone;
-	
+
 	String crt;
 
 	public Integer getId() {
@@ -151,8 +156,6 @@ public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 		this.bairro = bairro;
 	}
 
-	
-
 	public Integer getCodigoIBGE() {
 		return codigoIBGE;
 	}
@@ -200,7 +203,5 @@ public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 	public void setCrt(String crt) {
 		this.crt = crt;
 	}
-	
-	
-	
+
 }

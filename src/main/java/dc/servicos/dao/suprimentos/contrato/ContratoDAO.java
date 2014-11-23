@@ -1,11 +1,11 @@
-package dc.servicos.dao.contratos;
+package dc.servicos.dao.suprimentos.contrato;
 
 import java.io.Serializable;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.contratos.Contrato;
+import dc.entidade.suprimentos.contrato.Contrato;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -30,6 +30,7 @@ public class ContratoDAO extends AbstractCrudDAO<Contrato> {
 		contrato.getContratosHistoricosFaturamentos();
 		contrato.getContratosHistoricosReajustes();
 		contrato.getContratosPrevisoesFaturamentos();
+
 		return contrato;
 	}
 

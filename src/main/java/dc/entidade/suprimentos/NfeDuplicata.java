@@ -21,34 +21,37 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
-
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_duplicata")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NfeDuplicata extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_duplicata_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@Caption("Número")
 	String numero;
-	
+
 	@Caption("Data Vencimento")
-	@Column(name="data_vencimento")
+	@Column(name = "data_vencimento")
 	@Temporal(TemporalType.DATE)
 	Date dataVencimento;
-	
+
 	@Caption("Data Vencimento")
 	BigDecimal valor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal notaFiscal;
 
 	public Integer getId() {
@@ -90,9 +93,5 @@ public class NfeDuplicata extends AbstractMultiEmpresaModel<Integer> {
 	public void setNotaFiscal(NotaFiscal notaFiscal) {
 		this.notaFiscal = notaFiscal;
 	}
-	
-	
-	
-	
-	
+
 }

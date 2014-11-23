@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.ReajusteEstoque;
-import dc.servicos.dao.suprimentos.ReajusteEstoqueDAO;
+import dc.entidade.suprimentos.estoque.ReajusteEstoque;
+import dc.servicos.dao.suprimentos.estoque.ReajusteEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 

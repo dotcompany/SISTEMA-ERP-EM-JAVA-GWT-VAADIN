@@ -15,13 +15,18 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_local_retirada")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
@@ -29,10 +34,10 @@ public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
 	private Integer id;
 
 	@OneToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal notaFiscal;
 
-	@Column(name="cpf_cnpj")
+	@Column(name = "cpf_cnpj")
 	String cpfCnpj;
 
 	String logradouro;
@@ -43,10 +48,10 @@ public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
 
 	String bairro;
 
-	@Column(name="codigo_municipio")
+	@Column(name = "codigo_municipio")
 	Integer codigoMunicipio;
 
-	@Column(name="nome_municipio")
+	@Column(name = "nome_municipio")
 	String cidade;
 
 	String uf;
@@ -58,8 +63,6 @@ public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	
 
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
@@ -109,8 +112,6 @@ public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
 		this.bairro = bairro;
 	}
 
-	
-	
 	public Integer getCodigoMunicipio() {
 		return codigoMunicipio;
 	}
@@ -134,7 +135,5 @@ public class NfeLocalRetirada extends AbstractMultiEmpresaModel<Integer> {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-
-
 
 }

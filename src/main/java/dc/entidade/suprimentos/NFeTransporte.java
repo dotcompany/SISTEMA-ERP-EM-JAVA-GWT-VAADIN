@@ -17,67 +17,72 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
 @Table(name = "nfe_transporte")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class NFeTransporte extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
 	@SequenceGenerator(name = "rje", sequenceName = "nfe_transporte_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@OneToOne
-	@JoinColumn(name="id_nfe_cabecalho")
+	@JoinColumn(name = "id_nfe_cabecalho")
 	NotaFiscal notaFiscal;
-	
-	@Column(name="id_transportadora")
+
+	@Column(name = "id_transportadora")
 	Integer transportadora;
-	
-	@Column(name="cpf_cnpj")
+
+	@Column(name = "cpf_cnpj")
 	String cpfCnpj;
-	
-	@Column(name="nome")
+
+	@Column(name = "nome")
 	String razaoSocial;
-	
-	@Column(name="inscricao_estadual")
+
+	@Column(name = "inscricao_estadual")
 	String inscricaoEstadual;
-	
-	@Column(name="endereco")
+
+	@Column(name = "endereco")
 	String logradouro;
-	
-	@Column(name="nome_municipio")
+
+	@Column(name = "nome_municipio")
 	String cidade;
-	
+
 	String uf;
-	
-	@Column(name="municipio")
+
+	@Column(name = "municipio")
 	Integer codigoIBGE;
-	
+
 	Integer cfop;
-	
-	@Column(name="valor_bc_retencao_icms")
+
+	@Column(name = "valor_bc_retencao_icms")
 	BigDecimal baseCalculo;
-	
-	@Column(name="aliquota_retencao_icms")
+
+	@Column(name = "aliquota_retencao_icms")
 	BigDecimal aliquota;
-	
-	@Column(name="valor_servico")
+
+	@Column(name = "valor_servico")
 	BigDecimal valorServico;
-	
-	@Column(name="valor_icms_retido")
+
+	@Column(name = "valor_icms_retido")
 	BigDecimal valorIcmsRetido;
-	
-	@Column(name="uf_veiculo")
+
+	@Column(name = "uf_veiculo")
 	String ufVeiculo;
-	
-	@Column(name="placa_veiculo")
+
+	@Column(name = "placa_veiculo")
 	String placaVeiculo;
-	
-	@Column(name="rntc_veiculo")
+
+	@Column(name = "rntc_veiculo")
 	String rntcVeiculo;
 
 	public Integer getId() {
@@ -87,8 +92,6 @@ public class NFeTransporte extends AbstractMultiEmpresaModel<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	
 
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
@@ -217,6 +220,5 @@ public class NFeTransporte extends AbstractMultiEmpresaModel<Integer> {
 	public void setRntcVeiculo(String rntcVeiculo) {
 		this.rntcVeiculo = rntcVeiculo;
 	}
-	
-	
+
 }

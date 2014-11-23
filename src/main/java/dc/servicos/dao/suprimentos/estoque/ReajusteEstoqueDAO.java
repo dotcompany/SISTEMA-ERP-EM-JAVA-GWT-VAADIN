@@ -1,12 +1,12 @@
-package dc.servicos.dao.suprimentos;
+package dc.servicos.dao.suprimentos.estoque;
 
 import org.springframework.stereotype.Repository;
-import dc.entidade.suprimentos.ReajusteEstoque;
+
+import dc.entidade.suprimentos.estoque.ReajusteEstoque;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ReajusteEstoqueDAO
-extends AbstractCrudDAO<ReajusteEstoque>{
+public class ReajusteEstoqueDAO extends AbstractCrudDAO<ReajusteEstoque> {
 
 	@Override
 	public Class<ReajusteEstoque> getEntityClass() {
@@ -15,6 +15,7 @@ extends AbstractCrudDAO<ReajusteEstoque>{
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		return new String[]{"data"};
+		return new String[] { "data" };
 	}
+
 }
