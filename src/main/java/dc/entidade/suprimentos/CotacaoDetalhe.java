@@ -1,8 +1,10 @@
 package dc.entidade.suprimentos;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,66 +13,131 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
-import dc.entidade.framework.AbstractModel;
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.produto.Produto;
-
 
 /**
  * The persistent class for the compra_cotacao_detalhe database table.
  * 
  */
 @Entity
-@Table(name="compra_cotacao_detalhe")
-public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+@Table(name = "compra_cotacao_detalhe")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
+
+	/**
+* 
+*/
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_cotacao_pedido_detalhe_id_seq")
+	@SequenceGenerator(name = "compra_cotacao_pedido_detalhe_id_seq", sequenceName = "compra_cotacao_pedido_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="id_produto")
-	private Produto produto;
-
+	@Field
+	@Column(name = "quantidade")
+	@Caption("Quantidade")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidade;
 
-	@Column(name="quantidade_pedida")
+	@Field
+	@Column(name = "quantidade_pedida")
+	@Caption("Quantidade pedida")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidadePedida;
 
-	@Column(name="taxa_desconto")
+	@Field
+	@Column(name = "taxa_desconto")
+	@Caption("Taxa de desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaDesconto;
 
-	@Column(name="valor_desconto")
+	@Field
+	@Column(name = "valor_desconto")
+	@Caption("Valor de desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorDesconto;
 
-	@Column(name="valor_subtotal")
+	@Field
+	@Column(name = "valor_subtotal")
+	@Caption("Valor subtotal")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorSubtotal;
 
-	@Column(name="valor_total")
+	@Field
+	@Column(name = "valor_total")
+	@Caption("Valor total")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorTotal;
 
-	@Column(name="valor_unitario")
+	@Field
+	@Column(name = "valor_unitario")
+	@Caption("Valor unitário")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorUnitario;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
-	@JoinColumn(name="id_compra_fornecedor_cotacao")
+	@JoinColumn(name = "id_produto")
+	@Caption(value = "Produto")
+	private Produto produto;
+
+	@ManyToOne
+	@JoinColumn(name = "id_compra_fornecedor_cotacao")
+	@Caption(value = "Fornecedor - Cotação")
 	private FornecedorCotacao compraFornecedorCotacao;
 
-	@OneToMany(mappedBy="compraCotacaoDetalhe")
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "compraCotacaoDetalhe")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<CotacaoPedidoDetalhe> compraCotacaoPedidoDetalhes;
 
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public CotacaoDetalhe() {
+
 	}
 
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -78,7 +145,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getQuantidade() {
-		return this.quantidade;
+		return quantidade;
 	}
 
 	public void setQuantidade(BigDecimal quantidade) {
@@ -86,7 +153,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getQuantidadePedida() {
-		return this.quantidadePedida;
+		return quantidadePedida;
 	}
 
 	public void setQuantidadePedida(BigDecimal quantidadePedida) {
@@ -94,7 +161,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getTaxaDesconto() {
-		return this.taxaDesconto;
+		return taxaDesconto;
 	}
 
 	public void setTaxaDesconto(BigDecimal taxaDesconto) {
@@ -102,7 +169,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getValorDesconto() {
-		return this.valorDesconto;
+		return valorDesconto;
 	}
 
 	public void setValorDesconto(BigDecimal valorDesconto) {
@@ -110,7 +177,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getValorSubtotal() {
-		return this.valorSubtotal;
+		return valorSubtotal;
 	}
 
 	public void setValorSubtotal(BigDecimal valorSubtotal) {
@@ -118,7 +185,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getValorTotal() {
-		return this.valorTotal;
+		return valorTotal;
 	}
 
 	public void setValorTotal(BigDecimal valorTotal) {
@@ -126,41 +193,11 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public BigDecimal getValorUnitario() {
-		return this.valorUnitario;
+		return valorUnitario;
 	}
 
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
-	}
-
-	public FornecedorCotacao getCompraFornecedorCotacao() {
-		return this.compraFornecedorCotacao;
-	}
-
-	public void setCompraFornecedorCotacao(FornecedorCotacao compraFornecedorCotacao) {
-		this.compraFornecedorCotacao = compraFornecedorCotacao;
-	}
-
-	public List<CotacaoPedidoDetalhe> getCompraCotacaoPedidoDetalhes() {
-		return this.compraCotacaoPedidoDetalhes;
-	}
-
-	public void setCompraCotacaoPedidoDetalhes(List<CotacaoPedidoDetalhe> compraCotacaoPedidoDetalhes) {
-		this.compraCotacaoPedidoDetalhes = compraCotacaoPedidoDetalhes;
-	}
-
-	public CotacaoPedidoDetalhe addCompraCotacaoPedidoDetalhe(CotacaoPedidoDetalhe compraCotacaoPedidoDetalhe) {
-		getCompraCotacaoPedidoDetalhes().add(compraCotacaoPedidoDetalhe);
-		compraCotacaoPedidoDetalhe.setCompraCotacaoDetalhe(this);
-
-		return compraCotacaoPedidoDetalhe;
-	}
-
-	public CotacaoPedidoDetalhe removeCompraCotacaoPedidoDetalhe(CotacaoPedidoDetalhe compraCotacaoPedidoDetalhe) {
-		getCompraCotacaoPedidoDetalhes().remove(compraCotacaoPedidoDetalhe);
-		compraCotacaoPedidoDetalhe.setCompraCotacaoDetalhe(null);
-
-		return compraCotacaoPedidoDetalhe;
 	}
 
 	public Produto getProduto() {
@@ -169,6 +206,33 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public FornecedorCotacao getCompraFornecedorCotacao() {
+		return compraFornecedorCotacao;
+	}
+
+	public void setCompraFornecedorCotacao(
+			FornecedorCotacao compraFornecedorCotacao) {
+		this.compraFornecedorCotacao = compraFornecedorCotacao;
+	}
+
+	public List<CotacaoPedidoDetalhe> getCompraCotacaoPedidoDetalhes() {
+		return compraCotacaoPedidoDetalhes;
+	}
+
+	public void setCompraCotacaoPedidoDetalhes(
+			List<CotacaoPedidoDetalhe> compraCotacaoPedidoDetalhes) {
+		this.compraCotacaoPedidoDetalhes = compraCotacaoPedidoDetalhes;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

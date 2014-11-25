@@ -177,7 +177,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 
 	public RequisicaoCotacaoDetalhe novoRequisicaoCotacaoDetalhe() {
 		RequisicaoCotacaoDetalhe cotacaoDetalhe = new RequisicaoCotacaoDetalhe();
-		currentBean.addCompraReqCotacaoDetalhe(cotacaoDetalhe);
+		currentBean.getCompraReqCotacaoDetalhes().add(cotacaoDetalhe);
 
 		return cotacaoDetalhe;
 	}
@@ -185,7 +185,8 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 	public void removerRequisicaoCotacaoDetalhes(
 			List<RequisicaoCotacaoDetalhe> values) {
 		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : values) {
-			currentBean.removeCompraReqCotacaoDetalhe(requisicaoCotacaoDetalhe);
+			currentBean.getCompraReqCotacaoDetalhes().remove(
+					requisicaoCotacaoDetalhe);
 		}
 
 		mensagemRemovidoOK();
@@ -197,14 +198,14 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 
 	public FornecedorCotacao novoFornecedorCotacao() {
 		FornecedorCotacao fornecedorCotacao = new FornecedorCotacao();
-		currentBean.addCompraFornecedorCotacao(fornecedorCotacao);
+		currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
 
 		return fornecedorCotacao;
 	}
 
 	public void removerFornecedorCotacaos(List<FornecedorCotacao> values) {
 		for (FornecedorCotacao fornecedorCotacao : values) {
-			currentBean.removeCompraFornecedorCotacao(fornecedorCotacao);
+			currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
 		}
 
 		mensagemRemovidoOK();

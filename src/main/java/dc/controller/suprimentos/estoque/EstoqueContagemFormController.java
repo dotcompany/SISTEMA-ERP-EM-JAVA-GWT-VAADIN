@@ -59,7 +59,6 @@ public class EstoqueContagemFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-
 			notifiyFrameworkSaveOK(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,14 +66,12 @@ public class EstoqueContagemFormController extends
 			mensagemErro(e.getMessage());
 		} finally {
 			this.pEntity = new EstoqueContagemEntity();
-
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		this.pEntity = this.pDAO.find(id);
-
 	}
 
 	/*
@@ -98,7 +95,6 @@ public class EstoqueContagemFormController extends
 	@Override
 	protected void criarNovoBean() {
 		this.pEntity = new EstoqueContagemEntity();
-
 	}
 
 	@Override
