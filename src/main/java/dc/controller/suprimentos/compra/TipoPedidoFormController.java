@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.TipoPedido;
-import dc.servicos.dao.suprimentos.TipoPedidoDAO;
+import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.TipoPedidoFormView;
 
@@ -24,10 +24,10 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	TipoPedidoFormView subView;
+	private TipoPedidoFormView subView;
 
 	@Autowired
-	TipoPedidoDAO tipoPedidoDAO;
+	private TipoPedidoDAO tipoPedidoDAO;
 
 	private TipoPedido currentBean;
 

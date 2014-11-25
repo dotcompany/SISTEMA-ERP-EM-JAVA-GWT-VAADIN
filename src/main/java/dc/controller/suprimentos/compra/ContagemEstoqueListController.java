@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.ContagemEstoque;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
+import dc.entidade.suprimentos.compra.ContagemEstoque;
+import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +23,10 @@ public class ContagemEstoqueListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContagemEstoqueDAO dao;
+	private ContagemEstoqueDAO dao;
 
 	@Autowired
-	ContagemEstoqueFormController formController;
+	private ContagemEstoqueFormController formController;
 
 	@Override
 	public String[] getColunas() {

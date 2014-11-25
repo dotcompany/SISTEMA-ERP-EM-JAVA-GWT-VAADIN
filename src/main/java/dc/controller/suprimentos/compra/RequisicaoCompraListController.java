@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.Requisicao;
-import dc.servicos.dao.suprimentos.RequisicaoDAO;
+import dc.entidade.suprimentos.compra.Requisicao;
+import dc.servicos.dao.suprimentos.compra.RequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +23,10 @@ public class RequisicaoCompraListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	RequisicaoDAO dao;
+	private RequisicaoDAO dao;
 
 	@Autowired
-	RequisicaoCompraFormController formController;
+	private RequisicaoCompraFormController formController;
 
 	@Override
 	public String[] getColunas() {

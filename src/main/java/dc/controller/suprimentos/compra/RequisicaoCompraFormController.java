@@ -12,13 +12,13 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.Requisicao;
 import dc.entidade.suprimentos.RequisicaoDetalhe;
-import dc.entidade.suprimentos.TipoRequisicao;
+import dc.entidade.suprimentos.compra.Requisicao;
+import dc.entidade.suprimentos.compra.TipoRequisicao;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.RequisicaoDAO;
-import dc.servicos.dao.suprimentos.TipoRequisicaoDAO;
+import dc.servicos.dao.suprimentos.compra.RequisicaoDAO;
+import dc.servicos.dao.suprimentos.compra.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.RequisicaoCompraFormView;
 
@@ -32,19 +32,19 @@ public class RequisicaoCompraFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	RequisicaoCompraFormView subView;
+	private RequisicaoCompraFormView subView;
 
 	@Autowired
-	RequisicaoDAO requisicaoDAO;
+	private RequisicaoDAO requisicaoDAO;
 
 	@Autowired
-	TipoRequisicaoDAO tipoRequisicaoDAO;
+	private TipoRequisicaoDAO tipoRequisicaoDAO;
 
 	@Autowired
-	ColaboradorDAO colaboradorDAO;
+	private ColaboradorDAO colaboradorDAO;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private ProdutoDAO produtoDAO;
 
 	private Requisicao currentBean;
 

@@ -15,18 +15,20 @@ import javax.persistence.Table;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
+import dc.entidade.suprimentos.compra.ContagemEstoque;
 
-@Entity   // esse aqui e o nome da tabelam 
+@Entity
+// esse aqui e o nome da tabelam
 @Table(name = "estoque_contagem_detalhe")
 @SuppressWarnings("serial")
 public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Caption("Id")
-//	@Field
-//	private Integer id;
-	
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Caption("Id")
+	// @Field
+	// private Integer id;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnd")
 	@SequenceGenerator(name = "cnd", sequenceName = "estoque_contagem_detalhe_id_seq", allocationSize = 1)
@@ -37,15 +39,15 @@ public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption("Divergencia")
 	BigDecimal divergencia;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_produto")
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
-	@Column(name="quantidade_contada")
+
+	@Column(name = "quantidade_contada")
 	private BigDecimal quantidadeContada;
-	
-	@Column(name="quantidade_sistema")
+
+	@Column(name = "quantidade_sistema")
 	private BigDecimal quantidadeSistema;
 
 	@ManyToOne
@@ -59,8 +61,6 @@ public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	
 
 	public BigDecimal getAcuracidade() {
 		return acuracidade;
@@ -109,7 +109,5 @@ public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	public void setQuantidadeSistema(BigDecimal quantidadeSistema) {
 		this.quantidadeSistema = quantidadeSistema;
 	}
-	
-	
-		
+
 }

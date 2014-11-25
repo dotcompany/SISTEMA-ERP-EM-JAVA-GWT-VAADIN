@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.Cotacao;
-import dc.servicos.dao.suprimentos.CotacaoDAO;
+import dc.entidade.suprimentos.compra.Cotacao;
+import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +22,10 @@ public class ConfirmaCotacaoListController extends CRUDListController<Cotacao> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CotacaoDAO dao;
+	private CotacaoDAO dao;
 
 	@Autowired
-	ConfirmaCotacaoFormController formController;
+	private ConfirmaCotacaoFormController formController;
 
 	@Override
 	public String[] getColunas() {

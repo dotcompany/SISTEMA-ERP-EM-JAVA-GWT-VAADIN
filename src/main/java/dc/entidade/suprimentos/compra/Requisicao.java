@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +30,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Colaborador;
+import dc.entidade.suprimentos.RequisicaoDetalhe;
 
 /**
  * The persistent class for the compra_requisicao database table.
@@ -39,7 +40,7 @@ import dc.entidade.pessoal.Colaborador;
 @Table(name = "compra_requisicao")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
@@ -51,7 +52,7 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "data_requisicao")
 	@Caption("Data de Requisição")
 	private Date dataRequisicao;
-	
+
 	@Lob
 	@Field
 	@Caption("Observacao")
@@ -71,7 +72,7 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Tipo Requisição")
 	private TipoRequisicao tipoRequisicao;
 
-	@OneToMany(mappedBy = "requisicao", cascade=CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
 	private List<RequisicaoDetalhe> requisicaoDetalhes = new ArrayList<>();
 
@@ -93,7 +94,7 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 	public void setDataRequisicao(Date dataRequisicao) {
 		this.dataRequisicao = dataRequisicao;
 	}
-	
+
 	public String getObservacao() {
 		return observacao;
 	}

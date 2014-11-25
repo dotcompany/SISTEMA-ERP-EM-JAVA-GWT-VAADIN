@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,36 +23,40 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
 @SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnt")
 	@SequenceGenerator(name = "cnt", sequenceName = "estoque_contagem_cabecalho_id_seq", allocationSize = 1)
 	private Integer id;
 
-	/*@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	private Empresa empresa;*/
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "ID_EMPRESA", nullable = false) private Empresa
+	 * empresa;
+	 */
 
 	@Caption("Data")
-	@Column(name="data_contagem")
+	@Column(name = "data_contagem")
 	@Temporal(TemporalType.DATE)
 	private Date data;
 
 	@Caption("Estoque Atualizado")
-	@Column(name="estoque_atualizado")
+	@Column(name = "estoque_atualizado")
 	private String estoqueAtualizado;
-	
-	@OneToMany(mappedBy = "contagem", orphanRemoval = true,cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "contagem", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Caption("Detalhe")
 	private List<ContagemEstoqueDetalhe> contagemDetalhes;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -61,13 +65,11 @@ public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	/*public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
+	/*
+	 * public Empresa getEmpresa() { return empresa; }
+	 * 
+	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+	 */
 
 	public Date getData() {
 		return data;
@@ -89,16 +91,19 @@ public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
 		return contagemDetalhes;
 	}
 
-	public void setContagemDetalhes(List<ContagemEstoqueDetalhe> contagemDetalhes) {
+	public void setContagemDetalhes(
+			List<ContagemEstoqueDetalhe> contagemDetalhes) {
 		this.contagemDetalhes = contagemDetalhes;
 	}
 
-	public ContagemEstoqueDetalhe addContagemDetalhe(ContagemEstoqueDetalhe contagemEstoqueDetalhe) {
-		if(contagemDetalhes==null) contagemDetalhes = new ArrayList();
+	public ContagemEstoqueDetalhe addContagemDetalhe(
+			ContagemEstoqueDetalhe contagemEstoqueDetalhe) {
+		if (contagemDetalhes == null)
+			contagemDetalhes = new ArrayList();
 		getContagemDetalhes().add(contagemEstoqueDetalhe);
 		contagemEstoqueDetalhe.setContagem(this);
+
 		return contagemEstoqueDetalhe;
 	}
-	
 
 }

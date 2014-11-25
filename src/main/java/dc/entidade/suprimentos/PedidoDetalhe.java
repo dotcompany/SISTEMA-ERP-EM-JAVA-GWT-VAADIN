@@ -13,64 +13,65 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
-
+import dc.entidade.suprimentos.compra.PedidoCompra;
 
 /**
  * The persistent class for the compra_pedido_detalhe database table.
  * 
  */
 @Entity
-@Table(name="compra_pedido_detalhe")
+@Table(name = "compra_pedido_detalhe")
 public class PedidoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="aliquota_icms")
+	@Column(name = "aliquota_icms")
 	private BigDecimal aliquotaIcms;
 
-	@Column(name="aliquota_ipi")
+	@Column(name = "aliquota_ipi")
 	private BigDecimal aliquotaIpi;
 
-	@Column(name="base_calculo_icms")
+	@Column(name = "base_calculo_icms")
 	private BigDecimal baseCalculoIcms;
 
 	private Integer cfop;
 
-	@Column(name="cst_csosn")
+	@Column(name = "cst_csosn")
 	private String cstCsosn;
 
 	@ManyToOne
-	@JoinColumn(name="id_produto")
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
 	private BigDecimal quantidade;
 
-	@Column(name="taxa_desconto")
+	@Column(name = "taxa_desconto")
 	private BigDecimal taxaDesconto;
 
-	@Column(name="valor_desconto")
+	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
 
-	@Column(name="valor_icms")
+	@Column(name = "valor_icms")
 	private BigDecimal valorIcms;
 
-	@Column(name="valor_ipi")
+	@Column(name = "valor_ipi")
 	private BigDecimal valorIpi;
 
-	@Column(name="valor_subtotal")
+	@Column(name = "valor_subtotal")
 	private BigDecimal valorSubtotal;
 
-	@Column(name="valor_total")
+	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 
-	@Column(name="valor_unitario")
+	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 
 	@ManyToOne
-	@JoinColumn(name="id_compra_pedido")
+	@JoinColumn(name = "id_compra_pedido")
 	private PedidoCompra pedido;
 
 	public Integer getId() {

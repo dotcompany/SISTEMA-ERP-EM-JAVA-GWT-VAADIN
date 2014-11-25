@@ -29,7 +29,7 @@ import dc.controller.suprimentos.compra.PedidoCompraFormController;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.PedidoDetalhe;
-import dc.entidade.suprimentos.TipoPedido;
+import dc.entidade.suprimentos.compra.TipoPedido;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.geral.MainController;
 import dc.visao.framework.util.ComponentUtil;

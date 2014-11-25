@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.PedidoCompra;
-import dc.servicos.dao.suprimentos.PedidoCompraDAO;
+import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +23,10 @@ public class PedidoCompraListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	PedidoCompraDAO dao;
+	private PedidoCompraDAO dao;
 
 	@Autowired
-	PedidoCompraFormController formController;
+	private PedidoCompraFormController formController;
 
 	/*
 	 * @Override protected void initReports() { addReport(new

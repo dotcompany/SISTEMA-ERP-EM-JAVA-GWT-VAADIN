@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.TipoPedido;
-import dc.servicos.dao.suprimentos.TipoPedidoDAO;
+import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +22,10 @@ public class TipoPedidoListController extends CRUDListController<TipoPedido> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoPedidoDAO dao;
+	private TipoPedidoDAO dao;
 
 	@Autowired
-	TipoPedidoFormController formController;
+	private TipoPedidoFormController formController;
 
 	@Override
 	public String[] getColunas() {

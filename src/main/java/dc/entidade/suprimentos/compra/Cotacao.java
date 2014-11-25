@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +31,8 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.suprimentos.FornecedorCotacao;
+import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
 
 /**
  * The persistent class for the compra_cotacao database table.

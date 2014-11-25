@@ -20,6 +20,7 @@ import org.hibernate.annotations.FetchMode;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
+import dc.entidade.suprimentos.compra.Cotacao;
 
 /**
  * The persistent class for the compra_fornecedor_cotacao database table.
@@ -28,6 +29,7 @@ import dc.entidade.geral.Fornecedor;
 @Entity
 @Table(name = "compra_fornecedor_cotacao")
 public class FornecedorCotacao extends AbstractMultiEmpresaModel<Integer> {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

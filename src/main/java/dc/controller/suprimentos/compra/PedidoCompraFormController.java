@@ -13,13 +13,13 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.PedidoCompra;
 import dc.entidade.suprimentos.PedidoDetalhe;
-import dc.entidade.suprimentos.TipoPedido;
+import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.TipoPedido;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.PedidoCompraDAO;
-import dc.servicos.dao.suprimentos.TipoPedidoDAO;
+import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.PedidoCompraFormView;
 
@@ -33,19 +33,19 @@ public class PedidoCompraFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	PedidoCompraFormView subView;
+	private PedidoCompraFormView subView;
 
 	@Autowired
-	PedidoCompraDAO pedidoCompraDAO;
+	private PedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private ProdutoDAO produtoDAO;
 
 	@Autowired
-	FornecedorDAO fornecedorDAO;
+	private FornecedorDAO fornecedorDAO;
 
 	@Autowired
-	TipoPedidoDAO tipoPedidoDAO;
+	private TipoPedidoDAO tipoPedidoDAO;
 
 	private PedidoCompra currentBean;
 

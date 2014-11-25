@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.TipoRequisicao;
-import dc.servicos.dao.suprimentos.TipoRequisicaoDAO;
+import dc.entidade.suprimentos.compra.TipoRequisicao;
+import dc.servicos.dao.suprimentos.compra.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.TipoRequisicaoFormView;
 
@@ -25,10 +25,10 @@ public class TipoRequisicaoFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	TipoRequisicaoFormView subView;
+	private TipoRequisicaoFormView subView;
 
 	@Autowired
-	TipoRequisicaoDAO tipoRequisicaoDAO;
+	private TipoRequisicaoDAO tipoRequisicaoDAO;
 
 	private TipoRequisicao currentBean;
 

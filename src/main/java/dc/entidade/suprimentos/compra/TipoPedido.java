@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

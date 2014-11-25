@@ -18,8 +18,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.ContagemEstoqueFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ContagemEstoque;
 import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
+import dc.entidade.suprimentos.compra.ContagemEstoque;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 

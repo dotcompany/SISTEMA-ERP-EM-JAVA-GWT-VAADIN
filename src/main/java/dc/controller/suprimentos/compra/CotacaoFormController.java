@@ -11,13 +11,13 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.Cotacao;
 import dc.entidade.suprimentos.FornecedorCotacao;
 import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
 import dc.entidade.suprimentos.RequisicaoDetalhe;
+import dc.entidade.suprimentos.compra.Cotacao;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.CotacaoDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
+import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.CotacaoFormView;
 
@@ -30,16 +30,16 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	CotacaoFormView subView;
+	private CotacaoFormView subView;
 
 	@Autowired
-	CotacaoDAO cotacaoDao;
+	private CotacaoDAO cotacaoDao;
 
 	@Autowired
-	FornecedorDAO fornecedorDao;
+	private FornecedorDAO fornecedorDao;
 
 	@Autowired
-	RequisicaoDetalheDAO requisicaoDetalheDao;
+	private RequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private Cotacao currentBean;
 

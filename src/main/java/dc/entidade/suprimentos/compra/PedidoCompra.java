@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import org.hibernate.annotations.FetchMode;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
+import dc.entidade.suprimentos.PedidoDetalhe;
 
 /**
  * The persistent class for the compra_pedido database table.
@@ -248,16 +249,14 @@ public class PedidoCompra extends AbstractMultiEmpresaModel<Integer> {
 		this.pedidoDetalhes = compraPedidoDetalhes;
 	}
 
-	public PedidoDetalhe addPedidoDetalhe(
-			PedidoDetalhe pedidoDetalhe) {
+	public PedidoDetalhe addPedidoDetalhe(PedidoDetalhe pedidoDetalhe) {
 		getPedidoDetalhes().add(pedidoDetalhe);
 		pedidoDetalhe.setPedido(this);
 
 		return pedidoDetalhe;
 	}
 
-	public PedidoDetalhe removePedidoDetalhe(
-			PedidoDetalhe pedidoDetalhe) {
+	public PedidoDetalhe removePedidoDetalhe(PedidoDetalhe pedidoDetalhe) {
 		getPedidoDetalhes().remove(pedidoDetalhe);
 		pedidoDetalhe.setPedido(null);
 

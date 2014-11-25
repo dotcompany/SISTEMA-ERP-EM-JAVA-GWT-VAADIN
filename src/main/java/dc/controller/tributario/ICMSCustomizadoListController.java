@@ -8,20 +8,21 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.tributario.ICMSCustomizado;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
+import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoListController extends CRUDListController<ICMSCustomizado> {
+public class ICMSCustomizadoListController extends
+		CRUDListController<ICMSCustomizado> {
 
 	@Autowired
-	ContagemEstoqueDAO dao;
+	private ContagemEstoqueDAO dao;
 
 	@Autowired
-	ICMSCustomizadoFormController formController;
+	private ICMSCustomizadoFormController formController;
 
 	@Override
 	public String[] getColunas() {

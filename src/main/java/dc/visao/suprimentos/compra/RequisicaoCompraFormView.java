@@ -22,7 +22,7 @@ import dc.controller.suprimentos.compra.RequisicaoCompraFormController;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.RequisicaoDetalhe;
-import dc.entidade.suprimentos.TipoRequisicao;
+import dc.entidade.suprimentos.compra.TipoRequisicao;
 import dc.visao.framework.component.LookupComponent;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;

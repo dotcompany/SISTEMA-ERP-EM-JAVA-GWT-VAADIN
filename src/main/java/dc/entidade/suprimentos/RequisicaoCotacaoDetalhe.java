@@ -12,31 +12,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
+import dc.entidade.suprimentos.compra.Cotacao;
 
 /**
  * The persistent class for the compra_req_cotacao_detalhe database table.
  * 
  */
 @Entity
-@Table(name="compra_req_cotacao_detalhe")
-public class RequisicaoCotacaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
-	
+@Table(name = "compra_req_cotacao_detalhe")
+public class RequisicaoCotacaoDetalhe extends
+		AbstractMultiEmpresaModel<Integer> {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="quantidade_cotada")
+	@Column(name = "quantidade_cotada")
 	private BigDecimal quantidadeCotada;
 
 	@ManyToOne
-	@JoinColumn(name="id_compra_cotacao")
+	@JoinColumn(name = "id_compra_cotacao")
 	private Cotacao cotacao;
 
 	@ManyToOne
-	@JoinColumn(name="id_compra_requisicao_detalhe")
+	@JoinColumn(name = "id_compra_requisicao_detalhe")
 	private RequisicaoDetalhe requisicaoDetalhe;
 
 	public RequisicaoCotacaoDetalhe() {

@@ -12,10 +12,10 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.framework.Empresa;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ContagemEstoque;
 import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
+import dc.entidade.suprimentos.compra.ContagemEstoque;
 import dc.servicos.dao.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.ContagemEstoqueDAO;
+import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -31,13 +31,13 @@ public class ContagemEstoqueFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	ContagemEstoqueFormView subView;
+	private ContagemEstoqueFormView subView;
 
 	@Autowired
-	ContagemEstoqueDAO dao;
+	private ContagemEstoqueDAO dao;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private ProdutoDAO produtoDAO;
 
 	private ContagemEstoque currentBean;
 

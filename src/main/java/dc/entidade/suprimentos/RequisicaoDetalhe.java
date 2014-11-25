@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
+import dc.entidade.suprimentos.compra.Requisicao;
 
 /**
  * The persistent class for the compra_requisicao_detalhe database table.

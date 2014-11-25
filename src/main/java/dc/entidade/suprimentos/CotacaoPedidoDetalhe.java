@@ -13,32 +13,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
+import dc.entidade.suprimentos.compra.PedidoCompra;
 
 /**
  * The persistent class for the compra_cotacao_pedido_detalhe database table.
  * 
  */
 @Entity
-@Table(name="compra_cotacao_pedido_detalhe")
-public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+@Table(name = "compra_cotacao_pedido_detalhe")
+public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="quantidade_pedida")
+	@Column(name = "quantidade_pedida")
 	private BigDecimal quantidadePedida;
 
-	//bi-directional many-to-one association to CotacaoDetalhe
+	// bi-directional many-to-one association to CotacaoDetalhe
 	@ManyToOne
-	@JoinColumn(name="id_compra_cotacao_detalhe")
+	@JoinColumn(name = "id_compra_cotacao_detalhe")
 	private CotacaoDetalhe compraCotacaoDetalhe;
 
-	//bi-directional many-to-one association to PedidoCompra
+	// bi-directional many-to-one association to PedidoCompra
 	@ManyToOne
-	@JoinColumn(name="id_compra_pedido")
+	@JoinColumn(name = "id_compra_pedido")
 	private PedidoCompra compraPedido;
 
 	public CotacaoPedidoDetalhe() {

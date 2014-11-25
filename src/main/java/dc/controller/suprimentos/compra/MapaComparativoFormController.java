@@ -11,18 +11,18 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.Cotacao;
 import dc.entidade.suprimentos.CotacaoDetalhe;
 import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.PedidoCompra;
 import dc.entidade.suprimentos.PedidoDetalhe;
 import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
 import dc.entidade.suprimentos.RequisicaoDetalhe;
+import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.PedidoCompra;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.CotacaoDAO;
-import dc.servicos.dao.suprimentos.PedidoCompraDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
-import dc.servicos.dao.suprimentos.TipoPedidoDAO;
+import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.MapaComparativoFormView;
 
@@ -35,22 +35,22 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MapaComparativoFormView subView;
+	private MapaComparativoFormView subView;
 
 	@Autowired
-	CotacaoDAO cotacaoDao;
+	private CotacaoDAO cotacaoDao;
 
 	@Autowired
-	PedidoCompraDAO pedidoCompraDAO;
+	private PedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	FornecedorDAO fornecedorDao;
+	private FornecedorDAO fornecedorDao;
 
 	@Autowired
-	RequisicaoDetalheDAO requisicaoDetalheDao;
+	private RequisicaoDetalheDAO requisicaoDetalheDao;
 
 	@Autowired
-	TipoPedidoDAO tipoPedidoDAO;
+	private TipoPedidoDAO tipoPedidoDAO;
 
 	private Cotacao currentBean;
 
