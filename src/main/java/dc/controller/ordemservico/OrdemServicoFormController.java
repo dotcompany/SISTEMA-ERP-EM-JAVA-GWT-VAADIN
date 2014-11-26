@@ -44,7 +44,7 @@ import dc.entidade.ordemservico.StatusOs;
 import dc.entidade.ordemservico.TipoEfetivacao;
 import dc.entidade.ordemservico.TipoServico;
 import dc.entidade.ordemservico.VendaPeca;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
@@ -178,7 +178,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	final List<OrdemServicoEfetivacao> parcelasValeOs = new ArrayList<OrdemServicoEfetivacao>();
 	final List<OrdemServicoEfetivacao> parcelasCobrancaBancariaOs = new ArrayList<OrdemServicoEfetivacao>();
 	final List<OrdemServicoEfetivacao> parcelasCobrancaCarteiraOs = new ArrayList<OrdemServicoEfetivacao>();
-	private Cliente cliente = new Cliente();
+	private ClienteEntity cliente = new ClienteEntity();
 	Window subWindow;
 
 	@Override
@@ -198,7 +198,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			boolean valido = validaSalvar();
 
 			if(valido){
-				Cliente cli = new Cliente();
+				ClienteEntity cli = new ClienteEntity();
 				if(subView.getCbCliente().getValue()!=null){
 					cli = subView.getCbCliente().getValue();
 					this.currentBean.setCliente(cli);
@@ -259,7 +259,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		Cliente cli = (Cliente) subView.getCbCliente().getValue();
+		ClienteEntity cli = (ClienteEntity) subView.getCbCliente().getValue();
 		if (!Validator.validateObject(cli)) {
 			adicionarErroDeValidacao(subView.getCbCliente(), "Não pode ficar em branco");
 			valido = false;
@@ -453,7 +453,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -734,7 +734,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 			public void buttonClick(ClickEvent event) {
 				try {
 					if (subView.getCbCliente().getValue() != null) {
-						cliente = (Cliente) subView.getCbCliente().getValue();
+						cliente = (ClienteEntity) subView.getCbCliente().getValue();
 						currentBean.setCliente(cliente);
 					} else {
 						mensagemErro("Favor selecionar um cliente.");
@@ -1600,7 +1600,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServico>
 		return informacaoGeralDAO.getAll(InformacaoGeral.class);
 	}
 
-	public void buscarOsAgrupada(Cliente cliente) {
+	public void buscarOsAgrupada(ClienteEntity cliente) {
 //		List<OrdemServico> osAgrupada = ordemServicoDAO.buscarOsPorCliente(cliente);
 //		subView.preencheOsAgrupadaSubForm(osAgrupada);
 	}

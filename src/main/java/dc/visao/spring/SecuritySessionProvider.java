@@ -17,7 +17,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.WrappedSession;
 
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 
@@ -60,7 +60,7 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 				Usuario u = new Usuario();
 				u.setAdministrador(true);
 				Colaborador c = new Colaborador();
-				Pessoa p = new Pessoa();
+				PessoaEntity p = new PessoaEntity();
 				p.setNome("Nome pessoa");
 				c.setPessoa(p);
 				u.setConfirmado(true);

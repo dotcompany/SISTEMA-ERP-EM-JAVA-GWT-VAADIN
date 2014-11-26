@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ClienteListController extends CRUDListController<Cliente> {
+public class ClienteListController extends CRUDListController<ClienteEntity> {
 
 	@Autowired
 	ClienteDAO dao;
@@ -22,7 +22,7 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	ClienteFormController clienteFormController;
 
 	@Override
-	protected CRUDFormController<Cliente> getFormController() {
+	protected CRUDFormController<ClienteEntity> getFormController() {
 		return clienteFormController;
 	}
 
@@ -38,12 +38,12 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	}
 
 	@Override
-	public Class<? super Cliente> getEntityClass() {
-		return Cliente.class;
+	public Class<? super ClienteEntity> getEntityClass() {
+		return ClienteEntity.class;
 	}
 
 	@Override
-	protected List<Cliente> pesquisa(String valor) {
+	protected List<ClienteEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -64,8 +64,8 @@ public class ClienteListController extends CRUDListController<Cliente> {
 	}
 
 	@Override
-	protected List<Cliente> pesquisaDefault() {
-		return (List<Cliente>) dao.getAll(getEntityClass());
+	protected List<ClienteEntity> pesquisaDefault() {
+		return (List<ClienteEntity>) dao.getAll(getEntityClass());
 	}
 
 }

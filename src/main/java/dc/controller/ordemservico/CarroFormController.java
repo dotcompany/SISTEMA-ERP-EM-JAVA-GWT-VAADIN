@@ -15,7 +15,7 @@ import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Modelo;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
@@ -136,7 +136,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Cliente> cliente = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {

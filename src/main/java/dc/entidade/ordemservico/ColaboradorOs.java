@@ -28,7 +28,7 @@ import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "os_colaborador")
@@ -61,7 +61,7 @@ public class ColaboradorOs extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
 	@ComboValue
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	@Caption("Tipo colaborador")
 	@ManyToOne
@@ -184,11 +184,11 @@ public class ColaboradorOs extends AbstractMultiEmpresaModel<Integer> {
 		this.filial = filial;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

@@ -7,7 +7,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 public class TransportadoraFormView extends CustomComponent {
@@ -27,7 +27,7 @@ public class TransportadoraFormView extends CustomComponent {
 	private TextField txtObservacao;
 
 	private ManyToOneCombo<ContabilConta> cmbContContabil;
-	private ManyToOneCombo<Pessoa> cmbPessoa;
+	private ManyToOneCombo<PessoaEntity> cmbPessoa;
 
 	/**
 	 * The constructor should first build the main layout, set the composition
@@ -137,11 +137,11 @@ public class TransportadoraFormView extends CustomComponent {
 		this.cmbContContabil = cmbContContabil;
 	}
 
-	public ManyToOneCombo<Pessoa> getCmbPessoa() {
+	public ManyToOneCombo<PessoaEntity> getCmbPessoa() {
 		return cmbPessoa;
 	}
 
-	public void setCmbPessoa(ManyToOneCombo<Pessoa> cmbPessoa) {
+	public void setCmbPessoa(ManyToOneCombo<PessoaEntity> cmbPessoa) {
 		this.cmbPessoa = cmbPessoa;
 	}
 

@@ -34,7 +34,7 @@ import dc.entidade.framework.ComboCode;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements
+public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -104,11 +104,11 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements
 	@Fetch(FetchMode.SUBSELECT)
 	private List<PessoaEndereco> enderecos = new ArrayList<>();
 
-	public Pessoa() {
+	public PessoaEntity() {
 
 	}
 
-	public Pessoa(Integer id) {
+	public PessoaEntity(Integer id) {
 		this.id = id;
 	}
 

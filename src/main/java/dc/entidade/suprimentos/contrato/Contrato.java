@@ -34,7 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "contrato")
@@ -150,7 +150,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Pessoa")
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
@@ -347,11 +347,11 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.contratoTemplate = contratoTemplate;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

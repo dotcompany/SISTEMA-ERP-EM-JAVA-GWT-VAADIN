@@ -55,7 +55,7 @@ import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
@@ -333,7 +333,7 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		};
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 
-		DefaultManyToOneComboModel<Cliente> model2 = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+		DefaultManyToOneComboModel<ClienteEntity> model2 = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -629,7 +629,7 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 		ConfiguracaoBoleto configuracaoBoleto = configuracaoBoleto(listaParcelasReceber.get(0).getContaCaixa());
 		LancamentoReceber lancamentoReceber = currentBean;
-		Cliente cliente = lancamentoReceber.getCliente();
+		ClienteEntity cliente = lancamentoReceber.getCliente();
 		Empresa empresa = lancamentoReceber.getEmpresa();
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 

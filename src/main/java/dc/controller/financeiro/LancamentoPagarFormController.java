@@ -29,7 +29,7 @@ import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -250,7 +250,7 @@ public class LancamentoPagarFormController extends CRUDFormController<Lancamento
 		};
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 
-		DefaultManyToOneComboModel<Fornecedor> model2 = new DefaultManyToOneComboModel<Fornecedor>(FornecedorListController.class,
+		DefaultManyToOneComboModel<FornecedorEntity> model2 = new DefaultManyToOneComboModel<FornecedorEntity>(FornecedorListController.class,
 				this.fornecedorDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {

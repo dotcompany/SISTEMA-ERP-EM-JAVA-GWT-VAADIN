@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.util.converter.Converter;
 
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 
-public class FornecedorConverter implements Converter<Object, Fornecedor> {
+public class FornecedorConverter implements Converter<Object, FornecedorEntity> {
 
 	@Autowired
 	private FornecedorDAO dao;
@@ -19,7 +19,7 @@ public class FornecedorConverter implements Converter<Object, Fornecedor> {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Fornecedor convertToModel(Object value, Class<? extends Fornecedor> targetType, Locale locale)
+	public FornecedorEntity convertToModel(Object value, Class<? extends FornecedorEntity> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		if(value== null){
 			return null;
@@ -28,7 +28,7 @@ public class FornecedorConverter implements Converter<Object, Fornecedor> {
 	}
 
 	@Override
-	public Object convertToPresentation(Fornecedor value, Class<? extends Object> targetType, Locale locale)
+	public Object convertToPresentation(FornecedorEntity value, Class<? extends Object> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		if(value== null){
 			return "";
@@ -39,9 +39,9 @@ public class FornecedorConverter implements Converter<Object, Fornecedor> {
 	}
 
 	@Override
-	public Class<Fornecedor> getModelType() {
+	public Class<FornecedorEntity> getModelType() {
 		// TODO Auto-generated method stub
-		return Fornecedor.class;
+		return FornecedorEntity.class;
 	}
 
 	@Override

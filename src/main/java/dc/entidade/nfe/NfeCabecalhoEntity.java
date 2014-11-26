@@ -32,8 +32,8 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Fornecedor;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.tributario.OperacaoFiscal;
 
 /**
@@ -484,12 +484,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
 	@Caption(value = "Fornecedor")
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	@Caption(value = "Cliente")
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@Field
 	@Column(name = "id_contabil_lanca_programado_det")
@@ -1061,19 +1061,19 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.vendaCabecalho = vendaCabecalho;
 	}
 
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

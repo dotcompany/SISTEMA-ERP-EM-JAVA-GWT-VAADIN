@@ -46,7 +46,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacao;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.patrimonio.BemEntity;
 
 /**
@@ -279,7 +279,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
 	@ComboValue
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 		@Column(name = "salario_fixo")
 	private BigDecimal salarioFixo;
@@ -460,11 +460,11 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		this.idNivelFormacao = idNivelFormacao;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa idPessoa) {
+	public void setPessoa(PessoaEntity idPessoa) {
 		this.pessoa = idPessoa;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.Contador;
 import dc.servicos.dao.geral.UFDAO;

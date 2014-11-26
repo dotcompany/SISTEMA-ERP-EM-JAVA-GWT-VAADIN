@@ -34,7 +34,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.produto.Produto;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
@@ -1265,7 +1265,7 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 			break;
 		case "mtoCliente":
 			ItemValue m = (ItemValue) obj;
-			Cliente cliente = (Cliente) m.getBean();
+			ClienteEntity cliente = (ClienteEntity) m.getBean();
 
 			this.nfeCabecalho.setCliente(cliente);
 
@@ -2322,7 +2322,7 @@ public class CopyOfProdutoServicoFormController extends CRUDFormController<NfeCa
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(ClienteListController.class, this.clienteDAO,
+			DefaultManyToOneComboModel<ClienteEntity> model1 = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 
 			// this.subView.getMtoCliente().setModel(model1);

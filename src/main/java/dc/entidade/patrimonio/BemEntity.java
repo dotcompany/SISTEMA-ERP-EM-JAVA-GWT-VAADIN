@@ -33,7 +33,7 @@ import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.pessoal.Colaborador;
 
 /**
@@ -318,7 +318,7 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_fornecedor", nullable = false)
 	@Caption("Fornecedor")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
@@ -634,11 +634,11 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.setor = setor;
 	}
 
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.suprimentos.compra.Cotacao;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
@@ -137,8 +137,8 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		mensagemRemovidoOK();
 	}
 
-	public List<Fornecedor> buscarFornecedores() {
-		return fornecedorDao.getAll(Fornecedor.class);
+	public List<FornecedorEntity> buscarFornecedores() {
+		return fornecedorDao.getAll(FornecedorEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

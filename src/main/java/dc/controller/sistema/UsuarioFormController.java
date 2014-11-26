@@ -15,8 +15,8 @@ import com.vaadin.ui.Component;
 
 import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.framework.Papel;
-import dc.entidade.geral.Pessoa;
-import dc.entidade.geral.PessoaFisica;
+import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;
@@ -198,8 +198,8 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		if (isNovo()) {
 			// dados padrão primeiro cadastro
 			getCurrentBean().setDataCadastro(new Date());
-			Pessoa p = colaborador.getPessoa();
-			PessoaFisica pf = pessoaDAO.getPessoaFisica(p.getId());
+			PessoaEntity p = colaborador.getPessoa();
+			PessoaFisicaEntity pf = pessoaDAO.getPessoaFisica(p.getId());
 			if (pf != null) {
 				subView.getLoginTxtField().setValue(pf.getCpf());
 				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");

@@ -38,7 +38,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.produto.Produto;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
@@ -860,7 +860,7 @@ public class ProdutoServicoFormController extends
 			break;
 		case "mtoCliente":
 			ItemValue m = (ItemValue) obj;
-			Cliente cliente = (Cliente) m.getBean();
+			ClienteEntity cliente = (ClienteEntity) m.getBean();
 
 			this.nfeCabecalho.setCliente(cliente);
 
@@ -1464,7 +1464,7 @@ public class ProdutoServicoFormController extends
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<Cliente> model1 = new DefaultManyToOneComboModel<Cliente>(
+			DefaultManyToOneComboModel<ClienteEntity> model1 = new DefaultManyToOneComboModel<ClienteEntity>(
 					ClienteListController.class, this.clienteDAO,
 					super.getMainController());
 

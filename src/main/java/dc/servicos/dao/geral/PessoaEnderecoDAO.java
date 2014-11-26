@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaEndereco;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -30,7 +30,7 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEndereco> {
 	}
 
 	@Transactional
-	public List<PessoaEndereco> listaPorPessoa(Pessoa pessoa) {
+	public List<PessoaEndereco> listaPorPessoa(PessoaEntity pessoa) {
 
 		// TODO Verificar pq só funciona na segunda vez
 		try {

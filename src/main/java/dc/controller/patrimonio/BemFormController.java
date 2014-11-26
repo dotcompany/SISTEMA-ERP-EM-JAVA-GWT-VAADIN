@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.diversos.Setor;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
@@ -123,7 +123,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView.getCbEstadoConservacao().getValue();
 			GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem().getValue();
 			Setor setor = (Setor) this.subView.getCbSetor().getValue();
-			Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor().getValue();
+			FornecedorEntity fornecedor = (FornecedorEntity) this.subView.getCbFornecedor().getValue();
 			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setNumeroNb(numeroNb);
@@ -769,7 +769,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Fornecedor fornecedor = (Fornecedor) this.subView.getCbFornecedor().getValue();
+		FornecedorEntity fornecedor = (FornecedorEntity) this.subView.getCbFornecedor().getValue();
 
 		if (!ObjectValidator.validateObject(fornecedor)) {
 			String msg = "Não pode ficar em branco.";
@@ -836,8 +836,8 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		return auxLista;
 	}
 
-	public List<Fornecedor> fornecedorListarTodos() {
-		List<Fornecedor> auxLista = new ArrayList<Fornecedor>();
+	public List<FornecedorEntity> fornecedorListarTodos() {
+		List<FornecedorEntity> auxLista = new ArrayList<FornecedorEntity>();
 
 		auxLista = this.fDAO.listarTodos();
 

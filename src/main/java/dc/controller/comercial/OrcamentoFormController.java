@@ -18,7 +18,7 @@ import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.folhapagamento.VendedorEntity;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Transportadora;
 import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
@@ -158,7 +158,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 					.getCmbCondicaoPagamento().getValue();
 			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor()
 					.getValue();
-			Cliente cliente = (Cliente) subView.getCmbCliente().getValue();
+			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente().getValue();
 			Transportadora transportadora = (Transportadora) subView
 					.getCmbTransportadora().getValue();
 
@@ -324,11 +324,11 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		return container;
 	}
 
-	public BeanItemContainer<Cliente> carregarClientes() {
-		BeanItemContainer<Cliente> container = new BeanItemContainer<>(
-				Cliente.class);
+	public BeanItemContainer<ClienteEntity> carregarClientes() {
+		BeanItemContainer<ClienteEntity> container = new BeanItemContainer<>(
+				ClienteEntity.class);
 
-		for (Cliente c : clienteDAO.listaTodos()) {
+		for (ClienteEntity c : clienteDAO.listaTodos()) {
 			container.addBean(c);
 		}
 

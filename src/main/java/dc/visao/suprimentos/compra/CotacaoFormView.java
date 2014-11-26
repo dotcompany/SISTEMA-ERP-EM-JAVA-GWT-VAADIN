@@ -18,7 +18,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.CotacaoFormController;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
@@ -195,8 +195,8 @@ public class CotacaoFormView extends CustomComponent {
 						if ("fornecedor".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox(null);
-							BeanItemContainer<Fornecedor> fornecedorContainer = new BeanItemContainer<>(
-									Fornecedor.class,
+							BeanItemContainer<FornecedorEntity> fornecedorContainer = new BeanItemContainer<>(
+									FornecedorEntity.class,
 									controller.buscarFornecedores());
 							fornecedorContainer
 									.addNestedContainerProperty("pessoa.nome");

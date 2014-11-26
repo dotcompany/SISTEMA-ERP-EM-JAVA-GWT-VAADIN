@@ -34,7 +34,7 @@ import dc.entidade.pessoal.EstadoCivil;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PessoaFisica implements Serializable {
+public class PessoaFisicaEntity implements Serializable {
 
 	/**
 	 * 
@@ -123,13 +123,13 @@ public class PessoaFisica implements Serializable {
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
-	public PessoaFisica() {
+	public PessoaFisicaEntity() {
 
 	}
 
-	public PessoaFisica(Integer id) {
+	public PessoaFisicaEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -323,7 +323,7 @@ public class PessoaFisica implements Serializable {
 	/**
 	 * @return the pessoa
 	 */
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
@@ -331,7 +331,7 @@ public class PessoaFisica implements Serializable {
 	 * @param pessoa
 	 *            the pessoa to set
 	 */
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

@@ -42,7 +42,7 @@ import dc.entidade.pessoal.SituacaoForCli;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
+public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -138,7 +138,7 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
@@ -166,11 +166,11 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	 * CONSTRUTOR
 	 */
 
-	public Fornecedor() {
+	public FornecedorEntity() {
 
 	}
 
-	public Fornecedor(Integer id) {
+	public FornecedorEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -271,7 +271,7 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * @return the pessoa
 	 */
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
@@ -279,7 +279,7 @@ public class Fornecedor extends AbstractMultiEmpresaModel<Integer> {
 	 * @param pessoa
 	 *            the pessoa to set
 	 */
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

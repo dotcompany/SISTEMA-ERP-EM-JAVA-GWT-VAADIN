@@ -15,8 +15,8 @@ import dc.controller.geral.FornecedorListController;
 import dc.controller.pessoal.ClienteListController;
 import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.diversos.Setor;
-import dc.entidade.geral.Fornecedor;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.suprimentos.contrato.ContratoSolicitacaoServico;
 import dc.entidade.suprimentos.contrato.ContratoTipoServico;
@@ -127,7 +127,7 @@ public class ContratoSolicitacaoServicoFormController extends
 	}
 
 	private void carregarCombosView() {
-		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(
+		DefaultManyToOneComboModel<FornecedorEntity> fornecedorModel = new DefaultManyToOneComboModel<FornecedorEntity>(
 				FornecedorListController.class, this.fornecedorDAO,
 				super.getMainController()) {
 
@@ -157,7 +157,7 @@ public class ContratoSolicitacaoServicoFormController extends
 				SetorListController.class, this.setorDAO,
 				super.getMainController());
 
-		DefaultManyToOneComboModel<Cliente> clienteModel = new DefaultManyToOneComboModel<Cliente>(
+		DefaultManyToOneComboModel<ClienteEntity> clienteModel = new DefaultManyToOneComboModel<ClienteEntity>(
 				ClienteListController.class, this.clienteDAO,
 				super.getMainController()) {
 

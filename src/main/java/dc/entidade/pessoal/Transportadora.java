@@ -27,7 +27,7 @@ import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 /**
  * 
@@ -65,7 +65,7 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -95,11 +95,11 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 		this.observacao = observacao;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

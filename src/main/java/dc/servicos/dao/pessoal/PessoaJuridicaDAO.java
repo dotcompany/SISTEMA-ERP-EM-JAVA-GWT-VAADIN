@@ -6,27 +6,27 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Pessoa;
-import dc.entidade.geral.PessoaJuridica;
+import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PessoaJuridicaDAO extends AbstractCrudDAO<PessoaJuridica> {
+public class PessoaJuridicaDAO extends AbstractCrudDAO<PessoaJuridicaEntity> {
 
 	@Override
-	public Class<PessoaJuridica> getEntityClass() {
-		return PessoaJuridica.class;
+	public Class<PessoaJuridicaEntity> getEntityClass() {
+		return PessoaJuridicaEntity.class;
 	}
 
 	@Transactional
-	public List<Pessoa> listaTodos() {
+	public List<PessoaEntity> listaTodos() {
 		return getSession().createQuery("from PessoaJuridica").list();
 	}
 
 	@Transactional
-	public PessoaJuridica getPessoaJuridica(int idPessoa) {
-		return (PessoaJuridica) getSession().createCriteria(PessoaJuridica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
+	public PessoaJuridicaEntity getPessoaJuridica(int idPessoa) {
+		return (PessoaJuridicaEntity) getSession().createCriteria(PessoaJuridicaEntity.class).add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
 	}
 
 	@Override

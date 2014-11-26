@@ -31,7 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 
 /**
  * The persistent class for the compra_pedido database table.
@@ -92,7 +92,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
 	@Caption("Fornecedor")
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@Column(name = "local_cobranca")
 	private String localCobranca;
@@ -211,11 +211,11 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

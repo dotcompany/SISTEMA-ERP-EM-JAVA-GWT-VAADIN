@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class PessoaListController extends CRUDListController<Pessoa> {
+public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Autowired
 	PessoaDAO dao;
@@ -34,9 +34,9 @@ public class PessoaListController extends CRUDListController<Pessoa> {
 	}
 
 	@Override
-	protected List<Pessoa> pesquisa(String valor) {
+	protected List<PessoaEntity> pesquisa(String valor) {
 		//return dao.fullTextSearch(valor);
-		return new ArrayList<Pessoa>();
+		return new ArrayList<PessoaEntity>();
 	}
 
 	@Override
@@ -45,19 +45,19 @@ public class PessoaListController extends CRUDListController<Pessoa> {
 	}
 
 	@Override
-	protected CRUDFormController<Pessoa> getFormController() {
+	protected CRUDFormController<PessoaEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Pessoa> getEntityClass() {
-		return Pessoa.class;
+	public Class<? super PessoaEntity> getEntityClass() {
+		return PessoaEntity.class;
 	}
 
 	@Override
-	protected List<Pessoa> pesquisaDefault() {
+	protected List<PessoaEntity> pesquisaDefault() {
 
-		return new ArrayList<Pessoa>();
+		return new ArrayList<PessoaEntity>();
 	}
 
 	@Override

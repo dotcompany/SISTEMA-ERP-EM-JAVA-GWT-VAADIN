@@ -19,7 +19,7 @@ import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.folhapagamento.VendedorEntity;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
@@ -163,7 +163,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			if (!Validator.validateObject(tipoNotaFiscal)) {
 				throw new ErroValidacaoException("Informe Tipo de Nota Fiscal");
 			}
-			Cliente cliente = (Cliente) subView.getCmbCliente().getValue();
+			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente().getValue();
 			if (!Validator.validateObject(cliente)) {
 				throw new ErroValidacaoException("Informe o Cliente");
 			}
@@ -313,9 +313,9 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		return container;
 	}
 
-	public BeanItemContainer<Cliente> carregarClientes() {
-		BeanItemContainer<Cliente> container = new BeanItemContainer<>(Cliente.class);
-		for (Cliente c : clienteDAO.listaTodos()) {
+	public BeanItemContainer<ClienteEntity> carregarClientes() {
+		BeanItemContainer<ClienteEntity> container = new BeanItemContainer<>(ClienteEntity.class);
+		for (ClienteEntity c : clienteDAO.listaTodos()) {
 			container.addBean(c);
 		}
 		return container;

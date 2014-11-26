@@ -130,7 +130,7 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer>
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	public PessoaEndereco() {
 
@@ -274,11 +274,11 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer>
 		this.correspondencia = correspondencia;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

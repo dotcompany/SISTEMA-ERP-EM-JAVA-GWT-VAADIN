@@ -26,7 +26,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.PedidoCompraFormController;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
@@ -452,9 +452,9 @@ public class PedidoCompraFormView extends CustomComponent {
 		cmbTipoPedido.setItemCaptionPropertyId("descricao");
 	}
 
-	public void fillCmbFornecedor(List<Fornecedor> lista) {
-		BeanItemContainer<Fornecedor> tipoRequisicaoContainer = new BeanItemContainer<>(
-				Fornecedor.class, lista);
+	public void fillCmbFornecedor(List<FornecedorEntity> lista) {
+		BeanItemContainer<FornecedorEntity> tipoRequisicaoContainer = new BeanItemContainer<>(
+				FornecedorEntity.class, lista);
 		tipoRequisicaoContainer.addNestedContainerProperty("pessoa.nome");
 		cmbFornecedor.setContainerDataSource(tipoRequisicaoContainer);
 		cmbFornecedor.setItemCaptionPropertyId("pessoa.nome");

@@ -33,27 +33,15 @@ import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.tributario.OperacaoFiscal;
-
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
 
 @Entity
 @Table(name = "cliente")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
+public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -62,7 +50,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_id_seq")
 	@SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -153,7 +141,7 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	@Fetch(FetchMode.JOIN)
 	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", insertable = true, updatable = true)
@@ -198,11 +186,11 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	 * CONSTRUTOR
 	 */
 
-	public Cliente() {
+	public ClienteEntity() {
 
 	}
 
-	public Cliente(Integer id) {
+	public ClienteEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -261,11 +249,11 @@ public class Cliente extends AbstractMultiEmpresaModel<Integer> implements
 	// return EqualsBuilder.reflectionEquals(this, other);
 	// }
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

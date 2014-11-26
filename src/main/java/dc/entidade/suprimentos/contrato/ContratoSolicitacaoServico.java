@@ -27,8 +27,8 @@ import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.Fornecedor;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
@@ -104,12 +104,12 @@ public class ContratoSolicitacaoServico extends
 	@Caption("Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@Caption("Fornecedor")
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	public ContratoSolicitacaoServico() {
 
@@ -187,19 +187,19 @@ public class ContratoSolicitacaoServico extends
 		this.setor = setor;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

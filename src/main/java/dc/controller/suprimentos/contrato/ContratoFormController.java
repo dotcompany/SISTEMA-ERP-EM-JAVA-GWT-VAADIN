@@ -45,10 +45,10 @@ import dc.controller.pessoal.PessoaListController;
 import dc.controller.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.contrato.Contrato;
 import dc.entidade.suprimentos.contrato.ContratoHistFaturamento;
@@ -140,7 +140,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		Pessoa pessoa = (Pessoa) subView.getCbmPessoa().getValue();
+		PessoaEntity pessoa = (PessoaEntity) subView.getCbmPessoa().getValue();
 
 		if (!Validator.validateObject(pessoa)) {
 			adicionarErroDeValidacao(subView.getCbmPessoa(),
@@ -321,7 +321,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		subView.getDtCadastro().setValue(new Date());
 
-		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(
+		DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(
 				PessoaListController.class, this.pessoaDAO,
 				super.getMainController()) {
 
@@ -421,7 +421,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 					PessoaEndereco enderecoEmpresa = new PessoaEndereco();// TODO
 
-					Cliente dadosContratante = currentBean
+					ClienteEntity dadosContratante = currentBean
 							.getContratoSolicitacaoServico().getCliente();
 
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -689,7 +689,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public void gerarParcelas() throws Exception {
 		if (validaSalvar()) {
-			final Pessoa pessoa = (Pessoa) subView.getCbmPessoa().getValue();
+			final PessoaEntity pessoa = (PessoaEntity) subView.getCbmPessoa().getValue();
 
 			if (pessoa == null || pessoa.getId() == null) {
 				throw new Exception(
@@ -744,7 +744,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	/** Wesley Jr gera as Parcelas */
 
-	private void geraParcelas(Pessoa pessoa,
+	private void geraParcelas(PessoaEntity pessoa,
 			final List<ContratoPrevFaturamento> contratopreFaturamento) {
 		subView.getPrevisaoFaturamentoSubForm().removeAllItems();
 		subView.preencheContrato(currentBean);

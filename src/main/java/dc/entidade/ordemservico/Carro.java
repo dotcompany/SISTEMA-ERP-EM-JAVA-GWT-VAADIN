@@ -27,7 +27,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "os_carro")
@@ -79,7 +79,7 @@ public class Carro extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Cliente")
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@Caption("Marca")
 	@JoinColumn(name = "id_marca", referencedColumnName = "id")
@@ -203,11 +203,11 @@ public class Carro extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 }

@@ -24,7 +24,7 @@ import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.geral.NivelFormacao;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.Cargo;
 import dc.entidade.pessoal.Colaborador;
@@ -138,7 +138,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
 		// subView.getCmbPessoa().setModel(model);
 
-		DefaultManyToOneComboModel<Pessoa> modelPessoa = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, pessoaDAO,
+		DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(PessoaListController.class, pessoaDAO,
 				super.getMainController());
 		subView.getCmbPessoa().setModel(modelPessoa);
 
@@ -336,7 +336,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
+		currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa().getValue());
 		currentBean.setIdTipoColaborador((TipoColaborador) subView.getCmbTipoColaborador().getValue());
 		currentBean.setIdSituacaoColaborador((SituacaoColaborador) subView.getCmbSituacaoColaborador().getValue());
 		currentBean.setIdSindicato((Sindicato) subView.getCmbSindicato().getValue());

@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FornecedorListController extends CRUDListController<Fornecedor> {
+public class FornecedorListController extends CRUDListController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -32,8 +32,8 @@ public class FornecedorListController extends CRUDListController<Fornecedor> {
 	}
 
 	@Override
-	public Class<? super Fornecedor> getEntityClass() {
-		return Fornecedor.class;
+	public Class<? super FornecedorEntity> getEntityClass() {
+		return FornecedorEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class FornecedorListController extends CRUDListController<Fornecedor> {
 	}
 
 	@Override
-	protected List<Fornecedor> pesquisa(String valor) {
+	protected List<FornecedorEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Fornecedor> getFormController() {
+	protected CRUDFormController<FornecedorEntity> getFormController() {
 		return fornecedorFormController;
 	}
 
@@ -66,8 +66,8 @@ public class FornecedorListController extends CRUDListController<Fornecedor> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<Fornecedor> pesquisaDefault() {
-		return (List<Fornecedor>) dao.getAll(getEntityClass());
+	protected List<FornecedorEntity> pesquisaDefault() {
+		return (List<FornecedorEntity>) dao.getAll(getEntityClass());
 	}
 
 }

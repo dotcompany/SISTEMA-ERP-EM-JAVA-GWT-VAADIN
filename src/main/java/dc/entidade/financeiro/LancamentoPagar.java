@@ -35,7 +35,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -96,7 +96,7 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Fornecedor")
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@Field
 	@Caption(value = "Quantidade Parcela")
@@ -219,13 +219,13 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	/** @return the fornecedor */
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
 	/** @param fornecedor
 	 *            the fornecedor to set */
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

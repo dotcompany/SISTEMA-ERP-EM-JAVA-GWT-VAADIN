@@ -6,9 +6,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Pessoa;
-import dc.entidade.geral.PessoaFisica;
-import dc.entidade.geral.PessoaJuridica;
+import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.PessoaFisicaEntity;
+import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -24,25 +24,25 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PessoaDAO extends AbstractCrudDAO<Pessoa> {
+public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 	@Override
-	public Class<Pessoa> getEntityClass() {
-		return Pessoa.class;
+	public Class<PessoaEntity> getEntityClass() {
+		return PessoaEntity.class;
 	}
 
 	@Transactional
-	public List<Pessoa> listaTodos() {
+	public List<PessoaEntity> listaTodos() {
 		return getSession().createQuery("from Pessoa").list();
 	}
 
 	@Transactional
-	public PessoaFisica getPessoaFisica(Integer idPessoa) {
+	public PessoaFisicaEntity getPessoaFisica(Integer idPessoa) {
 		if (idPessoa == null) {
 			return null;
 		}
 
-		List<PessoaFisica> list = getSession().createCriteria(PessoaFisica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
+		List<PessoaFisicaEntity> list = getSession().createCriteria(PessoaFisicaEntity.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
 		if (list.size() > 0) {
 			return list.get(0);
 		}
@@ -51,12 +51,12 @@ public class PessoaDAO extends AbstractCrudDAO<Pessoa> {
 	}
 
 	@Transactional
-	public PessoaJuridica getPessoaJuridica(Integer idPessoa) {
+	public PessoaJuridicaEntity getPessoaJuridica(Integer idPessoa) {
 		if (idPessoa == null) {
 			return null;
 		}
 
-		List<PessoaJuridica> list = getSession().createCriteria(PessoaJuridica.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
+		List<PessoaJuridicaEntity> list = getSession().createCriteria(PessoaJuridicaEntity.class).add(Restrictions.eq("pessoa.id", idPessoa)).list();
 		if (list.size() > 0) {
 			return list.get(0);
 		}
@@ -70,7 +70,7 @@ public class PessoaDAO extends AbstractCrudDAO<Pessoa> {
 	}
 
 	@Transactional
-	public List<Pessoa> query(String q) {
+	public List<PessoaEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession().createQuery("from Pessoa where lower(nome) like :q").setParameter("q", q).list();
 	}

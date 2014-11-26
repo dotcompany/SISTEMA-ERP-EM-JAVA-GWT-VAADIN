@@ -16,11 +16,11 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaContato;
 import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.geral.PessoaFisica;
-import dc.entidade.geral.PessoaJuridica;
+import dc.entidade.geral.PessoaFisicaEntity;
+import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.entidade.geral.UF;
 import dc.entidade.pessoal.EstadoCivil;
 import dc.servicos.dao.geral.UFDAO;
@@ -44,7 +44,7 @@ import dc.visao.suprimentos.estoque.NotaFiscalFormView.CRT;
 
 @Controller
 @Scope("prototype")
-public class PessoaFormController extends CRUDFormController<Pessoa> {
+public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	/**
 	 * 
@@ -65,7 +65,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
 
-	Pessoa currentBean;
+	PessoaEntity currentBean;
 
 	@Autowired
 	private UFDAO ufDAO;
@@ -108,7 +108,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Pessoa();
+		currentBean = new PessoaEntity();
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	private void carregarPessoaJuridica(Serializable id) {
-		PessoaJuridica pj = dao.getPessoaJuridica((Integer) id);
+		PessoaJuridicaEntity pj = dao.getPessoaJuridica((Integer) id);
 
 		subView.getTxtFantasia().setValue(pj.getFantasia());
 		subView.getTxtCNPJ().setValue(pj.getCnpj());
@@ -192,7 +192,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	private void carregarPessoaFisica(Serializable id) {
-		PessoaFisica pf = dao.getPessoaFisica((Integer) id);
+		PessoaFisicaEntity pf = dao.getPessoaFisica((Integer) id);
 
 		subView.getTxtCpf().setValue(pf.getCpf());
 		subView.getDtNascimento().setValue(pf.getDataNascimento());
@@ -280,9 +280,9 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	private void salvarPessoaJuridica() {
-		PessoaJuridica pj = dao.getPessoaJuridica(currentBean.getId());
+		PessoaJuridicaEntity pj = dao.getPessoaJuridica(currentBean.getId());
 		if (pj == null) {
-			pj = new PessoaJuridica();
+			pj = new PessoaJuridicaEntity();
 		}
 
 		pj.setFantasia(subView.getTxtFantasia().getValue());
@@ -301,10 +301,10 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	private void salvarPessoaFisica() {
-		PessoaFisica pf = dao.getPessoaFisica(currentBean.getId());
+		PessoaFisicaEntity pf = dao.getPessoaFisica(currentBean.getId());
 
 		if (pf == null) {
-			pf = new PessoaFisica();
+			pf = new PessoaFisicaEntity();
 		}
 
 		pf.setPessoa(currentBean);
@@ -370,11 +370,11 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 		return true;
 	}
 
-	public Pessoa getCurrentBean() {
+	public PessoaEntity getCurrentBean() {
 		return currentBean;
 	}
 
-	public void setCurrentBean(Pessoa currentBean) {
+	public void setCurrentBean(PessoaEntity currentBean) {
 		this.currentBean = currentBean;
 	}
 
@@ -402,7 +402,7 @@ public class PessoaFormController extends CRUDFormController<Pessoa> {
 	}
 
 	@Override
-	public Pessoa getModelBean() {
+	public PessoaEntity getModelBean() {
 		return currentBean;
 	}
 

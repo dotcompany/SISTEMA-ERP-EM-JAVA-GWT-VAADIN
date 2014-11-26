@@ -29,7 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "socio")

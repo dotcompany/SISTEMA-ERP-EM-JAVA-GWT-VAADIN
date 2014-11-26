@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "venda_cabecalho")
@@ -57,7 +57,7 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	@Caption("Cliente")
-	Cliente cliente;
+	ClienteEntity cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor")
@@ -167,11 +167,11 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 		this.tipoNotaFiscal = tipoNotaFiscal;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

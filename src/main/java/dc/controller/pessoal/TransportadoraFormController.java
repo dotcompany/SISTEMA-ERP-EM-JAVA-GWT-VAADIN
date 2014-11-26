@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.pessoal.Transportadora;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -74,7 +74,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	protected void initSubView() {
 		subView = new TransportadoraFormView();
 
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
+		DefaultManyToOneComboModel<PessoaEntity> model = new DefaultManyToOneComboModel<PessoaEntity>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController()) {
 
 			@Override
@@ -106,7 +106,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
+		currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa().getValue());
 		currentBean.setContaContabil((ContabilConta) subView.getCmbContContabil().getValue());
 		currentBean.setObservacao(subView.getTxtObservacao().getValue());
 

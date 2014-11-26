@@ -5,21 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ClienteDAO extends AbstractCrudDAO<Cliente> {
+public class ClienteDAO extends AbstractCrudDAO<ClienteEntity> {
 
 	@Override
-	public Class<Cliente> getEntityClass() {
+	public Class<ClienteEntity> getEntityClass() {
 		// TODO Auto-generated method stub
-		return Cliente.class;
+		return ClienteEntity.class;
 	}
 
 	@Transactional
-	public List<Cliente>  listaTodos() {
-		List<Cliente> lista = getSession().createQuery("from Cliente").list(); 
+	public List<ClienteEntity>  listaTodos() {
+		List<ClienteEntity> lista = getSession().createQuery("from Cliente").list(); 
 		return lista ;
 	}
 
@@ -31,7 +31,7 @@ public class ClienteDAO extends AbstractCrudDAO<Cliente> {
 	}
 
 	@Transactional
-	public List<Cliente> query(String q) {
+	public List<ClienteEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession().createQuery("from Cliente where lower(observacao) like :q").setParameter("q", q).list();
 	}

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.OrdemServico;
 import dc.entidade.ordemservico.VendaPeca;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -29,7 +29,7 @@ public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServico>{
 		return getSession().createQuery("from OrdemServico").list();
 	}
 	@Transactional
-	public List<OrdemServico> buscarOsPorCliente(Cliente cliente){
+	public List<OrdemServico> buscarOsPorCliente(ClienteEntity cliente){
 
 		List<OrdemServico> lista = new ArrayList<>();
 

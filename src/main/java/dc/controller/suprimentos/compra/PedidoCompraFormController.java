@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
@@ -64,7 +64,7 @@ public class PedidoCompraFormController extends
 		try {
 			currentBean.setTipoPedido((TipoPedidoEntity) subView
 					.getCmbTipoPedido().getValue());
-			currentBean.setFornecedor((Fornecedor) subView.getCmbFornecedor()
+			currentBean.setFornecedor((FornecedorEntity) subView.getCmbFornecedor()
 					.getValue());
 			currentBean.setDataPedido(subView.getCalDataPedido().getValue());
 			currentBean.setDataPrevistaEntrega(subView.getCalDataEntrega()
@@ -128,7 +128,7 @@ public class PedidoCompraFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new PedidoCompraFormView(this);
-		subView.fillCmbFornecedor(fornecedorDAO.getAll(Fornecedor.class));
+		subView.fillCmbFornecedor(fornecedorDAO.getAll(FornecedorEntity.class));
 		subView.fillCmbTipoPedido(tipoPedidoDAO.getAll(TipoPedidoEntity.class));
 	}
 

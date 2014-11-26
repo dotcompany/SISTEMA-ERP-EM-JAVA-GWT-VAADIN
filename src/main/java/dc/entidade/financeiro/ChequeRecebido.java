@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "CHEQUE_RECEBIDO")
@@ -55,7 +55,7 @@ public class ChequeRecebido extends AbstractMultiEmpresaModel<Integer> implement
 	private BigDecimal valor;
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 	@Transient
 	private String historico;
 	@Transient
@@ -152,11 +152,11 @@ public class ChequeRecebido extends AbstractMultiEmpresaModel<Integer> implement
 		this.valor = valor;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

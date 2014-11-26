@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "contrato_prev_faturamento")
@@ -69,7 +69,7 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	public ContratoPrevFaturamento() {
 
@@ -115,11 +115,11 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 		this.contrato = contrato;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

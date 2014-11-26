@@ -87,7 +87,7 @@ import dc.entidade.ordemservico.SituacaoServico;
 import dc.entidade.ordemservico.StatusOs;
 import dc.entidade.ordemservico.TipoServico;
 import dc.entidade.ordemservico.VendaPeca;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
 import dc.servicos.util.Util;
@@ -202,7 +202,7 @@ public class OrdemServicoFormView extends CustomComponent {
 					  tfQtParcelaDuplicata, tfQtParcelaCarne, tfQtParcelaVale, tfQtParcelaCobrancaBancaria, 
 					  tfQtParcelaCobrancaCarteira, tfTroco, tfTotalRestante;
 	private CheckBox chbPgtoUnico;
-	private ManyToOneCombo<Cliente> cbCliente;
+	private ManyToOneCombo<ClienteEntity> cbCliente;
 	private ManyToOneCombo<Carro> cbPlaca;
 	private ManyToOneCombo<Revenda> cbRevenda;
 	private ManyToOneCombo<Equipamento> cbEquipamento;
@@ -294,14 +294,14 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.setColumns(7);
 
 
-		cbCliente = new ManyToOneCombo<Cliente>();
+		cbCliente = new ManyToOneCombo<ClienteEntity>();
 		cbCliente.setCaption("Cliente");
 		cbCliente.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				Cliente cli = new Cliente();
+				ClienteEntity cli = new ClienteEntity();
 				cli = cbCliente.getValue();
 				
 				if(cli!=null){
@@ -3271,7 +3271,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.pdfDataEfetiv = pdfDataEfetiv;
 	}
 
-	public void setCbCliente(ManyToOneCombo<Cliente> cbCliente) {
+	public void setCbCliente(ManyToOneCombo<ClienteEntity> cbCliente) {
 		this.cbCliente = cbCliente;
 	}
 
@@ -3501,7 +3501,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.taObservacaoOS = taObservacaoOS;
 	}
 
-	public ManyToOneCombo<Cliente> getCbCliente() {
+	public ManyToOneCombo<ClienteEntity> getCbCliente() {
 		return cbCliente;
 	}
 

@@ -31,7 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "LANCAMENTO_RECEBER")
@@ -107,7 +107,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -216,11 +216,11 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 		this.documentoOrigem = documentoOrigem;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

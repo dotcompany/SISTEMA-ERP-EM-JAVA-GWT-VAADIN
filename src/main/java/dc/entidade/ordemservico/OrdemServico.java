@@ -34,7 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "os_ordem_servico")
@@ -56,7 +56,7 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Cliente")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@Caption(value = "Valor Serviço")
 	@Column(name = "valor_servico")
@@ -231,11 +231,11 @@ public class OrdemServico extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

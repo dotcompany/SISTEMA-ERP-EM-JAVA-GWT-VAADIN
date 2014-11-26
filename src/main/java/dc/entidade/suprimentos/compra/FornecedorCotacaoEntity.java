@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 
 /**
  * The persistent class for the compra_fornecedor_cotacao database table.
@@ -56,7 +56,7 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
-	private Fornecedor fornecedor;
+	private FornecedorEntity fornecedor;
 
 	@Column(name = "prazo_entrega")
 	private String prazoEntrega;
@@ -94,11 +94,11 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.id = id;
 	}
 
-	public Fornecedor getFornecedor() {
+	public FornecedorEntity getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

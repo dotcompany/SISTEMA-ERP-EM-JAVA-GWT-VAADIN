@@ -14,9 +14,9 @@ import com.vaadin.ui.Component;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.pessoal.AtividadeForCli;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.SituacaoForCli;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -36,7 +36,7 @@ import dc.entidade.type.pessoal.IndicadorPrecoType;
 
 @Controller
 @Scope("prototype")
-public class ClienteFormController extends CRUDFormController<Cliente> {
+public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	/**
 	 * 
@@ -63,7 +63,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	@Autowired
 	private OperacaoFiscalDAO operacaoDAO;
 
-	private Cliente currentBean;
+	private ClienteEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -90,7 +90,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 			valido = false;
 		}
 
-		Pessoa pessoa = (Pessoa) subView.getCmbPessoa().getValue();
+		PessoaEntity pessoa = (PessoaEntity) subView.getCmbPessoa().getValue();
 		if (!Validator.validateObject(pessoa)) {
 			adicionarErroDeValidacao(subView.getCmbPessoa(), "Não pode ficar em branco");
 			valido = false;
@@ -119,14 +119,14 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cliente();
+		currentBean = new ClienteEntity();
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new ClienteFormView(this);
 		
-		DefaultManyToOneComboModel<Pessoa> model = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
+		DefaultManyToOneComboModel<PessoaEntity> model = new DefaultManyToOneComboModel<PessoaEntity>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
 		subView.getCmbPessoa().setModel(model);
@@ -342,7 +342,7 @@ public class ClienteFormController extends CRUDFormController<Cliente> {
 	}
 
 	@Override
-	public Cliente getModelBean() {
+	public ClienteEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

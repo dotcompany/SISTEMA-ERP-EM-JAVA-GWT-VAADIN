@@ -6,15 +6,15 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class FornecedorDAO extends AbstractCrudDAO<Fornecedor> {
+public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 
 	@Override
-	public Class<Fornecedor> getEntityClass() {
-		return Fornecedor.class;
+	public Class<FornecedorEntity> getEntityClass() {
+		return FornecedorEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,7 +22,7 @@ public class FornecedorDAO extends AbstractCrudDAO<Fornecedor> {
 	}
 
 	@Transactional
-	public List<Fornecedor> listarTodos() {
+	public List<FornecedorEntity> listarTodos() {
 		try {
 			String sql = "FROM Fornecedor ent WHERE (1 = 1)";
 
@@ -30,7 +30,7 @@ public class FornecedorDAO extends AbstractCrudDAO<Fornecedor> {
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<Fornecedor>();
+			return new ArrayList<FornecedorEntity>();
 		}
 	}
 

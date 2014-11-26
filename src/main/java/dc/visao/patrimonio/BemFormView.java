@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.patrimonio.BemFormController;
 import dc.entidade.diversos.Setor;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
@@ -853,9 +853,9 @@ public class BemFormView extends CustomComponent {
 		this.cbSetor.setItemCaptionPropertyId("nome");
 	}
 
-	public void carregarCmbFornecedor(List<Fornecedor> lista) {
-		BeanItemContainer<Fornecedor> bic = new BeanItemContainer<Fornecedor>(
-				Fornecedor.class, lista);
+	public void carregarCmbFornecedor(List<FornecedorEntity> lista) {
+		BeanItemContainer<FornecedorEntity> bic = new BeanItemContainer<FornecedorEntity>(
+				FornecedorEntity.class, lista);
 		this.cbFornecedor.setContainerDataSource(bic);
 		this.cbFornecedor.setItemCaptionPropertyId("nome");
 	}

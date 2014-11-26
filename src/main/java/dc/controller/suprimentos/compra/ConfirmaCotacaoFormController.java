@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.controller.geral.FornecedorListController;
-import dc.entidade.geral.Fornecedor;
+import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.suprimentos.compra.Cotacao;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
@@ -122,7 +122,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 	protected void initSubView() {
 		subView = new ConfirmaCotacaoFormView();
 
-		DefaultManyToOneComboModel<Fornecedor> fornecedorModel = new DefaultManyToOneComboModel<Fornecedor>(
+		DefaultManyToOneComboModel<FornecedorEntity> fornecedorModel = new DefaultManyToOneComboModel<FornecedorEntity>(
 				FornecedorListController.class, this.fornecedorDao,
 				super.getMainController()) {
 
@@ -165,8 +165,8 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
 	}
 
-	public List<Fornecedor> buscarFornecedores() {
-		return fornecedorDao.getAll(Fornecedor.class);
+	public List<FornecedorEntity> buscarFornecedores() {
+		return fornecedorDao.getAll(FornecedorEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

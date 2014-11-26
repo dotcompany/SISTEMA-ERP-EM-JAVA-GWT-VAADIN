@@ -39,7 +39,7 @@ import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.financeiro.LctoReceberNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
@@ -61,7 +61,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 	private ManyToOneCombo<DocumentoOrigem> cbDocumentoOrigem;
 	private ManyToOneCombo<ContaCaixa> cbContaCaixa;
-	private ManyToOneCombo<Cliente> cbCliente;
+	private ManyToOneCombo<ClienteEntity> cbCliente;
 
 	private PopupDateField dtLancamento;
 	private PopupDateField dtPrimeiroVencimento;
@@ -581,11 +581,11 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.cbContaCaixa = cbContaCaixa;
 	}
 
-	public ManyToOneCombo<Cliente> getCbCliente() {
+	public ManyToOneCombo<ClienteEntity> getCbCliente() {
 		return cbCliente;
 	}
 
-	public void setCbCliente(ManyToOneCombo<Cliente> cbCliente) {
+	public void setCbCliente(ManyToOneCombo<ClienteEntity> cbCliente) {
 		this.cbCliente = cbCliente;
 	}
 

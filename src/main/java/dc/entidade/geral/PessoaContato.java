@@ -92,7 +92,7 @@ public class PessoaContato extends AbstractMultiEmpresaModel<Integer> implements
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
 	public PessoaContato() {
 
@@ -166,11 +166,11 @@ public class PessoaContato extends AbstractMultiEmpresaModel<Integer> implements
 		this.foneCelular = foneCelular;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 

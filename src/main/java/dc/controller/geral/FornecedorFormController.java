@@ -14,8 +14,8 @@ import dc.controller.pessoal.AtividadeForCliListController;
 import dc.controller.pessoal.PessoaListController;
 import dc.controller.pessoal.SituacaoForCliListController;
 import dc.entidade.contabilidade.ContabilConta;
-import dc.entidade.geral.Fornecedor;
-import dc.entidade.geral.Pessoa;
+import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.pessoal.AtividadeForCli;
 import dc.entidade.pessoal.SituacaoForCli;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -33,7 +33,7 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class FornecedorFormController extends CRUDFormController<Fornecedor> {
+public class FornecedorFormController extends CRUDFormController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class FornecedorFormController extends CRUDFormController<Fornecedor> {
 	@Autowired
 	private FornecedorDAO fornecedorDAO;
 
-	private Fornecedor currentBean;
+	private FornecedorEntity currentBean;
 
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
@@ -119,7 +119,7 @@ public class FornecedorFormController extends CRUDFormController<Fornecedor> {
 			}
 		};
 
-		DefaultManyToOneComboModel<Pessoa> pessoaModel = new DefaultManyToOneComboModel<Pessoa>(PessoaListController.class, this.pessoaDAO,
+		DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
 		subView.getCbAtividade().setModel(atividadeModel);
@@ -144,7 +144,7 @@ public class FornecedorFormController extends CRUDFormController<Fornecedor> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Fornecedor();
+		currentBean = new FornecedorEntity();
 	}
 
 	@Override
@@ -247,7 +247,7 @@ public class FornecedorFormController extends CRUDFormController<Fornecedor> {
 	}
 
 	@Override
-	public Fornecedor getModelBean() {
+	public FornecedorEntity getModelBean() {
 		return currentBean;
 	}
 }

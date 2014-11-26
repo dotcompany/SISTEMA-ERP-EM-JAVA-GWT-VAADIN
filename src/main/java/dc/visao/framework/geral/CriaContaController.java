@@ -13,7 +13,7 @@ import com.sun.istack.logging.Logger;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.framework.Papel;
-import dc.entidade.geral.PessoaFisica;
+import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.sistema.ContaEmpresa;

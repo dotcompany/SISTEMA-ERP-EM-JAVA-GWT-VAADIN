@@ -33,7 +33,7 @@ import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Transportadora;
 
 @Entity
@@ -150,7 +150,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	@Caption("Cliente")
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_venda_condicoes_pagamento")
@@ -242,11 +242,11 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 		this.dataValidade = dataValidade;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

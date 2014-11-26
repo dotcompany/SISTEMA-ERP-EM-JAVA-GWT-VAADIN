@@ -28,7 +28,7 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Cliente;
+import dc.entidade.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "os_financeiro")
@@ -53,7 +53,7 @@ public class FinanceiroOs extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Cliente")
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
-	private Cliente cliente;
+	private ClienteEntity cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_pagamento", referencedColumnName = "id")
@@ -153,11 +153,11 @@ public class FinanceiroOs extends AbstractMultiEmpresaModel<Integer> {
 		this.tipoPagamento = tipoPagamento;
 	}
 
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
 

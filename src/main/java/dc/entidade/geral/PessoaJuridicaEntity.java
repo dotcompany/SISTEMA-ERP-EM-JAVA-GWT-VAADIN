@@ -31,7 +31,7 @@ import dc.entidade.framework.ComboCode;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PessoaJuridica implements Serializable {
+public class PessoaJuridicaEntity implements Serializable {
 
 	/**
 	 * 
@@ -76,13 +76,13 @@ public class PessoaJuridica implements Serializable {
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@OneToOne(optional = false)
-	private Pessoa pessoa;
+	private PessoaEntity pessoa;
 
-	public PessoaJuridica() {
+	public PessoaJuridicaEntity() {
 
 	}
 
-	public PessoaJuridica(Integer id) {
+	public PessoaJuridicaEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -153,7 +153,7 @@ public class PessoaJuridica implements Serializable {
 	/**
 	 * @return the pessoa
 	 */
-	public Pessoa getPessoa() {
+	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
@@ -161,7 +161,7 @@ public class PessoaJuridica implements Serializable {
 	 * @param pessoa
 	 *            the pessoa to set
 	 */
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
 
