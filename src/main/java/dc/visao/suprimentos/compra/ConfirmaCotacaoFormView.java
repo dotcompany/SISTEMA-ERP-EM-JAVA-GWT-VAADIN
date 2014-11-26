@@ -182,13 +182,13 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 		fields.setColumns(6);
 		fields.setRows(5);
 
-		// calDataCotacao
+		// pdfDataCotacao
 		pdfDataCotacao = new PopupDateField();
 		pdfDataCotacao.setCaption("Data da cotação");
 		pdfDataCotacao.setImmediate(false);
 		fields.addComponent(pdfDataCotacao, 0, 0);
 
-		// txtDescricao
+		// tfDescricao
 		tfDescricao = ComponentUtil.buildTextField("Descrição");
 		fields.addComponent(tfDescricao, 1, 0, 5, 0);
 
@@ -251,20 +251,20 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 
 		fields.addComponent(cbFornecedor, 0, 1, 5, 1);
 
-		tfPrazoEntrega = ComponentUtil.buildTextField("Prazo de Entrega");
+		tfPrazoEntrega = ComponentUtil.buildTextField("Prazo de entrega");
 		fields.addComponent(tfPrazoEntrega, 0, 2, 1, 2);
 
 		tfCondicaoPagamento = ComponentUtil
-				.buildTextField("condição de Pagamento");
+				.buildTextField("Condição de pagamento");
 		fields.addComponent(tfCondicaoPagamento, 2, 2, 3, 2);
 
 		tfSubtotal = ComponentUtil.buildCurrencyField("Subtotal");
 		fields.addComponent(tfSubtotal, 4, 2, 5, 2);
 
-		tfTaxaDesconto = ComponentUtil.buildNumberField("Taxa de Desconto");
+		tfTaxaDesconto = ComponentUtil.buildNumberField("Taxa de desconto");
 		fields.addComponent(tfTaxaDesconto, 0, 3, 1, 3);
 
-		tfValorDesconto = ComponentUtil.buildCurrencyField("Valor de Desconto");
+		tfValorDesconto = ComponentUtil.buildCurrencyField("Valor de desconto");
 		fields.addComponent(tfValorDesconto, 2, 3, 3, 3);
 
 		tfTotal = ComponentUtil.buildCurrencyField("Total");
@@ -275,9 +275,15 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 						"quantidade", "valorUnitario", "valorSubtotal",
 						"taxaDesconto", "valorDesconto", "valorTotal" },
 				new String[] { "Produto requisitado", "Quantidade",
-						"Valor Unitário", "Valor SubTotal", "Taxa Desconto",
-						"Valor Desconto", "Valor Total" }, new String[] {
+						"Valor unitário", "Valor subtotal", "Taxa desconto",
+						"Valor desconto", "Valor total" }, new String[] {
 						"valorSubtotal", "valorDesconto", "valorTotal" }) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -324,6 +330,12 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 							final Container container, final Object itemId,
 							final Object propertyId) {
 						return new BlurListener() {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = 1L;
+
 							@Override
 							public void blur(BlurEvent event) {
 								Property<BigDecimal> quantidade = get("quantidade");
@@ -342,6 +354,7 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 								if (valorSubtotal.getValue() != null) {
 									BigDecimal vs = valorSubtotal.getValue();
 									BigDecimal vd = BigDecimal.ZERO;
+
 									if (valorDesconto.getValue() != null) {
 										vd = valorDesconto.getValue();
 									} else {
@@ -358,8 +371,10 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 
 								return item.getItemProperty(property);
 							}
+
 						};
 					}
+
 				};
 			}
 
@@ -380,6 +395,7 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 			public boolean validateItems(List<CotacaoDetalheEntity> items) {
 				return false;
 			}
+
 		};
 
 		sbCotacaoDetalhe.setReadOnly(true);
