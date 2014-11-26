@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,38 +19,31 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.Empresa;
-
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "pessoa_endereco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_endereco_id_seq")
+	@SequenceGenerator(name = "pessoa_endereco_id_seq", sequenceName = "pessoa_endereco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	/*
@@ -97,8 +91,8 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "MUNICIPIO_IBGE")
 	private Integer municipioIbge;
 
-	//@JoinColumn(name = "ID_UF", referencedColumnName = "ID")
-	//@ManyToOne(optional = false)
+	// @JoinColumn(name = "ID_UF", referencedColumnName = "ID")
+	// @ManyToOne(optional = false)
 	@Column(name = "UF")
 	private String uf;
 
@@ -128,15 +122,18 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implement
 	 *        Módulo Administrativo
 	 */
 
-	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;*/
+	/*
+	 * @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	 * 
+	 * @ManyToOne(optional = false) private Empresa empresa;
+	 */
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne
 	private Pessoa pessoa;
 
 	public PessoaEndereco() {
+
 	}
 
 	public PessoaEndereco(Integer id) {
@@ -199,18 +196,11 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implement
 		this.fone = fone;
 	}
 
-	/*public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+	/*
+	 * public Empresa getEmpresa() { return empresa; }
+	 * 
+	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+	 */
 
 	public String getCidade() {
 		return cidade;
@@ -290,6 +280,15 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer> implement
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

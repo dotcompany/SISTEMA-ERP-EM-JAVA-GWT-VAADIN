@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,31 +27,28 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "pessoa")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pes")
-	@SequenceGenerator(name = "pes", sequenceName = "pessoa_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_id_seq")
+	@SequenceGenerator(name = "pessoa_id_seq", sequenceName = "pessoa_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
@@ -89,9 +86,11 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character colaborador;
 
-	/*@Field
-	@Column(name = "CONVENIO")
-	private Character convenio;*/
+	/*
+	 * @Field
+	 * 
+	 * @Column(name = "CONVENIO") private Character convenio;
+	 */
 
 	@Field
 	@Column(name = "TRANSPORTADORA")
@@ -145,26 +144,6 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.site = site;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Pessoa == false)
-			return false;
-		if (this == object)
-			return true;
-		final Pessoa other = (Pessoa) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
-
-	@Override
-	public String toString() {
-		return nome;
-	}
-
 	public String getTipo() {
 		return tipo;
 	}
@@ -197,21 +176,17 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.colaborador = colaborador;
 	}
 
-	/*public Character getConvenio() {
-		return convenio;
-	}
+	/*
+	 * public Character getConvenio() { return convenio; }
+	 * 
+	 * public void setConvenio(Character convenio) { this.convenio = convenio; }
+	 */
 
-	public void setConvenio(Character convenio) {
-		this.convenio = convenio;
-	}*/
-
-	/*public Character getContador() {
-		return contador;
-	}
-
-	public void setContador(Character contador) {
-		this.contador = contador;
-	}*/
+	/*
+	 * public Character getContador() { return contador; }
+	 * 
+	 * public void setContador(Character contador) { this.contador = contador; }
+	 */
 
 	public Character getTransportadora() {
 		return transportadora;
@@ -231,7 +206,7 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 
 	public void adicionarContato(PessoaContato c) {
 		getContatos().add(c);
-		//c.setEmpresa(this.getEmpresa());
+		// c.setEmpresa(this.getEmpresa());
 		c.setPessoa(this);
 	}
 
@@ -249,4 +224,14 @@ public class Pessoa extends AbstractMultiEmpresaModel<Integer> implements Serial
 	public void setEnderecos(List<PessoaEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }
