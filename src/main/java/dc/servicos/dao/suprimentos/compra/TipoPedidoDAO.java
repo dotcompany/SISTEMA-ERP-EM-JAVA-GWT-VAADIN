@@ -2,7 +2,7 @@ package dc.servicos.dao.suprimentos.compra;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -16,11 +16,11 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 @Repository
-public class TipoPedidoDAO extends AbstractCrudDAO<TipoPedido> {
+public class TipoPedidoDAO extends AbstractCrudDAO<TipoPedidoEntity> {
 
 	@Override
-	public Class<TipoPedido> getEntityClass() {
-		return TipoPedido.class;
+	public Class<TipoPedidoEntity> getEntityClass() {
+		return TipoPedidoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {

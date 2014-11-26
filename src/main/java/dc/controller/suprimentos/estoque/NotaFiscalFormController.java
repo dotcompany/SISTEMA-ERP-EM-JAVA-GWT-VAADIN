@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.CupomVinculado;
+import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NFeTransporte;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NfeFatura;
@@ -757,8 +757,8 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 		return d;
 	}
 
-	public CupomVinculado novoCupom() {
-		CupomVinculado c = new CupomVinculado();
+	public CupomFiscalReferenciadoEntity novoCupom() {
+		CupomFiscalReferenciadoEntity c = new CupomFiscalReferenciadoEntity();
 		currentBean.adicionarCupom(c);
 		return c;
 	}

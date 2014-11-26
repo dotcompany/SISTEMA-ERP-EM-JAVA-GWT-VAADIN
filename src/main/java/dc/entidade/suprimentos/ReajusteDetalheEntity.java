@@ -19,7 +19,7 @@ import dc.entidade.suprimentos.estoque.ReajusteEstoque;
 
 @Entity
 @Table(name = "estoque_reajuste_detalhe")
-public class ReajusteEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class ReajusteDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 

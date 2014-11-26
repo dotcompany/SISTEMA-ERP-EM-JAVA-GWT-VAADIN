@@ -13,9 +13,9 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.PedidoDetalhe;
-import dc.entidade.suprimentos.compra.PedidoCompra;
-import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
+import dc.entidade.suprimentos.compra.PedidoEntity;
+import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
@@ -26,7 +26,7 @@ import dc.visao.suprimentos.compra.PedidoCompraFormView;
 @Controller
 @Scope("prototype")
 public class PedidoCompraFormController extends
-		CRUDFormController<PedidoCompra> {
+		CRUDFormController<PedidoEntity> {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class PedidoCompraFormController extends
 	@Autowired
 	private TipoPedidoDAO tipoPedidoDAO;
 
-	private PedidoCompra currentBean;
+	private PedidoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -62,8 +62,8 @@ public class PedidoCompraFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setTipoPedido((TipoPedido) subView.getCmbTipoPedido()
-					.getValue());
+			currentBean.setTipoPedido((TipoPedidoEntity) subView
+					.getCmbTipoPedido().getValue());
 			currentBean.setFornecedor((Fornecedor) subView.getCmbFornecedor()
 					.getValue());
 			currentBean.setDataPedido(subView.getCalDataPedido().getValue());
@@ -129,12 +129,12 @@ public class PedidoCompraFormController extends
 	protected void initSubView() {
 		subView = new PedidoCompraFormView(this);
 		subView.fillCmbFornecedor(fornecedorDAO.getAll(Fornecedor.class));
-		subView.fillCmbTipoPedido(tipoPedidoDAO.getAll(TipoPedido.class));
+		subView.fillCmbTipoPedido(tipoPedidoDAO.getAll(TipoPedidoEntity.class));
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PedidoCompra();
+		currentBean = new PedidoEntity();
 	}
 
 	@Override
@@ -163,15 +163,15 @@ public class PedidoCompraFormController extends
 		return produtoDAO.getAll(Produto.class);
 	}
 
-	public PedidoDetalhe novoPedidoDetalhe() {
-		PedidoDetalhe pedidoDetalhe = new PedidoDetalhe();
+	public PedidoDetalheEntity novoPedidoDetalhe() {
+		PedidoDetalheEntity pedidoDetalhe = new PedidoDetalheEntity();
 		currentBean.addPedidoDetalhe(pedidoDetalhe);
 
 		return pedidoDetalhe;
 	}
 
-	public void removerPedidoDetalhe(List<PedidoDetalhe> pedidoDetalhes) {
-		for (PedidoDetalhe pedidoDetalhe : pedidoDetalhes) {
+	public void removerPedidoDetalhe(List<PedidoDetalheEntity> pedidoDetalhes) {
+		for (PedidoDetalheEntity pedidoDetalhe : pedidoDetalhes) {
 			currentBean.removePedidoDetalhe(pedidoDetalhe);
 		}
 	}
@@ -187,7 +187,7 @@ public class PedidoCompraFormController extends
 	}
 
 	@Override
-	public PedidoCompra getModelBean() {
+	public PedidoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

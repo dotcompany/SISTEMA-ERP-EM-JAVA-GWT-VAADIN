@@ -12,11 +12,11 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.controller.geral.FornecedorListController;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.CotacaoDetalhe;
-import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
 import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
+import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
@@ -86,22 +86,22 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		subView.getTfDescricao().setValue(currentBean.getDescricao());
 		subView.getPdfDataCotacao().setValue(currentBean.getDataCotacao());
 
-		List<FornecedorCotacao> fornecedorCotacaos = currentBean
+		List<FornecedorCotacaoEntity> fornecedorCotacaos = currentBean
 				.getCompraFornecedorCotacaos();
 		subView.fillCompraFornecedorCotacoesSubForm(fornecedorCotacaos);
 
-		List<RequisicaoCotacaoDetalhe> compraReqCotacaoDetalhes = currentBean
+		List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = currentBean
 				.getCompraReqCotacaoDetalhes();
 
-		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
-			RequisicaoDetalhe requisicaoDetalhe = requisicaoCotacaoDetalhe
+		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
+			RequisicaoDetalheEntity requisicaoDetalhe = requisicaoCotacaoDetalhe
 					.getRequisicaoDetalhe();
 
-			COTACOES: for (FornecedorCotacao fornecedorCotacao : fornecedorCotacaos) {
-				List<CotacaoDetalhe> cotacaoDetalhes = fornecedorCotacao
+			COTACOES: for (FornecedorCotacaoEntity fornecedorCotacao : fornecedorCotacaos) {
+				List<CotacaoDetalheEntity> cotacaoDetalhes = fornecedorCotacao
 						.getCotacaoDetalhes();
 
-				for (CotacaoDetalhe cotacaoDetalhe : cotacaoDetalhes) {
+				for (CotacaoDetalheEntity cotacaoDetalhe : cotacaoDetalhes) {
 					if (cotacaoDetalhe.getProduto().equals(
 							requisicaoDetalhe.getProduto())
 							&& cotacaoDetalhe.getQuantidade().equals(
@@ -110,7 +110,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 					}
 				}
 
-				CotacaoDetalhe cotacaoDetalhe = new CotacaoDetalhe();
+				CotacaoDetalheEntity cotacaoDetalhe = new CotacaoDetalheEntity();
 				cotacaoDetalhe.setProduto(requisicaoDetalhe.getProduto());
 				cotacaoDetalhe.setQuantidade(requisicaoDetalhe.getQuantidade());
 				fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
@@ -161,23 +161,23 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 		remover(ids);
 	}
 
-	public List<RequisicaoDetalhe> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalhe.class);
+	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
 	}
 
 	public List<Fornecedor> buscarFornecedores() {
 		return fornecedorDao.getAll(Fornecedor.class);
 	}
 
-	public FornecedorCotacao novoFornecedorCotacao() {
-		FornecedorCotacao fornecedorCotacao = new FornecedorCotacao();
+	public FornecedorCotacaoEntity novoFornecedorCotacao() {
+		FornecedorCotacaoEntity fornecedorCotacao = new FornecedorCotacaoEntity();
 		currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
 
 		return fornecedorCotacao;
 	}
 
-	public void removerFornecedorCotacaos(List<FornecedorCotacao> values) {
-		for (FornecedorCotacao fornecedorCotacao : values) {
+	public void removerFornecedorCotacaos(List<FornecedorCotacaoEntity> values) {
+		for (FornecedorCotacaoEntity fornecedorCotacao : values) {
 			currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
 		}
 

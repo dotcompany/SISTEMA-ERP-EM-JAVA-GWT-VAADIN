@@ -12,9 +12,9 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
-import dc.entidade.suprimentos.compra.Requisicao;
-import dc.entidade.suprimentos.compra.TipoRequisicao;
+import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoEntity;
+import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.RequisicaoDAO;
@@ -25,7 +25,7 @@ import dc.visao.suprimentos.compra.RequisicaoCompraFormView;
 @Controller
 @Scope("prototype")
 public class RequisicaoCompraFormController extends
-		CRUDFormController<Requisicao> {
+		CRUDFormController<RequisicaoEntity> {
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class RequisicaoCompraFormController extends
 	@Autowired
 	private ProdutoDAO produtoDAO;
 
-	private Requisicao currentBean;
+	private RequisicaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -61,7 +61,7 @@ public class RequisicaoCompraFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setTipoRequisicao((TipoRequisicao) subView
+			currentBean.setTipoRequisicao((TipoRequisicaoEntity) subView
 					.getCmbTipoRequisicao().getValue());
 			currentBean.setColaborador((Colaborador) subView
 					.getLkpRequisitante().getValue());
@@ -95,13 +95,13 @@ public class RequisicaoCompraFormController extends
 	protected void initSubView() {
 		subView = new RequisicaoCompraFormView(this);
 		subView.fillCmbTipoRequisicao(tipoRequisicaoDAO
-				.getAll(TipoRequisicao.class));
+				.getAll(TipoRequisicaoEntity.class));
 		subView.fillCmbRequisitante(colaboradorDAO.getAll(Colaborador.class));
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Requisicao();
+		currentBean = new RequisicaoEntity();
 	}
 
 	@Override
@@ -127,8 +127,8 @@ public class RequisicaoCompraFormController extends
 		remover(ids);
 	}
 
-	public RequisicaoDetalhe novoRequisicaoDetalhe() {
-		RequisicaoDetalhe requisicaoDetalhe = new RequisicaoDetalhe();
+	public RequisicaoDetalheEntity novoRequisicaoDetalhe() {
+		RequisicaoDetalheEntity requisicaoDetalhe = new RequisicaoDetalheEntity();
 		currentBean.addRequisicaoDetalhe(requisicaoDetalhe);
 
 		return requisicaoDetalhe;
@@ -139,8 +139,8 @@ public class RequisicaoCompraFormController extends
 	}
 
 	public void removerRequisicaoDetalhes(
-			List<RequisicaoDetalhe> requisicaoDetalhes) {
-		for (RequisicaoDetalhe requisicaoDetalhe : requisicaoDetalhes) {
+			List<RequisicaoDetalheEntity> requisicaoDetalhes) {
+		for (RequisicaoDetalheEntity requisicaoDetalhe : requisicaoDetalhes) {
 			currentBean.removeRequisicaoDetalhe(requisicaoDetalhe);
 		}
 
@@ -158,7 +158,7 @@ public class RequisicaoCompraFormController extends
 	}
 
 	@Override
-	public Requisicao getModelBean() {
+	public RequisicaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

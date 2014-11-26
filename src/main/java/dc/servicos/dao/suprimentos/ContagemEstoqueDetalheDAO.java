@@ -1,13 +1,14 @@
 package dc.servicos.dao.suprimentos;
 
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
+import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-public class ContagemEstoqueDetalheDAO extends AbstractCrudDAO<ContagemEstoqueDetalhe> {
+public class ContagemEstoqueDetalheDAO extends
+		AbstractCrudDAO<ContagemDetalheEntity> {
 
 	@Override
-	public Class<ContagemEstoqueDetalhe> getEntityClass() {
-		return ContagemEstoqueDetalhe.class;
+	public Class<ContagemDetalheEntity> getEntityClass() {
+		return ContagemDetalheEntity.class;
 	}
 
 	@Override

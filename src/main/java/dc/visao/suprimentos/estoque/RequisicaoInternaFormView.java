@@ -18,7 +18,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.estoque.RequisicaoInternaFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
+import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
@@ -52,7 +52,7 @@ public class RequisicaoInternaFormView extends CustomComponent {
 
 	RequisicaoInterna currentBean;
 
-	private SubFormComponent<RequisicaoInternaDetalhe, Integer> requisicaoDetalheSubForm;
+	private SubFormComponent<RequisicaoInternaDetalheEntity, Integer> requisicaoDetalheSubForm;
 
 	public RequisicaoInternaFormView(RequisicaoInternaFormController controller) {
 		this.controller = controller;
@@ -121,8 +121,8 @@ public class RequisicaoInternaFormView extends CustomComponent {
 		subForms = new TabSheet();
 		subForms.setImmediate(true);
 
-		requisicaoDetalheSubForm = new SubFormComponent<RequisicaoInternaDetalhe, Integer>(
-				RequisicaoInternaDetalhe.class, new String[] { "produto",
+		requisicaoDetalheSubForm = new SubFormComponent<RequisicaoInternaDetalheEntity, Integer>(
+				RequisicaoInternaDetalheEntity.class, new String[] { "produto",
 						"quantidade" },
 				new String[] { "Produto", "Quantidade" }) {
 
@@ -155,14 +155,14 @@ public class RequisicaoInternaFormView extends CustomComponent {
 				};
 			}
 
-			protected RequisicaoInternaDetalhe getNovo() {
-				RequisicaoInternaDetalhe detalhe = controller
+			protected RequisicaoInternaDetalheEntity getNovo() {
+				RequisicaoInternaDetalheEntity detalhe = controller
 						.novoRequisicaoDetalhe();
 				return detalhe;
 			}
 
 			@Override
-			public boolean validateItems(List<RequisicaoInternaDetalhe> items) {
+			public boolean validateItems(List<RequisicaoInternaDetalheEntity> items) {
 
 				return true;
 			}
@@ -182,16 +182,16 @@ public class RequisicaoInternaFormView extends CustomComponent {
 	}
 
 	public void fillRequisicaoDetalhesSubForm(
-			List<RequisicaoInternaDetalhe> requisicaoDetalhes) {
+			List<RequisicaoInternaDetalheEntity> requisicaoDetalhes) {
 		requisicaoDetalheSubForm.fillWith(requisicaoDetalhes);
 	}
 
-	public SubFormComponent<RequisicaoInternaDetalhe, Integer> getRequisicaoDetalheSubForm() {
+	public SubFormComponent<RequisicaoInternaDetalheEntity, Integer> getRequisicaoDetalheSubForm() {
 		return requisicaoDetalheSubForm;
 	}
 
 	public void setRequisicaoDetalheSubForm(
-			SubFormComponent<RequisicaoInternaDetalhe, Integer> requisicaoDetalheSubForm) {
+			SubFormComponent<RequisicaoInternaDetalheEntity, Integer> requisicaoDetalheSubForm) {
 		this.requisicaoDetalheSubForm = requisicaoDetalheSubForm;
 	}
 

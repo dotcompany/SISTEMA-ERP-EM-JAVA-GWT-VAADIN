@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.compra.Requisicao;
+import dc.entidade.suprimentos.compra.RequisicaoEntity;
 
 /**
  * The persistent class for the compra_requisicao_detalhe database table.
@@ -22,7 +22,7 @@ import dc.entidade.suprimentos.compra.Requisicao;
 @Entity
 @Table(name = "compra_requisicao_detalhe")
 @SuppressWarnings("serial")
-public class RequisicaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +42,9 @@ public class RequisicaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_requisicao")
-	private Requisicao requisicao;
+	private RequisicaoEntity requisicao;
 
-	public RequisicaoDetalhe() {
+	public RequisicaoDetalheEntity() {
 	}
 
 	public Integer getId() {
@@ -71,11 +71,11 @@ public class RequisicaoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.itemCotado = itemCotado;
 	}
 
-	public Requisicao getRequisicao() {
+	public RequisicaoEntity getRequisicao() {
 		return this.requisicao;
 	}
 
-	public void setRequisicao(Requisicao compraRequisicao) {
+	public void setRequisicao(RequisicaoEntity compraRequisicao) {
 		this.requisicao = compraRequisicao;
 	}
 

@@ -31,8 +31,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
 
 /**
  * The persistent class for the compra_cotacao database table.
@@ -84,11 +82,11 @@ public class Cotacao extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<FornecedorCotacao> compraFornecedorCotacaos = new ArrayList<>();
+	private List<FornecedorCotacaoEntity> compraFornecedorCotacaos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<RequisicaoCotacaoDetalhe> compraReqCotacaoDetalhes = new ArrayList<>();
+	private List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = new ArrayList<>();
 
 	/**
 	 * CONSTRUTOR
@@ -126,21 +124,21 @@ public class Cotacao extends AbstractMultiEmpresaModel<Integer> implements
 		this.situacao = situacao;
 	}
 
-	public List<FornecedorCotacao> getCompraFornecedorCotacaos() {
+	public List<FornecedorCotacaoEntity> getCompraFornecedorCotacaos() {
 		return compraFornecedorCotacaos;
 	}
 
 	public void setCompraFornecedorCotacaos(
-			List<FornecedorCotacao> compraFornecedorCotacaos) {
+			List<FornecedorCotacaoEntity> compraFornecedorCotacaos) {
 		this.compraFornecedorCotacaos = compraFornecedorCotacaos;
 	}
 
-	public List<RequisicaoCotacaoDetalhe> getCompraReqCotacaoDetalhes() {
+	public List<ReqCotacaoDetalheEntity> getCompraReqCotacaoDetalhes() {
 		return compraReqCotacaoDetalhes;
 	}
 
 	public void setCompraReqCotacaoDetalhes(
-			List<RequisicaoCotacaoDetalhe> compraReqCotacaoDetalhes) {
+			List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes) {
 		this.compraReqCotacaoDetalhes = compraReqCotacaoDetalhes;
 	}
 

@@ -2,16 +2,17 @@ package dc.servicos.dao.suprimentos.compra;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.suprimentos.compra.ContagemEstoque;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 // @SuppressWarnings("unchecked")
-public class ContagemEstoqueDAO extends AbstractCrudDAO<ContagemEstoque> {
+public class ContagemEstoqueDAO extends
+		AbstractCrudDAO<ContagemCabecalhoEntity> {
 
 	@Override
-	public Class<ContagemEstoque> getEntityClass() {
-		return ContagemEstoque.class;
+	public Class<ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
 	}
 
 	// @Override

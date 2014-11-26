@@ -11,13 +11,13 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.CotacaoDetalhe;
-import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.PedidoDetalhe;
-import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
 import dc.entidade.suprimentos.compra.Cotacao;
-import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
+import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
+import dc.entidade.suprimentos.compra.PedidoEntity;
+import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
@@ -65,22 +65,22 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
 
-			List<FornecedorCotacao> fornecedores = currentBean
+			List<FornecedorCotacaoEntity> fornecedores = currentBean
 					.getCompraFornecedorCotacaos();
 
-			for (FornecedorCotacao cotacao : fornecedores) {
-				List<CotacaoDetalhe> cotacaoDetalhes = cotacao
+			for (FornecedorCotacaoEntity cotacao : fornecedores) {
+				List<CotacaoDetalheEntity> cotacaoDetalhes = cotacao
 						.getCotacaoDetalhes();
 
-				PedidoCompra pedidoCompra = null;
+				PedidoEntity pedidoCompra = null;
 
-				for (CotacaoDetalhe detalhe : cotacaoDetalhes) {
+				for (CotacaoDetalheEntity detalhe : cotacaoDetalhes) {
 					boolean existePedido = pedidoCompraDAO
 							.existsPedidoDetalheByCotacao(detalhe.getId());
 
 					if (!existePedido) {
 						if (pedidoCompra == null) {
-							pedidoCompra = new PedidoCompra();
+							pedidoCompra = new PedidoEntity();
 							pedidoCompra.setTipoPedido(tipoPedidoDAO.find(4));
 							pedidoCompra.setFornecedor(cotacao.getFornecedor());
 							pedidoCompra.setTaxaDesconto(cotacao
@@ -95,7 +95,7 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 									.getVendaCondicoesPagamento());
 						}
 
-						PedidoDetalhe pedidoDetalhe = new PedidoDetalhe();
+						PedidoDetalheEntity pedidoDetalhe = new PedidoDetalheEntity();
 						pedidoDetalhe.setProduto(detalhe.getProduto());
 						pedidoDetalhe.setQuantidade(detalhe
 								.getQuantidadePedida());
@@ -171,20 +171,20 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 		remover(ids);
 	}
 
-	public List<RequisicaoDetalhe> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalhe.class);
+	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
 	}
 
-	public RequisicaoCotacaoDetalhe novoRequisicaoCotacaoDetalhe() {
-		RequisicaoCotacaoDetalhe cotacaoDetalhe = new RequisicaoCotacaoDetalhe();
+	public ReqCotacaoDetalheEntity novoRequisicaoCotacaoDetalhe() {
+		ReqCotacaoDetalheEntity cotacaoDetalhe = new ReqCotacaoDetalheEntity();
 		currentBean.getCompraReqCotacaoDetalhes().add(cotacaoDetalhe);
 
 		return cotacaoDetalhe;
 	}
 
 	public void removerRequisicaoCotacaoDetalhes(
-			List<RequisicaoCotacaoDetalhe> values) {
-		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : values) {
+			List<ReqCotacaoDetalheEntity> values) {
+		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : values) {
 			currentBean.getCompraReqCotacaoDetalhes().remove(
 					requisicaoCotacaoDetalhe);
 		}
@@ -196,15 +196,15 @@ public class MapaComparativoFormController extends CRUDFormController<Cotacao> {
 		return fornecedorDao.getAll(Fornecedor.class);
 	}
 
-	public FornecedorCotacao novoFornecedorCotacao() {
-		FornecedorCotacao fornecedorCotacao = new FornecedorCotacao();
+	public FornecedorCotacaoEntity novoFornecedorCotacao() {
+		FornecedorCotacaoEntity fornecedorCotacao = new FornecedorCotacaoEntity();
 		currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
 
 		return fornecedorCotacao;
 	}
 
-	public void removerFornecedorCotacaos(List<FornecedorCotacao> values) {
-		for (FornecedorCotacao fornecedorCotacao : values) {
+	public void removerFornecedorCotacaos(List<FornecedorCotacaoEntity> values) {
+		for (FornecedorCotacaoEntity fornecedorCotacao : values) {
 			currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
 		}
 

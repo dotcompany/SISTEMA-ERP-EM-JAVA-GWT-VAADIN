@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ import dc.entidade.produto.Produto;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer>
+public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -118,7 +118,7 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_compra_fornecedor_cotacao")
 	@Caption(value = "Fornecedor - Cotação")
-	private FornecedorCotacao compraFornecedorCotacao;
+	private FornecedorCotacaoEntity compraFornecedorCotacao;
 
 	/**
 	 * REFERENCIA - LIST
@@ -126,13 +126,13 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "compraCotacaoDetalhe")
 	@Fetch(FetchMode.SUBSELECT)
-	private List<CotacaoPedidoDetalhe> compraCotacaoPedidoDetalhes;
+	private List<CotacaoPedidoDetalheEntity> compraCotacaoPedidoDetalhes;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public CotacaoDetalhe() {
+	public CotacaoDetalheEntity() {
 
 	}
 
@@ -208,21 +208,21 @@ public class CotacaoDetalhe extends AbstractMultiEmpresaModel<Integer>
 		this.produto = produto;
 	}
 
-	public FornecedorCotacao getCompraFornecedorCotacao() {
+	public FornecedorCotacaoEntity getCompraFornecedorCotacao() {
 		return compraFornecedorCotacao;
 	}
 
 	public void setCompraFornecedorCotacao(
-			FornecedorCotacao compraFornecedorCotacao) {
+			FornecedorCotacaoEntity compraFornecedorCotacao) {
 		this.compraFornecedorCotacao = compraFornecedorCotacao;
 	}
 
-	public List<CotacaoPedidoDetalhe> getCompraCotacaoPedidoDetalhes() {
+	public List<CotacaoPedidoDetalheEntity> getCompraCotacaoPedidoDetalhes() {
 		return compraCotacaoPedidoDetalhes;
 	}
 
 	public void setCompraCotacaoPedidoDetalhes(
-			List<CotacaoPedidoDetalhe> compraCotacaoPedidoDetalhes) {
+			List<CotacaoPedidoDetalheEntity> compraCotacaoPedidoDetalhes) {
 		this.compraCotacaoPedidoDetalhes = compraCotacaoPedidoDetalhes;
 	}
 

@@ -11,10 +11,10 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
 import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
+import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
@@ -116,20 +116,20 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		remover(ids);
 	}
 
-	public List<RequisicaoDetalhe> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalhe.class);
+	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
 	}
 
-	public RequisicaoCotacaoDetalhe novoRequisicaoCotacaoDetalhe() {
-		RequisicaoCotacaoDetalhe cotacaoDetalhe = new RequisicaoCotacaoDetalhe();
+	public ReqCotacaoDetalheEntity novoRequisicaoCotacaoDetalhe() {
+		ReqCotacaoDetalheEntity cotacaoDetalhe = new ReqCotacaoDetalheEntity();
 		currentBean.getCompraReqCotacaoDetalhes().add(cotacaoDetalhe);
 
 		return cotacaoDetalhe;
 	}
 
 	public void removerRequisicaoCotacaoDetalhes(
-			List<RequisicaoCotacaoDetalhe> values) {
-		for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : values) {
+			List<ReqCotacaoDetalheEntity> values) {
+		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : values) {
 			currentBean.getCompraReqCotacaoDetalhes().remove(
 					requisicaoCotacaoDetalhe);
 		}
@@ -141,15 +141,15 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 		return fornecedorDao.getAll(Fornecedor.class);
 	}
 
-	public FornecedorCotacao novoFornecedorCotacao() {
-		FornecedorCotacao fornecedorCotacao = new FornecedorCotacao();
+	public FornecedorCotacaoEntity novoFornecedorCotacao() {
+		FornecedorCotacaoEntity fornecedorCotacao = new FornecedorCotacaoEntity();
 		currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
 
 		return fornecedorCotacao;
 	}
 
-	public void removerFornecedorCotacaos(List<FornecedorCotacao> values) {
-		for (FornecedorCotacao fornecedorCotacao : values) {
+	public void removerFornecedorCotacaos(List<FornecedorCotacaoEntity> values) {
+		for (FornecedorCotacaoEntity fornecedorCotacao : values) {
 			currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
 		}
 

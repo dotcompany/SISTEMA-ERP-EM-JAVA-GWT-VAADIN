@@ -28,8 +28,8 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.suprimentos.compra.PedidoCompraFormController;
 import dc.entidade.geral.Fornecedor;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.PedidoDetalhe;
-import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
+import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.geral.MainController;
 import dc.visao.framework.util.ComponentUtil;
@@ -91,7 +91,7 @@ public class PedidoCompraFormView extends CustomComponent {
 
 	private PedidoCompraFormController controller;
 
-	private SubFormComponent<PedidoDetalhe, Integer> pedidoDetalheSubForm;
+	private SubFormComponent<PedidoDetalheEntity, Integer> pedidoDetalheSubForm;
 
 	/**
 	 * The constructor should first build the main layout, set the composition
@@ -258,13 +258,13 @@ public class PedidoCompraFormView extends CustomComponent {
 
 		subForms.addTab(fields, "Detalhes", null);
 
-		pedidoDetalheSubForm = new SubFormComponent<PedidoDetalhe, Integer>(
-				PedidoDetalhe.class, new String[] { "produto", "quantidade",
-						"valorUnitario", "valorSubtotal", "valorDesconto",
-						"valorTotal" }, new String[] { "Produto", "Quantidade",
-						"Valor Unitário", "Valor SubTotal", "Valor Desconto",
-						"Valor Total" }, new String[] { "valorSubtotal",
-						"valorDesconto", "valorTotal" }) {
+		pedidoDetalheSubForm = new SubFormComponent<PedidoDetalheEntity, Integer>(
+				PedidoDetalheEntity.class, new String[] { "produto",
+						"quantidade", "valorUnitario", "valorSubtotal",
+						"valorDesconto", "valorTotal" }, new String[] {
+						"Produto", "Quantidade", "Valor Unitário",
+						"Valor SubTotal", "Valor Desconto", "Valor Total" },
+				new String[] { "valorSubtotal", "valorDesconto", "valorTotal" }) {
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -356,19 +356,21 @@ public class PedidoCompraFormView extends CustomComponent {
 			}
 
 			@Override
-			protected PedidoDetalhe getNovo() {
-				PedidoDetalhe pedidoDetalhe = controller.novoPedidoDetalhe();
+			protected PedidoDetalheEntity getNovo() {
+				PedidoDetalheEntity pedidoDetalhe = controller
+						.novoPedidoDetalhe();
 				return pedidoDetalhe;
 			}
 
 			@Override
-			protected void getRemoverSelecionados(List<PedidoDetalhe> values) {
+			protected void getRemoverSelecionados(
+					List<PedidoDetalheEntity> values) {
 				controller.removerPedidoDetalhe(values);
 			}
 
 			@Override
-			public boolean validateItems(List<PedidoDetalhe> items) {
-				for (PedidoDetalhe pedidoDetalhe : items) {
+			public boolean validateItems(List<PedidoDetalheEntity> items) {
+				for (PedidoDetalheEntity pedidoDetalhe : items) {
 					if (pedidoDetalhe.getProduto() == null
 							|| pedidoDetalhe.getQuantidade() == null) {
 						return false;
@@ -443,9 +445,9 @@ public class PedidoCompraFormView extends CustomComponent {
 		return cmbTipoPedido;
 	}
 
-	public void fillCmbTipoPedido(List<TipoPedido> lista) {
-		BeanItemContainer<TipoPedido> tipoRequisicaoContainer = new BeanItemContainer<>(
-				TipoPedido.class, lista);
+	public void fillCmbTipoPedido(List<TipoPedidoEntity> lista) {
+		BeanItemContainer<TipoPedidoEntity> tipoRequisicaoContainer = new BeanItemContainer<>(
+				TipoPedidoEntity.class, lista);
 		cmbTipoPedido.setContainerDataSource(tipoRequisicaoContainer);
 		cmbTipoPedido.setItemCaptionPropertyId("descricao");
 	}
@@ -458,7 +460,8 @@ public class PedidoCompraFormView extends CustomComponent {
 		cmbFornecedor.setItemCaptionPropertyId("pessoa.nome");
 	}
 
-	public void fillPedidoDetalhesSubForm(List<PedidoDetalhe> pedidoDetalhes) {
+	public void fillPedidoDetalhesSubForm(
+			List<PedidoDetalheEntity> pedidoDetalhes) {
 		pedidoDetalheSubForm.fillWith(pedidoDetalhes);
 	}
 

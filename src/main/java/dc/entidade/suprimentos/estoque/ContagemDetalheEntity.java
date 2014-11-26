@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.math.BigDecimal;
 
@@ -15,13 +15,12 @@ import javax.persistence.Table;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.compra.ContagemEstoque;
 
 @Entity
 // esse aqui e o nome da tabelam
 @Table(name = "estoque_contagem_detalhe")
 @SuppressWarnings("serial")
-public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	// @Id
 	// @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +51,7 @@ public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_estoque_contagem_cabecalho")
-	private ContagemEstoque contagem;
+	private ContagemCabecalhoEntity contagem;
 
 	public Integer getId() {
 		return id;
@@ -78,11 +77,11 @@ public class ContagemEstoqueDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.divergencia = divergencia;
 	}
 
-	public ContagemEstoque getContagem() {
+	public ContagemCabecalhoEntity getContagem() {
 		return contagem;
 	}
 
-	public void setContagem(ContagemEstoque contagem) {
+	public void setContagem(ContagemCabecalhoEntity contagem) {
 		this.contagem = contagem;
 	}
 

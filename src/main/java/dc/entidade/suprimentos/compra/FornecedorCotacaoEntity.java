@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import dc.entidade.suprimentos.compra.Cotacao;
  */
 @Entity
 @Table(name = "compra_fornecedor_cotacao")
-public class FornecedorCotacao extends AbstractMultiEmpresaModel<Integer> {
+public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,13 +59,13 @@ public class FornecedorCotacao extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "compraFornecedorCotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<CotacaoDetalhe> cotacaoDetalhes = new ArrayList<>();
+	private List<CotacaoDetalheEntity> cotacaoDetalhes = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao")
 	private Cotacao cotacao;
 
-	public FornecedorCotacao() {
+	public FornecedorCotacaoEntity() {
 	}
 
 	public Integer getId() {
@@ -132,22 +132,22 @@ public class FornecedorCotacao extends AbstractMultiEmpresaModel<Integer> {
 		this.vendaCondicoesPagamento = vendaCondicoesPagamento;
 	}
 
-	public List<CotacaoDetalhe> getCotacaoDetalhes() {
+	public List<CotacaoDetalheEntity> getCotacaoDetalhes() {
 		return this.cotacaoDetalhes;
 	}
 
-	public void setCotacaoDetalhes(List<CotacaoDetalhe> cotacaoDetalhes) {
+	public void setCotacaoDetalhes(List<CotacaoDetalheEntity> cotacaoDetalhes) {
 		this.cotacaoDetalhes = cotacaoDetalhes;
 	}
 
-	public CotacaoDetalhe addCotacaoDetalhe(CotacaoDetalhe cotacaoDetalhe) {
+	public CotacaoDetalheEntity addCotacaoDetalhe(CotacaoDetalheEntity cotacaoDetalhe) {
 		getCotacaoDetalhes().add(cotacaoDetalhe);
 		cotacaoDetalhe.setCompraFornecedorCotacao(this);
 
 		return cotacaoDetalhe;
 	}
 
-	public CotacaoDetalhe removeCotacaoDetalhe(CotacaoDetalhe cotacaoDetalhe) {
+	public CotacaoDetalheEntity removeCotacaoDetalhe(CotacaoDetalheEntity cotacaoDetalhe) {
 		getCotacaoDetalhes().remove(cotacaoDetalhe);
 		cotacaoDetalhe.setCompraFornecedorCotacao(null);
 

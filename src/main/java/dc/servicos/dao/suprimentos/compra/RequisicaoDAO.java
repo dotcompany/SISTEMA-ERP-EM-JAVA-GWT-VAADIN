@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.suprimentos.compra.Requisicao;
+import dc.entidade.suprimentos.compra.RequisicaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -20,16 +20,16 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 @Transactional
-public class RequisicaoDAO extends AbstractCrudDAO<Requisicao> {
+public class RequisicaoDAO extends AbstractCrudDAO<RequisicaoEntity> {
 
 	@Override
-	public Class<Requisicao> getEntityClass() {
-		return Requisicao.class;
+	public Class<RequisicaoEntity> getEntityClass() {
+		return RequisicaoEntity.class;
 	}
 
 	@Override
-	public Requisicao find(Serializable id) {
-		Requisicao requisicao = super.find(id);
+	public RequisicaoEntity find(Serializable id) {
+		RequisicaoEntity requisicao = super.find(id);
 		// workaround para lazy initialization exception
 		requisicao.getRequisicaoDetalhes().size();
 

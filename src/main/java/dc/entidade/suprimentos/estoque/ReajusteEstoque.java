@@ -31,7 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.ReajusteEstoqueDetalhe;
+import dc.entidade.suprimentos.ReajusteDetalheEntity;
 
 @Entity
 @Table(name = "estoque_reajuste_cabecalho")
@@ -79,7 +79,7 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "reajuste", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<ReajusteEstoqueDetalhe> detalhes = new ArrayList<ReajusteEstoqueDetalhe>();
+	private List<ReajusteDetalheEntity> detalhes = new ArrayList<ReajusteDetalheEntity>();
 
 	@Transient
 	static Integer AUMENTAR = 1;
@@ -127,15 +127,15 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer>
 		this.porcentagem = porcentagem;
 	}
 
-	public List<ReajusteEstoqueDetalhe> getDetalhes() {
+	public List<ReajusteDetalheEntity> getDetalhes() {
 		return detalhes;
 	}
 
-	public void setDetalhes(List<ReajusteEstoqueDetalhe> detalhes) {
+	public void setDetalhes(List<ReajusteDetalheEntity> detalhes) {
 		this.detalhes = detalhes;
 	}
 
-	public ReajusteEstoqueDetalhe addDetalhe(ReajusteEstoqueDetalhe detalhe) {
+	public ReajusteDetalheEntity addDetalhe(ReajusteDetalheEntity detalhe) {
 		getDetalhes().add(detalhe);
 		detalhe.setReajuste(this);
 		return detalhe;

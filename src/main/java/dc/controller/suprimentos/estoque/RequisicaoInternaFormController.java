@@ -14,7 +14,7 @@ import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
+import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaDAO;
@@ -132,8 +132,8 @@ public class RequisicaoInternaFormController extends
 
 	}
 
-	public RequisicaoInternaDetalhe novoRequisicaoDetalhe() {
-		RequisicaoInternaDetalhe detalhe = new RequisicaoInternaDetalhe();
+	public RequisicaoInternaDetalheEntity novoRequisicaoDetalhe() {
+		RequisicaoInternaDetalheEntity detalhe = new RequisicaoInternaDetalheEntity();
 		currentBean.addRequisicaoDetalhe(detalhe);
 
 		return detalhe;

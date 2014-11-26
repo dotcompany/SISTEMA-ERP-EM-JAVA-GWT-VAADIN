@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos.compra;
+package dc.entidade.suprimentos.estoque;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,14 +23,13 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
+public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnt")
@@ -55,7 +54,7 @@ public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "contagem", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Caption("Detalhe")
-	private List<ContagemEstoqueDetalhe> contagemDetalhes;
+	private List<ContagemDetalheEntity> contagemDetalhes;
 
 	public Integer getId() {
 		return id;
@@ -87,17 +86,16 @@ public class ContagemEstoque extends AbstractMultiEmpresaModel<Integer> {
 		this.estoqueAtualizado = estoqueAtualizado;
 	}
 
-	public List<ContagemEstoqueDetalhe> getContagemDetalhes() {
+	public List<ContagemDetalheEntity> getContagemDetalhes() {
 		return contagemDetalhes;
 	}
 
-	public void setContagemDetalhes(
-			List<ContagemEstoqueDetalhe> contagemDetalhes) {
+	public void setContagemDetalhes(List<ContagemDetalheEntity> contagemDetalhes) {
 		this.contagemDetalhes = contagemDetalhes;
 	}
 
-	public ContagemEstoqueDetalhe addContagemDetalhe(
-			ContagemEstoqueDetalhe contagemEstoqueDetalhe) {
+	public ContagemDetalheEntity addContagemDetalhe(
+			ContagemDetalheEntity contagemEstoqueDetalhe) {
 		if (contagemDetalhes == null)
 			contagemDetalhes = new ArrayList();
 		getContagemDetalhes().add(contagemEstoqueDetalhe);

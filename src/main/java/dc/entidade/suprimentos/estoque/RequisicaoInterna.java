@@ -28,7 +28,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
+import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 
 @Entity
 @Table(name = "requisicao_interna_cabecalho")
@@ -64,7 +64,7 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<RequisicaoInternaDetalhe> detalhes = new ArrayList<RequisicaoInternaDetalhe>();
+	private List<RequisicaoInternaDetalheEntity> detalhes = new ArrayList<RequisicaoInternaDetalheEntity>();
 
 	public Integer getId() {
 		return id;
@@ -82,16 +82,16 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 		this.dataRequisicao = dataRequisicao;
 	}
 
-	public List<RequisicaoInternaDetalhe> getDetalhes() {
+	public List<RequisicaoInternaDetalheEntity> getDetalhes() {
 		return detalhes;
 	}
 
-	public void setDetalhes(List<RequisicaoInternaDetalhe> detalhes) {
+	public void setDetalhes(List<RequisicaoInternaDetalheEntity> detalhes) {
 		this.detalhes = detalhes;
 	}
 
-	public RequisicaoInternaDetalhe addRequisicaoDetalhe(
-			RequisicaoInternaDetalhe requisicaoDetalhe) {
+	public RequisicaoInternaDetalheEntity addRequisicaoDetalhe(
+			RequisicaoInternaDetalheEntity requisicaoDetalhe) {
 		getDetalhes().add(requisicaoDetalhe);
 		requisicaoDetalhe.setRequisicao(this);
 		return requisicaoDetalhe;

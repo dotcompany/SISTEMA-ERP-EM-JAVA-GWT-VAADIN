@@ -18,7 +18,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Table(name="compra_tipo_pedido")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoPedido extends AbstractMultiEmpresaModel<Integer> {
+public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id

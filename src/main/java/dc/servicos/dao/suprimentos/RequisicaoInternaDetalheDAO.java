@@ -1,13 +1,13 @@
 package dc.servicos.dao.suprimentos;
 
-import dc.entidade.suprimentos.RequisicaoInternaDetalhe;
+import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-public class RequisicaoInternaDetalheDAO extends AbstractCrudDAO<RequisicaoInternaDetalhe> {
+public class RequisicaoInternaDetalheDAO extends AbstractCrudDAO<RequisicaoInternaDetalheEntity> {
 
 	@Override
-	public Class<RequisicaoInternaDetalhe> getEntityClass() {
-		return RequisicaoInternaDetalhe.class;
+	public Class<RequisicaoInternaDetalheEntity> getEntityClass() {
+		return RequisicaoInternaDetalheEntity.class;
 	}
 
 	@Override

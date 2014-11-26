@@ -14,7 +14,7 @@ import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Usuario;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ReajusteEstoqueDetalhe;
+import dc.entidade.suprimentos.ReajusteDetalheEntity;
 import dc.entidade.suprimentos.estoque.ReajusteEstoque;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.estoque.ReajusteEstoqueDAO;
@@ -154,8 +154,8 @@ public class ReajusteEstoqueFormController extends
 		remover(objetos);
 	}
 
-	public ReajusteEstoqueDetalhe novoDetalhe() {
-		ReajusteEstoqueDetalhe detalhe = new ReajusteEstoqueDetalhe();
+	public ReajusteDetalheEntity novoDetalhe() {
+		ReajusteDetalheEntity detalhe = new ReajusteDetalheEntity();
 		currentBean.addDetalhe(detalhe);
 
 		return detalhe;

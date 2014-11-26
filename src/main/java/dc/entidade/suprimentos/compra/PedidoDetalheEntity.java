@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.PedidoEntity;
 
 /**
  * The persistent class for the compra_pedido_detalhe database table.
@@ -21,7 +21,7 @@ import dc.entidade.suprimentos.compra.PedidoCompra;
  */
 @Entity
 @Table(name = "compra_pedido_detalhe")
-public class PedidoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class PedidoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -72,7 +72,7 @@ public class PedidoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_pedido")
-	private PedidoCompra pedido;
+	private PedidoEntity pedido;
 
 	public Integer getId() {
 		return this.id;
@@ -182,11 +182,11 @@ public class PedidoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public PedidoCompra getPedido() {
+	public PedidoEntity getPedido() {
 		return this.pedido;
 	}
 
-	public void setPedido(PedidoCompra compraPedido) {
+	public void setPedido(PedidoEntity compraPedido) {
 		this.pedido = compraPedido;
 	}
 

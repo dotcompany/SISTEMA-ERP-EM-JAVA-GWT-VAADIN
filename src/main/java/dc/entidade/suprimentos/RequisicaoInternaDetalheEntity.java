@@ -15,7 +15,7 @@ import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 
 @Entity
 @Table(name = "requisicao_interna_detalhe")
-public class RequisicaoInternaDetalhe extends
+public class RequisicaoInternaDetalheEntity extends
 		AbstractMultiEmpresaModel<Integer> {
 
 	/**

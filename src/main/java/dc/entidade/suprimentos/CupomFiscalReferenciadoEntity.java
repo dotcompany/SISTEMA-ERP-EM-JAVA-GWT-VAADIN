@@ -26,7 +26,7 @@ import dc.entidade.suprimentos.estoque.NotaFiscal;
 @Table(name = "nfe_cupom_fiscal_referenciado")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CupomVinculado extends AbstractMultiEmpresaModel<Integer> {
+public class CupomFiscalReferenciadoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.compra.TipoRequisicao;
+import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
 import dc.servicos.dao.suprimentos.compra.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class TipoRequisicaoListController extends
-		CRUDListController<TipoRequisicao> {
+		CRUDListController<TipoRequisicaoEntity> {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class TipoRequisicaoListController extends
 	}
 
 	@Override
-	protected List<TipoRequisicao> pesquisa(String valor) {
+	protected List<TipoRequisicaoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -49,18 +49,18 @@ public class TipoRequisicaoListController extends
 	}
 
 	@Override
-	protected CRUDFormController<TipoRequisicao> getFormController() {
+	protected CRUDFormController<TipoRequisicaoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super TipoRequisicao> getEntityClass() {
-		return TipoRequisicao.class;
+	public Class<? super TipoRequisicaoEntity> getEntityClass() {
+		return TipoRequisicaoEntity.class;
 	}
 
 	@Override
-	protected List<TipoRequisicao> pesquisaDefault() {
-		return dao.getAll(TipoRequisicao.class);
+	protected List<TipoRequisicaoEntity> pesquisaDefault() {
+		return dao.getAll(TipoRequisicaoEntity.class);
 	}
 
 	@Override

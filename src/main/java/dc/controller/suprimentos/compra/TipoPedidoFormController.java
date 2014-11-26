@@ -10,14 +10,14 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.compra.TipoPedido;
+import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.TipoPedidoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
+public class TipoPedidoFormController extends CRUDFormController<TipoPedidoEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	@Autowired
 	private TipoPedidoDAO tipoPedidoDAO;
 
-	private TipoPedido currentBean;
+	private TipoPedidoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -72,7 +72,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoPedido();
+		currentBean = new TipoPedidoEntity();
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class TipoPedidoFormController extends CRUDFormController<TipoPedido> {
 	}
 
 	@Override
-	public TipoPedido getModelBean() {
+	public TipoPedidoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

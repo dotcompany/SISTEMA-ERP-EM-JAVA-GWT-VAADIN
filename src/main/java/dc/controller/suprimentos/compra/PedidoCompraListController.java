@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class PedidoCompraListController extends
-		CRUDListController<PedidoCompra> {
+		CRUDListController<PedidoEntity> {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class PedidoCompraListController extends
 	}
 
 	@Override
-	protected List<PedidoCompra> pesquisa(String valor) {
+	protected List<PedidoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -55,18 +55,18 @@ public class PedidoCompraListController extends
 	}
 
 	@Override
-	protected CRUDFormController<PedidoCompra> getFormController() {
+	protected CRUDFormController<PedidoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super PedidoCompra> getEntityClass() {
-		return PedidoCompra.class;
+	public Class<? super PedidoEntity> getEntityClass() {
+		return PedidoEntity.class;
 	}
 
 	@Override
-	protected List<PedidoCompra> pesquisaDefault() {
-		return dao.getAll(PedidoCompra.class);
+	protected List<PedidoEntity> pesquisaDefault() {
+		return dao.getAll(PedidoEntity.class);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.PedidoEntity;
 
 /**
  * The persistent class for the compra_cotacao_pedido_detalhe database table.
@@ -21,7 +21,7 @@ import dc.entidade.suprimentos.compra.PedidoCompra;
  */
 @Entity
 @Table(name = "compra_cotacao_pedido_detalhe")
-public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer>
+public class CotacaoPedidoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,14 +36,14 @@ public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer>
 	// bi-directional many-to-one association to CotacaoDetalhe
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao_detalhe")
-	private CotacaoDetalhe compraCotacaoDetalhe;
+	private CotacaoDetalheEntity compraCotacaoDetalhe;
 
 	// bi-directional many-to-one association to PedidoCompra
 	@ManyToOne
 	@JoinColumn(name = "id_compra_pedido")
-	private PedidoCompra compraPedido;
+	private PedidoEntity compraPedido;
 
-	public CotacaoPedidoDetalhe() {
+	public CotacaoPedidoDetalheEntity() {
 	}
 
 	public Integer getId() {
@@ -62,19 +62,19 @@ public class CotacaoPedidoDetalhe extends AbstractMultiEmpresaModel<Integer>
 		this.quantidadePedida = quantidadePedida;
 	}
 
-	public CotacaoDetalhe getCompraCotacaoDetalhe() {
+	public CotacaoDetalheEntity getCompraCotacaoDetalhe() {
 		return this.compraCotacaoDetalhe;
 	}
 
-	public void setCompraCotacaoDetalhe(CotacaoDetalhe compraCotacaoDetalhe) {
+	public void setCompraCotacaoDetalhe(CotacaoDetalheEntity compraCotacaoDetalhe) {
 		this.compraCotacaoDetalhe = compraCotacaoDetalhe;
 	}
 
-	public PedidoCompra getCompraPedido() {
+	public PedidoEntity getCompraPedido() {
 		return this.compraPedido;
 	}
 
-	public void setCompraPedido(PedidoCompra compraPedido) {
+	public void setCompraPedido(PedidoEntity compraPedido) {
 		this.compraPedido = compraPedido;
 	}
 

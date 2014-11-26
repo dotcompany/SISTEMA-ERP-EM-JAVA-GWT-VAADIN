@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.entidade.framework.Empresa;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.ContagemEstoqueDetalhe;
-import dc.entidade.suprimentos.compra.ContagemEstoque;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
+import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
 import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.servicos.util.Validator;
@@ -24,7 +24,7 @@ import dc.visao.suprimentos.compra.ContagemEstoqueFormView;
 @Controller
 @Scope("prototype")
 public class ContagemEstoqueFormController extends
-		CRUDFormController<ContagemEstoque> {
+		CRUDFormController<ContagemCabecalhoEntity> {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class ContagemEstoqueFormController extends
 	@Autowired
 	private ProdutoDAO produtoDAO;
 
-	private ContagemEstoque currentBean;
+	private ContagemCabecalhoEntity currentBean;
 
 	@Override
 	public String getViewIdentifier() {
@@ -61,7 +61,7 @@ public class ContagemEstoqueFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ContagemEstoque();
+		currentBean = new ContagemCabecalhoEntity();
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class ContagemEstoqueFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		for (Serializable i : ids) {
-			ContagemEstoque c = dao.find(i);
+			ContagemCabecalhoEntity c = dao.find(i);
 			c.setContagemDetalhes(null);
 		}
 
@@ -132,8 +132,8 @@ public class ContagemEstoqueFormController extends
 		return true;
 	}
 
-	public ContagemEstoqueDetalhe novoContagemEstoqueDetalhe() {
-		ContagemEstoqueDetalhe detalhe = new ContagemEstoqueDetalhe();
+	public ContagemDetalheEntity novoContagemEstoqueDetalhe() {
+		ContagemDetalheEntity detalhe = new ContagemDetalheEntity();
 		currentBean.addContagemDetalhe(detalhe);
 
 		return detalhe;
@@ -144,7 +144,7 @@ public class ContagemEstoqueFormController extends
 	}
 
 	@Override
-	public ContagemEstoque getModelBean() {
+	public ContagemCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

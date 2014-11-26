@@ -20,7 +20,7 @@ import dc.entidade.framework.AbstractModel;
 @Table(name = "compra_tipo_requisicao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoRequisicao extends AbstractModel<Integer> implements Serializable {
+public class TipoRequisicaoEntity extends AbstractModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -97,7 +97,7 @@ public class TipoRequisicao extends AbstractModel<Integer> implements Serializab
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoRequisicao other = (TipoRequisicao) obj;
+		TipoRequisicaoEntity other = (TipoRequisicaoEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

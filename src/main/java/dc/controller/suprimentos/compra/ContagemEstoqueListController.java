@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.suprimentos.compra.ContagemEstoque;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ContagemEstoqueListController extends
-		CRUDListController<ContagemEstoque> {
+		CRUDListController<ContagemCabecalhoEntity> {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class ContagemEstoqueListController extends
 	}
 
 	@Override
-	protected List<ContagemEstoque> pesquisa(String valor) {
+	protected List<ContagemCabecalhoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -49,18 +49,18 @@ public class ContagemEstoqueListController extends
 	}
 
 	@Override
-	protected CRUDFormController<ContagemEstoque> getFormController() {
+	protected CRUDFormController<ContagemCabecalhoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ContagemEstoque> getEntityClass() {
-		return ContagemEstoque.class;
+	public Class<? super ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
 	}
 
 	@Override
-	protected List<ContagemEstoque> pesquisaDefault() {
-		return dao.getAll(ContagemEstoque.class);
+	protected List<ContagemCabecalhoEntity> pesquisaDefault() {
+		return dao.getAll(ContagemCabecalhoEntity.class);
 
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =

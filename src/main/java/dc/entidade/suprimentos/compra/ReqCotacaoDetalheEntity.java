@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.compra;
 
 import java.math.BigDecimal;
 
@@ -20,7 +20,7 @@ import dc.entidade.suprimentos.compra.Cotacao;
  */
 @Entity
 @Table(name = "compra_req_cotacao_detalhe")
-public class RequisicaoCotacaoDetalhe extends
+public class ReqCotacaoDetalheEntity extends
 		AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -38,9 +38,9 @@ public class RequisicaoCotacaoDetalhe extends
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_requisicao_detalhe")
-	private RequisicaoDetalhe requisicaoDetalhe;
+	private RequisicaoDetalheEntity requisicaoDetalhe;
 
-	public RequisicaoCotacaoDetalhe() {
+	public ReqCotacaoDetalheEntity() {
 	}
 
 	public Integer getId() {
@@ -67,11 +67,11 @@ public class RequisicaoCotacaoDetalhe extends
 		this.cotacao = compraCotacao;
 	}
 
-	public RequisicaoDetalhe getRequisicaoDetalhe() {
+	public RequisicaoDetalheEntity getRequisicaoDetalhe() {
 		return this.requisicaoDetalhe;
 	}
 
-	public void setRequisicaoDetalhe(RequisicaoDetalhe compraRequisicaoDetalhe) {
+	public void setRequisicaoDetalhe(RequisicaoDetalheEntity compraRequisicaoDetalhe) {
 		this.requisicaoDetalhe = compraRequisicaoDetalhe;
 	}
 

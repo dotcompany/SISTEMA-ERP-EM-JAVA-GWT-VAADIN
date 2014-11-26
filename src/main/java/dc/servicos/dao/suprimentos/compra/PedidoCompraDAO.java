@@ -4,7 +4,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.suprimentos.compra.PedidoCompra;
+import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -18,11 +18,11 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 @Repository
-public class PedidoCompraDAO extends AbstractCrudDAO<PedidoCompra> {
+public class PedidoCompraDAO extends AbstractCrudDAO<PedidoEntity> {
 
 	@Override
-	public Class<PedidoCompra> getEntityClass() {
-		return PedidoCompra.class;
+	public Class<PedidoEntity> getEntityClass() {
+		return PedidoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {

@@ -53,7 +53,7 @@ import dc.br.inf.portalfiscal.nfe.TNFe.InfNFe.Total.ICMSTot;
 import dc.br.inf.portalfiscal.nfe.TNfeProc;
 import dc.controller.suprimentos.estoque.NotaFiscalFormController;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.CupomVinculado;
+import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
 import dc.entidade.suprimentos.NotaReferenciada;
@@ -99,7 +99,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	private SubFormComponent<Produto, Integer> produtoSubForm;
 
-	private SubFormComponent<CupomVinculado, Integer> cuponsSubForm;
+	private SubFormComponent<CupomFiscalReferenciadoEntity, Integer> cuponsSubForm;
 
 	private SubFormComponent<NotaReferenciada, Integer> notasSubForm;
 
@@ -919,8 +919,8 @@ public class NotaFiscalFormView extends CustomComponent {
 		sub.setSizeFull();
 		sub.setImmediate(true);
 
-		cuponsSubForm = new SubFormComponent<CupomVinculado, Integer>(
-				CupomVinculado.class, new String[] { "modelo", "dataEmissao",
+		cuponsSubForm = new SubFormComponent<CupomFiscalReferenciadoEntity, Integer>(
+				CupomFiscalReferenciadoEntity.class, new String[] { "modelo", "dataEmissao",
 						"coo", "numeroCaixa", "numeroSerieEcf" }, new String[] {
 						"Modelo", "Data de Emissão", "COO", "Número de Caixa",
 						"Número de Série ECF" }) {
@@ -965,14 +965,14 @@ public class NotaFiscalFormView extends CustomComponent {
 				};
 			}
 
-			protected CupomVinculado getNovo() {
-				CupomVinculado detalhe = controller.novoCupom();
+			protected CupomFiscalReferenciadoEntity getNovo() {
+				CupomFiscalReferenciadoEntity detalhe = controller.novoCupom();
 
 				return detalhe;
 			}
 
 			@Override
-			public boolean validateItems(List<CupomVinculado> items) {
+			public boolean validateItems(List<CupomFiscalReferenciadoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1834,7 +1834,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.tipoOperacao = tipoOperacao;
 	}
 
-	public void preencheCupomSubForm(List<CupomVinculado> cupons) {
+	public void preencheCupomSubForm(List<CupomFiscalReferenciadoEntity> cupons) {
 		cuponsSubForm.fillWith(cupons);
 	}
 

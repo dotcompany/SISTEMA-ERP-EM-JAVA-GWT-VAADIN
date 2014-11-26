@@ -19,9 +19,9 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.CotacaoFormController;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.FornecedorCotacao;
-import dc.entidade.suprimentos.RequisicaoCotacaoDetalhe;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
+import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
+import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -48,8 +48,8 @@ public class CotacaoFormView extends CustomComponent {
 	private PopupDateField calDataCotacao;
 
 	private CotacaoFormController controller;
-	private SubFormComponent<RequisicaoCotacaoDetalhe, Integer> requisicaoDetalheSubForm;
-	private SubFormComponent<FornecedorCotacao, Integer> fornecedorSubForm;
+	private SubFormComponent<ReqCotacaoDetalheEntity, Integer> requisicaoDetalheSubForm;
+	private SubFormComponent<FornecedorCotacaoEntity, Integer> fornecedorSubForm;
 
 	public CotacaoFormView(CotacaoFormController controller) {
 		this.controller = controller;
@@ -124,8 +124,8 @@ public class CotacaoFormView extends CustomComponent {
 		subForms.setSizeFull();
 		subForms.setImmediate(true);
 
-		requisicaoDetalheSubForm = new SubFormComponent<RequisicaoCotacaoDetalhe, Integer>(
-				RequisicaoCotacaoDetalhe.class,
+		requisicaoDetalheSubForm = new SubFormComponent<ReqCotacaoDetalheEntity, Integer>(
+				ReqCotacaoDetalheEntity.class,
 				new String[] { "requisicaoDetalhe", "quantidadeCotada" },
 				new String[] { "Produto requisitado", "Quantidade a ser cotada" }) {
 			@Override
@@ -139,8 +139,8 @@ public class CotacaoFormView extends CustomComponent {
 						if ("requisicaoDetalhe".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox(null);
-							BeanItemContainer<RequisicaoDetalhe> requisicaoDetalheContainer = new BeanItemContainer<>(
-									RequisicaoDetalhe.class,
+							BeanItemContainer<RequisicaoDetalheEntity> requisicaoDetalheContainer = new BeanItemContainer<>(
+									RequisicaoDetalheEntity.class,
 									controller.buscarRequisicaoProdutos());
 							requisicaoDetalheContainer
 									.addNestedContainerProperty("produto.descricao");
@@ -157,20 +157,20 @@ public class CotacaoFormView extends CustomComponent {
 				};
 			}
 
-			protected RequisicaoCotacaoDetalhe getNovo() {
-				RequisicaoCotacaoDetalhe requisicaoDetalhe = controller
+			protected ReqCotacaoDetalheEntity getNovo() {
+				ReqCotacaoDetalheEntity requisicaoDetalhe = controller
 						.novoRequisicaoCotacaoDetalhe();
 				return requisicaoDetalhe;
 			}
 
 			protected void getRemoverSelecionados(
-					List<RequisicaoCotacaoDetalhe> values) {
+					List<ReqCotacaoDetalheEntity> values) {
 				controller.removerRequisicaoCotacaoDetalhes(values);
 			}
 
 			@Override
-			public boolean validateItems(List<RequisicaoCotacaoDetalhe> items) {
-				for (RequisicaoCotacaoDetalhe requisicaoCotacaoDetalhe : items) {
+			public boolean validateItems(List<ReqCotacaoDetalheEntity> items) {
+				for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : items) {
 					if (requisicaoCotacaoDetalhe.getRequisicaoDetalhe() == null
 							|| requisicaoCotacaoDetalhe.getQuantidadeCotada() == null) {
 						return false;
@@ -181,8 +181,8 @@ public class CotacaoFormView extends CustomComponent {
 			}
 		};
 
-		fornecedorSubForm = new SubFormComponent<FornecedorCotacao, Integer>(
-				FornecedorCotacao.class, new String[] { "fornecedor" },
+		fornecedorSubForm = new SubFormComponent<FornecedorCotacaoEntity, Integer>(
+				FornecedorCotacaoEntity.class, new String[] { "fornecedor" },
 				new String[] { "Fornecedor" }) {
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -209,19 +209,20 @@ public class CotacaoFormView extends CustomComponent {
 				};
 			}
 
-			protected FornecedorCotacao getNovo() {
-				FornecedorCotacao requisicaoDetalhe = controller
+			protected FornecedorCotacaoEntity getNovo() {
+				FornecedorCotacaoEntity requisicaoDetalhe = controller
 						.novoFornecedorCotacao();
 				return requisicaoDetalhe;
 			}
 
-			protected void getRemoverSelecionados(List<FornecedorCotacao> values) {
+			protected void getRemoverSelecionados(
+					List<FornecedorCotacaoEntity> values) {
 				controller.removerFornecedorCotacaos(values);
 			}
 
 			@Override
-			public boolean validateItems(List<FornecedorCotacao> items) {
-				for (FornecedorCotacao fornecedorCotacao : items) {
+			public boolean validateItems(List<FornecedorCotacaoEntity> items) {
+				for (FornecedorCotacaoEntity fornecedorCotacao : items) {
 					if (fornecedorCotacao.getFornecedor() == null) {
 						return false;
 					}
@@ -235,12 +236,12 @@ public class CotacaoFormView extends CustomComponent {
 	}
 
 	public void fillReqCotacaoDetalhesSubForm(
-			List<RequisicaoCotacaoDetalhe> requisicaoDetalhes) {
+			List<ReqCotacaoDetalheEntity> requisicaoDetalhes) {
 		requisicaoDetalheSubForm.fillWith(requisicaoDetalhes);
 	}
 
 	public void fillCompraFornecedorCotacoesSubForm(
-			List<FornecedorCotacao> requisicaoDetalhes) {
+			List<FornecedorCotacaoEntity> requisicaoDetalhes) {
 		fornecedorSubForm.fillWith(requisicaoDetalhes);
 	}
 

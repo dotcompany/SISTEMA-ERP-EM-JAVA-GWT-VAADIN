@@ -30,7 +30,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.RequisicaoDetalhe;
 
 /**
  * The persistent class for the compra_requisicao database table.
@@ -41,7 +40,7 @@ import dc.entidade.suprimentos.RequisicaoDetalhe;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,13 +69,13 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_compra_tipo_requisicao")
 	@Caption("Tipo Requisição")
-	private TipoRequisicao tipoRequisicao;
+	private TipoRequisicaoEntity tipoRequisicao;
 
 	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<RequisicaoDetalhe> requisicaoDetalhes = new ArrayList<>();
+	private List<RequisicaoDetalheEntity> requisicaoDetalhes = new ArrayList<>();
 
-	public Requisicao() {
+	public RequisicaoEntity() {
 	}
 
 	public Integer getId() {
@@ -111,28 +110,28 @@ public class Requisicao extends AbstractMultiEmpresaModel<Integer> {
 		this.colaborador = colaborador;
 	}
 
-	public TipoRequisicao getTipoRequisicao() {
+	public TipoRequisicaoEntity getTipoRequisicao() {
 		return this.tipoRequisicao;
 	}
 
-	public void setTipoRequisicao(TipoRequisicao tipoRequisicao) {
+	public void setTipoRequisicao(TipoRequisicaoEntity tipoRequisicao) {
 		this.tipoRequisicao = tipoRequisicao;
 	}
 
-	public List<RequisicaoDetalhe> getRequisicaoDetalhes() {
+	public List<RequisicaoDetalheEntity> getRequisicaoDetalhes() {
 		return this.requisicaoDetalhes;
 	}
 
-	public RequisicaoDetalhe addRequisicaoDetalhe(
-			RequisicaoDetalhe compraRequisicaoDetalhe) {
+	public RequisicaoDetalheEntity addRequisicaoDetalhe(
+			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
 		getRequisicaoDetalhes().add(compraRequisicaoDetalhe);
 		compraRequisicaoDetalhe.setRequisicao(this);
 
 		return compraRequisicaoDetalhe;
 	}
 
-	public RequisicaoDetalhe removeRequisicaoDetalhe(
-			RequisicaoDetalhe compraRequisicaoDetalhe) {
+	public RequisicaoDetalheEntity removeRequisicaoDetalhe(
+			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
 		getRequisicaoDetalhes().remove(compraRequisicaoDetalhe);
 		compraRequisicaoDetalhe.setRequisicao(null);
 

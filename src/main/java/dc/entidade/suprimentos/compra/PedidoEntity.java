@@ -24,7 +24,6 @@ import org.hibernate.annotations.FetchMode;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.PedidoDetalhe;
 
 /**
  * The persistent class for the compra_pedido database table.
@@ -32,7 +31,7 @@ import dc.entidade.suprimentos.PedidoDetalhe;
  */
 @Entity
 @Table(name = "compra_pedido")
-public class PedidoCompra extends AbstractMultiEmpresaModel<Integer> {
+public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -127,11 +126,11 @@ public class PedidoCompra extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "id_compra_tipo_pedido")
 	@Caption("Tipo do pedido")
-	private TipoPedido tipoPedido;
+	private TipoPedidoEntity tipoPedido;
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<PedidoDetalhe> pedidoDetalhes = new ArrayList<>();
+	private List<PedidoDetalheEntity> pedidoDetalhes = new ArrayList<>();
 
 	public Integer getId() {
 		return this.id;
@@ -233,30 +232,32 @@ public class PedidoCompra extends AbstractMultiEmpresaModel<Integer> {
 		this.tipoFrete = tipoFrete;
 	}
 
-	public TipoPedido getTipoPedido() {
+	public TipoPedidoEntity getTipoPedido() {
 		return this.tipoPedido;
 	}
 
-	public void setTipoPedido(TipoPedido tipoPedido) {
+	public void setTipoPedido(TipoPedidoEntity tipoPedido) {
 		this.tipoPedido = tipoPedido;
 	}
 
-	public List<PedidoDetalhe> getPedidoDetalhes() {
+	public List<PedidoDetalheEntity> getPedidoDetalhes() {
 		return this.pedidoDetalhes;
 	}
 
-	public void setPedidoDetalhes(List<PedidoDetalhe> compraPedidoDetalhes) {
+	public void setPedidoDetalhes(List<PedidoDetalheEntity> compraPedidoDetalhes) {
 		this.pedidoDetalhes = compraPedidoDetalhes;
 	}
 
-	public PedidoDetalhe addPedidoDetalhe(PedidoDetalhe pedidoDetalhe) {
+	public PedidoDetalheEntity addPedidoDetalhe(
+			PedidoDetalheEntity pedidoDetalhe) {
 		getPedidoDetalhes().add(pedidoDetalhe);
 		pedidoDetalhe.setPedido(this);
 
 		return pedidoDetalhe;
 	}
 
-	public PedidoDetalhe removePedidoDetalhe(PedidoDetalhe pedidoDetalhe) {
+	public PedidoDetalheEntity removePedidoDetalhe(
+			PedidoDetalheEntity pedidoDetalhe) {
 		getPedidoDetalhes().remove(pedidoDetalhe);
 		pedidoDetalhe.setPedido(null);
 

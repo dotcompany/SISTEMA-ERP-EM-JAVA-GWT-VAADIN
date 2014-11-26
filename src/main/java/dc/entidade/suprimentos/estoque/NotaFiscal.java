@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.produto.Produto;
-import dc.entidade.suprimentos.CupomVinculado;
+import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NotaReferenciada;
 
@@ -161,7 +161,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	List<NfeDuplicata> duplicatas = new ArrayList<NfeDuplicata>();
 
 	@OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<CupomVinculado> cuponsVinculados = new ArrayList<CupomVinculado>();
+	List<CupomFiscalReferenciadoEntity> cuponsVinculados = new ArrayList<CupomFiscalReferenciadoEntity>();
 
 	@OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<NotaReferenciada> notasReferenciadas = new ArrayList<NotaReferenciada>();
@@ -241,11 +241,11 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		this.notasReferenciadas = notasReferenciadas;
 	}
 
-	public List<CupomVinculado> getCuponsVinculados() {
+	public List<CupomFiscalReferenciadoEntity> getCuponsVinculados() {
 		return cuponsVinculados;
 	}
 
-	public void setCuponsVinculados(List<CupomVinculado> cuponsVinculados) {
+	public void setCuponsVinculados(List<CupomFiscalReferenciadoEntity> cuponsVinculados) {
 		this.cuponsVinculados = cuponsVinculados;
 	}
 
@@ -448,7 +448,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		return d;
 	}
 
-	public CupomVinculado adicionarCupom(CupomVinculado cupom) {
+	public CupomFiscalReferenciadoEntity adicionarCupom(CupomFiscalReferenciadoEntity cupom) {
 		getCuponsVinculados().add(cupom);
 		cupom.setNotaFiscal(this);
 		return cupom;
