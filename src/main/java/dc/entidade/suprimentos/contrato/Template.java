@@ -10,6 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -24,25 +25,26 @@ import dc.entidade.framework.ComboValue;
  * 
  * 
  * @author Wesley Jr
- *
+ * 
  */
 
 @Entity
-@Table(name = "TEMPLATE")
+@Table(name = "template")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class Template extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template")
-	@SequenceGenerator(name = "template", sequenceName = "template_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template_id_seq")
+	@SequenceGenerator(name = "template_id_seq", sequenceName = "template_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
-	@Caption("Id")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -58,15 +60,16 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	private String descricao;
-	
+
 	@Field
 	@Caption("Arquivo")
 	@Column(name = "ARQUIVO")
 	private String arquivo;
 
 	public Template() {
+
 	}
-	
+
 	public Template(Integer id) {
 		this.id = id;
 	}
@@ -86,7 +89,7 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getArquivo() {
 		return arquivo;
 	}
@@ -103,60 +106,13 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return nome;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((arquivo == null) ? 0 : arquivo.hashCode());
-		result = prime * result + ((getEmpresa() == null) ? 0 : getEmpresa().hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Template other = (Template) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		
-		if (arquivo == null) {
-			if (other.arquivo != null)
-				return false;
-		} else if (!arquivo.equals(other.arquivo))
-			return false;
-		
-		if (getEmpresa() == null) {
-			if (other.getEmpresa() != null)
-				return false;
-		} else if (!getEmpresa().equals(other.getEmpresa()))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

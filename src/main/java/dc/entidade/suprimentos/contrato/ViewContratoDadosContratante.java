@@ -1,140 +1,154 @@
 package dc.entidade.suprimentos.contrato;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * 
  * @ Wesley Júnior
  * 
-**/
-
+ **/
 
 @Entity
-@Table(name = "VIEW_CONTRATO_DADOS_CONTRATANTE")
+@Table(name = "view_contrato_dados_contratante")
 public class ViewContratoDadosContratante implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_SOLICITACAO")
-    private int idSolicitacao;
-    
-    @Basic(optional = false)
-    @Column(name = "NOME")
-    private String nome;
-    
-    @Column(name = "CPF_CNPJ")
-    private String cpfCnpj;
-    
-    @Column(name = "LOGRADOURO")
-    private String logradouro;
-    
-    @Column(name = "NUMERO")
-    private String numero;
-    
-    @Column(name = "COMPLEMENTO")
-    private String complemento;
-    
-    @Column(name = "BAIRRO")
-    private String bairro;
-    
-    @Column(name = "CIDADE")
-    private String cidade;
-    
-    @Column(name = "CEP")
-    private String cep;
-    
-    @Column(name = "UF")
-    private String uf;
 
-    public ViewContratoDadosContratante() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public int getIdSolicitacao() {
-        return idSolicitacao;
-    }
+	@Id
+	@Basic(optional = false)
+	@Column(name = "ID_SOLICITACAO")
+	private int idSolicitacao;
 
-    public void setIdSolicitacao(int idSolicitacao) {
-        this.idSolicitacao = idSolicitacao;
-    }
+	@Basic(optional = false)
+	@Column(name = "NOME")
+	private String nome;
 
-    public String getNome() {
-        return nome;
-    }
+	@Column(name = "CPF_CNPJ")
+	private String cpfCnpj;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	@Column(name = "LOGRADOURO")
+	private String logradouro;
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
-    }
+	@Column(name = "NUMERO")
+	private String numero;
 
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-    }
+	@Column(name = "COMPLEMENTO")
+	private String complemento;
 
-    public String getLogradouro() {
-        return logradouro;
-    }
+	@Column(name = "BAIRRO")
+	private String bairro;
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
+	@Column(name = "CIDADE")
+	private String cidade;
 
-    public String getNumero() {
-        return numero;
-    }
+	@Column(name = "CEP")
+	private String cep;
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+	@Column(name = "UF")
+	private String uf;
 
-    public String getComplemento() {
-        return complemento;
-    }
+	public ViewContratoDadosContratante() {
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
+	}
 
-    public String getBairro() {
-        return bairro;
-    }
+	public int getIdSolicitacao() {
+		return idSolicitacao;
+	}
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
+	public void setIdSolicitacao(int idSolicitacao) {
+		this.idSolicitacao = idSolicitacao;
+	}
 
-    public String getCidade() {
-        return cidade;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getCep() {
-        return cep;
-    }
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
 
-    public String getUf() {
-        return uf;
-    }
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

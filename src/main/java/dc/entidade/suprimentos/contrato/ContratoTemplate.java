@@ -6,29 +6,38 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
-@Table(name = "CONTRATO_TEMPLATE")
+@Table(name = "contrato_template")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_template_id_seq")
+	@SequenceGenerator(name = "contrato_template_id_seq", sequenceName = "contrato_template_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
@@ -40,6 +49,7 @@ public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 	private String descricao;
 
 	public ContratoTemplate() {
+
 	}
 
 	public Integer getId() {
@@ -66,9 +76,13 @@ public class ContratoTemplate extends AbstractMultiEmpresaModel<Integer> {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return "com.t2tierp.contratos.java.ContratoTemplateVO[id=" + id + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

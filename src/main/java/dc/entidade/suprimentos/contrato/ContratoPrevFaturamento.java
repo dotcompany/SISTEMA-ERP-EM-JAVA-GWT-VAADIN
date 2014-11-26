@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -23,23 +25,30 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Pessoa;
 
 @Entity
-@Table(name = "CONTRATO_PREV_FATURAMENTO")
+@Table(name = "contrato_prev_faturamento")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_prev_faturamento_id_seq")
+	@SequenceGenerator(name = "contrato_prev_faturamento_id_seq", sequenceName = "contrato_prev_faturamento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	
+
 	@Field
 	@Column(name = "NUMERO_PARCELA")
 	@Caption(value = "Número Parcelas")
@@ -53,17 +62,17 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	@Field
 	@Column(name = "VALOR")
 	private BigDecimal valor;
-	
+
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Contrato contrato;
-	
+
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Pessoa pessoa;
-	
 
 	public ContratoPrevFaturamento() {
+
 	}
 
 	public Integer getId() {
@@ -73,7 +82,7 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Integer getNumeroParcela() {
 		return numeroParcela;
 	}
@@ -105,7 +114,7 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -114,9 +123,13 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 		this.pessoa = pessoa;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return "com.t2tierp.contratos.java.ContratoPrevFaturamentoVO[id=" + id + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

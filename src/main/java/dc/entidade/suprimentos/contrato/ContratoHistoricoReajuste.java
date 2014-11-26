@@ -11,31 +11,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
-@Table(name = "CONTRATO_HISTORICO_REAJUSTE")
+@Table(name = "contrato_historico_reajuste")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoHistoricoReajuste extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoHistoricoReajuste extends
+		AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_historico_reajuste_id_seq")
+	@SequenceGenerator(name = "contrato_historico_reajuste_id_seq", sequenceName = "contrato_historico_reajuste_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "INDICE")
@@ -64,6 +74,7 @@ public class ContratoHistoricoReajuste extends AbstractMultiEmpresaModel<Integer
 	private Contrato contrato;
 
 	public ContratoHistoricoReajuste() {
+
 	}
 
 	public Integer getId() {
@@ -122,9 +133,13 @@ public class ContratoHistoricoReajuste extends AbstractMultiEmpresaModel<Integer
 		this.contrato = contrato;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return "com.t2tierp.contratos.java.ContratoHistoricoReajusteVO[id=" + id + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

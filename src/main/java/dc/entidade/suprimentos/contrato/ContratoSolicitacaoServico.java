@@ -10,11 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -30,20 +32,25 @@ import dc.entidade.pessoal.Cliente;
 import dc.entidade.pessoal.Colaborador;
 
 @Entity
-@Table(name = "CONTRATO_SOLICITACAO_SERVICO")
+@Table(name = "contrato_solicitacao_servico")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoSolicitacaoServico extends
+		AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_solicitacao_servico_id_seq")
+	@SequenceGenerator(name = "contrato_solicitacao_servico_id_seq", sequenceName = "contrato_solicitacao_servico_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
-	@Caption("Id")
 	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -78,7 +85,7 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	/**
 	 * Alterações para aparecer no ComoBox na Tela de Contrato
 	 */
-	
+
 	@Caption("Contrato Tipo serviço")
 	@JoinColumn(name = "ID_CONTRATO_TIPO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -105,6 +112,7 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 	private Fornecedor fornecedor;
 
 	public ContratoSolicitacaoServico() {
+
 	}
 
 	public Integer getId() {
@@ -195,64 +203,13 @@ public class ContratoSolicitacaoServico extends AbstractMultiEmpresaModel<Intege
 		this.fornecedor = fornecedor;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return descricao;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dataDesejadaInicio == null) ? 0 : dataDesejadaInicio.hashCode());
-		result = prime * result + ((dataSolicitacao == null) ? 0 : dataSolicitacao.hashCode());
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((statusSolicitacao == null) ? 0 : statusSolicitacao.hashCode());
-		result = prime * result + ((urgente == null) ? 0 : urgente.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ContratoSolicitacaoServico other = (ContratoSolicitacaoServico) obj;
-		if (dataDesejadaInicio == null) {
-			if (other.dataDesejadaInicio != null)
-				return false;
-		} else if (!dataDesejadaInicio.equals(other.dataDesejadaInicio))
-			return false;
-		if (dataSolicitacao == null) {
-			if (other.dataSolicitacao != null)
-				return false;
-		} else if (!dataSolicitacao.equals(other.dataSolicitacao))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (statusSolicitacao == null) {
-			if (other.statusSolicitacao != null)
-				return false;
-		} else if (!statusSolicitacao.equals(other.statusSolicitacao))
-			return false;
-		if (urgente == null) {
-			if (other.urgente != null)
-				return false;
-		} else if (!urgente.equals(other.urgente))
-			return false;
-		return true;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

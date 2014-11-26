@@ -15,12 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.solr.client.solrj.beans.Field;
 import org.hibernate.annotations.Fetch;
@@ -31,22 +33,28 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Pessoa;
 
 @Entity
-@Table(name = "CONTRATO")
+@Table(name = "contrato")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_id_seq")
+	@SequenceGenerator(name = "contrato_id_seq", sequenceName = "contrato_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
-	@Field
-	@Caption(value = "Id")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
@@ -86,12 +94,16 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Dia Faturamento")
 	@Column(name = "DIA_FATURAMENTO", columnDefinition = "bpchar")
 	private Integer diaFaturamento;
-	
-	/*@Field
-	@Temporal(TemporalType.DATE)
-	@Column(name = "PRIMEIRO_VENCIMENTO")
-	@Caption(value = "Primeiro Vencimento")
-	private Date primeiroVencimento;*/
+
+	/*
+	 * @Field
+	 * 
+	 * @Temporal(TemporalType.DATE)
+	 * 
+	 * @Column(name = "PRIMEIRO_VENCIMENTO")
+	 * 
+	 * @Caption(value = "Primeiro Vencimento") private Date primeiroVencimento;
+	 */
 
 	@Field
 	@Caption(value = "Valor")
@@ -106,11 +118,12 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Observação")
 	private String observacao;
-	
-	/*@Column(name = "ARQUIVO_CONTRATO")
-	@Caption(value = "Arquivo Contrato")
-	private String arquivoContrato;
-*/
+
+	/*
+	 * @Column(name = "ARQUIVO_CONTRATO")
+	 * 
+	 * @Caption(value = "Arquivo Contrato") private String arquivoContrato;
+	 */
 	@Caption(value = "Tipo Contrato")
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -123,16 +136,15 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ContratoSolicitacaoServico contratoSolicitacaoServico;
-	
+
 	@Caption(value = "Modelo Documento")
 	@JoinColumn(name = "ID_TEMPLATE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private Template template;
-	
+
 	/**
 	 * 
-	 * Mapeamento de Pessoa
-	 * @ Wesley Jr
+	 * Mapeamento de Pessoa @ Wesley Jr
 	 * 
 	 */
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
@@ -143,7 +155,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoHistFaturamento> contratosHistoricosFaturamentos = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoProduto> contratoProduto = new ArrayList<>();
@@ -155,10 +167,14 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos = new ArrayList<>();
-	
-	/*@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();*/
+
+	/*
+	 * @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL,
+	 * orphanRemoval = true, fetch = FetchType.EAGER)
+	 * 
+	 * @Fetch(FetchMode.SUBSELECT) private List<ParcelaPagar> parcelasPagar =
+	 * new ArrayList<>();
+	 */
 
 	@Transient
 	private ContratoTemplate contratoTemplate;
@@ -261,8 +277,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
+
 	public TipoContrato getTipoContrato() {
 		return tipoContrato;
 	}
@@ -278,7 +293,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public void setContabilConta(ContabilConta contabilConta) {
 		this.contabilConta = contabilConta;
 	}
-	
+
 	public Template getTemplate() {
 		return template;
 	}
@@ -291,36 +306,31 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratoSolicitacaoServico;
 	}
 
-	public void setContratoSolicitacaoServico(ContratoSolicitacaoServico contratoSolicitacaoServico) {
+	public void setContratoSolicitacaoServico(
+			ContratoSolicitacaoServico contratoSolicitacaoServico) {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
-	
+
 	public void addParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(this);
 		this.contratosPrevisoesFaturamentos.add(contratoPrevFaturamento);
 	}
-	
+
 	public void removeParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(null);
 		contratosPrevisoesFaturamentos.remove(contratoPrevFaturamento);
 
 	}
 
-	/*public void addParcelaPagar(ParcelaPagar parcela) {
-		parcela.setContrato(this);
-		this.parcelasPagar.add(parcela);
-	}
-
-	public void removeParcelaPagar(ParcelaPagar parcela) {
-		parcela.setContrato(null);
-		parcelasPagar.remove(parcela);
-
-	}*/
-	
-	@Override
-	public String toString() {
-		return nome;
-	}
+	/*
+	 * public void addParcelaPagar(ParcelaPagar parcela) {
+	 * parcela.setContrato(this); this.parcelasPagar.add(parcela); }
+	 * 
+	 * public void removeParcelaPagar(ParcelaPagar parcela) {
+	 * parcela.setContrato(null); parcelasPagar.remove(parcela);
+	 * 
+	 * }
+	 */
 
 	/**
 	 * @return the contratoTemplate
@@ -336,7 +346,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public void setContratoTemplate(ContratoTemplate contratoTemplate) {
 		this.contratoTemplate = contratoTemplate;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -345,26 +355,29 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.pessoa = pessoa;
 	}
 
-	public ContratoHistFaturamento addContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {
+	public ContratoHistFaturamento addContratoHistFaturamento(
+			ContratoHistFaturamento contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().add(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(this);
 
 		return contratoHistFaturamento;
 	}
-	
-	public ContratoProduto addContratoHistFaturamento(ContratoProduto contratoProduto) {
+
+	public ContratoProduto addContratoHistFaturamento(
+			ContratoProduto contratoProduto) {
 		getContratosProduto().add(contratoProduto);
 		contratoProduto.setContrato(this);
 		return contratoProduto;
 	}
 
-	public ContratoHistFaturamento removeContratoHistFaturamento(ContratoHistFaturamento contratoHistFaturamento) {
+	public ContratoHistFaturamento removeContratoHistFaturamento(
+			ContratoHistFaturamento contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().remove(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(null);
 
 		return contratoHistFaturamento;
 	}
-	
+
 	public ContratoProduto removeContratoProduto(ContratoProduto contratoProduto) {
 		getContratosProduto().remove(contratoProduto);
 		contratoProduto.setContrato(null);
@@ -372,28 +385,32 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratoProduto;
 	}
 
-	public ContratoHistoricoReajuste addContratoHistoricoReajuste(ContratoHistoricoReajuste contratoHistReajustes) {
+	public ContratoHistoricoReajuste addContratoHistoricoReajuste(
+			ContratoHistoricoReajuste contratoHistReajustes) {
 		getContratosHistoricosReajustes().add(contratoHistReajustes);
 		contratoHistReajustes.setContrato(this);
 
 		return contratoHistReajustes;
 	}
 
-	public ContratoHistoricoReajuste removeContratoHistoricoReajuste(ContratoHistoricoReajuste contratoHistReajustes) {
+	public ContratoHistoricoReajuste removeContratoHistoricoReajuste(
+			ContratoHistoricoReajuste contratoHistReajustes) {
 		getContratosHistoricosReajustes().remove(contratoHistReajustes);
 		contratoHistReajustes.setContrato(null);
 
 		return contratoHistReajustes;
 	}
 
-	public ContratoPrevFaturamento addContratoPrevFaturamento(ContratoPrevFaturamento contratoPrevFaturamentos) {
+	public ContratoPrevFaturamento addContratoPrevFaturamento(
+			ContratoPrevFaturamento contratoPrevFaturamentos) {
 		getContratosPrevisoesFaturamentos().add(contratoPrevFaturamentos);
 		contratoPrevFaturamentos.setContrato(this);
 
 		return contratoPrevFaturamentos;
 	}
 
-	public ContratoPrevFaturamento removeContratoPrevFaturamento(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public ContratoPrevFaturamento removeContratoPrevFaturamento(
+			ContratoPrevFaturamento contratoPrevFaturamento) {
 		getContratosPrevisoesFaturamentos().remove(contratoPrevFaturamento);
 		contratoPrevFaturamento.setContrato(null);
 
@@ -403,12 +420,13 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	public List<ContratoHistFaturamento> getContratosHistoricosFaturamentos() {
 		return contratosHistoricosFaturamentos;
 	}
-	
+
 	public List<ContratoProduto> getContratosProduto() {
 		return contratoProduto;
 	}
 
-	public void setContratosHistoricosFaturamentos(List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {
+	public void setContratosHistoricosFaturamentos(
+			List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {
 		this.contratosHistoricosFaturamentos = contratosHistoricosFaturamentos;
 	}
 
@@ -416,7 +434,8 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratosHistoricosReajustes;
 	}
 
-	public void setContratosHistoricosReajustes(List<ContratoHistoricoReajuste> contratosHistoricosReajustes) {
+	public void setContratosHistoricosReajustes(
+			List<ContratoHistoricoReajuste> contratosHistoricosReajustes) {
 		this.contratosHistoricosReajustes = contratosHistoricosReajustes;
 	}
 
@@ -424,16 +443,25 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratosPrevisoesFaturamentos;
 	}
 
-	public void setContratosPrevisoesFaturamentos(List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
+	public void setContratosPrevisoesFaturamentos(
+			List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
 		this.contratosPrevisoesFaturamentos = contratosPrevisoesFaturamentos;
 	}
 
-	/*public Date getPrimeiroVencimento() {
-		return primeiroVencimento;
+	/*
+	 * public Date getPrimeiroVencimento() { return primeiroVencimento; }
+	 * 
+	 * public void setPrimeiroVencimento(Date primeiroVencimento) {
+	 * this.primeiroVencimento = primeiroVencimento; }
+	 */
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public void setPrimeiroVencimento(Date primeiroVencimento) {
-		this.primeiroVencimento = primeiroVencimento;
-	}*/
-	
 }
