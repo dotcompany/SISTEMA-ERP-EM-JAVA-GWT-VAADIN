@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
@@ -36,10 +37,12 @@ public class EstoqueContagemEntity extends AbstractMultiEmpresaModel<Integer>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_contagem_cabecalho_id_seq")
 	@SequenceGenerator(name = "estoque_contagem_cabecalho_id_seq", sequenceName = "estoque_contagem_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "data_contagem")
@@ -79,6 +82,10 @@ public class EstoqueContagemEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setEstoqueAtualizado(String estoqueAtualizado) {
 		this.estoqueAtualizado = estoqueAtualizado;
 	}
+
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

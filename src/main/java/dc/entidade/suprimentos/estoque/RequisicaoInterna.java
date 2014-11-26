@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,6 +29,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.pessoal.Colaborador;
 import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 
@@ -42,14 +45,13 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
-	// @Caption("Id")
-	// private Integer id;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "req")
-	@SequenceGenerator(name = "req", sequenceName = "requisicao_interna_cabecalho_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requisicao_interna_cabecalho_id_seq")
+	@SequenceGenerator(name = "requisicao_interna_cabecalho_id_seq", sequenceName = "requisicao_interna_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -103,6 +105,15 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

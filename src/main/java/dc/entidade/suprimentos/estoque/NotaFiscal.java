@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +20,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
@@ -42,14 +45,13 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
-	// @Caption("Id")
-	// private Integer id;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rje")
-	@SequenceGenerator(name = "rje", sequenceName = "nfe_cabecalho_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nfe_cabecalho_id_seq")
+	@SequenceGenerator(name = "nfe_cabecalho_id_seq", sequenceName = "nfe_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	// ABA Dados da NF-E
@@ -245,7 +247,8 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		return cuponsVinculados;
 	}
 
-	public void setCuponsVinculados(List<CupomFiscalReferenciadoEntity> cuponsVinculados) {
+	public void setCuponsVinculados(
+			List<CupomFiscalReferenciadoEntity> cuponsVinculados) {
 		this.cuponsVinculados = cuponsVinculados;
 	}
 
@@ -448,7 +451,8 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		return d;
 	}
 
-	public CupomFiscalReferenciadoEntity adicionarCupom(CupomFiscalReferenciadoEntity cupom) {
+	public CupomFiscalReferenciadoEntity adicionarCupom(
+			CupomFiscalReferenciadoEntity cupom) {
 		getCuponsVinculados().add(cupom);
 		cupom.setNotaFiscal(this);
 		return cupom;
@@ -463,6 +467,15 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		getNotasReferenciadas().add(notaReferenciada);
 		notaReferenciada.setNotaFiscal(this);
 		return notaReferenciada;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

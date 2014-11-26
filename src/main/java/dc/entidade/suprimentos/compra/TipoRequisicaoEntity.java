@@ -2,31 +2,45 @@ package dc.entidade.suprimentos.compra;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "compra_tipo_requisicao")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoRequisicaoEntity extends AbstractModel<Integer> implements Serializable {
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Caption("Id")
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_tipo_requisicao_id_seq")
+	@SequenceGenerator(name = "compra_tipo_requisicao_id_seq", sequenceName = "compra_tipo_requisicao_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Caption("Código")
@@ -81,28 +95,13 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements Seri
 		this.nome = nome;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+	/**
+	 * TO STRING
+	 */
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TipoRequisicaoEntity other = (TipoRequisicaoEntity) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
+
 }

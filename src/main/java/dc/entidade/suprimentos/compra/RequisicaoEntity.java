@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -28,6 +32,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.Colaborador;
 
@@ -37,14 +42,23 @@ import dc.entidade.pessoal.Colaborador;
  */
 @Entity
 @Table(name = "compra_requisicao")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Caption("Id")
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_requisicao_id_seq")
+	@SequenceGenerator(name = "compra_requisicao_id_seq", sequenceName = "compra_requisicao_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -136,6 +150,15 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 		compraRequisicaoDetalhe.setRequisicao(null);
 
 		return compraRequisicaoDetalhe;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

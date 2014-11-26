@@ -2,6 +2,7 @@ package dc.entidade.suprimentos.estoque;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,26 +12,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.produto.Produto;
 
 @Entity
-// esse aqui e o nome da tabelam
 @Table(name = "estoque_contagem_detalhe")
-@SuppressWarnings("serial")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
-	// @Caption("Id")
-	// @Field
-	// private Integer id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnd")
-	@SequenceGenerator(name = "cnd", sequenceName = "estoque_contagem_detalhe_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_contagem_detalhe_id_seq")
+	@SequenceGenerator(name = "estoque_contagem_detalhe_id_seq", sequenceName = "estoque_contagem_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Caption("Acuracidade")
@@ -107,6 +119,15 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setQuantidadeSistema(BigDecimal quantidadeSistema) {
 		this.quantidadeSistema = quantidadeSistema;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

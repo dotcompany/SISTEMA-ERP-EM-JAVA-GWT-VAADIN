@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,24 +17,36 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnt")
-	@SequenceGenerator(name = "cnt", sequenceName = "estoque_contagem_cabecalho_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_contagem_cabecalho_id_seq")
+	@SequenceGenerator(name = "estoque_contagem_cabecalho_id_seq", sequenceName = "estoque_contagem_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	/*
@@ -102,6 +115,15 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 		contagemEstoqueDetalhe.setContagem(this);
 
 		return contagemEstoqueDetalhe;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

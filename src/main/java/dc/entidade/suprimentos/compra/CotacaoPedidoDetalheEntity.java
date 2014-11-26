@@ -3,6 +3,7 @@ package dc.entidade.suprimentos.compra;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.suprimentos.compra.PedidoEntity;
+import dc.entidade.framework.ComboCode;
 
 /**
  * The persistent class for the compra_cotacao_pedido_detalhe database table.
@@ -21,13 +29,24 @@ import dc.entidade.suprimentos.compra.PedidoEntity;
  */
 @Entity
 @Table(name = "compra_cotacao_pedido_detalhe")
-public class CotacaoPedidoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class CotacaoPedidoDetalheEntity extends
+		AbstractMultiEmpresaModel<Integer> implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_cotacao_pedido_detalhe_id_seq")
+	@SequenceGenerator(name = "compra_cotacao_pedido_detalhe_id_seq", sequenceName = "compra_cotacao_pedido_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "quantidade_pedida")
@@ -66,7 +85,8 @@ public class CotacaoPedidoDetalheEntity extends AbstractMultiEmpresaModel<Intege
 		return this.compraCotacaoDetalhe;
 	}
 
-	public void setCompraCotacaoDetalhe(CotacaoDetalheEntity compraCotacaoDetalhe) {
+	public void setCompraCotacaoDetalhe(
+			CotacaoDetalheEntity compraCotacaoDetalhe) {
 		this.compraCotacaoDetalhe = compraCotacaoDetalhe;
 	}
 
@@ -76,6 +96,15 @@ public class CotacaoPedidoDetalheEntity extends AbstractMultiEmpresaModel<Intege
 
 	public void setCompraPedido(PedidoEntity compraPedido) {
 		this.compraPedido = compraPedido;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

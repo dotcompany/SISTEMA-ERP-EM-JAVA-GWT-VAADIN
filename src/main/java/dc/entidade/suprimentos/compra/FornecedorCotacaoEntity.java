@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,14 +14,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Fornecedor;
-import dc.entidade.suprimentos.compra.Cotacao;
 
 /**
  * The persistent class for the compra_fornecedor_cotacao database table.
@@ -28,12 +35,23 @@ import dc.entidade.suprimentos.compra.Cotacao;
  */
 @Entity
 @Table(name = "compra_fornecedor_cotacao")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_fornecedor_cotacao_id_seq")
+	@SequenceGenerator(name = "compra_fornecedor_cotacao_id_seq", sequenceName = "compra_fornecedor_cotacao_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@ManyToOne
@@ -140,14 +158,16 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.cotacaoDetalhes = cotacaoDetalhes;
 	}
 
-	public CotacaoDetalheEntity addCotacaoDetalhe(CotacaoDetalheEntity cotacaoDetalhe) {
+	public CotacaoDetalheEntity addCotacaoDetalhe(
+			CotacaoDetalheEntity cotacaoDetalhe) {
 		getCotacaoDetalhes().add(cotacaoDetalhe);
 		cotacaoDetalhe.setCompraFornecedorCotacao(this);
 
 		return cotacaoDetalhe;
 	}
 
-	public CotacaoDetalheEntity removeCotacaoDetalhe(CotacaoDetalheEntity cotacaoDetalhe) {
+	public CotacaoDetalheEntity removeCotacaoDetalhe(
+			CotacaoDetalheEntity cotacaoDetalhe) {
 		getCotacaoDetalhes().remove(cotacaoDetalhe);
 		cotacaoDetalhe.setCompraFornecedorCotacao(null);
 
@@ -160,6 +180,15 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	public void setCotacao(Cotacao cotacao) {
 		this.cotacao = cotacao;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
