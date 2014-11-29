@@ -316,11 +316,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			if ("F".equals(tipoPessoa.getCodigo())) {
 				salvarPessoaFisica();
 
-				this.currentBean.setPessoaJuridica(null);
+				// this.currentBean.setPessoaJuridica(null);
+				// this.pessoaJuridicaDAO.delete(this.currentBean.getPessoaJuridica());
 			} else if ("J".equals(tipoPessoa.getCodigo())) {
 				salvarPessoaJuridica();
 
-				this.currentBean.setPessoaFisica(null);
+				// this.currentBean.setPessoaFisica(null);
+				// this.pessoaFisicaDAO.delete(this.currentBean.getPessoaFisica());
 			}
 
 			if (this.currentBean.getContatos() == null

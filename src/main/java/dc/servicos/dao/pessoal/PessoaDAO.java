@@ -101,6 +101,22 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 	@Transactional
 	public void saveOrUpdatePessoa(PessoaEntity entity) throws Exception {
 		try {
+			if (entity.getTipo().equals("F")) {
+				if (entity.getPessoaJuridica() != null
+						&& entity.getPessoaJuridica().getId() != null) {
+					this.pessoaJuridicaDAO.delete(entity.getPessoaJuridica());
+				}
+
+				entity.setPessoaJuridica(null);
+			} else if (entity.getTipo().equals("J")) {
+				if (entity.getPessoaFisica() != null
+						&& entity.getPessoaFisica().getId() != null) {
+					this.pessoaFisicaDAO.delete(entity.getPessoaFisica());
+				}
+
+				entity.setPessoaFisica(null);
+			}
+
 			super.saveOrUpdate(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
