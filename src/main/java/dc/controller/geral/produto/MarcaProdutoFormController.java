@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.MarcaProdutoEntity;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
 import dc.servicos.util.Validator;
@@ -107,7 +108,8 @@ public class MarcaProdutoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "marcaProdutoForm";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

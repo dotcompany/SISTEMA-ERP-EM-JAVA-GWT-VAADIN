@@ -9,7 +9,6 @@ import dc.entidade.geral.produto.GrupoProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class GrupoProdutoDAO extends AbstractCrudDAO<GrupoProdutoEntity> {
 
 	@Override

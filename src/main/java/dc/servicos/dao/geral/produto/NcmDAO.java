@@ -9,8 +9,7 @@ import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
-public class NCMDAO extends AbstractCrudDAO<NcmEntity> {
+public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
 
 	@Override
 	public Class<NcmEntity> getEntityClass() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.GrupoProdutoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -40,7 +41,8 @@ public class GrupoProdutoListController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaGrupoProduto";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

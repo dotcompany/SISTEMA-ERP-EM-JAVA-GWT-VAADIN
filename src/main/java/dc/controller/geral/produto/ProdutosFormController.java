@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.controller.diversos.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.ICMSCustomizadoListController;
@@ -27,7 +28,7 @@ import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
-import dc.servicos.dao.geral.produto.NCMDAO;
+import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
@@ -50,8 +51,8 @@ import dc.visao.geral.produto.ProdutosFormView.TIPO_VENDA;
 public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 	/**
-		 * 
-		 */
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private ProdutosFormView subView;
@@ -81,7 +82,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	private GrupoProdutoDAO grupoProdutoDAO;
 
 	@Autowired
-	private NCMDAO ncmDAO;
+	private NcmDAO ncmDAO;
 
 	private ProdutoEntity currentBean;
 
@@ -142,7 +143,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			subView.getCmbGrupoProduto().setModel(comboGrupoProduto);
 			// //
 			DefaultManyToOneComboModel<NcmEntity> comboNCM = new DefaultManyToOneComboModel<NcmEntity>(
-					NCMListController.class, ncmDAO, mainController);
+					NcmListController.class, ncmDAO, mainController);
 			subView.getCmbNcm().setModel(comboNCM);
 
 		} catch (Exception e) {
@@ -533,7 +534,8 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "produtoForm";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	public ProdutoEntity getCurrentBean() {
@@ -568,4 +570,5 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+
 }

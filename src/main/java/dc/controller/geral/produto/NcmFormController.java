@@ -9,25 +9,26 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.NcmEntity;
-import dc.servicos.dao.geral.produto.NCMDAO;
+import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.NCMFormView;
+import dc.visao.geral.produto.NcmFormView;
 
 @Controller
 @Scope("prototype")
-public class NCMFormController extends CRUDFormController<NcmEntity> {
+public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private NCMFormView subView;
+	private NcmFormView subView;
 
 	@Autowired
-	private NCMDAO ncmDAO;
+	private NcmDAO ncmDAO;
 
 	private NcmEntity currentBean;
 
@@ -63,7 +64,7 @@ public class NCMFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	protected void initSubView() {
-		subView = new NCMFormView();
+		subView = new NcmFormView();
 	}
 
 	@Override
@@ -114,7 +115,8 @@ public class NCMFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "ncmForm";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -15,6 +16,9 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 public class ProdutosListController extends CRUDListController<ProdutoEntity> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -35,7 +39,8 @@ public class ProdutosListController extends CRUDListController<ProdutoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaProduto";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

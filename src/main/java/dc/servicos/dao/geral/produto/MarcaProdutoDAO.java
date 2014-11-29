@@ -9,7 +9,6 @@ import dc.entidade.geral.produto.MarcaProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class MarcaProdutoDAO extends AbstractCrudDAO<MarcaProdutoEntity> {
 
 	@Override

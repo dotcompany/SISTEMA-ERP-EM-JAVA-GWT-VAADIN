@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.NcmEntity;
-import dc.servicos.dao.geral.produto.NCMDAO;
+import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class NCMListController extends CRUDListController<NcmEntity> {
+public class NcmListController extends CRUDListController<NcmEntity> {
 
 	/**
 	 * 
@@ -22,10 +23,10 @@ public class NCMListController extends CRUDListController<NcmEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NCMDAO dao;
+	NcmDAO dao;
 
 	@Autowired
-	NCMFormController ncmFormController;
+	NcmFormController ncmFormController;
 
 	@Override
 	protected CRUDFormController<NcmEntity> getFormController() {
@@ -39,7 +40,8 @@ public class NCMListController extends CRUDListController<NcmEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaNCM";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override

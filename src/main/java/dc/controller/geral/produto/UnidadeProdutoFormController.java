@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.type.produto.PodeFracionarType;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
@@ -120,7 +121,8 @@ public class UnidadeProdutoFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "unidadeProdutoForm";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	public List<String> getUnidadeProdutoPodeFracionarType() {
