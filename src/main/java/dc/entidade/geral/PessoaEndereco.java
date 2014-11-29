@@ -128,8 +128,8 @@ public class PessoaEndereco extends AbstractMultiEmpresaModel<Integer>
 	 * @ManyToOne(optional = false) private Empresa empresa;
 	 */
 
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	public PessoaEndereco() {

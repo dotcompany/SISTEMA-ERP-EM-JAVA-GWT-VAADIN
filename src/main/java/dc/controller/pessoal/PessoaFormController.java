@@ -180,10 +180,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getGroup().setValue(selected);
 
-			// this.subView.getEnderecosSubForm().fillWith(
-			// this.currentBean.getEnderecos());
-			// this.subView.getContatosSubForm().fillWith(
-			// this.currentBean.getContatos());
+			this.subView.getEnderecosSubForm().fillWith(
+					this.currentBean.getEnderecos());
+			this.subView.getContatosSubForm().fillWith(
+					this.currentBean.getContatos());
 
 			if ("F".equals(this.currentBean.getTipo())) {
 				carregarPessoaFisica(id);
@@ -321,6 +321,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				salvarPessoaJuridica();
 
 				this.currentBean.setPessoaFisica(null);
+			}
+
+			if (this.currentBean.getContatos() == null
+					|| this.currentBean.getContatos().isEmpty()
+					|| this.currentBean.getContatos().size() == 0) {
+				this.currentBean.setContatos(new ArrayList<PessoaContato>());
+			}
+
+			if (this.currentBean.getEnderecos() == null
+					|| this.currentBean.getEnderecos().isEmpty()
+					|| this.currentBean.getEnderecos().size() == 0) {
+				this.currentBean.setEnderecos(new ArrayList<PessoaEndereco>());
 			}
 
 			this.pessoaDAO.saveOrUpdatePessoa(this.currentBean);
@@ -489,14 +501,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	public PessoaContato novoContato() {
 		PessoaContato c = new PessoaContato();
-		// currentBean.adicionarContato(c);
+		currentBean.adicionarContato(c);
 
 		return c;
 	}
 
 	public PessoaEndereco novoEndereco() {
 		PessoaEndereco end = new PessoaEndereco();
-		// currentBean.adicionarEndereco(end);
+		currentBean.adicionarEndereco(end);
 
 		return end;
 	}
