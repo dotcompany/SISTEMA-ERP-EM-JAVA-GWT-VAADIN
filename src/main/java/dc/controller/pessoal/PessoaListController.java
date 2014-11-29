@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.PessoaEntity;
-import dc.servicos.business.pessoal.PessoaBusiness;
-import dc.servicos.business.pessoal.PessoaBusinessImpl;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -28,8 +26,6 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	// @Autowired
 	// private PessoaDAO dao;
-
-	private PessoaBusiness pessoaBusiness = new PessoaBusinessImpl();
 
 	@Override
 	public String[] getColunas() {

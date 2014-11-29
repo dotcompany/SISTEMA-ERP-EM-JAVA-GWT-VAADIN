@@ -476,9 +476,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// dao.deleteAllByIds(ids);
+		try {
+			this.pessoaDAO.deletePessoa(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

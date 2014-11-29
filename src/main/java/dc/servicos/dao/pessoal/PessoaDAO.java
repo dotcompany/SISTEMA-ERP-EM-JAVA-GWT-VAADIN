@@ -1,5 +1,6 @@
 package dc.servicos.dao.pessoal;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
@@ -80,6 +81,21 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 		return getSession()
 				.createQuery("from Pessoa where lower(nome) like :q")
 				.setParameter("q", q).list();
+	}
+
+	@Transactional
+	public void deletePessoa(List<Serializable> ids) throws Exception {
+		try {
+			for (Serializable id : ids) {
+				PessoaEntity ent = this.find(id);
+
+				super.delete(ent);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional
