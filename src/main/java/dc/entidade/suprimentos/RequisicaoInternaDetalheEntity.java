@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 
 @Entity
@@ -34,7 +34,7 @@ public class RequisicaoInternaDetalheEntity extends
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_req_interna_cabecalho")
@@ -66,11 +66,11 @@ public class RequisicaoInternaDetalheEntity extends
 		this.quantidade = quantidade;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

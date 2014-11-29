@@ -41,15 +41,15 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClasseUtil;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.UFListController;
+import dc.controller.geral.produto.ProdutosListController;
 import dc.controller.pessoal.PessoaListController;
-import dc.controller.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaEndereco;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.contrato.Contrato;
 import dc.entidade.suprimentos.contrato.ContratoHistFaturamento;
 import dc.entidade.suprimentos.contrato.ContratoHistoricoReajuste;
@@ -60,8 +60,8 @@ import dc.entidade.suprimentos.contrato.Template;
 import dc.entidade.suprimentos.contrato.TipoContrato;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoSolicitacaoServicoDAO;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
@@ -347,7 +347,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 				TipoContratoListController.class, this.tipoContratoDAO,
 				super.getMainController());
 
-		DefaultManyToOneComboModel<Produto> modelProduto = new DefaultManyToOneComboModel<Produto>(
+		DefaultManyToOneComboModel<ProdutoEntity> modelProduto = new DefaultManyToOneComboModel<ProdutoEntity>(
 				ProdutosListController.class, this.produtoDAO,
 				super.getMainController());
 
@@ -689,7 +689,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	public void gerarParcelas() throws Exception {
 		if (validaSalvar()) {
-			final PessoaEntity pessoa = (PessoaEntity) subView.getCbmPessoa().getValue();
+			final PessoaEntity pessoa = (PessoaEntity) subView.getCbmPessoa()
+					.getValue();
 
 			if (pessoa == null || pessoa.getId() == null) {
 				throw new Exception(
@@ -871,7 +872,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return true;
 	}
 
-	public List<Produto> getProdutos() {
+	public List<ProdutoEntity> getProdutos() {
 		return produtoDAO.listaTodos();
 	}
 

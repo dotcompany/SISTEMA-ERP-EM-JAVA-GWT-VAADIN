@@ -10,13 +10,13 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoEntity;
 import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.RequisicaoDAO;
 import dc.servicos.dao.suprimentos.compra.TipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -134,8 +134,8 @@ public class RequisicaoCompraFormController extends
 		return requisicaoDetalhe;
 	}
 
-	public List<Produto> buscarProdutos() {
-		return produtoDAO.getAll(Produto.class);
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 	public void removerRequisicaoDetalhes(

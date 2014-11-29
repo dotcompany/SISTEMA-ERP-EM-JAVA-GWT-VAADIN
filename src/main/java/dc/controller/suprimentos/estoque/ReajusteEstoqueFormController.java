@@ -12,11 +12,11 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.Usuario;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.ReajusteDetalheEntity;
 import dc.entidade.suprimentos.estoque.ReajusteEstoque;
-import dc.servicos.dao.produto.ProdutoDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.estoque.ReajusteEstoqueDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -161,8 +161,8 @@ public class ReajusteEstoqueFormController extends
 		return detalhe;
 	}
 
-	public List<Produto> buscarProdutos() {
-		return produtoDAO.getAll(Produto.class);
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 	@Override

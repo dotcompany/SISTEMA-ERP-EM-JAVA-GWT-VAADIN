@@ -12,12 +12,12 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
 import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -64,8 +64,8 @@ public class PedidoCompraFormController extends
 		try {
 			currentBean.setTipoPedido((TipoPedidoEntity) subView
 					.getCmbTipoPedido().getValue());
-			currentBean.setFornecedor((FornecedorEntity) subView.getCmbFornecedor()
-					.getValue());
+			currentBean.setFornecedor((FornecedorEntity) subView
+					.getCmbFornecedor().getValue());
 			currentBean.setDataPedido(subView.getCalDataPedido().getValue());
 			currentBean.setDataPrevistaEntrega(subView.getCalDataEntrega()
 					.getValue());
@@ -159,8 +159,8 @@ public class PedidoCompraFormController extends
 		remover(ids);
 	}
 
-	public List<Produto> buscarProdutos() {
-		return produtoDAO.getAll(Produto.class);
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 	public PedidoDetalheEntity novoPedidoDetalhe() {

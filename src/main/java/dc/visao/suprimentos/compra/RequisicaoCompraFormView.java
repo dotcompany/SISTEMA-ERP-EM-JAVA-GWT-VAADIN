@@ -19,8 +19,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.RequisicaoCompraFormController;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.produto.Produto;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
 import dc.visao.framework.component.LookupComponent;
@@ -162,8 +162,9 @@ public class RequisicaoCompraFormView extends CustomComponent {
 						if ("produto".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox(null);
-							BeanItemContainer<Produto> produtoContainer = new BeanItemContainer<>(
-									Produto.class, controller.buscarProdutos());
+							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(
+									ProdutoEntity.class,
+									controller.buscarProdutos());
 							comboBox.setContainerDataSource(produtoContainer);
 							comboBox.setItemCaptionPropertyId("descricao");
 							return comboBox;

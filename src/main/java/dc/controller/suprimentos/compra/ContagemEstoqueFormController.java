@@ -11,10 +11,10 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
 import dc.entidade.framework.Empresa;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
-import dc.servicos.dao.produto.ProdutoDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -139,8 +139,8 @@ public class ContagemEstoqueFormController extends
 		return detalhe;
 	}
 
-	public List<Produto> buscarProdutos() {
-		return produtoDAO.getAll(Produto.class);
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
  * The persistent class for the compra_pedido_detalhe database table.
@@ -64,7 +64,7 @@ public class PedidoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	private BigDecimal quantidade;
 
@@ -209,11 +209,11 @@ public class PedidoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.pedido = compraPedido;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

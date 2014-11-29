@@ -27,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.PedidoCompraFormController;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.visao.framework.component.SubFormComponent;
@@ -276,8 +276,9 @@ public class PedidoCompraFormView extends CustomComponent {
 						if ("produto".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox(null);
-							BeanItemContainer<Produto> produtoContainer = new BeanItemContainer<>(
-									Produto.class, controller.buscarProdutos());
+							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(
+									ProdutoEntity.class,
+									controller.buscarProdutos());
 							comboBox.setContainerDataSource(produtoContainer);
 							comboBox.setItemCaptionPropertyId("descricao");
 							return comboBox;

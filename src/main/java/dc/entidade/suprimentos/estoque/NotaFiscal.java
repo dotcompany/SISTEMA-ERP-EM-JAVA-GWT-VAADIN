@@ -28,7 +28,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NotaReferenciada;
@@ -177,7 +177,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	String informacoesContribuinte;
 
 	@Transient
-	List<Produto> produtos = new ArrayList<>();
+	List<ProdutoEntity> produtos = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -437,11 +437,11 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		this.informacoesContribuinte = informacoesContribuinte;
 	}
 
-	public List<Produto> getProdutos() {
+	public List<ProdutoEntity> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(List<ProdutoEntity> produtos) {
 		this.produtos = produtos;
 	}
 
@@ -458,7 +458,7 @@ public class NotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 		return cupom;
 	}
 
-	public Produto adicionarProduto(Produto p) {
+	public ProdutoEntity adicionarProduto(ProdutoEntity p) {
 		getProdutos().add(p);
 		return p;
 	}

@@ -31,7 +31,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
  * 
@@ -247,7 +247,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToOne
 	@JoinColumn(name = "id_produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	/**
 	 * REFERENCIA - LIST
@@ -543,11 +543,11 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nfeCabecalho = nfeCabecalho;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

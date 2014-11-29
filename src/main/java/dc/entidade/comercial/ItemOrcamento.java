@@ -17,14 +17,18 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "venda_orcamento_detalhe")
-@SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
@@ -37,7 +41,7 @@ public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	Produto produto;
+	ProdutoEntity produto;
 
 	BigDecimal quantidade;
 
@@ -72,11 +76,11 @@ public class ItemOrcamento extends AbstractMultiEmpresaModel<Integer> {
 		this.orcamento = orcamento;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

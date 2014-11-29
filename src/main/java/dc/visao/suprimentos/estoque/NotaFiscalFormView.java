@@ -52,7 +52,7 @@ import dc.br.inf.portalfiscal.nfe.TNFe.InfNFe.InfAdic;
 import dc.br.inf.portalfiscal.nfe.TNFe.InfNFe.Total.ICMSTot;
 import dc.br.inf.portalfiscal.nfe.TNfeProc;
 import dc.controller.suprimentos.estoque.NotaFiscalFormController;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
@@ -97,7 +97,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	private SubFormComponent<NfeDuplicata, Integer> duplicataSubForm;
 
-	private SubFormComponent<Produto, Integer> produtoSubForm;
+	private SubFormComponent<ProdutoEntity, Integer> produtoSubForm;
 
 	private SubFormComponent<CupomFiscalReferenciadoEntity, Integer> cuponsSubForm;
 
@@ -502,10 +502,10 @@ public class NotaFiscalFormView extends CustomComponent {
 							.getDet();
 
 					if (produtos != null) {
-						List<Produto> lista = new ArrayList<Produto>();
+						List<ProdutoEntity> lista = new ArrayList<ProdutoEntity>();
 
 						for (Det d : produtos) {
-							Produto p = new Produto();
+							ProdutoEntity p = new ProdutoEntity();
 							// d p.setDescricao(d.getProd().getXProd());
 							lista.add(p);
 						}
@@ -920,9 +920,10 @@ public class NotaFiscalFormView extends CustomComponent {
 		sub.setImmediate(true);
 
 		cuponsSubForm = new SubFormComponent<CupomFiscalReferenciadoEntity, Integer>(
-				CupomFiscalReferenciadoEntity.class, new String[] { "modelo", "dataEmissao",
-						"coo", "numeroCaixa", "numeroSerieEcf" }, new String[] {
-						"Modelo", "Data de Emissão", "COO", "Número de Caixa",
+				CupomFiscalReferenciadoEntity.class,
+				new String[] { "modelo", "dataEmissao", "coo", "numeroCaixa",
+						"numeroSerieEcf" }, new String[] { "Modelo",
+						"Data de Emissão", "COO", "Número de Caixa",
 						"Número de Série ECF" }) {
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -972,7 +973,8 @@ public class NotaFiscalFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<CupomFiscalReferenciadoEntity> items) {
+			public boolean validateItems(
+					List<CupomFiscalReferenciadoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -991,8 +993,9 @@ public class NotaFiscalFormView extends CustomComponent {
 		sub.setSizeFull();
 		sub.setImmediate(true);
 
-		produtoSubForm = new SubFormComponent<Produto, Integer>(Produto.class,
-				new String[] { "descricao" }, new String[] { "Descrição" }) {
+		produtoSubForm = new SubFormComponent<ProdutoEntity, Integer>(
+				ProdutoEntity.class, new String[] { "descricao" },
+				new String[] { "Descrição" }) {
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
@@ -1012,12 +1015,12 @@ public class NotaFiscalFormView extends CustomComponent {
 				};
 			}
 
-			protected Produto getNovo() {
+			protected ProdutoEntity getNovo() {
 				return null;
 			}
 
 			@Override
-			public boolean validateItems(List<Produto> items) {
+			public boolean validateItems(List<ProdutoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}

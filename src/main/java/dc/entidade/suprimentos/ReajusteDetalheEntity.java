@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteEstoque;
 
 @Entity
@@ -42,7 +42,7 @@ public class ReajusteDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	@Column(name = "valor_original")
 	@Caption("Valor Original")
@@ -60,11 +60,11 @@ public class ReajusteDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.reajuste = reajuste;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

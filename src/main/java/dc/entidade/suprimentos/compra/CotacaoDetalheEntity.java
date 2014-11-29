@@ -29,7 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
  * The persistent class for the compra_cotacao_detalhe database table.
@@ -113,7 +113,7 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	@Caption(value = "Produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_fornecedor_cotacao")
@@ -200,11 +200,11 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.valorUnitario = valorUnitario;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

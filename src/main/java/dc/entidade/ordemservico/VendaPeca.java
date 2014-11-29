@@ -14,22 +14,24 @@ import javax.persistence.Table;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.produto.Produto;
 
 @Entity
 @Table(name = "os_venda_peca")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -54,8 +56,8 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
-	private Produto produto;
-	
+	private ProdutoEntity produto;
+
 	@Field
 	@Caption("TIPO PECA")
 	@Column(name = "tipo_peca")
@@ -72,9 +74,9 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "valor_unitario_prod")
 	private BigDecimal valorUnitario;
 
-	@Column(name="valor_subtotal")
+	@Column(name = "valor_subtotal")
 	private BigDecimal valorSubtotal;
-	
+
 	@Column(name = "perc_desconto")
 	private BigDecimal percentualDesconto;
 
@@ -108,11 +110,11 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 		this.vendedor = vendedor;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 
@@ -187,5 +189,5 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorSubtotal(BigDecimal valorSubtotal) {
 		this.valorSubtotal = valorSubtotal;
 	}
-	
+
 }

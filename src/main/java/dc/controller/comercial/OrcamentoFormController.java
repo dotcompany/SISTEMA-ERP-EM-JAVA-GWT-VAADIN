@@ -18,18 +18,18 @@ import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.folhapagamento.VendedorEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Transportadora;
-import dc.entidade.produto.Produto;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.OrcamentoDAO;
 import dc.servicos.dao.folhapagamento.VendedorDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.TransportadoraDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.OrcamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -158,7 +158,8 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 					.getCmbCondicaoPagamento().getValue();
 			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor()
 					.getValue();
-			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente().getValue();
+			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente()
+					.getValue();
 			Transportadora transportadora = (Transportadora) subView
 					.getCmbTransportadora().getValue();
 
@@ -357,11 +358,11 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		return container;
 	}
 
-	public BeanItemContainer<Produto> carregarProdutos() {
-		BeanItemContainer<Produto> container = new BeanItemContainer<>(
-				Produto.class);
+	public BeanItemContainer<ProdutoEntity> carregarProdutos() {
+		BeanItemContainer<ProdutoEntity> container = new BeanItemContainer<>(
+				ProdutoEntity.class);
 
-		for (Produto p : produtoDAO.listaTodos()) {
+		for (ProdutoEntity p : produtoDAO.listaTodos()) {
 			container.addBean(p);
 		}
 

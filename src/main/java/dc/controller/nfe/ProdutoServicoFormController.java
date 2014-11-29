@@ -15,6 +15,7 @@ import com.vaadin.ui.Component;
 import dc.control.converter.ObjectConverter;
 import dc.control.enums.CsosnEn;
 import dc.control.enums.CstIcmsEn;
+import dc.controller.geral.produto.ProdutosListController;
 import dc.controller.nfe.dto.NfeDetalheImpIpiDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoCofinsDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoIcmsDTO;
@@ -23,8 +24,8 @@ import dc.controller.nfe.dto.NfeDetalheImpostoIssqnDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoPisDTO;
 import dc.controller.nfe.dto.ProdutoServicoViewDTO;
 import dc.controller.pessoal.ClienteListController;
-import dc.controller.produto.ProdutosListController;
 import dc.controller.tributario.OperacaoFiscalListController;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDestinatarioEntity;
 import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
@@ -39,9 +40,9 @@ import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.produto.Produto;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.NfeDestinatarioDAO;
 import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
@@ -54,7 +55,6 @@ import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
 import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
-import dc.servicos.dao.produto.ProdutoDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
@@ -893,7 +893,7 @@ public class ProdutoServicoFormController extends
 			break;
 		case "mtoProduto":
 			ItemValue m = (ItemValue) obj;
-			Produto produto = (Produto) m.getBean();
+			ProdutoEntity produto = (ProdutoEntity) m.getBean();
 
 			this.nfeCabecalho.getNfeDetalhe().setProduto(produto);
 			this.nfeCabecalho.getNfeDetalhe().setCodigoProduto(
@@ -1470,7 +1470,7 @@ public class ProdutoServicoFormController extends
 
 			// this.subView.getMtoCliente().setModel(model1);
 
-			DefaultManyToOneComboModel<Produto> model2 = new DefaultManyToOneComboModel<Produto>(
+			DefaultManyToOneComboModel<ProdutoEntity> model2 = new DefaultManyToOneComboModel<ProdutoEntity>(
 					ProdutosListController.class, this.produtoDAO,
 					super.getMainController());
 

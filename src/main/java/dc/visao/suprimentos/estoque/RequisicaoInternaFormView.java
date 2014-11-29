@@ -17,7 +17,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.estoque.RequisicaoInternaFormController;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInterna;
 import dc.visao.framework.component.SubFormComponent;
@@ -138,8 +138,9 @@ public class RequisicaoInternaFormView extends CustomComponent {
 						if ("produto".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox(null);
-							BeanItemContainer<Produto> produtoContainer = new BeanItemContainer<>(
-									Produto.class, controller.buscarProdutos());
+							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(
+									ProdutoEntity.class,
+									controller.buscarProdutos());
 							comboBox.setContainerDataSource(produtoContainer);
 							comboBox.setItemCaptionPropertyId("descricao");
 							return comboBox;
@@ -162,7 +163,8 @@ public class RequisicaoInternaFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<RequisicaoInternaDetalheEntity> items) {
+			public boolean validateItems(
+					List<RequisicaoInternaDetalheEntity> items) {
 
 				return true;
 			}

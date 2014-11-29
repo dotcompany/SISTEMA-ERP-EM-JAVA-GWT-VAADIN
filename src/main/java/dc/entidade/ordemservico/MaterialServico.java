@@ -14,22 +14,24 @@ import javax.persistence.Table;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.produto.Produto;
 
 @Entity
 @Table(name = "os_material_servico")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,8 +52,8 @@ public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
-	private Produto produto;
-	
+	private ProdutoEntity produto;
+
 	@Field
 	@Caption("QUANTIDADE PRODUTO")
 	@Column(name = "quantidade_produto")
@@ -87,11 +89,11 @@ public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 		this.tecnico = tecnico;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 
@@ -118,5 +120,5 @@ public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 }

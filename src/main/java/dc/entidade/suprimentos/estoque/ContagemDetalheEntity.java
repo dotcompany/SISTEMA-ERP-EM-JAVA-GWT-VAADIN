@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "estoque_contagem_detalhe")
@@ -53,7 +53,7 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	@Column(name = "quantidade_contada")
 	private BigDecimal quantidadeContada;
@@ -97,11 +97,11 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.contagem = contagem;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

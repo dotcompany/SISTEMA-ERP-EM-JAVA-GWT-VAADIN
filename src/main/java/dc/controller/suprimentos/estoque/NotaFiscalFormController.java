@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClasseUtil;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NFeTransporte;
 import dc.entidade.suprimentos.NfeDuplicata;
@@ -763,7 +763,7 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 		return c;
 	}
 
-	public Produto novoProduto(Produto p) {
+	public ProdutoEntity novoProduto(ProdutoEntity p) {
 		currentBean.adicionarProduto(p);
 		return p;
 	}

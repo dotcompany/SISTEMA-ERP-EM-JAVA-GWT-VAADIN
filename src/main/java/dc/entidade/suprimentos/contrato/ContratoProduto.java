@@ -19,7 +19,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "contrato_produto")
@@ -48,7 +48,7 @@ public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Produto produto;
+	private ProdutoEntity produto;
 
 	public ContratoProduto() {
 
@@ -62,11 +62,11 @@ public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 

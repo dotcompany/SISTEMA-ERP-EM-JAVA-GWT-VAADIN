@@ -17,42 +17,44 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.produto.Produto;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "venda_detalhe")
-@SuppressWarnings("serial")
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vnd")
 	@SequenceGenerator(name = "vnd", sequenceName = "venda_detalhe_id_seq", allocationSize = 1)
 	private Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_produto")
-	Produto produto;
-	
+	@JoinColumn(name = "id_produto")
+	ProdutoEntity produto;
+
 	BigDecimal quantidade;
-	
-	@Column(name="valor_unitario")
+
+	@Column(name = "valor_unitario")
 	BigDecimal valorUnitario;
-	
-	@Column(name="valor_subtotal")
+
+	@Column(name = "valor_subtotal")
 	BigDecimal valorSubTotal;
-	
-	@Column(name="valor_desconto")
+
+	@Column(name = "valor_desconto")
 	BigDecimal valorDesconto;
-	
-	@Column(name="valor_total")
+
+	@Column(name = "valor_total")
 	BigDecimal valorTotal;
-	
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_venda_cabecalho")
+	@JoinColumn(name = "id_venda_cabecalho")
 	Venda venda;
 
 	public Integer getId() {
@@ -63,7 +65,6 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	
 	public BigDecimal getQuantidade() {
 		return quantidade;
 	}
@@ -80,11 +81,11 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.venda = venda;
 	}
 
-	public Produto getProduto() {
+	public ProdutoEntity getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
 	}
 
@@ -119,8 +120,5 @@ public class VendaDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
-	
-	
-	
+
 }
