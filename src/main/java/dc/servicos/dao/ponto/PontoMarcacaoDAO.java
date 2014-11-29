@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.entidade.ponto.PontoRelogio;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -38,7 +38,7 @@ public class PontoMarcacaoDAO extends AbstractCrudDAO<PontoMarcacao> {
 	}
 
 	@Transactional
-	public PontoMarcacao getPontoMarcacao(Colaborador colaborador, PontoRelogio relogio, Date dataMarcacao, String horaMarcacao) {
+	public PontoMarcacao getPontoMarcacao(ColaboradorEntity colaborador, PontoRelogio relogio, Date dataMarcacao, String horaMarcacao) {
 		Criteria criteria = getSession().createCriteria(PontoMarcacao.class);
 		criteria.add(Restrictions.eq("colaborador", colaborador));
 		criteria.add(Restrictions.eq("pontoRelogio", relogio));

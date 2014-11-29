@@ -25,7 +25,7 @@ import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PONTO_ABONO")
@@ -59,7 +59,7 @@ public class PontoAbono extends AbstractModel<Serializable> {
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Colaborador")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@OneToMany(mappedBy = "pontoAbono", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -124,11 +124,11 @@ public class PontoAbono extends AbstractModel<Serializable> {
 		this.observacao = observacao;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

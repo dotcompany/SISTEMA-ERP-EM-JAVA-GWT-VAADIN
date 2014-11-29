@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name="GED_VERSAO_DOCUMENTO")
@@ -45,7 +45,7 @@ public class VersaoDocumento implements Serializable{
     private Documento documento;
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Colaborador colaborador;
+    private ColaboradorEntity colaborador;
    
     public VersaoDocumento() {
     }
@@ -106,11 +106,11 @@ public class VersaoDocumento implements Serializable{
         this.documento = documento;
     }
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}	
 }

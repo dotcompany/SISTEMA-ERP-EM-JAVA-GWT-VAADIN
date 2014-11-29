@@ -13,7 +13,7 @@ import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
+@Repository("pessoalPessoaDAO")
 public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 	/**

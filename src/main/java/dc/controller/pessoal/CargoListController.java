@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.Cargo;
+import dc.entidade.pessoal.CargoEntity;
 import dc.servicos.dao.pessoal.CargoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CargoListController extends CRUDListController<Cargo> {
+public class CargoListController extends CRUDListController<CargoEntity> {
 
 	@Autowired
 	CargoDAO dao;
@@ -22,7 +22,7 @@ public class CargoListController extends CRUDListController<Cargo> {
 	CargoFormController cargoFormController;
 
 	@Override
-	protected CRUDFormController<Cargo> getFormController() {
+	protected CRUDFormController<CargoEntity> getFormController() {
 		return cargoFormController;
 	}
 
@@ -37,12 +37,12 @@ public class CargoListController extends CRUDListController<Cargo> {
 	}
 
 	@Override
-	public Class<? super Cargo> getEntityClass() {
-		return Cargo.class;
+	public Class<? super CargoEntity> getEntityClass() {
+		return CargoEntity.class;
 	}
 
 	@Override
-	protected List<Cargo> pesquisa(String valor) {
+	protected List<CargoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class CargoListController extends CRUDListController<Cargo> {
 	}
 
 	@Override
-	protected List<Cargo> pesquisaDefault() {
-		return (List<Cargo>) dao.getAll(getEntityClass());
+	protected List<CargoEntity> pesquisaDefault() {
+		return (List<CargoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

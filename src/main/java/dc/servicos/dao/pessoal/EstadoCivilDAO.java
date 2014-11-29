@@ -8,17 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*/
-
-
-@Repository
-@SuppressWarnings("unchecked")
-public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivilEntity>{
+@Repository("pessoalEstadoCivilDAO")
+public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivilEntity> {
 
 	@Override
 	public Class<EstadoCivilEntity> getEntityClass() {
@@ -32,11 +23,12 @@ public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivilEntity>{
 
 	@Transactional
 	public List<EstadoCivilEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from EstadoCivil where nome like :q").setParameter("q", "%" + query + "%").list();
+		return getSession().createQuery("from EstadoCivil where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "descricao"};
+		return new String[] { "nome", "descricao" };
 	}
 
 }

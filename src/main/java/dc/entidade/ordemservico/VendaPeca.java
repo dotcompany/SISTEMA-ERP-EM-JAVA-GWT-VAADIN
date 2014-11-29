@@ -21,7 +21,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "os_venda_peca")
@@ -48,11 +48,11 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor", referencedColumnName = "id")
-	private Colaborador vendedor;
+	private ColaboradorEntity vendedor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tecnico", referencedColumnName = "id")
-	private Colaborador tecnico;
+	private ColaboradorEntity tecnico;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
@@ -102,11 +102,11 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 		this.ordemServico = ordemServico;
 	}
 
-	public Colaborador getVendedor() {
+	public ColaboradorEntity getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(Colaborador vendedor) {
+	public void setVendedor(ColaboradorEntity vendedor) {
 		this.vendedor = vendedor;
 	}
 
@@ -166,11 +166,11 @@ public class VendaPeca extends AbstractMultiEmpresaModel<Integer> {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public Colaborador getTecnico() {
+	public ColaboradorEntity getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(Colaborador tecnico) {
+	public void setTecnico(ColaboradorEntity tecnico) {
 		this.tecnico = tecnico;
 	}
 

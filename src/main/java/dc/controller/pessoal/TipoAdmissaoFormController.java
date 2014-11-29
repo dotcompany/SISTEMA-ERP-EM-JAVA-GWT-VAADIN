@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.TipoAdmissao;
+import dc.entidade.pessoal.TipoAdmissaoEntity;
 import dc.servicos.dao.pessoal.TipoAdmissaoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.TipoAdmissaoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissao> {
+public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissaoEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissao>
 	@Autowired
 	private TipoAdmissaoDAO tipoAdmissaoDAO;
 
-	private TipoAdmissao currentBean;
+	private TipoAdmissaoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -45,7 +45,7 @@ public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissao>
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoAdmissao();
+		currentBean = new TipoAdmissaoEntity();
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class TipoAdmissaoFormController extends CRUDFormController<TipoAdmissao>
 	}
 
 	@Override
-	public TipoAdmissao getModelBean() {
+	public TipoAdmissaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

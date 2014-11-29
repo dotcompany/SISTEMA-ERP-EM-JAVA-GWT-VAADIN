@@ -11,8 +11,7 @@ import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
-@SuppressWarnings("unchecked")
+@Repository("pessoalPessoaFisicaDAO")
 public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
 
 	@Override

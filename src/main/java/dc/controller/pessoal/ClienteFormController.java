@@ -15,9 +15,9 @@ import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.AtividadeForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
@@ -96,13 +96,13 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			valido = false;
 		}
 
-		SituacaoForCli situacao = (SituacaoForCli) subView.getCmbSituacao().getValue();
+		SituacaoForCliEntity situacao = (SituacaoForCliEntity) subView.getCmbSituacao().getValue();
 		if (!Validator.validateObject(situacao)) {
 			adicionarErroDeValidacao(subView.getCmbSituacao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
-		AtividadeForCli atividade = (AtividadeForCli) subView.getCmbAtividade().getValue();
+		AtividadeForCliEntity atividade = (AtividadeForCliEntity) subView.getCmbAtividade().getValue();
 		if (!Validator.validateObject(atividade)) {
 			adicionarErroDeValidacao(subView.getCmbAtividade(), "Não pode ficar em branco");
 			valido = false;
@@ -131,12 +131,12 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		subView.getCmbPessoa().setModel(model);
 
-		DefaultManyToOneComboModel<SituacaoForCli> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCli>(SituacaoForCliListController.class,
+		DefaultManyToOneComboModel<SituacaoForCliEntity> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCliEntity>(SituacaoForCliListController.class,
 				this.situacaoDAO, super.getMainController());
 
 		subView.getCmbSituacao().setModel(modelsituacao);
 
-		DefaultManyToOneComboModel<AtividadeForCli> modelatividade = new DefaultManyToOneComboModel<AtividadeForCli>(
+		DefaultManyToOneComboModel<AtividadeForCliEntity> modelatividade = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 				AtividadeForCliListController.class, this.atividadeDAO, super.getMainController());
 
 		subView.getCmbAtividade().setModel(modelatividade);

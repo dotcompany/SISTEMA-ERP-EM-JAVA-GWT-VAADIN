@@ -12,7 +12,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoHorarioAutorizado;
 import dc.visao.framework.util.ComponentUtil;
 import dc.visao.ponto.PontoHorarioFormView.TipoHorarioPonto;
@@ -103,7 +103,7 @@ public class PontoHorarioAutorizadoFormView extends CustomComponent {
 
 	public void preencheBean(PontoHorarioAutorizado currentBean) {
 		currentBean.setCargaHoraria(txCargaHoraria.getValue());
-		currentBean.setColaborador((Colaborador) cmbColaborador.getValue());
+		currentBean.setColaborador((ColaboradorEntity) cmbColaborador.getValue());
 
 		try {
 			currentBean.setDataHorario(dataHoraParser.parse(txDataHorario
@@ -128,9 +128,9 @@ public class PontoHorarioAutorizadoFormView extends CustomComponent {
 
 	}
 
-	public void carregarColaboradores(List<Colaborador> colaboradores) {
+	public void carregarColaboradores(List<ColaboradorEntity> colaboradores) {
 		this.cmbColaborador.removeAllItems();
-		for (Colaborador colaborador : colaboradores) {
+		for (ColaboradorEntity colaborador : colaboradores) {
 			this.cmbColaborador.addItem(colaborador);
 		}
 	}

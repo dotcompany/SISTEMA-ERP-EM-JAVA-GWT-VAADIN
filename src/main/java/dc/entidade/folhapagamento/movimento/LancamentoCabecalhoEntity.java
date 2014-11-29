@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -73,7 +73,7 @@ public class LancamentoCabecalhoEntity extends
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	/* id_empresa integer NOT NULL, */
 
@@ -133,11 +133,11 @@ public class LancamentoCabecalhoEntity extends
 		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

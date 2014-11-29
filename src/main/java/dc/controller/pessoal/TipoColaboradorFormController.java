@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.TipoColaborador;
+import dc.entidade.pessoal.TipoColaboradorEntity;
 import dc.servicos.dao.pessoal.TipoColaboradorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.TipoColaboradorFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoColaboradorFormController extends CRUDFormController<TipoColaborador> {
+public class TipoColaboradorFormController extends CRUDFormController<TipoColaboradorEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 	@Autowired
 	private TipoColaboradorDAO tipoColaboradorDAO;
 
-	private TipoColaborador currentBean;
+	private TipoColaboradorEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -50,7 +50,7 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoColaborador();
+		currentBean = new TipoColaboradorEntity();
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TipoColaboradorFormController extends CRUDFormController<TipoColabo
 	}
 
 	@Override
-	public TipoColaborador getModelBean() {
+	public TipoColaboradorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

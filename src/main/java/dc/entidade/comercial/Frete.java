@@ -18,7 +18,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_frete")
@@ -36,7 +36,7 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name="id_transportadora")
 	@Caption("Transportadora")
-	Transportadora transportadora;
+	TransportadoraEntity transportadora;
 	
 	@ManyToOne
 	@JoinColumn(name="id_venda_cabecalho")
@@ -78,11 +78,11 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public Transportadora getTransportadora() {
+	public TransportadoraEntity getTransportadora() {
 		return transportadora;
 	}
 
-	public void setTransportadora(Transportadora transportadora) {
+	public void setTransportadora(TransportadoraEntity transportadora) {
 		this.transportadora = transportadora;
 	}
 

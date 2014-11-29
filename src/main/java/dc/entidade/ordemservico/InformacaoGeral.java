@@ -27,7 +27,7 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "os_informacao_geral")
@@ -73,7 +73,7 @@ public class InformacaoGeral extends AbstractMultiEmpresaModel<Integer> {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", referencedColumnName = "id")
-	private Colaborador atendente;
+	private ColaboradorEntity atendente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_carro", referencedColumnName = "id")
@@ -234,11 +234,11 @@ public class InformacaoGeral extends AbstractMultiEmpresaModel<Integer> {
 		this.verDataEntrega = verDataEntrega;
 	}
 
-	public Colaborador getAtendente() {
+	public ColaboradorEntity getAtendente() {
 		return atendente;
 	}
 
-	public void setAtendente(Colaborador atendente) {
+	public void setAtendente(ColaboradorEntity atendente) {
 		this.atendente = atendente;
 	}
 

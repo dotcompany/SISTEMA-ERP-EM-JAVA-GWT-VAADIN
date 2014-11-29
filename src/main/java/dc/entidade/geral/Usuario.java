@@ -34,7 +34,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Papel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
@@ -84,7 +84,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -166,13 +166,13 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	}
 
 	/** @return the colaborador */
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
 	/** @param colaborador
 	 *            the colaborador to set */
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

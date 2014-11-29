@@ -14,8 +14,8 @@ import com.vaadin.ui.TextField;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.AtividadeForCli;
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -32,8 +32,8 @@ public class FornecedorFormView extends CustomComponent {
 	private GridLayout mainLayout;
 
 	private ManyToOneCombo<PessoaEntity> cbPessoa;
-	private ManyToOneCombo<SituacaoForCli> cbSituacao;
-	private ManyToOneCombo<AtividadeForCli> cbAtividade;
+	private ManyToOneCombo<SituacaoForCliEntity> cbSituacao;
+	private ManyToOneCombo<AtividadeForCliEntity> cbAtividade;
 	private ManyToOneCombo<ContabilConta> cbContabilConta;
 	
 	private PopupDateField dtDesde;
@@ -179,19 +179,19 @@ public class FornecedorFormView extends CustomComponent {
 		this.cbPessoa = cbPessoa;
 	}
 
-	public ManyToOneCombo<SituacaoForCli> getCbSituacao() {
+	public ManyToOneCombo<SituacaoForCliEntity> getCbSituacao() {
 		return cbSituacao;
 	}
 
-	public void setCbSituacao(ManyToOneCombo<SituacaoForCli> cbSituacao) {
+	public void setCbSituacao(ManyToOneCombo<SituacaoForCliEntity> cbSituacao) {
 		this.cbSituacao = cbSituacao;
 	}
 
-	public ManyToOneCombo<AtividadeForCli> getCbAtividade() {
+	public ManyToOneCombo<AtividadeForCliEntity> getCbAtividade() {
 		return cbAtividade;
 	}
 
-	public void setCbAtividade(ManyToOneCombo<AtividadeForCli> cbAtividade) {
+	public void setCbAtividade(ManyToOneCombo<AtividadeForCliEntity> cbAtividade) {
 		this.cbAtividade = cbAtividade;
 	}
 

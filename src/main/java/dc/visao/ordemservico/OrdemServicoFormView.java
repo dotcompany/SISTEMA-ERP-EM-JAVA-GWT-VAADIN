@@ -80,7 +80,7 @@ import dc.entidade.ordemservico.StatusOs;
 import dc.entidade.ordemservico.TipoServico;
 import dc.entidade.ordemservico.VendaPeca;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.util.Util;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -222,7 +222,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	private ManyToOneCombo<Cor> cbCorGarantia;
 	private ManyToOneCombo<StatusOs> cbStatus;
 	private ManyToOneCombo<SituacaoServico> cbSituacaoServico;
-	private ManyToOneCombo<Colaborador> cbAtendente;
+	private ManyToOneCombo<ColaboradorEntity> cbAtendente;
 	private ManyToOneCombo<TipoServico> cbTipoServico;
 	private ManyToOneCombo<TipoPagamento> cbFormaPagamento;
 	private BigDecimal troco = BigDecimal.ZERO;
@@ -341,7 +341,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		tfUf = ComponentUtil.buildTextField("Uf");
 		gridLayout_1.addComponent(tfUf, 6, 1, 6, 1);
 
-		cbAtendente = new ManyToOneCombo<Colaborador>();
+		cbAtendente = new ManyToOneCombo<ColaboradorEntity>();
 		cbAtendente.setCaption("Atendente");
 		gridLayout_1.addComponent(cbAtendente, 0, 2, 1, 2);
 
@@ -566,9 +566,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> vendedores = controller
+							List<ColaboradorEntity> vendedores = controller
 									.getVendedores();
-							for (Colaborador vd : vendedores) {
+							for (ColaboradorEntity vd : vendedores) {
 								combobox.addItem(vd);
 							}
 
@@ -578,9 +578,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> tecnicos = controller
+							List<ColaboradorEntity> tecnicos = controller
 									.getTecnicos();
-							for (Colaborador tc : tecnicos) {
+							for (ColaboradorEntity tc : tecnicos) {
 								combobox.addItem(tc);
 							}
 
@@ -831,9 +831,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> vendedores = controller
+							List<ColaboradorEntity> vendedores = controller
 									.getVendedores();
-							for (Colaborador vd : vendedores) {
+							for (ColaboradorEntity vd : vendedores) {
 								combobox.addItem(vd);
 							}
 							return combobox;
@@ -842,9 +842,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> tecnicos = controller
+							List<ColaboradorEntity> tecnicos = controller
 									.getTecnicos();
-							for (Colaborador tc : tecnicos) {
+							for (ColaboradorEntity tc : tecnicos) {
 								combobox.addItem(tc);
 							}
 							return combobox;
@@ -1069,9 +1069,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> tecnicos = controller
+							List<ColaboradorEntity> tecnicos = controller
 									.getTecnicos();
-							for (Colaborador tc : tecnicos) {
+							for (ColaboradorEntity tc : tecnicos) {
 								combobox.addItem(tc);
 							}
 							combobox.addBlurListener(getBlurListener(container,
@@ -1644,9 +1644,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> vendedores = controller
+							List<ColaboradorEntity> vendedores = controller
 									.getVendedores();
-							for (Colaborador vd : vendedores) {
+							for (ColaboradorEntity vd : vendedores) {
 								combobox.addItem(vd);
 							}
 							combobox.setReadOnly(true);
@@ -1656,9 +1656,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> tecnicos = controller
+							List<ColaboradorEntity> tecnicos = controller
 									.getTecnicos();
-							for (Colaborador tc : tecnicos) {
+							for (ColaboradorEntity tc : tecnicos) {
 								combobox.addItem(tc);
 							}
 
@@ -1784,9 +1784,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> vendedores = controller
+							List<ColaboradorEntity> vendedores = controller
 									.getVendedores();
-							for (Colaborador vd : vendedores) {
+							for (ColaboradorEntity vd : vendedores) {
 								combobox.addItem(vd);
 							}
 							combobox.setReadOnly(true);
@@ -1796,9 +1796,9 @@ public class OrdemServicoFormView extends CustomComponent {
 									.buildComboBox(null);
 							combobox.removeAllItems();
 
-							List<Colaborador> tecnicos = controller
+							List<ColaboradorEntity> tecnicos = controller
 									.getTecnicos();
-							for (Colaborador tc : tecnicos) {
+							for (ColaboradorEntity tc : tecnicos) {
 								combobox.addItem(tc);
 							}
 							combobox.setReadOnly(true);
@@ -3771,7 +3771,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.cbSituacaoServico = cbSituacaoServico;
 	}
 
-	public void setCbAtendente(ManyToOneCombo<Colaborador> cbAtendente) {
+	public void setCbAtendente(ManyToOneCombo<ColaboradorEntity> cbAtendente) {
 		this.cbAtendente = cbAtendente;
 	}
 
@@ -4165,7 +4165,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		return cbSituacaoServico;
 	}
 
-	public ManyToOneCombo<Colaborador> getCbAtendente() {
+	public ManyToOneCombo<ColaboradorEntity> getCbAtendente() {
 		return cbAtendente;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.pessoal.ColaboradorListController;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoAbono;
 import dc.entidade.ponto.PontoAbonoUtilizacao;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
@@ -89,7 +89,7 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 	protected void initSubView() {
 		subView = new PontoAbonoFormView(this);
 
-		DefaultManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(ColaboradorListController.class,
+		DefaultManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class,
 				this.colaboradorDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {

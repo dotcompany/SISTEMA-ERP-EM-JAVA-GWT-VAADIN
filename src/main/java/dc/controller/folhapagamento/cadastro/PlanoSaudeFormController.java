@@ -14,7 +14,7 @@ import com.vaadin.ui.Component;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
 import dc.servicos.dao.folhapagamento.cadastro.PlanoSaudeDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
@@ -73,7 +73,7 @@ public class PlanoSaudeFormController extends CRUDFormController<PlanoSaudeEntit
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			String beneficiario = this.subView.getTfBeneficiario().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 			OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView.getCbOperadoraPlanoSaude().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
@@ -204,7 +204,7 @@ public class PlanoSaudeFormController extends CRUDFormController<PlanoSaudeEntit
 
 		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -239,8 +239,8 @@ public class PlanoSaudeFormController extends CRUDFormController<PlanoSaudeEntit
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

@@ -16,8 +16,8 @@ import dc.controller.pessoal.SituacaoForCliListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.AtividadeForCli;
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
@@ -105,10 +105,10 @@ public class FornecedorFormController extends CRUDFormController<FornecedorEntit
 	}
 
 	private void carregarCombos() {
-		DefaultManyToOneComboModel<AtividadeForCli> atividadeModel = new DefaultManyToOneComboModel<AtividadeForCli>(
+		DefaultManyToOneComboModel<AtividadeForCliEntity> atividadeModel = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 				AtividadeForCliListController.class, this.atividadeForCliDAO, super.getMainController());
 
-		DefaultManyToOneComboModel<SituacaoForCli> situacaoModel = new DefaultManyToOneComboModel<SituacaoForCli>(SituacaoForCliListController.class,
+		DefaultManyToOneComboModel<SituacaoForCliEntity> situacaoModel = new DefaultManyToOneComboModel<SituacaoForCliEntity>(SituacaoForCliListController.class,
 				this.situacaoForCliDAO, super.getMainController());
 
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(

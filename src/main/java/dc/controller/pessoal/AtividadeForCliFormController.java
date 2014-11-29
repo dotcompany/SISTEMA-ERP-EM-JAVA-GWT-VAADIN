@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.AtividadeForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.AtividadeForCliFormView;
 
 @Controller
 @Scope("prototype")
-public class AtividadeForCliFormController extends CRUDFormController<AtividadeForCli> {
+public class AtividadeForCliFormController extends CRUDFormController<AtividadeForCliEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class AtividadeForCliFormController extends CRUDFormController<AtividadeF
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
 
-	private AtividadeForCli currentBean;
+	private AtividadeForCliEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -50,7 +50,7 @@ public class AtividadeForCliFormController extends CRUDFormController<AtividadeF
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new AtividadeForCli();
+		currentBean = new AtividadeForCliEntity();
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class AtividadeForCliFormController extends CRUDFormController<AtividadeF
 	}
 
 	@Override
-	public AtividadeForCli getModelBean() {
+	public AtividadeForCliEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

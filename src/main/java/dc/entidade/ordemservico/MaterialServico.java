@@ -21,7 +21,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "os_material_servico")
@@ -48,7 +48,7 @@ public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_tecnico", referencedColumnName = "id")
-	private Colaborador tecnico;
+	private ColaboradorEntity tecnico;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
@@ -81,11 +81,11 @@ public class MaterialServico extends AbstractMultiEmpresaModel<Integer> {
 		this.ordemServico = ordemServico;
 	}
 
-	public Colaborador getTecnico() {
+	public ColaboradorEntity getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(Colaborador tecnico) {
+	public void setTecnico(ColaboradorEntity tecnico) {
 		this.tecnico = tecnico;
 	}
 

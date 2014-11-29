@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.PppFormView;
@@ -65,7 +65,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	protected void actionSalvar() {
 		try {
 			String observacao = this.subView.getTfObservacao().getValue();
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setObservacao(observacao);
 			this.pEntity.setColaborador(colaborador);
@@ -176,7 +176,7 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -201,8 +201,8 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

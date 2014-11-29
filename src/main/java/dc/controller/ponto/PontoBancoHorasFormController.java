@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoBancoHoras;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoBancoHorasDAO;
@@ -69,7 +69,7 @@ public class PontoBancoHorasFormController extends CRUDFormController<PontoBanco
 	}
 
 	private void carregarCombosView() {
-		subView.carregarColaboradores(colaboradorDAO.getAll(Colaborador.class));
+		subView.carregarColaboradores(colaboradorDAO.getAll(ColaboradorEntity.class));
 		subView.carregarSituacao();
 	}
 

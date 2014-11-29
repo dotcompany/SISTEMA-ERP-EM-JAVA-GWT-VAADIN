@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.TipoAdmissao;
+import dc.entidade.pessoal.TipoAdmissaoEntity;
 import dc.servicos.dao.pessoal.TipoAdmissaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao> {
+public class TipoAdmissaoListController extends CRUDListController<TipoAdmissaoEntity> {
 
 	@Autowired
 	TipoAdmissaoDAO dao;
@@ -22,7 +22,7 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	TipoAdmissaoFormController tipoAdmissaoFormController;
 
 	@Override
-	protected CRUDFormController<TipoAdmissao> getFormController() {
+	protected CRUDFormController<TipoAdmissaoEntity> getFormController() {
 		return tipoAdmissaoFormController;
 	}
 
@@ -37,12 +37,12 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	}
 
 	@Override
-	public Class<? super TipoAdmissao> getEntityClass() {
-		return TipoAdmissao.class;
+	public Class<? super TipoAdmissaoEntity> getEntityClass() {
+		return TipoAdmissaoEntity.class;
 	}
 
 	@Override
-	protected List<TipoAdmissao> pesquisa(String valor) {
+	protected List<TipoAdmissaoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class TipoAdmissaoListController extends CRUDListController<TipoAdmissao>
 	}
 
 	@Override
-	protected List<TipoAdmissao> pesquisaDefault() {
-		return (List<TipoAdmissao>) dao.getAll(getEntityClass());
+	protected List<TipoAdmissaoEntity> pesquisaDefault() {
+		return (List<TipoAdmissaoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

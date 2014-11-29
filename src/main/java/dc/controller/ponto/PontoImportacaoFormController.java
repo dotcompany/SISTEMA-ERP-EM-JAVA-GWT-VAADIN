@@ -25,7 +25,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.controller.ponto.exportacao.afd.ImportaArquivoAFD;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.AFDTipo3;
 import dc.entidade.ponto.PontoClassificacaoJornada;
 import dc.entidade.ponto.PontoEscala;
@@ -126,7 +126,7 @@ public class PontoImportacaoFormController extends BlankFormController {
 					List<AFDTipo3> importacoes = importa.leArquivoAFD(value);
 
 					for (AFDTipo3 afd : importacoes) {
-						Colaborador colaborador = colaboradorDAO.getColaboradorByPisNumero(afd.getPisEmpregado());
+						ColaboradorEntity colaborador = colaboradorDAO.getColaboradorByPisNumero(afd.getPisEmpregado());
 						afd.setColaborador(colaborador);
 					}
 
@@ -464,7 +464,7 @@ public class PontoImportacaoFormController extends BlankFormController {
 		PontoRelogio relogio = pontoRelogioDAO.getPontoRelogioByNumeroSerie(marcacoes.get(0)
 				.getNumeroSerieRelogioPonto());
 
-		Colaborador colaborador;
+		ColaboradorEntity colaborador;
 		PontoMarcacao pontoMarcacao;
 		for (int i = 0; i < marcacoes.size(); i++) {
 			if (relogio == null) {

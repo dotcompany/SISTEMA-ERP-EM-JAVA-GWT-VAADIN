@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.movimento.RescisaoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.RescisaoFormView;
@@ -80,7 +80,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			String fgtsCodigoAfastamento = this.subView.getTfFgtsCodigoAfastamento().getValue();
 			String fgtsCodigoSaque = this.subView.getTfFgtsCodigoSaque().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setDataDemissao(dataDemissao);
 			this.pEntity.setDataPagamento(dataPagamento);
@@ -349,7 +349,7 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			return false;
 		}
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -374,8 +374,8 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

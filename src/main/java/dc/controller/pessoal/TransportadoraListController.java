@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 import dc.servicos.dao.pessoal.TransportadoraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TransportadoraListController extends CRUDListController<Transportadora> {
+public class TransportadoraListController extends CRUDListController<TransportadoraEntity> {
 
 	@Autowired
 	TransportadoraDAO dao;
@@ -22,7 +22,7 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	TransportadoraFormController transportadoraFormController;
 
 	@Override
-	protected CRUDFormController<Transportadora> getFormController() {
+	protected CRUDFormController<TransportadoraEntity> getFormController() {
 		return transportadoraFormController;
 	}
 
@@ -37,12 +37,12 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	}
 
 	@Override
-	public Class<? super Transportadora> getEntityClass() {
-		return Transportadora.class;
+	public Class<? super TransportadoraEntity> getEntityClass() {
+		return TransportadoraEntity.class;
 	}
 
 	@Override
-	protected List<Transportadora> pesquisa(String valor) {
+	protected List<TransportadoraEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class TransportadoraListController extends CRUDListController<Transportad
 	}
 
 	@Override
-	protected List<Transportadora> pesquisaDefault() {
-		return (List<Transportadora>) dao.getAll(getEntityClass());
+	protected List<TransportadoraEntity> pesquisaDefault() {
+		return (List<TransportadoraEntity>) dao.getAll(getEntityClass());
 	}
 
 }

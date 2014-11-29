@@ -10,7 +10,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoBancoHoras;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -48,7 +48,7 @@ public class PontoBancoHorasFormView extends CustomComponent {
 	}
 
 	public void preencheBean(PontoBancoHoras currentBean) {
-		currentBean.setColaborador((Colaborador) cmbColaborador.getValue());
+		currentBean.setColaborador((ColaboradorEntity) cmbColaborador.getValue());
 		currentBean.setQuantidade(txQuantidade.getValue());
 		currentBean.setSituacao(((SituacaoBancoHoras) cmbSituacao.getValue()).getCodigo());
 		currentBean.setDataTrabalho(dtDataTrabalho.getValue());
@@ -104,9 +104,9 @@ public class PontoBancoHorasFormView extends CustomComponent {
 		return gridLayout_1;
 	}
 
-	public void carregarColaboradores(List<Colaborador> colaboradores) {
+	public void carregarColaboradores(List<ColaboradorEntity> colaboradores) {
 		this.cmbColaborador.removeAllItems();
-		for (Colaborador colaborador : colaboradores) {
+		for (ColaboradorEntity colaborador : colaboradores) {
 			this.cmbColaborador.addItem(colaborador);
 		}
 	}

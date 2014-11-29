@@ -3,7 +3,7 @@ package dc.entidade.ponto;
 import java.util.Date;
 
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 
 public class AFDTipo3 extends AbstractModel<Integer>{
@@ -15,7 +15,7 @@ public class AFDTipo3 extends AbstractModel<Integer>{
     private String pisEmpregado;
     private String numeroSerieRelogioPonto;
     private String situacaoRegistro;
-    private Colaborador colaborador;
+    private ColaboradorEntity colaborador;
     private PontoHorario pontoHorario;
     private String parEntradaSaida;
     private Boolean desconsiderar;
@@ -109,14 +109,14 @@ public class AFDTipo3 extends AbstractModel<Integer>{
     /**
      * @return the colaborador
      */
-    public Colaborador getColaborador() {
+    public ColaboradorEntity getColaborador() {
         return colaborador;
     }
 
     /**
      * @param colaborador the colaborador to set
      */
-    public void setColaborador(Colaborador colaborador) {
+    public void setColaborador(ColaboradorEntity colaborador) {
         this.colaborador = colaborador;
     }
 

@@ -19,7 +19,7 @@ import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.TipoRelacionamento;
+import dc.entidade.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.empresa.DependenteDAO;
 import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
@@ -356,9 +356,9 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		return p;
 	}
 
-	public List<TipoRelacionamento> carregarTipoRelacionamento() {
-		List<TipoRelacionamento> lista = new ArrayList<TipoRelacionamento>();
-		for (TipoRelacionamento tipo : tipoRelacionamentoDAO.listaTodos()) {
+	public List<TipoRelacionamentoEntity> carregarTipoRelacionamento() {
+		List<TipoRelacionamentoEntity> lista = new ArrayList<TipoRelacionamentoEntity>();
+		for (TipoRelacionamentoEntity tipo : tipoRelacionamentoDAO.listaTodos()) {
 			lista.add(tipo);
 		}
 		return lista;

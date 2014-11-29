@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,18 +61,22 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	public static final Integer MASTER_ID = 1;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "colaborador_id_seq")
+	@SequenceGenerator(name = "colaborador_id_seq", sequenceName = "colaborador_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
-	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -256,15 +261,15 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 
 	@JoinColumn(name = "ID_CARGO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Cargo idCargo;
+	private CargoEntity idCargo;
 
 	@JoinColumn(name = "ID_TIPO_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private TipoColaborador idTipoColaborador;
+	private TipoColaboradorEntity idTipoColaborador;
 
 	@JoinColumn(name = "ID_SITUACAO_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private SituacaoColaborador idSituacaoColaborador;
+	private SituacaoColaboradorEntity idSituacaoColaborador;
 
 	@JoinColumn(name = "ID_NIVEL_FORMACAO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -281,7 +286,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	@ComboValue
 	private PessoaEntity pessoa;
 
-		@Column(name = "salario_fixo")
+	@Column(name = "salario_fixo")
 	private BigDecimal salarioFixo;
 
 	@Column(name = "tipo_comissao_servico")
@@ -371,7 +376,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	 * CONSTRUTOR
 	 */
 
-	public Colaborador() {
+	public ColaboradorEntity() {
 
 	}
 
@@ -385,7 +390,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	 * @module FOLHAPAGAMENTO
 	 */
 
-	public Colaborador(Integer id, String matricula) {
+	public ColaboradorEntity(Integer id, String matricula) {
 		this.id = id;
 		this.matricula = matricula;
 	}
@@ -400,7 +405,7 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 	 * @param id
 	 */
 
-	public Colaborador(Integer id) {
+	public ColaboradorEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -436,19 +441,19 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		this.idSetor = idSetor;
 	}
 
-	public Cargo getIdCargo() {
+	public CargoEntity getIdCargo() {
 		return idCargo;
 	}
 
-	public void setIdCargo(Cargo idCargo) {
+	public void setIdCargo(CargoEntity idCargo) {
 		this.idCargo = idCargo;
 	}
 
-	public TipoColaborador getIdTipoColaborador() {
+	public TipoColaboradorEntity getIdTipoColaborador() {
 		return idTipoColaborador;
 	}
 
-	public void setIdTipoColaborador(TipoColaborador idTipoColaborador) {
+	public void setIdTipoColaborador(TipoColaboradorEntity idTipoColaborador) {
 		this.idTipoColaborador = idTipoColaborador;
 	}
 
@@ -784,7 +789,8 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		return valeTransporteList;
 	}
 
-	public void setValeTransporteList(List<ValeTransporteEntity> valeTransporteList) {
+	public void setValeTransporteList(
+			List<ValeTransporteEntity> valeTransporteList) {
 		this.valeTransporteList = valeTransporteList;
 	}
 
@@ -792,7 +798,8 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		return historicoSalarialList;
 	}
 
-	public void setHistoricoSalarialList(List<HistoricoSalarialEntity> historicoSalarialList) {
+	public void setHistoricoSalarialList(
+			List<HistoricoSalarialEntity> historicoSalarialList) {
 		this.historicoSalarialList = historicoSalarialList;
 	}
 
@@ -800,7 +807,8 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		return lancamentoCabecalhoList;
 	}
 
-	public void setLancamentoCabecalhoList(List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
+	public void setLancamentoCabecalhoList(
+			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
 		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
 	}
 
@@ -808,7 +816,8 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		return feriasPeriodoAquisitivoEntityList;
 	}
 
-	public void setFeriasPeriodoAquisitivoEntityList(List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList) {
+	public void setFeriasPeriodoAquisitivoEntityList(
+			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList) {
 		this.feriasPeriodoAquisitivoEntityList = feriasPeriodoAquisitivoEntityList;
 	}
 
@@ -820,11 +829,12 @@ public class Colaborador extends AbstractMultiEmpresaModel<Integer> implements S
 		this.idContaContabil = idContaContabil;
 	}
 
-	public SituacaoColaborador getIdSituacaoColaborador() {
+	public SituacaoColaboradorEntity getIdSituacaoColaborador() {
 		return idSituacaoColaborador;
 	}
 
-	public void setIdSituacaoColaborador(SituacaoColaborador idSituacaoColaborador) {
+	public void setIdSituacaoColaborador(
+			SituacaoColaboradorEntity idSituacaoColaborador) {
 		this.idSituacaoColaborador = idSituacaoColaborador;
 	}
 

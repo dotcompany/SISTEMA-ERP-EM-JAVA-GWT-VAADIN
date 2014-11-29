@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.TipoDesligamento;
+import dc.entidade.pessoal.TipoDesligamentoEntity;
 import dc.servicos.dao.pessoal.TipoDesligamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoDesligamentoListController extends CRUDListController<TipoDesligamento> {
+public class TipoDesligamentoListController extends CRUDListController<TipoDesligamentoEntity> {
 
 	@Autowired
 	TipoDesligamentoDAO dao;
@@ -22,7 +22,7 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	TipoDesligamentoFormController tipoDesligamentoFormController;
 
 	@Override
-	protected CRUDFormController<TipoDesligamento> getFormController() {
+	protected CRUDFormController<TipoDesligamentoEntity> getFormController() {
 		return tipoDesligamentoFormController;
 	}
 
@@ -37,12 +37,12 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	}
 
 	@Override
-	public Class<? super TipoDesligamento> getEntityClass() {
-		return TipoDesligamento.class;
+	public Class<? super TipoDesligamentoEntity> getEntityClass() {
+		return TipoDesligamentoEntity.class;
 	}
 
 	@Override
-	protected List<TipoDesligamento> pesquisa(String valor) {
+	protected List<TipoDesligamentoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class TipoDesligamentoListController extends CRUDListController<TipoDesli
 	}
 
 	@Override
-	protected List<TipoDesligamento> pesquisaDefault() {
-		return (List<TipoDesligamento>) dao.getAll(getEntityClass());
+	protected List<TipoDesligamentoEntity> pesquisaDefault() {
+		return (List<TipoDesligamentoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

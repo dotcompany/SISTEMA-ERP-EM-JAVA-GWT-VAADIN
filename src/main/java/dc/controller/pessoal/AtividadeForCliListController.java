@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.AtividadeForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.pessoal.AtividadeForCliDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AtividadeForCliListController extends CRUDListController<AtividadeForCli> {
+public class AtividadeForCliListController extends CRUDListController<AtividadeForCliEntity> {
 
 	@Autowired
 	AtividadeForCliDAO dao;
@@ -22,7 +22,7 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	AtividadeForCliFormController atividadeForCliFormController;
 
 	@Override
-	protected CRUDFormController<AtividadeForCli> getFormController() {
+	protected CRUDFormController<AtividadeForCliEntity> getFormController() {
 		return atividadeForCliFormController;
 	}
 
@@ -37,12 +37,12 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	}
 
 	@Override
-	public Class<? super AtividadeForCli> getEntityClass() {
-		return AtividadeForCli.class;
+	public Class<? super AtividadeForCliEntity> getEntityClass() {
+		return AtividadeForCliEntity.class;
 	}
 
 	@Override
-	protected List<AtividadeForCli> pesquisa(String valor) {
+	protected List<AtividadeForCliEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class AtividadeForCliListController extends CRUDListController<AtividadeF
 	}
 
 	@Override
-	protected List<AtividadeForCli> pesquisaDefault() {
-		return (List<AtividadeForCli>) dao.getAll(getEntityClass());
+	protected List<AtividadeForCliEntity> pesquisaDefault() {
+		return (List<AtividadeForCliEntity>) dao.getAll(getEntityClass());
 	}
 
 }

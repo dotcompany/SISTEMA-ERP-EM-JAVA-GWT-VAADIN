@@ -5,44 +5,40 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*/
-
-
-@Repository
-@SuppressWarnings("unchecked")
-public class SituacaoForCliDAO extends AbstractCrudDAO<SituacaoForCli>{
+@Repository("pessoalSituacaoForCliDAO")
+public class SituacaoForCliDAO extends AbstractCrudDAO<SituacaoForCliEntity> {
 
 	@Override
-	public Class<SituacaoForCli> getEntityClass() {
-		return SituacaoForCli.class;
+	public Class<SituacaoForCliEntity> getEntityClass() {
+		return SituacaoForCliEntity.class;
 	}
 
 	@Transactional
-	public List<SituacaoForCli> listaTodos() {
+	public List<SituacaoForCliEntity> listaTodos() {
 		return getSession().createQuery("from SituacaoForCli").list();
 	}
 
 	@Transactional
-	public List<SituacaoForCli> procuraNomeContendo(String query) {
-		return getSession().createQuery("from SituacaoForCli where nome like :q").setParameter("q", "%" + query + "%").list();
+	public List<SituacaoForCliEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from SituacaoForCli where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "descricao"};
+		return new String[] { "nome", "descricao" };
 	}
-	
+
 	@Transactional
-	public List<SituacaoForCli> query(String q) {
-		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from SituacaoForCli where lower(nome) like :q").setParameter("q", q).list();
+	public List<SituacaoForCliEntity> query(String q) {
+		q = "%" + q.toLowerCase() + "%";
+
+		return getSession()
+				.createQuery("from SituacaoForCli where lower(nome) like :q")
+				.setParameter("q", q).list();
 	}
 
 }

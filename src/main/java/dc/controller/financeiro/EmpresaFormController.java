@@ -24,7 +24,7 @@ import dc.entidade.framework.Fpas;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.Cnae;
 import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.pessoal.Contador;
+import dc.entidade.pessoal.ContadorEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -123,7 +123,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		String razaoSocial = subView.getTxtRazaoSocial().getValue();
 		String nomeFantasia = subView.getTxtNomeFantasia().getValue();
 
-		Contador contador = (Contador) subView.getCmbContador().getValue();
+		ContadorEntity contador = (ContadorEntity) subView.getCmbContador().getValue();
 		Sindicato sindicato = (Sindicato) subView.getCmbSindicato().getValue();
 		Fpas fpas = (Fpas) subView.getCmbFpas().getValue();
 
@@ -322,7 +322,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		if (currentBean.getIdContador() != null) {
 			try {
 				Integer idC = new Integer(currentBean.getIdContador());
-				Contador contador = contadorDAO.find(idC);
+				ContadorEntity contador = contadorDAO.find(idC);
 				subView.getCmbContador().setValue(contador);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -533,10 +533,10 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		return container;
 	}
 
-	public BeanItemContainer<Contador> carregarContadores() {
-		BeanItemContainer<Contador> container = new BeanItemContainer<>(Contador.class);
+	public BeanItemContainer<ContadorEntity> carregarContadores() {
+		BeanItemContainer<ContadorEntity> container = new BeanItemContainer<>(ContadorEntity.class);
 
-		for (Contador obj : contadorDAO.listaTodos()) {
+		for (ContadorEntity obj : contadorDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 

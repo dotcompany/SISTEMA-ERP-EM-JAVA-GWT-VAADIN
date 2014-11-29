@@ -17,7 +17,7 @@ import dc.controller.pessoal.ColaboradorListController;
 import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.diversos.SetorDAO;
@@ -142,7 +142,7 @@ public class ContratoSolicitacaoServicoFormController extends
 				ContratoTipoServicoListController.class,
 				this.contratoTipoServicoDAO, super.getMainController());
 
-		DefaultManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(
+		DefaultManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(
 				ColaboradorListController.class, this.colaboradorDAO,
 				super.getMainController()) {
 

@@ -5,38 +5,32 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.TipoDesligamento;
+import dc.entidade.pessoal.TipoDesligamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*/
-
-
-@Repository
-@SuppressWarnings("unchecked")
-public class TipoDesligamentoDAO extends AbstractCrudDAO<TipoDesligamento>{
+@Repository("pessoalTipoDesligamentoDAO")
+public class TipoDesligamentoDAO extends
+		AbstractCrudDAO<TipoDesligamentoEntity> {
 
 	@Override
-	public Class<TipoDesligamento> getEntityClass() {
-		return TipoDesligamento.class;
+	public Class<TipoDesligamentoEntity> getEntityClass() {
+		return TipoDesligamentoEntity.class;
 	}
 
 	@Transactional
-	public List<TipoDesligamento> listaTodos() {
+	public List<TipoDesligamentoEntity> listaTodos() {
 		return getSession().createQuery("from TipoDesligamento").list();
 	}
 
 	@Transactional
-	public List<TipoDesligamento> procuraNomeContendo(String query) {
-		return getSession().createQuery("from TipoDesligamento where descricao like :q").setParameter("q", "%" + query + "%").list();
+	public List<TipoDesligamentoEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from TipoDesligamento where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao"};
+		return new String[] { "descricao" };
 	}
 
 }

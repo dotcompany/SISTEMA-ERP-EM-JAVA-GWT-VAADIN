@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoEntity;
 import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
@@ -63,7 +63,7 @@ public class RequisicaoCompraFormController extends
 		try {
 			currentBean.setTipoRequisicao((TipoRequisicaoEntity) subView
 					.getCmbTipoRequisicao().getValue());
-			currentBean.setColaborador((Colaborador) subView
+			currentBean.setColaborador((ColaboradorEntity) subView
 					.getLkpRequisitante().getValue());
 			currentBean.setDataRequisicao(subView.getCalDataRequisicao()
 					.getValue());
@@ -96,7 +96,7 @@ public class RequisicaoCompraFormController extends
 		subView = new RequisicaoCompraFormView(this);
 		subView.fillCmbTipoRequisicao(tipoRequisicaoDAO
 				.getAll(TipoRequisicaoEntity.class));
-		subView.fillCmbRequisitante(colaboradorDAO.getAll(Colaborador.class));
+		subView.fillCmbRequisitante(colaboradorDAO.getAll(ColaboradorEntity.class));
 	}
 
 	@Override

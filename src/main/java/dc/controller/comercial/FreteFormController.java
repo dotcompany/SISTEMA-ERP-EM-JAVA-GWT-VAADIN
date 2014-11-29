@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.Venda;
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.VendaDAO;
@@ -111,7 +111,7 @@ public class FreteFormController extends CRUDFormController<Frete> {
 
 		try {
 
-			Transportadora transportadora = (Transportadora) subView.getCmbTransportadora().getValue();
+			TransportadoraEntity transportadora = (TransportadoraEntity) subView.getCmbTransportadora().getValue();
 			Venda venda = (Venda) subView.getCmbVenda().getValue();
 			String conhecimento = subView.getTxtConhecimento().getValue();
 			String responsavel = subView.getTxtResponsavel().getValue();
@@ -206,9 +206,9 @@ public class FreteFormController extends CRUDFormController<Frete> {
 		return true;
 	}
 
-	public BeanItemContainer<Transportadora> carregarTransportadoras() {
-		BeanItemContainer<Transportadora> container = new BeanItemContainer<>(Transportadora.class);
-		for (Transportadora c : transportadoraDAO.listaTodos()) {
+	public BeanItemContainer<TransportadoraEntity> carregarTransportadoras() {
+		BeanItemContainer<TransportadoraEntity> container = new BeanItemContainer<>(TransportadoraEntity.class);
+		for (TransportadoraEntity c : transportadoraDAO.listaTodos()) {
 			container.addBean(c);
 		}
 		return container;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.Cargo;
+import dc.entidade.pessoal.CargoEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
 /**
@@ -33,7 +33,7 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 	}
 
 	@Transactional
-	public List<Cargo> listCargos(Empresa empresa) {
+	public List<CargoEntity> listCargos(Empresa empresa) {
 		return getSession().createQuery("from Cargo where empresa.id = :bid")
 				.setParameter("bid", empresa.getId()).list();
 	}

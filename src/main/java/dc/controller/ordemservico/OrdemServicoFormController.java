@@ -46,7 +46,7 @@ import dc.entidade.ordemservico.TipoEfetivacao;
 import dc.entidade.ordemservico.TipoServico;
 import dc.entidade.ordemservico.VendaPeca;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.ordemservico.AcessorioDAO;
@@ -518,7 +518,7 @@ public class OrdemServicoFormController extends
 
 		this.subView.getCbPlaca().setModel(carro);
 
-		DefaultManyToOneComboModel<Colaborador> atendente = new DefaultManyToOneComboModel<Colaborador>(
+		DefaultManyToOneComboModel<ColaboradorEntity> atendente = new DefaultManyToOneComboModel<ColaboradorEntity>(
 				ColaboradorListController.class, this.atendenteDAO,
 				super.getMainController()) {
 			@Override
@@ -1794,11 +1794,11 @@ public class OrdemServicoFormController extends
 
 	}
 
-	public List<Colaborador> getVendedores() {
+	public List<ColaboradorEntity> getVendedores() {
 		return colaboradorDAO.listaTodos();
 	}
 
-	public List<Colaborador> getTecnicos() {
+	public List<ColaboradorEntity> getTecnicos() {
 		return colaboradorDAO.listaTodos();
 	}
 

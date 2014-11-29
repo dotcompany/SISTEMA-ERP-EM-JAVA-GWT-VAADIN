@@ -9,11 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
@@ -26,28 +25,39 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * @author Wesley Jr
- */
-
 @Entity
-@Table(name = "tipo_desligamento")
+@Table(name = "tipo_admissao")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoDesligamento extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class TipoAdmissaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_admissao_id_seq")
+	@SequenceGenerator(name = "tipo_admissao_id_seq", sequenceName = "tipo_admissao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Column(name = "CODIGO", length = 10)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo;
+
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
 	@Lob
 	@Field
@@ -59,11 +69,11 @@ public class TipoDesligamento extends AbstractMultiEmpresaModel<Integer> impleme
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	public TipoDesligamento() {
+	public TipoAdmissaoEntity() {
 
 	}
 
-	public TipoDesligamento(Integer id) {
+	public TipoAdmissaoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -75,6 +85,14 @@ public class TipoDesligamento extends AbstractMultiEmpresaModel<Integer> impleme
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -83,20 +101,17 @@ public class TipoDesligamento extends AbstractMultiEmpresaModel<Integer> impleme
 		this.descricao = descricao;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	public String getCodigo() {
+		return codigo;
 	}
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof TipoDesligamento == false)
-			return false;
-		if (this == object)
-			return true;
-		final TipoDesligamento other = (TipoDesligamento) object;
-		return EqualsBuilder.reflectionEquals(this, other);
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
+
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -29,20 +30,17 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.PessoaEntity;
 
-/**
- * 
- * @author Wesley Jr
- * 
- */
-
 @Entity
 @Table(name = "transportadora")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Transportadora extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -71,11 +69,11 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private ContabilConta contaContabil;
 
-	public Transportadora() {
+	public TransportadoraEntity() {
 
 	}
 
-	public Transportadora(Integer id) {
+	public TransportadoraEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -111,9 +109,13 @@ public class Transportadora extends AbstractMultiEmpresaModel<Integer> implement
 		this.contaContabil = contaContabil;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return pessoa.getNome();
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

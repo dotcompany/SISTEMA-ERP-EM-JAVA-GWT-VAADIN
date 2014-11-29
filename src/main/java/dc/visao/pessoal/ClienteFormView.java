@@ -14,9 +14,9 @@ import com.vaadin.ui.TextField;
 import dc.controller.pessoal.ClienteFormController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.AtividadeForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
@@ -63,8 +63,8 @@ public class ClienteFormView extends CustomComponent {
 	private HorizontalLayout horizontalLayout_1;
 
 	private ManyToOneCombo<PessoaEntity> cmbPessoa;
-	private ManyToOneCombo<SituacaoForCli> cmbSituacao;
-	private ManyToOneCombo<AtividadeForCli> cmbAtividade;
+	private ManyToOneCombo<SituacaoForCliEntity> cmbSituacao;
+	private ManyToOneCombo<AtividadeForCliEntity> cmbAtividade;
 	private ManyToOneCombo<ContabilConta> cmbContaContabil;
 	private ManyToOneCombo<OperacaoFiscal> cmbOperacaoFiscal;
 
@@ -339,8 +339,8 @@ public class ClienteFormView extends CustomComponent {
 
 		cliente.setPessoa((PessoaEntity) cmbPessoa.getValue());
 		cliente.setContabilConta((ContabilConta) cmbContaContabil.getValue());
-		cliente.setSituacao((SituacaoForCli) cmbSituacao.getValue());
-		cliente.setAtividadeForCli((AtividadeForCli) cmbAtividade.getValue());
+		cliente.setSituacao((SituacaoForCliEntity) cmbSituacao.getValue());
+		cliente.setAtividadeForCli((AtividadeForCliEntity) cmbAtividade.getValue());
 		cliente.setOperacaoFiscal((OperacaoFiscal) cmbOperacaoFiscal.getValue());
 		cliente.setDesde(dtDesde.getValue());
 		cliente.setContaTomador(txtContaTomador.getValue());
@@ -572,19 +572,19 @@ public class ClienteFormView extends CustomComponent {
 		this.cmbPessoa = cmbPessoa;
 	}
 
-	public ManyToOneCombo<SituacaoForCli> getCmbSituacao() {
+	public ManyToOneCombo<SituacaoForCliEntity> getCmbSituacao() {
 		return cmbSituacao;
 	}
 
-	public void setCmbSituacao(ManyToOneCombo<SituacaoForCli> cmbSituacao) {
+	public void setCmbSituacao(ManyToOneCombo<SituacaoForCliEntity> cmbSituacao) {
 		this.cmbSituacao = cmbSituacao;
 	}
 
-	public ManyToOneCombo<AtividadeForCli> getCmbAtividade() {
+	public ManyToOneCombo<AtividadeForCliEntity> getCmbAtividade() {
 		return cmbAtividade;
 	}
 
-	public void setCmbAtividade(ManyToOneCombo<AtividadeForCli> cmbAtividade) {
+	public void setCmbAtividade(ManyToOneCombo<AtividadeForCliEntity> cmbAtividade) {
 		this.cmbAtividade = cmbAtividade;
 	}
 

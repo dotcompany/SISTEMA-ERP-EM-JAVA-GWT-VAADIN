@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -75,7 +75,7 @@ public class PlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@ManyToOne
 	@JoinColumn(name = "id_operadora_plano_saude", nullable = false)
@@ -124,11 +124,11 @@ public class PlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer>
 		this.beneficiario = beneficiario;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 import dc.servicos.dao.pessoal.SituacaoForCliDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.SituacaoForCliFormView;
 
 @Controller
 @Scope("prototype")
-public class SituacaoForCliFormController extends CRUDFormController<SituacaoForCli> {
+public class SituacaoForCliFormController extends CRUDFormController<SituacaoForCliEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
 
-	private SituacaoForCli currentBean;
+	private SituacaoForCliEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -50,7 +50,7 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SituacaoForCli();
+		currentBean = new SituacaoForCliEntity();
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class SituacaoForCliFormController extends CRUDFormController<SituacaoFor
 	}
 
 	@Override
-	public SituacaoForCli getModelBean() {
+	public SituacaoForCliEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

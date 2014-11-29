@@ -23,7 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -131,7 +131,7 @@ public class RescisaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	/**
 	 * REFERENCIA - LIST
@@ -274,11 +274,11 @@ public class RescisaoEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase());
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

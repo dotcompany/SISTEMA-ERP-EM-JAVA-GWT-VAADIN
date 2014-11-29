@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.ausencia.FeriasPeriodoAquisitivoFormView;
@@ -80,7 +80,7 @@ public class FeriasPeriodoAquisitivoFormController extends CRUDFormController<Fe
 			Integer diasRestantes = Integer.parseInt(this.subView.getTfDiasRestantes().getValue());
 			Date dataFim = this.subView.getPdfDataFim().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setSituacao(situacao);
@@ -310,8 +310,8 @@ public class FeriasPeriodoAquisitivoFormController extends CRUDFormController<Fe
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

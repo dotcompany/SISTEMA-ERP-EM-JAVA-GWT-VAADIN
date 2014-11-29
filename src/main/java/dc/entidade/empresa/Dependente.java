@@ -20,7 +20,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.TipoRelacionamento;
+import dc.entidade.pessoal.TipoRelacionamentoEntity;
 
 
 @Entity
@@ -36,7 +36,7 @@ public class Dependente extends AbstractModel<Integer> {
 	
 	@ManyToOne
 	@JoinColumn(name="id_tipo_relacionamento")
-	TipoRelacionamento tipoRelacionamento;
+	TipoRelacionamentoEntity tipoRelacionamento;
 	
 	@Caption("nome")
 	String nome;
@@ -67,11 +67,11 @@ public class Dependente extends AbstractModel<Integer> {
 		this.id = id;
 	}
 
-	public TipoRelacionamento getTipoRelacionamento() {
+	public TipoRelacionamentoEntity getTipoRelacionamento() {
 		return tipoRelacionamento;
 	}
 
-	public void setTipoRelacionamento(TipoRelacionamento tipoRelacionamento) {
+	public void setTipoRelacionamento(TipoRelacionamentoEntity tipoRelacionamento) {
 		this.tipoRelacionamento = tipoRelacionamento;
 	}
 

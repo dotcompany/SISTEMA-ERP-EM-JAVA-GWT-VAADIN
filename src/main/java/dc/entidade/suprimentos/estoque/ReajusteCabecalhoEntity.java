@@ -33,7 +33,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "estoque_reajuste_cabecalho")
@@ -76,7 +76,7 @@ public class ReajusteCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Colaborador")
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@OneToMany(mappedBy = "reajuste", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
@@ -108,11 +108,11 @@ public class ReajusteCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.dataReajuste = dataReajuste;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

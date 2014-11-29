@@ -21,7 +21,7 @@ import dc.controller.empresa.SocioFormController;
 import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.Socio;
-import dc.entidade.pessoal.TipoRelacionamento;
+import dc.entidade.pessoal.TipoRelacionamentoEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -407,7 +407,7 @@ public class SocioFormView extends CustomComponent {
 						if ("tipoRelacionamento".equals(propertyId)) {
 							ComboBox combo = ComponentUtil.buildComboBox("Tipo Relacionamento");
 
-							for(TipoRelacionamento t : controller.carregarTipoRelacionamento()){
+							for(TipoRelacionamentoEntity t : controller.carregarTipoRelacionamento()){
 								combo.addItem(t);
 							}
 							return combo;

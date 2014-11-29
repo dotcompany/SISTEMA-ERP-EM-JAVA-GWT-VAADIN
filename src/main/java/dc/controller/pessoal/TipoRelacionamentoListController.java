@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.TipoRelacionamento;
+import dc.entidade.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoRelacionamentoListController extends CRUDListController<TipoRelacionamento> {
+public class TipoRelacionamentoListController extends CRUDListController<TipoRelacionamentoEntity> {
 
 	@Autowired
 	TipoRelacionamentoDAO dao;
@@ -22,7 +22,7 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	TipoRelacionamentoFormController tipoRelacionamentoFormController;
 
 	@Override
-	protected CRUDFormController<TipoRelacionamento> getFormController() {
+	protected CRUDFormController<TipoRelacionamentoEntity> getFormController() {
 		return tipoRelacionamentoFormController;
 	}
 
@@ -37,12 +37,12 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	}
 
 	@Override
-	public Class<? super TipoRelacionamento> getEntityClass() {
-		return TipoRelacionamento.class;
+	public Class<? super TipoRelacionamentoEntity> getEntityClass() {
+		return TipoRelacionamentoEntity.class;
 	}
 
 	@Override
-	protected List<TipoRelacionamento> pesquisa(String valor) {
+	protected List<TipoRelacionamentoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class TipoRelacionamentoListController extends CRUDListController<TipoRel
 	}
 
 	@Override
-	protected List<TipoRelacionamento> pesquisaDefault() {
-		return (List<TipoRelacionamento>) dao.getAll(getEntityClass());
+	protected List<TipoRelacionamentoEntity> pesquisaDefault() {
+		return (List<TipoRelacionamentoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

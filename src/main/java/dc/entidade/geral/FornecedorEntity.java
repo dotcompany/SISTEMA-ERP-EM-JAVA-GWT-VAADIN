@@ -34,8 +34,8 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.patrimonio.BemEntity;
-import dc.entidade.pessoal.AtividadeForCli;
-import dc.entidade.pessoal.SituacaoForCli;
+import dc.entidade.pessoal.AtividadeForCliEntity;
+import dc.entidade.pessoal.SituacaoForCliEntity;
 
 @Entity
 @Table(name = "fornecedor")
@@ -128,11 +128,11 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private SituacaoForCli situacaoForCli;
+	private SituacaoForCliEntity situacaoForCli;
 
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private AtividadeForCli atividadeForCli;
+	private AtividadeForCliEntity atividadeForCli;
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -256,7 +256,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * @return the situacaoForCli
 	 */
-	public SituacaoForCli getSituacaoForCli() {
+	public SituacaoForCliEntity getSituacaoForCli() {
 		return situacaoForCli;
 	}
 
@@ -264,7 +264,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * @param situacaoForCli
 	 *            the situacaoForCli to set
 	 */
-	public void setSituacaoForCli(SituacaoForCli situacaoForCli) {
+	public void setSituacaoForCli(SituacaoForCliEntity situacaoForCli) {
 		this.situacaoForCli = situacaoForCli;
 	}
 
@@ -286,7 +286,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * @return the atividadeForCli
 	 */
-	public AtividadeForCli getAtividadeForCli() {
+	public AtividadeForCliEntity getAtividadeForCli() {
 		return atividadeForCli;
 	}
 
@@ -294,7 +294,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * @param atividadeForCli
 	 *            the atividadeForCli to set
 	 */
-	public void setAtividadeForCli(AtividadeForCli atividadeForCli) {
+	public void setAtividadeForCli(AtividadeForCliEntity atividadeForCli) {
 		this.atividadeForCli = atividadeForCli;
 	}
 

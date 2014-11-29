@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.TransporteItinerarioEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.empresa.TransporteItinerarioDAO;
 import dc.servicos.dao.folhapagamento.movimento.ValeTransporteDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
@@ -70,7 +70,7 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 		try {
 			Integer quantidade = Integer.parseInt(this.subView.getTfQuantidade().getValue());
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 			TransporteItinerarioEntity transporteItinerario = (TransporteItinerarioEntity) this.subView.getCbTransporteItinerario().getValue();
 
 			this.pEntity.setQuantidade(quantidade);
@@ -199,8 +199,8 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

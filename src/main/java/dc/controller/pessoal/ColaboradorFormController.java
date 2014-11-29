@@ -26,10 +26,10 @@ import dc.entidade.financeiro.Sindicato;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.Cargo;
-import dc.entidade.pessoal.Colaborador;
-import dc.entidade.pessoal.SituacaoColaborador;
-import dc.entidade.pessoal.TipoColaborador;
+import dc.entidade.pessoal.CargoEntity;
+import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.pessoal.SituacaoColaboradorEntity;
+import dc.entidade.pessoal.TipoColaboradorEntity;
 import dc.entidade.type.pessoal.DescontoPlanoSaudeType;
 import dc.entidade.type.pessoal.FormaPagamentoType;
 import dc.entidade.type.pessoal.OptanteType;
@@ -53,7 +53,7 @@ import dc.visao.pessoal.ColaboradorFormView;
 
 @Controller
 @Scope("prototype")
-public class ColaboradorFormController extends CRUDFormController<Colaborador> {
+public class ColaboradorFormController extends CRUDFormController<ColaboradorEntity> {
 
 	/**
 	 * 
@@ -102,7 +102,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	@Autowired
 	ContaCaixaDAO contaCaixaDAO;
 
-	private Colaborador currentBean;
+	private ColaboradorEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -123,7 +123,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Colaborador();
+		currentBean = new ColaboradorEntity();
 	}
 
 	@Override
@@ -153,11 +153,11 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 
 		this.subView.getCmbNivelFormacao().setModel(modelNivelFormacao);
 
-		DefaultManyToOneComboModel<TipoColaborador> modelTipo = new DefaultManyToOneComboModel<TipoColaborador>(TipoColaboradorListController.class,
+		DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipo = new DefaultManyToOneComboModel<TipoColaboradorEntity>(TipoColaboradorListController.class,
 				tipoColaboradorDAO, super.getMainController());
 		subView.getCmbTipoColaborador().setModel(modelTipo);
 
-		DefaultManyToOneComboModel<Cargo> modelCargo = new DefaultManyToOneComboModel<Cargo>(CargoListController.class, cargoDAO,
+		DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(CargoListController.class, cargoDAO,
 				super.getMainController()) {
 
 			@Override
@@ -167,7 +167,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 		};
 		this.subView.getCmbCargo().setModel(modelCargo);
 
-		DefaultManyToOneComboModel<SituacaoColaborador> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaborador>(
+		DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
 				SituacaoColaboradorListController.class, situacaoColaboradorDAO, super.getMainController());
 		subView.getCmbSituacaoColaborador().setModel(modelSituacaoColaborador);
 
@@ -337,11 +337,11 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	@Override
 	protected void actionSalvar() {
 		currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa().getValue());
-		currentBean.setIdTipoColaborador((TipoColaborador) subView.getCmbTipoColaborador().getValue());
-		currentBean.setIdSituacaoColaborador((SituacaoColaborador) subView.getCmbSituacaoColaborador().getValue());
+		currentBean.setIdTipoColaborador((TipoColaboradorEntity) subView.getCmbTipoColaborador().getValue());
+		currentBean.setIdSituacaoColaborador((SituacaoColaboradorEntity) subView.getCmbSituacaoColaborador().getValue());
 		currentBean.setIdSindicato((Sindicato) subView.getCmbSindicato().getValue());
 		currentBean.setIdNivelFormacao((NivelFormacao) subView.getCmbNivelFormacao().getValue());
-		currentBean.setIdCargo((Cargo) subView.getCmbCargo().getValue());
+		currentBean.setIdCargo((CargoEntity) subView.getCmbCargo().getValue());
 		currentBean.setIdContaContabil((ContabilConta) subView.getCmbContaContabil().getValue());
 		currentBean.setDataCadastro(subView.getDtCadastro().getValue());
 		currentBean.setDataAdmissao(subView.getDtAdmissao().getValue());
@@ -502,7 +502,7 @@ public class ColaboradorFormController extends CRUDFormController<Colaborador> {
 	}
 
 	@Override
-	public Colaborador getModelBean() {
+	public ColaboradorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

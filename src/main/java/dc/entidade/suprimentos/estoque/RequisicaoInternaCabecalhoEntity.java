@@ -30,7 +30,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "requisicao_interna_cabecalho")
@@ -62,7 +62,7 @@ public class RequisicaoInternaCabecalhoEntity extends
 	@Caption("Colaborador")
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
@@ -104,11 +104,11 @@ public class RequisicaoInternaCabecalhoEntity extends
 		return requisicaoDetalhe;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

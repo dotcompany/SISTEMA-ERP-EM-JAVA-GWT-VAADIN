@@ -34,7 +34,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -324,7 +324,7 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	/**
 	 * REFERENCIA - LIST
@@ -642,11 +642,11 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.fornecedor = fornecedor;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

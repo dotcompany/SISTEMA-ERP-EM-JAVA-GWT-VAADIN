@@ -35,7 +35,7 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.pessoal.Contador;
+import dc.entidade.pessoal.ContadorEntity;
 import dc.framework.DcConstants;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -1228,9 +1228,9 @@ public class EmpresaFormView extends CustomComponent {
 	 * this.cmbMatriz.addItem(matriz); } }
 	 */
 
-	public void carregaComboContador(List<Contador> contadores) {
+	public void carregaComboContador(List<ContadorEntity> contadores) {
 		this.cmbContador.removeAllItems();
-		for (Contador contador : contadores) {
+		for (ContadorEntity contador : contadores) {
 			this.cmbContador.addItem(contador);
 		}
 	}

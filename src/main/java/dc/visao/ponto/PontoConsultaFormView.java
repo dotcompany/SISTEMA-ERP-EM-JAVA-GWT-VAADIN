@@ -21,7 +21,7 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoFechamentoJornada;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.visao.framework.component.SubFormComponent;
@@ -289,23 +289,23 @@ public class PontoConsultaFormView extends CustomComponent {
 							textField.setSizeFull();
 							textField.setEnabled(false);
 
-							textField.setConverter(new Converter<String, Colaborador>() {
+							textField.setConverter(new Converter<String, ColaboradorEntity>() {
 
 								@Override
-								public Colaborador convertToModel(String value, Class<? extends Colaborador> targetType, Locale locale)
+								public ColaboradorEntity convertToModel(String value, Class<? extends ColaboradorEntity> targetType, Locale locale)
 										throws com.vaadin.data.util.converter.Converter.ConversionException {
 									return null;
 								}
 
 								@Override
-								public String convertToPresentation(Colaborador value, Class<? extends String> targetType, Locale locale)
+								public String convertToPresentation(ColaboradorEntity value, Class<? extends String> targetType, Locale locale)
 										throws com.vaadin.data.util.converter.Converter.ConversionException {
 									return value.getPessoa().getNome();
 								}
 
 								@Override
-								public Class<Colaborador> getModelType() {
-									return Colaborador.class;
+								public Class<ColaboradorEntity> getModelType() {
+									return ColaboradorEntity.class;
 								}
 
 								@Override

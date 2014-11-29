@@ -19,7 +19,7 @@ import dc.entidade.ged.DocumentoArquivo;
 import dc.entidade.ged.TipoDocumento;
 import dc.entidade.ged.VersaoDocumento;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.ged.DocumentoDAO;
 import dc.servicos.dao.ged.TipoDocumentoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
@@ -283,7 +283,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		VersaoDocumento versao = null;
 		String acao = null;
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Colaborador colaborador = usuario.getColaborador();
+		ColaboradorEntity colaborador = usuario.getColaborador();
 
 		Documento original = documentoDAO.find(currentBean.getId());
 
@@ -340,7 +340,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	protected void remover(List<Serializable> ids) {
 
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Colaborador colaborador = usuario.getColaborador();
+		ColaboradorEntity colaborador = usuario.getColaborador();
 		for (Serializable id : ids) {
 
 			Documento documento = documentoDAO.find(id);

@@ -29,7 +29,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "contrato_solicitacao_servico")
@@ -94,7 +94,7 @@ public class SolicitacaoServicoEntity extends
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Colaborador")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -171,11 +171,11 @@ public class SolicitacaoServicoEntity extends
 		this.contratoTipoServico = contratoTipoServico;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

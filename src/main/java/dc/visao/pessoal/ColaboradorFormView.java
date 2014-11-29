@@ -21,9 +21,9 @@ import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.Sindicato;
 import dc.entidade.geral.NivelFormacao;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.Cargo;
-import dc.entidade.pessoal.SituacaoColaborador;
-import dc.entidade.pessoal.TipoColaborador;
+import dc.entidade.pessoal.CargoEntity;
+import dc.entidade.pessoal.SituacaoColaboradorEntity;
+import dc.entidade.pessoal.TipoColaboradorEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -137,11 +137,11 @@ public class ColaboradorFormView extends CustomComponent {
 	private TabSheet subForms;
 
 	private ManyToOneCombo<PessoaEntity> cmbPessoa;
-	private ManyToOneCombo<TipoColaborador> cmbTipoColaborador;
-	private ManyToOneCombo<SituacaoColaborador> cmbSituacaoColaborador;
+	private ManyToOneCombo<TipoColaboradorEntity> cmbTipoColaborador;
+	private ManyToOneCombo<SituacaoColaboradorEntity> cmbSituacaoColaborador;
 	private ManyToOneCombo<Sindicato> cmbSindicato;
 	private ManyToOneCombo<NivelFormacao> cmbNivelFormacao;
-	private ManyToOneCombo<Cargo> cmbCargo;
+	private ManyToOneCombo<CargoEntity> cmbCargo;
 	private ManyToOneCombo<ContabilConta> cmbContaContabil;
 	private ManyToOneCombo<Setor> cmbSetor;
 	
@@ -1235,21 +1235,21 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbPessoa = cmbPessoa;
 	}
 
-	public ManyToOneCombo<TipoColaborador> getCmbTipoColaborador() {
+	public ManyToOneCombo<TipoColaboradorEntity> getCmbTipoColaborador() {
 		return cmbTipoColaborador;
 	}
 
 	public void setCmbTipoColaborador(
-			ManyToOneCombo<TipoColaborador> cmbTipoColaborador) {
+			ManyToOneCombo<TipoColaboradorEntity> cmbTipoColaborador) {
 		this.cmbTipoColaborador = cmbTipoColaborador;
 	}
 
-	public ManyToOneCombo<SituacaoColaborador> getCmbSituacaoColaborador() {
+	public ManyToOneCombo<SituacaoColaboradorEntity> getCmbSituacaoColaborador() {
 		return cmbSituacaoColaborador;
 	}
 
 	public void setCmbSituacaoColaborador(
-			ManyToOneCombo<SituacaoColaborador> cmbSituacaoColaborador) {
+			ManyToOneCombo<SituacaoColaboradorEntity> cmbSituacaoColaborador) {
 		this.cmbSituacaoColaborador = cmbSituacaoColaborador;
 	}
 
@@ -1270,11 +1270,11 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbNivelFormacao = cmbNivelFormacao;
 	}
 
-	public ManyToOneCombo<Cargo> getCmbCargo() {
+	public ManyToOneCombo<CargoEntity> getCmbCargo() {
 		return cmbCargo;
 	}
 
-	public void setCmbCargo(ManyToOneCombo<Cargo> cmbCargo) {
+	public void setCmbCargo(ManyToOneCombo<CargoEntity> cmbCargo) {
 		this.cmbCargo = cmbCargo;
 	}
 

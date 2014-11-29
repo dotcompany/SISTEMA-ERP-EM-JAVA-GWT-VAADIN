@@ -34,7 +34,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_orcamento_cabecalho")
@@ -160,7 +160,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_transportadora")
 	@Caption("Transportadora")
-	private Transportadora transportadora;
+	private TransportadoraEntity transportadora;
 
 	/**
 	 * REFERENCIA - LIST
@@ -314,11 +314,11 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 		this.observacao = observacao;
 	}
 
-	public Transportadora getTransportadora() {
+	public TransportadoraEntity getTransportadora() {
 		return transportadora;
 	}
 
-	public void setTransportadora(Transportadora transportadora) {
+	public void setTransportadora(TransportadoraEntity transportadora) {
 		this.transportadora = transportadora;
 	}
 

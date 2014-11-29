@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.movimento.HistoricoSalarialDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.HistoricoSalarialFormView;
@@ -71,7 +71,7 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 			String validoAPartir = this.subView.getTfValidoAPartir().getValue();
 			String motivo = this.subView.getTfMotivo().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setCompetencia(competencia);
 			this.pEntity.setSalarioAtual(salarioAtual);
@@ -232,7 +232,7 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 
 		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -257,8 +257,8 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

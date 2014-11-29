@@ -134,7 +134,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private SituacaoForCli situacao;
+	private SituacaoForCliEntity situacao;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PESSOA", insertable = true, updatable = true)
@@ -146,7 +146,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private AtividadeForCli atividadeForCli;
+	private AtividadeForCliEntity atividadeForCli;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_CONTABIL_CONTA", insertable = true, updatable = true)
@@ -222,7 +222,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * @return the situacao
 	 */
-	public SituacaoForCli getSituacao() {
+	public SituacaoForCliEntity getSituacao() {
 		return situacao;
 	}
 
@@ -230,7 +230,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * @param situacao
 	 *            the situacao to set
 	 */
-	public void setSituacao(SituacaoForCli situacao) {
+	public void setSituacao(SituacaoForCliEntity situacao) {
 		this.situacao = situacao;
 	}
 
@@ -321,11 +321,11 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.tipoFrete = tipoFrete;
 	}
 
-	public AtividadeForCli getAtividadeForCli() {
+	public AtividadeForCliEntity getAtividadeForCli() {
 		return atividadeForCli;
 	}
 
-	public void setAtividadeForCli(AtividadeForCli atividadeForCli) {
+	public void setAtividadeForCli(AtividadeForCliEntity atividadeForCli) {
 		this.atividadeForCli = atividadeForCli;
 	}
 

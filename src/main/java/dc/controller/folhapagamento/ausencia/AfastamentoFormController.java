@@ -14,7 +14,7 @@ import com.vaadin.ui.Component;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.ausencia.AfastamentoDAO;
 import dc.servicos.dao.folhapagamento.ausencia.TipoAfastamentoDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
@@ -74,7 +74,7 @@ public class AfastamentoFormController extends CRUDFormController<AfastamentoEnt
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			Date dataFim = this.subView.getPdfDataFim().getValue();
 
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 			TipoAfastamentoEntity tipoAfastamento = (TipoAfastamentoEntity) this.subView.getCbTipoAfastamento().getValue();
 
 			this.pEntity.setDiasAfastado(diasAfastado);
@@ -229,7 +229,7 @@ public class AfastamentoFormController extends CRUDFormController<AfastamentoEnt
 
 		/** REQUIRED */
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -264,8 +264,8 @@ public class AfastamentoFormController extends CRUDFormController<AfastamentoEnt
 
 	/** COMBOS */
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.colaboradorLista();
 

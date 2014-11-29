@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.tabelas.CBOListController;
-import dc.entidade.pessoal.Cargo;
+import dc.entidade.pessoal.CargoEntity;
 import dc.entidade.tabelas.CBO;
 import dc.servicos.dao.pessoal.CargoDAO;
 import dc.servicos.dao.tabelas.CBODAO;
@@ -21,7 +21,7 @@ import dc.visao.pessoal.CargoFormView;
 
 @Controller
 @Scope("prototype")
-public class CargoFormController extends CRUDFormController<Cargo> {
+public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	// @Autowired
 	// private MainController mainController;
 
-	private Cargo currentBean;
+	private CargoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -55,7 +55,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cargo();
+		currentBean = new CargoEntity();
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			this.currentBean = new Cargo();
+			this.currentBean = new CargoEntity();
 
 			this.subView.getTxtSalario().setValue("");
 		}
@@ -143,7 +143,7 @@ public class CargoFormController extends CRUDFormController<Cargo> {
 	}
 
 	@Override
-	public Cargo getModelBean() {
+	public CargoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

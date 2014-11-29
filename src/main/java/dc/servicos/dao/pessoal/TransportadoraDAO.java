@@ -5,38 +5,31 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*/
-
-
-@Repository
-@SuppressWarnings("unchecked")
-public class TransportadoraDAO extends AbstractCrudDAO<Transportadora>{
+@Repository("pessoalTransportadoraDAO")
+public class TransportadoraDAO extends AbstractCrudDAO<TransportadoraEntity> {
 
 	@Override
-	public Class<Transportadora> getEntityClass() {
-		return Transportadora.class;
+	public Class<TransportadoraEntity> getEntityClass() {
+		return TransportadoraEntity.class;
 	}
 
 	@Transactional
-	public List<Transportadora> listaTodos() {
+	public List<TransportadoraEntity> listaTodos() {
 		return getSession().createQuery("from Transportadora").list();
 	}
 
 	@Transactional
-	public List<Transportadora> procuraNomeContendo(String query) {
-		return getSession().createQuery("from Transportadora where nome like :q").setParameter("q", "%" + query + "%").list();
+	public List<TransportadoraEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from Transportadora where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"observacao"};
+		return new String[] { "observacao" };
 	}
 
 }

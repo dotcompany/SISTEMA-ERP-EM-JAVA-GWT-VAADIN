@@ -34,7 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * The persistent class for the compra_requisicao database table.
@@ -78,7 +78,7 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_colaborador")
 	@Caption("Requisitante")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_compra_tipo_requisicao")
@@ -116,11 +116,11 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

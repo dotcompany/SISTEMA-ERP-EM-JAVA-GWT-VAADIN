@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.Transportadora;
+import dc.entidade.pessoal.TransportadoraEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.pessoal.TransportadoraDAO;
@@ -23,7 +23,7 @@ import dc.visao.pessoal.TransportadoraFormView;
 
 @Controller
 @Scope("prototype")
-public class TransportadoraFormController extends CRUDFormController<Transportadora> {
+public class TransportadoraFormController extends CRUDFormController<TransportadoraEntity> {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
-	private Transportadora currentBean;
+	private TransportadoraEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -67,7 +67,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Transportadora();
+		currentBean = new TransportadoraEntity();
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	}
 
 	@Override
-	public Transportadora getModelBean() {
+	public TransportadoraEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

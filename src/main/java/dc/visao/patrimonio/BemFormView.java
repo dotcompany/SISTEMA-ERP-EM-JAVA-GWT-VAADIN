@@ -18,7 +18,7 @@ import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -860,9 +860,9 @@ public class BemFormView extends CustomComponent {
 		this.cbFornecedor.setItemCaptionPropertyId("nome");
 	}
 
-	public void carregarCmbColaborador(List<Colaborador> lista) {
-		BeanItemContainer<Colaborador> bic = new BeanItemContainer<Colaborador>(
-				Colaborador.class, lista);
+	public void carregarCmbColaborador(List<ColaboradorEntity> lista) {
+		BeanItemContainer<ColaboradorEntity> bic = new BeanItemContainer<ColaboradorEntity>(
+				ColaboradorEntity.class, lista);
 		this.cbColaborador.setContainerDataSource(bic);
 		this.cbColaborador.setItemCaptionPropertyId("nome");
 	}

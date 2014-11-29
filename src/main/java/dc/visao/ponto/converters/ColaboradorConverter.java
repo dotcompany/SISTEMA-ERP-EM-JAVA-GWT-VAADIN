@@ -4,9 +4,9 @@ import java.util.Locale;
 
 import com.vaadin.data.util.converter.Converter;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
-public class ColaboradorConverter implements Converter<String, Colaborador> {
+public class ColaboradorConverter implements Converter<String, ColaboradorEntity> {
 
 	/**
 	 * 
@@ -14,23 +14,23 @@ public class ColaboradorConverter implements Converter<String, Colaborador> {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Colaborador convertToModel(String value, Class<? extends Colaborador> targetType, Locale locale)
+	public ColaboradorEntity convertToModel(String value, Class<? extends ColaboradorEntity> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		// TODO Verificar
 		return null;
 	}
 
 	@Override
-	public String convertToPresentation(Colaborador value, Class<? extends String> targetType, Locale locale)
+	public String convertToPresentation(ColaboradorEntity value, Class<? extends String> targetType, Locale locale)
 			throws com.vaadin.data.util.converter.Converter.ConversionException {
 		// TODO Auto-generated method stub
 		return value.getPessoa().getNome();
 	}
 
 	@Override
-	public Class<Colaborador> getModelType() {
+	public Class<ColaboradorEntity> getModelType() {
 		// TODO Auto-generated method stub
-		return Colaborador.class;
+		return ColaboradorEntity.class;
 	}
 
 	@Override

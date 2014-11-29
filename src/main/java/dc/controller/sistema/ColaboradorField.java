@@ -7,13 +7,13 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.FormLayout;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
-public class ColaboradorField extends CustomField<Colaborador>{
+public class ColaboradorField extends CustomField<ColaboradorEntity>{
 
 	private static final long serialVersionUID = 1510031270980694979L;
 
-	private BeanFieldGroup<Colaborador> binder = new BeanFieldGroup<>(Colaborador.class);
+	private BeanFieldGroup<ColaboradorEntity> binder = new BeanFieldGroup<>(ColaboradorEntity.class);
 
 	
 	@Override
@@ -25,8 +25,8 @@ public class ColaboradorField extends CustomField<Colaborador>{
 	}
 
 	@Override
-	public Class<? extends Colaborador> getType() {
-		return Colaborador.class;
+	public Class<? extends ColaboradorEntity> getType() {
+		return ColaboradorEntity.class;
 	}
 	
 	 

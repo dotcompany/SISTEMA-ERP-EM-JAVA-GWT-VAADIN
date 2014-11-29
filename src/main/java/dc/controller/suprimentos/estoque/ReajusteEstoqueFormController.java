@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
@@ -54,9 +54,9 @@ public class ReajusteEstoqueFormController extends
 		return subView;
 	}
 
-	public Colaborador buscaColaborador() {
+	public ColaboradorEntity buscaColaborador() {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Colaborador col = usuario.getColaborador();
+		ColaboradorEntity col = usuario.getColaborador();
 
 		return col;
 	}

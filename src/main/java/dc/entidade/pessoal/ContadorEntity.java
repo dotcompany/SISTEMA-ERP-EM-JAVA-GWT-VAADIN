@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,25 +22,22 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.PessoaEntity;
-
-/**
- * 
- * @author Wesley Jr
- * 
- */
 
 @Entity
 @Table(name = "contador")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Contador extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contador_id_seq")
 	@SequenceGenerator(name = "contador_id_seq", sequenceName = "contador_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -139,26 +134,26 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
-	
+
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 150)
 	private String nome;
-	
+
 	@Field
 	@Caption("Cpf")
 	@Column(name = "CPF", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cpf;
-	
+
 	@Field
 	@Caption("Cnpj")
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cnpj;
-	
+
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE", length = 150)
@@ -166,11 +161,11 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;
 
-	public Contador() {
+	public ContadorEntity() {
 
 	}
 
-	public Contador(Integer id) {
+	public ContadorEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -285,7 +280,7 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -317,6 +312,10 @@ public class Contador extends AbstractMultiEmpresaModel<Integer> implements Seri
 	public void setSite(String site) {
 		this.site = site;
 	}
+
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

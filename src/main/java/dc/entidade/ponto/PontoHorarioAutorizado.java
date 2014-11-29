@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PONTO_HORARIO_AUTORIZADO")
@@ -75,7 +75,7 @@ public class PontoHorarioAutorizado extends AbstractMultiEmpresaModel<Integer> i
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     @Caption(value = "Colaborador")
-    private Colaborador colaborador;
+    private ColaboradorEntity colaborador;
 
     public PontoHorarioAutorizado() {
     }
@@ -200,11 +200,11 @@ public class PontoHorarioAutorizado extends AbstractMultiEmpresaModel<Integer> i
         this.horaFechamentoDia = horaFechamentoDia;
     }
 
-    public Colaborador getColaborador() {
+    public ColaboradorEntity getColaborador() {
         return colaborador;
     }
 
-    public void setColaborador(Colaborador colaborador) {
+    public void setColaborador(ColaboradorEntity colaborador) {
         this.colaborador = colaborador;
     }
 

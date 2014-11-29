@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.Contador;
+import dc.entidade.pessoal.ContadorEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.ContadorDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -23,7 +23,7 @@ import dc.visao.pessoal.ContadorFormView;
 
 @Controller
 @Scope("prototype")
-public class ContadorFormController extends CRUDFormController<Contador> {
+public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	@Autowired
 	private UFDAO ufDAO;
 
-	private Contador currentBean;
+	private ContadorEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -64,7 +64,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Contador();
+		currentBean = new ContadorEntity();
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class ContadorFormController extends CRUDFormController<Contador> {
 	}
 
 	@Override
-	public Contador getModelBean() {
+	public ContadorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

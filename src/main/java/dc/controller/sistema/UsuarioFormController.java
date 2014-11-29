@@ -18,7 +18,7 @@ import dc.entidade.framework.Papel;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -116,7 +116,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	protected void initSubView() {
 		subView = new UsuarioFormView(this);
 
-		ManyToOneComboModel<Colaborador> colaboradorModel = new DefaultManyToOneComboModel<Colaborador>(ColaboradorListController.class,
+		ManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class,
 				colaboradorDAO, this.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -194,7 +194,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		mensagemRemovidoOK();
 	}
 
-	public void alteraFormBaseadoEmColaborador(Colaborador colaborador) {
+	public void alteraFormBaseadoEmColaborador(ColaboradorEntity colaborador) {
 		if (isNovo()) {
 			// dados padrão primeiro cadastro
 			getCurrentBean().setDataCadastro(new Date());

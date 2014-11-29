@@ -8,25 +8,19 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Wesley Jr
- */
-
-@Repository
-@SuppressWarnings("unchecked")
-public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
+@Repository("pessoalColaboradorDAO")
+public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
 
 	@Override
-	public Class<Colaborador> getEntityClass() {
-		return Colaborador.class;
+	public Class<ColaboradorEntity> getEntityClass() {
+		return ColaboradorEntity.class;
 	}
 
 	@Transactional
-	public List<Colaborador> listaTodos() {
+	public List<ColaboradorEntity> listaTodos() {
 		try {
 			String sql = "FROM Colaborador ent WHERE (1 = 1)";
 
@@ -34,24 +28,31 @@ public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<Colaborador>();
+			return new ArrayList<ColaboradorEntity>();
 		}
 	}
 
 	@Transactional
-	public List<Colaborador> procuraNomeContendo(String query) {
-		return getSession().createQuery("from Colaborador where observacao like :q").setParameter("q", "%" + query + "%").list();
+	public List<ColaboradorEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from Colaborador where observacao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa.nome", "codigoTurmaPonto", "dataCadastro", "dataAdmissao", "vencimentoFerias", "dataTransferencia" };
+		return new String[] { "pessoa.nome", "codigoTurmaPonto",
+				"dataCadastro", "dataAdmissao", "vencimentoFerias",
+				"dataTransferencia" };
 	}
 
 	@Transactional
-	public Colaborador getColaboradorByPisNumero(String pisNumero) {
-		Criteria criteria = getSession().createCriteria(Colaborador.class);
+	public ColaboradorEntity getColaboradorByPisNumero(String pisNumero) {
+		Criteria criteria = getSession()
+				.createCriteria(ColaboradorEntity.class);
 		criteria.add(Restrictions.eq("pisNumero", pisNumero));
-		Colaborador colaborador = (Colaborador) criteria.uniqueResult();
+		ColaboradorEntity colaborador = (ColaboradorEntity) criteria
+				.uniqueResult();
+
 		return colaborador;
 	}
 
@@ -66,15 +67,17 @@ public class ColaboradorDAO extends AbstractCrudDAO<Colaborador> {
 	 */
 
 	@Transactional
-	public List<Colaborador> colaboradorLista() {
+	public List<ColaboradorEntity> colaboradorLista() {
 		try {
-			String sql = "SELECT new Colaborador(ent.id, ent.matricula) FROM Colaborador ent" + " WHERE (1 = 1)";
+			String sql = "SELECT new Colaborador(ent.id, ent.matricula) FROM Colaborador ent"
+					+ " WHERE (1 = 1)";
 
-			List<Colaborador> auxLista = getSession().createQuery(sql).list();
+			List<ColaboradorEntity> auxLista = getSession().createQuery(sql)
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<Colaborador>();
+			return new ArrayList<ColaboradorEntity>();
 		}
 	}
 

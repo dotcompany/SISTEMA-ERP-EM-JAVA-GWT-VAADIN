@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
@@ -25,58 +26,76 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
+import dc.entidade.framework.Empresa;
 
 @Entity
-@Table(name = "situacao_for_cli")
+@Table(name = "cargo")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SituacaoForCli extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cargo_id_seq")
+	@SequenceGenerator(name = "cargo_id_seq", sequenceName = "cargo_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME")
+	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Lob
 	@Field
 	@Caption("Descricao")
-	@Lob
-	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "DESCRICAO")
+	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	public SituacaoForCli() {
+	@Column(name = "SALARIO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Double salario;
+
+	// Campos CBO_1994 e CBO_2002 não são relacionamentos. São os próprios
+	// Códigos CBO.
+
+	// @ManyToOne(fetch = FetchType.EAGER)
+	// @JoinColumn(name = "CBO_1994",insertable = true, updatable = true,
+	// referencedColumnName="codigo_1994")
+	// private CBO cbo1994;
+	//
+	// @ManyToOne(fetch = FetchType.EAGER)
+	// @JoinColumn(name = "CBO_2002",insertable = true, updatable = true,
+	// referencedColumnName="codigo")
+	// private CBO cbo2002;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+	@Caption("Empresa")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	private Empresa idEmpresa;
+
+	public CargoEntity() {
 
 	}
 
-	public SituacaoForCli(Integer id) {
+	public CargoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -104,20 +123,25 @@ public class SituacaoForCli extends AbstractMultiEmpresaModel<Integer> implement
 		this.descricao = descricao;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	public Double getSalario() {
+		return salario;
 	}
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof SituacaoForCli == false)
-			return false;
-		if (this == object)
-			return true;
-		final SituacaoForCli other = (SituacaoForCli) object;
-		return EqualsBuilder.reflectionEquals(this, other);
+	public void setSalario(Double salario) {
+		this.salario = salario;
 	}
+
+	public Empresa getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Empresa idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

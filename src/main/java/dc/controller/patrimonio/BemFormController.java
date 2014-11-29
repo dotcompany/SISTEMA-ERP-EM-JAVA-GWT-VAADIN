@@ -18,7 +18,7 @@ import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.patrimonio.BemDAO;
@@ -124,7 +124,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem().getValue();
 			Setor setor = (Setor) this.subView.getCbSetor().getValue();
 			FornecedorEntity fornecedor = (FornecedorEntity) this.subView.getCbFornecedor().getValue();
-			Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 			this.pEntity.setNumeroNb(numeroNb);
 			this.pEntity.setNome(nome);
@@ -779,7 +779,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Colaborador colaborador = (Colaborador) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -844,8 +844,8 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		return auxLista;
 	}
 
-	public List<Colaborador> colaboradorListarTodos() {
-		List<Colaborador> auxLista = new ArrayList<Colaborador>();
+	public List<ColaboradorEntity> colaboradorListarTodos() {
+		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
 		auxLista = this.cDAO.listaTodos();
 

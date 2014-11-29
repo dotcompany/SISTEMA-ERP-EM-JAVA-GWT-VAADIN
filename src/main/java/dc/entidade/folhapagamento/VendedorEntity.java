@@ -17,7 +17,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador")
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	/**
 	 * CONSTRUTOR

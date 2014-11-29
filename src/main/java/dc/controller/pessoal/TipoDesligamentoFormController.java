@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.TipoDesligamento;
+import dc.entidade.pessoal.TipoDesligamentoEntity;
 import dc.servicos.dao.pessoal.TipoDesligamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.TipoDesligamentoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoDesligamentoFormController extends CRUDFormController<TipoDesligamento> {
+public class TipoDesligamentoFormController extends CRUDFormController<TipoDesligamentoEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 	@Autowired
 	private TipoDesligamentoDAO tipoDesligamentoDAO;
 
-	private TipoDesligamento currentBean;
+	private TipoDesligamentoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -45,7 +45,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoDesligamento();
+		currentBean = new TipoDesligamentoEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class TipoDesligamentoFormController extends CRUDFormController<TipoDesli
 	}
 
 	@Override
-	public TipoDesligamento getModelBean() {
+	public TipoDesligamentoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

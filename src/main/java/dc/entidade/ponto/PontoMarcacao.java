@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PONTO_MARCACAO")
@@ -47,7 +47,7 @@ public class PontoMarcacao extends AbstractMultiEmpresaModel<Integer> {
 	private PontoRelogio pontoRelogio;
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Colaborador colaborador;
+	private ColaboradorEntity colaborador;
 
 	public PontoMarcacao() {
 	}
@@ -124,11 +124,11 @@ public class PontoMarcacao extends AbstractMultiEmpresaModel<Integer> {
 		this.pontoRelogio = pontoRelogio;
 	}
 
-	public Colaborador getColaborador() {
+	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Colaborador colaborador) {
+	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
 

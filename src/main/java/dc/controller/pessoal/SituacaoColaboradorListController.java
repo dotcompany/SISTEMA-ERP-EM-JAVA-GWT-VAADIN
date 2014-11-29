@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.SituacaoColaborador;
+import dc.entidade.pessoal.SituacaoColaboradorEntity;
 import dc.servicos.dao.pessoal.SituacaoColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SituacaoColaboradorListController extends CRUDListController<SituacaoColaborador> {
+public class SituacaoColaboradorListController extends CRUDListController<SituacaoColaboradorEntity> {
 
 	@Autowired
 	SituacaoColaboradorDAO dao;
@@ -22,7 +22,7 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	SituacaoColaboradorFormController situacaoColaboradorFormController;
 
 	@Override
-	protected CRUDFormController<SituacaoColaborador> getFormController() {
+	protected CRUDFormController<SituacaoColaboradorEntity> getFormController() {
 		return situacaoColaboradorFormController;
 	}
 
@@ -37,12 +37,12 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	}
 
 	@Override
-	public Class<? super SituacaoColaborador> getEntityClass() {
-		return SituacaoColaborador.class;
+	public Class<? super SituacaoColaboradorEntity> getEntityClass() {
+		return SituacaoColaboradorEntity.class;
 	}
 
 	@Override
-	protected List<SituacaoColaborador> pesquisa(String valor) {
+	protected List<SituacaoColaboradorEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class SituacaoColaboradorListController extends CRUDListController<Situac
 	}
 
 	@Override
-	protected List<SituacaoColaborador> pesquisaDefault() {
-		return (List<SituacaoColaborador>) dao.getAll(getEntityClass());
+	protected List<SituacaoColaboradorEntity> pesquisaDefault() {
+		return (List<SituacaoColaboradorEntity>) dao.getAll(getEntityClass());
 	}
 
 }

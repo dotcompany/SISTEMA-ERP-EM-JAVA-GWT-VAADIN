@@ -19,7 +19,7 @@ import com.vaadin.server.WrappedSession;
 
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")
@@ -59,7 +59,7 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 			} else {
 				Usuario u = new Usuario();
 				u.setAdministrador(true);
-				Colaborador c = new Colaborador();
+				ColaboradorEntity c = new ColaboradorEntity();
 				PessoaEntity p = new PessoaEntity();
 				p.setNome("Nome pessoa");
 				c.setPessoa(p);

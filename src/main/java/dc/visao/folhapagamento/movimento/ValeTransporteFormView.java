@@ -13,7 +13,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.movimento.ValeTransporteFormController;
 import dc.entidade.empresa.TransporteItinerarioEntity;
-import dc.entidade.pessoal.Colaborador;
+import dc.entidade.pessoal.ColaboradorEntity;
 
 public class ValeTransporteFormView extends CustomComponent {
 
@@ -177,9 +177,9 @@ public class ValeTransporteFormView extends CustomComponent {
 	 * COMBOS
 	 */
 
-	public void carregarCmbColaborador(List<Colaborador> lista) {
-		BeanItemContainer<Colaborador> bic = new BeanItemContainer<Colaborador>(
-				Colaborador.class, lista);
+	public void carregarCmbColaborador(List<ColaboradorEntity> lista) {
+		BeanItemContainer<ColaboradorEntity> bic = new BeanItemContainer<ColaboradorEntity>(
+				ColaboradorEntity.class, lista);
 		this.cbColaborador.setContainerDataSource(bic);
 		this.cbColaborador.setItemCaptionPropertyId("matricula");
 	}
