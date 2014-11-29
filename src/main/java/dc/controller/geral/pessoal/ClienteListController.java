@@ -57,7 +57,7 @@ public class ClienteListController extends CRUDListController<ClienteEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Cliente";
+		return super.getTitulo(this);
 	}
 
 	@Override

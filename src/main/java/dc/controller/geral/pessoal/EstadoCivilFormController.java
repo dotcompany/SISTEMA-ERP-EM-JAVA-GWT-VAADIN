@@ -91,7 +91,7 @@ public class EstadoCivilFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Estado Civil";
+		return "Estado civil";
 	}
 
 	@Override

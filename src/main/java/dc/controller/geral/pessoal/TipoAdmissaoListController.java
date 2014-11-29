@@ -56,7 +56,7 @@ public class TipoAdmissaoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Admissão";
+		return super.getTitulo(this);
 	}
 
 	@Override

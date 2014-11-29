@@ -55,7 +55,7 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Cargo";
+		return super.getTitulo(this);
 	}
 
 	@Override

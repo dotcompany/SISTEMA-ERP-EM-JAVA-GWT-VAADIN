@@ -56,7 +56,7 @@ public class TransportadoraListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Transportadora";
+		return super.getTitulo(this);
 	}
 
 	@Override

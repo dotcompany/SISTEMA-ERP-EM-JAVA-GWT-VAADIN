@@ -40,13 +40,21 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 	}
 
 	@Transactional
-	public List<FmMenu> getAllMenusByModuleIdGrouped(Integer moduleID, Integer userID) {
-		String query = "select distinct menu.* from fm_menu menu " + " inner join fm_modulo modulo on modulo.id = menu.fmmodulo_id "
-				+ " inner join papel_menu pm on menu.id = pm.id_menu " + " inner join papel p on pm.id_papel = p.id "
-				+ " inner join usuario u on u.id_papel = p.id and u.id = :user_id " + " where ( modulo.id = :module_id and pm.habilitado = 'S' ) "
-				+ " group by " + "	menu.parent_id, menu.id, menu.caption, menu.controller " + " order by " + "	menu.parent_id, menu.caption ";
+	public List<FmMenu> getAllMenusByModuleIdGrouped(Integer moduleID,
+			Integer userID) {
+		String query = "select distinct menu.* from fm_menu menu "
+				+ " inner join fm_modulo modulo on modulo.id = menu.fmmodulo_id "
+				+ " inner join papel_menu pm on menu.id = pm.id_menu "
+				+ " inner join papel p on pm.id_papel = p.id "
+				+ " inner join usuario u on u.id_papel = p.id and u.id = :user_id "
+				+ " where ( modulo.id = :module_id and pm.habilitado = 'S' ) "
+				+ " group by "
+				+ "	menu.parent_id, menu.id, menu.caption, menu.controller "
+				+ " order by " + "	menu.parent_id, menu.caption ";
 
-		return getSession().createSQLQuery(query).addEntity(FmMenu.class).setInteger("user_id", userID).setInteger("module_id", moduleID).list();
+		return getSession().createSQLQuery(query).addEntity(FmMenu.class)
+				.setInteger("user_id", userID)
+				.setInteger("module_id", moduleID).list();
 	}
 
 	@Transactional
@@ -57,23 +65,54 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 				.addOrder(Order.asc("parent.id").nulls(NullPrecedence.FIRST))
 				.addOrder(Order.asc("caption"))
 				.setProjection(
-						Projections.projectionList().add(Property.forName("controllerClass").as("controllerClass"))
-								.add(Property.forName("caption").as("caption")).add(Property.forName("id").as("id"))
-								.add(Property.forName("urlId").as("urlId")).add(Property.forName("parent.id").group().as("parentId"))
-								.add(Property.forName("caption").group().as("caption")).add(Property.forName("id").group().as("id"))
-								.add(Property.forName("controllerClass").group().as("controllerClass")))
-				.setResultTransformer(Transformers.aliasToBean(FmMenu.class)).list();
+						Projections
+								.projectionList()
+								.add(Property.forName("controllerClass").as(
+										"controllerClass"))
+								.add(Property.forName("caption").as("caption"))
+								.add(Property.forName("id").as("id"))
+								.add(Property.forName("urlId").as("urlId"))
+								.add(Property.forName("parent.id").group()
+										.as("parentId"))
+								.add(Property.forName("caption").group()
+										.as("caption"))
+								.add(Property.forName("id").group().as("id"))
+								.add(Property.forName("controllerClass")
+										.group().as("controllerClass")))
+				.setResultTransformer(Transformers.aliasToBean(FmMenu.class))
+				.list();
 	}
 
 	@Transactional
 	public List<FmMenu> getAllMenusByModuleId(Integer moduleID) {
-		return getSession().createCriteria(FmMenu.class).add(Restrictions.eq("fmModulo.id", moduleID)).list();
+		return getSession().createCriteria(FmMenu.class)
+				.add(Restrictions.eq("fmModulo.id", moduleID)).list();
+	}
+
+	@Transactional
+	public FmMenu getEntity(String controllerClass) {
+		try {
+			String sql = "SELECT ent FROM FmMenu ent WHERE (1 = 1)"
+					+ " AND ent.controllerClass = '" + controllerClass + "'";
+
+			Query query = super.getSession().createQuery(sql);
+			// query.setParameter("controllerClass", controllerClass);
+
+			FmMenu menu = (FmMenu) query.uniqueResult();
+
+			return menu;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional
 	public List<FmMenu> getMenuLista(List lista, String nomeClasse) {
 		try {
-			String sql = "SELECT ent.parent.menusFilho FROM FmMenu ent" + " WHERE (1 = 1) AND (ent.parent.fmModulo IN (:lista))";
+			String sql = "SELECT ent.parent.menusFilho FROM FmMenu ent"
+					+ " WHERE (1 = 1) AND (ent.parent.fmModulo IN (:lista))";
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameterList("lista", lista);
@@ -100,4 +139,5 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 			return new ArrayList<FmMenu>();
 		}
 	}
+
 }

@@ -56,7 +56,7 @@ public class SituacaoForCliListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Situacao Cliente/Fornecedor";
+		return super.getTitulo(this);
 	}
 
 	@Override

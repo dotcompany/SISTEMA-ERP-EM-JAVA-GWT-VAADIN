@@ -861,4 +861,19 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		this.genericDAO = genericDAO;
 	}
 
+	public String getTitulo(CRUDListController clazz) {
+		try {
+			System.out.println("::::: " + clazz.getClass().getName());
+
+			FmMenu menu = fmMenuDAO.getEntity(clazz.getClass().getName()
+					.toString());
+
+			return menu.getCaption();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }

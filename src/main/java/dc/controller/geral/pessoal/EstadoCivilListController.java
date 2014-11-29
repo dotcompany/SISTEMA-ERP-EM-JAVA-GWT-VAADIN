@@ -56,7 +56,7 @@ public class EstadoCivilListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Estado Civil";
+		return super.getTitulo(this);
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class TipoDesligamentoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Desligamento";
+		return super.getTitulo(this);
 	}
 
 	@Override

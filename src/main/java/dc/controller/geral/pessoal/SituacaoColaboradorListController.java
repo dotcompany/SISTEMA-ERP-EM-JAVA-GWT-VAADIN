@@ -56,7 +56,7 @@ public class SituacaoColaboradorListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Situação Colaborador";
+		return super.getTitulo(this);
 	}
 
 	@Override

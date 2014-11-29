@@ -34,7 +34,7 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Pessoa";
+		return super.getTitulo(this);
 	}
 
 	@Override

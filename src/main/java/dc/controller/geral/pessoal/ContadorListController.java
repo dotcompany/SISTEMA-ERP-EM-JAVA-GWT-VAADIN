@@ -55,7 +55,7 @@ public class ContadorListController extends CRUDListController<ContadorEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Contador";
+		return super.getTitulo(this);
 	}
 
 	@Override

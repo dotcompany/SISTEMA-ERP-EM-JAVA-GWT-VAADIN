@@ -56,7 +56,7 @@ public class TipoRelacionamentoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Relacionamento";
+		return super.getTitulo(this);
 	}
 
 	@Override

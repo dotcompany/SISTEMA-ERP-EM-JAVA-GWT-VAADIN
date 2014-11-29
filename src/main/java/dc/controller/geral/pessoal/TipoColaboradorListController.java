@@ -56,7 +56,7 @@ public class TipoColaboradorListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Colaborador";
+		return super.getTitulo(this);
 	}
 
 	@Override

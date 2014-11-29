@@ -56,7 +56,7 @@ public class AtividadeForCliListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Atividade Cliente / Fornecedor";
+		return super.getTitulo(this);
 	}
 
 	@Override
