@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PONTO_FECHAMENTO_JORNADA")

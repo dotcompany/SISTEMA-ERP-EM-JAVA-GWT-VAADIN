@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 
 @Entity

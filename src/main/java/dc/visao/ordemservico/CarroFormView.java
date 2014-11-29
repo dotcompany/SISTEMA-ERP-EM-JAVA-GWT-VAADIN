@@ -11,11 +11,11 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.CarroFormController;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Modelo;
-import dc.entidade.pessoal.ClienteEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 

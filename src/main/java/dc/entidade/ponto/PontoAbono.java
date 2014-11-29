@@ -25,7 +25,7 @@ import org.hibernate.annotations.FetchMode;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PONTO_ABONO")

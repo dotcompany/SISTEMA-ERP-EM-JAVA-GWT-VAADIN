@@ -20,7 +20,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.Cnae;
+import dc.entidade.geral.CnaeEntity;
 
 @Entity
 @Table(name = "empresa_cnae")
@@ -52,7 +52,7 @@ public class EmpresaCnae extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("CNAE")
 	@ManyToOne
 	@JoinColumn(name = "ID_CNAE", nullable = false)
-	private Cnae cnae;
+	private CnaeEntity cnae;
 	
 	@Transient
 	@Caption("Principal")
@@ -98,11 +98,11 @@ public class EmpresaCnae extends AbstractMultiEmpresaModel<Integer> {
 //		this.empresa = empresa;
 //	}
 
-	public Cnae getCnae() {
+	public CnaeEntity getCnae() {
 		return cnae;
 	}
 
-	public void setCnae(Cnae cnae) {
+	public void setCnae(CnaeEntity cnae) {
 		this.cnae = cnae;
 	}
 

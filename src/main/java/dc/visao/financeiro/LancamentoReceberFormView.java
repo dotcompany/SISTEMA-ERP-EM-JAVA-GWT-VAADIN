@@ -39,7 +39,7 @@ import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.financeiro.LctoReceberNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;

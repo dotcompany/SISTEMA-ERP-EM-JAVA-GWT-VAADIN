@@ -13,7 +13,7 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
 import dc.entidade.ponto.PontoEscala;
 import dc.entidade.ponto.PontoTurma;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoEscalaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.NivelFormacao;
+import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class NivelFormacaoListController extends CRUDListController<NivelFormacao> {
+public class NivelFormacaoListController extends CRUDListController<NivelFormacaoEntity> {
 
 	@Autowired
 	NivelFormacaoDAO dao;
@@ -32,8 +32,8 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 	}
 
 	@Override
-	public Class<? super NivelFormacao> getEntityClass() {
-		return NivelFormacao.class;
+	public Class<? super NivelFormacaoEntity> getEntityClass() {
+		return NivelFormacaoEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 	}
 
 	@Override
-	protected List<NivelFormacao> pesquisa(String valor) {
+	protected List<NivelFormacaoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<NivelFormacao> getFormController() {
+	protected CRUDFormController<NivelFormacaoEntity> getFormController() {
 		return nivelFormacaoFormController;
 	}
 
@@ -65,9 +65,9 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 	}
 
 	@Override
-	protected List<NivelFormacao> pesquisaDefault() {
+	protected List<NivelFormacaoEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<NivelFormacao>) dao.getAll(getEntityClass());
+		return (List<NivelFormacaoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -13,11 +13,11 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.Venda;
-import dc.entidade.pessoal.TransportadoraEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.VendaDAO;
-import dc.servicos.dao.pessoal.TransportadoraDAO;
+import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.FreteFormView;
 import dc.visao.framework.geral.CRUDFormController;

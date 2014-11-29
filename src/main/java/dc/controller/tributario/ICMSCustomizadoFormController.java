@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.entidade.tabelas.Cfop;
 import dc.entidade.tabelas.Csosnb;
 import dc.entidade.tabelas.CstIcmsB;
@@ -201,7 +201,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		return detalhe;
 	}
 
-	public List<UF> listarUfs() {
+	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 

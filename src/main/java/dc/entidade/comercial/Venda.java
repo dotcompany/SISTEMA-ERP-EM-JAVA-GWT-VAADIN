@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "venda_cabecalho")

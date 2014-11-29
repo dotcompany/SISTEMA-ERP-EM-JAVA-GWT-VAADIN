@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.ordemservico.OrdemServico;
 import dc.entidade.ordemservico.VendaPeca;
-import dc.entidade.pessoal.ClienteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

@@ -9,21 +9,21 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.PessoaContato;
+import dc.entidade.geral.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.PessoaContatoFormView;
 
 @Controller
 @Scope("prototype")
-public class PessoaContatoFormController extends CRUDFormController<PessoaContato> {
+public class PessoaContatoFormController extends CRUDFormController<PessoaContatoEntity> {
 
 	PessoaContatoFormView subView;
 
 	@Autowired
 	PessoaContatoDAO pessoaContatoDAO;
 
-	private PessoaContato currentBean;
+	private PessoaContatoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -86,7 +86,7 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PessoaContato();
+		currentBean = new PessoaContatoEntity();
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 	}
 
 	@Override
-	public PessoaContato getModelBean() {
+	public PessoaContatoEntity getModelBean() {
 		return currentBean;
 	}
 

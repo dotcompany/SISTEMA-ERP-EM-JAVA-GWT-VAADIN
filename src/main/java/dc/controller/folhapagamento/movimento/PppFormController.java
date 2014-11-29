@@ -12,9 +12,9 @@ import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppDAO;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.PppFormView;
 import dc.visao.framework.geral.CRUDFormController;
 

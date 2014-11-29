@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import com.vaadin.data.util.converter.Converter;
 
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class ColaboradorConverter implements Converter<String, ColaboradorEntity> {
 

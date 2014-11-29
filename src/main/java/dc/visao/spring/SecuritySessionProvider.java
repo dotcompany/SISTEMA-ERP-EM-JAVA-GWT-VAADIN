@@ -19,7 +19,7 @@ import com.vaadin.server.WrappedSession;
 
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")

@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.diversos.Cep;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.diversos.CepDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.util.Validator;
@@ -167,14 +167,14 @@ public class CepFormController extends CRUDFormController<Cep> {
 
 	}
 
-	public List<UF> listarUfs() {
+	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 
 	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
-		List<UF> ufs = listarUfs();
-		for (UF u : ufs) {
+		List<UfEntity> ufs = listarUfs();
+		for (UfEntity u : ufs) {
 			container.addBean(u.getSigla());
 		}
 

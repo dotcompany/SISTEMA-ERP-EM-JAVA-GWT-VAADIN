@@ -41,15 +41,15 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.UFListController;
+import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutosListController;
-import dc.controller.pessoal.PessoaListController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.PessoaEndereco;
+import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.suprimentos.contrato.ContratoEntity;
 import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
@@ -60,8 +60,8 @@ import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
 import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
@@ -353,7 +353,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 		subView.getCmbProduto().setModel(modelProduto);
 
-		DefaultManyToOneComboModel<UF> templateUF = new DefaultManyToOneComboModel<UF>(
+		DefaultManyToOneComboModel<UfEntity> templateUF = new DefaultManyToOneComboModel<UfEntity>(
 				UFListController.class, this.ufDAO, super.getMainController());
 
 		DefaultManyToOneComboModel<TemplateEntity> templateModel = new DefaultManyToOneComboModel<TemplateEntity>(
@@ -381,9 +381,9 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
 
-		List<UF> ufs = templateUF.getAll();
+		List<UfEntity> ufs = templateUF.getAll();
 
-		for (UF uf : ufs) {
+		for (UfEntity uf : ufs) {
 			subView.getCmbEstadoObjeto().addItem(uf);
 		}
 
@@ -419,7 +419,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 				public InputStream getStream() {
 					Empresa empresa = documento.getEmpresa();
 
-					PessoaEndereco enderecoEmpresa = new PessoaEndereco();// TODO
+					PessoaEnderecoEntity enderecoEmpresa = new PessoaEnderecoEntity();// TODO
 
 					ClienteEntity dadosContratante = currentBean
 							.getContratoSolicitacaoServico().getCliente();

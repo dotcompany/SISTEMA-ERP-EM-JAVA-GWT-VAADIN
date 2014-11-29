@@ -18,14 +18,14 @@ import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.UF;
-import dc.entidade.pessoal.TipoRelacionamentoEntity;
+import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.empresa.DependenteDAO;
 import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.servicos.dao.geral.UFDAO;
-import dc.servicos.dao.pessoal.TipoRelacionamentoDAO;
+import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
 import dc.visao.empresa.SocioFormView.DIRIGENTE;
@@ -364,14 +364,14 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		return lista;
 	}
 
-	public List<UF> listarUfs() {
+	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 
 	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
-		List<UF> ufs = listarUfs();
-		for (UF u : ufs) {
+		List<UfEntity> ufs = listarUfs();
+		for (UfEntity u : ufs) {
 			container.addBean(u.getSigla());
 		}
 

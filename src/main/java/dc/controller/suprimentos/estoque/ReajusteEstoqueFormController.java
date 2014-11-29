@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.Usuario;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;

@@ -43,7 +43,7 @@ import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
-import dc.entidade.geral.PessoaEndereco;
+import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
@@ -221,7 +221,7 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	 * @module ADMINISTRATIVO */
 
 	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<PessoaEndereco> enderecos = new ArrayList<>();
+	private List<PessoaEnderecoEntity> enderecos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<Pais> paisList;
@@ -692,25 +692,25 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.contato = contato;
 	}
 
-	public PessoaEndereco addEndereco(PessoaEndereco enderecos) {
+	public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
 		getEnderecos().add(enderecos);
 		enderecos.setEmpresa(this);
 
 		return enderecos;
 	}
 
-	public PessoaEndereco removeEndereco(PessoaEndereco enderecos) {
+	public PessoaEnderecoEntity removeEndereco(PessoaEnderecoEntity enderecos) {
 		getEnderecos().remove(enderecos);
 		enderecos.setEmpresa(null);
 
 		return enderecos;
 	}
 
-	public List<PessoaEndereco> getEnderecos() {
+	public List<PessoaEnderecoEntity> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEndereco(List<PessoaEndereco> enderecos) {
+	public void setEndereco(List<PessoaEnderecoEntity> enderecos) {
 		this.enderecos = enderecos;
 	}
 

@@ -10,7 +10,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoBancoHoras;
 import dc.visao.framework.util.ComponentUtil;
 

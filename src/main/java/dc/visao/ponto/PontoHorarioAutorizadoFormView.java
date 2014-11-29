@@ -12,7 +12,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoHorarioAutorizado;
 import dc.visao.framework.util.ComponentUtil;
 import dc.visao.ponto.PontoHorarioFormView.TipoHorarioPonto;

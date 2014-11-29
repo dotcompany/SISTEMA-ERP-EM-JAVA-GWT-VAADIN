@@ -34,7 +34,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.Papel;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos

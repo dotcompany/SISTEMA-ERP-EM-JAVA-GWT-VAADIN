@@ -20,7 +20,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.TipoRelacionamentoEntity;
+import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 
 
 @Entity

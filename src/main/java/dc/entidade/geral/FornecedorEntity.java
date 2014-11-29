@@ -32,10 +32,10 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.patrimonio.BemEntity;
-import dc.entidade.pessoal.AtividadeForCliEntity;
-import dc.entidade.pessoal.SituacaoForCliEntity;
 
 @Entity
 @Table(name = "fornecedor")
@@ -174,29 +174,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	/**
-	 * Metodo transient para exibir nas views. Composto do id + nome da pessoa
-	 * 
-	 * @return
-	 * @author cjalmeida
-	 */
-	@Transient
-	public String getCaption() {
-		Object id = this.id;
-
-		if (id == null) {
-			id = "";
-		}
-
-		String nome = "";
-
-		if (getPessoa() != null && getPessoa().getNome() != null) {
-			nome = getPessoa().getNome();
-		}
-
-		return "[" + id + "] " + nome;
-	}
-
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -402,6 +380,29 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * 
 	 */
+
+	/**
+	 * Metodo transient para exibir nas views. Composto do id + nome da pessoa
+	 * 
+	 * @return
+	 * @author cjalmeida
+	 */
+	@Transient
+	public String getCaption() {
+		Object id = this.id;
+
+		if (id == null) {
+			id = "";
+		}
+
+		String nome = "";
+
+		if (getPessoa() != null && getPessoa().getNome() != null) {
+			nome = getPessoa().getNome();
+		}
+
+		return "[" + id + "] " + nome;
+	}
 
 	/**
 	 * TO STRING

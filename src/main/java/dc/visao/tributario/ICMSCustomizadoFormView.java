@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.UFFormController;
 import dc.controller.tributario.ICMSCustomizadoFormController;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.servicos.dao.geral.UFDAO;
@@ -200,10 +200,10 @@ public class ICMSCustomizadoFormView extends CustomComponent {
 						if ("ufDestino".equals(propertyId)) {
 							ComboBox cmb = ComponentUtil.buildComboBox("UF");
 
-							List<UF> ufs = controller.listarUfs();
+							List<UfEntity> ufs = controller.listarUfs();
 							BeanItemContainer<String> beanUf = new BeanItemContainer<>(
 									String.class);
-							for (UF u : ufs) {
+							for (UfEntity u : ufs) {
 								beanUf.addBean(u.getSigla());
 							}
 							cmb.setContainerDataSource(beanUf);

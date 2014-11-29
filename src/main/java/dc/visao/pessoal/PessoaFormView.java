@@ -25,11 +25,11 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.pessoal.PessoaFormController;
-import dc.entidade.geral.PessoaContato;
-import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.geral.UF;
-import dc.entidade.pessoal.EstadoCivilEntity;
+import dc.controller.geral.pessoal.PessoaFormController;
+import dc.entidade.geral.PessoaContatoEntity;
+import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -105,8 +105,8 @@ public class PessoaFormView extends CustomComponent {
 	private String FISICA = "F";
 	private String JURIDICA = "J";
 
-	private SubFormComponent<PessoaContato, Integer> contatosSubForm;
-	private SubFormComponent<PessoaEndereco, Integer> enderecosSubForm;
+	private SubFormComponent<PessoaContatoEntity, Integer> contatosSubForm;
+	private SubFormComponent<PessoaEnderecoEntity, Integer> enderecosSubForm;
 
 	private GridLayout layoutFisica;
 
@@ -526,7 +526,7 @@ public class PessoaFormView extends CustomComponent {
 	private SubFormComponent buildContatosSubForm() {
 		// common part: create layout
 
-		contatosSubForm = new SubFormComponent<PessoaContato, Integer>(PessoaContato.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
+		contatosSubForm = new SubFormComponent<PessoaContatoEntity, Integer>(PessoaContatoEntity.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
 				"foneCelular" }, new String[] { "Nome", "Email", "Fone Comercial", "Fone Residencial", "Fone Celular" }) {
 
 			@Override
@@ -565,13 +565,13 @@ public class PessoaFormView extends CustomComponent {
 				};
 			}
 
-			protected PessoaContato getNovo() {
-				PessoaContato detalhe = formController.novoContato();
+			protected PessoaContatoEntity getNovo() {
+				PessoaContatoEntity detalhe = formController.novoContato();
 				return detalhe;
 			}
 
 			@Override
-			public boolean validateItems(List<PessoaContato> items) {
+			public boolean validateItems(List<PessoaContatoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -590,7 +590,7 @@ public class PessoaFormView extends CustomComponent {
 		String[] headers = new String[] { "Logradouro", "Número", "Complemento", "Bairro", "Cidade", "CEP", "Município Ibge", "UF", "Fone", "Fax",
 				"Principal", "Entrega", "Cobrança", "Correspondência" };
 
-		enderecosSubForm = new SubFormComponent<PessoaEndereco, Integer>(PessoaEndereco.class, atributos, headers) {
+		enderecosSubForm = new SubFormComponent<PessoaEnderecoEntity, Integer>(PessoaEnderecoEntity.class, atributos, headers) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
@@ -625,8 +625,8 @@ public class PessoaFormView extends CustomComponent {
 						} else if ("uf".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil.buildComboBox(null);
 
-							List<UF> ufs = formController.getUfs();
-							for (UF uf : ufs) {
+							List<UfEntity> ufs = formController.getUfs();
+							for (UfEntity uf : ufs) {
 								comboBox.addItem(uf);
 							}
 
@@ -641,13 +641,13 @@ public class PessoaFormView extends CustomComponent {
 				};
 			}
 
-			protected PessoaEndereco getNovo() {
-				PessoaEndereco endereco = formController.novoEndereco();
+			protected PessoaEnderecoEntity getNovo() {
+				PessoaEnderecoEntity endereco = formController.novoEndereco();
 				return endereco;
 			}
 
 			@Override
-			public boolean validateItems(List<PessoaEndereco> items) {
+			public boolean validateItems(List<PessoaEnderecoEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -1128,19 +1128,19 @@ public class PessoaFormView extends CustomComponent {
 		this.cmbEstadoCivil = cmbEstadoCivil;
 	}
 
-	public SubFormComponent<PessoaContato, Integer> getContatosSubForm() {
+	public SubFormComponent<PessoaContatoEntity, Integer> getContatosSubForm() {
 		return contatosSubForm;
 	}
 
-	public void setContatosSubForm(SubFormComponent<PessoaContato, Integer> contatosSubForm) {
+	public void setContatosSubForm(SubFormComponent<PessoaContatoEntity, Integer> contatosSubForm) {
 		this.contatosSubForm = contatosSubForm;
 	}
 
-	public SubFormComponent<PessoaEndereco, Integer> getEnderecosSubForm() {
+	public SubFormComponent<PessoaEnderecoEntity, Integer> getEnderecosSubForm() {
 		return enderecosSubForm;
 	}
 
-	public void setEnderecosSubForm(SubFormComponent<PessoaEndereco, Integer> enderecosSubForm) {
+	public void setEnderecosSubForm(SubFormComponent<PessoaEnderecoEntity, Integer> enderecosSubForm) {
 		this.enderecosSubForm = enderecosSubForm;
 	}
 

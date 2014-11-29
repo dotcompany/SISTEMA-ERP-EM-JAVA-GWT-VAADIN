@@ -7,30 +7,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.geral.PessoaEndereco;
+import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEndereco> {
+public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 
 	@Override
-	public Class<PessoaEndereco> getEntityClass() {
-		return PessoaEndereco.class;
+	public Class<PessoaEnderecoEntity> getEntityClass() {
+		return PessoaEnderecoEntity.class;
 	}
 
 	@Transactional
-	public List<PessoaEndereco> listaTodos() {
+	public List<PessoaEnderecoEntity> listaTodos() {
 		return getSession().createQuery("from PessoaEndereco").list();
 	}
 
 	@Transactional
-	public List<PessoaEndereco> listaPorEmpresa(Empresa empresa) {
+	public List<PessoaEnderecoEntity> listaPorEmpresa(Empresa empresa) {
 		return getSession().createQuery("from PessoaEndereco c where c.empresa = :emp ").setParameter("emp", empresa).list();
 	}
 
 	@Transactional
-	public List<PessoaEndereco> listaPorPessoa(PessoaEntity pessoa) {
+	public List<PessoaEnderecoEntity> listaPorPessoa(PessoaEntity pessoa) {
 
 		// TODO Verificar pq só funciona na segunda vez
 		try {

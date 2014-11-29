@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.pessoal.EstadoCivilEntity;
+import dc.entidade.geral.pessoal.EstadoCivilEntity;
 
 @Entity
 @Table(name = "pessoa_fisica")

@@ -18,7 +18,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.pessoal.TransportadoraEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_frete")

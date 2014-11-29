@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
 import dc.entidade.ponto.PontoRelogio;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoRelogioDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;

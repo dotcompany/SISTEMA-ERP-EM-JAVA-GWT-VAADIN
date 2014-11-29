@@ -15,10 +15,10 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.patrimonio.BemFormController;
 import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
 
 /**
  * 

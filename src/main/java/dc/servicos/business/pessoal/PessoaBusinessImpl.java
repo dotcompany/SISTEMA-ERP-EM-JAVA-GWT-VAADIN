@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.PessoaEntity;
-import dc.servicos.dao.pessoal.PessoaDAO;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 
 /**
  * 

@@ -15,7 +15,7 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
 import dc.servicos.dao.framework.geral.EmpresaDAO;

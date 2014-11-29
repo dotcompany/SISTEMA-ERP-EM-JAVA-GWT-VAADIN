@@ -13,7 +13,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.financeiro.AgenciaBancoFormController;
 import dc.entidade.financeiro.Banco;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -258,7 +258,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		this.txtCodigo = txtCodigo;
 	}
 
-	public void InitCbs(List<Banco> banco, List<UF> uf) {
+	public void InitCbs(List<Banco> banco, List<UfEntity> uf) {
 		// BeanItemContainer<Banco> objects = new
 		// BeanItemContainer<Banco>(Banco.class, banco);
 		// cmbBanco.setContainerDataSource(objects);

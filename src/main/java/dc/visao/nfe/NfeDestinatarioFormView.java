@@ -11,7 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.control.validator.ObjectValidator;
 import dc.controller.nfe.ProdutoServicoFormController;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 /**

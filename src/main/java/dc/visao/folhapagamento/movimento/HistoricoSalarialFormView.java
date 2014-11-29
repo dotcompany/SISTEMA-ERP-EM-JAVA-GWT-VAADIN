@@ -12,7 +12,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.movimento.HistoricoSalarialFormController;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class HistoricoSalarialFormView extends CustomComponent {
 

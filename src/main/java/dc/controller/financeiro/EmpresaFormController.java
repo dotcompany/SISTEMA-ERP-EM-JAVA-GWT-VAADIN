@@ -22,9 +22,9 @@ import dc.entidade.framework.Empresa;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Fpas;
 import dc.entidade.framework.Seguimento;
-import dc.entidade.geral.Cnae;
-import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.pessoal.ContadorEntity;
+import dc.entidade.geral.CnaeEntity;
+import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -34,7 +34,7 @@ import dc.servicos.dao.framework.geral.FpasDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
-import dc.servicos.dao.pessoal.ContadorDAO;
+import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
 import dc.visao.financeiro.enums.CrtType;
@@ -149,7 +149,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		String codigoMunicipio = subView.getTxtMunicipio().getValue();
 		String codigoUf = subView.getTxtUf().getValue();
 
-		Cnae cnaePrincipal = (Cnae) subView.getCmbCnaePrincipal().getValue();
+		CnaeEntity cnaePrincipal = (CnaeEntity) subView.getCmbCnaePrincipal().getValue();
 		//
 		try {
 			if (!(Validator.validateString(razaoSocial))) {
@@ -274,7 +274,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 
 			empresaDAO.saveOrUpdate(currentBean);
 
-			for (PessoaEndereco e : currentBean.getEnderecos()) {
+			for (PessoaEnderecoEntity e : currentBean.getEnderecos()) {
 				e.setEmpresa(currentBean);
 				String cep = e.getCep().replace(".", "").replace("-", "").trim();
 				e.setCep(cep);
@@ -405,7 +405,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		if (Validator.validateObject(currentBean.getCnaePrincipal())) {
 
 			Integer idCnae = new Integer(currentBean.getCnaePrincipal());
-			Cnae cnae = cnaeDAO.find(idCnae);
+			CnaeEntity cnae = cnaeDAO.find(idCnae);
 
 			subView.getCmbCnaePrincipal().setValue(cnae);
 		}
@@ -417,7 +417,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 
 		try {
-			List<PessoaEndereco> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
+			List<PessoaEnderecoEntity> enderecos = enderecoDAO.listaPorEmpresa(currentBean);
 			currentBean.setEndereco(enderecos);
 			carregarSeguimentos();
 			subView.fillEnderecoSubForm(enderecos);
@@ -464,15 +464,15 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		}
 	}
 
-	public PessoaEndereco novoEndereco() {
-		PessoaEndereco endereco = new PessoaEndereco();
+	public PessoaEnderecoEntity novoEndereco() {
+		PessoaEnderecoEntity endereco = new PessoaEnderecoEntity();
 		this.currentBean.addEndereco(endereco);
 
 		return endereco;
 	}
 
-	public void removerEndereco(List<PessoaEndereco> values) {
-		for (PessoaEndereco endereco : values) {
+	public void removerEndereco(List<PessoaEnderecoEntity> values) {
+		for (PessoaEnderecoEntity endereco : values) {
 			this.currentBean.removeEndereco(endereco);
 		}
 
@@ -522,8 +522,8 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		return container;
 	}
 
-	public BeanItemContainer<Cnae> carregarEmpresaCnae() {
-		BeanItemContainer<Cnae> container = new BeanItemContainer<>(Cnae.class);
+	public BeanItemContainer<CnaeEntity> carregarEmpresaCnae() {
+		BeanItemContainer<CnaeEntity> container = new BeanItemContainer<>(CnaeEntity.class);
 		List<EmpresaCnae> lista = empresaCnaeDAO.listarPrincipais();
 
 		for (EmpresaCnae obj : lista) {

@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.cadastro.PlanoSaudeFormController;
 import dc.entidade.diversos.OperadoraPlanoSaude;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class PlanoSaudeFormView extends CustomComponent {
 

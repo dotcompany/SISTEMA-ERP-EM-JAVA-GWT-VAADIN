@@ -12,10 +12,10 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.TransporteItinerarioEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.empresa.TransporteItinerarioDAO;
 import dc.servicos.dao.folhapagamento.movimento.ValeTransporteDAO;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.ValeTransporteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 

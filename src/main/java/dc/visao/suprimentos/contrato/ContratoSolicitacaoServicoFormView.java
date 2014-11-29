@@ -13,8 +13,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;

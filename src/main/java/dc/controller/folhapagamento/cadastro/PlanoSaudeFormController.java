@@ -14,10 +14,10 @@ import com.vaadin.ui.Component;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
 import dc.servicos.dao.folhapagamento.cadastro.PlanoSaudeDAO;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.cadastro.PlanoSaudeFormView;
 import dc.visao.framework.geral.CRUDFormController;
 

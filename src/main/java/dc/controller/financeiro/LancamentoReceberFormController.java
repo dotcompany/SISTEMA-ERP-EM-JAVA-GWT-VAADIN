@@ -43,7 +43,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
-import dc.controller.pessoal.ClienteListController;
+import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.financeiro.Banco;
 import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
@@ -54,8 +54,8 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.PessoaEndereco;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
@@ -67,8 +67,8 @@ import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
-import dc.servicos.dao.pessoal.ClienteDAO;
-import dc.servicos.dao.pessoal.PessoaDAO;
+import dc.servicos.dao.geral.pessoal.ClienteDAO;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoReceberFormView;
 import dc.visao.financeiro.enums.TipoVencimento;
@@ -643,9 +643,9 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		}
 		Sacado sacado = new Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
 
-		PessoaEndereco enderecoSacado = new PessoaEndereco();
+		PessoaEnderecoEntity enderecoSacado = new PessoaEnderecoEntity();
 
-		dc.entidade.geral.PessoaEndereco endereco = (PessoaEndereco) enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
+		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
 
 		enderecoSacado.setUf(endereco.getUf());
 		enderecoSacado.setCidade(endereco.getCidade());

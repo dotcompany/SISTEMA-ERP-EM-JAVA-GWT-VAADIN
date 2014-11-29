@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.CargoEntity;
+import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
 /**

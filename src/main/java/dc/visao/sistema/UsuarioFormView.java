@@ -18,7 +18,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.sistema.UsuarioFormController;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.framework.CharBoolConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;

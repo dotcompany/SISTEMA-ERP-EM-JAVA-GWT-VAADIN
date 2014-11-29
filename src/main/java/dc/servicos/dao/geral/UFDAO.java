@@ -5,27 +5,27 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
 @Repository
 @SuppressWarnings("unchecked")
-public class UFDAO extends AbstractCrudDAO<UF>{
+public class UFDAO extends AbstractCrudDAO<UfEntity>{
 	
 	@Override
-	public Class<UF> getEntityClass() {
-		return UF.class;
+	public Class<UfEntity> getEntityClass() {
+		return UfEntity.class;
 	}
 	
 	
 	@Transactional
-	public List<UF> listaTodos() {
+	public List<UfEntity> listaTodos() {
 		return getSession().createQuery("from UF").list();
 	}
 
 	@Transactional
-	public List<UF> procuraNomeContendo(String query) {
+	public List<UfEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from UF where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -34,7 +34,7 @@ public class UFDAO extends AbstractCrudDAO<UF>{
 	}
 	
 	@Transactional
-	public List<UF> query(String q) {
+	public List<UfEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from UF where lower(nome) like :q").setParameter("q", q).list();
 	}

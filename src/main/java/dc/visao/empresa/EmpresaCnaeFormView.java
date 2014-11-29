@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.empresa.EmpresaCnaeFormController;
 import dc.entidade.empresa.EmpresaCnae;
-import dc.entidade.geral.Cnae;
+import dc.entidade.geral.CnaeEntity;
 import dc.visao.framework.util.ComponentUtil;
 
 public class EmpresaCnaeFormView extends CustomComponent {
@@ -162,7 +162,7 @@ public class EmpresaCnaeFormView extends CustomComponent {
 	}
 
 	public void montarComboCnae() {
-		for (Cnae c : controller.trazerListaCnae()) {
+		for (CnaeEntity c : controller.trazerListaCnae()) {
 			cmbCnae.addItem(c);
 		}
 	}

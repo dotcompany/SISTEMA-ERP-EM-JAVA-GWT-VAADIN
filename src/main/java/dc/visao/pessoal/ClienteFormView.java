@@ -11,12 +11,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
-import dc.controller.pessoal.ClienteFormController;
+import dc.controller.geral.pessoal.ClienteFormController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.AtividadeForCliEntity;
-import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.SituacaoForCliEntity;
+import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 

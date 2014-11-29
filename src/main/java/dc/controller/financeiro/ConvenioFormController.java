@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Convenio;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.financeiro.ConvenioDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.util.Validator;
@@ -93,14 +93,14 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 		carregarUFs();
 	}
 
-	public List<UF> listarUfs() {
+	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 
 	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
-		List<UF> ufs = listarUfs();
-		for (UF u : ufs) {
+		List<UfEntity> ufs = listarUfs();
+		for (UfEntity u : ufs) {
 			container.addBean(u.getSigla());
 		}
 

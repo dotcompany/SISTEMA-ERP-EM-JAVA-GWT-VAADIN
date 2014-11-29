@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.UFFormView;
@@ -18,14 +18,14 @@ import dc.visao.geral.UFFormView;
 
 @Controller
 @Scope("prototype")
-public class UFFormController extends CRUDFormController<UF> {
+public class UFFormController extends CRUDFormController<UfEntity> {
 
 	private UFFormView subView;
 
 	@Autowired
 	private UFDAO ufDAO;
 
-	private UF currentBean;
+	private UfEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -79,7 +79,7 @@ public class UFFormController extends CRUDFormController<UF> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new UF();
+		currentBean = new UfEntity();
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class UFFormController extends CRUDFormController<UF> {
 	}
 
 	@Override
-	public UF getModelBean() {
+	public UfEntity getModelBean() {
 		return currentBean;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.UFListController;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.entidade.tabelas.Feriados;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.tabelas.FeriadosDAO;
@@ -82,7 +82,7 @@ public class FeriadosFormController extends CRUDFormController<Feriados> {
 	protected void initSubView() {
 		subView = new FeriadosFormView();
 
-		DefaultManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(UFListController.class, this.ufDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<UfEntity> model = new DefaultManyToOneComboModel<UfEntity>(UFListController.class, this.ufDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "nome";

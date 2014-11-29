@@ -18,7 +18,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.entidade.tabelas.Cfop;
 import dc.entidade.tabelas.Csosnb;
 import dc.entidade.tabelas.CstIcmsB;
@@ -70,7 +70,7 @@ public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 	private ICMSCustomizado icmsCustomizado;
 
 	@Transient
-	UF uf;
+	UfEntity uf;
 
 	public Integer getId() {
 		return id;
@@ -88,11 +88,11 @@ public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.ufDestino = ufDestino;
 	}
 
-	public UF getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 

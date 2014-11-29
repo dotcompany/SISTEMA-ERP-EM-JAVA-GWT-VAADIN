@@ -13,17 +13,17 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.pessoal.ColaboradorFormController;
+import dc.controller.geral.pessoal.ColaboradorFormController;
 import dc.entidade.contabilidade.ContabilConta;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.Sindicato;
-import dc.entidade.geral.NivelFormacao;
+import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.pessoal.CargoEntity;
-import dc.entidade.pessoal.SituacaoColaboradorEntity;
-import dc.entidade.pessoal.TipoColaboradorEntity;
+import dc.entidade.geral.pessoal.CargoEntity;
+import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
+import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -140,7 +140,7 @@ public class ColaboradorFormView extends CustomComponent {
 	private ManyToOneCombo<TipoColaboradorEntity> cmbTipoColaborador;
 	private ManyToOneCombo<SituacaoColaboradorEntity> cmbSituacaoColaborador;
 	private ManyToOneCombo<Sindicato> cmbSindicato;
-	private ManyToOneCombo<NivelFormacao> cmbNivelFormacao;
+	private ManyToOneCombo<NivelFormacaoEntity> cmbNivelFormacao;
 	private ManyToOneCombo<CargoEntity> cmbCargo;
 	private ManyToOneCombo<ContabilConta> cmbContaContabil;
 	private ManyToOneCombo<Setor> cmbSetor;
@@ -1261,12 +1261,12 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbSindicato = cmbSindicato;
 	}
 
-	public ManyToOneCombo<NivelFormacao> getCmbNivelFormacao() {
+	public ManyToOneCombo<NivelFormacaoEntity> getCmbNivelFormacao() {
 		return cmbNivelFormacao;
 	}
 
 	public void setCmbNivelFormacao(
-			ManyToOneCombo<NivelFormacao> cmbNivelFormacao) {
+			ManyToOneCombo<NivelFormacaoEntity> cmbNivelFormacao) {
 		this.cmbNivelFormacao = cmbNivelFormacao;
 	}
 

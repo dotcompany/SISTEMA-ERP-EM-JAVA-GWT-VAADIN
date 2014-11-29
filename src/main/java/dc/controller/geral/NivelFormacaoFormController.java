@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.NivelFormacao;
+import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.NivelFormacaoFormView;
@@ -18,14 +18,14 @@ import dc.visao.geral.NivelFormacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class NivelFormacaoFormController extends CRUDFormController<NivelFormacao> {
+public class NivelFormacaoFormController extends CRUDFormController<NivelFormacaoEntity> {
 
 	NivelFormacaoFormView subView;
 
 	@Autowired
 	NivelFormacaoDAO nivelFormacaoDAO;
 
-	private NivelFormacao currentBean;
+	private NivelFormacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new NivelFormacao();
+		currentBean = new NivelFormacaoEntity();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 	}
 
 	@Override
-	public NivelFormacao getModelBean() {
+	public NivelFormacaoEntity getModelBean() {
 		return currentBean;
 	}
 

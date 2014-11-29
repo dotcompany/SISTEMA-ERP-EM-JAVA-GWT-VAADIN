@@ -6,23 +6,23 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Cnae;
+import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CnaeDAO extends AbstractCrudDAO<Cnae> {
+public class CnaeDAO extends AbstractCrudDAO<CnaeEntity> {
 
 	@Override
-	public Class<Cnae> getEntityClass() {
-		return Cnae.class;
+	public Class<CnaeEntity> getEntityClass() {
+		return CnaeEntity.class;
 	}
 
 
 
 	@Transactional
-	public List<Cnae> listarTodos() {
-		List<Cnae> lista = null;
+	public List<CnaeEntity> listarTodos() {
+		List<CnaeEntity> lista = null;
 		try {
 			String sql = "FROM Cnae";
 			lista = super.getSession().createQuery(sql).list();

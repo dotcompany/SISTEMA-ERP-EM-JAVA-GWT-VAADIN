@@ -25,7 +25,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.controller.ponto.exportacao.afd.ImportaArquivoAFD;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.AFDTipo3;
 import dc.entidade.ponto.PontoClassificacaoJornada;
 import dc.entidade.ponto.PontoEscala;
@@ -35,7 +35,7 @@ import dc.entidade.ponto.PontoMarcacao;
 import dc.entidade.ponto.PontoParametro;
 import dc.entidade.ponto.PontoRelogio;
 import dc.entidade.ponto.PontoTurma;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoClassificacaoJornadaDAO;
 import dc.servicos.dao.ponto.PontoFechamentoDAO;
 import dc.servicos.dao.ponto.PontoHorarioDAO;

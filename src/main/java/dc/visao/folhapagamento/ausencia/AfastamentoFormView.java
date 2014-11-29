@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.ausencia.AfastamentoFormController;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class AfastamentoFormView extends CustomComponent {
 

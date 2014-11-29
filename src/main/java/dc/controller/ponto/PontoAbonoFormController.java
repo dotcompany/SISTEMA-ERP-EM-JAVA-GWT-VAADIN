@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.controller.pessoal.ColaboradorListController;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.controller.geral.pessoal.ColaboradorListController;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoAbono;
 import dc.entidade.ponto.PontoAbonoUtilizacao;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoAbonoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;

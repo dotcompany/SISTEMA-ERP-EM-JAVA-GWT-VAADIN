@@ -6,20 +6,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.PessoaContato;
+import dc.entidade.geral.PessoaContatoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContato>{
+public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity>{
 
 	@Override
-	public Class<PessoaContato> getEntityClass() {
-		return PessoaContato.class;
+	public Class<PessoaContatoEntity> getEntityClass() {
+		return PessoaContatoEntity.class;
 	}
 	
 	@Transactional
-	public List<PessoaContato> listaTodos() {
+	public List<PessoaContatoEntity> listaTodos() {
 		return getSession().createQuery("from PessoaContato").list();
 	}
 	

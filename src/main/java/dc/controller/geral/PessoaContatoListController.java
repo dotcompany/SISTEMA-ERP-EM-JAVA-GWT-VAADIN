@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.PessoaContato;
+import dc.entidade.geral.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PessoaContatoListController extends CRUDListController<PessoaContato> {
+public class PessoaContatoListController extends CRUDListController<PessoaContatoEntity> {
 
 	@Autowired
 	PessoaContatoDAO dao;
@@ -32,8 +32,8 @@ public class PessoaContatoListController extends CRUDListController<PessoaContat
 	}
 
 	@Override
-	public Class<? super PessoaContato> getEntityClass() {
-		return PessoaContato.class;
+	public Class<? super PessoaContatoEntity> getEntityClass() {
+		return PessoaContatoEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class PessoaContatoListController extends CRUDListController<PessoaContat
 	}
 
 	@Override
-	protected List<PessoaContato> pesquisa(String valor) {
+	protected List<PessoaContatoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<PessoaContato> getFormController() {
+	protected CRUDFormController<PessoaContatoEntity> getFormController() {
 		return pessoaContatoFormController;
 	}
 
@@ -65,9 +65,9 @@ public class PessoaContatoListController extends CRUDListController<PessoaContat
 	}
 
 	@Override
-	protected List<PessoaContato> pesquisaDefault() {
+	protected List<PessoaContatoEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<PessoaContato>) dao.getAll(getEntityClass());
+		return (List<PessoaContatoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

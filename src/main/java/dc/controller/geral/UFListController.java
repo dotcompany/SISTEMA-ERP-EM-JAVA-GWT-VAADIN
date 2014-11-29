@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class UFListController extends CRUDListController<UF> {
+public class UFListController extends CRUDListController<UfEntity> {
 
 	@Autowired
 	private UFDAO dao;
@@ -32,8 +32,8 @@ public class UFListController extends CRUDListController<UF> {
 	}
 
 	@Override
-	public Class<? super UF> getEntityClass() {
-		return UF.class;
+	public Class<? super UfEntity> getEntityClass() {
+		return UfEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class UFListController extends CRUDListController<UF> {
 	}
 
 	@Override
-	protected List<UF> pesquisa(String valor) {
+	protected List<UfEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<UF> getFormController() {
+	protected CRUDFormController<UfEntity> getFormController() {
 		return ufFormController;
 	}
 
@@ -63,8 +63,8 @@ public class UFListController extends CRUDListController<UF> {
 	}
 
 	@Override
-	protected List<UF> pesquisaDefault() {
-		return (List<UF>) dao.getAll(getEntityClass());
+	protected List<UfEntity> pesquisaDefault() {
+		return (List<UfEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -25,7 +25,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 
 
 /**
@@ -73,7 +73,7 @@ public class Feriados extends AbstractMultiEmpresaModel<Integer> implements Seri
 	//@ManyToOne(optional = false)
 	//@JoinColumn(name = "UF", referencedColumnName = "ID")
 	@Column(name = "UF")
-	private UF uf;
+	private UfEntity uf;
 	
 	@Field
 	@Caption("Municipio Ibge")
@@ -132,11 +132,11 @@ public class Feriados extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.abrangencia = abrangencia;
 	}
 
-	public UF getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(UF uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 

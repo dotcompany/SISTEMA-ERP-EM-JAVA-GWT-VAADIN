@@ -21,7 +21,7 @@ import dc.controller.empresa.SocioFormController;
 import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.Socio;
-import dc.entidade.pessoal.TipoRelacionamentoEntity;
+import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 

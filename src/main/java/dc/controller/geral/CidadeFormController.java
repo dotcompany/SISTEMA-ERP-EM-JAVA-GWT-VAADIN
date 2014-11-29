@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.Cidade;
+import dc.entidade.geral.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.CidadeFormView;
@@ -18,14 +18,14 @@ import dc.visao.geral.CidadeFormView;
 
 @Controller
 @Scope("prototype")
-public class CidadeFormController extends CRUDFormController<Cidade> {
+public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 
 	CidadeFormView subView;
 
 	@Autowired
 	CidadeDAO cidadeDAO;
 
-	private Cidade currentBean;
+	private CidadeEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -76,7 +76,7 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cidade();
+		currentBean = new CidadeEntity();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class CidadeFormController extends CRUDFormController<Cidade> {
 	}
 
 	@Override
-	public Cidade getModelBean() {
+	public CidadeEntity getModelBean() {
 		return currentBean;
 	}
 

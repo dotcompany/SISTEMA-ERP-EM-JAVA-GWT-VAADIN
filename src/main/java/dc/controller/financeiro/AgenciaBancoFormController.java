@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.Banco;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.geral.UFDAO;
@@ -133,14 +133,14 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBanco>
 		carregarUFs();
 	}
 
-	public List<UF> listarUfs() {
+	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
 	}
 
 	public BeanItemContainer<String> carregarUFs() {
 		BeanItemContainer<String> container = new BeanItemContainer<>(String.class);
-		List<UF> ufs = listarUfs();
-		for (UF u : ufs) {
+		List<UfEntity> ufs = listarUfs();
+		for (UfEntity u : ufs) {
 			container.addBean(u.getSigla());
 		}
 

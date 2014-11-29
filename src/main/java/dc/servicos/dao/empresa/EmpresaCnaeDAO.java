@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.empresa.EmpresaCnae;
-import dc.entidade.geral.Cnae;
+import dc.entidade.geral.CnaeEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

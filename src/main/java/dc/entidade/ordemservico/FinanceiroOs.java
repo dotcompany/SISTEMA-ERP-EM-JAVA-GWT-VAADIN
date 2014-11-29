@@ -28,7 +28,7 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "os_financeiro")

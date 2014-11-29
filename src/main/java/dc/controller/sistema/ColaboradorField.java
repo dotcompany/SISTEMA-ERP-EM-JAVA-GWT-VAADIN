@@ -7,7 +7,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.FormLayout;
 
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class ColaboradorField extends CustomField<ColaboradorEntity>{
 

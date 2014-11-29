@@ -33,8 +33,8 @@ import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.pessoal.TransportadoraEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_orcamento_cabecalho")

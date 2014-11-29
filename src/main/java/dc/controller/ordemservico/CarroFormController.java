@@ -9,19 +9,19 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.controller.pessoal.ClienteListController;
+import dc.controller.geral.pessoal.ClienteListController;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.ordemservico.Carro;
 import dc.entidade.ordemservico.Combustivel;
 import dc.entidade.ordemservico.Cor;
 import dc.entidade.ordemservico.Marca;
 import dc.entidade.ordemservico.Modelo;
-import dc.entidade.pessoal.ClienteEntity;
+import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
-import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;

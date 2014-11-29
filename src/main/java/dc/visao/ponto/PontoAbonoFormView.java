@@ -18,7 +18,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ponto.PontoAbonoFormController;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoAbono;
 import dc.entidade.ponto.PontoAbonoUtilizacao;
 import dc.visao.framework.component.SubFormComponent;

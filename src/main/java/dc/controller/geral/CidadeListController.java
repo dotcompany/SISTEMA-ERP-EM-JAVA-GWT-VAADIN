@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.Cidade;
+import dc.entidade.geral.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CidadeListController extends CRUDListController<Cidade> {
+public class CidadeListController extends CRUDListController<CidadeEntity> {
 
 	@Autowired
 	CidadeDAO dao;
@@ -32,8 +32,8 @@ public class CidadeListController extends CRUDListController<Cidade> {
 	}
 
 	@Override
-	public Class<? super Cidade> getEntityClass() {
-		return Cidade.class;
+	public Class<? super CidadeEntity> getEntityClass() {
+		return CidadeEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class CidadeListController extends CRUDListController<Cidade> {
 	}
 
 	@Override
-	protected List<Cidade> pesquisa(String valor) {
+	protected List<CidadeEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Cidade> getFormController() {
+	protected CRUDFormController<CidadeEntity> getFormController() {
 		return cidadeFormController;
 	}
 
@@ -65,9 +65,9 @@ public class CidadeListController extends CRUDListController<Cidade> {
 	}
 
 	@Override
-	protected List<Cidade> pesquisaDefault() {
+	protected List<CidadeEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<Cidade>) dao.getAll(getEntityClass());
+		return (List<CidadeEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -13,9 +13,9 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.framework.Empresa;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
-import dc.servicos.dao.pessoal.ColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.ausencia.FeriasPeriodoAquisitivoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;

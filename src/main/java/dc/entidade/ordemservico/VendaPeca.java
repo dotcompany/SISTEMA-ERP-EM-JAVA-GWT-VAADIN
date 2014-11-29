@@ -20,8 +20,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "os_venda_peca")

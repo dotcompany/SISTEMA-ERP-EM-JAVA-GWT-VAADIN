@@ -21,7 +21,7 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoFechamentoJornada;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.visao.framework.component.SubFormComponent;

@@ -20,7 +20,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.ConfiguracaoTributariaFormController;
-import dc.entidade.geral.UF;
+import dc.entidade.geral.UfEntity;
 import dc.entidade.tabelas.CstCofins;
 import dc.entidade.tabelas.CstIpi;
 import dc.entidade.tabelas.CstPis;
@@ -442,10 +442,10 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 							// cmb.setContainerDataSource(containerUf);
 							// cmb.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 							// cmb.setItemCaptionPropertyId("sigla");
-							List<UF> ufs = controller.listarUfs();
+							List<UfEntity> ufs = controller.listarUfs();
 							BeanItemContainer<String> beanUf = new BeanItemContainer<>(
 									String.class);
-							for (UF u : ufs) {
+							for (UfEntity u : ufs) {
 								beanUf.addBean(u.getSigla());
 							}
 							cmb.setContainerDataSource(beanUf);

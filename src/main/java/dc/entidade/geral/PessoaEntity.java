@@ -105,11 +105,11 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaContato> contatos = new ArrayList<>();
+	private List<PessoaContatoEntity> contatos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaEndereco> enderecos = new ArrayList<>();
+	private List<PessoaEnderecoEntity> enderecos = new ArrayList<>();
 
 	public PessoaEntity() {
 
@@ -119,6 +119,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -219,31 +220,31 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
-	public List<PessoaContato> getContatos() {
+	public List<PessoaContatoEntity> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(List<PessoaContato> contatos) {
+	public void setContatos(List<PessoaContatoEntity> contatos) {
 		this.contatos = contatos;
 	}
 
-	public void adicionarContato(PessoaContato c) {
+	public void adicionarContato(PessoaContatoEntity c) {
 		getContatos().add(c);
 		// c.setEmpresa(this.getEmpresa());
 		c.setPessoa(this);
 	}
 
-	public void adicionarEndereco(PessoaEndereco end) {
+	public void adicionarEndereco(PessoaEnderecoEntity end) {
 		getEnderecos().add(end);
 		end.setEmpresa(this.getEmpresa());
 		end.setPessoa(this);
 	}
 
-	public List<PessoaEndereco> getEnderecos() {
+	public List<PessoaEnderecoEntity> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<PessoaEndereco> enderecos) {
+	public void setEnderecos(List<PessoaEnderecoEntity> enderecos) {
 		this.enderecos = enderecos;
 	}
 

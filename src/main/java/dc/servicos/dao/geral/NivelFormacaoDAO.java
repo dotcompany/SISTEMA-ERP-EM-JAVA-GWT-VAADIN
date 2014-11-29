@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.NivelFormacao;
+import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,20 +23,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacao>{
+public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacaoEntity>{
 
 	@Override
-	public Class<NivelFormacao> getEntityClass() {
-		return NivelFormacao.class;
+	public Class<NivelFormacaoEntity> getEntityClass() {
+		return NivelFormacaoEntity.class;
 	}
 	
 	@Transactional
-	public List<NivelFormacao> listaTodos() {
+	public List<NivelFormacaoEntity> listaTodos() {
 		return getSession().createQuery("from NivelFormacao").list();
 	}
 
 	@Transactional
-	public List<NivelFormacao> procuraNomeContendo(String query) {
+	public List<NivelFormacaoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from NivelFormacao where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -45,7 +45,7 @@ public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacao>{
 	}
 	
 	@Transactional
-	public List<NivelFormacao> query(String q) {
+	public List<NivelFormacaoEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from NivelFormacao where lower(nome) like :q").setParameter("q", q).list();
 	}

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.EmpresaCnae;
-import dc.entidade.geral.Cnae;
+import dc.entidade.geral.CnaeEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.geral.CnaeDAO;
@@ -70,7 +70,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 		String msgErro = "Erro ao realizar operação";
 
 		try {
-			Cnae cnae = (Cnae) subView.getCmbCnae().getValue();
+			CnaeEntity cnae = (CnaeEntity) subView.getCmbCnae().getValue();
 			String principal = (((PRINCIPAL) subView.getCmbPrincipal().getValue()).getCodigo());
 			String ramoAtividade = subView.getTxtRamoAtividade().getValue();
 			String objetoSocial = subView.getTxtObjetoSocial().getValue();
@@ -158,8 +158,8 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 		return true;
 	}
 
-	public List<Cnae> trazerListaCnae() {
-		List<Cnae> lista = cnaeDAO.listarTodos();
+	public List<CnaeEntity> trazerListaCnae() {
+		List<CnaeEntity> lista = cnaeDAO.listarTodos();
 		return lista;
 	}
 

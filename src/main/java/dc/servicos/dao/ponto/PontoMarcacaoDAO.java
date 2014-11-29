@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.Usuario;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.entidade.ponto.PontoRelogio;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;

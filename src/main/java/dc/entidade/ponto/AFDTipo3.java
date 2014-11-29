@@ -3,7 +3,7 @@ package dc.entidade.ponto;
 import java.util.Date;
 
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 
 public class AFDTipo3 extends AbstractModel<Integer>{
