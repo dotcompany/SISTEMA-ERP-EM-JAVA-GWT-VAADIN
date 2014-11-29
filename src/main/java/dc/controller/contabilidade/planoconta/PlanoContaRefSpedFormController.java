@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
-public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoContaRefSpedEntity> {
+public class PlanoContaRefSpedFormController extends
+		CRUDFormController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -63,7 +64,8 @@ public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoCon
 			String codCtaRef = this.subView.getTfCodCtaRef().getValue();
 			String descricao = this.subView.getTfDescricao().getValue();
 			String orientacoes = this.subView.getTfOrientacoes().getValue();
-			Date inicioValidade = this.subView.getPdfInicioValidade().getValue();
+			Date inicioValidade = this.subView.getPdfInicioValidade()
+					.getValue();
 			Date fimValidade = this.subView.getPdfFimValidade().getValue();
 			String tipo = this.subView.getTfTipo().getValue();
 
@@ -174,9 +176,7 @@ public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoCon
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -200,9 +200,12 @@ public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoCon
 
 			this.subView.getTfCodCtaRef().setValue(this.pEntity.getCodCtaRef());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfOrientacoes().setValue(this.pEntity.getOrientacoes());
-			this.subView.getPdfInicioValidade().setValue(this.pEntity.getInicioValidade());
-			this.subView.getPdfFimValidade().setValue(this.pEntity.getFimValidade());
+			this.subView.getTfOrientacoes().setValue(
+					this.pEntity.getOrientacoes());
+			this.subView.getPdfInicioValidade().setValue(
+					this.pEntity.getInicioValidade());
+			this.subView.getPdfFimValidade().setValue(
+					this.pEntity.getFimValidade());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();

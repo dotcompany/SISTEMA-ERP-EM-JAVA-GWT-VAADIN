@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
@@ -24,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoCabFormController extends CRUDFormController<LancamentoProgramadoCabEntity> {
+public class LancamentoProgramadoCabFormController extends
+		CRUDFormController<LancamentoProgramadoCabEntity> {
 
 	/**
 	 * 
@@ -206,16 +207,15 @@ public class LancamentoProgramadoCabFormController extends CRUDFormController<La
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<LoteEntity> model1 = new DefaultManyToOneComboModel<LoteEntity>(LoteListController.class, this.lDAO,
+			DefaultManyToOneComboModel<LoteEntity> model1 = new DefaultManyToOneComboModel<LoteEntity>(
+					LoteListController.class, this.lDAO,
 					super.getMainController());
 
 			this.subView.getCbLote().setModel(model1);
@@ -245,9 +245,12 @@ public class LancamentoProgramadoCabFormController extends CRUDFormController<La
 				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
-			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
-			this.subView.getPdfDataRealizada().setValue(this.pEntity.getDataRealizada());
-			this.subView.getPdfDataPrevista().setValue(this.pEntity.getDataPrevista());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataRealizada().setValue(
+					this.pEntity.getDataRealizada());
+			this.subView.getPdfDataPrevista().setValue(
+					this.pEntity.getDataPrevista());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
 		} catch (Exception e) {

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.controller.geral.UFListController;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaContato;
@@ -79,7 +79,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

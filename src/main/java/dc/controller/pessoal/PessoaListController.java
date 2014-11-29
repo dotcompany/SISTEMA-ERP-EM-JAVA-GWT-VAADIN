@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.PessoaEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -45,7 +45,7 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
+		String sUrl = ClassUtils.getUrl(this);
 
 		return sUrl;
 	}

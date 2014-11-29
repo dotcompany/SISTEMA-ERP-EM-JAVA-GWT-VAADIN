@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
@@ -24,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class IndiceValorFormController extends CRUDFormController<IndiceValorEntity> {
+public class IndiceValorFormController extends
+		CRUDFormController<IndiceValorEntity> {
 
 	/**
 	 * 
@@ -67,7 +68,8 @@ public class IndiceValorFormController extends CRUDFormController<IndiceValorEnt
 	protected void actionSalvar() {
 		try {
 			Date dataIndice = this.subView.getPdfDataIndice().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
 
 			IndiceEntity indice = this.subView.getCbIndice().getValue();
 
@@ -190,16 +192,15 @@ public class IndiceValorFormController extends CRUDFormController<IndiceValorEnt
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<IndiceEntity> model = new DefaultManyToOneComboModel<IndiceEntity>(IndiceListController.class, this.iDAO,
+			DefaultManyToOneComboModel<IndiceEntity> model = new DefaultManyToOneComboModel<IndiceEntity>(
+					IndiceListController.class, this.iDAO,
 					super.getMainController());
 
 			this.subView.getCbIndice().setModel(model);
@@ -229,8 +230,10 @@ public class IndiceValorFormController extends CRUDFormController<IndiceValorEnt
 				this.subView.getCbIndice().setValue(this.pEntity.getIndice());
 			}
 
-			this.subView.getPdfDataIndice().setValue(this.pEntity.getDataIndice());
-			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
+			this.subView.getPdfDataIndice().setValue(
+					this.pEntity.getDataIndice());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

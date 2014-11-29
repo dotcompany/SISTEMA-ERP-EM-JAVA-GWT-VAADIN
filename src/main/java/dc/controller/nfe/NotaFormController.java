@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -147,9 +147,7 @@ public class NotaFormController extends CRUDFormController<LivroEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

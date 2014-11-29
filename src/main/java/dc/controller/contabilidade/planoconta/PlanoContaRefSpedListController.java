@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller(value = "contabilidadePlanoContaRefSpedListController")
 @Scope("prototype")
-public class PlanoContaRefSpedListController extends CRUDListController<PlanoContaRefSpedEntity> {
+public class PlanoContaRefSpedListController extends
+		CRUDListController<PlanoContaRefSpedEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,8 @@ public class PlanoContaRefSpedListController extends CRUDListController<PlanoCon
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "orientacoes", "inicioValidade", "fimValidade" };
+		return new String[] { "descricao", "orientacoes", "inicioValidade",
+				"fimValidade" };
 	}
 
 	@Override
@@ -60,7 +62,8 @@ public class PlanoContaRefSpedListController extends CRUDListController<PlanoCon
 	@Override
 	protected List<PlanoContaRefSpedEntity> pesquisa(String valor) {
 		try {
-			List<PlanoContaRefSpedEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<PlanoContaRefSpedEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +81,7 @@ public class PlanoContaRefSpedListController extends CRUDListController<PlanoCon
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

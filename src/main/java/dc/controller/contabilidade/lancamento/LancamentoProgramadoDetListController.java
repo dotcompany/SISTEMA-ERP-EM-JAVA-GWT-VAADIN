@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoDetDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoDetListController extends CRUDListController<LancamentoProgramadoDetEntity> {
+public class LancamentoProgramadoDetListController extends
+		CRUDListController<LancamentoProgramadoDetEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class LancamentoProgramadoDetListController extends CRUDListController<La
 	@Override
 	protected List<LancamentoProgramadoDetEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoProgramadoDetEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<LancamentoProgramadoDetEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class LancamentoProgramadoDetListController extends CRUDListController<La
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -91,7 +91,8 @@ public class LancamentoProgramadoDetListController extends CRUDListController<La
 	@Override
 	protected List<LancamentoProgramadoDetEntity> pesquisaDefault() {
 		try {
-			List<LancamentoProgramadoDetEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoProgramadoDetEntity> auxLista = this.pDAO
+					.listarTodos();
 
 			return auxLista;
 		} catch (Exception e) {

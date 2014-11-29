@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.controller.geral.FornecedorListController;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.suprimentos.compra.Cotacao;
@@ -186,8 +186,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

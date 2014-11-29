@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.controller.financeiro.IndiceEconomicoListController;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
@@ -68,10 +68,12 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	protected void actionSalvar() {
 		try {
 			String periocidade = this.subView.getTfPeriodicidade().getValue();
-			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe().getValue();
+			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe()
+					.getValue();
 			String mensalMesAno = this.subView.getTfMensalMesAno().getValue();
 
-			IndiceEconomicoEntity indiceEconomico = this.subView.getCbIndiceEconomico().getValue();
+			IndiceEconomicoEntity indiceEconomico = this.subView
+					.getCbIndiceEconomico().getValue();
 
 			this.pEntity.setPeriodicidade(periocidade);
 			this.pEntity.setDiarioPartirDe(diarioPartirDe);
@@ -159,7 +161,8 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 
 		/** REQUIRED */
 
-		IndiceEconomicoEntity indiceEconomico = this.subView.getCbIndiceEconomico().getValue();
+		IndiceEconomicoEntity indiceEconomico = this.subView
+				.getCbIndiceEconomico().getValue();
 
 		if (!ObjectValidator.validateObject(indiceEconomico)) {
 			String msg = "Não pode ficar em branco.";
@@ -183,9 +186,7 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -193,7 +194,8 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<IndiceEconomicoEntity> model = new DefaultManyToOneComboModel<IndiceEconomicoEntity>(
-					IndiceEconomicoListController.class, this.ieDAO, super.getMainController()) {
+					IndiceEconomicoListController.class, this.ieDAO,
+					super.getMainController()) {
 
 				@Override
 				public String getCaptionProperty() {
@@ -226,12 +228,16 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbIndiceEconomico().setValue(this.pEntity.getIndiceEconomico());
+				this.subView.getCbIndiceEconomico().setValue(
+						this.pEntity.getIndiceEconomico());
 			}
 
-			this.subView.getTfPeriodicidade().setValue(this.pEntity.getPeriodicidade());
-			this.subView.getPdfDiarioPartirDe().setValue(this.pEntity.getDiarioPartirDe());
-			this.subView.getTfMensalMesAno().setValue(this.pEntity.getMensalMesAno());
+			this.subView.getTfPeriodicidade().setValue(
+					this.pEntity.getPeriodicidade());
+			this.subView.getPdfDiarioPartirDe().setValue(
+					this.pEntity.getDiarioPartirDe());
+			this.subView.getTfMensalMesAno().setValue(
+					this.pEntity.getMensalMesAno());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

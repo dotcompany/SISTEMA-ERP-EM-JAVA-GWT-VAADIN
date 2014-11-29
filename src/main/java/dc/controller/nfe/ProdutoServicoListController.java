@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
@@ -80,9 +80,7 @@ public class ProdutoServicoListController extends
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

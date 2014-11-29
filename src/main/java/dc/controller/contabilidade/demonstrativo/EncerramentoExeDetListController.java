@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeDetDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeDetListController extends CRUDListController<EncerramentoExeDetEntity> {
+public class EncerramentoExeDetListController extends
+		CRUDListController<EncerramentoExeDetEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,8 @@ public class EncerramentoExeDetListController extends CRUDListController<Encerra
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "saldoAnterior", "valorDebito", "valorCredito", "saldo" };
+		return new String[] { "saldoAnterior", "valorDebito", "valorCredito",
+				"saldo" };
 	}
 
 	@Override
@@ -60,7 +62,8 @@ public class EncerramentoExeDetListController extends CRUDListController<Encerra
 	@Override
 	protected List<EncerramentoExeDetEntity> pesquisa(String valor) {
 		try {
-			List<EncerramentoExeDetEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<EncerramentoExeDetEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +81,7 @@ public class EncerramentoExeDetListController extends CRUDListController<Encerra
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

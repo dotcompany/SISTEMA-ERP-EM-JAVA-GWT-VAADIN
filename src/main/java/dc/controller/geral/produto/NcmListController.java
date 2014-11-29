@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -41,7 +41,7 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

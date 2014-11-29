@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
@@ -172,9 +172,7 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -198,9 +196,12 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
-			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
-			this.subView.getPdfDataLiberacao().setValue(this.pEntity.getDataLiberacao());
-			this.subView.getTfProgramado().setValue(this.pEntity.getProgramado());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLiberacao().setValue(
+					this.pEntity.getDataLiberacao());
+			this.subView.getTfProgramado().setValue(
+					this.pEntity.getProgramado());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

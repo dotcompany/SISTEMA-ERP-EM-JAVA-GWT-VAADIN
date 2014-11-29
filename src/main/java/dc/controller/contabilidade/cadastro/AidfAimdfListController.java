@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
 import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfListController extends CRUDListController<AidfAimdfEntity> {
+public class AidfAimdfListController extends
+		CRUDListController<AidfAimdfEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class AidfAimdfListController extends CRUDListController<AidfAimdfEntity>
 	@Override
 	protected List<AidfAimdfEntity> pesquisa(String valor) {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<AidfAimdfEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class AidfAimdfListController extends CRUDListController<AidfAimdfEntity>
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

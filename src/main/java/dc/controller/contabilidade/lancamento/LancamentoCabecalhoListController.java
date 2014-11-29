@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoCabecalhoListController extends CRUDListController<LancamentoCabecalhoEntity> {
+public class LancamentoCabecalhoListController extends
+		CRUDListController<LancamentoCabecalhoEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,8 @@ public class LancamentoCabecalhoListController extends CRUDListController<Lancam
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataLancamento", "dataInclusao", "tipo", "liberado", "valor" };
+		return new String[] { "dataLancamento", "dataInclusao", "tipo",
+				"liberado", "valor" };
 	}
 
 	@Override
@@ -60,7 +62,8 @@ public class LancamentoCabecalhoListController extends CRUDListController<Lancam
 	@Override
 	protected List<LancamentoCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoCabecalhoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<LancamentoCabecalhoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +81,7 @@ public class LancamentoCabecalhoListController extends CRUDListController<Lancam
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

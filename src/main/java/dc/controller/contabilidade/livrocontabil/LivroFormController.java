@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.contabilidade.livrocontabil.LivroFormView;
@@ -60,7 +60,8 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String competencia = this.subView.getTfCompetencia().getValue();
-			String formaEscrituracao = this.subView.getTfFormaEscrituracao().getValue();
+			String formaEscrituracao = this.subView.getTfFormaEscrituracao()
+					.getValue();
 
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setCompetencia(competencia);
@@ -146,9 +147,7 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -171,8 +170,10 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 			}
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
-			this.subView.getTfFormaEscrituracao().setValue(this.pEntity.getFormaEscrituracao());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfFormaEscrituracao().setValue(
+					this.pEntity.getFormaEscrituracao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

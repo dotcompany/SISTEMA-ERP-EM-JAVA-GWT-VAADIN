@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.FechamentoEntity;
 import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller(value = "contabilidadeFechamentoFormController")
 @Scope("prototype")
-public class FechamentoFormController extends CRUDFormController<FechamentoEntity> {
+public class FechamentoFormController extends
+		CRUDFormController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -62,7 +63,8 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 		try {
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			Date dataFim = this.subView.getPdfDataFim().getValue();
-			String criterioLancamento = this.subView.getTfCriterioLancamento().getValue();
+			String criterioLancamento = this.subView.getTfCriterioLancamento()
+					.getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setDataFim(dataFim);
@@ -168,9 +170,7 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -192,9 +192,11 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getTfCriterioLancamento().setValue(this.pEntity.getCriterioLancamento());
+			this.subView.getTfCriterioLancamento().setValue(
+					this.pEntity.getCriterioLancamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

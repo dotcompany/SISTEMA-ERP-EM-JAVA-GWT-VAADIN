@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.cadastro.HistoricoListController;
 import dc.controller.contabilidade.planoconta.ContaListController;
@@ -30,7 +30,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoProgramadoDetFormController extends CRUDFormController<LancamentoProgramadoDetEntity> {
+public class LancamentoProgramadoDetFormController extends
+		CRUDFormController<LancamentoProgramadoDetEntity> {
 
 	/**
 	 * 
@@ -78,14 +79,18 @@ public class LancamentoProgramadoDetFormController extends CRUDFormController<La
 	@Override
 	protected void actionSalvar() {
 		try {
-			String descricaoHistorico = this.subView.getTfDescricaoHistorico().getValue();
-			BigDecimal valor = new BigDecimal(this.subView.getTfValor().getValue());
+			String descricaoHistorico = this.subView.getTfDescricaoHistorico()
+					.getValue();
+			BigDecimal valor = new BigDecimal(this.subView.getTfValor()
+					.getValue());
 			String tipo = this.subView.getTfTipo().getValue();
 
-			LancamentoProgramadoCabEntity lancamentoProgramadoCab = (LancamentoProgramadoCabEntity) this.subView.getCbLancamentoProgramadoCab()
+			LancamentoProgramadoCabEntity lancamentoProgramadoCab = (LancamentoProgramadoCabEntity) this.subView
+					.getCbLancamentoProgramadoCab().getValue();
+			ContaEntity conta = (ContaEntity) this.subView.getCbConta()
 					.getValue();
-			ContaEntity conta = (ContaEntity) this.subView.getCbConta().getValue();
-			HistoricoEntity historico = (HistoricoEntity) this.subView.getCbHistorico().getValue();
+			HistoricoEntity historico = (HistoricoEntity) this.subView
+					.getCbHistorico().getValue();
 
 			this.pEntity.setDescricaoHistorico(descricaoHistorico);
 			this.pEntity.setValor(valor);
@@ -175,12 +180,14 @@ public class LancamentoProgramadoDetFormController extends CRUDFormController<La
 
 		/** REQUIRED */
 
-		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView.getCbLancamentoProgramadoCab().getValue();
+		LancamentoProgramadoCabEntity lancamentoProgramadoCab = this.subView
+				.getCbLancamentoProgramadoCab().getValue();
 
 		if (!ObjectValidator.validateObject(lancamentoProgramadoCab)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getCbLancamentoProgramadoCab(), msg);
+			adicionarErroDeValidacao(
+					this.subView.getCbLancamentoProgramadoCab(), msg);
 
 			return false;
 		}
@@ -219,9 +226,7 @@ public class LancamentoProgramadoDetFormController extends CRUDFormController<La
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -229,17 +234,20 @@ public class LancamentoProgramadoDetFormController extends CRUDFormController<La
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<LancamentoProgramadoCabEntity> model1 = new DefaultManyToOneComboModel<LancamentoProgramadoCabEntity>(
-					LancamentoProgramadoCabListController.class, this.lpcDAO, super.getMainController());
+					LancamentoProgramadoCabListController.class, this.lpcDAO,
+					super.getMainController());
 
 			this.subView.getCbLancamentoProgramadoCab().setModel(model1);
 
-			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model2);
 
-			DefaultManyToOneComboModel<HistoricoEntity> model3 = new DefaultManyToOneComboModel<HistoricoEntity>(HistoricoListController.class,
-					this.hDAO, super.getMainController());
+			DefaultManyToOneComboModel<HistoricoEntity> model3 = new DefaultManyToOneComboModel<HistoricoEntity>(
+					HistoricoListController.class, this.hDAO,
+					super.getMainController());
 
 			this.subView.getCbHistorico().setModel(model3);
 		} catch (Exception e) {
@@ -269,13 +277,17 @@ public class LancamentoProgramadoDetFormController extends CRUDFormController<La
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbLancamentoProgramadoCab().setValue(this.pEntity.getLancamentoProgramadoCab());
+				this.subView.getCbLancamentoProgramadoCab().setValue(
+						this.pEntity.getLancamentoProgramadoCab());
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
-				this.subView.getCbHistorico().setValue(this.pEntity.getHistorico());
+				this.subView.getCbHistorico().setValue(
+						this.pEntity.getHistorico());
 			}
 
-			this.subView.getTfDescricaoHistorico().setValue(this.pEntity.getDescricaoHistorico());
-			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
+			this.subView.getTfDescricaoHistorico().setValue(
+					this.pEntity.getDescricaoHistorico());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();

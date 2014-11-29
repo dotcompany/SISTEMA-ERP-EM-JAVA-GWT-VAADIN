@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
@@ -178,7 +178,7 @@ public class PedidoCompraFormController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

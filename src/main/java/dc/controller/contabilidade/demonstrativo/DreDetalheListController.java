@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreDetalheListController extends CRUDListController<DreDetalheEntity> {
+public class DreDetalheListController extends
+		CRUDListController<DreDetalheEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,8 @@ public class DreDetalheListController extends CRUDListController<DreDetalheEntit
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "classificacao", "descricao", "formaCalculo", "sinal" };
+		return new String[] { "classificacao", "descricao", "formaCalculo",
+				"sinal" };
 	}
 
 	@Override
@@ -60,7 +62,8 @@ public class DreDetalheListController extends CRUDListController<DreDetalheEntit
 	@Override
 	protected List<DreDetalheEntity> pesquisa(String valor) {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<DreDetalheEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +81,7 @@ public class DreDetalheListController extends CRUDListController<DreDetalheEntit
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

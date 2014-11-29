@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoOrcadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoOrcadoListController extends CRUDListController<LancamentoOrcadoEntity> {
+public class LancamentoOrcadoListController extends
+		CRUDListController<LancamentoOrcadoEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class LancamentoOrcadoListController extends CRUDListController<Lancament
 	@Override
 	protected List<LancamentoOrcadoEntity> pesquisa(String valor) {
 		try {
-			List<LancamentoOrcadoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<LancamentoOrcadoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class LancamentoOrcadoListController extends CRUDListController<Lancament
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoListController extends CRUDListController<HistoricoEntity> {
+public class HistoricoListController extends
+		CRUDListController<HistoricoEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class HistoricoListController extends CRUDListController<HistoricoEntity>
 	@Override
 	protected List<HistoricoEntity> pesquisa(String valor) {
 		try {
-			List<HistoricoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<HistoricoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class HistoricoListController extends CRUDListController<HistoricoEntity>
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

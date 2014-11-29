@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.servicos.util.Validator;
@@ -116,7 +116,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

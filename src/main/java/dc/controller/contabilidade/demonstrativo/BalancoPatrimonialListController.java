@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialListController extends CRUDListController<BalancoPatrimonialEntity> {
+public class BalancoPatrimonialListController extends
+		CRUDListController<BalancoPatrimonialEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class BalancoPatrimonialListController extends CRUDListController<Balanco
 	@Override
 	protected List<BalancoPatrimonialEntity> pesquisa(String valor) {
 		try {
-			List<BalancoPatrimonialEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<BalancoPatrimonialEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class BalancoPatrimonialListController extends CRUDListController<Balanco
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

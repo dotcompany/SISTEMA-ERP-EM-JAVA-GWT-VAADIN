@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeCabListController extends CRUDListController<EncerramentoExeCabEntity> {
+public class EncerramentoExeCabListController extends
+		CRUDListController<EncerramentoExeCabEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class EncerramentoExeCabListController extends CRUDListController<Encerra
 	@Override
 	protected List<EncerramentoExeCabEntity> pesquisa(String valor) {
 		try {
-			List<EncerramentoExeCabEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<EncerramentoExeCabEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class EncerramentoExeCabListController extends CRUDListController<Encerra
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

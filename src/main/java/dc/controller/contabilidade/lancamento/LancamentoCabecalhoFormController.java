@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
@@ -24,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoCabecalhoFormController extends CRUDFormController<LancamentoCabecalhoEntity> {
+public class LancamentoCabecalhoFormController extends
+		CRUDFormController<LancamentoCabecalhoEntity> {
 
 	/**
 	 * 
@@ -66,11 +67,13 @@ public class LancamentoCabecalhoFormController extends CRUDFormController<Lancam
 	@Override
 	protected void actionSalvar() {
 		try {
-			Date dataLancamento = this.subView.getPdfDataLancamento().getValue();
+			Date dataLancamento = this.subView.getPdfDataLancamento()
+					.getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
 			String tipo = this.subView.getTfTipo().getValue();
 			String liberado = this.subView.getTfLiberado().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
 
 			LoteEntity lote = this.subView.getCbLote().getValue();
 
@@ -206,16 +209,15 @@ public class LancamentoCabecalhoFormController extends CRUDFormController<Lancam
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<LoteEntity> model = new DefaultManyToOneComboModel<LoteEntity>(LoteListController.class, this.lDAO,
+			DefaultManyToOneComboModel<LoteEntity> model = new DefaultManyToOneComboModel<LoteEntity>(
+					LoteListController.class, this.lDAO,
 					super.getMainController());
 
 			this.subView.getCbLote().setModel(model);
@@ -245,11 +247,14 @@ public class LancamentoCabecalhoFormController extends CRUDFormController<Lancam
 				this.subView.getCbLote().setValue(this.pEntity.getLote());
 			}
 
-			this.subView.getPdfDataLancamento().setValue(this.pEntity.getDataLancamento());
-			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
+			this.subView.getPdfDataLancamento().setValue(
+					this.pEntity.getDataLancamento());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
-			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

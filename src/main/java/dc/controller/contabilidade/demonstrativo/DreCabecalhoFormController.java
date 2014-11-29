@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
 import dc.visao.contabilidade.demonstrativo.DreCabecalhoFormView;
@@ -19,7 +19,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreCabecalhoFormController extends CRUDFormController<DreCabecalhoEntity> {
+public class DreCabecalhoFormController extends
+		CRUDFormController<DreCabecalhoEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class DreCabecalhoFormController extends CRUDFormController<DreCabecalhoE
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String padrao = this.subView.getTfPadrao().getValue();
-			String periodoInicial = this.subView.getTfPeriodoInicial().getValue();
+			String periodoInicial = this.subView.getTfPeriodoInicial()
+					.getValue();
 			String periodoFinal = this.subView.getTfPeriodoFinal().getValue();
 
 			this.pEntity.setDescricao(descricao);
@@ -148,9 +150,7 @@ public class DreCabecalhoFormController extends CRUDFormController<DreCabecalhoE
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -174,8 +174,10 @@ public class DreCabecalhoFormController extends CRUDFormController<DreCabecalhoE
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfPadrao().setValue(this.pEntity.getPadrao());
-			this.subView.getTfPeriodoInicial().setValue(this.pEntity.getPeriodoInicial());
-			this.subView.getTfPeriodoFinal().setValue(this.pEntity.getPeriodoFinal());
+			this.subView.getTfPeriodoInicial().setValue(
+					this.pEntity.getPeriodoInicial());
+			this.subView.getTfPeriodoFinal().setValue(
+					this.pEntity.getPeriodoFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

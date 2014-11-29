@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.controller.diversos.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.ICMSCustomizadoListController;
@@ -535,7 +535,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	public ProdutoEntity getCurrentBean() {

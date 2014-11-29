@@ -38,7 +38,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.UFListController;
 import dc.controller.geral.produto.ProdutosListController;
@@ -858,7 +858,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	private static File getFileFromDocumento(Template documento) {

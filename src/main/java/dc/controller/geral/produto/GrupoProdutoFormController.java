@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.GrupoProdutoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.util.Validator;
@@ -109,7 +109,7 @@ public class GrupoProdutoFormController extends
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

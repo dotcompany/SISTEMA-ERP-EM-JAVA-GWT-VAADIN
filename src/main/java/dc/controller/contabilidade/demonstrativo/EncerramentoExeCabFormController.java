@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeCabFormController extends CRUDFormController<EncerramentoExeCabEntity> {
+public class EncerramentoExeCabFormController extends
+		CRUDFormController<EncerramentoExeCabEntity> {
 
 	/**
 	 * 
@@ -180,9 +181,7 @@ public class EncerramentoExeCabFormController extends CRUDFormController<Encerra
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -204,9 +203,11 @@ public class EncerramentoExeCabFormController extends CRUDFormController<Encerra
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 		} catch (Exception e) {
 			e.printStackTrace();

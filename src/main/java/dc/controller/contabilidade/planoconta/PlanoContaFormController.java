@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller(value = "contabilidadePlanoContaFormController")
 @Scope("prototype")
-public class PlanoContaFormController extends CRUDFormController<PlanoContaEntity> {
+public class PlanoContaFormController extends
+		CRUDFormController<PlanoContaEntity> {
 
 	/**
 	 * 
@@ -63,7 +64,8 @@ public class PlanoContaFormController extends CRUDFormController<PlanoContaEntit
 			String nome = this.subView.getTfNome().getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
 			String mascara = this.subView.getTfMascara().getValue();
-			Integer niveis = Integer.parseInt(this.subView.getTfNiveis().getValue());
+			Integer niveis = Integer.parseInt(this.subView.getTfNiveis()
+					.getValue());
 
 			this.pEntity.setNome(nome);
 			this.pEntity.setDataInclusao(dataInclusao);
@@ -170,9 +172,7 @@ public class PlanoContaFormController extends CRUDFormController<PlanoContaEntit
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -195,9 +195,11 @@ public class PlanoContaFormController extends CRUDFormController<PlanoContaEntit
 			}
 
 			this.subView.getTfNome().setValue(this.pEntity.getNome());
-			this.subView.getPdfDataInclusao().setValue(this.pEntity.getDataInclusao());
+			this.subView.getPdfDataInclusao().setValue(
+					this.pEntity.getDataInclusao());
 			this.subView.getTfMascara().setValue(this.pEntity.getMascara());
-			this.subView.getTfNiveis().setValue(this.pEntity.getNiveis().toString());
+			this.subView.getTfNiveis().setValue(
+					this.pEntity.getNiveis().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

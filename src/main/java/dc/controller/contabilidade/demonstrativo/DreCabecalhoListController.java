@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class DreCabecalhoListController extends CRUDListController<DreCabecalhoEntity> {
+public class DreCabecalhoListController extends
+		CRUDListController<DreCabecalhoEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,8 @@ public class DreCabecalhoListController extends CRUDListController<DreCabecalhoE
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "padrao", "periodoInicial", "periodoFinal" };
+		return new String[] { "descricao", "padrao", "periodoInicial",
+				"periodoFinal" };
 	}
 
 	@Override
@@ -60,7 +62,8 @@ public class DreCabecalhoListController extends CRUDListController<DreCabecalhoE
 	@Override
 	protected List<DreCabecalhoEntity> pesquisa(String valor) {
 		try {
-			List<DreCabecalhoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<DreCabecalhoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +81,7 @@ public class DreCabecalhoListController extends CRUDListController<DreCabecalhoE
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

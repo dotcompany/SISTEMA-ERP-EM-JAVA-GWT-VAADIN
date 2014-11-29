@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -14,7 +14,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoPedidoListController extends CRUDListController<TipoPedidoEntity> {
+public class TipoPedidoListController extends
+		CRUDListController<TipoPedidoEntity> {
 
 	/**
 	 * 
@@ -44,7 +45,7 @@ public class TipoPedidoListController extends CRUDListController<TipoPedidoEntit
 
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

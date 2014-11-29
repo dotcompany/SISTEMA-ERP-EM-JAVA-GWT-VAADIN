@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.FapEntity;
 import dc.servicos.dao.contabilidade.cadastro.FapDAO;
@@ -179,9 +179,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -204,8 +202,10 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 			}
 
 			this.subView.getTfFap().setValue(this.pEntity.getFap().toString());
-			this.subView.getPdfDataInicial().setValue(this.pEntity.getDataInicial());
-			this.subView.getPdfDataFinal().setValue(this.pEntity.getDataFinal());
+			this.subView.getPdfDataInicial().setValue(
+					this.pEntity.getDataInicial());
+			this.subView.getPdfDataFinal()
+					.setValue(this.pEntity.getDataFinal());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

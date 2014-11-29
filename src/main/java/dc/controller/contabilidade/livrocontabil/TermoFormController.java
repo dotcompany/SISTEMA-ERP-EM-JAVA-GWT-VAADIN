@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
@@ -66,17 +66,22 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			String aberturaEncerramento = this.subView.getTfAberturaEncerramento().getValue();
+			String aberturaEncerramento = this.subView
+					.getTfAberturaEncerramento().getValue();
 			String numero = this.subView.getTfNumero().getValue();
 			String paginaInicial = this.subView.getTfPaginaInicial().getValue();
 			String paginaFinal = this.subView.getTfPaginaFinal().getValue();
 			String registrado = this.subView.getTfRegistrado().getValue();
-			String numeroRegistro = this.subView.getTfNumeroRegistro().getValue();
+			String numeroRegistro = this.subView.getTfNumeroRegistro()
+					.getValue();
 			Date dataDespacho = this.subView.getPdfDataDespacho().getValue();
 			Date dataAbertura = this.subView.getPdfDataAbertura().getValue();
-			Date dataEncerramento = this.subView.getPdfDataEncerramento().getValue();
-			Date escrituracaoInicio = this.subView.getPdfEscrituracaoInicio().getValue();
-			Date escrituracaoFim = this.subView.getPdfEscrituracaoFim().getValue();
+			Date dataEncerramento = this.subView.getPdfDataEncerramento()
+					.getValue();
+			Date escrituracaoInicio = this.subView.getPdfEscrituracaoInicio()
+					.getValue();
+			Date escrituracaoFim = this.subView.getPdfEscrituracaoFim()
+					.getValue();
 			String texto = this.subView.getTfTexto().getValue();
 
 			LivroEntity livro = this.subView.getCbLivro().getValue();
@@ -214,7 +219,8 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			return false;
 		}
 
-		Object dataEncerramento = this.subView.getPdfDataEncerramento().getValue();
+		Object dataEncerramento = this.subView.getPdfDataEncerramento()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataEncerramento)) {
 			String msg = "Não pode ficar em branco.";
@@ -224,17 +230,20 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 			return false;
 		}
 
-		Object escrituracaoInicio = this.subView.getPdfEscrituracaoInicio().getValue();
+		Object escrituracaoInicio = this.subView.getPdfEscrituracaoInicio()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(escrituracaoInicio)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoInicio(), msg);
+			adicionarErroDeValidacao(this.subView.getPdfEscrituracaoInicio(),
+					msg);
 
 			return false;
 		}
 
-		Object escrituracaoFim = this.subView.getPdfEscrituracaoFim().getValue();
+		Object escrituracaoFim = this.subView.getPdfEscrituracaoFim()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(escrituracaoFim)) {
 			String msg = "Não pode ficar em branco.";
@@ -270,16 +279,15 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<LivroEntity> model = new DefaultManyToOneComboModel<LivroEntity>(LivroListController.class, this.lDAO,
+			DefaultManyToOneComboModel<LivroEntity> model = new DefaultManyToOneComboModel<LivroEntity>(
+					LivroListController.class, this.lDAO,
 					super.getMainController());
 
 			this.subView.getCbLivro().setModel(model);
@@ -309,17 +317,28 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 				this.subView.getCbLivro().setValue(this.pEntity.getLivro());
 			}
 
-			this.subView.getTfAberturaEncerramento().setValue(this.pEntity.getAberturaEncerramento());
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero().toString());
-			this.subView.getTfPaginaInicial().setValue(this.pEntity.getPaginaInicial().toString());
-			this.subView.getTfPaginaFinal().setValue(this.pEntity.getPaginaFinal().toString());
-			this.subView.getTfRegistrado().setValue(this.pEntity.getRegistrado());
-			this.subView.getTfNumeroRegistro().setValue(this.pEntity.getNumeroRegistro());
-			this.subView.getPdfDataDespacho().setValue(this.pEntity.getDataDespacho());
-			this.subView.getPdfDataAbertura().setValue(this.pEntity.getDataAbertura());
-			this.subView.getPdfDataEncerramento().setValue(this.pEntity.getDataEncerramento());
-			this.subView.getPdfEscrituracaoInicio().setValue(this.pEntity.getEscrituracaoInicio());
-			this.subView.getPdfEscrituracaoFim().setValue(this.pEntity.getEscrituracaoFim());
+			this.subView.getTfAberturaEncerramento().setValue(
+					this.pEntity.getAberturaEncerramento());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getTfPaginaInicial().setValue(
+					this.pEntity.getPaginaInicial().toString());
+			this.subView.getTfPaginaFinal().setValue(
+					this.pEntity.getPaginaFinal().toString());
+			this.subView.getTfRegistrado().setValue(
+					this.pEntity.getRegistrado());
+			this.subView.getTfNumeroRegistro().setValue(
+					this.pEntity.getNumeroRegistro());
+			this.subView.getPdfDataDespacho().setValue(
+					this.pEntity.getDataDespacho());
+			this.subView.getPdfDataAbertura().setValue(
+					this.pEntity.getDataAbertura());
+			this.subView.getPdfDataEncerramento().setValue(
+					this.pEntity.getDataEncerramento());
+			this.subView.getPdfEscrituracaoInicio().setValue(
+					this.pEntity.getEscrituracaoInicio());
+			this.subView.getPdfEscrituracaoFim().setValue(
+					this.pEntity.getEscrituracaoFim());
 			this.subView.getTfTexto().setValue(this.pEntity.getTexto());
 		} catch (Exception e) {
 			e.printStackTrace();

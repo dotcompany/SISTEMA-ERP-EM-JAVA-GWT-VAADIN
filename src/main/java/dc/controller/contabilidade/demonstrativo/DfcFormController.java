@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DfcEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
 import dc.visao.contabilidade.demonstrativo.DfcFormView;
@@ -138,9 +138,7 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

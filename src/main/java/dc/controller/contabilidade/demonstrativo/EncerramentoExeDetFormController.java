@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
@@ -26,7 +26,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class EncerramentoExeDetFormController extends CRUDFormController<EncerramentoExeDetEntity> {
+public class EncerramentoExeDetFormController extends
+		CRUDFormController<EncerramentoExeDetEntity> {
 
 	/**
 	 * 
@@ -71,12 +72,17 @@ public class EncerramentoExeDetFormController extends CRUDFormController<Encerra
 	@Override
 	protected void actionSalvar() {
 		try {
-			Double saldoAnterior = Double.parseDouble(this.subView.getTfSaldoAnterior().getValue());
-			Double valorDebito = Double.parseDouble(this.subView.getTfValorDebito().getValue());
-			Double valorCredito = Double.parseDouble(this.subView.getTfValorCredito().getValue());
-			Double saldo = Double.parseDouble(this.subView.getTfSaldo().getValue());
+			Double saldoAnterior = Double.parseDouble(this.subView
+					.getTfSaldoAnterior().getValue());
+			Double valorDebito = Double.parseDouble(this.subView
+					.getTfValorDebito().getValue());
+			Double valorCredito = Double.parseDouble(this.subView
+					.getTfValorCredito().getValue());
+			Double saldo = Double.parseDouble(this.subView.getTfSaldo()
+					.getValue());
 
-			EncerramentoExeCabEntity encerramentoExeCab = this.subView.getCbEncerramentoExeCab().getValue();
+			EncerramentoExeCabEntity encerramentoExeCab = this.subView
+					.getCbEncerramentoExeCab().getValue();
 			ContaEntity conta = this.subView.getCbConta().getValue();
 
 			this.pEntity.setSaldoAnterior(saldoAnterior);
@@ -197,12 +203,14 @@ public class EncerramentoExeDetFormController extends CRUDFormController<Encerra
 
 		/** REQUIRED */
 
-		EncerramentoExeCabEntity encerramentoExeCab = this.subView.getCbEncerramentoExeCab().getValue();
+		EncerramentoExeCabEntity encerramentoExeCab = this.subView
+				.getCbEncerramentoExeCab().getValue();
 
 		if (!ObjectValidator.validateObject(encerramentoExeCab)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(), msg);
+			adicionarErroDeValidacao(this.subView.getCbEncerramentoExeCab(),
+					msg);
 
 			return false;
 		}
@@ -231,9 +239,7 @@ public class EncerramentoExeDetFormController extends CRUDFormController<Encerra
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -241,11 +247,13 @@ public class EncerramentoExeDetFormController extends CRUDFormController<Encerra
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<EncerramentoExeCabEntity> model1 = new DefaultManyToOneComboModel<EncerramentoExeCabEntity>(
-					EncerramentoExeCabListController.class, this.eecDAO, super.getMainController());
+					EncerramentoExeCabListController.class, this.eecDAO,
+					super.getMainController());
 
 			this.subView.getCbEncerramentoExeCab().setModel(model1);
 
-			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model2 = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model2);
@@ -274,14 +282,19 @@ public class EncerramentoExeDetFormController extends CRUDFormController<Encerra
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbEncerramentoExeCab().setValue(this.pEntity.getEncerramentoExeCab());
+				this.subView.getCbEncerramentoExeCab().setValue(
+						this.pEntity.getEncerramentoExeCab());
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			}
 
-			this.subView.getTfSaldoAnterior().setValue(this.pEntity.getSaldoAnterior().toString());
-			this.subView.getTfValorDebito().setValue(this.pEntity.getValorDebito().toString());
-			this.subView.getTfValorCredito().setValue(this.pEntity.getValorCredito().toString());
-			this.subView.getTfSaldo().setValue(this.pEntity.getSaldo().toString());
+			this.subView.getTfSaldoAnterior().setValue(
+					this.pEntity.getSaldoAnterior().toString());
+			this.subView.getTfValorDebito().setValue(
+					this.pEntity.getValorDebito().toString());
+			this.subView.getTfValorCredito().setValue(
+					this.pEntity.getValorCredito().toString());
+			this.subView.getTfSaldo().setValue(
+					this.pEntity.getSaldo().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

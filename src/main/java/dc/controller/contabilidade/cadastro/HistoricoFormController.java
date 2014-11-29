@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.contabilidade.cadastro.HistoricoFormView;
@@ -19,7 +19,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoFormController extends CRUDFormController<HistoricoEntity> {
+public class HistoricoFormController extends
+		CRUDFormController<HistoricoEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class HistoricoFormController extends CRUDFormController<HistoricoEntity>
 		try {
 			String descricao = this.subView.getTfDescricao().getValue();
 			String historico = this.subView.getTfHistorico().getValue();
-			String pedeComplemento = this.subView.getTfPedeComplemento().getValue();
+			String pedeComplemento = this.subView.getTfPedeComplemento()
+					.getValue();
 
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setHistorico(historico);
@@ -146,9 +148,7 @@ public class HistoricoFormController extends CRUDFormController<HistoricoEntity>
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -172,7 +172,8 @@ public class HistoricoFormController extends CRUDFormController<HistoricoEntity>
 
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfHistorico().setValue(this.pEntity.getHistorico());
-			this.subView.getTfPedeComplemento().setValue(this.pEntity.getPedeComplemento());
+			this.subView.getTfPedeComplemento().setValue(
+					this.pEntity.getPedeComplemento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

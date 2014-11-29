@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller(value = "contabilidadePlanoContaListController")
 @Scope("prototype")
-public class PlanoContaListController extends CRUDListController<PlanoContaEntity> {
+public class PlanoContaListController extends
+		CRUDListController<PlanoContaEntity> {
 
 	/**
 	 * 
@@ -60,7 +61,8 @@ public class PlanoContaListController extends CRUDListController<PlanoContaEntit
 	@Override
 	protected List<PlanoContaEntity> pesquisa(String valor) {
 		try {
-			List<PlanoContaEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<PlanoContaEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -78,9 +80,7 @@ public class PlanoContaListController extends CRUDListController<PlanoContaEntit
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

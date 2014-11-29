@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.RegistroCartorioEntity;
 import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class RegistroCartorioFormController extends CRUDFormController<RegistroCartorioEntity> {
+public class RegistroCartorioFormController extends
+		CRUDFormController<RegistroCartorioEntity> {
 
 	/**
 	 * 
@@ -62,9 +63,12 @@ public class RegistroCartorioFormController extends CRUDFormController<RegistroC
 		try {
 			String nomeCartorio = this.subView.getTfNomeCartorio().getValue();
 			Date dataRegistro = this.subView.getPdfDataRegistro().getValue();
-			Integer numero = Integer.parseInt(this.subView.getTfNumero().getValue());
-			Integer folha = Integer.parseInt(this.subView.getTfFolha().getValue());
-			Integer livro = Integer.parseInt(this.subView.getTfLivro().getValue());
+			Integer numero = Integer.parseInt(this.subView.getTfNumero()
+					.getValue());
+			Integer folha = Integer.parseInt(this.subView.getTfFolha()
+					.getValue());
+			Integer livro = Integer.parseInt(this.subView.getTfLivro()
+					.getValue());
 			String nire = this.subView.getTfNire().getValue();
 
 			this.pEntity.setNomeCartorio(nomeCartorio);
@@ -194,9 +198,7 @@ public class RegistroCartorioFormController extends CRUDFormController<RegistroC
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -218,11 +220,16 @@ public class RegistroCartorioFormController extends CRUDFormController<RegistroC
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfNomeCartorio().setValue(this.pEntity.getNomeCartorio());
-			this.subView.getPdfDataRegistro().setValue(this.pEntity.getDataRegistro());
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero().toString());
-			this.subView.getTfFolha().setValue(this.pEntity.getFolha().toString());
-			this.subView.getTfLivro().setValue(this.pEntity.getLivro().toString());
+			this.subView.getTfNomeCartorio().setValue(
+					this.pEntity.getNomeCartorio());
+			this.subView.getPdfDataRegistro().setValue(
+					this.pEntity.getDataRegistro());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getTfFolha().setValue(
+					this.pEntity.getFolha().toString());
+			this.subView.getTfLivro().setValue(
+					this.pEntity.getLivro().toString());
 			this.subView.getTfNire().setValue(this.pEntity.getNire());
 		} catch (Exception e) {
 			e.printStackTrace();

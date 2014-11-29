@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.contrato.ContratoTipoServico;
 import dc.servicos.dao.suprimentos.contrato.ContratoTipoServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -57,7 +57,7 @@ public class ContratoTipoServicoListController extends
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

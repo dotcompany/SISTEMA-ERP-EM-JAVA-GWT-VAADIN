@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -51,7 +51,7 @@ public class PedidoCompraListController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return ClasseUtil.getUrl(this);
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

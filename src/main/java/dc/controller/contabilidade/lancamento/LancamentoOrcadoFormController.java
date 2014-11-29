@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
@@ -24,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoOrcadoFormController extends CRUDFormController<LancamentoOrcadoEntity> {
+public class LancamentoOrcadoFormController extends
+		CRUDFormController<LancamentoOrcadoEntity> {
 
 	/**
 	 * 
@@ -67,18 +68,30 @@ public class LancamentoOrcadoFormController extends CRUDFormController<Lancament
 	protected void actionSalvar() {
 		try {
 			String ano = this.subView.getTfAno().getValue();
-			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro().getValue());
-			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro().getValue());
-			Double marco = Double.parseDouble(this.subView.getTfMarco().getValue());
-			Double abril = Double.parseDouble(this.subView.getTfAbril().getValue());
-			Double maio = Double.parseDouble(this.subView.getTfMaio().getValue());
-			Double junho = Double.parseDouble(this.subView.getTfJunho().getValue());
-			Double julho = Double.parseDouble(this.subView.getTfJulho().getValue());
-			Double agosto = Double.parseDouble(this.subView.getTfAgosto().getValue());
-			Double setembro = Double.parseDouble(this.subView.getTfSetembro().getValue());
-			Double outubro = Double.parseDouble(this.subView.getTfOutubro().getValue());
-			Double novembro = Double.parseDouble(this.subView.getTfNovembro().getValue());
-			Double dezembro = Double.parseDouble(this.subView.getTfDezembro().getValue());
+			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro()
+					.getValue());
+			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro()
+					.getValue());
+			Double marco = Double.parseDouble(this.subView.getTfMarco()
+					.getValue());
+			Double abril = Double.parseDouble(this.subView.getTfAbril()
+					.getValue());
+			Double maio = Double.parseDouble(this.subView.getTfMaio()
+					.getValue());
+			Double junho = Double.parseDouble(this.subView.getTfJunho()
+					.getValue());
+			Double julho = Double.parseDouble(this.subView.getTfJulho()
+					.getValue());
+			Double agosto = Double.parseDouble(this.subView.getTfAgosto()
+					.getValue());
+			Double setembro = Double.parseDouble(this.subView.getTfSetembro()
+					.getValue());
+			Double outubro = Double.parseDouble(this.subView.getTfOutubro()
+					.getValue());
+			Double novembro = Double.parseDouble(this.subView.getTfNovembro()
+					.getValue());
+			Double dezembro = Double.parseDouble(this.subView.getTfDezembro()
+					.getValue());
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
 
@@ -312,16 +325,15 @@ public class LancamentoOrcadoFormController extends CRUDFormController<Lancament
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
 
 	private void popularCombo() {
 		try {
-			DefaultManyToOneComboModel<ContaEntity> model = new DefaultManyToOneComboModel<ContaEntity>(ContaListController.class, this.cDAO,
+			DefaultManyToOneComboModel<ContaEntity> model = new DefaultManyToOneComboModel<ContaEntity>(
+					ContaListController.class, this.cDAO,
 					super.getMainController());
 
 			this.subView.getCbConta().setModel(model);
@@ -352,18 +364,30 @@ public class LancamentoOrcadoFormController extends CRUDFormController<Lancament
 			}
 
 			this.subView.getTfAno().setValue(this.pEntity.getAno());
-			this.subView.getTfJaneiro().setValue(this.pEntity.getJaneiro().toString());
-			this.subView.getTfFevereiro().setValue(this.pEntity.getFevereiro().toString());
-			this.subView.getTfMarco().setValue(this.pEntity.getMarco().toString());
-			this.subView.getTfAbril().setValue(this.pEntity.getAbril().toString());
-			this.subView.getTfMaio().setValue(this.pEntity.getMaio().toString());
-			this.subView.getTfJunho().setValue(this.pEntity.getJunho().toString());
-			this.subView.getTfJulho().setValue(this.pEntity.getJulho().toString());
-			this.subView.getTfAgosto().setValue(this.pEntity.getAgosto().toString());
-			this.subView.getTfSetembro().setValue(this.pEntity.getSetembro().toString());
-			this.subView.getTfOutubro().setValue(this.pEntity.getOutubro().toString());
-			this.subView.getTfNovembro().setValue(this.pEntity.getNovembro().toString());
-			this.subView.getTfDezembro().setValue(this.pEntity.getDezembro().toString());
+			this.subView.getTfJaneiro().setValue(
+					this.pEntity.getJaneiro().toString());
+			this.subView.getTfFevereiro().setValue(
+					this.pEntity.getFevereiro().toString());
+			this.subView.getTfMarco().setValue(
+					this.pEntity.getMarco().toString());
+			this.subView.getTfAbril().setValue(
+					this.pEntity.getAbril().toString());
+			this.subView.getTfMaio()
+					.setValue(this.pEntity.getMaio().toString());
+			this.subView.getTfJunho().setValue(
+					this.pEntity.getJunho().toString());
+			this.subView.getTfJulho().setValue(
+					this.pEntity.getJulho().toString());
+			this.subView.getTfAgosto().setValue(
+					this.pEntity.getAgosto().toString());
+			this.subView.getTfSetembro().setValue(
+					this.pEntity.getSetembro().toString());
+			this.subView.getTfOutubro().setValue(
+					this.pEntity.getOutubro().toString());
+			this.subView.getTfNovembro().setValue(
+					this.pEntity.getNovembro().toString());
+			this.subView.getTfDezembro().setValue(
+					this.pEntity.getDezembro().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

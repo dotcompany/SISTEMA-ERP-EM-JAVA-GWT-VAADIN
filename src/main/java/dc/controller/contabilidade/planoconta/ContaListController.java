@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -75,12 +75,9 @@ public class ContaListController extends CRUDListController<ContaEntity> {
 		return this.pController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

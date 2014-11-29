@@ -5,7 +5,7 @@ import dc.entidade.geral.Usuario;
 import dc.visao.framework.geral.ControllerTask;
 import dc.visao.spring.SecuritySessionProvider;
 
-public class ClasseUtil {
+public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 
 	public static synchronized String getUrl(ControllerTask c) {
 		String s = c.getClass().getName();
@@ -45,7 +45,7 @@ public class ClasseUtil {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(ClasseUtil.getUrl(AidfAimdfFormController.class
+			System.out.println(ClassUtils.getUrl(AidfAimdfFormController.class
 					.newInstance()));
 		} catch (Exception e) {
 			e.printStackTrace();

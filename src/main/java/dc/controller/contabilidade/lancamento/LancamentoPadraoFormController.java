@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoPadraoEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoPadraoDAO;
 import dc.visao.contabilidade.lancamento.LancamentoPadraoFormView;
@@ -19,7 +19,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoPadraoFormController extends CRUDFormController<LancamentoPadraoEntity> {
+public class LancamentoPadraoFormController extends
+		CRUDFormController<LancamentoPadraoEntity> {
 
 	/**
 	 * 
@@ -144,9 +145,7 @@ public class LancamentoPadraoFormController extends CRUDFormController<Lancament
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
 import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
@@ -19,7 +19,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BalancoPatrimonialFormController extends CRUDFormController<BalancoPatrimonialEntity> {
+public class BalancoPatrimonialFormController extends
+		CRUDFormController<BalancoPatrimonialEntity> {
 
 	/**
 	 * 
@@ -138,9 +139,7 @@ public class BalancoPatrimonialFormController extends CRUDFormController<Balanco
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

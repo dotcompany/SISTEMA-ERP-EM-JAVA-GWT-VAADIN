@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
 import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
@@ -21,7 +21,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class AidfAimdfFormController extends CRUDFormController<AidfAimdfEntity> {
+public class AidfAimdfFormController extends
+		CRUDFormController<AidfAimdfEntity> {
 
 	/**
 	 * 
@@ -60,11 +61,15 @@ public class AidfAimdfFormController extends CRUDFormController<AidfAimdfEntity>
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer numero = Integer.parseInt(this.subView.getTfNumero().getValue());
+			Integer numero = Integer.parseInt(this.subView.getTfNumero()
+					.getValue());
 			Date dataValidade = this.subView.getPdfDataValidade().getValue();
-			Date dataAutorizacao = this.subView.getPdfDataAutorizacao().getValue();
-			String numeroAutorizacao = this.subView.getTfNumeroAutorizacao().getValue();
-			String formularioDisponivel = this.subView.getTfFormularioDisponivel().getValue();
+			Date dataAutorizacao = this.subView.getPdfDataAutorizacao()
+					.getValue();
+			String numeroAutorizacao = this.subView.getTfNumeroAutorizacao()
+					.getValue();
+			String formularioDisponivel = this.subView
+					.getTfFormularioDisponivel().getValue();
 
 			this.pEntity.setNumero(numero);
 			this.pEntity.setDataValidade(dataValidade);
@@ -158,7 +163,8 @@ public class AidfAimdfFormController extends CRUDFormController<AidfAimdfEntity>
 			return false;
 		}
 
-		Object dataAutorizacao = this.subView.getPdfDataAutorizacao().getValue();
+		Object dataAutorizacao = this.subView.getPdfDataAutorizacao()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataAutorizacao)) {
 			String msg = "Não pode ficar em branco.";
@@ -182,9 +188,7 @@ public class AidfAimdfFormController extends CRUDFormController<AidfAimdfEntity>
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -206,11 +210,16 @@ public class AidfAimdfFormController extends CRUDFormController<AidfAimdfEntity>
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfNumero().setValue(this.pEntity.getNumero().toString());
-			this.subView.getPdfDataValidade().setValue(this.pEntity.getDataValidade());
-			this.subView.getPdfDataAutorizacao().setValue(this.pEntity.getDataAutorizacao());
-			this.subView.getTfNumeroAutorizacao().setValue(this.pEntity.getNumeroAutorizacao());
-			this.subView.getTfFormularioDisponivel().setValue(this.pEntity.getFormularioDisponivel());
+			this.subView.getTfNumero().setValue(
+					this.pEntity.getNumero().toString());
+			this.subView.getPdfDataValidade().setValue(
+					this.pEntity.getDataValidade());
+			this.subView.getPdfDataAutorizacao().setValue(
+					this.pEntity.getDataAutorizacao());
+			this.subView.getTfNumeroAutorizacao().setValue(
+					this.pEntity.getNumeroAutorizacao());
+			this.subView.getTfFormularioDisponivel().setValue(
+					this.pEntity.getFormularioDisponivel());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClasseUtil;
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
@@ -23,7 +23,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class DreDetalheFormController extends CRUDFormController<DreDetalheEntity> {
+public class DreDetalheFormController extends
+		CRUDFormController<DreDetalheEntity> {
 
 	/**
 	 * 
@@ -70,9 +71,11 @@ public class DreDetalheFormController extends CRUDFormController<DreDetalheEntit
 			String formaCalculo = this.subView.getTfFormaCalculo().getValue();
 			String sinal = this.subView.getTfSinal().getValue();
 			String natureza = this.subView.getTfNatureza().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
+			Double valor = Double.parseDouble(this.subView.getTfValor()
+					.getValue());
 
-			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho().getValue();
+			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
+					.getValue();
 
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setDescricao(descricao);
@@ -163,7 +166,8 @@ public class DreDetalheFormController extends CRUDFormController<DreDetalheEntit
 
 		/** REQUIRED */
 
-		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho().getValue();
+		DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
+				.getValue();
 
 		if (!ObjectValidator.validateObject(dreCabecalho)) {
 			String msg = "Não pode ficar em branco.";
@@ -187,9 +191,7 @@ public class DreDetalheFormController extends CRUDFormController<DreDetalheEntit
 
 	@Override
 	public String getViewIdentifier() {
-		String sUrl = ClasseUtil.getUrl(this);
-
-		return sUrl;
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -197,7 +199,8 @@ public class DreDetalheFormController extends CRUDFormController<DreDetalheEntit
 	private void popularCombo() {
 		try {
 			DefaultManyToOneComboModel<DreCabecalhoEntity> model = new DefaultManyToOneComboModel<DreCabecalhoEntity>(
-					DreCabecalhoListController.class, this.dcDAO, super.getMainController());
+					DreCabecalhoListController.class, this.dcDAO,
+					super.getMainController());
 
 			this.subView.getCbDreCabecalho().setModel(model);
 		} catch (Exception e) {
@@ -224,15 +227,19 @@ public class DreDetalheFormController extends CRUDFormController<DreDetalheEntit
 			} else {
 				this.pEntity = this.pDAO.find(id);
 
-				this.subView.getCbDreCabecalho().setValue(this.pEntity.getDreCabecalho());
+				this.subView.getCbDreCabecalho().setValue(
+						this.pEntity.getDreCabecalho());
 			}
 
-			this.subView.getTfClassificacao().setValue(this.pEntity.getClassificacao());
+			this.subView.getTfClassificacao().setValue(
+					this.pEntity.getClassificacao());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
-			this.subView.getTfFormaCalculo().setValue(this.pEntity.getFormaCalculo());
+			this.subView.getTfFormaCalculo().setValue(
+					this.pEntity.getFormaCalculo());
 			this.subView.getTfSinal().setValue(this.pEntity.getSinal());
 			this.subView.getTfNatureza().setValue(this.pEntity.getNatureza());
-			this.subView.getTfValor().setValue(this.pEntity.getValor().toString());
+			this.subView.getTfValor().setValue(
+					this.pEntity.getValor().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
