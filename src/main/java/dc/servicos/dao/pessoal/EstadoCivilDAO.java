@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -18,20 +18,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivil>{
+public class EstadoCivilDAO extends AbstractCrudDAO<EstadoCivilEntity>{
 
 	@Override
-	public Class<EstadoCivil> getEntityClass() {
-		return EstadoCivil.class;
+	public Class<EstadoCivilEntity> getEntityClass() {
+		return EstadoCivilEntity.class;
 	}
 
 	@Transactional
-	public List<EstadoCivil> listaTodos() {
+	public List<EstadoCivilEntity> listaTodos() {
 		return getSession().createQuery("from EstadoCivil").list();
 	}
 
 	@Transactional
-	public List<EstadoCivil> procuraNomeContendo(String query) {
+	public List<EstadoCivilEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from EstadoCivil where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

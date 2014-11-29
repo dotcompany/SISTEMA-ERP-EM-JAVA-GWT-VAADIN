@@ -29,7 +29,7 @@ import dc.controller.pessoal.PessoaFormController;
 import dc.entidade.geral.PessoaContato;
 import dc.entidade.geral.PessoaEndereco;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -62,7 +62,7 @@ public class PessoaFormView extends CustomComponent {
 	private PopupDateField dtNascimento;
 
 	private ComboBox cmbRaca, cmbTipoSanguineo;
-	private ManyToOneCombo<EstadoCivil> cmbEstadoCivil;
+	private ManyToOneCombo<EstadoCivilEntity> cmbEstadoCivil;
 
 	private TextField txtNaturalidade, txtNacionalidade, txtNomePai, txtNomeMae;
 
@@ -1120,11 +1120,11 @@ public class PessoaFormView extends CustomComponent {
 		}
 	}
 
-	public ManyToOneCombo<EstadoCivil> getCmbEstadoCivil() {
+	public ManyToOneCombo<EstadoCivilEntity> getCmbEstadoCivil() {
 		return cmbEstadoCivil;
 	}
 
-	public void setCmbEstadoCivil(ManyToOneCombo<EstadoCivil> cmbEstadoCivil) {
+	public void setCmbEstadoCivil(ManyToOneCombo<EstadoCivilEntity> cmbEstadoCivil) {
 		this.cmbEstadoCivil = cmbEstadoCivil;
 	}
 

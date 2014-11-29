@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.pessoal.EstadoCivilFormView;
 
 @Controller
 @Scope("prototype")
-public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
+public class EstadoCivilFormController extends CRUDFormController<EstadoCivilEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
 
-	private EstadoCivil currentBean;
+	private EstadoCivilEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -50,7 +50,7 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new EstadoCivil();
+		currentBean = new EstadoCivilEntity();
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class EstadoCivilFormController extends CRUDFormController<EstadoCivil> {
 	}
 
 	@Override
-	public EstadoCivil getModelBean() {
+	public EstadoCivilEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

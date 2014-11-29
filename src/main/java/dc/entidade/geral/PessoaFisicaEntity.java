@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 
 @Entity
 @Table(name = "pessoa_fisica")
@@ -117,13 +117,29 @@ public class PessoaFisicaEntity implements Serializable {
 	@Column(name = "NOME_PAI", length = 100)
 	private String nomePai;
 
-	@JoinColumn(name = "ID_ESTADO_CIVIL", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private EstadoCivil estadoCivil;
+	/**
+	 * REFERENCIA - FK
+	 */
 
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@OneToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_ESTADO_CIVIL")
+	private EstadoCivilEntity estadoCivil;
+
+	@OneToOne(optional = true)
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaFisicaEntity() {
 
@@ -308,7 +324,7 @@ public class PessoaFisicaEntity implements Serializable {
 	/**
 	 * @return the estadoCivil
 	 */
-	public EstadoCivil getEstadoCivil() {
+	public EstadoCivilEntity getEstadoCivil() {
 		return estadoCivil;
 	}
 
@@ -316,7 +332,7 @@ public class PessoaFisicaEntity implements Serializable {
 	 * @param estadoCivil
 	 *            the estadoCivil to set
 	 */
-	public void setEstadoCivil(EstadoCivil estadoCivil) {
+	public void setEstadoCivil(EstadoCivilEntity estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
 

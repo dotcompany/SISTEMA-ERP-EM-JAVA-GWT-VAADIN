@@ -1,19 +1,21 @@
 package dc.entidade.pessoal;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
@@ -25,26 +27,26 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-
-/**
- * 
- * @author Wesley Jr
- * 
- */
+import dc.entidade.geral.PessoaFisicaEntity;
 
 @Entity
 @Table(name = "estado_civil")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EstadoCivil extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estado_civil_id_seq")
+	@SequenceGenerator(name = "estado_civil_id_seq", sequenceName = "estado_civil_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -65,17 +67,38 @@ public class EstadoCivil extends AbstractMultiEmpresaModel<Integer> implements S
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoCivil")
-	// private List<PessoaFisicaVO> pessoaFisicaVOList;
+	/**
+	 * REFERENCIA - FK
+	 */
 
-	public EstadoCivil() {
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "estadoCivil", fetch = FetchType.LAZY)
+	private List<PessoaFisicaEntity> pessoaFisicaList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public EstadoCivilEntity() {
 
 	}
 
-	public EstadoCivil(Integer id) {
+	public EstadoCivilEntity(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -100,20 +123,17 @@ public class EstadoCivil extends AbstractMultiEmpresaModel<Integer> implements S
 		this.descricao = descricao;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	public List<PessoaFisicaEntity> getPessoaFisicaList() {
+		return pessoaFisicaList;
 	}
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof EstadoCivil == false)
-			return false;
-		if (this == object)
-			return true;
-		final EstadoCivil other = (EstadoCivil) object;
-		return EqualsBuilder.reflectionEquals(this, other);
+	public void setPessoaFisicaList(List<PessoaFisicaEntity> pessoaFisicaList) {
+		this.pessoaFisicaList = pessoaFisicaList;
 	}
+
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

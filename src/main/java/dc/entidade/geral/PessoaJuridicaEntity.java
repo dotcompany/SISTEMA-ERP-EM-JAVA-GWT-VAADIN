@@ -74,8 +74,8 @@ public class PessoaJuridicaEntity implements Serializable {
 	@Column(name = "SUFRAMA", length = 9)
 	private String suframa;
 
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	public PessoaJuridicaEntity() {

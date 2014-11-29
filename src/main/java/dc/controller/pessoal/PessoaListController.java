@@ -7,21 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClasseUtil;
 import dc.entidade.geral.PessoaEntity;
-import dc.servicos.dao.pessoal.PessoaDAO;
+import dc.servicos.business.pessoal.PessoaBusiness;
+import dc.servicos.business.pessoal.PessoaBusinessImpl;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
 public class PessoaListController extends CRUDListController<PessoaEntity> {
 
-	@Autowired
-	PessoaDAO dao;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	PessoaFormController formController;
+	private PessoaFormController formController;
+
+	// @Autowired
+	// private PessoaDAO dao;
+
+	private PessoaBusiness pessoaBusiness = new PessoaBusinessImpl();
 
 	@Override
 	public String[] getColunas() {
@@ -35,13 +43,15 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	protected List<PessoaEntity> pesquisa(String valor) {
-		//return dao.fullTextSearch(valor);
+		// return dao.fullTextSearch(valor);
 		return new ArrayList<PessoaEntity>();
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaPessoa";
+		String sUrl = ClasseUtil.getUrl(this);
+
+		return sUrl;
 	}
 
 	@Override
@@ -56,7 +66,6 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	protected List<PessoaEntity> pesquisaDefault() {
-
 		return new ArrayList<PessoaEntity>();
 	}
 

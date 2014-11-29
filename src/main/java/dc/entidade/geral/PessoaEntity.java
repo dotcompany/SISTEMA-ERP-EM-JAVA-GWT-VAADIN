@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -95,6 +96,12 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Column(name = "TRANSPORTADORA")
 	private Character transportadora;
+
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
+	private PessoaFisicaEntity pessoaFisica;
+
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
+	private PessoaJuridicaEntity pessoaJuridica;
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -196,6 +203,22 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.transportadora = transportadora;
 	}
 
+	public PessoaFisicaEntity getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisicaEntity pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
+
+	public PessoaJuridicaEntity getPessoaJuridica() {
+		return pessoaJuridica;
+	}
+
+	public void setPessoaJuridica(PessoaJuridicaEntity pessoaJuridica) {
+		this.pessoaJuridica = pessoaJuridica;
+	}
+
 	public List<PessoaContato> getContatos() {
 		return contatos;
 	}
@@ -214,7 +237,6 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		getEnderecos().add(end);
 		end.setEmpresa(this.getEmpresa());
 		end.setPessoa(this);
-
 	}
 
 	public List<PessoaEndereco> getEnderecos() {

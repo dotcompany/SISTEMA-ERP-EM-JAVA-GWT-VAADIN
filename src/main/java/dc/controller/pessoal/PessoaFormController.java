@@ -14,15 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClasseUtil;
 import dc.controller.geral.UFListController;
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaContato;
 import dc.entidade.geral.PessoaEndereco;
+import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.entidade.geral.UF;
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
@@ -51,10 +52,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	PessoaFormView subView;
+	private PessoaFormView subView;
 
 	@Autowired
-	private PessoaDAO dao;
+	private PessoaDAO pessoaDAO;
 
 	@Autowired
 	private PessoaFisicaDAO pessoaFisicaDAO;
@@ -70,9 +71,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Autowired
 	private UFDAO ufDAO;
 
+	public PessoaFormController() {
+		// TODO Auto-generated constructor stub
+
+	}
+
 	@Override
 	public String getViewIdentifier() {
-		return "pessoaForm";
+		// TODO Auto-generated method stub
+		return ClasseUtil.getUrl(this);
 	}
 
 	@Override
@@ -113,116 +120,158 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	protected void initSubView() {
-
-		subView = new PessoaFormView(this);
-
 		try {
+			this.subView = new PessoaFormView(this);
 
-			DefaultManyToOneComboModel<EstadoCivil> estadoCivilModel = new DefaultManyToOneComboModel<EstadoCivil>(
+			DefaultManyToOneComboModel<EstadoCivilEntity> model = new DefaultManyToOneComboModel<EstadoCivilEntity>(
 					EstadoCivilListController.class, this.estadoCivilDAO,
-					super.getMainController()) {
+					super.getMainController());
 
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
+			/*
+			 * DefaultManyToOneComboModel<EstadoCivilEntity> model = new
+			 * DefaultManyToOneComboModel<EstadoCivilEntity>(
+			 * EstadoCivilListController.class, this.estadoCivilDAO,
+			 * super.getMainController()) {
+			 * 
+			 * @Override public String getCaptionProperty() { return "nome"; }
+			 * 
+			 * };
+			 */
 
-				}
-
-			};
-			this.subView.getCmbEstadoCivil().setModel(estadoCivilModel);
-
+			this.subView.getCmbEstadoCivil().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = dao.find((Integer) id);
+		try {
+			this.currentBean = this.pessoaDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getCmbTipoPessoa().setValue(
-				TipoPessoa.getTipoPessoa(currentBean.getTipo()));
-		subView.getTxtEmail().setValue(currentBean.getEmail());
-		subView.getTxtSite().setValue(currentBean.getSite());
+			this.currentBean.setPessoaFisica(this.pessoaFisicaDAO
+					.getEntity(this.currentBean));
+			this.currentBean.setPessoaJuridica(this.pessoaJuridicaDAO
+					.getEntity(this.currentBean));
 
-		Set<String> selected = new HashSet<String>();
+			this.subView.getTxtNome().setValue(this.currentBean.getNome());
+			this.subView.getCmbTipoPessoa().setValue(
+					TipoPessoa.getTipoPessoa(this.currentBean.getTipo()));
+			this.subView.getTxtEmail().setValue(this.currentBean.getEmail());
+			this.subView.getTxtSite().setValue(this.currentBean.getSite());
 
-		if (isEnabled(currentBean.getFornecedor())) {
-			selected.add("Fornecedor");
-		}
+			Set<String> selected = new HashSet<String>();
 
-		if (isEnabled(currentBean.getCliente())) {
-			selected.add("Cliente");
-		}
-		if (isEnabled(currentBean.getColaborador())) {
-			selected.add("Colaborador");
-		}
-		if (isEnabled(currentBean.getTransportadora())) {
-			selected.add("Transportadora");
-		}
+			if (isEnabled(this.currentBean.getFornecedor())) {
+				selected.add("Fornecedor");
+			}
 
-		subView.getGroup().setValue(selected);
+			if (isEnabled(this.currentBean.getCliente())) {
+				selected.add("Cliente");
+			}
 
-		subView.getEnderecosSubForm().fillWith(currentBean.getEnderecos());
-		subView.getContatosSubForm().fillWith(currentBean.getContatos());
+			if (isEnabled(this.currentBean.getColaborador())) {
+				selected.add("Colaborador");
+			}
 
-		if ("F".equals(currentBean.getTipo())) {
-			carregarPessoaFisica(id);
-		} else if ("J".equals(currentBean.getTipo())) {
-			carregarPessoaJuridica(id);
+			if (isEnabled(this.currentBean.getTransportadora())) {
+				selected.add("Transportadora");
+			}
+
+			this.subView.getGroup().setValue(selected);
+
+			// this.subView.getEnderecosSubForm().fillWith(
+			// this.currentBean.getEnderecos());
+			// this.subView.getContatosSubForm().fillWith(
+			// this.currentBean.getContatos());
+
+			if ("F".equals(this.currentBean.getTipo())) {
+				carregarPessoaFisica(id);
+			} else if ("J".equals(this.currentBean.getTipo())) {
+				carregarPessoaJuridica(id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void carregarPessoaJuridica(Serializable id) {
-		PessoaJuridicaEntity pj = dao.getPessoaJuridica((Integer) id);
+		PessoaJuridicaEntity pj = this.currentBean.getPessoaJuridica();
 
-		subView.getTxtFantasia().setValue(pj.getFantasia());
-		subView.getTxtCNPJ().setValue(pj.getCnpj());
-		subView.getTxtInscricaoEstadual().setValue(pj.getInscricaoEstadual());
-		subView.getTxtInscricaoMunicipal().setValue(pj.getInscricaoMunicipal());
-		subView.getDataConstituicao().setValue(pj.getDataConstituicao());
-		subView.getTxtSuframa().setValue(pj.getSuframa());
-		subView.getCmbTipoRegime().setValue(
-				TipoRegime.getTipoRegime(String.valueOf(pj.getTipoRegime())));
-		subView.getCmbCrt().setValue(CRT.getCRT(String.valueOf(pj.getCrt())));
+		this.subView.getTxtFantasia().setValue(pj.getFantasia());
+		this.subView.getTxtCNPJ().setValue(pj.getCnpj());
+		this.subView.getTxtInscricaoEstadual().setValue(
+				pj.getInscricaoEstadual());
+		this.subView.getTxtInscricaoMunicipal().setValue(
+				pj.getInscricaoMunicipal());
+		this.subView.getDataConstituicao().setValue(pj.getDataConstituicao());
+		this.subView.getTxtSuframa().setValue(pj.getSuframa());
 
+		if (pj.getTipoRegime() != null
+				&& !pj.getTipoRegime().toString().equals("")) {
+			this.subView.getCmbTipoRegime()
+					.setValue(
+							TipoRegime.getTipoRegime(String.valueOf(pj
+									.getTipoRegime())));
+		}
+
+		if (pj.getCrt() != null && !pj.getCrt().toString().equals("")) {
+			this.subView.getCmbCrt().setValue(
+					CRT.getCRT(String.valueOf(pj.getCrt())));
+		}
 	}
 
 	private void carregarPessoaFisica(Serializable id) {
-		PessoaFisicaEntity pf = dao.getPessoaFisica((Integer) id);
+		PessoaFisicaEntity pf = this.currentBean.getPessoaFisica();
 
-		subView.getTxtCpf().setValue(pf.getCpf());
-		subView.getDtNascimento().setValue(pf.getDataNascimento());
-		subView.getTxtNaturalidade().setValue(pf.getNaturalidade());
-		subView.getTxtNacionalidade().setValue(pf.getNacionalidade());
-		subView.getTxtNomeMae().setValue(pf.getNomeMae());
-		subView.getTxtNomePai().setValue(pf.getNomePai());
-		subView.getTxtNumeroRG().setValue(pf.getRg());
-		subView.getTxtOrgaoEmissor().setValue(pf.getOrgaoRg());
-		subView.getDataEmissaoRG().setValue(pf.getDataEmissaoRg());
-		subView.getTxtCNH().setValue(pf.getCnhNumero());
-		subView.getCmbCategoriaCNH().setValue(
-				CNHCategoria.getCNHCategoria(String.valueOf(pf
-						.getCnhCategoria())));
-		subView.getDtCNHEmissao().setValue(pf.getCnhVencimento());
-		subView.getCmbEstadoCivil().setValue(pf.getEstadoCivil());
-		subView.getCmbRaca().setValue(
-				Raca.getRaca(String.valueOf(pf.getRaca())));
-		subView.getCmbTipoSanguineo().setValue(
-				TipoSangue.getTipoSangue(pf.getTipoSangue()));
-		subView.getTxtNumeroReservista().setValue(pf.getReservistaNumero());
-		subView.getCmbCategoriaReservista().setValue(
-				CategoriaReservista.getCategoriaReservista(String.valueOf(pf
-						.getReservistaCategoria())));
-		subView.getGrpSexo().setValue(
+		this.subView.getTxtCpf().setValue(pf.getCpf());
+		this.subView.getDtNascimento().setValue(pf.getDataNascimento());
+		this.subView.getTxtNaturalidade().setValue(pf.getNaturalidade());
+		this.subView.getTxtNacionalidade().setValue(pf.getNacionalidade());
+		this.subView.getTxtNomeMae().setValue(pf.getNomeMae());
+		this.subView.getTxtNomePai().setValue(pf.getNomePai());
+		this.subView.getTxtNumeroRG().setValue(pf.getRg());
+		this.subView.getTxtOrgaoEmissor().setValue(pf.getOrgaoRg());
+		this.subView.getDataEmissaoRG().setValue(pf.getDataEmissaoRg());
+		this.subView.getTxtCNH().setValue(pf.getCnhNumero());
+
+		if (pf.getCnhCategoria() != null
+				&& !pf.getCnhCategoria().toString().equals("")) {
+			this.subView.getCmbCategoriaCNH().setValue(
+					CNHCategoria.getCNHCategoria(String.valueOf(pf
+							.getCnhCategoria())));
+		}
+
+		this.subView.getDtCNHEmissao().setValue(pf.getCnhVencimento());
+		this.subView.getCmbEstadoCivil().setValue(pf.getEstadoCivil());
+
+		if (pf.getRaca() != null && !pf.getRaca().toString().equals("")) {
+			this.subView.getCmbRaca().setValue(
+					Raca.getRaca(String.valueOf(pf.getRaca())));
+		}
+
+		if (pf.getTipoSangue() != null && !pf.getTipoSangue().equals("")) {
+			this.subView.getCmbTipoSanguineo().setValue(
+					TipoSangue.getTipoSangue(pf.getTipoSangue()));
+		}
+
+		this.subView.getTxtNumeroReservista()
+				.setValue(pf.getReservistaNumero());
+
+		if (pf.getReservistaCategoria() != null
+				&& !pf.getReservistaCategoria().equals("")) {
+			this.subView.getCmbCategoriaReservista().setValue(
+					CategoriaReservista.getCategoriaReservista(String
+							.valueOf(pf.getReservistaCategoria())));
+		}
+
+		this.subView.getGrpSexo().setValue(
 				"F".equals(pf.getSexo()) ? "Feminino" : "Masculino");
-		subView.getTxtTituloEleitor().setValue(pf.getTituloEleitoralNumero());
-		subView.getTxtTituloSecao().setConvertedValue(
+		this.subView.getTxtTituloEleitor().setValue(
+				pf.getTituloEleitoralNumero());
+		this.subView.getTxtTituloSecao().setConvertedValue(
 				pf.getTituloEleitoralSecao());
-		subView.getTxtTituloZona().setConvertedValue(
+		this.subView.getTxtTituloZona().setConvertedValue(
 				pf.getTituloEleitoralZona());
 	}
 
@@ -238,110 +287,169 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			TipoPessoa tpPessoa = (TipoPessoa) subView.getCmbTipoPessoa()
-					.getValue();
-			currentBean.setNome(subView.getTxtNome().getValue());
-			currentBean.setTipo(tpPessoa.getCodigo());
-			currentBean.setEmail(subView.getTxtEmail().getValue());
-			currentBean.setSite(subView.getTxtSite().getValue());
+			TipoPessoa tipoPessoa = (TipoPessoa) this.subView
+					.getCmbTipoPessoa().getValue();
+
+			this.currentBean.setNome(this.subView.getTxtNome().getValue());
+			this.currentBean.setTipo(tipoPessoa.getCodigo());
+			this.currentBean.setEmail(this.subView.getTxtEmail().getValue());
+			this.currentBean.setSite(this.subView.getTxtSite().getValue());
 
 			List<String> values = new ArrayList<String>(
 					(Collection<String>) subView.getGroup().getValue());
 
 			for (String value : values) {
 				if ("Fornecedor".equals(value)) {
-					currentBean.setFornecedor('1');
+					this.currentBean.setFornecedor('1');
 				} else if ("Cliente".equals(value)) {
-					currentBean.setCliente('1');
+					this.currentBean.setCliente('1');
 				} else if ("Colaborador".equals(value)) {
-					currentBean.setColaborador('1');
+					this.currentBean.setColaborador('1');
 				} else if ("Transportadora".equals(value)) {
-					currentBean.setTransportadora('1');
+					this.currentBean.setTransportadora('1');
 				}
-
 			}
 
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+			this.currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
 
-			if ("F".equals(tpPessoa.getCodigo())) {
+			if ("F".equals(tipoPessoa.getCodigo())) {
 				salvarPessoaFisica();
-			} else if ("J".equals(tpPessoa.getCodigo())) {
+
+				this.currentBean.setPessoaJuridica(null);
+			} else if ("J".equals(tipoPessoa.getCodigo())) {
 				salvarPessoaJuridica();
+
+				this.currentBean.setPessoaFisica(null);
 			}
 
-			dao.saveOrUpdate(currentBean);
+			this.pessoaDAO.saveOrUpdatePessoa(this.currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
-
 			// mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
 	}
 
 	private void salvarPessoaJuridica() {
-		PessoaJuridicaEntity pj = dao.getPessoaJuridica(currentBean.getId());
-		if (pj == null) {
-			pj = new PessoaJuridicaEntity();
+		try {
+			PessoaJuridicaEntity pj = this.currentBean.getPessoaJuridica();
+
+			if (pj == null) {
+				pj = new PessoaJuridicaEntity();
+			}
+
+			pj.setFantasia(this.subView.getTxtFantasia().getValue());
+			pj.setCnpj(this.subView.getTxtCNPJ().getValue());
+			pj.setInscricaoEstadual(this.subView.getTxtInscricaoEstadual()
+					.getValue());
+			pj.setInscricaoMunicipal(this.subView.getTxtInscricaoMunicipal()
+					.getValue());
+			pj.setDataConstituicao(this.subView.getDataConstituicao()
+					.getValue());
+			pj.setPessoa(this.currentBean);
+			pj.setSuframa(this.subView.getTxtSuframa().getValue());
+
+			if (this.subView.getCmbTipoRegime().getValue() != null
+					&& !this.subView.getCmbTipoRegime().getValue().equals("")) {
+				pj.setTipoRegime(this.subView.getCmbTipoRegime().getValue()
+						.toString().charAt(0));
+			}
+
+			if (this.subView.getCmbCrt().getValue() != null
+					&& !this.subView.getCmbCrt().getValue().equals("")) {
+				pj.setCrt(this.subView.getCmbCrt().getValue().toString()
+						.charAt(0));
+			}
+
+			this.currentBean.setPessoaJuridica(pj);
+		} catch (Exception e) {
+			throw e;
 		}
-
-		pj.setFantasia(subView.getTxtFantasia().getValue());
-		pj.setCnpj(subView.getTxtCNPJ().getValue());
-		pj.setInscricaoEstadual(subView.getTxtInscricaoEstadual().getValue());
-		pj.setInscricaoMunicipal(subView.getTxtInscricaoMunicipal().getValue());
-		pj.setDataConstituicao(subView.getDataConstituicao().getValue());
-		pj.setPessoa(currentBean);
-		pj.setSuframa(subView.getTxtSuframa().getValue());
-		pj.setTipoRegime(subView.getCmbTipoRegime().getValue().toString()
-				.charAt(0));
-		pj.setCrt(subView.getCmbCrt().getValue().toString().charAt(0));
-		dao.saveOrUpdate(currentBean);
-		pessoaJuridicaDAO.saveOrUpdate(pj);
-
 	}
 
 	private void salvarPessoaFisica() {
-		PessoaFisicaEntity pf = dao.getPessoaFisica(currentBean.getId());
+		try {
+			PessoaFisicaEntity pf = this.currentBean.getPessoaFisica();
 
-		if (pf == null) {
-			pf = new PessoaFisicaEntity();
+			if (pf == null) {
+				pf = new PessoaFisicaEntity();
+			}
+
+			pf.setPessoa(this.currentBean);
+			pf.setCpf(this.subView.getTxtCpf().getValue());
+			pf.setDataNascimento(this.subView.getDtNascimento().getValue());
+			pf.setNaturalidade(this.subView.getTxtNaturalidade().getValue());
+			pf.setNacionalidade(this.subView.getTxtNacionalidade().getValue());
+			pf.setNomeMae(this.subView.getTxtNomeMae().getValue());
+			pf.setNomePai(this.subView.getTxtNomePai().getValue());
+			pf.setRg(this.subView.getTxtNumeroRG().getValue());
+			pf.setOrgaoRg(this.subView.getTxtOrgaoEmissor().getValue());
+			pf.setDataEmissaoRg(this.subView.getDataEmissaoRG().getValue());
+			pf.setCnhNumero(this.subView.getTxtCNH().getValue());
+
+			if (this.subView.getCmbCategoriaCNH().getValue() != null
+					&& !this.subView.getCmbCategoriaCNH().getValue().equals("")) {
+				pf.setCnhCategoria(((CNHCategoria) this.subView
+						.getCmbCategoriaCNH().getValue()).getCodigo().charAt(0));
+			}
+
+			pf.setCnhVencimento(this.subView.getDtCNHEmissao().getValue());
+
+			if (this.subView.getCmbEstadoCivil().getValue() != null
+					&& !this.subView.getCmbEstadoCivil().getValue().equals("")) {
+				pf.setEstadoCivil((EstadoCivilEntity) this.subView
+						.getCmbEstadoCivil().getValue());
+			}
+
+			if (this.subView.getCmbRaca().getValue() != null
+					&& !this.subView.getCmbRaca().getValue().equals("")) {
+				pf.setRaca(((Raca) this.subView.getCmbRaca().getValue())
+						.getCodigo().charAt(0));
+			}
+
+			if (this.subView.getCmbTipoSanguineo().getValue() != null
+					&& !this.subView.getCmbTipoSanguineo().getValue()
+							.equals("")) {
+				pf.setTipoSangue(((TipoSangue) this.subView
+						.getCmbTipoSanguineo().getValue()).getCodigo());
+			}
+
+			pf.setReservistaNumero(this.subView.getTxtNumeroReservista()
+					.getValue());
+
+			if (this.subView.getCmbCategoriaReservista().getValue() != null
+					&& !this.subView.getCmbCategoriaReservista().getValue()
+							.equals("")) {
+				pf.setReservistaCategoria(Integer
+						.parseInt(((CategoriaReservista) this.subView
+								.getCmbCategoriaReservista().getValue())
+								.getCodigo()));
+			}
+
+			if (this.subView.getGrpSexo().getValue() != null
+					&& !this.subView.getGrpSexo().getValue().equals("")) {
+				pf.setSexo(this.subView.getGrpSexo().getValue().toString()
+						.charAt(0));
+			}
+
+			pf.setTituloEleitoralNumero(this.subView.getTxtTituloEleitor()
+					.getValue());
+			pf.setTituloEleitoralSecao((Integer) this.subView
+					.getTxtTituloSecao().getConvertedValue());
+			pf.setTituloEleitoralZona((Integer) this.subView.getTxtTituloZona()
+					.getConvertedValue());
+
+			this.currentBean.setPessoaFisica(pf);
+		} catch (Exception e) {
+			throw e;
 		}
-
-		pf.setPessoa(currentBean);
-		pf.setCpf(subView.getTxtCpf().getValue());
-		pf.setDataNascimento(subView.getDtNascimento().getValue());
-		pf.setNaturalidade(subView.getTxtNaturalidade().getValue());
-		pf.setNacionalidade(subView.getTxtNacionalidade().getValue());
-		pf.setNomeMae(subView.getTxtNomeMae().getValue());
-		pf.setNomePai(subView.getTxtNomePai().getValue());
-		pf.setRg(subView.getTxtNumeroRG().getValue());
-		pf.setOrgaoRg(subView.getTxtOrgaoEmissor().getValue());
-		pf.setDataEmissaoRg(subView.getDataEmissaoRG().getValue());
-		pf.setCnhNumero(subView.getTxtCNH().getValue());
-		pf.setCnhCategoria(((CNHCategoria) subView.getCmbCategoriaCNH()
-				.getValue()).getCodigo().charAt(0));
-		pf.setCnhVencimento(subView.getDtCNHEmissao().getValue());
-		pf.setEstadoCivil((EstadoCivil) subView.getCmbEstadoCivil().getValue());
-		pf.setRaca(((Raca) subView.getCmbRaca().getValue()).getCodigo().charAt(
-				0));
-		pf.setTipoSangue(((TipoSangue) subView.getCmbTipoSanguineo().getValue())
-				.getCodigo());
-		pf.setReservistaNumero(subView.getTxtNumeroReservista().getValue());
-		pf.setReservistaCategoria(Integer
-				.parseInt(((CategoriaReservista) subView
-						.getCmbCategoriaReservista().getValue()).getCodigo()));
-		pf.setSexo(subView.getGrpSexo().getValue().toString().charAt(0));
-		pf.setTituloEleitoralNumero(subView.getTxtTituloEleitor().getValue());
-		pf.setTituloEleitoralSecao((Integer) subView.getTxtTituloSecao()
-				.getConvertedValue());
-		pf.setTituloEleitoralZona((Integer) subView.getTxtTituloZona()
-				.getConvertedValue());
-		dao.saveOrUpdate(currentBean);
-		pessoaFisicaDAO.saveOrUpdate(pf);
 	}
 
 	@Override
 	protected void quandoNovo() {
+
 	}
 
 	@Override
@@ -356,13 +464,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		dao.deleteAllByIds(ids);
+		// dao.deleteAllByIds(ids);
 
 		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
+
 	}
 
 	@Override
@@ -380,13 +489,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	public PessoaContato novoContato() {
 		PessoaContato c = new PessoaContato();
-		currentBean.adicionarContato(c);
+		// currentBean.adicionarContato(c);
+
 		return c;
 	}
 
 	public PessoaEndereco novoEndereco() {
 		PessoaEndereco end = new PessoaEndereco();
-		currentBean.adicionarEndereco(end);
+		// currentBean.adicionarEndereco(end);
 
 		return end;
 	}
@@ -394,6 +504,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public ManyToOneComboModel<UF> getUfModel() {
 		ManyToOneComboModel<UF> model = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, ufDAO, this.getMainController());
+
 		return model;
 	}
 

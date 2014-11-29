@@ -2,6 +2,7 @@ package dc.servicos.dao.pessoal;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,37 @@ public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
 	}
 
 	@Transactional
+	public PessoaFisicaEntity getEntity(PessoaEntity ent) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :ent";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("ent", ent.getId());
+
+			PessoaFisicaEntity entity = (PessoaFisicaEntity) query
+					.uniqueResult();
+
+			if (entity == null) {
+				entity = new PessoaFisicaEntity();
+			}
+
+			return entity;
+		} catch (Exception e) {
+			return new PessoaFisicaEntity();
+		}
+	}
+
+	@Transactional
 	public List<PessoaEntity> listaTodos() {
-		return getSession().createQuery("from PessoaFisica").list();
+		return getSession().createQuery("FROM PessoaFisica").list();
 	}
 
 	@Transactional
 	public PessoaFisicaEntity getPessoaFisica(int idPessoa) {
-		return (PessoaFisicaEntity) getSession().createCriteria(PessoaFisicaEntity.class).add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
+		return (PessoaFisicaEntity) getSession()
+				.createCriteria(PessoaFisicaEntity.class)
+				.add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
 	}
 
 	@Override

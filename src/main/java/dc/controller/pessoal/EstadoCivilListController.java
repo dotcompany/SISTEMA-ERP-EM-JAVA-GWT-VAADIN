@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.pessoal.EstadoCivil;
+import dc.entidade.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.pessoal.EstadoCivilDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
+public class EstadoCivilListController extends CRUDListController<EstadoCivilEntity> {
 
 	@Autowired
 	private EstadoCivilDAO dao;
@@ -22,7 +22,7 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	private EstadoCivilFormController estadoCivilFormController;
 
 	@Override
-	protected CRUDFormController<EstadoCivil> getFormController() {
+	protected CRUDFormController<EstadoCivilEntity> getFormController() {
 		return estadoCivilFormController;
 	}
 
@@ -37,12 +37,12 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	}
 
 	@Override
-	public Class<? super EstadoCivil> getEntityClass() {
-		return EstadoCivil.class;
+	public Class<? super EstadoCivilEntity> getEntityClass() {
+		return EstadoCivilEntity.class;
 	}
 
 	@Override
-	protected List<EstadoCivil> pesquisa(String valor) {
+	protected List<EstadoCivilEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -63,8 +63,8 @@ public class EstadoCivilListController extends CRUDListController<EstadoCivil> {
 	}
 
 	@Override
-	protected List<EstadoCivil> pesquisaDefault() {
-		return (List<EstadoCivil>) dao.getAll(getEntityClass());
+	protected List<EstadoCivilEntity> pesquisaDefault() {
+		return (List<EstadoCivilEntity>) dao.getAll(getEntityClass());
 	}
 
 }
