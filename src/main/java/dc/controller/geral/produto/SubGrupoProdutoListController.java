@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.SubGrupoProdutoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class SubGrupoProdutoListController extends
-		CRUDListController<SubGrupoProdutoEntity> {
+		CRUDListController<SubGrupoEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class SubGrupoProdutoListController extends
 	private SubGrupoProdutoFormController subGrupoProdutoFormController;
 
 	@Override
-	protected CRUDFormController<SubGrupoProdutoEntity> getFormController() {
+	protected CRUDFormController<SubGrupoEntity> getFormController() {
 		return subGrupoProdutoFormController;
 	}
 
@@ -46,18 +46,18 @@ public class SubGrupoProdutoListController extends
 	}
 
 	@Override
-	public Class<? super SubGrupoProdutoEntity> getEntityClass() {
-		return SubGrupoProdutoEntity.class;
+	public Class<? super SubGrupoEntity> getEntityClass() {
+		return SubGrupoEntity.class;
 	}
 
 	@Override
-	protected List<SubGrupoProdutoEntity> pesquisa(String valor) {
+	protected List<SubGrupoEntity> pesquisa(String valor) {
 		try {
-			return (List<SubGrupoProdutoEntity>) dao.fullTextSearch(valor);
+			return (List<SubGrupoEntity>) dao.fullTextSearch(valor);
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<SubGrupoProdutoEntity>();
+			return new ArrayList<SubGrupoEntity>();
 		}
 	}
 
@@ -77,13 +77,13 @@ public class SubGrupoProdutoListController extends
 	}
 
 	@Override
-	protected List<SubGrupoProdutoEntity> pesquisaDefault() {
+	protected List<SubGrupoEntity> pesquisaDefault() {
 		try {
-			return (List<SubGrupoProdutoEntity>) dao.getAll(getEntityClass());
+			return (List<SubGrupoEntity>) dao.getAll(getEntityClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<SubGrupoProdutoEntity>();
+			return new ArrayList<SubGrupoEntity>();
 		}
 	}
 

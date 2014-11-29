@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.GrupoProdutoEntity;
+import dc.entidade.geral.produto.GrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class GrupoProdutoListController extends
-		CRUDListController<GrupoProdutoEntity> {
+		CRUDListController<GrupoEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class GrupoProdutoListController extends
 	GrupoProdutoFormController grupoProdutoFormController;
 
 	@Override
-	protected CRUDFormController<GrupoProdutoEntity> getFormController() {
+	protected CRUDFormController<GrupoEntity> getFormController() {
 		return grupoProdutoFormController;
 	}
 
@@ -46,18 +46,18 @@ public class GrupoProdutoListController extends
 	}
 
 	@Override
-	public Class<? super GrupoProdutoEntity> getEntityClass() {
-		return GrupoProdutoEntity.class;
+	public Class<? super GrupoEntity> getEntityClass() {
+		return GrupoEntity.class;
 	}
 
 	@Override
-	protected List<GrupoProdutoEntity> pesquisa(String valor) {
+	protected List<GrupoEntity> pesquisa(String valor) {
 		try {
-			return (List<GrupoProdutoEntity>) dao.fullTextSearch(valor);
+			return (List<GrupoEntity>) dao.fullTextSearch(valor);
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<GrupoProdutoEntity>();
+			return new ArrayList<GrupoEntity>();
 		}
 	}
 
@@ -77,13 +77,13 @@ public class GrupoProdutoListController extends
 	}
 
 	@Override
-	protected List<GrupoProdutoEntity> pesquisaDefault() {
+	protected List<GrupoEntity> pesquisaDefault() {
 		try {
-			return (List<GrupoProdutoEntity>) dao.getAll(getEntityClass());
+			return (List<GrupoEntity>) dao.getAll(getEntityClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<GrupoProdutoEntity>();
+			return new ArrayList<GrupoEntity>();
 		}
 	}
 

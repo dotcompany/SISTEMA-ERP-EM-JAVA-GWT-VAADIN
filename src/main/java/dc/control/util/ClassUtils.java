@@ -1,6 +1,6 @@
 package dc.control.util;
 
-import dc.controller.contabilidade.cadastro.AidfAimdfFormController;
+import dc.controller.suprimentos.compra.CotacaoFormController;
 import dc.entidade.geral.Usuario;
 import dc.visao.framework.geral.ControllerTask;
 import dc.visao.spring.SecuritySessionProvider;
@@ -16,10 +16,7 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 
 		for (int i = 2; i < s1.length; i++) {
 			sUrl = sUrl.append(s1[i].toLowerCase());
-
-			// if (i < (s1.length - 1)) {
 			sUrl = sUrl.append("_");
-			// }
 		}
 
 		int tamanho = sUrl.length();
@@ -35,7 +32,7 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new Usuario();
+			throw e;
 		}
 	}
 
@@ -45,7 +42,7 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(ClassUtils.getUrl(AidfAimdfFormController.class
+			System.out.println(ClassUtils.getUrl(CotacaoFormController.class
 					.newInstance()));
 		} catch (Exception e) {
 			e.printStackTrace();

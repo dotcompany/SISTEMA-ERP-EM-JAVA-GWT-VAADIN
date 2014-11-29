@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,11 +26,11 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
 @Entity
-@Table(name = "produto_sub_grupo")
+@Table(name = "produto_grupo")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SubGrupoProdutoEntity extends AbstractMultiEmpresaModel<Integer>
+public class GrupoEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -38,16 +39,13 @@ public class SubGrupoProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_grupo_id_seq")
+	@SequenceGenerator(name = "produto_grupo_id_seq", sequenceName = "produto_grupo_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-
-	@Basic(optional = false)
-	@Column(name = "ID_GRUPO", nullable = false)
-	private int idGrupo;
 
 	@Field
 	@Caption("Nome")
@@ -57,32 +55,19 @@ public class SubGrupoProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String nome;
 
 	@Lob
+	@Field
+	@Caption("Descricao")
 	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	/**
-	 * REFERENCIA - LIST
-	 */
-
-	// @OneToMany(mappedBy = "subgrupoProduto", fetch = FetchType.LAZY)
-	// private List<Produto> produtoList;
-
-	/**
-	 * CONSTRUTOR
-	 */
-
-	public SubGrupoProdutoEntity() {
+	public GrupoEntity() {
 
 	}
 
-	public SubGrupoProdutoEntity(Integer id) {
+	public GrupoEntity(Integer id) {
 		this.id = id;
-	}
-
-	public SubGrupoProdutoEntity(Integer id, int idGrupo) {
-		this.id = id;
-		this.idGrupo = idGrupo;
 	}
 
 	public Integer getId() {
@@ -91,14 +76,6 @@ public class SubGrupoProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public int getIdGrupo() {
-		return idGrupo;
-	}
-
-	public void setIdGrupo(int idGrupo) {
-		this.idGrupo = idGrupo;
 	}
 
 	public String getNome() {
@@ -116,14 +93,6 @@ public class SubGrupoProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	// // public List<Produto> getProdutoList() {
-	// // return produtoList;
-	// // }
-	// //
-	// // public void setProdutoList(List<Produto> produtoList) {
-	// // this.produtoList = produtoList;
-	// }
 
 	/**
 	 * TO STRING

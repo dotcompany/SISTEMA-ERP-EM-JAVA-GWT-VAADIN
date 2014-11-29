@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.GrupoProdutoEntity;
+import dc.entidade.geral.produto.GrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.geral.produto.GrupoProdutoFormView;
 @Controller
 @Scope("prototype")
 public class GrupoProdutoFormController extends
-		CRUDFormController<GrupoProdutoEntity> {
+		CRUDFormController<GrupoEntity> {
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class GrupoProdutoFormController extends
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
 
-	private GrupoProdutoEntity currentBean;
+	private GrupoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -54,7 +54,7 @@ public class GrupoProdutoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new GrupoProdutoEntity();
+		currentBean = new GrupoEntity();
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class GrupoProdutoFormController extends
 	}
 
 	@Override
-	public GrupoProdutoEntity getModelBean() {
+	public GrupoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

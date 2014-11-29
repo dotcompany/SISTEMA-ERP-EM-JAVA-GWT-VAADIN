@@ -230,11 +230,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_SUB_GRUPO", referencedColumnName = "ID")
-	private SubGrupoProdutoEntity subGrupo;
+	private SubGrupoEntity subGrupo;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_GRUPO_PRODUTO", referencedColumnName = "ID")
-	private GrupoProdutoEntity grupo;
+	private GrupoEntity grupo;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_UNIDADE_PRODUTO", referencedColumnName = "ID")
@@ -250,7 +250,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	@Caption("Marca do produto")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private MarcaProdutoEntity marcaProduto;
+	private MarcaEntity marcaProduto;
 
 	@JoinColumn(name = "ID_ALMOXARIFADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -700,11 +700,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.codigoInterno = codigoInterno;
 	}
 
-	public SubGrupoProdutoEntity getSubGrupo() {
+	public SubGrupoEntity getSubGrupo() {
 		return subGrupo;
 	}
 
-	public void setSubGrupo(SubGrupoProdutoEntity subGrupo) {
+	public void setSubGrupo(SubGrupoEntity subGrupo) {
 		this.subGrupo = subGrupo;
 	}
 
@@ -981,11 +981,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.classe = classe;
 	}
 
-	public MarcaProdutoEntity getMarcaProduto() {
+	public MarcaEntity getMarcaProduto() {
 		return marcaProduto;
 	}
 
-	public void setMarcaProduto(MarcaProdutoEntity marcaProduto) {
+	public void setMarcaProduto(MarcaEntity marcaProduto) {
 		this.marcaProduto = marcaProduto;
 	}
 
@@ -997,11 +997,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.almoxarifado = almoxarifado;
 	}
 
-	public GrupoProdutoEntity getGrupo() {
+	public GrupoEntity getGrupo() {
 		return grupo;
 	}
 
-	public void setGrupo(GrupoProdutoEntity grupo) {
+	public void setGrupo(GrupoEntity grupo) {
 		this.grupo = grupo;
 	}
 

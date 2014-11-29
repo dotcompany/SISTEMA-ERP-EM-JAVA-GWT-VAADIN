@@ -5,24 +5,24 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.produto.MarcaProdutoEntity;
+import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class MarcaProdutoDAO extends AbstractCrudDAO<MarcaProdutoEntity> {
+public class MarcaProdutoDAO extends AbstractCrudDAO<MarcaEntity> {
 
 	@Override
-	public Class<MarcaProdutoEntity> getEntityClass() {
-		return MarcaProdutoEntity.class;
+	public Class<MarcaEntity> getEntityClass() {
+		return MarcaEntity.class;
 	}
 
 	@Transactional
-	public List<MarcaProdutoEntity> listaTodos() {
+	public List<MarcaEntity> listaTodos() {
 		return getSession().createQuery("from MarcaProduto").list();
 	}
 
 	@Transactional
-	public List<MarcaProdutoEntity> procuraNomeContendo(String query) {
+	public List<MarcaEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from MarcaProduto where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
@@ -32,7 +32,7 @@ public class MarcaProdutoDAO extends AbstractCrudDAO<MarcaProdutoEntity> {
 	}
 
 	@Transactional
-	public List<MarcaProdutoEntity> query(String q) {
+	public List<MarcaEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession()
 				.createQuery("from MarcaProduto where lower(nome) like :q")

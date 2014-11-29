@@ -15,10 +15,10 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.produto.ProdutosFormController;
 import dc.entidade.diversos.Almoxarifado;
-import dc.entidade.geral.produto.GrupoProdutoEntity;
-import dc.entidade.geral.produto.MarcaProdutoEntity;
+import dc.entidade.geral.produto.GrupoEntity;
+import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
-import dc.entidade.geral.produto.SubGrupoProdutoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.ICMSCustomizado;
@@ -75,11 +75,11 @@ public class ProdutosFormView extends CustomComponent {
 
 	GridLayout fields;
 
-	private ManyToOneCombo<SubGrupoProdutoEntity> cmbSubGrupoProduto;
+	private ManyToOneCombo<SubGrupoEntity> cmbSubGrupoProduto;
 	private ManyToOneCombo<UnidadeProdutoEntity> cmbUnidadeProduto;
-	private ManyToOneCombo<MarcaProdutoEntity> cmbMarcaProduto;
+	private ManyToOneCombo<MarcaEntity> cmbMarcaProduto;
 	private ManyToOneCombo<Almoxarifado> cmbAlmoxarifado;
-	private ManyToOneCombo<GrupoProdutoEntity> cmbGrupoProduto;
+	private ManyToOneCombo<GrupoEntity> cmbGrupoProduto;
 	private ManyToOneCombo<NcmEntity> cmbNcm;
 
 	private ManyToOneCombo<GrupoTributario> cmbGrupoTributario;
@@ -1338,12 +1338,12 @@ public class ProdutosFormView extends CustomComponent {
 		this.cmbUnidadeProduto = cmbUnidadeProduto;
 	}
 
-	public ManyToOneCombo<MarcaProdutoEntity> getCmbMarcaProduto() {
+	public ManyToOneCombo<MarcaEntity> getCmbMarcaProduto() {
 		return cmbMarcaProduto;
 	}
 
 	public void setCmbMarcaProduto(
-			ManyToOneCombo<MarcaProdutoEntity> cmbMarcaProduto) {
+			ManyToOneCombo<MarcaEntity> cmbMarcaProduto) {
 		this.cmbMarcaProduto = cmbMarcaProduto;
 	}
 
@@ -1355,12 +1355,12 @@ public class ProdutosFormView extends CustomComponent {
 		this.cmbAlmoxarifado = cmbAlmoxarifado;
 	}
 
-	public ManyToOneCombo<GrupoProdutoEntity> getCmbGrupoProduto() {
+	public ManyToOneCombo<GrupoEntity> getCmbGrupoProduto() {
 		return cmbGrupoProduto;
 	}
 
 	public void setCmbGrupoProduto(
-			ManyToOneCombo<GrupoProdutoEntity> cmbGrupoProduto) {
+			ManyToOneCombo<GrupoEntity> cmbGrupoProduto) {
 		this.cmbGrupoProduto = cmbGrupoProduto;
 	}
 
@@ -1381,12 +1381,12 @@ public class ProdutosFormView extends CustomComponent {
 		this.cmbGrupoTributario = cmbGrupoTributario;
 	}
 
-	public ManyToOneCombo<SubGrupoProdutoEntity> getCmbSubGrupoProduto() {
+	public ManyToOneCombo<SubGrupoEntity> getCmbSubGrupoProduto() {
 		return cmbSubGrupoProduto;
 	}
 
 	public void setCmbSubGrupoProduto(
-			ManyToOneCombo<SubGrupoProdutoEntity> cmbSubGrupoProduto) {
+			ManyToOneCombo<SubGrupoEntity> cmbSubGrupoProduto) {
 		this.cmbSubGrupoProduto = cmbSubGrupoProduto;
 	}
 

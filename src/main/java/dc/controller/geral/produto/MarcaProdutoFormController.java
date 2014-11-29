@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.MarcaProdutoEntity;
+import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.geral.produto.MarcaProdutoFormView;
 @Controller
 @Scope("prototype")
 public class MarcaProdutoFormController extends
-		CRUDFormController<MarcaProdutoEntity> {
+		CRUDFormController<MarcaEntity> {
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class MarcaProdutoFormController extends
 	@Autowired
 	private MarcaProdutoDAO marcaProdutoDAO;
 
-	private MarcaProdutoEntity currentBean;
+	private MarcaEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -54,7 +54,7 @@ public class MarcaProdutoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new MarcaProdutoEntity();
+		currentBean = new MarcaEntity();
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class MarcaProdutoFormController extends
 	}
 
 	@Override
-	public MarcaProdutoEntity getModelBean() {
+	public MarcaEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

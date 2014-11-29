@@ -30,7 +30,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class MarcaProdutoEntity extends AbstractMultiEmpresaModel<Integer>
+public class MarcaEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -73,11 +73,11 @@ public class MarcaProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * CONSTRUTOR
 	 */
 
-	public MarcaProdutoEntity() {
+	public MarcaEntity() {
 
 	}
 
-	public MarcaProdutoEntity(Integer id) {
+	public MarcaEntity(Integer id) {
 		this.id = id;
 	}
 

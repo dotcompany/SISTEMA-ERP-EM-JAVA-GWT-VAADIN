@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.GrupoProdutoEntity;
-import dc.entidade.geral.produto.SubGrupoProdutoEntity;
+import dc.entidade.geral.produto.GrupoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
 import dc.servicos.util.Validator;
@@ -22,7 +22,7 @@ import dc.visao.geral.produto.SubGrupoProdutoFormView;
 @Controller
 @Scope("prototype")
 public class SubGrupoProdutoFormController extends
-		CRUDFormController<SubGrupoProdutoEntity> {
+		CRUDFormController<SubGrupoEntity> {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class SubGrupoProdutoFormController extends
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
 
-	private SubGrupoProdutoEntity currentBean;
+	private SubGrupoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -60,14 +60,14 @@ public class SubGrupoProdutoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SubGrupoProdutoEntity();
+		currentBean = new SubGrupoEntity();
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new SubGrupoProdutoFormView();
 
-		DefaultManyToOneComboModel<GrupoProdutoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProdutoEntity>(
+		DefaultManyToOneComboModel<GrupoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
 				GrupoProdutoListController.class, grupoProdutoDAO,
 				super.getMainController());
 
@@ -81,7 +81,7 @@ public class SubGrupoProdutoFormController extends
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 
-		DefaultManyToOneComboModel<GrupoProdutoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoProdutoEntity>(
+		DefaultManyToOneComboModel<GrupoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
 				GrupoProdutoListController.class, grupoProdutoDAO,
 				super.getMainController());
 
@@ -141,7 +141,7 @@ public class SubGrupoProdutoFormController extends
 	}
 
 	@Override
-	public SubGrupoProdutoEntity getModelBean() {
+	public SubGrupoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

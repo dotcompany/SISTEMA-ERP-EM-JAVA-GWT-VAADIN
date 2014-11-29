@@ -16,11 +16,11 @@ import dc.controller.diversos.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.ICMSCustomizadoListController;
 import dc.entidade.diversos.Almoxarifado;
-import dc.entidade.geral.produto.GrupoProdutoEntity;
-import dc.entidade.geral.produto.MarcaProdutoEntity;
+import dc.entidade.geral.produto.GrupoEntity;
+import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.geral.produto.SubGrupoProdutoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributario;
 import dc.entidade.tributario.ICMSCustomizado;
@@ -105,7 +105,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	protected void initSubView() {
 		subView = new ProdutosFormView(this);
 		try {
-			DefaultManyToOneComboModel<SubGrupoProdutoEntity> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoProdutoEntity>(
+			DefaultManyToOneComboModel<SubGrupoEntity> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoEntity>(
 					SubGrupoProdutoListController.class, subGrupoProdutoDAO,
 					mainController);
 			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
@@ -115,7 +115,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					mainController);
 			subView.getCmbUnidadeProduto().setModel(comboUnidade);
 			//
-			DefaultManyToOneComboModel<MarcaProdutoEntity> comboMarca = new DefaultManyToOneComboModel<MarcaProdutoEntity>(
+			DefaultManyToOneComboModel<MarcaEntity> comboMarca = new DefaultManyToOneComboModel<MarcaEntity>(
 					MarcaProdutoListController.class, marcaProdutoDAO,
 					mainController);
 			subView.getCmbMarcaProduto().setModel(comboMarca);
@@ -137,7 +137,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					mainController);
 			subView.getCmbGrupoTributario().setModel(comboGrupo);
 			// //
-			DefaultManyToOneComboModel<GrupoProdutoEntity> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoProdutoEntity>(
+			DefaultManyToOneComboModel<GrupoEntity> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
 					GrupoProdutoListController.class, grupoProdutoDAO,
 					mainController);
 			subView.getCmbGrupoProduto().setModel(comboGrupoProduto);
@@ -348,12 +348,12 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 		try {
 
-			SubGrupoProdutoEntity subgrupo = subView.getCmbSubGrupoProduto()
+			SubGrupoEntity subgrupo = subView.getCmbSubGrupoProduto()
 					.getValue();
 			UnidadeProdutoEntity unidade = subView.getCmbUnidadeProduto()
 					.getValue();
 
-			MarcaProdutoEntity marca = subView.getCmbMarcaProduto().getValue();
+			MarcaEntity marca = subView.getCmbMarcaProduto().getValue();
 			Almoxarifado almoxarifado = subView.getCmbAlmoxarifado().getValue();
 
 			if (!Validator.validateObject(subgrupo)) {

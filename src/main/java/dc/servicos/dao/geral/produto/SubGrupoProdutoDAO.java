@@ -5,24 +5,24 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.produto.SubGrupoProdutoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SubGrupoProdutoDAO extends AbstractCrudDAO<SubGrupoProdutoEntity> {
+public class SubGrupoProdutoDAO extends AbstractCrudDAO<SubGrupoEntity> {
 
 	@Override
-	public Class<SubGrupoProdutoEntity> getEntityClass() {
-		return SubGrupoProdutoEntity.class;
+	public Class<SubGrupoEntity> getEntityClass() {
+		return SubGrupoEntity.class;
 	}
 
 	@Transactional
-	public List<SubGrupoProdutoEntity> listaTodos() {
+	public List<SubGrupoEntity> listaTodos() {
 		return getSession().createQuery("from SubGrupoProduto").list();
 	}
 
 	@Transactional
-	public List<SubGrupoProdutoEntity> procuraNomeContendo(String query) {
+	public List<SubGrupoEntity> procuraNomeContendo(String query) {
 		return getSession()
 				.createQuery("from SubGrupoProduto where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
@@ -33,7 +33,7 @@ public class SubGrupoProdutoDAO extends AbstractCrudDAO<SubGrupoProdutoEntity> {
 	}
 
 	@Transactional
-	public List<SubGrupoProdutoEntity> query(String q) {
+	public List<SubGrupoEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession()
 				.createQuery("from SubGrupoProduto where lower(nome) like :q")

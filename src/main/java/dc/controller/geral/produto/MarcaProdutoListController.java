@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.MarcaProdutoEntity;
+import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class MarcaProdutoListController extends
-		CRUDListController<MarcaProdutoEntity> {
+		CRUDListController<MarcaEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class MarcaProdutoListController extends
 	MarcaProdutoFormController marcaProdutoFormController;
 
 	@Override
-	protected CRUDFormController<MarcaProdutoEntity> getFormController() {
+	protected CRUDFormController<MarcaEntity> getFormController() {
 		return marcaProdutoFormController;
 	}
 
@@ -46,18 +46,18 @@ public class MarcaProdutoListController extends
 	}
 
 	@Override
-	public Class<? super MarcaProdutoEntity> getEntityClass() {
-		return MarcaProdutoEntity.class;
+	public Class<? super MarcaEntity> getEntityClass() {
+		return MarcaEntity.class;
 	}
 
 	@Override
-	protected List<MarcaProdutoEntity> pesquisa(String valor) {
+	protected List<MarcaEntity> pesquisa(String valor) {
 		try {
-			return (List<MarcaProdutoEntity>) dao.fullTextSearch(valor);
+			return (List<MarcaEntity>) dao.fullTextSearch(valor);
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<MarcaProdutoEntity>();
+			return new ArrayList<MarcaEntity>();
 		}
 	}
 
@@ -77,13 +77,13 @@ public class MarcaProdutoListController extends
 	}
 
 	@Override
-	protected List<MarcaProdutoEntity> pesquisaDefault() {
+	protected List<MarcaEntity> pesquisaDefault() {
 		try {
-			return (List<MarcaProdutoEntity>) dao.getAll(getEntityClass());
+			return (List<MarcaEntity>) dao.getAll(getEntityClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<MarcaProdutoEntity>();
+			return new ArrayList<MarcaEntity>();
 		}
 	}
 
