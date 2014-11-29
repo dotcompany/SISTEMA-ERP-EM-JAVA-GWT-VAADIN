@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.suprimentos.estoque.RequisicaoInterna;
+import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
 
 @Entity
 @Table(name = "requisicao_interna_detalhe")
@@ -38,7 +38,7 @@ public class RequisicaoInternaDetalheEntity extends
 
 	@ManyToOne
 	@JoinColumn(name = "id_req_interna_cabecalho")
-	RequisicaoInterna requisicao;
+	RequisicaoInternaCabecalhoEntity requisicao;
 
 	Integer quantidade;
 
@@ -50,11 +50,11 @@ public class RequisicaoInternaDetalheEntity extends
 		this.id = id;
 	}
 
-	public RequisicaoInterna getRequisicao() {
+	public RequisicaoInternaCabecalhoEntity getRequisicao() {
 		return requisicao;
 	}
 
-	public void setRequisicao(RequisicaoInterna requisicao) {
+	public void setRequisicao(RequisicaoInternaCabecalhoEntity requisicao) {
 		this.requisicao = requisicao;
 	}
 

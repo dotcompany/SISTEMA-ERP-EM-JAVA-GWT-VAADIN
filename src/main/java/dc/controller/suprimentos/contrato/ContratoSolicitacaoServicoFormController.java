@@ -18,14 +18,14 @@ import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.pessoal.ClienteEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.contrato.ContratoSolicitacaoServico;
-import dc.entidade.suprimentos.contrato.ContratoTipoServico;
+import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
+import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.pessoal.ClienteDAO;
 import dc.servicos.dao.pessoal.ColaboradorDAO;
-import dc.servicos.dao.suprimentos.contrato.ContratoSolicitacaoServicoDAO;
-import dc.servicos.dao.suprimentos.contrato.ContratoTipoServicoDAO;
+import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
+import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,7 +35,7 @@ import dc.visao.suprimentos.contrato.ContratoSolicitacaoServicoFormView;
 @Controller
 @Scope("prototype")
 public class ContratoSolicitacaoServicoFormController extends
-		CRUDFormController<ContratoSolicitacaoServico> {
+		CRUDFormController<SolicitacaoServicoEntity> {
 
 	/** 
 	 * 
@@ -45,20 +45,20 @@ public class ContratoSolicitacaoServicoFormController extends
 	private ContratoSolicitacaoServicoFormView subView;
 
 	@Autowired
-	private ContratoSolicitacaoServicoDAO contratoSolicitacaoServicoDAO;
+	private SolicitacaoServicoDAO contratoSolicitacaoServicoDAO;
 
 	@Autowired
 	private FornecedorDAO fornecedorDAO;
 	@Autowired
 	private SetorDAO setorDAO;
 	@Autowired
-	private ContratoTipoServicoDAO contratoTipoServicoDAO;
+	private TipoServicoDAO contratoTipoServicoDAO;
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
 	@Autowired
 	private ClienteDAO clienteDAO;
 
-	private ContratoSolicitacaoServico currentBean;
+	private SolicitacaoServicoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -123,7 +123,7 @@ public class ContratoSolicitacaoServicoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ContratoSolicitacaoServico();
+		currentBean = new SolicitacaoServicoEntity();
 	}
 
 	private void carregarCombosView() {
@@ -138,7 +138,7 @@ public class ContratoSolicitacaoServicoFormController extends
 
 		};
 
-		DefaultManyToOneComboModel<ContratoTipoServico> contratoTipoServicoModel = new DefaultManyToOneComboModel<ContratoTipoServico>(
+		DefaultManyToOneComboModel<TipoServicoEntity> contratoTipoServicoModel = new DefaultManyToOneComboModel<TipoServicoEntity>(
 				ContratoTipoServicoListController.class,
 				this.contratoTipoServicoDAO, super.getMainController());
 
@@ -238,7 +238,7 @@ public class ContratoSolicitacaoServicoFormController extends
 	}
 
 	@Override
-	public ContratoSolicitacaoServico getModelBean() {
+	public SolicitacaoServicoEntity getModelBean() {
 		return currentBean;
 	}
 

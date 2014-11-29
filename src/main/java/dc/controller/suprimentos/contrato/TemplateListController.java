@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.contrato.Template;
+import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TemplateListController extends CRUDListController<Template> {
+public class TemplateListController extends CRUDListController<TemplateEntity> {
 
 	/**
 	 * 
@@ -33,8 +33,8 @@ public class TemplateListController extends CRUDListController<Template> {
 	}
 
 	@Override
-	public Class<? super Template> getEntityClass() {
-		return Template.class;
+	public Class<? super TemplateEntity> getEntityClass() {
+		return TemplateEntity.class;
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class TemplateListController extends CRUDListController<Template> {
 	}
 
 	@Override
-	protected List<Template> pesquisa(String valor) {
+	protected List<TemplateEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Template> getFormController() {
+	protected CRUDFormController<TemplateEntity> getFormController() {
 		return templateFormController;
 	}
 
@@ -64,8 +64,8 @@ public class TemplateListController extends CRUDListController<Template> {
 	}
 
 	@Override
-	protected List<Template> pesquisaDefault() {
-		return (List<Template>) dao.getAll(getEntityClass());
+	protected List<TemplateEntity> pesquisaDefault() {
+		return (List<TemplateEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.contrato.ContratoTipoServico;
-import dc.servicos.dao.suprimentos.contrato.ContratoTipoServicoDAO;
+import dc.entidade.suprimentos.contrato.TipoServicoEntity;
+import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("unchecked")
 public class ContratoTipoServicoListController extends
-		CRUDListController<ContratoTipoServico> {
+		CRUDListController<TipoServicoEntity> {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class ContratoTipoServicoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContratoTipoServicoDAO dao;
+	TipoServicoDAO dao;
 
 	@Autowired
 	ContratoTipoServicoFormController tipoContratoFormController;
@@ -35,8 +35,8 @@ public class ContratoTipoServicoListController extends
 	}
 
 	@Override
-	public Class<? super ContratoTipoServico> getEntityClass() {
-		return ContratoTipoServico.class;
+	public Class<? super TipoServicoEntity> getEntityClass() {
+		return TipoServicoEntity.class;
 	}
 
 	@Override
@@ -45,12 +45,12 @@ public class ContratoTipoServicoListController extends
 	}
 
 	@Override
-	protected List<ContratoTipoServico> pesquisa(String valor) {
+	protected List<TipoServicoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ContratoTipoServico> getFormController() {
+	protected CRUDFormController<TipoServicoEntity> getFormController() {
 		return tipoContratoFormController;
 	}
 
@@ -66,8 +66,8 @@ public class ContratoTipoServicoListController extends
 	}
 
 	@Override
-	protected List<ContratoTipoServico> pesquisaDefault() {
-		return (List<ContratoTipoServico>) dao.getAll(getEntityClass());
+	protected List<TipoServicoEntity> pesquisaDefault() {
+		return (List<TipoServicoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
-import dc.entidade.suprimentos.contrato.ContratoTipoServico;
-import dc.servicos.dao.suprimentos.contrato.ContratoTipoServicoDAO;
+import dc.entidade.suprimentos.contrato.TipoServicoEntity;
+import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -22,7 +22,7 @@ import dc.visao.suprimentos.contrato.ContratoTipoServicoFormView;
 @Controller
 @Scope("prototype")
 public class ContratoTipoServicoFormController extends
-		CRUDFormController<ContratoTipoServico> {
+		CRUDFormController<TipoServicoEntity> {
 
 	/**
 	 * 
@@ -32,9 +32,9 @@ public class ContratoTipoServicoFormController extends
 	ContratoTipoServicoFormView subView;
 
 	@Autowired
-	ContratoTipoServicoDAO tipoServicoDAO;
+	TipoServicoDAO tipoServicoDAO;
 
-	private ContratoTipoServico currentBean;
+	private TipoServicoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -57,7 +57,7 @@ public class ContratoTipoServicoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ContratoTipoServico();
+		currentBean = new TipoServicoEntity();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Empresa empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
@@ -126,7 +126,7 @@ public class ContratoTipoServicoFormController extends
 	}
 
 	@Override
-	public ContratoTipoServico getModelBean() {
+	public TipoServicoEntity getModelBean() {
 		return currentBean;
 	}
 

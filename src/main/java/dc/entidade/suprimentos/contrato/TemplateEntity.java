@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,18 +13,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.produto.ProdutoEntity;
+import dc.entidade.framework.ComboValue;
+
+/**
+ * 
+ * 
+ * @author Wesley Jr
+ * 
+ */
 
 @Entity
-@Table(name = "contrato_produto")
+@Table(name = "template")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
+public class TemplateEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -35,23 +42,36 @@ public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_produto_id_seq")
-	@SequenceGenerator(name = "contrato_produto_id_seq", sequenceName = "contrato_produto_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template_id_seq")
+	@SequenceGenerator(name = "template_id_seq", sequenceName = "template_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private ContratoEntity contrato;
+	@Column(name = "NOME")
+	@Field
+	@Caption("Nome")
+	@Analyzer(definition = "dc_combo_analyzer")
+	@ComboValue
+	private String nome;
 
-	@JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private ProdutoEntity produto;
+	@Field
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
+	private String descricao;
 
-	public ContratoProduto() {
+	@Field
+	@Caption("Arquivo")
+	@Column(name = "ARQUIVO")
+	private String arquivo;
 
+	public TemplateEntity() {
+
+	}
+
+	public TemplateEntity(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -62,20 +82,28 @@ public class ContratoProduto extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public ProdutoEntity getProduto() {
-		return produto;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setProduto(ProdutoEntity produto) {
-		this.produto = produto;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public ContratoEntity getContrato() {
-		return contrato;
+	public String getArquivo() {
+		return arquivo;
 	}
 
-	public void setContrato(ContratoEntity contrato) {
-		this.contrato = contrato;
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	/**

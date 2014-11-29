@@ -12,21 +12,21 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.FornecedorListController;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.RequisicaoDetalheDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.ConfirmaCotacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
+public class ConfirmaCotacaoFormController extends CRUDFormController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 	@Autowired
 	private RequisicaoDetalheDAO requisicaoDetalheDao;
 
-	private Cotacao currentBean;
+	private CotacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -195,7 +195,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<Cotacao> {
 	}
 
 	@Override
-	public Cotacao getModelBean() {
+	public CotacaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

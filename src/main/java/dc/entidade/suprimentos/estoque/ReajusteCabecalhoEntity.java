@@ -34,14 +34,13 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.ReajusteDetalheEntity;
 
 @Entity
 @Table(name = "estoque_reajuste_cabecalho")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer>
+public class ReajusteCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -88,6 +87,10 @@ public class ReajusteEstoque extends AbstractMultiEmpresaModel<Integer>
 
 	@Transient
 	static Integer DIMINUIR = 2;
+
+	public ReajusteCabecalhoEntity() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;

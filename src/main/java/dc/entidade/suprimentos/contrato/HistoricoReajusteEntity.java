@@ -27,11 +27,12 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 
 @Entity
-@Table(name = "contrato_hist_faturamento")
+@Table(name = "contrato_historico_reajuste")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoHistFaturamento extends AbstractMultiEmpresaModel<Integer> {
+public class HistoricoReajusteEntity extends
+		AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -40,27 +41,39 @@ public class ContratoHistFaturamento extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_hist_faturamento_id_seq")
-	@SequenceGenerator(name = "contrato_hist_faturamento_id_seq", sequenceName = "contrato_hist_faturamento_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_historico_reajuste_id_seq")
+	@SequenceGenerator(name = "contrato_historico_reajuste_id_seq", sequenceName = "contrato_historico_reajuste_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_FATURA")
+	@Column(name = "INDICE")
 	@Field
-	private Date dataFatura;
+	private BigDecimal indice;
 
-	@Column(name = "VALOR")
+	@Column(name = "VALOR_ANTERIOR")
 	@Field
-	private BigDecimal valor;
+	private BigDecimal valorAnterior;
+
+	@Column(name = "VALOR_ATUAL")
+	@Field
+	private BigDecimal valorAtual;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_REAJUSTE")
+	@Field
+	private Date dataReajuste;
+
+	@Column(name = "OBSERVACAO")
+	@Field
+	private String observacao;
 
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Contrato contrato;
+	private ContratoEntity contrato;
 
-	public ContratoHistFaturamento() {
+	public HistoricoReajusteEntity() {
 
 	}
 
@@ -72,27 +85,51 @@ public class ContratoHistFaturamento extends AbstractMultiEmpresaModel<Integer> 
 		this.id = id;
 	}
 
-	public Date getDataFatura() {
-		return dataFatura;
+	public BigDecimal getIndice() {
+		return indice;
 	}
 
-	public void setDataFatura(Date dataFatura) {
-		this.dataFatura = dataFatura;
+	public void setIndice(BigDecimal indice) {
+		this.indice = indice;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
+	public BigDecimal getValorAnterior() {
+		return valorAnterior;
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setValorAnterior(BigDecimal valorAnterior) {
+		this.valorAnterior = valorAnterior;
 	}
 
-	public Contrato getContrato() {
+	public BigDecimal getValorAtual() {
+		return valorAtual;
+	}
+
+	public void setValorAtual(BigDecimal valorAtual) {
+		this.valorAtual = valorAtual;
+	}
+
+	public Date getDataReajuste() {
+		return dataReajuste;
+	}
+
+	public void setDataReajuste(Date dataReajuste) {
+		this.dataReajuste = dataReajuste;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public ContratoEntity getContrato() {
 		return contrato;
 	}
 
-	public void setContrato(Contrato contrato) {
+	public void setContrato(ContratoEntity contrato) {
 		this.contrato = contrato;
 	}
 

@@ -11,19 +11,19 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.RequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.RequisicaoDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.CotacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class CotacaoFormController extends CRUDFormController<Cotacao> {
+public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	@Autowired
 	private RequisicaoDetalheDAO requisicaoDetalheDao;
 
-	private Cotacao currentBean;
+	private CotacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -88,7 +88,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cotacao();
+		currentBean = new CotacaoEntity();
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class CotacaoFormController extends CRUDFormController<Cotacao> {
 	}
 
 	@Override
-	public Cotacao getModelBean() {
+	public CotacaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

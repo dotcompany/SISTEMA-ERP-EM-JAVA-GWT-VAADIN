@@ -81,7 +81,7 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao")
-	private Cotacao cotacao;
+	private CotacaoEntity cotacao;
 
 	public FornecedorCotacaoEntity() {
 	}
@@ -174,11 +174,11 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 		return cotacaoDetalhe;
 	}
 
-	public Cotacao getCotacao() {
+	public CotacaoEntity getCotacao() {
 		return this.cotacao;
 	}
 
-	public void setCotacao(Cotacao cotacao) {
+	public void setCotacao(CotacaoEntity cotacao) {
 		this.cotacao = cotacao;
 	}
 

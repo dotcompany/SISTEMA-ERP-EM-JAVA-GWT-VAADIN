@@ -2,15 +2,16 @@ package dc.servicos.dao.suprimentos.estoque;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.suprimentos.estoque.RequisicaoInterna;
+import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
-public class RequisicaoInternaDAO extends AbstractCrudDAO<RequisicaoInterna> {
+@Repository("suprimentosEstoqueRequisicaoInternaCabecalhoDAO")
+public class RequisicaoInternaCabecalhoDAO extends
+		AbstractCrudDAO<RequisicaoInternaCabecalhoEntity> {
 
 	@Override
-	public Class<RequisicaoInterna> getEntityClass() {
-		return RequisicaoInterna.class;
+	public Class<RequisicaoInternaCabecalhoEntity> getEntityClass() {
+		return RequisicaoInternaCabecalhoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {

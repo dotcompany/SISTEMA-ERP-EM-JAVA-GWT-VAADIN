@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.estoque.RequisicaoInterna;
-import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaDAO;
+import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
+import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
 public class RequisicaoInternaListController extends
-		CRUDListController<RequisicaoInterna> {
+		CRUDListController<RequisicaoInternaCabecalhoEntity> {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class RequisicaoInternaListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	RequisicaoInternaDAO dao;
+	RequisicaoInternaCabecalhoDAO dao;
 
 	@Autowired
 	RequisicaoInternaFormController formController;
@@ -45,7 +45,7 @@ public class RequisicaoInternaListController extends
 	}
 
 	@Override
-	protected List<RequisicaoInterna> pesquisa(String valor) {
+	protected List<RequisicaoInternaCabecalhoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -55,18 +55,18 @@ public class RequisicaoInternaListController extends
 	}
 
 	@Override
-	protected CRUDFormController<RequisicaoInterna> getFormController() {
+	protected CRUDFormController<RequisicaoInternaCabecalhoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super RequisicaoInterna> getEntityClass() {
-		return RequisicaoInterna.class;
+	public Class<? super RequisicaoInternaCabecalhoEntity> getEntityClass() {
+		return RequisicaoInternaCabecalhoEntity.class;
 	}
 
 	@Override
-	protected List<RequisicaoInterna> pesquisaDefault() {
-		return dao.getAll(RequisicaoInterna.class);
+	protected List<RequisicaoInternaCabecalhoEntity> pesquisaDefault() {
+		return dao.getAll(RequisicaoInternaCabecalhoEntity.class);
 		// //return dao.findBySetor();
 	}
 

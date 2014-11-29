@@ -26,8 +26,8 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.estoque.ReajusteEstoqueFormController;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.suprimentos.ReajusteDetalheEntity;
-import dc.entidade.suprimentos.estoque.ReajusteEstoque;
+import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
+import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
@@ -56,7 +56,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 
 	ReajusteEstoqueFormController controller;
 
-	ReajusteEstoque currentBean;
+	ReajusteCabecalhoEntity currentBean;
 
 	private SubFormComponent<ReajusteDetalheEntity, Integer> subForm;
 
@@ -190,7 +190,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 		this.cmbTipoReajuste = cmbTipoReajuste;
 	}
 
-	public void carregarView(ReajusteEstoque currentBean) {
+	public void carregarView(ReajusteCabecalhoEntity currentBean) {
 		cmbTipoReajuste.setValue(TipoReajuste.getTipoReajuste(currentBean
 				.getTipo()));
 	}
@@ -270,7 +270,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 									BigDecimal valPorcentagem = new BigDecimal(
 											porcentagem.getValue())
 											.divide(new BigDecimal(100));
-									BigDecimal reajustado = ReajusteEstoque
+									BigDecimal reajustado = ReajusteCabecalhoEntity
 											.valorAumentado(
 													valorOriginal.getValue(),
 													valPorcentagem, acao);

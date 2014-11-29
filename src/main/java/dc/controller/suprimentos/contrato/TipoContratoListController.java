@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.contrato.TipoContrato;
+import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class TipoContratoListController extends
-		CRUDListController<TipoContrato> {
+		CRUDListController<TipoContratoEntity> {
 
 	/**
 	 * 
@@ -34,8 +34,8 @@ public class TipoContratoListController extends
 	}
 
 	@Override
-	public Class<? super TipoContrato> getEntityClass() {
-		return TipoContrato.class;
+	public Class<? super TipoContratoEntity> getEntityClass() {
+		return TipoContratoEntity.class;
 	}
 
 	@Override
@@ -44,12 +44,12 @@ public class TipoContratoListController extends
 	}
 
 	@Override
-	protected List<TipoContrato> pesquisa(String valor) {
+	protected List<TipoContratoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<TipoContrato> getFormController() {
+	protected CRUDFormController<TipoContratoEntity> getFormController() {
 		return tipoContratoFormController;
 	}
 
@@ -65,8 +65,8 @@ public class TipoContratoListController extends
 	}
 
 	@Override
-	protected List<TipoContrato> pesquisaDefault() {
-		return (List<TipoContrato>) dao.getAll(getEntityClass());
+	protected List<TipoContratoEntity> pesquisaDefault() {
+		return (List<TipoContratoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

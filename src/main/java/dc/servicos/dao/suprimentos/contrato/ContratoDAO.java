@@ -5,15 +5,15 @@ import java.io.Serializable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.suprimentos.contrato.Contrato;
+import dc.entidade.suprimentos.contrato.ContratoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
-public class ContratoDAO extends AbstractCrudDAO<Contrato> {
+@Repository("suprimentosContratoContratoDAO")
+public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
 
 	@Override
-	public Class<Contrato> getEntityClass() {
-		return Contrato.class;
+	public Class<ContratoEntity> getEntityClass() {
+		return ContratoEntity.class;
 	}
 
 	@Override
@@ -24,8 +24,8 @@ public class ContratoDAO extends AbstractCrudDAO<Contrato> {
 
 	@Override
 	@Transactional
-	public Contrato find(Serializable id) {
-		Contrato contrato = super.find(id);
+	public ContratoEntity find(Serializable id) {
+		ContratoEntity contrato = super.find(id);
 		// workaround para lazy initialization exception
 		contrato.getContratosHistoricosFaturamentos();
 		contrato.getContratosHistoricosReajustes();

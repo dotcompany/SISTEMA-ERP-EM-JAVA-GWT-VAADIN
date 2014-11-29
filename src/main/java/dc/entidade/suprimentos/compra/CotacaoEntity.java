@@ -41,7 +41,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Cotacao extends AbstractMultiEmpresaModel<Integer> implements
+public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -92,7 +92,7 @@ public class Cotacao extends AbstractMultiEmpresaModel<Integer> implements
 	 * CONSTRUTOR
 	 */
 
-	public Cotacao() {
+	public CotacaoEntity() {
 		// TODO Auto-generated constructor stub
 	}
 

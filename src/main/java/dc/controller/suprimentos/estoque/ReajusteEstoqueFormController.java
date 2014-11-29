@@ -14,10 +14,10 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.ReajusteDetalheEntity;
-import dc.entidade.suprimentos.estoque.ReajusteEstoque;
+import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
+import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.estoque.ReajusteEstoqueDAO;
+import dc.servicos.dao.suprimentos.estoque.ReajusteCabecalhoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -27,7 +27,7 @@ import dc.visao.suprimentos.estoque.ReajusteEstoqueFormView.TipoReajuste;
 @Controller
 @Scope("prototype")
 public class ReajusteEstoqueFormController extends
-		CRUDFormController<ReajusteEstoque> {
+		CRUDFormController<ReajusteCabecalhoEntity> {
 
 	/**
 	 * 
@@ -35,12 +35,12 @@ public class ReajusteEstoqueFormController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ReajusteEstoqueDAO dao;
+	ReajusteCabecalhoDAO dao;
 
 	@Autowired
 	ProdutoDAO produtoDAO;
 
-	private ReajusteEstoque currentBean;
+	private ReajusteCabecalhoEntity currentBean;
 
 	ReajusteEstoqueFormView subView;
 
@@ -99,7 +99,7 @@ public class ReajusteEstoqueFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ReajusteEstoque();
+		currentBean = new ReajusteCabecalhoEntity();
 		subView.carregarTipoReajuste();
 	}
 
@@ -171,7 +171,7 @@ public class ReajusteEstoqueFormController extends
 	}
 
 	@Override
-	public ReajusteEstoque getModelBean() {
+	public ReajusteCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

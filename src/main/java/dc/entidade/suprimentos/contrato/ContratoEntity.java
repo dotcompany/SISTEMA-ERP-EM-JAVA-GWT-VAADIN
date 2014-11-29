@@ -41,7 +41,7 @@ import dc.entidade.geral.PessoaEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Contrato extends AbstractMultiEmpresaModel<Integer> {
+public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -127,7 +127,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Tipo Contrato")
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private TipoContrato tipoContrato;
+	private TipoContratoEntity tipoContrato;
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
@@ -135,12 +135,12 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private ContratoSolicitacaoServico contratoSolicitacaoServico;
+	private SolicitacaoServicoEntity contratoSolicitacaoServico;
 
 	@Caption(value = "Modelo Documento")
 	@JoinColumn(name = "ID_TEMPLATE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Template template;
+	private TemplateEntity template;
 
 	/**
 	 * 
@@ -154,7 +154,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ContratoHistFaturamento> contratosHistoricosFaturamentos = new ArrayList<>();
+	private List<HistFaturamentoEntity> contratosHistoricosFaturamentos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
@@ -162,11 +162,11 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ContratoHistoricoReajuste> contratosHistoricosReajustes = new ArrayList<>();
+	private List<HistoricoReajusteEntity> contratosHistoricosReajustes = new ArrayList<>();
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos = new ArrayList<>();
+	private List<PrevFaturamentoEntity> contratosPrevisoesFaturamentos = new ArrayList<>();
 
 	/*
 	 * @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL,
@@ -179,7 +179,7 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	@Transient
 	private ContratoTemplate contratoTemplate;
 
-	public Contrato() {
+	public ContratoEntity() {
 	}
 
 	public Integer getId() {
@@ -278,11 +278,11 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.observacao = observacao;
 	}
 
-	public TipoContrato getTipoContrato() {
+	public TipoContratoEntity getTipoContrato() {
 		return tipoContrato;
 	}
 
-	public void setTipoContrato(TipoContrato tipoContrato) {
+	public void setTipoContrato(TipoContratoEntity tipoContrato) {
 		this.tipoContrato = tipoContrato;
 	}
 
@@ -294,29 +294,29 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.contabilConta = contabilConta;
 	}
 
-	public Template getTemplate() {
+	public TemplateEntity getTemplate() {
 		return template;
 	}
 
-	public void setTemplate(Template template) {
+	public void setTemplate(TemplateEntity template) {
 		this.template = template;
 	}
 
-	public ContratoSolicitacaoServico getContratoSolicitacaoServico() {
+	public SolicitacaoServicoEntity getContratoSolicitacaoServico() {
 		return contratoSolicitacaoServico;
 	}
 
 	public void setContratoSolicitacaoServico(
-			ContratoSolicitacaoServico contratoSolicitacaoServico) {
+			SolicitacaoServicoEntity contratoSolicitacaoServico) {
 		this.contratoSolicitacaoServico = contratoSolicitacaoServico;
 	}
 
-	public void addParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public void addParcela(PrevFaturamentoEntity contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(this);
 		this.contratosPrevisoesFaturamentos.add(contratoPrevFaturamento);
 	}
 
-	public void removeParcela(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public void removeParcela(PrevFaturamentoEntity contratoPrevFaturamento) {
 		contratoPrevFaturamento.setContrato(null);
 		contratosPrevisoesFaturamentos.remove(contratoPrevFaturamento);
 
@@ -355,8 +355,8 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		this.pessoa = pessoa;
 	}
 
-	public ContratoHistFaturamento addContratoHistFaturamento(
-			ContratoHistFaturamento contratoHistFaturamento) {
+	public HistFaturamentoEntity addContratoHistFaturamento(
+			HistFaturamentoEntity contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().add(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(this);
 
@@ -370,8 +370,8 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratoProduto;
 	}
 
-	public ContratoHistFaturamento removeContratoHistFaturamento(
-			ContratoHistFaturamento contratoHistFaturamento) {
+	public HistFaturamentoEntity removeContratoHistFaturamento(
+			HistFaturamentoEntity contratoHistFaturamento) {
 		getContratosHistoricosFaturamentos().remove(contratoHistFaturamento);
 		contratoHistFaturamento.setContrato(null);
 
@@ -385,39 +385,39 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 		return contratoProduto;
 	}
 
-	public ContratoHistoricoReajuste addContratoHistoricoReajuste(
-			ContratoHistoricoReajuste contratoHistReajustes) {
+	public HistoricoReajusteEntity addContratoHistoricoReajuste(
+			HistoricoReajusteEntity contratoHistReajustes) {
 		getContratosHistoricosReajustes().add(contratoHistReajustes);
 		contratoHistReajustes.setContrato(this);
 
 		return contratoHistReajustes;
 	}
 
-	public ContratoHistoricoReajuste removeContratoHistoricoReajuste(
-			ContratoHistoricoReajuste contratoHistReajustes) {
+	public HistoricoReajusteEntity removeContratoHistoricoReajuste(
+			HistoricoReajusteEntity contratoHistReajustes) {
 		getContratosHistoricosReajustes().remove(contratoHistReajustes);
 		contratoHistReajustes.setContrato(null);
 
 		return contratoHistReajustes;
 	}
 
-	public ContratoPrevFaturamento addContratoPrevFaturamento(
-			ContratoPrevFaturamento contratoPrevFaturamentos) {
+	public PrevFaturamentoEntity addContratoPrevFaturamento(
+			PrevFaturamentoEntity contratoPrevFaturamentos) {
 		getContratosPrevisoesFaturamentos().add(contratoPrevFaturamentos);
 		contratoPrevFaturamentos.setContrato(this);
 
 		return contratoPrevFaturamentos;
 	}
 
-	public ContratoPrevFaturamento removeContratoPrevFaturamento(
-			ContratoPrevFaturamento contratoPrevFaturamento) {
+	public PrevFaturamentoEntity removeContratoPrevFaturamento(
+			PrevFaturamentoEntity contratoPrevFaturamento) {
 		getContratosPrevisoesFaturamentos().remove(contratoPrevFaturamento);
 		contratoPrevFaturamento.setContrato(null);
 
 		return contratoPrevFaturamento;
 	}
 
-	public List<ContratoHistFaturamento> getContratosHistoricosFaturamentos() {
+	public List<HistFaturamentoEntity> getContratosHistoricosFaturamentos() {
 		return contratosHistoricosFaturamentos;
 	}
 
@@ -426,25 +426,25 @@ public class Contrato extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setContratosHistoricosFaturamentos(
-			List<ContratoHistFaturamento> contratosHistoricosFaturamentos) {
+			List<HistFaturamentoEntity> contratosHistoricosFaturamentos) {
 		this.contratosHistoricosFaturamentos = contratosHistoricosFaturamentos;
 	}
 
-	public List<ContratoHistoricoReajuste> getContratosHistoricosReajustes() {
+	public List<HistoricoReajusteEntity> getContratosHistoricosReajustes() {
 		return contratosHistoricosReajustes;
 	}
 
 	public void setContratosHistoricosReajustes(
-			List<ContratoHistoricoReajuste> contratosHistoricosReajustes) {
+			List<HistoricoReajusteEntity> contratosHistoricosReajustes) {
 		this.contratosHistoricosReajustes = contratosHistoricosReajustes;
 	}
 
-	public List<ContratoPrevFaturamento> getContratosPrevisoesFaturamentos() {
+	public List<PrevFaturamentoEntity> getContratosPrevisoesFaturamentos() {
 		return contratosPrevisoesFaturamentos;
 	}
 
 	public void setContratosPrevisoesFaturamentos(
-			List<ContratoPrevFaturamento> contratosPrevisoesFaturamentos) {
+			List<PrevFaturamentoEntity> contratosPrevisoesFaturamentos) {
 		this.contratosPrevisoesFaturamentos = contratosPrevisoesFaturamentos;
 	}
 

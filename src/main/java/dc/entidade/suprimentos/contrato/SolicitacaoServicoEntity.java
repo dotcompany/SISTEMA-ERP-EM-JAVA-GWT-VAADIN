@@ -36,7 +36,7 @@ import dc.entidade.pessoal.Colaborador;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoSolicitacaoServico extends
+public class SolicitacaoServicoEntity extends
 		AbstractMultiEmpresaModel<Integer> {
 
 	/**
@@ -89,7 +89,7 @@ public class ContratoSolicitacaoServico extends
 	@Caption("Contrato Tipo serviço")
 	@JoinColumn(name = "ID_CONTRATO_TIPO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private ContratoTipoServico contratoTipoServico;
+	private TipoServicoEntity contratoTipoServico;
 
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -111,7 +111,7 @@ public class ContratoSolicitacaoServico extends
 	@ManyToOne
 	private FornecedorEntity fornecedor;
 
-	public ContratoSolicitacaoServico() {
+	public SolicitacaoServicoEntity() {
 
 	}
 
@@ -163,11 +163,11 @@ public class ContratoSolicitacaoServico extends
 		this.descricao = descricao;
 	}
 
-	public ContratoTipoServico getContratoTipoServico() {
+	public TipoServicoEntity getContratoTipoServico() {
 		return contratoTipoServico;
 	}
 
-	public void setContratoTipoServico(ContratoTipoServico contratoTipoServico) {
+	public void setContratoTipoServico(TipoServicoEntity contratoTipoServico) {
 		this.contratoTipoServico = contratoTipoServico;
 	}
 

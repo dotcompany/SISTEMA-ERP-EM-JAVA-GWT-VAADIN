@@ -50,20 +50,20 @@ import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UF;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.ClienteEntity;
-import dc.entidade.suprimentos.contrato.Contrato;
-import dc.entidade.suprimentos.contrato.ContratoHistFaturamento;
-import dc.entidade.suprimentos.contrato.ContratoHistoricoReajuste;
-import dc.entidade.suprimentos.contrato.ContratoPrevFaturamento;
+import dc.entidade.suprimentos.contrato.ContratoEntity;
+import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;
+import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
+import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.ContratoProduto;
-import dc.entidade.suprimentos.contrato.ContratoSolicitacaoServico;
-import dc.entidade.suprimentos.contrato.Template;
-import dc.entidade.suprimentos.contrato.TipoContrato;
+import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
+import dc.entidade.suprimentos.contrato.TemplateEntity;
+import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.pessoal.PessoaDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
-import dc.servicos.dao.suprimentos.contrato.ContratoSolicitacaoServicoDAO;
+import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
 import dc.servicos.util.Validator;
@@ -75,7 +75,7 @@ import dc.visao.suprimentos.contrato.ContratosFormView;
 
 @Controller
 @Scope("prototype")
-public class ContratoFormController extends CRUDFormController<Contrato> {
+public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	/**
 	 * 
@@ -106,7 +106,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	protected SessionFactory sessionFactory;
 
 	@Autowired
-	private ContratoSolicitacaoServicoDAO solicitacaoServicoDAO;
+	private SolicitacaoServicoDAO solicitacaoServicoDAO;
 
 	@Autowired
 	private TemplateDAO documentoDAO;
@@ -117,7 +117,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	@Autowired
 	private UFDAO ufDAO;
 
-	private Contrato currentBean;
+	private ContratoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -148,7 +148,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 			valido = false;
 		}
 
-		TipoContrato tipoContrato = (TipoContrato) subView.getCbmTipoContrato()
+		TipoContratoEntity tipoContrato = (TipoContratoEntity) subView.getCbmTipoContrato()
 				.getValue();
 		if (!Validator.validateObject(tipoContrato)) {
 			adicionarErroDeValidacao(subView.getCbmTipoContrato(),
@@ -232,7 +232,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Contrato();
+		currentBean = new ContratoEntity();
 	}
 
 	private void carregarCombos() {
@@ -343,7 +343,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		};
 
-		DefaultManyToOneComboModel<TipoContrato> tipoContratoModel = new DefaultManyToOneComboModel<TipoContrato>(
+		DefaultManyToOneComboModel<TipoContratoEntity> tipoContratoModel = new DefaultManyToOneComboModel<TipoContratoEntity>(
 				TipoContratoListController.class, this.tipoContratoDAO,
 				super.getMainController());
 
@@ -356,7 +356,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		DefaultManyToOneComboModel<UF> templateUF = new DefaultManyToOneComboModel<UF>(
 				UFListController.class, this.ufDAO, super.getMainController());
 
-		DefaultManyToOneComboModel<Template> templateModel = new DefaultManyToOneComboModel<Template>(
+		DefaultManyToOneComboModel<TemplateEntity> templateModel = new DefaultManyToOneComboModel<TemplateEntity>(
 				TemplateListController.class, this.templateDAO,
 				super.getMainController());
 
@@ -365,7 +365,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		 * StatusSolicitação para aparecer no ComboBox
 		 */
 
-		DefaultManyToOneComboModel<ContratoSolicitacaoServico> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<ContratoSolicitacaoServico>(
+		DefaultManyToOneComboModel<SolicitacaoServicoEntity> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<SolicitacaoServicoEntity>(
 				ContratoSolicitacaoServicoListController.class,
 				this.solicitacaoServicoDAO, super.getMainController()) {
 
@@ -410,7 +410,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	public StreamResource createResource() {
-		final Template documento = (Template) subView.getCbmDocumento()
+		final TemplateEntity documento = (TemplateEntity) subView.getCbmDocumento()
 				.getValue();
 
 		if (documento != null) {
@@ -560,7 +560,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 		boolean valido = true;
 
-		List<ContratoPrevFaturamento> contratoPrevFaturamento = subView
+		List<PrevFaturamentoEntity> contratoPrevFaturamento = subView
 				.getPrevisaoFaturamentoSubForm().getDados();
 
 		if (((BigDecimal) subView.getTxtValor().getConvertedValue())
@@ -609,24 +609,24 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 
-	public Contrato getCurrentBean() {
+	public ContratoEntity getCurrentBean() {
 		return currentBean;
 	}
 
-	public void setCurrentBean(Contrato currentBean) {
+	public void setCurrentBean(ContratoEntity currentBean) {
 		this.currentBean = currentBean;
 	}
 
-	public ContratoHistFaturamento novoContratoHistFaturamento() {
-		ContratoHistFaturamento contratoHistFaturamento = new ContratoHistFaturamento();
+	public HistFaturamentoEntity novoContratoHistFaturamento() {
+		HistFaturamentoEntity contratoHistFaturamento = new HistFaturamentoEntity();
 		this.currentBean.addContratoHistFaturamento(contratoHistFaturamento);
 
 		return contratoHistFaturamento;
 	}
 
 	public void removerContratoHistFaturamento(
-			List<ContratoHistFaturamento> values) {
-		for (ContratoHistFaturamento contratoHistFaturamento : values) {
+			List<HistFaturamentoEntity> values) {
+		for (HistFaturamentoEntity contratoHistFaturamento : values) {
 			this.currentBean
 					.removeContratoHistFaturamento(contratoHistFaturamento);
 		}
@@ -651,17 +651,17 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 
 	}
 
-	public ContratoPrevFaturamento novoContratoPrevFaturamento(
-			ContratoPrevFaturamento contratoPreFaturamento) {
-		ContratoPrevFaturamento contratoPrevFaturamento = new ContratoPrevFaturamento();
+	public PrevFaturamentoEntity novoContratoPrevFaturamento(
+			PrevFaturamentoEntity contratoPreFaturamento) {
+		PrevFaturamentoEntity contratoPrevFaturamento = new PrevFaturamentoEntity();
 		this.currentBean.addContratoPrevFaturamento(contratoPrevFaturamento);
 
 		return contratoPrevFaturamento;
 	}
 
 	public void removerContratoPrevFaturamento(
-			List<ContratoPrevFaturamento> values) {
-		for (ContratoPrevFaturamento contratoPrevFaturamento : values) {
+			List<PrevFaturamentoEntity> values) {
+		for (PrevFaturamentoEntity contratoPrevFaturamento : values) {
 			this.currentBean
 					.removeContratoPrevFaturamento(contratoPrevFaturamento);
 		}
@@ -669,8 +669,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		mensagemRemovidoOK();
 	}
 
-	public ContratoHistoricoReajuste novoContratoHistoricoReajuste() {
-		ContratoHistoricoReajuste contratoHistoricoReajuste = new ContratoHistoricoReajuste();
+	public HistoricoReajusteEntity novoContratoHistoricoReajuste() {
+		HistoricoReajusteEntity contratoHistoricoReajuste = new HistoricoReajusteEntity();
 		this.currentBean
 				.addContratoHistoricoReajuste(contratoHistoricoReajuste);
 
@@ -678,8 +678,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	public void removerContratoHistoricoReajuste(
-			List<ContratoHistoricoReajuste> values) {
-		for (ContratoHistoricoReajuste contratoHistoricoReajuste : values) {
+			List<HistoricoReajusteEntity> values) {
+		for (HistoricoReajusteEntity contratoHistoricoReajuste : values) {
 			this.currentBean
 					.removeContratoHistoricoReajuste(contratoHistoricoReajuste);
 		}
@@ -697,9 +697,9 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 						"É necessário informar a pessoa para previsão das parcelas.");
 			}
 
-			final List<ContratoPrevFaturamento> contratoprevFaturamento = new ArrayList<ContratoPrevFaturamento>();
+			final List<PrevFaturamentoEntity> contratoprevFaturamento = new ArrayList<PrevFaturamentoEntity>();
 
-			List<ContratoPrevFaturamento> dados = subView
+			List<PrevFaturamentoEntity> dados = subView
 					.getPrevisaoFaturamentoSubForm().getDados();
 			Integer i = (Integer) (!subView.getTxtIntervaloParcelas()
 					.getValue().equals("") ? new Integer(0) : subView
@@ -746,12 +746,12 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	/** Wesley Jr gera as Parcelas */
 
 	private void geraParcelas(PessoaEntity pessoa,
-			final List<ContratoPrevFaturamento> contratopreFaturamento) {
+			final List<PrevFaturamentoEntity> contratopreFaturamento) {
 		subView.getPrevisaoFaturamentoSubForm().removeAllItems();
 		subView.preencheContrato(currentBean);
 
-		Contrato contrato = currentBean;
-		ContratoPrevFaturamento contratoPrevFaturamento;
+		ContratoEntity contrato = currentBean;
+		PrevFaturamentoEntity contratoPrevFaturamento;
 		// List<ContratoPrevFaturamento> dados =
 		// subView.buildPrevisaoFaturamentoSubForm().getDados();
 		Date dataPrevista = new Date();
@@ -769,7 +769,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		Date dataAtual = new Date();
 
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
-			contratoPrevFaturamento = new ContratoPrevFaturamento();
+			contratoPrevFaturamento = new PrevFaturamentoEntity();
 			contratoPrevFaturamento.setPessoa(pessoa);
 			// contrato.setContabilConta(contabilConta);
 			// contrato.setQuantidadeParcelas(i + 1);
@@ -811,8 +811,8 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	private void excluiParcelas(
-			List<ContratoPrevFaturamento> contratoPrevFaturamento) {
-		List<ContratoPrevFaturamento> persistentObjects = subView
+			List<PrevFaturamentoEntity> contratoPrevFaturamento) {
+		List<PrevFaturamentoEntity> persistentObjects = subView
 				.getPrevisaoFaturamentoSubForm().getDados();
 
 		for (int i = 0; i < persistentObjects.size(); i++) {
@@ -822,31 +822,31 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		contratoPrevFaturamento.clear();
 	}
 
-	public void delete(ContratoPrevFaturamento contratoPrevFaturamento) {
+	public void delete(PrevFaturamentoEntity contratoPrevFaturamento) {
 		sessionFactory.getCurrentSession().delete(contratoPrevFaturamento);
 	}
 
-	public ContratoPrevFaturamento novoContratoPrevFaturamento() {
-		ContratoPrevFaturamento contratoPreFaturamento = new ContratoPrevFaturamento();
+	public PrevFaturamentoEntity novoContratoPrevFaturamento() {
+		PrevFaturamentoEntity contratoPreFaturamento = new PrevFaturamentoEntity();
 
 		return novoContratoPrevFaturamento(contratoPreFaturamento);
 	}
 
-	public ContratoPrevFaturamento novoContrato(
-			ContratoPrevFaturamento contratoPreFaturamento) {
+	public PrevFaturamentoEntity novoContrato(
+			PrevFaturamentoEntity contratoPreFaturamento) {
 		currentBean.addParcela(contratoPreFaturamento);
 
 		return contratoPreFaturamento;
 	}
 
-	public void removerParcelaPagar(List<ContratoPrevFaturamento> values) {
-		for (ContratoPrevFaturamento value : values) {
+	public void removerParcelaPagar(List<PrevFaturamentoEntity> values) {
+		for (PrevFaturamentoEntity value : values) {
 			currentBean.removeParcela(value);
 		}
 	}
 
 	private BigDecimal getTotal(
-			List<ContratoPrevFaturamento> contratoPrevFaturamento) {
+			List<PrevFaturamentoEntity> contratoPrevFaturamento) {
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (int i = 0; i < contratoPrevFaturamento.size(); i++) {
@@ -861,7 +861,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 		return ClassUtils.getUrl(this);
 	}
 
-	private static File getFileFromDocumento(Template documento) {
+	private static File getFileFromDocumento(TemplateEntity documento) {
 		File arquivo = new File(documento.getArquivo());
 
 		return arquivo;
@@ -877,7 +877,7 @@ public class ContratoFormController extends CRUDFormController<Contrato> {
 	}
 
 	@Override
-	public Contrato getModelBean() {
+	public ContratoEntity getModelBean() {
 		return currentBean;
 	}
 

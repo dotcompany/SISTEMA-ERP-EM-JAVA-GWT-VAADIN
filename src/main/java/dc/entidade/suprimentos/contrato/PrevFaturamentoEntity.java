@@ -33,7 +33,7 @@ import dc.entidade.geral.PessoaEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> {
+public class PrevFaturamentoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -65,13 +65,13 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Contrato contrato;
+	private ContratoEntity contrato;
 
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private PessoaEntity pessoa;
 
-	public ContratoPrevFaturamento() {
+	public PrevFaturamentoEntity() {
 
 	}
 
@@ -107,11 +107,11 @@ public class ContratoPrevFaturamento extends AbstractMultiEmpresaModel<Integer> 
 		this.valor = valor;
 	}
 
-	public Contrato getContrato() {
+	public ContratoEntity getContrato() {
 		return contrato;
 	}
 
-	public void setContrato(Contrato contrato) {
+	public void setContrato(ContratoEntity contrato) {
 		this.contrato = contrato;
 	}
 

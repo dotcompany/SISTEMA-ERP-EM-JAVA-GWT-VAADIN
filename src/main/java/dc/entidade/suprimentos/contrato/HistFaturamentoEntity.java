@@ -1,13 +1,20 @@
 package dc.entidade.suprimentos.contrato;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -16,17 +23,15 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 
 @Entity
-@Table(name = "tipo_contrato")
+@Table(name = "contrato_hist_faturamento")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoContrato extends AbstractMultiEmpresaModel<Integer> {
+public class HistFaturamentoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -35,26 +40,27 @@ public class TipoContrato extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_contrato_id_seq")
-	@SequenceGenerator(name = "tipo_contrato_id_seq", sequenceName = "tipo_contrato_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_hist_faturamento_id_seq")
+	@SequenceGenerator(name = "contrato_hist_faturamento_id_seq", sequenceName = "contrato_hist_faturamento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column(name = "NOME")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_FATURA")
 	@Field
-	@Caption("Nome")
-	@Analyzer(definition = "dc_combo_analyzer")
-	@ComboValue
-	private String nome;
+	private Date dataFatura;
 
+	@Column(name = "VALOR")
 	@Field
-	@Caption("Descrição")
-	@Column(name = "DESCRICAO")
-	private String descricao;
+	private BigDecimal valor;
 
-	public TipoContrato() {
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private ContratoEntity contrato;
+
+	public HistFaturamentoEntity() {
 
 	}
 
@@ -66,20 +72,28 @@ public class TipoContrato extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public Date getDataFatura() {
+		return dataFatura;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDataFatura(Date dataFatura) {
+		this.dataFatura = dataFatura;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public BigDecimal getValor() {
+		return valor;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public ContratoEntity getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(ContratoEntity contrato) {
+		this.contrato = contrato;
 	}
 
 	/**

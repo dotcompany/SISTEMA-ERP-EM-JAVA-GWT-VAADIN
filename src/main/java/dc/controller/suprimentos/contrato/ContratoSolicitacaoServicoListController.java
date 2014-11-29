@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.contrato.ContratoSolicitacaoServico;
-import dc.servicos.dao.suprimentos.contrato.ContratoSolicitacaoServicoDAO;
+import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
+import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
 public class ContratoSolicitacaoServicoListController extends
-		CRUDListController<ContratoSolicitacaoServico> {
+		CRUDListController<SolicitacaoServicoEntity> {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class ContratoSolicitacaoServicoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContratoSolicitacaoServicoDAO dao;
+	SolicitacaoServicoDAO dao;
 
 	@Autowired
 	ContratoSolicitacaoServicoFormController contratoSolicitacaoFormController;
@@ -35,8 +35,8 @@ public class ContratoSolicitacaoServicoListController extends
 	}
 
 	@Override
-	public Class<? super ContratoSolicitacaoServico> getEntityClass() {
-		return ContratoSolicitacaoServico.class;
+	public Class<? super SolicitacaoServicoEntity> getEntityClass() {
+		return SolicitacaoServicoEntity.class;
 	}
 
 	@Override
@@ -45,12 +45,12 @@ public class ContratoSolicitacaoServicoListController extends
 	}
 
 	@Override
-	protected List<ContratoSolicitacaoServico> pesquisa(String valor) {
+	protected List<SolicitacaoServicoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ContratoSolicitacaoServico> getFormController() {
+	protected CRUDFormController<SolicitacaoServicoEntity> getFormController() {
 		return contratoSolicitacaoFormController;
 	}
 
@@ -66,8 +66,8 @@ public class ContratoSolicitacaoServicoListController extends
 	}
 
 	@Override
-	protected List<ContratoSolicitacaoServico> pesquisaDefault() {
-		return (List<ContratoSolicitacaoServico>) dao.getAll(getEntityClass());
+	protected List<SolicitacaoServicoEntity> pesquisaDefault() {
+		return (List<SolicitacaoServicoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

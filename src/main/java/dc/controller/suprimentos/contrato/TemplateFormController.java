@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
-import dc.entidade.suprimentos.contrato.Template;
+import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
@@ -23,7 +23,7 @@ import dc.visao.suprimentos.contrato.TemplateFormView;
 
 @Controller
 @Scope("prototype")
-public class TemplateFormController extends CRUDFormController<Template> {
+public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	@Autowired
 	private TemplateDAO templateDAO;
 
-	private Template currentBean;
+	private TemplateEntity currentBean;
 
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";
@@ -62,7 +62,7 @@ public class TemplateFormController extends CRUDFormController<Template> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Template();
+		currentBean = new TemplateEntity();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Empresa empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
@@ -154,7 +154,7 @@ public class TemplateFormController extends CRUDFormController<Template> {
 	}
 
 	@Override
-	public Template getModelBean() {
+	public TemplateEntity getModelBean() {
 		return currentBean;
 	}
 

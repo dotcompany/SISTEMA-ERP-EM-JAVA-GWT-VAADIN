@@ -14,10 +14,10 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
-import dc.entidade.suprimentos.estoque.RequisicaoInterna;
+import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
+import dc.entidade.suprimentos.estoque.RequisicaoInternaDetalheEntity;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaDAO;
+import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaCabecalhoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -26,7 +26,7 @@ import dc.visao.suprimentos.estoque.RequisicaoInternaFormView;
 @Controller
 @Scope("prototype")
 public class RequisicaoInternaFormController extends
-		CRUDFormController<RequisicaoInterna> {
+		CRUDFormController<RequisicaoInternaCabecalhoEntity> {
 
 	/**
 	 * 
@@ -36,9 +36,9 @@ public class RequisicaoInternaFormController extends
 	RequisicaoInternaFormView subView;
 
 	@Autowired
-	RequisicaoInternaDAO dao;
+	RequisicaoInternaCabecalhoDAO dao;
 
-	private RequisicaoInterna currentBean;
+	private RequisicaoInternaCabecalhoEntity currentBean;
 
 	@Autowired
 	ProdutoDAO produtoDAO;
@@ -89,7 +89,7 @@ public class RequisicaoInternaFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new RequisicaoInterna();
+		currentBean = new RequisicaoInternaCabecalhoEntity();
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class RequisicaoInternaFormController extends
 	}
 
 	@Override
-	public RequisicaoInterna getModelBean() {
+	public RequisicaoInternaCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

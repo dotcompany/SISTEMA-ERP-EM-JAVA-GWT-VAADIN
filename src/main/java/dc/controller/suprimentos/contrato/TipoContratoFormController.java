@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.Usuario;
-import dc.entidade.suprimentos.contrato.TipoContrato;
+import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -22,7 +22,7 @@ import dc.visao.suprimentos.contrato.TipoContratoFormView;
 @Controller
 @Scope("prototype")
 public class TipoContratoFormController extends
-		CRUDFormController<TipoContrato> {
+		CRUDFormController<TipoContratoEntity> {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class TipoContratoFormController extends
 	@Autowired
 	private TipoContratoDAO tipoContratoDAO;
 
-	private TipoContrato currentBean;
+	private TipoContratoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -57,7 +57,7 @@ public class TipoContratoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoContrato();
+		currentBean = new TipoContratoEntity();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
 		Empresa empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
@@ -126,7 +126,7 @@ public class TipoContratoFormController extends
 	}
 
 	@Override
-	public TipoContrato getModelBean() {
+	public TipoContratoEntity getModelBean() {
 		return currentBean;
 	}
 

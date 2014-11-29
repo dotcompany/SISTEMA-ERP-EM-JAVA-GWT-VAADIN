@@ -21,19 +21,12 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * 
- * @author Wesley Jr
- * 
- */
-
 @Entity
-@Table(name = "template")
+@Table(name = "tipo_contrato")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Template extends AbstractMultiEmpresaModel<Integer> {
+public class TipoContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -42,8 +35,8 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template_id_seq")
-	@SequenceGenerator(name = "template_id_seq", sequenceName = "template_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_contrato_id_seq")
+	@SequenceGenerator(name = "tipo_contrato_id_seq", sequenceName = "tipo_contrato_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -61,17 +54,8 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	@Field
-	@Caption("Arquivo")
-	@Column(name = "ARQUIVO")
-	private String arquivo;
+	public TipoContratoEntity() {
 
-	public Template() {
-
-	}
-
-	public Template(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getId() {
@@ -88,14 +72,6 @@ public class Template extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getArquivo() {
-		return arquivo;
-	}
-
-	public void setArquivo(String arquivo) {
-		this.arquivo = arquivo;
 	}
 
 	public String getDescricao() {

@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.compra.Cotacao;
+import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class CotacaoListController extends CRUDListController<Cotacao> {
+public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class CotacaoListController extends CRUDListController<Cotacao> {
 	}
 
 	@Override
-	protected List<Cotacao> pesquisa(String valor) {
+	protected List<CotacaoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -48,18 +48,18 @@ public class CotacaoListController extends CRUDListController<Cotacao> {
 	}
 
 	@Override
-	protected CRUDFormController<Cotacao> getFormController() {
+	protected CRUDFormController<CotacaoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Cotacao> getEntityClass() {
-		return Cotacao.class;
+	public Class<? super CotacaoEntity> getEntityClass() {
+		return CotacaoEntity.class;
 	}
 
 	@Override
-	protected List<Cotacao> pesquisaDefault() {
-		return dao.getAll(Cotacao.class);
+	protected List<CotacaoEntity> pesquisaDefault() {
+		return dao.getAll(CotacaoEntity.class);
 	}
 
 	@Override

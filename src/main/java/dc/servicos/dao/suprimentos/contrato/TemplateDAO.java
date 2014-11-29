@@ -2,15 +2,15 @@ package dc.servicos.dao.suprimentos.contrato;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.suprimentos.contrato.Template;
+import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
-public class TemplateDAO extends AbstractCrudDAO<Template> {
+@Repository("suprimentosContratoTemplateDAO")
+public class TemplateDAO extends AbstractCrudDAO<TemplateEntity> {
 
 	@Override
-	public Class<Template> getEntityClass() {
-		return Template.class;
+	public Class<TemplateEntity> getEntityClass() {
+		return TemplateEntity.class;
 	}
 
 	@Override

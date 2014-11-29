@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.estoque.ReajusteEstoque;
-import dc.servicos.dao.suprimentos.estoque.ReajusteEstoqueDAO;
+import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
+import dc.servicos.dao.suprimentos.estoque.ReajusteCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
 public class ReajusteEstoqueListController extends
-		CRUDListController<ReajusteEstoque> {
+		CRUDListController<ReajusteCabecalhoEntity> {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class ReajusteEstoqueListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ReajusteEstoqueDAO dao;
+	ReajusteCabecalhoDAO dao;
 
 	@Autowired
 	ReajusteEstoqueFormController formController;
@@ -39,7 +39,7 @@ public class ReajusteEstoqueListController extends
 	}
 
 	@Override
-	protected List<ReajusteEstoque> pesquisa(String valor) {
+	protected List<ReajusteCabecalhoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -49,18 +49,18 @@ public class ReajusteEstoqueListController extends
 	}
 
 	@Override
-	protected CRUDFormController<ReajusteEstoque> getFormController() {
+	protected CRUDFormController<ReajusteCabecalhoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ReajusteEstoque> getEntityClass() {
-		return ReajusteEstoque.class;
+	public Class<? super ReajusteCabecalhoEntity> getEntityClass() {
+		return ReajusteCabecalhoEntity.class;
 	}
 
 	@Override
-	protected List<ReajusteEstoque> pesquisaDefault() {
-		return dao.getAll(ReajusteEstoque.class);
+	protected List<ReajusteCabecalhoEntity> pesquisaDefault() {
+		return dao.getAll(ReajusteCabecalhoEntity.class);
 	}
 
 	@Override

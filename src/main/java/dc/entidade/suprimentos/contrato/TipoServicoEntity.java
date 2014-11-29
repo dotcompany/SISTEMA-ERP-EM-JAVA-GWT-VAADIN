@@ -27,7 +27,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContratoTipoServico extends AbstractMultiEmpresaModel<Integer> {
+public class TipoServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -56,7 +56,7 @@ public class ContratoTipoServico extends AbstractMultiEmpresaModel<Integer> {
 	@NotEmpty
 	private String descricao;
 
-	public ContratoTipoServico() {
+	public TipoServicoEntity() {
 
 	}
 

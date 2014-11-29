@@ -1,4 +1,4 @@
-package dc.entidade.suprimentos;
+package dc.entidade.suprimentos.estoque;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.suprimentos.estoque.ReajusteEstoque;
+import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
 
 @Entity
 @Table(name = "estoque_reajuste_detalhe")
@@ -38,7 +38,7 @@ public class ReajusteDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_estoque_reajuste_cabecalho")
-	private ReajusteEstoque reajuste;
+	private ReajusteCabecalhoEntity reajuste;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
@@ -52,11 +52,11 @@ public class ReajusteDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Valor Reajuste")
 	private BigDecimal valorReajuste;
 
-	public ReajusteEstoque getReajuste() {
+	public ReajusteCabecalhoEntity getReajuste() {
 		return reajuste;
 	}
 
-	public void setReajuste(ReajusteEstoque reajuste) {
+	public void setReajuste(ReajusteCabecalhoEntity reajuste) {
 		this.reajuste = reajuste;
 	}
 

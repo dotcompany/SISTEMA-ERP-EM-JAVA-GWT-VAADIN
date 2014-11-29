@@ -31,14 +31,14 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.pessoal.Colaborador;
-import dc.entidade.suprimentos.RequisicaoInternaDetalheEntity;
 
 @Entity
 @Table(name = "requisicao_interna_cabecalho")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoInternaCabecalhoEntity extends
+		AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -68,6 +68,10 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 	@Fetch(FetchMode.JOIN)
 	private List<RequisicaoInternaDetalheEntity> detalhes = new ArrayList<RequisicaoInternaDetalheEntity>();
 
+	public RequisicaoInternaCabecalhoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +100,7 @@ public class RequisicaoInterna extends AbstractMultiEmpresaModel<Integer> {
 			RequisicaoInternaDetalheEntity requisicaoDetalhe) {
 		getDetalhes().add(requisicaoDetalhe);
 		requisicaoDetalhe.setRequisicao(this);
+
 		return requisicaoDetalhe;
 	}
 

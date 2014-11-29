@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
-// @SuppressWarnings("unchecked")
+@Repository("suprimentosCompraContagemEstoqueDAO")
 public class ContagemEstoqueDAO extends
 		AbstractCrudDAO<ContagemCabecalhoEntity> {
 
