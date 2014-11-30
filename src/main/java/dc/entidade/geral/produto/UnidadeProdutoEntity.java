@@ -23,7 +23,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.control.enums.SimNaoEnum;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -72,7 +72,7 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Enumerated(EnumType.STRING)
-	private SimNaoEnum podeFracionar;
+	private SimNaoEn podeFracionar;
 
 	/**
 	 * REFERENCIA - LIST
@@ -109,11 +109,11 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.sigla = sigla;
 	}
 
-	public SimNaoEnum getPodeFracionar() {
+	public SimNaoEn getPodeFracionar() {
 		return podeFracionar;
 	}
 
-	public void setPodeFracionar(SimNaoEnum podeFracionar) {
+	public void setPodeFracionar(SimNaoEn podeFracionar) {
 		this.podeFracionar = podeFracionar;
 	}
 

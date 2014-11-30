@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.enums.SimNaoEnum;
+import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
@@ -50,8 +50,8 @@ public class UnidadeProdutoFormController extends
 			this.currentBean.setSigla(this.subView.getTfSigla().getValue());
 			this.currentBean.setNome(this.subView.getTfDescricao().getValue());
 
-			SimNaoEnum en = (this.subView.getCbPodeFracionar().getValue() == "SIM" ? SimNaoEnum.S
-					: SimNaoEnum.N);
+			SimNaoEn en = SimNaoEn.getEnum(this.subView.getCbPodeFracionar()
+					.getValue().toString());
 
 			this.currentBean.setPodeFracionar(en);
 
@@ -73,7 +73,7 @@ public class UnidadeProdutoFormController extends
 			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
 			this.subView.getTfDescricao().setValue(this.currentBean.getNome());
 			this.subView.getCbPodeFracionar().setValue(
-					(SimNaoEnum.valueOf(this.currentBean.getPodeFracionar()
+					(SimNaoEn.valueOf(this.currentBean.getPodeFracionar()
 							.name())).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +156,7 @@ public class UnidadeProdutoFormController extends
 		try {
 			List<String> siLista = new ArrayList<String>();
 
-			for (SimNaoEnum en : SimNaoEnum.values()) {
+			for (SimNaoEn en : SimNaoEn.values()) {
 				siLista.add(en.ordinal(), en.toString());
 			}
 

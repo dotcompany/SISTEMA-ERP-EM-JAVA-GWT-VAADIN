@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
-import dc.control.enums.FilhoEnum;
+import dc.control.enums.FilhoEn;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
@@ -74,7 +74,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 
 			this.pEntity.setFmModulo((FmModulo) this.subView.getCbModulo().getValue());
 
-			if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MENU.toString())) {
+			if (this.subView.getTipoMenu().isSelected(FilhoEn.FILHO_MENU.toString())) {
 				this.pEntity.setParent((FmMenu) this.subView.getCbMenu().getValue());
 			}
 
@@ -219,7 +219,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	}
 
 	public void tipoMenu() {
-		for (Enum<FilhoEnum> en : FilhoEnum.values()) {
+		for (Enum<FilhoEn> en : FilhoEn.values()) {
 			this.subView.getTipoMenu().addItem(en.toString());
 		}
 	}
@@ -281,16 +281,16 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 				this.subView.getCbMenu().setVisible(false);
 				this.subView.getTxtController().setVisible(false);
 
-				if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MODULO.toString())) {
-					this.subView.getTipoMenu().select(FilhoEnum.FILHO_MENU.toString());
+				if (this.subView.getTipoMenu().isSelected(FilhoEn.FILHO_MODULO.toString())) {
+					this.subView.getTipoMenu().select(FilhoEn.FILHO_MENU.toString());
 				}
 
-				if (this.subView.getTipoMenu().isSelected(FilhoEnum.FILHO_MENU.toString())) {
-					this.subView.getTipoMenu().select(FilhoEnum.FILHO_MODULO.toString());
+				if (this.subView.getTipoMenu().isSelected(FilhoEn.FILHO_MENU.toString())) {
+					this.subView.getTipoMenu().select(FilhoEn.FILHO_MODULO.toString());
 				}
 			} else {
 				if (this.pEntity.getParent() != null) {
-					this.subView.getTipoMenu().setValue(FilhoEnum.FILHO_MENU.toString());
+					this.subView.getTipoMenu().setValue(FilhoEn.FILHO_MENU.toString());
 
 					this.subView.getCbMenu().setVisible(true);
 					this.subView.getTxtController().setVisible(true);
@@ -327,7 +327,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	 */
 
 	public void verificarTipo(ValueChangeEvent event) {
-		if (event.getProperty().getValue().equals(FilhoEnum.FILHO_MENU.toString())) {
+		if (event.getProperty().getValue().equals(FilhoEn.FILHO_MENU.toString())) {
 			this.subView.getCbMenu().setVisible(true);
 			this.subView.getTxtController().setVisible(true);
 		} else {

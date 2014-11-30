@@ -1,6 +1,6 @@
 package dc.control.enums;
 
-public enum FilhoEnum {
+public enum FilhoEn {
 
 	FILHO_MENU {
 		@Override
