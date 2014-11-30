@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.Teste;
 import dc.servicos.dao.geral.testeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,6 +18,11 @@ import dc.visao.geral.TesteFormView;
 @Controller
 @Scope("prototype")
 public class TesteFormController extends CRUDFormController<Teste> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	TesteFormView subView;
 
@@ -41,13 +47,13 @@ public class TesteFormController extends CRUDFormController<Teste> {
 		String descricao = subView.getTxtDescricao().getValue();
 		currentBean.setNome(nome);
 		currentBean.setDescricao(descricao);
+
 		try {
 			testeDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -83,29 +89,35 @@ public class TesteFormController extends CRUDFormController<Teste> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		testeDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return null;
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

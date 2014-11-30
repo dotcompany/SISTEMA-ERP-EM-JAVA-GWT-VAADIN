@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,6 +20,11 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class CidadeListController extends CRUDListController<CidadeEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CidadeDAO dao;
@@ -38,7 +44,7 @@ public class CidadeListController extends CRUDListController<CidadeEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Cidade";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -55,7 +61,7 @@ public class CidadeListController extends CRUDListController<CidadeEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaCidades";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

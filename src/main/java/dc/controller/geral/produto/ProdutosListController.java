@@ -55,7 +55,7 @@ public class ProdutosListController extends CRUDListController<ProdutoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override

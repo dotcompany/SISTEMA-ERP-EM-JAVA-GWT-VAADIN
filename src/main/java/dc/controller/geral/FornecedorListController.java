@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -13,7 +14,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FornecedorListController extends CRUDListController<FornecedorEntity> {
+public class FornecedorListController extends
+		CRUDListController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -28,7 +30,8 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "pessoa", "desde", "optanteSimplesNacional", "localizacao", "dataCadastro", "sofreRetencao" };
+		return new String[] { "pessoa", "desde", "optanteSimplesNacional",
+				"localizacao", "dataCadastro", "sofreRetencao" };
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 
 	@Override
 	protected String getTitulo() {
-		return "Fornecedor";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaFornecedors";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

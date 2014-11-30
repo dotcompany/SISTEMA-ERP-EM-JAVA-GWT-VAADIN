@@ -9,16 +9,21 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.NivelFormacaoFormView;
 
-/** @author Wesley Jr **/
-
 @Controller
 @Scope("prototype")
-public class NivelFormacaoFormController extends CRUDFormController<NivelFormacaoEntity> {
+public class NivelFormacaoFormController extends
+		CRUDFormController<NivelFormacaoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	NivelFormacaoFormView subView;
 
@@ -40,7 +45,6 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 	@Override
 	protected void actionSalvar() {
 		try {
-
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 
@@ -49,7 +53,6 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -84,16 +87,21 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 	@Override
 	protected void remover(List<Serializable> ids) {
 		nivelFormacaoDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
@@ -106,7 +114,7 @@ public class NivelFormacaoFormController extends CRUDFormController<NivelFormaca
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "nivelFormacaoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

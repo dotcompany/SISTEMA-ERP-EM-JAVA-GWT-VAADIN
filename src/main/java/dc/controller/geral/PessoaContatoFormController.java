@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -16,7 +17,13 @@ import dc.visao.geral.PessoaContatoFormView;
 
 @Controller
 @Scope("prototype")
-public class PessoaContatoFormController extends CRUDFormController<PessoaContatoEntity> {
+public class PessoaContatoFormController extends
+		CRUDFormController<PessoaContatoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	PessoaContatoFormView subView;
 
@@ -47,13 +54,14 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 		currentBean.setFoneComercial(foneComercial);
 		currentBean.setFoneResidencial(foneResidencial);
 		currentBean.setFoneCelular(foneCelular);
+
 		try {
 			pessoaContatoDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -62,7 +70,8 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtEmail().setValue(currentBean.getEmail());
 		subView.getTxtFoneComercial().setValue(currentBean.getFoneComercial());
-		subView.getTxtFoneResidencial().setValue(currentBean.getFoneResidencial());
+		subView.getTxtFoneResidencial().setValue(
+				currentBean.getFoneResidencial());
 		subView.getTxtFoneCelular().setValue(currentBean.getFoneCelular());
 	}
 
@@ -92,18 +101,23 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 	@Override
 	protected void remover(List<Serializable> ids) {
 		pessoaContatoDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
@@ -116,7 +130,7 @@ public class PessoaContatoFormController extends CRUDFormController<PessoaContat
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "pessoaContatoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

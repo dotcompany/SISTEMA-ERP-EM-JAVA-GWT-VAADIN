@@ -6,19 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr
- * **/
-
 @Controller
 @Scope("prototype")
 public class UFListController extends CRUDListController<UfEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private UFDAO dao;
@@ -38,7 +39,7 @@ public class UFListController extends CRUDListController<UfEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "UF";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -54,7 +55,8 @@ public class UFListController extends CRUDListController<UfEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaUF";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

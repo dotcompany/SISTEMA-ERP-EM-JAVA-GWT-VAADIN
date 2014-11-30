@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class GrupoProdutoListController extends
-		CRUDListController<GrupoEntity> {
+public class GrupoProdutoListController extends CRUDListController<GrupoEntity> {
 
 	/**
 	 * 
@@ -63,7 +62,7 @@ public class GrupoProdutoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Grupo Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override

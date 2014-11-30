@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.Teste;
 import dc.servicos.dao.geral.testeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -13,8 +14,12 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
 public class TesteListController extends CRUDListController<Teste> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	testeDAO dao;
@@ -34,7 +39,7 @@ public class TesteListController extends CRUDListController<Teste> {
 
 	@Override
 	protected String getTitulo() {
-		return "Teste";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -51,7 +56,7 @@ public class TesteListController extends CRUDListController<Teste> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaTestees";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

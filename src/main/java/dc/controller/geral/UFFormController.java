@@ -9,16 +9,20 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.UFFormView;
 
-/** @author Wesley Jr **/
-
 @Controller
 @Scope("prototype")
 public class UFFormController extends CRUDFormController<UfEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UFFormView subView;
 
@@ -40,16 +44,15 @@ public class UFFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setSigla(subView.getTxtSigla().getValue());
 
 			ufDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -85,30 +88,36 @@ public class UFFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		ufDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	protected boolean validaSalvar() {
-
 		boolean valido = validaCampos();
 
 		return valido;
 	}
 
 	private boolean validaCampos() {
-
 		boolean valido = true;
 
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
 
-		if (subView.getTxtSigla().getValue() == null || subView.getTxtSigla().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtSigla(), "Não pode ficar em Branco!");
+		if (subView.getTxtSigla().getValue() == null
+				|| subView.getTxtSigla().getValue().isEmpty()) {
+			adicionarErroDeValidacao(subView.getTxtSigla(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return valido;
 	}
 
@@ -121,7 +130,7 @@ public class UFFormController extends CRUDFormController<UfEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "ufForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

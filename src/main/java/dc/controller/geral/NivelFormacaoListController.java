@@ -6,19 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr
- * **/
-
 @Controller
 @Scope("prototype")
-public class NivelFormacaoListController extends CRUDListController<NivelFormacaoEntity> {
+public class NivelFormacaoListController extends
+		CRUDListController<NivelFormacaoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	NivelFormacaoDAO dao;
@@ -38,7 +40,7 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 
 	@Override
 	protected String getTitulo() {
-		return "Nivel Formação";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class NivelFormacaoListController extends CRUDListController<NivelFormaca
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaNivelFormacao";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

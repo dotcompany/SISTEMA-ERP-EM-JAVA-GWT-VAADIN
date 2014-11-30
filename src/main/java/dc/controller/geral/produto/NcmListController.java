@@ -62,7 +62,7 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "NCM";
+		return super.getTitulo(this);
 	}
 
 	@Override

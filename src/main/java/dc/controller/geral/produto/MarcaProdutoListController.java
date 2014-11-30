@@ -15,8 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class MarcaProdutoListController extends
-		CRUDListController<MarcaEntity> {
+public class MarcaProdutoListController extends CRUDListController<MarcaEntity> {
 
 	/**
 	 * 
@@ -63,7 +62,7 @@ public class MarcaProdutoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Marca Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override

@@ -9,16 +9,20 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.CidadeFormView;
 
-/** @author Wesley Jr **/
-
 @Controller
 @Scope("prototype")
 public class CidadeFormController extends CRUDFormController<CidadeEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CidadeFormView subView;
 
@@ -41,13 +45,13 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
 		currentBean.setNome(nome);
+
 		try {
 			cidadeDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -82,18 +86,23 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		cidadeDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em Branco!");
+
 			return false;
 		}
+
 		return true;
 	}
 
@@ -106,7 +115,7 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "cidadeForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

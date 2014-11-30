@@ -41,7 +41,7 @@ public class UnidadeProdutoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Unidade Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class SubGrupoProdutoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Sub Grupo Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override

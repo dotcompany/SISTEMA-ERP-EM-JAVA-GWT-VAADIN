@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.pessoal.AtividadeForCliListController;
 import dc.controller.geral.pessoal.PessoaListController;
@@ -33,7 +34,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class FornecedorFormController extends CRUDFormController<FornecedorEntity> {
+public class FornecedorFormController extends
+		CRUDFormController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -72,8 +74,10 @@ public class FornecedorFormController extends CRUDFormController<FornecedorEntit
 	@Override
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
+
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getConta().getEmpresa());
 			fornecedorDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -101,25 +105,30 @@ public class FornecedorFormController extends CRUDFormController<FornecedorEntit
 		subView = new FornecedorFormView();
 
 		carregarCombos();
-
 	}
 
 	private void carregarCombos() {
 		DefaultManyToOneComboModel<AtividadeForCliEntity> atividadeModel = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
-				AtividadeForCliListController.class, this.atividadeForCliDAO, super.getMainController());
+				AtividadeForCliListController.class, this.atividadeForCliDAO,
+				super.getMainController());
 
-		DefaultManyToOneComboModel<SituacaoForCliEntity> situacaoModel = new DefaultManyToOneComboModel<SituacaoForCliEntity>(SituacaoForCliListController.class,
-				this.situacaoForCliDAO, super.getMainController());
+		DefaultManyToOneComboModel<SituacaoForCliEntity> situacaoModel = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+				SituacaoForCliListController.class, this.situacaoForCliDAO,
+				super.getMainController());
 
 		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
-				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
+				ContabilContaListController.class, this.contabilContaDAO,
+				super.getMainController()) {
+
 			@Override
 			public String getCaptionProperty() {
 				return "codigoReduzido";
 			}
+
 		};
 
-		DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(PessoaListController.class, this.pessoaDAO,
+		DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(
+				PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
 		subView.getCbAtividade().setModel(atividadeModel);
@@ -150,86 +159,106 @@ public class FornecedorFormController extends CRUDFormController<FornecedorEntit
 	@Override
 	protected void remover(List<Serializable> ids) {
 		fornecedorDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-
 		boolean valido = true;
 
 		if (!Validator.validateObject(subView.getCbPessoa().getValue())) {
-			adicionarErroDeValidacao(subView.getCbPessoa(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbPessoa(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbAtividade().getValue())) {
-			adicionarErroDeValidacao(subView.getCbAtividade(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbAtividade(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbSituacao().getValue())) {
-			adicionarErroDeValidacao(subView.getCbSituacao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbSituacao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbContabilConta().getValue())) {
-			adicionarErroDeValidacao(subView.getCbContabilConta(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbContabilConta(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtDesde().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDesde(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtDesde(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxContaRemetente().getValue())) {
-			adicionarErroDeValidacao(subView.getTxContaRemetente(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxContaRemetente(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxChequeNominalA().getValue())) {
-			adicionarErroDeValidacao(subView.getTxChequeNominalA(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxChequeNominalA(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCbGerarFaturamento().getValue())) {
-			adicionarErroDeValidacao(subView.getCbGerarFaturamento(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getCbGerarFaturamento()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getCbGerarFaturamento(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbLocalizacao().getValue())) {
-			adicionarErroDeValidacao(subView.getCbLocalizacao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbLocalizacao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbOptanteSimples().getValue())) {
-			adicionarErroDeValidacao(subView.getCbOptanteSimples(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbOptanteSimples(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getCbSofreRentencao().getValue())) {
-			adicionarErroDeValidacao(subView.getCbSofreRentencao(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCbSofreRentencao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxNumDiasIntervalo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxNumDiasIntervalo(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxNumDiasIntervalo()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxNumDiasIntervalo(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxPrazoMedioEntrega().getValue())) {
-			adicionarErroDeValidacao(subView.getTxPrazoMedioEntrega(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxPrazoMedioEntrega()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxPrazoMedioEntrega(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxNumDiasPrimeiroVenc().getValue())) {
-			adicionarErroDeValidacao(subView.getTxNumDiasPrimeiroVenc(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxNumDiasPrimeiroVenc()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxNumDiasPrimeiroVenc(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxQuantidadesParcelas().getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidadesParcelas(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxQuantidadesParcelas()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxQuantidadesParcelas(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -238,16 +267,18 @@ public class FornecedorFormController extends CRUDFormController<FornecedorEntit
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "fornecedorForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	public FornecedorEntity getModelBean() {
 		return currentBean;
 	}
+
 }

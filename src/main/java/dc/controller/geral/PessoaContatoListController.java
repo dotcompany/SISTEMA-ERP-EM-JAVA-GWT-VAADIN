@@ -6,19 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr
- * **/
-
 @Controller
 @Scope("prototype")
-public class PessoaContatoListController extends CRUDListController<PessoaContatoEntity> {
+public class PessoaContatoListController extends
+		CRUDListController<PessoaContatoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	PessoaContatoDAO dao;
@@ -38,7 +40,7 @@ public class PessoaContatoListController extends CRUDListController<PessoaContat
 
 	@Override
 	protected String getTitulo() {
-		return "Pessoa Contato";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class PessoaContatoListController extends CRUDListController<PessoaContat
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaPessoaContatos";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
