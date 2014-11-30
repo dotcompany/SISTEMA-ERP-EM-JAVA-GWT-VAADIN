@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -47,10 +49,6 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Basic(optional = false)
-	@Column(name = "ID_GRUPO", nullable = false)
-	private int idGrupo;
-
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 20)
@@ -60,8 +58,21 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Lob
 	@Type(type = "text")
-	@Column(name = "DESCRICAO", length = 65535)
+	@Field
+	@Column(name = "descricao", length = 65535)
+	@Caption(value = "Descrição")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@ManyToOne
+	@JoinColumn(name = "id_grupo", nullable = false)
+	@Caption(value = "Grupo")
+	private GrupoEntity grupo;
 
 	/**
 	 * REFERENCIA - LIST
@@ -82,9 +93,9 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public SubGrupoEntity(Integer id, int idGrupo) {
+	public SubGrupoEntity(Integer id, GrupoEntity grupo) {
 		this.id = id;
-		this.idGrupo = idGrupo;
+		this.grupo = grupo;
 	}
 
 	public Integer getId() {
@@ -93,14 +104,6 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public int getIdGrupo() {
-		return idGrupo;
-	}
-
-	public void setIdGrupo(int idGrupo) {
-		this.idGrupo = idGrupo;
 	}
 
 	public String getNome() {
@@ -117,6 +120,14 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public GrupoEntity getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(GrupoEntity grupo) {
+		this.grupo = grupo;
 	}
 
 	// // public List<Produto> getProdutoList() {

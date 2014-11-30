@@ -43,14 +43,21 @@ public class SubGrupoProdutoFormController extends
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
+		if (!Validator.validateString(this.subView.getTfNome().getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
+		if (!Validator.validateString(this.subView.getTfDescricao().getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfDescricao(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+
+		if (!Validator.validateObject(this.subView.getMocGrupoProduto()
+				.getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfDescricao(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -60,45 +67,61 @@ public class SubGrupoProdutoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SubGrupoEntity();
+		this.currentBean = new SubGrupoEntity();
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new SubGrupoProdutoFormView();
+		this.subView = new SubGrupoProdutoFormView();
 
-		DefaultManyToOneComboModel<GrupoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
-				GrupoProdutoListController.class, grupoProdutoDAO,
+		DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
+				GrupoProdutoListController.class, this.grupoProdutoDAO,
 				super.getMainController());
 
-		subView.getCmbGrupoProduto().setModel(modelGrupoProduto);
+		this.subView.getMocGrupoProduto().setModel(model);
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = subGrupoProdutoDAO.find(id);
+		try {
+			this.currentBean = this.subGrupoProdutoDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
 
-		DefaultManyToOneComboModel<GrupoEntity> modelGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
-				GrupoProdutoListController.class, grupoProdutoDAO,
-				super.getMainController());
+			DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
+					GrupoProdutoListController.class, this.grupoProdutoDAO,
+					super.getMainController());
 
-		subView.getCmbGrupoProduto().setModel(modelGrupoProduto);
+			this.subView.getMocGrupoProduto().setModel(model);
+
+			this.subView.getMocGrupoProduto().setValue(
+					this.currentBean.getGrupo());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			subGrupoProdutoDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.currentBean.setGrupo(this.subView.getMocGrupoProduto()
+					.getValue());
+
+			this.subGrupoProdutoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -109,14 +132,20 @@ public class SubGrupoProdutoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Sub Grupo Produto";
+		return "Subgrupo de produto";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		subGrupoProdutoDAO.deleteAllByIds(ids);
+		try {
+			this.subGrupoProdutoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
