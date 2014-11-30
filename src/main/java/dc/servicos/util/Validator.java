@@ -76,4 +76,5 @@ public class Validator {
 	public static boolean validateObject(Object value) {
 		return value != null;
 	}
+
 }

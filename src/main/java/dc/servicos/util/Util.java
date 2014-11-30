@@ -18,7 +18,8 @@ import java.util.Calendar;
 
 public class Util {
 
-	public static void copiaArquivo(String origem, String destino) throws Exception {
+	public static void copiaArquivo(String origem, String destino)
+			throws Exception {
 		FileInputStream in = new FileInputStream(origem);
 		FileOutputStream out = new FileOutputStream(destino);
 		byte[] bb = new byte[in.available()];
@@ -30,27 +31,34 @@ public class Util {
 
 	public static String md5Arquivo(String nomeArquivo) {
 		MessageDigest digest = null;
+
 		try {
 			digest = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException ex) {
 			ex.printStackTrace();
 		}
+
 		File f = new File(nomeArquivo);
 		InputStream is = null;
+
 		try {
 			is = new FileInputStream(f);
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		}
+
 		byte[] buffer = new byte[8192];
 		int read = 0;
+
 		try {
 			while ((read = is.read(buffer)) > 0) {
 				digest.update(buffer, 0, read);
 			}
+
 			byte[] md5sum = digest.digest();
 			BigInteger bigInt = new BigInteger(1, md5sum);
 			String output = bigInt.toString(16);
+
 			return output;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,10 +69,12 @@ public class Util {
 				e.printStackTrace();
 			}
 		}
+
 		return null;
 	}
 
-	public static byte[] geraAssinaturaArquivo(byte[] arquivoAssinar, File arquivoCertificado, char[] senha) {
+	public static byte[] geraAssinaturaArquivo(byte[] arquivoAssinar,
+			File arquivoCertificado, char[] senha) {
 		try {
 			// Carrega o KeyStore
 			KeyStore ks = KeyStore.getInstance("PKCS12");
@@ -89,12 +99,14 @@ public class Util {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
 	}
 
 	public static byte[] lerBytesArquivo(File tmpFile) {
 		FileInputStream fis;
 		byte[] temp = null;
+
 		try {
 			fis = new FileInputStream(tmpFile);
 			temp = new byte[(int) tmpFile.length()];
@@ -106,46 +118,52 @@ public class Util {
 
 		return temp;
 	}
-	
-	
-	public static void copyFile(File sourceFile, File destFile) throws IOException {
-	    
-	    
-	    if (!destFile.exists()) {
+
+	public static void copyFile(File sourceFile, File destFile)
+			throws IOException {
+		if (!destFile.exists()) {
 			File pastaPai = destFile.getParentFile();
+
 			if (pastaPai != null) {
 				pastaPai.mkdirs();
 				destFile.createNewFile();
 			}
 		}
 
-	    FileChannel source = null;
-	    FileChannel destination = null;
-	    try {
-	        source = new FileInputStream(sourceFile).getChannel();
-	        destination = new FileOutputStream(destFile).getChannel();
+		FileChannel source = null;
+		FileChannel destination = null;
 
-	        // previous code: destination.transferFrom(source, 0, source.size());
-	        // to avoid infinite loops, should be:
-	        long count = 0;
-	        long size = source.size();              
-	        while((count += destination.transferFrom(source, count, size-count))<size);
-	    }
-	    finally {
-	        if(source != null) {
-	            source.close();
-	        }
-	        if(destination != null) {
-	            destination.close();
-	        }
-	        
-	        sourceFile.delete();
-	    }
+		try {
+			source = new FileInputStream(sourceFile).getChannel();
+			destination = new FileOutputStream(destFile).getChannel();
+
+			// previous code: destination.transferFrom(source, 0,
+			// source.size());
+			// to avoid infinite loops, should be:
+			long count = 0;
+			long size = source.size();
+
+			while ((count += destination.transferFrom(source, count, size
+					- count)) < size)
+				;
+		} finally {
+			if (source != null) {
+				source.close();
+			}
+
+			if (destination != null) {
+				destination.close();
+			}
+
+			sourceFile.delete();
+		}
 	}
 
-	public static File gravarArquivo(String caminho, byte[] dados) throws IOException {
+	public static File gravarArquivo(String caminho, byte[] dados)
+			throws IOException {
 		File arquivo = new File(caminho);
 		FileOutputStream fos = null;
+
 		try {
 			if (!arquivo.exists()) {
 				File pastaPai = arquivo.getParentFile();
@@ -154,6 +172,7 @@ public class Util {
 					arquivo.createNewFile();
 				}
 			}
+
 			fos = new FileOutputStream(arquivo);
 			fos.write(dados);
 		} catch (IOException e) {
@@ -165,6 +184,7 @@ public class Util {
 				e.printStackTrace();
 			}
 		}
+
 		return arquivo;
 	}
 
@@ -183,10 +203,12 @@ public class Util {
 			dataValidar.set(Calendar.MONTH, mes);
 			dataValidar.set(Calendar.YEAR, ano);
 			dataValidar.getTime();
+
 			return true;
 		} catch (Exception e) {
 			// e.printStackTrace();
 		}
+
 		return false;
 	}
 
@@ -205,10 +227,12 @@ public class Util {
 			dataValidar.set(Calendar.MINUTE, minuto);
 			dataValidar.set(Calendar.SECOND, segundo);
 			dataValidar.getTime();
+
 			return true;
 		} catch (Exception e) {
 			// e.printStackTrace();
 		}
+
 		return false;
 	}
 
@@ -222,6 +246,7 @@ public class Util {
 		int segundos = dataMarcacao.get(Calendar.SECOND);
 		segundos += dataMarcacao.get(Calendar.MINUTE) * 60;
 		segundos += dataMarcacao.get(Calendar.HOUR_OF_DAY) * 3600;
+
 		return segundos;
 	}
 
@@ -239,14 +264,15 @@ public class Util {
 
 		dataC.add(Calendar.SECOND, segundos);
 
-		String resultado = dataC.get(Calendar.HOUR_OF_DAY) < 10 ? "0" + dataC.get(Calendar.HOUR_OF_DAY) : ""
+		String resultado = dataC.get(Calendar.HOUR_OF_DAY) < 10 ? "0"
+				+ dataC.get(Calendar.HOUR_OF_DAY) : ""
 				+ dataC.get(Calendar.HOUR_OF_DAY);
 		resultado += ":";
-		resultado += dataC.get(Calendar.MINUTE) < 10 ? "0" + dataC.get(Calendar.MINUTE) : ""
-				+ dataC.get(Calendar.MINUTE);
+		resultado += dataC.get(Calendar.MINUTE) < 10 ? "0"
+				+ dataC.get(Calendar.MINUTE) : "" + dataC.get(Calendar.MINUTE);
 		resultado += ":";
-		resultado += dataC.get(Calendar.SECOND) < 10 ? "0" + dataC.get(Calendar.SECOND) : ""
-				+ dataC.get(Calendar.SECOND);
+		resultado += dataC.get(Calendar.SECOND) < 10 ? "0"
+				+ dataC.get(Calendar.SECOND) : "" + dataC.get(Calendar.SECOND);
 
 		return resultado;
 	}

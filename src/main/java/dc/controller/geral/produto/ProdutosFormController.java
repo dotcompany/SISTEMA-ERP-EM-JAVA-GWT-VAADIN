@@ -430,7 +430,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					.getValue();
 			this.currentBean.setCodigoInterno(codigoInterno);
 
-			SIM_NAO enumInativo = (SIM_NAO) (this.subView.getCbInativo()
+			SimNaoEn enumInativo = (SimNaoEn) (this.subView.getCbInativo()
 					.getValue());
 
 			if (Validator.validateObject(enumInativo)) {
@@ -438,11 +438,11 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				this.currentBean.setInativo(inativo);
 			}
 
-			ClasseEn enumClasse = (ClasseEn) this.subView.getCbClasse()
+			ClasseEn classeEn = (ClasseEn) this.subView.getCbClasse()
 					.getValue();
 
-			if (enumClasse != null) {
-				this.currentBean.setClasse(enumClasse.getCodigo());
+			if (classeEn != null) {
+				this.currentBean.setClasse(classeEn.getCodigo());
 			}
 
 			String nome = this.subView.getTxtNome().getValue();
@@ -518,25 +518,25 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				this.currentBean.setTipo(tipo);
 			}
 
-			IatEn enumIat = (IatEn) this.subView.getCbIat().getValue();
+			IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
 
-			if (Validator.validateObject(enumIat)) {
-				String iat = enumIat.getCodigo();
+			if (Validator.validateObject(iatEn)) {
+				String iat = iatEn.getCodigo();
 				this.currentBean.setIat(iat);
 			}
 
-			IpptEn enumIppt = (IpptEn) this.subView.getCbIppt().getValue();
+			IpptEn ipptEn = (IpptEn) this.subView.getCbIppt().getValue();
 
-			if (Validator.validateObject(enumIppt)) {
-				String ippt = enumIppt.getCodigo();
+			if (Validator.validateObject(ipptEn)) {
+				String ippt = ipptEn.getCodigo();
 				this.currentBean.setIppt(ippt);
 			}
 
-			TipoSpedEn enumSped = (TipoSpedEn) this.subView.getCbTipoItemSped()
-					.getValue();
+			TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView
+					.getCbTipoItemSped().getValue();
 
-			if (Validator.validateObject(enumSped)) {
-				String sped = enumSped.getCodigo();
+			if (Validator.validateObject(tipoSpedEn)) {
+				String sped = tipoSpedEn.getCodigo();
 				this.currentBean.setTipoItemSped(sped);
 			}
 
