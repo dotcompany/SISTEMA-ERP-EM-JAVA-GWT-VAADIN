@@ -18,8 +18,7 @@ import dc.visao.geral.produto.GrupoProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class GrupoProdutoFormController extends
-		CRUDFormController<GrupoEntity> {
+public class GrupoProdutoFormController extends CRUDFormController<GrupoEntity> {
 
 	/**
 	 * 
@@ -37,14 +36,14 @@ public class GrupoProdutoFormController extends
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
+		if (!Validator.validateString(this.subView.getTfNome().getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
+		if (!Validator.validateString(this.subView.getTfDescricao().getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfDescricao(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -54,33 +53,43 @@ public class GrupoProdutoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new GrupoEntity();
+		this.currentBean = new GrupoEntity();
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new GrupoProdutoFormView();
+		this.subView = new GrupoProdutoFormView();
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = grupoProdutoDAO.find(id);
+		try {
+			this.currentBean = this.grupoProdutoDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			grupoProdutoDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.grupoProdutoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -91,14 +100,20 @@ public class GrupoProdutoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Grupo Produto";
+		return "Grupo de produto";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		grupoProdutoDAO.deleteAllByIds(ids);
+		try {
+			this.grupoProdutoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
