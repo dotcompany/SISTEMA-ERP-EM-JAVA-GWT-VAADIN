@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.SimNaoEnum;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -39,7 +42,7 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unidade_produto_id_seq")
 	@SequenceGenerator(name = "unidade_produto_id_seq", sequenceName = "unidade_produto_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -64,11 +67,12 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String nome;
 
 	@Field
-	@Caption("Pode Fracionar")
+	@Caption("Pode fracionar?")
 	@Column(name = "PODE_FRACIONAR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String podeFracionar;
+	@Enumerated(EnumType.STRING)
+	private SimNaoEnum podeFracionar;
 
 	/**
 	 * REFERENCIA - LIST
@@ -105,11 +109,11 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.sigla = sigla;
 	}
 
-	public String getPodeFracionar() {
+	public SimNaoEnum getPodeFracionar() {
 		return podeFracionar;
 	}
 
-	public void setPodeFracionar(String podeFracionar) {
+	public void setPodeFracionar(SimNaoEnum podeFracionar) {
 		this.podeFracionar = podeFracionar;
 	}
 
