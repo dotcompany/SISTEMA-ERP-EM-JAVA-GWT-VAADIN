@@ -59,35 +59,45 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new NcmEntity();
+		this.currentBean = new NcmEntity();
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new NcmFormView();
+		this.subView = new NcmFormView();
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = ncmDAO.find(id);
+		try {
+			this.currentBean = this.ncmDAO.find(id);
 
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getNome());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
+			this.subView.getTxtCodigo().setValue(this.currentBean.getCodigo());
+			this.subView.getTxtDescricao().setValue(this.currentBean.getNome());
+			this.subView.getTxtObservacao().setValue(
+					this.currentBean.getObservacao());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setNome(subView.getTxtDescricao().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
 		try {
-			ncmDAO.saveOrUpdate(currentBean);
+			this.currentBean.setCodigo(this.subView.getTxtCodigo().getValue());
+			this.currentBean.setNome(this.subView.getTxtDescricao().getValue());
+			this.currentBean.setObservacao(this.subView.getTxtObservacao()
+					.getValue());
+
+			this.ncmDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -103,9 +113,15 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		ncmDAO.deleteAllByIds(ids);
+		try {
+			this.ncmDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
