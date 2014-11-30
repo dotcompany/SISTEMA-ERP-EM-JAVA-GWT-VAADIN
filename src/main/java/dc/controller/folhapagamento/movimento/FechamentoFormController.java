@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.FechamentoEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.movimento.FechamentoDAO;
@@ -20,7 +21,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class FechamentoFormController extends CRUDFormController<FechamentoEntity> {
+public class FechamentoFormController extends
+		CRUDFormController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -59,15 +61,18 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 	@Override
 	protected void actionSalvar() {
 		try {
-			String fechamentoAtual = this.subView.getTfFechamentoAtual().getValue();
-			String proximoFechamento = this.subView.getTfProximoFechamento().getValue();
+			String fechamentoAtual = this.subView.getTfFechamentoAtual()
+					.getValue();
+			String proximoFechamento = this.subView.getTfProximoFechamento()
+					.getValue();
 
 			this.pEntity.setFechamentoAtual(fechamentoAtual);
 			this.pEntity.setProximoFechamento(proximoFechamento);
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -83,8 +88,10 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 		} finally {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(
+					this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(
+					this.pEntity.getProximoFechamento());
 		}
 	}
 
@@ -93,8 +100,10 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(
+					this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(
+					this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -111,8 +120,10 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 		try {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(
+					this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(
+					this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -134,8 +145,10 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 		try {
 			this.pEntity = new FechamentoEntity();
 
-			this.subView.getTfFechamentoAtual().setValue(this.pEntity.getFechamentoAtual());
-			this.subView.getTfProximoFechamento().setValue(this.pEntity.getProximoFechamento());
+			this.subView.getTfFechamentoAtual().setValue(
+					this.pEntity.getFechamentoAtual());
+			this.subView.getTfProximoFechamento().setValue(
+					this.pEntity.getProximoFechamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -169,7 +182,8 @@ public class FechamentoFormController extends CRUDFormController<FechamentoEntit
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_fechamento_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

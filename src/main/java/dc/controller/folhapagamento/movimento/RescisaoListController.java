@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.servicos.dao.folhapagamento.movimento.RescisaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -43,7 +44,8 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador.matricula", "dataDemissao", "dataPagamento", "motivo" };
+		return new String[] { "colaborador.matricula", "dataDemissao",
+				"dataPagamento", "motivo" };
 	}
 
 	@Override
@@ -53,13 +55,14 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Rescisão";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<RescisaoEntity> pesquisa(String valor) {
 		try {
-			List<RescisaoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<RescisaoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +80,8 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_rescisao_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

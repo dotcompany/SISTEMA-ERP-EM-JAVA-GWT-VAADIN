@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.servicos.dao.folhapagamento.cadastro.PlanoSaudeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PlanoSaudeListController extends CRUDListController<PlanoSaudeEntity> {
+public class PlanoSaudeListController extends
+		CRUDListController<PlanoSaudeEntity> {
 
 	/**
 	 * 
@@ -43,7 +45,8 @@ public class PlanoSaudeListController extends CRUDListController<PlanoSaudeEntit
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador.matricula", "beneficiario", "dataInicio" };
+		return new String[] { "colaborador.matricula", "beneficiario",
+				"dataInicio" };
 	}
 
 	@Override
@@ -53,13 +56,14 @@ public class PlanoSaudeListController extends CRUDListController<PlanoSaudeEntit
 
 	@Override
 	protected String getTitulo() {
-		return "Plano de saúde";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<PlanoSaudeEntity> pesquisa(String valor) {
 		try {
-			List<PlanoSaudeEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<PlanoSaudeEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +81,8 @@ public class PlanoSaudeListController extends CRUDListController<PlanoSaudeEntit
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_cadastro_plano_saude_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

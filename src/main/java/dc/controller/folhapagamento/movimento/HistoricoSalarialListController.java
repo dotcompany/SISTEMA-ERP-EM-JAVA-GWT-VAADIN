@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
 import dc.servicos.dao.folhapagamento.movimento.HistoricoSalarialDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoSalarialListController extends CRUDListController<HistoricoSalarialEntity> {
+public class HistoricoSalarialListController extends
+		CRUDListController<HistoricoSalarialEntity> {
 
 	/**
 	 * 
@@ -43,7 +45,8 @@ public class HistoricoSalarialListController extends CRUDListController<Historic
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "competencia", "salarioAtual", "percentualAumento", "salarioNovo", "colaborador.matricula" };
+		return new String[] { "competencia", "salarioAtual",
+				"percentualAumento", "salarioNovo", "colaborador.matricula" };
 	}
 
 	@Override
@@ -53,13 +56,14 @@ public class HistoricoSalarialListController extends CRUDListController<Historic
 
 	@Override
 	protected String getTitulo() {
-		return "Histórico salarial";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<HistoricoSalarialEntity> pesquisa(String valor) {
 		try {
-			List<HistoricoSalarialEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<HistoricoSalarialEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +81,8 @@ public class HistoricoSalarialListController extends CRUDListController<Historic
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_historico_salarial_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

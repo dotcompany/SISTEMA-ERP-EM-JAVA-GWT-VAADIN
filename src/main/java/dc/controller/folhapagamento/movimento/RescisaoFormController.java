@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.RescisaoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -68,19 +69,31 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			Date dataDemissao = this.subView.getPdfDataDemissao().getValue();
 			Date dataPagamento = this.subView.getPdfDataPagamento().getValue();
 			String motivo = this.subView.getTfMotivo().getValue();
-			Date dataAvisoPrevio = this.subView.getPdfDataAvisoPrevio().getValue();
-			Integer diasAvisoPrevio = Integer.parseInt(this.subView.getTfDiasAvisoPrevio().getValue());
-			String comprovouNovoEmprego = this.subView.getTfComprovouNovoEmprego().getValue();
-			String dispensouEmpregado = this.subView.getTfDispensouEmpregado().getValue();
-			Double pensaoAlimenticia = Double.parseDouble(this.subView.getTfPensaoAlimenticia().getValue());
-			Double pensaoAlimenticiaFgts = Double.parseDouble(this.subView.getTfPensaoAlimenticiaFgts().getValue());
-			Double fgtsValorRescisao = Double.parseDouble(this.subView.getTfFgtsValorRescisao().getValue());
-			Double fgtsSaldoBanco = Double.parseDouble(this.subView.getTfFgtsSaldoBanco().getValue());
-			Double fgtsComplementoSaldo = Double.parseDouble(this.subView.getTfFgtsComplementoSaldo().getValue());
-			String fgtsCodigoAfastamento = this.subView.getTfFgtsCodigoAfastamento().getValue();
-			String fgtsCodigoSaque = this.subView.getTfFgtsCodigoSaque().getValue();
+			Date dataAvisoPrevio = this.subView.getPdfDataAvisoPrevio()
+					.getValue();
+			Integer diasAvisoPrevio = Integer.parseInt(this.subView
+					.getTfDiasAvisoPrevio().getValue());
+			String comprovouNovoEmprego = this.subView
+					.getTfComprovouNovoEmprego().getValue();
+			String dispensouEmpregado = this.subView.getTfDispensouEmpregado()
+					.getValue();
+			Double pensaoAlimenticia = Double.parseDouble(this.subView
+					.getTfPensaoAlimenticia().getValue());
+			Double pensaoAlimenticiaFgts = Double.parseDouble(this.subView
+					.getTfPensaoAlimenticiaFgts().getValue());
+			Double fgtsValorRescisao = Double.parseDouble(this.subView
+					.getTfFgtsValorRescisao().getValue());
+			Double fgtsSaldoBanco = Double.parseDouble(this.subView
+					.getTfFgtsSaldoBanco().getValue());
+			Double fgtsComplementoSaldo = Double.parseDouble(this.subView
+					.getTfFgtsComplementoSaldo().getValue());
+			String fgtsCodigoAfastamento = this.subView
+					.getTfFgtsCodigoAfastamento().getValue();
+			String fgtsCodigoSaque = this.subView.getTfFgtsCodigoSaque()
+					.getValue();
 
-			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+					.getCbColaborador().getValue();
 
 			this.pEntity.setDataDemissao(dataDemissao);
 			this.pEntity.setDataPagamento(dataPagamento);
@@ -109,24 +122,38 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		} finally {
 			this.pEntity = new RescisaoEntity();
 
-			this.subView.getPdfDataDemissao().setValue(this.pEntity.getDataDemissao());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
+			this.subView.getPdfDataDemissao().setValue(
+					this.pEntity.getDataDemissao());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
-			this.subView.getPdfDataAvisoPrevio().setValue(this.pEntity.getDataAvisoPrevio());
-			this.subView.getTfDiasAvisoPrevio().setValue(String.valueOf(this.pEntity.getDiasAvisoPrevio()));
-			this.subView.getTfComprovouNovoEmprego().setValue(this.pEntity.getComprovouNovoEmprego());
-			this.subView.getTfDispensouEmpregado().setValue(this.pEntity.getDispensouEmpregado());
-			this.subView.getTfPensaoAlimenticia().setValue(String.valueOf(this.pEntity.getPensaoAlimenticia()));
-			this.subView.getTfPensaoAlimenticiaFgts().setValue(String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
-			this.subView.getTfFgtsValorRescisao().setValue(String.valueOf(this.pEntity.getFgtsValorRescisao()));
-			this.subView.getTfFgtsSaldoBanco().setValue(String.valueOf(this.pEntity.getFgtsSaldoBanco()));
-			this.subView.getTfFgtsComplementoSaldo().setValue(String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
-			this.subView.getTfFgtsCodigoAfastamento().setValue(this.pEntity.getFgtsCodigoAfastamento());
-			this.subView.getTfFgtsCodigoSaque().setValue(this.pEntity.getFgtsCodigoSaque());
+			this.subView.getPdfDataAvisoPrevio().setValue(
+					this.pEntity.getDataAvisoPrevio());
+			this.subView.getTfDiasAvisoPrevio().setValue(
+					String.valueOf(this.pEntity.getDiasAvisoPrevio()));
+			this.subView.getTfComprovouNovoEmprego().setValue(
+					this.pEntity.getComprovouNovoEmprego());
+			this.subView.getTfDispensouEmpregado().setValue(
+					this.pEntity.getDispensouEmpregado());
+			this.subView.getTfPensaoAlimenticia().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticia()));
+			this.subView.getTfPensaoAlimenticiaFgts().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
+			this.subView.getTfFgtsValorRescisao().setValue(
+					String.valueOf(this.pEntity.getFgtsValorRescisao()));
+			this.subView.getTfFgtsSaldoBanco().setValue(
+					String.valueOf(this.pEntity.getFgtsSaldoBanco()));
+			this.subView.getTfFgtsComplementoSaldo().setValue(
+					String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
+			this.subView.getTfFgtsCodigoAfastamento().setValue(
+					this.pEntity.getFgtsCodigoAfastamento());
+			this.subView.getTfFgtsCodigoSaque().setValue(
+					this.pEntity.getFgtsCodigoSaque());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		}
 	}
 
@@ -135,24 +162,38 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataDemissao().setValue(this.pEntity.getDataDemissao());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
+			this.subView.getPdfDataDemissao().setValue(
+					this.pEntity.getDataDemissao());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
-			this.subView.getPdfDataAvisoPrevio().setValue(this.pEntity.getDataAvisoPrevio());
-			this.subView.getTfDiasAvisoPrevio().setValue(String.valueOf(this.pEntity.getDiasAvisoPrevio()));
-			this.subView.getTfComprovouNovoEmprego().setValue(this.pEntity.getComprovouNovoEmprego());
-			this.subView.getTfDispensouEmpregado().setValue(this.pEntity.getDispensouEmpregado());
-			this.subView.getTfPensaoAlimenticia().setValue(String.valueOf(this.pEntity.getPensaoAlimenticia()));
-			this.subView.getTfPensaoAlimenticiaFgts().setValue(String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
-			this.subView.getTfFgtsValorRescisao().setValue(String.valueOf(this.pEntity.getFgtsValorRescisao()));
-			this.subView.getTfFgtsSaldoBanco().setValue(String.valueOf(this.pEntity.getFgtsSaldoBanco()));
-			this.subView.getTfFgtsComplementoSaldo().setValue(String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
-			this.subView.getTfFgtsCodigoAfastamento().setValue(this.pEntity.getFgtsCodigoAfastamento());
-			this.subView.getTfFgtsCodigoSaque().setValue(this.pEntity.getFgtsCodigoSaque());
+			this.subView.getPdfDataAvisoPrevio().setValue(
+					this.pEntity.getDataAvisoPrevio());
+			this.subView.getTfDiasAvisoPrevio().setValue(
+					String.valueOf(this.pEntity.getDiasAvisoPrevio()));
+			this.subView.getTfComprovouNovoEmprego().setValue(
+					this.pEntity.getComprovouNovoEmprego());
+			this.subView.getTfDispensouEmpregado().setValue(
+					this.pEntity.getDispensouEmpregado());
+			this.subView.getTfPensaoAlimenticia().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticia()));
+			this.subView.getTfPensaoAlimenticiaFgts().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
+			this.subView.getTfFgtsValorRescisao().setValue(
+					String.valueOf(this.pEntity.getFgtsValorRescisao()));
+			this.subView.getTfFgtsSaldoBanco().setValue(
+					String.valueOf(this.pEntity.getFgtsSaldoBanco()));
+			this.subView.getTfFgtsComplementoSaldo().setValue(
+					String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
+			this.subView.getTfFgtsCodigoAfastamento().setValue(
+					this.pEntity.getFgtsCodigoAfastamento());
+			this.subView.getTfFgtsCodigoSaque().setValue(
+					this.pEntity.getFgtsCodigoSaque());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -173,25 +214,39 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getPdfDataDemissao().setValue(this.pEntity.getDataDemissao());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
+			this.subView.getPdfDataDemissao().setValue(
+					this.pEntity.getDataDemissao());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
-			this.subView.getPdfDataAvisoPrevio().setValue(this.pEntity.getDataAvisoPrevio());
-			this.subView.getTfDiasAvisoPrevio().setValue(String.valueOf(this.pEntity.getDiasAvisoPrevio()));
-			this.subView.getTfComprovouNovoEmprego().setValue(this.pEntity.getComprovouNovoEmprego());
-			this.subView.getTfDispensouEmpregado().setValue(this.pEntity.getDispensouEmpregado());
-			this.subView.getTfPensaoAlimenticia().setValue(String.valueOf(this.pEntity.getPensaoAlimenticia()));
-			this.subView.getTfPensaoAlimenticiaFgts().setValue(String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
+			this.subView.getPdfDataAvisoPrevio().setValue(
+					this.pEntity.getDataAvisoPrevio());
+			this.subView.getTfDiasAvisoPrevio().setValue(
+					String.valueOf(this.pEntity.getDiasAvisoPrevio()));
+			this.subView.getTfComprovouNovoEmprego().setValue(
+					this.pEntity.getComprovouNovoEmprego());
+			this.subView.getTfDispensouEmpregado().setValue(
+					this.pEntity.getDispensouEmpregado());
+			this.subView.getTfPensaoAlimenticia().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticia()));
+			this.subView.getTfPensaoAlimenticiaFgts().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
 
-			this.subView.getTfFgtsValorRescisao().setValue(String.valueOf(this.pEntity.getFgtsValorRescisao()));
-			this.subView.getTfFgtsSaldoBanco().setValue(String.valueOf(this.pEntity.getFgtsSaldoBanco()));
-			this.subView.getTfFgtsComplementoSaldo().setValue(String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
-			this.subView.getTfFgtsCodigoAfastamento().setValue(this.pEntity.getFgtsCodigoAfastamento());
-			this.subView.getTfFgtsCodigoSaque().setValue(this.pEntity.getFgtsCodigoSaque());
+			this.subView.getTfFgtsValorRescisao().setValue(
+					String.valueOf(this.pEntity.getFgtsValorRescisao()));
+			this.subView.getTfFgtsSaldoBanco().setValue(
+					String.valueOf(this.pEntity.getFgtsSaldoBanco()));
+			this.subView.getTfFgtsComplementoSaldo().setValue(
+					String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
+			this.subView.getTfFgtsCodigoAfastamento().setValue(
+					this.pEntity.getFgtsCodigoAfastamento());
+			this.subView.getTfFgtsCodigoSaque().setValue(
+					this.pEntity.getFgtsCodigoSaque());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -217,25 +272,39 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getPdfDataDemissao().setValue(this.pEntity.getDataDemissao());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
+			this.subView.getPdfDataDemissao().setValue(
+					this.pEntity.getDataDemissao());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
-			this.subView.getPdfDataAvisoPrevio().setValue(this.pEntity.getDataAvisoPrevio());
-			this.subView.getTfDiasAvisoPrevio().setValue(String.valueOf(this.pEntity.getDiasAvisoPrevio()));
-			this.subView.getTfComprovouNovoEmprego().setValue(this.pEntity.getComprovouNovoEmprego());
-			this.subView.getTfDispensouEmpregado().setValue(this.pEntity.getDispensouEmpregado());
-			this.subView.getTfPensaoAlimenticia().setValue(String.valueOf(this.pEntity.getPensaoAlimenticia()));
-			this.subView.getTfPensaoAlimenticiaFgts().setValue(String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
+			this.subView.getPdfDataAvisoPrevio().setValue(
+					this.pEntity.getDataAvisoPrevio());
+			this.subView.getTfDiasAvisoPrevio().setValue(
+					String.valueOf(this.pEntity.getDiasAvisoPrevio()));
+			this.subView.getTfComprovouNovoEmprego().setValue(
+					this.pEntity.getComprovouNovoEmprego());
+			this.subView.getTfDispensouEmpregado().setValue(
+					this.pEntity.getDispensouEmpregado());
+			this.subView.getTfPensaoAlimenticia().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticia()));
+			this.subView.getTfPensaoAlimenticiaFgts().setValue(
+					String.valueOf(this.pEntity.getPensaoAlimenticiaFgts()));
 
-			this.subView.getTfFgtsValorRescisao().setValue(String.valueOf(this.pEntity.getFgtsValorRescisao()));
-			this.subView.getTfFgtsSaldoBanco().setValue(String.valueOf(this.pEntity.getFgtsSaldoBanco()));
-			this.subView.getTfFgtsComplementoSaldo().setValue(String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
-			this.subView.getTfFgtsCodigoAfastamento().setValue(this.pEntity.getFgtsCodigoAfastamento());
-			this.subView.getTfFgtsCodigoSaque().setValue(this.pEntity.getFgtsCodigoSaque());
+			this.subView.getTfFgtsValorRescisao().setValue(
+					String.valueOf(this.pEntity.getFgtsValorRescisao()));
+			this.subView.getTfFgtsSaldoBanco().setValue(
+					String.valueOf(this.pEntity.getFgtsSaldoBanco()));
+			this.subView.getTfFgtsComplementoSaldo().setValue(
+					String.valueOf(this.pEntity.getFgtsComplementoSaldo()));
+			this.subView.getTfFgtsCodigoAfastamento().setValue(
+					this.pEntity.getFgtsCodigoAfastamento());
+			this.subView.getTfFgtsCodigoSaque().setValue(
+					this.pEntity.getFgtsCodigoSaque());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -279,7 +348,8 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			return false;
 		}
 
-		Object dataAvisoPrevio = this.subView.getPdfDataAvisoPrevio().getValue();
+		Object dataAvisoPrevio = this.subView.getPdfDataAvisoPrevio()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(dataAvisoPrevio)) {
 			String msg = "Não pode ficar em branco.";
@@ -299,7 +369,8 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			return false;
 		}
 
-		String pensaoAlimenticia = this.subView.getTfPensaoAlimenticia().getValue();
+		String pensaoAlimenticia = this.subView.getTfPensaoAlimenticia()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(pensaoAlimenticia)) {
 			String msg = "Não pode ficar em branco.";
@@ -309,17 +380,20 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			return false;
 		}
 
-		String pensaoAlimenticiaFgts = this.subView.getTfPensaoAlimenticiaFgts().getValue();
+		String pensaoAlimenticiaFgts = this.subView
+				.getTfPensaoAlimenticiaFgts().getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(pensaoAlimenticiaFgts)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getTfPensaoAlimenticiaFgts(), msg);
+			adicionarErroDeValidacao(this.subView.getTfPensaoAlimenticiaFgts(),
+					msg);
 
 			return false;
 		}
 
-		String fgtsValorRescisao = this.subView.getTfFgtsValorRescisao().getValue();
+		String fgtsValorRescisao = this.subView.getTfFgtsValorRescisao()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(fgtsValorRescisao)) {
 			String msg = "Não pode ficar em branco.";
@@ -339,17 +413,20 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 			return false;
 		}
 
-		String fgtsComplementoSaldo = this.subView.getTfFgtsComplementoSaldo().getValue();
+		String fgtsComplementoSaldo = this.subView.getTfFgtsComplementoSaldo()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(fgtsComplementoSaldo)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getTfFgtsComplementoSaldo(), msg);
+			adicionarErroDeValidacao(this.subView.getTfFgtsComplementoSaldo(),
+					msg);
 
 			return false;
 		}
 
-		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+				.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -369,7 +446,8 @@ public class RescisaoFormController extends CRUDFormController<RescisaoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_rescisao_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.empresa.TransporteItinerarioEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -23,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class ValeTransporteFormController extends CRUDFormController<ValeTransporteEntity> {
+public class ValeTransporteFormController extends
+		CRUDFormController<ValeTransporteEntity> {
 
 	/**
 	 * 
@@ -68,10 +70,13 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 	@Override
 	protected void actionSalvar() {
 		try {
-			Integer quantidade = Integer.parseInt(this.subView.getTfQuantidade().getValue());
+			Integer quantidade = Integer.parseInt(this.subView
+					.getTfQuantidade().getValue());
 
-			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
-			TransporteItinerarioEntity transporteItinerario = (TransporteItinerarioEntity) this.subView.getCbTransporteItinerario().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+					.getCbColaborador().getValue();
+			TransporteItinerarioEntity transporteItinerario = (TransporteItinerarioEntity) this.subView
+					.getCbTransporteItinerario().getValue();
 
 			this.pEntity.setQuantidade(quantidade);
 
@@ -88,13 +93,17 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 		} finally {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(
+					String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this
+					.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(
+					this.pEntity.getColaborador());
 		}
 	}
 
@@ -103,13 +112,17 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(
+					String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this
+					.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -126,13 +139,17 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 		try {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(
+					String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this
+					.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -154,13 +171,17 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 		try {
 			this.pEntity = new ValeTransporteEntity();
 
-			this.subView.getTfQuantidade().setValue(String.valueOf(this.pEntity.getQuantidade()));
+			this.subView.getTfQuantidade().setValue(
+					String.valueOf(this.pEntity.getQuantidade()));
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
-			this.subView.carregarCmbTransporteItinerario(this.transporteItinerarioListarTodos());
+			this.subView.carregarCmbTransporteItinerario(this
+					.transporteItinerarioListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
-			this.subView.getCbTransporteItinerario().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
+			this.subView.getCbTransporteItinerario().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -194,7 +215,8 @@ public class ValeTransporteFormController extends CRUDFormController<ValeTranspo
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_vale_transporte_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

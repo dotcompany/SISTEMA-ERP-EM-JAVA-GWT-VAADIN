@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.FechamentoEntity;
 import dc.servicos.dao.folhapagamento.movimento.FechamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FechamentoListController extends CRUDListController<FechamentoEntity> {
+public class FechamentoListController extends
+		CRUDListController<FechamentoEntity> {
 
 	/**
 	 * 
@@ -53,13 +55,14 @@ public class FechamentoListController extends CRUDListController<FechamentoEntit
 
 	@Override
 	protected String getTitulo() {
-		return "Fechamento";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<FechamentoEntity> pesquisa(String valor) {
 		try {
-			List<FechamentoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<FechamentoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +80,8 @@ public class FechamentoListController extends CRUDListController<FechamentoEntit
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_fechamento_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

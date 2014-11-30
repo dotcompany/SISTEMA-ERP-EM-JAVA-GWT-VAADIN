@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.PppExameMedicoEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppExameMedicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PppExameMedicoListController extends CRUDListController<PppExameMedicoEntity> {
+public class PppExameMedicoListController extends
+		CRUDListController<PppExameMedicoEntity> {
 
 	/**
 	 * 
@@ -43,7 +45,8 @@ public class PppExameMedicoListController extends CRUDListController<PppExameMed
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataUltimo", "tipo", "natureza", "ppp.observacao" };
+		return new String[] { "dataUltimo", "tipo", "natureza",
+				"ppp.observacao" };
 	}
 
 	@Override
@@ -53,13 +56,14 @@ public class PppExameMedicoListController extends CRUDListController<PppExameMed
 
 	@Override
 	protected String getTitulo() {
-		return "PPP exame médico";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<PppExameMedicoEntity> pesquisa(String valor) {
 		try {
-			List<PppExameMedicoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<PppExameMedicoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +81,8 @@ public class PppExameMedicoListController extends CRUDListController<PppExameMed
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_ppp_exame_medico_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

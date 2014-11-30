@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
 import dc.servicos.dao.folhapagamento.cadastro.EventoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -53,7 +54,7 @@ public class EventoListController extends CRUDListController<EventoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Evento";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -77,7 +78,8 @@ public class EventoListController extends CRUDListController<EventoEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_cadastro_evento_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

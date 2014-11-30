@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppAtividadeEntity;
 import dc.entidade.folhapagamento.movimento.PppEntity;
@@ -23,7 +24,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class PppAtividadeFormController extends CRUDFormController<PppAtividadeEntity> {
+public class PppAtividadeFormController extends
+		CRUDFormController<PppAtividadeEntity> {
 
 	/**
 	 * 
@@ -87,8 +89,10 @@ public class PppAtividadeFormController extends CRUDFormController<PppAtividadeE
 		} finally {
 			this.pEntity = new PppAtividadeEntity();
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(
+					this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -102,8 +106,10 @@ public class PppAtividadeFormController extends CRUDFormController<PppAtividadeE
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(
+					this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -129,8 +135,10 @@ public class PppAtividadeFormController extends CRUDFormController<PppAtividadeE
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(
+					this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -161,8 +169,10 @@ public class PppAtividadeFormController extends CRUDFormController<PppAtividadeE
 				this.pppDAO = new PppDAO();
 			}
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
-			this.subView.getPdfDataTermino().setValue(this.pEntity.getDataTermino());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
+			this.subView.getPdfDataTermino().setValue(
+					this.pEntity.getDataTermino());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -231,7 +241,8 @@ public class PppAtividadeFormController extends CRUDFormController<PppAtividadeE
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_ppp_atividade_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

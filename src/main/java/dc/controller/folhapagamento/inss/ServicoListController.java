@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.ServicoEntity;
 import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -53,7 +54,7 @@ public class ServicoListController extends CRUDListController<ServicoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Serviço";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -78,7 +79,8 @@ public class ServicoListController extends CRUDListController<ServicoEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_servico_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

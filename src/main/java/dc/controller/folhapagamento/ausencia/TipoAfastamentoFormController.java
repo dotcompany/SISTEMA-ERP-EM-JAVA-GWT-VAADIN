@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.ausencia.TipoAfastamentoDAO;
@@ -20,7 +21,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class TipoAfastamentoFormController extends CRUDFormController<TipoAfastamentoEntity> {
+public class TipoAfastamentoFormController extends
+		CRUDFormController<TipoAfastamentoEntity> {
 
 	/**
 	 * 
@@ -69,7 +71,8 @@ public class TipoAfastamentoFormController extends CRUDFormController<TipoAfasta
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -175,7 +178,8 @@ public class TipoAfastamentoFormController extends CRUDFormController<TipoAfasta
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_ausencia_tipo_afastamento_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

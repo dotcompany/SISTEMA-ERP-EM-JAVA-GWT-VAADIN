@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -22,7 +23,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class HistoricoSalarialFormController extends CRUDFormController<HistoricoSalarialEntity> {
+public class HistoricoSalarialFormController extends
+		CRUDFormController<HistoricoSalarialEntity> {
 
 	/**
 	 * 
@@ -65,13 +67,17 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 	protected void actionSalvar() {
 		try {
 			String competencia = this.subView.getTfCompetencia().getValue();
-			Double salarioAtual = Double.parseDouble(this.subView.getTfSalarioAtual().getValue());
-			Double percentualAumento = Double.parseDouble(this.subView.getTfPercentualAumento().getValue());
-			Double salarioNovo = Double.parseDouble(this.subView.getTfSalarioNovo().getValue());
+			Double salarioAtual = Double.parseDouble(this.subView
+					.getTfSalarioAtual().getValue());
+			Double percentualAumento = Double.parseDouble(this.subView
+					.getTfPercentualAumento().getValue());
+			Double salarioNovo = Double.parseDouble(this.subView
+					.getTfSalarioNovo().getValue());
 			String validoAPartir = this.subView.getTfValidoAPartir().getValue();
 			String motivo = this.subView.getTfMotivo().getValue();
 
-			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+					.getCbColaborador().getValue();
 
 			this.pEntity.setCompetencia(competencia);
 			this.pEntity.setSalarioAtual(salarioAtual);
@@ -92,16 +98,22 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 		} finally {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(
+					String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(
+					String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(
+					String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(
+					this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		}
 	}
 
@@ -110,16 +122,22 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(
+					String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(
+					String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(
+					String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(
+					this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -136,16 +154,22 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 		try {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(
+					String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(
+					String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(
+					String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(
+					this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -167,16 +191,22 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 		try {
 			this.pEntity = new HistoricoSalarialEntity();
 
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
-			this.subView.getTfSalarioAtual().setValue(String.valueOf(this.pEntity.getSalarioAtual()));
-			this.subView.getTfPercentualAumento().setValue(String.valueOf(this.pEntity.getPercentualAumento()));
-			this.subView.getTfSalarioNovo().setValue(String.valueOf(this.pEntity.getSalarioNovo()));
-			this.subView.getTfValidoAPartir().setValue(this.pEntity.getValidoAPartir());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
+			this.subView.getTfSalarioAtual().setValue(
+					String.valueOf(this.pEntity.getSalarioAtual()));
+			this.subView.getTfPercentualAumento().setValue(
+					String.valueOf(this.pEntity.getPercentualAumento()));
+			this.subView.getTfSalarioNovo().setValue(
+					String.valueOf(this.pEntity.getSalarioNovo()));
+			this.subView.getTfValidoAPartir().setValue(
+					this.pEntity.getValidoAPartir());
 			this.subView.getTfMotivo().setValue(this.pEntity.getMotivo());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -210,7 +240,8 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 			return false;
 		}
 
-		String percentualAumento = this.subView.getTfPercentualAumento().getValue();
+		String percentualAumento = this.subView.getTfPercentualAumento()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredNumber(percentualAumento)) {
 			String msg = "Não pode ficar em branco.";
@@ -232,7 +263,8 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 
 		/** REQUIRED */
 
-		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+				.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -252,7 +284,8 @@ public class HistoricoSalarialFormController extends CRUDFormController<Historic
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_historico_salarial_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

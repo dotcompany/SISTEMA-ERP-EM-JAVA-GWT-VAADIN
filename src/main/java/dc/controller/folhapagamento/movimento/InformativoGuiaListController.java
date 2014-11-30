@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.InformativoGuiaEntity;
 import dc.servicos.dao.folhapagamento.movimento.InformativoGuiaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class InformativoGuiaListController extends CRUDListController<InformativoGuiaEntity> {
+public class InformativoGuiaListController extends
+		CRUDListController<InformativoGuiaEntity> {
 
 	/**
 	 * 
@@ -52,12 +54,13 @@ public class InformativoGuiaListController extends CRUDListController<Informativ
 
 	@Override
 	protected String getTitulo() {
-		return "Servico";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<InformativoGuiaEntity> pesquisa(String valor) {
-		List<InformativoGuiaEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		List<InformativoGuiaEntity> auxLista = this.pDAO
+				.procuraNomeContendo(valor);
 
 		return auxLista;
 	}
@@ -70,7 +73,8 @@ public class InformativoGuiaListController extends CRUDListController<Informativ
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_informativo_guia_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

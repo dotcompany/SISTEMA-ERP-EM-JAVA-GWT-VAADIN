@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.framework.Empresa;
 import dc.servicos.dao.folhapagamento.inss.InssDAO;
@@ -65,7 +66,8 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -155,7 +157,8 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -177,7 +180,8 @@ public class InssFormController extends CRUDFormController<InssEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfCompetencia().setValue(this.pEntity.getCompetencia());
+			this.subView.getTfCompetencia().setValue(
+					this.pEntity.getCompetencia());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

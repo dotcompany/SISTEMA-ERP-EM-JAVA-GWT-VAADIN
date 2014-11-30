@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.servicos.dao.folhapagamento.ausencia.AfastamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class AfastamentoListController extends CRUDListController<AfastamentoEntity> {
+public class AfastamentoListController extends
+		CRUDListController<AfastamentoEntity> {
 
 	/**
 	 * 
@@ -42,7 +44,8 @@ public class AfastamentoListController extends CRUDListController<AfastamentoEnt
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador.matricula", "diasAfastado", "dataInicio", "dataFim" };
+		return new String[] { "colaborador.matricula", "diasAfastado",
+				"dataInicio", "dataFim" };
 	}
 
 	@Override
@@ -52,7 +55,7 @@ public class AfastamentoListController extends CRUDListController<AfastamentoEnt
 
 	@Override
 	protected String getTitulo() {
-		return "Afastamento";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -70,7 +73,8 @@ public class AfastamentoListController extends CRUDListController<AfastamentoEnt
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_ausencia_afastamento_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.servicos.dao.folhapagamento.inss.InssDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -53,7 +54,7 @@ public class InssListController extends CRUDListController<InssEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "INSS";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -77,7 +78,8 @@ public class InssListController extends CRUDListController<InssEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

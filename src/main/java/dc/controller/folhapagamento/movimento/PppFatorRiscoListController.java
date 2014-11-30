@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.PppFatorRiscoEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppFatorRiscoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PppFatorRiscoListController extends CRUDListController<PppFatorRiscoEntity> {
+public class PppFatorRiscoListController extends
+		CRUDListController<PppFatorRiscoEntity> {
 
 	/**
 	 * 
@@ -53,13 +55,14 @@ public class PppFatorRiscoListController extends CRUDListController<PppFatorRisc
 
 	@Override
 	protected String getTitulo() {
-		return "PPP fator de risco";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<PppFatorRiscoEntity> pesquisa(String valor) {
 		try {
-			List<PppFatorRiscoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<PppFatorRiscoEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +80,8 @@ public class PppFatorRiscoListController extends CRUDListController<PppFatorRisc
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_ppp_fator_risco_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

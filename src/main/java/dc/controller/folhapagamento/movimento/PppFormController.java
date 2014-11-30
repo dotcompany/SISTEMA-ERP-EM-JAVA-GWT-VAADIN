@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.movimento.PppEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -65,7 +66,8 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	protected void actionSalvar() {
 		try {
 			String observacao = this.subView.getTfObservacao().getValue();
-			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+					.getCbColaborador().getValue();
 
 			this.pEntity.setObservacao(observacao);
 			this.pEntity.setColaborador(colaborador);
@@ -80,9 +82,11 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		} finally {
 			this.pEntity = new PppEntity();
 
-			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(
+					this.pEntity.getObservacao());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 		}
@@ -93,11 +97,13 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(
+					this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -118,11 +124,13 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(
+					this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -148,11 +156,13 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 				this.cDAO = new ColaboradorDAO();
 			}
 
-			this.subView.getTfObservacao().setValue(this.pEntity.getObservacao());
+			this.subView.getTfObservacao().setValue(
+					this.pEntity.getObservacao());
 
 			this.subView.carregarCmbColaborador(this.colaboradorListarTodos());
 
-			this.subView.getCbColaborador().setValue(this.pEntity.getColaborador());
+			this.subView.getCbColaborador().setValue(
+					this.pEntity.getColaborador());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -176,7 +186,8 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
+		ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
+				.getCbColaborador().getValue();
 
 		if (!ObjectValidator.validateObject(colaborador)) {
 			String msg = "Não pode ficar em branco.";
@@ -196,7 +207,8 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_ppp_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

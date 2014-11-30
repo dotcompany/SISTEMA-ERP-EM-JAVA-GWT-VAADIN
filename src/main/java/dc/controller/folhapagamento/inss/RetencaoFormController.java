@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.inss.RetencaoEntity;
@@ -71,11 +72,14 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			Double valor13 = Double.parseDouble(this.subView.getTfValor13().getValue());
-			Double valorMensal = Double.parseDouble(this.subView.getTfValorMensal().getValue());
+			Double valor13 = Double.parseDouble(this.subView.getTfValor13()
+					.getValue());
+			Double valorMensal = Double.parseDouble(this.subView
+					.getTfValorMensal().getValue());
 
 			InssEntity inss = (InssEntity) this.subView.getCbInss().getValue();
-			ServicoEntity servico = (ServicoEntity) this.subView.getCbServico().getValue();
+			ServicoEntity servico = (ServicoEntity) this.subView.getCbServico()
+					.getValue();
 
 			this.pEntity.setValor13(valor13);
 			this.pEntity.setValorMensal(valorMensal);
@@ -211,7 +215,8 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 			return false;
 		}
 
-		ServicoEntity servico = (ServicoEntity) this.subView.getCbServico().getValue();
+		ServicoEntity servico = (ServicoEntity) this.subView.getCbServico()
+				.getValue();
 
 		if (!ObjectValidator.validateObject(servico)) {
 			String msg = "Não pode ficar em branco.";
@@ -231,7 +236,8 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_retencao_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
@@ -253,14 +259,15 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	}
 
 	private DefaultManyToOneComboModel<InssEntity> carregarCbInss() {
-		DefaultManyToOneComboModel<InssEntity> model = new DefaultManyToOneComboModel<InssEntity>(InssListController.class, this.iDAO,
-				super.getMainController());
+		DefaultManyToOneComboModel<InssEntity> model = new DefaultManyToOneComboModel<InssEntity>(
+				InssListController.class, this.iDAO, super.getMainController());
 
 		return model;
 	}
 
 	private DefaultManyToOneComboModel<ServicoEntity> carregarCbServico() {
-		DefaultManyToOneComboModel<ServicoEntity> model = new DefaultManyToOneComboModel<ServicoEntity>(ServicoListController.class, this.sDAO,
+		DefaultManyToOneComboModel<ServicoEntity> model = new DefaultManyToOneComboModel<ServicoEntity>(
+				ServicoListController.class, this.sDAO,
 				super.getMainController());
 
 		return model;
@@ -283,8 +290,10 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 				this.pEntity = this.pDAO.find(id);
 			}
 
-			this.subView.getTfValor13().setValue(String.valueOf(this.pEntity.getValor13()));
-			this.subView.getTfValorMensal().setValue(String.valueOf(this.pEntity.getValorMensal()));
+			this.subView.getTfValor13().setValue(
+					String.valueOf(this.pEntity.getValor13()));
+			this.subView.getTfValorMensal().setValue(
+					String.valueOf(this.pEntity.getValorMensal()));
 
 			// this.subView.carregarCmbInss(this.inssListarTodos());
 			// this.subView.carregarCmbServico(this.servicoListarTodos());

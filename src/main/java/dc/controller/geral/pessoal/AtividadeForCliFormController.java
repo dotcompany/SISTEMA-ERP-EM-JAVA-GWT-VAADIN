@@ -92,8 +92,8 @@ public class AtividadeForCliFormController extends
 	@Override
 	protected String getNome() {
 		String s = "";
-		
-		return ":::: " + s;
+
+		return ":::: ";
 	}
 
 	@Override

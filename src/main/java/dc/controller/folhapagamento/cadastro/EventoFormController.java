@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
 import dc.entidade.framework.Empresa;
@@ -65,7 +66,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			String tipo = this.subView.getTfTipo().getValue();
 			String unidade = this.subView.getTfUnidade().getValue();
 			String baseCalculo = this.subView.getTfBaseCalculo().getValue();
-			Double taxa = Double.parseDouble(this.subView.getTfTaxa().getValue());
+			Double taxa = Double.parseDouble(this.subView.getTfTaxa()
+					.getValue());
 
 			this.pEntity.setCodigo(codigo);
 			this.pEntity.setDescricao(descricao);
@@ -76,7 +78,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -96,8 +99,10 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(
+					this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(
+					String.valueOf(this.pEntity.getTaxa()));
 		}
 	}
 
@@ -110,8 +115,10 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(
+					this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(
+					String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -132,8 +139,10 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(
+					this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(
+					String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -159,8 +168,10 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfUnidade().setValue(this.pEntity.getUnidade());
-			this.subView.getTfBaseCalculo().setValue(this.pEntity.getBaseCalculo());
-			this.subView.getTfTaxa().setValue(String.valueOf(this.pEntity.getTaxa()));
+			this.subView.getTfBaseCalculo().setValue(
+					this.pEntity.getBaseCalculo());
+			this.subView.getTfTaxa().setValue(
+					String.valueOf(this.pEntity.getTaxa()));
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -204,7 +215,8 @@ public class EventoFormController extends CRUDFormController<EventoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_cadastro_evento_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

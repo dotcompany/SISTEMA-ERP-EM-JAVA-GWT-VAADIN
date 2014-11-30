@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.ServicoEntity;
 import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.ServicoFormView;
@@ -147,7 +148,8 @@ public class ServicoFormController extends CRUDFormController<ServicoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_servico_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

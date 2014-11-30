@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.LancamentoEntity;
 import dc.servicos.dao.folhapagamento.movimento.LancamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class LancamentoListController extends CRUDListController<LancamentoEntity> {
+public class LancamentoListController extends
+		CRUDListController<LancamentoEntity> {
 
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class LancamentoListController extends CRUDListController<LancamentoEntit
 
 	@Override
 	protected String getTitulo() {
-		return "Servico";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -70,7 +72,8 @@ public class LancamentoListController extends CRUDListController<LancamentoEntit
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_lancamento_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

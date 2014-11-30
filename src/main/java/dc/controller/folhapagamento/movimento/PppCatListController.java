@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.PppCatEntity;
 import dc.servicos.dao.folhapagamento.movimento.PppCatDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -43,7 +44,8 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "numeroCat", "dataAfastamento", "dataRegistro", "ppp.observacao" };
+		return new String[] { "numeroCat", "dataAfastamento", "dataRegistro",
+				"ppp.observacao" };
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "PPP cat";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -77,7 +79,8 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_ppp_cat_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

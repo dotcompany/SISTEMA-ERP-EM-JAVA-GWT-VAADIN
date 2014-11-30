@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.GuiaAcumuladaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -20,7 +21,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class GuiaAcumuladaListController extends CRUDListController<GuiaAcumuladaEntity> {
+public class GuiaAcumuladaListController extends
+		CRUDListController<GuiaAcumuladaEntity> {
 
 	/**
 	 * 
@@ -43,7 +45,8 @@ public class GuiaAcumuladaListController extends CRUDListController<GuiaAcumulad
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia", "pisCompetencia" };
+		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia",
+				"pisCompetencia" };
 	}
 
 	@Override
@@ -53,13 +56,14 @@ public class GuiaAcumuladaListController extends CRUDListController<GuiaAcumulad
 
 	@Override
 	protected String getTitulo() {
-		return "Guia acumulada";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<GuiaAcumuladaEntity> pesquisa(String valor) {
 		try {
-			List<GuiaAcumuladaEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+			List<GuiaAcumuladaEntity> auxLista = this.pDAO
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -77,7 +81,8 @@ public class GuiaAcumuladaListController extends CRUDListController<GuiaAcumulad
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_cadastro_guia_acumulada_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

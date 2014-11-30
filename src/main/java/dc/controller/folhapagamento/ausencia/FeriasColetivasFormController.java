@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.framework.Empresa;
@@ -22,7 +23,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class FeriasColetivasFormController extends CRUDFormController<FeriasColetivasEntity> {
+public class FeriasColetivasFormController extends
+		CRUDFormController<FeriasColetivasEntity> {
 
 	/**
 	 * 
@@ -64,10 +66,14 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
 			Date dataFim = this.subView.getPdfDataFim().getValue();
 			Date dataPagamento = this.subView.getPdfDataPagamento().getValue();
-			Integer diasGozo = Integer.parseInt(this.subView.getTfDiasGozo().getValue());
-			Integer diasAbono = Integer.parseInt(this.subView.getTfDiasAbono().getValue());
-			Date abonoPecuniarioInicio = this.subView.getPdfAbonoPecuniarioInicio().getValue();
-			Date abonoPecuniarioFim = this.subView.getPdfAbonoPecuniarioFim().getValue();
+			Integer diasGozo = Integer.parseInt(this.subView.getTfDiasGozo()
+					.getValue());
+			Integer diasAbono = Integer.parseInt(this.subView.getTfDiasAbono()
+					.getValue());
+			Date abonoPecuniarioInicio = this.subView
+					.getPdfAbonoPecuniarioInicio().getValue();
+			Date abonoPecuniarioFim = this.subView.getPdfAbonoPecuniarioFim()
+					.getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
 			this.pEntity.setDataFim(dataFim);
@@ -79,7 +85,8 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -95,13 +102,19 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 		} finally {
 			this.pEntity = new FeriasColetivasEntity();
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
-			this.subView.getTfDiasGozo().setValue(String.valueOf(this.pEntity.getDiasGozo()));
-			this.subView.getTfDiasAbono().setValue(String.valueOf(this.pEntity.getDiasAbono()));
-			this.subView.getPdfAbonoPecuniarioInicio().setValue(this.pEntity.getAbonoPecuniarioInicio());
-			this.subView.getPdfAbonoPecuniarioFim().setValue(this.pEntity.getAbonoPecuniarioFim());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
+			this.subView.getTfDiasGozo().setValue(
+					String.valueOf(this.pEntity.getDiasGozo()));
+			this.subView.getTfDiasAbono().setValue(
+					String.valueOf(this.pEntity.getDiasAbono()));
+			this.subView.getPdfAbonoPecuniarioInicio().setValue(
+					this.pEntity.getAbonoPecuniarioInicio());
+			this.subView.getPdfAbonoPecuniarioFim().setValue(
+					this.pEntity.getAbonoPecuniarioFim());
 		}
 	}
 
@@ -110,13 +123,19 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 		try {
 			this.pEntity = this.pDAO.find(id);
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
-			this.subView.getTfDiasGozo().setValue(String.valueOf(this.pEntity.getDiasGozo()));
-			this.subView.getTfDiasAbono().setValue(String.valueOf(this.pEntity.getDiasAbono()));
-			this.subView.getPdfAbonoPecuniarioInicio().setValue(this.pEntity.getAbonoPecuniarioInicio());
-			this.subView.getPdfAbonoPecuniarioFim().setValue(this.pEntity.getAbonoPecuniarioFim());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
+			this.subView.getTfDiasGozo().setValue(
+					String.valueOf(this.pEntity.getDiasGozo()));
+			this.subView.getTfDiasAbono().setValue(
+					String.valueOf(this.pEntity.getDiasAbono()));
+			this.subView.getPdfAbonoPecuniarioInicio().setValue(
+					this.pEntity.getAbonoPecuniarioInicio());
+			this.subView.getPdfAbonoPecuniarioFim().setValue(
+					this.pEntity.getAbonoPecuniarioFim());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -133,13 +152,19 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 		try {
 			this.pEntity = new FeriasColetivasEntity();
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
-			this.subView.getTfDiasGozo().setValue(String.valueOf(this.pEntity.getDiasGozo()));
-			this.subView.getTfDiasAbono().setValue(String.valueOf(this.pEntity.getDiasAbono()));
-			this.subView.getPdfAbonoPecuniarioInicio().setValue(this.pEntity.getAbonoPecuniarioInicio());
-			this.subView.getPdfAbonoPecuniarioFim().setValue(this.pEntity.getAbonoPecuniarioFim());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
+			this.subView.getTfDiasGozo().setValue(
+					String.valueOf(this.pEntity.getDiasGozo()));
+			this.subView.getTfDiasAbono().setValue(
+					String.valueOf(this.pEntity.getDiasAbono()));
+			this.subView.getPdfAbonoPecuniarioInicio().setValue(
+					this.pEntity.getAbonoPecuniarioInicio());
+			this.subView.getPdfAbonoPecuniarioFim().setValue(
+					this.pEntity.getAbonoPecuniarioFim());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -161,13 +186,19 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 		try {
 			this.pEntity = new FeriasColetivasEntity();
 
-			this.subView.getPdfDataInicio().setValue(this.pEntity.getDataInicio());
+			this.subView.getPdfDataInicio().setValue(
+					this.pEntity.getDataInicio());
 			this.subView.getPdfDataFim().setValue(this.pEntity.getDataFim());
-			this.subView.getPdfDataPagamento().setValue(this.pEntity.getDataPagamento());
-			this.subView.getTfDiasGozo().setValue(String.valueOf(this.pEntity.getDiasGozo()));
-			this.subView.getTfDiasAbono().setValue(String.valueOf(this.pEntity.getDiasAbono()));
-			this.subView.getPdfAbonoPecuniarioInicio().setValue(this.pEntity.getAbonoPecuniarioInicio());
-			this.subView.getPdfAbonoPecuniarioFim().setValue(this.pEntity.getAbonoPecuniarioFim());
+			this.subView.getPdfDataPagamento().setValue(
+					this.pEntity.getDataPagamento());
+			this.subView.getTfDiasGozo().setValue(
+					String.valueOf(this.pEntity.getDiasGozo()));
+			this.subView.getTfDiasAbono().setValue(
+					String.valueOf(this.pEntity.getDiasAbono()));
+			this.subView.getPdfAbonoPecuniarioInicio().setValue(
+					this.pEntity.getAbonoPecuniarioInicio());
+			this.subView.getPdfAbonoPecuniarioFim().setValue(
+					this.pEntity.getAbonoPecuniarioFim());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -221,22 +252,26 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 			return false;
 		}
 
-		Date abonoPecuniarioInicio = this.subView.getPdfAbonoPecuniarioInicio().getValue();
+		Date abonoPecuniarioInicio = this.subView.getPdfAbonoPecuniarioInicio()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(abonoPecuniarioInicio)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfAbonoPecuniarioInicio(), msg);
+			adicionarErroDeValidacao(
+					this.subView.getPdfAbonoPecuniarioInicio(), msg);
 
 			return false;
 		}
 
-		Date abonoPecuniarioFim = this.subView.getPdfAbonoPecuniarioFim().getValue();
+		Date abonoPecuniarioFim = this.subView.getPdfAbonoPecuniarioFim()
+				.getValue();
 
 		if (!ObjectValidator.validateNotRequiredDate(abonoPecuniarioFim)) {
 			String msg = "Não pode ficar em branco.";
 
-			adicionarErroDeValidacao(this.subView.getPdfAbonoPecuniarioFim(), msg);
+			adicionarErroDeValidacao(this.subView.getPdfAbonoPecuniarioFim(),
+					msg);
 
 			return false;
 		}
@@ -271,7 +306,8 @@ public class FeriasColetivasFormController extends CRUDFormController<FeriasCole
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_ausencia_ferias?coletivas_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasColetivasDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FeriasColetivasListController extends CRUDListController<FeriasColetivasEntity> {
+public class FeriasColetivasListController extends
+		CRUDListController<FeriasColetivasEntity> {
 
 	/**
 	 * 
@@ -52,12 +54,13 @@ public class FeriasColetivasListController extends CRUDListController<FeriasCole
 
 	@Override
 	protected String getTitulo() {
-		return "Férias coletivas";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<FeriasColetivasEntity> pesquisa(String valor) {
-		List<FeriasColetivasEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		List<FeriasColetivasEntity> auxLista = this.pDAO
+				.procuraNomeContendo(valor);
 
 		return auxLista;
 	}
@@ -70,7 +73,8 @@ public class FeriasColetivasListController extends CRUDListController<FeriasCole
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_ausencia_ferias_coletivas_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

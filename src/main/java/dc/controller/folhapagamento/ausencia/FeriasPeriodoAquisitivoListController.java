@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class FeriasPeriodoAquisitivoListController extends CRUDListController<FeriasPeriodoAquisitivoEntity> {
+public class FeriasPeriodoAquisitivoListController extends
+		CRUDListController<FeriasPeriodoAquisitivoEntity> {
 
 	/**
 	 * 
@@ -52,12 +54,13 @@ public class FeriasPeriodoAquisitivoListController extends CRUDListController<Fe
 
 	@Override
 	protected String getTitulo() {
-		return "Férias - Período aquisitivo";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<FeriasPeriodoAquisitivoEntity> pesquisa(String valor) {
-		List<FeriasPeriodoAquisitivoEntity> auxLista = this.pDAO.procuraNomeContendo(valor);
+		List<FeriasPeriodoAquisitivoEntity> auxLista = this.pDAO
+				.procuraNomeContendo(valor);
 
 		return auxLista;
 	}
@@ -70,7 +73,8 @@ public class FeriasPeriodoAquisitivoListController extends CRUDListController<Fe
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_ausencia_ferias_periodo_aquisitivo_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

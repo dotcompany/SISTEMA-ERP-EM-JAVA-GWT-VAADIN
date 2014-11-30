@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.AlteracaoSalarialEntity;
 import dc.servicos.dao.folhapagamento.movimento.AlteracaoSalarialDAO;
 import dc.visao.folhapagamento.movimento.AlteracaoSalarialFormView;
@@ -18,7 +19,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class AlteracaoSalarialFormController extends CRUDFormController<AlteracaoSalarialEntity> {
+public class AlteracaoSalarialFormController extends
+		CRUDFormController<AlteracaoSalarialEntity> {
 
 	/**
 	 * 
@@ -117,7 +119,8 @@ public class AlteracaoSalarialFormController extends CRUDFormController<Alteraca
 
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_movimento_alteracao_salarial_fc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

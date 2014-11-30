@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.RetencaoEntity;
 import dc.servicos.dao.folhapagamento.inss.RetencaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -42,7 +43,8 @@ public class RetencaoListController extends CRUDListController<RetencaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "inss.competencia", "servico.nome", "valorMensal", "valor13" };
+		return new String[] { "inss.competencia", "servico.nome",
+				"valorMensal", "valor13" };
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class RetencaoListController extends CRUDListController<RetencaoEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Retenção";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -70,7 +72,8 @@ public class RetencaoListController extends CRUDListController<RetencaoEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "folhapagamento_inss_retencao_lc";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
