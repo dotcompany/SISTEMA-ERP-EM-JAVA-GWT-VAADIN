@@ -76,13 +76,12 @@ public class ProdutosFormView extends CustomComponent {
 
 	GridLayout fields;
 
-	private ManyToOneCombo<SubGrupoEntity> cmbSubGrupoProduto;
-	private ManyToOneCombo<UnidadeProdutoEntity> cmbUnidadeProduto;
-	private ManyToOneCombo<MarcaEntity> cmbMarcaProduto;
-	private ManyToOneCombo<Almoxarifado> cmbAlmoxarifado;
-	private ManyToOneCombo<GrupoEntity> cmbGrupoProduto;
-	private ManyToOneCombo<NcmEntity> cmbNcm;
-
+	private ManyToOneCombo<SubGrupoEntity> mocSubGrupoProduto;
+	private ManyToOneCombo<UnidadeProdutoEntity> mocUnidadeProduto;
+	private ManyToOneCombo<MarcaEntity> mocMarcaProduto;
+	private ManyToOneCombo<Almoxarifado> mocAlmoxarifado;
+	private ManyToOneCombo<GrupoEntity> mocGrupoProduto;
+	private ManyToOneCombo<NcmEntity> mocNcm;
 	private ManyToOneCombo<GrupoTributario> mocGrupoTributario;
 	private ManyToOneCombo<ICMSCustomizado> mocIcmsCustomizado;
 
@@ -441,45 +440,45 @@ public class ProdutosFormView extends CustomComponent {
 		this.txtGtin = txtGtin;
 	}
 
-	public ManyToOneCombo<UnidadeProdutoEntity> getCmbUnidadeProduto() {
-		return cmbUnidadeProduto;
+	public ManyToOneCombo<UnidadeProdutoEntity> getMocUnidadeProduto() {
+		return mocUnidadeProduto;
 	}
 
-	public void setCmbUnidadeProduto(
-			ManyToOneCombo<UnidadeProdutoEntity> cmbUnidadeProduto) {
-		this.cmbUnidadeProduto = cmbUnidadeProduto;
+	public void setMocUnidadeProduto(
+			ManyToOneCombo<UnidadeProdutoEntity> mocUnidadeProduto) {
+		this.mocUnidadeProduto = mocUnidadeProduto;
 	}
 
-	public ManyToOneCombo<MarcaEntity> getCmbMarcaProduto() {
-		return cmbMarcaProduto;
+	public ManyToOneCombo<MarcaEntity> getMocMarcaProduto() {
+		return mocMarcaProduto;
 	}
 
-	public void setCmbMarcaProduto(ManyToOneCombo<MarcaEntity> cmbMarcaProduto) {
-		this.cmbMarcaProduto = cmbMarcaProduto;
+	public void setMocMarcaProduto(ManyToOneCombo<MarcaEntity> mocMarcaProduto) {
+		this.mocMarcaProduto = mocMarcaProduto;
 	}
 
-	public ManyToOneCombo<Almoxarifado> getCmbAlmoxarifado() {
-		return cmbAlmoxarifado;
+	public ManyToOneCombo<Almoxarifado> getMocAlmoxarifado() {
+		return mocAlmoxarifado;
 	}
 
-	public void setCmbAlmoxarifado(ManyToOneCombo<Almoxarifado> cmbAlmoxarifado) {
-		this.cmbAlmoxarifado = cmbAlmoxarifado;
+	public void setMocAlmoxarifado(ManyToOneCombo<Almoxarifado> mocAlmoxarifado) {
+		this.mocAlmoxarifado = mocAlmoxarifado;
 	}
 
-	public ManyToOneCombo<GrupoEntity> getCmbGrupoProduto() {
-		return cmbGrupoProduto;
+	public ManyToOneCombo<GrupoEntity> getMocGrupoProduto() {
+		return mocGrupoProduto;
 	}
 
-	public void setCmbGrupoProduto(ManyToOneCombo<GrupoEntity> cmbGrupoProduto) {
-		this.cmbGrupoProduto = cmbGrupoProduto;
+	public void setMocGrupoProduto(ManyToOneCombo<GrupoEntity> mocGrupoProduto) {
+		this.mocGrupoProduto = mocGrupoProduto;
 	}
 
-	public ManyToOneCombo<NcmEntity> getCmbNcm() {
-		return cmbNcm;
+	public ManyToOneCombo<NcmEntity> getMocNcm() {
+		return mocNcm;
 	}
 
-	public void setCmbNcm(ManyToOneCombo<NcmEntity> cmbNcm) {
-		this.cmbNcm = cmbNcm;
+	public void setMocNcm(ManyToOneCombo<NcmEntity> mocNcm) {
+		this.mocNcm = mocNcm;
 	}
 
 	public ManyToOneCombo<GrupoTributario> getMocGrupoTributario() {
@@ -491,13 +490,13 @@ public class ProdutosFormView extends CustomComponent {
 		this.mocGrupoTributario = mocGrupoTributario;
 	}
 
-	public ManyToOneCombo<SubGrupoEntity> getCmbSubGrupoProduto() {
-		return cmbSubGrupoProduto;
+	public ManyToOneCombo<SubGrupoEntity> getMocSubGrupoProduto() {
+		return mocSubGrupoProduto;
 	}
 
-	public void setCmbSubGrupoProduto(
-			ManyToOneCombo<SubGrupoEntity> cmbSubGrupoProduto) {
-		this.cmbSubGrupoProduto = cmbSubGrupoProduto;
+	public void setMocSubGrupoProduto(
+			ManyToOneCombo<SubGrupoEntity> mocSubGrupoProduto) {
+		this.mocSubGrupoProduto = mocSubGrupoProduto;
 	}
 
 	public GridLayout getFields() {
@@ -564,39 +563,39 @@ public class ProdutosFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 
-		cmbSubGrupoProduto = new ManyToOneCombo<>();
-		cmbSubGrupoProduto.setCaption(" SubGrupo Produto ");
-		// cmbSubGrupoProduto.setWidth("780px");
-		cmbSubGrupoProduto.setHeight("-1px");
+		mocSubGrupoProduto = new ManyToOneCombo<>();
+		mocSubGrupoProduto.setCaption(" Subgrupo do produto");
+		// mocSubGrupoProduto.setWidth("780px");
+		mocSubGrupoProduto.setHeight("-1px");
 
 		// //
-		cmbUnidadeProduto = new ManyToOneCombo<>();
-		cmbUnidadeProduto.setCaption("Unidade Produto");
-		cmbUnidadeProduto.setImmediate(false);
-		// cmbUnidadeProduto.setWidth("780px");
-		cmbUnidadeProduto.setHeight("-1px");
+		mocUnidadeProduto = new ManyToOneCombo<>();
+		mocUnidadeProduto.setCaption("Unidade do produto");
+		mocUnidadeProduto.setImmediate(false);
+		// mocUnidadeProduto.setWidth("780px");
+		mocUnidadeProduto.setHeight("-1px");
 
 		// //
-		fields.addComponent(cmbSubGrupoProduto, 0, 0);
-		fields.addComponent(cmbUnidadeProduto, 1, 0);
+		fields.addComponent(mocSubGrupoProduto, 0, 0);
+		fields.addComponent(mocUnidadeProduto, 1, 0);
 
 		// //
-		cmbMarcaProduto = new ManyToOneCombo<>();
-		cmbMarcaProduto.setCaption("Marca Produto");
-		// cmbMarcaProduto.setImmediate(false);
-		// cmbMarcaProduto.setWidth("780px");
-		cmbMarcaProduto.setHeight("-1px");
+		mocMarcaProduto = new ManyToOneCombo<>();
+		mocMarcaProduto.setCaption("Marca do produto");
+		// mocMarcaProduto.setImmediate(false);
+		// mocMarcaProduto.setWidth("780px");
+		mocMarcaProduto.setHeight("-1px");
 
 		// //
-		// // // cmbAlmoxarifado
-		cmbAlmoxarifado = new ManyToOneCombo<>();
-		cmbAlmoxarifado.setCaption("Almoxarifado");
-		// cmbAlmoxarifado.setImmediate(false);
-		// cmbAlmoxarifado.setWidth("780px");
-		cmbAlmoxarifado.setHeight("-1px");
+		// // // mocAlmoxarifado
+		mocAlmoxarifado = new ManyToOneCombo<>();
+		mocAlmoxarifado.setCaption("Almoxarifado");
+		// mocAlmoxarifado.setImmediate(false);
+		// mocAlmoxarifado.setWidth("780px");
+		mocAlmoxarifado.setHeight("-1px");
 
-		fields.addComponent(cmbMarcaProduto, 0, 1);
-		fields.addComponent(cmbAlmoxarifado, 1, 1);
+		fields.addComponent(mocMarcaProduto, 0, 1);
+		fields.addComponent(mocAlmoxarifado, 1, 1);
 
 		// //
 		// cbIcmsCustomizado
@@ -634,13 +633,13 @@ public class ProdutosFormView extends CustomComponent {
 		// mocGrupoTributario.setWidth("456px");
 		// mocGrupoTributario.setHeight("-1px");
 
-		cmbGrupoProduto = new ManyToOneCombo<>();
-		cmbGrupoProduto.setCaption("Grupo Produto");
-		// cmbGrupoProduto.setWidth("456px");
-		cmbGrupoProduto.setHeight("-1px");
+		mocGrupoProduto = new ManyToOneCombo<>();
+		mocGrupoProduto.setCaption("Grupo do produto");
+		// mocGrupoProduto.setWidth("456px");
+		mocGrupoProduto.setHeight("-1px");
 
 		fields.addComponent(cbTemIcmsCustomizado, 0, 2);
-		fields.addComponent(cmbGrupoProduto, 1, 2);
+		fields.addComponent(mocGrupoProduto, 1, 2);
 		// ////
 
 		mocIcmsCustomizado = new ManyToOneCombo<>();
@@ -707,11 +706,11 @@ public class ProdutosFormView extends CustomComponent {
 		txtCodigoInterno.setWidth("200px");
 		txtCodigoInterno.setHeight("-1px");
 
-		cmbNcm = new ManyToOneCombo<>();
-		cmbNcm.setCaption("NCM");
-		cmbNcm.setImmediate(false);
-		cmbNcm.setWidth("250px");
-		cmbNcm.setHeight("-1px");
+		mocNcm = new ManyToOneCombo<>();
+		mocNcm.setCaption("NCM");
+		mocNcm.setImmediate(false);
+		mocNcm.setWidth("250px");
+		mocNcm.setHeight("-1px");
 
 		// cbInativo
 		cbInativo = new ComboBox();
@@ -731,7 +730,7 @@ public class ProdutosFormView extends CustomComponent {
 
 		layout.addComponent(txtGtin, 0, 0);
 		layout.addComponent(txtCodigoInterno, 1, 0);
-		layout.addComponent(cmbNcm, 2, 0);
+		layout.addComponent(mocNcm, 2, 0);
 		layout.addComponent(cbInativo, 3, 0);
 		layout.addComponent(cbClasse, 4, 0);
 

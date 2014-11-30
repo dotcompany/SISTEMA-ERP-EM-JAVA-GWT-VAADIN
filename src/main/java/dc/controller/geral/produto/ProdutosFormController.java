@@ -115,25 +115,25 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					SubGrupoProdutoListController.class, subGrupoProdutoDAO,
 					super.getMainController());
 
-			subView.getCmbSubGrupoProduto().setModel(comboSubGrupo);
+			subView.getMocSubGrupoProduto().setModel(comboSubGrupo);
 			// //
 			DefaultManyToOneComboModel<UnidadeProdutoEntity> comboUnidade = new DefaultManyToOneComboModel<UnidadeProdutoEntity>(
 					UnidadeProdutoListController.class, unidadeProdutoDAO,
 					super.getMainController());
 
-			subView.getCmbUnidadeProduto().setModel(comboUnidade);
+			subView.getMocUnidadeProduto().setModel(comboUnidade);
 			//
 			DefaultManyToOneComboModel<MarcaEntity> comboMarca = new DefaultManyToOneComboModel<MarcaEntity>(
 					MarcaProdutoListController.class, marcaProdutoDAO,
 					super.getMainController());
 
-			subView.getCmbMarcaProduto().setModel(comboMarca);
+			subView.getMocMarcaProduto().setModel(comboMarca);
 			// //
 			DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(
 					AlmoxarifadoListController.class, almoxarifadoDAO,
 					super.getMainController());
 
-			subView.getCmbAlmoxarifado().setModel(comboAlmoxarifado);
+			subView.getMocAlmoxarifado().setModel(comboAlmoxarifado);
 			// //
 
 			DefaultManyToOneComboModel<ICMSCustomizado> comboIcmsCustomizado = new DefaultManyToOneComboModel<ICMSCustomizado>(
@@ -153,12 +153,12 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					GrupoProdutoListController.class, grupoProdutoDAO,
 					super.getMainController());
 
-			subView.getCmbGrupoProduto().setModel(comboGrupoProduto);
+			subView.getMocGrupoProduto().setModel(comboGrupoProduto);
 			// //
 			DefaultManyToOneComboModel<NcmEntity> comboNCM = new DefaultManyToOneComboModel<NcmEntity>(
 					NcmListController.class, ncmDAO, super.getMainController());
 
-			subView.getCmbNcm().setModel(comboNCM);
+			subView.getMocNcm().setModel(comboNCM);
 
 			comboClasse();
 			comboIcms();
@@ -179,9 +179,9 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 		try {
 			currentBean = produtoDAO.find(id);
 
-			subView.getCmbSubGrupoProduto().setValue(currentBean.getSubGrupo());
-			subView.getCmbUnidadeProduto().setValue(currentBean.getUnidade());
-			subView.getCmbMarcaProduto()
+			subView.getMocSubGrupoProduto().setValue(currentBean.getSubGrupo());
+			subView.getMocUnidadeProduto().setValue(currentBean.getUnidade());
+			subView.getMocMarcaProduto()
 					.setValue(currentBean.getMarcaProduto());
 			subView.getMocGrupoTributario().setValue(
 					currentBean.getGrupoTributario());
@@ -384,10 +384,10 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				subView.getTxtAliquotaIssqn().setConvertedValue(aliquotaIssqn);
 			}
 
-			subView.getCmbAlmoxarifado()
+			subView.getMocAlmoxarifado()
 					.setValue(currentBean.getAlmoxarifado());
-			subView.getCmbGrupoProduto().setValue(currentBean.getGrupo());
-			subView.getCmbNcm().setValue(currentBean.getNcm());
+			subView.getMocGrupoProduto().setValue(currentBean.getGrupo());
+			subView.getMocNcm().setValue(currentBean.getNcm());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -398,12 +398,12 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			SubGrupoEntity subgrupo = this.subView.getCmbSubGrupoProduto()
+			SubGrupoEntity subgrupo = this.subView.getMocSubGrupoProduto()
 					.getValue();
-			UnidadeProdutoEntity unidade = this.subView.getCmbUnidadeProduto()
+			UnidadeProdutoEntity unidade = this.subView.getMocUnidadeProduto()
 					.getValue();
-			MarcaEntity marca = this.subView.getCmbMarcaProduto().getValue();
-			Almoxarifado almoxarifado = this.subView.getCmbAlmoxarifado()
+			MarcaEntity marca = this.subView.getMocMarcaProduto().getValue();
+			Almoxarifado almoxarifado = this.subView.getMocAlmoxarifado()
 					.getValue();
 
 			if (!Validator.validateObject(subgrupo)) {
@@ -416,7 +416,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 			this.currentBean.setSubGrupo(subgrupo);
 			this.currentBean.setUnidade(unidade);
-			this.currentBean.setNcm(this.subView.getCmbNcm().getValue());
+			this.currentBean.setNcm(this.subView.getMocNcm().getValue());
 
 			this.currentBean.setMarcaProduto(marca);
 			this.currentBean.setAlmoxarifado(almoxarifado);
