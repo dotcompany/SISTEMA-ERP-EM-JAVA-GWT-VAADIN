@@ -70,61 +70,64 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		Date dataDesde = (Date) subView.getDtDesde().getValue();
+		Date dataDesde = (Date) this.subView.getPdfDesde().getValue();
 
 		if (!Validator.validateObject(dataDesde)) {
-			adicionarErroDeValidacao(subView.getDtDesde(),
+			adicionarErroDeValidacao(this.subView.getPdfDesde(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtContaTomador().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtContaTomador(),
+		if (!Validator.validateString(this.subView.getTfContaTomador()
+				.getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfContaTomador(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacao(),
+		if (!Validator
+				.validateString(this.subView.getTfObservacao().getValue())) {
+			adicionarErroDeValidacao(this.subView.getTfObservacao(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtLimiteCredito()
+		if (!Validator.validateNumber(this.subView.getTfLimiteCredito()
 				.getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxtLimiteCredito(),
+			adicionarErroDeValidacao(this.subView.getTfLimiteCredito(),
 					"Número Inválido");
 
 			valido = false;
 		}
 
-		PessoaEntity pessoa = (PessoaEntity) subView.getMocPessoa().getValue();
+		PessoaEntity pessoa = (PessoaEntity) this.subView.getMocPessoa()
+				.getValue();
 
 		if (!Validator.validateObject(pessoa)) {
-			adicionarErroDeValidacao(subView.getMocPessoa(),
+			adicionarErroDeValidacao(this.subView.getMocPessoa(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		SituacaoForCliEntity situacao = (SituacaoForCliEntity) subView
+		SituacaoForCliEntity situacao = (SituacaoForCliEntity) this.subView
 				.getMocSituacao().getValue();
 
 		if (!Validator.validateObject(situacao)) {
-			adicionarErroDeValidacao(subView.getMocSituacao(),
+			adicionarErroDeValidacao(this.subView.getMocSituacao(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		AtividadeForCliEntity atividade = (AtividadeForCliEntity) subView
+		AtividadeForCliEntity atividade = (AtividadeForCliEntity) this.subView
 				.getMocAtividade().getValue();
 
 		if (!Validator.validateObject(atividade)) {
-			adicionarErroDeValidacao(subView.getMocAtividade(),
+			adicionarErroDeValidacao(this.subView.getMocAtividade(),
 					"Não pode ficar em branco");
 
 			valido = false;
@@ -189,8 +192,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 			@Override
 			public String getCaptionProperty() {
-				// TODO Auto-generated method stub
-				return "descricao";
+				return "codigoReduzido";
 			}
 
 		};
@@ -202,29 +204,6 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 				super.getMainController());
 
 		this.subView.getMocOperacaoFiscal().setModel(modeloperacao);
-
-		/* subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
-
-		/*
-		 * this.subView.InitCbs(getClienteTipo());
-		 * this.subView.InitCbs(getClienteIndicadorPrecoType());
-		 * this.subView.InitCbs(getClienteTipoFreteType());
-		 * this.subView.InitCbs(getClienteFormaDescontoType());
-		 */
-
-		/*
-		 * this.subView.getCmbGerarFinanceiro().setData(
-		 * getClienteGerarFinanceiroType());
-		 * this.subView.getCmbIndicadorPreco().
-		 * setData(getClienteIndicadorPrecoType());
-		 * this.subView.getCmbTipoFrete().setData(getClienteTipoFreteType());
-		 * this.subView.getCmbFormaDesconto().setData(
-		 * getClienteFormaDescontoType());
-		 */
-
-		// this.subView.InitCbs(getClienteGerarFinanceiroType(),
-		// getClienteIndicadorPrecoType(), getClienteTipoFreteType(),
-		// getClienteFormaDescontoType());
 
 		comboGerarFinanceiro();
 		comboFormaDesconto();
@@ -247,22 +226,22 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.subView.getMocOperacaoFiscal().setValue(
 					this.currentBean.getOperacaoFiscal());
 
-			this.subView.getDtDesde().setValue(this.currentBean.getDesde());
-			this.subView.getTxtContaTomador().setValue(
+			this.subView.getPdfDesde().setValue(this.currentBean.getDesde());
+			this.subView.getTfContaTomador().setValue(
 					this.currentBean.getContaTomador());
-			this.subView.getTxtObservacao().setValue(
+			this.subView.getTfObservacao().setValue(
 					this.currentBean.getObservacao());
-			this.subView.getCmbTipoFrete().setValue(
+			this.subView.getCbTipoFrete().setValue(
 					this.currentBean.getTipoFrete());
-			this.subView.getCmbFormaDesconto().setValue(
+			this.subView.getCbFormaDesconto().setValue(
 					this.currentBean.getFormaDesconto());
-			this.subView.getCmbGerarFinanceiro().setValue(
-					this.currentBean.getGeraFinanceiro());
-			this.subView.getCmbIndicadorPreco().setValue(
+			this.subView.getCbGerarFinanceiro().setValue(
+					this.currentBean.getGerarFinanceiro());
+			this.subView.getCbIndicadorPreco().setValue(
 					this.currentBean.getIndicadorPreco());
-			this.subView.getTxtTaxaDesconto().setConvertedValue(
+			this.subView.getTfTaxaDesconto().setConvertedValue(
 					this.currentBean.getPorcentoDesconto());
-			this.subView.getTxtLimiteCredito().setConvertedValue(
+			this.subView.getTfLimiteCredito().setConvertedValue(
 					this.currentBean.getLimiteCredito());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -296,37 +275,37 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 								.getMocOperacaoFiscal().getValue());
 			}
 
-			this.currentBean.setDesde(this.subView.getDtDesde().getValue());
-			this.currentBean.setContaTomador(this.subView.getTxtContaTomador()
+			this.currentBean.setDesde(this.subView.getPdfDesde().getValue());
+			this.currentBean.setContaTomador(this.subView.getTfContaTomador()
 					.getValue());
-			this.currentBean.setObservacao(this.subView.getTxtObservacao()
+			this.currentBean.setObservacao(this.subView.getTfObservacao()
 					.getValue());
 
 			TipoFreteEn tipoFreteEn = (TipoFreteEn) this.subView
-					.getCmbTipoFrete().getValue();
+					.getCbTipoFrete().getValue();
 
 			this.currentBean.setTipoFrete(tipoFreteEn);
 
 			FormaDescontoEn formaDescontoEn = (FormaDescontoEn) this.subView
-					.getCmbFormaDesconto().getValue();
+					.getCbFormaDesconto().getValue();
 
 			this.currentBean.setFormaDesconto(formaDescontoEn);
 
 			SimNaoEn geraFinanceiroEn = (SimNaoEn) this.subView
-					.getCmbGerarFinanceiro().getValue();
+					.getCbGerarFinanceiro().getValue();
 
-			this.currentBean.setGeraFinanceiro(geraFinanceiroEn);
+			this.currentBean.setGerarFinanceiro(geraFinanceiroEn);
 
 			IndicadorPrecoEn indicadorPrecoEn = (IndicadorPrecoEn) this.subView
-					.getCmbIndicadorPreco().getValue();
+					.getCbIndicadorPreco().getValue();
 
 			this.currentBean.setIndicadorPreco(indicadorPrecoEn);
 
 			this.currentBean.setPorcentoDesconto(new BigDecimal(
-					(String) this.subView.getTxtTaxaDesconto()
+					(String) this.subView.getTfTaxaDesconto()
 							.getConvertedValue()));
 			this.currentBean.setLimiteCredito(new BigDecimal(
-					(String) this.subView.getTxtLimiteCredito()
+					(String) this.subView.getTfLimiteCredito()
 							.getConvertedValue()));
 
 			this.clienteDAO.saveOrUpdate(this.currentBean);
@@ -356,9 +335,13 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		clienteDAO.deleteAllByIds(ids);
+		try {
+			this.clienteDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -372,29 +355,31 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		return ClassUtils.getUrl(this);
 	}
 
-	/** COMBO */
+	/**
+	 * COMBOS
+	 */
 
 	public void comboGerarFinanceiro() {
 		for (SimNaoEn en : SimNaoEn.values()) {
-			this.subView.getCmbGerarFinanceiro().addItem(en);
+			this.subView.getCbGerarFinanceiro().addItem(en);
 		}
 	}
 
 	public void comboIndicadorPreco() {
 		for (IndicadorPrecoEn en : IndicadorPrecoEn.values()) {
-			this.subView.getCmbIndicadorPreco().addItem(en);
+			this.subView.getCbIndicadorPreco().addItem(en);
 		}
 	}
 
 	public void comboTipoFrete() {
 		for (TipoFreteEn en : TipoFreteEn.values()) {
-			this.subView.getCmbTipoFrete().addItem(en);
+			this.subView.getCbTipoFrete().addItem(en);
 		}
 	}
 
 	public void comboFormaDesconto() {
 		for (FormaDescontoEn en : FormaDescontoEn.values()) {
-			this.subView.getCmbFormaDesconto().addItem(en);
+			this.subView.getCbFormaDesconto().addItem(en);
 		}
 	}
 

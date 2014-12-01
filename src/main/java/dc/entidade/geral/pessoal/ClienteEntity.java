@@ -97,7 +97,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Enumerated(EnumType.STRING)
-	private SimNaoEn geraFinanceiro;
+	private SimNaoEn gerarFinanceiro;
 
 	@Field
 	@Column(name = "INDICADOR_PRECO")
@@ -247,12 +247,12 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.contaTomador = contaTomador;
 	}
 
-	public SimNaoEn getGeraFinanceiro() {
-		return geraFinanceiro;
+	public SimNaoEn getGerarFinanceiro() {
+		return gerarFinanceiro;
 	}
 
-	public void setGeraFinanceiro(SimNaoEn geraFinanceiro) {
-		this.geraFinanceiro = geraFinanceiro;
+	public void setGerarFinanceiro(SimNaoEn gerarFinanceiro) {
+		this.gerarFinanceiro = gerarFinanceiro;
 	}
 
 	public IndicadorPrecoEn getIndicadorPreco() {
