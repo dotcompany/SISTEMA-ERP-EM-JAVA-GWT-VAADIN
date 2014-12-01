@@ -226,7 +226,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 		TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView.getCbTipoItemSped()
 				.getValue();
 
-		if (Validator.validateObject(tipoSpedEn)) {
+		if (!Validator.validateObject(tipoSpedEn)) {
 			adicionarErroDeValidacao(this.subView.getCbTipoItemSped(),
 					"Não pode ficar em branco");
 

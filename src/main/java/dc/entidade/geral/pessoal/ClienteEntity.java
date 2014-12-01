@@ -132,27 +132,27 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pessoa", nullable = false)
+	@JoinColumn(name = "id_pessoa", nullable = true)
 	@Caption("Pessoa")
 	private PessoaEntity pessoa;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_situacao_for_cli", nullable = false)
+	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
 	@Caption("Situação fornecedor / cliente")
 	private SituacaoForCliEntity situacaoForCli;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_atividade_for_cli", nullable = false)
+	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
 	@Caption("Atividade fornecedor / cliente")
 	private AtividadeForCliEntity atividadeForCli;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_contabil_conta", nullable = false)
+	@JoinColumn(name = "id_contabil_conta", nullable = true)
 	@Caption("Conta contábil")
 	private ContabilContaEntity contabilConta;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_operacao_fiscal", nullable = false)
+	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
 	@Caption("Operação fiscal")
 	private OperacaoFiscalEntity operacaoFiscal;
 
