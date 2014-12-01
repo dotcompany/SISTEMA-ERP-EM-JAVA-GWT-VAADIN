@@ -301,14 +301,27 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 					.getValue());
 			this.currentBean.setObservacao(this.subView.getTxtObservacao()
 					.getValue());
-			this.currentBean.setTipoFrete((String) this.subView
-					.getCmbTipoFrete().getValue());
-			this.currentBean.setFormaDesconto((String) this.subView
-					.getCmbFormaDesconto().getValue());
-			this.currentBean.setGeraFinanceiro((String) this.subView
-					.getCmbGerarFinanceiro().getValue());
-			this.currentBean.setIndicadorPreco((String) this.subView
-					.getCmbIndicadorPreco().getValue());
+
+			TipoFreteEn tipoFreteEn = (TipoFreteEn) this.subView
+					.getCmbTipoFrete().getValue();
+
+			this.currentBean.setTipoFrete(tipoFreteEn);
+
+			FormaDescontoEn formaDescontoEn = (FormaDescontoEn) this.subView
+					.getCmbFormaDesconto().getValue();
+
+			this.currentBean.setFormaDesconto(formaDescontoEn);
+
+			SimNaoEn geraFinanceiroEn = (SimNaoEn) this.subView
+					.getCmbGerarFinanceiro().getValue();
+
+			this.currentBean.setGeraFinanceiro(geraFinanceiroEn);
+
+			IndicadorPrecoEn indicadorPrecoEn = (IndicadorPrecoEn) this.subView
+					.getCmbIndicadorPreco().getValue();
+
+			this.currentBean.setIndicadorPreco(indicadorPrecoEn);
+
 			this.currentBean.setPorcentoDesconto(new BigDecimal(
 					(String) this.subView.getTxtTaxaDesconto()
 							.getConvertedValue()));

@@ -8,6 +8,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,10 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.FormaDescontoEn;
+import dc.control.enums.IndicadorPrecoEn;
+import dc.control.enums.SimNaoEn;
+import dc.control.enums.TipoFreteEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -90,14 +96,16 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Gera financeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String geraFinanceiro;
+	@Enumerated(EnumType.STRING)
+	private SimNaoEn geraFinanceiro;
 
 	@Field
 	@Column(name = "INDICADOR_PRECO")
 	@Caption("Indicador de preço")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String indicadorPreco;
+	@Enumerated(EnumType.STRING)
+	private IndicadorPrecoEn indicadorPreco;
 
 	@Field
 	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
@@ -111,7 +119,8 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Forma de desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String formaDesconto;
+	@Enumerated(EnumType.STRING)
+	private FormaDescontoEn formaDesconto;
 
 	@Field
 	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
@@ -125,7 +134,8 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Tipo de frete")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoFrete;
+	@Enumerated(EnumType.STRING)
+	private TipoFreteEn tipoFrete;
 
 	/**
 	 * REFERENCIA - FK
@@ -237,19 +247,19 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.contaTomador = contaTomador;
 	}
 
-	public String getGeraFinanceiro() {
+	public SimNaoEn getGeraFinanceiro() {
 		return geraFinanceiro;
 	}
 
-	public void setGeraFinanceiro(String geraFinanceiro) {
+	public void setGeraFinanceiro(SimNaoEn geraFinanceiro) {
 		this.geraFinanceiro = geraFinanceiro;
 	}
 
-	public String getIndicadorPreco() {
+	public IndicadorPrecoEn getIndicadorPreco() {
 		return indicadorPreco;
 	}
 
-	public void setIndicadorPreco(String indicadorPreco) {
+	public void setIndicadorPreco(IndicadorPrecoEn indicadorPreco) {
 		this.indicadorPreco = indicadorPreco;
 	}
 
@@ -261,11 +271,11 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.porcentoDesconto = porcentoDesconto;
 	}
 
-	public String getFormaDesconto() {
+	public FormaDescontoEn getFormaDesconto() {
 		return formaDesconto;
 	}
 
-	public void setFormaDesconto(String formaDesconto) {
+	public void setFormaDesconto(FormaDescontoEn formaDesconto) {
 		this.formaDesconto = formaDesconto;
 	}
 
@@ -277,11 +287,11 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.limiteCredito = limiteCredito;
 	}
 
-	public String getTipoFrete() {
+	public TipoFreteEn getTipoFrete() {
 		return tipoFrete;
 	}
 
-	public void setTipoFrete(String tipoFrete) {
+	public void setTipoFrete(TipoFreteEn tipoFrete) {
 		this.tipoFrete = tipoFrete;
 	}
 
