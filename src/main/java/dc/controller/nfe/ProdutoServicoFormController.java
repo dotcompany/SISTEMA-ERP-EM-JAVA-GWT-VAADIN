@@ -40,7 +40,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
@@ -717,7 +717,7 @@ public class ProdutoServicoFormController extends
 		// break;
 		case "mtoOperacaoFiscal":
 			ItemValue m = (ItemValue) obj;
-			OperacaoFiscal operacaoFiscal = (OperacaoFiscal) m.getBean();
+			OperacaoFiscalEntity operacaoFiscal = (OperacaoFiscalEntity) m.getBean();
 
 			this.nfeCabecalho.setTributOperacaoFiscal(operacaoFiscal);
 			// this.nfeCabecalho
@@ -1476,7 +1476,7 @@ public class ProdutoServicoFormController extends
 
 			this.subView.getMtoProduto().setModel(model2);
 
-			DefaultManyToOneComboModel<OperacaoFiscal> model3 = new DefaultManyToOneComboModel<OperacaoFiscal>(
+			DefaultManyToOneComboModel<OperacaoFiscalEntity> model3 = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
 					super.getMainController());
 

@@ -19,6 +19,7 @@ public class PessoaJuridicaDAO extends AbstractCrudDAO<PessoaJuridicaEntity> {
 		return PessoaJuridicaEntity.class;
 	}
 
+	@Transactional
 	public PessoaJuridicaEntity getEntity(PessoaEntity ent) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :ent";
@@ -36,7 +37,9 @@ public class PessoaJuridicaDAO extends AbstractCrudDAO<PessoaJuridicaEntity> {
 
 			return entity;
 		} catch (Exception e) {
-			return new PessoaJuridicaEntity();
+			e.printStackTrace();
+
+			throw e;
 		}
 	}
 

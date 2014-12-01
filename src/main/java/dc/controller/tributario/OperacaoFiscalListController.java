@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscal> {
+public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscalEntity> {
 
 	@Autowired
 	OperacaoFiscalDAO dao;
@@ -34,7 +34,7 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 	}
 
 	@Override
-	protected List<OperacaoFiscal> pesquisa(String valor) {
+	protected List<OperacaoFiscalEntity> pesquisa(String valor) {
 		return new ArrayList<>();
 	}
 
@@ -44,17 +44,17 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 	}
 
 	@Override
-	protected CRUDFormController<OperacaoFiscal> getFormController() {
+	protected CRUDFormController<OperacaoFiscalEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super OperacaoFiscal> getEntityClass() {
-		return OperacaoFiscal.class;
+	public Class<? super OperacaoFiscalEntity> getEntityClass() {
+		return OperacaoFiscalEntity.class;
 	}
 
 	@Override
-	protected List<OperacaoFiscal> pesquisaDefault() {
+	protected List<OperacaoFiscalEntity> pesquisaDefault() {
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
 		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){

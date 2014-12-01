@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -69,7 +69,7 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	@JoinColumn(name = "id_contabil_conta", nullable = false)
 	@Caption("Contabil Conta")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private ContabilConta contabilConta;
+	private ContabilContaEntity contabilConta;
 
 	@Column(name = "CODIGO_BANCO")
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -182,11 +182,11 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.id = id;
 	}
 	
-	public ContabilConta getContabilConta() {
+	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
 
-	public void setContabilConta(ContabilConta contabilConta) {
+	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
 	}
 

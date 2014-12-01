@@ -7,7 +7,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -25,7 +25,7 @@ public class ContabilContaFormView extends CustomComponent {
 
 	private ManyToOneCombo<PlanoConta> cbPlanoConta;
 	private ManyToOneCombo<PlanoContaRefSped> cbPlanoContaRefSped;
-	private ManyToOneCombo<ContabilConta> cbContabilContaPai;
+	private ManyToOneCombo<ContabilContaEntity> cbContabilContaPai;
 
 	private PopupDateField dtDataInclusao;
 
@@ -115,7 +115,7 @@ public class ContabilContaFormView extends CustomComponent {
 		return mainLayout;
 	}
 
-	public void preencheBean(ContabilConta currentBean) {
+	public void preencheBean(ContabilContaEntity currentBean) {
 		currentBean.setClassificacao(txClassificacao.getValue());
 		currentBean.setCodigoEfd(((CodigoEFD) cbCodigoEFD.getValue()).getCodigo());
 		currentBean.setCodigoReduzido(txCodigoReduzido.getValue());
@@ -133,7 +133,7 @@ public class ContabilContaFormView extends CustomComponent {
 		currentBean.setTipo(((Tipo) cbTipo.getValue()).getCodigo());
 	}
 
-	public void preencheForm(ContabilConta currentBean) {
+	public void preencheForm(ContabilContaEntity currentBean) {
 		txClassificacao.setValue(currentBean.getClassificacao());
 		cbCodigoEFD.setValue(CodigoEFD.getCodigoEFD(currentBean.getCodigoEfd()));
 		txCodigoReduzido.setValue(currentBean.getCodigoReduzido());
@@ -170,11 +170,11 @@ public class ContabilContaFormView extends CustomComponent {
 		this.cbPlanoContaRefSped = cbPlanoContaRefSped;
 	}
 
-	public ManyToOneCombo<ContabilConta> getCbContabilContaPai() {
+	public ManyToOneCombo<ContabilContaEntity> getCbContabilContaPai() {
 		return cbContabilContaPai;
 	}
 
-	public void setCbContabilContaPai(ManyToOneCombo<ContabilConta> cbContabilContaPai) {
+	public void setCbContabilContaPai(ManyToOneCombo<ContabilContaEntity> cbContabilContaPai) {
 		this.cbContabilContaPai = cbContabilContaPai;
 	}
 

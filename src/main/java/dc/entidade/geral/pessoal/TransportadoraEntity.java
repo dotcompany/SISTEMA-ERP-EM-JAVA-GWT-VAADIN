@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -67,7 +67,7 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private ContabilConta contaContabil;
+	private ContabilContaEntity contaContabil;
 
 	public TransportadoraEntity() {
 
@@ -101,11 +101,11 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pessoa = pessoa;
 	}
 
-	public ContabilConta getContaContabil() {
+	public ContabilContaEntity getContaContabil() {
 		return contaContabil;
 	}
 
-	public void setContaContabil(ContabilConta contaContabil) {
+	public void setContaContabil(ContabilContaEntity contaContabil) {
 		this.contaContabil = contaContabil;
 	}
 

@@ -19,7 +19,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
@@ -82,7 +82,7 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Conta Contábil")
 	@JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private ContabilConta contabilconta;
+	private ContabilContaEntity contabilconta;
 
 	public NaturezaFinanceira() {
 	}
@@ -182,11 +182,11 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 		this.planoNaturezaFinanceira = planoNaturezaFinanceira;
 	}
 
-	public ContabilConta getContabilconta() {
+	public ContabilContaEntity getContabilconta() {
 		return contabilconta;
 	}
 
-	public void setContabilconta(ContabilConta contabilconta) {
+	public void setContabilconta(ContabilContaEntity contabilconta) {
 		this.contabilconta = contabilconta;
 	}
 

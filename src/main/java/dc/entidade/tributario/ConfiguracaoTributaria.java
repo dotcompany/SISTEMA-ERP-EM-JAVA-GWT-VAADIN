@@ -49,7 +49,7 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 	@JoinColumn(name = "id_tribut_operacao_fiscal", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Operação Fiscal")
-	private OperacaoFiscal operacaoFiscal;
+	private OperacaoFiscalEntity operacaoFiscal;
 
 	@OneToMany(mappedBy="configuracaoTributaria",fetch=FetchType.EAGER)
 	private List<ICMSConfiguracaoTributaria> listaIcms = new ArrayList<ICMSConfiguracaoTributaria>();
@@ -90,11 +90,11 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 		this.grupoTributario = grupoTributario;
 	}
 
-	public OperacaoFiscal getOperacaoFiscal() {
+	public OperacaoFiscalEntity getOperacaoFiscal() {
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(OperacaoFiscalEntity operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
 

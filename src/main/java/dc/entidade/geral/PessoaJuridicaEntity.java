@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -74,9 +75,17 @@ public class PessoaJuridicaEntity implements Serializable {
 	@Column(name = "SUFRAMA", length = 9)
 	private String suframa;
 
-	@OneToOne(optional = true)
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaJuridicaEntity() {
 
@@ -85,6 +94,10 @@ public class PessoaJuridicaEntity implements Serializable {
 	public PessoaJuridicaEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	public Integer getId() {
 		return id;
@@ -102,28 +115,20 @@ public class PessoaJuridicaEntity implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public String getInscricaoMunicipal() {
-		return inscricaoMunicipal;
-	}
-
-	public void setInscricaoMunicipal(String inscricaoMunicipal) {
-		this.inscricaoMunicipal = inscricaoMunicipal;
-	}
-
-	public Date getDataConstituicao() {
-		return dataConstituicao;
-	}
-
-	public void setDataConstituicao(Date dataConstituicao) {
-		this.dataConstituicao = dataConstituicao;
-	}
-
 	public String getFantasia() {
 		return fantasia;
 	}
 
 	public void setFantasia(String fantasia) {
 		this.fantasia = fantasia;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
 	}
 
 	public String getInscricaoEstadual() {
@@ -134,12 +139,28 @@ public class PessoaJuridicaEntity implements Serializable {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
+	public Date getDataConstituicao() {
+		return dataConstituicao;
+	}
+
+	public void setDataConstituicao(Date dataConstituicao) {
+		this.dataConstituicao = dataConstituicao;
+	}
+
 	public Character getTipoRegime() {
 		return tipoRegime;
 	}
 
 	public void setTipoRegime(Character tipoRegime) {
 		this.tipoRegime = tipoRegime;
+	}
+
+	public Character getCrt() {
+		return crt;
+	}
+
+	public void setCrt(Character crt) {
+		this.crt = crt;
 	}
 
 	public String getSuframa() {
@@ -150,27 +171,12 @@ public class PessoaJuridicaEntity implements Serializable {
 		this.suframa = suframa;
 	}
 
-	/**
-	 * @return the pessoa
-	 */
 	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	/**
-	 * @param pessoa
-	 *            the pessoa to set
-	 */
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
-	}
-
-	public Character getCrt() {
-		return crt;
-	}
-
-	public void setCrt(Character crt) {
-		this.crt = crt;
 	}
 
 	/**

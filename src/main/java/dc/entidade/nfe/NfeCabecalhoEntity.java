@@ -34,7 +34,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 
 /**
  * 
@@ -475,7 +475,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_tribut_operacao_fiscal")
 	@Caption(value = "Tributário - Operação fiscal")
-	private OperacaoFiscal tributOperacaoFiscal;
+	private OperacaoFiscalEntity tributOperacaoFiscal;
 
 	@Column(name = "id_venda_cabecalho")
 	@Caption(value = "Venda - Cabeçalho")
@@ -1045,11 +1045,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				: adiantamento);
 	}
 
-	public OperacaoFiscal getTributOperacaoFiscal() {
+	public OperacaoFiscalEntity getTributOperacaoFiscal() {
 		return tributOperacaoFiscal;
 	}
 
-	public void setTributOperacaoFiscal(OperacaoFiscal tributOperacaoFiscal) {
+	public void setTributOperacaoFiscal(OperacaoFiscalEntity tributOperacaoFiscal) {
 		this.tributOperacaoFiscal = tributOperacaoFiscal;
 	}
 

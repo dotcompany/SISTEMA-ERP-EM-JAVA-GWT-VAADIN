@@ -9,7 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.OperacaoFiscalFormController;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.visao.framework.util.ComponentUtil;
 
 public class OperacaoFiscalFormView extends CustomComponent {
@@ -27,7 +27,7 @@ public class OperacaoFiscalFormView extends CustomComponent {
 
 	OperacaoFiscalFormController controller;
 
-	OperacaoFiscal currentBean;
+	OperacaoFiscalEntity currentBean;
 
 	ComboBox cfop;
 

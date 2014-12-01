@@ -20,7 +20,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -87,7 +87,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
-	private ContabilConta contabilConta;
+	private ContabilContaEntity contabilConta;
 
 	public ContaCaixa() {
 
@@ -154,11 +154,11 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 		this.agenciaBanco = agenciaBanco;
 	}
 
-	public ContabilConta getContabilConta() {
+	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
 
-	public void setContabilConta(ContabilConta contabilConta) {
+	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
 	}
 

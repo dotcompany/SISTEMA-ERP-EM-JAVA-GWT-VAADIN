@@ -43,7 +43,7 @@ import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.UFListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutosListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -156,7 +156,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			valido = false;
 		}
 
-		ContabilConta contabilConta = (ContabilConta) subView
+		ContabilContaEntity contabilConta = (ContabilContaEntity) subView
 				.getCbmContabilConta().getValue();
 
 		if (!Validator.validateObject(contabilConta)) {
@@ -332,7 +332,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 		};
 
-		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
+		DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contabilContaDAO,
 				super.getMainController()) {
 

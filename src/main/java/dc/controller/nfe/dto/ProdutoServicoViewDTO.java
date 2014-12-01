@@ -15,7 +15,7 @@ import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.visao.nfe.ProdutoServicoFormView;
 
 public class ProdutoServicoViewDTO implements Serializable {
@@ -27,7 +27,7 @@ public class ProdutoServicoViewDTO implements Serializable {
 
 	public static synchronized void setNfeCabecalhoSubView(
 			NfeCabecalhoEntity nfeCabecalho, ProdutoServicoFormView subView) {
-		OperacaoFiscal operacaoFiscal = nfeCabecalho.getTributOperacaoFiscal();
+		OperacaoFiscalEntity operacaoFiscal = nfeCabecalho.getTributOperacaoFiscal();
 
 		if (operacaoFiscal != null) {
 			subView.getMtoOperacaoFiscal().setValue(operacaoFiscal);

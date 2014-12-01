@@ -125,8 +125,8 @@ public class PessoaFisicaEntity implements Serializable {
 	@JoinColumn(name = "ID_ESTADO_CIVIL")
 	private EstadoCivilEntity estadoCivil;
 
-	@OneToOne(optional = true)
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
 
 	/**
@@ -148,6 +148,10 @@ public class PessoaFisicaEntity implements Serializable {
 	public PessoaFisicaEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	public Integer getId() {
 		return id;
@@ -203,10 +207,6 @@ public class PessoaFisicaEntity implements Serializable {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
-	}
-
-	public void setSexo(Character sexo) {
-		this.sexo = String.valueOf(sexo);
 	}
 
 	public String getNaturalidade() {
@@ -321,32 +321,18 @@ public class PessoaFisicaEntity implements Serializable {
 		this.nomePai = nomePai;
 	}
 
-	/**
-	 * @return the estadoCivil
-	 */
 	public EstadoCivilEntity getEstadoCivil() {
 		return estadoCivil;
 	}
 
-	/**
-	 * @param estadoCivil
-	 *            the estadoCivil to set
-	 */
 	public void setEstadoCivil(EstadoCivilEntity estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
 
-	/**
-	 * @return the pessoa
-	 */
 	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
 
-	/**
-	 * @param pessoa
-	 *            the pessoa to set
-	 */
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}

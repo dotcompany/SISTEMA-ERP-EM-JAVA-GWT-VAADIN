@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.PlanoNaturezaFinanceira;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -93,7 +93,7 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 				PlanoNaturezaFinanceiraListController.class, planonaturezafinanceiraDAO, mainController);
 		subView.getCbPlanoNaturezaFinanceira().setModel(model1);
 
-		DefaultManyToOneComboModel<ContabilConta> model2 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		DefaultManyToOneComboModel<ContabilContaEntity> model2 = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
 				contabilcontaDAO, mainController) {
 			@Override
 			public String getCaptionProperty() {

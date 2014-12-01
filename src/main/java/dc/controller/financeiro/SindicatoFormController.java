@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.Sindicato;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -57,7 +57,7 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 	protected void actionSalvar() {
 		try {
 
-			ContabilConta contabilConta = subView.getCmbContabilConta().getValue();
+			ContabilContaEntity contabilConta = subView.getCmbContabilConta().getValue();
 
 			if (!Validator.validateObject(contabilConta)) {
 				throw new ErroValidacaoException("Informe a Contábil Conta");
@@ -111,7 +111,7 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 	protected void initSubView() {
 		subView = new SindicatoFormView();
 
-		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
 				this.contabilContaDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {

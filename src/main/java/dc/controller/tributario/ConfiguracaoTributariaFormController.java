@@ -26,7 +26,7 @@ import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;
 import dc.entidade.tributario.IPIConfiguracaoTributaria;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.entidade.tributario.PISConfiguracaoTributaria;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UFDAO;
@@ -139,7 +139,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 				grupoTributarioDAO, mainController);
 		subView.getCmbGrupoTributario().setModel(comboModel);
 
-		DefaultManyToOneComboModel<OperacaoFiscal> comboOperacao = new DefaultManyToOneComboModel<OperacaoFiscal>(OperacaoFiscalListController.class,
+		DefaultManyToOneComboModel<OperacaoFiscalEntity> comboOperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(OperacaoFiscalListController.class,
 				operacaoFiscalDAO, mainController);
 		subView.getCmbOperacaoFiscal().setModel(comboOperacao);
 
@@ -331,7 +331,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 				throw new ErroValidacaoException(msgErro);
 			}
 
-			OperacaoFiscal operacao = (OperacaoFiscal) subView.getCmbOperacaoFiscal().getValue();
+			OperacaoFiscalEntity operacao = (OperacaoFiscalEntity) subView.getCmbOperacaoFiscal().getValue();
 			if (operacao == null) {
 				msgErro = "Informe a Operação Fiscal";
 				throw new ErroValidacaoException(msgErro);
@@ -498,7 +498,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return grupoTributarioDAO.listaTodos();
 	}
 
-	public List<OperacaoFiscal> trazerOperacoes() {
+	public List<OperacaoFiscalEntity> trazerOperacoes() {
 		return operacaoFiscalDAO.listaTodos();
 	}
 

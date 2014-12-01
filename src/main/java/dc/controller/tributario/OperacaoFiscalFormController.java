@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.tabelas.Cfop;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.tabelas.CfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
@@ -24,14 +24,14 @@ import dc.visao.tributario.OperacaoFiscalFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscal> {
+public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscalEntity> {
 
 	OperacaoFiscalFormView subView;
 
 	@Autowired
 	OperacaoFiscalDAO dao;
 
-	OperacaoFiscal currentBean;
+	OperacaoFiscalEntity currentBean;
 
 	@Autowired
 	CfopDAO cfopDAO;
@@ -52,7 +52,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new OperacaoFiscal();
+		currentBean = new OperacaoFiscalEntity();
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	}
 
 	@Override
-	public OperacaoFiscal getModelBean() {
+	public OperacaoFiscalEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

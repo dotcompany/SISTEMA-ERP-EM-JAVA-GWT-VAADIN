@@ -14,7 +14,7 @@ import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.pessoal.AtividadeForCliListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.pessoal.SituacaoForCliListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
@@ -116,7 +116,7 @@ public class FornecedorFormController extends
 				SituacaoForCliListController.class, this.situacaoForCliDAO,
 				super.getMainController());
 
-		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
+		DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contabilContaDAO,
 				super.getMainController()) {
 

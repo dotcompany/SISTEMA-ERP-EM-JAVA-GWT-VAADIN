@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -30,7 +30,7 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class ContabilContaFormController extends CRUDFormController<ContabilConta> {
+public class ContabilContaFormController extends CRUDFormController<ContabilContaEntity> {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 	@Autowired
 	private PlanoContaRefSpedDAO planoContaRefSpedDAO;
 
-	private ContabilConta currentBean;
+	private ContabilContaEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -99,7 +99,7 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 
 	private void carregarCombos() {
 
-		DefaultManyToOneComboModel<ContabilConta> contabilContaModel = new DefaultManyToOneComboModel<ContabilConta>(
+		DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contabilContaDAO, super.getMainController()) {
 
 			@Override
@@ -160,7 +160,7 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ContabilConta();
+		currentBean = new ContabilContaEntity();
 	}
 
 	@Override
@@ -188,7 +188,7 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 	}
 
 	@Override
-	public ContabilConta getModelBean() {
+	public ContabilContaEntity getModelBean() {
 		return currentBean;
 	}
 }

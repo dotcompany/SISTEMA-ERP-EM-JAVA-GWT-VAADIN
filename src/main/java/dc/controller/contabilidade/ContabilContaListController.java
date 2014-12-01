@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ContabilContaListController extends CRUDListController<ContabilConta> {
+public class ContabilContaListController extends CRUDListController<ContabilContaEntity> {
 
 	/**
 	 * 
@@ -33,8 +33,8 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	}
 
 	@Override
-	public Class<? super ContabilConta> getEntityClass() {
-		return ContabilConta.class;
+	public Class<? super ContabilContaEntity> getEntityClass() {
+		return ContabilContaEntity.class;
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	}
 
 	@Override
-	protected List<ContabilConta> pesquisa(String valor) {
+	protected List<ContabilContaEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ContabilConta> getFormController() {
+	protected CRUDFormController<ContabilContaEntity> getFormController() {
 		return contabilContaFormController;
 	}
 
@@ -67,8 +67,8 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ContabilConta> pesquisaDefault() {
-		return (List<ContabilConta>) dao.getAll(getEntityClass());
+	protected List<ContabilContaEntity> pesquisaDefault() {
+		return (List<ContabilContaEntity>) dao.getAll(getEntityClass());
 	}
 
 }

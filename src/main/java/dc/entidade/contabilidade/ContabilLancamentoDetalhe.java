@@ -38,7 +38,7 @@ public class ContabilLancamentoDetalhe implements Serializable {
     private ContabilHistorico contabilHistorico;
     @JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private ContabilConta contabilConta;
+    private ContabilContaEntity contabilConta;
 
     public ContabilLancamentoDetalhe() {
     }
@@ -91,11 +91,11 @@ public class ContabilLancamentoDetalhe implements Serializable {
         this.contabilHistorico = contabilHistorico;
     }
 
-    public ContabilConta getContabilConta() {
+    public ContabilContaEntity getContabilConta() {
         return contabilConta;
     }
 
-    public void setContabilConta(ContabilConta contabilConta) {
+    public void setContabilConta(ContabilContaEntity contabilConta) {
         this.contabilConta = contabilConta;
     }
 

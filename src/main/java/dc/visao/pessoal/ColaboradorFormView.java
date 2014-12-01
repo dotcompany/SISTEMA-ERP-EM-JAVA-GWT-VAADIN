@@ -14,7 +14,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.pessoal.ColaboradorFormController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
@@ -142,7 +142,7 @@ public class ColaboradorFormView extends CustomComponent {
 	private ManyToOneCombo<Sindicato> cmbSindicato;
 	private ManyToOneCombo<NivelFormacaoEntity> cmbNivelFormacao;
 	private ManyToOneCombo<CargoEntity> cmbCargo;
-	private ManyToOneCombo<ContabilConta> cmbContaContabil;
+	private ManyToOneCombo<ContabilContaEntity> cmbContaContabil;
 	private ManyToOneCombo<Setor> cmbSetor;
 	
 	private ComboBox cmbUf;
@@ -1278,12 +1278,12 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbCargo = cmbCargo;
 	}
 
-	public ManyToOneCombo<ContabilConta> getCmbContaContabil() {
+	public ManyToOneCombo<ContabilContaEntity> getCmbContaContabil() {
 		return cmbContaContabil;
 	}
 
 	public void setCmbContaContabil(
-			ManyToOneCombo<ContabilConta> cmbContaContabil) {
+			ManyToOneCombo<ContabilContaEntity> cmbContaContabil) {
 		this.cmbContaContabil = cmbContaContabil;
 	}
 

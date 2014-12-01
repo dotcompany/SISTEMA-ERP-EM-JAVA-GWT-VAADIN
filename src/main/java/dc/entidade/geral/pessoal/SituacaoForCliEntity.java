@@ -1,14 +1,17 @@
 package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -48,21 +51,40 @@ public class SituacaoForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@Field
-	@Caption("Nome")
 	@Column(name = "NOME")
+	@Caption("Nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
-	@Field
-	@Caption("Descricao")
 	@Lob
 	@Type(type = "text")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	// @Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
 	@Column(name = "DESCRICAO")
+	@Caption("Descrição")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "situacaoForCli", fetch = FetchType.LAZY)
+	private List<ClienteEntity> clienteList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public SituacaoForCliEntity() {
 
@@ -72,6 +94,11 @@ public class SituacaoForCliEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -94,6 +121,14 @@ public class SituacaoForCliEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<ClienteEntity> getClienteList() {
+		return clienteList;
+	}
+
+	public void setClienteList(List<ClienteEntity> clienteList) {
+		this.clienteList = clienteList;
 	}
 
 	/**

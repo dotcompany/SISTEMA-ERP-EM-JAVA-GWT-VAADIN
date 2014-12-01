@@ -29,7 +29,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
@@ -142,7 +142,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
-	private ContabilConta contabilConta;
+	private ContabilContaEntity contabilConta;
 
 	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList;
@@ -357,11 +357,11 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.numDiasIntervalo = numDiasIntervalo;
 	}
 
-	public ContabilConta getContabilConta() {
+	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
 
-	public void setContabilConta(ContabilConta contabilConta) {
+	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
 	}
 

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.ContaCaixaTipoEnum;
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.Empresa;
@@ -116,7 +116,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 		subView.getCmbAgenciaBanco().setModel(model);
 
-		DefaultManyToOneComboModel<ContabilConta> contaModel = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		DefaultManyToOneComboModel<ContabilContaEntity> contaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
 				this.contabilDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -156,7 +156,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.currentBean.setDigito(this.subView.getTxtDigito().getValue());
 
 			this.currentBean.setAgenciaBanco((AgenciaBanco) this.subView.getCmbAgenciaBanco().getValue());
-			this.currentBean.setContabilConta((ContabilConta) this.subView.getCmbContabilConta().getValue());
+			this.currentBean.setContabilConta((ContabilContaEntity) this.subView.getCmbContabilConta().getValue());
 
 			for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {
 				if (en.toString().equals(this.subView.getCmbTipo().getValue().toString())) {

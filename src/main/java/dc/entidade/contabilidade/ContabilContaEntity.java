@@ -14,11 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -29,136 +31,118 @@ import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ClienteEntity;
 
-/**
- * <p>
- * Title: T2Ti ERP
- * </p>
- * <p>
- * Description: VO relacionado a tabela [CONTABIL_CONTA]
- * </p>
- * 
- * <p>
- * The MIT License
- * </p>
- * 
- * <p>
- * Copyright: Copyright (C) 2010 T2Ti.COM
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- * 
- * The author may be contacted at: t2ti.com@gmail.com
- * </p>
- * 
- * @author Claudio de Barros (t2ti.com@gmail.com)
- * @version 1.0
- */
 @Entity
 @Table(name = "CONTABIL_CONTA")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ContabilConta extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_conta_id_seq")
+	@SequenceGenerator(name = "contabil_conta_id_seq", sequenceName = "contabil_conta_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption(value = "Classificação")
 	@Column(name = "CLASSIFICACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Classificação")
 	private String classificacao;
 
+	@Field
+	@Caption(value = "Tipo")
 	@Column(name = "TIPO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Tipo")
 	private String tipo;
 
 	@Field
+	@Caption(value = "Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Descrição")
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption(value = "Data Inclusão")
 	@Column(name = "DATA_INCLUSAO")
 	@ComboValue
-	@Caption(value = "Data Inclusão")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
 
+	@Field
+	@Caption(value = "Situação")
 	@Column(name = "SITUACAO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Situação")
 	private String situacao;
 
+	@Field
+	@Caption(value = "Natureza")
 	@Column(name = "NATUREZA", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Natureza")
 	private String natureza;
 
+	@Field
+	@Caption(value = "Patrimonio Resultado")
 	@Column(name = "PATRIMONIO_RESULTADO", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Patrimonio Resultado")
 	private String patrimonioResultado;
 
+	@Field
+	@Caption(value = "Livro Caixa")
 	@Column(name = "LIVRO_CAIXA", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Livro Caixa")
 	private String livroCaixa;
 
+	@Field
+	@Caption(value = "Dfc")
 	@Column(name = "DFC", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Dfc")
 	private String dfc;
 
+	@Field
+	@Caption(value = "Ordem")
 	@Column(name = "ORDEM")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Ordem")
 	private String ordem;
 
+	@Field
+	@Caption(value = "Código Reduzido")
 	@Column(name = "CODIGO_REDUZIDO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Código Reduzido")
 	private String codigoReduzido;
 
+	@Field
+	@Caption(value = "Código EFD")
 	@Column(name = "CODIGO_EFD", columnDefinition = "bpchar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Código EFD")
 	private String codigoEfd;
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -170,7 +154,14 @@ public class ContabilConta extends AbstractMultiEmpresaModel<Integer> implements
 
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
-	private ContabilConta contabilConta;
+	private ContabilContaEntity contabilConta;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	private List<ClienteEntity> clienteList;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -182,13 +173,22 @@ public class ContabilConta extends AbstractMultiEmpresaModel<Integer> implements
 	private List<ContaCaixa> contaCaixaList;
 
 	/**
+	 * TRANSIENT
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
-	public ContabilConta() {
+	public ContabilContaEntity() {
 
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -309,58 +309,37 @@ public class ContabilConta extends AbstractMultiEmpresaModel<Integer> implements
 		this.planoConta = planoConta;
 	}
 
-	public ContabilConta getContabilConta() {
+	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
 
-	public void setContabilConta(ContabilConta contabilConta) {
+	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
 	}
 
+	public List<ClienteEntity> getClienteList() {
+		return clienteList;
+	}
+
+	public void setClienteList(List<ClienteEntity> clienteList) {
+		this.clienteList = clienteList;
+	}
+
+	public List<ContaCaixa> getContaCaixaList() {
+		return contaCaixaList;
+	}
+
+	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
+		this.contaCaixaList = contaCaixaList;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		if (codigoReduzido == null) {
-			return descricao;
-		}
-
-		return codigoReduzido;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigoReduzido == null) ? 0 : codigoReduzido.hashCode());
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ContabilConta other = (ContabilConta) obj;
-		if (codigoReduzido == null) {
-			if (other.codigoReduzido != null)
-				return false;
-		} else if (!codigoReduzido.equals(other.codigoReduzido))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

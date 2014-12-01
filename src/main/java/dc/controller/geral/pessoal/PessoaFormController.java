@@ -181,21 +181,27 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getGroup().setValue(selected);
 
 			this.subView.getEnderecosSubForm().fillWith(
-					this.currentBean.getEnderecos());
+					this.currentBean.getEnderecoList());
 			this.subView.getContatosSubForm().fillWith(
-					this.currentBean.getContatos());
+					this.currentBean.getContatoList());
 
 			if ("F".equals(this.currentBean.getTipo())) {
-				carregarPessoaFisica(id);
+				this.pessoaFisicaDAO.getEntity(this.currentBean);
+
+				this.currentBean.setPessoaFisica(carregarPessoaFisica());
 			} else if ("J".equals(this.currentBean.getTipo())) {
-				carregarPessoaJuridica(id);
+				this.pessoaJuridicaDAO.getEntity(this.currentBean);
+
+				this.currentBean.setPessoaJuridica(carregarPessoaJuridica());
 			}
+
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void carregarPessoaJuridica(Serializable id) {
+	private PessoaJuridicaEntity carregarPessoaJuridica() {
 		PessoaJuridicaEntity pj = this.currentBean.getPessoaJuridica();
 
 		this.subView.getTxtFantasia().setValue(pj.getFantasia());
@@ -219,9 +225,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getCmbCrt().setValue(
 					CRT.getCRT(String.valueOf(pj.getCrt())));
 		}
+
+		return pj;
 	}
 
-	private void carregarPessoaFisica(Serializable id) {
+	private PessoaFisicaEntity carregarPessoaFisica() {
 		PessoaFisicaEntity pf = this.currentBean.getPessoaFisica();
 
 		this.subView.getTxtCpf().setValue(pf.getCpf());
@@ -273,6 +281,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pf.getTituloEleitoralSecao());
 		this.subView.getTxtTituloZona().setConvertedValue(
 				pf.getTituloEleitoralZona());
+
+		return pf;
 	}
 
 	private boolean isEnabled(Character enabled) {
@@ -325,16 +335,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				// this.pessoaFisicaDAO.delete(this.currentBean.getPessoaFisica());
 			}
 
-			if (this.currentBean.getContatos() == null
-					|| this.currentBean.getContatos().isEmpty()
-					|| this.currentBean.getContatos().size() == 0) {
-				this.currentBean.setContatos(new ArrayList<PessoaContatoEntity>());
+			if (this.currentBean.getContatoList() == null
+					|| this.currentBean.getContatoList().isEmpty()
+					|| this.currentBean.getContatoList().size() == 0) {
+				this.currentBean
+						.setContatoList(new ArrayList<PessoaContatoEntity>());
 			}
 
-			if (this.currentBean.getEnderecos() == null
-					|| this.currentBean.getEnderecos().isEmpty()
-					|| this.currentBean.getEnderecos().size() == 0) {
-				this.currentBean.setEnderecos(new ArrayList<PessoaEnderecoEntity>());
+			if (this.currentBean.getEnderecoList() == null
+					|| this.currentBean.getEnderecoList().isEmpty()
+					|| this.currentBean.getEnderecoList().size() == 0) {
+				this.currentBean
+						.setEnderecoList(new ArrayList<PessoaEnderecoEntity>());
 			}
 
 			this.pessoaDAO.saveOrUpdatePessoa(this.currentBean);
@@ -445,7 +457,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			if (this.subView.getGrpSexo().getValue() != null
 					&& !this.subView.getGrpSexo().getValue().equals("")) {
 				pf.setSexo(this.subView.getGrpSexo().getValue().toString()
-						.charAt(0));
+						.substring(0, 1));
 			}
 
 			pf.setTituloEleitoralNumero(this.subView.getTxtTituloEleitor()

@@ -9,7 +9,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.diversos.OperadoraCartao;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.visao.framework.component.IntegerConverter;
@@ -62,7 +62,7 @@ public class OperadoraCartaoFormView extends CustomComponent {
 	private TextField txtBandeira;
 	
 	private ManyToOneCombo<ContaCaixa> cmbContaCaixa;
-	private ManyToOneCombo<ContabilConta> cmbContabilConta;
+	private ManyToOneCombo<ContabilContaEntity> cmbContabilConta;
 
 	/**
 	 * The constructor should first build the main layout, set the composition
@@ -203,7 +203,7 @@ public class OperadoraCartaoFormView extends CustomComponent {
 	public void preencheOperadoraCartao(OperadoraCartao operadoraCartao) {
 
 		operadoraCartao.setContaCaixa((ContaCaixa) cmbContaCaixa.getValue());
-		operadoraCartao.setContabilConta((ContabilConta) cmbContabilConta.getValue());
+		operadoraCartao.setContabilConta((ContabilContaEntity) cmbContabilConta.getValue());
 		operadoraCartao.setBandeira(txtBandeira.getValue());
 		operadoraCartao.setNome(txtNome.getValue());
 		//operadoraCartao.setVencimentoAluguel(txtVencimentoAluguel.getConvertedValue() != null ? (Integer) txtVencimentoAluguel.getConvertedValue() : 0);
@@ -334,11 +334,11 @@ public class OperadoraCartaoFormView extends CustomComponent {
 		this.cmbContaCaixa = cmbContaCaixa;
 	}
 
-	public ManyToOneCombo<ContabilConta> getCmbContabilConta() {
+	public ManyToOneCombo<ContabilContaEntity> getCmbContabilConta() {
 		return cmbContabilConta;
 	}
 
-	public void setCmbContabilConta(ManyToOneCombo<ContabilConta> cmbContabilConta) {
+	public void setCmbContabilConta(ManyToOneCombo<ContabilContaEntity> cmbContabilConta) {
 		this.cmbContabilConta = cmbContabilConta;
 	}
 	

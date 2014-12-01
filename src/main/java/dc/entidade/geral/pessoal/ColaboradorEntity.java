@@ -30,7 +30,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
@@ -257,7 +257,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
 	@ManyToOne(fetch = FetchType.LAZY)
 	// Carrega o relacionamento no uso.
-	private ContabilConta idContaContabil;
+	private ContabilContaEntity idContaContabil;
 
 	@JoinColumn(name = "ID_CARGO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -821,11 +821,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.feriasPeriodoAquisitivoEntityList = feriasPeriodoAquisitivoEntityList;
 	}
 
-	public ContabilConta getIdContaContabil() {
+	public ContabilContaEntity getIdContaContabil() {
 		return idContaContabil;
 	}
 
-	public void setIdContaContabil(ContabilConta idContaContabil) {
+	public void setIdContaContabil(ContabilContaEntity idContaContabil) {
 		this.idContaContabil = idContaContabil;
 	}
 

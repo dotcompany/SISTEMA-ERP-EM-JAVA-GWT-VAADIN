@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,21 +20,18 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.PessoaEntity;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 
 @Entity
 @Table(name = "cliente")
@@ -59,104 +56,105 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private Integer id;
 
 	@Field
-	@Caption("Desde")
 	@Column(name = "DESDE")
+	@Caption("Desde")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
+	@Field
 	@Column(name = "DATA_CADASTRO")
+	@Caption("Data de cadastro")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Lob
-	@Field
-	@Caption("Observacao")
 	@Type(type = "text")
+	@Field
 	@Column(name = "OBSERVACAO", length = 65535)
+	@Caption("Observação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
-	@Caption("Conta Tomador")
 	@Column(name = "CONTA_TOMADOR")
+	@Caption("Conta do tomador")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaTomador;
 
 	@Field
-	@Caption("Gera Financeiro")
 	@Column(name = "GERA_FINANCEIRO")
+	@Caption("Gera financeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String geraFinanceiro;
 
 	@Field
-	@Caption("Indicador Preco")
 	@Column(name = "INDICADOR_PRECO")
+	@Caption("Indicador de preço")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String indicadorPreco;
 
 	@Field
-	@Caption("Porcento Desconto")
 	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
+	@Caption("Porcento de desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal porcentoDesconto;
 
 	@Field
-	@Caption("Forma Desconto")
 	@Column(name = "FORMA_DESCONTO")
+	@Caption("Forma de desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String formaDesconto;
 
 	@Field
-	@Caption("Limite Credito")
 	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
+	@Caption("Limite de crédito")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal limiteCredito;
 
 	@Field
-	@Caption("Tipo Frete")
 	@Column(name = "TIPO_FRETE")
+	@Caption("Tipo de frete")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoFrete;
 
 	/**
-	 * Mapeamento Situação-Cliente
+	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private SituacaoForCliEntity situacao;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA", insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	@Analyzer(definition = "dc_combo_analyzer")
-	@IndexedEmbedded
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa", nullable = false)
+	@Caption("Pessoa")
 	private PessoaEntity pessoa;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_situacao_for_cli", nullable = false)
+	@Caption("Situação fornecedor / cliente")
+	private SituacaoForCliEntity situacaoForCli;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_atividade_for_cli", nullable = false)
+	@Caption("Atividade fornecedor / cliente")
 	private AtividadeForCliEntity atividadeForCli;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_CONTABIL_CONTA", insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private ContabilConta contabilConta;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_contabil_conta", nullable = false)
+	@Caption("Conta contábil")
+	private ContabilContaEntity contabilConta;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_OPERACAO_FISCAL", insertable = true, updatable = true)
-	@Fetch(FetchMode.JOIN)
-	private OperacaoFiscal operacaoFiscal;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_operacao_fiscal", nullable = false)
+	@Caption("Operação fiscal")
+	private OperacaoFiscalEntity operacaoFiscal;
 
 	/**
 	 * REFERENCIA - LIST
@@ -194,6 +192,10 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
 	@Override
 	public Integer getId() {
 		return id;
@@ -217,44 +219,6 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	/**
-	 * @return the situacao
-	 */
-	public SituacaoForCliEntity getSituacao() {
-		return situacao;
-	}
-
-	/**
-	 * @param situacao
-	 *            the situacao to set
-	 */
-	public void setSituacao(SituacaoForCliEntity situacao) {
-		this.situacao = situacao;
-	}
-
-	// @Override
-	// public int hashCode() {
-	// return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	// }
-	//
-	// @Override
-	// public boolean equals(Object object) {
-	// if (object instanceof Cliente == false)
-	// return false;
-	// if (this == object)
-	// return true;
-	// final Cliente other = (Cliente) object;
-	// return EqualsBuilder.reflectionEquals(this, other);
-	// }
-
-	public PessoaEntity getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(PessoaEntity pessoa) {
-		this.pessoa = pessoa;
 	}
 
 	public String getObservacao() {
@@ -321,6 +285,22 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.tipoFrete = tipoFrete;
 	}
 
+	public PessoaEntity getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaEntity pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public SituacaoForCliEntity getSituacaoForCli() {
+		return situacaoForCli;
+	}
+
+	public void setSituacaoForCli(SituacaoForCliEntity situacaoForCli) {
+		this.situacaoForCli = situacaoForCli;
+	}
+
 	public AtividadeForCliEntity getAtividadeForCli() {
 		return atividadeForCli;
 	}
@@ -329,38 +309,21 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.atividadeForCli = atividadeForCli;
 	}
 
-	public ContabilConta getContabilConta() {
+	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
 
-	public void setContabilConta(ContabilConta contabilConta) {
+	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
 	}
 
-	public OperacaoFiscal getOperacaoFiscal() {
+	public OperacaoFiscalEntity getOperacaoFiscal() {
 		return operacaoFiscal;
 	}
 
-	public void setOperacaoFiscal(OperacaoFiscal operacaoFiscal) {
+	public void setOperacaoFiscal(OperacaoFiscalEntity operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
-
-	/**
-	 * Módulo: NFE
-	 */
-
-	// public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
-	// return nfeCabecalhoList;
-	// }
-
-	// public void setNfeCabecalhoList(List<NfeCabecalhoEntity>
-	// nfeCabecalhoList) {
-	// this.nfeCabecalhoList = nfeCabecalhoList;
-	// }
-
-	/**
-	 * 
-	 */
 
 	/**
 	 * TO STRING

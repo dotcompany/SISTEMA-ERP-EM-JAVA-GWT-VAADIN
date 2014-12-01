@@ -42,7 +42,7 @@ import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.ProdutosFormView;
+import dc.visao.geral.produto.ProdutoFormView;
 
 @Controller
 @Scope("prototype")
@@ -53,7 +53,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ProdutosFormView subView;
+	private ProdutoFormView subView;
 
 	@Autowired
 	private ICMSCustomizadoDAO icmsCustomizadoDAO;
@@ -257,7 +257,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			subView = new ProdutosFormView(this);
+			subView = new ProdutoFormView(this);
 
 			DefaultManyToOneComboModel<SubGrupoEntity> comboSubGrupo = new DefaultManyToOneComboModel<SubGrupoEntity>(
 					SubGrupoProdutoListController.class, subGrupoProdutoDAO,

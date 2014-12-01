@@ -29,6 +29,8 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "pessoa")
@@ -55,35 +57,49 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Tipo")
 	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;
 
 	@Field
+	@Caption()
 	@Column(name = "CLIENTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character cliente;
 
 	@Field
+	@Caption()
 	@Column(name = "FORNECEDOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character fornecedor;
 
 	@Field
+	@Caption()
 	@Column(name = "COLABORADOR")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character colaborador;
 
@@ -94,8 +110,15 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Field
+	@Caption()
 	@Column(name = "TRANSPORTADORA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Character transportadora;
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
 	private PessoaFisicaEntity pessoaFisica;
@@ -103,13 +126,28 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
 	private PessoaJuridicaEntity pessoaJuridica;
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaContatoEntity> contatos = new ArrayList<>();
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaEnderecoEntity> enderecos = new ArrayList<>();
+	private List<PessoaContatoEntity> contatoList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<PessoaEnderecoEntity> enderecoList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	private List<ClienteEntity> clienteList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaEntity() {
 
@@ -118,6 +156,10 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public PessoaEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -220,32 +262,40 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
-	public List<PessoaContatoEntity> getContatos() {
-		return contatos;
+	public List<PessoaContatoEntity> getContatoList() {
+		return contatoList;
 	}
 
-	public void setContatos(List<PessoaContatoEntity> contatos) {
-		this.contatos = contatos;
+	public void setContatoList(List<PessoaContatoEntity> contatoList) {
+		this.contatoList = contatoList;
+	}
+
+	public List<PessoaEnderecoEntity> getEnderecoList() {
+		return enderecoList;
+	}
+
+	public void setEnderecoList(List<PessoaEnderecoEntity> enderecoList) {
+		this.enderecoList = enderecoList;
+	}
+
+	public List<ClienteEntity> getClienteList() {
+		return clienteList;
+	}
+
+	public void setClienteList(List<ClienteEntity> clienteList) {
+		this.clienteList = clienteList;
 	}
 
 	public void adicionarContato(PessoaContatoEntity c) {
-		getContatos().add(c);
+		getContatoList().add(c);
 		// c.setEmpresa(this.getEmpresa());
 		c.setPessoa(this);
 	}
 
 	public void adicionarEndereco(PessoaEnderecoEntity end) {
-		getEnderecos().add(end);
+		getEnderecoList().add(end);
 		end.setEmpresa(this.getEmpresa());
 		end.setPessoa(this);
-	}
-
-	public List<PessoaEnderecoEntity> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<PessoaEnderecoEntity> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 	/**

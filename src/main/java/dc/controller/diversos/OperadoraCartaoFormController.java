@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.diversos.OperadoraCartao;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -108,7 +108,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 		this.subView.getCmbContaCaixa().setModel(model);
 
-		DefaultManyToOneComboModel<ContabilConta> model1 = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
 				this.contabilContaDAO, super.getMainController()) {
 
 			@Override
@@ -149,7 +149,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 		boolean valido = true;
 
-		ContabilConta contabilConta = (ContabilConta) subView.getCmbContabilConta().getValue();
+		ContabilContaEntity contabilConta = (ContabilContaEntity) subView.getCmbContabilConta().getValue();
 		if (!Validator.validateObject(contabilConta)) {
 			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
 			valido = false;

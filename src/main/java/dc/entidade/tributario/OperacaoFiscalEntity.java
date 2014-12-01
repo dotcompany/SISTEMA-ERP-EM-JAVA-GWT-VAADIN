@@ -1,13 +1,16 @@
 package dc.entidade.tributario;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,13 +25,14 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "tribut_operacao_fiscal")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
+public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -50,6 +54,8 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	// private Empresa empresa;
 
 	@Field
+	@Caption("CFOP")
+	@Column(name = "cfop")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer cfop;
@@ -64,17 +70,23 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Descrição na NF")
 	@Column(name = "descricao_na_nf")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoNaNF;
 
 	@Field
 	@Caption("Observações")
+	@Column(name = "observacao")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "operacaoFiscal", fetch = FetchType.LAZY)
+	private List<ClienteEntity> clienteList;
 
 	/**
 	 * Módulo: NFE
@@ -91,7 +103,7 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 	 * CONSTRUTOR
 	 */
 
-	public OperacaoFiscal() {
+	public OperacaoFiscalEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -138,6 +150,14 @@ public class OperacaoFiscal extends AbstractMultiEmpresaModel<Integer>
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public List<ClienteEntity> getClienteList() {
+		return clienteList;
+	}
+
+	public void setClienteList(List<ClienteEntity> clienteList) {
+		this.clienteList = clienteList;
 	}
 
 	/**

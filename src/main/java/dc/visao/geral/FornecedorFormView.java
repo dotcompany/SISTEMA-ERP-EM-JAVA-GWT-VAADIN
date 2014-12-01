@@ -11,7 +11,7 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
@@ -34,7 +34,7 @@ public class FornecedorFormView extends CustomComponent {
 	private ManyToOneCombo<PessoaEntity> cbPessoa;
 	private ManyToOneCombo<SituacaoForCliEntity> cbSituacao;
 	private ManyToOneCombo<AtividadeForCliEntity> cbAtividade;
-	private ManyToOneCombo<ContabilConta> cbContabilConta;
+	private ManyToOneCombo<ContabilContaEntity> cbContabilConta;
 	
 	private PopupDateField dtDesde;
 	private TextField txContaRemetente;
@@ -195,11 +195,11 @@ public class FornecedorFormView extends CustomComponent {
 		this.cbAtividade = cbAtividade;
 	}
 
-	public ManyToOneCombo<ContabilConta> getCbContabilConta() {
+	public ManyToOneCombo<ContabilContaEntity> getCbContabilConta() {
 		return cbContabilConta;
 	}
 
-	public void setCbContabilConta(ManyToOneCombo<ContabilConta> cbContabilConta) {
+	public void setCbContabilConta(ManyToOneCombo<ContabilContaEntity> cbContabilConta) {
 		this.cbContabilConta = cbContabilConta;
 	}
 

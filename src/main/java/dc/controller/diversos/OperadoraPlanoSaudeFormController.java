@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
@@ -66,7 +66,7 @@ public class OperadoraPlanoSaudeFormController extends CRUDFormController<Operad
 	protected void initSubView() {
 		subView = new OperadoraPlanoSaudeFormView();
 
-		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(ContabilContaListController.class,
+		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
 				this.contabilContaDAO, super.getMainController()) {
 
 			@Override

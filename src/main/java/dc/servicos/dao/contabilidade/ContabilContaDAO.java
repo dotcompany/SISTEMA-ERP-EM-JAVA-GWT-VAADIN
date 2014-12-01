@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ContabilContaDAO extends AbstractCrudDAO<ContabilConta> {
+public class ContabilContaDAO extends AbstractCrudDAO<ContabilContaEntity> {
 
 	@Override
-	public Class<ContabilConta> getEntityClass() {
+	public Class<ContabilContaEntity> getEntityClass() {
 		// TODO Auto-generated method stub
-		return ContabilConta.class;
+		return ContabilContaEntity.class;
 	}
 
 	@Override
@@ -22,12 +22,12 @@ public class ContabilContaDAO extends AbstractCrudDAO<ContabilConta> {
 		return null;
 	}
 	@Transactional
-	public List<ContabilConta> listaTodos() {
+	public List<ContabilContaEntity> listaTodos() {
 		return getSession().createQuery("from ContabilConta").list();
 	}
 	
 	@Transactional
-	public List<ContabilConta> query(String q) {
+	public List<ContabilContaEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from ContabilConta where lower(classificacao) like :q").setParameter("q", q).list();
 	}

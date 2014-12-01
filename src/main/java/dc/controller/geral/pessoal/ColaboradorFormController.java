@@ -19,7 +19,7 @@ import dc.controller.diversos.SetorListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.NivelFormacaoListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
@@ -180,7 +180,7 @@ public class ColaboradorFormController extends
 				situacaoColaboradorDAO, super.getMainController());
 		subView.getCmbSituacaoColaborador().setModel(modelSituacaoColaborador);
 
-		DefaultManyToOneComboModel<ContabilConta> model = new DefaultManyToOneComboModel<ContabilConta>(
+		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contabilContaDAO,
 				super.getMainController()) {
 			@Override
@@ -368,7 +368,7 @@ public class ColaboradorFormController extends
 		currentBean.setIdNivelFormacao((NivelFormacaoEntity) subView
 				.getCmbNivelFormacao().getValue());
 		currentBean.setIdCargo((CargoEntity) subView.getCmbCargo().getValue());
-		currentBean.setIdContaContabil((ContabilConta) subView
+		currentBean.setIdContaContabil((ContabilContaEntity) subView
 				.getCmbContaContabil().getValue());
 		currentBean.setDataCadastro(subView.getDtCadastro().getValue());
 		currentBean.setDataAdmissao(subView.getDtAdmissao().getValue());

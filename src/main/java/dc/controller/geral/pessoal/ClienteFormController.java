@@ -14,12 +14,12 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
-import dc.entidade.contabilidade.ContabilConta;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
-import dc.entidade.tributario.OperacaoFiscal;
+import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.entidade.type.pessoal.FormaDescontoType;
 import dc.entidade.type.pessoal.GerarFinanceiroType;
 import dc.entidade.type.pessoal.IndicadorPrecoType;
@@ -101,36 +101,36 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			valido = false;
 		}
 
-		PessoaEntity pessoa = (PessoaEntity) subView.getCmbPessoa().getValue();
+		PessoaEntity pessoa = (PessoaEntity) subView.getMocPessoa().getValue();
 		if (!Validator.validateObject(pessoa)) {
-			adicionarErroDeValidacao(subView.getCmbPessoa(),
+			adicionarErroDeValidacao(subView.getMocPessoa(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		SituacaoForCliEntity situacao = (SituacaoForCliEntity) subView
-				.getCmbSituacao().getValue();
+				.getMocSituacao().getValue();
 		if (!Validator.validateObject(situacao)) {
-			adicionarErroDeValidacao(subView.getCmbSituacao(),
+			adicionarErroDeValidacao(subView.getMocSituacao(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
 		AtividadeForCliEntity atividade = (AtividadeForCliEntity) subView
-				.getCmbAtividade().getValue();
+				.getMocAtividade().getValue();
 		if (!Validator.validateObject(atividade)) {
-			adicionarErroDeValidacao(subView.getCmbAtividade(),
+			adicionarErroDeValidacao(subView.getMocAtividade(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		ContabilConta contabil = (ContabilConta) subView.getCmbContaContabil()
-				.getValue();
+		ContabilContaEntity contabil = (ContabilContaEntity) subView
+				.getMocContaContabil().getValue();
 		if (!Validator.validateObject(contabil)) {
-			adicionarErroDeValidacao(subView.getCmbContaContabil(),
+			adicionarErroDeValidacao(subView.getMocContaContabil(),
 					"Não pode ficar em branco");
 
 			valido = false;
@@ -152,21 +152,21 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 				PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
-		subView.getCmbPessoa().setModel(model);
+		subView.getMocPessoa().setModel(model);
 
 		DefaultManyToOneComboModel<SituacaoForCliEntity> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 				SituacaoForCliListController.class, this.situacaoDAO,
 				super.getMainController());
 
-		subView.getCmbSituacao().setModel(modelsituacao);
+		subView.getMocSituacao().setModel(modelsituacao);
 
 		DefaultManyToOneComboModel<AtividadeForCliEntity> modelatividade = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 				AtividadeForCliListController.class, this.atividadeDAO,
 				super.getMainController());
 
-		subView.getCmbAtividade().setModel(modelatividade);
+		subView.getMocAtividade().setModel(modelatividade);
 
-		DefaultManyToOneComboModel<ContabilConta> modelconta = new DefaultManyToOneComboModel<ContabilConta>(
+		DefaultManyToOneComboModel<ContabilContaEntity> modelconta = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, contaDAO,
 				super.getMainController()) {
 			@Override
@@ -175,13 +175,13 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			}
 		};
 
-		subView.getCmbContaContabil().setModel(modelconta);
+		subView.getMocContaContabil().setModel(modelconta);
 
-		DefaultManyToOneComboModel<OperacaoFiscal> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscal>(
+		DefaultManyToOneComboModel<OperacaoFiscalEntity> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 				OperacaoFiscalListController.class, this.operacaoDAO,
 				super.getMainController());
 
-		subView.getCmbOperacaoFiscal().setModel(modeloperacao);
+		subView.getMocOperacaoFiscal().setModel(modeloperacao);
 
 		/* subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
 

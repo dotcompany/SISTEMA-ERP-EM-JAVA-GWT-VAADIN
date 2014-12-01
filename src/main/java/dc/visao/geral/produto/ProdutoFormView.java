@@ -27,7 +27,7 @@ import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 
-public class ProdutosFormView extends CustomComponent {
+public class ProdutoFormView extends CustomComponent {
 
 	/**
 	 * 
@@ -87,7 +87,7 @@ public class ProdutosFormView extends CustomComponent {
 
 	private ProdutosFormController controller;
 
-	public ProdutosFormView(ProdutosFormController controller) {
+	public ProdutoFormView(ProdutosFormController controller) {
 		this.controller = controller;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
