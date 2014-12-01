@@ -30,6 +30,7 @@ import dc.control.enums.ClasseEn;
 import dc.control.enums.IatEn;
 import dc.control.enums.IpptEn;
 import dc.control.enums.SimNaoEn;
+import dc.control.enums.VendaTipoVendaEn;
 import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -263,9 +264,13 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String exTipi;
 
-	@Column(name = "TIPO")
+	@Field
+	@Caption()
+	@Column(name = "tipo")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	private VendaTipoVendaEn tipoVenda;
 
 	@Field
 	@Caption()
@@ -602,12 +607,12 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.exTipi = exTipi;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public VendaTipoVendaEn getTipoVenda() {
+		return tipoVenda;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoVenda(VendaTipoVendaEn tipoVenda) {
+		this.tipoVenda = tipoVenda;
 	}
 
 	public SimNaoEn getInativo() {

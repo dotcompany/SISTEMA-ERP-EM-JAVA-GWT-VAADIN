@@ -16,7 +16,7 @@ import dc.control.enums.IatEn;
 import dc.control.enums.IpptEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
-import dc.control.enums.TipoVendaEn;
+import dc.control.enums.VendaTipoVendaEn;
 import dc.control.util.ClassUtils;
 import dc.controller.diversos.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
@@ -41,7 +41,6 @@ import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
 import dc.servicos.util.Validator;
-import dc.visao.comercial.VendaFormView.TIPO_VENDA;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.ProdutosFormView;
@@ -308,22 +307,22 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				subView.getTxtExtipi().setValue(extipi);
 			}
 
-			String tipo = currentBean.getTipo();
+			VendaTipoVendaEn tipoVendaEn = this.currentBean.getTipoVenda();
 
-			if (tipo != null) {
-				subView.getCbTipo().setValue(TIPO_VENDA.getTipoVenda(tipo));
+			if (tipoVendaEn != null) {
+				this.subView.getCbTipoVenda().setValue(tipoVendaEn);
 			}
 
 			IatEn iatEn = this.currentBean.getIat();
 
 			if (iatEn != null) {
-				subView.getCbIat().setValue(iatEn);
+				this.subView.getCbIat().setValue(iatEn);
 			}
 
 			IpptEn ipptEn = this.currentBean.getIppt();
 
 			if (ipptEn != null) {
-				subView.getCbIppt().setValue(ipptEn);
+				this.subView.getCbIppt().setValue(ipptEn);
 			}
 
 			/*
@@ -513,12 +512,12 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				this.currentBean.setExTipi(extipi);
 			}
 
-			TIPO_VENDA enumTipoVenda = (TIPO_VENDA) this.subView.getCbTipo()
-					.getValue();
+			VendaTipoVendaEn tipoVendaEn = (VendaTipoVendaEn) this.subView
+					.getCbTipoVenda().getValue();
 
-			if (Validator.validateObject(enumTipoVenda)) {
-				String tipo = enumTipoVenda.getCodigo();
-				this.currentBean.setTipo(tipo);
+			if (Validator.validateObject(tipoVendaEn)) {
+				// String tipo = enumTipoVenda.getCodigo();
+				this.currentBean.setTipoVenda(tipoVendaEn);
 			}
 
 			IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
@@ -671,9 +670,15 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 		}
 	}
 
+	// public void carregarTipoVenda() {
+	// for (TipoVendaEn en : TipoVendaEn.values()) {
+	// this.subView.getCbTipo().addItem(en);
+	// }
+	// }
+
 	public void carregarTipoVenda() {
-		for (TipoVendaEn en : TipoVendaEn.values()) {
-			this.subView.getCbTipo().addItem(en);
+		for (VendaTipoVendaEn en : VendaTipoVendaEn.values()) {
+			this.subView.getCbTipoVenda().addItem(en);
 		}
 	}
 
