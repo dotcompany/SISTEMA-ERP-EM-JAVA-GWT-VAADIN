@@ -30,6 +30,7 @@ import dc.control.enums.ClasseEn;
 import dc.control.enums.IatEn;
 import dc.control.enums.IpptEn;
 import dc.control.enums.SimNaoEn;
+import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
 import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -305,6 +306,14 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Enumerated(EnumType.STRING)
 	private IpptEn ippt;
+
+	@Field
+	@Caption("Tipo Sped")
+	@Column(name = "tipo_item_sped")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private TipoSpedEn tipoSped;
 
 	/**
 	 * REFERENCIA - FK
@@ -647,12 +656,13 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.ippt = ippt;
 	}
 
-	/*
-	 * public TipoSpedEn getTipoItemSped() { return tipoItemSped; }
-	 * 
-	 * public void setTipoItemSped(TipoSpedEn tipoItemSped) { this.tipoItemSped
-	 * = tipoItemSped; }
-	 */
+	public TipoSpedEn getTipoSped() {
+		return tipoSped;
+	}
+
+	public void setTipoSped(TipoSpedEn tipoSped) {
+		this.tipoSped = tipoSped;
+	}
 
 	public SubGrupoEntity getSubGrupo() {
 		return subGrupo;

@@ -71,21 +71,25 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		boolean valido = true;
 
 		Date dataDesde = (Date) subView.getDtDesde().getValue();
+
 		if (!Validator.validateObject(dataDesde)) {
 			adicionarErroDeValidacao(subView.getDtDesde(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtContaTomador().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtContaTomador(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtObservacao(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -93,6 +97,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 				.getConvertedValue().toString())) {
 			adicionarErroDeValidacao(subView.getTxtLimiteCredito(),
 					"Número Inválido");
+
 			valido = false;
 		}
 
@@ -100,6 +105,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		if (!Validator.validateObject(pessoa)) {
 			adicionarErroDeValidacao(subView.getCmbPessoa(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -108,6 +114,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		if (!Validator.validateObject(situacao)) {
 			adicionarErroDeValidacao(subView.getCmbSituacao(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -116,6 +123,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		if (!Validator.validateObject(atividade)) {
 			adicionarErroDeValidacao(subView.getCmbAtividade(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -124,6 +132,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		if (!Validator.validateObject(contabil)) {
 			adicionarErroDeValidacao(subView.getCmbContaContabil(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 

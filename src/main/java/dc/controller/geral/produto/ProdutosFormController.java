@@ -30,7 +30,6 @@ import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSCustomizado;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.diversos.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
@@ -91,6 +90,157 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
+
+		SubGrupoEntity subgrupo = this.subView.getMocSubGrupoProduto()
+				.getValue();
+
+		if (!Validator.validateObject(subgrupo)) {
+			adicionarErroDeValidacao(this.subView.getMocSubGrupoProduto(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		GrupoEntity grupo = this.subView.getMocGrupoProduto().getValue();
+
+		if (!Validator.validateObject(grupo)) {
+			adicionarErroDeValidacao(this.subView.getMocGrupoProduto(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		UnidadeProdutoEntity unidadeProduto = this.subView
+				.getMocUnidadeProduto().getValue();
+
+		if (!Validator.validateObject(unidadeProduto)) {
+			adicionarErroDeValidacao(this.subView.getMocUnidadeProduto(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		MarcaEntity marca = this.subView.getMocMarcaProduto().getValue();
+
+		if (!Validator.validateObject(marca)) {
+			adicionarErroDeValidacao(this.subView.getMocMarcaProduto(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		Almoxarifado almoxarifado = this.subView.getMocAlmoxarifado()
+				.getValue();
+
+		if (!Validator.validateObject(almoxarifado)) {
+			adicionarErroDeValidacao(this.subView.getMocAlmoxarifado(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		NcmEntity ncm = this.subView.getMocNcm().getValue();
+
+		if (!Validator.validateObject(ncm)) {
+			adicionarErroDeValidacao(this.subView.getMocNcm(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		/*
+		 * GrupoTributarioEntity grupoTributario = this.subView
+		 * .getMocGrupoTributario().getValue();
+		 * 
+		 * if (!Validator.validateObject(grupoTributario)) {
+		 * adicionarErroDeValidacao(this.subView.getMocGrupoTributario(),
+		 * "Não pode ficar em branco");
+		 * 
+		 * valido = false; }
+		 */
+
+		SimNaoEn inativoEn = (SimNaoEn) (this.subView.getCbInativo().getValue());
+
+		if (!Validator.validateObject(inativoEn)) {
+			adicionarErroDeValidacao(this.subView.getCbInativo(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		ClasseEn classeEn = (ClasseEn) this.subView.getCbClasse().getValue();
+
+		if (!Validator.validateObject(classeEn)) {
+			adicionarErroDeValidacao(this.subView.getCbClasse(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String lst = this.subView.getTxtLst().getValue();
+
+		if (!Validator.validateString(lst)) {
+			adicionarErroDeValidacao(this.subView.getTxtLst(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String extipi = this.subView.getTxtExtipi().getValue();
+
+		if (!Validator.validateString(extipi)) {
+			adicionarErroDeValidacao(this.subView.getTxtExtipi(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		VendaTipoVendaEn tipoVendaEn = (VendaTipoVendaEn) this.subView
+				.getCbTipoVenda().getValue();
+
+		if (!Validator.validateObject(tipoVendaEn)) {
+			adicionarErroDeValidacao(this.subView.getCbTipoVenda(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
+
+		if (!Validator.validateObject(iatEn)) {
+			adicionarErroDeValidacao(this.subView.getCbIat(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		IpptEn ipptEn = (IpptEn) this.subView.getCbIppt().getValue();
+
+		if (!Validator.validateObject(ipptEn)) {
+			adicionarErroDeValidacao(this.subView.getCbIppt(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView.getCbTipoItemSped()
+				.getValue();
+
+		if (Validator.validateObject(tipoSpedEn)) {
+			adicionarErroDeValidacao(this.subView.getCbTipoItemSped(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String codigoBalanca = this.subView.getTxtCodigoBalanca().getValue();
+
+		if (!Validator.validateString(codigoBalanca)) {
+			adicionarErroDeValidacao(this.subView.getTxtCodigoBalanca(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
 
 		return valido;
 	}
@@ -325,12 +475,11 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 				this.subView.getCbIppt().setValue(ipptEn);
 			}
 
-			/*
-			 * TipoSpedEn tipoSpedEn = this.currentBean.getTipoItemSped();
-			 * 
-			 * if (tipoSpedEn != null) {
-			 * subView.getCbTipoItemSped().setValue(tipoSpedEn); }
-			 */
+			TipoSpedEn tipoSpedEn = this.currentBean.getTipoSped();
+
+			if (tipoSpedEn != null) {
+				subView.getCbTipoItemSped().setValue(tipoSpedEn);
+			}
 
 			String totalizadorParcial = currentBean.getTotalizadorParcial();
 
@@ -409,13 +558,13 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			GrupoTributarioEntity grupoTributario = this.subView
 					.getMocGrupoTributario().getValue();
 
-			if (!Validator.validateObject(subgrupo)) {
-				throw new ErroValidacaoException("Informe o SubGrupo");
-			}
+			// if (!Validator.validateObject(subgrupo)) {
+			// throw new ErroValidacaoException("Informe o SubGrupo");
+			// }
 
-			if (!Validator.validateObject(unidadeProduto)) {
-				throw new ErroValidacaoException("Informe a Unidade");
-			}
+			// if (!Validator.validateObject(unidadeProduto)) {
+			// throw new ErroValidacaoException("Informe a Unidade");
+			// }
 
 			this.currentBean.setSubGrupo(subgrupo);
 			this.currentBean.setGrupo(grupo);
@@ -435,17 +584,17 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			SimNaoEn inativoEn = (SimNaoEn) (this.subView.getCbInativo()
 					.getValue());
 
-			if (Validator.validateObject(inativoEn)) {
-				// String inativo = (inativoEn).getCodigo();
-				this.currentBean.setInativo(inativoEn);
-			}
+			// if (Validator.validateObject(inativoEn)) {
+			// String inativo = (inativoEn).getCodigo();
+			this.currentBean.setInativo(inativoEn);
+			// }
 
 			ClasseEn classeEn = (ClasseEn) this.subView.getCbClasse()
 					.getValue();
 
-			if (classeEn != null) {
-				this.currentBean.setClasse(classeEn);
-			}
+			// if (classeEn != null) {
+			this.currentBean.setClasse(classeEn);
+			// }
 
 			String nome = this.subView.getTxtNome().getValue();
 			this.currentBean.setNome(nome);
@@ -502,45 +651,45 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 			String lst = this.subView.getTxtLst().getValue();
 
-			if (Validator.validateString(lst)) {
-				this.currentBean.setCodigoLst(lst);
-			}
+			// if (Validator.validateString(lst)) {
+			this.currentBean.setCodigoLst(lst);
+			// }
 
 			String extipi = this.subView.getTxtExtipi().getValue();
 
-			if (Validator.validateString(extipi)) {
-				this.currentBean.setExTipi(extipi);
-			}
+			// if (Validator.validateString(extipi)) {
+			this.currentBean.setExTipi(extipi);
+			// }
 
 			VendaTipoVendaEn tipoVendaEn = (VendaTipoVendaEn) this.subView
 					.getCbTipoVenda().getValue();
 
-			if (Validator.validateObject(tipoVendaEn)) {
-				// String tipo = enumTipoVenda.getCodigo();
-				this.currentBean.setTipoVenda(tipoVendaEn);
-			}
+			// if (Validator.validateObject(tipoVendaEn)) {
+			// String tipo = enumTipoVenda.getCodigo();
+			this.currentBean.setTipoVenda(tipoVendaEn);
+			// }
 
 			IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
 
-			if (Validator.validateObject(iatEn)) {
-				// String iat = iatEn.getCodigo();
-				this.currentBean.setIat(iatEn);
-			}
+			// if (Validator.validateObject(iatEn)) {
+			// String iat = iatEn.getCodigo();
+			this.currentBean.setIat(iatEn);
+			// }
 
 			IpptEn ipptEn = (IpptEn) this.subView.getCbIppt().getValue();
 
-			if (Validator.validateObject(ipptEn)) {
-				// String ippt = ipptEn.getCodigo();
-				this.currentBean.setIppt(ipptEn);
-			}
+			// if (Validator.validateObject(ipptEn)) {
+			// String ippt = ipptEn.getCodigo();
+			this.currentBean.setIppt(ipptEn);
+			// }
 
 			TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView
 					.getCbTipoItemSped().getValue();
 
-			if (Validator.validateObject(tipoSpedEn)) {
-				// String sped = tipoSpedEn.getCodigo();
-				// this.currentBean.setTipoItemSped(tipoSpedEn);
-			}
+			// if (Validator.validateObject(tipoSpedEn)) {
+			// String sped = tipoSpedEn.getCodigo();
+			this.currentBean.setTipoSped(tipoSpedEn);
+			// }
 
 			String totalizadorParcial = this.subView.getTxtTotalizadorParcial()
 					.getValue();
@@ -549,9 +698,9 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			String codigoBalanca = this.subView.getTxtCodigoBalanca()
 					.getValue();
 
-			if (Validator.validateString(codigoBalanca)) {
-				this.currentBean.setCodigoBalanca(new Integer(codigoBalanca));
-			}
+			// if (Validator.validateString(codigoBalanca)) {
+			this.currentBean.setCodigoBalanca(new Integer(codigoBalanca));
+			// }
 
 			this.currentBean.setPeso((BigDecimal) this.subView.getTxtPeso()
 					.getConvertedValue());
