@@ -23,7 +23,7 @@ import dc.entidade.tabelas.EfdTabela435;
 import dc.entidade.tabelas.TipoReceitaDipi;
 import dc.entidade.tributario.CofinsConfiguracaoTributaria;
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;
 import dc.entidade.tributario.IPIConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
@@ -135,7 +135,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Override
 	protected void initSubView() {
 		subView = new ConfiguracaoTributariaFormView(this);
-		DefaultManyToOneComboModel<GrupoTributario> comboModel = new DefaultManyToOneComboModel<GrupoTributario>(GrupoTributarioListController.class,
+		DefaultManyToOneComboModel<GrupoTributarioEntity> comboModel = new DefaultManyToOneComboModel<GrupoTributarioEntity>(GrupoTributarioListController.class,
 				grupoTributarioDAO, mainController);
 		subView.getCmbGrupoTributario().setModel(comboModel);
 
@@ -325,7 +325,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		try {
 			currentBean.setEmpresa(empresaAtual());
 			String msgErro = "Problema ao realizar operação";
-			GrupoTributario grupo = (GrupoTributario) subView.getCmbGrupoTributario().getValue();
+			GrupoTributarioEntity grupo = (GrupoTributarioEntity) subView.getCmbGrupoTributario().getValue();
 			if (grupo == null) {
 				msgErro = "Informe o Grupo Tributário";
 				throw new ErroValidacaoException(msgErro);
@@ -494,7 +494,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return true;
 	}
 
-	public List<GrupoTributario> trazerGrupos() {
+	public List<GrupoTributarioEntity> trazerGrupos() {
 		return grupoTributarioDAO.listaTodos();
 	}
 

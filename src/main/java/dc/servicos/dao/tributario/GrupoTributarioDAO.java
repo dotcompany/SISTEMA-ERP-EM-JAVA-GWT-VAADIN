@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,20 +23,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributario>{
+public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributarioEntity>{
 
 	@Override
-	public Class<GrupoTributario> getEntityClass() {
-		return GrupoTributario.class;
+	public Class<GrupoTributarioEntity> getEntityClass() {
+		return GrupoTributarioEntity.class;
 	}
 	
 	@Transactional
-	public List<GrupoTributario> listaTodos() {
+	public List<GrupoTributarioEntity> listaTodos() {
 		return getSession().createQuery("from GrupoTributario").list();
 	}
 
 	@Transactional
-	public List<GrupoTributario> procuraNomeContendo(String query) {
+	public List<GrupoTributarioEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from GrupoTributario where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -45,7 +45,7 @@ public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributario>{
 	}
 	
 	@Transactional
-	public List<GrupoTributario> query(String q) {
+	public List<GrupoTributarioEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from GrupoTributario where lower(descricao) like :q").setParameter("q", q).list();
 	}

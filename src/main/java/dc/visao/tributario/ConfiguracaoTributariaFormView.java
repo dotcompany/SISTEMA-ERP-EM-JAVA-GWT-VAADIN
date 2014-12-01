@@ -27,7 +27,7 @@ import dc.entidade.tabelas.CstPis;
 import dc.entidade.tabelas.EfdTabela435;
 import dc.entidade.tabelas.TipoReceitaDipi;
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscal;
 import dc.visao.framework.component.SubFormComponent;
@@ -51,7 +51,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 
 	ConfiguracaoTributaria currentBean;
 
-	private ManyToOneCombo<GrupoTributario> cmbGrupoTributario;
+	private ManyToOneCombo<GrupoTributarioEntity> cmbGrupoTributario;
 
 	private ManyToOneCombo<OperacaoFiscal> cmbOperacaoFiscal;
 
@@ -108,7 +108,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		// calDataRequisicao
 
 		// cmbGrupoTributario = ComponentUtil.buildComboBox("Grupo Tributário");
-		cmbGrupoTributario = new ManyToOneCombo<GrupoTributario>();
+		cmbGrupoTributario = new ManyToOneCombo<GrupoTributarioEntity>();
 		cmbGrupoTributario.setCaption("Grupo Tributário");
 		// cmbOperacaoFiscal = ComponentUtil.buildComboBox("Operação Fiscal");
 		cmbOperacaoFiscal = new ManyToOneCombo<OperacaoFiscal>();
@@ -157,12 +157,12 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		return mainLayout;
 	}
 
-	public ManyToOneCombo<GrupoTributario> getCmbGrupoTributario() {
+	public ManyToOneCombo<GrupoTributarioEntity> getCmbGrupoTributario() {
 		return cmbGrupoTributario;
 	}
 
 	public void setCmbGrupoTributario(
-			ManyToOneCombo<GrupoTributario> cmbGrupoTributario) {
+			ManyToOneCombo<GrupoTributarioEntity> cmbGrupoTributario) {
 		this.cmbGrupoTributario = cmbGrupoTributario;
 	}
 

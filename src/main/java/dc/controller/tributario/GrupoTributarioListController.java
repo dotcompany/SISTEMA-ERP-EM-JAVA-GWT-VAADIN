@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioListController extends CRUDListController<GrupoTributario> {
+public class GrupoTributarioListController extends CRUDListController<GrupoTributarioEntity> {
 
 	@Autowired
 	GrupoTributarioDAO dao;
@@ -34,8 +34,8 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 	}
 
 	@Override
-	protected List<GrupoTributario> pesquisa(String valor) {
-		return new ArrayList<GrupoTributario>();
+	protected List<GrupoTributarioEntity> pesquisa(String valor) {
+		return new ArrayList<GrupoTributarioEntity>();
 	}
 
 	@Override
@@ -44,24 +44,24 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 	}
 
 	@Override
-	protected CRUDFormController<GrupoTributario> getFormController() {
+	protected CRUDFormController<GrupoTributarioEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super GrupoTributario> getEntityClass() {
-		return GrupoTributario.class;
+	public Class<? super GrupoTributarioEntity> getEntityClass() {
+		return GrupoTributarioEntity.class;
 	}
 
 	@Override
-	protected List<GrupoTributario> pesquisaDefault() {
+	protected List<GrupoTributarioEntity> pesquisaDefault() {
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
 		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
 		 * e.printStackTrace(); }
 		 */
 		//
-		return new ArrayList<GrupoTributario>();
+		return new ArrayList<GrupoTributarioEntity>();
 	}
 
 	@Override

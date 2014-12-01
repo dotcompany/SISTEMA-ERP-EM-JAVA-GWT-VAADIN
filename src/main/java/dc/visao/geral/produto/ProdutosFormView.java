@@ -21,7 +21,7 @@ import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -82,7 +82,7 @@ public class ProdutosFormView extends CustomComponent {
 	private ManyToOneCombo<Almoxarifado> mocAlmoxarifado;
 	private ManyToOneCombo<GrupoEntity> mocGrupoProduto;
 	private ManyToOneCombo<NcmEntity> mocNcm;
-	private ManyToOneCombo<GrupoTributario> mocGrupoTributario;
+	private ManyToOneCombo<GrupoTributarioEntity> mocGrupoTributario;
 	private ManyToOneCombo<ICMSCustomizado> mocIcmsCustomizado;
 
 	private ProdutosFormController controller;
@@ -481,12 +481,12 @@ public class ProdutosFormView extends CustomComponent {
 		this.mocNcm = mocNcm;
 	}
 
-	public ManyToOneCombo<GrupoTributario> getMocGrupoTributario() {
+	public ManyToOneCombo<GrupoTributarioEntity> getMocGrupoTributario() {
 		return mocGrupoTributario;
 	}
 
 	public void setMocGrupoTributario(
-			ManyToOneCombo<GrupoTributario> mocGrupoTributario) {
+			ManyToOneCombo<GrupoTributarioEntity> mocGrupoTributario) {
 		this.mocGrupoTributario = mocGrupoTributario;
 	}
 

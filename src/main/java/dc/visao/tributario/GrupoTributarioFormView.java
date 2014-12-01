@@ -9,7 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.GrupoTributarioFormController;
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.visao.framework.util.ComponentUtil;
 
 @SuppressWarnings("serial")
@@ -23,7 +23,7 @@ public class GrupoTributarioFormView extends CustomComponent {
 
 	GrupoTributarioFormController controller;
 
-	GrupoTributario currentBean;
+	GrupoTributarioEntity currentBean;
 
 	TextField descricao;
 
@@ -168,7 +168,7 @@ public class GrupoTributarioFormView extends CustomComponent {
 	}
 
 
-	public void preencherForm(GrupoTributario bean){
+	public void preencherForm(GrupoTributarioEntity bean){
 		carregarOrigemMercadoria();
 		getDescricao().setValue(bean.getNome());
 		getCmbOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(bean.getOrigemMercadoria()));

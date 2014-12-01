@@ -27,6 +27,22 @@ public class ProdutoDAO extends AbstractCrudDAO<ProdutoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
+	@Transactional
+	public void saveOrUpdateProduto(ProdutoEntity entity) throws Exception {
+		try {
+			//entity.getNcm().getProdutoList().clear();
+			//entity.getSubGrupo().getProdutoList().clear();
+			//entity.getGrupo().getProdutoList().clear();
+			//entity.getMarca().getProdutoList().clear();
+			
+			super.saveOrUpdate(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "gtin", "codigoInterno", "nome", "descricao",
 				"descricaoPdv" };

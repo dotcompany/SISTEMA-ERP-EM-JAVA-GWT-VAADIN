@@ -2,21 +2,21 @@ package dc.control.enums;
 
 public enum TipoSpedEn {
 
-	MERCADORIA_PRA_REVENDA("Mercadoria P/Revenda", "00"),
+	MR("Mercadoria p venda", "00"),
 
-	MATERIA_PRIMA("Matéria Prima", "01"),
+	MP("Matéria prima", "01"),
 
-	EMBALAGEM("Embalagem", "02"),
+	EM("Embalagem", "02"),
 
-	PRODUTO_EM_PROCESSO("Produto em Processo", "03"),
+	PP("Produto em processo", "03"),
 
-	PRODUTO_ACABADO("Produto Acabado", "04"),
+	PA("Produto acabado", "04"),
 
-	SUBPRODUTO("SubProduto", "05"),
+	SP("Subproduto", "05"),
 
-	PRODUTO_INTERMEDIARIO("Produto Intermediário", "06"),
+	PI("Produto intermediário", "06"),
 
-	MATERIAL_USO_CONSUMO("Material de Uso e Consumo", "07");
+	MC("Material de uso e consumo", "07");
 
 	private String label;
 	private String codigo;
@@ -28,35 +28,35 @@ public enum TipoSpedEn {
 
 	public static TipoSpedEn getTipoSped(String codigo) {
 		if (codigo.equals("00")) {
-			return MERCADORIA_PRA_REVENDA;
+			return MR;
 		}
 
 		if (codigo.equals("01")) {
-			return MATERIA_PRIMA;
+			return MP;
 		}
 
 		if (codigo.equals("02")) {
-			return EMBALAGEM;
+			return EM;
 		}
 
 		if (codigo.equals("03")) {
-			return PRODUTO_EM_PROCESSO;
+			return PP;
 		}
 
 		if (codigo.equals("04")) {
-			return PRODUTO_ACABADO;
+			return PA;
 		}
 
 		if (codigo.equals("05")) {
-			return SUBPRODUTO;
+			return SP;
 		}
 
 		if (codigo.equals("06")) {
-			return PRODUTO_INTERMEDIARIO;
+			return PI;
 		}
 
 		if (codigo.equals("07")) {
-			return MATERIAL_USO_CONSUMO;
+			return MC;
 		}
 
 		return null;

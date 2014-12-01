@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.tributario.GrupoTributario;
+import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.util.Validator;
@@ -22,14 +22,14 @@ import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class GrupoTributarioFormController extends CRUDFormController<GrupoTributario> {
+public class GrupoTributarioFormController extends CRUDFormController<GrupoTributarioEntity> {
 
 	GrupoTributarioFormView subView;
 
 	@Autowired
 	GrupoTributarioDAO dao;
 
-	GrupoTributario currentBean;
+	GrupoTributarioEntity currentBean;
 
 	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
 
@@ -47,7 +47,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new GrupoTributario();
+		currentBean = new GrupoTributarioEntity();
 	}
 
 	@Override
@@ -131,12 +131,12 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 		return true;
 	}
 
-	public List<GrupoTributario> trazerTodos() {
+	public List<GrupoTributarioEntity> trazerTodos() {
 		return dao.listaTodos();
 	}
 
 	@Override
-	public GrupoTributario getModelBean() {
+	public GrupoTributarioEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

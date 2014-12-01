@@ -44,7 +44,7 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 	@JoinColumn(name = "id_tribut_grupo_tributario", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Grupo Tributário")
-	private GrupoTributario grupoTributario;
+	private GrupoTributarioEntity grupoTributario;
 
 	@JoinColumn(name = "id_tribut_operacao_fiscal", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -82,11 +82,11 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 //		this.empresa = empresa;
 //	}
 
-	public GrupoTributario getGrupoTributario() {
+	public GrupoTributarioEntity getGrupoTributario() {
 		return grupoTributario;
 	}
 
-	public void setGrupoTributario(GrupoTributario grupoTributario) {
+	public void setGrupoTributario(GrupoTributarioEntity grupoTributario) {
 		this.grupoTributario = grupoTributario;
 	}
 

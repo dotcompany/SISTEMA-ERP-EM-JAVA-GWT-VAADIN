@@ -2,9 +2,9 @@ package dc.control.enums;
 
 public enum IpptEn {
 
-	PROPRIO("Próprio", "1"),
+	P("Próprio", "1"),
 
-	TERCEIRO("Terceiro", "2");
+	T("Terceiro", "2");
 
 	private String label;
 	private String codigo;
@@ -16,11 +16,11 @@ public enum IpptEn {
 
 	public static IpptEn getiPPT(String codigo) {
 		if (codigo.equals("1")) {
-			return PROPRIO;
+			return P;
 		}
 
 		if (codigo.equals("2")) {
-			return TERCEIRO;
+			return T;
 		}
 
 		return null;

@@ -1,19 +1,20 @@
 package dc.entidade.diversos;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -24,34 +25,47 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-
-/**
- * 
- * @author Wesley Jr /*
- */
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "almoxarifado")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements	Serializable {
+public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "alm")
-	@SequenceGenerator(name = "alm", sequenceName = "almoxarifado_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "almoxarifado_id_seq")
+	@SequenceGenerator(name = "almoxarifado_id_seq", sequenceName = "almoxarifado_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Field
 	private Integer id;
-	
+
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+	private List<ProdutoEntity> produtoList;
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public Almoxarifado() {
 
@@ -61,6 +75,11 @@ public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements	
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -77,23 +96,9 @@ public class Almoxarifado extends AbstractMultiEmpresaModel<Integer> implements	
 		this.nome = nome;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Almoxarifado == false)
-			return false;
-
-		if (this == object)
-			return true;
-
-		final Almoxarifado other = (Almoxarifado) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

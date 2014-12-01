@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -72,6 +73,9 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
 	private List<SubGrupoEntity> subGrupoList;
 
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
+	private List<ProdutoEntity> produtoList;
+
 	/**
 	 * TRANSIENT
 	 */
@@ -115,6 +119,14 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<ProdutoEntity> getProdutoList() {
+		return produtoList;
+	}
+
+	public void setProdutoList(List<ProdutoEntity> produtoList) {
+		this.produtoList = produtoList;
 	}
 
 	/**

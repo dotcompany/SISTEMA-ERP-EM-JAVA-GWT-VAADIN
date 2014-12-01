@@ -1,4 +1,4 @@
-package dc.entidade.geral.produto;
+package dc.entidade.tributario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,36 +7,33 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Type;
+import org.apache.solr.client.solrj.beans.Field;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
-@Table(name = "unidade_produto")
+@Table(name = "tribut_grupo_tributario")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
+public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 		implements Serializable {
 
 	/**
@@ -46,54 +43,50 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unidade_produto_id_seq")
-	@SequenceGenerator(name = "unidade_produto_id_seq", sequenceName = "unidade_produto_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tribut_grupo_tributario_id_seq")
+	@SequenceGenerator(name = "tribut_grupo_tributario_id_seq", sequenceName = "tribut_grupo_tributario_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
-	@Caption("Sigla")
-	@Column(name = "SIGLA", length = 10)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla;
-
-	@Lob
-	@Field
-	@Caption("Nome")
-	@Type(type = "text")
-	@Column(name = "DESCRICAO", length = 65535)
+	@Column(name = "descricao")
+	@Caption("Descrição")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
-	@Field
-	@Caption("Pode fracionar?")
-	@Column(name = "PODE_FRACIONAR")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
-	private SimNaoEn podeFracionar;
+	@Column(name = "ORIGEM_MERCADORIA")
+	private String origemMercadoria;
+
+	private String observacao;
+
+	// @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
+	// @ManyToOne(optional = false)
+	// private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "subGrupo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
 	private List<ProdutoEntity> produtoList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Caption("Origem da Mercadoria")
+	private String origemString;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public UnidadeProdutoEntity() {
+	public GrupoTributarioEntity() {
 
-	}
-
-	public UnidadeProdutoEntity(Integer id) {
-		this.id = id;
 	}
 
 	/**
@@ -109,14 +102,6 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -125,12 +110,20 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nome = nome;
 	}
 
-	public SimNaoEn getPodeFracionar() {
-		return podeFracionar;
+	public String getOrigemMercadoria() {
+		return origemMercadoria;
 	}
 
-	public void setPodeFracionar(SimNaoEn podeFracionar) {
-		this.podeFracionar = podeFracionar;
+	public void setOrigemMercadoria(String origemMercadoria) {
+		this.origemMercadoria = origemMercadoria;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public List<ProdutoEntity> getProdutoList() {
@@ -139,6 +132,29 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setProdutoList(List<ProdutoEntity> produtoList) {
 		this.produtoList = produtoList;
+	}
+
+	public String getOrigemString() {
+		switch (new Integer(this.origemMercadoria)) {
+		case 0:
+			this.origemString = "NACIONAL";
+
+			break;
+		case 1:
+			this.origemString = "ESTRANGEIRA";
+
+			break;
+		default:
+			this.origemString = " ";
+
+			break;
+		}
+
+		return this.origemString;
+	}
+
+	public void setOrigemString(String origemString) {
+		this.origemString = origemString;
 	}
 
 	/**
