@@ -2,7 +2,6 @@ package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +11,10 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.enums.FormaDescontoEn;
+import dc.control.enums.IndicadorPrecoEn;
+import dc.control.enums.SimNaoEn;
+import dc.control.enums.TipoFreteEn;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -21,10 +24,6 @@ import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.entidade.type.pessoal.FormaDescontoType;
-import dc.entidade.type.pessoal.GerarFinanceiroType;
-import dc.entidade.type.pessoal.IndicadorPrecoType;
-import dc.entidade.type.pessoal.TipoFreteType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
@@ -186,7 +185,15 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		DefaultManyToOneComboModel<ContabilContaEntity> modelconta = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contaDAO,
-				super.getMainController());
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				// TODO Auto-generated method stub
+				return "descricao";
+			}
+
+		};
 
 		this.subView.getMocContaContabil().setModel(modelconta);
 
@@ -215,9 +222,14 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		 * getClienteFormaDescontoType());
 		 */
 
-		this.subView.InitCbs(getClienteGerarFinanceiroType(),
-				getClienteIndicadorPrecoType(), getClienteTipoFreteType(),
-				getClienteFormaDescontoType());
+		// this.subView.InitCbs(getClienteGerarFinanceiroType(),
+		// getClienteIndicadorPrecoType(), getClienteTipoFreteType(),
+		// getClienteFormaDescontoType());
+
+		comboGerarFinanceiro();
+		comboFormaDesconto();
+		comboIndicadorPreco();
+		comboTipoFrete();
 	}
 
 	@Override
@@ -349,68 +361,27 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	/** COMBO */
 
-	public List<String> getClienteGerarFinanceiroType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (GerarFinanceiroType en : GerarFinanceiroType.values()) {
-				siLista.add(en.ordinal(), en.toString());
-
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboGerarFinanceiro() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCmbGerarFinanceiro().addItem(en);
 		}
 	}
 
-	public List<String> getClienteIndicadorPrecoType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (IndicadorPrecoType in : IndicadorPrecoType.values()) {
-				siLista.add(in.ordinal(), in.toString());
-
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboIndicadorPreco() {
+		for (IndicadorPrecoEn en : IndicadorPrecoEn.values()) {
+			this.subView.getCmbIndicadorPreco().addItem(en);
 		}
 	}
 
-	public List<String> getClienteTipoFreteType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (TipoFreteType tf : TipoFreteType.values()) {
-				siLista.add(tf.ordinal(), tf.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboTipoFrete() {
+		for (TipoFreteEn en : TipoFreteEn.values()) {
+			this.subView.getCmbTipoFrete().addItem(en);
 		}
 	}
 
-	public List<String> getClienteFormaDescontoType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (FormaDescontoType fd : FormaDescontoType.values()) {
-				siLista.add(fd.ordinal(), fd.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+	public void comboFormaDesconto() {
+		for (FormaDescontoEn en : FormaDescontoEn.values()) {
+			this.subView.getCmbFormaDesconto().addItem(en);
 		}
 	}
 
