@@ -1,6 +1,7 @@
 package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +103,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		}
 
 		PessoaEntity pessoa = (PessoaEntity) subView.getMocPessoa().getValue();
+
 		if (!Validator.validateObject(pessoa)) {
 			adicionarErroDeValidacao(subView.getMocPessoa(),
 					"Não pode ficar em branco");
@@ -111,6 +113,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		SituacaoForCliEntity situacao = (SituacaoForCliEntity) subView
 				.getMocSituacao().getValue();
+
 		if (!Validator.validateObject(situacao)) {
 			adicionarErroDeValidacao(subView.getMocSituacao(),
 					"Não pode ficar em branco");
@@ -120,6 +123,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		AtividadeForCliEntity atividade = (AtividadeForCliEntity) subView
 				.getMocAtividade().getValue();
+
 		if (!Validator.validateObject(atividade)) {
 			adicionarErroDeValidacao(subView.getMocAtividade(),
 					"Não pode ficar em branco");
@@ -127,14 +131,16 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			valido = false;
 		}
 
-		ContabilContaEntity contabil = (ContabilContaEntity) subView
-				.getMocContaContabil().getValue();
-		if (!Validator.validateObject(contabil)) {
-			adicionarErroDeValidacao(subView.getMocContaContabil(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
+		/*
+		 * ContabilContaEntity contabil = (ContabilContaEntity) subView
+		 * .getMocContaContabil().getValue();
+		 * 
+		 * if (!Validator.validateObject(contabil)) {
+		 * adicionarErroDeValidacao(subView.getMocContaContabil(),
+		 * "Não pode ficar em branco");
+		 * 
+		 * valido = false; }
+		 */
 
 		return valido;
 	}
@@ -146,42 +152,49 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	@Override
 	protected void initSubView() {
-		subView = new ClienteFormView(this);
+		this.subView = new ClienteFormView(this);
 
 		DefaultManyToOneComboModel<PessoaEntity> model = new DefaultManyToOneComboModel<PessoaEntity>(
 				PessoaListController.class, this.pessoaDAO,
 				super.getMainController());
 
-		subView.getMocPessoa().setModel(model);
+		this.subView.getMocPessoa().setModel(model);
 
 		DefaultManyToOneComboModel<SituacaoForCliEntity> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 				SituacaoForCliListController.class, this.situacaoDAO,
 				super.getMainController());
 
-		subView.getMocSituacao().setModel(modelsituacao);
+		this.subView.getMocSituacao().setModel(modelsituacao);
 
 		DefaultManyToOneComboModel<AtividadeForCliEntity> modelatividade = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 				AtividadeForCliListController.class, this.atividadeDAO,
 				super.getMainController());
 
-		subView.getMocAtividade().setModel(modelatividade);
+		this.subView.getMocAtividade().setModel(modelatividade);
+
+		/*
+		 * DefaultManyToOneComboModel<ContabilContaEntity> modelconta = new
+		 * DefaultManyToOneComboModel<ContabilContaEntity>(
+		 * ContabilContaListController.class, contaDAO,
+		 * super.getMainController()) {
+		 * 
+		 * @Override public String getCaptionProperty() { return
+		 * "codigoReduzido"; }
+		 * 
+		 * };
+		 */
 
 		DefaultManyToOneComboModel<ContabilContaEntity> modelconta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, contaDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "codigoReduzido";
-			}
-		};
+				ContabilContaListController.class, this.contaDAO,
+				super.getMainController());
 
-		subView.getMocContaContabil().setModel(modelconta);
+		this.subView.getMocContaContabil().setModel(modelconta);
 
 		DefaultManyToOneComboModel<OperacaoFiscalEntity> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 				OperacaoFiscalListController.class, this.operacaoDAO,
 				super.getMainController());
 
-		subView.getMocOperacaoFiscal().setModel(modeloperacao);
+		this.subView.getMocOperacaoFiscal().setModel(modeloperacao);
 
 		/* subView.getCmbGerarFinanceiro.setValue(GerarFinanceiroType); */
 
@@ -209,75 +222,95 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = clienteDAO.find(id);
+		try {
+			this.currentBean = this.clienteDAO.find(id);
 
-		subView.preencheClienteForm(currentBean);
+			this.subView.getMocPessoa().setValue(this.currentBean.getPessoa());
+			this.subView.getMocContaContabil().setValue(
+					this.currentBean.getContabilConta());
+			this.subView.getMocSituacao().setValue(
+					this.currentBean.getSituacaoForCli());
+			this.subView.getMocAtividade().setValue(
+					this.currentBean.getAtividadeForCli());
+			this.subView.getMocOperacaoFiscal().setValue(
+					this.currentBean.getOperacaoFiscal());
 
-		/*
-		 * subView.getDtDesde().setValue(currentBean.getDesde());
-		 * subView.getTxtContaTomador().setValue(currentBean.getContaTomador());
-		 * subView.getTxtObservacao().setValue(currentBean.getObservacao());
-		 * 
-		 * subView.getCmbPessoa().setValue(currentBean.getPessoa());
-		 * 
-		 * subView.getCmbSituacao().setValue(currentBean.getSituacao());
-		 * 
-		 * subView.getCmbAtividade().setValue(currentBean.getAtividadeForCli());
-		 * 
-		 * subView.getCmbContaContabil().setValue(currentBean.getContabilConta())
-		 * ;
-		 * 
-		 * subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal(
-		 * ));
-		 */
+			this.subView.getDtDesde().setValue(this.currentBean.getDesde());
+			this.subView.getTxtContaTomador().setValue(
+					this.currentBean.getContaTomador());
+			this.subView.getTxtObservacao().setValue(
+					this.currentBean.getObservacao());
+			this.subView.getCmbTipoFrete().setValue(
+					this.currentBean.getTipoFrete());
+			this.subView.getCmbFormaDesconto().setValue(
+					this.currentBean.getFormaDesconto());
+			this.subView.getCmbGerarFinanceiro().setValue(
+					this.currentBean.getGeraFinanceiro());
+			this.subView.getCmbIndicadorPreco().setValue(
+					this.currentBean.getIndicadorPreco());
+			this.subView.getTxtTaxaDesconto().setConvertedValue(
+					this.currentBean.getPorcentoDesconto());
+			this.subView.getTxtLimiteCredito().setConvertedValue(
+					this.currentBean.getLimiteCredito());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheCliente(currentBean);
-
-		boolean valido = true;
-
-		/*
-		 * currentBean.setContaTomador(subView.getTxtContaTomador().getValue());
-		 * currentBean.setPessoa((Pessoa) subView.getCmbPessoa().getValue());
-		 * currentBean.setSituacao((SituacaoForCli)
-		 * subView.getCmbSituacao().getValue());
-		 * currentBean.setAtividadeForCli((AtividadeForCli)
-		 * subView.getCmbAtividade().getValue());
-		 * currentBean.setContabilConta((ContabilConta)
-		 * subView.getCmbContaContabil().getValue());
-		 * currentBean.setOperacaoFiscal((OperacaoFiscal)
-		 * subView.getCmbOperacaoFiscal().getValue());
-		 * currentBean.setObservacao(subView.getTxtObservacao().getValue());
-		 */
-
 		try {
-			clienteDAO.saveOrUpdate(currentBean);
+			this.currentBean.setPessoa((PessoaEntity) this.subView
+					.getMocPessoa().getValue());
 
-			/*
-			 * GERAR_FINANCEIRO enumGeraFinanceiro = (GERAR_FINANCEIRO)
-			 * subView.getCmbGerarFinanceiro().getValue(); if
-			 * (Validator.validateObject(enumGeraFinanceiro)) { String
-			 * geraFinanceiro = (enumGeraFinanceiro).getCodigo();
-			 * currentBean.setGeraFinanceiro(geraFinanceiro); }
-			 * 
-			 * FORMA_DESCONTO enumFormaDesconto = (FORMA_DESCONTO)
-			 * subView.getCmbFormaDesconto().getValue(); if
-			 * (Validator.validateObject(enumFormaDesconto)) { String
-			 * formaDesconto = (enumFormaDesconto).getCodigo();
-			 * currentBean.setFormaDesconto(formaDesconto); }
-			 * 
-			 * TIPO_FRETE enumTipoFrete = (TIPO_FRETE)
-			 * subView.getCmbTipoFrete().getValue(); if
-			 * (Validator.validateObject(enumTipoFrete)) { String tipoFrete =
-			 * (enumTipoFrete).getCodigo(); currentBean.setTipoFrete(tipoFrete);
-			 * }
-			 */
+			this.currentBean
+					.setSituacaoForCli((SituacaoForCliEntity) this.subView
+							.getMocSituacao().getValue());
+			this.currentBean
+					.setAtividadeForCli((AtividadeForCliEntity) this.subView
+							.getMocAtividade().getValue());
+
+			if (this.subView.getMocContaContabil().getValue() != null) {
+				this.currentBean
+						.setContabilConta((ContabilContaEntity) this.subView
+								.getMocContaContabil().getValue());
+			}
+
+			if (this.subView.getMocOperacaoFiscal().getValue() != null) {
+				this.currentBean
+						.setOperacaoFiscal((OperacaoFiscalEntity) this.subView
+								.getMocOperacaoFiscal().getValue());
+			}
+
+			this.currentBean.setDesde(this.subView.getDtDesde().getValue());
+			this.currentBean.setContaTomador(this.subView.getTxtContaTomador()
+					.getValue());
+			this.currentBean.setObservacao(this.subView.getTxtObservacao()
+					.getValue());
+			this.currentBean.setTipoFrete((String) this.subView
+					.getCmbTipoFrete().getValue());
+			this.currentBean.setFormaDesconto((String) this.subView
+					.getCmbFormaDesconto().getValue());
+			this.currentBean.setGeraFinanceiro((String) this.subView
+					.getCmbGerarFinanceiro().getValue());
+			this.currentBean.setIndicadorPreco((String) this.subView
+					.getCmbIndicadorPreco().getValue());
+			this.currentBean.setPorcentoDesconto(new BigDecimal(
+					(String) this.subView.getTxtTaxaDesconto()
+							.getConvertedValue()));
+			this.currentBean.setLimiteCredito(new BigDecimal(
+					(String) this.subView.getTxtLimiteCredito()
+							.getConvertedValue()));
+
+			this.clienteDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
