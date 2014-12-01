@@ -328,11 +328,11 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			currentBean = produtoDAO.find(id);
 
 			subView.getMocSubGrupoProduto().setValue(currentBean.getSubGrupo());
-			// subView.getMocUnidadeProduto().setValue(
-			// currentBean.getUnidadeProduto());
+			subView.getMocUnidadeProduto().setValue(
+					currentBean.getUnidadeProduto());
 			subView.getMocMarcaProduto().setValue(currentBean.getMarca());
-			// subView.getMocGrupoTributario().setValue(
-			// currentBean.getGrupoTributario());
+			subView.getMocGrupoTributario().setValue(
+					currentBean.getGrupoTributario());
 
 			subView.getTxtGtin().setValue(currentBean.getGtin());
 			subView.getTxtCodigoInterno().setValue(currentBean.getGtin());
