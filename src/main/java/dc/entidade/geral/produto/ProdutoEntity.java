@@ -326,7 +326,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private MarcaEntity marca;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_almoxarifado", nullable = true)
+	@JoinColumn(name = "id_almoxarifado", nullable = false)
 	@Caption("Almoxarifado")
 	private Almoxarifado almoxarifado;
 
@@ -336,7 +336,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private NcmEntity ncm;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_grupo_tributario", nullable = false)
+	@JoinColumn(name = "id_grupo_tributario", nullable = true)
 	@Caption("Grupo tributário")
 	private GrupoTributarioEntity grupoTributario;
 
