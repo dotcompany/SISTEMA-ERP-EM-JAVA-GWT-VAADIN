@@ -2,13 +2,14 @@ package dc.control.enums;
 
 public enum TipoRegimeEn {
 
-	R("Lucro real", "1"),
+	R("LUCRO REAL", "1"),
 
-	P("Simples presumido", "2"),
+	P("SIMPLES PRESUMIDO", "2"),
 
-	N("Simples nacional", "3");
+	N("SIMPLES NACIONAL", "3");
 
 	private String label;
+
 	private String codigo;
 
 	private TipoRegimeEn(String label, String codigo) {
@@ -16,7 +17,7 @@ public enum TipoRegimeEn {
 		this.codigo = codigo;
 	}
 
-	public static TipoRegimeEn getTipoSped(String codigo) {
+	public static TipoRegimeEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return R;
 		}

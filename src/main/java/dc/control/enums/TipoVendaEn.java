@@ -2,15 +2,15 @@ package dc.control.enums;
 
 public enum TipoVendaEn {
 
-	V("Venda", "1"),
+	V("VENDA", "1"),
 
-	C("Composição", "2"),
+	C("COMPOSIÇÃO", "2"),
 
-	P("Produção", "3"),
+	P("PRODUÇÃO", "3"),
 
-	I("Insumo", "4"),
+	I("INSUMO", "4"),
 
-	U("Uso próprio", "5");
+	U("USO PRÓPRIO", "5");
 
 	private String label;
 
@@ -21,7 +21,7 @@ public enum TipoVendaEn {
 		this.codigo = codigo;
 	}
 
-	public static TipoVendaEn getTipoVenda(String codigo) {
+	public static TipoVendaEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return V;
 		}

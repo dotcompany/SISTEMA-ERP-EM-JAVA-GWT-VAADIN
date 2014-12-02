@@ -2,13 +2,13 @@ package dc.control.enums;
 
 public enum TipoFreteEn {
 
-	E("Emitente", "1"),
+	E("EMITENTE", "1"),
 
-	D("Destinatário", "2"),
+	D("DESTINATÁRIO", "2"),
 
-	S("Sem frete", "3"),
+	S("SEM FRETE", "3"),
 
-	T("Terceiros", "4");
+	T("TERCEIROS", "4");
 
 	private String label;
 
@@ -19,7 +19,7 @@ public enum TipoFreteEn {
 		this.codigo = codigo;
 	}
 
-	public static TipoFreteEn getTipoVenda(String codigo) {
+	public static TipoFreteEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return E;
 		}

@@ -2,11 +2,12 @@ package dc.control.enums;
 
 public enum TipoPessoaEn {
 
-	F("Física", "F"),
+	F("FÍSICA", "F"),
 
-	J("Jurídica", "J");
+	J("JURÍDICA", "J");
 
 	private String label;
+
 	private String codigo;
 
 	private TipoPessoaEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum TipoPessoaEn {
 		this.codigo = codigo;
 	}
 
-	public static TipoPessoaEn getValor(String codigo) {
+	public static TipoPessoaEn getEn(String codigo) {
 		if (codigo.equals("F")) {
 			return F;
 		}

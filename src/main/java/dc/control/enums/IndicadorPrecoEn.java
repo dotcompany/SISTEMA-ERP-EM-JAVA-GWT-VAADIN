@@ -2,11 +2,12 @@ package dc.control.enums;
 
 public enum IndicadorPrecoEn {
 
-	T("Tabela", "1"),
+	T("TABELA", "1"),
 
-	U("Último pedido", "2");
+	U("ÚLTIMO PEDIDO", "2");
 
 	private String label;
+
 	private String codigo;
 
 	private IndicadorPrecoEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum IndicadorPrecoEn {
 		this.codigo = codigo;
 	}
 
-	public static IndicadorPrecoEn getValor(String codigo) {
+	public static IndicadorPrecoEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return T;
 		}

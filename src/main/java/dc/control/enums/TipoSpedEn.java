@@ -2,23 +2,24 @@ package dc.control.enums;
 
 public enum TipoSpedEn {
 
-	MR("Mercadoria p venda", "00"),
+	MR("MERCADORIA P VENDA", "00"),
 
-	MP("Matéria prima", "01"),
+	MP("MATÉRIA PRIMA", "01"),
 
-	EM("Embalagem", "02"),
+	EM("EMBALAGEM", "02"),
 
-	PP("Produto em processo", "03"),
+	PP("PRODUTO EM PROCESSO", "03"),
 
-	PA("Produto acabado", "04"),
+	PA("PRODUTO ACABADO", "04"),
 
-	SP("Subproduto", "05"),
+	SP("SUBPRODUTO", "05"),
 
-	PI("Produto intermediário", "06"),
+	PI("PRODUTO INTERMEDIÁRIO", "06"),
 
-	MC("Material de uso e consumo", "07");
+	MC("MATERIAL DE USO E CONSUMO", "07");
 
 	private String label;
+
 	private String codigo;
 
 	private TipoSpedEn(String label, String codigo) {
@@ -26,7 +27,7 @@ public enum TipoSpedEn {
 		this.codigo = codigo;
 	}
 
-	public static TipoSpedEn getTipoSped(String codigo) {
+	public static TipoSpedEn getEn(String codigo) {
 		if (codigo.equals("00")) {
 			return MR;
 		}

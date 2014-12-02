@@ -7,6 +7,7 @@ public enum SimNaoEn {
 	S("SIM", "1");
 
 	private String label;
+
 	private String codigo;
 
 	private SimNaoEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum SimNaoEn {
 		this.codigo = codigo;
 	}
 
-	public static SimNaoEn getValor(String codigo) {
+	public static SimNaoEn getEn(String codigo) {
 		if (codigo.equals("0")) {
 			return N;
 		}

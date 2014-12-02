@@ -2,17 +2,18 @@ package dc.control.enums;
 
 public enum CnhEn {
 
-	A("A", "1"),
+	A("A", "A"),
 
-	B("B", "2"),
+	B("B", "B"),
 
-	C("C", "3"),
+	C("C", "C"),
 
-	D("D", "4"),
+	D("D", "D"),
 
-	E("E", "5");
+	E("E", "E");
 
 	private String label;
+
 	private String codigo;
 
 	private CnhEn(String label, String codigo) {
@@ -20,24 +21,24 @@ public enum CnhEn {
 		this.codigo = codigo;
 	}
 
-	public static CnhEn getTipoSped(String codigo) {
-		if (codigo.equals("1")) {
+	public static CnhEn getEn(String codigo) {
+		if (codigo.equals("A")) {
 			return A;
 		}
 
-		if (codigo.equals("2")) {
+		if (codigo.equals("B")) {
 			return B;
 		}
 
-		if (codigo.equals("3")) {
+		if (codigo.equals("C")) {
 			return C;
 		}
 
-		if (codigo.equals("4")) {
+		if (codigo.equals("D")) {
 			return D;
 		}
 
-		if (codigo.equals("5")) {
+		if (codigo.equals("E")) {
 			return E;
 		}
 

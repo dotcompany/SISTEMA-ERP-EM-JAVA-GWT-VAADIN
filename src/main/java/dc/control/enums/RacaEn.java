@@ -2,15 +2,16 @@ package dc.control.enums;
 
 public enum RacaEn {
 
-	B("Branco", "1"),
+	B("BRANCO", "1"),
 
-	N("Negro", "2"),
+	N("NEGRO", "2"),
 
-	P("Pardo", "3"),
+	P("PARDO", "3"),
 
-	I("Indio", "4");
+	I("ÍNDIO", "4");
 
 	private String label;
+
 	private String codigo;
 
 	private RacaEn(String label, String codigo) {
@@ -18,7 +19,7 @@ public enum RacaEn {
 		this.codigo = codigo;
 	}
 
-	public static RacaEn getTipoSped(String codigo) {
+	public static RacaEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return B;
 		}

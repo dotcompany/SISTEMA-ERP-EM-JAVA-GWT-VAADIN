@@ -2,13 +2,14 @@ package dc.control.enums;
 
 public enum ClasseEn {
 
-	A("A", "1"),
+	A("A", "A"),
 
-	B("B", "2"),
+	B("B", "B"),
 
-	C("C", "3");
+	C("C", "C");
 
 	private String label;
+
 	private String codigo;
 
 	private ClasseEn(String label, String codigo) {
@@ -16,16 +17,16 @@ public enum ClasseEn {
 		this.codigo = codigo;
 	}
 
-	public static ClasseEn getClasse(String codigo) {
-		if (codigo.equals("1")) {
+	public static ClasseEn getEn(String codigo) {
+		if (codigo.equals("A")) {
 			return A;
 		}
 
-		if (codigo.equals("2")) {
+		if (codigo.equals("B")) {
 			return B;
 		}
 
-		if (codigo.equals("3")) {
+		if (codigo.equals("C")) {
 			return C;
 		}
 

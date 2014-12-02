@@ -2,11 +2,12 @@ package dc.control.enums;
 
 public enum IpptEn {
 
-	P("Próprio", "1"),
+	P("PRÓPRIO", "1"),
 
-	T("Terceiro", "2");
+	T("TERCEIRO", "2");
 
 	private String label;
+
 	private String codigo;
 
 	private IpptEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum IpptEn {
 		this.codigo = codigo;
 	}
 
-	public static IpptEn getiPPT(String codigo) {
+	public static IpptEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return P;
 		}

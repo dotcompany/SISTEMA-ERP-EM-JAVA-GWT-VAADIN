@@ -2,7 +2,6 @@ package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.FormaPagamentoEn;
+import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
@@ -31,10 +32,6 @@ import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
-import dc.entidade.type.pessoal.DescontoPlanoSaudeType;
-import dc.entidade.type.pessoal.FormaPagamentoType;
-import dc.entidade.type.pessoal.OptanteType;
-import dc.entidade.type.pessoal.SaiRaisType;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.diversos.SetorDAO;
@@ -134,10 +131,6 @@ public class ColaboradorFormController extends
 	protected void initSubView() {
 		subView = new ColaboradorFormView(this);
 
-		this.subView.InitCbs(getColaboradorDescontoPlanoSaudeType(),
-				getColaboradorSaiRaisType(), getColaboradorOptanteType(),
-				getColaboradorFormaPagamentoType());
-
 		/* Configura combo Pessoa */
 		// DefaultManyToOneComboModel<Pessoa> model= new
 		// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
@@ -156,6 +149,7 @@ public class ColaboradorFormController extends
 			public String getCaptionProperty() {
 				return "nome";
 			}
+
 		};
 
 		this.subView.getCmbNivelFormacao().setModel(modelNivelFormacao);
@@ -172,7 +166,9 @@ public class ColaboradorFormController extends
 			public String getCaptionProperty() {
 				return "descricao";
 			}
+
 		};
+
 		this.subView.getCmbCargo().setModel(modelCargo);
 
 		DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
@@ -183,11 +179,14 @@ public class ColaboradorFormController extends
 		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
 				ContabilContaListController.class, this.contabilContaDAO,
 				super.getMainController()) {
+
 			@Override
 			public String getCaptionProperty() {
 				return "descricao";
 			}
+
 		};
+
 		this.subView.getCmbContaContabil().setModel(model);
 
 		DefaultManyToOneComboModel<Sindicato> modelSindicato = new DefaultManyToOneComboModel<Sindicato>(
@@ -216,6 +215,11 @@ public class ColaboradorFormController extends
 				super.getMainController());
 
 		this.subView.getCbContaCaixa().setModel(contaCaixa);
+
+		comboDescontoPlanoSaude();
+		comboFormaPagamento();
+		comboOptante();
+		comboSaiRais();
 	}
 
 	@Override
@@ -477,71 +481,31 @@ public class ColaboradorFormController extends
 		return subView;
 	}
 
-	/** COMBOS */
+	/**
+	 * COMBOS
+	 */
 
-	public List<String> getColaboradorDescontoPlanoSaudeType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (DescontoPlanoSaudeType en : DescontoPlanoSaudeType.values()) {
-				siLista.add(en.ordinal(), en.toString());
-
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboDescontoPlanoSaude() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCmbDescontoPlanoSaude().addItem(en);
 		}
 	}
 
-	public List<String> getColaboradorSaiRaisType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (SaiRaisType in : SaiRaisType.values()) {
-				siLista.add(in.ordinal(), in.toString());
-
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboSaiRais() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCmbSaiRais().addItem(en);
 		}
 	}
 
-	public List<String> getColaboradorOptanteType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (OptanteType tf : OptanteType.values()) {
-				siLista.add(tf.ordinal(), tf.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboOptante() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCmbOptante().addItem(en);
 		}
 	}
 
-	public List<String> getColaboradorFormaPagamentoType() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (FormaPagamentoType fd : FormaPagamentoType.values()) {
-				siLista.add(fd.ordinal(), fd.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
+	public void comboFormaPagamento() {
+		for (FormaPagamentoEn en : FormaPagamentoEn.values()) {
+			this.subView.getCmbFormaPagamento().addItem(en);
 		}
 	}
 

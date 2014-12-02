@@ -2,11 +2,12 @@ package dc.control.enums;
 
 public enum IatEn {
 
-	A("Arredondamento", "1"),
+	A("ARREDONDAMENTO", "1"),
 
-	T("Truncamento", "2");
+	T("TRUNCAMENTO", "2");
 
 	private String label;
+
 	private String codigo;
 
 	private IatEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum IatEn {
 		this.codigo = codigo;
 	}
 
-	public static IatEn getIat(String codigo) {
+	public static IatEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return A;
 		}

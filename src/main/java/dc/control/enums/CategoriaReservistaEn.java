@@ -9,6 +9,7 @@ public enum CategoriaReservistaEn {
 	T("3", "3");
 
 	private String label;
+
 	private String codigo;
 
 	private CategoriaReservistaEn(String label, String codigo) {
@@ -16,7 +17,7 @@ public enum CategoriaReservistaEn {
 		this.codigo = codigo;
 	}
 
-	public static CategoriaReservistaEn getTipoSped(String codigo) {
+	public static CategoriaReservistaEn getEn(String codigo) {
 		if (codigo.equals("1")) {
 			return U;
 		}

@@ -7,6 +7,7 @@ public enum SexoEn {
 	M("MASCULINO", "M");
 
 	private String label;
+
 	private String codigo;
 
 	private SexoEn(String label, String codigo) {
@@ -14,7 +15,7 @@ public enum SexoEn {
 		this.codigo = codigo;
 	}
 
-	public static SexoEn getValor(String codigo) {
+	public static SexoEn getEn(String codigo) {
 		if (codigo.equals("F")) {
 			return F;
 		}

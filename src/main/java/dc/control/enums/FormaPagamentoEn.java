@@ -1,27 +1,33 @@
 package dc.control.enums;
 
-public enum FormaDescontoEn {
+public enum FormaPagamentoEn {
 
-	P("PRODUTO", "1"),
+	D("DINHEIRO", "1"),
 
-	F("FIM DO PRODUTO", "2");
+	Q("CHEQUE", "2"),
+
+	C("CONTA", "3");
 
 	private String label;
 
 	private String codigo;
 
-	private FormaDescontoEn(String label, String codigo) {
+	private FormaPagamentoEn(String label, String codigo) {
 		this.label = label;
 		this.codigo = codigo;
 	}
 
-	public static FormaDescontoEn getEn(String codigo) {
+	public static FormaPagamentoEn getEn(String codigo) {
 		if (codigo.equals("1")) {
-			return P;
+			return D;
 		}
 
 		if (codigo.equals("2")) {
-			return F;
+			return Q;
+		}
+
+		if (codigo.equals("3")) {
+			return C;
 		}
 
 		return null;

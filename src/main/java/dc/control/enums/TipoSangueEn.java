@@ -2,60 +2,61 @@ package dc.control.enums;
 
 public enum TipoSangueEn {
 
-	APO("A+", "1"),
+	APO("A+", "A+"),
 
-	ANE("A-", "2"),
+	ANE("A-", "A-"),
 
-	BPO("B+", "3"),
+	BPO("B+", "B+"),
 
-	BNE("B-", "4"),
+	BNE("B-", "B-"),
 
-	OPO("O+", "5"),
+	OPO("O+", "O+"),
 
-	ONE("O-", "6"),
+	ONE("O-", "O-"),
 
-	ABP("AB+", "7"),
+	ABP("AB+", "AB+"),
 
-	ABN("AB-", "8");
+	ABN("AB-", "AB-");
+
+	private String label;
+
+	private String codigo;
 
 	private TipoSangueEn(String label, String codigo) {
 		this.label = label;
 		this.codigo = codigo;
 	}
 
-	private String label;
-	private String codigo;
-
-	public static TipoSangueEn getTipoSangue(String codigo) {
-		if (codigo.equals("1")) {
+	public static TipoSangueEn getEn(String codigo) {
+		if (codigo.equals("A+")) {
 			return APO;
 		}
 
-		if (codigo.equals("2")) {
+		if (codigo.equals("A-")) {
 			return ANE;
 		}
 
-		if (codigo.equals("3")) {
+		if (codigo.equals("B+")) {
 			return BPO;
 		}
 
-		if (codigo.equals("4")) {
+		if (codigo.equals("B-")) {
 			return BNE;
 		}
 
-		if (codigo.equals("5")) {
+		if (codigo.equals("O+")) {
 			return OPO;
 		}
 
-		if (codigo.equals("6")) {
+		if (codigo.equals("O-")) {
 			return ONE;
 		}
 
-		if (codigo.equals("7")) {
+		if (codigo.equals("AB+")) {
 			return ABP;
 		}
 
-		if (codigo.equals("8")) {
+		if (codigo.equals("AB-")) {
 			return ABN;
 		}
 
