@@ -79,24 +79,19 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			valido = false;
 		}
 
-		if (!Validator.validateString(this.subView.getTfContaTomador()
-				.getValue())) {
+		String contaTomador = this.subView.getTfContaTomador().getValue();
+
+		if (!Validator.validateString(contaTomador)) {
 			adicionarErroDeValidacao(this.subView.getTfContaTomador(),
 					"Não pode ficar em branco");
 
 			valido = false;
 		}
 
-		if (!Validator
-				.validateString(this.subView.getTfObservacao().getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfObservacao(),
-					"Não pode ficar em branco");
+		String limiteCredito = this.subView.getTfLimiteCredito()
+				.getConvertedValue().toString();
 
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(this.subView.getTfLimiteCredito()
-				.getConvertedValue().toString())) {
+		if (!Validator.validateNumber(limiteCredito)) {
 			adicionarErroDeValidacao(this.subView.getTfLimiteCredito(),
 					"Número Inválido");
 
