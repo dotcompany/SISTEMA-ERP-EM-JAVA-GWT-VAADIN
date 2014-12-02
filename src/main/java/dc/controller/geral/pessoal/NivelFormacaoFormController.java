@@ -45,20 +45,78 @@ public class NivelFormacaoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setNome(subView.getTxtNome().getValue());
-			currentBean.setDescricao(subView.getTxtDescricao().getValue());
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
 
-			nivelFormacaoDAO.saveOrUpdate(currentBean);
+			String grauInstrucaoCaged = (String) this.subView
+					.getTfGrauInstrucaoCaged().getConvertedValue();
+
+			if (grauInstrucaoCaged != null && !grauInstrucaoCaged.equals("")) {
+				this.currentBean.setGrauInstrucaoCaged(Integer
+						.valueOf(grauInstrucaoCaged));
+			}
+
+			String grauInstrucaoRais = (String) this.subView
+					.getTfGrauInstrucaoRais().getConvertedValue();
+
+			if (grauInstrucaoRais != null && !grauInstrucaoRais.equals("")) {
+				this.currentBean.setGrauInstrucaoRais(Integer
+						.valueOf(grauInstrucaoRais));
+			}
+
+			String grauInstrucaoSefip = (String) this.subView
+					.getTfGrauInstrucaoSefip().getConvertedValue();
+
+			if (grauInstrucaoSefip != null && !grauInstrucaoSefip.equals("")) {
+				this.currentBean.setGrauInstrucaoSefip(Integer
+						.valueOf(grauInstrucaoSefip));
+			}
+
+			this.nivelFormacaoDAO.saveOrUpdate(this.currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = nivelFormacaoDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		try {
+			this.currentBean = this.nivelFormacaoDAO.find(id);
+
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+
+			Integer grauInstrucaoCaged = this.currentBean
+					.getGrauInstrucaoCaged();
+
+			if (grauInstrucaoCaged != null) {
+				this.subView.getTfGrauInstrucaoCaged().setValue(
+						grauInstrucaoCaged.toString());
+			}
+
+			Integer grauInstrucaoRais = this.currentBean.getGrauInstrucaoRais();
+
+			if (grauInstrucaoRais != null) {
+				this.subView.getTfGrauInstrucaoRais().setValue(
+						grauInstrucaoRais.toString());
+			}
+
+			Integer grauInstrucaoSefip = this.currentBean
+					.getGrauInstrucaoSefip();
+
+			if (grauInstrucaoSefip != null) {
+				this.subView.getTfGrauInstrucaoSefip().setValue(
+						grauInstrucaoSefip.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -72,7 +130,11 @@ public class NivelFormacaoFormController extends
 
 	@Override
 	protected void initSubView() {
-		subView = new NivelFormacaoFormView();
+		try {
+			this.subView = new NivelFormacaoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -81,23 +143,35 @@ public class NivelFormacaoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new NivelFormacaoEntity();
+		try {
+			this.currentBean = new NivelFormacaoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		nivelFormacaoDAO.deleteAllByIds(ids);
+		try {
+			this.nivelFormacaoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+		if (this.subView.getTfNome().getValue() == null
+				|| this.subView.getTfNome().getValue().isEmpty()) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco!");
 
 			return false;
 		}

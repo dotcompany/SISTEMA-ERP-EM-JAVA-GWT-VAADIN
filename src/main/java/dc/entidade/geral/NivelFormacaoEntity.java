@@ -30,8 +30,8 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -56,28 +56,49 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> impl
 
 	@Lob
 	@Type(type = "text")
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
+	@Field
+	@Caption("Grau de instrução CAGED")
 	@Column(name = "GRAU_INSTRUCAO_CAGED")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer grauInstrucaoCaged;
 
+	@Field
+	@Caption("Grau de instrução SEFIP")
 	@Column(name = "GRAU_INSTRUCAO_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer grauInstrucaoSefip;
 
+	@Field
+	@Caption("Grau de instrução RAIS")
 	@Column(name = "GRAU_INSTRUCAO_RAIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer grauInstrucaoRais;
 
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivelFormacao")
-	// private List<ColaboradorVO> colaboradorVOList;
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public NivelFormacaoEntity() {
 
@@ -86,6 +107,10 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	public NivelFormacaoEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -117,7 +142,8 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	}
 
 	public void setGrauInstrucaoCaged(Integer grauInstrucaoCaged) {
-		this.grauInstrucaoCaged = grauInstrucaoCaged;
+		this.grauInstrucaoCaged = (grauInstrucaoCaged == null ? new Integer(0)
+				: grauInstrucaoCaged);
 	}
 
 	public Integer getGrauInstrucaoSefip() {
@@ -125,7 +151,8 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	}
 
 	public void setGrauInstrucaoSefip(Integer grauInstrucaoSefip) {
-		this.grauInstrucaoSefip = grauInstrucaoSefip;
+		this.grauInstrucaoSefip = (grauInstrucaoSefip == null ? new Integer(0)
+				: grauInstrucaoSefip);
 	}
 
 	public Integer getGrauInstrucaoRais() {
@@ -133,7 +160,8 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	}
 
 	public void setGrauInstrucaoRais(Integer grauInstrucaoRais) {
-		this.grauInstrucaoRais = grauInstrucaoRais;
+		this.grauInstrucaoRais = (grauInstrucaoRais == null ? new Integer(0)
+				: grauInstrucaoRais);
 	}
 
 	/**
