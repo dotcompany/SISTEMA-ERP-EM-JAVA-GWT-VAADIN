@@ -11,10 +11,10 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.tabelas.Cfop;
+import dc.entidade.geral.tabela.Cfop;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.tabelas.CfopDAO;
+import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;

@@ -21,11 +21,11 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.ConfiguracaoTributariaFormController;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.tabelas.CstCofins;
-import dc.entidade.tabelas.CstIpi;
-import dc.entidade.tabelas.CstPis;
-import dc.entidade.tabelas.EfdTabela435;
-import dc.entidade.tabelas.TipoReceitaDipi;
+import dc.entidade.geral.tabela.CstCofins;
+import dc.entidade.geral.tabela.CstIpi;
+import dc.entidade.geral.tabela.CstPis;
+import dc.entidade.geral.tabela.EfdTabela435;
+import dc.entidade.geral.tabela.TipoReceitaDipi;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;

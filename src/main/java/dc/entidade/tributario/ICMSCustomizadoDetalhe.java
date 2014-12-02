@@ -19,9 +19,9 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.tabelas.Cfop;
-import dc.entidade.tabelas.Csosnb;
-import dc.entidade.tabelas.CstIcmsB;
+import dc.entidade.geral.tabela.Cfop;
+import dc.entidade.geral.tabela.Csosnb;
+import dc.entidade.geral.tabela.CstIcmsB;
 
 @Entity
 @Table(name = "tribut_icms_custom_det")

@@ -60,7 +60,7 @@ import com.vaadin.ui.Window;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.ged.DocumentoArquivo;
+import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;

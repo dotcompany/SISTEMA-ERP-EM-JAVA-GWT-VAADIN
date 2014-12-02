@@ -9,7 +9,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.tabelas.CBO;
+import dc.entidade.geral.tabela.CBO;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 public class CargoFormView extends CustomComponent {

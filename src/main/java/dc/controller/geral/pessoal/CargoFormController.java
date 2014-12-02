@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.tabelas.CBOListController;
+import dc.controller.geral.tabela.CBOListController;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.entidade.tabelas.CBO;
+import dc.entidade.geral.tabela.CBO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
-import dc.servicos.dao.tabelas.CBODAO;
+import dc.servicos.dao.geral.tabela.CBODAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
