@@ -230,7 +230,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			@Override
 			public String getCaptionProperty() {
 				// TODO Auto-generated method stub
-				return "descricao";
+				return "nome";
 			}
 
 		};
@@ -249,14 +249,17 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.currentBean = this.clienteDAO.find(id);
 
 			this.subView.getMocPessoa().setValue(this.currentBean.getPessoa());
-			this.subView.getMocContaContabil().setValue(
-					this.currentBean.getContabilConta());
 			this.subView.getMocSituacao().setValue(
 					this.currentBean.getSituacaoForCli());
 			this.subView.getMocAtividade().setValue(
 					this.currentBean.getAtividadeForCli());
-			this.subView.getMocOperacaoFiscal().setValue(
-					this.currentBean.getOperacaoFiscal());
+
+			/*
+			 * this.subView.getMocContaContabil().setValue(
+			 * this.currentBean.getContabilConta());
+			 * this.subView.getMocOperacaoFiscal().setValue(
+			 * this.currentBean.getOperacaoFiscal());
+			 */
 
 			this.subView.getPdfDesde().setValue(this.currentBean.getDesde());
 			this.subView.getTfContaTomador().setValue(

@@ -161,7 +161,7 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList;
 
 	/**
