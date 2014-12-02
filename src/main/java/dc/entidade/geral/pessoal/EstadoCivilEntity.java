@@ -59,9 +59,9 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Type(type = "text")
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

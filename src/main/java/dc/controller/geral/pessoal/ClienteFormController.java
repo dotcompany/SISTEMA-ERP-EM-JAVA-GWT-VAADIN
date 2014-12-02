@@ -240,9 +240,9 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.subView.getCbIndicadorPreco().setValue(
 					this.currentBean.getIndicadorPreco());
 			this.subView.getTfTaxaDesconto().setConvertedValue(
-					this.currentBean.getPorcentoDesconto());
+					this.currentBean.getPorcentoDesconto().toString());
 			this.subView.getTfLimiteCredito().setConvertedValue(
-					this.currentBean.getLimiteCredito());
+					this.currentBean.getLimiteCredito().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 

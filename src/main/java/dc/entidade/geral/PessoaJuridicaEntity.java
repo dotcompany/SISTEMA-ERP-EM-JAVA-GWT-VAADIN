@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -75,8 +74,12 @@ public class PessoaJuridicaEntity implements Serializable {
 	@Column(name = "SUFRAMA", length = 9)
 	private String suframa;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pessoa")
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@OneToOne()
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	/**
