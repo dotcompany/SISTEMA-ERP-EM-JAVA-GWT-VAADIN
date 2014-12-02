@@ -122,11 +122,11 @@ public class PessoaFisicaEntity implements Serializable {
 	 */
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_ESTADO_CIVIL")
+	@JoinColumn(name = "id_estado_civil")
 	private EstadoCivilEntity estadoCivil;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pessoa")
+	@OneToOne()
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	/**

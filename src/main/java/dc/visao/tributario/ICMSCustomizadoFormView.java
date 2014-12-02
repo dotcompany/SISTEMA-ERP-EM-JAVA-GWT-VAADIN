@@ -17,7 +17,7 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.geral.UFFormController;
+import dc.controller.geral.UfFormController;
 import dc.controller.tributario.ICMSCustomizadoFormController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.tributario.ICMSCustomizado;
@@ -54,7 +54,7 @@ public class ICMSCustomizadoFormView extends CustomComponent {
 	UFDAO ufDAO;
 
 	@Autowired
-	UFFormController ufController;
+	UfFormController ufController;
 
 	public ICMSCustomizadoFormView(ICMSCustomizadoFormController controller) {
 		this.controller = controller;

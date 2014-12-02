@@ -17,7 +17,7 @@ import dc.visao.geral.UFFormView;
 
 @Controller
 @Scope("prototype")
-public class UFFormController extends CRUDFormController<UfEntity> {
+public class UfFormController extends CRUDFormController<UfEntity> {
 
 	/**
 	 * 
