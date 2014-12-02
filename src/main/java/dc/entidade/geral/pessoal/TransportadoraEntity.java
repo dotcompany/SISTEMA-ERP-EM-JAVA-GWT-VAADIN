@@ -69,6 +69,22 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private ContabilContaEntity contaContabil;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public TransportadoraEntity() {
 
 	}
@@ -77,6 +93,11 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}

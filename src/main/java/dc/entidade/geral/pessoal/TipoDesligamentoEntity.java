@@ -57,6 +57,22 @@ public class TipoDesligamentoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public TipoDesligamentoEntity() {
 
 	}
@@ -65,6 +81,11 @@ public class TipoDesligamentoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -78,7 +99,8 @@ public class TipoDesligamentoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	/**

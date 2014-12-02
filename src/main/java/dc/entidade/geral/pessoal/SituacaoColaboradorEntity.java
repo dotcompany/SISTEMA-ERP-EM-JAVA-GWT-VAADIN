@@ -30,8 +30,8 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class SituacaoColaboradorEntity extends
+		AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -47,6 +47,8 @@ public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Código")
 	@Column(name = "CODIGO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -60,14 +62,30 @@ public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public SituacaoColaboradorEntity() {
 
@@ -77,6 +95,11 @@ public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -85,12 +108,20 @@ public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer
 		this.id = id;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
+	}
+
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -98,15 +129,8 @@ public class SituacaoColaboradorEntity extends AbstractMultiEmpresaModel<Integer
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	/**

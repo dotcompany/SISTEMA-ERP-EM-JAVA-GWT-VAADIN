@@ -67,6 +67,22 @@ public class TipoColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoColaborador")
 	// private List<ColaboradorVO> colaboradorVOList;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public TipoColaboradorEntity() {
 
 	}
@@ -75,6 +91,11 @@ public class TipoColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -88,7 +109,7 @@ public class TipoColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -96,7 +117,8 @@ public class TipoColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	/**

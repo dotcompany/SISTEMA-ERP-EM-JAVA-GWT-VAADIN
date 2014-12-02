@@ -37,9 +37,12 @@ public class SituacaoColaboradorFormController extends
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+		String nome = subView.getTfNome().getValue();
+
+		if (!Validator.validateString(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco!");
+
 			valido = false;
 		}
 
@@ -53,30 +56,38 @@ public class SituacaoColaboradorFormController extends
 
 	@Override
 	protected void initSubView() {
-		subView = new SituacaoColaboradorFormView();
+		subView = new SituacaoColaboradorFormView(this);
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = situacaoColaboradorDAO.find(id);
+		try {
+			this.currentBean = this.situacaoColaboradorDAO.find(id);
 
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfCodigo().setValue(this.currentBean.getCodigo());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			situacaoColaboradorDAO.saveOrUpdate(currentBean);
+			this.currentBean.setCodigo(this.subView.getTfCodigo().getValue());
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.situacaoColaboradorDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -87,14 +98,20 @@ public class SituacaoColaboradorFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Situação Colaborador";
+		return "Situação do colaborador";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		situacaoColaboradorDAO.deleteAllByIds(ids);
+		try {
+			this.situacaoColaboradorDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

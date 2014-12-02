@@ -127,7 +127,7 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -135,7 +135,8 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public Double getSalario() {

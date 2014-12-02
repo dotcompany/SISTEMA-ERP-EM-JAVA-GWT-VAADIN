@@ -112,7 +112,7 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -120,7 +120,8 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public List<PessoaFisicaEntity> getPessoaFisicaList() {

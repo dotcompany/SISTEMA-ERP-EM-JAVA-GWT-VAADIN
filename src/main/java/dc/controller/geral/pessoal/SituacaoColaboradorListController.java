@@ -23,10 +23,10 @@ public class SituacaoColaboradorListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SituacaoColaboradorDAO dao;
+	private SituacaoColaboradorDAO dao;
 
 	@Autowired
-	SituacaoColaboradorFormController situacaoColaboradorFormController;
+	private SituacaoColaboradorFormController situacaoColaboradorFormController;
 
 	@Override
 	protected CRUDFormController<SituacaoColaboradorEntity> getFormController() {
