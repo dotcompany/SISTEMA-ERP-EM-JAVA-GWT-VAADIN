@@ -22,10 +22,10 @@ public class ClienteListController extends CRUDListController<ClienteEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ClienteDAO dao;
+	private ClienteDAO dao;
 
 	@Autowired
-	ClienteFormController clienteFormController;
+	private ClienteFormController clienteFormController;
 
 	@Override
 	protected CRUDFormController<ClienteEntity> getFormController() {
@@ -35,7 +35,7 @@ public class ClienteListController extends CRUDListController<ClienteEntity> {
 	@Override
 	public String[] getColunas() {
 		return new String[] { "desde", "contaTomador", "observacao",
-				"geraFinanceiro", "indicadorPreco", "tipoFrete",
+				"gerarFinanceiro", "indicadorPreco", "tipoFrete",
 				"formaDesconto", "porcentoDesconto", "limiteCredito" };
 	}
 
