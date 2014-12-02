@@ -158,19 +158,43 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		DefaultManyToOneComboModel<PessoaEntity> model = new DefaultManyToOneComboModel<PessoaEntity>(
 				PessoaListController.class, this.pessoaDAO,
-				super.getMainController());
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				// TODO Auto-generated method stub
+				return "nome";
+			}
+
+		};
 
 		this.subView.getMocPessoa().setModel(model);
 
 		DefaultManyToOneComboModel<SituacaoForCliEntity> modelsituacao = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 				SituacaoForCliListController.class, this.situacaoDAO,
-				super.getMainController());
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				// TODO Auto-generated method stub
+				return "nome";
+			}
+
+		};
 
 		this.subView.getMocSituacao().setModel(modelsituacao);
 
 		DefaultManyToOneComboModel<AtividadeForCliEntity> modelatividade = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 				AtividadeForCliListController.class, this.atividadeDAO,
-				super.getMainController());
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				// TODO Auto-generated method stub
+				return "nome";
+			}
+
+		};
 
 		this.subView.getMocAtividade().setModel(modelatividade);
 
@@ -201,7 +225,15 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 		DefaultManyToOneComboModel<OperacaoFiscalEntity> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 				OperacaoFiscalListController.class, this.operacaoDAO,
-				super.getMainController());
+				super.getMainController()) {
+
+			@Override
+			public String getCaptionProperty() {
+				// TODO Auto-generated method stub
+				return "descricao";
+			}
+
+		};
 
 		this.subView.getMocOperacaoFiscal().setModel(modeloperacao);
 

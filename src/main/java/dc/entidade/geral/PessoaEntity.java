@@ -286,18 +286,6 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.clienteList = clienteList;
 	}
 
-	public void adicionarContato(PessoaContatoEntity c) {
-		getContatoList().add(c);
-		// c.setEmpresa(this.getEmpresa());
-		c.setPessoa(this);
-	}
-
-	public void adicionarEndereco(PessoaEnderecoEntity end) {
-		getEnderecoList().add(end);
-		end.setEmpresa(this.getEmpresa());
-		end.setPessoa(this);
-	}
-
 	/**
 	 * TO STRING
 	 */

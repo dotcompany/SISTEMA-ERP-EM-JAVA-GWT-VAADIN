@@ -40,7 +40,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.controller.geral.UFListController;
+import dc.controller.geral.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -354,7 +354,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		subView.getCmbProduto().setModel(modelProduto);
 
 		DefaultManyToOneComboModel<UfEntity> templateUF = new DefaultManyToOneComboModel<UfEntity>(
-				UFListController.class, this.ufDAO, super.getMainController());
+				UfListController.class, this.ufDAO, super.getMainController());
 
 		DefaultManyToOneComboModel<TemplateEntity> templateModel = new DefaultManyToOneComboModel<TemplateEntity>(
 				TemplateListController.class, this.templateDAO,

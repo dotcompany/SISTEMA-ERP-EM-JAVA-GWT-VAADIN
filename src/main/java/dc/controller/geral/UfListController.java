@@ -14,7 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class UFListController extends CRUDListController<UfEntity> {
+public class UfListController extends CRUDListController<UfEntity> {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class UFListController extends CRUDListController<UfEntity> {
 	private UFDAO dao;
 
 	@Autowired
-	private UFFormController ufFormController;
+	private UfFormController ufFormController;
 
 	@Override
 	public String[] getColunas() {

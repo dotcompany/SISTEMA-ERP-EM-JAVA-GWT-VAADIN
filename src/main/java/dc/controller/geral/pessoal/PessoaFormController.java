@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.UFListController;
+import dc.controller.geral.UfListController;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -519,21 +519,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	public PessoaContatoEntity novoContato() {
 		PessoaContatoEntity c = new PessoaContatoEntity();
-		currentBean.adicionarContato(c);
+		this.currentBean.getContatoList().add(c);
 
 		return c;
 	}
 
 	public PessoaEnderecoEntity novoEndereco() {
 		PessoaEnderecoEntity end = new PessoaEnderecoEntity();
-		currentBean.adicionarEndereco(end);
+		this.currentBean.getEnderecoList().add(end);
 
 		return end;
 	}
 
 	public ManyToOneComboModel<UfEntity> getUfModel() {
 		ManyToOneComboModel<UfEntity> model = new DefaultManyToOneComboModel<UfEntity>(
-				UFListController.class, ufDAO, this.getMainController());
+				UfListController.class, this.ufDAO, this.getMainController());
 
 		return model;
 	}
