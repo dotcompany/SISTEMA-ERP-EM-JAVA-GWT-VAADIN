@@ -254,12 +254,20 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.subView.getMocAtividade().setValue(
 					this.currentBean.getAtividadeForCli());
 
-			/*
-			 * this.subView.getMocContaContabil().setValue(
-			 * this.currentBean.getContabilConta());
-			 * this.subView.getMocOperacaoFiscal().setValue(
-			 * this.currentBean.getOperacaoFiscal());
-			 */
+			OperacaoFiscalEntity operacaoFiscal = this.currentBean
+					.getOperacaoFiscal();
+
+			if (operacaoFiscal != null) {
+				this.subView.getMocOperacaoFiscal().setValue(
+						this.currentBean.getOperacaoFiscal());
+			}
+
+			ContabilContaEntity contabilConta = this.currentBean
+					.getContabilConta();
+
+			if (contabilConta != null) {
+				this.subView.getMocContaContabil().setValue(contabilConta);
+			}
 
 			this.subView.getPdfDesde().setValue(this.currentBean.getDesde());
 			this.subView.getTfContaTomador().setValue(
@@ -302,12 +310,16 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 				this.currentBean
 						.setContabilConta((ContabilContaEntity) this.subView
 								.getMocContaContabil().getValue());
+			} else {
+				this.currentBean.setContabilConta(null);
 			}
 
 			if (this.subView.getMocOperacaoFiscal().getValue() != null) {
 				this.currentBean
 						.setOperacaoFiscal((OperacaoFiscalEntity) this.subView
 								.getMocOperacaoFiscal().getValue());
+			} else {
+				this.currentBean.setOperacaoFiscal(null);
 			}
 
 			this.currentBean.setDesde(this.subView.getPdfDesde().getValue());

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -145,16 +146,16 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_PLANO_CONTA_REF_SPED", nullable = false)
 	private PlanoContaRefSped planoContaRefSped;
 
-	@JoinColumn(name = "ID_PLANO_CONTA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_PLANO_CONTA", nullable = false)
 	private PlanoConta planoConta;
 
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
 	private ContabilContaEntity contabilConta;
 
 	/**
