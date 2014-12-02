@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.NivelFormacaoFormView;
+import dc.visao.geral.pessoal.NivelFormacaoFormView;
 
 @Controller
 @Scope("prototype")
@@ -25,16 +25,16 @@ public class NivelFormacaoFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	NivelFormacaoFormView subView;
+	private NivelFormacaoFormView subView;
 
 	@Autowired
-	NivelFormacaoDAO nivelFormacaoDAO;
+	private NivelFormacaoDAO nivelFormacaoDAO;
 
 	private NivelFormacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Nivel Formação";
+		return "Nivel de formação";
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.SituacaoColaboradorFormView;
+import dc.visao.geral.pessoal.SituacaoColaboradorFormView;
 
 @Controller
 @Scope("prototype")

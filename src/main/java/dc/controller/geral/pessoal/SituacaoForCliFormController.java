@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.SituacaoForCliFormView;
+import dc.visao.geral.pessoal.SituacaoForCliFormView;
 
 @Controller
 @Scope("prototype")

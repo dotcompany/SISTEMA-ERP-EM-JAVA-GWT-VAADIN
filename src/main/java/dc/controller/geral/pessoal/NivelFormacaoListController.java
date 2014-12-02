@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.util.List;
 
@@ -23,10 +23,10 @@ public class NivelFormacaoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NivelFormacaoDAO dao;
+	private NivelFormacaoDAO dao;
 
 	@Autowired
-	NivelFormacaoFormController nivelFormacaoFormController;
+	private NivelFormacaoFormController nivelFormacaoFormController;
 
 	@Override
 	public String[] getColunas() {

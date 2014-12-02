@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.TipoDesligamentoEntity;
 import dc.servicos.dao.geral.pessoal.TipoDesligamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.TipoDesligamentoFormView;
+import dc.visao.geral.pessoal.TipoDesligamentoFormView;
 
 @Controller
 @Scope("prototype")

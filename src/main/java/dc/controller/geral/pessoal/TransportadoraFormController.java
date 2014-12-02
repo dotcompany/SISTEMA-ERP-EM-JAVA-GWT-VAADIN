@@ -20,7 +20,7 @@ import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.TransportadoraFormView;
+import dc.visao.geral.pessoal.TransportadoraFormView;
 
 @Controller
 @Scope("prototype")

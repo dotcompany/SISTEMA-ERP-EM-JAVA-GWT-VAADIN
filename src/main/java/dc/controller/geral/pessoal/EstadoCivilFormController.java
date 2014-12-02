@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.EstadoCivilFormView;
+import dc.visao.geral.pessoal.EstadoCivilFormView;
 
 @Controller
 @Scope("prototype")

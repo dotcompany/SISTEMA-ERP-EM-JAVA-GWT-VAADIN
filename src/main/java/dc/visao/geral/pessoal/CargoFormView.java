@@ -1,4 +1,4 @@
-package dc.visao.pessoal;
+package dc.visao.geral.pessoal;
 
 import java.util.List;
 

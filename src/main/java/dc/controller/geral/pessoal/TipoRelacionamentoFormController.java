@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.TipoRelacionamentoFormView;
+import dc.visao.geral.pessoal.TipoRelacionamentoFormView;
 
 @Controller
 @Scope("prototype")

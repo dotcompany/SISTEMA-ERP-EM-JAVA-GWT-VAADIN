@@ -17,7 +17,7 @@ import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.ContadorFormView;
+import dc.visao.geral.pessoal.ContadorFormView;
 
 @Controller
 @Scope("prototype")

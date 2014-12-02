@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.TipoAdmissaoEntity;
 import dc.servicos.dao.geral.pessoal.TipoAdmissaoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.TipoAdmissaoFormView;
+import dc.visao.geral.pessoal.TipoAdmissaoFormView;
 
 @Controller
 @Scope("prototype")

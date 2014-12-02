@@ -14,7 +14,7 @@ import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.AtividadeForCliFormView;
+import dc.visao.geral.pessoal.AtividadeForCliFormView;
 
 @Controller
 @Scope("prototype")

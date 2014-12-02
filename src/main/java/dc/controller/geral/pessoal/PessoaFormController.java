@@ -41,7 +41,7 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.PessoaFormView;
+import dc.visao.geral.pessoal.PessoaFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller

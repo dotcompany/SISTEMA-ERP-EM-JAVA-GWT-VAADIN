@@ -19,7 +19,6 @@ import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.diversos.SetorListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.financeiro.SindicatoListController;
-import dc.controller.geral.NivelFormacaoListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
@@ -47,7 +46,7 @@ import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.ColaboradorFormView;
+import dc.visao.geral.pessoal.ColaboradorFormView;
 
 @Controller
 @Scope("prototype")

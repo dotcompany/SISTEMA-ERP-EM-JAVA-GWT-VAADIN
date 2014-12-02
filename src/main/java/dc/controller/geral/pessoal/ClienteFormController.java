@@ -33,7 +33,7 @@ import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.ClienteFormView;
+import dc.visao.geral.pessoal.ClienteFormView;
 
 @Controller
 @Scope("prototype")

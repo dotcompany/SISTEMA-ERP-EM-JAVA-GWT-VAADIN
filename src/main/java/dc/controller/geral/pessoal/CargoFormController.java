@@ -18,7 +18,7 @@ import dc.servicos.dao.tabelas.CBODAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.pessoal.CargoFormView;
+import dc.visao.geral.pessoal.CargoFormView;
 
 @Controller
 @Scope("prototype")
