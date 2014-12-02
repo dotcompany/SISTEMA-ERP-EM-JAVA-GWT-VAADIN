@@ -21,7 +21,7 @@ import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
-import dc.servicos.dao.geral.tabela.CstIcmsBDAO;
+import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
 import dc.servicos.dao.tributario.ICMSCustomizadoDetalheDAO;
 import dc.servicos.util.Validator;
@@ -55,7 +55,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	CsosnbDAO csosnbDAO;
 
 	@Autowired
-	CstIcmsBDAO cstbDAO;
+	CstIcmsbDAO cstbDAO;
 
 	@Override
 	public String getViewIdentifier() {

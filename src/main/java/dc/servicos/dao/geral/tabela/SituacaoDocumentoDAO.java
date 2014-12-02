@@ -8,23 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.SituacaoDocumentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class SituacaoDocumentoDAO extends AbstractCrudDAO<SituacaoDocumentoEntity>{
+public class SituacaoDocumentoDAO extends
+		AbstractCrudDAO<SituacaoDocumentoEntity> {
 
 	@Override
 	public Class<SituacaoDocumentoEntity> getEntityClass() {
 		return SituacaoDocumentoEntity.class;
 	}
-	
+
 	@Transactional
 	public List<SituacaoDocumentoEntity> listaTodos() {
 		return getSession().createQuery("from SituacaoDocumento").list();
@@ -32,11 +24,13 @@ public class SituacaoDocumentoDAO extends AbstractCrudDAO<SituacaoDocumentoEntit
 
 	@Transactional
 	public List<SituacaoDocumentoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from SituacaoDocumento where descricao like :q").setParameter("q", "%" + query + "%").list();
+		return getSession()
+				.createQuery("from SituacaoDocumento where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao"};
+		return new String[] { "codigo", "descricao" };
 	}
 
 }

@@ -14,7 +14,7 @@ import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
-import dc.servicos.dao.geral.tabela.CBODAO;
+import dc.servicos.dao.geral.tabela.CboDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,7 +35,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	private CargoDAO cargoDAO;
 
 	@Autowired
-	private CBODAO cboDAO;
+	private CboDAO cboDAO;
 
 	private CargoEntity currentBean;
 
@@ -173,9 +173,13 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cargoDAO.deleteAllByIds(ids);
+		try {
+			this.cargoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

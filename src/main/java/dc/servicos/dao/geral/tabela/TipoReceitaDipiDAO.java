@@ -8,49 +8,40 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.tabela.CstCofinsEntity;
-import dc.entidade.geral.tabela.CstPisEntity;
 import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipiEntity>{
+public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipiEntity> {
 
 	@Override
 	public Class<TipoReceitaDipiEntity> getEntityClass() {
 		return TipoReceitaDipiEntity.class;
 	}
-	
-	
 
 	@Transactional
-	public List<CstCofinsEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from CstCofins where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao", "observacao"};
-	}
-	
-	@Transactional
-	public TipoReceitaDipiEntity procuraPorCodigo(String codigo){
+	public TipoReceitaDipiEntity procuraPorCodigo(String codigo) {
 		TipoReceitaDipiEntity tipo = null;
 		Criteria c = getSession().createCriteria(TipoReceitaDipiEntity.class);
-		if(codigo!=null && !(codigo.isEmpty())){
+
+		if (codigo != null && !(codigo.isEmpty())) {
 			c.add(Restrictions.eq("codigo", codigo));
 		}
-		tipo = (TipoReceitaDipiEntity)c.uniqueResult();
+
+		tipo = (TipoReceitaDipiEntity) c.uniqueResult();
+
 		return tipo;
 	}
 
+	@Transactional
+	public List<CstCofinsEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from CstCofins where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
+	}
+
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "codigo", "descricao", "observacao" };
+	}
 
 }

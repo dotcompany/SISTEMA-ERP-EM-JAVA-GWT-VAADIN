@@ -33,7 +33,7 @@ import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
-import dc.servicos.dao.geral.tabela.CstIcmsBDAO;
+import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
 import dc.servicos.dao.geral.tabela.CstIpiDAO;
 import dc.servicos.dao.geral.tabela.CstPisDAO;
 import dc.servicos.dao.geral.tabela.EfdTabela435DAO;
@@ -104,7 +104,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	CsosnbDAO csosnbDAO;
 
 	@Autowired
-	CstIcmsBDAO cstbDAO;
+	CstIcmsbDAO cstbDAO;
 
 	@Autowired
 	CfopDAO cfopDAO;

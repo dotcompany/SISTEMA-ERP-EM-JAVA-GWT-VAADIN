@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.CboEntity;
-import dc.servicos.dao.geral.tabela.CBODAO;
+import dc.servicos.dao.geral.tabela.CboDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CBOFormView;
 
@@ -28,7 +28,7 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 	CBOFormView subView;
 
 	@Autowired
-	CBODAO cboDAO;
+	CboDAO cboDAO;
 
 	private CboEntity currentBean;
 

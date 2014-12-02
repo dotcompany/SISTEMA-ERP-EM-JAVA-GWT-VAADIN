@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.CboEntity;
-import dc.servicos.dao.geral.tabela.CBODAO;
+import dc.servicos.dao.geral.tabela.CboDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class CboListController extends CRUDListController<CboEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CBODAO dao;
+	CboDAO dao;
 
 	@Autowired
 	CboFormController pController;

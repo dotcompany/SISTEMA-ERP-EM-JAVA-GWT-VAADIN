@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.FeriadoEntity;
-import dc.servicos.dao.geral.tabela.FeriadosDAO;
+import dc.servicos.dao.geral.tabela.FeriadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -27,7 +27,7 @@ public class FeriadosListController extends CRUDListController<FeriadoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private FeriadosDAO feriadosDAO;
+	private FeriadoDAO feriadosDAO;
 
 	@Autowired
 	private FeriadosFormController feriadosFormController;

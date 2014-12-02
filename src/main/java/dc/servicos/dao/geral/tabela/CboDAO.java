@@ -9,15 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- *
- * @author Wesley Jr
- *
- */
-
 @Repository
-@SuppressWarnings("unchecked")
-public class CBODAO extends AbstractCrudDAO<CboEntity> {
+public class CboDAO extends AbstractCrudDAO<CboEntity> {
 
 	@Override
 	public Class<CboEntity> getEntityClass() {
@@ -46,7 +39,7 @@ public class CBODAO extends AbstractCrudDAO<CboEntity> {
 
 			return entity;
 		} catch (Exception e) {
-			return new CboEntity();
+			throw e;
 		}
 	}
 

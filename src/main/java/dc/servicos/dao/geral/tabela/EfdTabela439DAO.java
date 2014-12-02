@@ -8,22 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.EfdTabela439Entity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class EfdTabela439DAO extends AbstractCrudDAO<EfdTabela439Entity>{
+public class EfdTabela439DAO extends AbstractCrudDAO<EfdTabela439Entity> {
 
 	@Override
 	public Class<EfdTabela439Entity> getEntityClass() {
 		return EfdTabela439Entity.class;
 	}
-	
+
 	@Transactional
 	public List<EfdTabela439Entity> listaTodos() {
 		return getSession().createQuery("from EfdTabela439").list();
@@ -31,12 +23,14 @@ public class EfdTabela439DAO extends AbstractCrudDAO<EfdTabela439Entity>{
 
 	@Transactional
 	public List<EfdTabela439Entity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from EfdTabela439 where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao","observacao", "inicioVigencia","fimVigencia"};
+		return getSession()
+				.createQuery("from EfdTabela439 where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "codigo", "descricao", "observacao",
+				"inicioVigencia", "fimVigencia" };
+	}
 
 }

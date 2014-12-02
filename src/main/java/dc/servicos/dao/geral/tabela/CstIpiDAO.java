@@ -7,52 +7,44 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity>{
+public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity> {
 
 	@Override
 	public Class<CstIpiEntity> getEntityClass() {
 		return CstIpiEntity.class;
 	}
-	
+
 	@Transactional
 	public List<CstIpiEntity> listaTodos() {
 		return getSession().createQuery("from CstIpi").list();
 	}
 
 	@Transactional
-	public List<CstIpiEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from CstIpi where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao", "observacao"};
-	}
-	
-	@Transactional
-	public CstIpiEntity procuraPorCodigo(String codigo){
+	public CstIpiEntity procuraPorCodigo(String codigo) {
 		CstIpiEntity cst = null;
 		Criteria c = getSession().createCriteria(CstIpiEntity.class);
-		if(codigo!=null && !(codigo.isEmpty())){
+
+		if (codigo != null && !(codigo.isEmpty())) {
 			c.add(Restrictions.eq("codigo", codigo));
 		}
-		cst = (CstIpiEntity)c.uniqueResult();
+
+		cst = (CstIpiEntity) c.uniqueResult();
+
 		return cst;
 	}
 
+	@Transactional
+	public List<CstIpiEntity> procuraNomeContendo(String query) {
+		return getSession().createQuery("from CstIpi where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
+	}
+
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "codigo", "descricao", "observacao" };
+	}
 
 }

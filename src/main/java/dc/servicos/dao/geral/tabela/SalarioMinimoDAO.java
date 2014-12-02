@@ -8,24 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity>{
+public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity> {
 
 	@Override
 	public Class<SalarioMinimoEntity> getEntityClass() {
 		return SalarioMinimoEntity.class;
 	}
-	
+
 	@Transactional
 	public List<SalarioMinimoEntity> listaTodos() {
 		return getSession().createQuery("from SalarioMinimo").list();
@@ -33,12 +23,14 @@ public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity>{
 
 	@Transactional
 	public List<SalarioMinimoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from SalarioMinimo where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"vigencia","valorMensal","valorDiario","valorHora"};
+		return getSession()
+				.createQuery("from SalarioMinimo where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "vigencia", "valorMensal", "valorDiario",
+				"valorHora" };
+	}
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.CstIcmsbEntity;
-import dc.servicos.dao.geral.tabela.CstIcmsBDAO;
+import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIcmsBFormView;
 
@@ -28,7 +28,7 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsbEntity> {
 	CstIcmsBFormView subView;
 
 	@Autowired
-	CstIcmsBDAO cstIcmsBDAO;
+	CstIcmsbDAO cstIcmsBDAO;
 
 	private CstIcmsbEntity currentBean;
 

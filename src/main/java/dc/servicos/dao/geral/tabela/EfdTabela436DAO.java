@@ -8,24 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.EfdTabela436Entity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class EfdTabela436DAO extends AbstractCrudDAO<EfdTabela436Entity>{
+public class EfdTabela436DAO extends AbstractCrudDAO<EfdTabela436Entity> {
 
 	@Override
 	public Class<EfdTabela436Entity> getEntityClass() {
 		return EfdTabela436Entity.class;
 	}
-	
+
 	@Transactional
 	public List<EfdTabela436Entity> listaTodos() {
 		return getSession().createQuery("from EfdTabela436").list();
@@ -33,12 +23,13 @@ public class EfdTabela436DAO extends AbstractCrudDAO<EfdTabela436Entity>{
 
 	@Transactional
 	public List<EfdTabela436Entity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from EfdTabela436 where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao"};
+		return getSession()
+				.createQuery("from EfdTabela436 where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "codigo", "descricao" };
+	}
 
 }

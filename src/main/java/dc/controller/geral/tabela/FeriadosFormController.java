@@ -13,7 +13,7 @@ import dc.controller.geral.UfListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.geral.UFDAO;
-import dc.servicos.dao.geral.tabela.FeriadosDAO;
+import dc.servicos.dao.geral.tabela.FeriadoDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.FeriadosFormView;
@@ -32,7 +32,7 @@ public class FeriadosFormController extends CRUDFormController<FeriadoEntity> {
 	private FeriadosFormView subView;
 
 	@Autowired
-	private FeriadosDAO feriadosDAO;
+	private FeriadoDAO feriadosDAO;
 
 	@Autowired
 	private UFDAO ufDAO;

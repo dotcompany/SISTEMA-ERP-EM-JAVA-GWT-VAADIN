@@ -8,24 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.tabela.SefipCodigoMovimentacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-
-
-/**
-*
-* @author Wesley Jr
-*
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class SefipCodigoMovimentacaoDAO extends AbstractCrudDAO<SefipCodigoMovimentacaoEntity>{
+public class SefipCodigoMovimentacaoDAO extends
+		AbstractCrudDAO<SefipCodigoMovimentacaoEntity> {
 
 	@Override
 	public Class<SefipCodigoMovimentacaoEntity> getEntityClass() {
 		return SefipCodigoMovimentacaoEntity.class;
 	}
-	
+
 	@Transactional
 	public List<SefipCodigoMovimentacaoEntity> listaTodos() {
 		return getSession().createQuery("from SefipCodigoMovimentacao").list();
@@ -33,12 +24,14 @@ public class SefipCodigoMovimentacaoDAO extends AbstractCrudDAO<SefipCodigoMovim
 
 	@Transactional
 	public List<SefipCodigoMovimentacaoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from SefipCodigoMovimentacao where descricao like :q").setParameter("q", "%" + query + "%").list();
-	}
-	
-	protected String[] getDefaultSearchFields() {
-		return new String[] {"codigo","descricao", "aplicacao"};
+		return getSession()
+				.createQuery(
+						"from SefipCodigoMovimentacao where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "codigo", "descricao", "aplicacao" };
+	}
 
 }
