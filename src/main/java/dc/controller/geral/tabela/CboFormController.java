@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CBOFormView;
 
 @Controller
 @Scope("prototype")
-public class CBOFormController extends CRUDFormController<CboEntity> {
+public class CboFormController extends CRUDFormController<CboEntity> {
 
 	/**
 	 * 

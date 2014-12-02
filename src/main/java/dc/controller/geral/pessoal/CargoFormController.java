@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.tabela.CBOListController;
+import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
@@ -37,18 +37,18 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	@Autowired
 	private CBODAO cboDAO;
 
-	// @Autowired
-	// private MainController mainController;
-
 	private CargoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
+		String nome = this.subView.getTfNome().getValue();
+
+		if (!Validator.validateString(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
 					"Não pode ficar em Branco!");
+
 			valido = false;
 		}
 
@@ -57,60 +57,107 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CargoEntity();
+		this.currentBean = new CargoEntity();
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CargoFormView();
-		DefaultManyToOneComboModel<CboEntity> modelCBO = new DefaultManyToOneComboModel<CboEntity>(
-				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CboEntity> modelCBO2 = new DefaultManyToOneComboModel<CboEntity>(
-				CBOListController.class, cboDAO, super.getMainController());
-		subView.getCmbCBO1994().setModel(modelCBO);
-		subView.getCmbCBO2002().setModel(modelCBO2);
-		// subView.InitCbs(cboDAO.listaTodos());
+		try {
+			this.subView = new CargoFormView();
+
+			DefaultManyToOneComboModel<CboEntity> modelCbo = new DefaultManyToOneComboModel<CboEntity>(
+					CboListController.class, this.cboDAO,
+					super.getMainController());
+
+			this.subView.getMocCbo1994().setModel(modelCbo);
+
+			DefaultManyToOneComboModel<CboEntity> modelCbo2 = new DefaultManyToOneComboModel<CboEntity>(
+					CboListController.class, this.cboDAO,
+					super.getMainController());
+
+			this.subView.getMocCbo2002().setModel(modelCbo2);
+			// subView.InitCbs(cboDAO.listaTodos());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cargoDAO.find(id);
+		try {
+			this.currentBean = this.cargoDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricaoo().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
 
-		DefaultManyToOneComboModel<CboEntity> modelCBO = new DefaultManyToOneComboModel<CboEntity>(
-				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CboEntity> modelCBO2 = new DefaultManyToOneComboModel<CboEntity>(
-				CBOListController.class, cboDAO, super.getMainController());
-		subView.getCmbCBO1994().setModel(modelCBO);
-		subView.getCmbCBO2002().setModel(modelCBO2);
+			DefaultManyToOneComboModel<CboEntity> modelCbo = new DefaultManyToOneComboModel<CboEntity>(
+					CboListController.class, this.cboDAO,
+					super.getMainController());
 
-		this.subView.getTxtSalario().setValue(
-				String.valueOf(this.currentBean.getSalario()));
+			this.subView.getMocCbo1994().setModel(modelCbo);
+
+			DefaultManyToOneComboModel<CboEntity> modelCbo2 = new DefaultManyToOneComboModel<CboEntity>(
+					CboListController.class, this.cboDAO,
+					super.getMainController());
+
+			this.subView.getMocCbo2002().setModel(modelCbo2);
+
+			this.subView.getTfSalario().setValue(
+					String.valueOf(this.currentBean.getSalario()));
+
+			String sCbo1994 = this.currentBean.getCbo1994();
+
+			if (sCbo1994 != null && !sCbo1994.equals("")) {
+				CboEntity cbo1994 = this.cboDAO.find(sCbo1994);
+
+				this.subView.getMocCbo1994().setValue(cbo1994);
+			}
+
+			String sCbo2002 = this.currentBean.getCbo2002();
+
+			if (sCbo2002 != null && !sCbo2002.equals("")) {
+				CboEntity cbo2002 = this.cboDAO.find(sCbo2002);
+
+				this.subView.getMocCbo2002().setValue(cbo2002);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricaoo().getValue());
-
-		Double salario = Double.parseDouble(this.subView.getTxtSalario()
-				.getValue().isEmpty() ? "0.0" : this.subView.getTxtSalario()
-				.getValue());
-
-		this.currentBean.setSalario(salario);
-
 		try {
-			cargoDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			Double salario = Double.parseDouble(this.subView.getTfSalario()
+					.getValue().isEmpty() ? "0.0" : this.subView.getTfSalario()
+					.getValue());
+
+			this.currentBean.setSalario(salario);
+
+			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
+
+			if (cbo1994 != null && !cbo1994.equals("")) {
+				this.currentBean.setCbo1994(cbo1994.getCodigo());
+			}
+
+			CboEntity cbo2002 = this.subView.getMocCbo2002().getValue();
+
+			if (cbo2002 != null && !cbo2002.equals("")) {
+				this.currentBean.setCbo2002(cbo2002.getCodigo());
+			}
+
+			this.cargoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			this.currentBean = new CargoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			this.subView.getTxtSalario().setValue("");
+			mensagemErro(e.getMessage());
 		}
 	}
 

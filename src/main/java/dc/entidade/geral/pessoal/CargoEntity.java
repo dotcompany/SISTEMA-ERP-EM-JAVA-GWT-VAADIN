@@ -8,9 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +24,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 
 @Entity
 @Table(name = "cargo")
@@ -58,38 +55,51 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "DESCRICAO")
 	@Type(type = "text")
+	@Field
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
+	@Field
+	@Caption("Salário")
 	@Column(name = "SALARIO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Double salario;
 
-	// Campos CBO_1994 e CBO_2002 não são relacionamentos. São os próprios
-	// Códigos CBO.
+	@Field
+	@Caption("CBO 1994")
+	@Column(name = "cbo_1994")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cbo1994;
 
-	// @ManyToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "CBO_1994",insertable = true, updatable = true,
-	// referencedColumnName="codigo_1994")
-	// private CBO cbo1994;
-	//
-	// @ManyToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "CBO_2002",insertable = true, updatable = true,
-	// referencedColumnName="codigo")
-	// private CBO cbo2002;
+	@Field
+	@Caption("CBO 2002")
+	@Column(name = "cbo_2002")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cbo2002;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa idEmpresa;
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public CargoEntity() {
 
@@ -99,6 +109,11 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -131,12 +146,20 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.salario = salario;
 	}
 
-	public Empresa getIdEmpresa() {
-		return idEmpresa;
+	public String getCbo1994() {
+		return cbo1994;
 	}
 
-	public void setIdEmpresa(Empresa idEmpresa) {
-		this.idEmpresa = idEmpresa;
+	public void setCbo1994(String cbo1994) {
+		this.cbo1994 = cbo1994;
+	}
+
+	public String getCbo2002() {
+		return cbo2002;
+	}
+
+	public void setCbo2002(String cbo2002) {
+		this.cbo2002 = cbo2002;
 	}
 
 	/**

@@ -206,8 +206,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 				this.currentBean.setPessoaJuridica(carregarPessoaJuridica());
 			}
-
-			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CBOListController extends CRUDListController<CboEntity> {
+public class CboListController extends CRUDListController<CboEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class CBOListController extends CRUDListController<CboEntity> {
 	CBODAO dao;
 
 	@Autowired
-	CBOFormController pController;
+	CboFormController pController;
 
 	@Override
 	public String[] getColunas() {
