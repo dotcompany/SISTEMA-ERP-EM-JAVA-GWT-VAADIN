@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,10 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.CrtEn;
+import dc.control.enums.TipoRegimeEn;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "pessoa_juridica")
@@ -65,14 +70,24 @@ public class PessoaJuridicaEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataConstituicao;
 
-	@Column(name = "TIPO_REGIME")
-	private Character tipoRegime;
-
-	@Column(name = "CRT")
-	private Character crt;
-
 	@Column(name = "SUFRAMA", length = 9)
 	private String suframa;
+
+	@Field
+	@Caption("Tipo de regime")
+	@Column(name = "tipo_regime")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private TipoRegimeEn tipoRegime;
+
+	@Field
+	@Caption("CRT")
+	@Column(name = "crt")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private CrtEn crt;
 
 	/**
 	 * REFERENCIA - FK
@@ -150,28 +165,28 @@ public class PessoaJuridicaEntity implements Serializable {
 		this.dataConstituicao = dataConstituicao;
 	}
 
-	public Character getTipoRegime() {
-		return tipoRegime;
-	}
-
-	public void setTipoRegime(Character tipoRegime) {
-		this.tipoRegime = tipoRegime;
-	}
-
-	public Character getCrt() {
-		return crt;
-	}
-
-	public void setCrt(Character crt) {
-		this.crt = crt;
-	}
-
 	public String getSuframa() {
 		return suframa;
 	}
 
 	public void setSuframa(String suframa) {
 		this.suframa = suframa;
+	}
+
+	public TipoRegimeEn getTipoRegime() {
+		return tipoRegime;
+	}
+
+	public void setTipoRegime(TipoRegimeEn tipoRegime) {
+		this.tipoRegime = tipoRegime;
+	}
+
+	public CrtEn getCrt() {
+		return crt;
+	}
+
+	public void setCrt(CrtEn crt) {
+		this.crt = crt;
 	}
 
 	public PessoaEntity getPessoa() {

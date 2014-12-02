@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,13 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.CategoriaReservistaEn;
+import dc.control.enums.CnhEn;
+import dc.control.enums.RacaEn;
+import dc.control.enums.SexoEn;
+import dc.control.enums.TipoSangueEn;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
 
 @Entity
@@ -71,26 +79,14 @@ public class PessoaFisicaEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
-	@Column(name = "SEXO")
-	private String sexo;
-
 	@Column(name = "NATURALIDADE", length = 100)
 	private String naturalidade;
 
 	@Column(name = "NACIONALIDADE", length = 100)
 	private String nacionalidade;
 
-	@Column(name = "RACA")
-	private Character raca;
-
-	@Column(name = "TIPO_SANGUE")
-	private String tipoSangue;
-
 	@Column(name = "CNH_NUMERO", length = 20)
 	private String cnhNumero;
-
-	@Column(name = "CNH_CATEGORIA")
-	private Character cnhCategoria;
 
 	@Column(name = "CNH_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
@@ -108,14 +104,51 @@ public class PessoaFisicaEntity implements Serializable {
 	@Column(name = "RESERVISTA_NUMERO", length = 20)
 	private String reservistaNumero;
 
-	@Column(name = "RESERVISTA_CATEGORIA")
-	private Integer reservistaCategoria;
-
 	@Column(name = "NOME_MAE", length = 100)
 	private String nomeMae;
 
 	@Column(name = "NOME_PAI", length = 100)
 	private String nomePai;
+
+	@Field
+	@Caption("Sexo")
+	@Column(name = "sexo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private SexoEn sexo;
+
+	@Field
+	@Caption("CNH categoria")
+	@Column(name = "cnh_categoria")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private CnhEn cnh;
+
+	@Field
+	@Caption("Raça")
+	@Column(name = "raca")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private RacaEn raca;
+
+	@Field
+	@Caption("Tipo de sangue")
+	@Column(name = "tipo_sangue")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private TipoSangueEn tipoSangue;
+
+	@Field
+	@Caption("Reservista categoria")
+	@Column(name = "reservista_categoria")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.ORDINAL)
+	private CategoriaReservistaEn reservistaCategoria;
 
 	/**
 	 * REFERENCIA - FK
@@ -201,14 +234,6 @@ public class PessoaFisicaEntity implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
 	public String getNaturalidade() {
 		return naturalidade;
 	}
@@ -225,36 +250,12 @@ public class PessoaFisicaEntity implements Serializable {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public Character getRaca() {
-		return raca;
-	}
-
-	public void setRaca(Character raca) {
-		this.raca = raca;
-	}
-
-	public String getTipoSangue() {
-		return tipoSangue;
-	}
-
-	public void setTipoSangue(String tipoSangue) {
-		this.tipoSangue = tipoSangue;
-	}
-
 	public String getCnhNumero() {
 		return cnhNumero;
 	}
 
 	public void setCnhNumero(String cnhNumero) {
 		this.cnhNumero = cnhNumero;
-	}
-
-	public Character getCnhCategoria() {
-		return cnhCategoria;
-	}
-
-	public void setCnhCategoria(Character cnhCategoria) {
-		this.cnhCategoria = cnhCategoria;
 	}
 
 	public Date getCnhVencimento() {
@@ -297,14 +298,6 @@ public class PessoaFisicaEntity implements Serializable {
 		this.reservistaNumero = reservistaNumero;
 	}
 
-	public Integer getReservistaCategoria() {
-		return reservistaCategoria;
-	}
-
-	public void setReservistaCategoria(Integer reservistaCategoria) {
-		this.reservistaCategoria = reservistaCategoria;
-	}
-
 	public String getNomeMae() {
 		return nomeMae;
 	}
@@ -319,6 +312,46 @@ public class PessoaFisicaEntity implements Serializable {
 
 	public void setNomePai(String nomePai) {
 		this.nomePai = nomePai;
+	}
+
+	public SexoEn getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(SexoEn sexo) {
+		this.sexo = sexo;
+	}
+
+	public CnhEn getCnh() {
+		return cnh;
+	}
+
+	public void setCnh(CnhEn cnh) {
+		this.cnh = cnh;
+	}
+
+	public RacaEn getRaca() {
+		return raca;
+	}
+
+	public void setRaca(RacaEn raca) {
+		this.raca = raca;
+	}
+
+	public TipoSangueEn getTipoSangue() {
+		return tipoSangue;
+	}
+
+	public void setTipoSangue(TipoSangueEn tipoSangue) {
+		this.tipoSangue = tipoSangue;
+	}
+
+	public CategoriaReservistaEn getReservistaCategoria() {
+		return reservistaCategoria;
+	}
+
+	public void setReservistaCategoria(CategoriaReservistaEn reservistaCategoria) {
+		this.reservistaCategoria = reservistaCategoria;
 	}
 
 	public EstadoCivilEntity getEstadoCivil() {

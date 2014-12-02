@@ -25,6 +25,7 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.enums.TipoPessoaEn;
 import dc.controller.geral.pessoal.PessoaFormController;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -64,7 +65,8 @@ public class PessoaFormView extends CustomComponent {
 	private ComboBox cmbRaca, cmbTipoSanguineo;
 	private ManyToOneCombo<EstadoCivilEntity> cmbEstadoCivil;
 
-	private TextField txtNaturalidade, txtNacionalidade, txtNomePai, txtNomeMae;
+	private TextField txtNaturalidade, txtNacionalidade, txtNomePai,
+			txtNomeMae;
 
 	private TextField txtFantasia;
 
@@ -80,7 +82,8 @@ public class PessoaFormView extends CustomComponent {
 
 	private ComboBox cmbTipoRegime, cmbCrt;
 
-	private TextField txtNumeroRG, txtEmissorRG, txtOrgaoEmissor, txtCNH, txtTituloEleitor, txtTituloZona, txtTituloSecao;
+	private TextField txtNumeroRG, txtEmissorRG, txtOrgaoEmissor, txtCNH,
+			txtTituloEleitor, txtTituloZona, txtTituloSecao;
 
 	private PopupDateField dtCNHEmissao;
 
@@ -150,27 +153,9 @@ public class PessoaFormView extends CustomComponent {
 
 		mainLayout.addComponent(subForms);
 		mainLayout.setExpandRatio(subForms, 1);
-
-		for (CategoriaReservista value : CategoriaReservista.values()) {
-			cmbCategoriaReservista.addItem(value);
-		}
-
-		for (CNHCategoria value : CNHCategoria.values()) {
-			cmbCategoriaCNH.addItem(value);
-		}
-
-		for (Raca value : Raca.values()) {
-			cmbRaca.addItem(value);
-		}
-
-		for (TipoSangue value : TipoSangue.values()) {
-			cmbTipoSanguineo.addItem(value);
-		}
-
 	}
 
 	public void buildAbaInformacoes() {
-
 		subForms = new TabSheet();
 		subForms.setImmediate(true);
 		subForms.setSizeFull();
@@ -187,7 +172,6 @@ public class PessoaFormView extends CustomComponent {
 	}
 
 	public void buildAbaContatos() {
-
 		subForms.addTab(buildContatosSubForm(), "Pessoa Contato", null);
 	}
 
@@ -203,7 +187,6 @@ public class PessoaFormView extends CustomComponent {
 	// }
 
 	public void buildAbaEnderecos() {
-
 		subForms.addTab(buildEnderecosSubForm(), "Endereços", null);
 	}
 
@@ -248,8 +231,6 @@ public class PessoaFormView extends CustomComponent {
 		layoutFisica.addComponent(layoutReservista, 2, 3, 3, 3);
 
 		grpSexo = new OptionGroup("Sexo");
-		grpSexo.addItem("Feminino");
-		grpSexo.addItem("Masculino");
 		layoutFisica.addComponent(grpSexo, 4, 3);
 
 		GridLayout layoutCNH = buildContentCNH();
@@ -282,6 +263,7 @@ public class PessoaFormView extends CustomComponent {
 		layoutTitulo.addComponent(txtTituloEleitor, 0, 1);
 		layoutTitulo.addComponent(txtTituloZona, 1, 1);
 		layoutTitulo.addComponent(txtTituloSecao, 2, 1);
+
 		return layoutTitulo;
 	}
 
@@ -301,6 +283,7 @@ public class PessoaFormView extends CustomComponent {
 		layoutCNH.addComponent(txtCNH, 0, 1);
 		layoutCNH.addComponent(cmbCategoriaCNH, 1, 1);
 		layoutCNH.addComponent(dtCNHEmissao, 2, 1);
+
 		return layoutCNH;
 	}
 
@@ -318,6 +301,7 @@ public class PessoaFormView extends CustomComponent {
 		layoutReservista.addComponent(lblReservista, 0, 0);
 		layoutReservista.addComponent(txtNumeroReservista, 0, 1);
 		layoutReservista.addComponent(cmbCategoriaReservista, 1, 1);
+
 		return layoutReservista;
 	}
 
@@ -337,6 +321,7 @@ public class PessoaFormView extends CustomComponent {
 		layoutRG.addComponent(txtNumeroRG, 0, 1);
 		layoutRG.addComponent(txtOrgaoEmissor, 1, 1);
 		layoutRG.addComponent(dataEmissaoRG, 2, 1);
+
 		return layoutRG;
 	}
 
@@ -352,9 +337,12 @@ public class PessoaFormView extends CustomComponent {
 		layoutJuridica.addComponent(txtFantasia, 0, 0, 5, 0);
 
 		txtCNPJ = ComponentUtil.buildTextField("CNPJ");
-		txtInscricaoEstadual = ComponentUtil.buildTextField("Inscrição Estadual");
-		txtInscricaoMunicipal = ComponentUtil.buildTextField("Inscrição Municipal");
-		dataConstituicao = ComponentUtil.buildPopupDateField("Data da Constituição");
+		txtInscricaoEstadual = ComponentUtil
+				.buildTextField("Inscrição Estadual");
+		txtInscricaoMunicipal = ComponentUtil
+				.buildTextField("Inscrição Municipal");
+		dataConstituicao = ComponentUtil
+				.buildPopupDateField("Data da Constituição");
 		txtSuframa = ComponentUtil.buildTextField("Suframa");
 
 		layoutJuridica.addComponent(txtCNPJ, 0, 1);
@@ -368,14 +356,6 @@ public class PessoaFormView extends CustomComponent {
 
 		layoutJuridica.addComponent(cmbTipoRegime, 0, 2, 2, 2);
 		layoutJuridica.addComponent(cmbCrt, 3, 2, 4, 2);
-
-		for (TipoRegime value : TipoRegime.values()) {
-			cmbTipoRegime.addItem(value);
-		}
-
-		for (CRT value : CRT.values()) {
-			cmbCrt.addItem(value);
-		}
 
 		return layoutJuridica;
 	}
@@ -394,27 +374,30 @@ public class PessoaFormView extends CustomComponent {
 		txtNome.setRequired(true);
 		fields.addComponent(txtNome, 0, 0, 2, 0);
 
-		cmbTipoPessoa = new ComboBox("Tipo Pessoa", montaLista());
+		cmbTipoPessoa = new ComboBox("Tipo de pessoa", montaLista());
 		cmbTipoPessoa.setNullSelectionAllowed(false);
 		cmbTipoPessoa.setValue(cmbTipoPessoa.getItemIds().iterator().next());
 		cmbTipoPessoa.setItemCaptionPropertyId("label");
 		cmbTipoPessoa.setRequired(true);
 		cmbTipoPessoa.setImmediate(true);
-		cmbTipoPessoa.addValueChangeListener(new Property.ValueChangeListener() {
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				TipoPessoa p = (TipoPessoa) event.getProperty().getValue();
+		cmbTipoPessoa
+				.addValueChangeListener(new Property.ValueChangeListener() {
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						TipoPessoaEn p = (TipoPessoaEn) event.getProperty()
+								.getValue();
 
-				if (p.getCodigo().equals(FISICA)) {
-					layoutFisica.setVisible(true);
-					layoutJuridica.setVisible(false);
-				}
-				if (p.getCodigo().equals(JURIDICA)) {
-					layoutFisica.setVisible(false);
-					layoutJuridica.setVisible(true);
-				}
-			}
-		});
+						if (p.equals(TipoPessoaEn.F)) {
+							layoutFisica.setVisible(true);
+							layoutJuridica.setVisible(false);
+						}
+
+						if (p.equals(TipoPessoaEn.J)) {
+							layoutFisica.setVisible(false);
+							layoutJuridica.setVisible(true);
+						}
+					}
+				});
 
 		fields.addComponent(cmbTipoPessoa, 3, 0);
 
@@ -439,55 +422,14 @@ public class PessoaFormView extends CustomComponent {
 
 	}
 
-	public enum TIPO_PESSOA {
+	public BeanItemContainer<TipoPessoaEn> montaLista() {
+		List<TipoPessoaEn> lista = new ArrayList<TipoPessoaEn>();
+		lista.add(TipoPessoaEn.F);
+		lista.add(TipoPessoaEn.J);
 
-		FISICA("Fisica", "1"), JURIDICA("Juridica", "2");
+		BeanItemContainer<TipoPessoaEn> objects = new BeanItemContainer(
+				TipoPessoaEn.class, lista);
 
-		private TIPO_PESSOA(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static TIPO_PESSOA getTipoOperacao(String codigo) {
-			if (codigo.equals("0")) {
-				return FISICA;
-			}
-			if (codigo.equals("1")) {
-				return JURIDICA;
-			}
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public void carregarTipoPessoa() {
-		this.cmbTipoPessoa.removeAllItems();
-		this.cmbTipoPessoa.addItem(TIPO_PESSOA.FISICA);
-		this.cmbTipoPessoa.addItem(TIPO_PESSOA.JURIDICA);
-
-	}
-
-	public BeanItemContainer<TipoPessoa> montaLista() {
-		List<TipoPessoa> lista = new ArrayList<TipoPessoa>();
-		lista.add(TipoPessoa.PESSOA_FISICA);
-		lista.add(TipoPessoa.PESSOA_JURIDICA);
-
-		BeanItemContainer<TipoPessoa> objects = new BeanItemContainer(TipoPessoa.class, lista);
 		return objects;
 	}
 
@@ -526,38 +468,48 @@ public class PessoaFormView extends CustomComponent {
 	private SubFormComponent buildContatosSubForm() {
 		// common part: create layout
 
-		contatosSubForm = new SubFormComponent<PessoaContatoEntity, Integer>(PessoaContatoEntity.class, new String[] { "nome", "email", "foneComercial", "foneResidencial",
-				"foneCelular" }, new String[] { "Nome", "Email", "Fone Comercial", "Fone Residencial", "Fone Celular" }) {
+		contatosSubForm = new SubFormComponent<PessoaContatoEntity, Integer>(
+				PessoaContatoEntity.class, new String[] { "nome", "email",
+						"foneComercial", "foneResidencial", "foneCelular" },
+				new String[] { "Nome", "Email", "Fone Comercial",
+						"Fone Residencial", "Fone Celular" }) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
 
 					@Override
-					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
 
 						if ("nome".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildTextField("Nome");
+							TextField textField = ComponentUtil
+									.buildTextField("Nome");
 							return textField;
 						}
 
 						if ("email".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildTextField("Email");
+							TextField textField = ComponentUtil
+									.buildTextField("Email");
 							return textField;
 						}
 
 						if ("foneComercial".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildTextField("Fone Comercial");
+							TextField textField = ComponentUtil
+									.buildTextField("Fone Comercial");
 							return textField;
 						}
 
 						if ("foneResidencial".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildTextField("Fone Residencial");
+							TextField textField = ComponentUtil
+									.buildTextField("Fone Residencial");
 							return textField;
 						}
 
 						if ("foneCelular".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildTextField("Fone Celular");
+							TextField textField = ComponentUtil
+									.buildTextField("Fone Celular");
 							return textField;
 						}
 						return null;
@@ -584,34 +536,45 @@ public class PessoaFormView extends CustomComponent {
 	private SubFormComponent buildEnderecosSubForm() {
 		// common part: create layout
 
-		String[] atributos = new String[] { "logradouro", "numero", "complemento", "bairro", "cidade", "cep", "municipioIbge", "uf", "fone", "fax",
-				"principal", "entrega", "cobranca", "correspondencia" };
+		String[] atributos = new String[] { "logradouro", "numero",
+				"complemento", "bairro", "cidade", "cep", "municipioIbge",
+				"uf", "fone", "fax", "principal", "entrega", "cobranca",
+				"correspondencia" };
 
-		String[] headers = new String[] { "Logradouro", "Número", "Complemento", "Bairro", "Cidade", "CEP", "Município Ibge", "UF", "Fone", "Fax",
-				"Principal", "Entrega", "Cobrança", "Correspondência" };
+		String[] headers = new String[] { "Logradouro", "Número",
+				"Complemento", "Bairro", "Cidade", "CEP", "Município Ibge",
+				"UF", "Fone", "Fax", "Principal", "Entrega", "Cobrança",
+				"Correspondência" };
 
-		enderecosSubForm = new SubFormComponent<PessoaEnderecoEntity, Integer>(PessoaEnderecoEntity.class, atributos, headers) {
+		enderecosSubForm = new SubFormComponent<PessoaEnderecoEntity, Integer>(
+				PessoaEnderecoEntity.class, atributos, headers) {
 
 			@Override
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
 
 					@Override
-					public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
 
 						if ("numero".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildNumericField(null);
+							TextField textField = ComponentUtil
+									.buildNumericField(null);
 							textField.setMaxLength(6);
 							textField.setConverter(new IntegerConverter());
 							return textField;
 						}
 						if ("municipioIbge".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildNumericField(null);
+							TextField textField = ComponentUtil
+									.buildNumericField(null);
 							textField.setConverter(new IntegerConverter());
 							textField.setMaxLength(10);
 							return textField;
 						}
-						if ("principal".equals(propertyId) || "entrega".equals(propertyId) || "cobranca".equals(propertyId)
+						if ("principal".equals(propertyId)
+								|| "entrega".equals(propertyId)
+								|| "cobranca".equals(propertyId)
 								|| "correspondencia".equals(propertyId)) {
 							CheckBox check = ComponentUtil.buildCheckBox(null);
 
@@ -619,11 +582,13 @@ public class PessoaFormView extends CustomComponent {
 						}
 
 						else if ("cep".equals(propertyId)) {
-							MaskedTextField textField = ComponentUtil.buildMaskedTextField(null, "#####-###");
+							MaskedTextField textField = ComponentUtil
+									.buildMaskedTextField(null, "#####-###");
 							textField.setMaskClientOnly(true);
 							return textField;
 						} else if ("uf".equals(propertyId)) {
-							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							ComboBox comboBox = ComponentUtil
+									.buildComboBox(null);
 
 							List<UfEntity> ufs = formController.getUfs();
 							for (UfEntity uf : ufs) {
@@ -897,234 +862,12 @@ public class PessoaFormView extends CustomComponent {
 		this.grpSexo = grpSexo;
 	}
 
-	public enum CNHCategoria {
-
-		A("A", "A"), B("B", "B"), C("C", "C"), D("D", "D"), E("E", "E"), ;
-
-		private CNHCategoria(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static CNHCategoria getCNHCategoria(String codigo) {
-			for (CNHCategoria e : CNHCategoria.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum Raca {
-
-		BRANCO("B - Branco", "B"), NEGRO("N - Negro", "N"), PARDO("P - Pardo", "P"), INDIO("I - Indio", "I");
-
-		private Raca(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static Raca getRaca(String codigo) {
-			for (Raca e : Raca.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum TipoSangue {
-
-		A_POSITIVO("A+", "A+"), A_NEGATIVO("A-", "A-"), B_POSITIVO("B+", "B+"), B_NEGATIVO("B-", "B-"), O_POSITIVO("O+", "O+"), O_NEGATIVO("O-", "O-"), AB_POSITIVO(
-				"AB+", "AB+"), AB_NEGATIVO("AB-", "AB-");
-
-		private TipoSangue(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static TipoSangue getTipoSangue(String codigo) {
-			if (codigo == null)
-				return null;
-
-			codigo = codigo.trim();
-
-			for (TipoSangue e : TipoSangue.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum CategoriaReservista {
-
-		UM("1", "1"), DOIS("2", "2"), TRES("3", "3");
-
-		private CategoriaReservista(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static CategoriaReservista getCategoriaReservista(String codigo) {
-			for (CategoriaReservista e : CategoriaReservista.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum TipoRegime {
-
-		LUCRO_REAL("1 - Lucro Real", "1"), SIMPLES_PRESUMIDO("2 - Simples Presumido", "2"), SIMPLES_NACIONAL("3 - Nacional", "3");
-
-		private TipoRegime(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static TipoRegime getTipoRegime(String codigo) {
-			for (TipoRegime e : TipoRegime.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public enum CRT {
-
-		SIMPLES_NACIONAL("1 - Simples Nacional", "1"), SIMPLES_NACIONAL_EXCESSO("2 - Simples Nacional - execesso de sublimite receita bruta", "2"), REGIME_NORMAL(
-				"3 - Regime normal", "3");
-
-		private CRT(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static CRT getTipoRegime(String codigo) {
-			for (CRT e : CRT.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
 	public ManyToOneCombo<EstadoCivilEntity> getCmbEstadoCivil() {
 		return cmbEstadoCivil;
 	}
 
-	public void setCmbEstadoCivil(ManyToOneCombo<EstadoCivilEntity> cmbEstadoCivil) {
+	public void setCmbEstadoCivil(
+			ManyToOneCombo<EstadoCivilEntity> cmbEstadoCivil) {
 		this.cmbEstadoCivil = cmbEstadoCivil;
 	}
 
@@ -1132,7 +875,8 @@ public class PessoaFormView extends CustomComponent {
 		return contatosSubForm;
 	}
 
-	public void setContatosSubForm(SubFormComponent<PessoaContatoEntity, Integer> contatosSubForm) {
+	public void setContatosSubForm(
+			SubFormComponent<PessoaContatoEntity, Integer> contatosSubForm) {
 		this.contatosSubForm = contatosSubForm;
 	}
 
@@ -1140,7 +884,8 @@ public class PessoaFormView extends CustomComponent {
 		return enderecosSubForm;
 	}
 
-	public void setEnderecosSubForm(SubFormComponent<PessoaEnderecoEntity, Integer> enderecosSubForm) {
+	public void setEnderecosSubForm(
+			SubFormComponent<PessoaEnderecoEntity, Integer> enderecosSubForm) {
 		this.enderecosSubForm = enderecosSubForm;
 	}
 

@@ -8,6 +8,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.TipoPessoaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -60,13 +63,6 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
-
-	@Field
-	@Caption("Tipo")
-	@Column(name = "TIPO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo;
 
 	@Field
 	@Caption("Email")
@@ -115,6 +111,14 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character transportadora;
+
+	@Field
+	@Caption("Tipo")
+	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Enumerated(EnumType.STRING)
+	private TipoPessoaEn tipoPessoa;
 
 	/**
 	 * REFERENCIA - FK
@@ -194,14 +198,6 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.site = site;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public Character getCliente() {
 		return cliente;
 	}
@@ -226,24 +222,20 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.colaborador = colaborador;
 	}
 
-	/*
-	 * public Character getConvenio() { return convenio; }
-	 * 
-	 * public void setConvenio(Character convenio) { this.convenio = convenio; }
-	 */
-
-	/*
-	 * public Character getContador() { return contador; }
-	 * 
-	 * public void setContador(Character contador) { this.contador = contador; }
-	 */
-
 	public Character getTransportadora() {
 		return transportadora;
 	}
 
 	public void setTransportadora(Character transportadora) {
 		this.transportadora = transportadora;
+	}
+
+	public TipoPessoaEn getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoaEn tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
 	public PessoaFisicaEntity getPessoaFisica() {

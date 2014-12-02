@@ -74,4 +74,5 @@ public enum TipoSpedEn {
 	public String toString() {
 		return label;
 	}
+
 }

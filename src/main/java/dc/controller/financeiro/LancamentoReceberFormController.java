@@ -15,9 +15,6 @@ import java.util.List;
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
 import org.jrimum.bopepo.view.BoletoViewer;
-import org.jrimum.domkee.comum.pessoa.endereco.CEP;
-import org.jrimum.domkee.comum.pessoa.endereco.Endereco;
-import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 import org.jrimum.domkee.financeiro.banco.febraban.Agencia;
 import org.jrimum.domkee.financeiro.banco.febraban.Carteira;
 import org.jrimum.domkee.financeiro.banco.febraban.Cedente;
@@ -43,6 +40,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.TipoPessoaEn;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.financeiro.Banco;
 import dc.entidade.financeiro.ConfiguracaoBoleto;
@@ -79,7 +77,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class LancamentoReceberFormController extends CRUDFormController<LancamentoReceber> {
+public class LancamentoReceberFormController extends
+		CRUDFormController<LancamentoReceber> {
 
 	private final class BoletoSource implements StreamSource {
 		/**
@@ -92,10 +91,12 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			ByteArrayInputStream resource = null;
 			try {
 
-				List<ParcelaReceber> listaParcelasReceber = new ArrayList<ParcelaReceber>(subView.getParcelasSubForm().getSelectedItens());
+				List<ParcelaReceber> listaParcelasReceber = new ArrayList<ParcelaReceber>(
+						subView.getParcelasSubForm().getSelectedItens());
 
 				if (listaParcelasReceber.isEmpty()) {
-					listaParcelasReceber.addAll(subView.getParcelasSubForm().getDados());
+					listaParcelasReceber.addAll(subView.getParcelasSubForm()
+							.getDados());
 				}
 				byte[] boleto = gerarBoleto(listaParcelasReceber);
 				resource = new ByteArrayInputStream(boleto);
@@ -172,17 +173,23 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 		boolean valido = true;
 
-		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm().getDados();
-		List<LctoReceberNtFinanceira> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm()
+				.getDados();
+		List<LctoReceberNtFinanceira> naturezasanceiras = subView
+				.getNaturezaFinanceiraSubForm().getDados();
 
-		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
-			adicionarErroDeValidacao(subView.getParcelasSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
+				.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
+			adicionarErroDeValidacao(subView.getParcelasSubForm(),
+					"Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
 			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
-		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
-			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
+				.compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
+			adicionarErroDeValidacao(
+					subView.getNaturezaFinanceiraSubForm(),
 					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
 			valido = false;
 
@@ -203,7 +210,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 				}
 
 				try {
-					currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+					currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+							.getConta().getEmpresa());
 					lancamentoReceberDAO.saveOrUpdate(currentBean);
 					notifiyFrameworkSaveOK(this.currentBean);
 				} catch (Exception e) {
@@ -214,7 +222,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	private void setIntervaloParcelaByTipoVencimento() {
-		if (TipoVencimento.MENSAL.equals(subView.getCbTipoVencimento().getValue())) {
+		if (TipoVencimento.MENSAL.equals(subView.getCbTipoVencimento()
+				.getValue())) {
 			currentBean.setIntervaloEntreParcelas(30);
 		}
 	}
@@ -266,24 +275,26 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		subView.getDtLancamento().setValue(new Date());
 		subView.getTxIntervaloParcela().setEnabled(false);
 
-		subView.getCbTipoVencimento().addValueChangeListener(new ValueChangeListener() {
+		subView.getCbTipoVencimento().addValueChangeListener(
+				new ValueChangeListener() {
 
-			private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = 1L;
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				TipoVencimento tipoVencimento = (TipoVencimento) subView.getCbTipoVencimento().getValue();
-				if (TipoVencimento.MENSAL.equals(tipoVencimento)) {
-					subView.getTxIntervaloParcela().setEnabled(false);
-					subView.getTxIntervaloParcela().setValue(null);
-					currentBean.setIntervaloEntreParcelas(30);
-				} else {
-					subView.getTxIntervaloParcela().setEnabled(true);
-					currentBean.setIntervaloEntreParcelas(null);
-				}
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						TipoVencimento tipoVencimento = (TipoVencimento) subView
+								.getCbTipoVencimento().getValue();
+						if (TipoVencimento.MENSAL.equals(tipoVencimento)) {
+							subView.getTxIntervaloParcela().setEnabled(false);
+							subView.getTxIntervaloParcela().setValue(null);
+							currentBean.setIntervaloEntreParcelas(30);
+						} else {
+							subView.getTxIntervaloParcela().setEnabled(true);
+							currentBean.setIntervaloEntreParcelas(null);
+						}
 
-			}
-		});
+					}
+				});
 
 		subView.getTxValorComissao().setEnabled(false);
 		subView.getTxTaxaComissao().addBlurListener(new BlurListener() {
@@ -319,13 +330,15 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
-				this.contaCaixaDAO, super.getMainController());
+		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(
+				ContaCaixaListController.class, this.contaCaixaDAO,
+				super.getMainController());
 
 		this.subView.getCbContaCaixa().setModel(model1);
 
-		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(DocumentoOrigemListController.class,
-				this.documentoOrigemDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(
+				DocumentoOrigemListController.class, this.documentoOrigemDAO,
+				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
 				return "descricao";
@@ -333,7 +346,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		};
 		this.subView.getCbDocumentoOrigem().setModel(model3);
 
-		DefaultManyToOneComboModel<ClienteEntity> model2 = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
+		DefaultManyToOneComboModel<ClienteEntity> model2 = new DefaultManyToOneComboModel<ClienteEntity>(
+				ClienteListController.class, this.clienteDAO,
 				super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -363,26 +377,36 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 		boolean valido = true;
 
-		if (!Validator.validateObject(subView.getCbDocumentoOrigem().getValue())) {
-			adicionarErroDeValidacao(subView.getCbDocumentoOrigem(), "Não pode ficar em branco");
+		if (!Validator
+				.validateObject(subView.getCbDocumentoOrigem().getValue())) {
+			adicionarErroDeValidacao(subView.getCbDocumentoOrigem(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtLancamento().getValue())) {
-			adicionarErroDeValidacao(subView.getDtLancamento(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtLancamento(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getDtPrimeiroVencimento().getValue())) {
-			adicionarErroDeValidacao(subView.getDtPrimeiroVencimento(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getDtPrimeiroVencimento()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getDtPrimeiroVencimento(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxQuantidadeParcela().getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidadeParcela(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxQuantidadeParcela()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxQuantidadeParcela(),
+					"Não pode ficar em branco");
 			valido = false;
-		} else if (verificaSeFoiParcelado() && !Validator.validateNumber(subView.getTxIntervaloParcela().getValue())) {
-			adicionarErroDeValidacao(subView.getTxIntervaloParcela(), "Não pode ficar em branco");
+		} else if (verificaSeFoiParcelado()
+				&& !Validator.validateNumber(subView.getTxIntervaloParcela()
+						.getValue())) {
+			adicionarErroDeValidacao(subView.getTxIntervaloParcela(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -408,7 +432,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		return total;
 	}
 
-	private BigDecimal getTotalNaturezaFinanceira(List<LctoReceberNtFinanceira> naturezasanceiras) {
+	private BigDecimal getTotalNaturezaFinanceira(
+			List<LctoReceberNtFinanceira> naturezasanceiras) {
 		BigDecimal total = BigDecimal.ZERO;
 		if (naturezasanceiras != null) {
 			for (int i = 0; i < naturezasanceiras.size(); i++) {
@@ -422,14 +447,16 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoReceber lancamentoReceber = (LancamentoReceber) id;
-			List<LctoReceberNtFinanceira> lctoReceberNFinanceiras = lancamentoReceber.getLctoReceberNtFinanceira();
+			List<LctoReceberNtFinanceira> lctoReceberNFinanceiras = lancamentoReceber
+					.getLctoReceberNtFinanceira();
 
 			for (LctoReceberNtFinanceira lctoReceberNFinanceira : lctoReceberNFinanceiras) {
 				lctoReceberNFinanceira.setLancamentoReceber(null);
 
 			}
 
-			List<ParcelaReceber> parcelasReceber = lancamentoReceber.getParcelasReceber();
+			List<ParcelaReceber> parcelasReceber = lancamentoReceber
+					.getParcelasReceber();
 
 			for (ParcelaReceber parcelaReceber : parcelasReceber) {
 
@@ -457,33 +484,39 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	public void gerarParcelas() throws Exception {
 
 		if (validaCampos()) {
-			final ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
+			final ContaCaixa contaCaixa = (ContaCaixa) subView
+					.getCbContaCaixa().getValue();
 			if (contaCaixa == null || contaCaixa.getId() == null) {
-				throw new Exception("É necessário informar a conta caixa para previsão das parcelas.");
+				throw new Exception(
+						"É necessário informar a conta caixa para previsão das parcelas.");
 			}
 			final List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
-			List<ParcelaReceber> dados = subView.getParcelasSubForm().getDados();
+			List<ParcelaReceber> dados = subView.getParcelasSubForm()
+					.getDados();
 			if (dados != null) {
 				parcelasReceber.addAll(subView.getParcelasSubForm().getDados());
 			}
 
 			if (parcelasReceber != null && !parcelasReceber.isEmpty()) {
-				ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
-						new ConfirmDialog.Listener() {
+				ConfirmDialog
+						.show(MainUI.getCurrent(),
+								"Confirme a remoção",
+								"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?",
+								"Sim", "Não", new ConfirmDialog.Listener() {
 
-							/**
+									/**
 							 * 
 							 */
-							private static final long serialVersionUID = 1L;
+									private static final long serialVersionUID = 1L;
 
-							public void onClose(ConfirmDialog dialog) {
-								if (dialog.isConfirmed()) {
-									excluiParcelas(parcelasReceber);
-									geraParcelas(contaCaixa, parcelasReceber);
-								}
-							}
-						});
+									public void onClose(ConfirmDialog dialog) {
+										if (dialog.isConfirmed()) {
+											excluiParcelas(parcelasReceber);
+											geraParcelas(contaCaixa,
+													parcelasReceber);
+										}
+									}
+								});
 			} else {
 				geraParcelas(contaCaixa, parcelasReceber);
 			}
@@ -494,7 +527,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 	}
 
-	private void geraParcelas(ContaCaixa contaCaixa, final List<ParcelaReceber> parcelasReceber) {
+	private void geraParcelas(ContaCaixa contaCaixa,
+			final List<ParcelaReceber> parcelasReceber) {
 
 		// gera as parcelas
 		subView.getParcelasSubForm().removeAllItems();
@@ -505,7 +539,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		Date dataEmissão = new Date();
 		Calendar primeiroVencimento = Calendar.getInstance();
 		primeiroVencimento.setTime(lancamentoReceber.getPrimeiroVencimento());
-		BigDecimal valorParcela = lancamentoReceber.getValorAReceber().divide(BigDecimal.valueOf(lancamentoReceber.getQuantidadeParcela()),
+		BigDecimal valorParcela = lancamentoReceber.getValorAReceber().divide(
+				BigDecimal.valueOf(lancamentoReceber.getQuantidadeParcela()),
 				RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
@@ -520,14 +555,18 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			parcelaReceber.setNumeroParcela(i + 1);
 			parcelaReceber.setDataEmissao(dataEmissão);
 			if (i > 0) {
-				primeiroVencimento.add(Calendar.DAY_OF_MONTH, lancamentoReceber.getIntervaloEntreParcelas());
+				primeiroVencimento.add(Calendar.DAY_OF_MONTH,
+						lancamentoReceber.getIntervaloEntreParcelas());
 			}
 			parcelaReceber.setDataVencimento(primeiroVencimento.getTime());
 			parcelaReceber.setEmitiuBoleto("S");
 
-			nossoNumero = formatoNossoNumero5.format(lancamentoReceber.getCliente().getId());
-			nossoNumero += formatoNossoNumero5.format(parcelaReceber.getContaCaixa().getId());
-			nossoNumero += formatoNossoNumero4.format(parcelaReceber.getNumeroParcela());
+			nossoNumero = formatoNossoNumero5.format(lancamentoReceber
+					.getCliente().getId());
+			nossoNumero += formatoNossoNumero5.format(parcelaReceber
+					.getContaCaixa().getId());
+			nossoNumero += formatoNossoNumero4.format(parcelaReceber
+					.getNumeroParcela());
 			nossoNumero += formatoNossoNumero6.format(dataAtual);
 			parcelaReceber.setBoletoNossoNumero(nossoNumero);
 
@@ -535,7 +574,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 
 			somaParcelas = somaParcelas.add(valorParcela);
 			if (i == (lancamentoReceber.getQuantidadeParcela() - 1)) {
-				residuo = lancamentoReceber.getValorAReceber().subtract(somaParcelas);
+				residuo = lancamentoReceber.getValorAReceber().subtract(
+						somaParcelas);
 				valorParcela = valorParcela.add(residuo);
 				parcelaReceber.setValor(valorParcela);
 			}
@@ -547,7 +587,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	private void excluiParcelas(List<ParcelaReceber> parcelasReceber) {
-		List<ParcelaReceber> persistentObjects = subView.getParcelasSubForm().getDados();
+		List<ParcelaReceber> persistentObjects = subView.getParcelasSubForm()
+				.getDados();
 
 		for (int i = 0; i < persistentObjects.size(); i++) {
 			parcelaReceberDAO.delete(persistentObjects.get(i));
@@ -575,11 +616,13 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	public LctoReceberNtFinanceira novoLctoReceberNtFinanceira() {
-		LctoReceberNtFinanceira lctoReceberNFinanceira = currentBean.addLctoReceberNtFinanceira();
+		LctoReceberNtFinanceira lctoReceberNFinanceira = currentBean
+				.addLctoReceberNtFinanceira();
 		return lctoReceberNFinanceira;
 	}
 
-	public void removerLctoReceberNtFinanceira(List<LctoReceberNtFinanceira> values) {
+	public void removerLctoReceberNtFinanceira(
+			List<LctoReceberNtFinanceira> values) {
 		for (LctoReceberNtFinanceira value : values) {
 			currentBean.removeLctoReceberNtFinanceira(value);
 		}
@@ -591,17 +634,21 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	}
 
 	private void calculaValorComissao() {
-		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber().getConvertedValue();
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()
+				.getConvertedValue();
 
-		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao().getConvertedValue();
+		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao()
+				.getConvertedValue();
 
 		if (valorAReceber != null && taxaComissao != null) {
 			subView.getTxValorComissao().setConvertedValue(
-					valorAReceber.multiply(taxaComissao).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+					valorAReceber.multiply(taxaComissao).divide(
+							BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 		}
 	}
 
-	public byte[] gerarBoleto(List<ParcelaReceber> listaParcelasReceber) throws Exception {
+	public byte[] gerarBoleto(List<ParcelaReceber> listaParcelasReceber)
+			throws Exception {
 		byte[] boletoByteArray = null;
 
 		List<Boleto> listaBoleto = gerBoleto(listaParcelasReceber);
@@ -609,13 +656,15 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		return boletoByteArray;
 	}
 
-	private List<Boleto> gerBoleto(List<ParcelaReceber> listaParcelasReceber) throws Exception {
+	private List<Boleto> gerBoleto(List<ParcelaReceber> listaParcelasReceber)
+			throws Exception {
 		if (listaParcelasReceber.isEmpty()) {
 			throw new Exception("Nenhuma parcela para gerar boleto.");
 		}
 		ContaCaixa contaCaixa = listaParcelasReceber.get(0).getContaCaixa();
 		if (contaCaixa.getAgenciaBanco() == null) {
-			throw new Exception("A conta/caixa não está vinculada a um banco. Geração de boletos não permitida.");
+			throw new Exception(
+					"A conta/caixa não está vinculada a um banco. Geração de boletos não permitida.");
 		}
 		List<ParcelaReceber> listaParcelasBoleto = new ArrayList<ParcelaReceber>();
 		for (int i = 0; i < listaParcelasReceber.size(); i++) {
@@ -624,28 +673,34 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			}
 		}
 		if (listaParcelasBoleto.isEmpty()) {
-			throw new Exception("Nenhuma parcela selecionada para gerar boleto.");
+			throw new Exception(
+					"Nenhuma parcela selecionada para gerar boleto.");
 		}
 
-		ConfiguracaoBoleto configuracaoBoleto = configuracaoBoleto(listaParcelasReceber.get(0).getContaCaixa());
+		ConfiguracaoBoleto configuracaoBoleto = configuracaoBoleto(listaParcelasReceber
+				.get(0).getContaCaixa());
 		LancamentoReceber lancamentoReceber = currentBean;
 		ClienteEntity cliente = lancamentoReceber.getCliente();
 		Empresa empresa = lancamentoReceber.getEmpresa();
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
-		Cedente cedente = new Cedente(empresa.getRazaoSocial(), empresa.getCnpj());
+		Cedente cedente = new Cedente(empresa.getRazaoSocial(),
+				empresa.getCnpj());
 
 		String cpfCnpjSacado;
-		if (cliente.getPessoa().getTipo().equals("F")) {
-			cpfCnpjSacado = pessoaDAO.getPessoaFisica(cliente.getPessoa().getId()).getCpf();
+		if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoaEn.F)) {
+			cpfCnpjSacado = pessoaDAO.getPessoaFisica(
+					cliente.getPessoa().getId()).getCpf();
 		} else {
-			cpfCnpjSacado = pessoaDAO.getPessoaJuridica(cliente.getPessoa().getId()).getCnpj();
+			cpfCnpjSacado = pessoaDAO.getPessoaJuridica(
+					cliente.getPessoa().getId()).getCnpj();
 		}
 		Sacado sacado = new Sacado(cliente.getPessoa().getNome(), cpfCnpjSacado);
 
 		PessoaEnderecoEntity enderecoSacado = new PessoaEnderecoEntity();
 
-		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO.listaPorPessoa(cliente.getPessoa()).get(0);
+		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO
+				.listaPorPessoa(cliente.getPessoa()).get(0);
 
 		enderecoSacado.setUf(endereco.getUf());
 		enderecoSacado.setCidade(endereco.getCidade());
@@ -653,13 +708,18 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		enderecoSacado.setBairro(endereco.getBairro());
 		enderecoSacado.setLogradouro(endereco.getLogradouro());
 		enderecoSacado.setNumero(endereco.getNumero());
-		//sacado.addEndereco(enderecoSacado);
+		// sacado.addEndereco(enderecoSacado);
 
 		Banco banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getIdBanco());
-		ContaBancaria contaBancaria = new ContaBancaria(BancosSuportados.suportados.get(banco.getCodigo()).create());
-		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf(contaCaixa.getCodigo()), contaCaixa.getDigito()));
-		contaBancaria.setCarteira(new Carteira(Integer.valueOf(configuracaoBoleto.getCarteira())));
-		contaBancaria.setAgencia(new Agencia(Integer.valueOf(contaCaixa.getAgenciaBanco().getCodigo()), contaCaixa.getAgenciaBanco().getDigito()));
+		ContaBancaria contaBancaria = new ContaBancaria(
+				BancosSuportados.suportados.get(banco.getCodigo()).create());
+		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer
+				.valueOf(contaCaixa.getCodigo()), contaCaixa.getDigito()));
+		contaBancaria.setCarteira(new Carteira(Integer
+				.valueOf(configuracaoBoleto.getCarteira())));
+		contaBancaria.setAgencia(new Agencia(Integer.valueOf(contaCaixa
+				.getAgenciaBanco().getCodigo()), contaCaixa.getAgenciaBanco()
+				.getDigito()));
 
 		Titulo titulo;
 		ParcelaReceber parcela;
@@ -669,7 +729,8 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			parcela = listaParcelasBoleto.get(i);
 
 			titulo = new Titulo(contaBancaria, sacado, cedente);
-			titulo.setNumeroDoDocumento(parcela.getBoletoNossoNumero().substring(0, 15));
+			titulo.setNumeroDoDocumento(parcela.getBoletoNossoNumero()
+					.substring(0, 15));
 			titulo.setNossoNumero(parcela.getBoletoNossoNumero());
 			titulo.setDigitoDoNossoNumero("");
 			titulo.setValor(parcela.getValor());
@@ -700,9 +761,12 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 			boleto.setInstrucaoAoSacado(configuracaoBoleto.getMensagem());
 			boleto.setInstrucao1(configuracaoBoleto.getInstrucao01());
 			boleto.setInstrucao2(configuracaoBoleto.getInstrucao02());
-			if (parcela.getDescontoAte() != null && parcela.getTaxaDesconto() != null) {
-				boleto.setInstrucao3("Para pagamento até o dia " + formatoData.format(parcela.getDescontoAte()) + " conceder desconto de "
-						+ parcela.getTaxaDesconto() + "%.");
+			if (parcela.getDescontoAte() != null
+					&& parcela.getTaxaDesconto() != null) {
+				boleto.setInstrucao3("Para pagamento até o dia "
+						+ formatoData.format(parcela.getDescontoAte())
+						+ " conceder desconto de " + parcela.getTaxaDesconto()
+						+ "%.");
 			} else {
 				boleto.setInstrucao3("");
 			}
@@ -713,17 +777,21 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 		return listaBoleto;
 	}
 
-	private ConfiguracaoBoleto configuracaoBoleto(ContaCaixa contaCaixa) throws Exception {
+	private ConfiguracaoBoleto configuracaoBoleto(ContaCaixa contaCaixa)
+			throws Exception {
 
-		List<ConfiguracaoBoleto> listaConfiguracaoBoleto = configuracaoBoletoDAO.getConfiguracoesBoletoByContaCaixa(contaCaixa);
+		List<ConfiguracaoBoleto> listaConfiguracaoBoleto = configuracaoBoletoDAO
+				.getConfiguracoesBoletoByContaCaixa(contaCaixa);
 
 		if (listaConfiguracaoBoleto.isEmpty()) {
-			throw new Exception("Não existem configurações de boleto para a conta/caixa.");
+			throw new Exception(
+					"Não existem configurações de boleto para a conta/caixa.");
 		}
 		if (listaConfiguracaoBoleto.size() == 1) {
 			return listaConfiguracaoBoleto.get(0);
 		} else {
-			ConfiguracaoBoleto configuracaoes[] = new ConfiguracaoBoleto[listaConfiguracaoBoleto.size()];
+			ConfiguracaoBoleto configuracaoes[] = new ConfiguracaoBoleto[listaConfiguracaoBoleto
+					.size()];
 			listaConfiguracaoBoleto.toArray(configuracaoes);
 			ConfiguracaoBoleto configuracao = null;
 			while (configuracao == null) {
@@ -739,4 +807,5 @@ public class LancamentoReceberFormController extends CRUDFormController<Lancamen
 	public LancamentoReceber getModelBean() {
 		return currentBean;
 	}
+
 }
