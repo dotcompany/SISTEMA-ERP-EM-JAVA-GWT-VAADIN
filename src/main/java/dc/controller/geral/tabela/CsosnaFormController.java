@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.Csosna;
+import dc.entidade.geral.tabela.CsosnaEntity;
 import dc.servicos.dao.geral.tabela.CsosnaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CsosnaFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CsosnaFormView;
 
 @Controller
 @Scope("prototype")
-public class CsosnaFormController extends CRUDFormController<Csosna> {
+public class CsosnaFormController extends CRUDFormController<CsosnaEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 	@Autowired
 	CsosnaDAO csosnaDAO;
 
-	private Csosna currentBean;
+	private CsosnaEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -84,7 +84,7 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Csosna();
+		currentBean = new CsosnaEntity();
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class CsosnaFormController extends CRUDFormController<Csosna> {
 	}
 
 	@Override
-	public Csosna getModelBean() {
+	public CsosnaEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

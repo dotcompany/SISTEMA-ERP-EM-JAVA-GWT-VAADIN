@@ -31,18 +31,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "cbo")
+@Table(name = "cst_icms_a")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CBO extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CstIcmsaEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cbo_id_seq")
-	@SequenceGenerator(name = "cbo_id_seq", sequenceName = "cbo_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_icms_a_id_seq")
+	@SequenceGenerator(name = "cst_icms_a_id_seq", sequenceName = "cst_icms_a_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -50,32 +50,34 @@ public class CBO extends AbstractMultiEmpresaModel<Integer> implements Serializa
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigo;
 
 	@Field
-	@Caption("Nome")
-	@Column(name = "NOME", length = 50)
+	@Caption("Descricao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO", length = 250)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao;
 
 	@Lob
 	@Field
 	@Caption("Observacao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
-	public CBO() {
+	public CstIcmsaEntity() {
 
 	}
 
-	public CBO(Integer id) {
+	public CstIcmsaEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -87,20 +89,20 @@ public class CBO extends AbstractMultiEmpresaModel<Integer> implements Serializa
 		this.id = id;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getObservacao() {

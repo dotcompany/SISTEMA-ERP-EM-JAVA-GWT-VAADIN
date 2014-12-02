@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -29,18 +30,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "cst_pis")
+@Table(name = "csosn_b")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CstPis extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CsosnbEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_pis_id_seq")
-	@SequenceGenerator(name = "cst_pis_id_seq", sequenceName = "cst_pis_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "csosnb_id_seq")
+	@SequenceGenerator(name = "csosnb_id_seq", sequenceName = "csosnb_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -48,24 +49,33 @@ public class CstPis extends AbstractMultiEmpresaModel<Integer> implements Serial
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo")
+	@Column(name = "Codigo", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigo;
 
 	@Field
 	@Caption("Descricao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "DESCRICAO", length = 250)
+	@Column(name = "DESCRICAO", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	public CstPis() {
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	public CsosnbEntity() {
 
 	}
 
-	public CstPis(Integer id) {
+	public CsosnbEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -77,14 +87,6 @@ public class CstPis extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
@@ -93,9 +95,25 @@ public class CstPis extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.codigo = codigo;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

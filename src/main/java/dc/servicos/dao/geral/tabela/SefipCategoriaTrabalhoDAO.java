@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.SefipCategoriaTrabalho;
+import dc.entidade.geral.tabela.SefipCategoriaTrabalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SefipCategoriaTrabalhoDAO extends AbstractCrudDAO<SefipCategoriaTrabalho>{
+public class SefipCategoriaTrabalhoDAO extends AbstractCrudDAO<SefipCategoriaTrabalhoEntity>{
 
 	@Override
-	public Class<SefipCategoriaTrabalho> getEntityClass() {
-		return SefipCategoriaTrabalho.class;
+	public Class<SefipCategoriaTrabalhoEntity> getEntityClass() {
+		return SefipCategoriaTrabalhoEntity.class;
 	}
 	
 	@Transactional
-	public List<SefipCategoriaTrabalho> listaTodos() {
+	public List<SefipCategoriaTrabalhoEntity> listaTodos() {
 		return getSession().createQuery("from SefipCategoriaTrabalho").list();
 	}
 
 	@Transactional
-	public List<SefipCategoriaTrabalho> procuraNomeContendo(String query) {
+	public List<SefipCategoriaTrabalhoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from SefipCategoriaTrabalho where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

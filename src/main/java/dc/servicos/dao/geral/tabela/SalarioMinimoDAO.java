@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.SalarioMinimo;
+import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimo>{
+public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity>{
 
 	@Override
-	public Class<SalarioMinimo> getEntityClass() {
-		return SalarioMinimo.class;
+	public Class<SalarioMinimoEntity> getEntityClass() {
+		return SalarioMinimoEntity.class;
 	}
 	
 	@Transactional
-	public List<SalarioMinimo> listaTodos() {
+	public List<SalarioMinimoEntity> listaTodos() {
 		return getSession().createQuery("from SalarioMinimo").list();
 	}
 
 	@Transactional
-	public List<SalarioMinimo> procuraNomeContendo(String query) {
+	public List<SalarioMinimoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from SalarioMinimo where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

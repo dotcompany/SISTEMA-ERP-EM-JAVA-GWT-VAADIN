@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.CodigoGps;
+import dc.entidade.geral.tabela.CodigoGpsEntity;
 import dc.servicos.dao.geral.tabela.CodigoGpsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CodigoGpsListController extends CRUDListController<CodigoGps> {
+public class CodigoGpsListController extends CRUDListController<CodigoGpsEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps> {
 	}
 
 	@Override
-	public Class<? super CodigoGps> getEntityClass() {
-		return CodigoGps.class;
+	public Class<? super CodigoGpsEntity> getEntityClass() {
+		return CodigoGpsEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps> {
 	}
 
 	@Override
-	protected List<CodigoGps> pesquisa(String valor) {
+	protected List<CodigoGpsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CodigoGps> getFormController() {
+	protected CRUDFormController<CodigoGpsEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CodigoGpsListController extends CRUDListController<CodigoGps> {
 	}
 
 	@Override
-	protected List<CodigoGps> pesquisaDefault() {
-		return (List<CodigoGps>) dao.getAll(getEntityClass());
+	protected List<CodigoGpsEntity> pesquisaDefault() {
+		return (List<CodigoGpsEntity>) dao.getAll(getEntityClass());
 	}
 
 }

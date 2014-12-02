@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.SefipCodigoMovimentacao;
+import dc.entidade.geral.tabela.SefipCodigoMovimentacaoEntity;
 import dc.servicos.dao.geral.tabela.SefipCodigoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SefipCodigoMovimentacaoListController extends CRUDListController<SefipCodigoMovimentacao> {
+public class SefipCodigoMovimentacaoListController extends CRUDListController<SefipCodigoMovimentacaoEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class SefipCodigoMovimentacaoListController extends CRUDListController<Se
 	}
 
 	@Override
-	public Class<? super SefipCodigoMovimentacao> getEntityClass() {
-		return SefipCodigoMovimentacao.class;
+	public Class<? super SefipCodigoMovimentacaoEntity> getEntityClass() {
+		return SefipCodigoMovimentacaoEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class SefipCodigoMovimentacaoListController extends CRUDListController<Se
 	}
 
 	@Override
-	protected List<SefipCodigoMovimentacao> pesquisa(String valor) {
+	protected List<SefipCodigoMovimentacaoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<SefipCodigoMovimentacao> getFormController() {
+	protected CRUDFormController<SefipCodigoMovimentacaoEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class SefipCodigoMovimentacaoListController extends CRUDListController<Se
 	}
 
 	@Override
-	protected List<SefipCodigoMovimentacao> pesquisaDefault() {
-		return (List<SefipCodigoMovimentacao>) dao.getAll(getEntityClass());
+	protected List<SefipCodigoMovimentacaoEntity> pesquisaDefault() {
+		return (List<SefipCodigoMovimentacaoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

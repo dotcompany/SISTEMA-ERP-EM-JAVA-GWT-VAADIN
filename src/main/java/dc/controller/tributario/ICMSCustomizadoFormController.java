@@ -12,9 +12,9 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.tabela.Cfop;
-import dc.entidade.geral.tabela.Csosnb;
-import dc.entidade.geral.tabela.CstIcmsB;
+import dc.entidade.geral.tabela.CfopEntity;
+import dc.entidade.geral.tabela.CsosnbEntity;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.framework.exception.ErroValidacaoException;
@@ -213,25 +213,25 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		return format;
 	}
 
-	public BeanItemContainer<Cfop> carregarCfop() {
-		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
-		for (Cfop obj : cfopDAO.listaTodos()) {
+	public BeanItemContainer<CfopEntity> carregarCfop() {
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Csosnb> carregarCsosnb() {
-		BeanItemContainer<Csosnb> container = new BeanItemContainer<>(Csosnb.class);
-		for (Csosnb obj : csosnbDAO.listaTodos()) {
+	public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
+		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(CsosnbEntity.class);
+		for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<CstIcmsB> carregarCstb() {
-		BeanItemContainer<CstIcmsB> container = new BeanItemContainer<>(CstIcmsB.class);
-		for (CstIcmsB obj : cstbDAO.listaTodos()) {
+	public BeanItemContainer<CstIcmsbEntity> carregarCstb() {
+		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(CstIcmsbEntity.class);
+		for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;

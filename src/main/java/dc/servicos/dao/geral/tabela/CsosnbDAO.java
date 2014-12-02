@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.Csosnb;
+import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CsosnbDAO extends AbstractCrudDAO<Csosnb>{
+public class CsosnbDAO extends AbstractCrudDAO<CsosnbEntity>{
 
 	@Override
-	public Class<Csosnb> getEntityClass() {
-		return Csosnb.class;
+	public Class<CsosnbEntity> getEntityClass() {
+		return CsosnbEntity.class;
 	}
 	
 	@Transactional
-	public List<Csosnb> listaTodos() {
+	public List<CsosnbEntity> listaTodos() {
 		return getSession().createQuery("from Csosnb").list();
 	}
 
 	@Transactional
-	public List<Csosnb> procuraNomeContendo(String query) {
+	public List<CsosnbEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Csosnb where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

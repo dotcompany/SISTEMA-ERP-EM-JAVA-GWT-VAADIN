@@ -7,9 +7,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.CstCofins;
-import dc.entidade.geral.tabela.CstPis;
-import dc.entidade.geral.tabela.TipoReceitaDipi;
+import dc.entidade.geral.tabela.CstCofinsEntity;
+import dc.entidade.geral.tabela.CstPisEntity;
+import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -23,17 +23,17 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipi>{
+public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipiEntity>{
 
 	@Override
-	public Class<TipoReceitaDipi> getEntityClass() {
-		return TipoReceitaDipi.class;
+	public Class<TipoReceitaDipiEntity> getEntityClass() {
+		return TipoReceitaDipiEntity.class;
 	}
 	
 	
 
 	@Transactional
-	public List<CstCofins> procuraNomeContendo(String query) {
+	public List<CstCofinsEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from CstCofins where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -42,13 +42,13 @@ public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipi>{
 	}
 	
 	@Transactional
-	public TipoReceitaDipi procuraPorCodigo(String codigo){
-		TipoReceitaDipi tipo = null;
-		Criteria c = getSession().createCriteria(TipoReceitaDipi.class);
+	public TipoReceitaDipiEntity procuraPorCodigo(String codigo){
+		TipoReceitaDipiEntity tipo = null;
+		Criteria c = getSession().createCriteria(TipoReceitaDipiEntity.class);
 		if(codigo!=null && !(codigo.isEmpty())){
 			c.add(Restrictions.eq("codigo", codigo));
 		}
-		tipo = (TipoReceitaDipi)c.uniqueResult();
+		tipo = (TipoReceitaDipiEntity)c.uniqueResult();
 		return tipo;
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.SefipCodigoMovimentacao;
+import dc.entidade.geral.tabela.SefipCodigoMovimentacaoEntity;
 import dc.servicos.dao.geral.tabela.SefipCodigoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCodigoMovimentacaoFormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.SefipCodigoMovimentacaoFormView;
 @Controller
 @Scope("prototype")
 public class SefipCodigoMovimentacaoFormController extends
-		CRUDFormController<SefipCodigoMovimentacao> {
+		CRUDFormController<SefipCodigoMovimentacaoEntity> {
 
 	SefipCodigoMovimentacaoFormView subView;
 
 	@Autowired
 	SefipCodigoMovimentacaoDAO sefipCodigoMovimentacaoDAO;
 
-	private SefipCodigoMovimentacao currentBean;
+	private SefipCodigoMovimentacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -81,7 +81,7 @@ public class SefipCodigoMovimentacaoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SefipCodigoMovimentacao();
+		currentBean = new SefipCodigoMovimentacaoEntity();
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class SefipCodigoMovimentacaoFormController extends
 	}
 
 	@Override
-	public SefipCodigoMovimentacao getModelBean() {
+	public SefipCodigoMovimentacaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -19,9 +19,9 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.tabela.Cfop;
-import dc.entidade.geral.tabela.Csosnb;
-import dc.entidade.geral.tabela.CstIcmsB;
+import dc.entidade.geral.tabela.CfopEntity;
+import dc.entidade.geral.tabela.CsosnbEntity;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
 
 @Entity
 @Table(name = "tribut_icms_custom_det")
@@ -40,19 +40,19 @@ public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name="cfop")
-	private Cfop cfop;
+	private CfopEntity cfop;
 
 	@Column(name="csosn_b")
 	private String csosnB;
 	
 	@Transient
-	private Csosnb csosn;
+	private CsosnbEntity csosn;
 
 	@Column(name="cst_b")
 	private String cstB;
 	
 	@Transient
-	private CstIcmsB cst;
+	private CstIcmsbEntity cst;
 
 	@Column(name="modalidade_bc")
 	String modalidadeBc;
@@ -106,11 +106,11 @@ public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 
 	
 	
-	public Cfop getCfop() {
+	public CfopEntity getCfop() {
 		return cfop;
 	}
 
-	public void setCfop(Cfop cfop) {
+	public void setCfop(CfopEntity cfop) {
 		this.cfop = cfop;
 	}
 
@@ -165,19 +165,19 @@ public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
 		this.valorPrecoMaximo = valorPrecoMaximo;
 	}
 
-	public Csosnb getCsosn() {
+	public CsosnbEntity getCsosn() {
 		return csosn;
 	}
 
-	public void setCsosn(Csosnb csosn) {
+	public void setCsosn(CsosnbEntity csosn) {
 		this.csosn = csosn;
 	}
 
-	public CstIcmsB getCst() {
+	public CstIcmsbEntity getCst() {
 		return cst;
 	}
 
-	public void setCst(CstIcmsB cst) {
+	public void setCst(CstIcmsbEntity cst) {
 		this.cst = cst;
 	}
 

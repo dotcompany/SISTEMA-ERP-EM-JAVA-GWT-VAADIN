@@ -8,13 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -30,18 +29,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "cst_icms_b")
+@Table(name = "efd_tabela_437")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CstIcmsB extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class EfdTabela437Entity extends AbstractMultiEmpresaModel<Integer> implements	Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_icms_b_id_seq")
-	@SequenceGenerator(name = "cst_icms_b_id_seq", sequenceName = "cst_icms_b_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd_tabela_437_id_seq")
+	@SequenceGenerator(name = "efd_tabela_437_id_seq", sequenceName = "efd_tabela_437_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -52,7 +51,7 @@ public class CstIcmsB extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigo;
+	private Integer codigo;
 
 	@Field
 	@Caption("Descricao")
@@ -62,21 +61,11 @@ public class CstIcmsB extends AbstractMultiEmpresaModel<Integer> implements Seri
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	@Lob
-	@Field
-	@Caption("Observacao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "OBSERVACAO")
-	@Type(type = "text")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
-
-	public CstIcmsB() {
+	public EfdTabela437Entity() {
 
 	}
 
-	public CstIcmsB(Integer id) {
+	public EfdTabela437Entity(Integer id) {
 		this.id = id;
 	}
 
@@ -88,6 +77,14 @@ public class CstIcmsB extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.id = id;
 	}
 
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -96,25 +93,9 @@ public class CstIcmsB extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.descricao = descricao;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
 	@Override
 	public String toString() {
-		return descricao;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

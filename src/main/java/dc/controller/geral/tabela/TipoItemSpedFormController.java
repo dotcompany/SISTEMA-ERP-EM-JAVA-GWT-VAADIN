@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.TipoItemSped;
+import dc.entidade.geral.tabela.TipoItemSpedEntity;
 import dc.servicos.dao.geral.tabela.TipoItemSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.TipoItemSpedFormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.TipoItemSpedFormView;
 @Controller
 @Scope("prototype")
 public class TipoItemSpedFormController extends
-		CRUDFormController<TipoItemSped> {
+		CRUDFormController<TipoItemSpedEntity> {
 
 	TipoItemSpedFormView subView;
 
 	@Autowired
 	TipoItemSpedDAO tipoItemSpedDAO;
 
-	private TipoItemSped currentBean;
+	private TipoItemSpedEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -79,7 +79,7 @@ public class TipoItemSpedFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoItemSped();
+		currentBean = new TipoItemSpedEntity();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class TipoItemSpedFormController extends
 	}
 
 	@Override
-	public TipoItemSped getModelBean() {
+	public TipoItemSpedEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

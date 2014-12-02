@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.EfdTabela439;
+import dc.entidade.geral.tabela.EfdTabela439Entity;
 import dc.servicos.dao.geral.tabela.EfdTabela439DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EfdTabela439ListController extends CRUDListController<EfdTabela439> {
+public class EfdTabela439ListController extends CRUDListController<EfdTabela439Entity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class EfdTabela439ListController extends CRUDListController<EfdTabela439>
 	}
 
 	@Override
-	public Class<? super EfdTabela439> getEntityClass() {
-		return EfdTabela439.class;
+	public Class<? super EfdTabela439Entity> getEntityClass() {
+		return EfdTabela439Entity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class EfdTabela439ListController extends CRUDListController<EfdTabela439>
 	}
 
 	@Override
-	protected List<EfdTabela439> pesquisa(String valor) {
+	protected List<EfdTabela439Entity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<EfdTabela439> getFormController() {
+	protected CRUDFormController<EfdTabela439Entity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class EfdTabela439ListController extends CRUDListController<EfdTabela439>
 	}
 
 	@Override
-	protected List<EfdTabela439> pesquisaDefault() {
-		return (List<EfdTabela439>) dao.getAll(getEntityClass());
+	protected List<EfdTabela439Entity> pesquisaDefault() {
+		return (List<EfdTabela439Entity>) dao.getAll(getEntityClass());
 	}
 
 }

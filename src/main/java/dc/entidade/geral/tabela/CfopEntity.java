@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,56 +25,56 @@ import dc.entidade.framework.ComboValue;
 
 /**
  * 
- * @author Wesley Jr /*
+ * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
+ *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
+ *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
+ *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
+ *         algumas anotações, na classe e em alguns campos, onde temos as
+ *         anotações que é o Field e Caption, o Caption colocamos o nome do
+ *         campo que queremos que pesquise na Tela, pegando os dados que estão
+ *         salvos no Banco de Dados.
  */
 
 @Entity
-@Table(name = "csosn_b")
+@Table(name = "cfop")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Csosnb extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "csosnb_id_seq")
-	@SequenceGenerator(name = "csosnb_id_seq", sequenceName = "csosnb_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Lob
+	@Type(type = "text")
+	@Caption("Descrição")
 	@Field
-	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigo;
-
-	@Field
-	@Caption("Descricao")
-	@Column(name = "DESCRICAO", length = 50)
+	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@Lob
-	@Field
-	@Caption("Observacao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
+	@Field
+	@Caption("Aplicação")
+	@Column(name = "APLICACAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String aplicacao;
 
-	public Csosnb() {
+	public CfopEntity() {
 
 	}
 
-	public Csosnb(Integer id) {
+	public CfopEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -87,14 +86,6 @@ public class Csosnb extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.id = id;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -103,12 +94,12 @@ public class Csosnb extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.descricao = descricao;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getAplicacao() {
+		return aplicacao;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setAplicacao(String aplicacao) {
+		this.aplicacao = aplicacao;
 	}
 
 	@Override

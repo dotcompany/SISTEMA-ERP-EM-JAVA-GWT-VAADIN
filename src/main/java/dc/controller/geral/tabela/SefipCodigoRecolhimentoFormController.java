@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.SefipCodigoRecolhimento;
+import dc.entidade.geral.tabela.SefipCodigoRecolhimentoEntity;
 import dc.servicos.dao.geral.tabela.SefipCodigoRecolhimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCodigoRecolhimentoFormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.SefipCodigoRecolhimentoFormView;
 @Controller
 @Scope("prototype")
 public class SefipCodigoRecolhimentoFormController extends
-		CRUDFormController<SefipCodigoRecolhimento> {
+		CRUDFormController<SefipCodigoRecolhimentoEntity> {
 
 	SefipCodigoRecolhimentoFormView subView;
 
 	@Autowired
 	SefipCodigoRecolhimentoDAO sefipCodigoRecolhimentoDAO;
 
-	private SefipCodigoRecolhimento currentBean;
+	private SefipCodigoRecolhimentoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -79,7 +79,7 @@ public class SefipCodigoRecolhimentoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SefipCodigoRecolhimento();
+		currentBean = new SefipCodigoRecolhimentoEntity();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class SefipCodigoRecolhimentoFormController extends
 	}
 
 	@Override
-	public SefipCodigoRecolhimento getModelBean() {
+	public SefipCodigoRecolhimentoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

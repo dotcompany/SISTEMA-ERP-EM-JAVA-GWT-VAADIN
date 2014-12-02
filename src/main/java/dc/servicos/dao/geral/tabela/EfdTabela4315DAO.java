@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.EfdTabela4315;
+import dc.entidade.geral.tabela.EfdTabela4315Entity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -18,20 +18,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class EfdTabela4315DAO extends AbstractCrudDAO<EfdTabela4315>{
+public class EfdTabela4315DAO extends AbstractCrudDAO<EfdTabela4315Entity>{
 
 	@Override
-	public Class<EfdTabela4315> getEntityClass() {
-		return EfdTabela4315.class;
+	public Class<EfdTabela4315Entity> getEntityClass() {
+		return EfdTabela4315Entity.class;
 	}
 	
 	@Transactional
-	public List<EfdTabela4315> listaTodos() {
+	public List<EfdTabela4315Entity> listaTodos() {
 		return getSession().createQuery("from EfdTabela4315").list();
 	}
 
 	@Transactional
-	public List<EfdTabela4315> procuraNomeContendo(String query) {
+	public List<EfdTabela4315Entity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from EfdTabela4315 where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

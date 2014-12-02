@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.Feriados;
+import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.geral.tabela.FeriadosDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -19,7 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("unchecked")
-public class FeriadosListController extends CRUDListController<Feriados> {
+public class FeriadosListController extends CRUDListController<FeriadoEntity> {
 
 	/**
 	 * 
@@ -38,8 +38,8 @@ public class FeriadosListController extends CRUDListController<Feriados> {
 	}
 
 	@Override
-	public Class<? super Feriados> getEntityClass() {
-		return Feriados.class;
+	public Class<? super FeriadoEntity> getEntityClass() {
+		return FeriadoEntity.class;
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public class FeriadosListController extends CRUDListController<Feriados> {
 	}
 
 	@Override
-	protected List<Feriados> pesquisa(String valor) {
+	protected List<FeriadoEntity> pesquisa(String valor) {
 		return feriadosDAO.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Feriados> getFormController() {
+	protected CRUDFormController<FeriadoEntity> getFormController() {
 		return feriadosFormController;
 	}
 
@@ -69,8 +69,8 @@ public class FeriadosListController extends CRUDListController<Feriados> {
 	}
 
 	@Override
-	protected List<Feriados> pesquisaDefault() {
-		return (List<Feriados>) feriadosDAO.getAll(getEntityClass());
+	protected List<FeriadoEntity> pesquisaDefault() {
+		return (List<FeriadoEntity>) feriadosDAO.getAll(getEntityClass());
 	}
 
 }

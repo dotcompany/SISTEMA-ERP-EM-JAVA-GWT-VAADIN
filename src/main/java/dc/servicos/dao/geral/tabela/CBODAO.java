@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.CBO;
+import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CBODAO extends AbstractCrudDAO<CBO>{
+public class CBODAO extends AbstractCrudDAO<CboEntity>{
 
 	@Override
-	public Class<CBO> getEntityClass() {
-		return CBO.class;
+	public Class<CboEntity> getEntityClass() {
+		return CboEntity.class;
 	}
 	
 	@Transactional
-	public List<CBO> listaTodos() {
+	public List<CboEntity> listaTodos() {
 		return getSession().createQuery("from CBO").list();
 	}
 
 	@Transactional
-	public List<CBO> procuraNomeContendo(String query) {
+	public List<CboEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from CBO where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

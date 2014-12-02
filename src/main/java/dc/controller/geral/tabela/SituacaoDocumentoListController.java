@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.SituacaoDocumento;
+import dc.entidade.geral.tabela.SituacaoDocumentoEntity;
 import dc.servicos.dao.geral.tabela.SituacaoDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SituacaoDocumentoListController extends CRUDListController<SituacaoDocumento> {
+public class SituacaoDocumentoListController extends CRUDListController<SituacaoDocumentoEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class SituacaoDocumentoListController extends CRUDListController<Situacao
 	}
 
 	@Override
-	public Class<? super SituacaoDocumento> getEntityClass() {
-		return SituacaoDocumento.class;
+	public Class<? super SituacaoDocumentoEntity> getEntityClass() {
+		return SituacaoDocumentoEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class SituacaoDocumentoListController extends CRUDListController<Situacao
 	}
 
 	@Override
-	protected List<SituacaoDocumento> pesquisa(String valor) {
+	protected List<SituacaoDocumentoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<SituacaoDocumento> getFormController() {
+	protected CRUDFormController<SituacaoDocumentoEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class SituacaoDocumentoListController extends CRUDListController<Situacao
 	}
 
 	@Override
-	protected List<SituacaoDocumento> pesquisaDefault() {
-		return (List<SituacaoDocumento>) dao.getAll(getEntityClass());
+	protected List<SituacaoDocumentoEntity> pesquisaDefault() {
+		return (List<SituacaoDocumentoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.Csosna;
+import dc.entidade.geral.tabela.CsosnaEntity;
 import dc.servicos.dao.geral.tabela.CsosnaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -19,7 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CsosnaListController extends CRUDListController<Csosna> {
+public class CsosnaListController extends CRUDListController<CsosnaEntity> {
 
 	/**
 	 * 
@@ -38,8 +38,8 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 	}
 
 	@Override
-	public Class<? super Csosna> getEntityClass() {
-		return Csosna.class;
+	public Class<? super CsosnaEntity> getEntityClass() {
+		return CsosnaEntity.class;
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 	}
 
 	@Override
-	protected List<Csosna> pesquisa(String valor) {
+	protected List<CsosnaEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Csosna> getFormController() {
+	protected CRUDFormController<CsosnaEntity> getFormController() {
 		return pController;
 	}
 
@@ -69,8 +69,8 @@ public class CsosnaListController extends CRUDListController<Csosna> {
 	}
 
 	@Override
-	protected List<Csosna> pesquisaDefault() {
-		return (List<Csosna>) dao.getAll(getEntityClass());
+	protected List<CsosnaEntity> pesquisaDefault() {
+		return (List<CsosnaEntity>) dao.getAll(getEntityClass());
 	}
 
 }

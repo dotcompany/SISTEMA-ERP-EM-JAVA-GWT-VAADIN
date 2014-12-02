@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.CstIcmsA;
+import dc.entidade.geral.tabela.CstIcmsaEntity;
 import dc.servicos.dao.geral.tabela.CstIcmsADAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIcmsAFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CstIcmsAFormView;
 
 @Controller
 @Scope("prototype")
-public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
+public class CstIcmsAFormController extends CRUDFormController<CstIcmsaEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
 	@Autowired
 	CstIcmsADAO cstIcmsADAO;
 
-	private CstIcmsA currentBean;
+	private CstIcmsaEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -84,7 +84,7 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CstIcmsA();
+		currentBean = new CstIcmsaEntity();
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsA> {
 	}
 
 	@Override
-	public CstIcmsA getModelBean() {
+	public CstIcmsaEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

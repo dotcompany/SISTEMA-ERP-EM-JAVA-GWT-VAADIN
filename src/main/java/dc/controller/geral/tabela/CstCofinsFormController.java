@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.CstCofins;
+import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstCofinsFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CstCofinsFormView;
 
 @Controller
 @Scope("prototype")
-public class CstCofinsFormController extends CRUDFormController<CstCofins> {
+public class CstCofinsFormController extends CRUDFormController<CstCofinsEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CstCofinsFormController extends CRUDFormController<CstCofins> {
 	@Autowired
 	CstCofinsDAO cstCofinsDAO;
 
-	private CstCofins currentBean;
+	private CstCofinsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -84,7 +84,7 @@ public class CstCofinsFormController extends CRUDFormController<CstCofins> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CstCofins();
+		currentBean = new CstCofinsEntity();
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class CstCofinsFormController extends CRUDFormController<CstCofins> {
 	}
 
 	@Override
-	public CstCofins getModelBean() {
+	public CstCofinsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

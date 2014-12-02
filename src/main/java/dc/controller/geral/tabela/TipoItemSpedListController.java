@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.TipoItemSped;
+import dc.entidade.geral.tabela.TipoItemSpedEntity;
 import dc.servicos.dao.geral.tabela.TipoItemSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class TipoItemSpedListController extends CRUDListController<TipoItemSped> {
+public class TipoItemSpedListController extends CRUDListController<TipoItemSpedEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class TipoItemSpedListController extends CRUDListController<TipoItemSped>
 	}
 
 	@Override
-	public Class<? super TipoItemSped> getEntityClass() {
-		return TipoItemSped.class;
+	public Class<? super TipoItemSpedEntity> getEntityClass() {
+		return TipoItemSpedEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class TipoItemSpedListController extends CRUDListController<TipoItemSped>
 	}
 
 	@Override
-	protected List<TipoItemSped> pesquisa(String valor) {
+	protected List<TipoItemSpedEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<TipoItemSped> getFormController() {
+	protected CRUDFormController<TipoItemSpedEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class TipoItemSpedListController extends CRUDListController<TipoItemSped>
 	}
 
 	@Override
-	protected List<TipoItemSped> pesquisaDefault() {
-		return (List<TipoItemSped>) dao.getAll(getEntityClass());
+	protected List<TipoItemSpedEntity> pesquisaDefault() {
+		return (List<TipoItemSpedEntity>) dao.getAll(getEntityClass());
 	}
 
 }

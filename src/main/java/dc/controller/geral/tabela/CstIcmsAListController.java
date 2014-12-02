@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.CstIcmsA;
+import dc.entidade.geral.tabela.CstIcmsaEntity;
 import dc.servicos.dao.geral.tabela.CstIcmsADAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
+public class CstIcmsAListController extends CRUDListController<CstIcmsaEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
 	}
 
 	@Override
-	public Class<? super CstIcmsA> getEntityClass() {
-		return CstIcmsA.class;
+	public Class<? super CstIcmsaEntity> getEntityClass() {
+		return CstIcmsaEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
 	}
 
 	@Override
-	protected List<CstIcmsA> pesquisa(String valor) {
+	protected List<CstIcmsaEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CstIcmsA> getFormController() {
+	protected CRUDFormController<CstIcmsaEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CstIcmsAListController extends CRUDListController<CstIcmsA> {
 	}
 
 	@Override
-	protected List<CstIcmsA> pesquisaDefault() {
-		return (List<CstIcmsA>) dao.getAll(getEntityClass());
+	protected List<CstIcmsaEntity> pesquisaDefault() {
+		return (List<CstIcmsaEntity>) dao.getAll(getEntityClass());
 	}
 
 }

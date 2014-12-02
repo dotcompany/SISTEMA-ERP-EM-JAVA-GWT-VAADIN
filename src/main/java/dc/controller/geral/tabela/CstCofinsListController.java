@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.CstCofins;
+import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CstCofinsListController extends CRUDListController<CstCofins> {
+public class CstCofinsListController extends CRUDListController<CstCofinsEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CstCofinsListController extends CRUDListController<CstCofins> {
 	}
 
 	@Override
-	public Class<? super CstCofins> getEntityClass() {
-		return CstCofins.class;
+	public Class<? super CstCofinsEntity> getEntityClass() {
+		return CstCofinsEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CstCofinsListController extends CRUDListController<CstCofins> {
 	}
 
 	@Override
-	protected List<CstCofins> pesquisa(String valor) {
+	protected List<CstCofinsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CstCofins> getFormController() {
+	protected CRUDFormController<CstCofinsEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CstCofinsListController extends CRUDListController<CstCofins> {
 	}
 
 	@Override
-	protected List<CstCofins> pesquisaDefault() {
-		return (List<CstCofins>) dao.getAll(getEntityClass());
+	protected List<CstCofinsEntity> pesquisaDefault() {
+		return (List<CstCofinsEntity>) dao.getAll(getEntityClass());
 	}
 
 }

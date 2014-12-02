@@ -20,8 +20,13 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Table(name = "efd_tabela_435")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class EfdTabela435 extends AbstractMultiEmpresaModel<Integer> {
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class EfdTabela435Entity extends AbstractMultiEmpresaModel<Integer> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
@@ -29,10 +34,14 @@ public class EfdTabela435 extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "efd", sequenceName = "efd_tabela_435_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
-	
-	String codigo;
-	
-	String descricao;
+
+	private String codigo;
+
+	private String descricao;
+
+	public EfdTabela435Entity() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -57,7 +66,5 @@ public class EfdTabela435 extends AbstractMultiEmpresaModel<Integer> {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
-	
+
 }

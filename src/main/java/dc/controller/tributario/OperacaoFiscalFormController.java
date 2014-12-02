@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
-import dc.entidade.geral.tabela.Cfop;
+import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.tabela.CfopDAO;
@@ -77,7 +77,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	@Override
 	protected void actionSalvar() {
 		try {
-			Cfop cfop = (Cfop) subView.getCfop().getValue();
+			CfopEntity cfop = (CfopEntity) subView.getCfop().getValue();
 
 			if (cfop == null) {
 				throw new ErroValidacaoException("Informe o Campo CFOP!");
@@ -140,9 +140,9 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 		return true;
 	}
 
-	public BeanItemContainer<Cfop> carregarCfop() {
-		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
-		for (Cfop obj : cfopDAO.listaTodos()) {
+	public BeanItemContainer<CfopEntity> carregarCfop() {
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;

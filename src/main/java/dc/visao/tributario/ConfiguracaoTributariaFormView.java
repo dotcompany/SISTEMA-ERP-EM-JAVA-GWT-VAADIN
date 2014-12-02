@@ -21,11 +21,11 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.ConfiguracaoTributariaFormController;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.tabela.CstCofins;
-import dc.entidade.geral.tabela.CstIpi;
-import dc.entidade.geral.tabela.CstPis;
-import dc.entidade.geral.tabela.EfdTabela435;
-import dc.entidade.geral.tabela.TipoReceitaDipi;
+import dc.entidade.geral.tabela.CstCofinsEntity;
+import dc.entidade.geral.tabela.CstIpiEntity;
+import dc.entidade.geral.tabela.CstPisEntity;
+import dc.entidade.geral.tabela.EfdTabela435Entity;
+import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSConfiguracaoTributaria;
@@ -210,7 +210,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					CstPis cst = controller.consultarCstPis(codigo);
+					CstPisEntity cst = controller.consultarCstPis(codigo);
 					if (cst != null)
 						txtDescricaoCstPis.setValue(cst.getDescricao());
 				}
@@ -230,7 +230,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					EfdTabela435 efd = controller.consultarEfd(codigo);
+					EfdTabela435Entity efd = controller.consultarEfd(codigo);
 					if (efd != null)
 						txtDescricaoEfdPis.setValue(efd.getDescricao());
 				}
@@ -283,7 +283,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					CstCofins cst = controller.consultarCstCofins(codigo);
+					CstCofinsEntity cst = controller.consultarCstCofins(codigo);
 					if (cst != null)
 						txtDescricaoCstCofins.setValue(cst.getDescricao());
 				}
@@ -303,7 +303,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					EfdTabela435 efd = controller.consultarEfd(codigo);
+					EfdTabela435Entity efd = controller.consultarEfd(codigo);
 					if (efd != null)
 						txtDescricaoEfdCofins.setValue(efd.getDescricao());
 				}
@@ -357,7 +357,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					CstIpi cst = controller.consultarCstIpi(codigo);
+					CstIpiEntity cst = controller.consultarCstIpi(codigo);
 					if (cst != null)
 						txtDescricaoCstIPI.setValue(cst.getDescricao());
 				}
@@ -377,7 +377,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 			public void valueChange(ValueChangeEvent event) {
 				String codigo = (String) event.getProperty().getValue();
 				if (codigo != null && !(codigo.isEmpty())) {
-					TipoReceitaDipi tipo = controller.consultarDipi(codigo);
+					TipoReceitaDipiEntity tipo = controller.consultarDipi(codigo);
 					if (tipo != null)
 						txtDescricaoDipi.setValue(tipo.getDescricao());
 				}

@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.UfListController;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.tabela.Feriados;
+import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.geral.UFDAO;
 import dc.servicos.dao.geral.tabela.FeriadosDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -22,7 +22,7 @@ import dc.visao.geral.tabela.FeriadosFormView;
 
 @Controller
 @Scope("prototype")
-public class FeriadosFormController extends CRUDFormController<Feriados> {
+public class FeriadosFormController extends CRUDFormController<FeriadoEntity> {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class FeriadosFormController extends CRUDFormController<Feriados> {
 	@Autowired
 	private UFDAO ufDAO;
 
-	private Feriados currentBean;
+	private FeriadoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -98,7 +98,7 @@ public class FeriadosFormController extends CRUDFormController<Feriados> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Feriados();
+		currentBean = new FeriadoEntity();
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class FeriadosFormController extends CRUDFormController<Feriados> {
 	}
 
 	@Override
-	public Feriados getModelBean() {
+	public FeriadoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

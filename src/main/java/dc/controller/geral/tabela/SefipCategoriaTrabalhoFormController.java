@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.SefipCategoriaTrabalho;
+import dc.entidade.geral.tabela.SefipCategoriaTrabalhoEntity;
 import dc.servicos.dao.geral.tabela.SefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCategoriaTrabalhoFormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.SefipCategoriaTrabalhoFormView;
 @Controller
 @Scope("prototype")
 public class SefipCategoriaTrabalhoFormController extends
-		CRUDFormController<SefipCategoriaTrabalho> {
+		CRUDFormController<SefipCategoriaTrabalhoEntity> {
 
 	SefipCategoriaTrabalhoFormView subView;
 
 	@Autowired
 	SefipCategoriaTrabalhoDAO sefipDAO;
 
-	private SefipCategoriaTrabalho currentBean;
+	private SefipCategoriaTrabalhoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -77,7 +77,7 @@ public class SefipCategoriaTrabalhoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SefipCategoriaTrabalho();
+		currentBean = new SefipCategoriaTrabalhoEntity();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class SefipCategoriaTrabalhoFormController extends
 	}
 
 	@Override
-	public SefipCategoriaTrabalho getModelBean() {
+	public SefipCategoriaTrabalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

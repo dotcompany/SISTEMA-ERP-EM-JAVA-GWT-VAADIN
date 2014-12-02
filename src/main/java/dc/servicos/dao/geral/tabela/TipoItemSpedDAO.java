@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.TipoItemSped;
+import dc.entidade.geral.tabela.TipoItemSpedEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoItemSpedDAO extends AbstractCrudDAO<TipoItemSped>{
+public class TipoItemSpedDAO extends AbstractCrudDAO<TipoItemSpedEntity>{
 
 	@Override
-	public Class<TipoItemSped> getEntityClass() {
-		return TipoItemSped.class;
+	public Class<TipoItemSpedEntity> getEntityClass() {
+		return TipoItemSpedEntity.class;
 	}
 	
 	@Transactional
-	public List<TipoItemSped> listaTodos() {
+	public List<TipoItemSpedEntity> listaTodos() {
 		return getSession().createQuery("from TipoItemSped").list();
 	}
 
 	@Transactional
-	public List<TipoItemSped> procuraNomeContendo(String query) {
+	public List<TipoItemSpedEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from TipoItemSped where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

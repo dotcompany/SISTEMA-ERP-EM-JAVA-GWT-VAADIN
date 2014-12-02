@@ -13,14 +13,14 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.tabela.Cfop;
-import dc.entidade.geral.tabela.Csosnb;
-import dc.entidade.geral.tabela.CstCofins;
-import dc.entidade.geral.tabela.CstIcmsB;
-import dc.entidade.geral.tabela.CstIpi;
-import dc.entidade.geral.tabela.CstPis;
-import dc.entidade.geral.tabela.EfdTabela435;
-import dc.entidade.geral.tabela.TipoReceitaDipi;
+import dc.entidade.geral.tabela.CfopEntity;
+import dc.entidade.geral.tabela.CsosnbEntity;
+import dc.entidade.geral.tabela.CstCofinsEntity;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
+import dc.entidade.geral.tabela.CstIpiEntity;
+import dc.entidade.geral.tabela.CstPisEntity;
+import dc.entidade.geral.tabela.EfdTabela435Entity;
+import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.entidade.tributario.CofinsConfiguracaoTributaria;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
@@ -512,23 +512,23 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return objeto;
 	}
 
-	public CstPis consultarCstPis(String codigo) {
+	public CstPisEntity consultarCstPis(String codigo) {
 		return cstPisDAO.procuraPorCodigo(codigo);
 	}
 
-	public CstCofins consultarCstCofins(String codigo) {
+	public CstCofinsEntity consultarCstCofins(String codigo) {
 		return cstCofinsDAO.procuraPorCodigo(codigo);
 	}
 
-	public CstIpi consultarCstIpi(String codigo) {
+	public CstIpiEntity consultarCstIpi(String codigo) {
 		return cstIpiDAO.procuraPorCodigo(codigo);
 	}
 
-	public EfdTabela435 consultarEfd(String codigo) {
+	public EfdTabela435Entity consultarEfd(String codigo) {
 		return efdDAO.procuraPorCodigo(codigo);
 	}
 
-	public TipoReceitaDipi consultarDipi(String codigo) {
+	public TipoReceitaDipiEntity consultarDipi(String codigo) {
 		return dipiDAO.procuraPorCodigo(codigo);
 	}
 
@@ -540,25 +540,25 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return format;
 	}
 
-	public BeanItemContainer<Csosnb> carregarCsosnb() {
-		BeanItemContainer<Csosnb> container = new BeanItemContainer<>(Csosnb.class);
-		for (Csosnb obj : csosnbDAO.listaTodos()) {
+	public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
+		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(CsosnbEntity.class);
+		for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<CstIcmsB> carregarCstB() {
-		BeanItemContainer<CstIcmsB> container = new BeanItemContainer<>(CstIcmsB.class);
-		for (CstIcmsB obj : cstbDAO.listaTodos()) {
+	public BeanItemContainer<CstIcmsbEntity> carregarCstB() {
+		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(CstIcmsbEntity.class);
+		for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;
 	}
 
-	public BeanItemContainer<Cfop> carregarCfop() {
-		BeanItemContainer<Cfop> container = new BeanItemContainer<>(Cfop.class);
-		for (Cfop obj : cfopDAO.listaTodos()) {
+	public BeanItemContainer<CfopEntity> carregarCfop() {
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 		return container;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.CstIpi;
+import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.servicos.dao.geral.tabela.CstIpiDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CstIpiListController extends CRUDListController<CstIpi> {
+public class CstIpiListController extends CRUDListController<CstIpiEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CstIpiListController extends CRUDListController<CstIpi> {
 	}
 
 	@Override
-	public Class<? super CstIpi> getEntityClass() {
-		return CstIpi.class;
+	public Class<? super CstIpiEntity> getEntityClass() {
+		return CstIpiEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CstIpiListController extends CRUDListController<CstIpi> {
 	}
 
 	@Override
-	protected List<CstIpi> pesquisa(String valor) {
+	protected List<CstIpiEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CstIpi> getFormController() {
+	protected CRUDFormController<CstIpiEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CstIpiListController extends CRUDListController<CstIpi> {
 	}
 
 	@Override
-	protected List<CstIpi> pesquisaDefault() {
-		return (List<CstIpi>) dao.getAll(getEntityClass());
+	protected List<CstIpiEntity> pesquisaDefault() {
+		return (List<CstIpiEntity>) dao.getAll(getEntityClass());
 	}
 
 }

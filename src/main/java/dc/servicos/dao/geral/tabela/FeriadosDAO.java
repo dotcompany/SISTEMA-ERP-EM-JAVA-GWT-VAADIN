@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.Feriados;
+import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class FeriadosDAO extends AbstractCrudDAO<Feriados>{
+public class FeriadosDAO extends AbstractCrudDAO<FeriadoEntity>{
 
 	@Override
-	public Class<Feriados> getEntityClass() {
-		return Feriados.class;
+	public Class<FeriadoEntity> getEntityClass() {
+		return FeriadoEntity.class;
 	}
 	
 	@Transactional
-	public List<Feriados> listaTodos() {
+	public List<FeriadoEntity> listaTodos() {
 		return getSession().createQuery("from Feriados").list();
 	}
 
 	@Transactional
-	public List<Feriados> procuraNomeContendo(String query) {
+	public List<FeriadoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Feriados where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

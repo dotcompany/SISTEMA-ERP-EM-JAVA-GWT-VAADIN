@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.Cfop;
+import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CfopFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CfopFormView;
 
 @Controller
 @Scope("prototype")
-public class CfopFormController extends CRUDFormController<Cfop> {
+public class CfopFormController extends CRUDFormController<CfopEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 	@Autowired
 	CfopDAO cfopDAO;
 
-	private Cfop currentBean;
+	private CfopEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cfop();
+		currentBean = new CfopEntity();
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class CfopFormController extends CRUDFormController<Cfop> {
 	}
 
 	@Override
-	public Cfop getModelBean() {
+	public CfopEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

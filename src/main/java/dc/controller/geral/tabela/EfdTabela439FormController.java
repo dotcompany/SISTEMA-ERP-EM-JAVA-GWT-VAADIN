@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.EfdTabela439;
+import dc.entidade.geral.tabela.EfdTabela439Entity;
 import dc.servicos.dao.geral.tabela.EfdTabela439DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.EfdTabela439FormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.EfdTabela439FormView;
 @Controller
 @Scope("prototype")
 public class EfdTabela439FormController extends
-		CRUDFormController<EfdTabela439> {
+		CRUDFormController<EfdTabela439Entity> {
 
 	EfdTabela439FormView subView;
 
 	@Autowired
 	EfdTabela439DAO efdTabela439DAO;
 
-	private EfdTabela439 currentBean;
+	private EfdTabela439Entity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -83,7 +83,7 @@ public class EfdTabela439FormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new EfdTabela439();
+		currentBean = new EfdTabela439Entity();
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class EfdTabela439FormController extends
 	}
 
 	@Override
-	public EfdTabela439 getModelBean() {
+	public EfdTabela439Entity getModelBean() {
 		return currentBean;
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.SituacaoDocumento;
+import dc.entidade.geral.tabela.SituacaoDocumentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -18,20 +18,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SituacaoDocumentoDAO extends AbstractCrudDAO<SituacaoDocumento>{
+public class SituacaoDocumentoDAO extends AbstractCrudDAO<SituacaoDocumentoEntity>{
 
 	@Override
-	public Class<SituacaoDocumento> getEntityClass() {
-		return SituacaoDocumento.class;
+	public Class<SituacaoDocumentoEntity> getEntityClass() {
+		return SituacaoDocumentoEntity.class;
 	}
 	
 	@Transactional
-	public List<SituacaoDocumento> listaTodos() {
+	public List<SituacaoDocumentoEntity> listaTodos() {
 		return getSession().createQuery("from SituacaoDocumento").list();
 	}
 
 	@Transactional
-	public List<SituacaoDocumento> procuraNomeContendo(String query) {
+	public List<SituacaoDocumentoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from SituacaoDocumento where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

@@ -35,7 +35,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SalarioMinimo extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -89,11 +89,11 @@ public class SalarioMinimo extends AbstractMultiEmpresaModel<Integer> implements
 	/*@Column(name = "ID_EMPRESA")
 	private Integer idEmpresa;*/
 	
-	public SalarioMinimo() {
+	public SalarioMinimoEntity() {
 
 	}
 
-	public SalarioMinimo(Integer id) {
+	public SalarioMinimoEntity(Integer id) {
 		this.id = id;
 	}
 

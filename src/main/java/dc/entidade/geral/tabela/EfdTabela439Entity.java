@@ -32,18 +32,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "efd_tabela_4314")
+@Table(name = "efd_tabela_439")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EfdTabela4314 extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class EfdTabela439Entity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd_tabela_4314_id_seq")
-	@SequenceGenerator(name = "efd_tabela_4314_id_seq", sequenceName = "efd_tabela_4314_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd_tabela_439_id_seq")
+	@SequenceGenerator(name = "efd_tabela_439_id_seq", sequenceName = "efd_tabela_439_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -90,11 +90,11 @@ public class EfdTabela4314 extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date fimVigencia;
 
-	public EfdTabela4314() {
+	public EfdTabela439Entity() {
 
 	}
 
-	public EfdTabela4314(Integer id) {
+	public EfdTabela439Entity(Integer id) {
 		this.id = id;
 	}
 

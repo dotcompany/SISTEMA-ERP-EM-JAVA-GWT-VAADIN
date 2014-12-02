@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.SefipCodigoRecolhimento;
+import dc.entidade.geral.tabela.SefipCodigoRecolhimentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SefipCodigoRecolhimentoDAO extends AbstractCrudDAO<SefipCodigoRecolhimento>{
+public class SefipCodigoRecolhimentoDAO extends AbstractCrudDAO<SefipCodigoRecolhimentoEntity>{
 
 	@Override
-	public Class<SefipCodigoRecolhimento> getEntityClass() {
-		return SefipCodigoRecolhimento.class;
+	public Class<SefipCodigoRecolhimentoEntity> getEntityClass() {
+		return SefipCodigoRecolhimentoEntity.class;
 	}
 	
 	@Transactional
-	public List<SefipCodigoRecolhimento> listaTodos() {
+	public List<SefipCodigoRecolhimentoEntity> listaTodos() {
 		return getSession().createQuery("from SefipCodigoRecolhimento").list();
 	}
 
 	@Transactional
-	public List<SefipCodigoRecolhimento> procuraNomeContendo(String query) {
+	public List<SefipCodigoRecolhimentoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from SefipCodigoRecolhimento where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.SalarioMinimo;
+import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.servicos.dao.geral.tabela.SalarioMinimoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SalarioMinimoListController extends CRUDListController<SalarioMinimo> {
+public class SalarioMinimoListController extends CRUDListController<SalarioMinimoEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 	}
 
 	@Override
-	public Class<? super SalarioMinimo> getEntityClass() {
-		return SalarioMinimo.class;
+	public Class<? super SalarioMinimoEntity> getEntityClass() {
+		return SalarioMinimoEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 	}
 
 	@Override
-	protected List<SalarioMinimo> pesquisa(String valor) {
+	protected List<SalarioMinimoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<SalarioMinimo> getFormController() {
+	protected CRUDFormController<SalarioMinimoEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 	}
 
 	@Override
-	protected List<SalarioMinimo> pesquisaDefault() {
-		return (List<SalarioMinimo>) dao.getAll(getEntityClass());
+	protected List<SalarioMinimoEntity> pesquisaDefault() {
+		return (List<SalarioMinimoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -31,18 +31,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "cst_icms_a")
+@Table(name = "sefip_codigo_movimentacao")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class CstIcmsA extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class SefipCodigoMovimentacaoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_icms_a_id_seq")
-	@SequenceGenerator(name = "cst_icms_a_id_seq", sequenceName = "cst_icms_a_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sefip_codigo_movimentacao_id_seq")
+	@SequenceGenerator(name = "sefip_codigo_movimentacao_id_seq", sequenceName = "sefip_codigo_movimentacao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -50,34 +50,36 @@ public class CstIcmsA extends AbstractMultiEmpresaModel<Integer> implements Seri
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo")
+	@Column(name = "Codigo", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigo;
 
+	@Lob
 	@Field
+	@Type(type = "text")
 	@Caption("Descricao")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "DESCRICAO", length = 250)
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
+	@Caption("Aplicacao")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "OBSERVACAO")
+	@Column(name = "APLICACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String aplicacao;
 
-	public CstIcmsA() {
+	public SefipCodigoMovimentacaoEntity() {
 
 	}
 
-	public CstIcmsA(Integer id) {
+	public SefipCodigoMovimentacaoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -89,14 +91,6 @@ public class CstIcmsA extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
@@ -105,12 +99,20 @@ public class CstIcmsA extends AbstractMultiEmpresaModel<Integer> implements Seri
 		this.codigo = codigo;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getAplicacao() {
+		return aplicacao;
+	}
+
+	public void setAplicacao(String aplicacao) {
+		this.aplicacao = aplicacao;
 	}
 
 	@Override

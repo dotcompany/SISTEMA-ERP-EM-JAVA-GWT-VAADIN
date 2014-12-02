@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.Cfop;
+import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CfopListController extends CRUDListController<Cfop> {
+public class CfopListController extends CRUDListController<CfopEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CfopListController extends CRUDListController<Cfop> {
 	}
 
 	@Override
-	public Class<? super Cfop> getEntityClass() {
-		return Cfop.class;
+	public Class<? super CfopEntity> getEntityClass() {
+		return CfopEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CfopListController extends CRUDListController<Cfop> {
 	}
 
 	@Override
-	protected List<Cfop> pesquisa(String valor) {
+	protected List<CfopEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Cfop> getFormController() {
+	protected CRUDFormController<CfopEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CfopListController extends CRUDListController<Cfop> {
 	}
 
 	@Override
-	protected List<Cfop> pesquisaDefault() {
-		return (List<Cfop>) dao.getAll(getEntityClass());
+	protected List<CfopEntity> pesquisaDefault() {
+		return (List<CfopEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.Csosnb;
+import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -19,7 +19,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CsosnbListController extends CRUDListController<Csosnb> {
+public class CsosnbListController extends CRUDListController<CsosnbEntity> {
 
 	/**
 	 * 
@@ -38,8 +38,8 @@ public class CsosnbListController extends CRUDListController<Csosnb> {
 	}
 
 	@Override
-	public Class<? super Csosnb> getEntityClass() {
-		return Csosnb.class;
+	public Class<? super CsosnbEntity> getEntityClass() {
+		return CsosnbEntity.class;
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public class CsosnbListController extends CRUDListController<Csosnb> {
 	}
 
 	@Override
-	protected List<Csosnb> pesquisa(String valor) {
+	protected List<CsosnbEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Csosnb> getFormController() {
+	protected CRUDFormController<CsosnbEntity> getFormController() {
 		return pController;
 	}
 
@@ -69,8 +69,8 @@ public class CsosnbListController extends CRUDListController<Csosnb> {
 	}
 
 	@Override
-	protected List<Csosnb> pesquisaDefault() {
-		return (List<Csosnb>) dao.getAll(getEntityClass());
+	protected List<CsosnbEntity> pesquisaDefault() {
+		return (List<CsosnbEntity>) dao.getAll(getEntityClass());
 	}
 
 }

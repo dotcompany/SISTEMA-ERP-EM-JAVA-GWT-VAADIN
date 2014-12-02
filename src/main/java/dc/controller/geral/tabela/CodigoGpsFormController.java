@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.CodigoGps;
+import dc.entidade.geral.tabela.CodigoGpsEntity;
 import dc.servicos.dao.geral.tabela.CodigoGpsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CodigoGpsFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CodigoGpsFormView;
 
 @Controller
 @Scope("prototype")
-public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
+public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 	@Autowired
 	private CodigoGpsDAO codigoGpsDAO;
 
-	private CodigoGps currentBean;
+	private CodigoGpsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -80,7 +80,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CodigoGps();
+		currentBean = new CodigoGpsEntity();
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGps> {
 	}
 
 	@Override
-	public CodigoGps getModelBean() {
+	public CodigoGpsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

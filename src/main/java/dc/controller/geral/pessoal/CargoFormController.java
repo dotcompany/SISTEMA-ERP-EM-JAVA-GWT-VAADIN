@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.tabela.CBOListController;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.entidade.geral.tabela.CBO;
+import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
 import dc.servicos.dao.geral.tabela.CBODAO;
 import dc.servicos.util.Validator;
@@ -63,9 +63,9 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	@Override
 	protected void initSubView() {
 		subView = new CargoFormView();
-		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(
+		DefaultManyToOneComboModel<CboEntity> modelCBO = new DefaultManyToOneComboModel<CboEntity>(
 				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(
+		DefaultManyToOneComboModel<CboEntity> modelCBO2 = new DefaultManyToOneComboModel<CboEntity>(
 				CBOListController.class, cboDAO, super.getMainController());
 		subView.getCmbCBO1994().setModel(modelCBO);
 		subView.getCmbCBO2002().setModel(modelCBO2);
@@ -79,9 +79,9 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricaoo().setValue(currentBean.getDescricao());
 
-		DefaultManyToOneComboModel<CBO> modelCBO = new DefaultManyToOneComboModel<CBO>(
+		DefaultManyToOneComboModel<CboEntity> modelCBO = new DefaultManyToOneComboModel<CboEntity>(
 				CBOListController.class, cboDAO, super.getMainController());
-		DefaultManyToOneComboModel<CBO> modelCBO2 = new DefaultManyToOneComboModel<CBO>(
+		DefaultManyToOneComboModel<CboEntity> modelCBO2 = new DefaultManyToOneComboModel<CboEntity>(
 				CBOListController.class, cboDAO, super.getMainController());
 		subView.getCmbCBO1994().setModel(modelCBO);
 		subView.getCmbCBO2002().setModel(modelCBO2);

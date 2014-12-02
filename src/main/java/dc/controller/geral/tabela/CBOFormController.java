@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.CBO;
+import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.tabela.CBODAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CBOFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CBOFormView;
 
 @Controller
 @Scope("prototype")
-public class CBOFormController extends CRUDFormController<CBO> {
+public class CBOFormController extends CRUDFormController<CboEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 	@Autowired
 	CBODAO cboDAO;
 
-	private CBO currentBean;
+	private CboEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -84,7 +84,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CBO();
+		currentBean = new CboEntity();
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class CBOFormController extends CRUDFormController<CBO> {
 	}
 
 	@Override
-	public CBO getModelBean() {
+	public CboEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

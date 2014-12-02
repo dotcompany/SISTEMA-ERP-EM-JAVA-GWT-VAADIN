@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.SalarioMinimo;
+import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.tabela.SalarioMinimoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -22,14 +22,14 @@ import dc.visao.geral.tabela.SalarioMinimoFormView;
 @Controller
 @Scope("prototype")
 public class SalarioMinimoFormController extends
-		CRUDFormController<SalarioMinimo> {
+		CRUDFormController<SalarioMinimoEntity> {
 
 	private SalarioMinimoFormView subView;
 
 	@Autowired
 	private SalarioMinimoDAO salarioMinimoDAO;
 
-	private SalarioMinimo currentBean;
+	private SalarioMinimoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -150,7 +150,7 @@ public class SalarioMinimoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SalarioMinimo();
+		currentBean = new SalarioMinimoEntity();
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class SalarioMinimoFormController extends
 	}
 
 	@Override
-	public SalarioMinimo getModelBean() {
+	public SalarioMinimoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

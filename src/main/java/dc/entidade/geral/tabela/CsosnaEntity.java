@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -29,18 +31,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "tipo_item_sped")
+@Table(name = "csosna")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoItemSped extends AbstractMultiEmpresaModel<Integer> implements	Serializable {
+public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_item_sped_id_seq")
-	@SequenceGenerator(name = "tipo_item_sped_id_seq", sequenceName = "tipo_item_sped_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "csosna_id_seq")
+	@SequenceGenerator(name = "csosna_id_seq", sequenceName = "csosna_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -55,16 +57,26 @@ public class TipoItemSped extends AbstractMultiEmpresaModel<Integer> implements	
 
 	@Field
 	@Caption("Descricao")
-	@Column(name = "DESCRICAO")
+	@Column(name = "DESCRICAO", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	public TipoItemSped() {
+	@Lob
+	@Field
+	@Caption("Observacao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "OBSERVACAO")
+	@Type(type = "text")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao;
+
+	public CsosnaEntity() {
 
 	}
 
-	public TipoItemSped(Integer id) {
+	public CsosnaEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -90,6 +102,14 @@ public class TipoItemSped extends AbstractMultiEmpresaModel<Integer> implements	
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	@Override

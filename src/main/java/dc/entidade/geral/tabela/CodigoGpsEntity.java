@@ -31,7 +31,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class CodigoGps extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CodigoGpsEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

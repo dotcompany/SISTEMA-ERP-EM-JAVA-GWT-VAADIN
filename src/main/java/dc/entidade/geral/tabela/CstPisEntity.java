@@ -20,60 +20,63 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-
-
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
-*
-* @author Wesley Jr
-/*
-*/
-
+ * 
+ * @author Wesley Jr /*
+ */
 
 @Entity
-@Table(name = "tipo_receita_dipi")
+@Table(name = "cst_pis")
 @XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoReceitaDipi extends AbstractMultiEmpresaModel<Integer> implements Serializable {
-	
+@Analyzer(impl = BrazilianAnalyzer.class)
+public class CstPisEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_ipi_id_seq")
-	@SequenceGenerator(name = "cst_ipi_id_seq", sequenceName = "cst_ipi_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_pis_id_seq")
+	@SequenceGenerator(name = "cst_pis_id_seq", sequenceName = "cst_pis_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-    
-    @Field
-    @Caption("Codigo")
-    @Column(name="Codigo")
-    private String codigo;
-    
-    @Field
-    @Caption("Descricao")
-    @Basic(fetch=javax.persistence.FetchType.LAZY)
-    @Column(name = "DESCRICAO", length= 250)
-    private String descricao;
-    
-    
-    
-    public TipoReceitaDipi() {
-    }
 
-    public TipoReceitaDipi(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Codigo")
+	@Column(name = "Codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo;
 
-    public Integer getId() {
-        return id;
-    }
+	@Field
+	@Caption("Descricao")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO", length = 250)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
+	public CstPisEntity() {
+
+	}
+
+	public CstPisEntity(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -90,11 +93,9 @@ public class TipoReceitaDipi extends AbstractMultiEmpresaModel<Integer> implemen
 		this.codigo = codigo;
 	}
 
-	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-    
 }

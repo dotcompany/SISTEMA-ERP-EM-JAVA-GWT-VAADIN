@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.CstIpi;
+import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.servicos.dao.geral.tabela.CstIpiDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIpiFormView;
@@ -18,7 +18,7 @@ import dc.visao.geral.tabela.CstIpiFormView;
 
 @Controller
 @Scope("prototype")
-public class CstIpiFormController extends CRUDFormController<CstIpi> {
+public class CstIpiFormController extends CRUDFormController<CstIpiEntity> {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class CstIpiFormController extends CRUDFormController<CstIpi> {
 	@Autowired
 	CstIpiDAO cstIpiDAO;
 
-	private CstIpi currentBean;
+	private CstIpiEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -84,7 +84,7 @@ public class CstIpiFormController extends CRUDFormController<CstIpi> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CstIpi();
+		currentBean = new CstIpiEntity();
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class CstIpiFormController extends CRUDFormController<CstIpi> {
 	}
 
 	@Override
-	public CstIpi getModelBean() {
+	public CstIpiEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

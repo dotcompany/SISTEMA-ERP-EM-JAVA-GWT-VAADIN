@@ -1,7 +1,6 @@
 package dc.entidade.geral.tabela;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,18 +31,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "efd_tabela_439")
+@Table(name = "cst_ipi")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EfdTabela439 extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class CstIpiEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "efd_tabela_439_id_seq")
-	@SequenceGenerator(name = "efd_tabela_439_id_seq", sequenceName = "efd_tabela_439_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cst_ipi_id_seq")
+	@SequenceGenerator(name = "cst_ipi_id_seq", sequenceName = "cst_ipi_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -54,14 +53,12 @@ public class EfdTabela439 extends AbstractMultiEmpresaModel<Integer> implements 
 	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigo;
+	private String codigo;
 
-	@Lob
 	@Field
 	@Caption("Descricao")
-	@Type(type = "text")
-	@Column(name = "Descricao")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO", length = 250)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
@@ -76,25 +73,11 @@ public class EfdTabela439 extends AbstractMultiEmpresaModel<Integer> implements 
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
-	@Field
-	@Caption("Inicio Vigencia")
-	@Column(name = "INICIO_VIGENCIA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Date inicioVigencia;
-
-	@Field
-	@Caption("Fim Vigencia")
-	@Column(name = "FIM_VIGENCIA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Date fimVigencia;
-
-	public EfdTabela439() {
+	public CstIpiEntity() {
 
 	}
 
-	public EfdTabela439(Integer id) {
+	public CstIpiEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -106,14 +89,6 @@ public class EfdTabela439 extends AbstractMultiEmpresaModel<Integer> implements 
 		this.id = id;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -122,28 +97,20 @@ public class EfdTabela439 extends AbstractMultiEmpresaModel<Integer> implements 
 		this.descricao = descricao;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getObservacao() {
 		return observacao;
 	}
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public Date getInicioVigencia() {
-		return inicioVigencia;
-	}
-
-	public void setInicioVigencia(Date inicioVigencia) {
-		this.inicioVigencia = inicioVigencia;
-	}
-
-	public Date getFimVigencia() {
-		return fimVigencia;
-	}
-
-	public void setFimVigencia(Date fimVigencia) {
-		this.fimVigencia = fimVigencia;
 	}
 
 	@Override

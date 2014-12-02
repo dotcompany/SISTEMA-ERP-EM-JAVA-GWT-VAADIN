@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.SefipCategoriaTrabalho;
+import dc.entidade.geral.tabela.SefipCategoriaTrabalhoEntity;
 import dc.servicos.dao.geral.tabela.SefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SefipCategoriaTrabalhoListController extends CRUDListController<SefipCategoriaTrabalho> {
+public class SefipCategoriaTrabalhoListController extends CRUDListController<SefipCategoriaTrabalhoEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 	}
 
 	@Override
-	public Class<? super SefipCategoriaTrabalho> getEntityClass() {
-		return SefipCategoriaTrabalho.class;
+	public Class<? super SefipCategoriaTrabalhoEntity> getEntityClass() {
+		return SefipCategoriaTrabalhoEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 	}
 
 	@Override
-	protected List<SefipCategoriaTrabalho> pesquisa(String valor) {
+	protected List<SefipCategoriaTrabalhoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<SefipCategoriaTrabalho> getFormController() {
+	protected CRUDFormController<SefipCategoriaTrabalhoEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 	}
 
 	@Override
-	protected List<SefipCategoriaTrabalho> pesquisaDefault() {
-		return (List<SefipCategoriaTrabalho>) dao.getAll(getEntityClass());
+	protected List<SefipCategoriaTrabalhoEntity> pesquisaDefault() {
+		return (List<SefipCategoriaTrabalhoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

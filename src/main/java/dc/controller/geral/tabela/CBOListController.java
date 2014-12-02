@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.tabela.CBO;
+import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.tabela.CBODAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class CBOListController extends CRUDListController<CBO> {
+public class CBOListController extends CRUDListController<CboEntity> {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class CBOListController extends CRUDListController<CBO> {
 	}
 
 	@Override
-	public Class<? super CBO> getEntityClass() {
-		return CBO.class;
+	public Class<? super CboEntity> getEntityClass() {
+		return CboEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class CBOListController extends CRUDListController<CBO> {
 	}
 
 	@Override
-	protected List<CBO> pesquisa(String valor) {
+	protected List<CboEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CBO> getFormController() {
+	protected CRUDFormController<CboEntity> getFormController() {
 		return pController;
 	}
 
@@ -68,8 +68,8 @@ public class CBOListController extends CRUDListController<CBO> {
 	}
 
 	@Override
-	protected List<CBO> pesquisaDefault() {
-		return (List<CBO>) dao.getAll(getEntityClass());
+	protected List<CboEntity> pesquisaDefault() {
+		return (List<CboEntity>) dao.getAll(getEntityClass());
 	}
 
 }

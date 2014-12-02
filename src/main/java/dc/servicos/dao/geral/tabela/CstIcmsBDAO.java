@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.tabela.CstIcmsB;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -19,20 +19,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CstIcmsBDAO extends AbstractCrudDAO<CstIcmsB>{
+public class CstIcmsBDAO extends AbstractCrudDAO<CstIcmsbEntity>{
 
 	@Override
-	public Class<CstIcmsB> getEntityClass() {
-		return CstIcmsB.class;
+	public Class<CstIcmsbEntity> getEntityClass() {
+		return CstIcmsbEntity.class;
 	}
 	
 	@Transactional
-	public List<CstIcmsB> listaTodos() {
+	public List<CstIcmsbEntity> listaTodos() {
 		return getSession().createQuery("from CstIcmsB").list();
 	}
 
 	@Transactional
-	public List<CstIcmsB> procuraNomeContendo(String query) {
+	public List<CstIcmsbEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from CstIcmsB where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

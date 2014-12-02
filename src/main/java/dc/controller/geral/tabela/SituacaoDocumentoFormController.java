@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.tabela.SituacaoDocumento;
+import dc.entidade.geral.tabela.SituacaoDocumentoEntity;
 import dc.servicos.dao.geral.tabela.SituacaoDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SituacaoDocumentoFormView;
@@ -19,14 +19,14 @@ import dc.visao.geral.tabela.SituacaoDocumentoFormView;
 @Controller
 @Scope("prototype")
 public class SituacaoDocumentoFormController extends
-		CRUDFormController<SituacaoDocumento> {
+		CRUDFormController<SituacaoDocumentoEntity> {
 
 	SituacaoDocumentoFormView subView;
 
 	@Autowired
 	SituacaoDocumentoDAO situacaoDocumentoDAO;
 
-	private SituacaoDocumento currentBean;
+	private SituacaoDocumentoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -79,7 +79,7 @@ public class SituacaoDocumentoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SituacaoDocumento();
+		currentBean = new SituacaoDocumentoEntity();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class SituacaoDocumentoFormController extends
 	}
 
 	@Override
-	public SituacaoDocumento getModelBean() {
+	public SituacaoDocumentoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

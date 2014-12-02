@@ -31,18 +31,18 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "csosna")
+@Table(name = "sefip_codigo_recolhimento")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Csosna extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class SefipCodigoRecolhimentoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "csosna_id_seq")
-	@SequenceGenerator(name = "csosna_id_seq", sequenceName = "csosna_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sefip_codigo_recolhimento_id_seq")
+	@SequenceGenerator(name = "sefip_codigo_recolhimento_id_seq", sequenceName = "sefip_codigo_recolhimento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -50,33 +50,36 @@ public class Csosna extends AbstractMultiEmpresaModel<Integer> implements Serial
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigo;
+	private Integer codigo;
 
+	@Lob
 	@Field
+	@Type(type = "text")
 	@Caption("Descricao")
-	@Column(name = "DESCRICAO", length = 50)
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
+	@Caption("Aplicacao")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@Column(name = "OBSERVACAO")
+	@Column(name = "APLICACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String aplicacao;
 
-	public Csosna() {
+	public SefipCodigoRecolhimentoEntity() {
 
 	}
 
-	public Csosna(Integer id) {
+	public SefipCodigoRecolhimentoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -88,11 +91,11 @@ public class Csosna extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.id = id;
 	}
 
-	public String getCodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
@@ -104,12 +107,12 @@ public class Csosna extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.descricao = descricao;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getAplicacao() {
+		return aplicacao;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setAplicacao(String aplicacao) {
+		this.aplicacao = aplicacao;
 	}
 
 	@Override
