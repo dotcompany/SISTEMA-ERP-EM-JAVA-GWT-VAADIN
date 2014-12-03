@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.Sindicato;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,20 +23,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SindicatoDAO extends AbstractCrudDAO<Sindicato>{
+public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity>{
 
 	@Override
-	public Class<Sindicato> getEntityClass() {
-		return Sindicato.class;
+	public Class<SindicatoEntity> getEntityClass() {
+		return SindicatoEntity.class;
 	}
 
 	@Transactional
-	public List<Sindicato> listaTodos() {
+	public List<SindicatoEntity> listaTodos() {
 		return getSession().createQuery("from Sindicato").list();
 	}
 
 	@Transactional
-	public List<Sindicato> procuraNomeContendo(String query) {
+	public List<SindicatoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Sindicato where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -45,7 +45,7 @@ public class SindicatoDAO extends AbstractCrudDAO<Sindicato>{
 	}
 	
 	@Transactional
-	public List<Sindicato> query(String q) {
+	public List<SindicatoEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from Sindicato where lower(nome) like :q").setParameter("q", q).list();
 	}

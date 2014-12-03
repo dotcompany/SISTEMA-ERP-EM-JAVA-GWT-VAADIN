@@ -23,7 +23,7 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.Sindicato;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UfEntity;
@@ -193,7 +193,7 @@ public class ColaboradorFormController extends
 
 			this.subView.getCmbContaContabil().setModel(model);
 
-			DefaultManyToOneComboModel<Sindicato> modelSindicato = new DefaultManyToOneComboModel<Sindicato>(
+			DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
 					SindicatoListController.class, sindicatoDAO,
 					super.getMainController());
 			subView.getCmbSindicato().setModel(modelSindicato);
@@ -389,7 +389,7 @@ public class ColaboradorFormController extends
 			currentBean
 					.setSituacaoColaborador((SituacaoColaboradorEntity) subView
 							.getCmbSituacaoColaborador().getValue());
-			currentBean.setSindicato((Sindicato) subView.getCmbSindicato()
+			currentBean.setSindicato((SindicatoEntity) subView.getCmbSindicato()
 					.getValue());
 			currentBean.setNivelFormacao((NivelFormacaoEntity) subView
 					.getCmbNivelFormacao().getValue());

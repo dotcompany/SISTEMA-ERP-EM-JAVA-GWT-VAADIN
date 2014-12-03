@@ -9,31 +9,35 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.enums.TipoSindicatoEn;
+import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
+import dc.control.util.StringUtils;
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.geral.UfListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.financeiro.Sindicato;
-import dc.framework.exception.ErroValidacaoException;
+import dc.entidade.financeiro.SindicatoEntity;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
-import dc.servicos.util.Validator;
+import dc.servicos.dao.geral.UfDAO;
 import dc.visao.financeiro.SindicatoFormView;
-import dc.visao.financeiro.SindicatoFormView.TIPO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os métodos que temos na tela principal. Temos o botão Novo que é para
- *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
- *         o Button Salvar que é para salvar as informações no Banco de Dados
- *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela. */
-
 @Controller
 @Scope("prototype")
-public class SindicatoFormController extends CRUDFormController<Sindicato> {
+public class SindicatoFormController extends
+		CRUDFormController<SindicatoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private SindicatoFormView subView;
+
+	private SindicatoEntity currentBean;
 
 	@Autowired
 	private SindicatoDAO sindicatoDAO;
@@ -41,7 +45,8 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
-	private Sindicato currentBean;
+	@Autowired
+	private UfDAO ufDAO;
 
 	@Override
 	protected String getNome() {
@@ -53,48 +58,156 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 		return subView;
 	}
 
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		String nome = this.subView.getTfNome().getValue();
+
+		if (StringUtils.isBlank(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco!");
+
+			valido = false;
+		}
+
+		String logradouro = this.subView.getTfLogradouro().getValue();
+
+		if (StringUtils.isBlank(logradouro)) {
+			adicionarErroDeValidacao(this.subView.getTfLogradouro(),
+					"Não pode ficar em branco!");
+
+			valido = false;
+		}
+
+		return valido;
+	}
+
 	@Override
 	protected void actionSalvar() {
 		try {
+			ContabilContaEntity contabilConta = this.subView
+					.getMocContabilConta().getValue();
 
-			ContabilContaEntity contabilConta = subView.getCmbContabilConta().getValue();
-
-			if (!Validator.validateObject(contabilConta)) {
-				throw new ErroValidacaoException("Informe a Contábil Conta");
+			if (contabilConta != null) {
+				this.currentBean.setContabilConta(contabilConta);
 			}
 
-			currentBean.setContabilConta(contabilConta);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setLogradouro(this.subView.getTfLogradouro()
+					.getValue());
 
-			currentBean.setNome(subView.getTxtNome().getValue());
+			this.currentBean.setEmail(this.subView.getTfEmail().getValue());
+			this.currentBean.setDataBase(this.subView.getPdfDataBase()
+					.getValue());
+			this.currentBean.setBairro(this.subView.getTfBairro().getValue());
+			this.currentBean.setCnpj(this.subView.getTfCnpj().getValue());
 
-			currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
+			boolean bCodigoAgencia = NumberUtils.isNumber(this.subView
+					.getTfCodigoAgencia().getValue());
 
-			currentBean.setEmail(subView.getTxtEmail().getValue());
-
-			currentBean.setDataBase(subView.getDtDataBase().getValue());
-
-			TIPO enumTipo = (TIPO) (subView.getCmbTipo().getValue());
-			if (Validator.validateObject(enumTipo)) {
-				String tipo = (enumTipo).getCodigo();
-				currentBean.setTipoSindicato(tipo);
+			if (bCodigoAgencia) {
+				this.currentBean.setCodigoAgencia(NumberUtils
+						.toInt(this.subView.getTfCodigoAgencia().getValue()));
 			}
 
-			sindicatoDAO.saveOrUpdate(currentBean);
+			boolean bCodigoBanco = NumberUtils.isNumber(this.subView
+					.getTfCodigoBanco().getValue());
+
+			if (bCodigoBanco) {
+				this.currentBean.setCodigoBanco(NumberUtils.toInt(this.subView
+						.getTfCodigoBanco().getValue()));
+			}
+
+			this.currentBean.setCodigoCedente(this.subView.getTfCodigoCedente()
+					.getValue());
+			this.currentBean.setContaBanco(this.subView.getTfContaBanco()
+					.getValue());
+
+			this.currentBean.setFone1(this.subView.getTfTelefone1().getValue());
+			this.currentBean.setFone2(this.subView.getTfTelefone2().getValue());
+			this.currentBean.setNumero(this.subView.getTfNumero().getValue());
+
+			boolean bPisoSalarial = NumberUtils.isNumber(this.subView
+					.getTfPisoSalarial().getValue());
+
+			if (bPisoSalarial) {
+				this.currentBean.setPisoSalarial(NumberUtils
+						.createBigDecimal(this.subView.getTfPisoSalarial()
+								.getValue()));
+			}
+
+			TipoSindicatoEn tipoSindicatoEn = (TipoSindicatoEn) (this.subView
+					.getCbTipo().getValue());
+
+			this.currentBean.setTipoSindicato(tipoSindicatoEn);
+
+			UfEntity uf = this.subView.getMocUf().getValue();
+
+			if (uf != null && !uf.equals("")) {
+				this.currentBean.setUf(uf.getSigla());
+			}
+
+			this.sindicatoDAO.saveOrUpdate(this.currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
 
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = sindicatoDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		try {
+			this.currentBean = this.sindicatoDAO.find(id);
 
-		String tipo = currentBean.getTipoSindicato();
-		if (Validator.validateString(tipo)) {
-			subView.getCmbTipo().setValue(TIPO.getValor(tipo));
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfLogradouro().setValue(
+					this.currentBean.getLogradouro());
+			this.subView.getTfEmail().setValue(this.currentBean.getEmail());
+			this.subView.getPdfDataBase().setValue(
+					this.currentBean.getDataBase());
+			this.subView.getTfBairro().setValue(this.currentBean.getBairro());
+			this.subView.getTfCnpj().setValue(this.currentBean.getCnpj());
+
+			ContabilContaEntity contabilConta = this.currentBean
+					.getContabilConta();
+
+			if (contabilConta != null) {
+				this.subView.getMocContabilConta().setValue(contabilConta);
+			}
+
+			this.subView.getTfCodigoAgencia().setValue(
+					this.currentBean.getCodigoAgencia().toString());
+			this.subView.getTfCodigoBanco().setValue(
+					this.currentBean.getCodigoBanco().toString());
+			this.subView.getTfCodigoCedente().setValue(
+					this.currentBean.getCodigoCedente());
+			this.subView.getTfContaBanco().setValue(
+					this.currentBean.getContaBanco());
+			this.subView.getTfTelefone1().setValue(this.currentBean.getFone1());
+			this.subView.getTfTelefone2().setValue(this.currentBean.getFone2());
+			this.subView.getTfNumero().setValue(this.currentBean.getNumero());
+			this.subView.getTfPisoSalarial().setValue(
+					this.currentBean.getPisoSalarial().toString());
+
+			TipoSindicatoEn tipoSindicatoEn = this.currentBean
+					.getTipoSindicato();
+
+			if (tipoSindicatoEn != null) {
+				this.subView.getCbTipo().setValue(tipoSindicatoEn);
+			}
+
+			String sUf = this.currentBean.getUf();
+
+			if (StringUtils.isNotBlank(sUf)) {
+				UfEntity uf = this.ufDAO.find(sUf);
+
+				this.subView.getMocUf().setValue(uf);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -109,16 +222,32 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 
 	@Override
 	protected void initSubView() {
-		subView = new SindicatoFormView();
+		try {
+			this.subView = new SindicatoFormView(this);
 
-		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
-				this.contabilContaDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-		this.subView.getCmbContabilConta().setModel(model);
+			DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
+
+			this.subView.getMocContabilConta().setModel(model1);
+
+			DefaultManyToOneComboModel<UfEntity> model2 = new DefaultManyToOneComboModel<UfEntity>(
+					UfListController.class, this.ufDAO,
+					super.getMainController());
+
+			this.subView.getMocUf().setModel(model2);
+
+			comboTipoSindicato();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -127,44 +256,20 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Sindicato();
+		this.currentBean = new SindicatoEntity();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		sindicatoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			this.sindicatoDAO.deleteAllByIds(ids);
 
-	/* Implementar validacao de campos antes de salvar. */
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	protected boolean validaSalvar() {
-
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
-		boolean valido = true;
-
-		if (!Validator.validateObject(subView.getCmbContabilConta().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
-			valido = false;
-		}
-
-		if (subView.getTxtLogradouro().getValue() == null || subView.getTxtLogradouro().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtLogradouro(), "Não pode ficar em Branco!");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
@@ -174,12 +279,18 @@ public class SindicatoFormController extends CRUDFormController<Sindicato> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "sindicatoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
-	public Sindicato getModelBean() {
+	public SindicatoEntity getModelBean() {
 		return currentBean;
+	}
+
+	public void comboTipoSindicato() {
+		for (TipoSindicatoEn en : TipoSindicatoEn.values()) {
+			this.subView.getCbTipo().addItem(en);
+		}
 	}
 
 }

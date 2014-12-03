@@ -16,7 +16,7 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.Sindicato;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
@@ -139,7 +139,7 @@ public class ColaboradorFormView extends CustomComponent {
 	private ManyToOneCombo<PessoaEntity> cmbPessoa;
 	private ManyToOneCombo<TipoColaboradorEntity> cmbTipoColaborador;
 	private ManyToOneCombo<SituacaoColaboradorEntity> cmbSituacaoColaborador;
-	private ManyToOneCombo<Sindicato> cmbSindicato;
+	private ManyToOneCombo<SindicatoEntity> cmbSindicato;
 	private ManyToOneCombo<NivelFormacaoEntity> cmbNivelFormacao;
 	private ManyToOneCombo<CargoEntity> cmbCargo;
 	private ManyToOneCombo<ContabilContaEntity> cmbContaContabil;
@@ -1208,11 +1208,11 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbSituacaoColaborador = cmbSituacaoColaborador;
 	}
 
-	public ManyToOneCombo<Sindicato> getCmbSindicato() {
+	public ManyToOneCombo<SindicatoEntity> getCmbSindicato() {
 		return cmbSindicato;
 	}
 
-	public void setCmbSindicato(ManyToOneCombo<Sindicato> cmbSindicato) {
+	public void setCmbSindicato(ManyToOneCombo<SindicatoEntity> cmbSindicato) {
 		this.cmbSindicato = cmbSindicato;
 	}
 

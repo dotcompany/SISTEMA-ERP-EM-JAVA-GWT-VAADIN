@@ -17,7 +17,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.empresa.EmpresaCnae;
-import dc.entidade.financeiro.Sindicato;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.framework.Empresa;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Fpas;
@@ -124,7 +124,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		String nomeFantasia = subView.getTxtNomeFantasia().getValue();
 
 		ContadorEntity contador = (ContadorEntity) subView.getCmbContador().getValue();
-		Sindicato sindicato = (Sindicato) subView.getCmbSindicato().getValue();
+		SindicatoEntity sindicato = (SindicatoEntity) subView.getCmbSindicato().getValue();
 		Fpas fpas = (Fpas) subView.getCmbFpas().getValue();
 
 		Date dataInicioAtividades = subView.getDtInicioAtividades().getValue();
@@ -315,7 +315,7 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		subView.getTxtNomeFantasia().setValue(currentBean.getNomeFantasia());
 
 		if (currentBean.getIdSindicatoPatronal() != null) {
-			Sindicato sindicato = sindicatoDAO.find(currentBean.getIdSindicatoPatronal());
+			SindicatoEntity sindicato = sindicatoDAO.find(currentBean.getIdSindicatoPatronal());
 			subView.getCmbSindicato().setValue(sindicato);
 		}
 
@@ -512,10 +512,10 @@ public class EmpresaFormController extends CRUDFormController<Empresa> {
 		return container;
 	}
 
-	public BeanItemContainer<Sindicato> carregarSindicatos() {
-		BeanItemContainer<Sindicato> container = new BeanItemContainer<>(Sindicato.class);
+	public BeanItemContainer<SindicatoEntity> carregarSindicatos() {
+		BeanItemContainer<SindicatoEntity> container = new BeanItemContainer<>(SindicatoEntity.class);
 
-		for (Sindicato obj : sindicatoDAO.listaTodos()) {
+		for (SindicatoEntity obj : sindicatoDAO.listaTodos()) {
 			container.addBean(obj);
 		}
 

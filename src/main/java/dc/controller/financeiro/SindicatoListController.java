@@ -6,30 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.Sindicato;
+import dc.control.util.ClassUtils;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
-public class SindicatoListController extends CRUDListController<Sindicato> {
+public class SindicatoListController extends CRUDListController<SindicatoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SindicatoDAO dao;
+	private SindicatoDAO dao;
 
 	@Autowired
-	SindicatoFormController sindicatoFormController;
+	private SindicatoFormController sindicatoFormController;
 
 	@Override
 	public String[] getColunas() {
@@ -37,22 +33,22 @@ public class SindicatoListController extends CRUDListController<Sindicato> {
 	}
 
 	@Override
-	public Class<? super Sindicato> getEntityClass() {
-		return Sindicato.class;
+	public Class<? super SindicatoEntity> getEntityClass() {
+		return SindicatoEntity.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Sindicato";
+		return super.getTitulo(this);
 	}
 
 	@Override
-	protected List<Sindicato> pesquisa(String valor) {
+	protected List<SindicatoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Sindicato> getFormController() {
+	protected CRUDFormController<SindicatoEntity> getFormController() {
 		return sindicatoFormController;
 	}
 
@@ -60,7 +56,7 @@ public class SindicatoListController extends CRUDListController<Sindicato> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaSindicato";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -70,9 +66,9 @@ public class SindicatoListController extends CRUDListController<Sindicato> {
 	}
 
 	@Override
-	protected List<Sindicato> pesquisaDefault() {
+	protected List<SindicatoEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<Sindicato>) dao.getAll(getEntityClass());
+		return (List<SindicatoEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,35 +21,34 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.TipoSindicatoEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
-
-/*
- * 
- * Autor: Wesley Junior
- *
- */
 
 @Entity
 @Table(name = "sindicato")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sindicato_id_seq")
 	@SequenceGenerator(name = "sindicato_id_seq", sequenceName = "sindicato_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -54,97 +56,89 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "CEP_ID", nullable = false) private int cepId;
-	 * 
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "BANCO_ID", nullable = false) private int bancoId;
-	 */
-
-	
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_conta", nullable = false)
-	@Caption("Contabil Conta")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private ContabilContaEntity contabilConta;
-
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_BANCO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoBanco;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_AGENCIA")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoAgencia;
 
+	@Field
+	@Caption()
 	@Column(name = "CONTA_BANCO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaBanco;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_CEDENTE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoCedente;
 
 	@Field
 	@Caption("Logradouro")
 	@Column(name = "LOGRADOURO", length = 100)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String logradouro;
 
 	@Field
 	@Caption("Numero")
 	@Column(name = "NUMERO", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero;
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 60)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String bairro;
-
-//	@Field
-//	@Caption("Municipio")
-//	@Column(name = "MUNICIPIO", length = 60)
-//	@Analyzer(definition = "dc_combo_analyzer")
-//	private String municipio;
-
-//	@ManyToOne(optional = false)
-//	@JoinColumn(name = "UF", referencedColumnName = "ID")
-//	private UF uf;
-	
-	private String uf;
 
 	@Field
 	@Caption("Telefone 1")
 	@Column(name = "FONE1", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone1;
 
 	@Field
 	@Caption("Telefone 2")
 	@Column(name = "FONE2", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL", length = 100)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Field
-	@Caption("Tipo Sindicato")
+	@Caption("Tipo de sindicato")
 	@Column(name = "TIPO_SINDICATO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoSindicato;
+	@Enumerated(EnumType.STRING)
+	private TipoSindicatoEn tipoSindicato;
 
 	@Field
 	@Caption("Data Base")
 	@Column(name = "DATA_BASE")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataBase;
 
@@ -155,23 +149,59 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Field
+	@Caption()
 	@Column(name = "PISO_SALARIAL", precision = 14, scale = 0)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal pisoSalarial;
 
 	@Field
-	@Caption("Cnpj")
+	@Caption("CNPJ")
 	@Column(name = "CNPJ", length = 30)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cnpj;
 
-	public Sindicato() {
+	@Field
+	@Caption("UF")
+	@Column(name = "uf", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String uf;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_contabil_conta", nullable = true)
+	@Caption("Conta contábil")
+	private ContabilContaEntity contabilConta;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public SindicatoEntity() {
 
 	}
 
-	public Sindicato(Integer id) {
+	public SindicatoEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -180,14 +210,6 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
 	}
 
 	public Integer getCodigoBanco() {
@@ -246,16 +268,6 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.bairro = bairro;
 	}
 
-	
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
 	public String getFone1() {
 		return fone1;
 	}
@@ -280,11 +292,11 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.email = email;
 	}
 
-	public String getTipoSindicato() {
+	public TipoSindicatoEn getTipoSindicato() {
 		return tipoSindicato;
 	}
 
-	public void setTipoSindicato(String tipoSindicato) {
+	public void setTipoSindicato(TipoSindicatoEn tipoSindicato) {
 		this.tipoSindicato = tipoSindicato;
 	}
 
@@ -320,9 +332,29 @@ public class Sindicato extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.cnpj = cnpj;
 	}
 
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public ContabilContaEntity getContabilConta() {
+		return contabilConta;
+	}
+
+	public void setContabilConta(ContabilContaEntity contabilConta) {
+		this.contabilConta = contabilConta;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return nome;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

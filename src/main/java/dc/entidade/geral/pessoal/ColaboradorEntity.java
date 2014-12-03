@@ -34,7 +34,7 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.Sindicato;
+import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
@@ -446,7 +446,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_sindicato", nullable = false)
 	@Caption("Sindicato")
-	private Sindicato sindicato;
+	private SindicatoEntity sindicato;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_plano_conta", nullable = true)
@@ -975,11 +975,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.nivelFormacao = nivelFormacao;
 	}
 
-	public Sindicato getSindicato() {
+	public SindicatoEntity getSindicato() {
 		return sindicato;
 	}
 
-	public void setSindicato(Sindicato sindicato) {
+	public void setSindicato(SindicatoEntity sindicato) {
 		this.sindicato = sindicato;
 	}
 
