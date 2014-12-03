@@ -6,73 +6,62 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão a classe principal
- *         abstractCrudDao e dela herdamos alguns métodos, fazemos uma Conexão
- *         com o Banco, uma listagem E aqui herdamos também o Método do
- *         pesquisar, onde nela colocamos os campos que colocamos as anotações
- *         lá no TO (ENTIDADE), que vai ser pesquisado na Tela quando rodar o
- *         projeto.
- * 
- */
-
 @Repository
-@SuppressWarnings("unchecked")
-public class PaisDAO extends AbstractCrudDAO<Pais> {
+public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
 
 	@Override
-	public Class<Pais> getEntityClass() {
-		return Pais.class;
+	public Class<PaisEntity> getEntityClass() {
+		return PaisEntity.class;
 	}
 
 	@Transactional
-	public List<Pais> listaTodos() {
+	public List<PaisEntity> listaTodos() {
 		try {
-			String sql = "FROM Pais ent WHERE (1 = 1)";
+			String sql = "FROM PaisEntity ent WHERE (1 = 1)";
 
-			List<Pais> auxLista = super.getSession().createQuery(sql).list();
+			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
+					.list();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<Pais>();
+			return new ArrayList<PaisEntity>();
 		}
 	}
 
 	@Transactional
-	public List<Pais> procuraNomeContendo(String query) {
+	public List<PaisEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM Pais ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM PaisEntity ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
 
-			List<Pais> auxLista = super.getSession().createQuery(sql)
+			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<Pais>();
+			return new ArrayList<PaisEntity>();
 		}
 	}
 
 	@Transactional
-	public List<Pais> query(String q) {
+	public List<PaisEntity> query(String q) {
 		try {
 			String sql = "FROM Pais ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
 
-			List<Pais> auxLista = super.getSession().createQuery(sql)
+			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + q + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<Pais>();
+			return new ArrayList<PaisEntity>();
 		}
 	}
 

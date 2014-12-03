@@ -7,24 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.servicos.dao.diversos.PaisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
-public class PaisListController extends CRUDListController<Pais> {
+public class PaisListController extends CRUDListController<PaisEntity> {
 
 	/**
 	 * 
@@ -39,12 +29,13 @@ public class PaisListController extends CRUDListController<Pais> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2",
+				"sigla3" };
 	}
 
 	@Override
-	public Class<? super Pais> getEntityClass() {
-		return Pais.class;
+	public Class<? super PaisEntity> getEntityClass() {
+		return PaisEntity.class;
 	}
 
 	@Override
@@ -53,20 +44,21 @@ public class PaisListController extends CRUDListController<Pais> {
 	}
 
 	@Override
-	protected List<Pais> pesquisa(String valor) {
+	protected List<PaisEntity> pesquisa(String valor) {
 		try {
-			List<Pais> auxLista = (List<Pais>) dao.procuraNomeContendo(valor);
+			List<PaisEntity> auxLista = (List<PaisEntity>) dao
+					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<Pais>();
+			return new ArrayList<PaisEntity>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<Pais> getFormController() {
+	protected CRUDFormController<PaisEntity> getFormController() {
 		return paisFormController;
 	}
 
@@ -82,15 +74,15 @@ public class PaisListController extends CRUDListController<Pais> {
 	}
 
 	@Override
-	protected List<Pais> pesquisaDefault() {
+	protected List<PaisEntity> pesquisaDefault() {
 		try {
-			List<Pais> auxLista = (List<Pais>) dao.listaTodos();
+			List<PaisEntity> auxLista = (List<PaisEntity>) dao.listaTodos();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<Pais>();
+			return new ArrayList<PaisEntity>();
 		}
 	}
 

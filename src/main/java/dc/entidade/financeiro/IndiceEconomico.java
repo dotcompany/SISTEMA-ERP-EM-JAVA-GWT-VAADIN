@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -95,7 +95,7 @@ public class IndiceEconomico extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PAIS_ID", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private Pais paisId;
+	private PaisEntity paisId;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -150,11 +150,11 @@ public class IndiceEconomico extends AbstractMultiEmpresaModel<Integer>
 		this.descricao = descricao;
 	}
 
-	public Pais getPaisId() {
+	public PaisEntity getPaisId() {
 		return paisId;
 	}
 
-	public void setPaisId(Pais paisId) {
+	public void setPaisId(PaisEntity paisId) {
 		this.paisId = paisId;
 	}
 

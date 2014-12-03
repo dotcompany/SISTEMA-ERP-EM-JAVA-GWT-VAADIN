@@ -9,23 +9,25 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.servicos.dao.diversos.PaisDAO;
 import dc.servicos.util.Validator;
 import dc.visao.diversos.PaisFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
+/**
+ * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
  *         os métodos que temos na tela principal. Temos o botão Novo que é para
  *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
  *         o Button Salvar que é para salvar as informações no Banco de Dados
  *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela. */
+ *         desejarmos quando formos pesquisar na Tela.
+ */
 
 @Controller
 @Scope("prototype")
-public class PaisFormController extends CRUDFormController<Pais> {
+public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	/**
 	 * 
@@ -41,13 +43,13 @@ public class PaisFormController extends CRUDFormController<Pais> {
 
 	/** ENTITIES */
 
-	private Pais currentBean;
+	private PaisEntity currentBean;
 
 	/** CONSTRUTOR */
 
 	public PaisFormController() {
 		if (this.currentBean == null) {
-			this.currentBean = new Pais();
+			this.currentBean = new PaisEntity();
 		}
 	}
 
@@ -98,7 +100,7 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.currentBean = new Pais();
+			this.currentBean = new PaisEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -118,7 +120,7 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new Pais();
+			this.currentBean = new PaisEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -139,22 +141,26 @@ public class PaisFormController extends CRUDFormController<Pais> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtNomeIngles().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNomeIngles(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNomeIngles(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtSigla2().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSigla2(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtSigla2(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtSigla3().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSigla3(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtSigla3(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -181,7 +187,7 @@ public class PaisFormController extends CRUDFormController<Pais> {
 	}
 
 	@Override
-	public Pais getModelBean() {
+	public PaisEntity getModelBean() {
 		return currentBean;
 	}
 

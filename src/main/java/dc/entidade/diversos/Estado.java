@@ -38,11 +38,14 @@ import dc.entidade.framework.ComboValue;
  */
 
 @Entity
-@Table(name = "uf") //está como uf porque não existe essa tabela no banco e como UF e Estado tem os mesmo campos está sendo utilizado o Uf
+@Table(name = "uf")
+// está como uf porque não existe essa tabela no banco e como UF e Estado tem os
+// mesmo campos está sendo utilizado o Uf
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Estado extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class Estado extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -78,7 +81,7 @@ public class Estado extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@ManyToOne
 	@JoinColumn(name = "ID_PAIS", nullable = false)
 	@Caption("País")
-	private Pais paisId;
+	private PaisEntity paisId;
 
 	public Estado() {
 
@@ -120,11 +123,11 @@ public class Estado extends AbstractMultiEmpresaModel<Integer> implements Serial
 		this.codigoIbge = codigoIbge;
 	}
 
-	public Pais getPaisId() {
+	public PaisEntity getPaisId() {
 		return paisId;
 	}
 
-	public void setPaisId(Pais paisId) {
+	public void setPaisId(PaisEntity paisId) {
 		this.paisId = paisId;
 	}
 

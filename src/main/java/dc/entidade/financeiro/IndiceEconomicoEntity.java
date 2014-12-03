@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -86,7 +86,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_pais", nullable = false)
 	@Caption("País")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Pais pais;
+	private PaisEntity pais;
 
 	/**
 	 * REFERENCIA - LIST
@@ -141,11 +141,11 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.descricao = descricao;
 	}
 
-	public Pais getPais() {
+	public PaisEntity getPais() {
 		return pais;
 	}
 
-	public void setPais(Pais pais) {
+	public void setPais(PaisEntity pais) {
 		this.pais = pais;
 	}
 

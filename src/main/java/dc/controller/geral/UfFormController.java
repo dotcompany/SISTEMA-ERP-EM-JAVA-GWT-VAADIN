@@ -10,10 +10,17 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
+import dc.control.util.StringUtils;
+import dc.controller.diversos.PaisListController;
+import dc.entidade.diversos.PaisEntity;
 import dc.entidade.geral.UfEntity;
+import dc.servicos.dao.diversos.PaisDAO;
 import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.UFFormView;
+import dc.visao.geral.UfFormView;
 
 @Controller
 @Scope("prototype")
@@ -24,12 +31,15 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private UFFormView subView;
+	private UfFormView subView;
+
+	private UfEntity currentBean;
 
 	@Autowired
 	private UfDAO ufDAO;
 
-	private UfEntity currentBean;
+	@Autowired
+	private PaisDAO paisDAO;
 
 	@Override
 	protected String getNome() {
@@ -41,13 +51,60 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		return subView;
 	}
 
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		PaisEntity pais = this.subView.getMocPais().getValue();
+
+		if (!Validator.validateObject(pais)) {
+			adicionarErroDeValidacao(this.subView.getMocPais(),
+					"Não pode ficar em branco!");
+
+			valido = false;
+		}
+
+		String nome = this.subView.getTfNome().getValue();
+
+		if (StringUtils.isBlank(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco!");
+
+			valido = false;
+		}
+
+		String sigla = this.subView.getTfSigla().getValue();
+
+		if (StringUtils.isBlank(sigla)) {
+			adicionarErroDeValidacao(this.subView.getTfSigla(),
+					"Não pode ficar em branco!");
+
+			valido = false;
+		}
+
+		return valido;
+	}
+
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setNome(subView.getTxtNome().getValue());
-			currentBean.setSigla(subView.getTxtSigla().getValue());
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setSigla(this.subView.getTfSigla().getValue());
 
-			ufDAO.saveOrUpdate(currentBean);
+			boolean bCodigoIbge = NumberUtils.isNumber(this.subView
+					.getTfCodigoIbge().getValue());
+
+			if (bCodigoIbge) {
+				this.currentBean.setCodigoIbge(NumberUtils.toInt(this.subView
+						.getTfCodigoIbge().getValue()));
+			}
+
+			PaisEntity pais = this.subView.getMocPais().getValue();
+
+			if (pais != null) {
+				this.currentBean.setPais(pais);
+			}
+
+			this.ufDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -57,9 +114,22 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = ufDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtSigla().setValue(currentBean.getSigla());
+		try {
+			this.currentBean = this.ufDAO.find(id);
+
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
+			this.subView.getTfCodigoIbge().setValue(
+					this.currentBean.getCodigoIbge().toString());
+
+			PaisEntity pais = this.currentBean.getPais();
+
+			if (pais != null) {
+				this.subView.getMocPais().setValue(pais);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -73,7 +143,24 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	@Override
 	protected void initSubView() {
-		subView = new UFFormView();
+		try {
+			this.subView = new UfFormView(this);
+
+			DefaultManyToOneComboModel<PaisEntity> paisModel = new DefaultManyToOneComboModel<PaisEntity>(
+					PaisListController.class, this.paisDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "nomePtbr";
+				}
+
+			};
+
+			this.subView.getMocPais().setModel(paisModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -82,43 +169,20 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new UfEntity();
+		this.currentBean = new UfEntity();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		ufDAO.deleteAllByIds(ids);
+		try {
+			this.ufDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
-	}
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	/* Implementar validacao de campos antes de salvar. */
-	protected boolean validaSalvar() {
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-		boolean valido = true;
-
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
-
-			return false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (subView.getTxtSigla().getValue() == null
-				|| subView.getTxtSigla().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtSigla(),
-					"Não pode ficar em Branco!");
-
-			return false;
-		}
-
-		return valido;
 	}
 
 	@Override

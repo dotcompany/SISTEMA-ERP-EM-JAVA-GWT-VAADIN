@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,19 +27,15 @@ import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-
-/***
- * 
- * @author Wesley Jr
- * 
- ***/
+import dc.entidade.geral.UfEntity;
 
 @Entity
 @Table(name = "pais")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Pais extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	/**
 	 * 
@@ -91,18 +88,12 @@ public class Pais extends AbstractMultiEmpresaModel<Integer> implements Serializ
 	 * REFERENCIA - FK
 	 */
 
-	/*@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;*/
-
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "paisId", fetch = FetchType.LAZY)
-	private List<Estado> estadoList;
+	@OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+	private List<UfEntity> ufList;
 
 	/**
 	 * REFERENCIA - LIST
@@ -115,14 +106,19 @@ public class Pais extends AbstractMultiEmpresaModel<Integer> implements Serializ
 	 * CONSTRUTOR
 	 */
 
-	public Pais() {
+	public PaisEntity() {
 
 	}
 
-	public Pais(Integer id) {
+	public PaisEntity(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -171,20 +167,12 @@ public class Pais extends AbstractMultiEmpresaModel<Integer> implements Serializ
 		this.sigla3 = sigla3;
 	}
 
-	/*public Empresa getEmpresa() {
-		return empresa;
+	public List<UfEntity> getUfList() {
+		return ufList;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
-
-	public List<Estado> getEstadoList() {
-		return estadoList;
-	}
-
-	public void setEstadoList(List<Estado> estadoList) {
-		this.estadoList = estadoList;
+	public void setUfList(List<UfEntity> ufList) {
+		this.ufList = ufList;
 	}
 
 	public List<IndiceEconomicoEntity> getIndiceEconomicoList() {

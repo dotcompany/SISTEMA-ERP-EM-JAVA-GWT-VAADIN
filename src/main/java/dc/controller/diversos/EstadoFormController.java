@@ -10,20 +10,12 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.diversos.Estado;
-import dc.entidade.diversos.Pais;
+import dc.entidade.diversos.PaisEntity;
 import dc.servicos.dao.diversos.EstadoDAO;
 import dc.servicos.dao.diversos.PaisDAO;
 import dc.visao.diversos.EstadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-
-/** @author Wesley Jr /* Nessa classe ela pega a classe principal que Ã© o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os mÃ©todos que temos na tela principal. Temos o botÃ£o Novo que Ã©
- *         para Criar uma nova Tela, para adicionar informaÃ§Ãµes novas, e
- *         dentro temos o Button Salvar que Ã© para salvar as informaÃ§Ãµes no
- *         Banco de Dados Temos o carregar tambÃ©m que Ã© para pegar as
- *         informaÃ§Ãµes que desejarmos quando formos pesquisar na Tela. */
 
 @Controller
 @Scope("prototype")
@@ -76,7 +68,8 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtSigla().setValue(currentBean.getSigla());
-		subView.getTxtCodigoIBGE().setValue(currentBean.getCodigoIbge().toString());
+		subView.getTxtCodigoIBGE().setValue(
+				currentBean.getCodigoIbge().toString());
 
 	}
 
@@ -95,7 +88,8 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 		try {
 			subView = new EstadoFormView();
 
-			DefaultManyToOneComboModel<Pais> paisModel = new DefaultManyToOneComboModel<Pais>(PaisListController.class, this.paisDAO,
+			DefaultManyToOneComboModel<PaisEntity> paisModel = new DefaultManyToOneComboModel<PaisEntity>(
+					PaisListController.class, this.paisDAO,
 					super.getMainController()) {
 
 				@Override
@@ -130,10 +124,12 @@ public class EstadoFormController extends CRUDFormController<Estado> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTxtNome().getValue() == null
+				|| subView.getTxtNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco!");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco!");
 
 			return false;
 		}
