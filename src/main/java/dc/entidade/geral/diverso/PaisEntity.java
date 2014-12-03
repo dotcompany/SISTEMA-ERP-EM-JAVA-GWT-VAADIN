@@ -61,7 +61,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "nome_en", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nomeEn;
+	private String nomeIngles;
 
 	@Field
 	@Caption("Nome PTBR")
@@ -135,12 +135,13 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.codigo = codigo;
 	}
 
-	public String getNomeEn() {
-		return nomeEn;
+	public String getNomeIngles() {
+		return nomeIngles;
 	}
 
-	public void setNomeEn(String nomeEn) {
-		this.nomeEn = nomeEn;
+	public void setNomeIngles(String nomeIngles) {
+		this.nomeIngles = (nomeIngles == null ? "".trim() : nomeIngles
+				.toUpperCase().trim());
 	}
 
 	public String getNomePtbr() {
@@ -148,7 +149,8 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNomePtbr(String nomePtbr) {
-		this.nomePtbr = nomePtbr;
+		this.nomePtbr = (nomePtbr == null ? "".trim() : nomePtbr.toUpperCase()
+				.trim());
 	}
 
 	public String getSigla2() {
@@ -156,7 +158,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setSigla2(String sigla2) {
-		this.sigla2 = sigla2;
+		this.sigla2 = (sigla2 == null ? "".trim() : sigla2.toUpperCase().trim());
 	}
 
 	public String getSigla3() {
@@ -164,7 +166,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setSigla3(String sigla3) {
-		this.sigla3 = sigla3;
+		this.sigla3 = (sigla3 == null ? "".trim() : sigla3.toUpperCase().trim());
 	}
 
 	public List<UfEntity> getUfList() {
