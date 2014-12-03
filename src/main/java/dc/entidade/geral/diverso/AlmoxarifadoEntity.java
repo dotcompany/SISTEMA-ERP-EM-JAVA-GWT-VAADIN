@@ -32,8 +32,8 @@ import dc.entidade.geral.produto.ProdutoEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -57,11 +57,19 @@ public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer> imple
 	private String nome;
 
 	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
 	 * REFERENCIA - LIST
 	 */
 
 	@OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
 	private List<ProdutoEntity> produtoList;
+
+	/**
+	 * TRANSIENT
+	 */
 
 	/**
 	 * CONSTRUTOR

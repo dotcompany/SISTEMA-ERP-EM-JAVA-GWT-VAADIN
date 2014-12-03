@@ -27,18 +27,13 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * @author Wesley Junior
- * 
- */
-
 @Entity
 @Table(name = "operadora_plano_saude")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class OperadoraPlanoSaudeEntity extends
+		AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 *
@@ -68,9 +63,12 @@ public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String registroAns;
 
-	/*@ManyToOne(optional = false)
-	@JoinColumn(name = "CONTABIL_CONTA", referencedColumnName = "ID")
-	private ContabilConta contabilConta;*/
+	/*
+	 * @ManyToOne(optional = false)
+	 * 
+	 * @JoinColumn(name = "CONTABIL_CONTA", referencedColumnName = "ID") private
+	 * ContabilConta contabilConta;
+	 */
 
 	/**
 	 * ********************************************************
@@ -90,6 +88,18 @@ public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer
 	 */
 
 	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -102,15 +112,13 @@ public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer
 		this.nome = nome;
 	}
 
-	/**
-	 * GETS E SETS
-	 * 
-	 * @param id
-	 */
-
 	public OperadoraPlanoSaudeEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -137,13 +145,12 @@ public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer
 		this.registroAns = registroAns;
 	}
 
-	/*public ContabilConta getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilConta contabilConta) {
-		this.contabilConta = contabilConta;
-	}*/
+	/*
+	 * public ContabilConta getContabilConta() { return contabilConta; }
+	 * 
+	 * public void setContabilConta(ContabilConta contabilConta) {
+	 * this.contabilConta = contabilConta; }
+	 */
 
 	public List<PlanoSaudeEntity> getPlanoSaudeList() {
 		return planoSaudeList;
@@ -161,6 +168,10 @@ public class OperadoraPlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer
 	 * OperadoraPlanoSaude == false) return false; if (this == object) return
 	 * true; final OperadoraPlanoSaude other = (OperadoraPlanoSaude) object;
 	 * return EqualsBuilder.reflectionEquals(this, other); }
+	 */
+
+	/**
+	 * TO STRING
 	 */
 
 	@Override

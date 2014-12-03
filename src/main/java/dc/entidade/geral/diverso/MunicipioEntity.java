@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -28,18 +26,17 @@ import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UfEntity;
 
-/**
- * 
- * @author Wesley Jr /*
- */
-
 @Entity
 @Table(name = "municipio")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -56,38 +53,54 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
-	
+
 	@Field
 	@Caption("Codigo Ibge")
 	@Column(name = "CODIGO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbge;
-	
+
 	@Field
 	@Caption("Codigo Receita Federal")
 	@Column(name = "CODIGO_RECEITA_FEDERAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoReceitaFederal;
-	
+
 	@Field
 	@Column(name = "CODIGO_ESTADUAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoEstadual;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ID_UF", nullable = false)
 	@Caption("Uf")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private UfEntity idUf;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private Empresa idEmpresa;
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public MunicipioEntity() {
 
@@ -97,6 +110,11 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer> implemen
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -112,7 +130,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public Integer getCodigoIbge() {
 		return codigoIbge;
 	}
@@ -153,23 +171,9 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer> implemen
 		this.idEmpresa = idEmpresa;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof MunicipioEntity == false)
-			return false;
-
-		if (this == object)
-			return true;
-
-		final MunicipioEntity other = (MunicipioEntity) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+	/**
+	 * TO STRING
+	 */
 
 	@Override
 	public String toString() {

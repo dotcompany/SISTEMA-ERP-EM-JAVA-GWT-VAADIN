@@ -184,6 +184,10 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.indiceEconomicoList = indiceEconomicoList;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
