@@ -40,7 +40,7 @@ public class PaisListController extends CRUDListController<PaisEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Pais";
+		return super.getTitulo(this);
 	}
 
 	@Override

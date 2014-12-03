@@ -9,21 +9,12 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
+import dc.control.util.StringUtils;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.dao.geral.diverso.PaisDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.PaisFormView;
-
-/**
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os métodos que temos na tela principal. Temos o botão Novo que é para
- *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
- *         o Button Salvar que é para salvar as informações no Banco de Dados
- *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- */
 
 @Controller
 @Scope("prototype")
@@ -36,21 +27,19 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	private PaisFormView subView;
 
+	/** ENTITIES */
+
+	private PaisEntity currentBean;
+
 	/** DAO'S */
 
 	@Autowired
 	private PaisDAO paisDAO;
 
-	/** ENTITIES */
-
-	private PaisEntity currentBean;
-
 	/** CONSTRUTOR */
 
 	public PaisFormController() {
-		if (this.currentBean == null) {
-			this.currentBean = new PaisEntity();
-		}
+
 	}
 
 	@Override
@@ -64,30 +53,77 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	}
 
 	@Override
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		String nome = this.subView.getTfNome().getValue();
+
+		if (StringUtils.isBlank(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String nomeIngles = this.subView.getTfNomeIngles().getValue();
+
+		if (StringUtils.isBlank(nomeIngles)) {
+			adicionarErroDeValidacao(this.subView.getTfNomeIngles(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String sigla2 = this.subView.getTfSigla2().getValue();
+
+		if (StringUtils.isBlank(sigla2)) {
+			adicionarErroDeValidacao(this.subView.getTfSigla2(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		String sigla3 = subView.getTfSigla3().getValue();
+
+		if (StringUtils.isBlank(sigla3)) {
+			adicionarErroDeValidacao(this.subView.getTfSigla3(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		return valido;
+	}
+
+	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setNomePtbr(subView.getTxtNome().getValue());
-			currentBean.setNomeEn(subView.getTxtNomeIngles().getValue());
-			currentBean.setSigla2(subView.getTxtSigla2().getValue());
-			currentBean.setSigla3(subView.getTxtSigla3().getValue());
+			this.currentBean.setNomePtbr(this.subView.getTfNome().getValue());
+			this.currentBean.setNomeEn(this.subView.getTfNomeIngles()
+					.getValue());
+			this.currentBean.setSigla2(this.subView.getTfSigla2().getValue());
+			this.currentBean.setSigla3(this.subView.getTfSigla3().getValue());
 
-			paisDAO.saveOrUpdate(currentBean);
+			this.paisDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			currentBean = paisDAO.find(id);
+			this.currentBean = this.paisDAO.find(id);
 
-			subView.getTxtNome().setValue(currentBean.getNomePtbr());
-			subView.getTxtNomeIngles().setValue(currentBean.getNomeEn());
-			subView.getTxtSigla2().setValue(currentBean.getSigla2());
-			subView.getTxtSigla3().setValue(currentBean.getSigla3());
+			this.subView.getTfNome().setValue(this.currentBean.getNomePtbr());
+			this.subView.getTfNomeIngles().setValue(
+					this.currentBean.getNomeEn());
+			this.subView.getTfSigla2().setValue(this.currentBean.getSigla2());
+			this.subView.getTfSigla3().setValue(this.currentBean.getSigla3());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,7 +146,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	protected void initSubView() {
-		subView = new PaisFormView(this);
+		this.subView = new PaisFormView(this);
 	}
 
 	/*
@@ -130,41 +166,15 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		paisDAO.deleteAllByIds(ids);
+		try {
+			this.paisDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
-	}
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (!Validator.validateString(subView.getTxtNomeIngles().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNomeIngles(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtSigla2().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSigla2(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtSigla3().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSigla3(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
@@ -174,7 +184,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "paisForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	/** COMBOS */
