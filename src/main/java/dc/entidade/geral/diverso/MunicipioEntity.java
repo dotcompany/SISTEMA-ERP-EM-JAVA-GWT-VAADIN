@@ -24,7 +24,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
 import dc.entidade.geral.UfEntity;
 
 @Entity
@@ -86,12 +85,6 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Uf")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private UfEntity uf;
-
-	@ManyToOne
-	@JoinColumn(name = "ID_EMPRESA", nullable = false)
-	@Caption("Empresa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -164,14 +157,6 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUf(UfEntity uf) {
 		this.uf = uf;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	/**

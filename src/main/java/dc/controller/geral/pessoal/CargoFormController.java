@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.tabela.CboEntity;
@@ -91,18 +92,6 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 			this.subView.getTfDescricao().setValue(
 					this.currentBean.getDescricao());
 
-			DefaultManyToOneComboModel<CboEntity> modelCbo = new DefaultManyToOneComboModel<CboEntity>(
-					CboListController.class, this.cboDAO,
-					super.getMainController());
-
-			this.subView.getMocCbo1994().setModel(modelCbo);
-
-			DefaultManyToOneComboModel<CboEntity> modelCbo2 = new DefaultManyToOneComboModel<CboEntity>(
-					CboListController.class, this.cboDAO,
-					super.getMainController());
-
-			this.subView.getMocCbo2002().setModel(modelCbo2);
-
 			this.subView.getTfSalario().setValue(
 					String.valueOf(this.currentBean.getSalario()));
 
@@ -141,14 +130,18 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
 
-			if (cbo1994 != null && !cbo1994.equals("")) {
+			if (ObjectUtils.isNotBlank(cbo1994)) {
 				this.currentBean.setCbo1994(cbo1994.getCodigo());
+			} else {
+				this.currentBean.setCbo1994(null);
 			}
 
 			CboEntity cbo2002 = this.subView.getMocCbo2002().getValue();
 
-			if (cbo2002 != null && !cbo2002.equals("")) {
+			if (ObjectUtils.isNotBlank(cbo2002)) {
 				this.currentBean.setCbo2002(cbo2002.getCodigo());
+			} else {
+				this.currentBean.setCbo2002(null);
 			}
 
 			this.cargoDAO.saveOrUpdate(this.currentBean);
