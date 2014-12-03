@@ -32,7 +32,7 @@ import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.PessoaFisicaDAO;
@@ -70,7 +70,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	PessoaEntity currentBean;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	public PessoaFormController() {
 		// TODO Auto-generated constructor stub

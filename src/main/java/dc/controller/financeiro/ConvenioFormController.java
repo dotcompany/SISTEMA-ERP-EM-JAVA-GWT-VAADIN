@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.financeiro.Convenio;
 import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.financeiro.ConvenioDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConvenioFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,7 +36,7 @@ public class ConvenioFormController extends CRUDFormController<Convenio> {
 	private ConvenioDAO convenioDAO;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	private Convenio currentBean;
 

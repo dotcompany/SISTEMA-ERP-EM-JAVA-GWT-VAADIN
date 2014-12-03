@@ -15,7 +15,7 @@ import dc.entidade.financeiro.Banco;
 import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.AgenciaBancoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -47,7 +47,7 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBanco>
 	private BancoDAO bancoDAO;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	private AgenciaBanco currentBean;
 

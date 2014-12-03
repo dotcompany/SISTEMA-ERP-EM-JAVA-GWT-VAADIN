@@ -37,7 +37,7 @@ import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -92,13 +92,13 @@ public class ColaboradorFormController extends
 	private SetorDAO setorDAO;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	@Autowired
-	PlanoContaDAO planoContaDAO;
+	private PlanoContaDAO planoContaDAO;
 
 	@Autowired
-	ContaCaixaDAO contaCaixaDAO;
+	private ContaCaixaDAO contaCaixaDAO;
 
 	private ColaboradorEntity currentBean;
 
@@ -109,12 +109,14 @@ public class ColaboradorFormController extends
 		if (!Validator.validateString(subView.getTxtMatricula().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtMatricula(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtCategoria().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtCategoria(),
 					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -128,214 +130,233 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected void initSubView() {
-		subView = new ColaboradorFormView(this);
+		try {
+			subView = new ColaboradorFormView(this);
 
-		/* Configura combo Pessoa */
-		// DefaultManyToOneComboModel<Pessoa> model= new
-		// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
-		// subView.getCmbPessoa().setModel(model);
+			/* Configura combo Pessoa */
+			// DefaultManyToOneComboModel<Pessoa> model= new
+			// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
+			// subView.getCmbPessoa().setModel(model);
 
-		DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(
-				PessoaListController.class, pessoaDAO,
-				super.getMainController());
-		subView.getCmbPessoa().setModel(modelPessoa);
+			DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(
+					PessoaListController.class, pessoaDAO,
+					super.getMainController());
+			subView.getCmbPessoa().setModel(modelPessoa);
 
-		DefaultManyToOneComboModel<NivelFormacaoEntity> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
-				NivelFormacaoListController.class, nivelFormacaoDAO,
-				super.getMainController()) {
+			DefaultManyToOneComboModel<NivelFormacaoEntity> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
+					NivelFormacaoListController.class, nivelFormacaoDAO,
+					super.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
 
-		};
+			};
 
-		this.subView.getCmbNivelFormacao().setModel(modelNivelFormacao);
+			this.subView.getCmbNivelFormacao().setModel(modelNivelFormacao);
 
-		DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipo = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
-				TipoColaboradorListController.class, tipoColaboradorDAO,
-				super.getMainController());
-		subView.getCmbTipoColaborador().setModel(modelTipo);
+			DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipo = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
+					TipoColaboradorListController.class, tipoColaboradorDAO,
+					super.getMainController());
+			subView.getCmbTipoColaborador().setModel(modelTipo);
 
-		DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
-				CargoListController.class, cargoDAO, super.getMainController()) {
+			DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
+					CargoListController.class, cargoDAO,
+					super.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
 
-		};
+			};
 
-		this.subView.getCmbCargo().setModel(modelCargo);
+			this.subView.getCmbCargo().setModel(modelCargo);
 
-		DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
-				SituacaoColaboradorListController.class,
-				situacaoColaboradorDAO, super.getMainController());
-		subView.getCmbSituacaoColaborador().setModel(modelSituacaoColaborador);
+			DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
+					SituacaoColaboradorListController.class,
+					situacaoColaboradorDAO, super.getMainController());
+			subView.getCmbSituacaoColaborador().setModel(
+					modelSituacaoColaborador);
 
-		DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
+			DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
 
-		};
+			};
 
-		this.subView.getCmbContaContabil().setModel(model);
+			this.subView.getCmbContaContabil().setModel(model);
 
-		DefaultManyToOneComboModel<Sindicato> modelSindicato = new DefaultManyToOneComboModel<Sindicato>(
-				SindicatoListController.class, sindicatoDAO,
-				super.getMainController());
-		subView.getCmbSindicato().setModel(modelSindicato);
+			DefaultManyToOneComboModel<Sindicato> modelSindicato = new DefaultManyToOneComboModel<Sindicato>(
+					SindicatoListController.class, sindicatoDAO,
+					super.getMainController());
+			subView.getCmbSindicato().setModel(modelSindicato);
 
-		DefaultManyToOneComboModel<Setor> modelSetor = new DefaultManyToOneComboModel<Setor>(
-				SetorListController.class, setorDAO, super.getMainController());
-		subView.getCmbSetor().setModel(modelSetor);
+			DefaultManyToOneComboModel<Setor> modelSetor = new DefaultManyToOneComboModel<Setor>(
+					SetorListController.class, setorDAO,
+					super.getMainController());
+			subView.getCmbSetor().setModel(modelSetor);
 
-		/*
-		 * DefaultManyToOneComboModel<UF> modelUf = new
-		 * DefaultManyToOneComboModel<UF>( UFListController.class, this.ufDAO,
-		 * super.getMainController()); subView.getCmbUf().setModel(modelUf);
-		 */
+			/*
+			 * DefaultManyToOneComboModel<UF> modelUf = new
+			 * DefaultManyToOneComboModel<UF>( UFListController.class,
+			 * this.ufDAO, super.getMainController());
+			 * subView.getCmbUf().setModel(modelUf);
+			 */
 
-		DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(
-				PlanoContaListController.class, this.planoContaDAO,
-				super.getMainController());
+			DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(
+					PlanoContaListController.class, this.planoContaDAO,
+					super.getMainController());
 
-		this.subView.getCbPlanoConta().setModel(planoConta);
+			this.subView.getCbPlanoConta().setModel(planoConta);
 
-		DefaultManyToOneComboModel<ContaCaixa> contaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
-				ContaCaixaListController.class, this.contaCaixaDAO,
-				super.getMainController());
+			DefaultManyToOneComboModel<ContaCaixa> contaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
+					ContaCaixaListController.class, this.contaCaixaDAO,
+					super.getMainController());
 
-		this.subView.getCbContaCaixa().setModel(contaCaixa);
+			this.subView.getCbContaCaixa().setModel(contaCaixa);
 
-		comboDescontoPlanoSaude();
-		comboFormaPagamento();
-		comboOptante();
-		comboSaiRais();
+			comboDescontoPlanoSaude();
+			comboFormaPagamento();
+			comboOptante();
+			comboSaiRais();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = colaboradorDAO.find(id);
+		try {
+			currentBean = colaboradorDAO.find(id);
 
-		subView.getDtCadastro().setValue(currentBean.getDataCadastro());
-		subView.getDtAdmissao().setValue(currentBean.getDataAdmissao());
-		subView.getDtVencimentoFerias().setValue(
-				currentBean.getVencimentoFerias());
-		subView.getDtTransferencia().setValue(
-				currentBean.getDataTransferencia());
-		subView.getDtDemissao().setValue(currentBean.getDataDemissao());
-		subView.getDtUltimoExame().setValue(currentBean.getExameMedicoUltimo());
-		subView.getDtVencimento().setValue(
-				currentBean.getExameMedicoVencimento());
-		subView.getDtDataOpcao().setValue(currentBean.getFgtsDataOpcao());
-		subView.getDtCadastroPis().setValue(currentBean.getPisDataCadastro());
-		subView.getTxtBanco1().setValue(currentBean.getPisBanco());
-		subView.getCmbUf().setValue(currentBean.getCtpsUf());
-		subView.getTxtAgencia1().setValue(currentBean.getPisAgencia());
-		subView.getTxtBanco().setValue(currentBean.getPagamentoBanco());
-		subView.getTxtAgencia().setValue(currentBean.getPagamentoAgencia());
-		subView.getTxtConta().setValue(currentBean.getPagamentoConta());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
+			subView.getDtCadastro().setValue(currentBean.getDataCadastro());
+			subView.getDtAdmissao().setValue(currentBean.getDataAdmissao());
+			subView.getDtVencimentoFerias().setValue(
+					currentBean.getVencimentoFerias());
+			subView.getDtTransferencia().setValue(
+					currentBean.getDataTransferencia());
+			subView.getDtDemissao().setValue(currentBean.getDataDemissao());
+			subView.getDtUltimoExame().setValue(
+					currentBean.getExameMedicoUltimo());
+			subView.getDtVencimento().setValue(
+					currentBean.getExameMedicoVencimento());
+			subView.getDtDataOpcao().setValue(currentBean.getFgtsDataOpcao());
+			subView.getDtCadastroPis().setValue(
+					currentBean.getPisDataCadastro());
+			subView.getTxtBanco1().setValue(currentBean.getPisBanco());
+			subView.getCmbUf().setValue(currentBean.getCtpsUf());
+			subView.getTxtAgencia1().setValue(currentBean.getPisAgencia());
+			subView.getTxtBanco().setValue(currentBean.getPagamentoBanco());
+			subView.getTxtAgencia().setValue(currentBean.getPagamentoAgencia());
+			subView.getTxtConta().setValue(currentBean.getPagamentoConta());
+			subView.getTxtObservacao().setValue(currentBean.getObservacao());
 
-		subView.getCbPriorizarPgto().setValue(
-				currentBean.getPriorizarComissao());
-		subView.getCbComissaoOver().setValue(currentBean.getComissaoOver());
+			subView.getCbPriorizarPgto().setValue(
+					currentBean.getPriorizarComissao());
+			subView.getCbComissaoOver().setValue(currentBean.getComissaoOver());
 
-		BigDecimal salarioFixo = currentBean.getSalarioFixo();
-		if (salarioFixo != null) {
-			subView.getTxtSalarioFixo().setConvertedValue(salarioFixo);
-			;
+			BigDecimal salarioFixo = currentBean.getSalarioFixo();
+
+			if (salarioFixo != null) {
+				subView.getTxtSalarioFixo().setConvertedValue(salarioFixo);
+			}
+
+			subView.getOptTipoComissaoServico().setValue(
+					currentBean.getTipoComissaoServico());
+			subView.getOptTipoComissaoProduto().setValue(
+					currentBean.getTipoComissaoProduto());
+
+			BigDecimal comissaoServico = currentBean.getValorComissaoServico();
+
+			if (comissaoServico != null) {
+				subView.getTxtComissaoServico().setConvertedValue(
+						comissaoServico);
+			}
+
+			BigDecimal comissaoProduto = currentBean.getValorComissaoProduto();
+
+			if (comissaoProduto != null) {
+				subView.getTxtComissaoProduto().setConvertedValue(
+						comissaoProduto);
+			}
+
+			subView.getCbPgtoComissao().setValue(
+					currentBean.getPgtoComissaoSera());
+			subView.getCbLctoComissao().setValue(currentBean.getLctoComissao());
+			subView.getCbContaCaixa().setValue(currentBean.getContaCaixa());
+			subView.getCbPlanoConta().setValue(currentBean.getPlanoConta());
+
+			/*
+			 * subView.getCmbPessoa().setValue(currentBean.getPessoa());
+			 * 
+			 * subView.getCmbTipoColaborador().setValue(
+			 * currentBean.getIdTipoColaborador());
+			 * 
+			 * DefaultManyToOneComboModel<SituacaoColaborador> model = new
+			 * DefaultManyToOneComboModel<SituacaoColaborador>(
+			 * SituacaoColaboradorListController.class,
+			 * this.situacaoColaboradorDAO, super.getMainController());
+			 * 
+			 * subView.getCmbSituacaoColaborador().setModel(model);
+			 * subView.getCmbSituacaoColaborador().setValue(
+			 * currentBean.getIdSituacaoColaborador());
+			 */
+
+			/*
+			 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
+			 * DefaultManyToOneComboModel<Sindicato>( sindic.class,
+			 * this.colaboradorDAO, super.getMainController());
+			 * 
+			 * subView.getCmbSindicato().setModel(modelsindicato);
+			 */
+			// subView.getCmbSindicato().setValue(currentBean.getIdSindicato());
+
+			/*
+			 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
+			 * DefaultManyToOneComboModel<Sindicato>( Nivelf.class,
+			 * this.colaboradorDAO, super.getMainController());
+			 * 
+			 * subView.getCmbNivelFormacao().setModel(modelnivel);
+			 */
+			/*
+			 * subView.getCmbNivelFormacao()
+			 * .setValue(currentBean.getIdNivelFormacao());
+			 * 
+			 * DefaultManyToOneComboModel<Cargo> modelcargo = new
+			 * DefaultManyToOneComboModel<Cargo>( CargoListController.class,
+			 * this.cargoDAO, super.getMainController());
+			 * 
+			 * subView.getCmbCargo().setModel(modelcargo);
+			 * subView.getCmbCargo().setValue(currentBean.getIdCargo());
+			 * 
+			 * DefaultManyToOneComboModel<ContabilConta> modelconta = new
+			 * DefaultManyToOneComboModel<ContabilConta>(
+			 * ContabilContaListController.class, this.contabilContaDAO,
+			 * super.getMainController());
+			 * 
+			 * subView.getCmbContaContabil().setModel(modelconta);
+			 * subView.getCmbContaContabil()
+			 * .setValue(currentBean.getIdContaContabil());
+			 * 
+			 * DefaultManyToOneComboModel<Setor> modelsetor = new
+			 * DefaultManyToOneComboModel<Setor>( SetorListController.class,
+			 * this.setorDAO, super.getMainController());
+			 * 
+			 * subView.getCmbSetor().setModel(modelsetor);
+			 * subView.getCmbSetor().setValue(currentBean.getIdSetor());
+			 * 
+			 * subView.getCmbUf().setValue(currentBean.getCtpsUf());
+			 */
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		subView.getOptTipoComissaoServico().setValue(
-				currentBean.getTipoComissaoServico());
-		subView.getOptTipoComissaoProduto().setValue(
-				currentBean.getTipoComissaoProduto());
-
-		BigDecimal comissaoServico = currentBean.getValorComissaoServico();
-		if (comissaoServico != null) {
-			subView.getTxtComissaoServico().setConvertedValue(comissaoServico);
-			;
-		}
-
-		BigDecimal comissaoProduto = currentBean.getValorComissaoProduto();
-		if (comissaoProduto != null) {
-			subView.getTxtComissaoProduto().setConvertedValue(comissaoProduto);
-			;
-		}
-		subView.getCbPgtoComissao().setValue(currentBean.getPgtoComissaoSera());
-		subView.getCbLctoComissao().setValue(currentBean.getLctoComissao());
-		subView.getCbContaCaixa().setValue(currentBean.getContaCaixa());
-		subView.getCbPlanoConta().setValue(currentBean.getPlanoConta());
-
-		/*
-		 * subView.getCmbPessoa().setValue(currentBean.getPessoa());
-		 * 
-		 * subView.getCmbTipoColaborador().setValue(
-		 * currentBean.getIdTipoColaborador());
-		 * 
-		 * DefaultManyToOneComboModel<SituacaoColaborador> model = new
-		 * DefaultManyToOneComboModel<SituacaoColaborador>(
-		 * SituacaoColaboradorListController.class, this.situacaoColaboradorDAO,
-		 * super.getMainController());
-		 * 
-		 * subView.getCmbSituacaoColaborador().setModel(model);
-		 * subView.getCmbSituacaoColaborador().setValue(
-		 * currentBean.getIdSituacaoColaborador());
-		 */
-
-		/*
-		 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
-		 * DefaultManyToOneComboModel<Sindicato>( sindic.class,
-		 * this.colaboradorDAO, super.getMainController());
-		 * 
-		 * subView.getCmbSindicato().setModel(modelsindicato);
-		 */
-		// subView.getCmbSindicato().setValue(currentBean.getIdSindicato());
-
-		/*
-		 * DefaultManyToOneComboModel<Sindicato> modelsindicato = new
-		 * DefaultManyToOneComboModel<Sindicato>( Nivelf.class,
-		 * this.colaboradorDAO, super.getMainController());
-		 * 
-		 * subView.getCmbNivelFormacao().setModel(modelnivel);
-		 */
-		/*
-		 * subView.getCmbNivelFormacao()
-		 * .setValue(currentBean.getIdNivelFormacao());
-		 * 
-		 * DefaultManyToOneComboModel<Cargo> modelcargo = new
-		 * DefaultManyToOneComboModel<Cargo>( CargoListController.class,
-		 * this.cargoDAO, super.getMainController());
-		 * 
-		 * subView.getCmbCargo().setModel(modelcargo);
-		 * subView.getCmbCargo().setValue(currentBean.getIdCargo());
-		 * 
-		 * DefaultManyToOneComboModel<ContabilConta> modelconta = new
-		 * DefaultManyToOneComboModel<ContabilConta>(
-		 * ContabilContaListController.class, this.contabilContaDAO,
-		 * super.getMainController());
-		 * 
-		 * subView.getCmbContaContabil().setModel(modelconta);
-		 * subView.getCmbContaContabil()
-		 * .setValue(currentBean.getIdContaContabil());
-		 * 
-		 * DefaultManyToOneComboModel<Setor> modelsetor = new
-		 * DefaultManyToOneComboModel<Setor>( SetorListController.class,
-		 * this.setorDAO, super.getMainController());
-		 * 
-		 * subView.getCmbSetor().setModel(modelsetor);
-		 * subView.getCmbSetor().setValue(currentBean.getIdSetor());
-		 * 
-		 * subView.getCmbUf().setValue(currentBean.getCtpsUf());
-		 */
 	}
 
 	void carregarCombos() {
@@ -360,85 +381,91 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa().getValue());
-		currentBean.setIdTipoColaborador((TipoColaboradorEntity) subView
-				.getCmbTipoColaborador().getValue());
-		currentBean
-				.setIdSituacaoColaborador((SituacaoColaboradorEntity) subView
-						.getCmbSituacaoColaborador().getValue());
-		currentBean.setIdSindicato((Sindicato) subView.getCmbSindicato()
-				.getValue());
-		currentBean.setIdNivelFormacao((NivelFormacaoEntity) subView
-				.getCmbNivelFormacao().getValue());
-		currentBean.setIdCargo((CargoEntity) subView.getCmbCargo().getValue());
-		currentBean.setIdContaContabil((ContabilContaEntity) subView
-				.getCmbContaContabil().getValue());
-		currentBean.setDataCadastro(subView.getDtCadastro().getValue());
-		currentBean.setDataAdmissao(subView.getDtAdmissao().getValue());
-		currentBean.setVencimentoFerias(subView.getDtVencimentoFerias()
-				.getValue());
-		currentBean.setDataTransferencia(subView.getDtTransferencia()
-				.getValue());
-		currentBean.setDataDemissao(subView.getDtDemissao().getValue());
-		currentBean.setExameMedicoUltimo(subView.getDtUltimoExame().getValue());
-		currentBean.setExameMedicoVencimento(subView.getDtVencimento()
-				.getValue());
-		currentBean.setFgtsDataOpcao(subView.getDtDataOpcao().getValue());
-		currentBean.setPisDataCadastro(subView.getDtCadastroPis().getValue());
-		currentBean.setPisBanco(subView.getTxtBanco1().getValue());
-		currentBean.setPisAgencia(subView.getTxtAgencia1().getValue());
-		currentBean.setPagamentoBanco(subView.getTxtBanco().getValue());
-		currentBean.setPagamentoAgencia(subView.getTxtAgencia().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
-		if (subView.getTxtSalarioFixo() != null) {
-			currentBean.setSalarioFixo((BigDecimal) subView.getTxtSalarioFixo()
-					.getConvertedValue());
-		}
-
-		currentBean.setPriorizarComissao(Boolean.valueOf(subView
-				.getCbPriorizarPgto().getValue().toString()));
-		currentBean.setComissaoOver(Boolean.valueOf(subView.getCbComissaoOver()
-				.getValue().toString()));
-		currentBean.setTipoComissaoServico((String) subView
-				.getOptTipoComissaoServico().getValue());
-		currentBean.setTipoComissaoProduto((String) subView
-				.getOptTipoComissaoProduto().getValue());
-
-		if (subView.getTxtComissaoProduto() != null) {
-			currentBean.setValorComissaoProduto((BigDecimal) subView
-					.getTxtComissaoProduto().getConvertedValue());
-		}
-
-		if (subView.getTxtComissaoServico() != null) {
-			currentBean.setValorComissaoServico((BigDecimal) subView
-					.getTxtComissaoServico().getConvertedValue());
-		}
-
-		if (subView.getCbPgtoComissao().getValue() != null) {
-			currentBean.setPgtoComissaoSera(Integer.valueOf(subView
-					.getCbPgtoComissao().getValue().toString()));
-		}
-
-		if (subView.getCbLctoComissao().getValue() != null) {
-			currentBean.setLctoComissao(Integer.valueOf(subView
-					.getCbLctoComissao().getValue().toString()));
-		}
-
-		if (subView.getCbContaCaixa() != null) {
-			currentBean.setContaCaixa(subView.getCbContaCaixa().getValue());
-		}
-
-		if (subView.getCbPlanoConta() != null) {
-			currentBean.setPlanoConta(subView.getCbPlanoConta().getValue());
-		}
-
 		try {
+			currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa()
+					.getValue());
+			currentBean.setTipoColaborador((TipoColaboradorEntity) subView
+					.getCmbTipoColaborador().getValue());
+			currentBean
+					.setSituacaoColaborador((SituacaoColaboradorEntity) subView
+							.getCmbSituacaoColaborador().getValue());
+			currentBean.setSindicato((Sindicato) subView.getCmbSindicato()
+					.getValue());
+			currentBean.setNivelFormacao((NivelFormacaoEntity) subView
+					.getCmbNivelFormacao().getValue());
+			currentBean
+					.setCargo((CargoEntity) subView.getCmbCargo().getValue());
+			currentBean.setContaContabil((ContabilContaEntity) subView
+					.getCmbContaContabil().getValue());
+			currentBean.setDataCadastro(subView.getDtCadastro().getValue());
+			currentBean.setDataAdmissao(subView.getDtAdmissao().getValue());
+			currentBean.setVencimentoFerias(subView.getDtVencimentoFerias()
+					.getValue());
+			currentBean.setDataTransferencia(subView.getDtTransferencia()
+					.getValue());
+			currentBean.setDataDemissao(subView.getDtDemissao().getValue());
+			currentBean.setExameMedicoUltimo(subView.getDtUltimoExame()
+					.getValue());
+			currentBean.setExameMedicoVencimento(subView.getDtVencimento()
+					.getValue());
+			currentBean.setFgtsDataOpcao(subView.getDtDataOpcao().getValue());
+			currentBean.setPisDataCadastro(subView.getDtCadastroPis()
+					.getValue());
+			currentBean.setPisBanco(subView.getTxtBanco1().getValue());
+			currentBean.setPisAgencia(subView.getTxtAgencia1().getValue());
+			currentBean.setPagamentoBanco(subView.getTxtBanco().getValue());
+			currentBean.setPagamentoAgencia(subView.getTxtAgencia().getValue());
+			currentBean.setObservacao(subView.getTxtObservacao().getValue());
+
+			if (subView.getTxtSalarioFixo() != null) {
+				currentBean.setSalarioFixo((BigDecimal) subView
+						.getTxtSalarioFixo().getConvertedValue());
+			}
+
+			currentBean.setPriorizarComissao(Boolean.valueOf(subView
+					.getCbPriorizarPgto().getValue().toString()));
+			currentBean.setComissaoOver(Boolean.valueOf(subView
+					.getCbComissaoOver().getValue().toString()));
+			currentBean.setTipoComissaoServico((String) subView
+					.getOptTipoComissaoServico().getValue());
+			currentBean.setTipoComissaoProduto((String) subView
+					.getOptTipoComissaoProduto().getValue());
+
+			if (subView.getTxtComissaoProduto() != null) {
+				currentBean.setValorComissaoProduto((BigDecimal) subView
+						.getTxtComissaoProduto().getConvertedValue());
+			}
+
+			if (subView.getTxtComissaoServico() != null) {
+				currentBean.setValorComissaoServico((BigDecimal) subView
+						.getTxtComissaoServico().getConvertedValue());
+			}
+
+			if (subView.getCbPgtoComissao().getValue() != null) {
+				currentBean.setPgtoComissaoSera(Integer.valueOf(subView
+						.getCbPgtoComissao().getValue().toString()));
+			}
+
+			if (subView.getCbLctoComissao().getValue() != null) {
+				currentBean.setLctoComissao(Integer.valueOf(subView
+						.getCbLctoComissao().getValue().toString()));
+			}
+
+			if (subView.getCbContaCaixa() != null) {
+				currentBean.setContaCaixa(subView.getCbContaCaixa().getValue());
+			}
+
+			if (subView.getCbPlanoConta() != null) {
+				currentBean.setPlanoConta(subView.getCbPlanoConta().getValue());
+			}
+
 			colaboradorDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -454,9 +481,15 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		colaboradorDAO.deleteAllByIds(ids);
+		try {
+			this.colaboradorDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

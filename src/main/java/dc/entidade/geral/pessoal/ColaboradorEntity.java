@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -61,8 +61,8 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -81,245 +81,391 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	private Integer id;
 
 	@Field
-	@Caption("Matricula")
+	@Caption("Matrícula")
 	@Column(name = "MATRICULA", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String matricula;
 
 	@Lob
 	@Type(type = "text")
+	@Field
+	@Caption("Foto 3x4")
 	@Column(name = "FOTO_34")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String foto34;
 
-	@Field
-	@Caption("Data Cadastro")
-	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de cadastro")
+	@Column(name = "DATA_CADASTRO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
-	@Field
-	@Caption("Data Admissao")
-	@Column(name = "DATA_ADMISSAO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de admissão")
+	@Column(name = "DATA_ADMISSAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataAdmissao;
 
-	@Field
-	@Caption("Vencimento Ferias")
-	@Column(name = "VENCIMENTO_FERIAS")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Vencimento de férias")
+	@Column(name = "VENCIMENTO_FERIAS")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date vencimentoFerias;
 
-	@Field
-	@Caption("Data Transferencia")
-	@Column(name = "DATA_TRANSFERENCIA")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de transferência")
+	@Column(name = "DATA_TRANSFERENCIA")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataTransferencia;
 
+	@Field
+	@Caption("FGTS optante")
 	@Column(name = "FGTS_OPTANTE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character fgts_optante;
 
-	@Column(name = "FGTS_DATA_OPCAO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("FGTS data da opção")
+	@Column(name = "FGTS_DATA_OPCAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date fgtsDataOpcao;
 
+	@Field
+	@Caption("FGTS conta")
 	@Column(name = "FGTS_CONTA")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer fgtsConta;
 
+	@Field
+	@Caption("Forma de pagamento")
 	@Column(name = "PAGAMENTO_FORMA")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoForma;
 
-	@Column(name = "PAGAMENTO_Banco", length = 10)
+	@Field
+	@Caption("Banco do pagamento")
+	@Column(name = "PAGAMENTO_BANCO", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoBanco;
 
+	@Field
+	@Caption("Agência do pagamento")
 	@Column(name = "PAGAMENTO_AGENCIA", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoAgencia;
 
+	@Field
+	@Caption()
 	@Column(name = "PAGAMENTO_AGENCIA_DIGITO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoAgenciaDigito;
 
+	@Field
+	@Caption()
 	@Column(name = "PAGAMENTO_CONTA", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoConta;
 
+	@Field
+	@Caption()
 	@Column(name = "PAGAMENTO_CONTA_DIGITO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pagamentoContaDigito;
 
-	@Column(name = "EXAME_MEDICO_ULTIMO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "EXAME_MEDICO_ULTIMO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date exameMedicoUltimo;
 
-	@Column(name = "EXAME_MEDICO_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "EXAME_MEDICO_VENCIMENTO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date exameMedicoVencimento;
 
-	@Column(name = "PIS_DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "PIS_DATA_CADASTRO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date pisDataCadastro;
 
+	@Field
+	@Caption()
 	@Column(name = "PIS_NUMERO", length = 12)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisNumero;
 
+	@Field
+	@Caption()
 	@Column(name = "PIS_BANCO", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisBanco;
 
+	@Field
+	@Caption()
 	@Column(name = "PIS_AGENCIA", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisAgencia;
 
+	@Field
+	@Caption()
 	@Column(name = "PIS_AGENCIA_DIGITO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character pisAgenciaDigito;
 
+	@Field
+	@Caption()
 	@Column(name = "CTPS_NUMERO", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctps_Numero;
 
+	@Field
+	@Caption()
 	@Column(name = "CTPS_SERIE", length = 10)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctpsSerie;
 
-	@Column(name = "CTPS_DATA_EXPEDICAO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "CTPS_DATA_EXPEDICAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date ctpsDataExpedicao;
 
+	@Field
+	@Caption()
 	@Column(name = "CTPS_UF")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctpsUf;
 
+	@Field
+	@Caption()
 	@Column(name = "DESCONTO_PLANO_SAUDE")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character descontoPlanoSaude;
 
+	@Field
+	@Caption()
 	@Column(name = "SAI_NA_RAIS")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character saiNaRais;
 
+	@Field
+	@Caption()
 	@Column(name = "CATEGORIA_SEFIP")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Character categoriaSefip;
 
+	@Field
+	@Caption()
 	@Column(name = "OCORRENCIA_SEFIP")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer ocorrenciaSefip;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_ADMISSAO_CAGED")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoAdmissaoCaged;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_DEMISSAO_CAGED")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoDemissaoCaged;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_DEMISSAO_SEFIP")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoDemissaoSefip;
 
-	@Column(name = "DATA_DEMISSAO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "DATA_DEMISSAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataDemissao;
 
 	@Field
-	@Caption("Codigo Turma Ponto")
+	@Caption("Código da turma do ponto")
 	@Column(name = "CODIGO_TURMA_PONTO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoTurmaPonto;
 
 	@Lob
 	@Type(type = "text")
+	@Field
+	@Caption()
 	@Column(name = "OBSERVACAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
-	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Setor idSetor;
-
-	@JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.LAZY)
-	// Carrega o relacionamento no uso.
-	private ContabilContaEntity idContaContabil;
-
-	@JoinColumn(name = "ID_CARGO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private CargoEntity idCargo;
-
-	@JoinColumn(name = "ID_TIPO_COLABORADOR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private TipoColaboradorEntity idTipoColaborador;
-
-	@JoinColumn(name = "ID_SITUACAO_COLABORADOR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private SituacaoColaboradorEntity idSituacaoColaborador;
-
-	@JoinColumn(name = "ID_NIVEL_FORMACAO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private NivelFormacaoEntity idNivelFormacao;
-
-	@JoinColumn(name = "ID_SINDICATO", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Sindicato idSindicato;
-
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@Analyzer(definition = "dc_combo_analyzer")
-	@IndexedEmbedded
-	@ComboValue
-	private PessoaEntity pessoa;
-
+	@Field
+	@Caption()
 	@Column(name = "salario_fixo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal salarioFixo;
 
+	@Field
+	@Caption()
 	@Column(name = "tipo_comissao_servico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoComissaoServico;
 
+	@Field
+	@Caption()
 	@Column(name = "valor_comissao_servico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorComissaoServico;
 
+	@Field
+	@Caption()
 	@Column(name = "tipo_comissao_produto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoComissaoProduto;
 
+	@Field
+	@Caption()
 	@Column(name = "valor_comissao_produto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorComissaoProduto;
 
+	@Field
+	@Caption()
 	@Column(name = "priorizar_comissao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean priorizarComissao;
 
+	@Field
+	@Caption()
 	@Column(name = "comissao_over")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean comissaoOver;
 
+	@Field
+	@Caption()
 	@Column(name = "pgto_comissao_sera")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer pgtoComissaoSera;
 
+	@Field
+	@Caption()
 	@Column(name = "lcto_comissao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer lctoComissao;
 
-	@ManyToOne
-	@JoinColumn(name = "id_plano_conta", referencedColumnName = "id")
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_setor", nullable = false)
+	@Caption("Setor")
+	private Setor setor;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_contabil_conta", nullable = true)
+	@Caption("Conta contábil")
+	private ContabilContaEntity contaContabil;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_cargo", nullable = false)
+	@Caption("Cargo")
+	private CargoEntity cargo;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_tipo_colaborador", nullable = false)
+	@Caption("Tipo do colaborador")
+	private TipoColaboradorEntity tipoColaborador;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_situacao_colaborador", nullable = false)
+	@Caption("Situação do colaborador")
+	private SituacaoColaboradorEntity situacaoColaborador;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_nivel_formacao", nullable = false)
+	@Caption("Nível de formação")
+	private NivelFormacaoEntity nivelFormacao;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_sindicato", nullable = false)
+	@Caption("Sindicato")
+	private Sindicato sindicato;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_plano_conta", nullable = true)
+	@Caption("Plano de conta")
 	private PlanoConta planoConta;
 
-	@ManyToOne
-	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_conta_caixa", nullable = true)
+	@Caption("Conta da caixa")
 	private ContaCaixa contaCaixa;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa", nullable = false)
+	@Caption("Pessoa")
+	private PessoaEntity pessoa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * ********************************************************
@@ -373,6 +519,10 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 */
 
 	/**
+	 * TRANSIENT
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -399,22 +549,29 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 * ********************************************************
 	 */
 
-	/**
-	 * GETS E SETS
-	 * 
-	 * @param id
-	 */
-
 	public ColaboradorEntity(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getFoto34() {
@@ -431,54 +588,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	public Setor getIdSetor() {
-		return idSetor;
-	}
-
-	public void setIdSetor(Setor idSetor) {
-		this.idSetor = idSetor;
-	}
-
-	public CargoEntity getIdCargo() {
-		return idCargo;
-	}
-
-	public void setIdCargo(CargoEntity idCargo) {
-		this.idCargo = idCargo;
-	}
-
-	public TipoColaboradorEntity getIdTipoColaborador() {
-		return idTipoColaborador;
-	}
-
-	public void setIdTipoColaborador(TipoColaboradorEntity idTipoColaborador) {
-		this.idTipoColaborador = idTipoColaborador;
-	}
-
-	public NivelFormacaoEntity getIdNivelFormacao() {
-		return idNivelFormacao;
-	}
-
-	public void setIdNivelFormacao(NivelFormacaoEntity idNivelFormacao) {
-		this.idNivelFormacao = idNivelFormacao;
-	}
-
-	public PessoaEntity getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(PessoaEntity idPessoa) {
-		this.pessoa = idPessoa;
-	}
-
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
 	}
 
 	public Date getDataAdmissao() {
@@ -745,6 +854,159 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.observacao = observacao;
 	}
 
+	public BigDecimal getSalarioFixo() {
+		return salarioFixo;
+	}
+
+	public void setSalarioFixo(BigDecimal salarioFixo) {
+		this.salarioFixo = salarioFixo;
+	}
+
+	public String getTipoComissaoServico() {
+		return tipoComissaoServico;
+	}
+
+	public void setTipoComissaoServico(String tipoComissaoServico) {
+		this.tipoComissaoServico = tipoComissaoServico;
+	}
+
+	public BigDecimal getValorComissaoServico() {
+		return valorComissaoServico;
+	}
+
+	public void setValorComissaoServico(BigDecimal valorComissaoServico) {
+		this.valorComissaoServico = valorComissaoServico;
+	}
+
+	public String getTipoComissaoProduto() {
+		return tipoComissaoProduto;
+	}
+
+	public void setTipoComissaoProduto(String tipoComissaoProduto) {
+		this.tipoComissaoProduto = tipoComissaoProduto;
+	}
+
+	public BigDecimal getValorComissaoProduto() {
+		return valorComissaoProduto;
+	}
+
+	public void setValorComissaoProduto(BigDecimal valorComissaoProduto) {
+		this.valorComissaoProduto = valorComissaoProduto;
+	}
+
+	public Boolean getPriorizarComissao() {
+		return priorizarComissao;
+	}
+
+	public void setPriorizarComissao(Boolean priorizarComissao) {
+		this.priorizarComissao = priorizarComissao;
+	}
+
+	public Boolean getComissaoOver() {
+		return comissaoOver;
+	}
+
+	public void setComissaoOver(Boolean comissaoOver) {
+		this.comissaoOver = comissaoOver;
+	}
+
+	public Integer getPgtoComissaoSera() {
+		return pgtoComissaoSera;
+	}
+
+	public void setPgtoComissaoSera(Integer pgtoComissaoSera) {
+		this.pgtoComissaoSera = pgtoComissaoSera;
+	}
+
+	public Integer getLctoComissao() {
+		return lctoComissao;
+	}
+
+	public void setLctoComissao(Integer lctoComissao) {
+		this.lctoComissao = lctoComissao;
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
+
+	public ContabilContaEntity getContaContabil() {
+		return contaContabil;
+	}
+
+	public void setContaContabil(ContabilContaEntity contaContabil) {
+		this.contaContabil = contaContabil;
+	}
+
+	public CargoEntity getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(CargoEntity cargo) {
+		this.cargo = cargo;
+	}
+
+	public TipoColaboradorEntity getTipoColaborador() {
+		return tipoColaborador;
+	}
+
+	public void setTipoColaborador(TipoColaboradorEntity tipoColaborador) {
+		this.tipoColaborador = tipoColaborador;
+	}
+
+	public SituacaoColaboradorEntity getSituacaoColaborador() {
+		return situacaoColaborador;
+	}
+
+	public void setSituacaoColaborador(
+			SituacaoColaboradorEntity situacaoColaborador) {
+		this.situacaoColaborador = situacaoColaborador;
+	}
+
+	public NivelFormacaoEntity getNivelFormacao() {
+		return nivelFormacao;
+	}
+
+	public void setNivelFormacao(NivelFormacaoEntity nivelFormacao) {
+		this.nivelFormacao = nivelFormacao;
+	}
+
+	public Sindicato getSindicato() {
+		return sindicato;
+	}
+
+	public void setSindicato(Sindicato sindicato) {
+		this.sindicato = sindicato;
+	}
+
+	public PlanoConta getPlanoConta() {
+		return planoConta;
+	}
+
+	public void setPlanoConta(PlanoConta planoConta) {
+		this.planoConta = planoConta;
+	}
+
+	public ContaCaixa getContaCaixa() {
+		return contaCaixa;
+	}
+
+	public void setContaCaixa(ContaCaixa contaCaixa) {
+		this.contaCaixa = contaCaixa;
+	}
+
+	public PessoaEntity getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaEntity pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	public List<BemEntity> getBemList() {
 		return bemList;
 	}
@@ -819,119 +1081,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	public void setFeriasPeriodoAquisitivoEntityList(
 			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList) {
 		this.feriasPeriodoAquisitivoEntityList = feriasPeriodoAquisitivoEntityList;
-	}
-
-	public ContabilContaEntity getIdContaContabil() {
-		return idContaContabil;
-	}
-
-	public void setIdContaContabil(ContabilContaEntity idContaContabil) {
-		this.idContaContabil = idContaContabil;
-	}
-
-	public SituacaoColaboradorEntity getIdSituacaoColaborador() {
-		return idSituacaoColaborador;
-	}
-
-	public void setIdSituacaoColaborador(
-			SituacaoColaboradorEntity idSituacaoColaborador) {
-		this.idSituacaoColaborador = idSituacaoColaborador;
-	}
-
-	public Sindicato getIdSindicato() {
-		return idSindicato;
-	}
-
-	public void setIdSindicato(Sindicato idSindicato) {
-		this.idSindicato = idSindicato;
-	}
-
-	public BigDecimal getSalarioFixo() {
-		return salarioFixo;
-	}
-
-	public void setSalarioFixo(BigDecimal salarioFixo) {
-		this.salarioFixo = salarioFixo;
-	}
-
-	public String getTipoComissaoServico() {
-		return tipoComissaoServico;
-	}
-
-	public void setTipoComissaoServico(String tipoComissaoServico) {
-		this.tipoComissaoServico = tipoComissaoServico;
-	}
-
-	public BigDecimal getValorComissaoServico() {
-		return valorComissaoServico;
-	}
-
-	public void setValorComissaoServico(BigDecimal valorComissaoServico) {
-		this.valorComissaoServico = valorComissaoServico;
-	}
-
-	public String getTipoComissaoProduto() {
-		return tipoComissaoProduto;
-	}
-
-	public void setTipoComissaoProduto(String tipoComissaoProduto) {
-		this.tipoComissaoProduto = tipoComissaoProduto;
-	}
-
-	public BigDecimal getValorComissaoProduto() {
-		return valorComissaoProduto;
-	}
-
-	public void setValorComissaoProduto(BigDecimal valorComissaoProduto) {
-		this.valorComissaoProduto = valorComissaoProduto;
-	}
-
-	public Boolean getPriorizarComissao() {
-		return priorizarComissao;
-	}
-
-	public void setPriorizarComissao(Boolean priorizarComissao) {
-		this.priorizarComissao = priorizarComissao;
-	}
-
-	public Boolean getComissaoOver() {
-		return comissaoOver;
-	}
-
-	public void setComissaoOver(Boolean comissaoOver) {
-		this.comissaoOver = comissaoOver;
-	}
-
-	public Integer getPgtoComissaoSera() {
-		return pgtoComissaoSera;
-	}
-
-	public void setPgtoComissaoSera(Integer pgtoComissaoSera) {
-		this.pgtoComissaoSera = pgtoComissaoSera;
-	}
-
-	public Integer getLctoComissao() {
-		return lctoComissao;
-	}
-
-	public void setLctoComissao(Integer lctoComissao) {
-		this.lctoComissao = lctoComissao;
-	}
-
-	public PlanoConta getPlanoConta() {
-		return planoConta;
-	}
-
-	public void setPlanoConta(PlanoConta planoConta) {
-		this.planoConta = planoConta;
-	}
-
-	public ContaCaixa getContaCaixa() {
-		return contaCaixa;
-	}
-
-	public void setContaCaixa(ContaCaixa contaCaixa) {
-		this.contaCaixa = contaCaixa;
 	}
 
 	@Override

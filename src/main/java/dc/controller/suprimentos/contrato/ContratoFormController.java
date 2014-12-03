@@ -59,7 +59,7 @@ import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
@@ -115,7 +115,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private ProdutoDAO produtoDAO;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	private ContratoEntity currentBean;
 

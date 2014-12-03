@@ -29,7 +29,7 @@ import dc.entidade.tributario.IPIConfiguracaoTributaria;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.entidade.tributario.PISConfiguracaoTributaria;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
@@ -70,7 +70,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	OperacaoFiscalDAO operacaoFiscalDAO;
 
 	@Autowired
-	UFDAO ufDAO;
+	UfDAO ufDAO;
 
 	ConfiguracaoTributaria currentBean;
 

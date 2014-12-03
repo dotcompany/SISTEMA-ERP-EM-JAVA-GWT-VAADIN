@@ -18,7 +18,7 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
 import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
@@ -41,7 +41,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	ICMSCustomizadoDAO dao;
 
 	@Autowired
-	UFDAO ufDAO;
+	UfDAO ufDAO;
 
 	@Autowired
 	ICMSCustomizadoDetalheDAO detalheDAO;

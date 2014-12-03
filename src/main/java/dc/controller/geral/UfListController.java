@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class UfListController extends CRUDListController<UfEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private UFDAO dao;
+	private UfDAO dao;
 
 	@Autowired
 	private UfFormController ufFormController;

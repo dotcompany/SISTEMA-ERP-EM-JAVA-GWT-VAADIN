@@ -24,7 +24,7 @@ import dc.servicos.dao.empresa.DependenteDAO;
 import dc.servicos.dao.empresa.ParticipacaoSocietariaDAO;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.servicos.dao.empresa.SocioDAO;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.empresa.SocioFormView;
@@ -54,7 +54,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	ParticipacaoSocietariaDAO participacaoSocietariaDAO;
 
 	@Autowired
-	UFDAO ufDAO;
+	UfDAO ufDAO;
 
 	@Autowired
 	DependenteDAO dependenteDAO;

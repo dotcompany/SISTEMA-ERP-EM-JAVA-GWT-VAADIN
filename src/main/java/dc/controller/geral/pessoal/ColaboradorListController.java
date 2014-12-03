@@ -23,15 +23,10 @@ public class ColaboradorListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ColaboradorDAO dao;
+	private ColaboradorDAO dao;
 
 	@Autowired
-	ColaboradorFormController colaboradorFormController;
-
-	@Override
-	protected CRUDFormController<ColaboradorEntity> getFormController() {
-		return colaboradorFormController;
-	}
+	private ColaboradorFormController colaboradorFormController;
 
 	@Override
 	public String[] getColunas() {
@@ -40,19 +35,8 @@ public class ColaboradorListController extends
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super ColaboradorEntity> getEntityClass() {
 		return ColaboradorEntity.class;
-	}
-
-	@Override
-	protected List<ColaboradorEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -61,8 +45,19 @@ public class ColaboradorListController extends
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	protected List<ColaboradorEntity> pesquisa(String valor) {
+		return dao.fullTextSearch(valor);
+	}
+
+	@Override
+	protected CRUDFormController<ColaboradorEntity> getFormController() {
+		return colaboradorFormController;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

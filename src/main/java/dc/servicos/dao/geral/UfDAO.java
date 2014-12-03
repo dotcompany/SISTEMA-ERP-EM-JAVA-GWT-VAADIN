@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class UFDAO extends AbstractCrudDAO<UfEntity>{
+public class UfDAO extends AbstractCrudDAO<UfEntity>{
 	
 	@Override
 	public Class<UfEntity> getEntityClass() {

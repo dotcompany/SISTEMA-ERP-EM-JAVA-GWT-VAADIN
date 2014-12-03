@@ -22,7 +22,7 @@ import dc.controller.tributario.ICMSCustomizadoFormController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.tributario.ICMSCustomizado;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -51,7 +51,7 @@ public class ICMSCustomizadoFormView extends CustomComponent {
 	private TabSheet subForms;
 
 	@Autowired
-	UFDAO ufDAO;
+	UfDAO ufDAO;
 
 	@Autowired
 	UfFormController ufController;

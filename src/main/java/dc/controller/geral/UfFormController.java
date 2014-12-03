@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.UFFormView;
 
@@ -27,7 +27,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	private UFFormView subView;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	private UfEntity currentBean;
 

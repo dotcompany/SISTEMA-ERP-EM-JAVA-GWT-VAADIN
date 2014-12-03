@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
-import dc.servicos.dao.geral.UFDAO;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,7 +34,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	private ContadorDAO contadorDAO;
 
 	@Autowired
-	private UFDAO ufDAO;
+	private UfDAO ufDAO;
 
 	private ContadorEntity currentBean;
 
