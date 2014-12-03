@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.SetorValidator;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.servicos.dao.geral.diverso.SetorDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.SetorFormView;
 
@@ -26,57 +28,71 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 
 	private SetorFormView subView;
 
+	private SetorEntity currentBean;
+
 	@Autowired
 	private SetorDAO setorDAO;
 
-	private SetorEntity currentBean;
-
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			SetorValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SetorEntity();
+		try {
+			this.currentBean = new SetorEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new SetorFormView();
+		try {
+			this.subView = new SetorFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = setorDAO.find(id);
+		try {
+			this.currentBean = this.setorDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			setorDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.setorDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -92,9 +108,15 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		setorDAO.deleteAllByIds(ids);
+		try {
+			this.setorDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -104,7 +126,7 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "setorForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

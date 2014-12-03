@@ -61,7 +61,7 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Lob
 	@Type(type = "text")
 	@Field
-	@Caption("Descricao")
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

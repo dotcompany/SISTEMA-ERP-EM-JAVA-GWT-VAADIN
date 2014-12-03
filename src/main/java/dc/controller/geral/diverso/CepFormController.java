@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.CepValidator;
@@ -182,7 +183,7 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "cepForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

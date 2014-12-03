@@ -6,20 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.CepEntity;
 import dc.servicos.dao.geral.diverso.CepDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
 
 @Controller
 @Scope("prototype")
@@ -31,10 +22,10 @@ public class CepListController extends CRUDListController<CepEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CepDAO dao;
+	private CepDAO dao;
 
 	@Autowired
-	CepFormController cepFormController;
+	private CepFormController cepFormController;
 
 	@Override
 	public String[] getColunas() {
@@ -48,7 +39,7 @@ public class CepListController extends CRUDListController<CepEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Cep";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -65,7 +56,7 @@ public class CepListController extends CRUDListController<CepEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaCeps";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
