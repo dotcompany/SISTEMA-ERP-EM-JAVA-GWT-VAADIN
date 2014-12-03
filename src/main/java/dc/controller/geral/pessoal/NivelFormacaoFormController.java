@@ -43,6 +43,19 @@ public class NivelFormacaoFormController extends
 	}
 
 	@Override
+	protected boolean validaSalvar() {
+		if (this.subView.getTfNome().getValue() == null
+				|| this.subView.getTfNome().getValue().isEmpty()) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em branco!");
+
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
 	protected void actionSalvar() {
 		try {
 			this.currentBean.setNome(this.subView.getTfNome().getValue());
@@ -163,20 +176,6 @@ public class NivelFormacaoFormController extends
 
 			mensagemErro(e.getMessage());
 		}
-	}
-
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (this.subView.getTfNome().getValue() == null
-				|| this.subView.getTfNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em branco!");
-
-			return false;
-		}
-
-		return true;
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import dc.control.enums.TipoPessoaEn;
 import dc.control.enums.TipoRegimeEn;
 import dc.control.enums.TipoSangueEn;
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.PessoaValidator;
 import dc.controller.geral.UfListController;
 import dc.entidade.framework.Empresa;
 import dc.entidade.geral.PessoaContatoEntity;
@@ -37,7 +39,6 @@ import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.PessoaFisicaDAO;
 import dc.servicos.dao.geral.pessoal.PessoaJuridicaDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -55,6 +56,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	private PessoaFormView subView;
 
+	private PessoaEntity currentBean;
+
 	@Autowired
 	private PessoaDAO pessoaDAO;
 
@@ -66,8 +69,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
-
-	PessoaEntity currentBean;
 
 	@Autowired
 	private UfDAO ufDAO;
@@ -83,40 +84,27 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		return ClassUtils.getUrl(this);
 	}
 
-	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			PessoaValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateObject(subView.getCmbTipoPessoa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTipoPessoa(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtEmail().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtEmail(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtSite().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSite(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PessoaEntity();
+		try {
+			this.currentBean = new PessoaEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -500,6 +488,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			mensagemRemovidoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
