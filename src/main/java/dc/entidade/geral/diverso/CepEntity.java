@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -36,9 +37,10 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cep_id_seq")
+	@SequenceGenerator(name = "cep_id_seq", sequenceName = "cep_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -78,10 +80,18 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String municipio;
 
+	@Field
+	@Caption()
 	@Column(name = "UF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String uf;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_IBGE_MUNICIPIO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbgeMunicipio;
 
 	/**

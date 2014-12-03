@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,9 +43,10 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "setor_id_seq")
+	@SequenceGenerator(name = "setor_id_seq", sequenceName = "setor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -61,14 +63,9 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Descricao")
 	@Column(name = "DESCRICAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
-
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "setor")
-	// private List<ColaboradorVO> colaboradorVOList;
-
-	@OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)
-	private List<BemEntity> bemList;
 
 	/**
 	 * REFERENCIA - FK
@@ -77,6 +74,12 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "setor")
+	// private List<ColaboradorVO> colaboradorVOList;
+
+	@OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)
+	private List<BemEntity> bemList;
 
 	/**
 	 * TRANSIENT
@@ -112,7 +115,7 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -120,7 +123,8 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (nome == null ? "".trim() : descricao.toUpperCase()
+				.trim());
 	}
 
 	public List<BemEntity> getBemList() {

@@ -47,6 +47,8 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pais_id_seq")
 	@SequenceGenerator(name = "pais_id_seq", sequenceName = "pais_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field

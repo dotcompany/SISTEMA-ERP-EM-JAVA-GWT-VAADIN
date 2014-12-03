@@ -63,11 +63,19 @@ public class OperadoraPlanoSaudeEntity extends
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String registroAns;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	/*
 	 * @ManyToOne(optional = false)
 	 * 
 	 * @JoinColumn(name = "CONTABIL_CONTA", referencedColumnName = "ID") private
 	 * ContabilConta contabilConta;
+	 */
+
+	/**
+	 * REFERENCIA - LIST
 	 */
 
 	/**
@@ -85,14 +93,6 @@ public class OperadoraPlanoSaudeEntity extends
 
 	/**
 	 * ********************************************************
-	 */
-
-	/**
-	 * REFERENCIA - FK
-	 */
-
-	/**
-	 * REFERENCIA - LIST
 	 */
 
 	/**
@@ -134,7 +134,7 @@ public class OperadoraPlanoSaudeEntity extends
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getRegistroAns() {
@@ -142,7 +142,8 @@ public class OperadoraPlanoSaudeEntity extends
 	}
 
 	public void setRegistroAns(String registroAns) {
-		this.registroAns = registroAns;
+		this.registroAns = (registroAns == null ? "".trim() : registroAns
+				.toUpperCase().trim());
 	}
 
 	/*

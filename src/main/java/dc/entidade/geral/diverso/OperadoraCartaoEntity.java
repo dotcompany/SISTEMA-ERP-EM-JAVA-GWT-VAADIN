@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -41,9 +42,10 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operadora_cartao_id_seq")
+	@SequenceGenerator(name = "operadora_cartao_id_seq", sequenceName = "operadora_cartao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -62,27 +64,51 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Field
+	@Caption()
 	@Column(name = "TAXA_ADM", precision = 14, scale = 0)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaAdm;
 
+	@Field
+	@Caption()
 	@Column(name = "TAXA_ADM_DEBITO", precision = 14, scale = 0)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaAdmDebito;
 
+	@Field
+	@Caption()
 	@Column(name = "VALOR_ALUGUEL_POS_PIN", precision = 14, scale = 0)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorAluguelPosPin;
 
+	@Field
+	@Caption()
 	@Column(name = "VENCIMENTO_ALUGUEL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer vencimentoAluguel;
 
+	@Field
+	@Caption()
 	@Column(name = "FONE1")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone1;
 
+	@Field
+	@Caption()
 	@Column(name = "FONE2")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
@@ -93,10 +119,6 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
 	private ContabilContaEntity contabilConta;
-
-	/**
-	 * REFERENCIA - FK
-	 */
 
 	/**
 	 * REFERENCIA - LIST
@@ -136,7 +158,8 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBandeira(String bandeira) {
-		this.bandeira = bandeira;
+		this.bandeira = (bandeira == null ? "".trim() : bandeira.toUpperCase()
+				.trim());
 	}
 
 	public String getNome() {
@@ -144,7 +167,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public BigDecimal getTaxaAdm() {
@@ -184,7 +207,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFone1(String fone1) {
-		this.fone1 = fone1;
+		this.fone1 = (fone1 == null ? "".trim() : fone1.toUpperCase().trim());
 	}
 
 	public String getFone2() {
@@ -192,7 +215,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFone2(String fone2) {
-		this.fone2 = fone2;
+		this.fone2 = (fone2 == null ? "".trim() : fone2.toUpperCase().trim());
 	}
 
 	public ContaCaixa getContaCaixa() {

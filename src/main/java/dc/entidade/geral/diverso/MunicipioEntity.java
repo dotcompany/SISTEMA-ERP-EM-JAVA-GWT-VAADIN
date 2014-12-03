@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,9 +41,10 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "municipio_id_seq")
+	@SequenceGenerator(name = "municipio_id_seq", sequenceName = "municipio_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -69,26 +71,27 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer codigoReceitaFederal;
 
 	@Field
+	@Caption()
 	@Column(name = "CODIGO_ESTADUAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoEstadual;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "ID_UF", nullable = false)
 	@Caption("Uf")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private UfEntity idUf;
+	private UfEntity uf;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa idEmpresa;
-
-	/**
-	 * REFERENCIA - FK
-	 */
+	private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -128,7 +131,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public Integer getCodigoIbge() {
@@ -155,20 +158,20 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.codigoEstadual = codigoEstadual;
 	}
 
-	public UfEntity getIdUf() {
-		return idUf;
+	public UfEntity getUf() {
+		return uf;
 	}
 
-	public void setIdUf(UfEntity idUf) {
-		this.idUf = idUf;
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
 	}
 
-	public Empresa getIdEmpresa() {
-		return idEmpresa;
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 
-	public void setIdEmpresa(Empresa idEmpresa) {
-		this.idEmpresa = idEmpresa;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	/**

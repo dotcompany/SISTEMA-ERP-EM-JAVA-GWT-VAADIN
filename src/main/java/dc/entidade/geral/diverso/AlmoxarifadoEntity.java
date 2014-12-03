@@ -101,7 +101,7 @@ public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	/**
