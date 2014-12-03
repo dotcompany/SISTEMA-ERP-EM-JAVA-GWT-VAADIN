@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.PaisValidator;
 import dc.entidade.geral.diverso.PaisEntity;
@@ -75,6 +76,12 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 			this.currentBean.setSigla2(this.subView.getTfSigla2().getValue());
 			this.currentBean.setSigla3(this.subView.getTfSigla3().getValue());
 
+			String codigo = this.subView.getTfCodigo().getValue();
+
+			if (NumberUtils.isNumber(codigo)) {
+				this.currentBean.setCodigo(NumberUtils.toInt(codigo));
+			}
+
 			this.paisDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -95,6 +102,8 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 					this.currentBean.getNomeIngles());
 			this.subView.getTfSigla2().setValue(this.currentBean.getSigla2());
 			this.subView.getTfSigla3().setValue(this.currentBean.getSigla3());
+			this.subView.getTfCodigo().setValue(
+					this.currentBean.getCodigo().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

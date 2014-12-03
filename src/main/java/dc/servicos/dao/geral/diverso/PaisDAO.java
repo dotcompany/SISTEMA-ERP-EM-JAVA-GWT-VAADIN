@@ -66,7 +66,7 @@ public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nomeEn", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] { "nomeIngles", "nomePtbr", "sigla2", "sigla3" };
 	}
 
 }

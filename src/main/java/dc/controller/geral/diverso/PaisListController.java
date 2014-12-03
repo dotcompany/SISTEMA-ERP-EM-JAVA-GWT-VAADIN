@@ -29,7 +29,7 @@ public class PaisListController extends CRUDListController<PaisEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo", "nomeEn", "nomePtbr", "sigla2",
+		return new String[] { "codigo", "nomeIngles", "nomePtbr", "sigla2",
 				"sigla3" };
 	}
 
