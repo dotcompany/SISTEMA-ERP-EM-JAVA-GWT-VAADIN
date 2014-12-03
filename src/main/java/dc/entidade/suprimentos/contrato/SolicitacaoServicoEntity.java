@@ -23,11 +23,11 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
@@ -99,7 +99,7 @@ public class SolicitacaoServicoEntity extends
 	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Setor")
-	private Setor setor;
+	private SetorEntity setor;
 
 	@Caption("Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
@@ -179,11 +179,11 @@ public class SolicitacaoServicoEntity extends
 		this.colaborador = colaborador;
 	}
 
-	public Setor getSetor() {
+	public SetorEntity getSetor() {
 		return setor;
 	}
 
-	public void setSetor(Setor setor) {
+	public void setSetor(SetorEntity setor) {
 		this.setor = setor;
 	}
 

@@ -24,7 +24,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.Estado;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 
@@ -69,7 +68,7 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ESTADO_ID", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private Estado estadoId;
+	private UfEntity estadoId;
 
 	public CidadeEntity() {
 
@@ -104,11 +103,11 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.codigoIbge = codigoIbge;
 	}
 
-	public Estado getEstadoId() {
+	public UfEntity getEstadoId() {
 		return estadoId;
 	}
 
-	public void setEstadoId(Estado estadoId) {
+	public void setEstadoId(UfEntity estadoId) {
 		this.estadoId = estadoId;
 	}
 

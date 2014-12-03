@@ -29,11 +29,11 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 /**
@@ -312,7 +312,7 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_setor", nullable = false)
 	@Caption("Setor")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Setor setor;
+	private SetorEntity setor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor", nullable = false)
@@ -626,11 +626,11 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.grupoBem = grupoBem;
 	}
 
-	public Setor getSetor() {
+	public SetorEntity getSetor() {
 		return setor;
 	}
 
-	public void setSetor(Setor setor) {
+	public void setSetor(SetorEntity setor) {
 		this.setor = setor;
 	}
 

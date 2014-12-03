@@ -31,7 +31,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.PaisEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
@@ -44,6 +43,7 @@ import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;

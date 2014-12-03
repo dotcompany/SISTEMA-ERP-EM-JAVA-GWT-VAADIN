@@ -16,28 +16,28 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
-import dc.controller.diversos.SetorListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.financeiro.SindicatoListController;
+import dc.controller.geral.diverso.SetorListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
-import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
-import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -198,7 +198,7 @@ public class ColaboradorFormController extends
 					super.getMainController());
 			subView.getCmbSindicato().setModel(modelSindicato);
 
-			DefaultManyToOneComboModel<Setor> modelSetor = new DefaultManyToOneComboModel<Setor>(
+			DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
 					SetorListController.class, setorDAO,
 					super.getMainController());
 			subView.getCmbSetor().setModel(modelSetor);

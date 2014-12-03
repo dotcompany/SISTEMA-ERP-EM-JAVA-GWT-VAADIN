@@ -13,11 +13,11 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
-import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
+import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.servicos.dao.diversos.OperadoraPlanoSaudeDAO;
 import dc.servicos.dao.folhapagamento.cadastro.PlanoSaudeDAO;
+import dc.servicos.dao.geral.diverso.OperadoraPlanoSaudeDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.cadastro.PlanoSaudeFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -77,7 +77,7 @@ public class PlanoSaudeFormController extends
 
 			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView
 					.getCbColaborador().getValue();
-			OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView
+			OperadoraPlanoSaudeEntity operadoraPlanoSaude = (OperadoraPlanoSaudeEntity) this.subView
 					.getCbOperadoraPlanoSaude().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
@@ -239,7 +239,7 @@ public class PlanoSaudeFormController extends
 			return false;
 		}
 
-		OperadoraPlanoSaude operadoraPlanoSaude = (OperadoraPlanoSaude) this.subView
+		OperadoraPlanoSaudeEntity operadoraPlanoSaude = (OperadoraPlanoSaudeEntity) this.subView
 				.getCbOperadoraPlanoSaude().getValue();
 
 		if (!ObjectValidator.validateObject(operadoraPlanoSaude)) {
@@ -275,8 +275,8 @@ public class PlanoSaudeFormController extends
 		return auxLista;
 	}
 
-	public List<OperadoraPlanoSaude> operadoraPlanoSaudeListarTodos() {
-		List<OperadoraPlanoSaude> auxLista = new ArrayList<OperadoraPlanoSaude>();
+	public List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeListarTodos() {
+		List<OperadoraPlanoSaudeEntity> auxLista = new ArrayList<OperadoraPlanoSaudeEntity>();
 
 		auxLista = this.opsDAO.operadoraPlanoSaudeLista();
 

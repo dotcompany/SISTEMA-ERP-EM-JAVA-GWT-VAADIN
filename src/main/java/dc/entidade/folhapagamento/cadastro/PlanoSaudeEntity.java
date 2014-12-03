@@ -22,8 +22,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.OperadoraPlanoSaude;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 /**
@@ -81,7 +81,7 @@ public class PlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_operadora_plano_saude", nullable = false)
 	@Caption("Operadora do plano de saúde")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private OperadoraPlanoSaude operadoraPlanoSaude;
+	private OperadoraPlanoSaudeEntity operadoraPlanoSaude;
 
 	/**
 	 * REFERENCIA - LIST
@@ -132,11 +132,11 @@ public class PlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer>
 		this.colaborador = colaborador;
 	}
 
-	public OperadoraPlanoSaude getOperadoraPlanoSaude() {
+	public OperadoraPlanoSaudeEntity getOperadoraPlanoSaude() {
 		return operadoraPlanoSaude;
 	}
 
-	public void setOperadoraPlanoSaude(OperadoraPlanoSaude operadoraPlanoSaude) {
+	public void setOperadoraPlanoSaude(OperadoraPlanoSaudeEntity operadoraPlanoSaude) {
 		this.operadoraPlanoSaude = operadoraPlanoSaude;
 	}
 

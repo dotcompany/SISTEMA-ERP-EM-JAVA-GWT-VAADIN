@@ -13,8 +13,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.patrimonio.BemFormController;
-import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
@@ -846,9 +846,9 @@ public class BemFormView extends CustomComponent {
 		this.cbGrupoBem.setItemCaptionPropertyId("nome");
 	}
 
-	public void carregarCmbSetor(List<Setor> lista) {
-		BeanItemContainer<Setor> bic = new BeanItemContainer<Setor>(
-				Setor.class, lista);
+	public void carregarCmbSetor(List<SetorEntity> lista) {
+		BeanItemContainer<SetorEntity> bic = new BeanItemContainer<SetorEntity>(
+				SetorEntity.class, lista);
 		this.cbSetor.setContainerDataSource(bic);
 		this.cbSetor.setItemCaptionPropertyId("nome");
 	}

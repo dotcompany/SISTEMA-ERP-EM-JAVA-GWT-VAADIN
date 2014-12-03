@@ -12,15 +12,15 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
-import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
-import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.patrimonio.BemDAO;
 import dc.servicos.dao.patrimonio.EstadoConservacaoDAO;
@@ -122,7 +122,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			TipoAquisicaoEntity tipoAquisicao = (TipoAquisicaoEntity) this.subView.getCbTipoAquisicao().getValue();
 			EstadoConservacaoEntity estadoConservacao = (EstadoConservacaoEntity) this.subView.getCbEstadoConservacao().getValue();
 			GrupoBemEntity grupoBem = (GrupoBemEntity) this.subView.getCbGrupoBem().getValue();
-			Setor setor = (Setor) this.subView.getCbSetor().getValue();
+			SetorEntity setor = (SetorEntity) this.subView.getCbSetor().getValue();
 			FornecedorEntity fornecedor = (FornecedorEntity) this.subView.getCbFornecedor().getValue();
 			ColaboradorEntity colaborador = (ColaboradorEntity) this.subView.getCbColaborador().getValue();
 
@@ -759,7 +759,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 			return false;
 		}
 
-		Setor setor = (Setor) this.subView.getCbSetor().getValue();
+		SetorEntity setor = (SetorEntity) this.subView.getCbSetor().getValue();
 
 		if (!ObjectValidator.validateObject(setor)) {
 			String msg = "Não pode ficar em branco.";
@@ -828,8 +828,8 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 		return auxLista;
 	}
 
-	public List<Setor> setorListarTodos() {
-		List<Setor> auxLista = new ArrayList<Setor>();
+	public List<SetorEntity> setorListarTodos() {
+		List<SetorEntity> auxLista = new ArrayList<SetorEntity>();
 
 		auxLista = this.sDAO.listarTodos();
 

@@ -15,7 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.control.enums.SimNaoEn;
 import dc.controller.geral.produto.ProdutosFormController;
-import dc.entidade.diversos.Almoxarifado;
+import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
@@ -79,7 +79,7 @@ public class ProdutoFormView extends CustomComponent {
 	private ManyToOneCombo<SubGrupoEntity> mocSubGrupoProduto;
 	private ManyToOneCombo<UnidadeProdutoEntity> mocUnidadeProduto;
 	private ManyToOneCombo<MarcaEntity> mocMarcaProduto;
-	private ManyToOneCombo<Almoxarifado> mocAlmoxarifado;
+	private ManyToOneCombo<AlmoxarifadoEntity> mocAlmoxarifado;
 	private ManyToOneCombo<GrupoEntity> mocGrupoProduto;
 	private ManyToOneCombo<NcmEntity> mocNcm;
 	private ManyToOneCombo<GrupoTributarioEntity> mocGrupoTributario;
@@ -457,11 +457,11 @@ public class ProdutoFormView extends CustomComponent {
 		this.mocMarcaProduto = mocMarcaProduto;
 	}
 
-	public ManyToOneCombo<Almoxarifado> getMocAlmoxarifado() {
+	public ManyToOneCombo<AlmoxarifadoEntity> getMocAlmoxarifado() {
 		return mocAlmoxarifado;
 	}
 
-	public void setMocAlmoxarifado(ManyToOneCombo<Almoxarifado> mocAlmoxarifado) {
+	public void setMocAlmoxarifado(ManyToOneCombo<AlmoxarifadoEntity> mocAlmoxarifado) {
 		this.mocAlmoxarifado = mocAlmoxarifado;
 	}
 

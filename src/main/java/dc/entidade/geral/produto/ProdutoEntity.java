@@ -32,10 +32,10 @@ import dc.control.enums.IpptEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
-import dc.entidade.diversos.Almoxarifado;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 
 @Entity
@@ -342,7 +342,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_almoxarifado", nullable = false)
 	@Caption("Almoxarifado")
-	private Almoxarifado almoxarifado;
+	private AlmoxarifadoEntity almoxarifado;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_ncm", nullable = false)
@@ -696,11 +696,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.marca = marca;
 	}
 
-	public Almoxarifado getAlmoxarifado() {
+	public AlmoxarifadoEntity getAlmoxarifado() {
 		return almoxarifado;
 	}
 
-	public void setAlmoxarifado(Almoxarifado almoxarifado) {
+	public void setAlmoxarifado(AlmoxarifadoEntity almoxarifado) {
 		this.almoxarifado = almoxarifado;
 	}
 

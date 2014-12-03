@@ -32,7 +32,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
-import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
@@ -48,6 +47,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.patrimonio.BemEntity;
 
 /**
@@ -416,7 +416,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_setor", nullable = false)
 	@Caption("Setor")
-	private Setor setor;
+	private SetorEntity setor;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_contabil_conta", nullable = true)
@@ -926,11 +926,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.lctoComissao = lctoComissao;
 	}
 
-	public Setor getSetor() {
+	public SetorEntity getSetor() {
 		return setor;
 	}
 
-	public void setSetor(Setor setor) {
+	public void setSetor(SetorEntity setor) {
 		this.setor = setor;
 	}
 

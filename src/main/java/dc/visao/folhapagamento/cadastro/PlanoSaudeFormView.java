@@ -13,7 +13,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.cadastro.PlanoSaudeFormController;
-import dc.entidade.diversos.OperadoraPlanoSaude;
+import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class PlanoSaudeFormView extends CustomComponent {
@@ -204,9 +204,9 @@ public class PlanoSaudeFormView extends CustomComponent {
 		this.cbColaborador.setItemCaptionPropertyId("nome");
 	}
 
-	public void carregarCmbOperadoraPlanoSaude(List<OperadoraPlanoSaude> lista) {
-		BeanItemContainer<OperadoraPlanoSaude> bic = new BeanItemContainer<OperadoraPlanoSaude>(
-				OperadoraPlanoSaude.class, lista);
+	public void carregarCmbOperadoraPlanoSaude(List<OperadoraPlanoSaudeEntity> lista) {
+		BeanItemContainer<OperadoraPlanoSaudeEntity> bic = new BeanItemContainer<OperadoraPlanoSaudeEntity>(
+				OperadoraPlanoSaudeEntity.class, lista);
 		this.cbColaborador.setContainerDataSource(bic);
 		this.cbColaborador.setItemCaptionPropertyId("nome");
 	}

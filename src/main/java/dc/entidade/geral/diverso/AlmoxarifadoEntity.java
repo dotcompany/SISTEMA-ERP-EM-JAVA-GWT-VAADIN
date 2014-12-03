@@ -1,6 +1,7 @@
-package dc.entidade.geral;
+package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -9,8 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,14 +25,14 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.diverso.PaisEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
-@Table(name = "uf")
+@Table(name = "almoxarifado")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
+public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -42,8 +42,8 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uf_id_seq")
-	@SequenceGenerator(name = "uf_id_seq", sequenceName = "uf_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "almoxarifado_id_seq")
+	@SequenceGenerator(name = "almoxarifado_id_seq", sequenceName = "almoxarifado_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -51,51 +51,27 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME", length = 50)
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
-
-	@Field
-	@Caption("Sigla")
-	@Column(name = "SIGLA", length = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla;
-
-	@Field
-	@Caption()
-	@Column(name = "CODIGO_IBGE", nullable = false)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoIbge;
-
-	/**
-	 * REFERENCIA - FK
-	 */
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pais", nullable = false)
-	@Caption("País")
-	private PaisEntity pais;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	/**
-	 * TRANSIENT
-	 */
+	@OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+	private List<ProdutoEntity> produtoList;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public UfEntity() {
+	public AlmoxarifadoEntity() {
 
 	}
 
-	public UfEntity(Integer id) {
+	public AlmoxarifadoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -117,31 +93,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = (sigla == null ? "".trim() : sigla.toUpperCase().trim());
-	}
-
-	public Integer getCodigoIbge() {
-		return codigoIbge;
-	}
-
-	public void setCodigoIbge(Integer codigoIbge) {
-		this.codigoIbge = codigoIbge;
-	}
-
-	public PaisEntity getPais() {
-		return pais;
-	}
-
-	public void setPais(PaisEntity pais) {
-		this.pais = pais;
+		this.nome = nome;
 	}
 
 	/**

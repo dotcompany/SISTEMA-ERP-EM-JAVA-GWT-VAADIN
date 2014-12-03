@@ -14,11 +14,11 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.geral.pessoal.ColaboradorFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
-import dc.entidade.diversos.Setor;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
@@ -143,7 +143,7 @@ public class ColaboradorFormView extends CustomComponent {
 	private ManyToOneCombo<NivelFormacaoEntity> cmbNivelFormacao;
 	private ManyToOneCombo<CargoEntity> cmbCargo;
 	private ManyToOneCombo<ContabilContaEntity> cmbContaContabil;
-	private ManyToOneCombo<Setor> cmbSetor;
+	private ManyToOneCombo<SetorEntity> cmbSetor;
 
 	private ComboBox cmbUf;
 
@@ -1242,11 +1242,11 @@ public class ColaboradorFormView extends CustomComponent {
 		this.cmbContaContabil = cmbContaContabil;
 	}
 
-	public ManyToOneCombo<Setor> getCmbSetor() {
+	public ManyToOneCombo<SetorEntity> getCmbSetor() {
 		return cmbSetor;
 	}
 
-	public void setCmbSetor(ManyToOneCombo<Setor> cmbSetor) {
+	public void setCmbSetor(ManyToOneCombo<SetorEntity> cmbSetor) {
 		this.cmbSetor = cmbSetor;
 	}
 

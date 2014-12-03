@@ -18,10 +18,10 @@ import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
 import dc.control.util.ClassUtils;
-import dc.controller.diversos.AlmoxarifadoListController;
+import dc.controller.geral.diverso.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.ICMSCustomizadoListController;
-import dc.entidade.diversos.Almoxarifado;
+import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
@@ -30,7 +30,7 @@ import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.ICMSCustomizado;
-import dc.servicos.dao.diversos.AlmoxarifadoDAO;
+import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
 import dc.servicos.dao.geral.produto.NcmDAO;
@@ -129,7 +129,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			valido = false;
 		}
 
-		Almoxarifado almoxarifado = this.subView.getMocAlmoxarifado()
+		AlmoxarifadoEntity almoxarifado = this.subView.getMocAlmoxarifado()
 				.getValue();
 
 		if (!Validator.validateObject(almoxarifado)) {
@@ -277,7 +277,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 			subView.getMocMarcaProduto().setModel(comboMarca);
 			// //
-			DefaultManyToOneComboModel<Almoxarifado> comboAlmoxarifado = new DefaultManyToOneComboModel<Almoxarifado>(
+			DefaultManyToOneComboModel<AlmoxarifadoEntity> comboAlmoxarifado = new DefaultManyToOneComboModel<AlmoxarifadoEntity>(
 					AlmoxarifadoListController.class, almoxarifadoDAO,
 					super.getMainController());
 
@@ -552,7 +552,7 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			UnidadeProdutoEntity unidadeProduto = this.subView
 					.getMocUnidadeProduto().getValue();
 			MarcaEntity marca = this.subView.getMocMarcaProduto().getValue();
-			Almoxarifado almoxarifado = this.subView.getMocAlmoxarifado()
+			AlmoxarifadoEntity almoxarifado = this.subView.getMocAlmoxarifado()
 					.getValue();
 			NcmEntity ncm = this.subView.getMocNcm().getValue();
 			GrupoTributarioEntity grupoTributario = this.subView

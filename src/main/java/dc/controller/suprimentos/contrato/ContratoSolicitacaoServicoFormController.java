@@ -10,18 +10,18 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.diversos.SetorListController;
 import dc.controller.geral.FornecedorListController;
+import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
-import dc.entidade.diversos.Setor;
 import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
-import dc.servicos.dao.diversos.SetorDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
@@ -153,7 +153,7 @@ public class ContratoSolicitacaoServicoFormController extends
 
 		};
 
-		DefaultManyToOneComboModel<Setor> setorModel = new DefaultManyToOneComboModel<Setor>(
+		DefaultManyToOneComboModel<SetorEntity> setorModel = new DefaultManyToOneComboModel<SetorEntity>(
 				SetorListController.class, this.setorDAO,
 				super.getMainController());
 

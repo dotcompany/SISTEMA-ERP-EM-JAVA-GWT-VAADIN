@@ -23,9 +23,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.diversos.Setor;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.Empresa;
+import dc.entidade.geral.diverso.SetorEntity;
 
 //@Entity
 //@Table(name = "teste")
@@ -97,11 +97,11 @@ public class Teste extends AbstractModel<Serializable> implements Serializable {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof Setor == false)
+		if (object instanceof SetorEntity == false)
 			return false;
 		if (this == object)
 			return true;
-		final Setor other = (Setor) object;
+		final SetorEntity other = (SetorEntity) object;
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
 
