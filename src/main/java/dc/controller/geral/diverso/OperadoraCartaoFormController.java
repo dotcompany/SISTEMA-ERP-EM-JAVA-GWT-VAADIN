@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.OperadoraCartaoValidator;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -17,22 +20,14 @@ import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.geral.diverso.OperadoraCartaoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
 
-/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os métodos que temos na tela principal. Temos o botão Novo que é para
- *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
- *         o Button Salvar que é para salvar as informações no Banco de Dados
- *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela. */
-
 @Controller
 @Scope("prototype")
-public class OperadoraCartaoFormController extends CRUDFormController<OperadoraCartaoEntity> {
+public class OperadoraCartaoFormController extends
+		CRUDFormController<OperadoraCartaoEntity> {
 
 	/**
 	 * 
@@ -40,6 +35,8 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	private static final long serialVersionUID = 1L;
 
 	private OperadoraCartaoFormView subView;
+
+	private OperadoraCartaoEntity currentBean;
 
 	@Autowired
 	private OperadoraCartaoDAO operadoraDAO;
@@ -50,11 +47,9 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
-	private OperadoraCartaoEntity currentBean;
-
 	@Override
 	protected String getNome() {
-		return "Operadora Cartão";
+		return "Operadora de cartão";
 	}
 
 	@Override
@@ -63,24 +58,78 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	}
 
 	@Override
-	protected void actionSalvar() {
-
-		subView.preencheOperadoraCartao(currentBean);
-
+	protected boolean validaSalvar() {
 		try {
-			operadoraDAO.saveOrUpdate(currentBean);
+			OperadoraCartaoValidator.validaSalvar(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			this.currentBean.setContaCaixa((ContaCaixa) this.subView
+					.getMocContaCaixa().getValue());
+			this.currentBean
+					.setContabilConta((ContabilContaEntity) this.subView
+							.getMocContabilConta().getValue());
+			this.currentBean.setBandeira(this.subView.getTfBandeira()
+					.getValue());
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			// operadoraCartao.setVencimentoAluguel(txtVencimentoAluguel.getConvertedValue()
+			// != null ? (Integer) txtVencimentoAluguel.getConvertedValue() :
+			// 0);
+			// operadoraCartao.setTaxaAdm((BigDecimal)
+			// txtTaxaAdm.getConvertedValue());
+			// operadoraCartao.setTaxaAdmDebito((BigDecimal)
+			// txtTaxaAdmDebito.getConvertedValue());
+			// operadoraCartao.setValorAluguelPosPin((BigDecimal)
+			// txtValorAluguelPosPin.getConvertedValue());
+			this.currentBean.setFone1(this.subView.getTfTelefone1().getValue());
+			this.currentBean.setFone2(this.subView.getTfTelefone2().getValue());
+
+			this.operadoraDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = operadoraDAO.find(id);
-		subView.preencheOperadoraCartaoForm(currentBean);
+		try {
+			this.currentBean = this.operadoraDAO.find(id);
 
+			this.subView.getMocContaCaixa().setValue(
+					this.currentBean.getContaCaixa());
+			this.subView.getMocContabilConta().setValue(
+					this.currentBean.getContabilConta());
+
+			this.subView.getTfBandeira().setValue(
+					this.currentBean.getBandeira());
+			this.subView.getTfNome().setConvertedValue(
+					this.currentBean.getNome());
+			this.subView.getTfVencimentoAluguel().setConvertedValue(
+					this.currentBean.getVencimentoAluguel());
+			this.subView.getTfTaxaAdm().setConvertedValue(
+					this.currentBean.getTaxaAdm());
+			this.subView.getTfTaxaAdmDebito().setConvertedValue(
+					this.currentBean.getTaxaAdmDebito());
+			this.subView.getTfValorAluguelPosPin().setConvertedValue(
+					this.currentBean.getValorAluguelPosPin());
+			this.subView.getTfTelefone1().setValue(this.currentBean.getFone1());
+			this.subView.getTfTelefone2().setValue(this.currentBean.getFone2());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -94,31 +143,37 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Override
 	protected void initSubView() {
-		subView = new OperadoraCartaoFormView();
+		try {
+			this.subView = new OperadoraCartaoFormView(this);
 
-		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class, this.contaCaixaDAO,
-				super.getMainController()) {
+			DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
+					ContaCaixaListController.class, this.contaCaixaDAO,
+					super.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
 
-			}
-		};
+			};
 
-		this.subView.getCmbContaCaixa().setModel(model);
+			this.subView.getMocContaCaixa().setModel(model);
 
-		DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
-				this.contabilContaDAO, super.getMainController()) {
+			DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
 
-			}
-		};
+			};
 
-		this.subView.getCmbContabilConta().setModel(model1);
+			this.subView.getMocContabilConta().setModel(model1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -127,56 +182,26 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new OperadoraCartaoEntity();
+		try {
+			this.currentBean = new OperadoraCartaoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		operadoraDAO.deleteAllByIds(ids);
+		try {
+			this.operadoraDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
-	}
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	protected boolean validaSalvar() {
-
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
-		boolean valido = true;
-
-		ContabilContaEntity contabilConta = (ContabilContaEntity) subView.getCmbContabilConta().getValue();
-		if (!Validator.validateObject(contabilConta)) {
-			adicionarErroDeValidacao(subView.getCmbContabilConta(), "Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		ContaCaixa contaCaixa = (ContaCaixa) subView.getCmbContaCaixa().getValue();
-		if (!Validator.validateObject(contaCaixa)) {
-			adicionarErroDeValidacao(subView.getCmbContaCaixa(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtBandeira().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtBandeira(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxtVencimentoAluguel().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtVencimentoAluguel(), "Número inválido");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
@@ -186,7 +211,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Override
 	public String getViewIdentifier() {
-		return "operadoraCartaoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
