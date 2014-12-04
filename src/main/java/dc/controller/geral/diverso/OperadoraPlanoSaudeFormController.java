@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.OperadoraPlanoSaudeValidator;
 import dc.controller.contabilidade.ContabilContaListController;
@@ -98,39 +99,8 @@ public class OperadoraPlanoSaudeFormController extends
 			this.subView.getTfRegistroAns().setValue(
 					this.currentBean.getRegistroAns());
 
-			/*
-			 * // Configura combo ManyToOneComboModel<ContabilConta> model = new
-			 * ManyToOneComboModel<ContabilConta>() {
-			 * 
-			 * @Override public void onCriarNovo(String filter) {
-			 * Notification.show("Selecionado Criar Novo: " + filter); }
-			 * 
-			 * @Override public List<ContabilConta> getResultado(String q) {
-			 * return contabilContaDAO.query(q); }
-			 * 
-			 * @Override public Class<ContabilConta> getEntityClass() { return
-			 * ContabilConta.class; }
-			 * 
-			 * @Override public String getCaptionProperty() { return
-			 * "classificacao"; }
-			 * 
-			 * @Override public void onEditar(ContabilConta value) {
-			 * Notification.show("Selecionado Editar: " +
-			 * value.getClassificacao()); }
-			 * 
-			 * @Override public List<ContabilConta> getAll() { // TODO
-			 * Auto-generated method stub return null; }
-			 * 
-			 * @Override public void onAdvancedSearch() { // TODO Auto-generated
-			 * method stub } };
-			 * 
-			 * subView.getCmbContabilConta().setModel(model);
-			 */
-
-			/*
-			 * this.subView.getCmbContabilConta().setValue(currentBean.
-			 * getContabilConta ());
-			 */
+			this.subView.getMocContabilConta().setValue(
+					this.currentBean.getContabilConta());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,6 +112,15 @@ public class OperadoraPlanoSaudeFormController extends
 			this.currentBean.setNome(this.subView.getTfNome().getValue());
 			this.currentBean.setRegistroAns(this.subView.getTfRegistroAns()
 					.getValue());
+
+			ContabilContaEntity contabilConta = this.subView
+					.getMocContabilConta().getValue();
+
+			if (ObjectUtils.isNotBlank(contabilConta)) {
+				this.currentBean.setContabilConta(contabilConta);
+			} else {
+				this.currentBean.setContabilConta(null);
+			}
 
 			this.operadoraPlanoSaudeDAO.saveOrUpdate(this.currentBean);
 
