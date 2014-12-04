@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.OperadoraCartaoValidator;
 import dc.controller.contabilidade.ContabilContaListController;
@@ -73,23 +74,27 @@ public class OperadoraCartaoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setContaCaixa((ContaCaixa) this.subView
-					.getMocContaCaixa().getValue());
-			this.currentBean
-					.setContabilConta((ContabilContaEntity) this.subView
-							.getMocContabilConta().getValue());
+			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
+
+			if (ObjectUtils.isNotBlank(contaCaixa)) {
+				this.currentBean.setContaCaixa((ContaCaixa) this.subView
+						.getMocContaCaixa().getValue());
+			} else {
+				this.currentBean.setContaCaixa(null);
+			}
+
+			ContabilContaEntity contabilConta = this.subView
+					.getMocContabilConta().getValue();
+
+			if (ObjectUtils.isNotBlank(contabilConta)) {
+				this.currentBean.setContabilConta(contabilConta);
+			} else {
+				this.currentBean.setContaCaixa(null);
+			}
+
 			this.currentBean.setBandeira(this.subView.getTfBandeira()
 					.getValue());
 			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			// operadoraCartao.setVencimentoAluguel(txtVencimentoAluguel.getConvertedValue()
-			// != null ? (Integer) txtVencimentoAluguel.getConvertedValue() :
-			// 0);
-			// operadoraCartao.setTaxaAdm((BigDecimal)
-			// txtTaxaAdm.getConvertedValue());
-			// operadoraCartao.setTaxaAdmDebito((BigDecimal)
-			// txtTaxaAdmDebito.getConvertedValue());
-			// operadoraCartao.setValorAluguelPosPin((BigDecimal)
-			// txtValorAluguelPosPin.getConvertedValue());
 			this.currentBean.setFone1(this.subView.getTfTelefone1().getValue());
 			this.currentBean.setFone2(this.subView.getTfTelefone2().getValue());
 
