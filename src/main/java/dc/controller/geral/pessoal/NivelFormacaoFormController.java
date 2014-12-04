@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.NivelFormacaoValidator;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -27,10 +30,10 @@ public class NivelFormacaoFormController extends
 
 	private NivelFormacaoFormView subView;
 
+	private NivelFormacaoEntity currentBean;
+
 	@Autowired
 	private NivelFormacaoDAO nivelFormacaoDAO;
-
-	private NivelFormacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -44,15 +47,15 @@ public class NivelFormacaoFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		if (this.subView.getTfNome().getValue() == null
-				|| this.subView.getTfNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em branco!");
+		try {
+			NivelFormacaoValidator.validaSalvar(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
 			return false;
 		}
-
-		return true;
 	}
 
 	@Override
@@ -65,25 +68,31 @@ public class NivelFormacaoFormController extends
 			String grauInstrucaoCaged = (String) this.subView
 					.getTfGrauInstrucaoCaged().getConvertedValue();
 
-			if (grauInstrucaoCaged != null && !grauInstrucaoCaged.equals("")) {
-				this.currentBean.setGrauInstrucaoCaged(Integer
-						.valueOf(grauInstrucaoCaged));
+			if (NumberUtils.isNumber(grauInstrucaoCaged)) {
+				this.currentBean.setGrauInstrucaoCaged(NumberUtils
+						.toInt(grauInstrucaoCaged));
+			} else {
+				this.currentBean.setGrauInstrucaoCaged(0);
 			}
 
 			String grauInstrucaoRais = (String) this.subView
 					.getTfGrauInstrucaoRais().getConvertedValue();
 
-			if (grauInstrucaoRais != null && !grauInstrucaoRais.equals("")) {
-				this.currentBean.setGrauInstrucaoRais(Integer
-						.valueOf(grauInstrucaoRais));
+			if (NumberUtils.isNumber(grauInstrucaoRais)) {
+				this.currentBean.setGrauInstrucaoRais(NumberUtils
+						.toInt(grauInstrucaoRais));
+			} else {
+				this.currentBean.setGrauInstrucaoRais(0);
 			}
 
 			String grauInstrucaoSefip = (String) this.subView
 					.getTfGrauInstrucaoSefip().getConvertedValue();
 
-			if (grauInstrucaoSefip != null && !grauInstrucaoSefip.equals("")) {
-				this.currentBean.setGrauInstrucaoSefip(Integer
-						.valueOf(grauInstrucaoSefip));
+			if (NumberUtils.isNumber(grauInstrucaoSefip)) {
+				this.currentBean.setGrauInstrucaoSefip(NumberUtils
+						.toInt(grauInstrucaoSefip));
+			} else {
+				this.currentBean.setGrauInstrucaoSefip(0);
 			}
 
 			this.nivelFormacaoDAO.saveOrUpdate(this.currentBean);
@@ -108,14 +117,14 @@ public class NivelFormacaoFormController extends
 			Integer grauInstrucaoCaged = this.currentBean
 					.getGrauInstrucaoCaged();
 
-			if (grauInstrucaoCaged != null) {
+			if (NumberUtils.isNotBlank(grauInstrucaoCaged)) {
 				this.subView.getTfGrauInstrucaoCaged().setValue(
 						grauInstrucaoCaged.toString());
 			}
 
 			Integer grauInstrucaoRais = this.currentBean.getGrauInstrucaoRais();
 
-			if (grauInstrucaoRais != null) {
+			if (NumberUtils.isNotBlank(grauInstrucaoRais)) {
 				this.subView.getTfGrauInstrucaoRais().setValue(
 						grauInstrucaoRais.toString());
 			}
@@ -123,7 +132,7 @@ public class NivelFormacaoFormController extends
 			Integer grauInstrucaoSefip = this.currentBean
 					.getGrauInstrucaoSefip();
 
-			if (grauInstrucaoSefip != null) {
+			if (NumberUtils.isNotBlank(grauInstrucaoSefip)) {
 				this.subView.getTfGrauInstrucaoSefip().setValue(
 						grauInstrucaoSefip.toString());
 			}
