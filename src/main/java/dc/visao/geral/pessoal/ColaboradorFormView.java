@@ -759,6 +759,7 @@ public class ColaboradorFormView extends CustomComponent {
 		ogTipoComissaoServico = new OptionGroup();
 		ogTipoComissaoServico.setStyleName("horizontal");
 		ogTipoComissaoServico.setCaption("Tipo comissão serviço");
+		ogTipoComissaoServico.setNullSelectionAllowed(false);
 		ogTipoComissaoServico.setImmediate(false);
 		ogTipoComissaoServico.addItem("R");
 		ogTipoComissaoServico.setItemCaption("R", "Comissão / Serviço R$");
@@ -773,6 +774,7 @@ public class ColaboradorFormView extends CustomComponent {
 		ogTipoComissaoProduto = new OptionGroup();
 		ogTipoComissaoProduto.setStyleName("horizontal");
 		ogTipoComissaoProduto.setCaption("Tipo da comissão do produto");
+		ogTipoComissaoProduto.setNullSelectionAllowed(false);
 		ogTipoComissaoProduto.setImmediate(false);
 		ogTipoComissaoProduto.addItem("R");
 		ogTipoComissaoProduto.setItemCaption("R", "Comissão / Produto R$");
@@ -912,7 +914,7 @@ public class ColaboradorFormView extends CustomComponent {
 
 		// pdfDataCadastro
 		pdfDataCadastro = new PopupDateField();
-		pdfDataCadastro.setCaption("data de cadastro");
+		pdfDataCadastro.setCaption("Data de cadastro");
 		pdfDataCadastro.setImmediate(false);
 		pdfDataCadastro.setWidth("111px");
 		pdfDataCadastro.setHeight("-1px");
@@ -920,7 +922,7 @@ public class ColaboradorFormView extends CustomComponent {
 
 		// pdfDataAdmissao
 		pdfDataAdmissao = new PopupDateField();
-		pdfDataAdmissao.setCaption("data da admissão");
+		pdfDataAdmissao.setCaption("Data da admissão");
 		pdfDataAdmissao.setImmediate(false);
 		pdfDataAdmissao.setWidth("99px");
 		pdfDataAdmissao.setHeight("-1px");
