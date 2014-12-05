@@ -163,11 +163,11 @@ public class ColaboradorFormController extends
 
 			this.subView.getMocNivelFormacao().setModel(modelNivelFormacao);
 
-			DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipo = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
+			DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
 					TipoColaboradorListController.class,
 					this.tipoColaboradorDAO, super.getMainController());
 
-			this.subView.getMocTipoColaborador().setModel(modelTipo);
+			this.subView.getMocTipoColaborador().setModel(modelTipoColaborador);
 
 			DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
 					CargoListController.class, this.cargoDAO,
@@ -189,7 +189,7 @@ public class ColaboradorFormController extends
 			this.subView.getMocSituacaoColaborador().setModel(
 					modelSituacaoColaborador);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
+			DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
 					ContabilContaListController.class, this.contabilContaDAO,
 					super.getMainController()) {
 
@@ -200,7 +200,7 @@ public class ColaboradorFormController extends
 
 			};
 
-			this.subView.getMocContaContabil().setModel(model);
+			this.subView.getMocContaContabil().setModel(modelContabilConta);
 
 			DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
 					SindicatoListController.class, this.sindicatoDAO,
@@ -214,17 +214,17 @@ public class ColaboradorFormController extends
 
 			this.subView.getMocSetor().setModel(modelSetor);
 
-			DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(
+			DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
 					PlanoContaListController.class, this.planoContaDAO,
 					super.getMainController());
 
-			this.subView.getMocPlanoConta().setModel(planoConta);
+			this.subView.getMocPlanoConta().setModel(modelPlanoConta);
 
-			DefaultManyToOneComboModel<ContaCaixa> contaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
+			DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
 					ContaCaixaListController.class, this.contaCaixaDAO,
 					super.getMainController());
 
-			this.subView.getMocContaCaixa().setModel(contaCaixa);
+			this.subView.getMocContaCaixa().setModel(modelContaCaixa);
 
 			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
 					UfListController.class, this.ufDAO,
@@ -284,6 +284,18 @@ public class ColaboradorFormController extends
 					this.currentBean.getPriorizarComissao());
 			this.subView.getCbComissaoOver().setValue(
 					this.currentBean.getComissaoOver());
+
+			boolean priorizarComissao = this.currentBean.getPriorizarComissao();
+
+			if (ObjectUtils.isNotBlank(priorizarComissao)) {
+				this.subView.getCbPriorizarPgto().setValue(priorizarComissao);
+			}
+
+			boolean comissaoOver = this.currentBean.getComissaoOver();
+
+			if (ObjectUtils.isNotBlank(comissaoOver)) {
+				this.subView.getCbComissaoOver().setValue(comissaoOver);
+			}
 
 			BigDecimal salarioFixo = this.currentBean.getSalarioFixo();
 
@@ -507,10 +519,24 @@ public class ColaboradorFormController extends
 						.getTfSalarioFixo().getConvertedValue());
 			}
 
-			this.currentBean.setPriorizarComissao(Boolean.valueOf(this.subView
-					.getCbPriorizarPgto().getValue().toString()));
-			this.currentBean.setComissaoOver(Boolean.valueOf(this.subView
-					.getCbComissaoOver().getValue().toString()));
+			SimNaoEn priorizarComissao = (SimNaoEn) this.subView
+					.getCbPriorizarPgto().getValue();
+
+			if (ObjectUtils.isNotBlank(priorizarComissao)) {
+				this.currentBean
+						.setPriorizarComissao(priorizarComissao == SimNaoEn.S ? true
+								: false);
+			}
+
+			SimNaoEn comissaoOver = (SimNaoEn) this.subView.getCbComissaoOver()
+					.getValue();
+
+			if (ObjectUtils.isNotBlank(comissaoOver)) {
+				this.currentBean
+						.setComissaoOver(comissaoOver == SimNaoEn.S ? true
+								: false);
+			}
+
 			this.currentBean.setTipoComissaoServico((String) this.subView
 					.getOgTipoComissaoServico().getValue());
 			this.currentBean.setTipoComissaoProduto((String) this.subView

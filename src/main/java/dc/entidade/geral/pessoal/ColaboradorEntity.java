@@ -386,14 +386,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "priorizar_comissao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean priorizarComissao;
+	private boolean priorizarComissao;
 
 	@Field
 	@Caption()
 	@Column(name = "comissao_over")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean comissaoOver;
+	private boolean comissaoOver;
 
 	@Field
 	@Caption()
@@ -894,19 +894,19 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.valorComissaoProduto = valorComissaoProduto;
 	}
 
-	public Boolean getPriorizarComissao() {
+	public boolean getPriorizarComissao() {
 		return priorizarComissao;
 	}
 
-	public void setPriorizarComissao(Boolean priorizarComissao) {
+	public void setPriorizarComissao(boolean priorizarComissao) {
 		this.priorizarComissao = priorizarComissao;
 	}
 
-	public Boolean getComissaoOver() {
+	public boolean getComissaoOver() {
 		return comissaoOver;
 	}
 
-	public void setComissaoOver(Boolean comissaoOver) {
+	public void setComissaoOver(boolean comissaoOver) {
 		this.comissaoOver = comissaoOver;
 	}
 
