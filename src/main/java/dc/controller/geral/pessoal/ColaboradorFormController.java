@@ -14,6 +14,8 @@ import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.ColaboradorValidator;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
@@ -44,7 +46,6 @@ import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ColaboradorFormView;
@@ -105,23 +106,15 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			ColaboradorValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(subView.getTfMatricula().getValue())) {
-			adicionarErroDeValidacao(subView.getTfMatricula(),
-					"Não pode ficar em branco");
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-			valido = false;
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTfCategoria().getValue())) {
-			adicionarErroDeValidacao(subView.getTfCategoria(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
