@@ -9,6 +9,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +32,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.FormaPagamentoEn;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
@@ -133,7 +137,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "FGTS_OPTANTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character fgts_optante;
+	@Enumerated(EnumType.STRING)
+	private SimNaoEn fgtsOptante;
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -155,7 +160,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PAGAMENTO_FORMA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character pagamentoForma;
+	@Enumerated(EnumType.STRING)
+	private FormaPagamentoEn pagamentoForma;
 
 	@Field
 	@Caption("Banco do pagamento")
@@ -176,7 +182,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PAGAMENTO_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character pagamentoAgenciaDigito;
+	private String pagamentoAgenciaDigito;
 
 	@Field
 	@Caption()
@@ -190,7 +196,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PAGAMENTO_CONTA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character pagamentoContaDigito;
+	private String pagamentoContaDigito;
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -242,14 +248,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PIS_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character pisAgenciaDigito;
+	private String pisAgenciaDigito;
 
 	@Field
 	@Caption()
 	@Column(name = "CTPS_NUMERO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ctps_Numero;
+	private String ctpsNumero;
 
 	@Field
 	@Caption()
@@ -278,21 +284,23 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "DESCONTO_PLANO_SAUDE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character descontoPlanoSaude;
+	@Enumerated(EnumType.STRING)
+	private SimNaoEn descontoPlanoSaude;
 
 	@Field
 	@Caption()
 	@Column(name = "SAI_NA_RAIS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character saiNaRais;
+	@Enumerated(EnumType.STRING)
+	private SimNaoEn saiNaRais;
 
 	@Field
 	@Caption()
 	@Column(name = "CATEGORIA_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character categoriaSefip;
+	private String categoriaSefip;
 
 	@Field
 	@Caption()
@@ -614,12 +622,12 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.dataTransferencia = dataTransferencia;
 	}
 
-	public Character getFgts_optante() {
-		return fgts_optante;
+	public SimNaoEn getFgtsOptante() {
+		return fgtsOptante;
 	}
 
-	public void setFgts_optante(Character fgts_optante) {
-		this.fgts_optante = fgts_optante;
+	public void setFgtsOptante(SimNaoEn fgtsOptante) {
+		this.fgtsOptante = fgtsOptante;
 	}
 
 	public Date getFgtsDataOpcao() {
@@ -638,11 +646,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.fgtsConta = fgtsConta;
 	}
 
-	public Character getPagamentoForma() {
+	public FormaPagamentoEn getPagamentoForma() {
 		return pagamentoForma;
 	}
 
-	public void setPagamentoForma(Character pagamentoForma) {
+	public void setPagamentoForma(FormaPagamentoEn pagamentoForma) {
 		this.pagamentoForma = pagamentoForma;
 	}
 
@@ -662,11 +670,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pagamentoAgencia = pagamentoAgencia;
 	}
 
-	public Character getPagamentoAgenciaDigito() {
+	public String getPagamentoAgenciaDigito() {
 		return pagamentoAgenciaDigito;
 	}
 
-	public void setPagamentoAgenciaDigito(Character pagamentoAgenciaDigito) {
+	public void setPagamentoAgenciaDigito(String pagamentoAgenciaDigito) {
 		this.pagamentoAgenciaDigito = pagamentoAgenciaDigito;
 	}
 
@@ -678,11 +686,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pagamentoConta = pagamentoConta;
 	}
 
-	public Character getPagamentoContaDigito() {
+	public String getPagamentoContaDigito() {
 		return pagamentoContaDigito;
 	}
 
-	public void setPagamentoContaDigito(Character pagamentoContaDigito) {
+	public void setPagamentoContaDigito(String pagamentoContaDigito) {
 		this.pagamentoContaDigito = pagamentoContaDigito;
 	}
 
@@ -734,20 +742,20 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pisAgencia = pisAgencia;
 	}
 
-	public Character getPisAgenciaDigito() {
+	public String getPisAgenciaDigito() {
 		return pisAgenciaDigito;
 	}
 
-	public void setPisAgenciaDigito(Character pisAgenciaDigito) {
+	public void setPisAgenciaDigito(String pisAgenciaDigito) {
 		this.pisAgenciaDigito = pisAgenciaDigito;
 	}
 
-	public String getCtps_Numero() {
-		return ctps_Numero;
+	public String getCtpsNumero() {
+		return ctpsNumero;
 	}
 
-	public void setCtps_Numero(String ctps_Numero) {
-		this.ctps_Numero = ctps_Numero;
+	public void setCtpsNumero(String ctpsNumero) {
+		this.ctpsNumero = ctpsNumero;
 	}
 
 	public String getCtpsSerie() {
@@ -774,27 +782,27 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.ctpsUf = ctpsUf;
 	}
 
-	public Character getDescontoPlanoSaude() {
+	public SimNaoEn getDescontoPlanoSaude() {
 		return descontoPlanoSaude;
 	}
 
-	public void setDescontoPlanoSaude(Character descontoPlanoSaude) {
+	public void setDescontoPlanoSaude(SimNaoEn descontoPlanoSaude) {
 		this.descontoPlanoSaude = descontoPlanoSaude;
 	}
 
-	public Character getSaiNaRais() {
+	public SimNaoEn getSaiNaRais() {
 		return saiNaRais;
 	}
 
-	public void setSaiNaRais(Character saiNaRais) {
+	public void setSaiNaRais(SimNaoEn saiNaRais) {
 		this.saiNaRais = saiNaRais;
 	}
 
-	public Character getCategoriaSefip() {
+	public String getCategoriaSefip() {
 		return categoriaSefip;
 	}
 
-	public void setCategoriaSefip(Character categoriaSefip) {
+	public void setCategoriaSefip(String categoriaSefip) {
 		this.categoriaSefip = categoriaSefip;
 	}
 

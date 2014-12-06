@@ -13,6 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.ColaboradorValidator;
@@ -242,41 +243,139 @@ public class ColaboradorFormController extends
 		try {
 			this.currentBean = this.colaboradorDAO.find(id);
 
-			this.subView.getPdfDataCadastro().setValue(
-					this.currentBean.getDataCadastro());
-			this.subView.getPdfDataAdmissao().setValue(
-					this.currentBean.getDataAdmissao());
-			this.subView.getPdfDataVencimentoFerias().setValue(
-					this.currentBean.getVencimentoFerias());
-			this.subView.getPdfDataTransferencia().setValue(
-					this.currentBean.getDataTransferencia());
-			this.subView.getPdfDataDemissao().setValue(
-					this.currentBean.getDataDemissao());
-			this.subView.getPdfDataUltimoExame().setValue(
-					this.currentBean.getExameMedicoUltimo());
-			this.subView.getPdfDataVencimento().setValue(
-					this.currentBean.getExameMedicoVencimento());
-			this.subView.getPdfDataOpcao().setValue(
-					this.currentBean.getFgtsDataOpcao());
-			this.subView.getPdfDataCadastroPis().setValue(
-					this.currentBean.getPisDataCadastro());
-			this.subView.getTfBanco1().setValue(this.currentBean.getPisBanco());
-			// this.subView.getMocUf().setValue(this.currentBean.getCtpsUf());
+			this.subView.getPdfDataExpedida().setValue(
+					this.currentBean.getCtpsDataExpedicao());
+			this.subView.getTfSerie().setValue(this.currentBean.getCtpsSerie());
+			this.subView.getTfNumeroCarteira().setValue(
+					this.currentBean.getCtpsNumero());
+			this.subView.getTfDigitoAgencia1().setValue(
+					this.currentBean.getPisNumero());
 			this.subView.getTfAgencia1().setValue(
 					this.currentBean.getPisAgencia());
-			this.subView.getTfBanco().setValue(
-					this.currentBean.getPagamentoBanco());
-			this.subView.getTfAgencia().setValue(
-					this.currentBean.getPagamentoAgencia());
+			this.subView.getTfBanco1().setValue(this.currentBean.getPisBanco());
+			this.subView.getTfNumeroPis().setValue(
+					this.currentBean.getPisNumero());
+			this.subView.getPdfDataCadastroPis().setValue(
+					this.currentBean.getPisDataCadastro());
+			this.subView.getTfDigitoConta().setValue(
+					this.currentBean.getPagamentoContaDigito());
 			this.subView.getTfConta().setValue(
 					this.currentBean.getPagamentoConta());
-			this.subView.getTfObservacao().setValue(
-					this.currentBean.getObservacao());
+			this.subView.getTfDigitoAgencia().setValue(
+					this.currentBean.getPagamentoAgenciaDigito());
+			this.subView.getTfAgencia().setValue(
+					this.currentBean.getPagamentoAgencia());
+			this.subView.getTfBanco().setValue(
+					this.currentBean.getPagamentoBanco());
 
-			this.subView.getCbPriorizarPgto().setValue(
-					this.currentBean.getPriorizarComissao());
-			this.subView.getCbComissaoOver().setValue(
-					this.currentBean.getComissaoOver());
+			FormaPagamentoEn pagamentoFormaEn = this.currentBean
+					.getPagamentoForma();
+
+			if (ObjectUtils.isNotBlank(pagamentoFormaEn)) {
+				this.subView.getCbFormaPagamento().setValue(
+						this.currentBean.getPagamentoForma());
+			}
+
+			Integer codigoDemissaoCaged = this.currentBean
+					.getCodigoDemissaoCaged();
+
+			if (NumberUtils.isNotBlank(codigoDemissaoCaged)) {
+				this.subView.getTfCodigoDemissaoCaged().setValue(
+						this.currentBean.getCodigoDemissaoCaged().toString());
+			}
+
+			Integer codigoAdmissaoCaged = this.currentBean
+					.getCodigoAdmissaoCaged();
+
+			if (NumberUtils.isNotBlank(codigoAdmissaoCaged)) {
+				this.subView.getTfCodigoAdmissao().setValue(
+						this.currentBean.getCodigoAdmissaoCaged().toString());
+			}
+
+			this.subView.getPdfDataOpcao().setValue(
+					this.currentBean.getFgtsDataOpcao());
+
+			SimNaoEn fgtsOptanteEn = this.currentBean.getFgtsOptante();
+
+			if (ObjectUtils.isNotBlank(fgtsOptanteEn)) {
+				this.subView.getCbOptante().setValue(
+						this.currentBean.getFgtsOptante());
+			}
+
+			Integer codigoDemissaoSefip = this.currentBean
+					.getCodigoDemissaoSefip();
+
+			if (NumberUtils.isNotBlank(codigoDemissaoSefip)) {
+				this.subView.getTfCodigoDemissao().setValue(
+						this.currentBean.getCodigoDemissaoSefip().toString());
+			}
+
+			Integer ocorrenciaSefip = this.currentBean.getOcorrenciaSefip();
+
+			if (NumberUtils.isNotBlank(ocorrenciaSefip)) {
+				this.subView.getTfOcorrencia().setValue(
+						this.currentBean.getOcorrenciaSefip().toString());
+			}
+
+			this.subView.getTfCategoria().setValue(
+					this.currentBean.getCategoriaSefip());
+
+			BigDecimal salarioFixo = this.currentBean.getSalarioFixo();
+
+			// if (salarioFixo != null) {
+			this.subView.getTfSalarioFixo().setConvertedValue(salarioFixo);
+			// }
+
+			BigDecimal comissaoProduto = this.currentBean
+					.getValorComissaoProduto();
+
+			// if (comissaoProduto != null) {
+			this.subView.getTfComissaoProduto().setConvertedValue(
+					comissaoProduto);
+			// }
+
+			BigDecimal comissaoServico = this.currentBean
+					.getValorComissaoServico();
+
+			// if (comissaoServico != null) {
+			this.subView.getTfComissaoServico().setConvertedValue(
+					comissaoServico);
+			// }
+
+			this.subView.getPdfDataVencimento().setValue(
+					this.currentBean.getExameMedicoVencimento());
+			this.subView.getPdfDataUltimoExame().setValue(
+					this.currentBean.getExameMedicoUltimo());
+			this.subView.getTfCodigoTurma().setValue(
+					this.currentBean.getCodigoTurmaPonto());
+
+			SimNaoEn saiNaRaisEn = this.currentBean.getSaiNaRais();
+
+			if (ObjectUtils.isNotBlank(saiNaRaisEn)) {
+				this.subView.getCbSaiRais().setValue(
+						this.currentBean.getSaiNaRais());
+			}
+
+			SimNaoEn descontoPlanoSaudeEn = this.currentBean
+					.getDescontoPlanoSaude();
+
+			if (ObjectUtils.isNotBlank(descontoPlanoSaudeEn)) {
+				this.subView.getCbDescontoPlanoSaude().setValue(
+						this.currentBean.getDescontoPlanoSaude());
+			}
+
+			this.subView.getPdfDataDemissao().setValue(
+					this.currentBean.getDataDemissao());
+			this.subView.getPdfDataTransferencia().setValue(
+					this.currentBean.getDataTransferencia());
+			this.subView.getPdfDataVencimentoFerias().setValue(
+					this.currentBean.getVencimentoFerias());
+			this.subView.getPdfDataAdmissao().setValue(
+					this.currentBean.getDataAdmissao());
+			this.subView.getPdfDataCadastro().setValue(
+					this.currentBean.getDataCadastro());
+			this.subView.getTfMatricula().setValue(
+					this.currentBean.getMatricula());
 
 			boolean priorizarComissao = this.currentBean.getPriorizarComissao();
 
@@ -290,37 +389,16 @@ public class ColaboradorFormController extends
 				this.subView.getCbComissaoOver().setValue(comissaoOver);
 			}
 
-			BigDecimal salarioFixo = this.currentBean.getSalarioFixo();
-
-			if (salarioFixo != null) {
-				this.subView.getTfSalarioFixo().setConvertedValue(salarioFixo);
-			}
-
-			this.subView.getOgTipoComissaoServico().setValue(
-					this.currentBean.getTipoComissaoServico());
-			this.subView.getOgTipoComissaoProduto().setValue(
-					this.currentBean.getTipoComissaoProduto());
-
-			BigDecimal comissaoServico = this.currentBean
-					.getValorComissaoServico();
-
-			if (comissaoServico != null) {
-				this.subView.getTfComissaoServico().setConvertedValue(
-						comissaoServico);
-			}
-
-			BigDecimal comissaoProduto = this.currentBean
-					.getValorComissaoProduto();
-
-			if (comissaoProduto != null) {
-				this.subView.getTfComissaoProduto().setConvertedValue(
-						comissaoProduto);
-			}
-
 			this.subView.getCbPgtoComissao().setValue(
 					this.currentBean.getPgtoComissaoSera());
 			this.subView.getCbLctoComissao().setValue(
 					this.currentBean.getLctoComissao());
+			this.subView.getOgTipoComissaoServico().setValue(
+					this.currentBean.getTipoComissaoServico());
+			this.subView.getOgTipoComissaoProduto().setValue(
+					this.currentBean.getTipoComissaoProduto());
+			this.subView.getTfObservacao().setValue(
+					this.currentBean.getObservacao());
 
 			PessoaEntity pessoa = this.currentBean.getPessoa();
 
@@ -369,10 +447,10 @@ public class ColaboradorFormController extends
 				this.subView.getMocContaContabil().setValue(contabilConta);
 			}
 
-			ContaCaixa contaCaixa = this.currentBean.getContaCaixa();
+			SetorEntity setor = this.currentBean.getSetor();
 
-			if (ObjectUtils.isNotBlank(contaCaixa)) {
-				this.subView.getMocContaCaixa().setValue(contaCaixa);
+			if (ObjectUtils.isNotBlank(setor)) {
+				this.subView.getMocSetor().setValue(setor);
 			}
 
 			PlanoConta planoConta = this.currentBean.getPlanoConta();
@@ -381,11 +459,13 @@ public class ColaboradorFormController extends
 				this.subView.getMocPlanoConta().setValue(planoConta);
 			}
 
-			SetorEntity setor = this.currentBean.getSetor();
+			ContaCaixa contaCaixa = this.currentBean.getContaCaixa();
 
-			if (ObjectUtils.isNotBlank(setor)) {
-				this.subView.getMocSetor().setValue(setor);
+			if (ObjectUtils.isNotBlank(contaCaixa)) {
+				this.subView.getMocContaCaixa().setValue(contaCaixa);
 			}
+
+			// this.subView.getMocUf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -394,6 +474,181 @@ public class ColaboradorFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			this.currentBean.setCtpsDataExpedicao(this.subView
+					.getPdfDataExpedida().getValue());
+			this.currentBean.setCtpsSerie(this.subView.getTfSerie().getValue());
+			this.currentBean.setCtpsNumero(this.subView.getTfNumeroCarteira()
+					.getValue());
+			this.currentBean.setPisAgenciaDigito(this.subView
+					.getTfDigitoAgencia1().getValue());
+			this.currentBean.setPisAgencia(this.subView.getTfAgencia1()
+					.getValue());
+			this.currentBean.setPisBanco(this.subView.getTfBanco1().getValue());
+			this.currentBean.setPisNumero(this.subView.getTfNumeroPis()
+					.getValue());
+			this.currentBean.setPisDataCadastro(this.subView
+					.getPdfDataCadastroPis().getValue());
+			this.currentBean.setPagamentoContaDigito(this.subView
+					.getTfDigitoConta().getValue());
+			this.currentBean.setPagamentoConta(this.subView.getTfConta()
+					.getValue());
+			this.currentBean.setPagamentoAgenciaDigito(this.subView
+					.getTfDigitoAgencia().getValue());
+			this.currentBean.setPagamentoAgencia(this.subView.getTfAgencia()
+					.getValue());
+			this.currentBean.setPagamentoBanco(this.subView.getTfBanco()
+					.getValue());
+
+			FormaPagamentoEn formaPagamentoEn = (FormaPagamentoEn) this.subView
+					.getCbFormaPagamento().getValue();
+
+			if (ObjectUtils.isNotBlank(formaPagamentoEn)) {
+				this.currentBean.setPagamentoForma(formaPagamentoEn);
+			}
+
+			String codigoDemissaoCaged = this.subView
+					.getTfCodigoDemissaoCaged().getValue();
+
+			if (NumberUtils.isNumber(codigoDemissaoCaged)) {
+				this.currentBean.setCodigoDemissaoCaged(NumberUtils
+						.toInt(codigoDemissaoCaged));
+			}
+
+			String codigoAdmissao = this.subView.getTfCodigoAdmissao()
+					.getValue();
+
+			if (NumberUtils.isNumber(codigoAdmissao)) {
+				this.currentBean.setCodigoAdmissaoCaged(NumberUtils
+						.toInt(codigoAdmissao));
+			}
+
+			this.currentBean.setFgtsDataOpcao(this.subView.getPdfDataOpcao()
+					.getValue());
+
+			SimNaoEn optanteEn = (SimNaoEn) this.subView.getCbOptante()
+					.getValue();
+
+			if (ObjectUtils.isNotBlank(optanteEn)) {
+				this.currentBean.setFgtsOptante(optanteEn);
+			}
+
+			String codigoDemissaoSefip = this.subView.getTfCodigoDemissao()
+					.getValue();
+
+			if (NumberUtils.isNumber(codigoDemissaoSefip)) {
+				this.currentBean.setCodigoDemissaoSefip(NumberUtils
+						.toInt(codigoDemissaoSefip));
+			}
+
+			String ocorrenciaSefip = this.subView.getTfOcorrencia().getValue();
+
+			if (NumberUtils.isNumber(ocorrenciaSefip)) {
+				this.currentBean.setOcorrenciaSefip(NumberUtils
+						.toInt(ocorrenciaSefip));
+			}
+
+			this.currentBean.setCategoriaSefip(this.subView.getTfCategoria()
+					.getValue());
+
+			String salarioFixo = this.subView.getTfSalarioFixo().getValue();
+
+			if (NumberUtils.isNumber(salarioFixo)) {
+				this.currentBean.setSalarioFixo(NumberUtils
+						.createBigDecimal(salarioFixo));
+			}
+
+			String comissaoProduto = this.subView.getTfComissaoProduto()
+					.getValue();
+
+			if (NumberUtils.isNumber(comissaoProduto)) {
+				this.currentBean.setValorComissaoProduto(NumberUtils
+						.createBigDecimal(comissaoProduto));
+			}
+
+			String comissaoServico = this.subView.getTfComissaoServico()
+					.getValue();
+
+			if (NumberUtils.isNumber(comissaoServico)) {
+				this.currentBean.setValorComissaoServico(NumberUtils
+						.createBigDecimal(comissaoServico));
+			}
+
+			this.currentBean.setExameMedicoVencimento(this.subView
+					.getPdfDataVencimento().getValue());
+			this.currentBean.setExameMedicoUltimo(this.subView
+					.getPdfDataUltimoExame().getValue());
+			this.currentBean.setCodigoTurmaPonto(this.subView
+					.getTfCodigoTurma().getValue());
+
+			SimNaoEn saiRaisEn = (SimNaoEn) this.subView.getCbSaiRais()
+					.getValue();
+
+			if (ObjectUtils.isNotBlank(saiRaisEn)) {
+				this.currentBean.setSaiNaRais(saiRaisEn);
+			}
+
+			SimNaoEn descontoPlanoSaudeEn = (SimNaoEn) this.subView
+					.getCbDescontoPlanoSaude().getValue();
+
+			if (ObjectUtils.isNotBlank(descontoPlanoSaudeEn)) {
+				this.currentBean.setDescontoPlanoSaude(descontoPlanoSaudeEn);
+			}
+
+			this.currentBean.setDataDemissao(this.subView.getPdfDataDemissao()
+					.getValue());
+			this.currentBean.setDataTransferencia(this.subView
+					.getPdfDataTransferencia().getValue());
+			this.currentBean.setVencimentoFerias(this.subView
+					.getPdfDataVencimentoFerias().getValue());
+			this.currentBean.setDataAdmissao(this.subView.getPdfDataAdmissao()
+					.getValue());
+			this.currentBean.setDataCadastro(this.subView.getPdfDataCadastro()
+					.getValue());
+			this.currentBean.setMatricula(this.subView.getTfMatricula()
+					.getValue());
+
+			SimNaoEn priorizarComissaoEn = (SimNaoEn) this.subView
+					.getCbPriorizarPgto().getValue();
+
+			if (ObjectUtils.isNotBlank(priorizarComissaoEn)) {
+				this.currentBean
+						.setPriorizarComissao(priorizarComissaoEn == SimNaoEn.S ? true
+								: false);
+			}
+
+			SimNaoEn comissaoOverEn = (SimNaoEn) this.subView
+					.getCbComissaoOver().getValue();
+
+			if (ObjectUtils.isNotBlank(comissaoOverEn)) {
+				this.currentBean
+						.setComissaoOver(comissaoOverEn == SimNaoEn.S ? true
+								: false);
+			}
+
+			// SimNaoEn
+			// pgtoComissao=(SimNaoEn)this.subView.getCbPgtoComissao().getValue();ff
+
+			// if (this.subView.getCbPgtoComissao().getValue() != null) {
+			// this.currentBean.setPgtoComissaoSera(Integer
+			// .valueOf(this.subView.getCbPgtoComissao().getValue()
+			// .toString()));
+			// }
+
+			// this.subView.getCbLctoComissao();fff
+
+			// if (this.subView.getCbLctoComissao().getValue() != null) {
+			// this.currentBean.setLctoComissao(Integer.valueOf(this.subView
+			// .getCbLctoComissao().getValue().toString()));
+			// }
+
+			this.currentBean.setTipoComissaoServico((String) this.subView
+					.getOgTipoComissaoServico().getValue());
+			this.currentBean.setTipoComissaoProduto((String) this.subView
+					.getOgTipoComissaoProduto().getValue());
+
+			this.currentBean.setObservacao(this.subView.getTfObservacao()
+					.getValue());
+
 			PessoaEntity pessoa = this.subView.getMocPessoa().getValue();
 
 			if (ObjectUtils.isNotBlank(pessoa)) {
@@ -455,12 +710,12 @@ public class ColaboradorFormController extends
 				this.currentBean.setContaContabil(null);
 			}
 
-			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
+			SetorEntity setor = this.subView.getMocSetor().getValue();
 
-			if (ObjectUtils.isNotBlank(contaCaixa)) {
-				this.currentBean.setContaCaixa(contaCaixa);
+			if (ObjectUtils.isNotBlank(setor)) {
+				this.currentBean.setSetor(setor);
 			} else {
-				this.currentBean.setContaCaixa(null);
+				this.currentBean.setSetor(null);
 			}
 
 			PlanoConta planoConta = this.subView.getMocPlanoConta().getValue();
@@ -471,91 +726,12 @@ public class ColaboradorFormController extends
 				this.currentBean.setPlanoConta(null);
 			}
 
-			SetorEntity setor = this.subView.getMocSetor().getValue();
+			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
 
-			if (ObjectUtils.isNotBlank(setor)) {
-				this.currentBean.setSetor(setor);
+			if (ObjectUtils.isNotBlank(contaCaixa)) {
+				this.currentBean.setContaCaixa(contaCaixa);
 			} else {
-				this.currentBean.setSetor(null);
-			}
-
-			this.currentBean.setDataCadastro(this.subView.getPdfDataCadastro()
-					.getValue());
-			this.currentBean.setDataAdmissao(this.subView.getPdfDataAdmissao()
-					.getValue());
-			this.currentBean.setVencimentoFerias(this.subView
-					.getPdfDataVencimentoFerias().getValue());
-			this.currentBean.setDataTransferencia(this.subView
-					.getPdfDataTransferencia().getValue());
-			this.currentBean.setDataDemissao(this.subView.getPdfDataDemissao()
-					.getValue());
-			this.currentBean.setExameMedicoUltimo(this.subView
-					.getPdfDataUltimoExame().getValue());
-			this.currentBean.setExameMedicoVencimento(this.subView
-					.getPdfDataVencimento().getValue());
-			this.currentBean.setFgtsDataOpcao(this.subView.getPdfDataOpcao()
-					.getValue());
-			this.currentBean.setPisDataCadastro(this.subView
-					.getPdfDataCadastroPis().getValue());
-			this.currentBean.setPisBanco(this.subView.getTfBanco1().getValue());
-			this.currentBean.setPisAgencia(this.subView.getTfAgencia1()
-					.getValue());
-			this.currentBean.setPagamentoBanco(this.subView.getTfBanco()
-					.getValue());
-			this.currentBean.setPagamentoAgencia(this.subView.getTfAgencia()
-					.getValue());
-			this.currentBean.setObservacao(this.subView.getTfObservacao()
-					.getValue());
-
-			if (this.subView.getTfSalarioFixo() != null) {
-				this.currentBean.setSalarioFixo((BigDecimal) this.subView
-						.getTfSalarioFixo().getConvertedValue());
-			}
-
-			SimNaoEn priorizarComissao = (SimNaoEn) this.subView
-					.getCbPriorizarPgto().getValue();
-
-			if (ObjectUtils.isNotBlank(priorizarComissao)) {
-				this.currentBean
-						.setPriorizarComissao(priorizarComissao == SimNaoEn.S ? true
-								: false);
-			}
-
-			SimNaoEn comissaoOver = (SimNaoEn) this.subView.getCbComissaoOver()
-					.getValue();
-
-			if (ObjectUtils.isNotBlank(comissaoOver)) {
-				this.currentBean
-						.setComissaoOver(comissaoOver == SimNaoEn.S ? true
-								: false);
-			}
-
-			this.currentBean.setTipoComissaoServico((String) this.subView
-					.getOgTipoComissaoServico().getValue());
-			this.currentBean.setTipoComissaoProduto((String) this.subView
-					.getOgTipoComissaoProduto().getValue());
-
-			if (this.subView.getTfComissaoProduto() != null) {
-				this.currentBean
-						.setValorComissaoProduto((BigDecimal) this.subView
-								.getTfComissaoProduto().getConvertedValue());
-			}
-
-			if (this.subView.getTfComissaoServico() != null) {
-				this.currentBean
-						.setValorComissaoServico((BigDecimal) this.subView
-								.getTfComissaoServico().getConvertedValue());
-			}
-
-			if (this.subView.getCbPgtoComissao().getValue() != null) {
-				this.currentBean.setPgtoComissaoSera(Integer
-						.valueOf(this.subView.getCbPgtoComissao().getValue()
-								.toString()));
-			}
-
-			if (this.subView.getCbLctoComissao().getValue() != null) {
-				this.currentBean.setLctoComissao(Integer.valueOf(this.subView
-						.getCbLctoComissao().getValue().toString()));
+				this.currentBean.setContaCaixa(null);
 			}
 
 			this.colaboradorDAO.saveOrUpdate(this.currentBean);

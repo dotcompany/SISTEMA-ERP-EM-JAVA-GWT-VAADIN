@@ -234,9 +234,10 @@ public class ColaboradorFormView extends CustomComponent {
 	 * editor.
 	 */
 	public ColaboradorFormView(ColaboradorFormController controller) {
-		this.controller = controller;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
+
+		this.controller = controller;
 	}
 
 	public TextField getTfObservacao() {
@@ -907,6 +908,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfMatricula
 		tfMatricula = new TextField();
 		tfMatricula.setCaption("Matrícula");
+		tfMatricula.setNullRepresentation("");
 		tfMatricula.setImmediate(false);
 		tfMatricula.setWidth("100px");
 		tfMatricula.setHeight("-1px");
@@ -984,6 +986,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfCodigoTurma
 		tfCodigoTurma = new TextField();
 		tfCodigoTurma.setCaption("Código da turma");
+		tfCodigoTurma.setNullRepresentation("");
 		tfCodigoTurma.setImmediate(false);
 		tfCodigoTurma.setWidth("-1px");
 		tfCodigoTurma.setHeight("-1px");
@@ -1021,6 +1024,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfCategoria
 		tfCategoria = new TextField();
 		tfCategoria.setCaption("Categoria");
+		tfCategoria.setNullRepresentation("");
 		tfCategoria.setImmediate(false);
 		tfCategoria.setWidth("120px");
 		tfCategoria.setHeight("-1px");
@@ -1029,6 +1033,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfOcorrencia
 		tfOcorrencia = new TextField();
 		tfOcorrencia.setCaption("Ocorrência");
+		tfOcorrencia.setNullRepresentation("");
 		tfOcorrencia.setImmediate(false);
 		tfOcorrencia.setWidth("-1px");
 		tfOcorrencia.setHeight("-1px");
@@ -1037,6 +1042,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfCodigoDemissao
 		tfCodigoDemissao = new TextField();
 		tfCodigoDemissao.setCaption("Código de demissão");
+		tfCodigoDemissao.setNullRepresentation("");
 		tfCodigoDemissao.setImmediate(false);
 		tfCodigoDemissao.setWidth("-1px");
 		tfCodigoDemissao.setHeight("-1px");
@@ -1074,6 +1080,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfCodigoAdmissao
 		tfCodigoAdmissao = new TextField();
 		tfCodigoAdmissao.setCaption("Código de admissão");
+		tfCodigoAdmissao.setNullRepresentation("");
 		tfCodigoAdmissao.setImmediate(false);
 		tfCodigoAdmissao.setWidth("106px");
 		tfCodigoAdmissao.setHeight("-1px");
@@ -1082,6 +1089,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfCodigoDemissaoCaged
 		tfCodigoDemissaoCaged = new TextField();
 		tfCodigoDemissaoCaged.setCaption("Código de demissão CAGED");
+		tfCodigoDemissaoCaged.setNullRepresentation("");
 		tfCodigoDemissaoCaged.setImmediate(false);
 		tfCodigoDemissaoCaged.setWidth("-1px");
 		tfCodigoDemissaoCaged.setHeight("-1px");
@@ -1098,6 +1106,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfBanco
 		tfBanco = new TextField();
 		tfBanco.setCaption("Banco");
+		tfBanco.setNullRepresentation("");
 		tfBanco.setImmediate(false);
 		tfBanco.setWidth("-1px");
 		tfBanco.setHeight("-1px");
@@ -1106,6 +1115,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfAgencia
 		tfAgencia = new TextField();
 		tfAgencia.setCaption("Agência");
+		tfAgencia.setNullRepresentation("");
 		tfAgencia.setImmediate(false);
 		tfAgencia.setWidth("68px");
 		tfAgencia.setHeight("-1px");
@@ -1114,6 +1124,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfDigitoAgencia
 		tfDigitoAgencia = new TextField();
 		tfDigitoAgencia.setCaption("Dígito");
+		tfDigitoAgencia.setNullRepresentation("");
 		tfDigitoAgencia.setImmediate(false);
 		tfDigitoAgencia.setWidth("33px");
 		tfDigitoAgencia.setHeight("-1px");
@@ -1122,6 +1133,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfConta
 		tfConta = new TextField();
 		tfConta.setCaption("Conta");
+		tfConta.setNullRepresentation("");
 		tfConta.setImmediate(false);
 		tfConta.setWidth("81px");
 		tfConta.setHeight("-1px");
@@ -1130,6 +1142,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfDigitoConta
 		tfDigitoConta = new TextField();
 		tfDigitoConta.setCaption("Dígito");
+		tfDigitoConta.setNullRepresentation("");
 		tfDigitoConta.setImmediate(false);
 		tfDigitoConta.setWidth("37px");
 		tfDigitoConta.setHeight("-1px");
@@ -1159,6 +1172,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfNumeroPis
 		tfNumeroPis = new TextField();
 		tfNumeroPis.setCaption("Número do PIS");
+		tfNumeroPis.setNullRepresentation("");
 		tfNumeroPis.setImmediate(false);
 		tfNumeroPis.setWidth("91px");
 		tfNumeroPis.setHeight("-1px");
@@ -1167,6 +1181,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfBanco1
 		tfBanco1 = new TextField();
 		tfBanco1.setCaption("Banco");
+		tfBanco1.setNullRepresentation("");
 		tfBanco1.setImmediate(false);
 		tfBanco1.setWidth("-1px");
 		tfBanco1.setHeight("-1px");
@@ -1175,6 +1190,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfAgencia1
 		tfAgencia1 = new TextField();
 		tfAgencia1.setCaption("Agência");
+		tfAgencia1.setNullRepresentation("");
 		tfAgencia1.setImmediate(false);
 		tfAgencia1.setWidth("93px");
 		tfAgencia1.setHeight("-1px");
@@ -1183,6 +1199,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfDigitoAgencia1
 		tfDigitoAgencia1 = new TextField();
 		tfDigitoAgencia1.setCaption("Dígito");
+		tfDigitoAgencia1.setNullRepresentation("");
 		tfDigitoAgencia1.setImmediate(false);
 		tfDigitoAgencia1.setWidth("36px");
 		tfDigitoAgencia1.setHeight("-1px");
@@ -1191,6 +1208,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfNumeroCarteira
 		tfNumeroCarteira = new TextField();
 		tfNumeroCarteira.setCaption("Número da carteira profissional");
+		tfNumeroCarteira.setNullRepresentation("");
 		tfNumeroCarteira.setImmediate(false);
 		tfNumeroCarteira.setWidth("172px");
 		tfNumeroCarteira.setHeight("-1px");
@@ -1199,6 +1217,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfSerie
 		tfSerie = new TextField();
 		tfSerie.setCaption("Série");
+		tfSerie.setNullRepresentation("");
 		tfSerie.setImmediate(false);
 		tfSerie.setWidth("71px");
 		tfSerie.setHeight("-1px");
@@ -1235,6 +1254,7 @@ public class ColaboradorFormView extends CustomComponent {
 		// tfObservacao
 		tfObservacao = new TextField();
 		tfObservacao.setCaption("Observação");
+		tfObservacao.setNullRepresentation("");
 		tfObservacao.setImmediate(false);
 		tfObservacao.setWidth("920px");
 		tfObservacao.setHeight("-1px");
