@@ -33,6 +33,8 @@ import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.OperadoraCartaoEntity;
+import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
@@ -161,6 +163,12 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	private List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList;
+
+	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	private List<OperadoraCartaoEntity> operadoraCartaoList;
 
 	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList;
@@ -333,6 +341,24 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setContabilConta(ContabilContaEntity contabilConta) {
 		this.contabilConta = contabilConta;
+	}
+
+	public List<OperadoraPlanoSaudeEntity> getOperadoraPlanoSaudeList() {
+		return operadoraPlanoSaudeList;
+	}
+
+	public void setOperadoraPlanoSaudeList(
+			List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList) {
+		this.operadoraPlanoSaudeList = operadoraPlanoSaudeList;
+	}
+
+	public List<OperadoraCartaoEntity> getOperadoraCartaoList() {
+		return operadoraCartaoList;
+	}
+
+	public void setOperadoraCartaoList(
+			List<OperadoraCartaoEntity> operadoraCartaoList) {
+		this.operadoraCartaoList = operadoraCartaoList;
 	}
 
 	public List<ClienteEntity> getClienteList() {

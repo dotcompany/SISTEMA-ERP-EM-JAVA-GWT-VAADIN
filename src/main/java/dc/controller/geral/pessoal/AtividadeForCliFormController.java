@@ -28,23 +28,23 @@ public class AtividadeForCliFormController extends
 
 	private AtividadeForCliFormView subView;
 
+	private AtividadeForCliEntity currentBean;
+
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
-
-	private AtividadeForCliEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
+		if (!Validator.validateString(subView.getTfNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTfNome(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
+		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
+			adicionarErroDeValidacao(subView.getTfDescricao(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -54,33 +54,51 @@ public class AtividadeForCliFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new AtividadeForCliEntity();
+		try {
+			this.currentBean = new AtividadeForCliEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new AtividadeForCliFormView();
+		try {
+			this.subView = new AtividadeForCliFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = atividadeForCliDAO.find(id);
+		try {
+			this.currentBean = this.atividadeForCliDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			atividadeForCliDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.atividadeForCliDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -91,16 +109,20 @@ public class AtividadeForCliFormController extends
 
 	@Override
 	protected String getNome() {
-		String s = "";
-
-		return ":::: ";
+		return "Atividade fornecedor / cliente";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		atividadeForCliDAO.deleteAllByIds(ids);
+		try {
+			this.atividadeForCliDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

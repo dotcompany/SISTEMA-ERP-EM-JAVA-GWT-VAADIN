@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.StringUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.tabela.CboEntity;
@@ -32,13 +34,13 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	private CargoFormView subView;
 
+	private CargoEntity currentBean;
+
 	@Autowired
 	private CargoDAO cargoDAO;
 
 	@Autowired
 	private CboDAO cboDAO;
-
-	private CargoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -58,7 +60,13 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new CargoEntity();
+		try {
+			this.currentBean = new CargoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -97,7 +105,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 			String sCbo1994 = this.currentBean.getCbo1994();
 
-			if (sCbo1994 != null && !sCbo1994.equals("")) {
+			if (StringUtils.isNotBlank(sCbo1994)) {
 				CboEntity cbo1994 = this.cboDAO.find(sCbo1994);
 
 				this.subView.getMocCbo1994().setValue(cbo1994);
@@ -105,7 +113,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 			String sCbo2002 = this.currentBean.getCbo2002();
 
-			if (sCbo2002 != null && !sCbo2002.equals("")) {
+			if (StringUtils.isNotBlank(sCbo2002)) {
 				CboEntity cbo2002 = this.cboDAO.find(sCbo2002);
 
 				this.subView.getMocCbo2002().setValue(cbo2002);
@@ -122,11 +130,11 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 			this.currentBean.setDescricao(this.subView.getTfDescricao()
 					.getValue());
 
-			Double salario = Double.parseDouble(this.subView.getTfSalario()
-					.getValue().isEmpty() ? "0.0" : this.subView.getTfSalario()
-					.getValue());
+			String salario = this.subView.getTfSalario().getValue();
 
-			this.currentBean.setSalario(salario);
+			if (NumberUtils.isNumber(salario)) {
+				this.currentBean.setSalario(NumberUtils.createDouble(salario));
+			}
 
 			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
 

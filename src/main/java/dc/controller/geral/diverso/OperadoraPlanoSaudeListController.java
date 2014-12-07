@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.servicos.dao.geral.diverso.OperadoraPlanoSaudeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -13,7 +14,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class OperadoraPlanoSaudeListController extends CRUDListController<OperadoraPlanoSaudeEntity> {
+public class OperadoraPlanoSaudeListController extends
+		CRUDListController<OperadoraPlanoSaudeEntity> {
 
 	/**
 	 * 
@@ -38,7 +40,7 @@ public class OperadoraPlanoSaudeListController extends CRUDListController<Operad
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaOperadoraPlanoSaude";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -53,13 +55,12 @@ public class OperadoraPlanoSaudeListController extends CRUDListController<Operad
 
 	@Override
 	protected String getTitulo() {
-		return "Operadora Plano Saúde";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-
 	}
 
 	@Override

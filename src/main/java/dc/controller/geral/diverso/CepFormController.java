@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.CepValidator;
@@ -40,8 +41,6 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 	@Autowired
 	private UfDAO ufDAO;
-
-	// private MainController mainController;
 
 	@Override
 	protected String getNome() {
@@ -83,7 +82,7 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 			UfEntity uf = this.subView.getMocUf().getValue();
 
-			if (uf != null) {
+			if (ObjectUtils.isNotBlank(uf)) {
 				this.currentBean.setUf(uf.getSigla());
 			} else {
 				this.currentBean.setUf(null);

@@ -6,25 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.servicos.dao.geral.diverso.OperadoraCartaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
-public class OperadoraCartaoListController extends CRUDListController<OperadoraCartaoEntity> {
+public class OperadoraCartaoListController extends
+		CRUDListController<OperadoraCartaoEntity> {
 
 	/**
 	 * 
@@ -49,7 +40,7 @@ public class OperadoraCartaoListController extends CRUDListController<OperadoraC
 
 	@Override
 	protected String getTitulo() {
-		return "Operadora Cartão";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -65,7 +56,7 @@ public class OperadoraCartaoListController extends CRUDListController<OperadoraC
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaOperadoraCartao";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

@@ -112,12 +112,14 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
-	@Caption("Conta Caixa")
+	@Caption("Conta da caixa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContaCaixa contaCaixa;
 
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
 	@ManyToOne
+	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
+	@Caption("Conta contábil")
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContabilContaEntity contabilConta;
 
 	/**

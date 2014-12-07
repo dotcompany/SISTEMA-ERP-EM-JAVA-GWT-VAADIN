@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,6 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -41,7 +44,7 @@ public class OperadoraPlanoSaudeEntity extends
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operadora_plano_saude_id_seq")
 	@SequenceGenerator(name = "operadora_plano_saude_id_seq", sequenceName = "operadora_plano_saude_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
@@ -67,12 +70,9 @@ public class OperadoraPlanoSaudeEntity extends
 	 * REFERENCIA - FK
 	 */
 
-	/*
-	 * @ManyToOne(optional = false)
-	 * 
-	 * @JoinColumn(name = "CONTABIL_CONTA", referencedColumnName = "ID") private
-	 * ContabilConta contabilConta;
-	 */
+	@ManyToOne
+	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
+	private ContabilContaEntity contabilConta;
 
 	/**
 	 * REFERENCIA - LIST
@@ -146,12 +146,13 @@ public class OperadoraPlanoSaudeEntity extends
 				.toUpperCase().trim());
 	}
 
-	/*
-	 * public ContabilConta getContabilConta() { return contabilConta; }
-	 * 
-	 * public void setContabilConta(ContabilConta contabilConta) {
-	 * this.contabilConta = contabilConta; }
-	 */
+	public ContabilContaEntity getContabilConta() {
+		return contabilConta;
+	}
+
+	public void setContabilConta(ContabilContaEntity contabilConta) {
+		this.contabilConta = contabilConta;
+	}
 
 	public List<PlanoSaudeEntity> getPlanoSaudeList() {
 		return planoSaudeList;

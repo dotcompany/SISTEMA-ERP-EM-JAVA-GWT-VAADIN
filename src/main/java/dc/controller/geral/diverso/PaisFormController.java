@@ -80,6 +80,8 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 			if (NumberUtils.isNumber(codigo)) {
 				this.currentBean.setCodigo(NumberUtils.toInt(codigo));
+			} else {
+				this.currentBean.setCodigo(null);
 			}
 
 			this.paisDAO.saveOrUpdate(this.currentBean);

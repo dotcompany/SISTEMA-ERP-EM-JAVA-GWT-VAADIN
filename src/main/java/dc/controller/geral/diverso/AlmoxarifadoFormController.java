@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.servicos.util.Validator;
@@ -17,7 +18,8 @@ import dc.visao.geral.diverso.AlmoxarifadoFormView;
 
 @Controller
 @Scope("prototype")
-public class AlmoxarifadoFormController extends CRUDFormController<AlmoxarifadoEntity> {
+public class AlmoxarifadoFormController extends
+		CRUDFormController<AlmoxarifadoEntity> {
 
 	/**
 	 * 
@@ -26,17 +28,19 @@ public class AlmoxarifadoFormController extends CRUDFormController<AlmoxarifadoE
 
 	private AlmoxarifadoFormView subView;
 
+	private AlmoxarifadoEntity currentBean;
+
 	@Autowired
 	private AlmoxarifadoDAO almoxarifadoDAO;
-
-	private AlmoxarifadoEntity currentBean;
 
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+		if (!Validator.validateString(subView.getTfNome().getValue())) {
+			adicionarErroDeValidacao(subView.getTfNome(),
+					"Não pode ficar em branco");
+
 			valido = false;
 		}
 
@@ -45,31 +49,47 @@ public class AlmoxarifadoFormController extends CRUDFormController<AlmoxarifadoE
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new AlmoxarifadoEntity();
+		try {
+			this.currentBean = new AlmoxarifadoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new AlmoxarifadoFormView();
+		try {
+			this.subView = new AlmoxarifadoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = almoxarifadoDAO.find(id);
+		try {
+			this.currentBean = this.almoxarifadoDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-
 		try {
-			almoxarifadoDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+
+			this.almoxarifadoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -85,9 +105,15 @@ public class AlmoxarifadoFormController extends CRUDFormController<AlmoxarifadoE
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		almoxarifadoDAO.deleteAllByIds(ids);
+		try {
+			this.almoxarifadoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -97,7 +123,7 @@ public class AlmoxarifadoFormController extends CRUDFormController<AlmoxarifadoE
 
 	@Override
 	public String getViewIdentifier() {
-		return "almoxarifadoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

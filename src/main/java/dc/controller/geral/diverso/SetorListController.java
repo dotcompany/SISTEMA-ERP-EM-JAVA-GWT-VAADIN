@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -21,10 +22,10 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SetorDAO dao;
+	private SetorDAO dao;
 
 	@Autowired
-	SetorFormController setorFormController;
+	private SetorFormController setorFormController;
 
 	@Override
 	protected CRUDFormController<SetorEntity> getFormController() {
@@ -38,7 +39,7 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaSetor";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Setor";
+		return super.getTitulo(this);
 	}
 
 	@Override

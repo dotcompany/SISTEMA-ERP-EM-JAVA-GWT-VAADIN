@@ -478,57 +478,62 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			TipoSpedEn tipoSpedEn = this.currentBean.getTipoSped();
 
 			if (tipoSpedEn != null) {
-				subView.getCbTipoItemSped().setValue(tipoSpedEn);
+				this.subView.getCbTipoItemSped().setValue(tipoSpedEn);
 			}
 
 			String totalizadorParcial = currentBean.getTotalizadorParcial();
 
 			if (totalizadorParcial != null) {
-				subView.getTxtTotalizadorParcial().setValue(totalizadorParcial);
+				this.subView.getTxtTotalizadorParcial().setValue(
+						totalizadorParcial);
 			}
 
 			Integer codigoBalanca = currentBean.getCodigoBalanca();
 
 			if (codigoBalanca != null) {
-				subView.getTxtCodigoBalanca().setConvertedValue(codigoBalanca);
+				this.subView.getTxtCodigoBalanca().setConvertedValue(
+						codigoBalanca);
 			}
 
-			BigDecimal peso = currentBean.getPeso();
+			BigDecimal peso = this.currentBean.getPeso();
 
 			if (peso != null) {
-				subView.getTxtPeso().setConvertedValue(peso);
+				this.subView.getTxtPeso().setConvertedValue(peso);
 			}
 
-			BigDecimal taxaComissao = currentBean.getTaxaComissao();
+			BigDecimal taxaComissao = this.currentBean.getTaxaComissao();
 
 			if (taxaComissao != null) {
-				subView.getTxtTaxaComissao().setConvertedValue(taxaComissao);
+				this.subView.getTxtTaxaComissao().setConvertedValue(
+						taxaComissao);
 			}
 
-			BigDecimal pontoPedido = currentBean.getPontoPedido();
+			BigDecimal pontoPedido = this.currentBean.getPontoPedido();
 
 			if (pontoPedido != null) {
-				subView.getTxtPontoPedido().setConvertedValue(pontoPedido);
+				this.subView.getTxtPontoPedido().setConvertedValue(pontoPedido);
 			}
 
-			BigDecimal loteEconomicoCompra = currentBean
+			BigDecimal loteEconomicoCompra = this.currentBean
 					.getLoteEconomicoCompra();
 
 			if (loteEconomicoCompra != null) {
-				subView.getTxtLoteEconomicoCompra().setConvertedValue(
+				this.subView.getTxtLoteEconomicoCompra().setConvertedValue(
 						loteEconomicoCompra);
 			}
 
-			BigDecimal aliquotaIcms = currentBean.getAliquotaIcms();
+			BigDecimal aliquotaIcms = this.currentBean.getAliquotaIcms();
 
 			if (aliquotaIcms != null) {
-				subView.getTxtAliquotaICms().setConvertedValue(aliquotaIcms);
+				this.subView.getTxtAliquotaICms().setConvertedValue(
+						aliquotaIcms);
 			}
 
-			BigDecimal aliquotaIssqn = currentBean.getAliquotaIssqn();
+			BigDecimal aliquotaIssqn = this.currentBean.getAliquotaIssqn();
 
 			if (aliquotaIssqn != null) {
-				subView.getTxtAliquotaIssqn().setConvertedValue(aliquotaIssqn);
+				this.subView.getTxtAliquotaIssqn().setConvertedValue(
+						aliquotaIssqn);
 			}
 
 			this.subView.getMocAlmoxarifado().setValue(
