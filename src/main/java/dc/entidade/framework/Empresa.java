@@ -24,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -741,28 +743,6 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	public void setPaisList(List<PaisEntity> paisList) {
 		this.paisList = paisList;
 	}
-
-	// /**
-	// * HASH E EQUALS
-	// */
-	//
-	// @Override
-	// public int hashCode() {
-	// return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	// }
-	//
-	// @Override
-	// public boolean equals(Object object) {
-	// if (object instanceof Empresa == false)
-	// return false;
-	//
-	// if (this == object)
-	// return true;
-	//
-	// final Empresa other = (Empresa) object;
-	//
-	// return EqualsBuilder.reflectionEquals(this, other);
-	// }
 
 	/*
 	 * public List<Matriz> getMatriz() { return matriz; }
