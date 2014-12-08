@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.movimento.FechamentoEntity;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.movimento.FechamentoDAO;
 import dc.visao.folhapagamento.movimento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -71,7 +71,7 @@ public class FechamentoFormController extends
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);

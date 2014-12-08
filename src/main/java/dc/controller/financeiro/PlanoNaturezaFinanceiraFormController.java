@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.PlanoNaturezaFinanceira;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.servicos.dao.financeiro.PlanoNaturezaFinanceiraDAO;
 import dc.servicos.util.Validator;
@@ -60,7 +60,7 @@ public class PlanoNaturezaFinanceiraFormController extends CRUDFormController<Pl
 		currentBean.setNiveis((BigDecimal) subView.getTxtNiveis().getConvertedValue());
 		currentBean.setDataInclusao(subView.getDtInclusao().getValue());
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 		try {
 			planoDAO.saveOrUpdate(currentBean);

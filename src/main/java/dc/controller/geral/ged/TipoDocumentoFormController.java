@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.ged.TipoDocumento;
 import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
@@ -58,7 +58,7 @@ public class TipoDocumentoFormController extends
 	protected void criarNovoBean() {
 		currentBean = new TipoDocumento();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 	}
 

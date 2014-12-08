@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.ged.DocumentoArquivo;
@@ -122,7 +122,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	protected void criarNovoBean() {
 		currentBean = new Documento();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 		subView.setIdEmpresa(getIDEmpresa());
 		subView.setListArquivos(new ArrayList<String>());
@@ -130,7 +130,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	public String getIDEmpresa() {
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		return empresa.getId().toString();
 
 	}

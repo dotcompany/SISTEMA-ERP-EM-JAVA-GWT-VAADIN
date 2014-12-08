@@ -40,7 +40,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.visao.sistema.CustomFieldFactory;
 

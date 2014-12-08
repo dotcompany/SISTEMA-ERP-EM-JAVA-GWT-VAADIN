@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.Seguimento;
@@ -100,18 +100,18 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 
 	@Transactional
 	public void salvar(Relatorio relatorio, List<Usuario> usuariosView, List<Seguimento> seguimentosView, List<Papel> papeisView,
-			List<Empresa> empresasView) {
+			List<EmpresaEntity> empresasView) {
 		saveOrUpdate(relatorio);
 		criaRelacionamentos(relatorio, usuariosView, seguimentosView, papeisView, empresasView);
 		saveOrUpdate(relatorio);
 	}
 
 	private Relatorio criaRelacionamentos(Relatorio relatorio, List<Usuario> usuariosView, List<Seguimento> seguimentosView, List<Papel> papeisView,
-			List<Empresa> empresasView) {
+			List<EmpresaEntity> empresasView) {
 		Set<Seguimento> seguimentos = new HashSet<>();
 		Set<Papel> papeis = new HashSet<>();
 		Set<Usuario> usuarios = new HashSet<>();
-		Set<Empresa> empresas = new HashSet<>();
+		Set<EmpresaEntity> empresas = new HashSet<>();
 
 		for (Usuario usuario : usuariosView) {
 			usuarios.add((Usuario) sessionFactory.getCurrentSession().get(Usuario.class, usuario.getId()));
@@ -125,8 +125,8 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			papeis.add((Papel) sessionFactory.getCurrentSession().get(Papel.class, papel.getId()));
 		}
 
-		for (Empresa empresa : empresasView) {
-			empresas.add((Empresa) sessionFactory.getCurrentSession().get(Empresa.class, empresa.getId()));
+		for (EmpresaEntity empresa : empresasView) {
+			empresas.add((EmpresaEntity) sessionFactory.getCurrentSession().get(EmpresaEntity.class, empresa.getId()));
 		}
 
 		Relatorio dbBean = null;

@@ -39,7 +39,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.visao.sistema.CustomFieldFactory;
@@ -169,7 +169,7 @@ public class CriaContaEmpresaView extends ExternalView {
         cnpjMaskedField.setMaskClientOnly(true);
         binder.bind(cnpjMaskedField, "empresa.cnpj");
         buildMaskedTextField(fields,cnpjMaskedField);
-        cnpjMaskedField.addValidator(new BeanValidator(Empresa.class, "cnpj"));
+        cnpjMaskedField.addValidator(new BeanValidator(EmpresaEntity.class, "cnpj"));
         
         TextField foneTextField = (TextField) binder.buildAndBind("Seu telefone", "telefone");
         buildTxtField(fields, foneTextField);

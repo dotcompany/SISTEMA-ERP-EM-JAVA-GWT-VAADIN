@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 
 //@Entity
@@ -55,9 +55,9 @@ public class Teste extends AbstractModel<Serializable> implements Serializable {
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Empresa.class)
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = EmpresaEntity.class)
 	@JoinColumn(name = "id_empresa")
-	private Empresa idEmpresa;
+	private EmpresaEntity idEmpresa;
 
 	public Teste() {
 	}
@@ -110,11 +110,11 @@ public class Teste extends AbstractModel<Serializable> implements Serializable {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public Empresa getIdEmpresa() {
+	public EmpresaEntity getIdEmpresa() {
 		return idEmpresa;
 	}
 
-	public void setIdEmpresa(Empresa idEmpresa) {
+	public void setIdEmpresa(EmpresaEntity idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
 

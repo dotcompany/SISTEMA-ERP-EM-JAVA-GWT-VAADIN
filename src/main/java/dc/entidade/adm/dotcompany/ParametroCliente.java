@@ -29,7 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 /**
  * 
  * 
@@ -234,7 +234,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@JoinColumn(name = "id_empresa", nullable = false)
 	@Caption("Empresa")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private Empresa empresa;
+	private EmpresaEntity empresa;
 	
 	/*@Field
 	@Caption("Empresa")
@@ -459,11 +459,11 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 		this.telefone = telefone;
 	}
 	
-	public Empresa getEmpresa() {
+	public EmpresaEntity getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 	}
 

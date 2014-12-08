@@ -17,7 +17,7 @@ import dc.entidade.empresa.Dependente;
 import dc.entidade.empresa.ParticipacaoSocietaria;
 import dc.entidade.empresa.QuadroSocietario;
 import dc.entidade.empresa.Socio;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.empresa.DependenteDAO;
@@ -175,7 +175,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		carregarUFs();
 	}
 
-	public Empresa empresaAtual() {
+	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 

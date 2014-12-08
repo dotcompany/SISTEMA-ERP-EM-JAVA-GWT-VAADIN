@@ -15,7 +15,7 @@ import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
@@ -168,7 +168,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.currentBean.setEmpresa(empresa);
 

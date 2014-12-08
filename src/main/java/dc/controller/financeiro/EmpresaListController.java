@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -22,7 +22,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EmpresaListController extends CRUDListController<Empresa> {
+public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 
 	/**
 	 * 
@@ -41,8 +41,8 @@ public class EmpresaListController extends CRUDListController<Empresa> {
 	}
 
 	@Override
-	public Class<? super Empresa> getEntityClass() {
-		return Empresa.class;
+	public Class<? super EmpresaEntity> getEntityClass() {
+		return EmpresaEntity.class;
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class EmpresaListController extends CRUDListController<Empresa> {
 	}
 
 	@Override
-	protected List<Empresa> pesquisa(String valor) {
+	protected List<EmpresaEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Empresa> getFormController() {
+	protected CRUDFormController<EmpresaEntity> getFormController() {
 		return empresaFormController;
 	}
 
@@ -74,11 +74,11 @@ public class EmpresaListController extends CRUDListController<Empresa> {
 	}
 
 	@Override
-	protected List<Empresa> pesquisaDefault() {
+	protected List<EmpresaEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		List<Empresa> auxLista = (List<Empresa>) this.dao.getAll(getEntityClass());
+		List<EmpresaEntity> auxLista = (List<EmpresaEntity>) this.dao.getAll(getEntityClass());
 
-		return (List<Empresa>) this.dao.getAll(getEntityClass());
+		return (List<EmpresaEntity>) this.dao.getAll(getEntityClass());
 	}
 
 }

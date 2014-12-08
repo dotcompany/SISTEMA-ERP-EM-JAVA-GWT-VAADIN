@@ -25,7 +25,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.Seguimento;
@@ -73,10 +73,10 @@ public class RelatorioFormView extends CustomComponent {
 	private BeanItemContainer<Seguimento> seguimentoContainer;
 	private Seguimento seguimentoSelecionado;
 
-	private ManyToOneCombo<Empresa> comboEmpresas;
+	private ManyToOneCombo<EmpresaEntity> comboEmpresas;
 	private Table tableEmpresas;
-	private BeanItemContainer<Empresa> empresaContainer;
-	private Empresa empresaSelecionado;
+	private BeanItemContainer<EmpresaEntity> empresaContainer;
+	private EmpresaEntity empresaSelecionado;
 
 	private ManyToOneCombo<Papel> comboPapeis;
 	private Table tablePapel;
@@ -428,7 +428,7 @@ public class RelatorioFormView extends CustomComponent {
 		hl.setMargin(false);
 		hl.setSpacing(true);
 
-		comboEmpresas = new ManyToOneCombo<Empresa>();
+		comboEmpresas = new ManyToOneCombo<EmpresaEntity>();
 		comboEmpresas.setCaption("Empresa");
 		comboEmpresas.setWidth("600px");
 		comboEmpresas.setHeight("-1px");
@@ -441,7 +441,7 @@ public class RelatorioFormView extends CustomComponent {
 			@Override
 			public void buttonClick(ClickEvent event) {
 
-				Empresa empresa = (Empresa) comboEmpresas.getValue();
+				EmpresaEntity empresa = (EmpresaEntity) comboEmpresas.getValue();
 				addEmpresa(empresa);
 			}
 
@@ -483,7 +483,7 @@ public class RelatorioFormView extends CustomComponent {
 
 		tableEmpresas = new Table();
 		tableEmpresas.setSizeFull();
-		empresaContainer = new BeanItemContainer<>(Empresa.class);
+		empresaContainer = new BeanItemContainer<>(EmpresaEntity.class);
 		tableEmpresas.setContainerDataSource(empresaContainer);
 
 		tableEmpresas.setColumnCollapsingAllowed(true);
@@ -675,7 +675,7 @@ public class RelatorioFormView extends CustomComponent {
 		this.cbTipos = cbTipos;
 	}
 
-	public void addEmpresa(Empresa empresa) {
+	public void addEmpresa(EmpresaEntity empresa) {
 		if (empresa != null && !empresaContainer.containsId(empresa.getId())) {
 
 			empresaContainer.addItem(empresa);
@@ -715,11 +715,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.comboSeguimentos = comboSeguimentos;
 	}
 
-	public ManyToOneCombo<Empresa> getComboEmpresas() {
+	public ManyToOneCombo<EmpresaEntity> getComboEmpresas() {
 		return comboEmpresas;
 	}
 
-	public void setComboEmpresas(ManyToOneCombo<Empresa> comboEmpresas) {
+	public void setComboEmpresas(ManyToOneCombo<EmpresaEntity> comboEmpresas) {
 		this.comboEmpresas = comboEmpresas;
 	}
 
@@ -747,11 +747,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.seguimentoContainer = seguimentoContainer;
 	}
 
-	public BeanItemContainer<Empresa> getEmpresaContainer() {
+	public BeanItemContainer<EmpresaEntity> getEmpresaContainer() {
 		return empresaContainer;
 	}
 
-	public void setEmpresaContainer(BeanItemContainer<Empresa> empresaContainer) {
+	public void setEmpresaContainer(BeanItemContainer<EmpresaEntity> empresaContainer) {
 		this.empresaContainer = empresaContainer;
 	}
 

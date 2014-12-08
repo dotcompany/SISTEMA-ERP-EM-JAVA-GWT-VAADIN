@@ -31,7 +31,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
@@ -392,7 +392,7 @@ public abstract class CRUDFormController<E extends AbstractModel> extends
 		// nothing for now
 	}
 
-	public Empresa empresaAtual() {
+	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 

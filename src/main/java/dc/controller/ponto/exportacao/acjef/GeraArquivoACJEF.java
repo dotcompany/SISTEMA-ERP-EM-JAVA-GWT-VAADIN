@@ -14,7 +14,7 @@ import org.jrimum.texgit.Record;
 import org.jrimum.texgit.Texgit;
 import org.springframework.stereotype.Service;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.ponto.PontoFechamentoJornada;
 import dc.entidade.ponto.PontoHorario;
 
@@ -22,7 +22,7 @@ import dc.entidade.ponto.PontoHorario;
 public class GeraArquivoACJEF {
 
 	public InputStream geraArquivoACJEF(Date dataInicial, Date dataFinal, List<PontoHorario> horarios,
-			List<PontoFechamentoJornada> listaFechamento, Empresa empresa) throws Exception {
+			List<PontoFechamentoJornada> listaFechamento, EmpresaEntity empresa) throws Exception {
 
 		SimpleDateFormat formatoHora = new SimpleDateFormat("HHmm");
 		Date dataAtual = new Date();

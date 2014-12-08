@@ -13,14 +13,14 @@ import org.jrimum.texgit.FlatFile;
 import org.jrimum.texgit.Record;
 import org.jrimum.texgit.Texgit;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.visao.spring.SecuritySessionProvider;
 
 public class GeraArquivoAFDT {
 
-	public InputStream geraArquivoAFDT(Date dataInicial, Date dataFinal, List<PontoMarcacao> marcacoes, Empresa empresa)
+	public InputStream geraArquivoAFDT(Date dataInicial, Date dataFinal, List<PontoMarcacao> marcacoes, EmpresaEntity empresa)
 			throws Exception {
 
 		SimpleDateFormat formatoHora = new SimpleDateFormat("HHmm");

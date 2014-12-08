@@ -23,7 +23,7 @@ import com.sun.istack.logging.Logger;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 
 @Entity
@@ -41,7 +41,7 @@ public class ContaEmpresa extends AbstractModel<Integer> implements Serializable
     
 	@OneToOne()
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	private Empresa empresa;
+	private EmpresaEntity empresa;
 	
 	@OneToMany()
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,org.hibernate.annotations.CascadeType.DETACH})
@@ -99,11 +99,11 @@ public class ContaEmpresa extends AbstractModel<Integer> implements Serializable
 		this.telefone = telefone;
 	}
 
-	public Empresa getEmpresa() {
+	public EmpresaEntity getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 	}
 

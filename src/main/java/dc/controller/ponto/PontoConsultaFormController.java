@@ -19,7 +19,7 @@ import com.vaadin.ui.Component;
 import dc.control.validator.ObjectValidator;
 import dc.controller.ponto.exportacao.acjef.GeraArquivoACJEF;
 import dc.controller.ponto.exportacao.afdt.GeraArquivoAFDT;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.ponto.PontoFechamentoJornada;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
@@ -101,7 +101,7 @@ public class PontoConsultaFormController extends BlankFormController {
 				InputStream is = null;
 				try {
 
-					Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+					EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 					// Empresa empresa = empresaDAO.find(1);
 					is = geraArquivo.geraArquivoACJEF(subView.getDtDataInicial().getValue(), subView.getDtDataFinal().getValue(),
@@ -178,7 +178,7 @@ public class PontoConsultaFormController extends BlankFormController {
 					 * Usuario usuario = SecuritySessionProvider.getUsuario();
 					 * Empresa empresa = usuario.getConta().getEmpresa();
 					 */
-					Empresa empresa = empresaDAO.find(1);
+					EmpresaEntity empresa = empresaDAO.find(1);
 					is = geraArquivo.geraArquivoAFDT(subView.getDtDataInicial().getValue(), subView.getDtDataFinal().getValue(), subView
 							.getMarcacoesSubForm().getDados(), empresa);
 				} catch (Exception e) {

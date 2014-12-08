@@ -22,7 +22,7 @@ import dc.controller.financeiro.EmpresaListController;
 import dc.controller.sistema.PapelListController;
 import dc.controller.sistema.SeguimentoListController;
 import dc.controller.sistema.UsuarioListController;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.Seguimento;
@@ -151,7 +151,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		DefaultManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(PapelListController.class, this.papelDAO,
 				super.getMainController(), true);
 
-		DefaultManyToOneComboModel<Empresa> empresa = new DefaultManyToOneComboModel<Empresa>(EmpresaListController.class, this.empresaDAO,
+		DefaultManyToOneComboModel<EmpresaEntity> empresa = new DefaultManyToOneComboModel<EmpresaEntity>(EmpresaListController.class, this.empresaDAO,
 				super.getMainController(), true) {
 			@Override
 			public String getCaptionProperty() {

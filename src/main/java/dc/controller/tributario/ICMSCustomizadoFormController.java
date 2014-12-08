@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
@@ -102,7 +102,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 		subView.preencheSubForm(detalhes);
 	}
 
-	public Empresa empresaAtual() {
+	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
@@ -32,10 +32,10 @@ public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 
 	private TemplateFormView subView;
 
+	private TemplateEntity currentBean;
+
 	@Autowired
 	private TemplateDAO templateDAO;
-
-	private TemplateEntity currentBean;
 
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";
@@ -64,7 +64,7 @@ public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 	protected void criarNovoBean() {
 		currentBean = new TemplateEntity();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 	}
 
@@ -96,7 +96,7 @@ public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 			nomeArquivo = "";
 
 		String pathArquivo = homePath + "\\ " + customCompanyBaseFolder + "\\"
-				+ currentBean.getEmpresa().getIdEmpresa().intValue() + "\\"
+				+ currentBean.getEmpresa().getEmpresa().intValue() + "\\"
 				+ diretorio + "\\" + nomeArquivo;
 
 		if (nomeArquivo.equals("")) {

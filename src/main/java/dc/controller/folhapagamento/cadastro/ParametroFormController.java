@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.cadastro.ParametroEntity;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.ParametroDAO;
 import dc.visao.folhapagamento.cadastro.ParametroFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -113,7 +113,7 @@ public class ParametroFormController extends
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);

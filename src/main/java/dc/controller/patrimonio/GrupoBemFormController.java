@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.servicos.dao.patrimonio.GrupoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -76,7 +76,7 @@ public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 

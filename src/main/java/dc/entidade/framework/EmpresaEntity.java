@@ -19,11 +19,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,52 +54,69 @@ import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.sistema.ContaEmpresa;
 
-/**
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
-
 @Entity
 @Table(name = "empresa")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Empresa extends AbstractModel<Integer> implements Serializable {
+public class EmpresaEntity extends AbstractModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_id_seq")
+	@SequenceGenerator(name = "empresa_id_seq", sequenceName = "empresa_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	private String tipo;// 1-Matriz 2-Filial 3-Depósito
+
 	/**
 	 * O campo tipo apenas identifica se é Matriz,Filial ou Depósito,já o campo
 	 * idMatriz armazena o id da empresa escolhida como matriz
 	 */
 
+	@Field
+	@Caption()
 	@Column(name = "id_matriz")
-	private Integer idMatriz;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer matriz;
 
+	@Field
+	@Caption()
 	@Column(name = "ID_EMPRESA")
-	private Integer idEmpresa;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer empresa;
 
+	@Field
+	@Caption()
 	@Column(name = "ID_SINDICATO_PATRONAL")
-	private Integer idSindicatoPatronal;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer sindicatoPatronal;
 
+	@Field
+	@Caption()
 	@Column(name = "ID_FPAS")
-	private Integer idFpas;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer fpas;
 
+	@Field
+	@Caption()
 	@Column(name = "ID_CONTADOR")
-	private Integer idContador;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer contador;
 
 	// @OneToOne
 	// @JoinColumn(name="id_contador")
@@ -106,96 +125,180 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@Field
 	@Caption("Razao Social")
 	@Column(name = "RAZAO_SOCIAL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String razaoSocial;
 
 	@Field
 	@Caption("Nome Fantasia")
 	@Column(name = "NOME_FANTASIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nomeFantasia;
 
+	@Field
+	@Caption()
 	@Column(name = "CNPJ", length = 14, unique = true)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String cnpj;
 
+	@Field
+	@Caption()
 	@Column(name = "INSCRICAO_ESTADUAL", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoEstadual;
 
+	@Field
+	@Caption()
 	@Column(name = "INSCRICAO_ESTADUAL_ST", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoEstadualSt;
 
+	@Field
+	@Caption()
 	@Column(name = "INSCRICAO_MUNICIPAL", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoMunicipal;
 
+	@Field
+	@Caption()
 	@Column(name = "INSCRICAO_JUNTA_COMERCIAL", length = 30)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoJuntaComercial;
 
-	@Column(name = "DATA_INSC_JUNTA_COMERCIAL")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "DATA_INSC_JUNTA_COMERCIAL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInscJuntaComercial;
 
 	// @Column(name = "tipo")
 	// @Enumerated(value = EnumType.STRING)
 	// private EmpresaType empresa;
 
-	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "DATA_CADASTRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
-	@Column(name = "DATA_INICIO_ATIVIDADES")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption()
+	@Column(name = "DATA_INICIO_ATIVIDADES")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInicioAtividades;
 
+	@Field
+	@Caption()
 	@Column(name = "SUFRAMA", length = 9)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String suframa;
 
+	@Field
+	@Caption()
 	@Column(name = "EMAIL", length = 250)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String email;
 
 	@Lob
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption()
 	@Column(name = "IMAGEM_LOGOTIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String imagemLogotipo;
 
+	@Field
+	@Caption()
 	@Column(name = "CRT")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer crt;
 
+	@Field
+	@Caption()
 	@Column(name = "TIPO_REGIME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoRegime;
 
+	@Field
+	@Caption()
 	@Column(name = "ALIQUOTA_PIS", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal aliquotaPis;
 
+	@Field
+	@Caption()
 	@Column(name = "CONTATO", length = 250)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String contato;
 
+	@Field
+	@Caption()
 	@Column(name = "ALIQUOTA_COFINS", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal aliquotaCofins;
 
+	@Field
+	@Caption()
 	@Column(name = "ALIQUOTA_SAT", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal aliquotaSat;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_IBGE_CIDADE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbgeCidade;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_IBGE_UF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoIbgeUf;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_TERCEIROS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoTerceiros;
 
+	@Field
+	@Caption()
 	@Column(name = "CODIGO_GPS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoGps;
 
+	@Field
+	@Caption()
 	@Column(name = "CEI", length = 12)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String cei;
-
-	public ContaEmpresa getConta() {
-		return conta;
-	}
-
-	public void setConta(ContaEmpresa conta) {
-		this.conta = conta;
-	}
 
 	@OneToOne(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private ContaEmpresa conta;
@@ -310,28 +413,41 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
 	private Set<Relatorio> relatorios;
 
-	/** CONSTRUTOR */
+	/**
+	 * REFERENCIA - FK
+	 */
 
-	public Empresa() {
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public EmpresaEntity() {
 
 	}
 
-	public Empresa(Integer id) {
+	public EmpresaEntity(Integer id) {
 		this.id = id;
 	}
 
-	public Empresa(Integer id, int idEmpresa) {
+	public EmpresaEntity(Integer id, int empresa) {
 		this.id = id;
-		this.idEmpresa = idEmpresa;
+		this.empresa = empresa;
 	}
 
-	public Empresa(Integer id, String nomeFantasia) {
+	public EmpresaEntity(Integer id, String nomeFantasia) {
 		this.id = id;
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	/** GETS E SETS */
+	/**
+	 * GETS AND SETS
+	 */
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -340,12 +456,52 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getIdEmpresa() {
-		return idEmpresa;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setIdEmpresa(Integer idEmpresa) {
-		this.idEmpresa = idEmpresa;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Integer getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(Integer matriz) {
+		this.matriz = matriz;
+	}
+
+	public Integer getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Integer empresa) {
+		this.empresa = empresa;
+	}
+
+	public Integer getSindicatoPatronal() {
+		return sindicatoPatronal;
+	}
+
+	public void setSindicatoPatronal(Integer sindicatoPatronal) {
+		this.sindicatoPatronal = sindicatoPatronal;
+	}
+
+	public Integer getFpas() {
+		return fpas;
+	}
+
+	public void setFpas(Integer fpas) {
+		this.fpas = fpas;
+	}
+
+	public Integer getContador() {
+		return contador;
+	}
+
+	public void setContador(Integer contador) {
+		this.contador = contador;
 	}
 
 	public String getRazaoSocial() {
@@ -380,28 +536,20 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
-	public String getInscricaoMunicipal() {
-		return inscricaoMunicipal;
-	}
-
-	public void setInscricaoMunicipal(String inscricaoMunicipal) {
-		this.inscricaoMunicipal = inscricaoMunicipal;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
 	public String getInscricaoEstadualSt() {
 		return inscricaoEstadualSt;
 	}
 
 	public void setInscricaoEstadualSt(String inscricaoEstadualSt) {
 		this.inscricaoEstadualSt = inscricaoEstadualSt;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
 	}
 
 	public String getInscricaoJuntaComercial() {
@@ -420,13 +568,13 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.dataInscJuntaComercial = dataInscJuntaComercial;
 	}
 
-	// public EmpresaType getEmpresa() {
-	// return empresa;
-	// }
-	//
-	// public void setEmpresa(EmpresaType empresa) {
-	// this.empresa = empresa;
-	// }
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
 	public Date getDataInicioAtividades() {
 		return dataInicioAtividades;
@@ -482,6 +630,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setAliquotaPis(BigDecimal aliquotaPis) {
 		this.aliquotaPis = aliquotaPis;
+	}
+
+	public String getContato() {
+		return contato;
+	}
+
+	public void setContato(String contato) {
+		this.contato = contato;
 	}
 
 	public BigDecimal getAliquotaCofins() {
@@ -540,28 +696,20 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.cei = cei;
 	}
 
-	public Integer getIdSindicatoPatronal() {
-		return idSindicatoPatronal;
+	public ContaEmpresa getConta() {
+		return conta;
 	}
 
-	public void setIdSindicatoPatronal(Integer idSindicatoPatronal) {
-		this.idSindicatoPatronal = idSindicatoPatronal;
+	public void setConta(ContaEmpresa conta) {
+		this.conta = conta;
 	}
 
-	public Integer getIdFpas() {
-		return idFpas;
+	public String getCnaePrincipal() {
+		return cnaePrincipal;
 	}
 
-	public void setIdFpas(Integer idFpas) {
-		this.idFpas = idFpas;
-	}
-
-	public Integer getIdContador() {
-		return idContador;
-	}
-
-	public void setIdContador(Integer idContador) {
-		this.idContador = idContador;
+	public void setCnaePrincipal(String cnaePrincipal) {
+		this.cnaePrincipal = cnaePrincipal;
 	}
 
 	public List<TipoAquisicaoEntity> getTipoAquisicaoList() {
@@ -604,6 +752,22 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 
 	public void setGrupoBemList(List<GrupoBemEntity> grupoBemList) {
 		this.grupoBemList = grupoBemList;
+	}
+
+	public List<PessoaEnderecoEntity> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<PessoaEnderecoEntity> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public List<PaisEntity> getPaisList() {
+		return paisList;
+	}
+
+	public void setPaisList(List<PaisEntity> paisList) {
+		this.paisList = paisList;
 	}
 
 	public List<TipoAfastamentoEntity> getTipoAfastamentoList() {
@@ -684,6 +848,14 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.feriasPeriodoAquisitivoList = feriasPeriodoAquisitivoList;
 	}
 
+	public List<GuiaAcumuladaEntity> getGuiaAcumuladaList() {
+		return guiaAcumuladaList;
+	}
+
+	public void setGuiaAcumuladaList(List<GuiaAcumuladaEntity> guiaAcumuladaList) {
+		this.guiaAcumuladaList = guiaAcumuladaList;
+	}
+
 	public List<ContaCaixa> getContaCaixaList() {
 		return contaCaixaList;
 	}
@@ -692,24 +864,20 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		this.contaCaixaList = contaCaixaList;
 	}
 
-	/*
-	 * public Contato addContato(Contato contato) { this.getContatos().size();
-	 * getContatos().add(contato); contato.setEmpresa(this);
-	 * 
-	 * return contato; }
-	 * 
-	 * public Contato removeContato(Contato contato) {
-	 * getContatos().remove(contato); contato.setEmpresa(null);
-	 * 
-	 * return contato; }
-	 */
-
-	public String getContato() {
-		return contato;
+	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
+		return empresaSeguimentos;
 	}
 
-	public void setContato(String contato) {
-		this.contato = contato;
+	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
+		this.empresaSeguimentos = empresaSeguimentos;
+	}
+
+	public Set<Relatorio> getRelatorios() {
+		return relatorios;
+	}
+
+	public void setRelatorios(Set<Relatorio> relatorios) {
+		this.relatorios = relatorios;
 	}
 
 	public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
@@ -726,78 +894,13 @@ public class Empresa extends AbstractModel<Integer> implements Serializable {
 		return enderecos;
 	}
 
-	public List<PessoaEnderecoEntity> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEndereco(List<PessoaEnderecoEntity> enderecos) {
-		this.enderecos = enderecos;
-	}
-
-	public List<PaisEntity> getPaisList() {
-		return paisList;
-	}
-
-	public void setPaisList(List<PaisEntity> paisList) {
-		this.paisList = paisList;
-	}
-
-	/*
-	 * public List<Matriz> getMatriz() { return matriz; }
-	 * 
-	 * public void setMatriz(List<Matriz> matriz) { this.matriz = matriz; }
+	/**
+	 * TO STRING
 	 */
 
 	@Override
 	public String toString() {
-		return nomeFantasia;
+		return ToStringBuilder.reflectionToString(this);
 	}
-
-	public String getCnaePrincipal() {
-		return cnaePrincipal;
-	}
-
-	public void setCnaePrincipal(String cnaePrincipal) {
-		this.cnaePrincipal = cnaePrincipal;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public Integer getIdMatriz() {
-		return idMatriz;
-	}
-
-	public void setIdMatriz(Integer idMatriz) {
-		this.idMatriz = idMatriz;
-	}
-
-	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
-		return empresaSeguimentos;
-	}
-
-	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
-		this.empresaSeguimentos = empresaSeguimentos;
-	}
-
-	/*
-	 * public Contador getContador() { return contador; }
-	 * 
-	 * public void setContador(Contador contador) { this.contador = contador; }
-	 * 
-	 * public Sindicato getSindicato() { return sindicato; }
-	 * 
-	 * public void setSindicato(Sindicato sindicato) { this.sindicato =
-	 * sindicato; }
-	 * 
-	 * /*public Fpas getFpas() { return fpas; }
-	 * 
-	 * public void setFpas(Fpas fpas) { this.fpas = fpas; }
-	 */
 
 }

@@ -31,7 +31,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.financeiro.EmpresaFormController;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Seguimento;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -1252,7 +1252,7 @@ public class EmpresaFormView extends CustomComponent {
 	 * this.contatoSubForm.fillWith(contatos); }
 	 */
 
-	public void preencheEmpresa(Empresa empresa) {
+	public void preencheEmpresa(EmpresaEntity empresa) {
 
 		/*
 		 * empresa.setMatriz((Matriz) getCbmMatriz().getValue());
@@ -1269,7 +1269,7 @@ public class EmpresaFormView extends CustomComponent {
 
 	}
 
-	public void preencheEmpresaForm(Empresa empresa) {
+	public void preencheEmpresaForm(EmpresaEntity empresa) {
 		/* getCbmMatriz().setValue(empresa.getMatriz()); */
 		/*
 		 * getCmbContador().setValue(empresa.getContador());

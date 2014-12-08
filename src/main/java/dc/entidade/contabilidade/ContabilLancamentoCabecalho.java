@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 
 @Entity
 @Table(name = "CONTABIL_LANCAMENTO_CABECALHO")
@@ -45,7 +45,7 @@ public class ContabilLancamentoCabecalho implements Serializable {
     private ContabilLote contabilLote;
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Empresa empresa;
+    private EmpresaEntity empresa;
 
     public ContabilLancamentoCabecalho() {
     }
@@ -106,11 +106,11 @@ public class ContabilLancamentoCabecalho implements Serializable {
         this.contabilLote = contabilLote;
     }
 
-    public Empresa getEmpresa() {
+    public EmpresaEntity getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
+    public void setEmpresa(EmpresaEntity empresa) {
         this.empresa = empresa;
     }
 

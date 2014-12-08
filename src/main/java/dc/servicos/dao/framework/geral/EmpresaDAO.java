@@ -6,7 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
@@ -23,28 +23,28 @@ import dc.entidade.sistema.ContaEmpresa;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
+public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	
 	static String MATRIZ="1";
 
 	@Override
-	public Class<Empresa> getEntityClass() {
-		return Empresa.class;
+	public Class<EmpresaEntity> getEntityClass() {
+		return EmpresaEntity.class;
 	}
 
 	@Transactional
-	public List<CargoEntity> listCargos(Empresa empresa) {
+	public List<CargoEntity> listCargos(EmpresaEntity empresa) {
 		return getSession().createQuery("from Cargo where empresa.id = :bid")
 				.setParameter("bid", empresa.getId()).list();
 	}
 
 	@Transactional
-	public List<Empresa> listaTodos() {
+	public List<EmpresaEntity> listaTodos() {
 		return getSession().createQuery("from Empresa").list();
 	}
 
 	@Transactional
-	public List<Empresa> procuraNomeContendo(String query) {
+	public List<EmpresaEntity> procuraNomeContendo(String query) {
 		return getSession()
 				.createQuery("from Empresa where nomeFantasia like :q")
 				.setParameter("q", "%" + query + "%").list();
@@ -56,7 +56,7 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 	}
 
 	@Transactional
-	public List<Empresa> empresaLista() {
+	public List<EmpresaEntity> empresaLista() {
 		String sql = "SELECT new Empresa(ent.id, ent.nomeFantasia) FROM Empresa ent";
 
 		List auxLista = getSession().createQuery(sql).list();
@@ -65,19 +65,19 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 	}
 
 	@Transactional
-	public Empresa getEmpresa(Integer id) {
+	public EmpresaEntity getEmpresa(Integer id) {
 		String sql = "SELECT ent.empresa FROM TipoAquisicaoEntity ent"
 				+ " WHERE (1 = 1) AND ent.id = :id";
 
-		Empresa ent = (Empresa) getSession().createQuery(sql)
+		EmpresaEntity ent = (EmpresaEntity) getSession().createQuery(sql)
 				.setParameter("id", id).uniqueResult();
 
 		return ent;
 	}
 
 	@Transactional
-	public Empresa findByCNPJ(String cnpj) {
-		List<Empresa> empresas = getSession().createCriteria(Empresa.class).add(Restrictions.eq("cnpj",cnpj)).list();
+	public EmpresaEntity findByCNPJ(String cnpj) {
+		List<EmpresaEntity> empresas = getSession().createCriteria(EmpresaEntity.class).add(Restrictions.eq("cnpj",cnpj)).list();
 		if(!empresas.isEmpty()){
 			return empresas.get(0);
 		}else{
@@ -87,15 +87,15 @@ public class EmpresaDAO extends AbstractCrudDAO<Empresa> {
 	}
 	
 	@Transactional
-	public List<Empresa> buscaMatrizes(){
+	public List<EmpresaEntity> buscaMatrizes(){
 		return getSession()
 				.createQuery("from Empresa where tipo = :tipo")
 				.setParameter("tipo", MATRIZ).list();
 	}
 	
 	@Transactional
-	public Empresa findEmpresaByContaEmpresa(Integer contaEmpresaId) {
-		return (Empresa) getSession()
+	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
+		return (EmpresaEntity) getSession()
 				.createQuery("from Empresa where conta.id = :c")
 				.setParameter("c", contaEmpresaId).uniqueResult();
 	}

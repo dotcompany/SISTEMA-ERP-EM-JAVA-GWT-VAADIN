@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
@@ -90,7 +90,7 @@ public class CriaContaController implements Serializable, ViewController {
 			view.showErrorMessage("E-mail já é utilizado por outro Usuário do sistema.");
 			return false;
 		}else{
-			Empresa emp = empresaDao.findByCNPJ(currentBean.getEmpresa().getCnpj());
+			EmpresaEntity emp = empresaDao.findByCNPJ(currentBean.getEmpresa().getCnpj());
 			if(emp != null){
 				view.showErrorMessage("CNPJ já é utilizado por outro Usuário do sistema.");
 				return false;
@@ -103,7 +103,7 @@ public class CriaContaController implements Serializable, ViewController {
 	public void init() {
 		// TODO Auto-generated method stub
 		currentBean = new ContaEmpresa();
-		currentBean.setEmpresa(new Empresa());
+		currentBean.setEmpresa(new EmpresaEntity());
 		Usuario u = new Usuario();
 		Papel p = new Papel();
 		p.setId(Papel.MASTER_ID);

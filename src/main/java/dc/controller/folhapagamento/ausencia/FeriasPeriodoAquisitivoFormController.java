@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
@@ -112,7 +112,7 @@ public class FeriasPeriodoAquisitivoFormController extends
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);

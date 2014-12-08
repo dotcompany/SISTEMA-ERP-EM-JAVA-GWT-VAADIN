@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.ponto.PontoRelogio;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
@@ -96,7 +96,7 @@ public class PontoRelogioFormController extends CRUDFormController<PontoRelogio>
 		subView.preencheBean(currentBean);
 		try {
 			Usuario usuario = SecuritySessionProvider.getUsuario();
-			Empresa empresa = usuario.getConta().getEmpresa();
+			EmpresaEntity empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoRelogioDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);

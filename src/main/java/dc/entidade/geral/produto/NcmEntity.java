@@ -36,6 +36,9 @@ import dc.entidade.framework.ComboValue;
 public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

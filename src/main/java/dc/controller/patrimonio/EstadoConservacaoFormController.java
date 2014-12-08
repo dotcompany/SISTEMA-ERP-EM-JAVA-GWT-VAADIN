@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.servicos.dao.patrimonio.EstadoConservacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -70,7 +70,7 @@ public class EstadoConservacaoFormController extends CRUDFormController<EstadoCo
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 

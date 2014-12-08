@@ -44,7 +44,7 @@ import dc.controller.geral.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutosListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.UfEntity;
@@ -417,7 +417,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			return new StreamResource(new StreamSource() {
 				@Override
 				public InputStream getStream() {
-					Empresa empresa = documento.getEmpresa();
+					EmpresaEntity empresa = documento.getEmpresa();
 
 					PessoaEnderecoEntity enderecoEmpresa = new PessoaEnderecoEntity();// TODO
 

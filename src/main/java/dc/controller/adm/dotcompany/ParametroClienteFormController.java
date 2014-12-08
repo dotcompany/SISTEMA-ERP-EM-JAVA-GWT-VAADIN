@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 
 import dc.controller.financeiro.EmpresaListController;
 import dc.entidade.adm.dotcompany.ParametroCliente;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
@@ -137,7 +137,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 		try {
 			subView = new ParametroClienteFormView(this);
 
-			DefaultManyToOneComboModel<Empresa> model = new DefaultManyToOneComboModel<Empresa>(EmpresaListController.class, this.empresaDAO,
+			DefaultManyToOneComboModel<EmpresaEntity> model = new DefaultManyToOneComboModel<EmpresaEntity>(EmpresaListController.class, this.empresaDAO,
 					super.getMainController()) {
 				@Override
 				public String getCaptionProperty() {
@@ -204,7 +204,7 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	@Override
 	protected void actionSalvar() {
 		try {
-			Empresa empresa = subView.getCmbEmpresa().getValue();
+			EmpresaEntity empresa = subView.getCmbEmpresa().getValue();
 
 			if (!Validator.validateObject(empresa)) {
 				throw new ErroValidacaoException("Informe a Empresa");

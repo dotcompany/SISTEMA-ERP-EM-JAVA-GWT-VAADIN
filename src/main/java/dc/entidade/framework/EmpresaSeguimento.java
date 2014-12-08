@@ -18,7 +18,7 @@ public class EmpresaSeguimento {
 	private Integer id;
 
 	@ManyToOne
-	private Empresa empresa;
+	private EmpresaEntity empresa;
 
 	@ManyToOne
 	private Seguimento seguimento;
@@ -31,11 +31,11 @@ public class EmpresaSeguimento {
 		this.id = id;
 	}
 
-	public Empresa getEmpresa() {
+	public EmpresaEntity getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 	}
 

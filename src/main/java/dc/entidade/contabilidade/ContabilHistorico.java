@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 
 @Entity
 @Table(name = "CONTABIL_HISTORICO")
@@ -32,7 +32,7 @@ public class ContabilHistorico implements Serializable{
     private String pedeComplemento;
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Empresa empresa;
+    private EmpresaEntity empresa;
 
     public ContabilHistorico() {
     }
@@ -69,11 +69,11 @@ public class ContabilHistorico implements Serializable{
         this.pedeComplemento = pedeComplemento;
     }
 
-    public Empresa getEmpresa() {
+    public EmpresaEntity getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
+    public void setEmpresa(EmpresaEntity empresa) {
         this.empresa = empresa;
     }
 

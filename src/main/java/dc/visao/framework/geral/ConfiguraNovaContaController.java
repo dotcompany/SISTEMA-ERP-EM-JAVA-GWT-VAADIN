@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.Seguimento;
@@ -72,7 +72,7 @@ public class ConfiguraNovaContaController implements Serializable,
 	public void salvarPrimeiraPergunta(Object value, Integer contaId) {
 		ConfiguracaoContaEmpresa conf = contaDao
 				.findConfiguracaoByIdConta(contaId);
-		Empresa empresa = empresaDao.findEmpresaByContaEmpresa(contaId);
+		EmpresaEntity empresa = empresaDao.findEmpresaByContaEmpresa(contaId);
 		System.out.println(empresa);
 		if (conf == null) {
 			conf = new ConfiguracaoContaEmpresa();

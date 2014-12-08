@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.framework.exception.ErroValidacaoException;
@@ -70,7 +70,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 		subView.getObservacao().setValue(currentBean.getObservacao());
 	}
 
-	public Empresa empresaAtual() {
+	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 

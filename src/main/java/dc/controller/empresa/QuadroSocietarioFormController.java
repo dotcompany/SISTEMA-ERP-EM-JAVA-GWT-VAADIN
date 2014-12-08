@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.empresa.QuadroSocietario;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.visao.empresa.QuadroSocietarioFormView;
@@ -63,7 +63,7 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 		subView.getTxtQuantidadeCotas().setValue(currentBean.getQuantidadeCotas().toString());
 	}
 
-	public Empresa empresaAtual() {
+	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 

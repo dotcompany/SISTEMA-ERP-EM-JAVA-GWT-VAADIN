@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -25,7 +25,7 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	}
 
 	@Transactional
-	public List<PessoaEnderecoEntity> listaPorEmpresa(Empresa empresa) {
+	public List<PessoaEnderecoEntity> listaPorEmpresa(EmpresaEntity empresa) {
 		return getSession().createQuery("from PessoaEndereco c where c.empresa = :emp ").setParameter("emp", empresa).list();
 	}
 

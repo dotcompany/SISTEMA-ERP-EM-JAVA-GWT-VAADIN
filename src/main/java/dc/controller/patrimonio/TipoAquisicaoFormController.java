@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
 import dc.servicos.dao.patrimonio.TipoAquisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -69,7 +69,7 @@ public class TipoAquisicaoFormController extends CRUDFormController<TipoAquisica
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);
 
@@ -173,7 +173,7 @@ public class TipoAquisicaoFormController extends CRUDFormController<TipoAquisica
 		// TODO Auto-generated method stub
 	}
 
-	public void autocomplete(Empresa ent) {
+	public void autocomplete(EmpresaEntity ent) {
 		adicionarErroDeValidacao(this.subView.getTfNome(), "Não pode ficar em branco" + ent);
 	}
 

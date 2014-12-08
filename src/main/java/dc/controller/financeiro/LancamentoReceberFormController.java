@@ -51,7 +51,7 @@ import dc.entidade.financeiro.LctoReceberNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
@@ -681,7 +681,7 @@ public class LancamentoReceberFormController extends
 				.get(0).getContaCaixa());
 		LancamentoReceber lancamentoReceber = currentBean;
 		ClienteEntity cliente = lancamentoReceber.getCliente();
-		Empresa empresa = lancamentoReceber.getEmpresa();
+		EmpresaEntity empresa = lancamentoReceber.getEmpresa();
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 		Cedente cedente = new Cedente(empresa.getRazaoSocial(),

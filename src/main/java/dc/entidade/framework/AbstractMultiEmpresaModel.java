@@ -29,17 +29,17 @@ public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 	@JoinColumn(name = "id_empresa")
 	@Analyzer(definition = "id_empresa_analyzer")
 	@IndexedEmbedded
-	private Empresa empresa;
+	private EmpresaEntity empresa;
 
 	@Version
 	@Column(name = "versao")
 	protected Integer versao;
 
-	public Empresa getEmpresa() {
+	public EmpresaEntity getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa2) {
+	public void setEmpresa(EmpresaEntity empresa2) {
 		this.empresa = empresa2;
 	}
 

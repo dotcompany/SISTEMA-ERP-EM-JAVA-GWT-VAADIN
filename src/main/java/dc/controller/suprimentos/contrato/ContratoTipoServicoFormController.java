@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
@@ -59,7 +59,7 @@ public class ContratoTipoServicoFormController extends
 	protected void criarNovoBean() {
 		currentBean = new TipoServicoEntity();
 		Usuario usuario = SecuritySessionProvider.getUsuario();
-		Empresa empresa = usuario.getConta().getEmpresa();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 	}
 

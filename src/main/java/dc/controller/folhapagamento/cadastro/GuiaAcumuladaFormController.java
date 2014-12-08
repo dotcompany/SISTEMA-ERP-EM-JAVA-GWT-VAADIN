@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.GuiaAcumuladaDAO;
 import dc.visao.folhapagamento.cadastro.GuiaAcumuladaFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -101,7 +101,7 @@ public class GuiaAcumuladaFormController extends
 
 			/** Empresa vinda da conta do usuário logado */
 
-			Empresa empresa = SecuritySessionProvider.getUsuario().getConta()
+			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa();
 
 			this.pEntity.setEmpresa(empresa);

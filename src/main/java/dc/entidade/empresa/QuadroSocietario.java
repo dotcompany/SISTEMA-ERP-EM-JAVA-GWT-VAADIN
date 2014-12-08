@@ -25,7 +25,7 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 
 @Entity
 @Table(name = "quadro_societario")

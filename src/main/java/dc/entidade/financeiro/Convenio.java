@@ -33,7 +33,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Empresa;
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.PessoaEntity;
 
 /**
@@ -165,7 +165,7 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_EMPRESA",insertable = true, updatable = true)
     @Fetch(FetchMode.JOIN)
-    private Empresa idEmpresa;
+    private EmpresaEntity idEmpresa;
     
     public Convenio() {
     }
@@ -230,11 +230,11 @@ public class Convenio extends AbstractMultiEmpresaModel<Integer> implements Seri
         this.dataCadastro = dataCadastro;
     }
 
-    public Empresa getIdEmpresa() {
+    public EmpresaEntity getIdEmpresa() {
 		return idEmpresa;
 	}
 
-	public void setIdEmpresa(Empresa idEmpresa) {
+	public void setIdEmpresa(EmpresaEntity idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
 
