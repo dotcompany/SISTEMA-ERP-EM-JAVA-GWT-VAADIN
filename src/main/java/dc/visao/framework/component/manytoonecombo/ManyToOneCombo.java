@@ -417,19 +417,17 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	}
 
 	public void setValue(T bean) {
-		ItemValue item = new ItemValue();
-		item.setBean(bean);
-		cmbResult.getContainerDataSource().removeAllItems();
-		cmbResult.getContainerDataSource().addItem(item);
-		cmbResult.setValue(item);
+		ItemValue item = new ItemValue();		
 
 		List<T> resultado = model.getAll();
-		resultado.remove(item);
 		for (T t : resultado) {
 			item = new ItemValue();
 			item.setBean(t);
 			cmbResult.getContainerDataSource().addItem(item);
 		}
+		item.setBean(bean);
+		
+		cmbResult.setValue(item);
 	}
 
 	public void addValueChangeListener(ValueChangeListener listener) {
