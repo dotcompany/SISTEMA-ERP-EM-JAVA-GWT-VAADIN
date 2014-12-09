@@ -9,7 +9,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 //@SuppressWarnings("unchecked")
-public class ICMSCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoEntity> {
+public class IcmsCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoEntity> {
 
 	@Override
 	public Class<IcmsCustomizadoEntity> getEntityClass() {

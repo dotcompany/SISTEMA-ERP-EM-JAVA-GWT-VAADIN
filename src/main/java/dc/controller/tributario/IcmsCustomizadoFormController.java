@@ -16,14 +16,14 @@ import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.IcmsCustomizadoEntity;
-import dc.entidade.tributario.ICMSCustomizadoDetalhe;
+import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
 import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
-import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
-import dc.servicos.dao.tributario.ICMSCustomizadoDetalheDAO;
+import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
+import dc.servicos.dao.tributario.IcmsCustomizadoDetalheDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -33,18 +33,18 @@ import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustomizadoEntity> {
+public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustomizadoEntity> {
 
 	ICMSCustomizadoFormView subView;
 
 	@Autowired
-	ICMSCustomizadoDAO dao;
+	IcmsCustomizadoDAO dao;
 
 	@Autowired
 	UfDAO ufDAO;
 
 	@Autowired
-	ICMSCustomizadoDetalheDAO detalheDAO;
+	IcmsCustomizadoDetalheDAO detalheDAO;
 
 	IcmsCustomizadoEntity currentBean;
 
@@ -88,9 +88,9 @@ public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustom
 		subView.carregarOrigemMercadoria();
 		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
 
-		List<ICMSCustomizadoDetalhe> detalhes = currentBean.getDetalhes();
+		List<IcmsCustomizadoDetalheEntity> detalhes = currentBean.getDetalhes();
 
-		for (ICMSCustomizadoDetalhe d : detalhes) {
+		for (IcmsCustomizadoDetalheEntity d : detalhes) {
 			Integer idCsosn = new Integer(d.getCsosnB().trim());
 			d.setCsosn(csosnbDAO.find(idCsosn));
 
@@ -110,7 +110,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustom
 	protected void actionSalvar() {
 		try {
 
-			List<ICMSCustomizadoDetalhe> detalhes = subView.getDetalhesSubForm().getDados();
+			List<IcmsCustomizadoDetalheEntity> detalhes = subView.getDetalhesSubForm().getDados();
 
 			String descricao = subView.getTxtDescricao().getValue();
 			String origem = "";
@@ -130,7 +130,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustom
 
 			dao.saveOrUpdate(currentBean);
 
-			for (ICMSCustomizadoDetalhe d : detalhes) {
+			for (IcmsCustomizadoDetalheEntity d : detalhes) {
 				d.setIcmsCustomizado(currentBean);
 				d.setCsosnB(d.getCsosn().getId().toString());
 				d.setCstB(d.getCst().getId().toString());
@@ -181,8 +181,8 @@ public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustom
 		try {
 			for (Serializable id : ids) {
 				IcmsCustomizadoEntity icms = dao.find(id);
-				List<ICMSCustomizadoDetalhe> detalhes = detalheDAO.findByIcms(icms);
-				for (ICMSCustomizadoDetalhe detalhe : detalhes) {
+				List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO.findByIcms(icms);
+				for (IcmsCustomizadoDetalheEntity detalhe : detalhes) {
 					detalheDAO.delete(detalhe);
 				}
 			}
@@ -195,8 +195,8 @@ public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustom
 
 	}
 
-	public ICMSCustomizadoDetalhe novoDetalhe() {
-		ICMSCustomizadoDetalhe detalhe = new ICMSCustomizadoDetalhe();
+	public IcmsCustomizadoDetalheEntity novoDetalhe() {
+		IcmsCustomizadoDetalheEntity detalhe = new IcmsCustomizadoDetalheEntity();
 		currentBean.adicionarDetalhe(detalhe);
 		return detalhe;
 	}

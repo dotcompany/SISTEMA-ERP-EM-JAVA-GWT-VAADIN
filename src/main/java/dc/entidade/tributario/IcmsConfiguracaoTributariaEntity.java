@@ -60,7 +60,7 @@ public class IcmsConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<
 
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
-	ConfiguracaoTributaria configuracaoTributaria;
+	ConfiguracaoTributariaEntity configuracaoTributaria;
 	
 	@Transient
 	private CsosnbEntity csosn;
@@ -130,12 +130,12 @@ public class IcmsConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<
 		this.valorPrecoMaximo = valorPrecoMaximo;
 	}
 
-	public ConfiguracaoTributaria getConfiguracaoTributaria() {
+	public ConfiguracaoTributariaEntity getConfiguracaoTributaria() {
 		return configuracaoTributaria;
 	}
 
 	public void setConfiguracaoTributaria(
-			ConfiguracaoTributaria configuracaoTributaria) {
+			ConfiguracaoTributariaEntity configuracaoTributaria) {
 		this.configuracaoTributaria = configuracaoTributaria;
 	}
 

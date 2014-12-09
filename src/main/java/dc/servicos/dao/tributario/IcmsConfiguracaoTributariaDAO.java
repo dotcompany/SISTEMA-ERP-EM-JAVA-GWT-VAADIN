@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.tributario.CofinsConfiguracaoTributariaEntity;
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ICMSConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfiguracaoTributariaEntity> {
+public class IcmsConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfiguracaoTributariaEntity> {
 
 	@Override
 	public Class<IcmsConfiguracaoTributariaEntity> getEntityClass() {
@@ -25,7 +25,7 @@ public class ICMSConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfigura
 	}
 	
 	@Transactional
-	public List<IcmsConfiguracaoTributariaEntity> buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+	public List<IcmsConfiguracaoTributariaEntity> buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		List<IcmsConfiguracaoTributariaEntity> lista = null;
 		Criteria c = getSession().createCriteria(IcmsConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){

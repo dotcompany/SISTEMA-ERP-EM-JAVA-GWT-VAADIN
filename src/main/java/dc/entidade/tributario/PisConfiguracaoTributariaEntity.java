@@ -56,7 +56,7 @@ public class PisConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<I
 	
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
-	ConfiguracaoTributaria configuracaoTributaria;
+	ConfiguracaoTributariaEntity configuracaoTributaria;
 	
 	/*@ManyToOne
 	@JoinColumn(name="id_empresa")
@@ -88,12 +88,12 @@ public class PisConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<I
 		this.codigoApuracaoEfd = codigoApuracaoEfd;
 	}
 
-	public ConfiguracaoTributaria getConfiguracaoTributaria() {
+	public ConfiguracaoTributariaEntity getConfiguracaoTributaria() {
 		return configuracaoTributaria;
 	}
 
 	public void setConfiguracaoTributaria(
-			ConfiguracaoTributaria configuracaoTributaria) {
+			ConfiguracaoTributariaEntity configuracaoTributaria) {
 		this.configuracaoTributaria = configuracaoTributaria;
 	}
 

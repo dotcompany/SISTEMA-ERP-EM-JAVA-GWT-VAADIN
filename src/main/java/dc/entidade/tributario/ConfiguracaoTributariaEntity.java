@@ -28,7 +28,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Table(name = "tribut_configura_of_gt")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class ConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,7 +63,7 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 	@OneToOne(mappedBy="configuracaoTributaria")
 	private IpiConfiguracaoTributariaEntity ipi ;
 		
-	public ConfiguracaoTributaria() {
+	public ConfiguracaoTributariaEntity() {
 	}
 
 	public Integer getId() {

@@ -22,7 +22,7 @@ import dc.entidade.geral.tabela.CstPisEntity;
 import dc.entidade.geral.tabela.EfdTabela435Entity;
 import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.entidade.tributario.CofinsConfiguracaoTributariaEntity;
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
@@ -41,10 +41,10 @@ import dc.servicos.dao.geral.tabela.TipoReceitaDipiDAO;
 import dc.servicos.dao.tributario.CofinsConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.ICMSConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.IPIConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IcmsConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IpiConfiguracaoTributariaDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.servicos.dao.tributario.PISConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.PisConfiguracaoTributariaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -56,7 +56,7 @@ import dc.visao.tributario.ConfiguracaoTributariaFormView.MODALIDADE_BC;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributaria> {
+public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributariaEntity> {
 
 	ConfiguracaoTributariaFormView subView;
 
@@ -72,7 +72,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	@Autowired
 	UfDAO ufDAO;
 
-	ConfiguracaoTributaria currentBean;
+	ConfiguracaoTributariaEntity currentBean;
 
 	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
 
@@ -92,13 +92,13 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	TipoReceitaDipiDAO dipiDAO;
 
 	@Autowired
-	PISConfiguracaoTributariaDAO pisDAO;
+	PisConfiguracaoTributariaDAO pisDAO;
 
 	@Autowired
 	CofinsConfiguracaoTributariaDAO cofinsDAO;
 
 	@Autowired
-	IPIConfiguracaoTributariaDAO ipiDAO;
+	IpiConfiguracaoTributariaDAO ipiDAO;
 
 	@Autowired
 	CsosnbDAO csosnbDAO;
@@ -113,7 +113,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	MainController mainController;
 
 	@Autowired
-	ICMSConfiguracaoTributariaDAO icmsDAO;
+	IcmsConfiguracaoTributariaDAO icmsDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -129,7 +129,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ConfiguracaoTributaria();
+		currentBean = new ConfiguracaoTributariaEntity();
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		carregarIpi(currentBean);
 	}
 
-	public void carregarPis(ConfiguracaoTributaria configuracao) {
+	public void carregarPis(ConfiguracaoTributariaEntity configuracao) {
 		PisConfiguracaoTributariaEntity pis = pisDAO.buscarPorConfiguracao(configuracao);
 
 		if (pis != null) {
@@ -220,7 +220,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	}
 
-	public void carregarCofins(ConfiguracaoTributaria configuracao) {
+	public void carregarCofins(ConfiguracaoTributariaEntity configuracao) {
 		CofinsConfiguracaoTributariaEntity cofins = cofinsDAO.buscarPorConfiguracao(configuracao);
 
 		if (cofins != null) {
@@ -271,7 +271,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	}
 
-	public void carregarIpi(ConfiguracaoTributaria configuracao) {
+	public void carregarIpi(ConfiguracaoTributariaEntity configuracao) {
 		IpiConfiguracaoTributariaEntity ipi = ipiDAO.buscarPorConfiguracao(configuracao);
 
 		if (ipi != null) {
@@ -366,7 +366,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		}
 	}
 
-	public void salvarPis(ConfiguracaoTributaria configuracai) {
+	public void salvarPis(ConfiguracaoTributariaEntity configuracai) {
 		PisConfiguracaoTributariaEntity pis = new PisConfiguracaoTributariaEntity();
 
 		try {
@@ -386,7 +386,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		}
 	}
 
-	public void salvarCofins(ConfiguracaoTributaria configuracao) {
+	public void salvarCofins(ConfiguracaoTributariaEntity configuracao) {
 		CofinsConfiguracaoTributariaEntity cofins = new CofinsConfiguracaoTributariaEntity();
 
 		try {
@@ -406,7 +406,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		}
 	}
 
-	public void salvarIpi(ConfiguracaoTributaria configuracai) {
+	public void salvarIpi(ConfiguracaoTributariaEntity configuracai) {
 		IpiConfiguracaoTributariaEntity ipi = new IpiConfiguracaoTributariaEntity();
 
 		try {
@@ -453,7 +453,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 		try {
 			for (Serializable id : ids) {
-				ConfiguracaoTributaria configuracao = dao.find(id);
+				ConfiguracaoTributariaEntity configuracao = dao.find(id);
 
 				PisConfiguracaoTributariaEntity pis = pisDAO.buscarPorConfiguracao(configuracao);
 				if (pis != null)
@@ -565,7 +565,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	@Override
-	public ConfiguracaoTributaria getModelBean() {
+	public ConfiguracaoTributariaEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.tributario.IcmsCustomizadoEntity;
-import dc.entidade.tributario.ICMSCustomizadoDetalhe;
+import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 //@SuppressWarnings("unchecked")
-public class ICMSCustomizadoDetalheDAO extends AbstractCrudDAO<ICMSCustomizadoDetalhe> {
+public class IcmsCustomizadoDetalheDAO extends AbstractCrudDAO<IcmsCustomizadoDetalheEntity> {
 
 	@Override
-	public Class<ICMSCustomizadoDetalhe> getEntityClass() {
-		return ICMSCustomizadoDetalhe.class;
+	public Class<IcmsCustomizadoDetalheEntity> getEntityClass() {
+		return IcmsCustomizadoDetalheEntity.class;
 	}
 
 //	@Override
@@ -35,10 +35,10 @@ public class ICMSCustomizadoDetalheDAO extends AbstractCrudDAO<ICMSCustomizadoDe
 	}
 	
 	@Transactional
-	public List<ICMSCustomizadoDetalhe> findByIcms(IcmsCustomizadoEntity icms){
+	public List<IcmsCustomizadoDetalheEntity> findByIcms(IcmsCustomizadoEntity icms){
 		
-		List<ICMSCustomizadoDetalhe> lista = null;
-		Criteria c = getSession().createCriteria(ICMSCustomizadoDetalhe.class);
+		List<IcmsCustomizadoDetalheEntity> lista = null;
+		Criteria c = getSession().createCriteria(IcmsCustomizadoDetalheEntity.class);
 		c.add(Restrictions.eq("icmsCustomizado", icms));
 		lista = c.list();
 		return lista;

@@ -5,7 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.tributario.CofinsConfiguracaoTributariaEntity;
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -22,7 +22,7 @@ public class CofinsConfiguracaoTributariaDAO extends AbstractCrudDAO<CofinsConfi
 	}
 	
 	@Transactional
-	public CofinsConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+	public CofinsConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		CofinsConfiguracaoTributariaEntity cofins = null;
 		Criteria c = getSession().createCriteria(CofinsConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){

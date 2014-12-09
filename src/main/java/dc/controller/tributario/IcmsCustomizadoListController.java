@@ -15,14 +15,14 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoListController extends
+public class IcmsCustomizadoListController extends
 		CRUDListController<IcmsCustomizadoEntity> {
 
 	@Autowired
 	private ContagemEstoqueDAO dao;
 
 	@Autowired
-	private ICMSCustomizadoFormController formController;
+	private IcmsCustomizadoFormController formController;
 
 	@Override
 	public String[] getColunas() {

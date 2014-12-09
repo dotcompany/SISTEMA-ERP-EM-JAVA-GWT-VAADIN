@@ -22,7 +22,7 @@ import dc.control.validator.DotErpException;
 import dc.control.validator.classe.ProdutoValidator;
 import dc.controller.geral.diverso.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
-import dc.controller.tributario.ICMSCustomizadoListController;
+import dc.controller.tributario.IcmsCustomizadoListController;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
@@ -40,7 +40,7 @@ import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.ICMSCustomizadoDAO;
+import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -60,7 +60,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	private ProdutoEntity currentBean;
 
 	@Autowired
-	private ICMSCustomizadoDAO icmsCustomizadoDAO;
+	private IcmsCustomizadoDAO icmsCustomizadoDAO;
 
 	@Autowired
 	private ProdutoDAO produtoDAO;
@@ -141,7 +141,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			subView.getMocAlmoxarifado().setModel(comboAlmoxarifado);
 
 			DefaultManyToOneComboModel<IcmsCustomizadoEntity> comboIcmsCustomizado = new DefaultManyToOneComboModel<IcmsCustomizadoEntity>(
-					ICMSCustomizadoListController.class, icmsCustomizadoDAO,
+					IcmsCustomizadoListController.class, icmsCustomizadoDAO,
 					super.getMainController());
 
 			subView.getMocIcmsCustomizado().setModel(comboIcmsCustomizado);

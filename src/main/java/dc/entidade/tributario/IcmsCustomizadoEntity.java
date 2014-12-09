@@ -63,7 +63,7 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	// Empresa empresa;
 
 	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	private List<ICMSCustomizadoDetalhe> detalhes = new ArrayList<ICMSCustomizadoDetalhe>();
+	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
 
 	public IcmsCustomizadoEntity() {
 		// TODO Auto-generated constructor stub
@@ -101,15 +101,15 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	// this.empresa = empresa;
 	// }
 
-	public List<ICMSCustomizadoDetalhe> getDetalhes() {
+	public List<IcmsCustomizadoDetalheEntity> getDetalhes() {
 		return detalhes;
 	}
 
-	public void setDetalhes(List<ICMSCustomizadoDetalhe> detalhes) {
+	public void setDetalhes(List<IcmsCustomizadoDetalheEntity> detalhes) {
 		this.detalhes = detalhes;
 	}
 
-	public void adicionarDetalhe(ICMSCustomizadoDetalhe detalhe) {
+	public void adicionarDetalhe(IcmsCustomizadoDetalheEntity detalhe) {
 		getDetalhes().add(detalhe);
 		detalhe.setIcmsCustomizado(this);
 	}

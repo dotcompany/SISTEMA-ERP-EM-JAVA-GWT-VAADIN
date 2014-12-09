@@ -6,12 +6,12 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PISConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguracaoTributariaEntity> {
+public class PisConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguracaoTributariaEntity> {
 
 	@Override
 	public Class<PisConfiguracaoTributariaEntity> getEntityClass() {
@@ -23,7 +23,7 @@ public class PISConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguraca
 	}
 	
 	@Transactional
-	public PisConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+	public PisConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		PisConfiguracaoTributariaEntity pis = null;
 		Criteria c = getSession().createCriteria(PisConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){

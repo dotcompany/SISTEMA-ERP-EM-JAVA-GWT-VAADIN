@@ -56,7 +56,7 @@ public class IpiConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<I
 		
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
-	ConfiguracaoTributaria configuracaoTributaria;
+	ConfiguracaoTributariaEntity configuracaoTributaria;
 	
 	/*@ManyToOne
 	@JoinColumn(name="id_empresa")
@@ -78,12 +78,12 @@ public class IpiConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<I
 		this.cst = cst;
 	}
 
-	public ConfiguracaoTributaria getConfiguracaoTributaria() {
+	public ConfiguracaoTributariaEntity getConfiguracaoTributaria() {
 		return configuracaoTributaria;
 	}
 
 	public void setConfiguracaoTributaria(
-			ConfiguracaoTributaria configuracaoTributaria) {
+			ConfiguracaoTributariaEntity configuracaoTributaria) {
 		this.configuracaoTributaria = configuracaoTributaria;
 	}
 

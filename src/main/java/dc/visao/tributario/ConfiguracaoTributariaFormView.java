@@ -26,7 +26,7 @@ import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.entidade.geral.tabela.CstPisEntity;
 import dc.entidade.geral.tabela.EfdTabela435Entity;
 import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
@@ -49,7 +49,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 
 	public ConfiguracaoTributariaFormController controller;
 
-	ConfiguracaoTributaria currentBean;
+	ConfiguracaoTributariaEntity currentBean;
 
 	private ManyToOneCombo<GrupoTributarioEntity> cmbGrupoTributario;
 
@@ -603,11 +603,11 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		this.controller = controller;
 	}
 
-	public ConfiguracaoTributaria getCurrentBean() {
+	public ConfiguracaoTributariaEntity getCurrentBean() {
 		return currentBean;
 	}
 
-	public void setCurrentBean(ConfiguracaoTributaria currentBean) {
+	public void setCurrentBean(ConfiguracaoTributariaEntity currentBean) {
 		this.currentBean = currentBean;
 	}
 

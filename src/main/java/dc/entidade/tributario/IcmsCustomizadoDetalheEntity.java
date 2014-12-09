@@ -28,7 +28,7 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ICMSCustomizadoDetalhe extends AbstractMultiEmpresaModel<Integer> {
+public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trd")

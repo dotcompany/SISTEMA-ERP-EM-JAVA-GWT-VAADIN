@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ConfiguracaoTributariaListController extends CRUDListController<ConfiguracaoTributaria> {
+public class ConfiguracaoTributariaListController extends CRUDListController<ConfiguracaoTributariaEntity> {
 
 	@Autowired
 	ConfiguracaoTributariaDAO dao;
@@ -34,7 +34,7 @@ public class ConfiguracaoTributariaListController extends CRUDListController<Con
 	}
 
 	@Override
-	protected List<ConfiguracaoTributaria> pesquisa(String valor) {
+	protected List<ConfiguracaoTributariaEntity> pesquisa(String valor) {
 		return null;
 	}
 
@@ -44,17 +44,17 @@ public class ConfiguracaoTributariaListController extends CRUDListController<Con
 	}
 
 	@Override
-	protected CRUDFormController<ConfiguracaoTributaria> getFormController() {
+	protected CRUDFormController<ConfiguracaoTributariaEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ConfiguracaoTributaria> getEntityClass() {
-		return ConfiguracaoTributaria.class;
+	public Class<? super ConfiguracaoTributariaEntity> getEntityClass() {
+		return ConfiguracaoTributariaEntity.class;
 	}
 
 	@Override
-	protected List<ConfiguracaoTributaria> pesquisaDefault() {
+	protected List<ConfiguracaoTributariaEntity> pesquisaDefault() {
 
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =

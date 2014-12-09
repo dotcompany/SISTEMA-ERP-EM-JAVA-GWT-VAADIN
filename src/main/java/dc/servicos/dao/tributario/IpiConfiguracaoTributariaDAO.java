@@ -4,12 +4,12 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import dc.entidade.tributario.ConfiguracaoTributaria;
+import dc.entidade.tributario.ConfiguracaoTributariaEntity;
 import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class IPIConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguracaoTributariaEntity> {
+public class IpiConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguracaoTributariaEntity> {
 
 	@Override
 	public Class<IpiConfiguracaoTributariaEntity> getEntityClass() {
@@ -21,7 +21,7 @@ public class IPIConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguraca
 	}
 	
 	@Transactional
-	public IpiConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+	public IpiConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		IpiConfiguracaoTributariaEntity ipi = null;
 		Criteria c = getSession().createCriteria(IpiConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){
