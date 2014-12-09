@@ -199,6 +199,11 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	public SindicatoEntity(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+
 	/**
 	 * GETS AND SETS
 	 */

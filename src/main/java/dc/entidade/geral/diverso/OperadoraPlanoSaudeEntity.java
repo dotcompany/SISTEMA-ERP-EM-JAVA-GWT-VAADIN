@@ -72,6 +72,7 @@ public class OperadoraPlanoSaudeEntity extends
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
+	@Caption(value = "Conta contábil")
 	private ContabilContaEntity contabilConta;
 
 	/**

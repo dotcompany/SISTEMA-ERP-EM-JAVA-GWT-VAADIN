@@ -23,6 +23,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -85,16 +86,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo;// 1-Matriz 2-Filial 3-Depósito
-
-	/**
-	 * O campo tipo apenas identifica se é Matriz,Filial ou Depósito,já o campo
-	 * idMatriz armazena o id da empresa escolhida como matriz
-	 */
-
-	// @OneToOne
-	// @JoinColumn(name="id_contador")
-	// private Contador contador;
+	private String tipo; // 1-Matriz 2-Filial 3-Depósito
 
 	@Field
 	@Caption("Razao Social")
@@ -152,10 +144,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInscJuntaComercial;
-
-	// @Column(name = "tipo")
-	// @Enumerated(value = EnumType.STRING)
-	// private EmpresaType empresa;
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -358,33 +346,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "ID_MATRIZ" , referencedColumnName = "ID") private
-	 * List<Matriz> matriz;
-	 * 
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_CONTADOR",insertable = true, updatable = true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Contador contador;
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_SINDICATO_PATRONAL",insertable = true, updatable =
-	 * true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Sindicato sindicato;
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_FPAS",insertable = true, updatable = true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Fpas fpas;
-	 */
-
 	/**
 	 * @autor Gutemberg A. Da Silva
 	 * @module FOLHAPAGAMENTO
@@ -435,6 +396,18 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private Set<Relatorio> relatorio;
 
 	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getNomeFantasia();
+	}
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -451,8 +424,9 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.empresa = empresa;
 	}
 
-	public EmpresaEntity(Integer id, String nomeFantasia) {
+	public EmpresaEntity(Integer id, String razaoSocial, String nomeFantasia) {
 		this.id = id;
+		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 	}
 
@@ -893,19 +867,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	public void setRelatorio(Set<Relatorio> relatorio) {
 		this.relatorio = relatorio;
 	}
-
-	/*
-	 * public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
-	 * getEnderecos().add(enderecos); enderecos.setEmpresa(this);
-	 * 
-	 * return enderecos; }
-	 * 
-	 * public PessoaEnderecoEntity removeEndereco(PessoaEnderecoEntity
-	 * enderecos) { getEnderecos().remove(enderecos);
-	 * enderecos.setEmpresa(null);
-	 * 
-	 * return enderecos; }
-	 */
 
 	/**
 	 * TO STRING

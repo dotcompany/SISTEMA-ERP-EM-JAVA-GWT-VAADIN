@@ -1,4 +1,4 @@
-package dc.entidade.framework;
+package dc.entidade.administrativo.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -44,6 +44,10 @@ import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
 import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
@@ -353,33 +357,6 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
-
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "ID_MATRIZ" , referencedColumnName = "ID") private
-	 * List<Matriz> matriz;
-	 * 
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_CONTADOR",insertable = true, updatable = true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Contador contador;
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_SINDICATO_PATRONAL",insertable = true, updatable =
-	 * true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Sindicato sindicato;
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "ID_FPAS",insertable = true, updatable = true)
-	 * 
-	 * @Fetch(FetchMode.JOIN) private Fpas fpas;
-	 */
 
 	/**
 	 * @autor Gutemberg A. Da Silva

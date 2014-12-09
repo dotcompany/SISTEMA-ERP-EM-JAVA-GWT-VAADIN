@@ -30,16 +30,9 @@ import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
-import dc.entidade.contabilidade.lancamento.LancamentoProgramadoDetEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
 
 @Entity
 @Table(name = "CONTABIL_CONTA")
@@ -52,7 +45,6 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * 
 	 */
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -65,87 +57,87 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private Integer id;
 
 	@Field
+	@Caption(value = "Classificação")
 	@Column(name = "classificacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Classificação")
 	private String classificacao = "";
 
 	@Field
+	@Caption(value = "Tipo")
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Tipo")
 	private String tipo = "";
 
 	@Field
+	@Caption(value = "Descrição")
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Descrição")
 	private String descricao = "";
 
 	@Field
+	@Caption(value = "Data da inclusão")
 	@Column(name = "data_inclusao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Data da inclusão")
 	private Date dataInclusao;
 
 	@Field
+	@Caption(value = "Situação")
 	@Column(name = "situacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Situação")
 	private String situacao = "";
 
 	@Field
+	@Caption(value = "Natureza")
 	@Column(name = "natureza")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Natureza")
 	private String natureza = "";
 
 	@Field
+	@Caption(value = "Patrimônio resultado")
 	@Column(name = "patrimonio_resultado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Patrimônio resultado")
 	private String patrimonioResultado = "";
 
 	@Field
+	@Caption(value = "Livro de caixa")
 	@Column(name = "livro_caixa")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Livro caixa")
 	private String livroCaixa = "";
 
 	@Field
+	@Caption(value = "DFC")
 	@Column(name = "dfc")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "DFC")
 	private String dfc = "";
 
 	@Field
+	@Caption(value = "Ordem")
 	@Column(name = "ordem")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Ordem")
 	private String ordem = "";
 
 	@Field
+	@Caption(value = "Código reduzido")
 	@Column(name = "codigo_reduzido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Código reduzido")
 	private String codigoReduzido = "";
 
 	@Field
+	@Caption(value = "Código EFD")
 	@Column(name = "codigo_efd")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Código EFD")
 	private String codigoEfd = "";
 
 	/**
@@ -194,8 +186,8 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<LancamentoOrcadoEntity> lancamentoOrcadoList;
 
-	//@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
-	//private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList;
+	// @OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+	// private List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList;
 
 	@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 	private List<DreVinculoEntity> dreVinculoList;
@@ -395,14 +387,15 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.lancamentoOrcadoList = lancamentoOrcadoList;
 	}
 
-	//public List<LancamentoProgramadoDetEntity> getLancamentoProgramadoDetList() {
-	//	return lancamentoProgramadoDetList;
-	//}
+	// public List<LancamentoProgramadoDetEntity>
+	// getLancamentoProgramadoDetList() {
+	// return lancamentoProgramadoDetList;
+	// }
 
-	//public void setLancamentoProgramadoDetList(
-	//		List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList) {
-	//	this.lancamentoProgramadoDetList = lancamentoProgramadoDetList;
-	//}
+	// public void setLancamentoProgramadoDetList(
+	// List<LancamentoProgramadoDetEntity> lancamentoProgramadoDetList) {
+	// this.lancamentoProgramadoDetList = lancamentoProgramadoDetList;
+	// }
 
 	public List<DreVinculoEntity> getDreVinculoList() {
 		return dreVinculoList;

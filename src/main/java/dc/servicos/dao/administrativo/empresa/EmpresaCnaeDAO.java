@@ -1,5 +1,6 @@
 package dc.servicos.dao.administrativo.empresa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -18,32 +19,38 @@ public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> {
 
 	@Transactional
 	public List<EmpresaCnaeEntity> listarTodos() {
-		List<EmpresaCnaeEntity> lista = null;
 		try {
+			List<EmpresaCnaeEntity> auxLista = new ArrayList<EmpresaCnaeEntity>();
+
 			String sql = "FROM :entity";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
-			lista = super.getSession().createQuery(sql).list();
+			auxLista = super.getSession().createQuery(sql).list();
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			throw e;
 		}
-		return lista;
 	}
 
 	@Transactional
-	public List<EmpresaCnaeEntity> listarPrincipais() {
-		List<EmpresaCnaeEntity> lista = null;
-
+	public List<EmpresaCnaeEntity> getCnaePrincipalList() {
 		try {
+			List<EmpresaCnaeEntity> auxLista = new ArrayList<EmpresaCnaeEntity>();
+
 			String sql = "FROM :entity e WHERE e.principal = '1'";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
-			lista = super.getSession().createQuery(sql).list();
+			auxLista = super.getSession().createQuery(sql).list();
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
 
-		return lista;
+			throw e;
+		}
 	}
 
 	protected String[] getDefaultSearchFields() {

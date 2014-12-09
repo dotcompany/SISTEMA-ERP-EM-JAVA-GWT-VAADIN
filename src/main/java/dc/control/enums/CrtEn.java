@@ -2,13 +2,14 @@ package dc.control.enums;
 
 public enum CrtEn {
 
-	N("Simples nacional", "1"),
+	N("SIMPLES NACIONAL", "1"),
 
-	E("Simples nacional - excesso de sublimite receita bruta", "2"),
+	E("SIMPLES NACIONAL - EXCESSO DE SUBLIMITE RECEITA BRUTA", "2"),
 
-	R("Regime normal", "3");
+	R("REGIME NORMAL", "3");
 
 	private String label;
+
 	private String codigo;
 
 	private CrtEn(String label, String codigo) {

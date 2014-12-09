@@ -164,13 +164,13 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
 	private List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList;
 
-	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
 	private List<OperadoraCartaoEntity> operadoraCartaoList;
 
-	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
 	private List<ClienteEntity> clienteList;
 
 	/**

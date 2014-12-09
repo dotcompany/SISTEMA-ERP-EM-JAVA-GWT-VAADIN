@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -19,141 +22,166 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 
-
-/**
-* Permission is hereby granted, free of charge, to any person
-* obtaining a copy of this software and associated documentation
-* files (the "Software"), to deal in the Software without
-* restriction, including without limitation the rights to use,
-* copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the
-* Software is furnished to do so, subject to the following
-* conditions:
-*
-* The above copyright notice and this permission notice shall be
-* included in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-* OTHER DEALINGS IN THE SOFTWARE.
-*
-* @author Wesley Junior
-*/
 @Entity
 @Table(name = "fpas")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Fpas extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class Fpas extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    
-    @Column(name = "CODIGO")
-    private Integer codigo;
-    
-    @Field
-    @Caption("Cnae")
-    @Column(name = "CNAE")
-    private String cnae;
-    
-    @Column(name = "ALIQUOTA_SAT")
-    private BigDecimal aliquotaSat;
-    
-    @Field
-    @Caption("Descricao")
-    @Column(name = "DESCRICAO")
-    private String descricao;
-    
-    @Column(name = "PERCENTUAL_INSS_PATRONAL")
-    private BigDecimal percentualInssPatronal;
-    
-    @Column(name = "CODIGO_TERCEIRO")
-    private String codigoTerceiro;
-    
-    @Column(name = "PERCENTUAL_TERCEIROS")
-    private BigDecimal percentualTerceiros;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public Fpas() {
-    }
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fpas_id_seq")
+	@SequenceGenerator(name = "fpas_id_seq", sequenceName = "fpas_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "CODIGO")
+	private Integer codigo;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Field
+	@Caption("Cnae")
+	@Column(name = "CNAE")
+	private String cnae;
 
-    public Integer getCodigo() {
-        return codigo;
-    }
+	@Column(name = "ALIQUOTA_SAT")
+	private BigDecimal aliquotaSat;
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
+	@Field
+	@Caption("Descricao")
+	@Column(name = "DESCRICAO")
+	private String descricao;
 
-    public String getCnae() {
-        return cnae;
-    }
+	@Column(name = "PERCENTUAL_INSS_PATRONAL")
+	private BigDecimal percentualInssPatronal;
 
-    public void setCnae(String cnae) {
-        this.cnae = cnae;
-    }
+	@Column(name = "CODIGO_TERCEIRO")
+	private String codigoTerceiro;
 
-    public BigDecimal getAliquotaSat() {
-        return aliquotaSat;
-    }
+	@Column(name = "PERCENTUAL_TERCEIROS")
+	private BigDecimal percentualTerceiros;
 
-    public void setAliquotaSat(BigDecimal aliquotaSat) {
-        this.aliquotaSat = aliquotaSat;
-    }
+	/**
+	 * REFERENCIA - FK
+	 */
 
-    public String getDescricao() {
-        return descricao;
-    }
+	/**
+	 * REFERENCIA - LIST
+	 */
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	/**
+	 * TRANSIENT
+	 */
 
-    public BigDecimal getPercentualInssPatronal() {
-        return percentualInssPatronal;
-    }
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getCnae();
+	}
 
-    public void setPercentualInssPatronal(BigDecimal percentualInssPatronal) {
-        this.percentualInssPatronal = percentualInssPatronal;
-    }
+	/**
+	 * CONSTRUTOR
+	 */
 
-    public String getCodigoTerceiro() {
-        return codigoTerceiro;
-    }
+	public Fpas() {
 
-    public void setCodigoTerceiro(String codigoTerceiro) {
-        this.codigoTerceiro = codigoTerceiro;
-    }
+	}
 
-    public BigDecimal getPercentualTerceiros() {
-        return percentualTerceiros;
-    }
+	public Fpas(Integer id) {
+		this.id = id;
+	}
 
-    public void setPercentualTerceiros(BigDecimal percentualTerceiros) {
-        this.percentualTerceiros = percentualTerceiros;
-    }
+	public Fpas(Integer id, String cnae) {
+		this.id = id;
+		this.cnae = cnae;
+	}
 
+	/**
+	 * GETS AND SETS
+	 */
 
-    @Override
-    public String toString() {
-        return descricao;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getCnae() {
+		return cnae;
+	}
+
+	public void setCnae(String cnae) {
+		this.cnae = cnae;
+	}
+
+	public BigDecimal getAliquotaSat() {
+		return aliquotaSat;
+	}
+
+	public void setAliquotaSat(BigDecimal aliquotaSat) {
+		this.aliquotaSat = aliquotaSat;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getPercentualInssPatronal() {
+		return percentualInssPatronal;
+	}
+
+	public void setPercentualInssPatronal(BigDecimal percentualInssPatronal) {
+		this.percentualInssPatronal = percentualInssPatronal;
+	}
+
+	public String getCodigoTerceiro() {
+		return codigoTerceiro;
+	}
+
+	public void setCodigoTerceiro(String codigoTerceiro) {
+		this.codigoTerceiro = codigoTerceiro;
+	}
+
+	public BigDecimal getPercentualTerceiros() {
+		return percentualTerceiros;
+	}
+
+	public void setPercentualTerceiros(BigDecimal percentualTerceiros) {
+		this.percentualTerceiros = percentualTerceiros;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

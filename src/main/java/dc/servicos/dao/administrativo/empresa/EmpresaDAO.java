@@ -1,5 +1,6 @@
 package dc.servicos.dao.administrativo.empresa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
@@ -129,12 +130,14 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	}
 
 	@Transactional
-	public List<EmpresaEntity> getListEmpresaMatriz() {
+	public List<EmpresaEntity> getEmpresaMatrizList() {
 		try {
-			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
+			List<EmpresaEntity> auxLista = new ArrayList<EmpresaEntity>();
+
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.razaoSocial, ent.nomeFantasia)"
 					+ " FROM EmpresaEntity ent WHERE tipo = :tipo";
 
-			List<EmpresaEntity> auxLista = getSession().createQuery(sql)
+			auxLista = getSession().createQuery(sql)
 					.setParameter("tipo", MATRIZ).list();
 
 			return auxLista;

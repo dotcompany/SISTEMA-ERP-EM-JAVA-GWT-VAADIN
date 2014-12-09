@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.CrtEn;
@@ -20,6 +20,7 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.EmpresaValidator;
 import dc.controller.sistema.SeguimentoListController;
+import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.framework.EmpresaSeguimento;
@@ -365,10 +366,10 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.subView.getMocSeguimentos().setModel(seguimentos);
 
-			carregarContador();
-			carregarMatriz();
+			// carregarContador();
+			carregarEmpresaMatriz();
 			carregarSindicato();
-			carregarEmpresaCnae();
+			// carregarEmpresaCnae();
 			carregarFpas();
 			carregarCrt();
 			carregarTipoRegime();
@@ -393,7 +394,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	@Transactional
 	protected void quandoNovo() {
 		try {
-			Hibernate.initialize(currentBean.getTipoAquisicaoList());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -466,28 +467,41 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		this.subView.getCbContador().addItems(auxLista);
 	}
 
-	public void carregarMatriz() {
-		List auxLista = this.empresaDAO.getListEmpresaMatriz();
+	public void carregarEmpresaMatriz() {
+		List<EmpresaEntity> auxLista = this.empresaDAO.getEmpresaMatrizList();
 
-		this.subView.getCbMatriz().addItems(auxLista);
+		BeanItemContainer<EmpresaEntity> bic = new BeanItemContainer<EmpresaEntity>(
+				EmpresaEntity.class, auxLista);
+		this.subView.getCbMatriz().setContainerDataSource(bic);
+		this.subView.getCbMatriz().setItemCaptionPropertyId("nome");
 	}
 
 	public void carregarSindicato() {
-		List auxLista = this.sindicatoDAO.listaTodos();
+		List<SindicatoEntity> auxLista = this.sindicatoDAO.getSindicatoList();
 
-		this.subView.getCbSindicato().addItems(auxLista);
+		BeanItemContainer<SindicatoEntity> bic = new BeanItemContainer<SindicatoEntity>(
+				SindicatoEntity.class, auxLista);
+		this.subView.getCbSindicato().setContainerDataSource(bic);
+		this.subView.getCbSindicato().setItemCaptionPropertyId("nome");
 	}
 
 	public void carregarEmpresaCnae() {
-		List auxLista = this.empresaCnaeDAO.listarPrincipais();
+		List<EmpresaCnaeEntity> auxLista = this.empresaCnaeDAO
+				.getCnaePrincipalList();
 
-		this.subView.getCbCnaePrincipal().addItems(auxLista);
+		BeanItemContainer<EmpresaCnaeEntity> bic = new BeanItemContainer<EmpresaCnaeEntity>(
+				EmpresaCnaeEntity.class, auxLista);
+		this.subView.getCbCnaePrincipal().setContainerDataSource(bic);
+		this.subView.getCbCnaePrincipal().setItemCaptionPropertyId("nome");
 	}
 
 	public void carregarFpas() {
-		List auxLista = this.fpasDAO.listaTodos();
+		List<Fpas> auxLista = this.fpasDAO.getFpasList();
 
-		this.subView.getCbFpas().addItems(auxLista);
+		BeanItemContainer<Fpas> bic = new BeanItemContainer<Fpas>(Fpas.class,
+				auxLista);
+		this.subView.getCbFpas().setContainerDataSource(bic);
+		this.subView.getCbFpas().setItemCaptionPropertyId("nome");
 	}
 
 	public void carregarCrt() {

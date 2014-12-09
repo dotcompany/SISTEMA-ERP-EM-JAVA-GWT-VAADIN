@@ -1,5 +1,6 @@
 package dc.servicos.dao.financeiro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,23 @@ public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> {
 		return getSession()
 				.createQuery("from Sindicato where lower(nome) like :q")
 				.setParameter("q", q).list();
+	}
+
+	@Transactional
+	public List<SindicatoEntity> getSindicatoList() {
+		try {
+			List<SindicatoEntity> auxLista = new ArrayList<SindicatoEntity>();
+
+			String sql = "SELECT new SindicatoEntity(ent.id, ent.nome) FROM SindicatoEntity ent";
+
+			auxLista = getSession().createQuery(sql).list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }
