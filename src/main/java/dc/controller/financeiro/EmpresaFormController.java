@@ -257,7 +257,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			}
 
 			if (Validator.validateObject(cnaePrincipal)) {
-				currentBean.setCnaePrincipal(cnaePrincipal.getId().toString());
+				currentBean.setCodigoCnaePrincipal(cnaePrincipal.getId()
+						.toString());
 			}
 
 			if (Validator.validateObject(subView.getCbMatriz().getValue())) {
@@ -409,8 +410,9 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 						currentBean.getCodigoIbgeUf().toString());
 			}
 
-			if (Validator.validateObject(currentBean.getCnaePrincipal())) {
-				Integer idCnae = new Integer(currentBean.getCnaePrincipal());
+			if (Validator.validateObject(currentBean.getCodigoCnaePrincipal())) {
+				Integer idCnae = new Integer(
+						currentBean.getCodigoCnaePrincipal());
 				CnaeEntity cnae = cnaeDAO.find(idCnae);
 
 				subView.getCbCnaePrincipal().setValue(cnae);

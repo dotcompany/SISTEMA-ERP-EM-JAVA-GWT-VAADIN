@@ -88,41 +88,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	 * idMatriz armazena o id da empresa escolhida como matriz
 	 */
 
-	@Field
-	@Caption()
-	@Column(name = "id_matriz")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer matriz;
-
-	@Field
-	@Caption()
-	@Column(name = "ID_EMPRESA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer empresa;
-
-	@Field
-	@Caption()
-	@Column(name = "ID_SINDICATO_PATRONAL")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer sindicatoPatronal;
-
-	@Field
-	@Caption()
-	@Column(name = "ID_FPAS")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer fpas;
-
-	@Field
-	@Caption()
-	@Column(name = "ID_CONTADOR")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer contador;
-
 	// @OneToOne
 	// @JoinColumn(name="id_contador")
 	// private Contador contador;
@@ -305,15 +270,54 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cei;
 
-	@OneToOne(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private ContaEmpresa conta;
-
+	@Field
+	@Caption()
 	@Column(name = "codigo_cnae_principal")
-	private String cnaePrincipal;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigoCnaePrincipal;
 
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	@Field
+	@Caption()
+	@Column(name = "id_matriz")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer matriz;
+
+	@Field
+	@Caption()
+	@Column(name = "ID_EMPRESA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer empresa;
+
+	@Field
+	@Caption()
+	@Column(name = "ID_SINDICATO_PATRONAL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer sindicatoPatronal;
+
+	@Field
+	@Caption()
+	@Column(name = "ID_FPAS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer fpas;
+
+	@Field
+	@Caption()
+	@Column(name = "ID_CONTADOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer contador;
+
+	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false)
+	private ContaEmpresa conta;
 
 	/**
 	 * REFERENCIA - LIST
@@ -324,20 +328,20 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	 * @module PATRIMONIO
 	 */
 
-	@OneToMany(mappedBy = "empresa")
-	private List<TipoAquisicaoEntity> tipoAquisicaoList;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TipoAquisicaoEntity> tipoAquisicaoList = new ArrayList<TipoAquisicaoEntity>();
 
-	@OneToMany(mappedBy = "empresa")
-	private List<SeguradoraEntity> seguradoraList;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SeguradoraEntity> seguradoraList = new ArrayList<SeguradoraEntity>();
 
-	@OneToMany(mappedBy = "empresa")
-	private List<TipoMovimentacaoEntity> tipoMovimentacaoList;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TipoMovimentacaoEntity> tipoMovimentacaoList = new ArrayList<TipoMovimentacaoEntity>();
 
-	@OneToMany(mappedBy = "empresa")
-	private List<EstadoConservacaoEntity> estadoConservacaoList;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EstadoConservacaoEntity> estadoConservacaoList = new ArrayList<EstadoConservacaoEntity>();
 
-	@OneToMany(mappedBy = "empresa")
-	private List<GrupoBemEntity> grupoBemList;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<GrupoBemEntity> grupoBemList = new ArrayList<GrupoBemEntity>();
 
 	/**
 	 * @autor Wesley Júnior
@@ -467,46 +471,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public Integer getMatriz() {
-		return matriz;
-	}
-
-	public void setMatriz(Integer matriz) {
-		this.matriz = matriz;
-	}
-
-	public Integer getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Integer empresa) {
-		this.empresa = empresa;
-	}
-
-	public Integer getSindicatoPatronal() {
-		return sindicatoPatronal;
-	}
-
-	public void setSindicatoPatronal(Integer sindicatoPatronal) {
-		this.sindicatoPatronal = sindicatoPatronal;
-	}
-
-	public Integer getFpas() {
-		return fpas;
-	}
-
-	public void setFpas(Integer fpas) {
-		this.fpas = fpas;
-	}
-
-	public Integer getContador() {
-		return contador;
-	}
-
-	public void setContador(Integer contador) {
-		this.contador = contador;
 	}
 
 	public String getRazaoSocial() {
@@ -701,20 +665,60 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.cei = cei;
 	}
 
+	public String getCodigoCnaePrincipal() {
+		return codigoCnaePrincipal;
+	}
+
+	public void setCodigoCnaePrincipal(String codigoCnaePrincipal) {
+		this.codigoCnaePrincipal = codigoCnaePrincipal;
+	}
+
+	public Integer getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(Integer matriz) {
+		this.matriz = matriz;
+	}
+
+	public Integer getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Integer empresa) {
+		this.empresa = empresa;
+	}
+
+	public Integer getSindicatoPatronal() {
+		return sindicatoPatronal;
+	}
+
+	public void setSindicatoPatronal(Integer sindicatoPatronal) {
+		this.sindicatoPatronal = sindicatoPatronal;
+	}
+
+	public Integer getFpas() {
+		return fpas;
+	}
+
+	public void setFpas(Integer fpas) {
+		this.fpas = fpas;
+	}
+
+	public Integer getContador() {
+		return contador;
+	}
+
+	public void setContador(Integer contador) {
+		this.contador = contador;
+	}
+
 	public ContaEmpresa getConta() {
 		return conta;
 	}
 
 	public void setConta(ContaEmpresa conta) {
 		this.conta = conta;
-	}
-
-	public String getCnaePrincipal() {
-		return cnaePrincipal;
-	}
-
-	public void setCnaePrincipal(String cnaePrincipal) {
-		this.cnaePrincipal = cnaePrincipal;
 	}
 
 	public List<TipoAquisicaoEntity> getTipoAquisicaoList() {
