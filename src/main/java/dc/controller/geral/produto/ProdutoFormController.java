@@ -306,9 +306,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 			subView.getMocNcm().setModel(comboNCM);
 
-			comboTemIcmsCustomizado();
-			comboClasse();
-			comboInativo();
+			carregarTemIcmsCustomizado();
+			carregarClasse();
+			carregarInativo();
 			carregarTipoVenda();
 			carregarTipoSped();
 			carregarIat();
@@ -806,19 +806,19 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	 * COMBOS
 	 */
 
-	public void comboTemIcmsCustomizado() {
+	public void carregarTemIcmsCustomizado() {
 		for (SimNaoEn en : SimNaoEn.values()) {
 			this.subView.getCbTemIcmsCustomizado().addItem(en);
 		}
 	}
 
-	public void comboInativo() {
+	public void carregarInativo() {
 		for (SimNaoEn en : SimNaoEn.values()) {
 			this.subView.getCbInativo().addItem(en);
 		}
 	}
 
-	public void comboClasse() {
+	public void carregarClasse() {
 		for (ClasseEn en : ClasseEn.values()) {
 			this.subView.getCbClasse().addItem(en);
 		}
