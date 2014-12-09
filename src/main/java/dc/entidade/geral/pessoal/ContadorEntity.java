@@ -161,6 +161,18 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public ContadorEntity() {
 
 	}
@@ -169,6 +181,11 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}

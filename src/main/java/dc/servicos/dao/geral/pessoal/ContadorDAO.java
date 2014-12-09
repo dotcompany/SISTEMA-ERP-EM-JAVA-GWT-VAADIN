@@ -18,7 +18,7 @@ public class ContadorDAO extends AbstractCrudDAO<ContadorEntity> {
 
 	@Transactional
 	public List<ContadorEntity> listaTodos() {
-		return getSession().createQuery("from ContadorEntity").list();
+		return getSession().createQuery("FROM ContadorEntity ent").list();
 	}
 
 	protected String[] getDefaultSearchFields() {

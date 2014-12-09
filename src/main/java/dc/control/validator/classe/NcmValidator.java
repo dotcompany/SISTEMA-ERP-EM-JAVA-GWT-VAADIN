@@ -7,9 +7,9 @@ import dc.visao.geral.produto.NcmFormView;
 public class NcmValidator {
 
 	public static void validaSalvar(NcmFormView subView) throws DotErpException {
-		String nome = subView.getTfCodigo().getValue();
+		String codigo = subView.getTfCodigo().getValue();
 
-		if (StringUtils.isBlank(nome)) {
+		if (StringUtils.isBlank(codigo)) {
 			throw new DotErpException(subView.getTfCodigo(),
 					"::DotERP - Não pode ficar em branco");
 		}

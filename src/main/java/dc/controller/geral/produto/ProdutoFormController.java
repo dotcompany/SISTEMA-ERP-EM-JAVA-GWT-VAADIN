@@ -18,6 +18,8 @@ import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.ProdutoValidator;
 import dc.controller.geral.diverso.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.ICMSCustomizadoListController;
@@ -89,160 +91,15 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			ProdutoValidator.validaSalvar(this.subView);
 
-		SubGrupoEntity subgrupo = this.subView.getMocSubGrupoProduto()
-				.getValue();
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-		if (!Validator.validateObject(subgrupo)) {
-			adicionarErroDeValidacao(this.subView.getMocSubGrupoProduto(),
-					"Não pode ficar em branco");
-
-			valido = false;
+			return false;
 		}
-
-		GrupoEntity grupo = this.subView.getMocGrupoProduto().getValue();
-
-		if (!Validator.validateObject(grupo)) {
-			adicionarErroDeValidacao(this.subView.getMocGrupoProduto(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		UnidadeProdutoEntity unidadeProduto = this.subView
-				.getMocUnidadeProduto().getValue();
-
-		if (!Validator.validateObject(unidadeProduto)) {
-			adicionarErroDeValidacao(this.subView.getMocUnidadeProduto(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		MarcaEntity marca = this.subView.getMocMarcaProduto().getValue();
-
-		if (!Validator.validateObject(marca)) {
-			adicionarErroDeValidacao(this.subView.getMocMarcaProduto(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		AlmoxarifadoEntity almoxarifado = this.subView.getMocAlmoxarifado()
-				.getValue();
-
-		if (!Validator.validateObject(almoxarifado)) {
-			adicionarErroDeValidacao(this.subView.getMocAlmoxarifado(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		NcmEntity ncm = this.subView.getMocNcm().getValue();
-
-		if (!Validator.validateObject(ncm)) {
-			adicionarErroDeValidacao(this.subView.getMocNcm(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		/*
-		 * GrupoTributarioEntity grupoTributario = this.subView
-		 * .getMocGrupoTributario().getValue();
-		 * 
-		 * if (!Validator.validateObject(grupoTributario)) {
-		 * adicionarErroDeValidacao(this.subView.getMocGrupoTributario(),
-		 * "Não pode ficar em branco");
-		 * 
-		 * valido = false; }
-		 */
-
-		SimNaoEn inativoEn = (SimNaoEn) (this.subView.getCbInativo().getValue());
-
-		if (!Validator.validateObject(inativoEn)) {
-			adicionarErroDeValidacao(this.subView.getCbInativo(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		ClasseEn classeEn = (ClasseEn) this.subView.getCbClasse().getValue();
-
-		if (!Validator.validateObject(classeEn)) {
-			adicionarErroDeValidacao(this.subView.getCbClasse(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		String lst = this.subView.getTxtLst().getValue();
-
-		if (!Validator.validateString(lst)) {
-			adicionarErroDeValidacao(this.subView.getTxtLst(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		String extipi = this.subView.getTxtExtipi().getValue();
-
-		if (!Validator.validateString(extipi)) {
-			adicionarErroDeValidacao(this.subView.getTxtExtipi(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		VendaTipoVendaEn tipoVendaEn = (VendaTipoVendaEn) this.subView
-				.getCbTipoVenda().getValue();
-
-		if (!Validator.validateObject(tipoVendaEn)) {
-			adicionarErroDeValidacao(this.subView.getCbTipoVenda(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
-
-		if (!Validator.validateObject(iatEn)) {
-			adicionarErroDeValidacao(this.subView.getCbIat(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		IpptEn ipptEn = (IpptEn) this.subView.getCbIppt().getValue();
-
-		if (!Validator.validateObject(ipptEn)) {
-			adicionarErroDeValidacao(this.subView.getCbIppt(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView.getCbTipoItemSped()
-				.getValue();
-
-		if (!Validator.validateObject(tipoSpedEn)) {
-			adicionarErroDeValidacao(this.subView.getCbTipoItemSped(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		String codigoBalanca = this.subView.getTxtCodigoBalanca().getValue();
-
-		if (!Validator.validateString(codigoBalanca)) {
-			adicionarErroDeValidacao(this.subView.getTxtCodigoBalanca(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
