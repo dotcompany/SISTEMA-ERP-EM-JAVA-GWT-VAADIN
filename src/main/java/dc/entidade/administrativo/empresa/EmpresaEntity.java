@@ -36,7 +36,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.CrtEn;
 import dc.control.enums.TipoEmpresaEn;
+import dc.control.enums.TipoRegimeEn;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
@@ -189,19 +191,21 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String imagemLogotipo;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "CRT")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer crt;
+	private CrtEn crt;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "TIPO_REGIME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoRegime;
+	private TipoRegimeEn tipoRegime;
 
 	@Field
 	@Caption()
@@ -559,19 +563,19 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.imagemLogotipo = imagemLogotipo;
 	}
 
-	public Integer getCrt() {
+	public CrtEn getCrt() {
 		return crt;
 	}
 
-	public void setCrt(Integer crt) {
+	public void setCrt(CrtEn crt) {
 		this.crt = crt;
 	}
 
-	public String getTipoRegime() {
+	public TipoRegimeEn getTipoRegime() {
 		return tipoRegime;
 	}
 
-	public void setTipoRegime(String tipoRegime) {
+	public void setTipoRegime(TipoRegimeEn tipoRegime) {
 		this.tipoRegime = tipoRegime;
 	}
 

@@ -2582,7 +2582,7 @@ public class CopyOfProdutoServicoFormController extends
 		// String cstIcms;
 		BigDecimal valorTotalIcms = BigDecimal.ZERO;
 
-		Integer crt = this.nfeCabecalho.getEmpresa().getCrt();
+		Integer crt = this.nfeCabecalho.getEmpresa().getCrt().ordinal();
 
 		for (NfeDetalheEntity nfeDetalhe : this.nfeCabecalho
 				.getNfeDetalheList()) {
