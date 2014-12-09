@@ -265,54 +265,54 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String exTipi;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private VendaTipoVendaEn tipoVenda;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "INATIVO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private SimNaoEn inativo;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "CLASSE_ABC")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private ClasseEn classe;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("IAT")
 	@Column(name = "iat")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	// @Type(type = "dc.control.enums.IatEn", parameters = @Parameter(name =
 	// "type", value = "dc.control.enums.IatEn"))
 	private IatEn iat;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("IPPT")
 	@Column(name = "ippt")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private IpptEn ippt;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Tipo Sped")
 	@Column(name = "tipo_item_sped")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private TipoSpedEn tipoSped;
 
 	/**

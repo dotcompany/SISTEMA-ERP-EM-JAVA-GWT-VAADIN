@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -14,23 +15,29 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
-public class EmpresaCnaeListController extends CRUDListController<EmpresaCnaeEntity> {
+public class EmpresaCnaeListController extends
+		CRUDListController<EmpresaCnaeEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	EmpresaCnaeDAO dao;
+	private EmpresaCnaeDAO dao;
 
 	@Autowired
-	EmpresaCnaeFormController formController;
+	private EmpresaCnaeFormController formController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "cnae", "principalStr", "ramoAtividade", "objetoSocial" };
+		return new String[] { "cnae", "principalStr", "ramoAtividade",
+				"objetoSocial" };
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Empresa Cnae";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -40,7 +47,7 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnaeEnt
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaQuadroSocietario";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -63,4 +70,5 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnaeEnt
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

@@ -9,33 +9,39 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.enums.SimNaoEn;
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.geral.CnaeDAO;
 import dc.visao.administrativo.empresa.EmpresaCnaeFormView;
-import dc.visao.administrativo.empresa.EmpresaCnaeFormView.PRINCIPAL;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
-public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEntity> {
+public class EmpresaCnaeFormController extends
+		CRUDFormController<EmpresaCnaeEntity> {
 
-	EmpresaCnaeFormView subView;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private EmpresaCnaeFormView subView;
+
+	private EmpresaCnaeEntity currentBean;
 
 	@Autowired
-	EmpresaCnaeDAO dao;
+	private EmpresaCnaeDAO dao;
 
 	@Autowired
 	private CnaeDAO cnaeDAO;
 
-	EmpresaCnaeEntity currentBean;
-
 	@Override
 	public String getViewIdentifier() {
-		return "EstoqueForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -60,7 +66,10 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
 		subView.getCmbCnae().setValue(currentBean.getCnae());
-		subView.getCmbPrincipal().setValue(PRINCIPAL.getPrincipal(currentBean.getPrincipal()));
+
+		SimNaoEn principalEn = (SimNaoEn) currentBean.getPrincipal();
+
+		subView.getCmbPrincipal().setValue(principalEn);
 		subView.getTxtRamoAtividade().setValue(currentBean.getRamoAtividade());
 		subView.getTxtObjetoSocial().setValue(currentBean.getObjetoSocial());
 	}
@@ -71,7 +80,12 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 
 		try {
 			CnaeEntity cnae = (CnaeEntity) subView.getCmbCnae().getValue();
-			String principal = (((PRINCIPAL) subView.getCmbPrincipal().getValue()).getCodigo());
+
+			SimNaoEn principalEn = (SimNaoEn) subView.getCmbPrincipal()
+					.getValue();
+
+			// String principal = (((PRINCIPAL)
+			// subView.getCmbPrincipal().getValue()).getCodigo());
 			String ramoAtividade = subView.getTxtRamoAtividade().getValue();
 			String objetoSocial = subView.getTxtObjetoSocial().getValue();
 
@@ -80,7 +94,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 				throw new ErroValidacaoException(msgErro);
 			}
 
-			if (principal == null) {
+			if (principalEn == null) {
 				msgErro = "Informe Principal!";
 				throw new ErroValidacaoException(msgErro);
 			}
@@ -97,19 +111,19 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 
 			currentBean.setEmpresa(empresaAtual());
 			currentBean.setCnae(cnae);
-			currentBean.setPrincipal(principal);
+
+			currentBean.setPrincipal(principalEn);
 			currentBean.setRamoAtividade(ramoAtividade);
 			currentBean.setObjetoSocial(objetoSocial);
-			dao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
 
+			dao.saveOrUpdate(currentBean);
+
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (ErroValidacaoException e) {
 			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
 	}
 
 	public String formataValor(String valor) {
@@ -117,6 +131,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
 		replaceAll(",", "").trim();
+
 		return format;
 	}
 
@@ -127,7 +142,6 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -142,15 +156,12 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-
 		dao.deleteAllByIds(ids);
-
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
 		System.out.println("");
-
 	}
 
 	@Override
@@ -160,6 +171,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 
 	public List<CnaeEntity> trazerListaCnae() {
 		List<CnaeEntity> lista = cnaeDAO.listarTodos();
+
 		return lista;
 	}
 

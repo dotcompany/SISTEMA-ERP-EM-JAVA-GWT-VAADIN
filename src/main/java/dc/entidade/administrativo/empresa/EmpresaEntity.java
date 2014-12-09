@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,6 +36,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.TipoEmpresaEn;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
@@ -81,12 +84,13 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo; // 1-Matriz 2-Filial 3-Depósito
+	private TipoEmpresaEn tipoEmpresa; // 1-Matriz 2-Filial 3-Depósito
 
 	@Field
 	@Caption("Razao Social")
@@ -443,12 +447,12 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public TipoEmpresaEn getTipoEmpresa() {
+		return tipoEmpresa;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoEmpresa(TipoEmpresaEn tipoEmpresa) {
+		this.tipoEmpresa = tipoEmpresa;
 	}
 
 	public String getRazaoSocial() {

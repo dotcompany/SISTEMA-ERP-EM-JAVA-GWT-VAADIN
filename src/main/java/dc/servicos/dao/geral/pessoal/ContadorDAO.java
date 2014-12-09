@@ -1,5 +1,6 @@
 package dc.servicos.dao.geral.pessoal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,23 @@ public class ContadorDAO extends AbstractCrudDAO<ContadorEntity> {
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "" };
+	}
+
+	@Transactional
+	public List<ContadorEntity> getContadorList() {
+		try {
+			List<ContadorEntity> auxLista = new ArrayList<ContadorEntity>();
+
+			String sql = "SELECT new ContadorEntity(ent.id, ent.nome) FROM EmpresaEntity ent";
+
+			auxLista = getSession().createQuery(sql).list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

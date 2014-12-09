@@ -2,11 +2,11 @@ package dc.control.enums;
 
 public enum TipoEmpresaEn {
 
-	MATRIZ("MATRIZ", "1"),
+	M("MATRIZ", "1"),
 
-	FILIAL("FILIAL", "2"),
+	F("FILIAL", "2"),
 
-	DEPOSITO("DEPÓSITO", "3");
+	D("DEPÓSITO", "3");
 
 	private String label;
 
@@ -19,15 +19,15 @@ public enum TipoEmpresaEn {
 
 	public static TipoEmpresaEn getEn(String codigo) {
 		if (codigo.equals("1")) {
-			return MATRIZ;
+			return M;
 		}
 
 		if (codigo.equals("2")) {
-			return FILIAL;
+			return F;
 		}
 
 		if (codigo.equals("3")) {
-			return DEPOSITO;
+			return D;
 		}
 
 		return null;

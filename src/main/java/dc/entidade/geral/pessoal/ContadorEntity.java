@@ -181,6 +181,11 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	public ContadorEntity(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+
 	/**
 	 * GETS AND SETS
 	 */

@@ -1,7 +1,10 @@
 package dc.entidade.administrativo.empresa;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -18,51 +22,63 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.CnaeEntity;
 
 @Entity
 @Table(name = "empresa_cnae")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "epc")
-	@SequenceGenerator(name = "epc", sequenceName = "empresa_cnae_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_cnae_id_seq")
+	@SequenceGenerator(name = "empresa_cnae_id_seq", sequenceName = "empresa_cnae_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Principal")
 	@Column(name = "principal")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String principal; // 0-Não 1-Sim
+	private SimNaoEn principal;
 
 	@Field
-	@Caption("Ramo de Atividade")
+	@Caption("Ramo de atividade")
 	@Column(name = "ramo_atividade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ramoAtividade;
 
 	@Field
-	@Caption("Objeto Social")
+	@Caption("Objeto social")
 	@Column(name = "objeto_social")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String objetoSocial;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@Caption("CNAE")
 	@ManyToOne
 	@JoinColumn(name = "ID_CNAE", nullable = false)
 	private CnaeEntity cnae;
-
-	/**
-	 * REFERENCIA - FK
-	 */
 
 	/**
 	 * REFERENCIA - LIST
@@ -71,10 +87,6 @@ public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * TRANSIENT
 	 */
-
-	@Transient
-	@Caption("Principal")
-	private String principalStr;
 
 	@Transient
 	@Field
@@ -109,11 +121,11 @@ public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public String getPrincipal() {
+	public SimNaoEn getPrincipal() {
 		return principal;
 	}
 
-	public void setPrincipal(String principal) {
+	public void setPrincipal(SimNaoEn principal) {
 		this.principal = principal;
 	}
 
@@ -139,15 +151,6 @@ public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setCnae(CnaeEntity cnae) {
 		this.cnae = cnae;
-	}
-
-	public String getPrincipalStr() {
-		principalStr = principal.equals("0") ? "Não" : "Sim";
-		return principalStr;
-	}
-
-	public void setPrincipalStr(String principalStr) {
-		this.principalStr = principalStr;
 	}
 
 	/**
