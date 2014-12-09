@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -18,12 +19,12 @@ public class CargoDAO extends AbstractCrudDAO<CargoEntity> {
 
 	@Transactional
 	public List<CargoEntity> listaTodos() {
-		return getSession().createQuery("from Cargo").list();
+		return getSession().createQuery("FROM CargoEntity").list();
 	}
 
 	@Transactional
 	public List<CargoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from Cargo where nome like :q")
+		return getSession().createQuery("FROM CargoEntity WHERE nome LIKE :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 
@@ -35,8 +36,18 @@ public class CargoDAO extends AbstractCrudDAO<CargoEntity> {
 	public List<CargoEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 
-		return getSession().createQuery("from Cargo where lower(nome) like :q")
+		return getSession()
+				.createQuery("FROM CargoEntity WHERE lower(nome) LIKE :q")
 				.setParameter("q", q).list();
+	}
+
+	@Transactional
+	public List<CargoEntity> list(EmpresaEntity empresa) {
+		List<CargoEntity> auxLista = getSession()
+				.createQuery("FROM CargoEntity WHERE empresa.id = :bid")
+				.setParameter("bid", empresa.getId()).list();
+
+		return auxLista;
 	}
 
 }

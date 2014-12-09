@@ -547,7 +547,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	}
 
 	public void carregarMatriz() {
-		List auxLista = this.empresaDAO.buscaMatrizes();
+		List auxLista = this.empresaDAO.getListEmpresaMatriz();
 
 		this.subView.getCbMatriz().addItems(auxLista);
 	}

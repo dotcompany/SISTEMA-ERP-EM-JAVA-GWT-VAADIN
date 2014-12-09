@@ -84,7 +84,6 @@ public class ConfiguraNovaContaController implements Serializable,
 		conf.setPergunta1(String.valueOf(value));
 
 		if (value != null && value instanceof SeguimentoEntity) {
-
 			List<EmpresaSeguimento> empresaSeguimentos = new ArrayList<EmpresaSeguimento>();
 			EmpresaSeguimento empresaSeguimento = new EmpresaSeguimento();
 			empresaSeguimento.setEmpresa(empresa);
