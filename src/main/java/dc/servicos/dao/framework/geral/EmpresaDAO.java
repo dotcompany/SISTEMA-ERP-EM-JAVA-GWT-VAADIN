@@ -21,30 +21,26 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 
 	@Transactional
 	public List<CargoEntity> listCargos(EmpresaEntity empresa) {
-		return getSession().createQuery("from Cargo where empresa.id = :bid")
+		return getSession()
+				.createQuery("from CargoEntity where empresa.id = :bid")
 				.setParameter("bid", empresa.getId()).list();
 	}
 
 	@Transactional
 	public List<EmpresaEntity> listaTodos() {
-		return getSession().createQuery("from Empresa").list();
+		return getSession().createQuery("from EmpresaEntity").list();
 	}
 
 	@Transactional
 	public List<EmpresaEntity> procuraNomeContendo(String query) {
 		return getSession()
-				.createQuery("from Empresa where nomeFantasia like :q")
+				.createQuery("from EmpresaEntity where nomeFantasia like :q")
 				.setParameter("q", "%" + query + "%").list();
-	}
-
-	@Override
-	protected String[] getDefaultSearchFields() {
-		return new String[] { "nomeFantasia", "razaoSocial" };
 	}
 
 	@Transactional
 	public List<EmpresaEntity> empresaLista() {
-		String sql = "SELECT new Empresa(ent.id, ent.nomeFantasia) FROM Empresa ent";
+		String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia) FROM Empresa ent";
 
 		List auxLista = getSession().createQuery(sql).list();
 
@@ -77,15 +73,21 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 
 	@Transactional
 	public List<EmpresaEntity> buscaMatrizes() {
-		return getSession().createQuery("from Empresa where tipo = :tipo")
+		return getSession()
+				.createQuery("from EmpresaEntity where tipo = :tipo")
 				.setParameter("tipo", MATRIZ).list();
 	}
 
 	@Transactional
 	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
 		return (EmpresaEntity) getSession()
-				.createQuery("from Empresa where conta.id = :c")
+				.createQuery("from EmpresaEntity where conta.id = :c")
 				.setParameter("c", contaEmpresaId).uniqueResult();
+	}
+
+	@Override
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "nomeFantasia", "razaoSocial" };
 	}
 
 }
