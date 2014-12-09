@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.empresa.EmpresaCnae;
+import dc.entidade.empresa.EmpresaCnaeEntity;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae> {
+public class EmpresaCnaeListController extends CRUDListController<EmpresaCnaeEntity> {
 
 	@Autowired
 	EmpresaCnaeDAO dao;
@@ -34,7 +34,7 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae> {
 	}
 
 	@Override
-	protected List<EmpresaCnae> pesquisa(String valor) {
+	protected List<EmpresaCnaeEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -44,17 +44,17 @@ public class EmpresaCnaeListController extends CRUDListController<EmpresaCnae> {
 	}
 
 	@Override
-	protected CRUDFormController<EmpresaCnae> getFormController() {
+	protected CRUDFormController<EmpresaCnaeEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super EmpresaCnae> getEntityClass() {
-		return EmpresaCnae.class;
+	public Class<? super EmpresaCnaeEntity> getEntityClass() {
+		return EmpresaCnaeEntity.class;
 	}
 
 	@Override
-	protected List<EmpresaCnae> pesquisaDefault() {
+	protected List<EmpresaCnaeEntity> pesquisaDefault() {
 		return new ArrayList<>();
 	}
 

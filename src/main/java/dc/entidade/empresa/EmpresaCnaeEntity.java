@@ -27,7 +27,7 @@ import dc.entidade.geral.CnaeEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class EmpresaCnae extends AbstractMultiEmpresaModel<Integer> {
+public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "epc")

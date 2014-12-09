@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
@@ -43,7 +43,7 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			String hql = "select distinct r from Relatorio r " + " left join r.usuarios u " + " left join r.papeis p " + " left join r.empresas e "
 					+ " left join r.seguimentos s " + " where r.menu = :menu and r.tipo = :tipo  ";
 
-			List<Seguimento> seguimentos = new ArrayList<>();
+			List<SeguimentoEntity> seguimentos = new ArrayList<>();
 			if (!usuario.getAdministrador()) {
 				seguimentos = session.createQuery("from EmpresaSeguimento e where e.empresa = :emp")
 						.setParameter("emp", usuario.getConta().getEmpresa()).list();
@@ -76,7 +76,7 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			return null;
 	}
 
-	private Integer[] getSeguimentosIds(List<Seguimento> seguimentos) {
+	private Integer[] getSeguimentosIds(List<SeguimentoEntity> seguimentos) {
 		if (seguimentos != null) {
 			Integer[] ids = new Integer[seguimentos.size()];
 			for (int i = 0; i < seguimentos.size(); i++) {
@@ -99,16 +99,16 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 	}
 
 	@Transactional
-	public void salvar(Relatorio relatorio, List<Usuario> usuariosView, List<Seguimento> seguimentosView, List<Papel> papeisView,
+	public void salvar(Relatorio relatorio, List<Usuario> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
 			List<EmpresaEntity> empresasView) {
 		saveOrUpdate(relatorio);
 		criaRelacionamentos(relatorio, usuariosView, seguimentosView, papeisView, empresasView);
 		saveOrUpdate(relatorio);
 	}
 
-	private Relatorio criaRelacionamentos(Relatorio relatorio, List<Usuario> usuariosView, List<Seguimento> seguimentosView, List<Papel> papeisView,
+	private Relatorio criaRelacionamentos(Relatorio relatorio, List<Usuario> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
 			List<EmpresaEntity> empresasView) {
-		Set<Seguimento> seguimentos = new HashSet<>();
+		Set<SeguimentoEntity> seguimentos = new HashSet<>();
 		Set<Papel> papeis = new HashSet<>();
 		Set<Usuario> usuarios = new HashSet<>();
 		Set<EmpresaEntity> empresas = new HashSet<>();
@@ -117,8 +117,8 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			usuarios.add((Usuario) sessionFactory.getCurrentSession().get(Usuario.class, usuario.getId()));
 		}
 
-		for (Seguimento seguimento : seguimentosView) {
-			seguimentos.add((Seguimento) sessionFactory.getCurrentSession().get(Seguimento.class, seguimento.getId()));
+		for (SeguimentoEntity seguimento : seguimentosView) {
+			seguimentos.add((SeguimentoEntity) sessionFactory.getCurrentSession().get(SeguimentoEntity.class, seguimento.getId()));
 		}
 
 		for (Papel papel : papeisView) {

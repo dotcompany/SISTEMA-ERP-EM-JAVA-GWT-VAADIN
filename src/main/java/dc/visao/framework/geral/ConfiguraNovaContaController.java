@@ -15,7 +15,7 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
@@ -80,12 +80,12 @@ public class ConfiguraNovaContaController implements Serializable,
 		}
 		conf.setPergunta1(String.valueOf(value));
 
-		if (value != null && value instanceof Seguimento) {
+		if (value != null && value instanceof SeguimentoEntity) {
 
 			List<EmpresaSeguimento> empresaSeguimentos = new ArrayList<EmpresaSeguimento>();
 			EmpresaSeguimento empresaSeguimento = new EmpresaSeguimento();
 			empresaSeguimento.setEmpresa(empresa);
-			empresaSeguimento.setSeguimento((Seguimento) value);
+			empresaSeguimento.setSeguimento((SeguimentoEntity) value);
 			empresaSeguimentos.add(empresaSeguimento);
 			empresa.setEmpresaSeguimentos(empresaSeguimentos);
 		}

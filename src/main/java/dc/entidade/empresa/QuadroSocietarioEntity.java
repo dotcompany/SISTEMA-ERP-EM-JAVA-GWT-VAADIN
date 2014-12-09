@@ -32,7 +32,7 @@ import dc.entidade.framework.EmpresaEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class QuadroSocietario extends AbstractMultiEmpresaModel<Integer> {
+public class QuadroSocietarioEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qdr")

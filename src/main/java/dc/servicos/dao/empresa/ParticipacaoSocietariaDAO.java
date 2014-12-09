@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.empresa.Dependente;
-import dc.entidade.empresa.ParticipacaoSocietaria;
-import dc.entidade.empresa.Socio;
+import dc.entidade.empresa.DependenteEntity;
+import dc.entidade.empresa.ParticipacaoSocietariaEntity;
+import dc.entidade.empresa.SocioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocietaria> {
+public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocietariaEntity> {
 
 
 	@Override
-	public Class<ParticipacaoSocietaria> getEntityClass() {
-		return ParticipacaoSocietaria.class;
+	public Class<ParticipacaoSocietariaEntity> getEntityClass() {
+		return ParticipacaoSocietariaEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,9 +24,9 @@ public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocie
 	}
 	
 	@Transactional
-	public List<ParticipacaoSocietaria> findBySocio(Socio socio){
+	public List<ParticipacaoSocietariaEntity> findBySocio(SocioEntity socio){
 
-		List<ParticipacaoSocietaria> lista = null;
+		List<ParticipacaoSocietariaEntity> lista = null;
 
 		try{
 			if(socio!=null){

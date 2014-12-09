@@ -41,6 +41,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoPessoaEn;
+import dc.control.enums.TipoVencimentoEn;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.financeiro.Banco;
 import dc.entidade.financeiro.ConfiguracaoBoleto;
@@ -69,7 +70,6 @@ import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoReceberFormView;
-import dc.visao.financeiro.enums.TipoVencimento;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -222,8 +222,7 @@ public class LancamentoReceberFormController extends
 	}
 
 	private void setIntervaloParcelaByTipoVencimento() {
-		if (TipoVencimento.MENSAL.equals(subView.getCbTipoVencimento()
-				.getValue())) {
+		if (TipoVencimentoEn.M.equals(subView.getCbTipoVencimento().getValue())) {
 			currentBean.setIntervaloEntreParcelas(30);
 		}
 	}
@@ -282,9 +281,10 @@ public class LancamentoReceberFormController extends
 
 					@Override
 					public void valueChange(ValueChangeEvent event) {
-						TipoVencimento tipoVencimento = (TipoVencimento) subView
+						TipoVencimentoEn tipoVencimento = (TipoVencimentoEn) subView
 								.getCbTipoVencimento().getValue();
-						if (TipoVencimento.MENSAL.equals(tipoVencimento)) {
+
+						if (TipoVencimentoEn.M.equals(tipoVencimento)) {
 							subView.getTxIntervaloParcela().setEnabled(false);
 							subView.getTxIntervaloParcela().setValue(null);
 							currentBean.setIntervaloEntreParcelas(30);

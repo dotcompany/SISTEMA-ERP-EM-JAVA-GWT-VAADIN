@@ -15,13 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.CrtEn;
+import dc.control.enums.TipoEmpresaEn;
+import dc.control.enums.TipoRegimeEn;
 import dc.controller.sistema.SeguimentoListController;
-import dc.entidade.empresa.EmpresaCnae;
+import dc.entidade.empresa.EmpresaCnaeEntity;
 import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.Fpas;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
@@ -37,34 +40,8 @@ import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.EmpresaFormView;
-import dc.visao.financeiro.enums.CrtType;
-import dc.visao.financeiro.enums.TipoRegimeType;
-import dc.visao.financeiro.enums.TipoType;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-
-/**
- *
- * @author Wesley Jr
- /*
- * Nessa classe ela pega a classe principal que é o CRUD, que tem todos os controllers
- * da Tela, onde quando extendemos herdamos os métodos que temos na tela principal.
- * Temos o botão Novo que é para Criar uma nova Tela, para adicionar informações
- * novas, e dentro temos o Button Salvar que é para salvar as informações no Banco de Dados
- * Temos o carregar também que é para pegar as informações que desejarmos quando
- * formos pesquisar na Tela.
- *
- */
-
-/**
- * @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os métodos que temos na tela principal. Temos o botão Novo que é para
- *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
- *         o Button Salvar que é para salvar as informações no Banco de Dados
- *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela.
- */
 
 @Controller
 @Scope("prototype")
@@ -76,6 +53,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private static final long serialVersionUID = 1L;
 
 	private EmpresaFormView subView;
+
+	private EmpresaEntity currentBean;
 
 	@Autowired
 	private EmpresaDAO empresaDAO;
@@ -107,8 +86,6 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 	@Autowired
 	private EmpresaSeguimentoDAO empresaSeguimentoDAO;
-
-	private EmpresaEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -472,7 +449,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		this.subView.InitCbs(getEmpresaCrtType(), getEmpresaTipoRegimeType(),
 				getEmpresaTipoType());
 
-		DefaultManyToOneComboModel<Seguimento> seguimentos = new DefaultManyToOneComboModel<Seguimento>(
+		DefaultManyToOneComboModel<SeguimentoEntity> seguimentos = new DefaultManyToOneComboModel<SeguimentoEntity>(
 				SeguimentoListController.class, this.seguimentoDAO,
 				super.getMainController());
 
@@ -503,17 +480,30 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	}
 
 	public void removerEndereco(List<PessoaEnderecoEntity> values) {
-		for (PessoaEnderecoEntity endereco : values) {
-			this.currentBean.removeEndereco(endereco);
-		}
+		try {
+			for (PessoaEnderecoEntity endereco : values) {
+				this.currentBean.removeEndereco(endereco);
+			}
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		empresaDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			empresaDAO.deleteAllByIds(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -557,9 +547,9 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	public BeanItemContainer<CnaeEntity> carregarEmpresaCnae() {
 		BeanItemContainer<CnaeEntity> container = new BeanItemContainer<>(
 				CnaeEntity.class);
-		List<EmpresaCnae> lista = empresaCnaeDAO.listarPrincipais();
+		List<EmpresaCnaeEntity> lista = empresaCnaeDAO.listarPrincipais();
 
-		for (EmpresaCnae obj : lista) {
+		for (EmpresaCnaeEntity obj : lista) {
 			container.addBean(obj.getCnae());
 		}
 
@@ -592,9 +582,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		try {
 			List<String> siLista = new ArrayList<String>();
 
-			for (CrtType en : CrtType.values()) {
+			for (CrtEn en : CrtEn.values()) {
 				siLista.add(en.ordinal(), en.toString());
-
 			}
 
 			return siLista;
@@ -609,9 +598,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		try {
 			List<String> siLista = new ArrayList<String>();
 
-			for (TipoRegimeType en : TipoRegimeType.values()) {
+			for (TipoRegimeEn en : TipoRegimeEn.values()) {
 				siLista.add(en.ordinal(), en.toString());
-
 			}
 
 			return siLista;
@@ -626,9 +614,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		try {
 			List<String> siLista = new ArrayList<String>();
 
-			for (TipoType en : TipoType.values()) {
+			for (TipoEmpresaEn en : TipoEmpresaEn.values()) {
 				siLista.add(en.ordinal(), en.toString());
-
 			}
 
 			return siLista;

@@ -76,6 +76,11 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption()
+	@Column(name = "tipo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;// 1-Matriz 2-Filial 3-Depósito
 
 	/**
@@ -307,6 +312,14 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private String cnaePrincipal;
 
 	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
 	 * @autor Gutemberg A. Da Silva
 	 * @module PATRIMONIO
 	 */
@@ -412,14 +425,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
 	private Set<Relatorio> relatorios;
-
-	/**
-	 * REFERENCIA - FK
-	 */
-
-	/**
-	 * REFERENCIA - LIST
-	 */
 
 	/**
 	 * CONSTRUTOR

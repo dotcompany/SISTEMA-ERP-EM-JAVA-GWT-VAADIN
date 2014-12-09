@@ -36,7 +36,7 @@ import dc.entidade.geral.PessoaEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Socio extends AbstractMultiEmpresaModel<Integer> {
+public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "soc")
@@ -45,7 +45,7 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name="id_quadro_societario")
-	QuadroSocietario quadroSocietario;
+	QuadroSocietarioEntity quadroSocietario;
 	
 	String nome;
 	
@@ -90,10 +90,10 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 //	private Empresa empresa;
 
 	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL)
-	private List<Dependente> dependentes = new ArrayList<>();
+	private List<DependenteEntity> dependentes = new ArrayList<>();
 	
 	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL)
-	private List<ParticipacaoSocietaria> participacoes = new ArrayList<>();
+	private List<ParticipacaoSocietariaEntity> participacoes = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -103,11 +103,11 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 		this.id = id;
 	}
 
-	public QuadroSocietario getQuadroSocietario() {
+	public QuadroSocietarioEntity getQuadroSocietario() {
 		return quadroSocietario;
 	}
 
-	public void setQuadroSocietario(QuadroSocietario quadroSocietario) {
+	public void setQuadroSocietario(QuadroSocietarioEntity quadroSocietario) {
 		this.quadroSocietario = quadroSocietario;
 	}
 	
@@ -255,30 +255,30 @@ public class Socio extends AbstractMultiEmpresaModel<Integer> {
 		this.dataSaida = dataSaida;
 	}
 
-	public List<Dependente> getDependentes() {
+	public List<DependenteEntity> getDependentes() {
 		return dependentes;
 	}
 
-	public void setDependentes(List<Dependente> dependentes) {
+	public void setDependentes(List<DependenteEntity> dependentes) {
 		this.dependentes = dependentes;
 	}
 	
 	
 
-	public List<ParticipacaoSocietaria> getParticipacoes() {
+	public List<ParticipacaoSocietariaEntity> getParticipacoes() {
 		return participacoes;
 	}
 
-	public void setParticipacoes(List<ParticipacaoSocietaria> participacoes) {
+	public void setParticipacoes(List<ParticipacaoSocietariaEntity> participacoes) {
 		this.participacoes = participacoes;
 	}
 
-	public void adicionarDependente(Dependente d){
+	public void adicionarDependente(DependenteEntity d){
 		getDependentes().add(d);
 		d.setSocio(this);
 	}
 	
-	public void adicionarDependente(ParticipacaoSocietaria p){
+	public void adicionarDependente(ParticipacaoSocietariaEntity p){
 		getParticipacoes().add(p);
 		p.setSocio(this);
 	}

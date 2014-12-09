@@ -11,7 +11,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.empresa.EmpresaCnaeFormController;
-import dc.entidade.empresa.EmpresaCnae;
+import dc.entidade.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -37,7 +37,7 @@ public class EmpresaCnaeFormView extends CustomComponent {
 	@Autowired
 	EmpresaCnaeFormController controller;
 
-	EmpresaCnae currentBean;
+	EmpresaCnaeEntity currentBean;
 
 	public EmpresaCnaeFormView(EmpresaCnaeFormController controller) {
 		this.controller = controller;
@@ -121,11 +121,11 @@ public class EmpresaCnaeFormView extends CustomComponent {
 		this.controller = controller;
 	}
 
-	public EmpresaCnae getCurrentBean() {
+	public EmpresaCnaeEntity getCurrentBean() {
 		return currentBean;
 	}
 
-	public void setCurrentBean(EmpresaCnae currentBean) {
+	public void setCurrentBean(EmpresaCnaeEntity currentBean) {
 		this.currentBean = currentBean;
 	}
 

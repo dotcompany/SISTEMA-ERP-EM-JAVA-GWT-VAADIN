@@ -13,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.entidade.empresa.Dependente;
-import dc.entidade.empresa.ParticipacaoSocietaria;
-import dc.entidade.empresa.QuadroSocietario;
-import dc.entidade.empresa.Socio;
+import dc.entidade.empresa.DependenteEntity;
+import dc.entidade.empresa.ParticipacaoSocietariaEntity;
+import dc.entidade.empresa.QuadroSocietarioEntity;
+import dc.entidade.empresa.SocioEntity;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
@@ -35,14 +35,14 @@ import dc.visao.spring.SecuritySessionProvider;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class SocioFormController extends CRUDFormController<Socio> {
+public class SocioFormController extends CRUDFormController<SocioEntity> {
 
 	SocioFormView subView;
 
 	@Autowired
 	SocioDAO dao;
 
-	Socio currentBean;
+	SocioEntity currentBean;
 
 	@Autowired
 	TipoRelacionamentoDAO tipoRelacionamentoDAO;
@@ -73,7 +73,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Socio();
+		currentBean = new SocioEntity();
 	}
 
 	@Override
@@ -85,8 +85,8 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	protected void carregar(Serializable id) {
 
 		currentBean = dao.find((Integer) id);
-		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
-		List<ParticipacaoSocietaria> participacoes = participacaoSocietariaDAO.findBySocio(currentBean);
+		List<DependenteEntity> dependentes = dependenteDAO.findBySocio(currentBean);
+		List<ParticipacaoSocietariaEntity> participacoes = participacaoSocietariaDAO.findBySocio(currentBean);
 
 		try {
 			carregarCombos();
@@ -156,7 +156,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 			if (participacoes != null) {
 
-				for (ParticipacaoSocietaria p : participacoes) {
+				for (ParticipacaoSocietariaEntity p : participacoes) {
 
 					if (p.getDirigente() != null && !(p.getDirigente().isEmpty()))
 						p.setDirigenteEnum(DIRIGENTE.getDirigente(p.getDirigente()));
@@ -183,7 +183,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	protected void actionSalvar() {
 
 		try {
-			QuadroSocietario quadro = (QuadroSocietario) subView.getCmbQuadroSocietario().getValue();
+			QuadroSocietarioEntity quadro = (QuadroSocietarioEntity) subView.getCmbQuadroSocietario().getValue();
 
 			String nome = subView.getTxtNome().getValue();
 			String cpf = subView.getTxtCpf().getValue();
@@ -281,8 +281,8 @@ public class SocioFormController extends CRUDFormController<Socio> {
 
 			dao.saveOrUpdate(currentBean);
 
-			List<ParticipacaoSocietaria> participacoes = subView.getParticipacoesSubForm().getDados();
-			for (ParticipacaoSocietaria p : participacoes) {
+			List<ParticipacaoSocietariaEntity> participacoes = subView.getParticipacoesSubForm().getDados();
+			for (ParticipacaoSocietariaEntity p : participacoes) {
 
 				p.setDirigente(p.getDirigenteEnum().getCodigo());
 				participacaoSocietariaDAO.saveOrUpdate(p);
@@ -334,22 +334,22 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		return true;
 	}
 
-	public Dependente adicionarDependente() {
-		Dependente dep = new Dependente();
-		List<Dependente> dependentes = dependenteDAO.findBySocio(currentBean);
+	public DependenteEntity adicionarDependente() {
+		DependenteEntity dep = new DependenteEntity();
+		List<DependenteEntity> dependentes = dependenteDAO.findBySocio(currentBean);
 		if (dependentes == null)
-			dependentes = new ArrayList<Dependente>();
+			dependentes = new ArrayList<DependenteEntity>();
 		currentBean.setDependentes(dependentes);
 		currentBean.getDependentes().add(dep);
 		dep.setSocio(currentBean);
 		return dep;
 	}
 
-	public ParticipacaoSocietaria adicionarParticipacao() {
-		ParticipacaoSocietaria p = new ParticipacaoSocietaria();
-		List<ParticipacaoSocietaria> lista = participacaoSocietariaDAO.findBySocio(currentBean);
+	public ParticipacaoSocietariaEntity adicionarParticipacao() {
+		ParticipacaoSocietariaEntity p = new ParticipacaoSocietariaEntity();
+		List<ParticipacaoSocietariaEntity> lista = participacaoSocietariaDAO.findBySocio(currentBean);
 		if (lista == null)
-			lista = new ArrayList<ParticipacaoSocietaria>();
+			lista = new ArrayList<ParticipacaoSocietariaEntity>();
 		currentBean.setParticipacoes(lista);
 		currentBean.getParticipacoes().add(p);
 		p.setSocio(currentBean);
@@ -378,13 +378,13 @@ public class SocioFormController extends CRUDFormController<Socio> {
 		return container;
 	}
 
-	public List<QuadroSocietario> listarQuadros() {
+	public List<QuadroSocietarioEntity> listarQuadros() {
 		return quadroSocietarioDAO.listaTodos();
 	}
 
-	public BeanItemContainer<QuadroSocietario> carregarQuadros() {
-		BeanItemContainer<QuadroSocietario> container = new BeanItemContainer<>(QuadroSocietario.class);
-		for (QuadroSocietario p : listarQuadros()) {
+	public BeanItemContainer<QuadroSocietarioEntity> carregarQuadros() {
+		BeanItemContainer<QuadroSocietarioEntity> container = new BeanItemContainer<>(QuadroSocietarioEntity.class);
+		for (QuadroSocietarioEntity p : listarQuadros()) {
 			container.addItem(p);
 		}
 		return container;
@@ -400,7 +400,7 @@ public class SocioFormController extends CRUDFormController<Socio> {
 	}
 
 	@Override
-	public Socio getModelBean() {
+	public SocioEntity getModelBean() {
 		return currentBean;
 	}
 

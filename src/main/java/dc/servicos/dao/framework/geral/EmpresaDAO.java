@@ -8,24 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.entidade.sistema.ContaEmpresa;
-
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão a classe principal
- *         abstractCrudDao e dela herdamos alguns métodos, fazemos uma Conexão
- *         com o Banco, uma listagem E aqui herdamos também o Método do
- *         pesquisar, onde nela colocamos os campos que colocamos as anotações
- *         lá no TO (ENTIDADE), que vai ser pesquisado na Tela quando rodar o
- *         projeto.
- * 
- */
 
 @Repository
-@SuppressWarnings("unchecked")
 public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
-	
-	static String MATRIZ="1";
+
+	private static String MATRIZ = "1";
 
 	@Override
 	public Class<EmpresaEntity> getEntityClass() {
@@ -77,29 +64,28 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 
 	@Transactional
 	public EmpresaEntity findByCNPJ(String cnpj) {
-		List<EmpresaEntity> empresas = getSession().createCriteria(EmpresaEntity.class).add(Restrictions.eq("cnpj",cnpj)).list();
-		if(!empresas.isEmpty()){
+		List<EmpresaEntity> empresas = getSession()
+				.createCriteria(EmpresaEntity.class)
+				.add(Restrictions.eq("cnpj", cnpj)).list();
+
+		if (!empresas.isEmpty()) {
 			return empresas.get(0);
-		}else{
+		} else {
 			return null;
 		}
-		
 	}
-	
+
 	@Transactional
-	public List<EmpresaEntity> buscaMatrizes(){
-		return getSession()
-				.createQuery("from Empresa where tipo = :tipo")
+	public List<EmpresaEntity> buscaMatrizes() {
+		return getSession().createQuery("from Empresa where tipo = :tipo")
 				.setParameter("tipo", MATRIZ).list();
 	}
-	
+
 	@Transactional
 	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
 		return (EmpresaEntity) getSession()
 				.createQuery("from Empresa where conta.id = :c")
 				.setParameter("c", contaEmpresaId).uniqueResult();
 	}
-
-
 
 }

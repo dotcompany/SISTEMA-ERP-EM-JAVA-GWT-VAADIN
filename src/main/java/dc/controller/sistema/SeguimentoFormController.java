@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.sistema.SeguimentoFormView;
 
 @Controller
 @Scope("prototype")
-public class SeguimentoFormController extends CRUDFormController<Seguimento> {
+public class SeguimentoFormController extends CRUDFormController<SeguimentoEntity> {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class SeguimentoFormController extends CRUDFormController<Seguimento> {
 	@Autowired
 	private SeguimentoDAO seguimentoDAO;
 
-	private Seguimento currentBean;
+	private SeguimentoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class SeguimentoFormController extends CRUDFormController<Seguimento> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Seguimento();
+		currentBean = new SeguimentoEntity();
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class SeguimentoFormController extends CRUDFormController<Seguimento> {
 	}
 
 	@Override
-	public Seguimento getModelBean() {
+	public SeguimentoEntity getModelBean() {
 		return currentBean;
 	}
 }

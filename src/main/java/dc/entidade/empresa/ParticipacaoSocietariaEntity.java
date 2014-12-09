@@ -32,7 +32,7 @@ import dc.visao.empresa.SocioFormView.DIRIGENTE;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ParticipacaoSocietaria extends AbstractModel<Integer> {
+public class ParticipacaoSocietariaEntity extends AbstractModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pps")
@@ -55,7 +55,7 @@ public class ParticipacaoSocietaria extends AbstractModel<Integer> {
 			
 	@ManyToOne
 	@JoinColumn(name="id_socio")
-	Socio socio;
+	SocioEntity socio;
 	
 	BigDecimal participacao;
 
@@ -83,11 +83,11 @@ public class ParticipacaoSocietaria extends AbstractModel<Integer> {
 		this.cnpj = cnpj;
 	}
 
-	public Socio getSocio() {
+	public SocioEntity getSocio() {
 		return socio;
 	}
 
-	public void setSocio(Socio socio) {
+	public void setSocio(SocioEntity socio) {
 	    	this.socio = socio;
 	}
 

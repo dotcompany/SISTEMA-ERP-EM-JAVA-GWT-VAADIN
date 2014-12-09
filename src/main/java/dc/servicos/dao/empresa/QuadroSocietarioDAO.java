@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.empresa.QuadroSocietario;
+import dc.entidade.empresa.QuadroSocietarioEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietario> {
+public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietarioEntity> {
 
 	
 
 	@Override
-	public Class<QuadroSocietario> getEntityClass() {
-		return QuadroSocietario.class;
+	public Class<QuadroSocietarioEntity> getEntityClass() {
+		return QuadroSocietarioEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,7 +24,7 @@ public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietario> {
 	}
 	
 	@Transactional
-	public List<QuadroSocietario> listaTodos() {
+	public List<QuadroSocietarioEntity> listaTodos() {
 		return getSession().createQuery("from QuadroSocietario").list();
 	}
 	

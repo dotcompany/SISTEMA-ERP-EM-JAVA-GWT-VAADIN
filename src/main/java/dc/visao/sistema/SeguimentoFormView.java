@@ -5,7 +5,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.visao.framework.util.ComponentUtil;
 
 public class SeguimentoFormView extends CustomComponent {
@@ -51,13 +51,13 @@ public class SeguimentoFormView extends CustomComponent {
 		return mainLayout;
 	}
 
-	public void preencheBean(Seguimento currentBean) {
+	public void preencheBean(SeguimentoEntity currentBean) {
 		currentBean.setNome(txNome.getValue());
 		currentBean.setDescricao(txDescricao.getValue());
 
 	}
 
-	public void preencheForm(Seguimento currentBean) {
+	public void preencheForm(SeguimentoEntity currentBean) {
 		txNome.setValue(currentBean.getNome());
 		txDescricao.setValue(currentBean.getDescricao());
 

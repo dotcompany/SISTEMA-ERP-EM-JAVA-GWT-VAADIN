@@ -28,7 +28,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
@@ -68,10 +68,10 @@ public class RelatorioFormView extends CustomComponent {
 	private ManyToOneCombo<FmMenu> comboMenus;
 	private ManyToOneCombo<Relatorio> comboRelatorios;
 
-	private ManyToOneCombo<Seguimento> comboSeguimentos;
+	private ManyToOneCombo<SeguimentoEntity> comboSeguimentos;
 	private Table tableSeguimentos;
-	private BeanItemContainer<Seguimento> seguimentoContainer;
-	private Seguimento seguimentoSelecionado;
+	private BeanItemContainer<SeguimentoEntity> seguimentoContainer;
+	private SeguimentoEntity seguimentoSelecionado;
 
 	private ManyToOneCombo<EmpresaEntity> comboEmpresas;
 	private Table tableEmpresas;
@@ -139,7 +139,7 @@ public class RelatorioFormView extends CustomComponent {
 		hl.setMargin(false);
 		hl.setSpacing(true);
 
-		comboSeguimentos = new ManyToOneCombo<Seguimento>();
+		comboSeguimentos = new ManyToOneCombo<SeguimentoEntity>();
 		comboSeguimentos.setCaption("Seguimento");
 		comboSeguimentos.setWidth("600px");
 		comboSeguimentos.setHeight("-1px");
@@ -152,7 +152,7 @@ public class RelatorioFormView extends CustomComponent {
 			@Override
 			public void buttonClick(ClickEvent event) {
 
-				Seguimento seguimento = (Seguimento) comboSeguimentos.getValue();
+				SeguimentoEntity seguimento = (SeguimentoEntity) comboSeguimentos.getValue();
 				addSeguimento(seguimento);
 			}
 
@@ -194,7 +194,7 @@ public class RelatorioFormView extends CustomComponent {
 
 		tableSeguimentos = new Table();
 		tableSeguimentos.setSizeFull();
-		seguimentoContainer = new BeanItemContainer<>(Seguimento.class);
+		seguimentoContainer = new BeanItemContainer<>(SeguimentoEntity.class);
 		tableSeguimentos.setContainerDataSource(seguimentoContainer);
 
 		tableSeguimentos.setColumnCollapsingAllowed(true);
@@ -682,7 +682,7 @@ public class RelatorioFormView extends CustomComponent {
 		}
 	}
 
-	public void addSeguimento(Seguimento seguimento) {
+	public void addSeguimento(SeguimentoEntity seguimento) {
 		if (seguimento != null && !seguimentoContainer.containsId(seguimento.getId())) {
 
 			seguimentoContainer.addItem(seguimento);
@@ -707,11 +707,11 @@ public class RelatorioFormView extends CustomComponent {
 		new Notification(DcConstants.ERROR_TITLE, message, Type.ERROR_MESSAGE, true).show(Page.getCurrent());
 	}
 
-	public ManyToOneCombo<Seguimento> getComboSeguimentos() {
+	public ManyToOneCombo<SeguimentoEntity> getComboSeguimentos() {
 		return comboSeguimentos;
 	}
 
-	public void setComboSeguimentos(ManyToOneCombo<Seguimento> comboSeguimentos) {
+	public void setComboSeguimentos(ManyToOneCombo<SeguimentoEntity> comboSeguimentos) {
 		this.comboSeguimentos = comboSeguimentos;
 	}
 
@@ -739,11 +739,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.comboUsuarios = comboUsuarios;
 	}
 
-	public BeanItemContainer<Seguimento> getSeguimentoContainer() {
+	public BeanItemContainer<SeguimentoEntity> getSeguimentoContainer() {
 		return seguimentoContainer;
 	}
 
-	public void setSeguimentoContainer(BeanItemContainer<Seguimento> seguimentoContainer) {
+	public void setSeguimentoContainer(BeanItemContainer<SeguimentoEntity> seguimentoContainer) {
 		this.seguimentoContainer = seguimentoContainer;
 	}
 

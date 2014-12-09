@@ -12,9 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -27,38 +29,67 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Seguimento extends AbstractModel<Integer> implements Serializable {
+public class SeguimentoEntity extends AbstractModel<Integer> implements
+		Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1519908449638253664L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seguimento_id_seq")
+	@SequenceGenerator(name = "seguimento_id_seq", sequenceName = "seguimento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
 	@ComboCode
-	@Field
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column()
-	@Caption(value = "Nome")
 	@Field
+	@Caption(value = "Nome")
+	@Column()
 	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
-	@Column()
-	@Caption(value = "Descrição")
 	@Field
+	@Caption(value = "Descrição")
+	@Column()
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@OneToMany(mappedBy = "seguimento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EmpresaSeguimento> empresaSeguimentos;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public SeguimentoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
 	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -77,40 +108,6 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Override
-	public String toString() {
-		return nome;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Seguimento other = (Seguimento) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
 		return empresaSeguimentos;
 	}
@@ -118,4 +115,14 @@ public class Seguimento extends AbstractModel<Integer> implements Serializable {
 	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
 		this.empresaSeguimentos = empresaSeguimentos;
 	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

@@ -30,7 +30,7 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 
 @Entity
@@ -81,7 +81,7 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_seguimento", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id", nullable = false, updatable = false) })
-	private Set<Seguimento> seguimentos = new HashSet<>();
+	private Set<SeguimentoEntity> seguimentos = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_empresa", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "empresa_id", nullable = false, updatable = false) })
@@ -155,11 +155,11 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 		this.telaParametros = telaParametros;
 	}
 
-	public Set<Seguimento> getSeguimentos() {
+	public Set<SeguimentoEntity> getSeguimentos() {
 		return seguimentos;
 	}
 
-	public void setSeguimentos(Set<Seguimento> seguimentos) {
+	public void setSeguimentos(Set<SeguimentoEntity> seguimentos) {
 		this.seguimentos = seguimentos;
 	}
 

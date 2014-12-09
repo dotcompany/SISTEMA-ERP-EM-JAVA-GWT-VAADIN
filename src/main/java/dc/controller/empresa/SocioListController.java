@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.empresa.Socio;
+import dc.entidade.empresa.SocioEntity;
 import dc.servicos.dao.empresa.SocioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class SocioListController extends CRUDListController<Socio> {
+public class SocioListController extends CRUDListController<SocioEntity> {
 
 	@Autowired
 	SocioDAO dao;
@@ -34,7 +34,7 @@ public class SocioListController extends CRUDListController<Socio> {
 	}
 
 	@Override
-	protected List<Socio> pesquisa(String valor) {
+	protected List<SocioEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -44,17 +44,17 @@ public class SocioListController extends CRUDListController<Socio> {
 	}
 
 	@Override
-	protected CRUDFormController<Socio> getFormController() {
+	protected CRUDFormController<SocioEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Socio> getEntityClass() {
-		return Socio.class;
+	public Class<? super SocioEntity> getEntityClass() {
+		return SocioEntity.class;
 	}
 
 	@Override
-	protected List<Socio> pesquisaDefault() {
+	protected List<SocioEntity> pesquisaDefault() {
 		return new ArrayList<>();
 	}
 

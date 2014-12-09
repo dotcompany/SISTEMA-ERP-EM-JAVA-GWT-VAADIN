@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.empresa.EmpresaCnae;
+import dc.entidade.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
@@ -21,7 +21,7 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
+public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEntity> {
 
 	EmpresaCnaeFormView subView;
 
@@ -31,7 +31,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 	@Autowired
 	private CnaeDAO cnaeDAO;
 
-	EmpresaCnae currentBean;
+	EmpresaCnaeEntity currentBean;
 
 	@Override
 	public String getViewIdentifier() {
@@ -47,7 +47,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new EmpresaCnae();
+		currentBean = new EmpresaCnaeEntity();
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnae> {
 	}
 
 	@Override
-	public EmpresaCnae getModelBean() {
+	public EmpresaCnaeEntity getModelBean() {
 		return currentBean;
 	}
 

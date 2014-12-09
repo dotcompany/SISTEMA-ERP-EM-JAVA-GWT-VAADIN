@@ -27,7 +27,7 @@ import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 @Table(name = "socio_dependente")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Dependente extends AbstractModel<Integer> {
+public class DependenteEntity extends AbstractModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dpn")
@@ -57,7 +57,7 @@ public class Dependente extends AbstractModel<Integer> {
 	
 	@ManyToOne
 	@JoinColumn(name="id_socio")
-	Socio socio;
+	SocioEntity socio;
 
 	public Integer getId() {
 		return id;
@@ -115,11 +115,11 @@ public class Dependente extends AbstractModel<Integer> {
 		this.cpf = cpf;
 	}
 
-	public Socio getSocio() {
+	public SocioEntity getSocio() {
 		return socio;
 	}
 
-	public void setSocio(Socio socio) {
+	public void setSocio(SocioEntity socio) {
 		this.socio = socio;
 	}
 	

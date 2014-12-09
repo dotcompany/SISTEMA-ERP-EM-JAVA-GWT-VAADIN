@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.empresa.QuadroSocietario;
+import dc.entidade.empresa.QuadroSocietarioEntity;
 import dc.entidade.framework.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
@@ -22,14 +22,14 @@ import dc.visao.spring.SecuritySessionProvider;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class QuadroSocietarioFormController extends CRUDFormController<QuadroSocietario> {
+public class QuadroSocietarioFormController extends CRUDFormController<QuadroSocietarioEntity> {
 
 	QuadroSocietarioFormView subView;
 
 	@Autowired
 	QuadroSocietarioDAO dao;
 
-	QuadroSocietario currentBean;
+	QuadroSocietarioEntity currentBean;
 
 	@Override
 	public String getViewIdentifier() {
@@ -45,7 +45,7 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new QuadroSocietario();
+		currentBean = new QuadroSocietarioEntity();
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 	}
 
 	@Override
-	public QuadroSocietario getModelBean() {
+	public QuadroSocietarioEntity getModelBean() {
 		return currentBean;
 	}
 

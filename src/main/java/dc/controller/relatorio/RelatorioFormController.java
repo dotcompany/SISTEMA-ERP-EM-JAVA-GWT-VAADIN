@@ -25,7 +25,7 @@ import dc.controller.sistema.UsuarioListController;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
@@ -138,7 +138,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		DefaultManyToOneComboModel<Relatorio> relatoriosModel = new DefaultManyToOneComboModel<Relatorio>(RelatorioListController.class,
 				this.relatorioDAO, super.getMainController(), true);
 
-		DefaultManyToOneComboModel<Seguimento> seguimentoModel = new DefaultManyToOneComboModel<Seguimento>(SeguimentoListController.class,
+		DefaultManyToOneComboModel<SeguimentoEntity> seguimentoModel = new DefaultManyToOneComboModel<SeguimentoEntity>(SeguimentoListController.class,
 				this.seguimentoDAO, super.getMainController(), true);
 
 		DefaultManyToOneComboModel<Usuario> usuarioModel = new DefaultManyToOneComboModel<Usuario>(UsuarioListController.class, this.usuarioDAO,

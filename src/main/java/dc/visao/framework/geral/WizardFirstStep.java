@@ -6,7 +6,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.framework.Seguimento;
+import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -29,12 +29,12 @@ public class WizardFirstStep extends BaseWizardStep {
 
 		mainPanel.addComponent(question);
 
-		List<Seguimento> seguimentos = this.controller.getSeguimentoDao()
-				.getAll(Seguimento.class);
+		List<SeguimentoEntity> seguimentos = this.controller.getSeguimentoDao()
+				.getAll(SeguimentoEntity.class);
 
 		group = new OptionGroup("");
 
-		for (Seguimento seguimento : seguimentos) {
+		for (SeguimentoEntity seguimento : seguimentos) {
 			group.addItem(seguimento);
 		}
 		mainPanel.addComponent(group);

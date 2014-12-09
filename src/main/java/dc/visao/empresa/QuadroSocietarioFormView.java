@@ -8,7 +8,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.empresa.QuadroSocietarioFormController;
-import dc.entidade.empresa.QuadroSocietario;
+import dc.entidade.empresa.QuadroSocietarioEntity;
 import dc.visao.framework.util.ComponentUtil;
 
 @SuppressWarnings("serial")
@@ -27,7 +27,7 @@ public class QuadroSocietarioFormView extends CustomComponent {
 
 	QuadroSocietarioFormController controller;
 
-	QuadroSocietario currentBean;
+	QuadroSocietarioEntity currentBean;
 
 	public QuadroSocietarioFormView(QuadroSocietarioFormController controller) {
 		this.controller = controller;
@@ -115,11 +115,11 @@ public class QuadroSocietarioFormView extends CustomComponent {
 		this.controller = controller;
 	}
 
-	public QuadroSocietario getCurrentBean() {
+	public QuadroSocietarioEntity getCurrentBean() {
 		return currentBean;
 	}
 
-	public void setCurrentBean(QuadroSocietario currentBean) {
+	public void setCurrentBean(QuadroSocietarioEntity currentBean) {
 		this.currentBean = currentBean;
 	}
 

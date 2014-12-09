@@ -6,19 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão do CrudListController,
- *         tendo alguns métodos herdados, como o pesquisar, e pegamos também
- *         algumas informações da classe FormController, herdando algumas
- *         informações. Temos a configuração das unas.
- * 
- */
 
 @Controller
 @Scope("prototype")
@@ -47,7 +39,7 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return "Empresa";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -64,7 +56,7 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaEmpresa";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -76,7 +68,8 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 	@Override
 	protected List<EmpresaEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		List<EmpresaEntity> auxLista = (List<EmpresaEntity>) this.dao.getAll(getEntityClass());
+		List<EmpresaEntity> auxLista = (List<EmpresaEntity>) this.dao
+				.getAll(getEntityClass());
 
 		return (List<EmpresaEntity>) this.dao.getAll(getEntityClass());
 	}

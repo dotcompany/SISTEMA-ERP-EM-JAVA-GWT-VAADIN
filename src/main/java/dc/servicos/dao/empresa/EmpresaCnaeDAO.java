@@ -6,16 +6,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.empresa.EmpresaCnae;
+import dc.entidade.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnae> {
+public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> {
 
 	@Override
-	public Class<EmpresaCnae> getEntityClass() {
-		return EmpresaCnae.class;
+	public Class<EmpresaCnaeEntity> getEntityClass() {
+		return EmpresaCnaeEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -23,8 +23,8 @@ public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnae> {
 	}
 	
 	@Transactional
-	public List<EmpresaCnae> listarTodos() {
-		List<EmpresaCnae> lista = null;
+	public List<EmpresaCnaeEntity> listarTodos() {
+		List<EmpresaCnaeEntity> lista = null;
 		try {
 			String sql = "FROM EmpresaCnae";
 			lista = super.getSession().createQuery(sql).list();
@@ -35,8 +35,8 @@ public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnae> {
 	}
 	
 	@Transactional
-	public List<EmpresaCnae> listarPrincipais() {
-		List<EmpresaCnae> lista = null;
+	public List<EmpresaCnaeEntity> listarPrincipais() {
+		List<EmpresaCnaeEntity> lista = null;
 		try {
 			String sql = "FROM EmpresaCnae e where e.principal='1'";
 			lista = super.getSession().createQuery(sql).list();

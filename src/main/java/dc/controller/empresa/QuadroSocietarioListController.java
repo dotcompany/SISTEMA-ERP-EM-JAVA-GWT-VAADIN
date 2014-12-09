@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.empresa.QuadroSocietario;
+import dc.entidade.empresa.QuadroSocietarioEntity;
 import dc.servicos.dao.empresa.QuadroSocietarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class QuadroSocietarioListController extends CRUDListController<QuadroSocietario> {
+public class QuadroSocietarioListController extends CRUDListController<QuadroSocietarioEntity> {
 
 	@Autowired
 	QuadroSocietarioDAO dao;
@@ -34,7 +34,7 @@ public class QuadroSocietarioListController extends CRUDListController<QuadroSoc
 	}
 
 	@Override
-	protected List<QuadroSocietario> pesquisa(String valor) {
+	protected List<QuadroSocietarioEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
@@ -44,17 +44,17 @@ public class QuadroSocietarioListController extends CRUDListController<QuadroSoc
 	}
 
 	@Override
-	protected CRUDFormController<QuadroSocietario> getFormController() {
+	protected CRUDFormController<QuadroSocietarioEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super QuadroSocietario> getEntityClass() {
-		return QuadroSocietario.class;
+	public Class<? super QuadroSocietarioEntity> getEntityClass() {
+		return QuadroSocietarioEntity.class;
 	}
 
 	@Override
-	protected List<QuadroSocietario> pesquisaDefault() {
+	protected List<QuadroSocietarioEntity> pesquisaDefault() {
 		return new ArrayList<>();
 	}
 
