@@ -52,16 +52,16 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 	private OperacaoFiscalEntity operacaoFiscal;
 
 	@OneToMany(mappedBy="configuracaoTributaria",fetch=FetchType.EAGER)
-	private List<ICMSConfiguracaoTributaria> listaIcms = new ArrayList<ICMSConfiguracaoTributaria>();
+	private List<IcmsConfiguracaoTributariaEntity> listaIcms = new ArrayList<IcmsConfiguracaoTributariaEntity>();
 
 	@OneToOne(mappedBy="configuracaoTributaria")
-	private PISConfiguracaoTributaria pis ;
+	private PisConfiguracaoTributariaEntity pis ;
 	
 	@OneToOne(mappedBy="configuracaoTributaria")
-	private CofinsConfiguracaoTributaria cofins ;
+	private CofinsConfiguracaoTributariaEntity cofins ;
 	
 	@OneToOne(mappedBy="configuracaoTributaria")
-	private IPIConfiguracaoTributaria ipi ;
+	private IpiConfiguracaoTributariaEntity ipi ;
 		
 	public ConfiguracaoTributaria() {
 	}
@@ -98,40 +98,40 @@ public class ConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> i
 		this.operacaoFiscal = operacaoFiscal;
 	}
 
-	public List<ICMSConfiguracaoTributaria> getListaIcms() {
+	public List<IcmsConfiguracaoTributariaEntity> getListaIcms() {
 		return listaIcms;
 	}
 
-	public void setListaIcms(List<ICMSConfiguracaoTributaria> listaIcms) {
+	public void setListaIcms(List<IcmsConfiguracaoTributariaEntity> listaIcms) {
 		this.listaIcms = listaIcms;
 	}
 
-	public void adicionarIcms(ICMSConfiguracaoTributaria icms){
+	public void adicionarIcms(IcmsConfiguracaoTributariaEntity icms){
 		getListaIcms().add(icms);
 		icms.setConfiguracaoTributaria(this);
 	}
 
-	public PISConfiguracaoTributaria getPis() {
+	public PisConfiguracaoTributariaEntity getPis() {
 		return pis;
 	}
 
-	public void setPis(PISConfiguracaoTributaria pis) {
+	public void setPis(PisConfiguracaoTributariaEntity pis) {
 		this.pis = pis;
 	}
 
-	public CofinsConfiguracaoTributaria getCofins() {
+	public CofinsConfiguracaoTributariaEntity getCofins() {
 		return cofins;
 	}
 
-	public void setCofins(CofinsConfiguracaoTributaria cofins) {
+	public void setCofins(CofinsConfiguracaoTributariaEntity cofins) {
 		this.cofins = cofins;
 	}
 
-	public IPIConfiguracaoTributaria getIpi() {
+	public IpiConfiguracaoTributariaEntity getIpi() {
 		return ipi;
 	}
 
-	public void setIpi(IPIConfiguracaoTributaria ipi) {
+	public void setIpi(IpiConfiguracaoTributariaEntity ipi) {
 		this.ipi = ipi;
 	}
 	

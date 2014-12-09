@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.PISConfiguracaoTributaria;
+import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PISConfiguracaoTributariaDAO extends AbstractCrudDAO<PISConfiguracaoTributaria> {
+public class PISConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguracaoTributariaEntity> {
 
 	@Override
-	public Class<PISConfiguracaoTributaria> getEntityClass() {
-		return PISConfiguracaoTributaria.class;
+	public Class<PisConfiguracaoTributariaEntity> getEntityClass() {
+		return PisConfiguracaoTributariaEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -23,12 +23,12 @@ public class PISConfiguracaoTributariaDAO extends AbstractCrudDAO<PISConfiguraca
 	}
 	
 	@Transactional
-	public PISConfiguracaoTributaria buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
-		PISConfiguracaoTributaria pis = null;
-		Criteria c = getSession().createCriteria(PISConfiguracaoTributaria.class);
+	public PisConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+		PisConfiguracaoTributariaEntity pis = null;
+		Criteria c = getSession().createCriteria(PisConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){
 			c.add(Restrictions.eq("configuracaoTributaria", configuracao));
-			pis = (PISConfiguracaoTributaria)c.uniqueResult();
+			pis = (PisConfiguracaoTributariaEntity)c.uniqueResult();
 		}
 		return pis;
 	}

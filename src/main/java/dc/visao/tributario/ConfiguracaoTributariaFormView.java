@@ -28,7 +28,7 @@ import dc.entidade.geral.tabela.EfdTabela435Entity;
 import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.ICMSConfiguracaoTributaria;
+import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -85,7 +85,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 	TextField txtPorcentoBcIPI, txtAliquotaBcIPI, txtAliquotaUnidadeIPI,
 			txtValorPrecoMaximoIPI, txtValorPautaFiscalIPI;
 
-	private SubFormComponent<ICMSConfiguracaoTributaria, Integer> icmsSubForm;
+	private SubFormComponent<IcmsConfiguracaoTributariaEntity, Integer> icmsSubForm;
 
 	public ConfiguracaoTributariaFormView(
 			ConfiguracaoTributariaFormController controller) {
@@ -416,11 +416,11 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		subForms.addTab(layout, "IPI", null);
 	}
 
-	private SubFormComponent<ICMSConfiguracaoTributaria, Integer> buildIcmsSubForm() {
+	private SubFormComponent<IcmsConfiguracaoTributariaEntity, Integer> buildIcmsSubForm() {
 		// common part: create layout
 
-		icmsSubForm = new SubFormComponent<ICMSConfiguracaoTributaria, Integer>(
-				ICMSConfiguracaoTributaria.class, new String[] { "ufDestino",
+		icmsSubForm = new SubFormComponent<IcmsConfiguracaoTributariaEntity, Integer>(
+				IcmsConfiguracaoTributariaEntity.class, new String[] { "ufDestino",
 						"cfop", "csosn", "cst", "modalidadeBc", "aliquota",
 						"valorPauta", "valorPrecoMaximo" }, new String[] {
 						"UF", "CFOP", "CSOSN_B", "CST_B", "Modalidade BC",
@@ -507,13 +507,13 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 				};
 			}
 
-			protected ICMSConfiguracaoTributaria getNovo() {
-				ICMSConfiguracaoTributaria detalhe = controller.novoIcms();
+			protected IcmsConfiguracaoTributariaEntity getNovo() {
+				IcmsConfiguracaoTributariaEntity detalhe = controller.novoIcms();
 				return detalhe;
 			}
 
 			@Override
-			public boolean validateItems(List<ICMSConfiguracaoTributaria> items) {
+			public boolean validateItems(List<IcmsConfiguracaoTributariaEntity> items) {
 				// TODO Auto-generated method stub
 				return true;
 			}
@@ -523,7 +523,7 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 
 	}
 
-	public void preencherIcmsSubForm(List<ICMSConfiguracaoTributaria> detalhes) {
+	public void preencherIcmsSubForm(List<IcmsConfiguracaoTributariaEntity> detalhes) {
 		try {
 			icmsSubForm.fillWith(detalhes);
 		} catch (Exception e) {
@@ -851,12 +851,12 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 		this.txtValorPautaFiscalIPI = txtValorPautaFiscalIPI;
 	}
 
-	public SubFormComponent<ICMSConfiguracaoTributaria, Integer> getIcmsSubForm() {
+	public SubFormComponent<IcmsConfiguracaoTributariaEntity, Integer> getIcmsSubForm() {
 		return icmsSubForm;
 	}
 
 	public void setIcmsSubForm(
-			SubFormComponent<ICMSConfiguracaoTributaria, Integer> icmsSubForm) {
+			SubFormComponent<IcmsConfiguracaoTributariaEntity, Integer> icmsSubForm) {
 		this.icmsSubForm = icmsSubForm;
 	}
 

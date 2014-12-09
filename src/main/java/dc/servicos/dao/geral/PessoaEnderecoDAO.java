@@ -6,12 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.EmpresaEntity;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 
 	@Override
@@ -21,30 +20,37 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 
 	@Transactional
 	public List<PessoaEnderecoEntity> listaTodos() {
-		return getSession().createQuery("from PessoaEndereco").list();
+		return getSession().createQuery("from PessoaEnderecoEntity").list();
 	}
 
 	@Transactional
 	public List<PessoaEnderecoEntity> listaPorEmpresa(EmpresaEntity empresa) {
-		return getSession().createQuery("from PessoaEndereco c where c.empresa = :emp ").setParameter("emp", empresa).list();
+		return getSession()
+				.createQuery(
+						"from PessoaEnderecoEntity c where c.empresa = :emp ")
+				.setParameter("emp", empresa).list();
 	}
 
 	@Transactional
 	public List<PessoaEnderecoEntity> listaPorPessoa(PessoaEntity pessoa) {
-
 		// TODO Verificar pq só funciona na segunda vez
 		try {
-			getSession().createQuery("from PessoaEndereco c where c.pessoa = :pessoa ").setParameter("pessoa", pessoa).list();
+			getSession()
+					.createQuery(
+							"from PessoaEnderecoEntity c where c.pessoa = :pessoa ")
+					.setParameter("pessoa", pessoa).list();
 		} catch (Exception e) {
 
 		}
 
-		return getSession().createQuery("from PessoaEndereco c where c.pessoa = :pessoa ").setParameter("pessoa", pessoa).list();
+		return getSession()
+				.createQuery(
+						"from PessoaEnderecoEntity c where c.pessoa = :pessoa ")
+				.setParameter("pessoa", pessoa).list();
 	}
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-
 		return new String[] { "nome", "email" };
 	}
 

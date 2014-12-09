@@ -21,13 +21,13 @@ import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.entidade.geral.tabela.CstPisEntity;
 import dc.entidade.geral.tabela.EfdTabela435Entity;
 import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
-import dc.entidade.tributario.CofinsConfiguracaoTributaria;
+import dc.entidade.tributario.CofinsConfiguracaoTributariaEntity;
 import dc.entidade.tributario.ConfiguracaoTributaria;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.ICMSConfiguracaoTributaria;
-import dc.entidade.tributario.IPIConfiguracaoTributaria;
+import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
+import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.entidade.tributario.PISConfiguracaoTributaria;
+import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
@@ -151,9 +151,9 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		subView.getCmbGrupoTributario().setValue(currentBean.getGrupoTributario());
 		subView.getCmbOperacaoFiscal().setValue(currentBean.getOperacaoFiscal());
 
-		List<ICMSConfiguracaoTributaria> detalhes = currentBean.getListaIcms();
+		List<IcmsConfiguracaoTributariaEntity> detalhes = currentBean.getListaIcms();
 
-		for (ICMSConfiguracaoTributaria d : detalhes) {
+		for (IcmsConfiguracaoTributariaEntity d : detalhes) {
 			Integer idCsosn = new Integer(d.getCsosnB().trim());
 			d.setCsosn(csosnbDAO.find(idCsosn));
 
@@ -170,7 +170,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void carregarPis(ConfiguracaoTributaria configuracao) {
-		PISConfiguracaoTributaria pis = pisDAO.buscarPorConfiguracao(configuracao);
+		PisConfiguracaoTributariaEntity pis = pisDAO.buscarPorConfiguracao(configuracao);
 
 		if (pis != null) {
 
@@ -221,7 +221,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void carregarCofins(ConfiguracaoTributaria configuracao) {
-		CofinsConfiguracaoTributaria cofins = cofinsDAO.buscarPorConfiguracao(configuracao);
+		CofinsConfiguracaoTributariaEntity cofins = cofinsDAO.buscarPorConfiguracao(configuracao);
 
 		if (cofins != null) {
 
@@ -272,7 +272,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void carregarIpi(ConfiguracaoTributaria configuracao) {
-		IPIConfiguracaoTributaria ipi = ipiDAO.buscarPorConfiguracao(configuracao);
+		IpiConfiguracaoTributariaEntity ipi = ipiDAO.buscarPorConfiguracao(configuracao);
 
 		if (ipi != null) {
 
@@ -341,10 +341,10 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 			currentBean.setOperacaoFiscal(operacao);
 			dao.saveOrUpdate(currentBean);
 
-			List<ICMSConfiguracaoTributaria> detalhes = subView.getIcmsSubForm().getDados();
+			List<IcmsConfiguracaoTributariaEntity> detalhes = subView.getIcmsSubForm().getDados();
 
 			if (detalhes != null) {
-				for (ICMSConfiguracaoTributaria detalhe : detalhes) {
+				for (IcmsConfiguracaoTributariaEntity detalhe : detalhes) {
 					detalhe.setConfiguracaoTributaria(currentBean);
 					detalhe.setCsosnB(detalhe.getCsosn().getId().toString());
 					detalhe.setCstB(detalhe.getCst().getId().toString());
@@ -367,7 +367,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void salvarPis(ConfiguracaoTributaria configuracai) {
-		PISConfiguracaoTributaria pis = new PISConfiguracaoTributaria();
+		PisConfiguracaoTributariaEntity pis = new PisConfiguracaoTributariaEntity();
 
 		try {
 			pis.setConfiguracaoTributaria(currentBean);
@@ -387,7 +387,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void salvarCofins(ConfiguracaoTributaria configuracao) {
-		CofinsConfiguracaoTributaria cofins = new CofinsConfiguracaoTributaria();
+		CofinsConfiguracaoTributariaEntity cofins = new CofinsConfiguracaoTributariaEntity();
 
 		try {
 			cofins.setConfiguracaoTributaria(currentBean);
@@ -407,7 +407,7 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public void salvarIpi(ConfiguracaoTributaria configuracai) {
-		IPIConfiguracaoTributaria ipi = new IPIConfiguracaoTributaria();
+		IpiConfiguracaoTributariaEntity ipi = new IpiConfiguracaoTributariaEntity();
 
 		try {
 			ipi.setConfiguracaoTributaria(currentBean);
@@ -455,22 +455,22 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 			for (Serializable id : ids) {
 				ConfiguracaoTributaria configuracao = dao.find(id);
 
-				PISConfiguracaoTributaria pis = pisDAO.buscarPorConfiguracao(configuracao);
+				PisConfiguracaoTributariaEntity pis = pisDAO.buscarPorConfiguracao(configuracao);
 				if (pis != null)
 					pisDAO.delete(pis);
 
-				IPIConfiguracaoTributaria ipi = ipiDAO.buscarPorConfiguracao(configuracao);
+				IpiConfiguracaoTributariaEntity ipi = ipiDAO.buscarPorConfiguracao(configuracao);
 				if (ipi != null)
 					ipiDAO.delete(ipi);
 
-				CofinsConfiguracaoTributaria cofins = cofinsDAO.buscarPorConfiguracao(configuracao);
+				CofinsConfiguracaoTributariaEntity cofins = cofinsDAO.buscarPorConfiguracao(configuracao);
 				if (cofins != null)
 					cofinsDAO.delete(cofins);
 
-				List<ICMSConfiguracaoTributaria> listaIcms = icmsDAO.buscarPorConfiguracao(configuracao);
+				List<IcmsConfiguracaoTributariaEntity> listaIcms = icmsDAO.buscarPorConfiguracao(configuracao);
 
 				if (listaIcms != null) {
-					for (ICMSConfiguracaoTributaria obj : listaIcms) {
+					for (IcmsConfiguracaoTributariaEntity obj : listaIcms) {
 						icmsDAO.delete(obj);
 					}
 				}
@@ -506,8 +506,8 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return ufDAO.listaTodos();
 	}
 
-	public ICMSConfiguracaoTributaria novoIcms() {
-		ICMSConfiguracaoTributaria objeto = new ICMSConfiguracaoTributaria();
+	public IcmsConfiguracaoTributariaEntity novoIcms() {
+		IcmsConfiguracaoTributariaEntity objeto = new IcmsConfiguracaoTributariaEntity();
 		currentBean.adicionarIcms(objeto);
 		return objeto;
 	}

@@ -15,7 +15,7 @@ import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;
-import dc.entidade.tributario.ICMSCustomizado;
+import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.entidade.tributario.ICMSCustomizadoDetalhe;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
@@ -33,7 +33,7 @@ import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustomizado> {
+public class ICMSCustomizadoFormController extends CRUDFormController<IcmsCustomizadoEntity> {
 
 	ICMSCustomizadoFormView subView;
 
@@ -46,7 +46,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	@Autowired
 	ICMSCustomizadoDetalheDAO detalheDAO;
 
-	ICMSCustomizado currentBean;
+	IcmsCustomizadoEntity currentBean;
 
 	@Autowired
 	CfopDAO cfopDAO;
@@ -71,7 +71,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ICMSCustomizado();
+		currentBean = new IcmsCustomizadoEntity();
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 
 		try {
 			for (Serializable id : ids) {
-				ICMSCustomizado icms = dao.find(id);
+				IcmsCustomizadoEntity icms = dao.find(id);
 				List<ICMSCustomizadoDetalhe> detalhes = detalheDAO.findByIcms(icms);
 				for (ICMSCustomizadoDetalhe detalhe : detalhes) {
 					detalheDAO.delete(detalhe);
@@ -238,7 +238,7 @@ public class ICMSCustomizadoFormController extends CRUDFormController<ICMSCustom
 	}
 
 	@Override
-	public ICMSCustomizado getModelBean() {
+	public IcmsCustomizadoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

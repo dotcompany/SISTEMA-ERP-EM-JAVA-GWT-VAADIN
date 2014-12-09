@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tributario.ICMSCustomizado;
+import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("serial")
 public class ICMSCustomizadoListController extends
-		CRUDListController<ICMSCustomizado> {
+		CRUDListController<IcmsCustomizadoEntity> {
 
 	@Autowired
 	private ContagemEstoqueDAO dao;
@@ -35,8 +35,8 @@ public class ICMSCustomizadoListController extends
 	}
 
 	@Override
-	protected List<ICMSCustomizado> pesquisa(String valor) {
-		return new ArrayList<ICMSCustomizado>();
+	protected List<IcmsCustomizadoEntity> pesquisa(String valor) {
+		return new ArrayList<IcmsCustomizadoEntity>();
 	}
 
 	@Override
@@ -45,24 +45,24 @@ public class ICMSCustomizadoListController extends
 	}
 
 	@Override
-	protected CRUDFormController<ICMSCustomizado> getFormController() {
+	protected CRUDFormController<IcmsCustomizadoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ICMSCustomizado> getEntityClass() {
-		return ICMSCustomizado.class;
+	public Class<? super IcmsCustomizadoEntity> getEntityClass() {
+		return IcmsCustomizadoEntity.class;
 	}
 
 	@Override
-	protected List<ICMSCustomizado> pesquisaDefault() {
+	protected List<IcmsCustomizadoEntity> pesquisaDefault() {
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
 		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
 		 * e.printStackTrace(); }
 		 */
 		//
-		return new ArrayList<ICMSCustomizado>();
+		return new ArrayList<IcmsCustomizadoEntity>();
 	}
 
 	@Override

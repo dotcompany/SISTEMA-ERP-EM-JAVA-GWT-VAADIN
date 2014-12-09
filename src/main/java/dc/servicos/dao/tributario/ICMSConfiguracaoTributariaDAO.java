@@ -7,17 +7,17 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tributario.CofinsConfiguracaoTributaria;
+import dc.entidade.tributario.CofinsConfiguracaoTributariaEntity;
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.ICMSConfiguracaoTributaria;
+import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ICMSConfiguracaoTributariaDAO extends AbstractCrudDAO<ICMSConfiguracaoTributaria> {
+public class ICMSConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfiguracaoTributariaEntity> {
 
 	@Override
-	public Class<ICMSConfiguracaoTributaria> getEntityClass() {
-		return ICMSConfiguracaoTributaria.class;
+	public Class<IcmsConfiguracaoTributariaEntity> getEntityClass() {
+		return IcmsConfiguracaoTributariaEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -25,9 +25,9 @@ public class ICMSConfiguracaoTributariaDAO extends AbstractCrudDAO<ICMSConfigura
 	}
 	
 	@Transactional
-	public List<ICMSConfiguracaoTributaria> buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
-		List<ICMSConfiguracaoTributaria> lista = null;
-		Criteria c = getSession().createCriteria(ICMSConfiguracaoTributaria.class);
+	public List<IcmsConfiguracaoTributariaEntity> buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+		List<IcmsConfiguracaoTributariaEntity> lista = null;
+		Criteria c = getSession().createCriteria(IcmsConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){
 			c.add(Restrictions.eq("configuracaoTributaria", configuracao));
 			

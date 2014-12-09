@@ -5,15 +5,15 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.tributario.ConfiguracaoTributaria;
-import dc.entidade.tributario.IPIConfiguracaoTributaria;
+import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class IPIConfiguracaoTributariaDAO extends AbstractCrudDAO<IPIConfiguracaoTributaria> {
+public class IPIConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguracaoTributariaEntity> {
 
 	@Override
-	public Class<IPIConfiguracaoTributaria> getEntityClass() {
-		return IPIConfiguracaoTributaria.class;
+	public Class<IpiConfiguracaoTributariaEntity> getEntityClass() {
+		return IpiConfiguracaoTributariaEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -21,12 +21,12 @@ public class IPIConfiguracaoTributariaDAO extends AbstractCrudDAO<IPIConfiguraca
 	}
 	
 	@Transactional
-	public IPIConfiguracaoTributaria buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
-		IPIConfiguracaoTributaria ipi = null;
-		Criteria c = getSession().createCriteria(IPIConfiguracaoTributaria.class);
+	public IpiConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributaria configuracao){
+		IpiConfiguracaoTributariaEntity ipi = null;
+		Criteria c = getSession().createCriteria(IpiConfiguracaoTributariaEntity.class);
 		if(configuracao!=null){
 			c.add(Restrictions.eq("configuracaoTributaria", configuracao));
-			ipi = (IPIConfiguracaoTributaria)c.uniqueResult();
+			ipi = (IpiConfiguracaoTributariaEntity)c.uniqueResult();
 		}
 		return ipi;
 	}

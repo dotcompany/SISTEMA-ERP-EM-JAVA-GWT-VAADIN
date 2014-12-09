@@ -31,7 +31,7 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.ICMSCustomizado;
+import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
@@ -140,7 +140,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 			subView.getMocAlmoxarifado().setModel(comboAlmoxarifado);
 
-			DefaultManyToOneComboModel<ICMSCustomizado> comboIcmsCustomizado = new DefaultManyToOneComboModel<ICMSCustomizado>(
+			DefaultManyToOneComboModel<IcmsCustomizadoEntity> comboIcmsCustomizado = new DefaultManyToOneComboModel<IcmsCustomizadoEntity>(
 					ICMSCustomizadoListController.class, icmsCustomizadoDAO,
 					super.getMainController());
 

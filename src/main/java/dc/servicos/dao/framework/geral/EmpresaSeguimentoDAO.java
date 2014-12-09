@@ -21,10 +21,11 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 		return new String[] { "nome", "descricao" };
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<EmpresaSeguimento> listaPorEmpresa(EmpresaEntity empresa) {
-		return getSession().createQuery("from EmpresaSeguimento e where e.empresa = :emp").setParameter("emp", empresa).list();
+		return getSession()
+				.createQuery("from EmpresaSeguimento e where e.empresa = :emp")
+				.setParameter("emp", empresa).list();
 	}
 
 }

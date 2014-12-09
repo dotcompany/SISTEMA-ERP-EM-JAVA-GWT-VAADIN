@@ -23,7 +23,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Table(name = "tribut_cofins_cod_apuracao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class CofinsConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> {
+public class CofinsConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cfn")

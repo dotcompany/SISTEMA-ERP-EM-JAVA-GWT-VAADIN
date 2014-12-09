@@ -22,7 +22,7 @@ import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.ICMSCustomizado;
+import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
@@ -83,7 +83,7 @@ public class ProdutoFormView extends CustomComponent {
 	private ManyToOneCombo<GrupoEntity> mocGrupoProduto;
 	private ManyToOneCombo<NcmEntity> mocNcm;
 	private ManyToOneCombo<GrupoTributarioEntity> mocGrupoTributario;
-	private ManyToOneCombo<ICMSCustomizado> mocIcmsCustomizado;
+	private ManyToOneCombo<IcmsCustomizadoEntity> mocIcmsCustomizado;
 
 	private ProdutoFormController controller;
 
@@ -507,12 +507,12 @@ public class ProdutoFormView extends CustomComponent {
 		this.fields = fields;
 	}
 
-	public ManyToOneCombo<ICMSCustomizado> getMocIcmsCustomizado() {
+	public ManyToOneCombo<IcmsCustomizadoEntity> getMocIcmsCustomizado() {
 		return mocIcmsCustomizado;
 	}
 
 	public void setMocIcmsCustomizado(
-			ManyToOneCombo<ICMSCustomizado> mocIcmsCustomizado) {
+			ManyToOneCombo<IcmsCustomizadoEntity> mocIcmsCustomizado) {
 		this.mocIcmsCustomizado = mocIcmsCustomizado;
 	}
 

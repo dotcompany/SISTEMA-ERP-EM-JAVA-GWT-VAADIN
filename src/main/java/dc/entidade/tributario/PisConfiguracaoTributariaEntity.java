@@ -1,6 +1,5 @@
 package dc.entidade.tributario;
 
-
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -20,18 +19,21 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "tribut_ipi_dipi")
+@Table(name = "tribut_pis_cod_apuracao")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> {
+public class PisConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ipi")
-	@SequenceGenerator(name = "ipi", sequenceName = "tribut_ipi_dipi_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pis")
+	@SequenceGenerator(name = "pis", sequenceName = "tribut_pis_cod_apuracao_id_seq", allocationSize = 1)
 	private Integer id;
 
-	@Column(name="cst_ipi")
+	@Column(name="cst_pis")
 	String cst;
+	
+	@Column(name="codigo_apuracao_efd")
+	String codigoApuracaoEfd;
 	
 	@Column(name="modalidade_base_calculo")
 	String modalidadeBc;
@@ -50,10 +52,8 @@ public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer
 	
 	@Column(name="valor_pauta_fiscal")
 	BigDecimal valorPautaFiscal;
-		
-	@Column(name="id_tipo_receita_dipi")
-	Integer tipoReceitaDipi; 
-		
+	
+	
 	@ManyToOne
 	@JoinColumn(name="id_tribut_configura_of_gt")
 	ConfiguracaoTributaria configuracaoTributaria;
@@ -76,6 +76,16 @@ public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer
 
 	public void setCst(String cst) {
 		this.cst = cst;
+	}
+	
+	
+
+	public String getCodigoApuracaoEfd() {
+		return codigoApuracaoEfd;
+	}
+
+	public void setCodigoApuracaoEfd(String codigoApuracaoEfd) {
+		this.codigoApuracaoEfd = codigoApuracaoEfd;
 	}
 
 	public ConfiguracaoTributaria getConfiguracaoTributaria() {
@@ -134,15 +144,6 @@ public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer
 	public void setValorPautaFiscal(BigDecimal valorPautaFiscal) {
 		this.valorPautaFiscal = valorPautaFiscal;
 	}
-	
-
-	public Integer getTipoReceitaDipi() {
-		return tipoReceitaDipi;
-	}
-
-	public void setTipoReceitaDipi(Integer tipoReceitaDipi) {
-		this.tipoReceitaDipi = tipoReceitaDipi;
-	}
 
 	/*public Empresa getEmpresa() {
 		return empresa;
@@ -151,5 +152,6 @@ public class IPIConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}*/
+	
+	
 }
-

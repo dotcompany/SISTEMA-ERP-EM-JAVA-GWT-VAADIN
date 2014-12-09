@@ -26,7 +26,7 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 @Table(name = "tribut_icms_uf")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ICMSConfiguracaoTributaria extends AbstractMultiEmpresaModel<Integer> {
+public class IcmsConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "icm")
