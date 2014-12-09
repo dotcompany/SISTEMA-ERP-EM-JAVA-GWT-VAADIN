@@ -14,7 +14,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.control.enums.SimNaoEn;
-import dc.controller.geral.produto.ProdutosFormController;
+import dc.controller.geral.produto.ProdutoFormController;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
@@ -85,9 +85,9 @@ public class ProdutoFormView extends CustomComponent {
 	private ManyToOneCombo<GrupoTributarioEntity> mocGrupoTributario;
 	private ManyToOneCombo<ICMSCustomizado> mocIcmsCustomizado;
 
-	private ProdutosFormController controller;
+	private ProdutoFormController controller;
 
-	public ProdutoFormView(ProdutosFormController controller) {
+	public ProdutoFormView(ProdutoFormController controller) {
 		this.controller = controller;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);

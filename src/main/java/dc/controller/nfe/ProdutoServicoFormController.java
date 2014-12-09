@@ -16,7 +16,7 @@ import dc.control.converter.ObjectConverter;
 import dc.control.enums.CsosnEn;
 import dc.control.enums.CstIcmsEn;
 import dc.controller.geral.pessoal.ClienteListController;
-import dc.controller.geral.produto.ProdutosListController;
+import dc.controller.geral.produto.ProdutoListController;
 import dc.controller.nfe.dto.NfeDetalheImpIpiDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoCofinsDTO;
 import dc.controller.nfe.dto.NfeDetalheImpostoIcmsDTO;
@@ -1471,7 +1471,7 @@ public class ProdutoServicoFormController extends
 			// this.subView.getMtoCliente().setModel(model1);
 
 			DefaultManyToOneComboModel<ProdutoEntity> model2 = new DefaultManyToOneComboModel<ProdutoEntity>(
-					ProdutosListController.class, this.produtoDAO,
+					ProdutoListController.class, this.produtoDAO,
 					super.getMainController());
 
 			this.subView.getMtoProduto().setModel(model2);

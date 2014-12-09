@@ -46,7 +46,7 @@ import dc.visao.geral.produto.ProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
+public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	/**
 	 * 
@@ -54,6 +54,8 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	private ProdutoFormView subView;
+
+	private ProdutoEntity currentBean;
 
 	@Autowired
 	private ICMSCustomizadoDAO icmsCustomizadoDAO;
@@ -81,8 +83,6 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Autowired
 	private NcmDAO ncmDAO;
-
-	private ProdutoEntity currentBean;
 
 	// @Autowired
 	// private MainController mainController;
@@ -264,45 +264,43 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 					super.getMainController());
 
 			subView.getMocSubGrupoProduto().setModel(comboSubGrupo);
-			// //
+
 			DefaultManyToOneComboModel<UnidadeProdutoEntity> comboUnidade = new DefaultManyToOneComboModel<UnidadeProdutoEntity>(
 					UnidadeProdutoListController.class, unidadeProdutoDAO,
 					super.getMainController());
 
 			subView.getMocUnidadeProduto().setModel(comboUnidade);
-			//
+
 			DefaultManyToOneComboModel<MarcaEntity> comboMarca = new DefaultManyToOneComboModel<MarcaEntity>(
 					MarcaProdutoListController.class, marcaProdutoDAO,
 					super.getMainController());
 
 			subView.getMocMarcaProduto().setModel(comboMarca);
-			// //
+
 			DefaultManyToOneComboModel<AlmoxarifadoEntity> comboAlmoxarifado = new DefaultManyToOneComboModel<AlmoxarifadoEntity>(
 					AlmoxarifadoListController.class, almoxarifadoDAO,
 					super.getMainController());
 
 			subView.getMocAlmoxarifado().setModel(comboAlmoxarifado);
-			// //
 
 			DefaultManyToOneComboModel<ICMSCustomizado> comboIcmsCustomizado = new DefaultManyToOneComboModel<ICMSCustomizado>(
 					ICMSCustomizadoListController.class, icmsCustomizadoDAO,
 					super.getMainController());
 
 			subView.getMocIcmsCustomizado().setModel(comboIcmsCustomizado);
-			// //
 
 			DefaultManyToOneComboModel<GrupoTributarioEntity> comboGrupoTributario = new DefaultManyToOneComboModel<GrupoTributarioEntity>(
 					GrupoTributarioListController.class, grupoTributarioDAO,
 					super.getMainController());
 
 			subView.getMocGrupoTributario().setModel(comboGrupoTributario);
-			// //
+
 			DefaultManyToOneComboModel<GrupoEntity> comboGrupoProduto = new DefaultManyToOneComboModel<GrupoEntity>(
 					GrupoProdutoListController.class, grupoProdutoDAO,
 					super.getMainController());
 
 			subView.getMocGrupoProduto().setModel(comboGrupoProduto);
-			// //
+
 			DefaultManyToOneComboModel<NcmEntity> comboNCM = new DefaultManyToOneComboModel<NcmEntity>(
 					NcmListController.class, ncmDAO, super.getMainController());
 
@@ -753,6 +751,8 @@ public class ProdutosFormController extends CRUDFormController<ProdutoEntity> {
 			mensagemRemovidoOK();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 

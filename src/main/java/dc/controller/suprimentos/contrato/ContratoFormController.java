@@ -42,7 +42,7 @@ import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
-import dc.controller.geral.produto.ProdutosListController;
+import dc.controller.geral.produto.ProdutoListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -348,7 +348,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 				super.getMainController());
 
 		DefaultManyToOneComboModel<ProdutoEntity> modelProduto = new DefaultManyToOneComboModel<ProdutoEntity>(
-				ProdutosListController.class, this.produtoDAO,
+				ProdutoListController.class, this.produtoDAO,
 				super.getMainController());
 
 		subView.getCmbProduto().setModel(modelProduto);

@@ -14,7 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ProdutosListController extends CRUDListController<ProdutoEntity> {
+public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 
 	/**
 	 * 
@@ -22,10 +22,10 @@ public class ProdutosListController extends CRUDListController<ProdutoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ProdutoDAO dao;
+	private ProdutoDAO dao;
 
 	@Autowired
-	ProdutosFormController produtoFormController;
+	private ProdutoFormController produtoFormController;
 
 	@Override
 	protected CRUDFormController<ProdutoEntity> getFormController() {

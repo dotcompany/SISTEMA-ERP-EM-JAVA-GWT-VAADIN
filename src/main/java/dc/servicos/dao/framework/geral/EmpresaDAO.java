@@ -40,7 +40,7 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 
 	@Transactional
 	public List<EmpresaEntity> empresaLista() {
-		String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia) FROM Empresa ent";
+		String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia) FROM EmpresaEntity ent";
 
 		List auxLista = getSession().createQuery(sql).list();
 
