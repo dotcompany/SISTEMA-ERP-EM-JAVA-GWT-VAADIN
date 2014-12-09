@@ -28,7 +28,6 @@ import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.EmpresaDAO;
@@ -153,119 +152,119 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			CnaeEntity cnaePrincipal = (CnaeEntity) subView
 					.getCbCnaePrincipal().getValue();
 
-			if (!(Validator.validateString(razaoSocial))) {
-				throw new ErroValidacaoException("Informe a Razão Social");
-			}
-			if (!(Validator.validateString(nomeFantasia))) {
-				throw new ErroValidacaoException("Informe o Nome de Fantasia");
-			}
+			// if (!(Validator.validateString(razaoSocial))) {
+			// throw new ErroValidacaoException("Informe a Razão Social");
+			// }
 
-			if (Validator.validateObject(sindicato)) {
-				currentBean.setSindicatoPatronal(sindicato.getId());
-			}
+			// if (!(Validator.validateString(nomeFantasia))) {
+			// throw new ErroValidacaoException("Informe o Nome de Fantasia");
+			// }
 
-			if (Validator.validateObject(contador)) {
-				currentBean.setContador(contador.getId());
-			}
+			// if (Validator.validateObject(sindicato)) {
+			currentBean.setSindicatoPatronal(sindicato.getId());
+			// }
 
-			if (Validator.validateObject(fpas)) {
-				currentBean.setFpas(fpas.getId());
-			}
+			// if (Validator.validateObject(contador)) {
+			currentBean.setContador(contador.getId());
+			// }
+
+			// if (Validator.validateObject(fpas)) {
+			currentBean.setFpas(fpas.getId());
+			// }
 
 			currentBean.setRazaoSocial(razaoSocial);
 			currentBean.setNomeFantasia(nomeFantasia);
 
-			if (sindicato != null) {
-				currentBean.setSindicatoPatronal(sindicato.getId());
-			}
+			// if (sindicato != null) {
+			currentBean.setSindicatoPatronal(sindicato.getId());
+			// }
 
-			if (fpas != null) {
-				currentBean.setFpas(fpas.getId());
-			}
+			// if (fpas != null) {
+			currentBean.setFpas(fpas.getId());
+			// }
 
-			if (contador != null) {
-				currentBean.setContador(contador.getId());
-			}
+			// if (contador != null) {
+			currentBean.setContador(contador.getId());
+			// }
 
-			if (Validator.validateObject(dataInicioAtividades)) {
-				currentBean.setDataInicioAtividades(dataInicioAtividades);
-			}
+			// if (Validator.validateObject(dataInicioAtividades)) {
+			currentBean.setDataInicioAtividades(dataInicioAtividades);
+			// }
 
-			if (Validator.validateObject(cnpj)) {
-				currentBean.setCnpj(cnpj);
-			}
+			// if (Validator.validateObject(cnpj)) {
+			currentBean.setCnpj(cnpj);
+			// }
 
-			if (Validator.validateObject(inscricaoEstadual)) {
-				currentBean.setInscricaoEstadual(inscricaoEstadual);
-			}
+			// if (Validator.validateObject(inscricaoEstadual)) {
+			currentBean.setInscricaoEstadual(inscricaoEstadual);
+			// }
 
-			if (Validator.validateObject(inscricaoEstadualSt)) {
-				currentBean.setInscricaoEstadualSt(inscricaoEstadualSt);
-			}
+			// if (Validator.validateObject(inscricaoEstadualSt)) {
+			currentBean.setInscricaoEstadualSt(inscricaoEstadualSt);
+			// }
 
-			if (Validator.validateObject(inscricaoMunicipal)) {
-				currentBean.setInscricaoMunicipal(inscricaoMunicipal);
-			}
+			// if (Validator.validateObject(inscricaoMunicipal)) {
+			currentBean.setInscricaoMunicipal(inscricaoMunicipal);
+			// }
 
-			if (Validator.validateObject(inscricaoJuntaComercial)) {
-				currentBean.setInscricaoJuntaComercial(inscricaoJuntaComercial);
-			}
+			// if (Validator.validateObject(inscricaoJuntaComercial)) {
+			currentBean.setInscricaoJuntaComercial(inscricaoJuntaComercial);
+			// }
 
-			if (Validator.validateObject(dataInscricaoJuntaComercial)) {
-				currentBean
-						.setDataInscJuntaComercial(dataInscricaoJuntaComercial);
-			}
+			// if (Validator.validateObject(dataInscricaoJuntaComercial)) {
+			currentBean.setDataInscJuntaComercial(dataInscricaoJuntaComercial);
+			// }
 
-			if (Validator.validateObject(suframa)) {
-				currentBean.setSuframa(suframa);
-			}
+			// if (Validator.validateObject(suframa)) {
+			currentBean.setSuframa(suframa);
+			// }
 
-			if (Validator.validateObject(contato)) {
-				currentBean.setContato(contato);
-			}
+			// if (Validator.validateObject(contato)) {
+			currentBean.setContato(contato);
+			// }
 
-			if (Validator.validateObject(codigoTerceiros)) {
-				currentBean.setCodigoTerceiros(new Integer(codigoTerceiros));
-			}
+			// if (Validator.validateObject(codigoTerceiros)) {
+			currentBean.setCodigoTerceiros(new Integer(codigoTerceiros));
+			// }
 
-			if (Validator.validateObject(cei)) {
-				currentBean.setCei(cei);
-			}
+			// if (Validator.validateObject(cei)) {
+			currentBean.setCei(cei);
+			// }
 
-			if (Validator.validateObject(aliquotaPis)) {
-				currentBean.setAliquotaPis(new BigDecimal(aliquotaPis));
-			}
+			// if (Validator.validateObject(aliquotaPis)) {
+			currentBean.setAliquotaPis(new BigDecimal(aliquotaPis));
+			// }
 
-			if (Validator.validateObject(aliquotaCofins)) {
-				currentBean.setAliquotaCofins(new BigDecimal(aliquotaCofins));
-			}
+			// if (Validator.validateObject(aliquotaCofins)) {
+			currentBean.setAliquotaCofins(new BigDecimal(aliquotaCofins));
+			// }
 
-			if (Validator.validateObject(aliquotaSat)) {
-				currentBean.setAliquotaSat(new BigDecimal(aliquotaSat));
-			}
+			// if (Validator.validateObject(aliquotaSat)) {
+			currentBean.setAliquotaSat(new BigDecimal(aliquotaSat));
+			// }
 
-			if (Validator.validateObject(codigoGps)) {
-				currentBean.setCodigoGps(new Integer(codigoGps));
-			}
+			// if (Validator.validateObject(codigoGps)) {
+			currentBean.setCodigoGps(new Integer(codigoGps));
+			// }
 
-			if (Validator.validateObject(codigoMunicipio)) {
-				currentBean.setCodigoIbgeCidade(new Integer(codigoMunicipio));
-			}
+			// if (Validator.validateObject(codigoMunicipio)) {
+			currentBean.setCodigoIbgeCidade(new Integer(codigoMunicipio));
+			// }
 
-			if (Validator.validateObject(codigoUf)) {
-				currentBean.setCodigoIbgeUf(new Integer(codigoUf));
-			}
+			// if (Validator.validateObject(codigoUf)) {
+			currentBean.setCodigoIbgeUf(new Integer(codigoUf));
+			// }
 
-			if (Validator.validateObject(cnaePrincipal)) {
-				currentBean.setCodigoCnaePrincipal(cnaePrincipal.getId()
-						.toString());
-			}
+			// if (Validator.validateObject(cnaePrincipal)) {
+			currentBean
+					.setCodigoCnaePrincipal(cnaePrincipal.getId().toString());
+			// }
 
-			if (Validator.validateObject(subView.getCbMatriz().getValue())) {
-				EmpresaEntity e = (EmpresaEntity) subView.getCbMatriz()
-						.getValue();
-				currentBean.setMatriz(e.getId());
-			}
+			// if (Validator.validateObject(subView.getCbMatriz().getValue())) {
+			EmpresaEntity empresa = (EmpresaEntity) subView.getCbMatriz()
+					.getValue();
+			currentBean.setMatriz(empresa.getId());
+			// }
 
 			List<EmpresaSeguimento> empresaSeguimentos = subView
 					.getSeguimentos();
@@ -278,11 +277,12 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			empresaDAO.saveOrUpdate(currentBean);
 
-			for (PessoaEnderecoEntity e : currentBean.getEnderecos()) {
+			for (PessoaEnderecoEntity e : currentBean.getEnderecoList()) {
 				e.setEmpresa(currentBean);
 				String cep = e.getCep().replace(".", "").replace("-", "")
 						.trim();
 				e.setCep(cep);
+
 				enderecoDAO.saveOrUpdate(e);
 			}
 
@@ -424,11 +424,11 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 				subView.getCbMatriz().setValue(matriz);
 			}
 
-			List<PessoaEnderecoEntity> enderecos = enderecoDAO
+			List<PessoaEnderecoEntity> enderecoList = enderecoDAO
 					.listaPorEmpresa(currentBean);
-			currentBean.setEnderecos(enderecos);
-			// carregarSeguimentos();
-			subView.fillEnderecoSubForm(enderecos);
+			currentBean.setEnderecoList(enderecoList);
+
+			subView.fillEnderecoSubForm(enderecoList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -479,27 +479,6 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		}
 	}
 
-	public PessoaEnderecoEntity novoEndereco() {
-		PessoaEnderecoEntity endereco = new PessoaEnderecoEntity();
-		this.currentBean.addEndereco(endereco);
-
-		return endereco;
-	}
-
-	public void removerEndereco(List<PessoaEnderecoEntity> values) {
-		try {
-			for (PessoaEnderecoEntity endereco : values) {
-				this.currentBean.removeEndereco(endereco);
-			}
-
-			mensagemRemovidoOK();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
@@ -532,6 +511,29 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	@Override
 	public EmpresaEntity getModelBean() {
 		return currentBean;
+	}
+
+	public PessoaEnderecoEntity aderirPessoaEndereco() {
+		PessoaEnderecoEntity pessoaEndereco = new PessoaEnderecoEntity();
+
+		this.currentBean.getEnderecoList().add(pessoaEndereco);
+		// this.currentBean.addEndereco(endereco);
+
+		return pessoaEndereco;
+	}
+
+	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
+		try {
+			for (PessoaEnderecoEntity ent : values) {
+				this.currentBean.getEnderecoList().remove(ent);
+			}
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/**

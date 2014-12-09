@@ -858,43 +858,55 @@ public class EmpresaFormView extends CustomComponent {
 			protected TableFieldFactory getFieldFactory() {
 				return new TableFieldFactory() {
 
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public Field<?> createField(Container container,
 							Object itemId, Object propertyId,
 							Component uiContext) {
-
 						if ("logradouro".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Logradouro");
+
 							return textField;
 						} else if ("numero".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Número");
+
 							return textField;
 						} else if ("complemento".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Complemento");
+
 							return textField;
 						} else if ("bairro".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Bairro");
+
 							return textField;
 						} else if ("cidade".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Cidade");
+
 							return textField;
 						} else if ("cep".equals(propertyId)) {
 							MaskedTextField textField = ComponentUtil
 									.buildMaskedTextField("CEP", "##.###-###");
+
 							return textField;
 						} else if ("municipioIbge".equals(propertyId)) {
 							TextField textField = ComponentUtil
 									.buildTextField("Código Municipio");
+
 							return textField;
 						} else if ("fone".equals(propertyId)) {
 							MaskedTextField textField = ComponentUtil
 									.buildMaskedTextField("Telefone",
 											"(##)####-####");
+
 							return textField;
 						}
 
@@ -905,13 +917,15 @@ public class EmpresaFormView extends CustomComponent {
 			}
 
 			protected PessoaEnderecoEntity getNovo() {
-				PessoaEnderecoEntity endereco = controller.novoEndereco();
+				PessoaEnderecoEntity endereco = controller
+						.aderirPessoaEndereco();
+
 				return endereco;
 			}
 
 			protected void getRemoverSelecionados(
 					List<PessoaEnderecoEntity> values) {
-				controller.removerEndereco(values);
+				controller.removerPessoaEndereco(values);
 			}
 
 			@Override
@@ -919,6 +933,7 @@ public class EmpresaFormView extends CustomComponent {
 				// TODO Auto-generated method stub
 				return true;
 			}
+
 		};
 
 		return enderecoSubForm;
@@ -1305,7 +1320,7 @@ public class EmpresaFormView extends CustomComponent {
 		// getTxtInscricaoJuntaComercial().setValue(
 		// empresa.getInscricaoJuntaComercial());
 
-		this.fillEnderecoSubForm(empresa.getEnderecos());
+		// this.fillEnderecoSubForm(empresa.getEnderecos());
 
 		// this.fillContatoSubForm(empresa.getContatos());
 	}

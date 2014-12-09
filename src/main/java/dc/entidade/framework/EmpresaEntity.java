@@ -349,7 +349,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	 */
 
 	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<PessoaEnderecoEntity> enderecos = new ArrayList<>();
+	private List<PessoaEnderecoEntity> enderecoList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
@@ -763,12 +763,12 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.grupoBemList = grupoBemList;
 	}
 
-	public List<PessoaEnderecoEntity> getEnderecos() {
-		return enderecos;
+	public List<PessoaEnderecoEntity> getEnderecoList() {
+		return enderecoList;
 	}
 
-	public void setEnderecos(List<PessoaEnderecoEntity> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecoList(List<PessoaEnderecoEntity> enderecoList) {
+		this.enderecoList = enderecoList;
 	}
 
 	public List<PaisEntity> getPaisList() {
@@ -889,19 +889,18 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.relatorios = relatorios;
 	}
 
-	public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
-		getEnderecos().add(enderecos);
-		enderecos.setEmpresa(this);
-
-		return enderecos;
-	}
-
-	public PessoaEnderecoEntity removeEndereco(PessoaEnderecoEntity enderecos) {
-		getEnderecos().remove(enderecos);
-		enderecos.setEmpresa(null);
-
-		return enderecos;
-	}
+	/*
+	 * public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
+	 * getEnderecos().add(enderecos); enderecos.setEmpresa(this);
+	 * 
+	 * return enderecos; }
+	 * 
+	 * public PessoaEnderecoEntity removeEndereco(PessoaEnderecoEntity
+	 * enderecos) { getEnderecos().remove(enderecos);
+	 * enderecos.setEmpresa(null);
+	 * 
+	 * return enderecos; }
+	 */
 
 	/**
 	 * TO STRING
