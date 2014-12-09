@@ -22,8 +22,9 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public List<EmpresaEntity> listaTodos() {
 		try {
-			List<EmpresaEntity> auxLista = getSession().createQuery(
-					"FROM EmpresaEntity ent").list();
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia) FROM EmpresaEntity ent";
+
+			List<EmpresaEntity> auxLista = getSession().createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -36,9 +37,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public List<EmpresaEntity> procuraNomeContendo(String query) {
 		try {
-			List<EmpresaEntity> auxLista = getSession()
-					.createQuery(
-							"FROM EmpresaEntity WHERE nomeFantasia like :q")
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
+					+ " FROM EmpresaEntity WHERE nomeFantasia LIKE :q";
+
+			List<EmpresaEntity> auxLista = getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
 
 			return auxLista;
@@ -57,12 +59,12 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public List<CargoEntity> query(String q) {
 		try {
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
+					+ " FROM EmpresaEntity WHERE lower(nomeFantasia) LIKE :q";
+
 			q = "%" + q.toLowerCase() + "%";
 
-			return getSession()
-					.createQuery(
-							"FROM EmpresaEntity WHERE lower(nomeFantasia) LIKE :q")
-					.setParameter("q", q).list();
+			return getSession().createQuery(sql).setParameter("q", q).list();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -128,8 +130,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public List<EmpresaEntity> getListEmpresaMatriz() {
 		try {
-			List<EmpresaEntity> auxLista = getSession()
-					.createQuery("FROM EmpresaEntity WHERE tipo = :tipo")
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
+					+ " FROM EmpresaEntity ent WHERE tipo = :tipo";
+
+			List<EmpresaEntity> auxLista = getSession().createQuery(sql)
 					.setParameter("tipo", MATRIZ).list();
 
 			return auxLista;
@@ -143,8 +147,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
 		try {
-			EmpresaEntity ent = (EmpresaEntity) getSession()
-					.createQuery("FROM EmpresaEntity WHERE conta.id = :c")
+			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
+					+ " FROM EmpresaEntity WHERE conta.id = :c";
+
+			EmpresaEntity ent = (EmpresaEntity) getSession().createQuery(sql)
 					.setParameter("c", contaEmpresaId).uniqueResult();
 
 			return ent;

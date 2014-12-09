@@ -152,119 +152,39 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			CnaeEntity cnaePrincipal = (CnaeEntity) subView
 					.getCbCnaePrincipal().getValue();
 
-			// if (!(Validator.validateString(razaoSocial))) {
-			// throw new ErroValidacaoException("Informe a Razão Social");
-			// }
-
-			// if (!(Validator.validateString(nomeFantasia))) {
-			// throw new ErroValidacaoException("Informe o Nome de Fantasia");
-			// }
-
-			// if (Validator.validateObject(sindicato)) {
 			currentBean.setSindicatoPatronal(sindicato.getId());
-			// }
-
-			// if (Validator.validateObject(contador)) {
 			currentBean.setContador(contador.getId());
-			// }
-
-			// if (Validator.validateObject(fpas)) {
 			currentBean.setFpas(fpas.getId());
-			// }
 
 			currentBean.setRazaoSocial(razaoSocial);
 			currentBean.setNomeFantasia(nomeFantasia);
 
-			// if (sindicato != null) {
 			currentBean.setSindicatoPatronal(sindicato.getId());
-			// }
-
-			// if (fpas != null) {
 			currentBean.setFpas(fpas.getId());
-			// }
-
-			// if (contador != null) {
 			currentBean.setContador(contador.getId());
-			// }
-
-			// if (Validator.validateObject(dataInicioAtividades)) {
 			currentBean.setDataInicioAtividades(dataInicioAtividades);
-			// }
-
-			// if (Validator.validateObject(cnpj)) {
 			currentBean.setCnpj(cnpj);
-			// }
-
-			// if (Validator.validateObject(inscricaoEstadual)) {
 			currentBean.setInscricaoEstadual(inscricaoEstadual);
-			// }
-
-			// if (Validator.validateObject(inscricaoEstadualSt)) {
 			currentBean.setInscricaoEstadualSt(inscricaoEstadualSt);
-			// }
-
-			// if (Validator.validateObject(inscricaoMunicipal)) {
 			currentBean.setInscricaoMunicipal(inscricaoMunicipal);
-			// }
-
-			// if (Validator.validateObject(inscricaoJuntaComercial)) {
 			currentBean.setInscricaoJuntaComercial(inscricaoJuntaComercial);
-			// }
-
-			// if (Validator.validateObject(dataInscricaoJuntaComercial)) {
 			currentBean.setDataInscJuntaComercial(dataInscricaoJuntaComercial);
-			// }
-
-			// if (Validator.validateObject(suframa)) {
 			currentBean.setSuframa(suframa);
-			// }
-
-			// if (Validator.validateObject(contato)) {
 			currentBean.setContato(contato);
-			// }
-
-			// if (Validator.validateObject(codigoTerceiros)) {
 			currentBean.setCodigoTerceiros(new Integer(codigoTerceiros));
-			// }
-
-			// if (Validator.validateObject(cei)) {
 			currentBean.setCei(cei);
-			// }
-
-			// if (Validator.validateObject(aliquotaPis)) {
 			currentBean.setAliquotaPis(new BigDecimal(aliquotaPis));
-			// }
-
-			// if (Validator.validateObject(aliquotaCofins)) {
 			currentBean.setAliquotaCofins(new BigDecimal(aliquotaCofins));
-			// }
-
-			// if (Validator.validateObject(aliquotaSat)) {
 			currentBean.setAliquotaSat(new BigDecimal(aliquotaSat));
-			// }
-
-			// if (Validator.validateObject(codigoGps)) {
 			currentBean.setCodigoGps(new Integer(codigoGps));
-			// }
-
-			// if (Validator.validateObject(codigoMunicipio)) {
 			currentBean.setCodigoIbgeCidade(new Integer(codigoMunicipio));
-			// }
-
-			// if (Validator.validateObject(codigoUf)) {
 			currentBean.setCodigoIbgeUf(new Integer(codigoUf));
-			// }
-
-			// if (Validator.validateObject(cnaePrincipal)) {
 			currentBean
 					.setCodigoCnaePrincipal(cnaePrincipal.getId().toString());
-			// }
 
-			// if (Validator.validateObject(subView.getCbMatriz().getValue())) {
 			EmpresaEntity empresa = (EmpresaEntity) subView.getCbMatriz()
 					.getValue();
 			currentBean.setMatriz(empresa.getId());
-			// }
 
 			List<EmpresaSeguimento> empresaSeguimentoList = subView
 					.getSeguimentos();

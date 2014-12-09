@@ -92,8 +92,9 @@ public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta()
 				.getEmpresa());
 
-		if (nomeArquivo == null)
+		if (nomeArquivo == null) {
 			nomeArquivo = "";
+		}
 
 		String pathArquivo = homePath + "\\ " + customCompanyBaseFolder + "\\"
 				+ currentBean.getEmpresa().getEmpresa().intValue() + "\\"
