@@ -22,8 +22,8 @@ import org.hibernate.search.annotations.Field;
 import com.sun.istack.logging.Logger;
 
 import dc.anotacoes.Caption;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 
 @Entity

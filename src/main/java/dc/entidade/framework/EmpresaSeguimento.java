@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import dc.entidade.administrativo.empresa.EmpresaEntity;
+
 @Entity
 @Table(name = "empresa_seguimento")
 public class EmpresaSeguimento {

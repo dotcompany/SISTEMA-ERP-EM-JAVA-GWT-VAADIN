@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.validator.ObjectValidator;
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.servicos.dao.patrimonio.GrupoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;

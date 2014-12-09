@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.ponto.PontoClassificacaoJornada;
 import dc.servicos.dao.ponto.PontoClassificacaoJornadaDAO;

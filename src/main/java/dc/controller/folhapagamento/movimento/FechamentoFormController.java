@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.movimento.FechamentoEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.movimento.FechamentoDAO;
 import dc.visao.folhapagamento.movimento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;

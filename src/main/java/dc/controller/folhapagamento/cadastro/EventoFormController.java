@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.cadastro.EventoEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.EventoDAO;
 import dc.visao.folhapagamento.cadastro.EventoFormView;
 import dc.visao.framework.geral.CRUDFormController;

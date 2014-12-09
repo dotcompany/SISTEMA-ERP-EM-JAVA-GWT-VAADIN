@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 
 @Entity
 @Table(name = "CONTABIL_HISTORICO")

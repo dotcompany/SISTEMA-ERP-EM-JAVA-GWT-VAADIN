@@ -30,8 +30,8 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;

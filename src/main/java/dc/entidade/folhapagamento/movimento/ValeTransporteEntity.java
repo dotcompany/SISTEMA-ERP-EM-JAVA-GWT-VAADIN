@@ -21,7 +21,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.empresa.TransporteItinerarioEntity;
+import dc.entidade.administrativo.empresa.TransporteItinerarioEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 

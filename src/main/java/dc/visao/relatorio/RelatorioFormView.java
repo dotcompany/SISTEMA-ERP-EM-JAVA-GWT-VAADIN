@@ -25,7 +25,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;

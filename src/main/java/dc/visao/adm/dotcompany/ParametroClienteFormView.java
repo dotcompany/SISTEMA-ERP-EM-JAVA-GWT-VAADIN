@@ -16,7 +16,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import dc.controller.adm.dotcompany.ParametroClienteFormController;
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 

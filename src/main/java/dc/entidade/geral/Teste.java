@@ -23,8 +23,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.AbstractModel;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 
 //@Entity

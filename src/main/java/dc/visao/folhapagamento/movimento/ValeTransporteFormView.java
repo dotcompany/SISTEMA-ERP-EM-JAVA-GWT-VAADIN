@@ -12,7 +12,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.movimento.ValeTransporteFormController;
-import dc.entidade.empresa.TransporteItinerarioEntity;
+import dc.entidade.administrativo.empresa.TransporteItinerarioEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 public class ValeTransporteFormView extends CustomComponent {

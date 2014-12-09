@@ -12,8 +12,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;

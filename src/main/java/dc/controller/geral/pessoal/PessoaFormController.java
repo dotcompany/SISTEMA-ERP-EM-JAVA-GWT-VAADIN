@@ -26,7 +26,7 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.PessoaValidator;
 import dc.controller.geral.UfListController;
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;

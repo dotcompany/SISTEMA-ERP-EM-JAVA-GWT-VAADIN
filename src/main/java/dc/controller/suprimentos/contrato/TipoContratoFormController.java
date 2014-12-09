@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;

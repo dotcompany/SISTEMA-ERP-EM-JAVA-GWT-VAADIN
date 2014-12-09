@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.ausencia.TipoAfastamentoDAO;
 import dc.visao.folhapagamento.ausencia.TipoAfastamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;

@@ -14,7 +14,7 @@ import org.jrimum.texgit.Record;
 import org.jrimum.texgit.Texgit;
 import org.springframework.stereotype.Service;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.ponto.PontoFechamentoJornada;
 import dc.entidade.ponto.PontoHorario;
 

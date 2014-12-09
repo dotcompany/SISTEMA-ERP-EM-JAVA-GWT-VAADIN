@@ -17,6 +17,8 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
+import dc.entidade.administrativo.empresa.EmpresaEntity;
+
 @SuppressWarnings("serial")
 @MappedSuperclass
 @AnalyzerDef(name = "id_empresa_analyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {

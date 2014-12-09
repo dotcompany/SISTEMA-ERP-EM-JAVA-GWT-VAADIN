@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.controller.financeiro.EmpresaListController;
+import dc.controller.administrativo.empresa.EmpresaListController;
 import dc.entidade.adm.dotcompany.ParametroCliente;
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
+import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
-import dc.servicos.dao.framework.geral.EmpresaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.SIM_NAO;

@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
-import dc.servicos.dao.framework.geral.EmpresaDAO;
+import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.sistema.ContaEmpresaDAO;
 import dc.servicos.dao.sistema.UsuarioDAO;
 

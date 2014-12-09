@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.empresa.TransporteItinerarioEntity;
+import dc.entidade.administrativo.empresa.TransporteItinerarioEntity;
 import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.servicos.dao.empresa.TransporteItinerarioDAO;
+import dc.servicos.dao.administrativo.empresa.TransporteItinerarioDAO;
 import dc.servicos.dao.folhapagamento.movimento.ValeTransporteDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.movimento.ValeTransporteFormView;

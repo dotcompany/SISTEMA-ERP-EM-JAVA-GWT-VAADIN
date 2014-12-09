@@ -12,10 +12,10 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.ContaCaixaTipoEnum;
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.AgenciaBanco;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;

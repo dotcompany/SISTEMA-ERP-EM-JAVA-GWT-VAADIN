@@ -6,12 +6,12 @@ import dc.control.util.DateUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.financeiro.SindicatoEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.Fpas;
 import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
-import dc.visao.financeiro.EmpresaFormView;
+import dc.visao.administrativo.empresa.EmpresaFormView;
 
 public class EmpresaValidator {
 

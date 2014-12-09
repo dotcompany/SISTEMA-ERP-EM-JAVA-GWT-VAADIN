@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 import dc.servicos.dao.patrimonio.TipoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;

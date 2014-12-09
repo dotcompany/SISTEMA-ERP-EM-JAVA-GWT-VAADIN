@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
-import dc.entidade.framework.EmpresaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.GuiaAcumuladaDAO;
 import dc.visao.folhapagamento.cadastro.GuiaAcumuladaFormView;
 import dc.visao.framework.geral.CRUDFormController;

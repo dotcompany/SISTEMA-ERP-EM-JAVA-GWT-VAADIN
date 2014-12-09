@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.financeiro.PlanoNaturezaFinanceira;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.geral.Usuario;
 import dc.servicos.dao.financeiro.PlanoNaturezaFinanceiraDAO;
 import dc.servicos.util.Validator;

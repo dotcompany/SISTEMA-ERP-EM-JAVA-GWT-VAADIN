@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.framework.EmpresaEntity;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
-import dc.servicos.dao.framework.geral.EmpresaDAO;
+import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.sistema.ContaEmpresaDAO;
