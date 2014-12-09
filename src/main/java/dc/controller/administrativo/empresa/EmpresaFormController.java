@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.control.converter.StringConverter;
 import dc.control.enums.CrtEn;
 import dc.control.enums.TipoEmpresaEn;
 import dc.control.enums.TipoRegimeEn;
@@ -266,13 +267,16 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.empresaDAO.saveOrUpdate(this.currentBean);
 
-			for (PessoaEnderecoEntity e : this.currentBean.getEnderecoList()) {
-				e.setEmpresa(this.currentBean);
-				String cep = e.getCep().replace(".", "").replace("-", "")
-						.trim();
-				e.setCep(cep);
+			for (PessoaEnderecoEntity ent : this.currentBean.getEnderecoList()) {
+				ent.setEmpresa(this.currentBean);
 
-				this.enderecoDAO.saveOrUpdate(e);
+				// String cep = ent.getCep().replace(".", "").replace("-", "")
+				// .trim();
+				String cep = StringConverter.removeSpecialCharacters(ent
+						.getCep());
+				ent.setCep(cep);
+
+				this.enderecoDAO.saveOrUpdate(ent);
 			}
 
 			this.currentBean.setEmpresa(this.currentBean.getId());
