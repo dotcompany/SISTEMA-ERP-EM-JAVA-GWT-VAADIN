@@ -23,10 +23,10 @@ public class MarcaProdutoListController extends CRUDListController<MarcaEntity> 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	MarcaProdutoDAO dao;
+	private MarcaProdutoDAO dao;
 
 	@Autowired
-	MarcaProdutoFormController marcaProdutoFormController;
+	private MarcaProdutoFormController marcaProdutoFormController;
 
 	@Override
 	protected CRUDFormController<MarcaEntity> getFormController() {

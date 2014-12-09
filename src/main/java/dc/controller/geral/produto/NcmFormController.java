@@ -10,9 +10,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.NcmValidator;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.geral.produto.NcmDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.NcmFormView;
 
@@ -27,44 +28,42 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	private NcmFormView subView;
 
+	private NcmEntity currentBean;
+
 	@Autowired
 	private NcmDAO ncmDAO;
 
-	private NcmEntity currentBean;
-
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			NcmValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new NcmEntity();
+		try {
+			this.currentBean = new NcmEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		this.subView = new NcmFormView();
+		try {
+			this.subView = new NcmFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -72,9 +71,9 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 		try {
 			this.currentBean = this.ncmDAO.find(id);
 
-			this.subView.getTxtCodigo().setValue(this.currentBean.getCodigo());
-			this.subView.getTxtDescricao().setValue(this.currentBean.getNome());
-			this.subView.getTxtObservacao().setValue(
+			this.subView.getTfCodigo().setValue(this.currentBean.getCodigo());
+			this.subView.getTfDescricao().setValue(this.currentBean.getNome());
+			this.subView.getTfObservacao().setValue(
 					this.currentBean.getObservacao());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,9 +85,9 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setCodigo(this.subView.getTxtCodigo().getValue());
-			this.currentBean.setNome(this.subView.getTxtDescricao().getValue());
-			this.currentBean.setObservacao(this.subView.getTxtObservacao()
+			this.currentBean.setCodigo(this.subView.getTfCodigo().getValue());
+			this.currentBean.setNome(this.subView.getTfDescricao().getValue());
+			this.currentBean.setObservacao(this.subView.getTfObservacao()
 					.getValue());
 
 			this.ncmDAO.saveOrUpdate(this.currentBean);

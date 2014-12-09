@@ -23,10 +23,10 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NcmDAO dao;
+	private NcmDAO dao;
 
 	@Autowired
-	NcmFormController ncmFormController;
+	private NcmFormController ncmFormController;
 
 	@Override
 	protected CRUDFormController<NcmEntity> getFormController() {
@@ -68,7 +68,6 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
-
 	}
 
 	@Override

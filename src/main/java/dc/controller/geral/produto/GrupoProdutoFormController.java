@@ -10,9 +10,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.GrupoProdutoValidator;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.GrupoProdutoFormView;
 
@@ -27,38 +28,42 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoEntity> 
 
 	private GrupoProdutoFormView subView;
 
+	private GrupoEntity currentBean;
+
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
 
-	private GrupoEntity currentBean;
-
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			GrupoProdutoValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(this.subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(this.subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new GrupoEntity();
+		try {
+			this.currentBean = new GrupoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		this.subView = new GrupoProdutoFormView();
+		try {
+			this.subView = new GrupoProdutoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

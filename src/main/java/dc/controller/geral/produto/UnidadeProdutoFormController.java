@@ -1,7 +1,6 @@
 package dc.controller.geral.produto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.UnidadeProdutoValidator;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,10 +30,10 @@ public class UnidadeProdutoFormController extends
 
 	private UnidadeProdutoFormView subView;
 
+	private UnidadeProdutoEntity currentBean;
+
 	@Autowired
 	private UnidadeProdutoDAO unidadeProdutoDAO;
-
-	private UnidadeProdutoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -42,6 +43,19 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		try {
+			UnidadeProdutoValidator.validaSalvar(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
 	}
 
 	@Override
@@ -93,9 +107,13 @@ public class UnidadeProdutoFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new UnidadeProdutoFormView();
+		try {
+			this.subView = new UnidadeProdutoFormView(this);
 
-		this.subView.InitCbs(getPodeFracionarEn());
+			comboPodeFracionar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -104,7 +122,13 @@ public class UnidadeProdutoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new UnidadeProdutoEntity();
+		try {
+			this.currentBean = new UnidadeProdutoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -121,27 +145,6 @@ public class UnidadeProdutoFormController extends
 	}
 
 	@Override
-	protected boolean validaSalvar() {
-		if (this.subView.getTfSigla().getValue() == null
-				|| this.subView.getTfSigla().getValue().isEmpty()) {
-			adicionarErroDeValidacao(this.subView.getTfSigla(),
-					"Não pode ficar em branco");
-
-			return false;
-		}
-
-		if (this.subView.getTfDescricao().getValue() == null
-				|| this.subView.getTfDescricao().getValue().isEmpty()) {
-			adicionarErroDeValidacao(this.subView.getTfDescricao(),
-					"Não pode ficar em branco");
-
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
 	}
@@ -150,21 +153,6 @@ public class UnidadeProdutoFormController extends
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
-	}
-
-	public List<String> getPodeFracionarEn() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (SimNaoEn en : SimNaoEn.values()) {
-				siLista.add(en.ordinal(), en.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	@Override
@@ -176,6 +164,16 @@ public class UnidadeProdutoFormController extends
 	public UnidadeProdutoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+
+	/**
+	 * COMBOS
+	 */
+
+	public void comboPodeFracionar() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbPodeFracionar().addItem(en);
+		}
 	}
 
 }

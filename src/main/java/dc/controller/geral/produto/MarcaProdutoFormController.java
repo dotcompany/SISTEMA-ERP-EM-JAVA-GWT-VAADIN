@@ -10,16 +10,16 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.MarcaProdutoValidator;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.MarcaProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class MarcaProdutoFormController extends
-		CRUDFormController<MarcaEntity> {
+public class MarcaProdutoFormController extends CRUDFormController<MarcaEntity> {
 
 	/**
 	 * 
@@ -28,59 +28,71 @@ public class MarcaProdutoFormController extends
 
 	private MarcaProdutoFormView subView;
 
+	private MarcaEntity currentBean;
+
 	@Autowired
 	private MarcaProdutoDAO marcaProdutoDAO;
 
-	private MarcaEntity currentBean;
-
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			MarcaProdutoValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new MarcaEntity();
+		try {
+			this.currentBean = new MarcaEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new MarcaProdutoFormView();
+		try {
+			this.subView = new MarcaProdutoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = marcaProdutoDAO.find(id);
+		try {
+			this.currentBean = this.marcaProdutoDAO.find(id);
 
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfDescricao().setValue(
+					this.currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
-			marcaProdutoDAO.saveOrUpdate(currentBean);
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setDescricao(this.subView.getTfDescricao()
+					.getValue());
+
+			this.marcaProdutoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -91,14 +103,20 @@ public class MarcaProdutoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Marca Produto";
+		return "Marca de produto";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		marcaProdutoDAO.deleteAllByIds(ids);
+		try {
+			this.marcaProdutoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

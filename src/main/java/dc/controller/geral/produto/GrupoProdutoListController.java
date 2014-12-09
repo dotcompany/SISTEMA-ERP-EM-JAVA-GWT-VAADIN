@@ -23,10 +23,10 @@ public class GrupoProdutoListController extends CRUDListController<GrupoEntity> 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	GrupoProdutoDAO dao;
+	private GrupoProdutoDAO dao;
 
 	@Autowired
-	GrupoProdutoFormController grupoProdutoFormController;
+	private GrupoProdutoFormController grupoProdutoFormController;
 
 	@Override
 	protected CRUDFormController<GrupoEntity> getFormController() {

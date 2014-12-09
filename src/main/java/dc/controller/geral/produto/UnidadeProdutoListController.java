@@ -24,10 +24,10 @@ public class UnidadeProdutoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	UnidadeProdutoDAO dao;
+	private UnidadeProdutoDAO dao;
 
 	@Autowired
-	UnidadeProdutoFormController unidadeProdutoFormController;
+	private UnidadeProdutoFormController unidadeProdutoFormController;
 
 	@Override
 	public String[] getColunas() {

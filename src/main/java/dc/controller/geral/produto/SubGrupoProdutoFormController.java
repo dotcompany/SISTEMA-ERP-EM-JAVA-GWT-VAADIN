@@ -10,11 +10,12 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.SubGrupoProdutoValidator;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.SubGrupoProdutoFormView;
@@ -31,54 +32,51 @@ public class SubGrupoProdutoFormController extends
 
 	private SubGrupoProdutoFormView subView;
 
+	private SubGrupoEntity currentBean;
+
 	@Autowired
 	private SubGrupoProdutoDAO subGrupoProdutoDAO;
 
 	@Autowired
 	private GrupoProdutoDAO grupoProdutoDAO;
 
-	private SubGrupoEntity currentBean;
-
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			SubGrupoProdutoValidator.validaSalvar(this.subView);
 
-		if (!Validator.validateString(this.subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(this.subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(this.subView.getMocGrupoProduto()
-				.getValue())) {
-			adicionarErroDeValidacao(this.subView.getTfDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new SubGrupoEntity();
+		try {
+			this.currentBean = new SubGrupoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		this.subView = new SubGrupoProdutoFormView();
+		try {
+			this.subView = new SubGrupoProdutoFormView(this);
 
-		DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
-				GrupoProdutoListController.class, this.grupoProdutoDAO,
-				super.getMainController());
+			DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
+					GrupoProdutoListController.class, this.grupoProdutoDAO,
+					super.getMainController());
 
-		this.subView.getMocGrupoProduto().setModel(model);
+			this.subView.getMocGrupoProduto().setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
