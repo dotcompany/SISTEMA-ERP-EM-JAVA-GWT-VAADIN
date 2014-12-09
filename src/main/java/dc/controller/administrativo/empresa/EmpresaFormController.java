@@ -1,6 +1,7 @@
 package dc.controller.administrativo.empresa;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,6 @@ import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
-import dc.servicos.util.Validator;
 import dc.visao.administrativo.empresa.EmpresaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -311,56 +311,98 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 					this.currentBean.getDataInscJuntaComercial());
 			this.subView.getTfSuframa().setValue(this.currentBean.getSuframa());
 			this.subView.getTfContato().setValue(this.currentBean.getContato());
-			this.subView.getTfCodigoTerceiros().setValue(
-					this.currentBean.getCodigoTerceiros().toString());
-			this.subView.getTfCei().setValue(this.currentBean.getCei());
-			this.subView.getTfAliquotaPis().setValue(
-					this.currentBean.getAliquotaPis().toString());
-			this.subView.getTfAliquotaCofins().setValue(
-					this.currentBean.getAliquotaCofins().toString());
-			this.subView.getTfAliquotaSat().setValue(
-					this.currentBean.getAliquotaSat().toString());
-			this.subView.getTfCodigoGps().setValue(
-					this.currentBean.getCodigoGps().toString());
-			this.subView.getTfMunicipio().setValue(
-					this.currentBean.getCodigoIbgeCidade().toString());
-			this.subView.getTfUf().setValue(
-					this.currentBean.getCodigoIbgeUf().toString());
 
-			if (this.currentBean.getSindicatoPatronal() != null) {
+			Integer codigoTerceiros = this.currentBean.getCodigoTerceiros();
+
+			if (NumberUtils.isNotBlank(codigoTerceiros)) {
+				this.subView.getTfCodigoTerceiros().setValue(
+						codigoTerceiros.toString());
+			}
+
+			this.subView.getTfCei().setValue(this.currentBean.getCei());
+
+			BigDecimal aliquotaPis = this.currentBean.getAliquotaPis();
+
+			if (NumberUtils.isNotBlank(aliquotaPis)) {
+				this.subView.getTfAliquotaPis()
+						.setValue(aliquotaPis.toString());
+			}
+
+			BigDecimal aliquotaCofins = this.currentBean.getAliquotaCofins();
+
+			if (NumberUtils.isNotBlank(aliquotaCofins)) {
+				this.subView.getTfAliquotaCofins().setValue(
+						aliquotaCofins.toString());
+			}
+
+			BigDecimal aliquotaSat = this.currentBean.getAliquotaSat();
+
+			if (NumberUtils.isNotBlank(aliquotaSat)) {
+				this.subView.getTfAliquotaSat()
+						.setValue(aliquotaSat.toString());
+			}
+
+			Integer codigoGps = this.currentBean.getCodigoGps();
+
+			if (NumberUtils.isNotBlank(codigoGps)) {
+				this.subView.getTfCodigoGps().setValue(codigoGps.toString());
+			}
+
+			Integer codigoIbgeCidade = this.currentBean.getCodigoIbgeCidade();
+
+			if (NumberUtils.isNotBlank(codigoIbgeCidade)) {
+				this.subView.getTfMunicipio().setValue(
+						codigoIbgeCidade.toString());
+			}
+
+			Integer codigoIbgeUf = this.currentBean.getCodigoIbgeUf();
+
+			if (NumberUtils.isNotBlank(codigoIbgeUf)) {
+				this.subView.getTfUf().setValue(codigoIbgeUf.toString());
+			}
+
+			Integer codigoSindicato = this.currentBean.getSindicatoPatronal();
+
+			if (NumberUtils.isNotBlank(codigoSindicato)) {
 				SindicatoEntity sindicato = this.sindicatoDAO
-						.find(this.currentBean.getSindicatoPatronal());
+						.find(codigoSindicato);
+
 				this.subView.getCbSindicato().setValue(sindicato);
 			}
 
-			if (this.currentBean.getContador() != null) {
-				try {
-					Integer idC = new Integer(this.currentBean.getContador());
-					ContadorEntity contador = this.contadorDAO.find(idC);
-					this.subView.getCbContador().setValue(contador);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			Integer codigoContador = this.currentBean.getContador();
+
+			if (NumberUtils.isNotBlank(codigoContador)) {
+				ContadorEntity contador = this.contadorDAO.find(codigoContador);
+
+				this.subView.getCbContador().setValue(contador);
 			}
 
-			if (this.currentBean.getFpas() != null) {
-				Fpas fpas = this.fpasDAO.find(this.currentBean.getFpas());
+			Integer codigoFpas = this.currentBean.getFpas();
+
+			if (NumberUtils.isNotBlank(codigoFpas)) {
+				Fpas fpas = this.fpasDAO.find(codigoFpas);
+
 				this.subView.getCbFpas().setValue(fpas);
 			}
 
-			if (Validator.validateObject(this.currentBean
-					.getCodigoCnaePrincipal())) {
-				Integer idCnae = new Integer(
-						this.currentBean.getCodigoCnaePrincipal());
-				CnaeEntity cnae = this.cnaeDAO.find(idCnae);
+			String codigoCnaePrincipal = this.currentBean
+					.getCodigoCnaePrincipal();
+
+			if (NumberUtils.isNumber(codigoCnaePrincipal)) {
+				CnaeEntity cnae = this.cnaeDAO.find(NumberUtils
+						.toInt(codigoCnaePrincipal));
 
 				this.subView.getCbCnaePrincipal().setValue(cnae);
 			}
 
-			if (Validator.validateObject(this.currentBean.getMatriz())) {
-				Integer idMatriz = this.currentBean.getMatriz();
-				EmpresaEntity matriz = this.empresaDAO.find(idMatriz);
-				this.subView.getCbMatriz().setValue(matriz);
+			Integer codigoEmpresaMatriz = this.currentBean.getMatriz();
+
+			if (NumberUtils.isNotBlank(codigoEmpresaMatriz)) {
+				EmpresaEntity empresaMatriz = this.empresaDAO
+						.find(codigoEmpresaMatriz);
+
+				this.subView.getCbMatriz().setValue(empresaMatriz);
 			}
 
 			List<PessoaEnderecoEntity> enderecoList = this.enderecoDAO
