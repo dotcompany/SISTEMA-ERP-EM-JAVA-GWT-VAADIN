@@ -266,14 +266,14 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			currentBean.setMatriz(empresa.getId());
 			// }
 
-			List<EmpresaSeguimento> empresaSeguimentos = subView
+			List<EmpresaSeguimento> empresaSeguimentoList = subView
 					.getSeguimentos();
 
-			for (EmpresaSeguimento empresaSeguimento : empresaSeguimentos) {
-				empresaSeguimento.setEmpresa(currentBean);
+			for (EmpresaSeguimento ent : empresaSeguimentoList) {
+				ent.setEmpresa(currentBean);
 			}
 
-			currentBean.setEmpresaSeguimentos(empresaSeguimentos);
+			currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
 
 			empresaDAO.saveOrUpdate(currentBean);
 

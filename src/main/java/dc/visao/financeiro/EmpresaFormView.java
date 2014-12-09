@@ -31,7 +31,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.financeiro.EmpresaFormController;
-import dc.entidade.framework.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -1288,42 +1287,6 @@ public class EmpresaFormView extends CustomComponent {
 	 * public void fillContatoSubForm(List<Contato> contatos) {
 	 * this.contatoSubForm.fillWith(contatos); }
 	 */
-
-	public void preencheEmpresa(EmpresaEntity empresa) {
-		/*
-		 * empresa.setMatriz((Matriz) getCbmMatriz().getValue());
-		 * empresa.setContador((Contador) getCmbContador().getValue());
-		 * empresa.setSindicato((Sindicato) getCmbSindicato().getValue());
-		 * empresa.setFpas((Fpas) getCmbFpas().getValue());
-		 */
-		// empresa.setDataInicioAtividades(getDtInicioAtividades().getValue());
-		// empresa.setCnpj(getTxtCnpj().getValue());
-		// empresa.setInscricaoEstadual(getTxtInscricaoEstadual().getValue());
-		// empresa.setInscricaoEstadualSt(getTxtInscricaoEstadualSt().getValue());
-		// empresa.setInscricaoMunicipal(getTxtInscricaoMunicipal().getValue());
-		// empresa.setInscricaoJuntaComercial(getTxtInscricaoJuntaComercial()
-		// .getValue());
-	}
-
-	public void preencheEmpresaForm(EmpresaEntity empresa) {
-		/* getCbmMatriz().setValue(empresa.getMatriz()); */
-		/*
-		 * getCmbContador().setValue(empresa.getContador());
-		 * getCmbSindicato().setValue(empresa.getSindicato());
-		 * getCmbFpas().setValue(empresa.getFpas());
-		 */
-		// getDtInicioAtividades().setValue(empresa.getDataInicioAtividades());
-		// getTxtCnpj().setValue(empresa.getCnpj());
-		// getTxtInscricaoEstadual().setValue(empresa.getInscricaoEstadual());
-		// getTxtInscricaoEstadualSt().setValue(empresa.getInscricaoEstadualSt());
-		// getTxtInscricaoMunicipal().setValue(empresa.getInscricaoMunicipal());
-		// getTxtInscricaoJuntaComercial().setValue(
-		// empresa.getInscricaoJuntaComercial());
-
-		// this.fillEnderecoSubForm(empresa.getEnderecos());
-
-		// this.fillContatoSubForm(empresa.getContatos());
-	}
 
 	public Table getTableSeguimentos() {
 		return tableSeguimentos;

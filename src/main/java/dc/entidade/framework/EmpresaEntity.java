@@ -425,10 +425,10 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private List<ContaCaixa> contaCaixaList;
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpresaSeguimento> empresaSeguimentos;
+	private List<EmpresaSeguimento> empresaSeguimentoList;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
-	private Set<Relatorio> relatorios;
+	private Set<Relatorio> relatorio;
 
 	/**
 	 * CONSTRUTOR
@@ -873,20 +873,21 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.contaCaixaList = contaCaixaList;
 	}
 
-	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
-		return empresaSeguimentos;
+	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
+		return empresaSeguimentoList;
 	}
 
-	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
-		this.empresaSeguimentos = empresaSeguimentos;
+	public void setEmpresaSeguimentoList(
+			List<EmpresaSeguimento> empresaSeguimentoList) {
+		this.empresaSeguimentoList = empresaSeguimentoList;
 	}
 
-	public Set<Relatorio> getRelatorios() {
-		return relatorios;
+	public Set<Relatorio> getRelatorio() {
+		return relatorio;
 	}
 
-	public void setRelatorios(Set<Relatorio> relatorios) {
-		this.relatorios = relatorios;
+	public void setRelatorio(Set<Relatorio> relatorio) {
+		this.relatorio = relatorio;
 	}
 
 	/*

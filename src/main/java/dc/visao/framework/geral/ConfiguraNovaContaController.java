@@ -73,11 +73,14 @@ public class ConfiguraNovaContaController implements Serializable,
 		ConfiguracaoContaEmpresa conf = contaDao
 				.findConfiguracaoByIdConta(contaId);
 		EmpresaEntity empresa = empresaDao.findEmpresaByContaEmpresa(contaId);
+
 		System.out.println(empresa);
+
 		if (conf == null) {
 			conf = new ConfiguracaoContaEmpresa();
 			conf.setConta(contaDao.find(contaId));
 		}
+
 		conf.setPergunta1(String.valueOf(value));
 
 		if (value != null && value instanceof SeguimentoEntity) {
@@ -87,7 +90,7 @@ public class ConfiguraNovaContaController implements Serializable,
 			empresaSeguimento.setEmpresa(empresa);
 			empresaSeguimento.setSeguimento((SeguimentoEntity) value);
 			empresaSeguimentos.add(empresaSeguimento);
-			empresa.setEmpresaSeguimentos(empresaSeguimentos);
+			empresa.setEmpresaSeguimentoList(empresaSeguimentos);
 		}
 
 		contaDao.saveOrUpdate(conf);
