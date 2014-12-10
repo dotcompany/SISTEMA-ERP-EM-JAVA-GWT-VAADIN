@@ -19,7 +19,6 @@ import dc.control.enums.TipoRegimeEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
-import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.EmpresaValidator;
 import dc.controller.sistema.SeguimentoListController;
@@ -78,7 +77,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private EmpresaCnaeDAO empresaCnaeDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO enderecoDAO;
+	private PessoaEnderecoDAO pessoaEnderecoDAO;
 
 	@Autowired
 	private CnaeDAO cnaeDAO;
@@ -143,11 +142,11 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 						.toString());
 			}
 
-			EmpresaEntity empresa = (EmpresaEntity) this.subView.getCbMatriz()
-					.getValue();
+			EmpresaEntity empresaMatriz = (EmpresaEntity) this.subView
+					.getCbMatriz().getValue();
 
-			if (ObjectUtils.isNotBlank(empresa)) {
-				this.currentBean.setMatriz(empresa.getId());
+			if (ObjectUtils.isNotBlank(empresaMatriz)) {
+				this.currentBean.setMatriz(empresaMatriz.getId());
 			}
 
 			String razaoSocial = this.subView.getTfRazaoSocial().getValue();
@@ -256,31 +255,52 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 						.toInt(codigoIbgeUf));
 			}
 
+			TipoEmpresaEn tipoEmpresaEn = (TipoEmpresaEn) this.subView
+					.getCbTipoEmpresa().getValue();
+
+			if (ObjectUtils.isNotBlank(tipoEmpresaEn)) {
+				this.currentBean.setTipoEmpresa(tipoEmpresaEn);
+			}
+
+			CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
+
+			if (ObjectUtils.isNotBlank(crtEn)) {
+				this.currentBean.setCrt(crtEn);
+			}
+
+			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
+					.getCbTipoRegime().getValue();
+
+			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+				this.currentBean.setTipoRegime(tipoRegimeEn);
+			}
+
 			List<EmpresaSeguimento> empresaSeguimentoList = this.subView
 					.getSeguimentos();
 
-			for (EmpresaSeguimento ent : empresaSeguimentoList) {
-				ent.setEmpresa(this.currentBean);
-			}
+			// for (EmpresaSeguimento ent : empresaSeguimentoList) {
+			// ent.setEmpresa(this.currentBean);
+			// }
 
 			this.currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
 
-			this.empresaDAO.saveOrUpdate(this.currentBean);
+			// this.empresaDAO.saveOrUpdate(this.currentBean);
 
-			for (PessoaEnderecoEntity ent : this.currentBean.getEnderecoList()) {
-				ent.setEmpresa(this.currentBean);
+			// for (PessoaEnderecoEntity ent :
+			// this.currentBean.getEnderecoList()) {
+			// ent.setEmpresa(this.currentBean);
 
-				// String cep = ent.getCep().replace(".", "").replace("-", "")
-				// .trim();
-				String cep = StringUtils.removeSpecialCharacters(ent.getCep());
-				ent.setCep(cep);
+			// String cep = ent.getCep().replace(".", "").replace("-", "")
+			// .trim();
+			// String cep = StringUtils.removeSpecialCharacters(ent.getCep());
+			// ent.setCep(cep);
 
-				this.enderecoDAO.saveOrUpdate(ent);
-			}
+			// this.enderecoDAO.saveOrUpdate(ent);
+			// }
 
 			this.currentBean.setEmpresa(this.currentBean.getId());
 
-			this.empresaDAO.saveOrUpdate(this.currentBean);
+			this.empresaDAO.saveOrUpdateEmpresa(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -408,8 +428,28 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 				this.subView.getCbMatriz().setValue(empresaMatriz);
 			}
 
-			List<PessoaEnderecoEntity> enderecoList = this.enderecoDAO
-					.listaPorEmpresa(this.currentBean);
+			TipoEmpresaEn tipoEmpresaEn = (TipoEmpresaEn) this.currentBean
+					.getTipoEmpresa();
+
+			if (ObjectUtils.isNotBlank(tipoEmpresaEn)) {
+				this.subView.getCbTipoEmpresa().setValue(tipoEmpresaEn);
+			}
+
+			CrtEn crtEn = (CrtEn) this.currentBean.getCrt();
+
+			if (ObjectUtils.isNotBlank(crtEn)) {
+				this.subView.getCbCrt().setValue(crtEn);
+			}
+
+			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.currentBean
+					.getTipoRegime();
+
+			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+				this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
+			}
+
+			List<PessoaEnderecoEntity> enderecoList = this.pessoaEnderecoDAO
+					.getPessoaEnderecoList(this.currentBean);
 
 			this.currentBean.setEnderecoList(enderecoList);
 

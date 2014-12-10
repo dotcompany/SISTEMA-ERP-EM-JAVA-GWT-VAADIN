@@ -2,6 +2,7 @@ package dc.servicos.dao.geral;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,7 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	public List<PessoaEnderecoEntity> listaPorEmpresa(EmpresaEntity empresa) {
 		return getSession()
 				.createQuery(
-						"from PessoaEnderecoEntity c where c.empresa = :emp ")
+						"from PessoaEnderecoEntity c where c.empresa = :emp")
 				.setParameter("emp", empresa).list();
 	}
 
@@ -52,6 +53,26 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	@Override
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "nome", "email" };
+	}
+
+	@Transactional
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList(
+			EmpresaEntity empresa) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.empresa.id = :id";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", empresa.getId());
+
+			List<PessoaEnderecoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

@@ -4,17 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.control.util.StringUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.framework.EmpresaSeguimento;
+import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 
 @Repository
 public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 
 	private static String MATRIZ = "1";
+
+	@Autowired
+	private PessoaEnderecoDAO pessoaEnderecoDAO;
+
+	@Autowired
+	private EmpresaSeguimentoDAO empresaSeguimentoDAO;
 
 	@Override
 	public Class<EmpresaEntity> getEntityClass() {
@@ -158,6 +170,45 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 					.setParameter("c", contaEmpresaId).uniqueResult();
 
 			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
+	public void saveOrUpdateEmpresa(EmpresaEntity empresa) throws Exception {
+		try {
+			super.saveOrUpdate(empresa);
+
+			List<PessoaEnderecoEntity> auxLista = empresa.getEnderecoList();
+
+			if (auxLista != null && !auxLista.isEmpty()) {
+				for (PessoaEnderecoEntity ent : auxLista) {
+					ent.setEmpresa(empresa);
+
+					String cep = ent.getCep();
+
+					if (StringUtils.isNotBlank(cep)) {
+						cep = StringUtils.removeSpecialCharacters(ent.getCep());
+						ent.setCep(cep);
+					}
+
+					this.pessoaEnderecoDAO.saveOrUpdate(ent);
+				}
+			}
+
+			List<EmpresaSeguimento> auxLista1 = empresa
+					.getEmpresaSeguimentoList();
+
+			if (auxLista1 != null && !auxLista1.isEmpty()) {
+				for (EmpresaSeguimento ent : auxLista1) {
+					ent.setEmpresa(empresa);
+
+					this.empresaSeguimentoDAO.saveOrUpdate(ent);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
