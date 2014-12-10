@@ -182,7 +182,8 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		try {
 			super.saveOrUpdate(empresa);
 
-			List<PessoaEnderecoEntity> auxLista = empresa.getEnderecoList();
+			List<PessoaEnderecoEntity> auxLista = empresa
+					.getPessoaEnderecoList();
 
 			if (auxLista != null && !auxLista.isEmpty()) {
 				for (PessoaEnderecoEntity ent : auxLista) {

@@ -2,6 +2,7 @@ package dc.controller.administrativo.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,6 +88,16 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 	@Autowired
 	private EmpresaSeguimentoDAO empresaSeguimentoDAO;
+
+	private List<PessoaEnderecoEntity> pessoaEnderecoList;
+
+	private List<EmpresaSeguimento> empresaSeguimentoList;
+
+	public EmpresaFormController() {
+		// TODO Auto-generated constructor stub
+		this.pessoaEnderecoList = new ArrayList<PessoaEnderecoEntity>();
+		this.empresaSeguimentoList = new ArrayList<EmpresaSeguimento>();
+	}
 
 	@Override
 	protected String getNome() {
@@ -275,14 +286,24 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 				this.currentBean.setTipoRegime(tipoRegimeEn);
 			}
 
-			List<EmpresaSeguimento> empresaSeguimentoList = this.subView
-					.getSeguimentos();
+			// ********** ENDERECO **********
+
+			this.pessoaEnderecoList = this.subView.getSfPessoaEndereco()
+					.getDados();
+
+			this.currentBean.setPessoaEnderecoList(this.pessoaEnderecoList);
+
+			// List<EmpresaSeguimento> empresaSeguimentoList = this.subView
+			// .getSeguimentos();
 
 			// for (EmpresaSeguimento ent : empresaSeguimentoList) {
 			// ent.setEmpresa(this.currentBean);
 			// }
 
-			this.currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
+			// ********** SEGUIMENTO **********
+
+			this.currentBean
+					.setEmpresaSeguimentoList(this.empresaSeguimentoList);
 
 			// this.empresaDAO.saveOrUpdate(this.currentBean);
 
@@ -448,12 +469,20 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 				this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
 			}
 
-			List<PessoaEnderecoEntity> enderecoList = this.pessoaEnderecoDAO
+			List<PessoaEnderecoEntity> pessoaEnderecoList = this.pessoaEnderecoDAO
 					.getPessoaEnderecoList(this.currentBean);
 
-			this.currentBean.setEnderecoList(enderecoList);
+			this.currentBean.setPessoaEnderecoList(pessoaEnderecoList);
 
-			this.subView.fillEnderecoSubForm(enderecoList);
+			this.subView.fillEnderecoSubForm(this.currentBean
+					.getPessoaEnderecoList());
+
+			List<EmpresaSeguimento> empresaSeguimentoList = this.empresaSeguimentoDAO
+					.getEmpresaSeguimentoList(this.currentBean);
+
+			this.currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
+
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -468,7 +497,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 					SeguimentoListController.class, this.seguimentoDAO,
 					super.getMainController());
 
-			this.subView.getMocSeguimentos().setModel(modelSeguimento);
+			this.subView.getMocSeguimento().setModel(modelSeguimento);
 
 			carregarContador();
 			carregarEmpresaMatriz();
@@ -539,18 +568,24 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	}
 
 	public PessoaEnderecoEntity aderirPessoaEndereco() {
-		PessoaEnderecoEntity pessoaEndereco = new PessoaEnderecoEntity();
+		try {
+			PessoaEnderecoEntity pessoaEndereco = new PessoaEnderecoEntity();
 
-		this.currentBean.getEnderecoList().add(pessoaEndereco);
-		// this.currentBean.addEndereco(endereco);
+			this.pessoaEnderecoList.add(pessoaEndereco);
 
-		return pessoaEndereco;
+			return pessoaEndereco;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
 		try {
 			for (PessoaEnderecoEntity ent : values) {
-				this.currentBean.getEnderecoList().remove(ent);
+				// this.currentBean.getPessoaEnderecoList().remove(ent);
+				this.pessoaEnderecoList.remove(ent);
 			}
 
 			mensagemRemovidoOK();
@@ -559,6 +594,24 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			mensagemErro(e.getMessage());
 		}
+	}
+
+	public void aderirEmpresaSeguimento() {
+		try {
+			SeguimentoEntity seguimento = (SeguimentoEntity) this.subView
+					.getMocSeguimento().getValue();
+
+			EmpresaSeguimento empresaSeguimento = new EmpresaSeguimento();
+			empresaSeguimento.setSeguimento(seguimento);
+
+			this.empresaSeguimentoList.add(empresaSeguimento);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void removerEmpresaSeguimento() {
+
 	}
 
 	/**

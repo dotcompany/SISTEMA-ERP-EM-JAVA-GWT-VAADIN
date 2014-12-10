@@ -1,5 +1,6 @@
 package dc.servicos.dao.geral;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -66,6 +67,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 			query.setParameter("id", empresa.getId());
 
 			List<PessoaEnderecoEntity> auxLista = query.list();
+
+			if (auxLista == null) {
+				auxLista = new ArrayList<PessoaEnderecoEntity>();
+			}
 
 			return auxLista;
 		} catch (Exception e) {

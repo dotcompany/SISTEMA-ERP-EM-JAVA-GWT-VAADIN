@@ -348,11 +348,14 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	 * @module ADMINISTRATIVO
 	 */
 
-	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<PessoaEnderecoEntity> enderecoList = new ArrayList<>();
-
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
+
+	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
+	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<PessoaEnderecoEntity>();
+
+	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
+	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<EmpresaSeguimento>();
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -396,9 +399,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<ContaCaixa> contaCaixaList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpresaSeguimento> empresaSeguimentoList;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
 	private Set<Relatorio> relatorio;
@@ -749,20 +749,30 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.grupoBemList = grupoBemList;
 	}
 
-	public List<PessoaEnderecoEntity> getEnderecoList() {
-		return enderecoList;
-	}
-
-	public void setEnderecoList(List<PessoaEnderecoEntity> enderecoList) {
-		this.enderecoList = enderecoList;
-	}
-
 	public List<PaisEntity> getPaisList() {
 		return paisList;
 	}
 
 	public void setPaisList(List<PaisEntity> paisList) {
 		this.paisList = paisList;
+	}
+
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
+		return pessoaEnderecoList;
+	}
+
+	public void setPessoaEnderecoList(
+			List<PessoaEnderecoEntity> pessoaEnderecoList) {
+		this.pessoaEnderecoList = pessoaEnderecoList;
+	}
+
+	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
+		return empresaSeguimentoList;
+	}
+
+	public void setEmpresaSeguimentoList(
+			List<EmpresaSeguimento> empresaSeguimentoList) {
+		this.empresaSeguimentoList = empresaSeguimentoList;
 	}
 
 	public List<TipoAfastamentoEntity> getTipoAfastamentoList() {
@@ -857,15 +867,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
 		this.contaCaixaList = contaCaixaList;
-	}
-
-	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
-		return empresaSeguimentoList;
-	}
-
-	public void setEmpresaSeguimentoList(
-			List<EmpresaSeguimento> empresaSeguimentoList) {
-		this.empresaSeguimentoList = empresaSeguimentoList;
 	}
 
 	public Set<Relatorio> getRelatorio() {
