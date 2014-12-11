@@ -25,7 +25,8 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class EmpresaSeguimento implements Serializable {
+public class EmpresaSeguimento extends AbstractModel<Integer> implements
+		Serializable {
 
 	/**
 	 * 

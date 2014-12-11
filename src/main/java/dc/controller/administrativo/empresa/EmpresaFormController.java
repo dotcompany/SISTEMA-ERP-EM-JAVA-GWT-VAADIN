@@ -482,6 +482,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
 
+			// this.subView.getTableEmpresaSeguimento().setContainerDataSource(newDataSource);
+
 			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -596,7 +598,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		}
 	}
 
-	public void aderirEmpresaSeguimento() {
+	public EmpresaSeguimento aderirEmpresaSeguimento() {
 		try {
 			SeguimentoEntity seguimento = (SeguimentoEntity) this.subView
 					.getMocSeguimento().getValue();
@@ -605,8 +607,12 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			empresaSeguimento.setSeguimento(seguimento);
 
 			this.empresaSeguimentoList.add(empresaSeguimento);
+
+			return empresaSeguimento;
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			return null;
 		}
 	}
 

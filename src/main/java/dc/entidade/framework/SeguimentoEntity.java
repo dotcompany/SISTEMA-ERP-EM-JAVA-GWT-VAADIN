@@ -60,9 +60,6 @@ public class SeguimentoEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
-	@OneToMany(mappedBy = "seguimento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpresaSeguimento> empresaSeguimentos;
-
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -70,6 +67,9 @@ public class SeguimentoEntity extends AbstractModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "seguimento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmpresaSeguimento> empresaSeguimentoList;
 
 	/**
 	 * CONSTRUTOR
@@ -108,12 +108,13 @@ public class SeguimentoEntity extends AbstractModel<Integer> implements
 		this.descricao = descricao;
 	}
 
-	public List<EmpresaSeguimento> getEmpresaSeguimentos() {
-		return empresaSeguimentos;
+	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
+		return empresaSeguimentoList;
 	}
 
-	public void setEmpresaSeguimentos(List<EmpresaSeguimento> empresaSeguimentos) {
-		this.empresaSeguimentos = empresaSeguimentos;
+	public void setEmpresaSeguimentoList(
+			List<EmpresaSeguimento> empresaSeguimentoList) {
+		this.empresaSeguimentoList = empresaSeguimentoList;
 	}
 
 	/**
