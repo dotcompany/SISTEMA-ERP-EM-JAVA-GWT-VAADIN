@@ -351,10 +351,10 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
 
-	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<PessoaEnderecoEntity>();
 
-	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<EmpresaSeguimento>();
 
 	/**
