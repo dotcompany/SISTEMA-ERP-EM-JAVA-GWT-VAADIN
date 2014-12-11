@@ -293,31 +293,10 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.currentBean.setPessoaEnderecoList(this.pessoaEnderecoList);
 
-			// List<EmpresaSeguimento> empresaSeguimentoList = this.subView
-			// .getSeguimentos();
-
-			// for (EmpresaSeguimento ent : empresaSeguimentoList) {
-			// ent.setEmpresa(this.currentBean);
-			// }
-
 			// ********** SEGUIMENTO **********
 
 			this.currentBean
 					.setEmpresaSeguimentoList(this.empresaSeguimentoList);
-
-			// this.empresaDAO.saveOrUpdate(this.currentBean);
-
-			// for (PessoaEnderecoEntity ent :
-			// this.currentBean.getEnderecoList()) {
-			// ent.setEmpresa(this.currentBean);
-
-			// String cep = ent.getCep().replace(".", "").replace("-", "")
-			// .trim();
-			// String cep = StringUtils.removeSpecialCharacters(ent.getCep());
-			// ent.setCep(cep);
-
-			// this.enderecoDAO.saveOrUpdate(ent);
-			// }
 
 			this.currentBean.setEmpresa(this.currentBean.getId());
 
