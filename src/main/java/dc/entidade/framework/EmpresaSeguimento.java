@@ -48,11 +48,11 @@ public class EmpresaSeguimento extends AbstractModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_empresa")
 	private EmpresaEntity empresa;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_seguimento")
 	private SeguimentoEntity seguimento;
 

@@ -568,6 +568,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		return currentBean;
 	}
 
+	// PessoaEndereco
+
 	public PessoaEnderecoEntity aderirPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity pessoaEndereco = new PessoaEnderecoEntity();
@@ -586,7 +588,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
 		try {
 			for (PessoaEnderecoEntity ent : values) {
-				// this.currentBean.getPessoaEnderecoList().remove(ent);
+				this.pessoaEnderecoDAO.delete(ent);
 				this.pessoaEnderecoList.remove(ent);
 			}
 
@@ -597,6 +599,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 			mensagemErro(e.getMessage());
 		}
 	}
+
+	// EmpresaSeguimento
 
 	public EmpresaSeguimento aderirEmpresaSeguimento() {
 		try {
@@ -629,8 +633,19 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		}
 	}
 
-	public void removerEmpresaSeguimento() {
+	public void removerEmpresaSeguimento(List<EmpresaSeguimento> values) {
+		try {
+			for (EmpresaSeguimento ent : values) {
+				this.empresaSeguimentoDAO.delete(ent);
+				this.empresaSeguimentoList.remove(ent);
+			}
 
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/**

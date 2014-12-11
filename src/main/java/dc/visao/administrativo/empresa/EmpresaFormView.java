@@ -1230,18 +1230,22 @@ public class EmpresaFormView extends CustomComponent {
 
 			@Override
 			protected EmpresaSeguimento getNovo() {
-				EmpresaSeguimento detalhe = controller
+				EmpresaSeguimento empresaSeguimento = controller
 						.aderirEmpresaSeguimento();
 
-				return detalhe;
+				return empresaSeguimento;
+			}
+
+			@Override
+			protected void getRemoverSelecionados(List<EmpresaSeguimento> values) {
+				// TODO Auto-generated method stub
+				controller.removerEmpresaSeguimento(values);
 			}
 
 			@Override
 			protected void onSelect(EmpresaSeguimento item) {
 				// TODO Auto-generated method stub
-				// super.onSelect(item);
 
-				// controller.nfeDetalheSelecionar(item);
 			}
 
 		};
