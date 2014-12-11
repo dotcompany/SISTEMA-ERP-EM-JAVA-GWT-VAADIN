@@ -23,6 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "pessoa_endereco")
@@ -46,91 +47,123 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "TIPO_ENDERECO_ID", nullable = false) private int
-	 * tipoEnderecoId;
-	 * 
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "CEP_ID", nullable = false) private int cepId;
-	 */
 	@Field
 	@Caption("Logradouro")
 	@Column(name = "LOGRADOURO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String logradouro;
 
 	@Field
-	@Caption("Numero")
+	@Caption("Número")
 	@Column(name = "NUMERO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer numero;
 
 	@Field
 	@Caption("Complemento")
 	@Column(name = "COMPLEMENTO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String complemento;
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String bairro;
 
 	@Field
 	@Caption("Cidade")
 	@Column(name = "CIDADE", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String cidade;
 
 	@Field
 	@Caption("Cep")
 	@Column(name = "CEP", length = 8)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String cep;
 
 	@Field
 	@Caption("Municipio Ibge")
 	@Column(name = "MUNICIPIO_IBGE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIbge;
 
-	// @JoinColumn(name = "ID_UF", referencedColumnName = "ID")
-	// @ManyToOne(optional = false)
+	@Field
+	@Caption()
 	@Column(name = "UF")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String uf;
 
 	@Field
 	@Caption("Fone")
 	@Column(name = "FONE", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone;
 
+	@Field
+	@Caption()
 	@Column(name = "FAX", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fax;
 
+	@Field
+	@Caption()
 	@Column(name = "PRINCIPAL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean principal;
 
+	@Field
+	@Caption()
 	@Column(name = "ENTREGA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean entrega;
 
+	@Field
+	@Caption()
 	@Column(name = "COBRANCA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean cobranca;
 
+	@Field
+	@Caption()
 	@Column(name = "CORRESPONDENCIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean correspondencia;
 
 	/**
-	 * @Autor Wesley Júnior
-	 * 
-	 *        Módulo Administrativo
-	 */
-
-	/*
-	 * @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	 * 
-	 * @ManyToOne(optional = false) private Empresa empresa;
+	 * REFERENCIA - FK
 	 */
 
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaEnderecoEntity() {
 
@@ -140,6 +173,10 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
 	@Override
 	public Integer getId() {
 		return id;
@@ -148,14 +185,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	// public Integer getEmpresaId() {
-	// return empresaId;
-	// }
-	//
-	// public void setEmpresaId(Integer empresaId) {
-	// this.empresaId = empresaId;
-	// }
 
 	public String getLogradouro() {
 		return logradouro;
@@ -189,20 +218,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.bairro = bairro;
 	}
 
-	public String getFone() {
-		return fone;
-	}
-
-	public void setFone(String fone) {
-		this.fone = fone;
-	}
-
-	/*
-	 * public Empresa getEmpresa() { return empresa; }
-	 * 
-	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
-	 */
-
 	public String getCidade() {
 		return cidade;
 	}
@@ -233,6 +248,14 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
 	public String getFax() {

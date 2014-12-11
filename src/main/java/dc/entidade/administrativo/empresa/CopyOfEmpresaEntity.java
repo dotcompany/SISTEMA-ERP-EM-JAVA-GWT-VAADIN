@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -33,6 +36,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.CrtEn;
+import dc.control.enums.TipoEmpresaEn;
+import dc.control.enums.TipoRegimeEn;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
@@ -80,21 +86,13 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo;// 1-Matriz 2-Filial 3-Depósito
-
-	/**
-	 * O campo tipo apenas identifica se é Matriz,Filial ou Depósito,já o campo
-	 * idMatriz armazena o id da empresa escolhida como matriz
-	 */
-
-	// @OneToOne
-	// @JoinColumn(name="id_contador")
-	// private Contador contador;
+	private TipoEmpresaEn tipoEmpresa; // 1-Matriz 2-Filial 3-Depósito
 
 	@Field
 	@Caption("Razao Social")
@@ -153,10 +151,6 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInscJuntaComercial;
 
-	// @Column(name = "tipo")
-	// @Enumerated(value = EnumType.STRING)
-	// private EmpresaType empresa;
-
 	@Temporal(TemporalType.DATE)
 	@Field
 	@Caption()
@@ -197,19 +191,21 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String imagemLogotipo;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "CRT")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer crt;
+	private CrtEn crt;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption()
 	@Column(name = "TIPO_REGIME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoRegime;
+	private TipoRegimeEn tipoRegime;
 
 	@Field
 	@Caption()
@@ -347,16 +343,14 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<GrupoBemEntity> grupoBemList = new ArrayList<GrupoBemEntity>();
 
-	/**
-	 * @autor Wesley Júnior
-	 * @module ADMINISTRATIVO
-	 */
-
-	@OneToMany(mappedBy = "empresa", orphanRemoval = true)
-	private List<PessoaEnderecoEntity> enderecoList = new ArrayList<>();
-
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
+
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<PessoaEnderecoEntity>();
+
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<EmpresaSeguimento>();
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -401,11 +395,20 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<ContaCaixa> contaCaixaList;
 
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpresaSeguimento> empresaSeguimentoList;
-
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
 	private Set<Relatorio> relatorio;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getNomeFantasia();
+	}
 
 	/**
 	 * CONSTRUTOR
@@ -424,8 +427,9 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 		this.empresa = empresa;
 	}
 
-	public CopyOfEmpresaEntity(Integer id, String nomeFantasia) {
+	public CopyOfEmpresaEntity(Integer id, String razaoSocial, String nomeFantasia) {
 		this.id = id;
+		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 	}
 
@@ -442,12 +446,12 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public TipoEmpresaEn getTipoEmpresa() {
+		return tipoEmpresa;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoEmpresa(TipoEmpresaEn tipoEmpresa) {
+		this.tipoEmpresa = tipoEmpresa;
 	}
 
 	public String getRazaoSocial() {
@@ -554,19 +558,19 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 		this.imagemLogotipo = imagemLogotipo;
 	}
 
-	public Integer getCrt() {
+	public CrtEn getCrt() {
 		return crt;
 	}
 
-	public void setCrt(Integer crt) {
+	public void setCrt(CrtEn crt) {
 		this.crt = crt;
 	}
 
-	public String getTipoRegime() {
+	public TipoRegimeEn getTipoRegime() {
 		return tipoRegime;
 	}
 
-	public void setTipoRegime(String tipoRegime) {
+	public void setTipoRegime(TipoRegimeEn tipoRegime) {
 		this.tipoRegime = tipoRegime;
 	}
 
@@ -740,20 +744,30 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 		this.grupoBemList = grupoBemList;
 	}
 
-	public List<PessoaEnderecoEntity> getEnderecoList() {
-		return enderecoList;
-	}
-
-	public void setEnderecoList(List<PessoaEnderecoEntity> enderecoList) {
-		this.enderecoList = enderecoList;
-	}
-
 	public List<PaisEntity> getPaisList() {
 		return paisList;
 	}
 
 	public void setPaisList(List<PaisEntity> paisList) {
 		this.paisList = paisList;
+	}
+
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
+		return pessoaEnderecoList;
+	}
+
+	public void setPessoaEnderecoList(
+			List<PessoaEnderecoEntity> pessoaEnderecoList) {
+		this.pessoaEnderecoList = pessoaEnderecoList;
+	}
+
+	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
+		return empresaSeguimentoList;
+	}
+
+	public void setEmpresaSeguimentoList(
+			List<EmpresaSeguimento> empresaSeguimentoList) {
+		this.empresaSeguimentoList = empresaSeguimentoList;
 	}
 
 	public List<TipoAfastamentoEntity> getTipoAfastamentoList() {
@@ -850,15 +864,6 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 		this.contaCaixaList = contaCaixaList;
 	}
 
-	public List<EmpresaSeguimento> getEmpresaSeguimentoList() {
-		return empresaSeguimentoList;
-	}
-
-	public void setEmpresaSeguimentoList(
-			List<EmpresaSeguimento> empresaSeguimentoList) {
-		this.empresaSeguimentoList = empresaSeguimentoList;
-	}
-
 	public Set<Relatorio> getRelatorio() {
 		return relatorio;
 	}
@@ -866,19 +871,6 @@ public class CopyOfEmpresaEntity extends AbstractModel<Integer> implements
 	public void setRelatorio(Set<Relatorio> relatorio) {
 		this.relatorio = relatorio;
 	}
-
-	/*
-	 * public PessoaEnderecoEntity addEndereco(PessoaEnderecoEntity enderecos) {
-	 * getEnderecos().add(enderecos); enderecos.setEmpresa(this);
-	 * 
-	 * return enderecos; }
-	 * 
-	 * public PessoaEnderecoEntity removeEndereco(PessoaEnderecoEntity
-	 * enderecos) { getEnderecos().remove(enderecos);
-	 * enderecos.setEmpresa(null);
-	 * 
-	 * return enderecos; }
-	 */
 
 	/**
 	 * TO STRING

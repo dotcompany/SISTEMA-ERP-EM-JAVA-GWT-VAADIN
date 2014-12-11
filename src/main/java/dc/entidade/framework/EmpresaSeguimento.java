@@ -42,16 +42,37 @@ public class EmpresaSeguimento extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	private EmpresaEntity empresa;
 
 	@ManyToOne
 	private SeguimentoEntity seguimento;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public EmpresaSeguimento() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}

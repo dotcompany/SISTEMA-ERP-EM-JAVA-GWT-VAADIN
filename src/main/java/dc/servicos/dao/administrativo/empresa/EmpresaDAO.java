@@ -1,5 +1,6 @@
 package dc.servicos.dao.administrativo.empresa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,6 +211,19 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 					this.empresaSeguimentoDAO.saveOrUpdate(ent);
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
+	public void deleteEmpresaList(List<Serializable> auxLista) {
+		try {
+			this.pessoaEnderecoDAO.deletePessoaEnderecoList(auxLista);
+
+			super.deleteAllByIds(auxLista);
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -2,10 +2,8 @@ package dc.entidade.administrativo.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -39,29 +36,12 @@ import dc.anotacoes.Caption;
 import dc.control.enums.CrtEn;
 import dc.control.enums.TipoEmpresaEn;
 import dc.control.enums.TipoRegimeEn;
-import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
-import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
-import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
-import dc.entidade.folhapagamento.cadastro.EventoEntity;
-import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
-import dc.entidade.folhapagamento.cadastro.ParametroEntity;
-import dc.entidade.folhapagamento.inss.InssEntity;
-import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
-import dc.entidade.folhapagamento.movimento.LancamentoComissaoEntity;
-import dc.entidade.folhapagamento.movimento.LancamentoDetalheEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.entidade.patrimonio.EstadoConservacaoEntity;
-import dc.entidade.patrimonio.GrupoBemEntity;
-import dc.entidade.patrimonio.SeguradoraEntity;
-import dc.entidade.patrimonio.TipoAquisicaoEntity;
-import dc.entidade.patrimonio.TipoMovimentacaoEntity;
-import dc.entidade.relatorio.Relatorio;
 import dc.entidade.sistema.ContaEmpresa;
 
 @Entity
@@ -317,91 +297,20 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private Integer contador;
 
 	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false)
-	private ContaEmpresa conta;
+	private ContaEmpresa contaEmpresa;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * @module PATRIMONIO
-	 */
-
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<TipoAquisicaoEntity> tipoAquisicaoList = new ArrayList<TipoAquisicaoEntity>();
-
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<SeguradoraEntity> seguradoraList = new ArrayList<SeguradoraEntity>();
-
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<TipoMovimentacaoEntity> tipoMovimentacaoList = new ArrayList<TipoMovimentacaoEntity>();
-
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EstadoConservacaoEntity> estadoConservacaoList = new ArrayList<EstadoConservacaoEntity>();
-
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<GrupoBemEntity> grupoBemList = new ArrayList<GrupoBemEntity>();
-
-	/**
-	 * @autor Wesley Júnior
-	 * @module ADMINISTRATIVO
-	 */
-
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
 	private List<PaisEntity> paisList;
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<PessoaEnderecoEntity>();
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<EmpresaSeguimento>();
-
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * @module FOLHAPAGAMENTO
-	 */
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<TipoAfastamentoEntity> tipoAfastamentoList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<FeriasColetivasEntity> feriasColetivasList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<EventoEntity> eventoList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<ParametroEntity> parametroList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<InssEntity> inssList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<LancamentoComissaoEntity> lancamentoComissaoList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<LancamentoDetalheEntity> lancamentoDetalheList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList;
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<GuiaAcumuladaEntity> guiaAcumuladaList;
-
-	/**
-	 * @autor Gutemberg A. Da Silva
-	 * @module FINANCEIRO
-	 */
-
-	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
-	private List<ContaCaixa> contaCaixaList;
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "empresas")
-	private Set<Relatorio> relatorio;
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+	private List<EmpresaSeguimento> empresaSeguimentoList;
 
 	/**
 	 * TRANSIENT
@@ -699,54 +608,12 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 		this.contador = contador;
 	}
 
-	public ContaEmpresa getConta() {
-		return conta;
+	public ContaEmpresa getContaEmpresa() {
+		return contaEmpresa;
 	}
 
-	public void setConta(ContaEmpresa conta) {
-		this.conta = conta;
-	}
-
-	public List<TipoAquisicaoEntity> getTipoAquisicaoList() {
-		return tipoAquisicaoList;
-	}
-
-	public void setTipoAquisicaoList(List<TipoAquisicaoEntity> tipoAquisicaoList) {
-		this.tipoAquisicaoList = tipoAquisicaoList;
-	}
-
-	public List<SeguradoraEntity> getSeguradoraList() {
-		return seguradoraList;
-	}
-
-	public void setSeguradoraList(List<SeguradoraEntity> seguradoraList) {
-		this.seguradoraList = seguradoraList;
-	}
-
-	public List<TipoMovimentacaoEntity> getTipoMovimentacaoList() {
-		return tipoMovimentacaoList;
-	}
-
-	public void setTipoMovimentacaoList(
-			List<TipoMovimentacaoEntity> tipoMovimentacaoList) {
-		this.tipoMovimentacaoList = tipoMovimentacaoList;
-	}
-
-	public List<EstadoConservacaoEntity> getEstadoConservacaoList() {
-		return estadoConservacaoList;
-	}
-
-	public void setEstadoConservacaoList(
-			List<EstadoConservacaoEntity> estadoConservacaoList) {
-		this.estadoConservacaoList = estadoConservacaoList;
-	}
-
-	public List<GrupoBemEntity> getGrupoBemList() {
-		return grupoBemList;
-	}
-
-	public void setGrupoBemList(List<GrupoBemEntity> grupoBemList) {
-		this.grupoBemList = grupoBemList;
+	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
+		this.contaEmpresa = contaEmpresa;
 	}
 
 	public List<PaisEntity> getPaisList() {
@@ -773,108 +640,6 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	public void setEmpresaSeguimentoList(
 			List<EmpresaSeguimento> empresaSeguimentoList) {
 		this.empresaSeguimentoList = empresaSeguimentoList;
-	}
-
-	public List<TipoAfastamentoEntity> getTipoAfastamentoList() {
-		return tipoAfastamentoList;
-	}
-
-	public void setTipoAfastamentoList(
-			List<TipoAfastamentoEntity> tipoAfastamentoList) {
-		this.tipoAfastamentoList = tipoAfastamentoList;
-	}
-
-	public List<FeriasColetivasEntity> getFeriasColetivasList() {
-		return feriasColetivasList;
-	}
-
-	public void setFeriasColetivasList(
-			List<FeriasColetivasEntity> feriasColetivasList) {
-		this.feriasColetivasList = feriasColetivasList;
-	}
-
-	public List<EventoEntity> getEventoList() {
-		return eventoList;
-	}
-
-	public void setEventoList(List<EventoEntity> eventoList) {
-		this.eventoList = eventoList;
-	}
-
-	public List<ParametroEntity> getParametroList() {
-		return parametroList;
-	}
-
-	public void setParametroList(List<ParametroEntity> parametroList) {
-		this.parametroList = parametroList;
-	}
-
-	public List<InssEntity> getInssList() {
-		return inssList;
-	}
-
-	public void setInssList(List<InssEntity> inssList) {
-		this.inssList = inssList;
-	}
-
-	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
-		return lancamentoCabecalhoList;
-	}
-
-	public void setLancamentoCabecalhoList(
-			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
-		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
-	}
-
-	public List<LancamentoComissaoEntity> getLancamentoComissaoList() {
-		return lancamentoComissaoList;
-	}
-
-	public void setLancamentoComissaoList(
-			List<LancamentoComissaoEntity> lancamentoComissaoList) {
-		this.lancamentoComissaoList = lancamentoComissaoList;
-	}
-
-	public List<LancamentoDetalheEntity> getLancamentoDetalheList() {
-		return lancamentoDetalheList;
-	}
-
-	public void setLancamentoDetalheList(
-			List<LancamentoDetalheEntity> lancamentoDetalheList) {
-		this.lancamentoDetalheList = lancamentoDetalheList;
-	}
-
-	public List<FeriasPeriodoAquisitivoEntity> getFeriasPeriodoAquisitivoList() {
-		return feriasPeriodoAquisitivoList;
-	}
-
-	public void setFeriasPeriodoAquisitivoList(
-			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoList) {
-		this.feriasPeriodoAquisitivoList = feriasPeriodoAquisitivoList;
-	}
-
-	public List<GuiaAcumuladaEntity> getGuiaAcumuladaList() {
-		return guiaAcumuladaList;
-	}
-
-	public void setGuiaAcumuladaList(List<GuiaAcumuladaEntity> guiaAcumuladaList) {
-		this.guiaAcumuladaList = guiaAcumuladaList;
-	}
-
-	public List<ContaCaixa> getContaCaixaList() {
-		return contaCaixaList;
-	}
-
-	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
-		this.contaCaixaList = contaCaixaList;
-	}
-
-	public Set<Relatorio> getRelatorio() {
-		return relatorio;
-	}
-
-	public void setRelatorio(Set<Relatorio> relatorio) {
-		this.relatorio = relatorio;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package dc.servicos.dao.geral;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,23 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	@Override
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "nome", "email" };
+	}
+
+	@Transactional
+	public void deletePessoaEnderecoList(List<Serializable> auxLista) {
+		try {
+			String sql = "DELETE FROM :entity WHERE empresa.id IN (:auxLista)";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameterList("auxLista", auxLista);
+
+			query.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional

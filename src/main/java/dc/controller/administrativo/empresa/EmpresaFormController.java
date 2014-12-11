@@ -538,7 +538,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.empresaDAO.deleteAllByIds(ids);
+			this.empresaDAO.deleteEmpresaList(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
