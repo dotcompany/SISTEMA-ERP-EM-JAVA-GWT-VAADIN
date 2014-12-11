@@ -3,11 +3,13 @@ package dc.entidade.framework;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -46,10 +48,12 @@ public class EmpresaSeguimento extends AbstractModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_empresa")
 	private EmpresaEntity empresa;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_seguimento")
 	private SeguimentoEntity seguimento;
 
 	/**

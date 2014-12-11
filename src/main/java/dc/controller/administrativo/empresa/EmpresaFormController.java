@@ -474,7 +474,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.currentBean.setPessoaEnderecoList(pessoaEnderecoList);
 
-			this.subView.fillEnderecoSubForm(this.currentBean
+			this.subView.carregarSfPessoaEndereco(this.currentBean
 					.getPessoaEnderecoList());
 
 			List<EmpresaSeguimento> empresaSeguimentoList = this.empresaSeguimentoDAO
@@ -482,9 +482,8 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 			this.currentBean.setEmpresaSeguimentoList(empresaSeguimentoList);
 
-			// this.subView.getTableEmpresaSeguimento().setContainerDataSource(newDataSource);
-
-			System.out.println();
+			this.subView.carregarSfEmpresaSeguimento(this.currentBean
+					.getEmpresaSeguimentoList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -572,6 +571,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	public PessoaEnderecoEntity aderirPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity pessoaEndereco = new PessoaEnderecoEntity();
+			pessoaEndereco.setEmpresa(this.currentBean);
 
 			this.pessoaEnderecoList.add(pessoaEndereco);
 
@@ -600,11 +600,24 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 	public EmpresaSeguimento aderirEmpresaSeguimento() {
 		try {
-			SeguimentoEntity seguimento = (SeguimentoEntity) this.subView
+			SeguimentoEntity ent = (SeguimentoEntity) this.subView
 					.getMocSeguimento().getValue();
+
+			if (ObjectUtils.isBlank(ent)) {
+				return null;
+			}
+
+			SeguimentoEntity seguimento = new SeguimentoEntity();
+			seguimento.setId(((SeguimentoEntity) this.subView
+					.getMocSeguimento().getValue()).getId());
+			seguimento.setNome(((SeguimentoEntity) this.subView
+					.getMocSeguimento().getValue()).getNome());
+			seguimento.setDescricao(((SeguimentoEntity) this.subView
+					.getMocSeguimento().getValue()).getDescricao());
 
 			EmpresaSeguimento empresaSeguimento = new EmpresaSeguimento();
 			empresaSeguimento.setSeguimento(seguimento);
+			empresaSeguimento.setEmpresa(this.currentBean);
 
 			this.empresaSeguimentoList.add(empresaSeguimento);
 

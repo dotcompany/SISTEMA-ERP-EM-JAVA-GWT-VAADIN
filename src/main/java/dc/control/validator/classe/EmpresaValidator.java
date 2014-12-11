@@ -182,7 +182,7 @@ public class EmpresaValidator {
 		CnaeEntity cnaePrincipal = (CnaeEntity) subView.getCbCnaePrincipal()
 				.getValue();
 
-		if (!ObjectUtils.isBlank(cnaePrincipal)) {
+		if (ObjectUtils.isBlank(cnaePrincipal)) {
 			throw new DotErpException(subView.getCbCnaePrincipal(),
 					"::DotERP - Não pode ficar em branco");
 		}
@@ -190,7 +190,7 @@ public class EmpresaValidator {
 		EmpresaEntity empresaMatriz = (EmpresaEntity) subView.getCbMatriz()
 				.getValue();
 
-		if (!ObjectUtils.isBlank(empresaMatriz)) {
+		if (ObjectUtils.isBlank(empresaMatriz)) {
 			throw new DotErpException(subView.getCbMatriz(),
 					"::DotERP - Não pode ficar em branco");
 		}

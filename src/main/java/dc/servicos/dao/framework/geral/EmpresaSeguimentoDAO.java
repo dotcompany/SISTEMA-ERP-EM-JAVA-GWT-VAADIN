@@ -54,4 +54,18 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 		}
 	}
 
+	@Transactional
+	public void saveOrUpdateEmpresaSeguimentoList(
+			List<EmpresaSeguimento> auxLista) {
+		try {
+			for (EmpresaSeguimento ent : auxLista) {
+				super.saveOrUpdate(ent);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }

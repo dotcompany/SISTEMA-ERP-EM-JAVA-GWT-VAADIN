@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.control.util.StringUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -187,29 +186,15 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 					.getPessoaEnderecoList();
 
 			if (auxLista != null && !auxLista.isEmpty()) {
-				for (PessoaEnderecoEntity ent : auxLista) {
-					ent.setEmpresa(empresa);
-
-					String cep = ent.getCep();
-
-					if (StringUtils.isNotBlank(cep)) {
-						cep = StringUtils.removeSpecialCharacters(ent.getCep());
-						ent.setCep(cep);
-					}
-
-					this.pessoaEnderecoDAO.saveOrUpdate(ent);
-				}
+				this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(auxLista);
 			}
 
 			List<EmpresaSeguimento> auxLista1 = empresa
 					.getEmpresaSeguimentoList();
 
 			if (auxLista1 != null && !auxLista1.isEmpty()) {
-				for (EmpresaSeguimento ent : auxLista1) {
-					ent.setEmpresa(empresa);
-
-					this.empresaSeguimentoDAO.saveOrUpdate(ent);
-				}
+				this.empresaSeguimentoDAO
+						.saveOrUpdateEmpresaSeguimentoList(auxLista1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

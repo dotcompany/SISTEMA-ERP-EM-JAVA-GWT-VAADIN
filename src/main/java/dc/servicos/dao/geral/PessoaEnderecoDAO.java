@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.control.util.StringUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -91,6 +92,29 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 			}
 
 			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
+	public void saveOrUpdatePessoaEnderecoList(
+			List<PessoaEnderecoEntity> auxLista) {
+		try {
+			for (PessoaEnderecoEntity ent : auxLista) {
+				// ent.setEmpresa(empresa);
+
+				String cep = ent.getCep();
+
+				if (StringUtils.isNotBlank(cep)) {
+					cep = StringUtils.removeSpecialCharacters(ent.getCep());
+					ent.setCep(cep);
+				}
+
+				super.saveOrUpdate(ent);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
