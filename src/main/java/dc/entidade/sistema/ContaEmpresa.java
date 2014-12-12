@@ -72,11 +72,11 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 
 	@OneToOne()
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	private EmpresaEntity empresa;
+	private Usuario usuarioCriador;
 
 	@OneToOne()
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	private Usuario usuarioCriador;
+	private EmpresaEntity empresa;
 
 	/**
 	 * REFERENCIA - LIST

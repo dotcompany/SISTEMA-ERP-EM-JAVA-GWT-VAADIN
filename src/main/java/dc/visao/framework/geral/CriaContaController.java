@@ -24,7 +24,12 @@ import dc.servicos.dao.sistema.UsuarioDAO;
 @Scope("prototype")
 public class CriaContaController implements Serializable, ViewController {
 
-	private static final long serialVersionUID = 3908353011945861868L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private CriaContaEmpresaView view;
 
 	@Autowired
 	transient ContaEmpresaDAO dao;
@@ -35,17 +40,18 @@ public class CriaContaController implements Serializable, ViewController {
 	@Autowired
 	transient EmpresaDAO empresaDao;
 
-	CriaContaEmpresaView view;
-
 	private ContaEmpresa currentBean;
 
 	public static Logger logger = Logger.getLogger(CriaContaController.class);
 
 	public void criarconta(ContaEmpresa c) {
 		currentBean = c;
+
 		boolean saved = false;
+
 		logger.info("Conta empresa, tentativa de criação");
 		logger.info(String.valueOf(c) + c.getNome() + c.getEmail());
+
 		try {
 			currentBean.getEmpresa().setRazaoSocial(
 					currentBean.getEmpresa().getNomeFantasia());
@@ -56,6 +62,7 @@ public class CriaContaController implements Serializable, ViewController {
 			currentBean.getUsuarioCriador().setDataCadastro(new Date());
 			currentBean.getUsuarioCriador().setConfirmado(true);
 			currentBean.getUsuarioCriador().setConta(currentBean);
+
 			if (validaConta()) {
 				dao.save(currentBean);
 				saved = true;
@@ -67,6 +74,7 @@ public class CriaContaController implements Serializable, ViewController {
 
 		if (saved) {
 			MailSender sender = new MailSender();
+
 			try {
 				sender.send(
 						currentBean.getEmail(),
@@ -77,10 +85,9 @@ public class CriaContaController implements Serializable, ViewController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			view.notifySaveOK(currentBean);
-
 		}
-
 	}
 
 	private boolean validaConta() {
@@ -90,15 +97,19 @@ public class CriaContaController implements Serializable, ViewController {
 
 		if (u != null || c != null) {
 			view.showErrorMessage("E-mail já é utilizado por outro Usuário do sistema.");
+
 			return false;
 		} else {
 			EmpresaEntity emp = empresaDao.findByCNPJ(currentBean.getEmpresa()
 					.getCnpj());
+
 			if (emp != null) {
 				view.showErrorMessage("CNPJ já é utilizado por outro Usuário do sistema.");
+
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -112,7 +123,6 @@ public class CriaContaController implements Serializable, ViewController {
 		p.setId(Papel.MASTER_ID);
 		u.setPapel(p);
 		currentBean.setPrimeiroUsuario(u);
-
 	}
 
 	public ContaEmpresa getCurrentBean() {
@@ -123,4 +133,5 @@ public class CriaContaController implements Serializable, ViewController {
 	public void setView(CriaContaEmpresaView v) {
 		view = v;
 	}
+
 }

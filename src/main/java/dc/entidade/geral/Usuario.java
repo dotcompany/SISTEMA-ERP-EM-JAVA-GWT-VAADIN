@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,25 +34,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.Papel;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
-
-/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados. */
 
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Serializable, UserDetails {
+public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable, UserDetails {
 
 	/**
 	 * 
@@ -60,19 +55,26 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Login")
 	@Column(name = "LOGIN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String login;
 
 	@Field
 	@Caption("Senha")
 	@Column(name = "SENHA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String senha;
 
 	@Column(name = "DATA_CADASTRO")
@@ -80,15 +82,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	private Date dataCadastro;
 
 	@Column(name = "ADMINISTRADOR")
-	private Boolean administrador = false;
-
-	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
-	@ManyToOne(optional = true, fetch = FetchType.EAGER)
-	private ColaboradorEntity colaborador;
-
-	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private Papel papel;
+	private boolean administrador = false;
 
 	@Field
 	@Caption("Confirmado")
@@ -100,15 +94,32 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	@Column(name = "usernome")
 	private String usernome;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.DETACH })
-	private ContaEmpresa conta;
+	/**
+	 * REFERENCIA - FK
+	 */
 
-	/** TRANSIENT */
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
+	private ColaboradorEntity colaborador;
+
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
+	private Papel papel;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
+			CascadeType.DETACH })
+	private ContaEmpresa contaEmpresa;
+
+	/**
+	 * TRANSIENT
+	 */
 
 	@Transient
 	private Integer consultaMultiempresa = new Integer(0);
 
-	/** CONSTRUTOR */
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public Usuario() {
 
@@ -118,8 +129,11 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.id = id;
 	}
 
-	/** GETS AND SETS */
+	/**
+	 * GETS AND SETS
+	 */
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -152,17 +166,12 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Boolean getAdministrador() {
+	public boolean getAdministrador() {
 		return administrador;
 	}
 
-	public void setAdministrador(Boolean administrador) {
+	public void setAdministrador(boolean administrador) {
 		this.administrador = administrador;
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
 	}
 
 	/** @return the colaborador */
@@ -170,8 +179,10 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		return colaborador;
 	}
 
-	/** @param colaborador
-	 *            the colaborador to set */
+	/**
+	 * @param colaborador
+	 *            the colaborador to set
+	 */
 	public void setColaborador(ColaboradorEntity colaborador) {
 		this.colaborador = colaborador;
 	}
@@ -181,8 +192,10 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 		return papel;
 	}
 
-	/** @param papel
-	 *            the papel to set */
+	/**
+	 * @param papel
+	 *            the papel to set
+	 */
 	public void setPapel(Papel papel) {
 		this.papel = papel;
 	}
@@ -191,6 +204,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
 		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+
 		return grantedAuths;
 	}
 
@@ -233,11 +247,11 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	}
 
 	public ContaEmpresa getConta() {
-		return conta;
+		return contaEmpresa;
 	}
 
-	public void setConta(ContaEmpresa conta) {
-		this.conta = conta;
+	public void setConta(ContaEmpresa contaEmpresa) {
+		this.contaEmpresa = contaEmpresa;
 	}
 
 	public String getUsernome() {
@@ -253,6 +267,17 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements Seria
 	}
 
 	public void setConsultaMultiempresa(Integer consultaMultiempresa) {
-		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(0) : consultaMultiempresa);
+		this.consultaMultiempresa = (consultaMultiempresa == null ? new Integer(
+				0) : consultaMultiempresa);
 	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }
