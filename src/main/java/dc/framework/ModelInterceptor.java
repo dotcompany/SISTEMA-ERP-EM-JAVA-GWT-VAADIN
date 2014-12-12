@@ -37,12 +37,12 @@ public class ModelInterceptor extends EmptyInterceptor {
 			AbstractMultiEmpresaModel model = (AbstractMultiEmpresaModel) entity;
 
 			if (SecuritySessionProvider.getUsuario() != null) {
-				if (model.getEmpresa() == null) { // Verifica se a entidade
+				//if (model.getEmpresa() == null) { // Verifica se a entidade
 													// possui empresa nula
 					setValue(state, properties, propertyName,
 							SecuritySessionProvider.getUsuario().getConta()
 									.getEmpresa());
-				}
+				//}
 			}
 		} else {
 			logger.info("isn´t a multiEmpresa model...");

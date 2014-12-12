@@ -108,7 +108,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
 			CascadeType.DETACH })
-	private ContaEmpresa contaEmpresa;
+	private ContaEmpresa conta;
 
 	/**
 	 * TRANSIENT
@@ -247,11 +247,11 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public ContaEmpresa getConta() {
-		return contaEmpresa;
+		return conta;
 	}
 
-	public void setConta(ContaEmpresa contaEmpresa) {
-		this.contaEmpresa = contaEmpresa;
+	public void setConta(ContaEmpresa conta) {
+		this.conta = conta;
 	}
 
 	public String getUsernome() {
