@@ -1,6 +1,6 @@
 package dc.control.enums;
 
-public enum TipoSangueEn {
+public enum TipoSanguineoEn {
 
 	APO("A+", "A+"),
 
@@ -22,12 +22,12 @@ public enum TipoSangueEn {
 
 	private String codigo;
 
-	private TipoSangueEn(String label, String codigo) {
+	private TipoSanguineoEn(String label, String codigo) {
 		this.label = label;
 		this.codigo = codigo;
 	}
 
-	public static TipoSangueEn getEn(String codigo) {
+	public static TipoSanguineoEn getEn(String codigo) {
 		if (codigo.equals("A+")) {
 			return APO;
 		}

@@ -32,7 +32,7 @@ import dc.control.enums.CategoriaReservistaEn;
 import dc.control.enums.CnhEn;
 import dc.control.enums.RacaEn;
 import dc.control.enums.SexoEn;
-import dc.control.enums.TipoSangueEn;
+import dc.control.enums.TipoSanguineoEn;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
@@ -140,7 +140,7 @@ public class PessoaFisicaEntity implements Serializable {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Enumerated(EnumType.STRING)
-	private TipoSangueEn tipoSangue;
+	private TipoSanguineoEn tipoSangue;
 
 	@Field
 	@Caption("Reservista categoria")
@@ -338,11 +338,11 @@ public class PessoaFisicaEntity implements Serializable {
 		this.raca = raca;
 	}
 
-	public TipoSangueEn getTipoSangue() {
+	public TipoSanguineoEn getTipoSangue() {
 		return tipoSangue;
 	}
 
-	public void setTipoSangue(TipoSangueEn tipoSangue) {
+	public void setTipoSangue(TipoSanguineoEn tipoSangue) {
 		this.tipoSangue = tipoSangue;
 	}
 
