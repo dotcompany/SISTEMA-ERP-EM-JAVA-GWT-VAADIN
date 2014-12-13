@@ -8,7 +8,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.control.util.StringUtils;
+import dc.control.util.ListUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -76,14 +76,36 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	}
 
 	@Transactional
-	public List<PessoaEnderecoEntity> getPessoaEnderecoList(
-			EmpresaEntity empresa) {
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList(EmpresaEntity entity) {
 		try {
 			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.empresa.id = :id";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("id", empresa.getId());
+			query.setParameter("id", entity.getId());
+
+			List<PessoaEnderecoEntity> auxLista = query.list();
+
+			if (auxLista == null) {
+				auxLista = new ArrayList<PessoaEnderecoEntity>();
+			}
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList(PessoaEntity entity) {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", entity.getId());
 
 			List<PessoaEnderecoEntity> auxLista = query.list();
 
@@ -103,15 +125,19 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	public void saveOrUpdatePessoaEnderecoList(
 			List<PessoaEnderecoEntity> auxLista) {
 		try {
+			if (ListUtils.isNullOrEmpty(auxLista)) {
+				return;
+			}
+
 			for (PessoaEnderecoEntity ent : auxLista) {
 				// ent.setEmpresa(empresa);
 
-				String cep = ent.getCep();
+				// String cep = ent.getCep();
 
-				if (StringUtils.isNotBlank(cep)) {
-					cep = StringUtils.removeSpecialCharacters(ent.getCep());
-					ent.setCep(cep);
-				}
+				// if (StringUtils.isNotBlank(cep)) {
+				// cep = StringUtils.removeSpecialCharacters(ent.getCep());
+				// ent.setCep(cep);
+				// }
 
 				super.saveOrUpdate(ent);
 			}

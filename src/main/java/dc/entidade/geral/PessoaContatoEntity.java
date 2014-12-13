@@ -58,27 +58,27 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
-	private String nome;
+	private String nome = "";
 
 	@Field
-	@Caption("Email")
+	@Caption("E-mail")
 	@Column(name = "EMAIL", length = 250)
-	private String email;
+	private String email = "";
 
 	@Field
-	@Caption("Fone Comercial")
+	@Caption("Telefone comercial")
 	@Column(name = "FONE_COMERCIAL", length = 14)
-	private String foneComercial;
+	private String foneComercial = "";
 
 	@Field
-	@Caption("Fone Residencial")
+	@Caption("Telefone residencial")
 	@Column(name = "FONE_RESIDENCIAL", length = 14)
-	private String foneResidencial;
+	private String foneResidencial = "";
 
 	@Field
-	@Caption("Fone Celular")
+	@Caption("Celular")
 	@Column(name = "FONE_CELULAR", length = 14)
-	private String foneCelular;
+	private String foneCelular = "";
 
 	/**
 	 * @Autor Wesley Junior
@@ -90,9 +90,21 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	// @ManyToOne(optional = false)
 	// private Empresa empresa;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@ManyToOne
+	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaContatoEntity() {
 
@@ -101,6 +113,10 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	public PessoaContatoEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -111,36 +127,20 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	// public Integer getEmpresaId() {
-	// return empresaId;
-	// }
-	//
-	// public void setEmpresaId(Integer empresaId) {
-	// this.empresaId = empresaId;
-	// }
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
-
-	// public Empresa getEmpresa() {
-	// return empresa;
-	// }
-	//
-	// public void setEmpresa(Empresa empresa) {
-	// this.empresa = empresa;
-	// }
 
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = (email == null ? "".trim() : email.toUpperCase().trim());
 	}
 
 	public String getFoneComercial() {
@@ -148,7 +148,8 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFoneComercial(String foneComercial) {
-		this.foneComercial = foneComercial;
+		this.foneComercial = (foneComercial == null ? "".trim() : foneComercial
+				.toUpperCase().trim());
 	}
 
 	public String getFoneResidencial() {
@@ -156,7 +157,8 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFoneResidencial(String foneResidencial) {
-		this.foneResidencial = foneResidencial;
+		this.foneResidencial = (foneResidencial == null ? "".trim()
+				: foneResidencial.toUpperCase().trim());
 	}
 
 	public String getFoneCelular() {
@@ -164,7 +166,8 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFoneCelular(String foneCelular) {
-		this.foneCelular = foneCelular;
+		this.foneCelular = (foneCelular == null ? "".trim() : foneCelular
+				.toUpperCase().trim());
 	}
 
 	public PessoaEntity getPessoa() {

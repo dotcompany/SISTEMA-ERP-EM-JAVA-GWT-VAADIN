@@ -136,11 +136,11 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaContatoEntity> contatoList = new ArrayList<>();
+	private List<PessoaContatoEntity> pessoaContatoList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<PessoaEnderecoEntity> enderecoList = new ArrayList<>();
+	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList;
@@ -254,20 +254,21 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
-	public List<PessoaContatoEntity> getContatoList() {
-		return contatoList;
+	public List<PessoaContatoEntity> getPessoaContatoList() {
+		return pessoaContatoList;
 	}
 
-	public void setContatoList(List<PessoaContatoEntity> contatoList) {
-		this.contatoList = contatoList;
+	public void setPessoaContatoList(List<PessoaContatoEntity> pessoaContatoList) {
+		this.pessoaContatoList = pessoaContatoList;
 	}
 
-	public List<PessoaEnderecoEntity> getEnderecoList() {
-		return enderecoList;
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
+		return pessoaEnderecoList;
 	}
 
-	public void setEnderecoList(List<PessoaEnderecoEntity> enderecoList) {
-		this.enderecoList = enderecoList;
+	public void setPessoaEnderecoList(
+			List<PessoaEnderecoEntity> pessoaEnderecoList) {
+		this.pessoaEnderecoList = pessoaEnderecoList;
 	}
 
 	public List<ClienteEntity> getClienteList() {

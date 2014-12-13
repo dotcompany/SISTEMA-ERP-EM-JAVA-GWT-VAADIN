@@ -13,6 +13,8 @@ import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.geral.PessoaContatoDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 
 @Repository("pessoalPessoaDAO")
 public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
@@ -26,6 +28,12 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 	@Autowired
 	private PessoaJuridicaDAO pessoaJuridicaDAO;
+
+	@Autowired
+	private PessoaContatoDAO pessoaContatoDAO;
+
+	@Autowired
+	private PessoaEnderecoDAO pessoaEnderecoDAO;
 
 	/**
 	 * 
@@ -119,6 +127,11 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 			}
 
 			super.saveOrUpdate(entity);
+
+			this.pessoaContatoDAO.saveOrUpdatePessoaContatoList(entity
+					.getPessoaContatoList());
+			this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(entity
+					.getPessoaEnderecoList());
 		} catch (Exception e) {
 			e.printStackTrace();
 

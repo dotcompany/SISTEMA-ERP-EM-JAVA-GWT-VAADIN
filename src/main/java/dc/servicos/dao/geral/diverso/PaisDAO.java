@@ -20,7 +20,9 @@ public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
 	@Transactional
 	public List<PaisEntity> listaTodos() {
 		try {
-			String sql = "FROM PaisEntity ent WHERE (1 = 1)";
+			String sql = "SELECT - FROM # ent WHERE (1 = 1)";
+			sql = sql.replace("#", this.getEntityClass().getName());
+			sql = sql.replace("-", "new PaisEntity(ent.id, ent.nomePtbr)");
 
 			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
 					.list();
@@ -36,7 +38,8 @@ public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
 	@Transactional
 	public List<PaisEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PaisEntity ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + query + "%").list();
@@ -52,7 +55,8 @@ public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
 	@Transactional
 	public List<PaisEntity> query(String q) {
 		try {
-			String sql = "FROM Pais ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
 					.setParameter("q", "%" + q + "%").list();

@@ -310,15 +310,17 @@ public class OrdemServicoFormView extends CustomComponent {
 
 				if (cli != null) {
 					tfRazao.setValue(cli.getPessoa().getNome());
-					if (cli.getPessoa().getEnderecoList().size() > 0) {
-						tfEndereco.setValue(cli.getPessoa().getEnderecoList()
-								.get(0).getLogradouro());
-						tfCidade.setValue(cli.getPessoa().getEnderecoList()
-								.get(0).getCidade());
-						tfBairro.setValue(cli.getPessoa().getEnderecoList()
-								.get(0).getBairro());
-						tfUf.setValue(cli.getPessoa().getEnderecoList().get(0)
-								.getUf());
+					if (cli.getPessoa().getPessoaEnderecoList().size() > 0) {
+						tfEndereco
+								.setValue(cli.getPessoa()
+										.getPessoaEnderecoList().get(0)
+										.getLogradouro());
+						tfCidade.setValue(cli.getPessoa()
+								.getPessoaEnderecoList().get(0).getCidade());
+						tfBairro.setValue(cli.getPessoa()
+								.getPessoaEnderecoList().get(0).getBairro());
+						//tfUf.setValue(cli.getPessoa().getPessoaEnderecoList()
+						//		.get(0).getUf());
 					}
 				}
 			}

@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +22,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -101,9 +99,6 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
-	private List<IndiceEconomicoEntity> indiceEconomicoList;
-
 	/**
 	 * CONSTRUTOR
 	 */
@@ -114,6 +109,11 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public PaisEntity(Integer id) {
 		this.id = id;
+	}
+
+	public PaisEntity(Integer id, String nomePtbr) {
+		this.id = id;
+		this.nomePtbr = nomePtbr;
 	}
 
 	/**
@@ -177,15 +177,6 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setUfList(List<UfEntity> ufList) {
 		this.ufList = ufList;
-	}
-
-	public List<IndiceEconomicoEntity> getIndiceEconomicoList() {
-		return indiceEconomicoList;
-	}
-
-	public void setIndiceEconomicoList(
-			List<IndiceEconomicoEntity> indiceEconomicoList) {
-		this.indiceEconomicoList = indiceEconomicoList;
 	}
 
 	/**

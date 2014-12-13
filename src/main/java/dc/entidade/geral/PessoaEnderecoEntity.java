@@ -52,106 +52,105 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String logradouro;
+	private String logradouro = "";
 
 	@Field
 	@Caption("Número")
 	@Column(name = "NUMERO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer numero;
+	private Integer numero = new Integer(0);
 
 	@Field
 	@Caption("Complemento")
 	@Column(name = "COMPLEMENTO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String complemento;
+	private String complemento = "";
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String bairro;
+	private String bairro = "";
 
 	@Field
 	@Caption("Cidade")
 	@Column(name = "CIDADE", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cidade;
+	private String cidade = "";
 
 	@Field
 	@Caption("Cep")
 	@Column(name = "CEP", length = 8)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cep;
+	private String cep = "";
 
 	@Field
 	@Caption("Municipio Ibge")
 	@Column(name = "MUNICIPIO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer municipioIbge;
-
-	@Field
-	@Caption()
-	@Column(name = "UF")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String uf;
+	private Integer municipioIbge = new Integer(0);
 
 	@Field
 	@Caption("Fone")
 	@Column(name = "FONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String fone;
+	private String fone = "";
 
 	@Field
 	@Caption()
 	@Column(name = "FAX", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String fax;
+	private String fax = "";
 
 	@Field
 	@Caption()
 	@Column(name = "PRINCIPAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean principal;
+	private Boolean principal = Boolean.FALSE;
 
 	@Field
 	@Caption()
 	@Column(name = "ENTREGA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean entrega;
+	private Boolean entrega = Boolean.FALSE;
 
 	@Field
 	@Caption()
 	@Column(name = "COBRANCA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean cobranca;
+	private Boolean cobranca = Boolean.FALSE;
 
 	@Field
 	@Caption()
 	@Column(name = "CORRESPONDENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean correspondencia;
+	private Boolean correspondencia = Boolean.FALSE;
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Pessoa")
 	@ManyToOne
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
+
+	@Caption("UF")
+	@ManyToOne
+	@JoinColumn(name = "id_uf")
+	private UfEntity uf;
 
 	/**
 	 * REFERENCIA - LIST
@@ -191,7 +190,8 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro = (logradouro == null ? "".trim() : logradouro
+				.toUpperCase().trim());
 	}
 
 	public Integer getNumero() {
@@ -199,7 +199,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(Integer numero) {
-		this.numero = numero;
+		this.numero = (numero == null ? new Integer(0) : numero);
 	}
 
 	public String getComplemento() {
@@ -207,7 +207,8 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+		this.complemento = (complemento == null ? "".trim() : complemento
+				.toUpperCase().trim());
 	}
 
 	public String getBairro() {
@@ -215,7 +216,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = (bairro == null ? "".trim() : bairro.toUpperCase().trim());
 	}
 
 	public String getCidade() {
@@ -223,7 +224,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCidade(String cidade) {
-		this.cidade = cidade;
+		this.cidade = (cidade == null ? "".trim() : cidade.toUpperCase().trim());
 	}
 
 	public String getCep() {
@@ -231,7 +232,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = (cep == null ? "".trim() : cep.toUpperCase().trim());
 	}
 
 	public Integer getMunicipioIbge() {
@@ -239,15 +240,8 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setMunicipioIbge(Integer municipioIbge) {
-		this.municipioIbge = municipioIbge;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
+		this.municipioIbge = (municipioIbge == null ? new Integer(0)
+				: municipioIbge);
 	}
 
 	public String getFone() {
@@ -255,7 +249,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFone(String fone) {
-		this.fone = fone;
+		this.fone = (fone == null ? "".trim() : fone.toUpperCase().trim());
 	}
 
 	public String getFax() {
@@ -263,7 +257,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFax(String fax) {
-		this.fax = fax;
+		this.fax = (fax == null ? "".trim() : fax.toUpperCase().trim());
 	}
 
 	public Boolean getPrincipal() {
@@ -271,7 +265,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPrincipal(Boolean principal) {
-		this.principal = principal;
+		this.principal = (principal == null ? Boolean.FALSE : principal);
 	}
 
 	public Boolean getEntrega() {
@@ -279,7 +273,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEntrega(Boolean entrega) {
-		this.entrega = entrega;
+		this.entrega = (entrega == null ? Boolean.FALSE : entrega);
 	}
 
 	public Boolean getCobranca() {
@@ -287,7 +281,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCobranca(Boolean cobranca) {
-		this.cobranca = cobranca;
+		this.cobranca = (cobranca == null ? Boolean.FALSE : cobranca);
 	}
 
 	public Boolean getCorrespondencia() {
@@ -295,7 +289,8 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCorrespondencia(Boolean correspondencia) {
-		this.correspondencia = correspondencia;
+		this.correspondencia = (correspondencia == null ? Boolean.FALSE
+				: correspondencia);
 	}
 
 	public PessoaEntity getPessoa() {
@@ -304,6 +299,14 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public UfEntity getUf() {
+		return uf;
+	}
+
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
 	}
 
 	/**

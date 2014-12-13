@@ -19,20 +19,28 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 
 	@Transactional
 	public List<UfEntity> listaTodos() {
-		return getSession().createQuery("from UF").list();
+		String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
+		sql = sql.replace("#", this.getEntityClass().getName());
+		sql = sql.replace("-", this.getEntityClass().getSimpleName()
+				+ "(ent.id, ent.nome)");
+
+		return getSession().createQuery(sql).list();
 	}
 
 	@Transactional
 	public List<UfEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from UF where nome like :q")
+		String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+		sql = sql.replace("#", this.getEntityClass().getName());
+
+		return getSession().createQuery(sql)
 				.setParameter("q", "%" + query + "%").list();
 	}
 
 	@Transactional
 	public UfEntity find(String sigla) throws Exception {
 		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.sigla = :sigla";
-			sql = sql.replace(":entity", getEntityClass().getName());
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.sigla = :sigla";
+			sql = sql.replace("#", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("sigla", sigla);
@@ -55,9 +63,12 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 
 	@Transactional
 	public List<UfEntity> query(String q) {
+		String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+		sql = sql.replace("#", getEntityClass().getName());
+
 		q = "%" + q.toLowerCase() + "%";
-		return getSession().createQuery("from UF where lower(nome) like :q")
-				.setParameter("q", q).list();
+
+		return getSession().createQuery(sql).setParameter("q", q).list();
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.PessoaEntity;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +23,15 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private PessoaFormController formController;
+	private PessoaFormController pessoaFormController;
 
-	// @Autowired
-	// private PessoaDAO dao;
+	@Autowired
+	private PessoaDAO dao;
+
+	@Override
+	protected CRUDFormController<PessoaEntity> getFormController() {
+		return pessoaFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -38,20 +44,9 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	}
 
 	@Override
-	protected List<PessoaEntity> pesquisa(String valor) {
-		// return dao.fullTextSearch(valor);
-		return new ArrayList<PessoaEntity>();
-	}
-
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	protected CRUDFormController<PessoaEntity> getFormController() {
-		return formController;
 	}
 
 	@Override
@@ -60,14 +55,36 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	}
 
 	@Override
+	protected List<PessoaEntity> pesquisa(String valor) {
+		try {
+			return (List<PessoaEntity>) dao.fullTextSearch(valor);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PessoaEntity>();
+		}
+	}
+
+	@Override
 	protected List<PessoaEntity> pesquisaDefault() {
-		return new ArrayList<PessoaEntity>();
+		try {
+			return (List<PessoaEntity>) dao.getAll(getEntityClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return new ArrayList<PessoaEntity>();
+		}
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
 	}
 
 }

@@ -1,6 +1,7 @@
 package dc.entidade.geral;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,14 +76,17 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("País")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pais", nullable = false)
-	@Caption("País")
 	private PaisEntity pais;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "uf")
+	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
 	/**
 	 * TRANSIENT
@@ -97,6 +102,11 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public UfEntity(Integer id) {
 		this.id = id;
+	}
+
+	public UfEntity(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
 	}
 
 	/**
@@ -142,6 +152,15 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setPais(PaisEntity pais) {
 		this.pais = pais;
+	}
+
+	public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
+		return pessoaEnderecoList;
+	}
+
+	public void setPessoaEnderecoList(
+			List<PessoaEnderecoEntity> pessoaEnderecoList) {
+		this.pessoaEnderecoList = pessoaEnderecoList;
 	}
 
 	/**
