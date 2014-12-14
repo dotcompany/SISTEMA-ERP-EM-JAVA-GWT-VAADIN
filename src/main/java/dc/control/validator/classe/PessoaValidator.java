@@ -10,11 +10,11 @@ public class PessoaValidator {
 
 	public static void validaSalvar(PessoaFormView subView)
 			throws DotErpException {
-		TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) subView.getCmbTipoPessoa()
+		TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) subView.getCbTipoPessoa()
 				.getValue();
 
 		if (ObjectUtils.isBlank(tipoPessoaEn)) {
-			throw new DotErpException(subView.getCmbTipoPessoa(),
+			throw new DotErpException(subView.getCbTipoPessoa(),
 					"::DotERP - Não pode ficar em branco");
 		}
 

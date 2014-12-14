@@ -62,21 +62,21 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String email;
+	private String email = "";
 
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String site;
+	private String site = "";
 
 	@Field
 	@Caption()
@@ -98,12 +98,6 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean colaborador = Boolean.FALSE;
-
-	/*
-	 * @Field
-	 * 
-	 * @Column(name = "CONVENIO") private Character convenio;
-	 */
 
 	@Field
 	@Caption()

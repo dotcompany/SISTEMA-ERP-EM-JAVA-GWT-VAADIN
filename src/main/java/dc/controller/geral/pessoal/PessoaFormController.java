@@ -96,14 +96,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		return currentBean;
 	}
 
-	// public PessoaEntity getCurrentBean() {
-	// return currentBean;
-	// }
-
-	// public void setCurrentBean(PessoaEntity currentBean) {
-	// this.currentBean = currentBean;
-	// }
-
 	protected boolean validaSalvar() {
 		try {
 			PessoaValidator.validaSalvar(this.subView);
@@ -136,7 +128,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					EstadoCivilListController.class, this.estadoCivilDAO,
 					super.getMainController());
 
-			this.subView.getCmbEstadoCivil().setModel(model);
+			this.subView.getMocEstadoCivil().setModel(model);
 
 			/*
 			 * DefaultManyToOneComboModel<EstadoCivilEntity> model = new
@@ -159,7 +151,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarSexo();
 			carregarCategoriaPessoa();
 
-			this.subView.getCmbTipoPessoa().setValue(TipoPessoaEn.F);
+			// Valores iniciais
+
+			this.subView.getCbTipoPessoa().setValue(TipoPessoaEn.F);
+			this.subView.getOgSexo().setValue(SexoEn.F);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,7 +172,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getTxtNome().setValue(this.currentBean.getNome());
 
-			this.subView.getCmbTipoPessoa().setValue(
+			this.subView.getCbTipoPessoa().setValue(
 					this.currentBean.getTipoPessoa());
 
 			this.subView.getTxtEmail().setValue(this.currentBean.getEmail());
@@ -234,13 +229,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
 
 		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-			this.subView.getCmbTipoRegime().setValue(tipoRegimeEn);
+			this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
 		}
 
 		CrtEn crtEn = pj.getCrt();
 
 		if (ObjectUtils.isNotBlank(crtEn)) {
-			this.subView.getCmbCrt().setValue(crtEn);
+			this.subView.getCbCrt().setValue(crtEn);
 		}
 
 		return pj;
@@ -263,22 +258,22 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		CnhEn cnhEn = pf.getCnh();
 
 		if (ObjectUtils.isNotBlank(cnhEn)) {
-			this.subView.getCmbCategoriaCnh().setValue(cnhEn);
+			this.subView.getCbCategoriaCnh().setValue(cnhEn);
 		}
 
 		this.subView.getDataCnhEmissao().setValue(pf.getCnhVencimento());
-		this.subView.getCmbEstadoCivil().setValue(pf.getEstadoCivil());
+		this.subView.getMocEstadoCivil().setValue(pf.getEstadoCivil());
 
 		RacaEn racaEn = pf.getRaca();
 
 		if (ObjectUtils.isNotBlank(racaEn)) {
-			this.subView.getCmbRaca().setValue(racaEn);
+			this.subView.getCbRaca().setValue(racaEn);
 		}
 
 		TipoSanguineoEn tipoSanguineoEn = pf.getTipoSangue();
 
 		if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
-			this.subView.getCmbTipoSanguineo().setValue(tipoSanguineoEn);
+			this.subView.getCbTipoSanguineo().setValue(tipoSanguineoEn);
 		}
 
 		this.subView.getTxtNumeroReservista()
@@ -288,12 +283,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getReservistaCategoria();
 
 		if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
-			this.subView.getCmbCategoriaReservista().setValue(
+			this.subView.getCbCategoriaReservista().setValue(
 					categoriaReservistaEn);
 		}
 
-		this.subView.getOgSexo().setValue(
-				"F".equals(pf.getSexo()) ? "Feminino" : "Masculino");
+		SexoEn sexoEn = (SexoEn) this.currentBean.getPessoaFisica().getSexo();
+
+		if (ObjectUtils.isNotBlank(sexoEn)) {
+			this.subView.getOgSexo().setValue(sexoEn);
+		}
 
 		this.subView.getTxtTituloEleitor().setValue(
 				pf.getTituloEleitoralNumero());
@@ -309,7 +307,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected void actionSalvar() {
 		try {
 			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
-					.getCmbTipoPessoa().getValue();
+					.getCbTipoPessoa().getValue();
 
 			this.currentBean.setTipoPessoa(tipoPessoaEn);
 
@@ -395,13 +393,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			pj.setSuframa(this.subView.getTxtSuframa().getValue());
 
 			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
-					.getCmbTipoRegime().getValue();
+					.getCbTipoRegime().getValue();
 
 			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
 				pj.setTipoRegime(tipoRegimeEn);
 			}
 
-			CrtEn crtEn = (CrtEn) this.subView.getCmbCrt().getValue();
+			CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
 
 			if (ObjectUtils.isNotBlank(crtEn)) {
 				pj.setCrt(crtEn);
@@ -434,7 +432,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			pf.setDataEmissaoRg(this.subView.getDataEmissaoRg().getValue());
 			pf.setCnhNumero(this.subView.getTxtCnh().getValue());
 
-			CnhEn cnhEn = (CnhEn) this.subView.getCmbCategoriaCnh().getValue();
+			CnhEn cnhEn = (CnhEn) this.subView.getCbCategoriaCnh().getValue();
 
 			if (ObjectUtils.isNotBlank(cnhEn)) {
 				pf.setCnh(cnhEn);
@@ -442,21 +440,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			pf.setCnhVencimento(this.subView.getDataCnhEmissao().getValue());
 
-			EstadoCivilEntity estadoCivil = this.subView.getCmbEstadoCivil()
+			EstadoCivilEntity estadoCivil = this.subView.getMocEstadoCivil()
 					.getValue();
 
 			if (ObjectUtils.isNotBlank(estadoCivil)) {
 				pf.setEstadoCivil(estadoCivil);
 			}
 
-			RacaEn racaEn = (RacaEn) this.subView.getCmbRaca().getValue();
+			RacaEn racaEn = (RacaEn) this.subView.getCbRaca().getValue();
 
 			if (ObjectUtils.isNotBlank(racaEn)) {
 				pf.setRaca(racaEn);
 			}
 
 			TipoSanguineoEn tipoSanguineoEn = (TipoSanguineoEn) this.subView
-					.getCmbTipoSanguineo().getValue();
+					.getCbTipoSanguineo().getValue();
 
 			if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
 				pf.setTipoSangue(tipoSanguineoEn);
@@ -466,7 +464,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					.getValue());
 
 			CategoriaReservistaEn categoriaReservistaEn = (CategoriaReservistaEn) this.subView
-					.getCmbCategoriaReservista().getValue();
+					.getCbCategoriaReservista().getValue();
 
 			if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
 				pf.setReservistaCategoria(categoriaReservistaEn);
@@ -585,43 +583,43 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	public void carregarTipoRegime() {
 		for (TipoRegimeEn en : TipoRegimeEn.values()) {
-			this.subView.getCmbTipoRegime().addItem(en);
+			this.subView.getCbTipoRegime().addItem(en);
 		}
 	}
 
 	public void carregarCnh() {
 		for (CnhEn en : CnhEn.values()) {
-			this.subView.getCmbCategoriaCnh().addItem(en);
+			this.subView.getCbCategoriaCnh().addItem(en);
 		}
 	}
 
 	public void carregarRaca() {
 		for (RacaEn en : RacaEn.values()) {
-			this.subView.getCmbRaca().addItem(en);
+			this.subView.getCbRaca().addItem(en);
 		}
 	}
 
 	public void carregarCategoriaReservista() {
 		for (CategoriaReservistaEn en : CategoriaReservistaEn.values()) {
-			this.subView.getCmbCategoriaReservista().addItem(en);
+			this.subView.getCbCategoriaReservista().addItem(en);
 		}
 	}
 
 	public void carregarCrt() {
 		for (CrtEn en : CrtEn.values()) {
-			this.subView.getCmbCrt().addItem(en);
+			this.subView.getCbCrt().addItem(en);
 		}
 	}
 
 	public void carregarTipoSanguineo() {
 		for (TipoSanguineoEn en : TipoSanguineoEn.values()) {
-			this.subView.getCmbTipoSanguineo().addItem(en);
+			this.subView.getCbTipoSanguineo().addItem(en);
 		}
 	}
 
 	public void carregarTipoPessoa() {
 		for (TipoPessoaEn en : TipoPessoaEn.values()) {
-			this.subView.getCmbTipoPessoa().addItem(en);
+			this.subView.getCbTipoPessoa().addItem(en);
 		}
 	}
 
