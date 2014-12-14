@@ -1,9 +1,7 @@
 package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -187,42 +185,24 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getTxtEmail().setValue(this.currentBean.getEmail());
 			this.subView.getTxtSite().setValue(this.currentBean.getSite());
 
-			Set<String> selected = new HashSet<String>();
-
-			if (isEnabled(this.currentBean.getFornecedor())) {
-				selected.add("Fornecedor");
-			}
-
-			if (isEnabled(this.currentBean.getCliente())) {
-				selected.add("Cliente");
-			}
-
-			if (isEnabled(this.currentBean.getColaborador())) {
-				selected.add("Colaborador");
-			}
-
-			if (isEnabled(this.currentBean.getTransportadora())) {
-				selected.add("Transportadora");
-			}
-
-			this.subView.getOgCategoriaPessoa().setValue(selected);
+			//
 
 			// PessoaContato
 
-			List<PessoaContatoEntity> auxLista = this.pessoaContatoDAO
+			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoDAO
 					.getPessoaContatoList(this.currentBean);
 
-			this.currentBean.setPessoaContatoList(auxLista);
+			this.currentBean.setPessoaContatoList(auxLista1);
 
 			this.subView.getSfPessoaContato().fillWith(
 					this.currentBean.getPessoaContatoList());
 
 			// PessoaEndereco
 
-			List<PessoaEnderecoEntity> auxLista1 = this.pessoaEnderecoDAO
+			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoDAO
 					.getPessoaEnderecoList(this.currentBean);
 
-			this.currentBean.setPessoaEnderecoList(auxLista1);
+			this.currentBean.setPessoaEnderecoList(auxLista2);
 
 			this.subView.getSfPessoaEndereco().fillWith(
 					this.currentBean.getPessoaEnderecoList());
@@ -327,10 +307,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		return pf;
 	}
 
-	private boolean isEnabled(Character enabled) {
-		return enabled != null && '1' == enabled;
-	}
-
 	public EmpresaEntity empresaAtual() {
 		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
@@ -339,28 +315,38 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
+					.getCmbTipoPessoa().getValue();
+
+			this.currentBean.setTipoPessoa(tipoPessoaEn);
+
 			this.currentBean.setNome(this.subView.getTxtNome().getValue());
-			this.currentBean.setTipoPessoa((TipoPessoaEn) this.subView
-					.getCmbTipoPessoa().getValue());
 			this.currentBean.setEmail(this.subView.getTxtEmail().getValue());
 			this.currentBean.setSite(this.subView.getTxtSite().getValue());
 
-			// List<CategoriaPessoaEn> auxLista = new
-			// ArrayList<CategoriaPessoaEn>(
-			// (Collection<CategoriaPessoaEn>) this.subView
-			// .getOgCategoriaPessoa().getValue());
+			//
 
-			// for (CategoriaPessoaEn en : auxLista) {
-			// if ("Fornecedor".equals(value)) {
-			// this.currentBean.setFornecedor('1');
-			// } else if ("Cliente".equals(value)) {
-			// this.currentBean.setCliente('1');
-			// } else if ("Colaborador".equals(value)) {
-			// this.currentBean.setColaborador('1');
-			// } else if ("Transportadora".equals(value)) {
-			// this.currentBean.setTransportadora('1');
-			// }
-			// }
+			Object[] auxLista = this.subView.getOgCategoriaPessoa()
+					.getItemIds().toArray();
+
+			for (Object obj : auxLista) {
+				CategoriaPessoaEn en = (CategoriaPessoaEn) obj;
+
+				if (en.equals(CategoriaPessoaEn.C)) {
+					this.currentBean
+							.setCliente(this.subView.getOgCategoriaPessoa()
+									.isSelected(en) == Boolean.TRUE ? "1" : "0");
+				} else if (en.equals(CategoriaPessoaEn.F)) {
+					this.currentBean.setFornecedor(this.subView
+							.getOgCategoriaPessoa().isSelected(en));
+				} else if (en.equals(CategoriaPessoaEn.O)) {
+					this.currentBean.setColaborador(this.subView
+							.getOgCategoriaPessoa().isSelected(en));
+				} else if (en.equals(CategoriaPessoaEn.T)) {
+					this.currentBean.setTransportadora(this.subView
+							.getOgCategoriaPessoa().isSelected(en));
+				}
+			}
 
 			this.currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());

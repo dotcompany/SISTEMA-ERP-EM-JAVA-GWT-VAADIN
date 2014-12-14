@@ -83,21 +83,21 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CLIENTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character cliente;
+	private String cliente = "";
 
 	@Field
 	@Caption()
 	@Column(name = "FORNECEDOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character fornecedor;
+	private Boolean fornecedor = Boolean.FALSE;
 
 	@Field
 	@Caption()
 	@Column(name = "COLABORADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character colaborador;
+	private Boolean colaborador = Boolean.FALSE;
 
 	/*
 	 * @Field
@@ -110,7 +110,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "TRANSPORTADORA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Character transportadora;
+	private Boolean transportadora = Boolean.FALSE;
 
 	@Field
 	@Caption("Tipo")
@@ -198,36 +198,38 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.site = site;
 	}
 
-	public Character getCliente() {
+	public String getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Character cliente) {
-		this.cliente = cliente;
+	public void setCliente(String cliente) {
+		this.cliente = (cliente == null ? "".trim() : cliente.toUpperCase()
+				.trim());
 	}
 
-	public Character getFornecedor() {
+	public Boolean getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Character fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setFornecedor(Boolean fornecedor) {
+		this.fornecedor = (fornecedor == null ? Boolean.FALSE : fornecedor);
 	}
 
-	public Character getColaborador() {
+	public Boolean getColaborador() {
 		return colaborador;
 	}
 
-	public void setColaborador(Character colaborador) {
-		this.colaborador = colaborador;
+	public void setColaborador(Boolean colaborador) {
+		this.colaborador = (colaborador == null ? Boolean.FALSE : colaborador);
 	}
 
-	public Character getTransportadora() {
+	public Boolean getTransportadora() {
 		return transportadora;
 	}
 
-	public void setTransportadora(Character transportadora) {
-		this.transportadora = transportadora;
+	public void setTransportadora(Boolean transportadora) {
+		this.transportadora = (transportadora == null ? Boolean.FALSE
+				: transportadora);
 	}
 
 	public TipoPessoaEn getTipoPessoa() {

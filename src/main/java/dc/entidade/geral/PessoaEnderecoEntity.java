@@ -3,6 +3,7 @@ package dc.entidade.geral;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -148,7 +149,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	private PessoaEntity pessoa;
 
 	@Caption("UF")
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "id_uf")
 	private UfEntity uf;
 

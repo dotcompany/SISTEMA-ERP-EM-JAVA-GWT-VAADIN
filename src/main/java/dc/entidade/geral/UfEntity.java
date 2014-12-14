@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -85,7 +86,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "uf")
+	@OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
 	/**
