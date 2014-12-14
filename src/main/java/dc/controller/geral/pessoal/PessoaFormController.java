@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.ui.Component;
 
@@ -23,7 +22,6 @@ import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.PessoaValidator;
-import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -307,11 +305,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		return pf;
 	}
 
-	public EmpresaEntity empresaAtual() {
-		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
-	}
-
-	@Transactional
 	@Override
 	protected void actionSalvar() {
 		try {
