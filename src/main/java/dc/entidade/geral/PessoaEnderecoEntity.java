@@ -113,6 +113,13 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption()
+	@Column(name = "uf", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String siglaUf = "";
+
+	@Field
+	@Caption()
 	@Column(name = "PRINCIPAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -259,6 +266,15 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setFax(String fax) {
 		this.fax = (fax == null ? "".trim() : fax.toUpperCase().trim());
+	}
+
+	public String getSiglaUf() {
+		return siglaUf;
+	}
+
+	public void setSiglaUf(String siglaUf) {
+		this.siglaUf = (siglaUf == null ? "".trim() : siglaUf.toUpperCase()
+				.trim());
 	}
 
 	public Boolean getPrincipal() {
