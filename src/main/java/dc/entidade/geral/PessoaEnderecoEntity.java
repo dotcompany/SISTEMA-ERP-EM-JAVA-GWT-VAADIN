@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -150,7 +151,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "id_uf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer uf;
+	private Integer idUf;
 
 	/**
 	 * REFERENCIA - FK
@@ -161,11 +162,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
 
-	// @Caption("UF")
-	// @ManyToOne(cascade = { CascadeType.ALL })
-	// @JoinColumn(name = "id_uf")
-	// private UfEntity uf;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -173,6 +169,9 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * TRANSIENT
 	 */
+
+	@Transient
+	private UfEntity uf;
 
 	/**
 	 * CONSTRUTOR
@@ -312,15 +311,16 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSiglaUf(String siglaUf) {
-		this.siglaUf = siglaUf;
+		this.siglaUf = (siglaUf == null ? "".trim() : siglaUf.toUpperCase()
+				.trim());
 	}
 
-	public Integer getUf() {
-		return uf;
+	public Integer getIdUf() {
+		return idUf;
 	}
 
-	public void setUf(Integer uf) {
-		this.uf = uf;
+	public void setIdUf(Integer idUf) {
+		this.idUf = idUf;
 	}
 
 	public PessoaEntity getPessoa() {
@@ -331,13 +331,13 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pessoa = pessoa;
 	}
 
-	// public UfEntity getUf() {
-	// return uf;
-	// }
+	public UfEntity getUf() {
+		return uf;
+	}
 
-	// public void setUf(UfEntity uf) {
-	// this.uf = uf;
-	// }
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
+	}
 
 	/**
 	 * TO STRING

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.control.util.ListUtils;
+import dc.control.util.ObjectUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -126,6 +127,11 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 			}
 
 			for (PessoaEnderecoEntity ent : auxLista) {
+				if (ObjectUtils.isNotBlank(ent.getUf())) {
+					ent.setIdUf(ent.getUf().getId());
+					ent.setSiglaUf(ent.getUf().getSigla());
+				}
+
 				// ent.setEmpresa(empresa);
 
 				// String cep = ent.getCep();

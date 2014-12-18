@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.control.enums.TipoPessoaEn;
+import dc.control.util.ObjectUtils;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -150,17 +151,16 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 			super.saveOrUpdate(entity);
 
-			// this.pessoaContatoDAO.saveOrUpdatePessoaContatoList(entity
-			// .getPessoaContatoList());
-
-			// this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(entity
-			// .getPessoaEnderecoList());
-
 			for (PessoaContatoEntity ent : entity.getPessoaContatoList()) {
 				this.pessoaContatoDAO.saveOrUpdate(ent);
 			}
 
 			for (PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()) {
+				if (ObjectUtils.isNotBlank(ent.getUf())) {
+					ent.setIdUf(ent.getUf().getId());
+					ent.setSiglaUf(ent.getUf().getSigla());
+				}
+
 				this.pessoaEnderecoDAO.saveOrUpdate(ent);
 			}
 		} catch (Exception e) {

@@ -22,7 +22,7 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 		String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
 		sql = sql.replace("#", this.getEntityClass().getName());
 		sql = sql.replace("-", this.getEntityClass().getSimpleName()
-				+ "(ent.id, ent.nome)");
+				+ "(ent.id, ent.nome, ent.sigla)");
 
 		return getSession().createQuery(sql).list();
 	}

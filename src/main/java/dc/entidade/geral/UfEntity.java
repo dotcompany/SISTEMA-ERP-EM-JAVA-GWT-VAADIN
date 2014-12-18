@@ -1,19 +1,16 @@
 package dc.entidade.geral;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -86,8 +83,8 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
-	private List<PessoaEnderecoEntity> pessoaEnderecoList;
+	// @OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
+	// private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
 	/**
 	 * TRANSIENT
@@ -108,6 +105,12 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public UfEntity(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public UfEntity(Integer id, String nome, String sigla) {
+		this.id = id;
+		this.nome = nome;
+		this.sigla = sigla;
 	}
 
 	/**
@@ -155,14 +158,14 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pais = pais;
 	}
 
-	public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
-		return pessoaEnderecoList;
-	}
+	// public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
+	// return pessoaEnderecoList;
+	// }
 
-	public void setPessoaEnderecoList(
-			List<PessoaEnderecoEntity> pessoaEnderecoList) {
-		this.pessoaEnderecoList = pessoaEnderecoList;
-	}
+	// public void setPessoaEnderecoList(
+	// List<PessoaEnderecoEntity> pessoaEnderecoList) {
+	// this.pessoaEnderecoList = pessoaEnderecoList;
+	// }
 
 	/**
 	 * TO STRING
