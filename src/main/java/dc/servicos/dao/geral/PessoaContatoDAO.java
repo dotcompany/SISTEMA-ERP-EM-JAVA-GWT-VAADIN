@@ -1,6 +1,5 @@
 package dc.servicos.dao.geral;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,7 +12,6 @@ import dc.entidade.geral.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
 public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
 
 	@Override
@@ -42,9 +40,9 @@ public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
 
 			List<PessoaContatoEntity> auxLista = query.list();
 
-			if (auxLista == null) {
-				auxLista = new ArrayList<PessoaContatoEntity>();
-			}
+			// if (auxLista == null) {
+			// auxLista = new ArrayList<PessoaContatoEntity>();
+			// }
 
 			return auxLista;
 		} catch (Exception e) {

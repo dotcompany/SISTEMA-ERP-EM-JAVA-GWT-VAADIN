@@ -702,7 +702,7 @@ public class LancamentoReceberFormController extends
 		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO
 				.listaPorPessoa(cliente.getPessoa()).get(0);
 
-		enderecoSacado.setUf(endereco.getUf());
+		//enderecoSacado.setUf(endereco.getUf());
 		enderecoSacado.setCidade(endereco.getCidade());
 		enderecoSacado.setCep(endereco.getCep());
 		enderecoSacado.setBairro(endereco.getBairro());

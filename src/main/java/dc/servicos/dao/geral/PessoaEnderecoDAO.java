@@ -101,17 +101,13 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	@Transactional
 	public List<PessoaEnderecoEntity> getPessoaEnderecoList(PessoaEntity entity) {
 		try {
-			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			String sql = "select ent FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :id";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", entity.getId());
 
 			List<PessoaEnderecoEntity> auxLista = query.list();
-
-			if (auxLista == null) {
-				auxLista = new ArrayList<PessoaEnderecoEntity>();
-			}
 
 			return auxLista;
 		} catch (Exception e) {

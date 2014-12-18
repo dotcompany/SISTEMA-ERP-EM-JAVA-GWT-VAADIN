@@ -3,6 +3,7 @@ package dc.servicos.dao.geral.pessoal;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -110,6 +111,25 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 	}
 
 	@Transactional
+	public PessoaEntity getEntity(Serializable id) {
+		try {
+			String sql = "FROM :entity ent INNER JOIN ent.pessoaEnderecoList WHERE (1 = 1) AND ent.id = :id";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", Integer.valueOf(id.toString()));
+
+			PessoaEntity ent = (PessoaEntity) query.uniqueResult();
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
 	public void saveOrUpdatePessoa(PessoaEntity entity) throws Exception {
 		try {
 			if (entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
@@ -130,19 +150,17 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 			super.saveOrUpdate(entity);
 
-			//this.pessoaContatoDAO.saveOrUpdatePessoaContatoList(entity
-			//		.getPessoaContatoList());
-			
-			
-			
-			//this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(entity
-			//		.getPessoaEnderecoList());
-			
+			// this.pessoaContatoDAO.saveOrUpdatePessoaContatoList(entity
+			// .getPessoaContatoList());
+
+			// this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(entity
+			// .getPessoaEnderecoList());
+
 			for (PessoaContatoEntity ent : entity.getPessoaContatoList()) {
 				this.pessoaContatoDAO.saveOrUpdate(ent);
 			}
-			
-			for(PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()){
+
+			for (PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()) {
 				this.pessoaEnderecoDAO.saveOrUpdate(ent);
 			}
 		} catch (Exception e) {

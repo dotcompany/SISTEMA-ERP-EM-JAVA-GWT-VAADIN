@@ -22,8 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -128,12 +126,10 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
 	private List<PessoaContatoEntity> pessoaContatoList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)

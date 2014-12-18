@@ -3,7 +3,6 @@ package dc.entidade.geral;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,8 +40,8 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_endereco_id_seq")
-	@SequenceGenerator(name = "pessoa_endereco_id_seq", sequenceName = "pessoa_endereco_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_id_seq")
+	@SequenceGenerator(name = "endereco_id_seq", sequenceName = "endereco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -113,13 +112,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption()
-	@Column(name = "uf", length = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String siglaUf = "";
-
-	@Field
-	@Caption()
 	@Column(name = "PRINCIPAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -146,6 +138,20 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean correspondencia = Boolean.FALSE;
 
+	@Field
+	@Caption()
+	@Column(name = "uf", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String siglaUf = "";
+
+	@Field
+	@Caption()
+	@Column(name = "id_uf")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer uf;
+
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -155,10 +161,10 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
 
-	@Caption("UF")
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_uf")
-	private UfEntity uf;
+	// @Caption("UF")
+	// @ManyToOne(cascade = { CascadeType.ALL })
+	// @JoinColumn(name = "id_uf")
+	// private UfEntity uf;
 
 	/**
 	 * REFERENCIA - LIST
@@ -268,15 +274,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.fax = (fax == null ? "".trim() : fax.toUpperCase().trim());
 	}
 
-	public String getSiglaUf() {
-		return siglaUf;
-	}
-
-	public void setSiglaUf(String siglaUf) {
-		this.siglaUf = (siglaUf == null ? "".trim() : siglaUf.toUpperCase()
-				.trim());
-	}
-
 	public Boolean getPrincipal() {
 		return principal;
 	}
@@ -310,6 +307,22 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 				: correspondencia);
 	}
 
+	public String getSiglaUf() {
+		return siglaUf;
+	}
+
+	public void setSiglaUf(String siglaUf) {
+		this.siglaUf = siglaUf;
+	}
+
+	public Integer getUf() {
+		return uf;
+	}
+
+	public void setUf(Integer uf) {
+		this.uf = uf;
+	}
+
 	public PessoaEntity getPessoa() {
 		return pessoa;
 	}
@@ -318,13 +331,13 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pessoa = pessoa;
 	}
 
-	public UfEntity getUf() {
-		return uf;
-	}
+	// public UfEntity getUf() {
+	// return uf;
+	// }
 
-	public void setUf(UfEntity uf) {
-		this.uf = uf;
-	}
+	// public void setUf(UfEntity uf) {
+	// this.uf = uf;
+	// }
 
 	/**
 	 * TO STRING

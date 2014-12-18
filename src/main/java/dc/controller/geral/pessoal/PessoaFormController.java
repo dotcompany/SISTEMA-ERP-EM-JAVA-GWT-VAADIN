@@ -151,6 +151,12 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarSexo();
 			carregarCategoriaPessoa();
 
+			// BeanItemContainer<UfEntity> bic = new
+			// BeanItemContainer<UfEntity>(
+			// UfEntity.class, getUfList());
+			// subView.getCbUf().setContainerDataSource(bic);
+			// subView.getCbUf().setItemCaptionPropertyId("nome");
+
 			// Valores iniciais
 
 			this.subView.getCbTipoPessoa().setValue(TipoPessoaEn.F);
@@ -165,6 +171,20 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		try {
 			this.currentBean = this.pessoaDAO.find(id);
 
+			// PessoaContato
+
+			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoDAO
+					.getPessoaContatoList(this.currentBean);
+
+			this.currentBean.setPessoaContatoList(auxLista1);
+
+			// PessoaEndereco
+
+			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoDAO
+					.getPessoaEnderecoList(this.currentBean);
+
+			this.currentBean.setPessoaEnderecoList(auxLista2);
+
 			this.currentBean.setPessoaFisica(this.pessoaFisicaDAO
 					.getEntity(this.currentBean));
 			this.currentBean.setPessoaJuridica(this.pessoaJuridicaDAO
@@ -178,28 +198,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getTxtEmail().setValue(this.currentBean.getEmail());
 			this.subView.getTxtSite().setValue(this.currentBean.getSite());
 
-			//
-
-			// PessoaContato
-
-			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoDAO
-					.getPessoaContatoList(this.currentBean);
-
-			this.currentBean.setPessoaContatoList(auxLista1);
-
-			this.subView.getSfPessoaContato().fillWith(
-					this.currentBean.getPessoaContatoList());
-
-			// PessoaEndereco
-
-			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoDAO
-					.getPessoaEnderecoList(this.currentBean);
-
-			this.currentBean.setPessoaEnderecoList(auxLista2);
-
-			this.subView.getSfPessoaEndereco().fillWith(
-					this.currentBean.getPessoaEnderecoList());
-
 			if (this.currentBean.getTipoPessoa().equals(TipoPessoaEn.F)) {
 				this.pessoaFisicaDAO.getEntity(this.currentBean);
 
@@ -209,6 +207,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 				this.currentBean.setPessoaJuridica(carregarPessoaJuridica());
 			}
+
+			// PessoaContato
+
+			this.subView.getSfPessoaContato().fillWith(
+					this.currentBean.getPessoaContatoList());
+
+			// PessoaEndereco
+
+			this.subView.getSfPessoaEndereco().fillWith(
+					this.currentBean.getPessoaEnderecoList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
