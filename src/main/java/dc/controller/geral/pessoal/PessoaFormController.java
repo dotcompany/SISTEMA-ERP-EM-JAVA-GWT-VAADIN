@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.control.enums.CategoriaPessoaEn;
 import dc.control.enums.CategoriaReservistaEn;
 import dc.control.enums.CnhEn;
 import dc.control.enums.CrtEn;
@@ -151,13 +150,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarTipoSanguineo();
 			carregarTipoPessoa();
 			carregarSexo();
-			carregarCategoriaPessoa();
-
-			// BeanItemContainer<UfEntity> bic = new
-			// BeanItemContainer<UfEntity>(
-			// UfEntity.class, getUfList());
-			// subView.getCbUf().setContainerDataSource(bic);
-			// subView.getCbUf().setItemCaptionPropertyId("nome");
+			// carregarCategoriaPessoa();
 
 			// Valores iniciais
 
@@ -209,6 +202,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 				this.currentBean.setPessoaJuridica(carregarPessoaJuridica());
 			}
+
+			this.subView.getCkCliente().setValue(
+					this.currentBean.getCliente().equals("0") ? Boolean.FALSE
+							: Boolean.TRUE);
+			this.subView.getCkColaborador().setValue(
+					this.currentBean.getColaborador());
+			this.subView.getCkFornecedor().setValue(
+					this.currentBean.getFornecedor());
+			this.subView.getCkTransportadora().setValue(
+					this.currentBean.getTransportadora());
 
 			// PessoaContato
 
@@ -336,27 +339,36 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			//
 
-			Object[] auxLista = this.subView.getOgCategoriaPessoa()
-					.getItemIds().toArray();
+			// Object[] auxLista = this.subView.getOgCategoriaPessoa()
+			// .getItemIds().toArray();
 
-			for (Object obj : auxLista) {
-				CategoriaPessoaEn en = (CategoriaPessoaEn) obj;
+			// for (Object obj : auxLista) {
+			// CategoriaPessoaEn en = (CategoriaPessoaEn) obj;
+			//
+			// if (en.equals(CategoriaPessoaEn.C)) {
+			// this.currentBean
+			// .setCliente(this.subView.getOgCategoriaPessoa()
+			// .isSelected(en) == Boolean.TRUE ? "1" : "0");
+			// } else if (en.equals(CategoriaPessoaEn.F)) {
+			// this.currentBean.setFornecedor(this.subView
+			// .getOgCategoriaPessoa().isSelected(en));
+			// } else if (en.equals(CategoriaPessoaEn.O)) {
+			// this.currentBean.setColaborador(this.subView
+			// .getOgCategoriaPessoa().isSelected(en));
+			// } else if (en.equals(CategoriaPessoaEn.T)) {
+			// this.currentBean.setTransportadora(this.subView
+			// .getOgCategoriaPessoa().isSelected(en));
+			// }
+			// }
 
-				if (en.equals(CategoriaPessoaEn.C)) {
-					this.currentBean
-							.setCliente(this.subView.getOgCategoriaPessoa()
-									.isSelected(en) == Boolean.TRUE ? "1" : "0");
-				} else if (en.equals(CategoriaPessoaEn.F)) {
-					this.currentBean.setFornecedor(this.subView
-							.getOgCategoriaPessoa().isSelected(en));
-				} else if (en.equals(CategoriaPessoaEn.O)) {
-					this.currentBean.setColaborador(this.subView
-							.getOgCategoriaPessoa().isSelected(en));
-				} else if (en.equals(CategoriaPessoaEn.T)) {
-					this.currentBean.setTransportadora(this.subView
-							.getOgCategoriaPessoa().isSelected(en));
-				}
-			}
+			this.currentBean.setCliente(this.subView.getCkCliente().getValue()
+					.equals(Boolean.TRUE) ? "1" : "0");
+			this.currentBean.setColaborador(this.subView.getCkColaborador()
+					.getValue());
+			this.currentBean.setFornecedor(this.subView.getCkFornecedor()
+					.getValue());
+			this.currentBean.setTransportadora(this.subView
+					.getCkTransportadora().getValue());
 
 			this.currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
@@ -648,11 +660,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public void carregarCategoriaPessoa() {
-		for (CategoriaPessoaEn en : CategoriaPessoaEn.values()) {
-			this.subView.getOgCategoriaPessoa().addItem(en);
-		}
-	}
+	// public void carregarCategoriaPessoa() {
+	// for (CategoriaPessoaEn en : CategoriaPessoaEn.values()) {
+	// this.subView.getOgCategoriaPessoa().addItem(en);
+	// }
+	// }
 
 	public BeanItemContainer<UfEntity> getUfBic() {
 		try {

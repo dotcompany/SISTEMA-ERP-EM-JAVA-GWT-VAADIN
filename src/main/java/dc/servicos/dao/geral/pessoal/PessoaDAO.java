@@ -114,7 +114,8 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 	@Transactional
 	public PessoaEntity getEntity(Serializable id) {
 		try {
-			String sql = "FROM :entity ent INNER JOIN ent.pessoaEnderecoList WHERE (1 = 1) AND ent.id = :id";
+			String sql = "FROM :entity ent INNER JOIN ent.pessoaEnderecoList"
+					+ " WHERE (1 = 1) AND ent.id = :id";
 			sql = sql.replace(":entity", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
