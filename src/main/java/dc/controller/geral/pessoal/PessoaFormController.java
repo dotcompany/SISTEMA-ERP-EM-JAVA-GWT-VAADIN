@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.CategoriaPessoaEn;
@@ -20,6 +21,7 @@ import dc.control.enums.TipoRegimeEn;
 import dc.control.enums.TipoSanguineoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.PessoaValidator;
 import dc.entidade.geral.PessoaContatoEntity;
@@ -214,6 +216,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					this.currentBean.getPessoaContatoList());
 
 			// PessoaEndereco
+
+			for (PessoaEnderecoEntity ent : this.currentBean
+					.getPessoaEnderecoList()) {
+				if (StringUtils.isNotBlank(ent.getSiglaUf())) {
+					UfEntity uf = this.ufDAO.find(ent.getIdUf());
+
+					ent.setUf(uf);
+				}
+			}
 
 			this.subView.getSfPessoaEndereco().fillWith(
 					this.currentBean.getPessoaEnderecoList());
@@ -643,11 +654,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public List<UfEntity> getUfList() {
+	public BeanItemContainer<UfEntity> getUfBic() {
 		try {
 			List<UfEntity> auxLista = this.ufDAO.listaTodos();
 
-			return auxLista;
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			return bic;
 		} catch (Exception e) {
 			e.printStackTrace();
 

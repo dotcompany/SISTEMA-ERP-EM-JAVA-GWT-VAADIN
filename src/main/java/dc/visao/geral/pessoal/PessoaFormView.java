@@ -962,18 +962,13 @@ public class PessoaFormView extends CustomComponent {
 						if ("uf".equals(propertyId)) {
 							ComboBox comboBox = ComponentUtil
 									.buildComboBox("UF");
-							// ComboBox comboBox = cbUf;
 
-							BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
-									UfEntity.class, controller.getUfList());
+							BeanItemContainer<UfEntity> bic = controller
+									.getUfBic();
 							comboBox.setContainerDataSource(bic);
 							comboBox.setItemCaptionPropertyId("nome");
 
 							return comboBox;
-							// TextField textField = ComponentUtil
-							// .buildTextField("UF");
-
-							// return textField;
 						}
 
 						if ("fone".equals(propertyId)) {

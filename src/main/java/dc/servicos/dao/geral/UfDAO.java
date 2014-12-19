@@ -47,9 +47,9 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 
 			UfEntity entity = (UfEntity) query.uniqueResult();
 
-			if (entity == null) {
-				entity = new UfEntity();
-			}
+			// if (entity == null) {
+			// entity = new UfEntity();
+			// }
 
 			return entity;
 		} catch (Exception e) {
