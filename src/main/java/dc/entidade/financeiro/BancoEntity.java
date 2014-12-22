@@ -1,18 +1,20 @@
 package dc.entidade.financeiro;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
@@ -24,50 +26,67 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
-
 @Entity
 @Table(name = "banco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banco_id_seq")
+	@SequenceGenerator(name = "banco_id_seq", sequenceName = "banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Column(name = "NOME")
 	@Field
 	@Caption("Nome")
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
-	@Column(name = "URL")
 	@Field
 	@Caption("URL")
-	private String url;
+	@Column(name = "URL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String url = "";
 
-	@Column(name = "CODIGO")
 	@Field
-	private String codigo;
+	@Caption("Código")
+	@Column(name = "CODIGO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "banco", fetch = FetchType.LAZY)
+	private List<AgenciaBancoEntity> agenciaBancoList;
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public BancoEntity() {
 
@@ -77,6 +96,11 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements S
 		this.id = id;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -101,35 +125,29 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements S
 		this.url = url;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof BancoEntity == false)
-			return false;
-
-		if (this == object)
-			return true;
-
-		final BancoEntity other = (BancoEntity) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<AgenciaBancoEntity> getAgenciaBancoList() {
+		return agenciaBancoList;
+	}
+
+	public void setAgenciaBancoList(List<AgenciaBancoEntity> agenciaBancoList) {
+		this.agenciaBancoList = agenciaBancoList;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
