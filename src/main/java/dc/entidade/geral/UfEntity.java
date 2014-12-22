@@ -79,7 +79,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Caption("País")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "id_pais", nullable = false)
 	private PaisEntity pais;
 

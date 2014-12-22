@@ -167,6 +167,8 @@ public class AgenciaBancoFormController extends
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			mensagemErro(e.getMessage());
 		}
 	}
 

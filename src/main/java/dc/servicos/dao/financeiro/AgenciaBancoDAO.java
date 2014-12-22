@@ -8,22 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
-*
-* @author Wesley Jr
-/*
- *Nessa classe temos a Extensão a classe principal abstractCrudDao e dela herdamos
- *alguns métodos, fazemos uma Conexão com o Banco, uma listagem
- *E aqui herdamos também o Método do pesquisar, onde nela colocamos os campos
- *que colocamos as anotações lá no TO (ENTIDADE), que vai ser pesquisado na Tela
- *quando rodar o projeto.
- *
-*/
-
-
 @Repository
-@SuppressWarnings("unchecked")
-public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity>{
+public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 
 	@Override
 	public Class<AgenciaBancoEntity> getEntityClass() {
@@ -37,17 +23,20 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity>{
 
 	@Transactional
 	public List<AgenciaBancoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from AgenciaBanco where nome like :q").setParameter("q", "%" + query + "%").list();
+		return getSession().createQuery("from AgenciaBanco where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
-	
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "logradouro"};
+		return new String[] { "nome", "logradouro" };
 	}
-	
+
 	@Transactional
 	public List<AgenciaBancoEntity> query(String q) {
-		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from AgenciaBanco where lower(nome) like :q").setParameter("q", q).list();
+		q = "%" + q.toLowerCase() + "%";
+		return getSession()
+				.createQuery("from AgenciaBanco where lower(nome) like :q")
+				.setParameter("q", q).list();
 	}
 
 }
