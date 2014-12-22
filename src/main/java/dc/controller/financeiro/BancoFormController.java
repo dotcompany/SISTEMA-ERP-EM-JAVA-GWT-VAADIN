@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.financeiro.BancoFormView;
@@ -25,14 +25,14 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class BancoFormController extends CRUDFormController<Banco> {
+public class BancoFormController extends CRUDFormController<BancoEntity> {
 
 	private BancoFormView subView;
 
 	@Autowired
 	private BancoDAO bancoDAO;
 
-	private Banco currentBean;
+	private BancoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -85,7 +85,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Banco();
+		currentBean = new BancoEntity();
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class BancoFormController extends CRUDFormController<Banco> {
 	}
 
 	@Override
-	public Banco getModelBean() {
+	public BancoEntity getModelBean() {
 		return currentBean;
 	}
 }

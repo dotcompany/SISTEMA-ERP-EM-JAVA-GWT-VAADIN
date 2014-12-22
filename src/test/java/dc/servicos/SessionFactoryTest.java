@@ -8,8 +8,8 @@ import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
-import dc.entidade.financeiro.AgenciaBanco;
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 
 public class SessionFactoryTest {

@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 
 @Path("/banco")
@@ -24,7 +24,7 @@ public class BancoREST {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Banco> hello(@QueryParam("q") String query) {
+	public List<BancoEntity> hello(@QueryParam("q") String query) {
 		if (query == null) {
 			return bancoDAO.listaTodos();
 		} else {

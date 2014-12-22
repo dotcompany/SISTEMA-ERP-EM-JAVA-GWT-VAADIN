@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,11 +23,11 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class BancoDAO extends AbstractCrudDAO<Banco>{
+public class BancoDAO extends AbstractCrudDAO<BancoEntity>{
 
 	@Override
-	public Class<Banco> getEntityClass() {
-		return Banco.class;
+	public Class<BancoEntity> getEntityClass() {
+		return BancoEntity.class;
 	}
 	
 	
@@ -38,12 +38,12 @@ public class BancoDAO extends AbstractCrudDAO<Banco>{
 
 
 	@Transactional
-	public List<Banco> listaTodos() {
+	public List<BancoEntity> listaTodos() {
 		return getSession().createQuery("from Banco").list();
 	}
 
 	@Transactional
-	public List<Banco> procuraNomeContendo(String query) {
+	public List<BancoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Banco where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -52,7 +52,7 @@ public class BancoDAO extends AbstractCrudDAO<Banco>{
 	}
 	
 	@Transactional
-	public List<Banco> query(String q) {
+	public List<BancoEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from Banco where lower(nome) like :q").setParameter("q", q).list();
 	}

@@ -41,7 +41,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Banco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -69,11 +69,11 @@ public class Banco extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	@Field
 	private String codigo;
 
-	public Banco() {
+	public BancoEntity() {
 
 	}
 
-	public Banco(Integer id) {
+	public BancoEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -108,13 +108,13 @@ public class Banco extends AbstractMultiEmpresaModel<Integer> implements Seriali
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof Banco == false)
+		if (object instanceof BancoEntity == false)
 			return false;
 
 		if (this == object)
 			return true;
 
-		final Banco other = (Banco) object;
+		final BancoEntity other = (BancoEntity) object;
 
 		return EqualsBuilder.reflectionEquals(this, other);
 	}

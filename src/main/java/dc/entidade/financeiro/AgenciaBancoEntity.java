@@ -28,51 +28,30 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/*Autor: Wesley Junior*/
-/*
- *Classe que possui o TO, ou seja, o mapeamento com todos os campos que vamos ter 
- *no nosso Banco de Dados 
- * *
- * Nessa classe temos o equals, hashCode e o ToString, no nosso novo mapeamento, pegamos
- * e mudamos, está diferente do mapeamento do T2Ti.
- * 
- * Colocamos também algumas anotações, na classe e em alguns campos, onde temos as anotações
- * que é o Field e Caption, o Caption colocamos o nome do campo que queremos que pesquise
- * na Tela, pegando os dados que estão salvos no Banco de Dados.
- */
-
 @Entity
 @Table(name = "agencia_banco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financeiro_id_seq")
-	@SequenceGenerator(name = "financeiro_id_seq", sequenceName = "financeiro_id_seq", allocationSize = 1, initialValue = 0)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agencia_banco_id_seq")
+	@SequenceGenerator(name = "agencia_banco_id_seq", sequenceName = "agencia_banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "CEP_ID", nullable = false) private int cepId;
-	 * 
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "BANCO_ID", nullable = false) private int bancoId;
-	 */
-
-	@Column(name = "ID_BANCO")
-	private Integer idBanco;
 
 	@Field
-	@Caption("Codigo")
+	@Caption("Código")
 	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -81,80 +60,103 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
-	private String nome;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
 
 	@Field
 	@Caption("Logradouro")
 	@Column(name = "LOGRADOURO", length = 100)
-	private String logradouro;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String logradouro = "";
 
 	@Field
-	@Caption("Numero")
+	@Caption("Número")
 	@Column(name = "NUMERO", length = 10)
-	private String numero;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numero = "";
 
 	@Field
-	@Caption("Cep")
+	@Caption("CEP")
 	@Column(name = "CEP", length = 10)
-	private String cep;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cep = "";
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 60)
-	private String bairro;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String bairro = "";
 
 	@Field
-	@Caption("Municipio")
+	@Caption("Município")
 	@Column(name = "MUNICIPIO", length = 60)
-	private String municipio;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String municipio = "";
 
 	@Field
-	@Caption("Uf")
+	@Caption("UF")
 	@Column(name = "UF")
-	private String uf;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String uf = "";
 
 	@Field
 	@Caption("Telefone")
 	@Column(name = "TELEFONE", length = 10)
-	private String telefone;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String telefone = "";
 
 	@Field
 	@Caption("Gerente")
 	@Column(name = "GERENTE", length = 30)
-	private String gerente;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String gerente = "";
 
 	@Field
 	@Caption("Contato")
 	@Column(name = "CONTATO", length = 30)
-	private String contato;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String contato = "";
 
-	@Field
-	@Caption("Observacao")
 	@Lob
-	@Column(name = "OBSERVACAO")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Type(type = "text")
-	private String observacao;
+	@Field
+	@Caption("Observação")
+	@Column(name = "OBSERVACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String observacao = "";
 
 	@Field
-	@Caption("Digito")
+	@Caption("Dígito")
 	@Column(name = "DIGITO", length = 1)
-	private String digito;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String digito = "";
 
-	/*
-	 * @Caption("Banco")
-	 * 
-	 * @ManyToOne(optional = false)
-	 * 
-	 * @JoinColumn(name = "BANCO_ID",referencedColumnName = "ID") private Banco
-	 * banco;
-	 * 
-	 * /*@Caption("Cep Id")
-	 * 
-	 * @ManyToOne(optional = false)
-	 * 
-	 * @JoinColumn(name = "CEP_ID", referencedColumnName = "ID") private Cep
-	 * cepId;
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@Field
+	@Caption("Banco")
+	@Column(name = "id_banco")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer banco;
+
+	/**
+	 * REFERENCIA - LIST
 	 */
 
 	/**
@@ -167,16 +169,24 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements 
 	private List<ContaCaixa> contaCaixaList;
 
 	/**
+	 * TRANSIENT
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
-	public AgenciaBanco() {
+	public AgenciaBancoEntity() {
 
 	}
 
-	public AgenciaBanco(Integer id) {
+	public AgenciaBancoEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -201,38 +211,6 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements 
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getGerente() {
-		return gerente;
-	}
-
-	public void setGerente(String gerente) {
-		this.gerente = gerente;
-	}
-
-	public String getContato() {
-		return contato;
-	}
-
-	public void setContato(String contato) {
-		this.contato = contato;
-	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
 	}
 
 	public String getLogradouro() {
@@ -283,39 +261,36 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements 
 		this.uf = uf;
 	}
 
-	/*
-	 * public Cep getCepId() { return cepId; }
-	 * 
-	 * public void setCepId(Cep cepId) { this.cepId = cepId; }
-	 */
-
-	/*
-	 * @Override public int hashCode() { return
-	 * HashCodeBuilder.reflectionHashCode(this, new String[] {"id"}); }
-	 * 
-	 * @Override public boolean equals(Object object) { if (object instanceof
-	 * AgenciaBanco == false) return false; if (this == object) return true;
-	 * final AgenciaBanco other = (AgenciaBanco) object; return
-	 * EqualsBuilder.reflectionEquals(this, other); }
-	 */
-
-	/*
-	 * public Banco getBanco() { return banco; }
-	 * 
-	 * public void setBanco(Banco banco) { this.banco = banco; }
-	 */
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public Integer getIdBanco() {
-		return idBanco;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public void setIdBanco(Integer idBanco) {
-		this.idBanco = idBanco;
+	public String getGerente() {
+		return gerente;
+	}
+
+	public void setGerente(String gerente) {
+		this.gerente = gerente;
+	}
+
+	public String getContato() {
+		return contato;
+	}
+
+	public void setContato(String contato) {
+		this.contato = contato;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public String getDigito() {
@@ -324,6 +299,31 @@ public class AgenciaBanco extends AbstractMultiEmpresaModel<Integer> implements 
 
 	public void setDigito(String digito) {
 		this.digito = digito;
+	}
+
+	public Integer getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Integer banco) {
+		this.banco = banco;
+	}
+
+	public List<ContaCaixa> getContaCaixaList() {
+		return contaCaixaList;
+	}
+
+	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
+		this.contaCaixaList = contaCaixaList;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

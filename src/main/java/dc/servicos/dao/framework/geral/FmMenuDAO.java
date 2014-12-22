@@ -13,7 +13,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 
@@ -26,7 +26,7 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 	}
 
 	@Transactional
-	public List<Banco> listaTodos() {
+	public List<BancoEntity> listaTodos() {
 		return getSession().createQuery("from FmMenu").list();
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.AgenciaBanco;
+import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,20 +23,20 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBanco>{
+public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity>{
 
 	@Override
-	public Class<AgenciaBanco> getEntityClass() {
-		return AgenciaBanco.class;
+	public Class<AgenciaBancoEntity> getEntityClass() {
+		return AgenciaBancoEntity.class;
 	}
 
 	@Transactional
-	public List<AgenciaBanco> listaTodos() {
+	public List<AgenciaBancoEntity> listaTodos() {
 		return getSession().createQuery("from AgenciaBanco").list();
 	}
 
 	@Transactional
-	public List<AgenciaBanco> procuraNomeContendo(String query) {
+	public List<AgenciaBancoEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from AgenciaBanco where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
@@ -45,7 +45,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBanco>{
 	}
 	
 	@Transactional
-	public List<AgenciaBanco> query(String q) {
+	public List<AgenciaBancoEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
 		return getSession().createQuery("from AgenciaBanco where lower(nome) like :q").setParameter("q", q).list();
 	}

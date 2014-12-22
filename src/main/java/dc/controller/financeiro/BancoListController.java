@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -23,7 +23,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class BancoListController extends CRUDListController<Banco> {
+public class BancoListController extends CRUDListController<BancoEntity> {
 
 	@Autowired
 	BancoDAO dao;
@@ -37,8 +37,8 @@ public class BancoListController extends CRUDListController<Banco> {
 	}
 
 	@Override
-	public Class<? super Banco> getEntityClass() {
-		return Banco.class;
+	public Class<? super BancoEntity> getEntityClass() {
+		return BancoEntity.class;
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class BancoListController extends CRUDListController<Banco> {
 	}
 
 	@Override
-	protected List<Banco> pesquisa(String valor) {
+	protected List<BancoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Banco> getFormController() {
+	protected CRUDFormController<BancoEntity> getFormController() {
 		return bancoFormController;
 	}
 
@@ -70,8 +70,8 @@ public class BancoListController extends CRUDListController<Banco> {
 	}
 
 	@Override
-	protected List<Banco> pesquisaDefault() {
-		return (List<Banco>) dao.getAll(getEntityClass());
+	protected List<BancoEntity> pesquisaDefault() {
+		return (List<BancoEntity>) dao.getAll(getEntityClass());
 	}
 
 }
