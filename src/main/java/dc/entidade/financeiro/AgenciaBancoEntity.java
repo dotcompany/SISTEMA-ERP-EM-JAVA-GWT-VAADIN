@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,6 +29,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.UfEntity;
 
 @Entity
 @Table(name = "agencia_banco")
@@ -104,7 +107,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "UF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String uf = "";
+	private String siglaUf = "";
 
 	@Field
 	@Caption("Telefone")
@@ -148,12 +151,15 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@Field
 	@Caption("Banco")
-	@Column(name = "id_banco")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer banco;
+	@ManyToOne
+	@JoinColumn(name = "id_banco", nullable = false)
+	private BancoEntity banco;
+
+	@Caption("UF")
+	@ManyToOne
+	@JoinColumn(name = "id_uf", nullable = false)
+	private UfEntity uf;
 
 	/**
 	 * REFERENCIA - LIST
@@ -253,12 +259,12 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.municipio = municipio;
 	}
 
-	public String getUf() {
-		return uf;
+	public String getSiglaUf() {
+		return siglaUf;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setSiglaUf(String siglaUf) {
+		this.siglaUf = siglaUf;
 	}
 
 	public String getTelefone() {
@@ -301,12 +307,20 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.digito = digito;
 	}
 
-	public Integer getBanco() {
+	public BancoEntity getBanco() {
 		return banco;
 	}
 
-	public void setBanco(Integer banco) {
+	public void setBanco(BancoEntity banco) {
 		this.banco = banco;
+	}
+
+	public UfEntity getUf() {
+		return uf;
+	}
+
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
 	}
 
 	public List<ContaCaixa> getContaCaixaList() {

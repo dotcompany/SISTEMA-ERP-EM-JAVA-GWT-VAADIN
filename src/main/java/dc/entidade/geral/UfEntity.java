@@ -1,16 +1,19 @@
 package dc.entidade.geral;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,6 +25,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -85,6 +89,9 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	// @OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
 	// private List<PessoaEnderecoEntity> pessoaEnderecoList;
+
+	@OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
+	private List<AgenciaBancoEntity> agenciaBancoList;
 
 	/**
 	 * TRANSIENT
@@ -166,6 +173,14 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// List<PessoaEnderecoEntity> pessoaEnderecoList) {
 	// this.pessoaEnderecoList = pessoaEnderecoList;
 	// }
+
+	public List<AgenciaBancoEntity> getAgenciaBancoList() {
+		return agenciaBancoList;
+	}
+
+	public void setAgenciaBancoList(List<AgenciaBancoEntity> agenciaBancoList) {
+		this.agenciaBancoList = agenciaBancoList;
+	}
 
 	/**
 	 * TO STRING

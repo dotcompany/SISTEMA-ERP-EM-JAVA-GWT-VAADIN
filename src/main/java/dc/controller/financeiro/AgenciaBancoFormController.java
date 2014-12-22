@@ -91,18 +91,7 @@ public class AgenciaBancoFormController extends
 
 			this.subView.getMocBanco().setModel(model);
 
-			/*
-			 * DefaultManyToOneComboModel<UF> modelUf = new
-			 * DefaultManyToOneComboModel<UF>( UFListController.class,
-			 * this.ufDAO, super.getMainController()) {
-			 * 
-			 * @Override public String getCaptionProperty() { return "nome"; }
-			 * };
-			 * 
-			 * this.subView.getCmbUF().setModel(modelUf);
-			 */
-
-			// subView.InitCbs(bancoDAO.listaTodos(), ufDAO.listaTodos());
+			carregarUf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,8 +167,6 @@ public class AgenciaBancoFormController extends
 					this.currentBean.getTelefone());
 			this.subView.getTfNumero().setValue(this.currentBean.getNumero());
 
-			carregarCombos();
-
 			if (Validator.validateObject(this.currentBean.getUf())) {
 				this.subView.getCbUf().setValue(this.currentBean.getUf());
 			}
@@ -206,24 +193,23 @@ public class AgenciaBancoFormController extends
 
 	}
 
-	void carregarCombos() {
-		carregarUFs();
-	}
+	/**
+	 * 
+	 */
 
-	public List<UfEntity> listarUfs() {
-		return ufDAO.listaTodos();
-	}
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
 
-	public BeanItemContainer<String> carregarUFs() {
-		BeanItemContainer<String> container = new BeanItemContainer<>(
-				String.class);
-		List<UfEntity> ufs = listarUfs();
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+			this.subView.getCbUf().setContainerDataSource(bic);
+			this.subView.getCbUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		for (UfEntity u : ufs) {
-			container.addBean(u.getSigla());
+			throw e;
 		}
-
-		return container;
 	}
 
 }

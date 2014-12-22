@@ -369,7 +369,6 @@ public class AgenciaBancoFormView extends CustomComponent {
 
 		// cbUf
 		cbUf = ComponentUtil.buildComboBox("UF");
-		cbUf.setContainerDataSource(controller.carregarUFs());
 		cbUf.setWidth("54px");
 		cbUf.setHeight("-1px");
 		horizontalLayout_4.addComponent(cbUf);
