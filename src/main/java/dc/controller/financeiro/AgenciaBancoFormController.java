@@ -148,7 +148,10 @@ public class AgenciaBancoFormController extends
 					.getValue();
 
 			if (ObjectUtils.isNotBlank(banco)) {
-				this.currentBean.setBanco(banco);
+				BancoEntity ent = new BancoEntity();
+				ent.setId(banco.getId());
+
+				this.currentBean.setBanco(ent);
 			} else {
 				this.currentBean.setBanco(null);
 			}
@@ -156,8 +159,11 @@ public class AgenciaBancoFormController extends
 			UfEntity uf = (UfEntity) this.subView.getCbUf().getValue();
 
 			if (ObjectUtils.isNotBlank(uf)) {
+				UfEntity ent = new UfEntity();
+				ent.setId(uf.getId());
+
 				this.currentBean.setSiglaUf(uf.getSigla());
-				this.currentBean.setUf(uf);
+				this.currentBean.setUf(ent);
 			} else {
 				this.currentBean.setUf(null);
 			}
@@ -167,7 +173,7 @@ public class AgenciaBancoFormController extends
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 			mensagemErro(e.getMessage());
 		}
 	}

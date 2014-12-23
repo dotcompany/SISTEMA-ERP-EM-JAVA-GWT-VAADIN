@@ -58,29 +58,29 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Field
 	@Caption("Sigla")
 	@Column(name = "SIGLA", length = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla;
+	private String sigla = "";
 
 	@Field
 	@Caption()
 	@Column(name = "CODIGO_IBGE", nullable = false)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoIbge;
+	private Integer codigoIbge = new Integer(0);
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
 	@Caption("País")
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_pais", nullable = false)
+	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "id_pais")
 	private PaisEntity pais;
 
 	/**
@@ -154,7 +154,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigoIbge(Integer codigoIbge) {
-		this.codigoIbge = codigoIbge;
+		this.codigoIbge = (codigoIbge == null ? new Integer(0) : codigoIbge);
 	}
 
 	public PaisEntity getPais() {

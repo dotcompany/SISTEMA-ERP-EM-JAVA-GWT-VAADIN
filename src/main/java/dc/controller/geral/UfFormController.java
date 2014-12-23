@@ -11,13 +11,14 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
-import dc.control.util.StringUtils;
+import dc.control.util.ObjectUtils;
+import dc.control.validator.DotErpException;
+import dc.control.validator.classe.UfValidator;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.PaisDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.UfFormView;
@@ -41,6 +42,10 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Autowired
 	private PaisDAO paisDAO;
 
+	public UfFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected String getNome() {
 		return "UF";
@@ -51,94 +56,20 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		return subView;
 	}
 
-	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		PaisEntity pais = this.subView.getMocPais().getValue();
-
-		if (!Validator.validateObject(pais)) {
-			adicionarErroDeValidacao(this.subView.getMocPais(),
-					"Não pode ficar em branco!");
-
-			valido = false;
-		}
-
-		String nome = this.subView.getTfNome().getValue();
-
-		if (StringUtils.isBlank(nome)) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em branco!");
-
-			valido = false;
-		}
-
-		String sigla = this.subView.getTfSigla().getValue();
-
-		if (StringUtils.isBlank(sigla)) {
-			adicionarErroDeValidacao(this.subView.getTfSigla(),
-					"Não pode ficar em branco!");
-
-			valido = false;
-		}
-
-		return valido;
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
-	protected void actionSalvar() {
-		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setSigla(this.subView.getTfSigla().getValue());
-
-			boolean bCodigoIbge = NumberUtils.isNumber(this.subView
-					.getTfCodigoIbge().getValue());
-
-			if (bCodigoIbge) {
-				this.currentBean.setCodigoIbge(NumberUtils.toInt(this.subView
-						.getTfCodigoIbge().getValue()));
-			}
-
-			PaisEntity pais = this.subView.getMocPais().getValue();
-
-			if (pais != null) {
-				this.currentBean.setPais(pais);
-			}
-
-			this.ufDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		try {
-			this.currentBean = this.ufDAO.find(id);
-
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
-			this.subView.getTfCodigoIbge().setValue(
-					this.currentBean.getCodigoIbge().toString());
-
-			PaisEntity pais = this.currentBean.getPais();
-
-			if (pais != null) {
-				this.subView.getMocPais().setValue(pais);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
+	public UfEntity getModelBean() {
+		return currentBean;
 	}
 
 	@Override
@@ -163,13 +94,85 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
+	protected boolean validaSalvar() {
+		try {
+			UfValidator.validaSalvar(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			this.currentBean.setNome(this.subView.getTfNome().getValue());
+			this.currentBean.setSigla(this.subView.getTfSigla().getValue());
+
+			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
+
+			if (NumberUtils.isNumber(codigoIbge)) {
+				this.currentBean.setCodigoIbge(NumberUtils.toInt(this.subView
+						.getTfCodigoIbge().getValue()));
+			}
+
+			PaisEntity pais = this.subView.getMocPais().getValue();
+
+			this.currentBean.setPais(pais);
+
+			this.ufDAO.saveOrUpdate(this.currentBean);
+
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			criarNovoBean();
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.currentBean = this.ufDAO.find(id);
+
+			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
+			this.subView.getTfCodigoIbge().setValue(
+					this.currentBean.getCodigoIbge().toString());
+
+			PaisEntity pais = this.currentBean.getPais();
+
+			if (ObjectUtils.isNotBlank(pais)) {
+				this.subView.getMocPais().setValue(pais);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	protected void criarNovoBean() {
-		this.currentBean = new UfEntity();
+		try {
+			this.currentBean = new UfEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.currentBean = new UfEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -189,17 +192,6 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public UfEntity getModelBean() {
-		return currentBean;
 	}
 
 }

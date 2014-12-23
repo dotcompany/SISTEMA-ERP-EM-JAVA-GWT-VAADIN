@@ -153,13 +153,13 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_banco", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_banco")
 	private BancoEntity banco;
 
 	@Caption("UF")
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_uf", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_uf")
 	private UfEntity uf;
 
 	/**

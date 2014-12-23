@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,35 +53,35 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "codigo")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigo;
+	private Integer codigo = new Integer(0);
 
 	@Field
 	@Caption("Nome En")
 	@Column(name = "nome_en", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nomeIngles;
+	private String nomeIngles = "";
 
 	@Field
 	@Caption("Nome PTBR")
 	@Column(name = "nome_ptbr", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nomePtbr;
+	private String nomePtbr = "";
 
 	@Field
 	@Caption("Sigla 2")
 	@Column(name = "sigla2", length = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla2;
+	private String sigla2 = "";
 
 	@Field
 	@Caption("Sigla 3")
 	@Column(name = "sigla3", length = 3)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla3;
+	private String sigla3 = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -92,7 +91,8 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+	// @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pais")
 	private List<UfEntity> ufList;
 
 	/**
@@ -134,7 +134,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? new Integer(0) : codigo);
 	}
 
 	public String getNomeIngles() {
