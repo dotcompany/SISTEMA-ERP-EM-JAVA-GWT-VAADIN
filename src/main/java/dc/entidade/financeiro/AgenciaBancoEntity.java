@@ -59,7 +59,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigo;
+	private Integer codigo = new Integer(0);
 
 	@Field
 	@Caption("Nome")
@@ -153,12 +153,12 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_banco")
 	private BancoEntity banco;
 
 	@Caption("UF")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_uf")
 	private UfEntity uf;
 
@@ -209,7 +209,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? new Integer(0) : codigo);
 	}
 
 	public String getNome() {
@@ -217,7 +217,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getLogradouro() {
@@ -225,7 +225,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro = (logradouro == null ? "".trim() : logradouro
+				.toUpperCase().trim());
 	}
 
 	public String getNumero() {
@@ -233,7 +234,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = (numero == null ? "".trim() : numero.toUpperCase().trim());
 	}
 
 	public String getCep() {
@@ -241,7 +242,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = (cep == null ? "".trim() : cep.toUpperCase().trim());
 	}
 
 	public String getBairro() {
@@ -249,7 +250,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = (bairro == null ? "".trim() : bairro.toUpperCase().trim());
 	}
 
 	public String getMunicipio() {
@@ -257,7 +258,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
+		this.municipio = (municipio == null ? "".trim() : municipio
+				.toUpperCase().trim());
 	}
 
 	public String getSiglaUf() {
@@ -265,7 +267,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSiglaUf(String siglaUf) {
-		this.siglaUf = siglaUf;
+		this.siglaUf = (siglaUf == null ? "".trim() : siglaUf.toUpperCase()
+				.trim());
 	}
 
 	public String getTelefone() {
@@ -273,7 +276,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		this.telefone = (telefone == null ? "".trim() : telefone.toUpperCase()
+				.trim());
 	}
 
 	public String getGerente() {
@@ -281,7 +285,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setGerente(String gerente) {
-		this.gerente = gerente;
+		this.gerente = (gerente == null ? "".trim() : gerente.toUpperCase()
+				.trim());
 	}
 
 	public String getContato() {
@@ -289,7 +294,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContato(String contato) {
-		this.contato = contato;
+		this.contato = (contato == null ? "".trim() : contato.toUpperCase()
+				.trim());
 	}
 
 	public String getObservacao() {
@@ -297,7 +303,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public String getDigito() {
@@ -305,7 +312,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDigito(String digito) {
-		this.digito = digito;
+		this.digito = (digito == null ? "".trim() : digito.toUpperCase().trim());
 	}
 
 	public BancoEntity getBanco() {

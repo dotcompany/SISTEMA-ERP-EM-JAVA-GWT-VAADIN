@@ -90,7 +90,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// @OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
 	// private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
-	@OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "uf")
 	private List<AgenciaBancoEntity> agenciaBancoList;
 
 	/**

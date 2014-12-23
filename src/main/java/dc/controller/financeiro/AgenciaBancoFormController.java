@@ -39,7 +39,7 @@ public class AgenciaBancoFormController extends
 	private AgenciaBancoEntity currentBean;
 
 	@Autowired
-	private AgenciaBancoDAO agenciaDAO;
+	private AgenciaBancoDAO agenciaBancoDAO;
 
 	@Autowired
 	private BancoDAO bancoDAO;
@@ -111,22 +111,6 @@ public class AgenciaBancoFormController extends
 	}
 
 	@Override
-	protected void criarNovoBean() {
-		try {
-			this.currentBean = new AgenciaBancoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
 	protected void actionSalvar() {
 		try {
 			this.currentBean.setNome(this.subView.getTfNome().getValue());
@@ -147,41 +131,29 @@ public class AgenciaBancoFormController extends
 			BancoEntity banco = (BancoEntity) this.subView.getMocBanco()
 					.getValue();
 
-			if (ObjectUtils.isNotBlank(banco)) {
-				BancoEntity ent = new BancoEntity();
-				ent.setId(banco.getId());
-
-				this.currentBean.setBanco(ent);
-			} else {
-				this.currentBean.setBanco(null);
-			}
+			this.currentBean.setBanco(banco);
 
 			UfEntity uf = (UfEntity) this.subView.getCbUf().getValue();
 
-			if (ObjectUtils.isNotBlank(uf)) {
-				UfEntity ent = new UfEntity();
-				ent.setId(uf.getId());
+			this.currentBean.setSiglaUf(uf.getSigla());
+			this.currentBean.setUf(uf);
 
-				this.currentBean.setSiglaUf(uf.getSigla());
-				this.currentBean.setUf(ent);
-			} else {
-				this.currentBean.setUf(null);
-			}
-
-			this.agenciaDAO.saveOrUpdate(this.currentBean);
+			this.agenciaBancoDAO.saveOrUpdateAgenciaBanco(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+		} finally {
+			criarNovoBean();
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.agenciaDAO.find(id);
+			this.currentBean = this.agenciaBancoDAO.find(id);
 
 			this.subView.getTfNome().setValue(this.currentBean.getNome());
 			this.subView.getTfLogradouro().setValue(
@@ -215,9 +187,31 @@ public class AgenciaBancoFormController extends
 	}
 
 	@Override
+	protected void criarNovoBean() {
+		try {
+			this.currentBean = new AgenciaBancoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.currentBean = new AgenciaBancoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.agenciaDAO.deleteAllByIds(ids);
+			this.agenciaBancoDAO.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

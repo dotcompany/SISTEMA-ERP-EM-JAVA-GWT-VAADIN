@@ -6,34 +6,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
 public class BancoListController extends CRUDListController<BancoEntity> {
 
-	@Autowired
-	BancoDAO dao;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	BancoFormController bancoFormController;
+	private BancoDAO dao;
+
+	@Autowired
+	private BancoFormController bancoFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"codigo", "nome", "url" };
+		return new String[] { "codigo", "nome", "url" };
+	}
+
+	@Override
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -42,25 +49,13 @@ public class BancoListController extends CRUDListController<BancoEntity> {
 	}
 
 	@Override
-	protected String getTitulo() {
-		return "Banco";
+	protected CRUDFormController<BancoEntity> getFormController() {
+		return bancoFormController;
 	}
 
 	@Override
 	protected List<BancoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<BancoEntity> getFormController() {
-		return bancoFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "listaBancos";
 	}
 
 	@Override

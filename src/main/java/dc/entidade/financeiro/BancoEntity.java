@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -77,7 +76,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "banco", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "banco")
 	private List<AgenciaBancoEntity> agenciaBancoList;
 
 	/**
@@ -114,7 +113,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getUrl() {
@@ -122,7 +121,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		this.url = (url == null ? "".trim() : url.toUpperCase().trim());
 	}
 
 	public String getCodigo() {
@@ -130,7 +129,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	public List<AgenciaBancoEntity> getAgenciaBancoList() {

@@ -1,7 +1,10 @@
 package dc.control.validator.classe;
 
+import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.entidade.financeiro.BancoEntity;
+import dc.entidade.geral.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
 
 public class AgenciaBancoValidator {
@@ -47,6 +50,20 @@ public class AgenciaBancoValidator {
 
 		if (StringUtils.isBlank(municipio)) {
 			throw new DotErpException(subView.getTfMunicipio(),
+					"::DotERP - Não pode ficar em branco");
+		}
+
+		BancoEntity banco = (BancoEntity) subView.getMocBanco().getValue();
+
+		if (ObjectUtils.isBlank(banco)) {
+			throw new DotErpException(subView.getMocBanco(),
+					"::DotERP - Não pode ficar em branco");
+		}
+
+		UfEntity uf = (UfEntity) subView.getCbUf().getValue();
+
+		if (ObjectUtils.isBlank(uf)) {
+			throw new DotErpException(subView.getCbUf(),
 					"::DotERP - Não pode ficar em branco");
 		}
 	}
