@@ -195,7 +195,7 @@ dependencies {
 		compile 'org.apache.commons:commons-lang3:3.3'
 		
 		compile 'org.vaadin.addons:filteringtable:0.9.11.v7'
-		compile 'com.vaadin:vaadin-push:7.3.6'
+		compile 'com.vaadin:vaadin-push:7.3.7'
 		compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
 			exclude group:'com.vaadin'
 		}		
