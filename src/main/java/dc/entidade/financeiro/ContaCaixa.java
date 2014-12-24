@@ -83,7 +83,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
-	private AgenciaBanco agenciaBanco;
+	private AgenciaBancoEntity agenciaBanco;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
@@ -146,11 +146,11 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
 	}
 
-	public AgenciaBanco getAgenciaBanco() {
+	public AgenciaBancoEntity getAgenciaBanco() {
 		return agenciaBanco;
 	}
 
-	public void setAgenciaBanco(AgenciaBanco agenciaBanco) {
+	public void setAgenciaBanco(AgenciaBancoEntity agenciaBanco) {
 		this.agenciaBanco = agenciaBanco;
 	}
 

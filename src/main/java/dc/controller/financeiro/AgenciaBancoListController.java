@@ -6,30 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.AgenciaBanco;
+import dc.control.util.ClassUtils;
+import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
-public class AgenciaBancoListController extends CRUDListController<AgenciaBanco> {
+public class AgenciaBancoListController extends
+		CRUDListController<AgenciaBancoEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	AgenciaBancoDAO dao;
+	private AgenciaBancoDAO dao;
 
 	@Autowired
-	AgenciaBancoFormController agenciaBancoFormController;
+	private AgenciaBancoFormController agenciaBancoFormController;
 
 	@Override
 	public String[] getColunas() {
@@ -37,29 +34,29 @@ public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>
 	}
 
 	@Override
-	public Class<? super AgenciaBanco> getEntityClass() {
-		return AgenciaBanco.class;
-	}
-
-	@Override
 	protected String getTitulo() {
-		return "Agência Banco";
+		return super.getTitulo(this);
 	}
 
 	@Override
-	protected List<AgenciaBanco> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
-	protected CRUDFormController<AgenciaBanco> getFormController() {
+	public Class<? super AgenciaBancoEntity> getEntityClass() {
+		return AgenciaBancoEntity.class;
+	}
+
+	@Override
+	protected CRUDFormController<AgenciaBancoEntity> getFormController() {
 		return agenciaBancoFormController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
-	public String getViewIdentifier() {
-		return "listaAgenciaBanco";
+	protected List<AgenciaBancoEntity> pesquisa(String valor) {
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -68,8 +65,8 @@ public class AgenciaBancoListController extends CRUDListController<AgenciaBanco>
 	}
 
 	@Override
-	protected List<AgenciaBanco> pesquisaDefault() {
-		return (List<AgenciaBanco>) dao.getAll(getEntityClass());
+	protected List<AgenciaBancoEntity> pesquisaDefault() {
+		return (List<AgenciaBancoEntity>) dao.getAll(getEntityClass());
 	}
 
 	@Override

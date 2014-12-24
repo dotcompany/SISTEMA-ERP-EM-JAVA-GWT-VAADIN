@@ -44,7 +44,7 @@ import dc.control.enums.TipoPessoaEn;
 import dc.control.enums.TipoVencimentoEn;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
@@ -702,7 +702,7 @@ public class LancamentoReceberFormController extends
 		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO
 				.listaPorPessoa(cliente.getPessoa()).get(0);
 
-		//enderecoSacado.setUf(endereco.getUf());
+		// enderecoSacado.setUf(endereco.getUf());
 		enderecoSacado.setCidade(endereco.getCidade());
 		enderecoSacado.setCep(endereco.getCep());
 		enderecoSacado.setBairro(endereco.getBairro());
@@ -710,7 +710,7 @@ public class LancamentoReceberFormController extends
 		enderecoSacado.setNumero(endereco.getNumero());
 		// sacado.addEndereco(enderecoSacado);
 
-		Banco banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getIdBanco());
+		BancoEntity banco = bancoDAO.find(contaCaixa.getAgenciaBanco().getBanco());
 		ContaBancaria contaBancaria = new ContaBancaria(
 				BancosSuportados.suportados.get(banco.getCodigo()).create());
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer

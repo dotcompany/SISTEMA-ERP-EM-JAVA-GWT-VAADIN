@@ -7,7 +7,7 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import dc.entidade.financeiro.Banco;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
 
 /**
@@ -33,9 +33,9 @@ public class FullTextSearchTest {
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
 		fullTextSession.createIndexer().startAndWait();
 	
-		List<Banco> result = dao.fullTextSearch("republicas");
+		List<BancoEntity> result = dao.fullTextSearch("republicas");
 		
-		for (Banco b : result) {
+		for (BancoEntity b : result) {
 			System.out.println(b.getNome());
 		}
 		

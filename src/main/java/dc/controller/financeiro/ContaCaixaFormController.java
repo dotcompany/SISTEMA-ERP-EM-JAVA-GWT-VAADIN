@@ -14,7 +14,7 @@ import dc.control.enums.ContaCaixaTipoEnum;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.financeiro.AgenciaBanco;
+import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
@@ -106,7 +106,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 		this.subView.InitCbs(getContaCaixaTipo());
 
-		DefaultManyToOneComboModel<AgenciaBanco> model = new DefaultManyToOneComboModel<AgenciaBanco>(AgenciaBancoListController.class,
+		DefaultManyToOneComboModel<AgenciaBancoEntity> model = new DefaultManyToOneComboModel<AgenciaBancoEntity>(AgenciaBancoListController.class,
 				this.agenciaDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -155,7 +155,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.currentBean.setCodigo(this.subView.getTxtCodigo().getValue());
 			this.currentBean.setDigito(this.subView.getTxtDigito().getValue());
 
-			this.currentBean.setAgenciaBanco((AgenciaBanco) this.subView.getCmbAgenciaBanco().getValue());
+			this.currentBean.setAgenciaBanco((AgenciaBancoEntity) this.subView.getCmbAgenciaBanco().getValue());
 			this.currentBean.setContabilConta((ContabilContaEntity) this.subView.getCmbContabilConta().getValue());
 
 			for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {

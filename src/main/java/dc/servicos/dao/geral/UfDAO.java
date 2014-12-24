@@ -19,21 +19,47 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 
 	@Transactional
 	public List<UfEntity> listaTodos() {
-		String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
-		sql = sql.replace("#", this.getEntityClass().getName());
-		sql = sql.replace("-", this.getEntityClass().getSimpleName()
-				+ "(ent.id, ent.nome, ent.sigla)");
+		try {
+			String sql = "FROM # ent WHERE (1 = 1)";
+			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
 
-		return getSession().createQuery(sql).list();
+			return getSession().createQuery(sql).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional
 	public List<UfEntity> procuraNomeContendo(String query) {
-		String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-		sql = sql.replace("#", this.getEntityClass().getName());
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
 
-		return getSession().createQuery(sql)
-				.setParameter("q", "%" + query + "%").list();
+			return getSession().createQuery(sql)
+					.setParameter("q", "%" + query + "%").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Transactional
+	public List<UfEntity> query(String q) {
+		String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+		sql = sql.replace("#", getEntityClass().getName());
+
+		q = "%" + q.toLowerCase() + "%";
+
+		return getSession().createQuery(sql).setParameter("q", q).list();
+	}
+
+	protected String[] getDefaultSearchFields() {
+		return new String[] { "nome", "sigla" };
 	}
 
 	@Transactional
@@ -55,20 +81,6 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 		} catch (Exception e) {
 			throw e;
 		}
-	}
-
-	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "sigla" };
-	}
-
-	@Transactional
-	public List<UfEntity> query(String q) {
-		String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
-		sql = sql.replace("#", getEntityClass().getName());
-
-		q = "%" + q.toLowerCase() + "%";
-
-		return getSession().createQuery(sql).setParameter("q", q).list();
 	}
 
 }

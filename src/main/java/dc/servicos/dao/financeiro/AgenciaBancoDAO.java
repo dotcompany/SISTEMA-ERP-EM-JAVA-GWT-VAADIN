@@ -2,52 +2,99 @@ package dc.servicos.dao.financeiro;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.AgenciaBanco;
+import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.entidade.financeiro.BancoEntity;
+import dc.entidade.geral.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-
-/**
-*
-* @author Wesley Jr
-/*
- *Nessa classe temos a Extensão a classe principal abstractCrudDao e dela herdamos
- *alguns métodos, fazemos uma Conexão com o Banco, uma listagem
- *E aqui herdamos também o Método do pesquisar, onde nela colocamos os campos
- *que colocamos as anotações lá no TO (ENTIDADE), que vai ser pesquisado na Tela
- *quando rodar o projeto.
- *
-*/
-
+import dc.servicos.dao.geral.UfDAO;
 
 @Repository
-@SuppressWarnings("unchecked")
-public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBanco>{
+public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
+
+	/**
+	 * DAOS
+	 */
+
+	@Autowired
+	private UfDAO ufDAO;
+
+	@Autowired
+	private BancoDAO bancoDAO;
+
+	/**
+	 * 
+	 */
 
 	@Override
-	public Class<AgenciaBanco> getEntityClass() {
-		return AgenciaBanco.class;
+	public Class<AgenciaBancoEntity> getEntityClass() {
+		return AgenciaBancoEntity.class;
 	}
 
 	@Transactional
-	public List<AgenciaBanco> listaTodos() {
-		return getSession().createQuery("from AgenciaBanco").list();
+	public List<AgenciaBancoEntity> listaTodos() {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1)";
+			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
+
+			return getSession().createQuery(sql).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional
-	public List<AgenciaBanco> procuraNomeContendo(String query) {
-		return getSession().createQuery("from AgenciaBanco where nome like :q").setParameter("q", "%" + query + "%").list();
+	public List<AgenciaBancoEntity> procuraNomeContendo(String query) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			return getSession().createQuery(sql)
+					.setParameter("q", "%" + query + "%").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
-	
+
+	@Transactional
+	public List<UfEntity> query(String q) {
+		String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+		sql = sql.replace("#", getEntityClass().getName());
+
+		q = "%" + q.toLowerCase() + "%";
+
+		return getSession().createQuery(sql).setParameter("q", q).list();
+	}
+
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "logradouro"};
+		return new String[] { "nome", "logradouro" };
 	}
-	
+
 	@Transactional
-	public List<AgenciaBanco> query(String q) {
-		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from AgenciaBanco where lower(nome) like :q").setParameter("q", q).list();
+	public void saveOrUpdateAgenciaBanco(AgenciaBancoEntity entity)
+			throws Exception {
+		try {
+			BancoEntity banco = this.bancoDAO.find(entity.getBanco().getId());
+			UfEntity uf = this.ufDAO.find(entity.getUf().getId());
+
+			entity.setBanco(banco);
+			entity.setUf(uf);
+
+			super.saveOrUpdate(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

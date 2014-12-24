@@ -55,6 +55,31 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	}
 
 	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public PaisEntity getModelBean() {
+		return currentBean;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new PaisFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	protected boolean validaSalvar() {
 		try {
 			PaisValidator.validaSalvar(this.subView);
@@ -91,6 +116,8 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+		} finally {
+			criarNovoBean();
 		}
 	}
 
@@ -111,12 +138,8 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
 	@Override
-	protected void quandoNovo() {
+	protected void criarNovoBean() {
 		try {
 			this.currentBean = new PaisEntity();
 		} catch (Exception e) {
@@ -127,16 +150,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	}
 
 	@Override
-	protected void initSubView() {
-		this.subView = new PaisFormView(this);
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
-	@Override
-	protected void criarNovoBean() {
+	protected void quandoNovo() {
 		try {
 			this.currentBean = new PaisEntity();
 		} catch (Exception e) {
@@ -162,25 +176,6 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	/** COMBOS */
-
-	/** ************************************** */
-
-	@Override
-	protected boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	public PaisEntity getModelBean() {
-		return currentBean;
 	}
 
 }

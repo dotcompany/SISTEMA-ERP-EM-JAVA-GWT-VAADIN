@@ -1,18 +1,14 @@
-package dc.entidade.geral;
+package dc.entidade.financeiro;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,18 +21,16 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.diverso.PaisEntity;
 
 @Entity
-@Table(name = "uf")
+@Table(name = "banco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
+public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -46,8 +40,8 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uf_id_seq")
-	@SequenceGenerator(name = "uf_id_seq", sequenceName = "uf_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banco_id_seq")
+	@SequenceGenerator(name = "banco_id_seq", sequenceName = "banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -55,42 +49,34 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME", length = 50)
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
 	@Field
-	@Caption("Sigla")
-	@Column(name = "SIGLA", length = 2)
+	@Caption("URL")
+	@Column(name = "URL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String sigla = "";
+	private String url = "";
 
 	@Field
-	@Caption()
-	@Column(name = "CODIGO_IBGE", nullable = false)
+	@Caption("Código")
+	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoIbge = new Integer(0);
+	private String codigo = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
-	@Caption("País")
-	@ManyToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "id_pais")
-	private PaisEntity pais;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	// @OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
-	// private List<PessoaEnderecoEntity> pessoaEnderecoList;
-
-	@OneToMany(mappedBy = "uf")
+	@OneToMany(mappedBy = "banco")
 	private List<AgenciaBancoEntity> agenciaBancoList;
 
 	/**
@@ -101,23 +87,12 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * CONSTRUTOR
 	 */
 
-	public UfEntity() {
+	public BancoEntity() {
 
 	}
 
-	public UfEntity(Integer id) {
+	public BancoEntity(Integer id) {
 		this.id = id;
-	}
-
-	public UfEntity(Integer id, String nome) {
-		this.id = id;
-		this.nome = nome;
-	}
-
-	public UfEntity(Integer id, String nome, String sigla) {
-		this.id = id;
-		this.nome = nome;
-		this.sigla = sigla;
 	}
 
 	/**
@@ -141,38 +116,21 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
-	public String getSigla() {
-		return sigla;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setSigla(String sigla) {
-		this.sigla = (sigla == null ? "".trim() : sigla.toUpperCase().trim());
+	public void setUrl(String url) {
+		this.url = (url == null ? "".trim() : url.toUpperCase().trim());
 	}
 
-	public Integer getCodigoIbge() {
-		return codigoIbge;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodigoIbge(Integer codigoIbge) {
-		this.codigoIbge = (codigoIbge == null ? new Integer(0) : codigoIbge);
+	public void setCodigo(String codigo) {
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
-
-	public PaisEntity getPais() {
-		return pais;
-	}
-
-	public void setPais(PaisEntity pais) {
-		this.pais = pais;
-	}
-
-	// public List<PessoaEnderecoEntity> getPessoaEnderecoList() {
-	// return pessoaEnderecoList;
-	// }
-
-	// public void setPessoaEnderecoList(
-	// List<PessoaEnderecoEntity> pessoaEnderecoList) {
-	// this.pessoaEnderecoList = pessoaEnderecoList;
-	// }
 
 	public List<AgenciaBancoEntity> getAgenciaBancoList() {
 		return agenciaBancoList;
