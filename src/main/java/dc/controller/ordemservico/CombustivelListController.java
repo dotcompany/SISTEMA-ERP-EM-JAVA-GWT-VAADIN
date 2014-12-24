@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.Combustivel;
+import dc.entidade.ordemservico.CombustivelEntity;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class CombustivelListController extends CRUDListController<Combustivel> {
+public class CombustivelListController extends CRUDListController<CombustivelEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class CombustivelListController extends CRUDListController<Combustivel> {
 	}
 
 	@Override
-	protected List<Combustivel> pesquisa(String valor) {
+	protected List<CombustivelEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -45,18 +45,18 @@ public class CombustivelListController extends CRUDListController<Combustivel> {
 	}
 
 	@Override
-	protected CRUDFormController<Combustivel> getFormController() {
+	protected CRUDFormController<CombustivelEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Combustivel> getEntityClass() {
-		return Combustivel.class;
+	public Class<? super CombustivelEntity> getEntityClass() {
+		return CombustivelEntity.class;
 	}
 
 	@Override
-	protected List<Combustivel> pesquisaDefault() {
-		return dao.getAll(Combustivel.class);
+	protected List<CombustivelEntity> pesquisaDefault() {
+		return dao.getAll(CombustivelEntity.class);
 	}
 
 	@Override

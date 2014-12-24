@@ -15,7 +15,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
-import dc.entidade.ordemservico.MaterialServico;
+import dc.entidade.ordemservico.MaterialServicoEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -40,7 +40,7 @@ public class MaterialServicoFormView extends CustomComponent {
 	
 	private OrdemServicoFormController controller;
 
-	private SubFormComponent<MaterialServico, Integer> materialServicoSubForm;
+	private SubFormComponent<MaterialServicoEntity, Integer> materialServicoSubForm;
 
 	public MaterialServicoFormView(OrdemServicoFormController controller) {
 		buildMainLayout();
@@ -84,7 +84,7 @@ public class MaterialServicoFormView extends CustomComponent {
 		String[] atributos = new String[] {"tecnico,nome","produto.descricao","quantidadeServico","valorUnitario","valorTotal"};
 		String[] headers = new String[] {"Técnico", "Descrição produto","Qtd", "Valor unitário", "Valor Total"};
 		
-		this.materialServicoSubForm = new SubFormComponent<MaterialServico, Integer>(MaterialServico.class, atributos, headers) {
+		this.materialServicoSubForm = new SubFormComponent<MaterialServicoEntity, Integer>(MaterialServicoEntity.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -114,18 +114,18 @@ public class MaterialServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<MaterialServico> items) {
+			public boolean validateItems(List<MaterialServicoEntity> items) {
 
 				return true;
 			}
 
-			protected MaterialServico getNovo() {
+			protected MaterialServicoEntity getNovo() {
 //				MaterialServico materialServico = controller.novoMaterialServico();
 //				return materialServico;
 				return null;
 			}
 	
-			protected void getRemoverSelecionados(List<MaterialServico> values) {
+			protected void getRemoverSelecionados(List<MaterialServicoEntity> values) {
 //				controller.removerMaterialServicoItem(values);
 			}
 

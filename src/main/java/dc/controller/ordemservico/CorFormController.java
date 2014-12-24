@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Cor;
+import dc.entidade.ordemservico.CorEntity;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.CorFormView;
 
 @Controller
 @Scope("prototype")
-public class CorFormController extends CRUDFormController<Cor> {
+public class CorFormController extends CRUDFormController<CorEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class CorFormController extends CRUDFormController<Cor> {
 	@Autowired
 	CorDAO corDAO;
 
-	private Cor currentBean;
+	private CorEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class CorFormController extends CRUDFormController<Cor> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cor();
+		currentBean = new CorEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class CorFormController extends CRUDFormController<Cor> {
 	}
 
 	@Override
-	public Cor getModelBean() {
+	public CorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

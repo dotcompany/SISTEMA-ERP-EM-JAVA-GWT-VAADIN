@@ -14,7 +14,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
-import dc.entidade.ordemservico.VendaPeca;
+import dc.entidade.ordemservico.VendaPecaEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -33,7 +33,7 @@ public class VendaProdutoFormView extends CustomComponent {
 	
 	private OrdemServicoFormController controller;
 
-	private SubFormComponent<VendaPeca, Integer> vendaPecaSubForm;
+	private SubFormComponent<VendaPecaEntity, Integer> vendaPecaSubForm;
 
 	public VendaProdutoFormView(OrdemServicoFormController controller) {
 		buildMainLayout();
@@ -77,7 +77,7 @@ public class VendaProdutoFormView extends CustomComponent {
 		String[] atributos = new String[] {"vendedor.pessoa.nome", "tecnico.pessoa.nome","produto.descricao","produto.unidade","tipo","quantidadeServico","valorUnitario","valorCobrado","percentualDesconto","valorDesconto","valorTotal"};
 		String[] headers = new String[] {"Nome vendedor", "Técnico", "Descrição produto","Tipo", "Qtd", "Valor unitário", "Valor cobrado", "Desconot %", "Valor desconto", "Valor Total"};
 		
-		this.vendaPecaSubForm = new SubFormComponent<VendaPeca, Integer>(VendaPeca.class, atributos, headers) {
+		this.vendaPecaSubForm = new SubFormComponent<VendaPecaEntity, Integer>(VendaPecaEntity.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -107,18 +107,18 @@ public class VendaProdutoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<VendaPeca> items) {
+			public boolean validateItems(List<VendaPecaEntity> items) {
 
 				return true;
 			}
 
-			protected VendaPeca getNovo() {
+			protected VendaPecaEntity getNovo() {
 //				VendaPeca vendaPeca = controller.novoVendaPeca();
 //				return vendaPeca;
 				return null;
 			}
 	
-			protected void getRemoverSelecionados(List<VendaPeca> values) {
+			protected void getRemoverSelecionados(List<VendaPecaEntity> values) {
 //				controller.removerVendaPecaItem(values);
 			}
 		};

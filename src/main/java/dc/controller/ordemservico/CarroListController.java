@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.Carro;
+import dc.entidade.ordemservico.CarroEntity;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class CarroListController extends CRUDListController<Carro> {
+public class CarroListController extends CRUDListController<CarroEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class CarroListController extends CRUDListController<Carro> {
 	}
 
 	@Override
-	protected List<Carro> pesquisa(String valor) {
+	protected List<CarroEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -45,20 +45,20 @@ public class CarroListController extends CRUDListController<Carro> {
 	}
 
 	@Override
-	protected CRUDFormController<Carro> getFormController() {
+	protected CRUDFormController<CarroEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Carro> getEntityClass() {
+	public Class<? super CarroEntity> getEntityClass() {
 		System.out.println("getEntityClass CarroListCrud");
-		return Carro.class;
+		return CarroEntity.class;
 	}
 
 	@Override
-	protected List<Carro> pesquisaDefault() {
+	protected List<CarroEntity> pesquisaDefault() {
 System.out.println("pesquisaDefault CarroListCrud");
-		return dao.getAll(Carro.class);
+		return dao.getAll(CarroEntity.class);
 	}
 
 	@Override

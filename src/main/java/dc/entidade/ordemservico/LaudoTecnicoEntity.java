@@ -1,48 +1,61 @@
 package dc.entidade.ordemservico;
 
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Field;
 
+import dc.anotacoes.Caption;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+@Entity
+@Table(name = "os_laudo_tecnico")
+@Indexed
+@Analyzer(impl=BrazilianAnalyzer.class)
+public class LaudoTecnicoEntity extends AbstractMultiEmpresaModel<Integer> {
 
-// @Entity
-// @Table(name = "")
-// @XmlRootElement
-// @Indexed
-// @Analyzer(impl = BrazilianAnalyzer.class)
-public class LaudoTecnicoEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	private String observacaoLaudoTecnico = "";
+	@ManyToOne
+	@JoinColumn(name = "id_ordem_servico", referencedColumnName = "id")
+	private OrdemServicoEntity ordemServico;
 
-	private String observacaoLaudoFerramentas = "";
+	@Field
+	@Caption("Observacao")
+	@Lob
+	@Column(name = "observacao_laudo_tecnico")
+	@Type(type = "text")
+	private String observacaoLaudoTecnico;
 
-	/**
-	 * CONSTRUTOR
-	 */
-
-	public LaudoTecnicoEntity() {
-
-	}
-
-	/**
-	 * GETS E SETS
-	 */
-
+	@Field
+	@Caption("Observacao")
+	@Lob
+	@Column(name = "observacao_laudo_ferr")
+	@Type(type = "text")
+	private String observacaoLaudoFerramentas;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -51,13 +64,20 @@ public class LaudoTecnicoEntity extends AbstractMultiEmpresaModel<Integer> imple
 		this.id = id;
 	}
 
+	public OrdemServicoEntity getOrdemServico() {
+		return ordemServico;
+	}
+
+	public void setOrdemServico(OrdemServicoEntity ordemServico) {
+		this.ordemServico = ordemServico;
+	}
+
 	public String getObservacaoLaudoTecnico() {
 		return observacaoLaudoTecnico;
 	}
 
 	public void setObservacaoLaudoTecnico(String observacaoLaudoTecnico) {
-		this.observacaoLaudoTecnico = (observacaoLaudoTecnico == null ? ""
-				: observacaoLaudoTecnico.toUpperCase());
+		this.observacaoLaudoTecnico = observacaoLaudoTecnico;
 	}
 
 	public String getObservacaoLaudoFerramentas() {
@@ -65,13 +85,6 @@ public class LaudoTecnicoEntity extends AbstractMultiEmpresaModel<Integer> imple
 	}
 
 	public void setObservacaoLaudoFerramentas(String observacaoLaudoFerramentas) {
-		this.observacaoLaudoFerramentas = (observacaoLaudoFerramentas == null ? ""
-				: observacaoLaudoFerramentas.toUpperCase());
+		this.observacaoLaudoFerramentas = observacaoLaudoFerramentas;
 	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
 }

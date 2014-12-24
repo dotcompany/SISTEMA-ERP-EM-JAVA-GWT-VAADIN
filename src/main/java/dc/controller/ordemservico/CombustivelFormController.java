@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Combustivel;
+import dc.entidade.ordemservico.CombustivelEntity;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.CombustivelFormView;
 
 @Controller
 @Scope("prototype")
-public class CombustivelFormController extends CRUDFormController<Combustivel> {
+public class CombustivelFormController extends CRUDFormController<CombustivelEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class CombustivelFormController extends CRUDFormController<Combustivel> {
 	@Autowired
 	CombustivelDAO combustivelDAO;
 
-	private Combustivel currentBean;
+	private CombustivelEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class CombustivelFormController extends CRUDFormController<Combustivel> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Combustivel();
+		currentBean = new CombustivelEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class CombustivelFormController extends CRUDFormController<Combustivel> {
 	}
 
 	@Override
-	public Combustivel getModelBean() {
+	public CombustivelEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

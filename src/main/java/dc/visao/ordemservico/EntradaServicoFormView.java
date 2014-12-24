@@ -19,7 +19,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
-import dc.entidade.ordemservico.EntradaServico;
+import dc.entidade.ordemservico.EntradaServicoEntity;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -68,7 +68,7 @@ public class EntradaServicoFormView extends CustomComponent {
 	
 	private OrdemServicoFormController controller;
 
-	private SubFormComponent<EntradaServico, Integer> entradaServicoSubForm;
+	private SubFormComponent<EntradaServicoEntity, Integer> entradaServicoSubForm;
 
 	public EntradaServicoFormView(OrdemServicoFormController controller) {
 		buildMainLayout();
@@ -164,7 +164,7 @@ public class EntradaServicoFormView extends CustomComponent {
 		String[] atributos = new String[] { "horaTrabalhada","valorTotal"};
 		String[] headers = new String[] { "Hr.", "Valor total"};
 		 
-		this.entradaServicoSubForm = new SubFormComponent<EntradaServico, Integer>(EntradaServico.class, atributos, headers) {
+		this.entradaServicoSubForm = new SubFormComponent<EntradaServicoEntity, Integer>(EntradaServicoEntity.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -195,19 +195,19 @@ public class EntradaServicoFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<EntradaServico> items) {
+			public boolean validateItems(List<EntradaServicoEntity> items) {
 
 				return true;
 			}
 
-			protected EntradaServico getNovo() {
+			protected EntradaServicoEntity getNovo() {
 //				EntradaServico entradaServico = controller.novoEntradaServicoItem();
 //				return entradaServico;
 				return null;
 			}
 	
 			
-			protected void getRemoverSelecionados(List<EntradaServico> values) {
+			protected void getRemoverSelecionados(List<EntradaServicoEntity> values) {
 //				controller.removerEntradaServicoItem(values);
 			}
 		};

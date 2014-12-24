@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.OrdemServico;
-import dc.entidade.ordemservico.OrdemServicoEfetivacao;
+import dc.entidade.ordemservico.OrdemServicoEntity;
+import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OrdemServicoEfetivacaoDAO extends AbstractCrudDAO<OrdemServicoEfetivacao>{
+public class OrdemServicoEfetivacaoDAO extends AbstractCrudDAO<OrdemServicoEfetivacaoEntity>{
 
 	@Override
-	public Class<OrdemServicoEfetivacao> getEntityClass() {
-		return OrdemServicoEfetivacao.class;
+	public Class<OrdemServicoEfetivacaoEntity> getEntityClass() {
+		return OrdemServicoEfetivacaoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,19 +24,19 @@ public class OrdemServicoEfetivacaoDAO extends AbstractCrudDAO<OrdemServicoEfeti
 	}
 	
 	@Transactional
-	public List<OrdemServicoEfetivacao> listaTodos() {
-		return getSession().createQuery("from OrdemServicoEfetivacao").list();
+	public List<OrdemServicoEfetivacaoEntity> listaTodos() {
+		return getSession().createQuery("from OrdemServicoEfetivacaoEntity").list();
 	}
 	
 	@Transactional
-	public List<OrdemServicoEfetivacao> buscarOsPorOrdemServico(OrdemServico ordemServico){
+	public List<OrdemServicoEfetivacaoEntity> buscarOsPorOrdemServico(OrdemServicoEntity ordemServico){
 
-		List<OrdemServicoEfetivacao> lista = new ArrayList<>();
+		List<OrdemServicoEfetivacaoEntity> lista = new ArrayList<>();
 
 		try{
 			if(ordemServico!=null){
 				lista =  getSession()
-						.createQuery("from OrdemServicoEfetivacao i where i.ordemServico = :ordemServico")
+						.createQuery("from OrdemServicoEfetivacaoEntity i where i.ordemServico = :ordemServico")
 						.setParameter("ordemServico", ordemServico).list();
 			}
 		}catch(Exception e){

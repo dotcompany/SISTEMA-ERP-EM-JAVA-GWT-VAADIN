@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.Cor;
+import dc.entidade.ordemservico.CorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CorDAO extends AbstractCrudDAO<Cor>{
+public class CorDAO extends AbstractCrudDAO<CorEntity>{
 
 	@Override
-	public Class<Cor> getEntityClass() {
-		return Cor.class;
+	public Class<CorEntity> getEntityClass() {
+		return CorEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,8 +22,8 @@ public class CorDAO extends AbstractCrudDAO<Cor>{
 	} 
 	
 	@Transactional
-	public List<Cor> listaTodos() {
-		return getSession().createQuery("from Cor").list();
+	public List<CorEntity> listaTodos() {
+		return getSession().createQuery("from CorEntity").list();
 	}
 }
 

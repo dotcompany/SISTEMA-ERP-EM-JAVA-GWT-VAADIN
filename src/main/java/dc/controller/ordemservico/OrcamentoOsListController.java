@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.OrcamentoOs;
+import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.servicos.dao.ordemservico.OrcamentoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class OrcamentoOsListController extends CRUDListController<OrcamentoOs> {
+public class OrcamentoOsListController extends CRUDListController<OrcamentoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class OrcamentoOsListController extends CRUDListController<OrcamentoOs> {
 	}
 
 	@Override
-	protected List<OrcamentoOs> pesquisa(String valor) {
+	protected List<OrcamentoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -45,18 +45,18 @@ public class OrcamentoOsListController extends CRUDListController<OrcamentoOs> {
 	}
 
 	@Override
-	protected CRUDFormController<OrcamentoOs> getFormController() {
+	protected CRUDFormController<OrcamentoOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super OrcamentoOs> getEntityClass() {
-		return OrcamentoOs.class;
+	public Class<? super OrcamentoOsEntity> getEntityClass() {
+		return OrcamentoOsEntity.class;
 	}
 
 	@Override
-	protected List<OrcamentoOs> pesquisaDefault() {
-		return dao.getAll(OrcamentoOs.class);
+	protected List<OrcamentoOsEntity> pesquisaDefault() {
+		return dao.getAll(OrcamentoOsEntity.class);
 	}
 
 	@Override

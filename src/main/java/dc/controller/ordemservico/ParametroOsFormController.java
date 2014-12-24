@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.ParametroOs;
+import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.servicos.dao.ordemservico.ParametroOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -18,14 +18,14 @@ import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
+public class ParametroOsFormController extends CRUDFormController<ParametroOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	ParametroOsDAO dao;
 
-	private ParametroOs currentBean;
+	private ParametroOsEntity currentBean;
 
 	ParametroOsFormView subView;
 
@@ -53,17 +53,13 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 				currentBean.setTecnicoProduto(Boolean.valueOf(subView.getCbTecnicoProduto().getValue().toString()));
 				currentBean.setVendedorAtendente(Boolean.valueOf(subView.getCbVendedorAtendente().getValue().toString()));
 				currentBean.setVendedorServico(Boolean.valueOf(subView.getCbVendedorServico().getValue().toString()));
-				currentBean.setOrdemServicoSimples(Boolean.valueOf(subView.getCbOsSimplificada().getValue().toString()));
 				currentBean.setQtdDiasRevisao(Boolean.valueOf(subView.getCbProximaRevisao().getValue().toString()));
-				currentBean.setMatricialTotalLinhas(Integer.valueOf(subView.getTfMatricialLinhas().getValue()));
-				currentBean.setMatricialEntrelinhas(Integer.valueOf(subView.getTfEntrelinhas().getValue()));
 				currentBean.setQtdDiasPadrao(Integer.valueOf(subView.getTfDiasPadrao().getValue()));
 				currentBean.setObsDefeitoPadrao(subView.getTaDefeitoApresentado().getValue());
 				currentBean.setObsPadraoOsSimples(subView.getTaObsPadraoSimpes().getValue());
 				currentBean.setObsPadrao(subView.getTaObsPadrao().getValue());
 				currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 
-				System.out.println("Vai salvar: " + currentBean.getLimparBdAut());
 				dao.saveOrUpdate(currentBean);
 				notifiyFrameworkSaveOK(this.currentBean);
 
@@ -85,10 +81,7 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 		subView.getCbTecnicoProduto().setValue(currentBean.getTecnicoProduto());
 		subView.getCbVendedorAtendente().setValue(currentBean.getVendedorAtendente());
 		subView.getCbVendedorServico().setValue(currentBean.getVendedorServico());
-		subView.getCbOsSimplificada().setValue(currentBean.getOrdemServicoSimples());
 		subView.getCbProximaRevisao().setValue(currentBean.getQtdDiasRevisao());
-		subView.getTfMatricialLinhas().setValue(currentBean.getMatricialTotalLinhas().toString());
-		subView.getTfEntrelinhas().setValue(currentBean.getMatricialEntrelinhas().toString());
 		subView.getTfDiasPadrao().setValue(currentBean.getQtdDiasPadrao().toString());
 		subView.getTaDefeitoApresentado().setValue(currentBean.getObsDefeitoPadrao());
 		subView.getTaObsPadraoSimpes().setValue(currentBean.getObsPadraoOsSimples());
@@ -102,7 +95,7 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ParametroOs();
+		currentBean = new ParametroOsEntity();
 
 	}
 
@@ -145,10 +138,6 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 			valido = false;
 			mensagemErro("O campo usar vendedor no lançamento de serviço não pode ficar em branco.");
 		}
-		if (!Validator.validateObject(subView.getCbOsSimplificada().getValue())) {
-			valido = false;
-			mensagemErro("O campo usar O.S simplifcada não pode ficar em branco.");
-		}
 		if (!Validator.validateObject(subView.getCbProximaRevisao().getValue())) {
 			valido = false;
 			mensagemErro("O campo perguntar quantidade dias próxima revisão não pode ficar em branco.");
@@ -179,7 +168,7 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOs> {
 	}
 
 	@Override
-	public ParametroOs getModelBean() {
+	public ParametroOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

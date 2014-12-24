@@ -7,18 +7,18 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.Equipamento;
-import dc.entidade.ordemservico.Observacao;
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.EquipamentoEntity;
+import dc.entidade.ordemservico.ObservacaoEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ObservacaoDAO extends AbstractCrudDAO<Observacao>{
+public class ObservacaoDAO extends AbstractCrudDAO<ObservacaoEntity>{
 
 	@Override
-	public Class<Observacao> getEntityClass() {
-		return Observacao.class;
+	public Class<ObservacaoEntity> getEntityClass() {
+		return ObservacaoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -26,15 +26,15 @@ public class ObservacaoDAO extends AbstractCrudDAO<Observacao>{
 	} 
 	
 	@Transactional
-	public List<Equipamento> listaTodos() {
-		return getSession().createQuery("from Observacao").list();
+	public List<EquipamentoEntity> listaTodos() {
+		return getSession().createQuery("from ObservacaoEntity").list();
 	}
 	
 	@Transactional  
-	public Observacao buscaObservacao(OrdemServico ordemServico){
+	public ObservacaoEntity buscaObservacao(OrdemServicoEntity ordemServico){
 		
-		Criteria c = getSession().createCriteria(Observacao.class);
+		Criteria c = getSession().createCriteria(ObservacaoEntity.class);
 		c.add(Restrictions.eq("ordemServico",ordemServico));
-		return (Observacao)c.uniqueResult();
+		return (ObservacaoEntity)c.uniqueResult();
 	}
 }

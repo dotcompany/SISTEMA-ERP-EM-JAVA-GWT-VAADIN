@@ -8,8 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.InformacaoGeral;
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.InformacaoGeralEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -20,39 +20,39 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class InformacaoGeralDAO extends AbstractCrudDAO<InformacaoGeral> {
+public class InformacaoGeralDAO extends AbstractCrudDAO<InformacaoGeralEntity> {
 
 	@Override
-	public Class<InformacaoGeral> getEntityClass() {
-		return InformacaoGeral.class;
+	public Class<InformacaoGeralEntity> getEntityClass() {
+		return InformacaoGeralEntity.class;
 	}
 
 	@Transactional
-	public List<InformacaoGeral> listarTodos() {
+	public List<InformacaoGeralEntity> listarTodos() {
 		try {
-			String sql = "FROM InformacaoGeral ent WHERE (1 = 1)";
+			String sql = "FROM InformacaoGeralEntity ent WHERE (1 = 1)";
 
-			List<InformacaoGeral> auxLista = super.getSession()
+			List<InformacaoGeralEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InformacaoGeral>();
+			return new ArrayList<InformacaoGeralEntity>();
 		}
 	}
 
 	@Transactional
-	public List<InformacaoGeral> procuraNomeContendo(String query) {
+	public List<InformacaoGeralEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM InformacaoGeral ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM InformacaoGeralEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
 
-			List<InformacaoGeral> auxLista = super.getSession()
+			List<InformacaoGeralEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<InformacaoGeral>();
+			return new ArrayList<InformacaoGeralEntity>();
 		}
 	}
 
@@ -62,11 +62,11 @@ public class InformacaoGeralDAO extends AbstractCrudDAO<InformacaoGeral> {
 	}
 	
 	@Transactional  
-	public InformacaoGeral buscaInformacaoGeral(OrdemServico ordemServico){
+	public InformacaoGeralEntity buscaInformacaoGeral(OrdemServicoEntity ordemServico){
 		
-		Criteria c = getSession().createCriteria(InformacaoGeral.class);
+		Criteria c = getSession().createCriteria(InformacaoGeralEntity.class);
 		c.add(Restrictions.eq("ordemServico",ordemServico));
-		return (InformacaoGeral)c.uniqueResult();
+		return (InformacaoGeralEntity)c.uniqueResult();
 	}
 
 }

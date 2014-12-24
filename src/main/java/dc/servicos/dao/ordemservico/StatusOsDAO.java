@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.StatusOs;
+import dc.entidade.ordemservico.StatusOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class StatusOsDAO extends AbstractCrudDAO<StatusOs>{
+public class StatusOsDAO extends AbstractCrudDAO<StatusOsEntity>{
 
 	@Override
-	public Class<StatusOs> getEntityClass() {
-		return StatusOs.class;
+	public Class<StatusOsEntity> getEntityClass() {
+		return StatusOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,8 +22,8 @@ public class StatusOsDAO extends AbstractCrudDAO<StatusOs>{
 	}
 	
 	@Transactional
-	public List<StatusOs> listaTodos() {
-		return getSession().createQuery("from StatusOs").list();
+	public List<StatusOsEntity> listaTodos() {
+		return getSession().createQuery("from StatusOsEntity").list();
 	}
 }
 

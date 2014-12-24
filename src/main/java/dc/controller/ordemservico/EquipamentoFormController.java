@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Equipamento;
+import dc.entidade.ordemservico.EquipamentoEntity;
 import dc.servicos.dao.ordemservico.EquipamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.EquipamentoFormView;
 
 @Controller
 @Scope("prototype")
-public class EquipamentoFormController extends CRUDFormController<Equipamento> {
+public class EquipamentoFormController extends CRUDFormController<EquipamentoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	@Autowired
 	EquipamentoDAO equipamentoDAO;
 
-	private Equipamento currentBean;
+	private EquipamentoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -81,7 +81,7 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Equipamento();
+		currentBean = new EquipamentoEntity();
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class EquipamentoFormController extends CRUDFormController<Equipamento> {
 	}
 
 	@Override
-	public Equipamento getModelBean() {
+	public EquipamentoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

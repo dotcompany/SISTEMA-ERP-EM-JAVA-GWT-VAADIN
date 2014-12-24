@@ -7,17 +7,17 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.LaudoTecnico;
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.LaudoTecnicoEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LaudoTecnicoDAO extends AbstractCrudDAO<LaudoTecnico>{
+public class LaudoTecnicoDAO extends AbstractCrudDAO<LaudoTecnicoEntity>{
 
 	@Override
-	public Class<LaudoTecnico> getEntityClass() {
-		return LaudoTecnico.class;
+	public Class<LaudoTecnicoEntity> getEntityClass() {
+		return LaudoTecnicoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -25,15 +25,15 @@ public class LaudoTecnicoDAO extends AbstractCrudDAO<LaudoTecnico>{
 	}
 	
 	@Transactional
-	public List<LaudoTecnico> listaTodos() {
-		return getSession().createQuery("from LaudoTecnico").list();
+	public List<LaudoTecnicoEntity> listaTodos() {
+		return getSession().createQuery("from LaudoTecnicoEntity").list();
 	}
 	
 	@Transactional  
-	public LaudoTecnico buscaLaudoTecnico(OrdemServico ordemServico){
+	public LaudoTecnicoEntity buscaLaudoTecnico(OrdemServicoEntity ordemServico){
 		
-		Criteria c = getSession().createCriteria(LaudoTecnico.class);
+		Criteria c = getSession().createCriteria(LaudoTecnicoEntity.class);
 		c.add(Restrictions.eq("ordemServico",ordemServico));
-		return (LaudoTecnico)c.uniqueResult();
+		return (LaudoTecnicoEntity)c.uniqueResult();
 	}
 }

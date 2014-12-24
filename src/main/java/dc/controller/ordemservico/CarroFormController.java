@@ -10,18 +10,18 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.pessoal.ClienteListController;
+import dc.entidade.ordemservico.CarroEntity;
+import dc.entidade.ordemservico.CombustivelEntity;
+import dc.entidade.ordemservico.CorEntity;
+import dc.entidade.ordemservico.MarcaOsEntity;
+import dc.entidade.ordemservico.ModeloEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.ordemservico.Carro;
-import dc.entidade.ordemservico.Combustivel;
-import dc.entidade.ordemservico.Cor;
-import dc.entidade.ordemservico.Marca;
-import dc.entidade.ordemservico.Modelo;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
@@ -32,7 +32,7 @@ import dc.visao.ordemservico.CarroFormView;
 
 @Controller
 @Scope("prototype")
-public class CarroFormController extends CRUDFormController<Carro> {
+public class CarroFormController extends CRUDFormController<CarroEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,7 +56,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	@Autowired
 	CombustivelDAO combustivelDAO;
 
-	private Carro currentBean;
+	private CarroEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -131,7 +131,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Carro();
+		currentBean = new CarroEntity();
 	}
 
 	private void preencheCombos() {
@@ -145,16 +145,16 @@ public class CarroFormController extends CRUDFormController<Carro> {
 		};
 		this.subView.getCbCliente().setModel(cliente);
 
-		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class, this.marcaDAO,
+		DefaultManyToOneComboModel<MarcaOsEntity> marca = new DefaultManyToOneComboModel<MarcaOsEntity>(MarcaListController.class, this.marcaDAO,
 				super.getMainController());
 
 		this.subView.getCbMarca().setModel(marca);
 
-		DefaultManyToOneComboModel<Cor> cor = new DefaultManyToOneComboModel<Cor>(CorListController.class, this.corDAO, super.getMainController());
+		DefaultManyToOneComboModel<CorEntity> cor = new DefaultManyToOneComboModel<CorEntity>(CorListController.class, this.corDAO, super.getMainController());
 
 		this.subView.getCbCor().setModel(cor);
 
-		DefaultManyToOneComboModel<Combustivel> combustivel = new DefaultManyToOneComboModel<Combustivel>(CombustivelListController.class,
+		DefaultManyToOneComboModel<CombustivelEntity> combustivel = new DefaultManyToOneComboModel<CombustivelEntity>(CombustivelListController.class,
 				this.combustivelDAO, super.getMainController());
 
 		this.subView.getCbCombustivel().setModel(combustivel);
@@ -162,7 +162,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	}
 
 	public void getModelo(String classePesquisa, Integer idSelecionado) {
-		DefaultManyToOneComboModelSelect<Modelo> modelo = new DefaultManyToOneComboModelSelect<Modelo>(ModeloListController.class, this.modeloDAO,
+		DefaultManyToOneComboModelSelect<ModeloEntity> modelo = new DefaultManyToOneComboModelSelect<ModeloEntity>(ModeloListController.class, this.modeloDAO,
 				super.getMainController(), classePesquisa, idSelecionado);
 
 		this.subView.getCbModelo().setModel(modelo);
@@ -198,7 +198,7 @@ public class CarroFormController extends CRUDFormController<Carro> {
 	}
 
 	@Override
-	public Carro getModelBean() {
+	public CarroEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

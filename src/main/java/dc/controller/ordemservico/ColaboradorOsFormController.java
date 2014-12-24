@@ -14,8 +14,8 @@ import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.ordemservico.ColaboradorOs;
-import dc.entidade.ordemservico.TipoColaboradorOs;
+import dc.entidade.ordemservico.ColaboradorOsEntity;
+import dc.entidade.ordemservico.TipoColaboradorOsEntity;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.ordemservico.ColaboradorOsDAO;
@@ -29,7 +29,7 @@ import dc.visao.ordemservico.ColaboradorOsFormView;
 
 @Controller
 @Scope("prototype")
-public class ColaboradorOsFormController extends CRUDFormController<ColaboradorOs> {
+public class ColaboradorOsFormController extends CRUDFormController<ColaboradorOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	@Autowired
 	ContaCaixaDAO contaCaixaDAO;
 
-	private ColaboradorOs currentBean;
+	private ColaboradorOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -199,12 +199,12 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ColaboradorOs();
+		currentBean = new ColaboradorOsEntity();
 	}
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<TipoColaboradorOs> tipo = new DefaultManyToOneComboModel<TipoColaboradorOs>(TipoColaboradorOsListController.class,
+		DefaultManyToOneComboModel<TipoColaboradorOsEntity> tipo = new DefaultManyToOneComboModel<TipoColaboradorOsEntity>(TipoColaboradorOsListController.class,
 				this.tipoColaboradorOsDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -267,7 +267,7 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 	}
 
 	@Override
-	public ColaboradorOs getModelBean() {
+	public ColaboradorOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

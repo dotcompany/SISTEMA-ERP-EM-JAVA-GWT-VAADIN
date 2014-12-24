@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.controller.ordemservico.AcessorioFormController;
-import dc.entidade.ordemservico.Acessorio;
+import dc.entidade.ordemservico.AcessorioEntity;
 import dc.servicos.dao.ordemservico.AcessorioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class AcessorioListController extends CRUDListController<Acessorio> {
+public class AcessorioListController extends CRUDListController<AcessorioEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class AcessorioListController extends CRUDListController<Acessorio> {
 	}
 
 	@Override
-	protected List<Acessorio> pesquisa(String valor) {
+	protected List<AcessorioEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -46,18 +46,18 @@ public class AcessorioListController extends CRUDListController<Acessorio> {
 	}
 
 	@Override
-	protected CRUDFormController<Acessorio> getFormController() {
+	protected CRUDFormController<AcessorioEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Acessorio> getEntityClass() {
-		return Acessorio.class;
+	public Class<? super AcessorioEntity> getEntityClass() {
+		return AcessorioEntity.class;
 	}
 
 	@Override
-	protected List<Acessorio> pesquisaDefault() {
-		return dao.getAll(Acessorio.class);
+	protected List<AcessorioEntity> pesquisaDefault() {
+		return dao.getAll(AcessorioEntity.class);
 	}
 
 	@Override

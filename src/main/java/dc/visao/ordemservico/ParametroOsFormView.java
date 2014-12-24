@@ -131,16 +131,8 @@ public class ParametroOsFormView extends CustomComponent {
 			cbVendedorServico.setItemCaption(value.valor, value.label);
 		}
 
-		cbOsSimplificada= ComponentUtil.buildComboBox("Usar O.S simplificada");
-		gridLayout_1.addComponent(cbOsSimplificada,2,3,3,3);
-
-		for (SimNao value : SimNao.values()) {
-			cbOsSimplificada.addItem(value.valor);
-			cbOsSimplificada.setItemCaption(value.valor, value.label);
-		}
-
 		cbProximaRevisao = ComponentUtil.buildComboBox("Perguntar quantidade de dias próxima revisão");
-		gridLayout_1.addComponent(cbProximaRevisao,4,3,5,3);
+		gridLayout_1.addComponent(cbProximaRevisao,2,3,3,3);
 
 		for (SimNao value : SimNao.values()) {
 			cbProximaRevisao.addItem(value.valor);
@@ -148,13 +140,7 @@ public class ParametroOsFormView extends CustomComponent {
 		}
 
 		tfDiasPadrao = ComponentUtil.buildNumericField("Quantidade dias padrão");
-		gridLayout_1.addComponent(tfDiasPadrao,0,4,1,4);
-
-		tfMatricialLinhas = ComponentUtil.buildNumericField("Matricial Total de linhas");
-		gridLayout_1.addComponent(tfMatricialLinhas,2,4,3,4);
-
-		tfEntrelinhas = ComponentUtil.buildNumericField("Matricial entrelinhas");
-		gridLayout_1.addComponent(tfEntrelinhas,4,4,5,4);
+		gridLayout_1.addComponent(tfDiasPadrao,4,3,5,3);
 
 		// Baixa de produto no estoque
 		optBaixaProduto = new OptionGroup();

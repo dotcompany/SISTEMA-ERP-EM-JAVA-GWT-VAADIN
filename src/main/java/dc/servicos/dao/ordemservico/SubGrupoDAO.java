@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.SubGrupo;
+import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SubGrupoDAO extends AbstractCrudDAO<SubGrupo>{
+public class SubGrupoDAO extends AbstractCrudDAO<SubGrupoOsEntity>{
 
 	@Override
-	public Class<SubGrupo> getEntityClass() {
-		return SubGrupo.class;
+	public Class<SubGrupoOsEntity> getEntityClass() {
+		return SubGrupoOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,7 +22,7 @@ public class SubGrupoDAO extends AbstractCrudDAO<SubGrupo>{
 	}
 	
 	@Transactional
-	public List<SubGrupo> listaTodos() {
-		return getSession().createQuery("from SubGrupo").list();
+	public List<SubGrupoOsEntity> listaTodos() {
+		return getSession().createQuery("from SubGrupoOsEntity").list();
 	}
 }

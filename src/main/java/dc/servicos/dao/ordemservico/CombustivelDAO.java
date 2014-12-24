@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.Combustivel;
+import dc.entidade.ordemservico.CombustivelEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CombustivelDAO extends AbstractCrudDAO<Combustivel>{
+public class CombustivelDAO extends AbstractCrudDAO<CombustivelEntity>{
 
 	@Override
-	public Class<Combustivel> getEntityClass() {
-		return Combustivel.class;
+	public Class<CombustivelEntity> getEntityClass() {
+		return CombustivelEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,8 +22,8 @@ public class CombustivelDAO extends AbstractCrudDAO<Combustivel>{
 	} 
 	
 	@Transactional
-	public List<Combustivel> listaTodos() {
-		return getSession().createQuery("from Combustivel").list();
+	public List<CombustivelEntity> listaTodos() {
+		return getSession().createQuery("from CombustivelEntity").list();
 	}
 }
 

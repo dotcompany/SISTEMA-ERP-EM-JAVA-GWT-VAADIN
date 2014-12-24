@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.controller.ordemservico.GrupoFormController;
-import dc.entidade.ordemservico.Grupo;
+import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class GrupoListController extends CRUDListController<Grupo> {
+public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class GrupoListController extends CRUDListController<Grupo> {
 	}
 
 	@Override
-	protected List<Grupo> pesquisa(String valor) {
+	protected List<GrupoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -46,18 +46,18 @@ public class GrupoListController extends CRUDListController<Grupo> {
 	}
 
 	@Override
-	protected CRUDFormController<Grupo> getFormController() {
+	protected CRUDFormController<GrupoOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Grupo> getEntityClass() {
-		return Grupo.class;
+	public Class<? super GrupoOsEntity> getEntityClass() {
+		return GrupoOsEntity.class;
 	}
 
 	@Override
-	protected List<Grupo> pesquisaDefault() {
-		return dao.getAll(Grupo.class);
+	protected List<GrupoOsEntity> pesquisaDefault() {
+		return dao.getAll(GrupoOsEntity.class);
 	}
 
 	@Override

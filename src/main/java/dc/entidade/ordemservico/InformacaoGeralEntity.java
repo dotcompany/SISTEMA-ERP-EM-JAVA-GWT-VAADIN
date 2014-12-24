@@ -1,56 +1,126 @@
 package dc.entidade.ordemservico;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Field;
+
+import dc.anotacoes.Caption;
+import dc.entidade.financeiro.TipoPagamento;
+import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+@Entity
+@Table(name = "os_informacao_geral")
+@Indexed
+@Analyzer(impl=BrazilianAnalyzer.class)
+public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> {
 
-// @Entity
-// @Table(name = "")
-// @XmlRootElement
-// @Indexed
-// @Analyzer(impl = BrazilianAnalyzer.class)
-public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	private String numeroOS = "";
+	@ManyToOne
+	@JoinColumn(name = "id_ordem_servico", referencedColumnName = "id")
+	private OrdemServicoEntity ordemServico;
 
+	@Field
+	@Caption("NR COMANDA")
+	@Column(name = "numero_comanda")
+	private Integer numeroComanda;
+
+	@Field
+	@Caption("NR TELEFONE")
+	@Column(name = "telefone")
+	private String telefone;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_status", referencedColumnName = "id")
+	private StatusOsEntity statusOs;
+
+	@ManyToOne
+	@JoinColumn(name = "id_situacao_servico", referencedColumnName = "id")
+	private SituacaoServicoEntity situacaoServico;
+
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_servico", referencedColumnName = "id")
+	private TipoServicoOsEntity tipoServico;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_colaborador", referencedColumnName = "id")
+	private ColaboradorEntity atendente;
+
+	@ManyToOne
+	@JoinColumn(name = "id_carro", referencedColumnName = "id")
+	private CarroEntity carro;
+
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_pgto", referencedColumnName = "id")
+	private TipoPagamento tipoPagamento;
+
+	@Field
+	@Caption("KM RODADO")
+	@Column(name = "km_hor_rodado")
+	private Integer kmHorRodado;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_entrada")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEntrada;
 
-	private Date dataEfetiv;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_efetivacao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataEfetivacao;
 
-	private String numeroComanda = "";
-
-	private String status = "";
-
-	private String situacaoServico = "";
-
-	/**
-	 * CONSTRUTOR
-	 */
-
-	public InformacaoGeralEntity() {
-
-	}
-
-	/**
-	 * GETS E SETS
-	 */
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_prox_revisao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataProximaRevisao;
+	
+	@Field
+	@Caption("Observacao")
+	@Lob
+	@Column(name = "observacao")
+	@Type(type = "text")
+	private String observacao;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_entrega")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataEntrega;
+	
+	@Column(name = "ver_data_entrega")
+	private Boolean verDataEntrega;
 
 	public Integer getId() {
 		return id;
@@ -60,12 +130,68 @@ public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.id = id;
 	}
 
-	public String getNumeroOS() {
-		return numeroOS;
+	public OrdemServicoEntity getOrdemServico() {
+		return ordemServico;
 	}
 
-	public void setNumeroOS(String numeroOS) {
-		this.numeroOS = numeroOS;
+	public void setOrdemServico(OrdemServicoEntity ordemServico) {
+		this.ordemServico = ordemServico;
+	}
+
+	public Integer getNumeroComanda() {
+		return numeroComanda;
+	}
+
+	public void setNumeroComanda(Integer numeroComanda) {
+		this.numeroComanda = numeroComanda;
+	}
+
+	public StatusOsEntity getStatusOs() {
+		return statusOs;
+	}
+
+	public void setStatusOs(StatusOsEntity statusOs) {
+		this.statusOs = statusOs;
+	}
+
+	public SituacaoServicoEntity getSituacaoServico() {
+		return situacaoServico;
+	}
+
+	public void setSituacaoServico(SituacaoServicoEntity situacaoServico) {
+		this.situacaoServico = situacaoServico;
+	}
+
+	public TipoServicoOsEntity getTipoServico() {
+		return tipoServico;
+	}
+
+	public void setTipoServico(TipoServicoOsEntity tipoServico) {
+		this.tipoServico = tipoServico;
+	}
+
+	public CarroEntity getCarro() {
+		return carro;
+	}
+
+	public void setCarro(CarroEntity carro) {
+		this.carro = carro;
+	}
+
+	public TipoPagamento getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(TipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
+	}
+
+	public Integer getKmHorRodado() {
+		return kmHorRodado;
+	}
+
+	public void setKmHorRodado(Integer kmHorRodado) {
+		this.kmHorRodado = kmHorRodado;
 	}
 
 	public Date getDataEntrada() {
@@ -76,41 +202,60 @@ public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.dataEntrada = dataEntrada;
 	}
 
-	public Date getDataEfetiv() {
-		return dataEfetiv;
+	public Date getDataEfetivacao() {
+		return dataEfetivacao;
 	}
 
-	public void setDataEfetiv(Date dataEfetiv) {
-		this.dataEfetiv = dataEfetiv;
+	public void setDataEfetivacao(Date dataEfetivacao) {
+		this.dataEfetivacao = dataEfetivacao;
 	}
 
-	public String getNumeroComanda() {
-		return numeroComanda;
+	public Date getDataProximaRevisao() {
+		return dataProximaRevisao;
 	}
 
-	public void setNumeroComanda(String numeroComanda) {
-		this.numeroComanda = numeroComanda;
+	public void setDataProximaRevisao(Date dataProximaRevisao) {
+		this.dataProximaRevisao = dataProximaRevisao;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getObservacao() {
+		return observacao; 
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	} 
+
+	public Boolean getVerDataEntrega() {
+		return verDataEntrega;
 	}
 
-	public String getSituacaoServico() {
-		return situacaoServico;
+	public void setVerDataEntrega(Boolean verDataEntrega) {
+		this.verDataEntrega = verDataEntrega;
 	}
 
-	public void setSituacaoServico(String situacaoServico) {
-		this.situacaoServico = situacaoServico;
+	public ColaboradorEntity getAtendente() {
+		return atendente;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public void setAtendente(ColaboradorEntity atendente) {
+		this.atendente = atendente;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Date getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(Date dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+	
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Defeito;
+import dc.entidade.ordemservico.DefeitoEntity;
 import dc.servicos.dao.ordemservico.DefeitoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.DefeitoFormView;
 
 @Controller
 @Scope("prototype")
-public class DefeitoFormController extends CRUDFormController<Defeito> {
+public class DefeitoFormController extends CRUDFormController<DefeitoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 	@Autowired
 	DefeitoDAO defeitoDAO;
 
-	private Defeito currentBean;
+	private DefeitoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Defeito();
+		currentBean = new DefeitoEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class DefeitoFormController extends CRUDFormController<Defeito> {
 	}
 
 	@Override
-	public Defeito getModelBean() {
+	public DefeitoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

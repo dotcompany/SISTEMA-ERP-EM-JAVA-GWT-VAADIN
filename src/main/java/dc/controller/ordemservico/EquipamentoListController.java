@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.Equipamento;
+import dc.entidade.ordemservico.EquipamentoEntity;
 import dc.servicos.dao.ordemservico.EquipamentoDAO;
 import dc.visao.framework.geral.CRUDFormController; 
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class EquipamentoListController extends CRUDListController<Equipamento> {
+public class EquipamentoListController extends CRUDListController<EquipamentoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class EquipamentoListController extends CRUDListController<Equipamento> {
 	}
 
 	@Override
-	protected List<Equipamento> pesquisa(String valor) {
+	protected List<EquipamentoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -45,18 +45,18 @@ public class EquipamentoListController extends CRUDListController<Equipamento> {
 	}
 
 	@Override
-	protected CRUDFormController<Equipamento> getFormController() {
+	protected CRUDFormController<EquipamentoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Equipamento> getEntityClass() {
-		return Equipamento.class;
+	public Class<? super EquipamentoEntity> getEntityClass() {
+		return EquipamentoEntity.class;
 	}
 
 	@Override
-	protected List<Equipamento> pesquisaDefault() {
-		return dao.getAll(Equipamento.class);
+	protected List<EquipamentoEntity> pesquisaDefault() {
+		return dao.getAll(EquipamentoEntity.class);
 	}
 
 	@Override
