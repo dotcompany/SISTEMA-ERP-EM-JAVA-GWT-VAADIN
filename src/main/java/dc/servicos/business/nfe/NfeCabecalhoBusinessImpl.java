@@ -1,13 +1,14 @@
 package dc.servicos.business.nfe;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.servicos.dao.nfe.NfeCabecalhoDAO;
@@ -29,59 +30,109 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	@Resource
-	private NfeCabecalhoDAO mainDao;
+	private NfeCabecalhoDAO mainDAO;
 
-	public void setMainDao(NfeCabecalhoDAO mainDao) {
-		this.mainDao = mainDao;
-	}
-
-	@Transactional
 	@Override
-	public void delete(NfeCabecalhoEntity entity) throws Exception {
+	public void delete(NfeCabecalhoEntity t) throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.delete(entity);
+
 	}
 
-	@Transactional
 	@Override
-	public List<NfeCabecalhoEntity> find(String s) throws Exception {
-		List<NfeCabecalhoEntity> auxLista = this.mainDao.find(s);
+	public void deleteAll(List<Serializable> list) throws Exception {
+		// TODO Auto-generated method stub
 
-		return auxLista;
 	}
 
-	@Transactional
+	@Override
+	public void deleteAllByIds(List<Serializable> list) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	public NfeCabecalhoEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
-		NfeCabecalhoEntity entity = this.mainDao.find(id);
-
-		return entity;
+		return null;
 	}
 
-	@Transactional
+	@Override
+	public NfeCabecalhoEntity find(NfeCabecalhoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> findAll(NfeCabecalhoEntity t)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> fullTextSearch(String valor)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> fullTextSearch(String valor, int first,
+			int pageSize, String[] sortingFields, boolean[] sortingStates,
+			List<Filter> filters) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <E> List<E> getAll(Class<E> type) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(NfeCabecalhoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <E> void saveOrUpdate(E o) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<NfeCabecalhoEntity> find(String s) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public List<NfeCabecalhoEntity> listAll() throws Exception {
 		// TODO Auto-generated method stub
-		List<NfeCabecalhoEntity> auxLista = this.mainDao.listAll();
-
-		return auxLista;
+		return null;
 	}
 
-	@Transactional
 	@Override
 	public List<NfeCabecalhoEntity> search(NfeCabecalhoEntity entity)
 			throws Exception {
-		List<NfeCabecalhoEntity> auxLista = new ArrayList<NfeCabecalhoEntity>();
-
-		return auxLista;
-	}
-
-	@Transactional
-	@Override
-	public void saveOrUpdate(NfeCabecalhoEntity entity) throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.save(entity);
+		return null;
 	}
 
 }

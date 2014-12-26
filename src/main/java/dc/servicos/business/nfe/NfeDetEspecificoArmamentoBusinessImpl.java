@@ -1,13 +1,14 @@
 package dc.servicos.business.nfe;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
 import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
@@ -31,41 +32,110 @@ public class NfeDetEspecificoArmamentoBusinessImpl implements Serializable,
 	@Resource
 	private NfeDetEspecificoArmamentoDAO mainDao;
 
-	public void setMainDao(NfeDetEspecificoArmamentoDAO mainDao) {
-		this.mainDao = mainDao;
+	@Override
+	public void delete(NfeDetEspecificoArmamentoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+
 	}
 
-	@Transactional
 	@Override
-	public void delete(NfeDetEspecificoArmamentoEntity entity) throws Exception {
+	public void deleteAll(List<Serializable> list) throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.delete(entity);
+
+	}
+
+	@Override
+	public void deleteAllByIds(List<Serializable> list) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public NfeDetEspecificoArmamentoEntity find(Serializable id)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NfeDetEspecificoArmamentoEntity find(
+			NfeDetEspecificoArmamentoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> findAll(
+			NfeDetEspecificoArmamentoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> fullTextSearch(String valor)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> fullTextSearch(String valor,
+			int first, int pageSize, String[] sortingFields,
+			boolean[] sortingStates, List<Filter> filters) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <E> List<E> getAll(Class<E> type) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(NfeDetEspecificoArmamentoEntity t) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <E> void saveOrUpdate(E o) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> find(String s)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoArmamentoEntity> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public List<NfeDetEspecificoArmamentoEntity> search(
 			NfeDetEspecificoArmamentoEntity entity) throws Exception {
-		List<NfeDetEspecificoArmamentoEntity> auxLista = new ArrayList<NfeDetEspecificoArmamentoEntity>();
-
-		return auxLista;
-	}
-
-	@Transactional
-	@Override
-	public void saveOrUpdate(NfeDetEspecificoArmamentoEntity entity)
-			throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.save(entity);
-	}
-
-	@Transactional
-	@Override
-	public NfeDetEspecificoArmamentoEntity find(Serializable id)
-			throws Exception {
-		// TODO Auto-generated method stub
-		NfeDetEspecificoArmamentoEntity entity = this.mainDao.find(id);
-
-		return entity;
+		return null;
 	}
 
 }

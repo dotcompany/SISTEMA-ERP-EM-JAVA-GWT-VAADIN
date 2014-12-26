@@ -56,7 +56,8 @@ public class AgenciaBancoListController extends
 
 	@Override
 	protected List<AgenciaBancoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		// return dao.fullTextSearch(valor);
+		return null;
 	}
 
 	@Override
@@ -66,7 +67,8 @@ public class AgenciaBancoListController extends
 
 	@Override
 	protected List<AgenciaBancoEntity> pesquisaDefault() {
-		return (List<AgenciaBancoEntity>) dao.getAll(getEntityClass());
+		// return (List<AgenciaBancoEntity>) dao.getAll(getEntityClass());
+		return null;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import dc.control.validator.classe.UfValidator;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.servicos.dao.geral.UfDAO;
+import dc.model.business.geral.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -37,7 +37,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	private UfEntity currentBean;
 
 	@Autowired
-	private UfDAO ufDAO;
+	// private UfDAO ufDAO;
+	private UfBusiness<UfEntity> ufBusiness;
 
 	@Autowired
 	private PaisDAO paisDAO;
@@ -123,20 +124,18 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			this.currentBean.setPais(pais);
 
-			this.ufDAO.saveOrUpdate(this.currentBean);
+			this.ufBusiness.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			criarNovoBean();
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.ufDAO.find(id);
+			this.currentBean = this.ufBusiness.find(id);
 
 			this.subView.getTfNome().setValue(this.currentBean.getNome());
 			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
@@ -178,7 +177,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.ufDAO.deleteAllByIds(ids);
+			this.ufBusiness.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
