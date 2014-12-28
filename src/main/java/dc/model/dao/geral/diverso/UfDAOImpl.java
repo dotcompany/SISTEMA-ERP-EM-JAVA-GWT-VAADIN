@@ -1,4 +1,4 @@
-package dc.model.dao.geral;
+package dc.model.dao.geral.diverso;
 
 import java.util.List;
 

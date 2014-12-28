@@ -17,7 +17,8 @@ import dc.control.validator.classe.UfValidator;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.model.business.geral.UfBusiness;
+import dc.model.business.geral.diverso.PaisBusiness;
+import dc.model.business.geral.diverso.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -43,8 +44,19 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Autowired
 	private PaisDAO paisDAO;
 
+	@Autowired
+	private PaisBusiness<PaisEntity> paisBusiness;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public UfFormController() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public UfBusiness<UfEntity> getUfBusiness() {
+		return ufBusiness;
 	}
 
 	@Override

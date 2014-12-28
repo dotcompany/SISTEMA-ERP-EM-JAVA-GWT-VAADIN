@@ -6,7 +6,6 @@ import java.util.List;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
-import dc.entidade.geral.UfEntity;
 
 public interface AbstractDAO<T> {
 
@@ -37,7 +36,7 @@ public interface AbstractDAO<T> {
 
 	public String[] getDefaultSearchFields();
 
-	public Class<UfEntity> getEntityClass();
+	public Class<T> getEntityClass();
 
 	public boolean isConsultaMultiEmpresa(
 			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll);
