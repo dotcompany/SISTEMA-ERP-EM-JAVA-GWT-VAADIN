@@ -145,8 +145,6 @@ public class AgenciaBancoFormController extends
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			criarNovoBean();
 		}
 	}
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
-import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,8 +20,9 @@ public class UfListController extends CRUDListController<UfEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private UfDAO dao;
+	// @Autowired
+	// private UfDAO dao;
+	// private UfBusiness<UfEntity> business;
 
 	@Autowired
 	private UfFormController ufFormController;
@@ -44,7 +44,15 @@ public class UfListController extends CRUDListController<UfEntity> {
 
 	@Override
 	protected List<UfEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			return this.ufFormController.getUfBusiness().fullTextSearch(valor);
+
+			// return business.fullTextSearch(valor);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
@@ -66,7 +74,16 @@ public class UfListController extends CRUDListController<UfEntity> {
 
 	@Override
 	protected List<UfEntity> pesquisaDefault() {
-		return (List<UfEntity>) dao.getAll(getEntityClass());
+		try {
+			return (List<UfEntity>) this.ufFormController.getUfBusiness()
+					.getAll(getEntityClass());
+
+			// return (List<UfEntity>) business.getAll(getEntityClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

@@ -1,13 +1,14 @@
 package dc.servicos.business.nfe;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeDetEspecificoCombustivelEntity;
 import dc.servicos.dao.nfe.NfeDetEspecificoCombustivelDAO;
@@ -31,42 +32,110 @@ public class NfeDetEspecificoCombustivelBusinessImpl implements Serializable,
 	@Resource
 	private NfeDetEspecificoCombustivelDAO mainDao;
 
-	public void setMainDao(NfeDetEspecificoCombustivelDAO mainDao) {
-		this.mainDao = mainDao;
+	@Override
+	public void delete(NfeDetEspecificoCombustivelEntity t) throws Exception {
+		// TODO Auto-generated method stub
+
 	}
 
-	@Transactional
 	@Override
-	public void delete(NfeDetEspecificoCombustivelEntity entity)
+	public void deleteAll(List<Serializable> list) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteAllByIds(List<Serializable> list) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public NfeDetEspecificoCombustivelEntity find(Serializable id)
 			throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.delete(entity);
+		return null;
+	}
+
+	@Override
+	public NfeDetEspecificoCombustivelEntity find(
+			NfeDetEspecificoCombustivelEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> findAll(
+			NfeDetEspecificoCombustivelEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> fullTextSearch(String valor)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> fullTextSearch(String valor,
+			int first, int pageSize, String[] sortingFields,
+			boolean[] sortingStates, List<Filter> filters) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <E> List<E> getAll(Class<E> type) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(NfeDetEspecificoCombustivelEntity t) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <E> void saveOrUpdate(E o) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> find(String s)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NfeDetEspecificoCombustivelEntity> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public List<NfeDetEspecificoCombustivelEntity> search(
 			NfeDetEspecificoCombustivelEntity entity) throws Exception {
-		List<NfeDetEspecificoCombustivelEntity> auxLista = new ArrayList<NfeDetEspecificoCombustivelEntity>();
-
-		return auxLista;
-	}
-
-	@Transactional
-	@Override
-	public void saveOrUpdate(NfeDetEspecificoCombustivelEntity entity)
-			throws Exception {
 		// TODO Auto-generated method stub
-		this.mainDao.save(entity);
-	}
-
-	@Transactional
-	@Override
-	public NfeDetEspecificoCombustivelEntity find(Serializable id)
-			throws Exception {
-		// TODO Auto-generated method stub
-		NfeDetEspecificoCombustivelEntity entity = this.mainDao.find(id);
-
-		return entity;
+		return null;
 	}
 
 }
