@@ -13,10 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -63,7 +65,7 @@ public class ModeloEntity extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Caption("Marca")
 	@JoinColumn(name = "id_marca", referencedColumnName = "id")
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL, optional = false)
+	@ManyToOne(cascade=CascadeType.ALL, optional = false)
 	private MarcaOsEntity marca;
 	
 	
@@ -99,5 +101,9 @@ public class ModeloEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.marca = marca;
 	}
 	
+	@Override
+	public String toString() {
+		return marca.getNome();
+	}
 	
 }
