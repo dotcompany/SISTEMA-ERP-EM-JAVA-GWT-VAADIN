@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Grupo;
+import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.GrupoFormView;
 
 @Controller
 @Scope("prototype")
-public class GrupoFormController extends CRUDFormController<Grupo> {
+public class GrupoFormController extends CRUDFormController<GrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 	@Autowired
 	GrupoDAO grupoDAO;
 
-	private Grupo currentBean;
+	private GrupoOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Grupo();
+		currentBean = new GrupoOsEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class GrupoFormController extends CRUDFormController<Grupo> {
 	}
 
 	@Override
-	public Grupo getModelBean() {
+	public GrupoOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

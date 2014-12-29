@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.OrcamentoOs;
-import dc.entidade.ordemservico.OrcamentoOsItem;
+import dc.control.validator.ObjectValidator;
+import dc.entidade.ordemservico.OrcamentoOsEntity;
+import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
@@ -23,7 +24,7 @@ import dc.visao.ordemservico.OrcamentoOsFormView;
 
 @Controller
 @Scope("prototype")
-public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
+public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +45,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	@Autowired
 	private OrcamentoItemOsDAO orcamentoItemOsDAO;
 
-	private OrcamentoOs currentBean;
+	private OrcamentoOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -59,57 +60,46 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 	@Override
 	protected void actionSalvar() {
 		try {
+			
+			boolean valido = validaSalvar();
+			if (valido) {
 
-			if (!Validator.validateObject(subView.getTfNomeVendedor().getValue())) {
-				throw new ErroValidacaoException("Informe o Vendedor");
-			} else {
 				currentBean.setNomeVendedor(subView.getTfNomeVendedor().getValue());
-			}
-
-			if (!Validator.validateObject(subView.getTfNome().getValue())) {
-				throw new ErroValidacaoException("Informe o Nome");
-			} else {
 				currentBean.setNome(subView.getTfNome().getValue());
-			}
-
-			currentBean.setFormaPagamento(subView.getTfFormaPagamento().getValue());
-			currentBean.setEndereco(subView.getTfEndereco().getValue());
-			currentBean.setFone(subView.getTfFone().getValue());
-			currentBean.setAno(Integer.valueOf(subView.getTfAno().getValue()));
-			currentBean.setMotor(subView.getTfCvMotor().getValue());
-			currentBean.setMotorizacao(subView.getTfMotorizacao().getValue());
-
-			if (!Validator.validateObject(subView.getTfPlaca().getValue())) {
-				throw new ErroValidacaoException("Informe a Placa");
-			} else {
+				currentBean.setFormaPagamento(subView.getTfFormaPagamento().getValue());
+				currentBean.setEndereco(subView.getTfEndereco().getValue());
+				currentBean.setFone(subView.getTfFone().getValue());
+				currentBean.setMotor(subView.getTfCvMotor().getValue());
+				currentBean.setMotorizacao(subView.getTfMotorizacao().getValue());
 				currentBean.setPlaca(subView.getTfPlaca().getValue());
-			}
-
-			if (!Validator.validateObject(subView.getTfMarca().getValue())) {
-				throw new ErroValidacaoException("Informe a Marca");
-			} else {
 				currentBean.setMarca(subView.getTfMarca().getValue());
-			}
-
-			if (!Validator.validateObject(subView.getTfCor().getValue())) {
-				throw new ErroValidacaoException("Informe a Cor");
-			} else {
 				currentBean.setCor(subView.getTfCor().getValue());
-			}
-
-			if (!Validator.validateObject(subView.getTfModelo().getValue())) {
-				throw new ErroValidacaoException("Informe o Modelo");
-			} else {
+				if(!subView.getTfAno().getValue().equals("")){
+					currentBean.setAno(Integer.parseInt(subView.getTfAno().getValue()));
+				}else{
+					currentBean.setAno(0);
+				}
 				currentBean.setModelo(subView.getTfModelo().getValue());
+	
+				orcamentoOsDAO.saveOrUpdate(currentBean);
+				notifiyFrameworkSaveOK(this.currentBean);
 			}
-
-			orcamentoOsDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		if (!Validator.validateObject(subView.getTfNome().getValue())) {
+			valido = false;
+			mensagemErro("O campo nome não pode ficar em branco.");
+		}
+		return valido;
 	}
 
 	@Override
@@ -139,7 +129,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 //			subView.getTfValorTotal().setValue(valorTotal.toString());
 //		}
 
-		List<OrcamentoOsItem> itens = orcamentoItemOsDAO.findByOrcamentoOs(currentBean);
+		List<OrcamentoOsItemEntity> itens = orcamentoItemOsDAO.findByOrcamentoOs(currentBean);
 
 		subView.preencheSubForm(itens);
 
@@ -152,18 +142,13 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new OrcamentoOs();
+		currentBean = new OrcamentoOsEntity();
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		orcamentoOsDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
-	}
-
-	@Override
-	protected boolean validaSalvar() {
-		return true;
 	}
 
 	@Override
@@ -176,14 +161,14 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 		remover(ids);
 	}
 
-	public OrcamentoOsItem novoOrcamentoOsItem() {
-		OrcamentoOsItem item = new OrcamentoOsItem();
+	public OrcamentoOsItemEntity novoOrcamentoOsItem() {
+		OrcamentoOsItemEntity item = new OrcamentoOsItemEntity();
 		currentBean.addOrcamentoOsItem(item);
 		return item;
 	}
 
-	public void removerOrcamentoOsItem(List<OrcamentoOsItem> orcamentoOsItem) {
-		for (OrcamentoOsItem orcamentoItem : orcamentoOsItem) {
+	public void removerOrcamentoOsItem(List<OrcamentoOsItemEntity> orcamentoOsItem) {
+		for (OrcamentoOsItemEntity orcamentoItem : orcamentoOsItem) {
 			currentBean.removeOrcamentoOsItem(orcamentoItem);
 		}
 		mensagemRemovidoOK();
@@ -199,12 +184,12 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOs> {
 		return true;
 	}
 
-	public List<OrcamentoOs> getOrcamentoOsItens() {
+	public List<OrcamentoOsEntity> getOrcamentoOsItens() {
 		return orcamentoOsDAO.listaTodos();
 	}
 
 	@Override
-	public OrcamentoOs getModelBean() {
+	public OrcamentoOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

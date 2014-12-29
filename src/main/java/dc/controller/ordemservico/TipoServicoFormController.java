@@ -9,24 +9,24 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.TipoServico;
-import dc.servicos.dao.ordemservico.TipoServicoDAO;
+import dc.entidade.ordemservico.TipoServicoOsEntity;
+import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoServicoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoServicoFormController extends CRUDFormController<TipoServico> {
+public class TipoServicoFormController extends CRUDFormController<TipoServicoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
 	TipoServicoFormView subView;
 
 	@Autowired
-	TipoServicoDAO tipoServicoDAO;
+	TipoServicoOsDAO tipoServicoDAO;
 
-	private TipoServico currentBean;
+	private TipoServicoOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -72,7 +72,7 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoServico();
+		currentBean = new TipoServicoOsEntity();
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class TipoServicoFormController extends CRUDFormController<TipoServico> {
 	}
 
 	@Override
-	public TipoServico getModelBean() {
+	public TipoServicoOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.ServicoOs;
+import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ServicoOsDAO extends AbstractCrudDAO<ServicoOs> {
+public class ServicoOsDAO extends AbstractCrudDAO<ServicoOsEntity> {
 
 
 	@Override
-	public Class<ServicoOs> getEntityClass() {
-		return ServicoOs.class;
+	public Class<ServicoOsEntity> getEntityClass() {
+		return ServicoOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -23,7 +23,7 @@ public class ServicoOsDAO extends AbstractCrudDAO<ServicoOs> {
 	}
 	
 	@Transactional
-	public List<ServicoOs> listaTodos() {
-		return getSession().createQuery("from ServicoOs").list();
+	public List<ServicoOsEntity> listaTodos() {
+		return getSession().createQuery("from ServicoOsEntity").list();
 	}
 }

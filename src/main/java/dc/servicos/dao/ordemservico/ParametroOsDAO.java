@@ -2,19 +2,22 @@ package dc.servicos.dao.ordemservico;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.ParametroOs;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParametroOsDAO extends AbstractCrudDAO<ParametroOs>{
+public class ParametroOsDAO extends AbstractCrudDAO<ParametroOsEntity>{
 
 	@Override
-	public Class<ParametroOs> getEntityClass() {
-		return ParametroOs.class;
+	public Class<ParametroOsEntity> getEntityClass() {
+		return ParametroOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,7 +25,15 @@ public class ParametroOsDAO extends AbstractCrudDAO<ParametroOs>{
 	}
 	
 	@Transactional
-	public List<ParametroOs> listaTodos() {
-		return getSession().createQuery("from ParametroOs").list();
+	public List<ParametroOsEntity> listaTodos() {
+		return getSession().createQuery("from ParametroOsEntity").list();
+	}
+	
+	@Transactional  
+	public ParametroOsEntity buscaParametroOs(EmpresaEntity empresa){
+		
+		Criteria c = getSession().createCriteria(ParametroOsEntity.class);
+		c.add(Restrictions.eq("empresa",empresa));
+		return (ParametroOsEntity)c.uniqueResult(); 
 	}
 }

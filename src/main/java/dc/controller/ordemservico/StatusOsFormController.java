@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.StatusOs;
+import dc.entidade.ordemservico.StatusOsEntity;
 import dc.servicos.dao.ordemservico.StatusOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -17,7 +17,7 @@ import dc.visao.ordemservico.StatusOsFormView;
 
 @Controller
 @Scope("prototype")
-public class StatusOsFormController extends CRUDFormController<StatusOs> {
+public class StatusOsFormController extends CRUDFormController<StatusOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class StatusOsFormController extends CRUDFormController<StatusOs> {
 	@Autowired
 	StatusOsDAO statusOsDAO;
 
-	private StatusOs currentBean;
+	private StatusOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -68,7 +68,7 @@ public class StatusOsFormController extends CRUDFormController<StatusOs> {
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new StatusOs();
+		currentBean = new StatusOsEntity();
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class StatusOsFormController extends CRUDFormController<StatusOs> {
 	}
 
 	@Override
-	public StatusOs getModelBean() {
+	public StatusOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

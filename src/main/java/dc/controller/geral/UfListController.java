@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.UfEntity;
-import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,20 @@ public class UfListController extends CRUDListController<UfEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private UfDAO dao;
-
-	@Autowired
 	private UfFormController ufFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public UfListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<UfEntity> getFormController() {
+		return ufFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -43,17 +52,6 @@ public class UfListController extends CRUDListController<UfEntity> {
 	}
 
 	@Override
-	protected List<UfEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<UfEntity> getFormController() {
-		return ufFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -65,8 +63,31 @@ public class UfListController extends CRUDListController<UfEntity> {
 	}
 
 	@Override
+	protected List<UfEntity> pesquisa(String valor) {
+		try {
+			List<UfEntity> auxLista = (List<UfEntity>) this.ufFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<UfEntity> pesquisaDefault() {
-		return (List<UfEntity>) dao.getAll(getEntityClass());
+		try {
+			List<UfEntity> auxLista = (List<UfEntity>) this.ufFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

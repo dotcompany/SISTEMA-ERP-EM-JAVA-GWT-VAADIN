@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.OrcamentoOs;
+import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OrcamentoOsDAO extends AbstractCrudDAO<OrcamentoOs>{
+public class OrcamentoOsDAO extends AbstractCrudDAO<OrcamentoOsEntity>{
 
 	@Override
-	public Class<OrcamentoOs> getEntityClass() {
-		return OrcamentoOs.class;
+	public Class<OrcamentoOsEntity> getEntityClass() {
+		return OrcamentoOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,7 +22,7 @@ public class OrcamentoOsDAO extends AbstractCrudDAO<OrcamentoOs>{
 	}
 	
 	@Transactional
-	public List<OrcamentoOs> listaTodos() {
-		return getSession().createQuery("from OrcamentoOs").list();
+	public List<OrcamentoOsEntity> listaTodos() {
+		return getSession().createQuery("from OrcamentoOsEntity").list();
 	}
 }

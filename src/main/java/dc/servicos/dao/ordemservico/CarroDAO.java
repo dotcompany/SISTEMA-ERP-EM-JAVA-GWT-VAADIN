@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.Carro;
+import dc.entidade.ordemservico.CarroEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CarroDAO extends AbstractCrudDAO<Carro>{
+public class CarroDAO extends AbstractCrudDAO<CarroEntity>{
 
 	@Override
-	public Class<Carro> getEntityClass() {
-		return Carro.class;
+	public Class<CarroEntity> getEntityClass() {
+		return CarroEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,7 +22,7 @@ public class CarroDAO extends AbstractCrudDAO<Carro>{
 	}
 	
 	@Transactional
-	public List<Carro> listaTodos() {
-		return getSession().createQuery("from Carro").list();
+	public List<CarroEntity> listaTodos() {
+		return getSession().createQuery("from CarroEntity").list();
 	}
 }

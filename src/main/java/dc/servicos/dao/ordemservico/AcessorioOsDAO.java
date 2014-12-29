@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.AcessorioOs;
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.AcessorioOsEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class AcessorioOsDAO extends AbstractCrudDAO<AcessorioOs>{
+public class AcessorioOsDAO extends AbstractCrudDAO<AcessorioOsEntity>{
 
 	@Override
-	public Class<AcessorioOs> getEntityClass() {
-		return AcessorioOs.class;
+	public Class<AcessorioOsEntity> getEntityClass() {
+		return AcessorioOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,14 +24,14 @@ public class AcessorioOsDAO extends AbstractCrudDAO<AcessorioOs>{
 	}
 	
 	@Transactional
-	public List<AcessorioOs> listaTodos() {
-		return getSession().createQuery("from AcessorioOs").list();
+	public List<AcessorioOsEntity> listaTodos() {
+		return getSession().createQuery("from AcessorioOsEntity").list();
 	}
 	
 	@Transactional
-	public List<AcessorioOs> findByAcessorioOs(OrdemServico ordemServico){
+	public List<AcessorioOsEntity> findByAcessorioOs(OrdemServicoEntity ordemServico){
 
-		List<AcessorioOs> lista = new ArrayList<>();
+		List<AcessorioOsEntity> lista = new ArrayList<>();
 
 		try{
 			if(ordemServico!=null){

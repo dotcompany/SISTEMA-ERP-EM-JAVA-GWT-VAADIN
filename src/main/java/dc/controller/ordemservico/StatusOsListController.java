@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.StatusOs;
+import dc.entidade.ordemservico.StatusOsEntity;
 import dc.servicos.dao.ordemservico.StatusOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class StatusOsListController extends CRUDListController<StatusOs> {
+public class StatusOsListController extends CRUDListController<StatusOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class StatusOsListController extends CRUDListController<StatusOs> {
 	}
 
 	@Override
-	protected List<StatusOs> pesquisa(String valor) {
+	protected List<StatusOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -44,18 +44,18 @@ public class StatusOsListController extends CRUDListController<StatusOs> {
 	}
 
 	@Override
-	protected CRUDFormController<StatusOs> getFormController() {
+	protected CRUDFormController<StatusOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super StatusOs> getEntityClass() {
-		return StatusOs.class;
+	public Class<? super StatusOsEntity> getEntityClass() {
+		return StatusOsEntity.class;
 	}
 
 	@Override
-	protected List<StatusOs> pesquisaDefault() {
-		return dao.getAll(StatusOs.class);
+	protected List<StatusOsEntity> pesquisaDefault() {
+		return dao.getAll(StatusOsEntity.class);
 	}
 
 	@Override

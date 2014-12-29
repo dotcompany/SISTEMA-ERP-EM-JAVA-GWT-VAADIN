@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.BancoEntity;
@@ -34,7 +33,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 		return AgenciaBancoEntity.class;
 	}
 
-	@Transactional
+	// @Transactional
 	public List<AgenciaBancoEntity> listaTodos() {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
@@ -50,7 +49,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 		}
 	}
 
-	@Transactional
+	// @Transactional
 	public List<AgenciaBancoEntity> procuraNomeContendo(String query) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
@@ -65,7 +64,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 		}
 	}
 
-	@Transactional
+	// @Transactional
 	public List<UfEntity> query(String q) {
 		String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
 		sql = sql.replace("#", getEntityClass().getName());
@@ -79,7 +78,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 		return new String[] { "nome", "logradouro" };
 	}
 
-	@Transactional
+	// @Transactional
 	public void saveOrUpdateAgenciaBanco(AgenciaBancoEntity entity)
 			throws Exception {
 		try {
@@ -90,6 +89,21 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 			entity.setUf(uf);
 
 			super.saveOrUpdate(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public List<AgenciaBancoEntity> listAll() {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1)";
+			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
+
+			return getSession().createQuery(sql).list();
 		} catch (Exception e) {
 			e.printStackTrace();
 

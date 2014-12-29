@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Grupo;
-import dc.entidade.ordemservico.ServicoOs;
-import dc.entidade.ordemservico.SubGrupo;
+import dc.entidade.ordemservico.GrupoOsEntity;
+import dc.entidade.ordemservico.ServicoOsEntity;
+import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.dao.ordemservico.ServicoOsDAO;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
@@ -26,7 +26,7 @@ import dc.visao.ordemservico.ServicoOsFormView;
 
 @Controller
 @Scope("prototype")
-public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
+public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +41,7 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	@Autowired
 	SubGrupoDAO subGrupoDAO;
 
-	private ServicoOs currentBean;
+	private ServicoOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -184,12 +184,12 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ServicoOs();
+		currentBean = new ServicoOsEntity();
 	}
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Grupo> grupo = new DefaultManyToOneComboModel<Grupo>(GrupoListController.class, this.grupoDAO,
+		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(GrupoListController.class, this.grupoDAO,
 				super.getMainController());
 
 		this.subView.getCbGrupo().setModel(grupo);
@@ -197,7 +197,7 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	}
 
 	public void getSubgrupo(String classePesquisa, Integer idSelecionado) {
-		DefaultManyToOneComboModelSelect<SubGrupo> subGrupo = new DefaultManyToOneComboModelSelect<SubGrupo>(SubGrupoListController.class,
+		DefaultManyToOneComboModelSelect<SubGrupoOsEntity> subGrupo = new DefaultManyToOneComboModelSelect<SubGrupoOsEntity>(SubGrupoListController.class,
 				this.subGrupoDAO, super.getMainController(), classePesquisa, idSelecionado);
 
 		this.subView.getCbSubGrupo().setModel(subGrupo);
@@ -245,7 +245,7 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOs> {
 	}
 
 	@Override
-	public ServicoOs getModelBean() {
+	public ServicoOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

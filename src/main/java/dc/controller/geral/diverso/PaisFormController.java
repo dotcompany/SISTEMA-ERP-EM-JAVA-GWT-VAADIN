@@ -14,7 +14,7 @@ import dc.control.util.NumberUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.PaisValidator;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.servicos.dao.geral.diverso.PaisDAO;
+import dc.model.business.geral.diverso.PaisBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.PaisFormView;
 
@@ -29,19 +29,33 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	private PaisFormView subView;
 
-	/** ENTITIES */
+	/**
+	 * ENTITY
+	 */
 
-	private PaisEntity currentBean;
+	private PaisEntity entity;
 
-	/** DAO'S */
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private PaisDAO paisDAO;
+	private PaisBusiness<PaisEntity> business;
 
-	/** CONSTRUTOR */
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PaisFormController() {
 
+	}
+
+	public PaisBusiness<PaisEntity> getBusiness() {
+		return business;
 	}
 
 	@Override
@@ -67,7 +81,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	public PaisEntity getModelBean() {
-		return currentBean;
+		return entity;
 	}
 
 	@Override
@@ -95,23 +109,23 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNomePtbr(this.subView.getTfNome().getValue());
-			this.currentBean.setNomeIngles(this.subView.getTfNomeIngles()
-					.getValue());
-			this.currentBean.setSigla2(this.subView.getTfSigla2().getValue());
-			this.currentBean.setSigla3(this.subView.getTfSigla3().getValue());
+			this.entity.setNomePtbr(this.subView.getTfNome().getValue());
+			this.entity
+					.setNomeIngles(this.subView.getTfNomeIngles().getValue());
+			this.entity.setSigla2(this.subView.getTfSigla2().getValue());
+			this.entity.setSigla3(this.subView.getTfSigla3().getValue());
 
 			String codigo = this.subView.getTfCodigo().getValue();
 
 			if (NumberUtils.isNumber(codigo)) {
-				this.currentBean.setCodigo(NumberUtils.toInt(codigo));
+				this.entity.setCodigo(NumberUtils.toInt(codigo));
 			} else {
-				this.currentBean.setCodigo(null);
+				this.entity.setCodigo(null);
 			}
 
-			this.paisDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -124,15 +138,15 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.paisDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNomePtbr());
-			this.subView.getTfNomeIngles().setValue(
-					this.currentBean.getNomeIngles());
-			this.subView.getTfSigla2().setValue(this.currentBean.getSigla2());
-			this.subView.getTfSigla3().setValue(this.currentBean.getSigla3());
+			this.subView.getTfNome().setValue(this.entity.getNomePtbr());
+			this.subView.getTfNomeIngles()
+					.setValue(this.entity.getNomeIngles());
+			this.subView.getTfSigla2().setValue(this.entity.getSigla2());
+			this.subView.getTfSigla3().setValue(this.entity.getSigla3());
 			this.subView.getTfCodigo().setValue(
-					this.currentBean.getCodigo().toString());
+					this.entity.getCodigo().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,7 +155,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new PaisEntity();
+			this.entity = new PaisEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -152,7 +166,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.currentBean = new PaisEntity();
+			this.entity = new PaisEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -163,7 +177,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.paisDAO.deleteAllByIds(ids);
+			this.business.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

@@ -17,7 +17,7 @@ import dc.control.validator.classe.UfValidator;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.servicos.dao.geral.UfDAO;
+import dc.model.business.geral.diverso.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,16 +34,39 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	private UfFormView subView;
 
-	private UfEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private UfEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private UfBusiness<UfEntity> business;
+
+	// @Autowired
+	// private PaisBusiness<PaisEntity> paisBusiness;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private PaisDAO paisDAO;
 
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public UfFormController() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public UfBusiness<UfEntity> getBusiness() {
+		return business;
 	}
 
 	@Override
@@ -69,7 +92,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	@Override
 	public UfEntity getModelBean() {
-		return currentBean;
+		return entity;
 	}
 
 	@Override
@@ -77,7 +100,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.subView = new UfFormView(this);
 
-			DefaultManyToOneComboModel<PaisEntity> paisModel = new DefaultManyToOneComboModel<PaisEntity>(
+			DefaultManyToOneComboModel<PaisEntity> model = new DefaultManyToOneComboModel<PaisEntity>(
 					PaisListController.class, this.paisDAO,
 					super.getMainController()) {
 
@@ -88,7 +111,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			};
 
-			this.subView.getMocPais().setModel(paisModel);
+			this.subView.getMocPais().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,41 +132,39 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setSigla(this.subView.getTfSigla().getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setSigla(this.subView.getTfSigla().getValue());
 
 			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
 
 			if (NumberUtils.isNumber(codigoIbge)) {
-				this.currentBean.setCodigoIbge(NumberUtils.toInt(this.subView
+				this.entity.setCodigoIbge(NumberUtils.toInt(this.subView
 						.getTfCodigoIbge().getValue()));
 			}
 
 			PaisEntity pais = this.subView.getMocPais().getValue();
 
-			this.currentBean.setPais(pais);
+			this.entity.setPais(pais);
 
-			this.ufDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			criarNovoBean();
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.ufDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfSigla().setValue(this.currentBean.getSigla());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfSigla().setValue(this.entity.getSigla());
 			this.subView.getTfCodigoIbge().setValue(
-					this.currentBean.getCodigoIbge().toString());
+					this.entity.getCodigoIbge().toString());
 
-			PaisEntity pais = this.currentBean.getPais();
+			PaisEntity pais = this.entity.getPais();
 
 			if (ObjectUtils.isNotBlank(pais)) {
 				this.subView.getMocPais().setValue(pais);
@@ -156,7 +177,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new UfEntity();
+			this.entity = new UfEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -167,7 +188,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.currentBean = new UfEntity();
+			this.entity = new UfEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -178,7 +199,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.ufDAO.deleteAllByIds(ids);
+			this.business.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

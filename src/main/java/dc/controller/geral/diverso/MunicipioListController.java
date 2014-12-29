@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.MunicipioEntity;
-import dc.servicos.dao.geral.diverso.MunicipioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class MunicipioListController extends CRUDListController<MunicipioEntity> {
+public class MunicipioListController extends
+		CRUDListController<MunicipioEntity> {
 
 	/**
 	 * 
@@ -21,10 +22,15 @@ public class MunicipioListController extends CRUDListController<MunicipioEntity>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	MunicipioDAO dao;
+	private MunicipioFormController municipioFormController;
 
-	@Autowired
-	MunicipioFormController municipioFormController;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public MunicipioListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<MunicipioEntity> getFormController() {
@@ -37,29 +43,19 @@ public class MunicipioListController extends CRUDListController<MunicipioEntity>
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		return "listaMunicipio";
-	}
-
-	@Override
 	public Class<? super MunicipioEntity> getEntityClass() {
 		return MunicipioEntity.class;
 	}
 
 	@Override
-	protected List<MunicipioEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
 	protected String getTitulo() {
-		return "Município";
+		return super.getTitulo(this);
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
-
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -68,8 +64,31 @@ public class MunicipioListController extends CRUDListController<MunicipioEntity>
 	}
 
 	@Override
+	protected List<MunicipioEntity> pesquisa(String valor) {
+		try {
+			List<MunicipioEntity> auxLista = (List<MunicipioEntity>) this.municipioFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<MunicipioEntity> pesquisaDefault() {
-		return (List<MunicipioEntity>) dao.getAll(getEntityClass());
+		try {
+			List<MunicipioEntity> auxLista = (List<MunicipioEntity>) this.municipioFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

@@ -53,28 +53,28 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Field
-	@Caption("Codigo Ibge")
+	@Caption("Codigo IBGE")
 	@Column(name = "CODIGO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoIbge;
+	private Integer codigoIbge = new Integer(0);
 
 	@Field
-	@Caption("Codigo Receita Federal")
+	@Caption("Código da receita federal")
 	@Column(name = "CODIGO_RECEITA_FEDERAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoReceitaFederal;
+	private Integer codigoReceitaFederal = new Integer(0);
 
 	@Field
-	@Caption()
+	@Caption("Código estadual")
 	@Column(name = "CODIGO_ESTADUAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoEstadual;
+	private Integer codigoEstadual = new Integer(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -132,7 +132,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoIbge(Integer codigoIbge) {
-		this.codigoIbge = codigoIbge;
+		this.codigoIbge = (codigoIbge == null ? new Integer(0) : codigoIbge);
 	}
 
 	public Integer getCodigoReceitaFederal() {
@@ -140,7 +140,8 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoReceitaFederal(Integer codigoReceitaFederal) {
-		this.codigoReceitaFederal = codigoReceitaFederal;
+		this.codigoReceitaFederal = (codigoReceitaFederal == null ? new Integer(
+				0) : codigoReceitaFederal);
 	}
 
 	public Integer getCodigoEstadual() {
@@ -148,7 +149,8 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoEstadual(Integer codigoEstadual) {
-		this.codigoEstadual = codigoEstadual;
+		this.codigoEstadual = (codigoEstadual == null ? new Integer(0)
+				: codigoEstadual);
 	}
 
 	public UfEntity getUf() {

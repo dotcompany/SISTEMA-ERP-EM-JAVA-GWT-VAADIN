@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Marca;
+import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.MarcaFormView;
 
 @Controller
 @Scope("prototype")
-public class MarcaFormController extends CRUDFormController<Marca> {
+public class MarcaFormController extends CRUDFormController<MarcaOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class MarcaFormController extends CRUDFormController<Marca> {
 	@Autowired
 	MarcaDAO marcaDAO;
 
-	private Marca currentBean;
+	private MarcaOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -78,7 +78,7 @@ public class MarcaFormController extends CRUDFormController<Marca> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Marca();
+		currentBean = new MarcaOsEntity();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class MarcaFormController extends CRUDFormController<Marca> {
 	}
 
 	@Override
-	public Marca getModelBean() {
+	public MarcaOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

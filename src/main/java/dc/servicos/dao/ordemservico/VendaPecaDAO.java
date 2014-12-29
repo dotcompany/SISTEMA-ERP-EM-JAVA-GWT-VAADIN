@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.OrdemServico;
-import dc.entidade.ordemservico.VendaPeca;
+import dc.entidade.ordemservico.OrdemServicoEntity;
+import dc.entidade.ordemservico.VendaPecaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class VendaPecaDAO extends AbstractCrudDAO<VendaPeca>{
+public class VendaPecaDAO extends AbstractCrudDAO<VendaPecaEntity>{
 
 	@Override
-	public Class<VendaPeca> getEntityClass() {
-		return VendaPeca.class;
+	public Class<VendaPecaEntity> getEntityClass() {
+		return VendaPecaEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,19 +24,19 @@ public class VendaPecaDAO extends AbstractCrudDAO<VendaPeca>{
 	}
 	
 	@Transactional
-	public List<VendaPeca> listaTodos() {
-		return getSession().createQuery("from VendaPeca").list();
+	public List<VendaPecaEntity> listaTodos() {
+		return getSession().createQuery("from VendaPecaEntity").list();
 	}
 	
 	@Transactional
-	public List<VendaPeca> findByVendaPeca(OrdemServico ordemServico){
+	public List<VendaPecaEntity> findByVendaPeca(OrdemServicoEntity ordemServico){
 
-		List<VendaPeca> lista = new ArrayList<>();
+		List<VendaPecaEntity> lista = new ArrayList<>();
 
 		try{
 			if(ordemServico!=null){
 				lista =  getSession()
-						.createQuery("from VendaPeca i where i.ordemServico = :ordemServico")
+						.createQuery("from VendaPecaEntity i where i.ordemServico = :ordemServico")
 						.setParameter("ordemServico", ordemServico).list();
 			}
 		}catch(Exception e){

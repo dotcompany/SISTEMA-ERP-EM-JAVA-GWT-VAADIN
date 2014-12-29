@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.ordemservico.OrdemServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class OrdemServicoListController extends CRUDListController<OrdemServico> {
+public class OrdemServicoListController extends CRUDListController<OrdemServicoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class OrdemServicoListController extends CRUDListController<OrdemServico>
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"dataCadastro","cliente.pessoa.nome", "valorServico","valorTotalOs"};
+		return new String[] {"dataCadastro","cliente","valorTotalOs"};
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class OrdemServicoListController extends CRUDListController<OrdemServico>
 	}
 
 	@Override
-	protected List<OrdemServico> pesquisa(String valor) {
+	protected List<OrdemServicoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	} 
 	
@@ -45,23 +45,29 @@ public class OrdemServicoListController extends CRUDListController<OrdemServico>
 	}
 
 	@Override
-	protected CRUDFormController<OrdemServico> getFormController() {
+	protected CRUDFormController<OrdemServicoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super OrdemServico> getEntityClass() {
-		return OrdemServico.class;
+	public Class<? super OrdemServicoEntity> getEntityClass() {
+		return OrdemServicoEntity.class;
 	}
 
 	@Override
-	protected List<OrdemServico> pesquisaDefault() {
-		return dao.getAll(OrdemServico.class);
+	protected List<OrdemServicoEntity> pesquisaDefault() {
+		return dao.getAll(OrdemServicoEntity.class);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 }

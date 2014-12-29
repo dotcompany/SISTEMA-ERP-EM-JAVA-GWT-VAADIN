@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.ParametroOs;
+import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.servicos.dao.ordemservico.ParametroOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class ParametroOsListController extends CRUDListController<ParametroOs> {
+public class ParametroOsListController extends CRUDListController<ParametroOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 	}
 
 	@Override
-	protected List<ParametroOs> pesquisa(String valor) {
+	protected List<ParametroOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -45,18 +45,18 @@ public class ParametroOsListController extends CRUDListController<ParametroOs> {
 	}
 
 	@Override
-	protected CRUDFormController<ParametroOs> getFormController() {
+	protected CRUDFormController<ParametroOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ParametroOs> getEntityClass() {
-		return ParametroOs.class;
+	public Class<? super ParametroOsEntity> getEntityClass() {
+		return ParametroOsEntity.class;
 	}
 
 	@Override
-	protected List<ParametroOs> pesquisaDefault() {
-		return dao.getAll(ParametroOs.class);
+	protected List<ParametroOsEntity> pesquisaDefault() {
+		return dao.getAll(ParametroOsEntity.class);
 	}
 
 	@Override

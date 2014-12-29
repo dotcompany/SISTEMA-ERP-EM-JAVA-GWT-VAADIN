@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.TipoServico;
-import dc.servicos.dao.ordemservico.TipoServicoDAO;
+import dc.entidade.ordemservico.TipoServicoOsEntity;
+import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoServicoListController extends CRUDListController<TipoServico> {
+public class TipoServicoListController extends CRUDListController<TipoServicoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoServicoDAO dao;
+	TipoServicoOsDAO dao;
 	
 	@Autowired
 	TipoServicoFormController formController;
@@ -34,7 +34,7 @@ public class TipoServicoListController extends CRUDListController<TipoServico> {
 	}
 
 	@Override
-	protected List<TipoServico> pesquisa(String valor) {
+	protected List<TipoServicoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -44,18 +44,18 @@ public class TipoServicoListController extends CRUDListController<TipoServico> {
 	}
 
 	@Override
-	protected CRUDFormController<TipoServico> getFormController() {
+	protected CRUDFormController<TipoServicoOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super TipoServico> getEntityClass() {
-		return TipoServico.class;
+	public Class<? super TipoServicoOsEntity> getEntityClass() {
+		return TipoServicoOsEntity.class;
 	}
 
 	@Override
-	protected List<TipoServico> pesquisaDefault() {
-		return dao.getAll(TipoServico.class);
+	protected List<TipoServicoOsEntity> pesquisaDefault() {
+		return dao.getAll(TipoServicoOsEntity.class);
 	}
 
 	@Override

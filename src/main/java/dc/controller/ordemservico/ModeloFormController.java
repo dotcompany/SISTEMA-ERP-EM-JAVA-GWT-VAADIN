@@ -1,6 +1,7 @@
 package dc.controller.ordemservico;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +10,21 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Marca;
-import dc.entidade.ordemservico.Modelo;
+import dc.entidade.ordemservico.MarcaOsEntity;
+import dc.entidade.ordemservico.ModeloEntity;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.ModeloFormView;
+import dc.visao.spring.SecuritySessionProvider;
 
 /** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
-public class ModeloFormController extends CRUDFormController<Modelo> {
+public class ModeloFormController extends CRUDFormController<ModeloEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +36,7 @@ public class ModeloFormController extends CRUDFormController<Modelo> {
 	@Autowired
 	MarcaDAO marcaDAO;
 
-	private Modelo currentBean;
+	private ModeloEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -49,7 +51,10 @@ public class ModeloFormController extends CRUDFormController<Modelo> {
 	@Override
 	protected void actionSalvar() {
 		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setMarca(subView.getCbMarca().getValue());
+		
+		MarcaOsEntity marca = (MarcaOsEntity) subView.getCbMarca().getValue();
+		currentBean.setMarca(marca); 
+		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		try {
 			modeloDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -88,12 +93,12 @@ public class ModeloFormController extends CRUDFormController<Modelo> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Modelo();
+		currentBean = new ModeloEntity();
 	}
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Marca> marca = new DefaultManyToOneComboModel<Marca>(MarcaListController.class, this.marcaDAO,
+		DefaultManyToOneComboModel<MarcaOsEntity> marca = new DefaultManyToOneComboModel<MarcaOsEntity>(MarcaListController.class, this.marcaDAO,
 				super.getMainController());
 
 		this.subView.getCbMarca().setModel(marca);
@@ -129,7 +134,7 @@ public class ModeloFormController extends CRUDFormController<Modelo> {
 	}
 
 	@Override
-	public Modelo getModelBean() {
+	public ModeloEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.MaterialServico;
-import dc.entidade.ordemservico.OrdemServico;
+import dc.entidade.ordemservico.MaterialServicoEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class MaterialServicoDAO extends AbstractCrudDAO<MaterialServico>{
+public class MaterialServicoDAO extends AbstractCrudDAO<MaterialServicoEntity>{
 
 	@Override
-	public Class<MaterialServico> getEntityClass() {
-		return MaterialServico.class;
+	public Class<MaterialServicoEntity> getEntityClass() {
+		return MaterialServicoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,19 +24,19 @@ public class MaterialServicoDAO extends AbstractCrudDAO<MaterialServico>{
 	}
 	
 	@Transactional
-	public List<MaterialServico> listaTodos() {
-		return getSession().createQuery("from MaterialServico").list();
+	public List<MaterialServicoEntity> listaTodos() {
+		return getSession().createQuery("from MaterialServicoEntity").list();
 	}
 	
 	@Transactional
-	public List<MaterialServico> findByMaterialServico(OrdemServico ordemServico){
+	public List<MaterialServicoEntity> findByMaterialServico(OrdemServicoEntity ordemServico){
 
-		List<MaterialServico> lista = new ArrayList<>();
+		List<MaterialServicoEntity> lista = new ArrayList<>();
 
 		try{
 			if(ordemServico!=null){
 				lista =  getSession()
-						.createQuery("from MaterialServico i where i.ordemServico = :ordemServico")
+						.createQuery("from MaterialServicoEntity i where i.ordemServico = :ordemServico")
 						.setParameter("ordemServico", ordemServico).list();
 			}
 		}catch(Exception e){

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.TipoEfetivacao;
+import dc.entidade.ordemservico.TipoEfetivacaoEntity;
 import dc.servicos.dao.ordemservico.TipoEfetivacaoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -19,7 +19,7 @@ import dc.visao.ordemservico.TipoEfetivacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetivacao> {
+public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetivacaoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	@Autowired
 	TipoEfetivacaoDAO tipoEfetivacaoDAO;
 
-	private TipoEfetivacao currentBean;
+	private TipoEfetivacaoEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -80,7 +80,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoEfetivacao();
+		currentBean = new TipoEfetivacaoEntity();
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	}
 
 	@Override
-	public TipoEfetivacao getModelBean() {
+	public TipoEfetivacaoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

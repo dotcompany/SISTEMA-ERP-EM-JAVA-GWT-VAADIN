@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.controller.ordemservico.SubGrupoFormController;
-import dc.entidade.ordemservico.SubGrupo;
+import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class SubGrupoListController extends CRUDListController<SubGrupo> {
+public class SubGrupoListController extends CRUDListController<SubGrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 	SubGrupoFormController formController;
 	
 
-	@Override
+	@Override 
 	public String[] getColunas() {
 		return new String[] {"nome","grupo"};
 	}
@@ -36,7 +36,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 	}
 
 	@Override
-	protected List<SubGrupo> pesquisa(String valor) {
+	protected List<SubGrupoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -46,18 +46,18 @@ public class SubGrupoListController extends CRUDListController<SubGrupo> {
 	}
 
 	@Override
-	protected CRUDFormController<SubGrupo> getFormController() {
+	protected CRUDFormController<SubGrupoOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super SubGrupo> getEntityClass() {
-		return SubGrupo.class;
+	public Class<? super SubGrupoOsEntity> getEntityClass() {
+		return SubGrupoOsEntity.class;
 	}
  
 	@Override
-	protected List<SubGrupo> pesquisaDefault() {
-		return dao.getAll(SubGrupo.class);
+	protected List<SubGrupoOsEntity> pesquisaDefault() {
+		return dao.getAll(SubGrupoOsEntity.class);
 	}
 
 	@Override

@@ -1,14 +1,16 @@
 package dc.servicos.business.nfe;
 
-import java.io.Serializable;
 import java.util.List;
 
-import dc.servicos.business.AbstractBusiness;
+import dc.model.business.AbstractBusiness;
 
-public interface NfeDetEspecificoArmamentoBusiness<T> extends AbstractBusiness<T> {
+public interface NfeDetEspecificoArmamentoBusiness<T> extends
+		AbstractBusiness<T> {
+
+	public List<T> find(String s) throws Exception;
+
+	public List<T> listAll() throws Exception;
 
 	public List<T> search(T entity) throws Exception;
-
-	public T find(Serializable id) throws Exception;
 
 }

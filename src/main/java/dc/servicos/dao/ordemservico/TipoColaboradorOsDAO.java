@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.TipoColaboradorOs;
+import dc.entidade.ordemservico.TipoColaboradorOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoColaboradorOsDAO extends AbstractCrudDAO<TipoColaboradorOs>{
+public class TipoColaboradorOsDAO extends AbstractCrudDAO<TipoColaboradorOsEntity>{
 
 	@Override
-	public Class<TipoColaboradorOs> getEntityClass() {
-		return TipoColaboradorOs.class;
+	public Class<TipoColaboradorOsEntity> getEntityClass() {
+		return TipoColaboradorOsEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -22,8 +22,8 @@ public class TipoColaboradorOsDAO extends AbstractCrudDAO<TipoColaboradorOs>{
 	}
 	
 	@Transactional
-	public List<TipoColaboradorOs> listaTodos() {
-		return getSession().createQuery("from TipoColaboradorOs").list();
+	public List<TipoColaboradorOsEntity> listaTodos() {
+		return getSession().createQuery("from TipoColaboradorOsEntity").list();
 	}
 }
 

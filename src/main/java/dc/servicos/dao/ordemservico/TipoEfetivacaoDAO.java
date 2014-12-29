@@ -1,6 +1,5 @@
 package dc.servicos.dao.ordemservico;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -8,20 +7,16 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.AcessorioOs;
-import dc.entidade.ordemservico.Cor;
-import dc.entidade.ordemservico.InformacaoGeral;
-import dc.entidade.ordemservico.OrdemServico;
-import dc.entidade.ordemservico.TipoEfetivacao;
+import dc.entidade.ordemservico.TipoEfetivacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacao>{
+public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacaoEntity>{
 
 	@Override
-	public Class<TipoEfetivacao> getEntityClass() {
-		return TipoEfetivacao.class;
+	public Class<TipoEfetivacaoEntity> getEntityClass() {
+		return TipoEfetivacaoEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -29,16 +24,16 @@ public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacao>{
 	} 
 	
 	@Transactional
-	public List<TipoEfetivacao> listaTodos() {
-		return getSession().createQuery("from TipoEfetivacao").list();
+	public List<TipoEfetivacaoEntity> listaTodos() {
+		return getSession().createQuery("from TipoEfetivacaoEntity").list();
 	}
 	
 	@Transactional  
-	public TipoEfetivacao findByCodigo(Integer codigo){
+	public TipoEfetivacaoEntity findByCodigo(Integer codigo){
 		
-		Criteria c = getSession().createCriteria(TipoEfetivacao.class);
+		Criteria c = getSession().createCriteria(TipoEfetivacaoEntity.class);
 		c.add(Restrictions.eq("codigo",codigo));
-		return (TipoEfetivacao)c.uniqueResult();
+		return (TipoEfetivacaoEntity)c.uniqueResult();
 	}
 }
 

@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.TipoColaboradorOs;
+import dc.entidade.ordemservico.TipoColaboradorOsEntity;
 import dc.servicos.dao.ordemservico.TipoColaboradorOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoColaboradorOsListController extends CRUDListController<TipoColaboradorOs> {
+public class TipoColaboradorOsListController extends CRUDListController<TipoColaboradorOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class TipoColaboradorOsListController extends CRUDListController<TipoCola
 	}
 
 	@Override
-	protected List<TipoColaboradorOs> pesquisa(String valor) {
+	protected List<TipoColaboradorOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -41,18 +41,18 @@ public class TipoColaboradorOsListController extends CRUDListController<TipoCola
 	}
 
 	@Override
-	protected CRUDFormController<TipoColaboradorOs> getFormController() {
+	protected CRUDFormController<TipoColaboradorOsEntity> getFormController() {
 		return null;//formController;
 	}
 
 	@Override
-	public Class<? super TipoColaboradorOs> getEntityClass() {
-		return TipoColaboradorOs.class;
+	public Class<? super TipoColaboradorOsEntity> getEntityClass() {
+		return TipoColaboradorOsEntity.class;
 	}
 
 	@Override
-	protected List<TipoColaboradorOs> pesquisaDefault() {
-		return dao.getAll(TipoColaboradorOs.class);
+	protected List<TipoColaboradorOsEntity> pesquisaDefault() {
+		return dao.getAll(TipoColaboradorOsEntity.class);
 	}
 
 	@Override

@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.controller.ordemservico.MarcaFormController;
-import dc.entidade.ordemservico.Marca;
+import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class MarcaListController extends CRUDListController<Marca> {
+public class MarcaListController extends CRUDListController<MarcaOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class MarcaListController extends CRUDListController<Marca> {
 	}
 
 	@Override
-	protected List<Marca> pesquisa(String valor) {
+	protected List<MarcaOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -46,18 +46,18 @@ public class MarcaListController extends CRUDListController<Marca> {
 	}
 
 	@Override
-	protected CRUDFormController<Marca> getFormController() {
+	protected CRUDFormController<MarcaOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Marca> getEntityClass() {
-		return Marca.class;
+	public Class<? super MarcaOsEntity> getEntityClass() {
+		return MarcaOsEntity.class;
 	}
 
 	@Override
-	protected List<Marca> pesquisaDefault() {
-		return dao.getAll(Marca.class);
+	protected List<MarcaOsEntity> pesquisaDefault() {
+		return dao.getAll(MarcaOsEntity.class);
 	}
 
 	@Override

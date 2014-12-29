@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.Grupo;
-import dc.entidade.ordemservico.SubGrupo;
+import dc.entidade.ordemservico.GrupoOsEntity;
+import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
 import dc.servicos.util.Validator;
@@ -22,7 +22,7 @@ import dc.visao.ordemservico.SubGrupoFormView;
 
 @Controller
 @Scope("prototype")
-public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
+public class SubGrupoFormController extends CRUDFormController<SubGrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 	@Autowired
 	GrupoDAO grupoDAO;
 
-	private SubGrupo currentBean;
+	private SubGrupoOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -88,12 +88,12 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SubGrupo();
+		currentBean = new SubGrupoOsEntity();
 	}
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<Grupo> grupo = new DefaultManyToOneComboModel<Grupo>(GrupoListController.class, this.grupoDAO,
+		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(GrupoListController.class, this.grupoDAO,
 				super.getMainController());
 
 		this.subView.getCbGrupo().setModel(grupo);
@@ -129,7 +129,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupo> {
 	}
 
 	@Override
-	public SubGrupo getModelBean() {
+	public SubGrupoOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

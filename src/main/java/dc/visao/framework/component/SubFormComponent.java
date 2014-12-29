@@ -356,6 +356,25 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 		return totalRetorno.doubleValue();
 	}
 	
+	public Double getTotalSumary(List<T> dados, String escolha) {
+		this.dados = dados;
+		BigDecimal totalRetorno = new BigDecimal(0);
+		for (String key : totalizador.keySet()) {
+			BigDecimal total = new BigDecimal(0);
+			if (dados != null) {
+				for (T t : dados) {
+					java.lang.reflect.Field field = ReflectionUtils.findField(containerClass, key);
+					field.setAccessible(true);
+					Object value = ReflectionUtils.getField(field, t);
+					if (value != null && key.equals(escolha)) {
+						totalRetorno = totalRetorno.add(total.add((BigDecimal) value));
+					}
+				}
+			}
+		}
+		return totalRetorno.doubleValue();
+	}
+
 	private NumberFormat getFormat() {
 		DecimalFormat decimalFormat = new DecimalFormat("###,##0.00");
 		return decimalFormat;

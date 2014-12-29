@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.ordemservico.ServicoOs;
+import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.servicos.dao.ordemservico.ServicoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class ServicoOsListController extends CRUDListController<ServicoOs> {
+public class ServicoOsListController extends CRUDListController<ServicoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class ServicoOsListController extends CRUDListController<ServicoOs> {
 	}
 
 	@Override
-	protected List<ServicoOs> pesquisa(String valor) {
+	protected List<ServicoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -44,18 +44,18 @@ public class ServicoOsListController extends CRUDListController<ServicoOs> {
 	}
 
 	@Override
-	protected CRUDFormController<ServicoOs> getFormController() {
+	protected CRUDFormController<ServicoOsEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super ServicoOs> getEntityClass() {
-		return ServicoOs.class;
+	public Class<? super ServicoOsEntity> getEntityClass() {
+		return ServicoOsEntity.class;
 	}
 
 	@Override
-	protected List<ServicoOs> pesquisaDefault() {
-		return dao.getAll(ServicoOs.class);
+	protected List<ServicoOsEntity> pesquisaDefault() {
+		return dao.getAll(ServicoOsEntity.class);
 	}
 
 	@Override

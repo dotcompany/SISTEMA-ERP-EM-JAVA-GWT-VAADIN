@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.ordemservico.OrcamentoOs;
-import dc.entidade.ordemservico.OrcamentoOsItem;
+import dc.entidade.ordemservico.OrcamentoOsEntity;
+import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OrcamentoItemOsDAO extends AbstractCrudDAO<OrcamentoOsItem>{
+public class OrcamentoItemOsDAO extends AbstractCrudDAO<OrcamentoOsItemEntity>{
 
 	@Override
-	public Class<OrcamentoOsItem> getEntityClass() {
-		return OrcamentoOsItem.class;
+	public Class<OrcamentoOsItemEntity> getEntityClass() {
+		return OrcamentoOsItemEntity.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -24,19 +24,19 @@ public class OrcamentoItemOsDAO extends AbstractCrudDAO<OrcamentoOsItem>{
 	}
 	
 	@Transactional
-	public List<OrcamentoOsItem> listaTodos() {
+	public List<OrcamentoOsItemEntity> listaTodos() {
 		return getSession().createQuery("from OrcamentoOsItem").list();
 	}
 	
 	@Transactional
-	public List<OrcamentoOsItem> findByOrcamentoOs(OrcamentoOs orcamentoOs){
+	public List<OrcamentoOsItemEntity> findByOrcamentoOs(OrcamentoOsEntity orcamentoOs){
 
-		List<OrcamentoOsItem> lista = new ArrayList<>();
+		List<OrcamentoOsItemEntity> lista = new ArrayList<>();
 
 		try{
 			if(orcamentoOs!=null){
 				lista =  getSession()
-						.createQuery("from OrcamentoOsItem i where i.orcamentoOs = :orcamentoOs")
+						.createQuery("from OrcamentoOsItemEntity i where i.orcamentoOs = :orcamentoOs")
 						.setParameter("orcamentoOs", orcamentoOs).list();
 			}
 		}catch(Exception e){

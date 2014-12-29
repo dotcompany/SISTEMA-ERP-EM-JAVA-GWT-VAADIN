@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.controller.ordemservico.DefeitoFormController;
-import dc.entidade.ordemservico.Defeito;
+import dc.entidade.ordemservico.DefeitoEntity;
 import dc.servicos.dao.ordemservico.DefeitoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class DefeitoListController extends CRUDListController<Defeito> {
+public class DefeitoListController extends CRUDListController<DefeitoEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class DefeitoListController extends CRUDListController<Defeito> {
 	}
 
 	@Override
-	protected List<Defeito> pesquisa(String valor) {
+	protected List<DefeitoEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 	
@@ -46,18 +46,18 @@ public class DefeitoListController extends CRUDListController<Defeito> {
 	}
 
 	@Override
-	protected CRUDFormController<Defeito> getFormController() {
+	protected CRUDFormController<DefeitoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super Defeito> getEntityClass() {
-		return Defeito.class;
+	public Class<? super DefeitoEntity> getEntityClass() {
+		return DefeitoEntity.class;
 	}
 
 	@Override
-	protected List<Defeito> pesquisaDefault() {
-		return dao.getAll(Defeito.class);
+	protected List<DefeitoEntity> pesquisaDefault() {
+		return dao.getAll(DefeitoEntity.class);
 	}
 
 	@Override
