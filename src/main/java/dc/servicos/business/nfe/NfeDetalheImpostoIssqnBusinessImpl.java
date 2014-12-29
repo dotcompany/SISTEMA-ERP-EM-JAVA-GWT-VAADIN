@@ -45,12 +45,6 @@ public class NfeDetalheImpostoIssqnBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public void deleteAllByIds(List<Serializable> list) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public NfeDetalheImpostoIssqnEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;

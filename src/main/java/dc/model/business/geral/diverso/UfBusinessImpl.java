@@ -53,16 +53,9 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	@Override
 	public void deleteAll(List<Serializable> list) throws Exception {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Transactional(readOnly = false)
-	@Override
-	public void deleteAllByIds(List<Serializable> list) throws Exception {
-		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName()
-					+ "] deleteAllByIds");
+					+ "] deleteAll");
 
 			this.dao.deleteAllByIds(list);
 		} catch (Exception e) {
@@ -103,7 +96,15 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	@Override
 	public List<UfEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<UfEntity> auxLista = this.dao.listaTodos();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Override

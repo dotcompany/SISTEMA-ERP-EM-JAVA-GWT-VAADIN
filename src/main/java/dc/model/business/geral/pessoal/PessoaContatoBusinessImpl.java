@@ -1,4 +1,4 @@
-package dc.model.business.geral.diverso;
+package dc.model.business.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.entidade.geral.diverso.PaisEntity;
-import dc.model.dao.geral.diverso.PaisDAO;
+import dc.entidade.geral.PessoaContatoEntity;
+import dc.entidade.geral.PessoaEntity;
+import dc.model.dao.geral.pessoal.PessoaContatoDAO;
 
 /**
  * 
@@ -21,17 +22,19 @@ import dc.model.dao.geral.diverso.PaisDAO;
 
 @Service
 @Transactional(readOnly = true)
-public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> {
+public class PessoaContatoBusinessImpl implements Serializable,
+		PessoaContatoBusiness<PessoaContatoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(PaisBusinessImpl.class);
+	private static Logger logger = Logger
+			.getLogger(PessoaContatoBusinessImpl.class);
 
 	@Autowired
-	private PaisDAO<PaisEntity> dao;
+	private PessoaContatoDAO<PessoaContatoEntity> dao;
 
 	/**
 	 * **********************************************
@@ -39,7 +42,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 
 	@Transactional(readOnly = false)
 	@Override
-	public void delete(PaisEntity t) throws Exception {
+	public void delete(PessoaContatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -61,12 +64,12 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	}
 
 	@Override
-	public PaisEntity find(Serializable id) throws Exception {
+	public PessoaContatoEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
-			PaisEntity ent = this.dao.find(id);
+			PessoaContatoEntity ent = this.dao.find(id);
 
 			return ent;
 		} catch (Exception e) {
@@ -77,37 +80,39 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	}
 
 	@Override
-	public PaisEntity find(PaisEntity t) throws Exception {
+	public PessoaContatoEntity find(PessoaContatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaisEntity> find(String s) throws Exception {
+	public List<PessoaContatoEntity> find(String s) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaisEntity> findAll() throws Exception {
+	public List<PessoaContatoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaisEntity> findAll(PaisEntity t) throws Exception {
+	public List<PessoaContatoEntity> findAll(PessoaContatoEntity t)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaisEntity> fullTextSearch(String valor) throws Exception {
+	public List<PessoaContatoEntity> fullTextSearch(String valor)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaisEntity> fullTextSearch(String valor, int first,
+	public List<PessoaContatoEntity> fullTextSearch(String valor, int first,
 			int pageSize, String[] sortingFields, boolean[] sortingStates,
 			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
@@ -115,7 +120,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	}
 
 	@Override
-	public List<PaisEntity> fullTextSearch(String valor,
+	public List<PessoaContatoEntity> fullTextSearch(String valor,
 			String[] sortingFields, boolean[] states, List<Filter> filters)
 			throws Exception {
 		// TODO Auto-generated method stub
@@ -130,7 +135,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 
 	@Transactional(readOnly = false)
 	@Override
-	public void save(PaisEntity t) throws Exception {
+	public void save(PessoaContatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -144,6 +149,24 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 					+ "] saveOrUpdate");
 
 			this.dao.saveOrUpdate(o);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	/**
+	 * 
+	 */
+
+	@Override
+	public List<PessoaContatoEntity> list(PessoaEntity entity) {
+		// TODO Auto-generated method stub
+		try {
+			List<PessoaContatoEntity> auxLista = this.dao.list(entity);
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 

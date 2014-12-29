@@ -30,13 +30,13 @@ import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.servicos.dao.geral.PessoaContatoDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
-import dc.servicos.dao.geral.UfDAO;
+import dc.model.business.geral.diverso.UfBusiness;
+import dc.model.business.geral.pessoal.PessoaBusiness;
+import dc.model.business.geral.pessoal.PessoaContatoBusiness;
+import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.model.business.geral.pessoal.PessoaFisicaBusiness;
+import dc.model.business.geral.pessoal.PessoaJuridicaBusiness;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.pessoal.PessoaFisicaDAO;
-import dc.servicos.dao.geral.pessoal.PessoaJuridicaDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.PessoaFormView;
@@ -53,32 +53,61 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	private PessoaFormView subView;
 
-	private PessoaEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private PessoaEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private PessoaBusiness<PessoaEntity> business;
 
 	@Autowired
-	private PessoaFisicaDAO pessoaFisicaDAO;
+	private PessoaFisicaBusiness<PessoaFisicaEntity> pessoaFisicaBusiness;
 
 	@Autowired
-	private PessoaJuridicaDAO pessoaJuridicaDAO;
+	private PessoaJuridicaBusiness<PessoaJuridicaEntity> pessoaJuridicaBusiness;
 
 	@Autowired
-	private PessoaContatoDAO pessoaContatoDAO;
+	private PessoaContatoBusiness<PessoaContatoEntity> pessoaContatoBusiness;
 
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private PessoaEnderecoBusiness<PessoaEnderecoEntity> pessoaEnderecoBusiness;
+
+	@Autowired
+	private UfBusiness<UfEntity> ufBusiness;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
 
-	@Autowired
-	private UfDAO ufDAO;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PessoaFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public PessoaBusiness<PessoaEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
 		return "Pessoa";
+	}
+
+	@Override
+	protected Component getSubView() {
+		return subView;
 	}
 
 	@Override
@@ -94,7 +123,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	public PessoaEntity getModelBean() {
-		return currentBean;
+		return entity;
 	}
 
 	protected boolean validaSalvar() {
@@ -112,7 +141,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new PessoaEntity();
+			this.entity = new PessoaEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -164,80 +193,70 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.pessoaDAO.find(id);
+			this.entity = this.business.find(id);
 
 			// PessoaContato
 
-			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoDAO
-					.getPessoaContatoList(this.currentBean);
+			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness
+					.list(this.entity);
 
-			this.currentBean.setPessoaContatoList(auxLista1);
+			this.entity.setPessoaContatoList(auxLista1);
 
 			// PessoaEndereco
 
-			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoDAO
-					.getPessoaEnderecoList(this.currentBean);
+			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness
+					.list(this.entity);
 
-			this.currentBean.setPessoaEnderecoList(auxLista2);
+			this.entity.setPessoaEnderecoList(auxLista2);
 
-			this.currentBean.setPessoaFisica(this.pessoaFisicaDAO
-					.getEntity(this.currentBean));
-			this.currentBean.setPessoaJuridica(this.pessoaJuridicaDAO
-					.getEntity(this.currentBean));
+			this.subView.getTxtNome().setValue(this.entity.getNome());
 
-			this.subView.getTxtNome().setValue(this.currentBean.getNome());
+			this.subView.getCbTipoPessoa()
+					.setValue(this.entity.getTipoPessoa());
 
-			this.subView.getCbTipoPessoa().setValue(
-					this.currentBean.getTipoPessoa());
+			this.subView.getTxtEmail().setValue(this.entity.getEmail());
+			this.subView.getTxtSite().setValue(this.entity.getSite());
 
-			this.subView.getTxtEmail().setValue(this.currentBean.getEmail());
-			this.subView.getTxtSite().setValue(this.currentBean.getSite());
-
-			if (this.currentBean.getTipoPessoa().equals(TipoPessoaEn.F)) {
-				this.pessoaFisicaDAO.getEntity(this.currentBean);
-
-				this.currentBean.setPessoaFisica(carregarPessoaFisica());
-			} else if (this.currentBean.getTipoPessoa().equals(TipoPessoaEn.J)) {
-				this.pessoaJuridicaDAO.getEntity(this.currentBean);
-
-				this.currentBean.setPessoaJuridica(carregarPessoaJuridica());
+			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+				this.entity.setPessoaFisica(carregarPessoaFisica());
+			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+				this.entity.setPessoaJuridica(carregarPessoaJuridica());
 			}
 
 			this.subView.getCkCliente().setValue(
-					this.currentBean.getCliente().equals("0") ? Boolean.FALSE
+					this.entity.getCliente().equals("0") ? Boolean.FALSE
 							: Boolean.TRUE);
 			this.subView.getCkColaborador().setValue(
-					this.currentBean.getColaborador());
-			this.subView.getCkFornecedor().setValue(
-					this.currentBean.getFornecedor());
+					this.entity.getColaborador());
+			this.subView.getCkFornecedor()
+					.setValue(this.entity.getFornecedor());
 			this.subView.getCkTransportadora().setValue(
-					this.currentBean.getTransportadora());
+					this.entity.getTransportadora());
 
 			// PessoaContato
 
 			this.subView.getSfPessoaContato().fillWith(
-					this.currentBean.getPessoaContatoList());
+					this.entity.getPessoaContatoList());
 
 			// PessoaEndereco
 
-			for (PessoaEnderecoEntity ent : this.currentBean
-					.getPessoaEnderecoList()) {
+			for (PessoaEnderecoEntity ent : this.entity.getPessoaEnderecoList()) {
 				if (StringUtils.isNotBlank(ent.getSiglaUf())) {
-					UfEntity uf = this.ufDAO.find(ent.getIdUf());
+					UfEntity uf = this.ufBusiness.find(ent.getIdUf());
 
 					ent.setUf(uf);
 				}
 			}
 
 			this.subView.getSfPessoaEndereco().fillWith(
-					this.currentBean.getPessoaEnderecoList());
+					this.entity.getPessoaEnderecoList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	private PessoaJuridicaEntity carregarPessoaJuridica() {
-		PessoaJuridicaEntity pj = this.currentBean.getPessoaJuridica();
+		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
 
 		this.subView.getTxtFantasia().setValue(pj.getFantasia());
 		this.subView.getTxtCnpj().setValue(pj.getCnpj());
@@ -264,7 +283,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private PessoaFisicaEntity carregarPessoaFisica() {
-		PessoaFisicaEntity pf = this.currentBean.getPessoaFisica();
+		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
 
 		this.subView.getTxtCpf().setValue(pf.getCpf());
 		this.subView.getDataNascimento().setValue(pf.getDataNascimento());
@@ -309,7 +328,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					categoriaReservistaEn);
 		}
 
-		SexoEn sexoEn = (SexoEn) this.currentBean.getPessoaFisica().getSexo();
+		SexoEn sexoEn = (SexoEn) this.entity.getPessoaFisica().getSexo();
 
 		if (ObjectUtils.isNotBlank(sexoEn)) {
 			this.subView.getOgSexo().setValue(sexoEn);
@@ -331,11 +350,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
 					.getCbTipoPessoa().getValue();
 
-			this.currentBean.setTipoPessoa(tipoPessoaEn);
+			this.entity.setTipoPessoa(tipoPessoaEn);
 
-			this.currentBean.setNome(this.subView.getTxtNome().getValue());
-			this.currentBean.setEmail(this.subView.getTxtEmail().getValue());
-			this.currentBean.setSite(this.subView.getTxtSite().getValue());
+			this.entity.setNome(this.subView.getTxtNome().getValue());
+			this.entity.setEmail(this.subView.getTxtEmail().getValue());
+			this.entity.setSite(this.subView.getTxtSite().getValue());
 
 			//
 
@@ -361,21 +380,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			// }
 			// }
 
-			this.currentBean.setCliente(this.subView.getCkCliente().getValue()
+			this.entity.setCliente(this.subView.getCkCliente().getValue()
 					.equals(Boolean.TRUE) ? "1" : "0");
-			this.currentBean.setColaborador(this.subView.getCkColaborador()
+			this.entity.setColaborador(this.subView.getCkColaborador()
 					.getValue());
-			this.currentBean.setFornecedor(this.subView.getCkFornecedor()
+			this.entity
+					.setFornecedor(this.subView.getCkFornecedor().getValue());
+			this.entity.setTransportadora(this.subView.getCkTransportadora()
 					.getValue());
-			this.currentBean.setTransportadora(this.subView
-					.getCkTransportadora().getValue());
 
-			this.currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
 
-			if (this.currentBean.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
 				salvarPessoaFisica();
-			} else if (this.currentBean.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
 				salvarPessoaJuridica();
 			}
 
@@ -384,18 +403,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			List<PessoaContatoEntity> auxLista1 = this.subView
 					.getSfPessoaContato().getDados();
 
-			this.currentBean.setPessoaContatoList(auxLista1);
+			this.entity.setPessoaContatoList(auxLista1);
 
 			// PessoaEndereco
 
 			List<PessoaEnderecoEntity> auxLista2 = this.subView
 					.getSfPessoaEndereco().getDados();
 
-			this.currentBean.setPessoaEnderecoList(auxLista2);
+			this.entity.setPessoaEnderecoList(auxLista2);
 
-			this.pessoaDAO.saveOrUpdatePessoa(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -405,13 +424,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	private void salvarPessoaJuridica() {
 		try {
-			PessoaJuridicaEntity pj = this.currentBean.getPessoaJuridica();
+			PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
 
 			if (pj == null) {
 				pj = new PessoaJuridicaEntity();
 			}
 
-			pj.setPessoa(this.currentBean);
+			pj.setPessoa(this.entity);
 
 			pj.setFantasia(this.subView.getTxtFantasia().getValue());
 			pj.setCnpj(this.subView.getTxtCnpj().getValue());
@@ -436,7 +455,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pj.setCrt(crtEn);
 			}
 
-			this.currentBean.setPessoaJuridica(pj);
+			this.entity.setPessoaJuridica(pj);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -444,13 +463,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	private void salvarPessoaFisica() {
 		try {
-			PessoaFisicaEntity pf = this.currentBean.getPessoaFisica();
+			PessoaFisicaEntity pf = this.entity.getPessoaFisica();
 
 			if (pf == null) {
 				pf = new PessoaFisicaEntity();
 			}
 
-			pf.setPessoa(this.currentBean);
+			pf.setPessoa(this.entity);
 
 			pf.setCpf(this.subView.getTxtCpf().getValue());
 			pf.setDataNascimento(this.subView.getDataNascimento().getValue());
@@ -514,7 +533,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			pf.setTituloEleitoralZona((Integer) this.subView.getTxtTituloZona()
 					.getConvertedValue());
 
-			this.currentBean.setPessoaFisica(pf);
+			this.entity.setPessoaFisica(pf);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -526,14 +545,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.pessoaDAO.deletePessoa(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -551,9 +565,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public PessoaContatoEntity aderirPessoaContato() {
 		try {
 			PessoaContatoEntity ent = new PessoaContatoEntity();
-			ent.setPessoa(this.currentBean);
+			ent.setPessoa(this.entity);
 
-			this.currentBean.getPessoaContatoList().add(ent);
+			this.entity.getPessoaContatoList().add(ent);
 
 			return ent;
 		} catch (Exception e) {
@@ -566,8 +580,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public void removerPessoaContato(List<PessoaContatoEntity> values) {
 		try {
 			for (PessoaContatoEntity ent : values) {
-				this.pessoaContatoDAO.delete(ent);
-				this.currentBean.getPessoaContatoList().remove(ent);
+				this.pessoaContatoBusiness.delete(ent);
+				this.entity.getPessoaContatoList().remove(ent);
 			}
 
 			mensagemRemovidoOK();
@@ -581,9 +595,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public PessoaEnderecoEntity aderirPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity ent = new PessoaEnderecoEntity();
-			ent.setPessoa(this.currentBean);
+			ent.setPessoa(this.entity);
 
-			this.currentBean.getPessoaEnderecoList().add(ent);
+			this.entity.getPessoaEnderecoList().add(ent);
 
 			return ent;
 		} catch (Exception e) {
@@ -596,8 +610,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
 		try {
 			for (PessoaEnderecoEntity ent : values) {
-				this.pessoaEnderecoDAO.delete(ent);
-				this.currentBean.getPessoaEnderecoList().remove(ent);
+				this.pessoaEnderecoBusiness.delete(ent);
+				this.entity.getPessoaEnderecoList().remove(ent);
 			}
 
 			mensagemRemovidoOK();
@@ -660,15 +674,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	// public void carregarCategoriaPessoa() {
-	// for (CategoriaPessoaEn en : CategoriaPessoaEn.values()) {
-	// this.subView.getOgCategoriaPessoa().addItem(en);
-	// }
-	// }
+	/**
+	 * 
+	 */
 
 	public BeanItemContainer<UfEntity> getUfBic() {
 		try {
-			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+			List<UfEntity> auxLista = this.ufBusiness.findAll();
 
 			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
 					UfEntity.class, auxLista);
@@ -677,7 +689,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			throw e;
+			return null;
 		}
 	}
 

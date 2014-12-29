@@ -55,16 +55,9 @@ public class MunicipioBusinessImpl implements Serializable,
 	@Override
 	public void deleteAll(List<Serializable> list) throws Exception {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Transactional(readOnly = false)
-	@Override
-	public void deleteAllByIds(List<Serializable> list) throws Exception {
-		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName()
-					+ "] deleteAllByIds");
+					+ "] deleteAll");
 
 			this.dao.deleteAllByIds(list);
 		} catch (Exception e) {

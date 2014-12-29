@@ -177,7 +177,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.business.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

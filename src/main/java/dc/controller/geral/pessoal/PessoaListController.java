@@ -1,6 +1,5 @@
 package dc.controller.geral.pessoal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.PessoaEntity;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -25,8 +23,13 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	@Autowired
 	private PessoaFormController pessoaFormController;
 
-	@Autowired
-	private PessoaDAO dao;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PessoaListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<PessoaEntity> getFormController() {
@@ -36,6 +39,11 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	@Override
 	public String[] getColunas() {
 		return new String[] { "nome", "tipoPessoa", "email", "site" };
+	}
+
+	@Override
+	public Class<? super PessoaEntity> getEntityClass() {
+		return PessoaEntity.class;
 	}
 
 	@Override
@@ -50,41 +58,36 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 	}
 
 	@Override
-	public Class<? super PessoaEntity> getEntityClass() {
-		return PessoaEntity.class;
+	protected boolean deletaEmCascata() {
+		return false;
 	}
 
 	@Override
 	protected List<PessoaEntity> pesquisa(String valor) {
 		try {
-			return (List<PessoaEntity>) dao.fullTextSearch(valor);
+			List<PessoaEntity> auxLista = (List<PessoaEntity>) this.pessoaFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PessoaEntity>();
+			return null;
 		}
 	}
 
 	@Override
 	protected List<PessoaEntity> pesquisaDefault() {
 		try {
-			return (List<PessoaEntity>) dao.getAll(getEntityClass());
+			List<PessoaEntity> auxLista = (List<PessoaEntity>) this.pessoaFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PessoaEntity>();
+			return null;
 		}
-	}
-
-	@Override
-	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
 	}
 
 }

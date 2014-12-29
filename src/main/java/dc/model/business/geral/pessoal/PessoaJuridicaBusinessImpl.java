@@ -1,17 +1,17 @@
-package dc.servicos.business.pessoal;
+package dc.model.business.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.geral.PessoaJuridicaEntity;
-import dc.servicos.dao.geral.pessoal.PessoaJuridicaDAO;
+import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
 
 /**
  * 
@@ -19,45 +19,73 @@ import dc.servicos.dao.geral.pessoal.PessoaJuridicaDAO;
  * 
  */
 
-@Service("pessoaJuridicaBusinessImpl")
+@Service
 @Transactional(readOnly = true)
 public class PessoaJuridicaBusinessImpl implements Serializable,
-		PessoaBusiness<PessoaJuridicaEntity> {
+		PessoaJuridicaBusiness<PessoaJuridicaEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Resource
-	private PessoaJuridicaDAO mainDAO;
+	private static Logger logger = Logger
+			.getLogger(PessoaJuridicaBusinessImpl.class);
 
+	@Autowired
+	private PessoaJuridicaDAO<PessoaJuridicaEntity> dao;
+
+	/**
+	 * **********************************************
+	 */
+
+	@Transactional(readOnly = false)
 	@Override
 	public void delete(PessoaJuridicaEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteAll(List<Serializable> list) throws Exception {
 		// TODO Auto-generated method stub
+		try {
+			System.out.println(":: [" + getClass().getSimpleName()
+					+ "] deleteAll");
 
-	}
+			this.dao.deleteAllByIds(list);
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	public void deleteAllByIds(List<Serializable> list) throws Exception {
-		// TODO Auto-generated method stub
-
+			throw e;
+		}
 	}
 
 	@Override
 	public PessoaJuridicaEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			System.out.println(":: [" + getClass().getSimpleName() + "] find");
+
+			PessoaJuridicaEntity ent = this.dao.find(id);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Override
 	public PessoaJuridicaEntity find(PessoaJuridicaEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PessoaJuridicaEntity> find(String s) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -104,35 +132,27 @@ public class PessoaJuridicaBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void save(PessoaJuridicaEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public <E> void saveOrUpdate(E o) throws Exception {
 		// TODO Auto-generated method stub
+		try {
+			System.out.println(":: [" + getClass().getSimpleName()
+					+ "] saveOrUpdate");
 
-	}
+			this.dao.saveOrUpdate(o);
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	public List<PessoaJuridicaEntity> find(String s) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PessoaJuridicaEntity> listAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PessoaJuridicaEntity> search(PessoaJuridicaEntity entity)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+			throw e;
+		}
 	}
 
 }
