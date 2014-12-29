@@ -18,6 +18,7 @@ import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.sistema.ContaEmpresaDAO;
+import dc.servicos.dao.sistema.PapelDAO;
 import dc.servicos.dao.sistema.UsuarioDAO;
 
 @Component
@@ -39,7 +40,7 @@ public class CriaContaController implements Serializable, ViewController {
 
 	@Autowired
 	transient EmpresaDAO empresaDao;
-
+	
 	private ContaEmpresa currentBean;
 
 	public static Logger logger = Logger.getLogger(CriaContaController.class);
@@ -122,6 +123,7 @@ public class CriaContaController implements Serializable, ViewController {
 		Papel p = new Papel();
 		p.setId(Papel.MASTER_ID);
 		u.setPapel(p);
+		u.setEmpresa(currentBean.getEmpresa());
 		currentBean.setPrimeiroUsuario(u);
 	}
 

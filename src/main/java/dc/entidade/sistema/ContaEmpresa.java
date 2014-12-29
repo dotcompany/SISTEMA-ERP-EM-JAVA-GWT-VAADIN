@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -21,10 +24,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.Usuario;
 
@@ -74,18 +79,20 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	private Usuario usuarioCriador;
 
-	@OneToOne()
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	private EmpresaEntity empresa;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany()
+	@OneToMany(mappedBy="conta")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE,
 			org.hibernate.annotations.CascadeType.DETACH })
 	private List<Usuario> usuarioList;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_empresa")
+	@Analyzer(definition = "id_empresa_analyzer")
+	@IndexedEmbedded
+	private EmpresaEntity empresa;
 
 	/**
 	 * CONSTRUTOR
@@ -132,14 +139,6 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 		this.telefone = telefone;
 	}
 
-	public EmpresaEntity getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(EmpresaEntity empresa) {
-		this.empresa = empresa;
-	}
-
 	public Usuario getUsuarioCriador() {
 		return usuarioCriador;
 	}
@@ -169,7 +168,15 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
+	}
+
+	public EmpresaEntity getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(EmpresaEntity empresa) {
+		this.empresa = empresa;
 	}
 
 }

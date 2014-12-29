@@ -163,8 +163,9 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
 		try {
-			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
-					+ " FROM EmpresaEntity WHERE conta.id = :c";
+			String sql = "SELECT ent "
+					+ " FROM EmpresaEntity ent "
+					+ " INNER JOIN ent.contaEmpresa conta WHERE conta.id = :c";
 
 			EmpresaEntity ent = (EmpresaEntity) getSession().createQuery(sql)
 					.setParameter("c", contaEmpresaId).uniqueResult();

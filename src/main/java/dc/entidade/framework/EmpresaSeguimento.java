@@ -49,11 +49,11 @@ public class EmpresaSeguimento extends AbstractModel<Integer> implements
 	 */
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_empresa")
+	@JoinColumn(name = "empresa_id")
 	private EmpresaEntity empresa;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_seguimento")
+	@JoinColumn(name = "seguimento_id")
 	private SeguimentoEntity seguimento;
 
 	/**

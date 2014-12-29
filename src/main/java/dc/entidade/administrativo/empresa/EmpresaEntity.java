@@ -296,7 +296,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer contador;
 
-	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false)
+	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false, fetch=FetchType.EAGER)
 	private ContaEmpresa contaEmpresa;
 
 	/**
@@ -648,7 +648,8 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		//return ToStringBuilder.reflectionToString(this);
+		return nomeFantasia;
 	}
 
 }

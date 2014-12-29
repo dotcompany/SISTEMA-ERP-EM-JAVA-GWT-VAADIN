@@ -74,8 +74,6 @@ public class ConfiguraNovaContaController implements Serializable,
 				.findConfiguracaoByIdConta(contaId);
 		EmpresaEntity empresa = empresaDao.findEmpresaByContaEmpresa(contaId);
 
-		System.out.println(empresa);
-
 		if (conf == null) {
 			conf = new ConfiguracaoContaEmpresa();
 			conf.setConta(contaDao.find(contaId));
@@ -93,7 +91,10 @@ public class ConfiguraNovaContaController implements Serializable,
 		}
 
 		contaDao.saveOrUpdate(conf);
-		contaDao.saveOrUpdate(empresa);
+		try {
+			empresaDao.saveOrUpdateEmpresa(empresa);
+		} catch (Exception e) {
+		}
 	}
 
 	public String getNomeUsuario(Usuario usuario) {

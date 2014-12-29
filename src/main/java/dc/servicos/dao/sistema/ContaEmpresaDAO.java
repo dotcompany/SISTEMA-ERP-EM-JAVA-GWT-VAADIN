@@ -64,7 +64,7 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 			Papel p = (Papel) getSession().get(Papel.class, Papel.MASTER_ID);
 			currentBean.getUsuarioCriador().setPapel(p);
 
-			super.save(currentBean);
+			super.saveOrUpdate(currentBean.getEmpresa());
 		} catch (Exception e) {
 			e.printStackTrace();
 
