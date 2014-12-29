@@ -11,8 +11,8 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.geral.UfEntity;
-import dc.entidade.geral.diverso.PaisEntity;
-import dc.model.dao.geral.diverso.PaisDAO;
+import dc.entidade.geral.diverso.MunicipioEntity;
+import dc.model.dao.geral.diverso.MunicipioDAO;
 import dc.model.dao.geral.diverso.UfDAO;
 
 /**
@@ -23,20 +23,22 @@ import dc.model.dao.geral.diverso.UfDAO;
 
 @Service
 @Transactional(readOnly = true)
-public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
+public class MunicipioBusinessImpl implements Serializable,
+		MunicipioBusiness<MunicipioEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(UfBusinessImpl.class);
+	private static Logger logger = Logger
+			.getLogger(MunicipioBusinessImpl.class);
 
 	@Autowired
-	private UfDAO<UfEntity> dao;
+	private MunicipioDAO<MunicipioEntity> dao;
 
 	@Autowired
-	private PaisDAO<PaisEntity> paisDAO;
+	private UfDAO<UfEntity> ufDAO;
 
 	/**
 	 * **********************************************
@@ -44,7 +46,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 
 	@Transactional(readOnly = false)
 	@Override
-	public void delete(UfEntity t) throws Exception {
+	public void delete(MunicipioEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -73,12 +75,12 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	}
 
 	@Override
-	public UfEntity find(Serializable id) throws Exception {
+	public MunicipioEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
-			UfEntity ent = this.dao.find(id);
+			MunicipioEntity ent = this.dao.find(id);
 
 			return ent;
 		} catch (Exception e) {
@@ -89,46 +91,47 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	}
 
 	@Override
-	public UfEntity find(UfEntity t) throws Exception {
+	public MunicipioEntity find(MunicipioEntity t) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> find(String s) throws Exception {
+	public List<MunicipioEntity> find(String s) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> findAll() throws Exception {
+	public List<MunicipioEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> findAll(UfEntity t) throws Exception {
+	public List<MunicipioEntity> findAll(MunicipioEntity t) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor) throws Exception {
+	public List<MunicipioEntity> fullTextSearch(String valor) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor, int first, int pageSize,
-			String[] sortingFields, boolean[] sortingStates,
+	public List<MunicipioEntity> fullTextSearch(String valor, int first,
+			int pageSize, String[] sortingFields, boolean[] sortingStates,
 			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor, String[] sortingFields,
-			boolean[] states, List<Filter> filters) throws Exception {
+	public List<MunicipioEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -141,7 +144,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 
 	@Transactional(readOnly = false)
 	@Override
-	public void save(UfEntity t) throws Exception {
+	public void save(MunicipioEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -154,13 +157,13 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			UfEntity uf = (UfEntity) o;
+			MunicipioEntity ent = (MunicipioEntity) o;
 
-			PaisEntity ent = this.paisDAO.find(uf.getPais().getId());
+			UfEntity uf = this.ufDAO.find(ent.getUf().getId());
 
-			uf.setPais(ent);
+			ent.setUf(uf);
 
-			this.dao.saveOrUpdate(o);
+			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {
 			e.printStackTrace();
 

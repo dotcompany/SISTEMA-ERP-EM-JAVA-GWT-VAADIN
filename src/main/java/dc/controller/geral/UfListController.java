@@ -20,12 +20,21 @@ public class UfListController extends CRUDListController<UfEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// @Autowired
-	// private UfDAO dao;
-	// private UfBusiness<UfEntity> business;
-
 	@Autowired
 	private UfFormController ufFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public UfListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<UfEntity> getFormController() {
+		return ufFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -43,25 +52,6 @@ public class UfListController extends CRUDListController<UfEntity> {
 	}
 
 	@Override
-	protected List<UfEntity> pesquisa(String valor) {
-		try {
-			return this.ufFormController.getUfBusiness().fullTextSearch(valor);
-
-			// return business.fullTextSearch(valor);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-	}
-
-	@Override
-	protected CRUDFormController<UfEntity> getFormController() {
-		return ufFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -73,12 +63,26 @@ public class UfListController extends CRUDListController<UfEntity> {
 	}
 
 	@Override
+	protected List<UfEntity> pesquisa(String valor) {
+		try {
+			List<UfEntity> auxLista = (List<UfEntity>) this.ufFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<UfEntity> pesquisaDefault() {
 		try {
-			return (List<UfEntity>) this.ufFormController.getUfBusiness()
-					.getAll(getEntityClass());
+			List<UfEntity> auxLista = (List<UfEntity>) this.ufFormController
+					.getBusiness().getAll(getEntityClass());
 
-			// return (List<UfEntity>) business.getAll(getEntityClass());
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -6,21 +6,21 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.MunicipioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
-		UfDAO<UfEntity> {
+public class MunicipioDAOImpl extends AbstractCrudDAO<MunicipioEntity>
+		implements MunicipioDAO<MunicipioEntity> {
 
-	private static Logger logger = Logger.getLogger(UfDAOImpl.class);
+	private static Logger logger = Logger.getLogger(MunicipioDAOImpl.class);
 
 	@Override
-	public Class<UfEntity> getEntityClass() {
-		return UfEntity.class;
+	public Class<MunicipioEntity> getEntityClass() {
+		return MunicipioEntity.class;
 	}
 
-	public List<UfEntity> listaTodos() {
+	public List<MunicipioEntity> listaTodos() {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
@@ -35,7 +35,7 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 		}
 	}
 
-	public List<UfEntity> procuraNomeContendo(String query) {
+	public List<MunicipioEntity> procuraNomeContendo(String query) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
@@ -49,7 +49,7 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 		}
 	}
 
-	public List<UfEntity> query(String q) {
+	public List<MunicipioEntity> query(String q) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
 			sql = sql.replace("#", getEntityClass().getName());

@@ -1,10 +1,10 @@
 package dc.model.dao.geral.diverso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import com.sun.istack.logging.Logger;
 
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -13,12 +13,13 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 		PaisDAO<PaisEntity> {
 
+	private static Logger logger = Logger.getLogger(PaisDAOImpl.class);
+
 	@Override
 	public Class<PaisEntity> getEntityClass() {
 		return PaisEntity.class;
 	}
 
-	@Transactional
 	public List<PaisEntity> listaTodos() {
 		try {
 			String sql = "SELECT - FROM # ent WHERE (1 = 1)";
@@ -32,11 +33,10 @@ public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PaisEntity>();
+			throw e;
 		}
 	}
 
-	@Transactional
 	public List<PaisEntity> procuraNomeContendo(String query) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
@@ -49,11 +49,10 @@ public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PaisEntity>();
+			throw e;
 		}
 	}
 
-	@Transactional
 	public List<PaisEntity> query(String q) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
@@ -66,7 +65,7 @@ public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PaisEntity>();
+			throw e;
 		}
 	}
 

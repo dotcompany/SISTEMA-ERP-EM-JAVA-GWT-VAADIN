@@ -1,14 +1,13 @@
 package dc.controller.geral.diverso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,20 @@ public class PaisListController extends CRUDListController<PaisEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private PaisDAO dao;
-
-	@Autowired
 	private PaisFormController paisFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PaisListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<PaisEntity> getFormController() {
+		return paisFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -44,28 +53,9 @@ public class PaisListController extends CRUDListController<PaisEntity> {
 	}
 
 	@Override
-	protected List<PaisEntity> pesquisa(String valor) {
-		try {
-			List<PaisEntity> auxLista = (List<PaisEntity>) dao
-					.procuraNomeContendo(valor);
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<PaisEntity>();
-		}
-	}
-
-	@Override
-	protected CRUDFormController<PaisEntity> getFormController() {
-		return paisFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
-		return "listaPais";
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -74,15 +64,30 @@ public class PaisListController extends CRUDListController<PaisEntity> {
 	}
 
 	@Override
-	protected List<PaisEntity> pesquisaDefault() {
+	protected List<PaisEntity> pesquisa(String valor) {
 		try {
-			List<PaisEntity> auxLista = (List<PaisEntity>) dao.listaTodos();
+			List<PaisEntity> auxLista = (List<PaisEntity>) this.paisFormController
+					.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PaisEntity>();
+			return null;
+		}
+	}
+
+	@Override
+	protected List<PaisEntity> pesquisaDefault() {
+		try {
+			List<PaisEntity> auxLista = (List<PaisEntity>) this.paisFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
 	}
 

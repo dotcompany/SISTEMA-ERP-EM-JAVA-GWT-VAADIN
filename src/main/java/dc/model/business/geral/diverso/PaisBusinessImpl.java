@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.geral.diverso.PaisEntity;
@@ -27,8 +28,10 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static Logger logger = Logger.getLogger(PaisBusinessImpl.class);
+
 	@Autowired
-	private PaisDAO<PaisEntity> mainDAO;
+	private PaisDAO<PaisEntity> dao;
 
 	/**
 	 * **********************************************
@@ -56,7 +59,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] deleteAllByIds");
 
-			this.mainDAO.deleteAllByIds(list);
+			this.dao.deleteAllByIds(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -70,7 +73,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 		try {
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
-			PaisEntity ent = this.mainDAO.find(id);
+			PaisEntity ent = this.dao.find(id);
 
 			return ent;
 		} catch (Exception e) {
@@ -147,7 +150,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			this.mainDAO.saveOrUpdate(o);
+			this.dao.saveOrUpdate(o);
 		} catch (Exception e) {
 			e.printStackTrace();
 
