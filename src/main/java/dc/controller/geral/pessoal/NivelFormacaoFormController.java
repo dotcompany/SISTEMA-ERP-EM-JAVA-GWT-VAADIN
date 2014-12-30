@@ -14,7 +14,7 @@ import dc.control.util.NumberUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.NivelFormacaoValidator;
 import dc.entidade.geral.NivelFormacaoEntity;
-import dc.servicos.dao.geral.NivelFormacaoDAO;
+import dc.model.business.geral.pessoal.NivelFormacaoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.NivelFormacaoFormView;
 
@@ -30,19 +30,68 @@ public class NivelFormacaoFormController extends
 
 	private NivelFormacaoFormView subView;
 
-	private NivelFormacaoEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private NivelFormacaoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private NivelFormacaoDAO nivelFormacaoDAO;
+	private NivelFormacaoBusiness<NivelFormacaoEntity> business;
+
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public NivelFormacaoFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public NivelFormacaoBusiness<NivelFormacaoEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
-		return "Nivel de formação";
+		return "Estado civil";
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public NivelFormacaoEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new NivelFormacaoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -61,43 +110,42 @@ public class NivelFormacaoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setDescricao(this.subView.getTfDescricao()
-					.getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 
 			String grauInstrucaoCaged = (String) this.subView
 					.getTfGrauInstrucaoCaged().getConvertedValue();
 
 			if (NumberUtils.isNumber(grauInstrucaoCaged)) {
-				this.currentBean.setGrauInstrucaoCaged(NumberUtils
+				this.entity.setGrauInstrucaoCaged(NumberUtils
 						.toInt(grauInstrucaoCaged));
 			} else {
-				this.currentBean.setGrauInstrucaoCaged(0);
+				this.entity.setGrauInstrucaoCaged(0);
 			}
 
 			String grauInstrucaoRais = (String) this.subView
 					.getTfGrauInstrucaoRais().getConvertedValue();
 
 			if (NumberUtils.isNumber(grauInstrucaoRais)) {
-				this.currentBean.setGrauInstrucaoRais(NumberUtils
+				this.entity.setGrauInstrucaoRais(NumberUtils
 						.toInt(grauInstrucaoRais));
 			} else {
-				this.currentBean.setGrauInstrucaoRais(0);
+				this.entity.setGrauInstrucaoRais(0);
 			}
 
 			String grauInstrucaoSefip = (String) this.subView
 					.getTfGrauInstrucaoSefip().getConvertedValue();
 
 			if (NumberUtils.isNumber(grauInstrucaoSefip)) {
-				this.currentBean.setGrauInstrucaoSefip(NumberUtils
+				this.entity.setGrauInstrucaoSefip(NumberUtils
 						.toInt(grauInstrucaoSefip));
 			} else {
-				this.currentBean.setGrauInstrucaoSefip(0);
+				this.entity.setGrauInstrucaoSefip(0);
 			}
 
-			this.nivelFormacaoDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -108,29 +156,26 @@ public class NivelFormacaoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.nivelFormacaoDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfDescricao().setValue(
-					this.currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 
-			Integer grauInstrucaoCaged = this.currentBean
-					.getGrauInstrucaoCaged();
+			Integer grauInstrucaoCaged = this.entity.getGrauInstrucaoCaged();
 
 			if (NumberUtils.isNotBlank(grauInstrucaoCaged)) {
 				this.subView.getTfGrauInstrucaoCaged().setValue(
 						grauInstrucaoCaged.toString());
 			}
 
-			Integer grauInstrucaoRais = this.currentBean.getGrauInstrucaoRais();
+			Integer grauInstrucaoRais = this.entity.getGrauInstrucaoRais();
 
 			if (NumberUtils.isNotBlank(grauInstrucaoRais)) {
 				this.subView.getTfGrauInstrucaoRais().setValue(
 						grauInstrucaoRais.toString());
 			}
 
-			Integer grauInstrucaoSefip = this.currentBean
-					.getGrauInstrucaoSefip();
+			Integer grauInstrucaoSefip = this.entity.getGrauInstrucaoSefip();
 
 			if (NumberUtils.isNotBlank(grauInstrucaoSefip)) {
 				this.subView.getTfGrauInstrucaoSefip().setValue(
@@ -141,32 +186,10 @@ public class NivelFormacaoFormController extends
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new NivelFormacaoFormView(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new NivelFormacaoEntity();
+			this.entity = new NivelFormacaoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -175,9 +198,14 @@ public class NivelFormacaoFormController extends
 	}
 
 	@Override
+	protected void quandoNovo() {
+
+	}
+
+	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.nivelFormacaoDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -191,17 +219,6 @@ public class NivelFormacaoFormController extends
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public NivelFormacaoEntity getModelBean() {
-		return currentBean;
 	}
 
 }
