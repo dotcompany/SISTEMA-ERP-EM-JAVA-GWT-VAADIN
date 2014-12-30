@@ -6,26 +6,43 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PessoaDAOImpl extends AbstractCrudDAO<PessoaEntity> implements
-		PessoaDAO<PessoaEntity> {
+public class EstadoCivilDAOImpl extends AbstractCrudDAO<EstadoCivilEntity>
+		implements EstadoCivilDAO<EstadoCivilEntity> {
 
-	private static Logger logger = Logger.getLogger(PessoaDAOImpl.class);
+	private static Logger logger = Logger.getLogger(EstadoCivilDAOImpl.class);
 
 	@Override
-	public Class<PessoaEntity> getEntityClass() {
-		return PessoaEntity.class;
+	public Class<EstadoCivilEntity> getEntityClass() {
+		return EstadoCivilEntity.class;
 	}
 
-	public List<PessoaEntity> listaTodos() {
+	public List<EstadoCivilEntity> listaTodos() {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<PessoaEntity> auxLista = super.getSession().createQuery(sql)
+			List<EstadoCivilEntity> auxLista = super.getSession()
+					.createQuery(sql).list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public List<EstadoCivilEntity> procuraNomeContendo(String query) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			List<EstadoCivilEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
 			return auxLista;
@@ -36,29 +53,13 @@ public class PessoaDAOImpl extends AbstractCrudDAO<PessoaEntity> implements
 		}
 	}
 
-	public List<PessoaEntity> procuraNomeContendo(String query) {
+	public List<EstadoCivilEntity> query(String q) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<PessoaEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
-
-	public List<PessoaEntity> query(String q) {
-		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-			sql = sql.replace("#", this.getEntityClass().getName());
-
-			List<PessoaEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + q + "%").list();
+			List<EstadoCivilEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + q + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -69,7 +70,7 @@ public class PessoaDAOImpl extends AbstractCrudDAO<PessoaEntity> implements
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome", "tipoPessoa", "email", "site" };
+		return new String[] { "nome", "descricao" };
 	}
 
 }

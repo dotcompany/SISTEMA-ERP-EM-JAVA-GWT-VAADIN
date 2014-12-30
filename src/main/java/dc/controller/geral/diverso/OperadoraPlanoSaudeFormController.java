@@ -16,8 +16,8 @@ import dc.control.validator.classe.OperadoraPlanoSaudeValidator;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
+import dc.model.business.geral.diverso.OperadoraPlanoSaudeBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.geral.diverso.OperadoraPlanoSaudeDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraPlanoSaudeFormView;
@@ -34,38 +34,62 @@ public class OperadoraPlanoSaudeFormController extends
 
 	private OperadoraPlanoSaudeFormView subView;
 
-	private OperadoraPlanoSaudeEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private OperadoraPlanoSaudeEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private OperadoraPlanoSaudeDAO operadoraPlanoSaudeDAO;
+	private OperadoraPlanoSaudeBusiness<OperadoraPlanoSaudeEntity> business;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
-	// private MainController mainController;
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected boolean validaSalvar() {
-		try {
-			OperadoraPlanoSaudeValidator.validaSalvar(this.subView);
+	public OperadoraPlanoSaudeFormController() {
+		// TODO Auto-generated constructor stub
+	}
 
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
+	public OperadoraPlanoSaudeBusiness<OperadoraPlanoSaudeEntity> getBusiness() {
+		return business;
 	}
 
 	@Override
-	protected void criarNovoBean() {
-		try {
-			this.currentBean = new OperadoraPlanoSaudeEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
+	protected String getNome() {
+		return "Operadora de plano de saúde";
+	}
 
-			mensagemErro(e.getMessage());
-		}
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public OperadoraPlanoSaudeEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
@@ -91,40 +115,64 @@ public class OperadoraPlanoSaudeFormController extends
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
+	protected boolean validaSalvar() {
 		try {
-			this.currentBean = operadoraPlanoSaudeDAO.find(id);
+			OperadoraPlanoSaudeValidator.validaSalvar(this.subView);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfRegistroAns().setValue(
-					this.currentBean.getRegistroAns());
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-			this.subView.getMocContabilConta().setValue(
-					this.currentBean.getContabilConta());
-		} catch (Exception e) {
-			e.printStackTrace();
+			return false;
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setRegistroAns(this.subView.getTfRegistroAns()
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setRegistroAns(this.subView.getTfRegistroAns()
 					.getValue());
 
 			ContabilContaEntity contabilConta = this.subView
 					.getMocContabilConta().getValue();
 
 			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.currentBean.setContabilConta(contabilConta);
+				this.entity.setContabilConta(contabilConta);
 			} else {
-				this.currentBean.setContabilConta(null);
+				this.entity.setContabilConta(null);
 			}
 
-			this.operadoraPlanoSaudeDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfRegistroAns().setValue(
+					this.entity.getRegistroAns());
+
+			this.subView.getMocContabilConta().setValue(
+					this.entity.getContabilConta());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new OperadoraPlanoSaudeEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -134,18 +182,19 @@ public class OperadoraPlanoSaudeFormController extends
 
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.entity = new OperadoraPlanoSaudeEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	}
-
-	@Override
-	protected String getNome() {
-		return "Operadora Plano Saúde";
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.operadoraPlanoSaudeDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -158,25 +207,6 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
-	public OperadoraPlanoSaudeEntity getModelBean() {
-		return currentBean;
 	}
 
 }

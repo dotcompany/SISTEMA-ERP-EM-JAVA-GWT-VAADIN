@@ -17,8 +17,8 @@ import dc.control.validator.classe.CepValidator;
 import dc.controller.geral.UfListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.CepEntity;
+import dc.model.business.geral.diverso.CepBusiness;
 import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.diverso.CepDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.CepFormView;
@@ -34,22 +34,77 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 	private CepFormView subView;
 
-	private CepEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private CepEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private CepDAO cepDAO;
+	private CepBusiness<CepEntity> business;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private UfDAO ufDAO;
 
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public CepFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public CepBusiness<CepEntity> getBusiness() {
+		return business;
+	}
+
 	@Override
 	protected String getNome() {
-		return "Cep";
+		return "CEP";
 	}
 
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public CepEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new CepFormView(this);
+
+			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+					UfListController.class, this.ufDAO,
+					super.getMainController());
+
+			this.subView.getMocUf().setModel(modelUf);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -74,23 +129,23 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			String bairro = subView.getTfBairro().getValue();
 			String municipio = subView.getTfMunicipio().getValue();
 
-			this.currentBean.setCep(cep);
-			this.currentBean.setLogradouro(logradouro);
-			this.currentBean.setComplemento(complemento);
-			this.currentBean.setBairro(bairro);
-			this.currentBean.setMunicipio(municipio);
+			this.entity.setCep(cep);
+			this.entity.setLogradouro(logradouro);
+			this.entity.setComplemento(complemento);
+			this.entity.setBairro(bairro);
+			this.entity.setMunicipio(municipio);
 
 			UfEntity uf = this.subView.getMocUf().getValue();
 
 			if (ObjectUtils.isNotBlank(uf)) {
-				this.currentBean.setUf(uf.getSigla());
+				this.entity.setUf(uf.getSigla());
 			} else {
-				this.currentBean.setUf(null);
+				this.entity.setUf(null);
 			}
 
-			this.cepDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.entity);
 
-			notifiyFrameworkSaveOK(this.currentBean);
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,18 +154,17 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.cepDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfCep().setValue(this.currentBean.getCep());
-			this.subView.getTfLogradouro().setValue(
-					this.currentBean.getLogradouro());
+			this.subView.getTfCep().setValue(this.entity.getCep());
+			this.subView.getTfLogradouro()
+					.setValue(this.entity.getLogradouro());
 			this.subView.getTfComplemento().setValue(
-					this.currentBean.getComplemento());
-			this.subView.getTfBairro().setValue(this.currentBean.getBairro());
-			this.subView.getTfMunicipio().setValue(
-					this.currentBean.getMunicipio());
+					this.entity.getComplemento());
+			this.subView.getTfBairro().setValue(this.entity.getBairro());
+			this.subView.getTfMunicipio().setValue(this.entity.getMunicipio());
 
-			String sigla = this.currentBean.getUf();
+			String sigla = this.entity.getUf();
 
 			if (StringUtils.isNotBlank(sigla)) {
 				UfEntity uf = this.ufDAO.find(sigla);
@@ -122,39 +176,21 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new CepFormView(this);
-
-			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO,
-					super.getMainController());
-
-			this.subView.getMocUf().setModel(modelUf);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new CepEntity();
+			this.entity = new CepEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.entity = new CepEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -165,7 +201,7 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.cepDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -178,16 +214,6 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public CepEntity getModelBean() {
-		return currentBean;
 	}
 
 }

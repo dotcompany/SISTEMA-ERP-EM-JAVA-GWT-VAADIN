@@ -18,9 +18,9 @@ import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
+import dc.model.business.geral.diverso.OperadoraCartaoBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.geral.diverso.OperadoraCartaoDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
@@ -37,16 +37,40 @@ public class OperadoraCartaoFormController extends
 
 	private OperadoraCartaoFormView subView;
 
-	private OperadoraCartaoEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private OperadoraCartaoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private OperadoraCartaoDAO operadoraDAO;
+	private OperadoraCartaoBusiness<OperadoraCartaoEntity> business;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
 
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public OperadoraCartaoFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public OperadoraCartaoBusiness<OperadoraCartaoEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -59,91 +83,19 @@ public class OperadoraCartaoFormController extends
 	}
 
 	@Override
-	protected boolean validaSalvar() {
-		try {
-			OperadoraCartaoValidator.validaSalvar(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
-	protected void actionSalvar() {
-		try {
-			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
-
-			if (ObjectUtils.isNotBlank(contaCaixa)) {
-				this.currentBean.setContaCaixa((ContaCaixa) this.subView
-						.getMocContaCaixa().getValue());
-			} else {
-				this.currentBean.setContaCaixa(null);
-			}
-
-			ContabilContaEntity contabilConta = this.subView
-					.getMocContabilConta().getValue();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.currentBean.setContabilConta(contabilConta);
-			} else {
-				this.currentBean.setContaCaixa(null);
-			}
-
-			this.currentBean.setBandeira(this.subView.getTfBandeira()
-					.getValue());
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setFone1(this.subView.getTfTelefone1().getValue());
-			this.currentBean.setFone2(this.subView.getTfTelefone2().getValue());
-
-			this.operadoraDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		try {
-			this.currentBean = this.operadoraDAO.find(id);
-
-			this.subView.getMocContaCaixa().setValue(
-					this.currentBean.getContaCaixa());
-			this.subView.getMocContabilConta().setValue(
-					this.currentBean.getContabilConta());
-
-			this.subView.getTfBandeira().setValue(
-					this.currentBean.getBandeira());
-			this.subView.getTfNome().setConvertedValue(
-					this.currentBean.getNome());
-			this.subView.getTfVencimentoAluguel().setConvertedValue(
-					this.currentBean.getVencimentoAluguel());
-			this.subView.getTfTaxaAdm().setConvertedValue(
-					this.currentBean.getTaxaAdm());
-			this.subView.getTfTaxaAdmDebito().setConvertedValue(
-					this.currentBean.getTaxaAdmDebito());
-			this.subView.getTfValorAluguelPosPin().setConvertedValue(
-					this.currentBean.getValorAluguelPosPin());
-			this.subView.getTfTelefone1().setValue(this.currentBean.getFone1());
-			this.subView.getTfTelefone2().setValue(this.currentBean.getFone2());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
+	public OperadoraCartaoEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
@@ -181,14 +133,48 @@ public class OperadoraCartaoFormController extends
 		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
-	protected void criarNovoBean() {
+	protected boolean validaSalvar() {
 		try {
-			this.currentBean = new OperadoraCartaoEntity();
+			OperadoraCartaoValidator.validaSalvar(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
+
+			if (ObjectUtils.isNotBlank(contaCaixa)) {
+				this.entity.setContaCaixa((ContaCaixa) this.subView
+						.getMocContaCaixa().getValue());
+			} else {
+				this.entity.setContaCaixa(null);
+			}
+
+			ContabilContaEntity contabilConta = this.subView
+					.getMocContabilConta().getValue();
+
+			if (ObjectUtils.isNotBlank(contabilConta)) {
+				this.entity.setContabilConta(contabilConta);
+			} else {
+				this.entity.setContaCaixa(null);
+			}
+
+			this.entity.setBandeira(this.subView.getTfBandeira().getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setFone1(this.subView.getTfTelefone1().getValue());
+			this.entity.setFone2(this.subView.getTfTelefone2().getValue());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -197,9 +183,52 @@ public class OperadoraCartaoFormController extends
 	}
 
 	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView.getMocContaCaixa().setValue(
+					this.entity.getContaCaixa());
+			this.subView.getMocContabilConta().setValue(
+					this.entity.getContabilConta());
+
+			this.subView.getTfBandeira().setValue(this.entity.getBandeira());
+			this.subView.getTfNome().setConvertedValue(this.entity.getNome());
+			this.subView.getTfVencimentoAluguel().setConvertedValue(
+					this.entity.getVencimentoAluguel());
+			this.subView.getTfTaxaAdm().setConvertedValue(
+					this.entity.getTaxaAdm());
+			this.subView.getTfTaxaAdmDebito().setConvertedValue(
+					this.entity.getTaxaAdmDebito());
+			this.subView.getTfValorAluguelPosPin().setConvertedValue(
+					this.entity.getValorAluguelPosPin());
+			this.subView.getTfTelefone1().setValue(this.entity.getFone1());
+			this.subView.getTfTelefone2().setValue(this.entity.getFone2());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new OperadoraCartaoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+
+	}
+
+	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.operadoraDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -212,16 +241,6 @@ public class OperadoraCartaoFormController extends
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public OperadoraCartaoEntity getModelBean() {
-		return currentBean;
 	}
 
 }

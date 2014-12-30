@@ -28,7 +28,6 @@ public class PessoaEnderecoDAOImpl extends
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
-			// sql = sql.replace("-", "new PaisEntity(ent.id, ent.nomePtbr)");
 
 			List<PessoaEnderecoEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
@@ -43,7 +42,7 @@ public class PessoaEnderecoDAOImpl extends
 
 	public List<PessoaEnderecoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaEnderecoEntity> auxLista = super.getSession()
@@ -60,7 +59,7 @@ public class PessoaEnderecoDAOImpl extends
 
 	public List<PessoaEnderecoEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaEnderecoEntity> auxLista = super.getSession()
@@ -75,7 +74,7 @@ public class PessoaEnderecoDAOImpl extends
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nomeIngles", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] { "nome", "email" };
 	}
 
 	/**
@@ -84,8 +83,8 @@ public class PessoaEnderecoDAOImpl extends
 
 	public List<PessoaEnderecoEntity> list(PessoaEntity entity) {
 		try {
-			String sql = "select ent FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :id";
-			sql = sql.replace(":entity", getEntityClass().getName());
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			sql = sql.replace("#", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", entity.getId());

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.CepEntity;
-import dc.servicos.dao.geral.diverso.CepDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,20 @@ public class CepListController extends CRUDListController<CepEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CepDAO dao;
-
-	@Autowired
 	private CepFormController cepFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public CepListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<CepEntity> getFormController() {
+		return cepFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -43,17 +52,6 @@ public class CepListController extends CRUDListController<CepEntity> {
 	}
 
 	@Override
-	protected List<CepEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<CepEntity> getFormController() {
-		return cepFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -61,14 +59,35 @@ public class CepListController extends CRUDListController<CepEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	protected List<CepEntity> pesquisa(String valor) {
+		try {
+			List<CepEntity> auxLista = (List<CepEntity>) this.cepFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<CepEntity> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return (List<CepEntity>) dao.getAll(getEntityClass());
+		try {
+			List<CepEntity> auxLista = (List<CepEntity>) this.cepFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

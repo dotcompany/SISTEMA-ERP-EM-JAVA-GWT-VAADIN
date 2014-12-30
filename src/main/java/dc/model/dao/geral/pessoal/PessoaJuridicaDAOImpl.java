@@ -26,7 +26,6 @@ public class PessoaJuridicaDAOImpl extends
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
-			// sql = sql.replace("-", "new PaisEntity(ent.id, ent.nomePtbr)");
 
 			List<PessoaJuridicaEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
@@ -41,7 +40,7 @@ public class PessoaJuridicaDAOImpl extends
 
 	public List<PessoaJuridicaEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaJuridicaEntity> auxLista = super.getSession()
@@ -58,7 +57,7 @@ public class PessoaJuridicaDAOImpl extends
 
 	public List<PessoaJuridicaEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaJuridicaEntity> auxLista = super.getSession()
@@ -73,7 +72,7 @@ public class PessoaJuridicaDAOImpl extends
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nomeIngles", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] {};
 	}
 
 }

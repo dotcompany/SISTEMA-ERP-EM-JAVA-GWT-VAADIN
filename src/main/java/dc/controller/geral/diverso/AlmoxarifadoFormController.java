@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
-import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
+import dc.model.business.geral.diverso.AlmoxarifadoBusiness;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.AlmoxarifadoFormView;
@@ -28,10 +28,69 @@ public class AlmoxarifadoFormController extends
 
 	private AlmoxarifadoFormView subView;
 
-	private AlmoxarifadoEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private AlmoxarifadoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private AlmoxarifadoDAO almoxarifadoDAO;
+	private AlmoxarifadoBusiness<AlmoxarifadoEntity> business;
+
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public AlmoxarifadoFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public AlmoxarifadoBusiness<AlmoxarifadoEntity> getBusiness() {
+		return business;
+	}
+
+	@Override
+	protected String getNome() {
+		return "Almoxarifado";
+	}
+
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public AlmoxarifadoEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new AlmoxarifadoFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected boolean validaSalvar() {
@@ -48,9 +107,13 @@ public class AlmoxarifadoFormController extends
 	}
 
 	@Override
-	protected void criarNovoBean() {
+	protected void actionSalvar() {
 		try {
-			this.currentBean = new AlmoxarifadoEntity();
+			this.entity.setNome(this.subView.getTfNome().getValue());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -59,33 +122,20 @@ public class AlmoxarifadoFormController extends
 	}
 
 	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new AlmoxarifadoFormView(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.almoxarifadoDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
+			this.subView.getTfNome().setValue(this.entity.getNome());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void actionSalvar() {
+	protected void criarNovoBean() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-
-			this.almoxarifadoDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.entity = new AlmoxarifadoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -95,18 +145,19 @@ public class AlmoxarifadoFormController extends
 
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.entity = new AlmoxarifadoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	}
-
-	@Override
-	protected String getNome() {
-		return "Almoxarifado";
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.almoxarifadoDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -119,26 +170,6 @@ public class AlmoxarifadoFormController extends
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
-	public AlmoxarifadoEntity getModelBean() {
-		return currentBean;
 	}
 
 }

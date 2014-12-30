@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
-import dc.servicos.dao.geral.diverso.OperadoraCartaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +22,20 @@ public class OperadoraCartaoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private OperadoraCartaoDAO dao;
+	private OperadoraCartaoFormController operadoraCartaoFormController;
 
-	@Autowired
-	private OperadoraCartaoFormController operadoraFormController;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public OperadoraCartaoListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<OperadoraCartaoEntity> getFormController() {
+		return operadoraCartaoFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -44,30 +53,42 @@ public class OperadoraCartaoListController extends
 	}
 
 	@Override
-	protected List<OperadoraCartaoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<OperadoraCartaoEntity> getFormController() {
-		return operadoraFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	protected List<OperadoraCartaoEntity> pesquisa(String valor) {
+		try {
+			List<OperadoraCartaoEntity> auxLista = (List<OperadoraCartaoEntity>) this.operadoraCartaoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<OperadoraCartaoEntity> pesquisaDefault() {
-		return (List<OperadoraCartaoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<OperadoraCartaoEntity> auxLista = (List<OperadoraCartaoEntity>) this.operadoraCartaoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
