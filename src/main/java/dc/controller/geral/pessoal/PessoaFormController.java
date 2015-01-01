@@ -209,13 +209,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.entity.setPessoaEnderecoList(auxLista2);
 
-			this.subView.getTxtNome().setValue(this.entity.getNome());
+			this.subView.getTfNome().setValue(this.entity.getNome());
 
 			this.subView.getCbTipoPessoa()
 					.setValue(this.entity.getTipoPessoa());
 
-			this.subView.getTxtEmail().setValue(this.entity.getEmail());
-			this.subView.getTxtSite().setValue(this.entity.getSite());
+			this.subView.getTfEmail().setValue(this.entity.getEmail());
+			this.subView.getTfSite().setValue(this.entity.getSite());
 
 			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
 				this.entity.setPessoaFisica(carregarPessoaFisica());
@@ -258,14 +258,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private PessoaJuridicaEntity carregarPessoaJuridica() {
 		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
 
-		this.subView.getTxtFantasia().setValue(pj.getFantasia());
-		this.subView.getTxtCnpj().setValue(pj.getCnpj());
-		this.subView.getTxtInscricaoEstadual().setValue(
+		this.subView.getTfFantasia().setValue(pj.getFantasia());
+		this.subView.getTfCnpj().setValue(pj.getCnpj());
+		this.subView.getTfInscricaoEstadual().setValue(
 				pj.getInscricaoEstadual());
-		this.subView.getTxtInscricaoMunicipal().setValue(
+		this.subView.getTfInscricaoMunicipal().setValue(
 				pj.getInscricaoMunicipal());
-		this.subView.getDataConstituicao().setValue(pj.getDataConstituicao());
-		this.subView.getTxtSuframa().setValue(pj.getSuframa());
+		this.subView.getPdfDataConstituicao()
+				.setValue(pj.getDataConstituicao());
+		this.subView.getTfSuframa().setValue(pj.getSuframa());
 
 		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
 
@@ -285,16 +286,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private PessoaFisicaEntity carregarPessoaFisica() {
 		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
 
-		this.subView.getTxtCpf().setValue(pf.getCpf());
-		this.subView.getDataNascimento().setValue(pf.getDataNascimento());
-		this.subView.getTxtNaturalidade().setValue(pf.getNaturalidade());
-		this.subView.getTxtNacionalidade().setValue(pf.getNacionalidade());
-		this.subView.getTxtNomeMae().setValue(pf.getNomeMae());
-		this.subView.getTxtNomePai().setValue(pf.getNomePai());
-		this.subView.getTxtNumeroRg().setValue(pf.getRg());
-		this.subView.getTxtOrgaoEmissor().setValue(pf.getOrgaoRg());
-		this.subView.getDataEmissaoRg().setValue(pf.getDataEmissaoRg());
-		this.subView.getTxtCnh().setValue(pf.getCnhNumero());
+		this.subView.getMtfCpf().setValue(pf.getCpf());
+		this.subView.getPdfDataNascimento().setValue(pf.getDataNascimento());
+		this.subView.getTfNaturalidade().setValue(pf.getNaturalidade());
+		this.subView.getTfNacionalidade().setValue(pf.getNacionalidade());
+		this.subView.getTfNomeMae().setValue(pf.getNomeMae());
+		this.subView.getTfNomePai().setValue(pf.getNomePai());
+		this.subView.getTfNumeroRg().setValue(pf.getRg());
+		this.subView.getTfOrgaoEmissor().setValue(pf.getOrgaoRg());
+		this.subView.getPdfDataEmissaoRg().setValue(pf.getDataEmissaoRg());
+		this.subView.getTfCnh().setValue(pf.getCnhNumero());
 
 		CnhEn cnhEn = pf.getCnh();
 
@@ -302,7 +303,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getCbCategoriaCnh().setValue(cnhEn);
 		}
 
-		this.subView.getDataCnhEmissao().setValue(pf.getCnhVencimento());
+		this.subView.getPdfDataCnhEmissao().setValue(pf.getCnhVencimento());
 		this.subView.getMocEstadoCivil().setValue(pf.getEstadoCivil());
 
 		RacaEn racaEn = pf.getRaca();
@@ -317,8 +318,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getCbTipoSanguineo().setValue(tipoSanguineoEn);
 		}
 
-		this.subView.getTxtNumeroReservista()
-				.setValue(pf.getReservistaNumero());
+		this.subView.getTfNumeroReservista().setValue(pf.getReservistaNumero());
 
 		CategoriaReservistaEn categoriaReservistaEn = pf
 				.getReservistaCategoria();
@@ -334,11 +334,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getOgSexo().setValue(sexoEn);
 		}
 
-		this.subView.getTxtTituloEleitor().setValue(
+		this.subView.getTfTituloEleitor().setValue(
 				pf.getTituloEleitoralNumero());
-		this.subView.getTxtTituloSecao().setConvertedValue(
+		this.subView.getTfTituloSecao().setConvertedValue(
 				pf.getTituloEleitoralSecao());
-		this.subView.getTxtTituloZona().setConvertedValue(
+		this.subView.getTfTituloZona().setConvertedValue(
 				pf.getTituloEleitoralZona());
 
 		return pf;
@@ -352,9 +352,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.entity.setTipoPessoa(tipoPessoaEn);
 
-			this.entity.setNome(this.subView.getTxtNome().getValue());
-			this.entity.setEmail(this.subView.getTxtEmail().getValue());
-			this.entity.setSite(this.subView.getTxtSite().getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setEmail(this.subView.getTfEmail().getValue());
+			this.entity.setSite(this.subView.getTfSite().getValue());
 
 			//
 
@@ -432,15 +432,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			pj.setPessoa(this.entity);
 
-			pj.setFantasia(this.subView.getTxtFantasia().getValue());
-			pj.setCnpj(this.subView.getTxtCnpj().getValue());
-			pj.setInscricaoEstadual(this.subView.getTxtInscricaoEstadual()
+			pj.setFantasia(this.subView.getTfFantasia().getValue());
+			pj.setCnpj(this.subView.getTfCnpj().getValue());
+			pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
 					.getValue());
-			pj.setInscricaoMunicipal(this.subView.getTxtInscricaoMunicipal()
+			pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
 					.getValue());
-			pj.setDataConstituicao(this.subView.getDataConstituicao()
+			pj.setDataConstituicao(this.subView.getPdfDataConstituicao()
 					.getValue());
-			pj.setSuframa(this.subView.getTxtSuframa().getValue());
+			pj.setSuframa(this.subView.getTfSuframa().getValue());
 
 			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
 					.getCbTipoRegime().getValue();
@@ -471,16 +471,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			pf.setPessoa(this.entity);
 
-			pf.setCpf(this.subView.getTxtCpf().getValue());
-			pf.setDataNascimento(this.subView.getDataNascimento().getValue());
-			pf.setNaturalidade(this.subView.getTxtNaturalidade().getValue());
-			pf.setNacionalidade(this.subView.getTxtNacionalidade().getValue());
-			pf.setNomeMae(this.subView.getTxtNomeMae().getValue());
-			pf.setNomePai(this.subView.getTxtNomePai().getValue());
-			pf.setRg(this.subView.getTxtNumeroRg().getValue());
-			pf.setOrgaoRg(this.subView.getTxtOrgaoEmissor().getValue());
-			pf.setDataEmissaoRg(this.subView.getDataEmissaoRg().getValue());
-			pf.setCnhNumero(this.subView.getTxtCnh().getValue());
+			pf.setCpf(this.subView.getMtfCpf().getValue());
+			pf.setDataNascimento(this.subView.getPdfDataNascimento().getValue());
+			pf.setNaturalidade(this.subView.getTfNaturalidade().getValue());
+			pf.setNacionalidade(this.subView.getTfNacionalidade().getValue());
+			pf.setNomeMae(this.subView.getTfNomeMae().getValue());
+			pf.setNomePai(this.subView.getTfNomePai().getValue());
+			pf.setRg(this.subView.getTfNumeroRg().getValue());
+			pf.setOrgaoRg(this.subView.getTfOrgaoEmissor().getValue());
+			pf.setDataEmissaoRg(this.subView.getPdfDataEmissaoRg().getValue());
+			pf.setCnhNumero(this.subView.getTfCnh().getValue());
 
 			CnhEn cnhEn = (CnhEn) this.subView.getCbCategoriaCnh().getValue();
 
@@ -488,7 +488,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pf.setCnh(cnhEn);
 			}
 
-			pf.setCnhVencimento(this.subView.getDataCnhEmissao().getValue());
+			pf.setCnhVencimento(this.subView.getPdfDataCnhEmissao().getValue());
 
 			EstadoCivilEntity estadoCivil = this.subView.getMocEstadoCivil()
 					.getValue();
@@ -510,7 +510,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pf.setTipoSangue(tipoSanguineoEn);
 			}
 
-			pf.setReservistaNumero(this.subView.getTxtNumeroReservista()
+			pf.setReservistaNumero(this.subView.getTfNumeroReservista()
 					.getValue());
 
 			CategoriaReservistaEn categoriaReservistaEn = (CategoriaReservistaEn) this.subView
@@ -526,11 +526,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pf.setSexo(sexoEn);
 			}
 
-			pf.setTituloEleitoralNumero(this.subView.getTxtTituloEleitor()
+			pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
 					.getValue());
 			pf.setTituloEleitoralSecao((Integer) this.subView
-					.getTxtTituloSecao().getConvertedValue());
-			pf.setTituloEleitoralZona((Integer) this.subView.getTxtTituloZona()
+					.getTfTituloSecao().getConvertedValue());
+			pf.setTituloEleitoralZona((Integer) this.subView.getTfTituloZona()
 					.getConvertedValue());
 
 			this.entity.setPessoaFisica(pf);
@@ -691,6 +691,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			return null;
 		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public void teste() {
+
 	}
 
 }
