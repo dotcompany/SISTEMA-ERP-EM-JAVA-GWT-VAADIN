@@ -39,7 +39,7 @@ public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 
 	public List<PaisEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PaisEntity> auxLista = super.getSession().createQuery(sql)
@@ -55,7 +55,7 @@ public class PaisDAOImpl extends AbstractCrudDAO<PaisEntity> implements
 
 	public List<PaisEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PaisEntity> auxLista = super.getSession().createQuery(sql)

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
-import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +22,15 @@ public class AlmoxarifadoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private AlmoxarifadoDAO dao;
-
-	@Autowired
 	private AlmoxarifadoFormController almoxarifadoFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public AlmoxarifadoListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<AlmoxarifadoEntity> getFormController() {
@@ -39,18 +43,8 @@ public class AlmoxarifadoListController extends
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super AlmoxarifadoEntity> getEntityClass() {
 		return AlmoxarifadoEntity.class;
-	}
-
-	@Override
-	protected List<AlmoxarifadoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -59,8 +53,9 @@ public class AlmoxarifadoListController extends
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -69,8 +64,31 @@ public class AlmoxarifadoListController extends
 	}
 
 	@Override
+	protected List<AlmoxarifadoEntity> pesquisa(String valor) {
+		try {
+			List<AlmoxarifadoEntity> auxLista = (List<AlmoxarifadoEntity>) this.almoxarifadoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<AlmoxarifadoEntity> pesquisaDefault() {
-		return (List<AlmoxarifadoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<AlmoxarifadoEntity> auxLista = (List<AlmoxarifadoEntity>) this.almoxarifadoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

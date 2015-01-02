@@ -26,7 +26,6 @@ public class PessoaContatoDAOImpl extends AbstractCrudDAO<PessoaContatoEntity>
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
-			// sql = sql.replace("-", "new PaisEntity(ent.id, ent.nomePtbr)");
 
 			List<PessoaContatoEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
@@ -41,7 +40,7 @@ public class PessoaContatoDAOImpl extends AbstractCrudDAO<PessoaContatoEntity>
 
 	public List<PessoaContatoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaContatoEntity> auxLista = super.getSession()
@@ -58,7 +57,7 @@ public class PessoaContatoDAOImpl extends AbstractCrudDAO<PessoaContatoEntity>
 
 	public List<PessoaContatoEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nomeEn LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaContatoEntity> auxLista = super.getSession()
@@ -73,7 +72,7 @@ public class PessoaContatoDAOImpl extends AbstractCrudDAO<PessoaContatoEntity>
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nomeIngles", "nomePtbr", "sigla2", "sigla3" };
+		return new String[] { "nome", "email" };
 	}
 
 	/**
@@ -82,8 +81,8 @@ public class PessoaContatoDAOImpl extends AbstractCrudDAO<PessoaContatoEntity>
 
 	public List<PessoaContatoEntity> list(PessoaEntity entity) {
 		try {
-			String sql = "select ent FROM :entity ent WHERE (1 = 1) AND ent.pessoa.id = :id";
-			sql = sql.replace(":entity", getEntityClass().getName());
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			sql = sql.replace("#", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", entity.getId());

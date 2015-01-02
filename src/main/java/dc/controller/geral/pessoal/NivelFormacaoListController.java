@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.NivelFormacaoEntity;
-import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +22,20 @@ public class NivelFormacaoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private NivelFormacaoDAO dao;
-
-	@Autowired
 	private NivelFormacaoFormController nivelFormacaoFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public NivelFormacaoListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<NivelFormacaoEntity> getFormController() {
+		return nivelFormacaoFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -44,17 +53,6 @@ public class NivelFormacaoListController extends
 	}
 
 	@Override
-	protected List<NivelFormacaoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<NivelFormacaoEntity> getFormController() {
-		return nivelFormacaoFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -62,14 +60,35 @@ public class NivelFormacaoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	protected List<NivelFormacaoEntity> pesquisa(String valor) {
+		try {
+			List<NivelFormacaoEntity> auxLista = (List<NivelFormacaoEntity>) this.nivelFormacaoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<NivelFormacaoEntity> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return (List<NivelFormacaoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<NivelFormacaoEntity> auxLista = (List<NivelFormacaoEntity>) this.nivelFormacaoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

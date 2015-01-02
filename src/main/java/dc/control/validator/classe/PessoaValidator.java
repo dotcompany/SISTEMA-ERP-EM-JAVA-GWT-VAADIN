@@ -18,24 +18,24 @@ public class PessoaValidator {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String email = subView.getTxtEmail().getValue();
+		String email = subView.getTfEmail().getValue();
 
 		if (StringUtils.isBlank(email)) {
-			throw new DotErpException(subView.getTxtEmail(),
+			throw new DotErpException(subView.getTfEmail(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String nome = subView.getTxtNome().getValue();
+		String nome = subView.getTfNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
-			throw new DotErpException(subView.getTxtNome(),
+			throw new DotErpException(subView.getTfNome(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String site = subView.getTxtSite().getValue();
+		String site = subView.getTfSite().getValue();
 
 		if (StringUtils.isBlank(site)) {
-			throw new DotErpException(subView.getTxtSite(),
+			throw new DotErpException(subView.getTfSite(),
 					"::DotERP - Não pode ficar em branco");
 		}
 	}

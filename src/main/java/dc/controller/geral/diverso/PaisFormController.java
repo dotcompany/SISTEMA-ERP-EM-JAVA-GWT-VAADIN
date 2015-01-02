@@ -60,7 +60,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	protected String getNome() {
-		return "Pais";
+		return "País";
 	}
 
 	@Override

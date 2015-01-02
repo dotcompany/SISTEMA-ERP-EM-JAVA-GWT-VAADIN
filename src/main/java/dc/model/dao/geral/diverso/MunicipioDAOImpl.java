@@ -65,7 +65,7 @@ public class MunicipioDAOImpl extends AbstractCrudDAO<MunicipioEntity>
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome", "sigla" };
+		return new String[] { "nome", "codigoIbge" };
 	}
 
 }

@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.DotErpException;
 import dc.control.validator.classe.EstadoCivilValidator;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
+import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.EstadoCivilFormView;
 
@@ -29,10 +29,69 @@ public class EstadoCivilFormController extends
 
 	private EstadoCivilFormView subView;
 
-	private EstadoCivilEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private EstadoCivilEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private EstadoCivilDAO estadoCivilDAO;
+	private EstadoCivilBusiness<EstadoCivilEntity> business;
+
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public EstadoCivilFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public EstadoCivilBusiness<EstadoCivilEntity> getBusiness() {
+		return business;
+	}
+
+	@Override
+	protected String getNome() {
+		return "Estado civil";
+	}
+
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public EstadoCivilEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new EstadoCivilFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected boolean validaSalvar() {
@@ -48,9 +107,14 @@ public class EstadoCivilFormController extends
 	}
 
 	@Override
-	protected void criarNovoBean() {
+	protected void actionSalvar() {
 		try {
-			this.currentBean = new EstadoCivilEntity();
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -59,37 +123,21 @@ public class EstadoCivilFormController extends
 	}
 
 	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new EstadoCivilFormView(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.estadoCivilDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfDescricao().setValue(
-					this.currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void actionSalvar() {
+	protected void criarNovoBean() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setDescricao(this.subView.getTfDescricao()
-					.getValue());
-
-			this.estadoCivilDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.entity = new EstadoCivilEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -99,18 +147,19 @@ public class EstadoCivilFormController extends
 
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.entity = new EstadoCivilEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	}
-
-	@Override
-	protected String getNome() {
-		return "Estado civil";
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.estadoCivilDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -123,28 +172,6 @@ public class EstadoCivilFormController extends
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
-	public EstadoCivilEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
 	}
 
 }

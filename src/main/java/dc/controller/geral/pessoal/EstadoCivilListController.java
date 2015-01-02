@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +22,15 @@ public class EstadoCivilListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private EstadoCivilDAO dao;
-
-	@Autowired
 	private EstadoCivilFormController estadoCivilFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public EstadoCivilListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<EstadoCivilEntity> getFormController() {
@@ -39,19 +43,8 @@ public class EstadoCivilListController extends
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super EstadoCivilEntity> getEntityClass() {
 		return EstadoCivilEntity.class;
-	}
-
-	@Override
-	protected List<EstadoCivilEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -60,8 +53,9 @@ public class EstadoCivilListController extends
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -70,8 +64,31 @@ public class EstadoCivilListController extends
 	}
 
 	@Override
+	protected List<EstadoCivilEntity> pesquisa(String valor) {
+		try {
+			List<EstadoCivilEntity> auxLista = (List<EstadoCivilEntity>) this.estadoCivilFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<EstadoCivilEntity> pesquisaDefault() {
-		return (List<EstadoCivilEntity>) dao.getAll(getEntityClass());
+		try {
+			List<EstadoCivilEntity> auxLista = (List<EstadoCivilEntity>) this.estadoCivilFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

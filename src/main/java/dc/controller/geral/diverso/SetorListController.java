@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.SetorEntity;
-import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,15 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private SetorDAO dao;
-
-	@Autowired
 	private SetorFormController setorFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public SetorListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<SetorEntity> getFormController() {
@@ -38,18 +42,8 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super SetorEntity> getEntityClass() {
 		return SetorEntity.class;
-	}
-
-	@Override
-	protected List<SetorEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -58,8 +52,9 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -68,8 +63,31 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 	}
 
 	@Override
+	protected List<SetorEntity> pesquisa(String valor) {
+		try {
+			List<SetorEntity> auxLista = (List<SetorEntity>) this.setorFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<SetorEntity> pesquisaDefault() {
-		return (List<SetorEntity>) dao.getAll(getEntityClass());
+		try {
+			List<SetorEntity> auxLista = (List<SetorEntity>) this.setorFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-package dc.model.dao.geral.pessoal;
+package dc.model.dao.geral.diverso;
 
 import java.util.List;
 
@@ -6,26 +6,28 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.PessoaFisicaEntity;
+import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PessoaFisicaDAOImpl extends AbstractCrudDAO<PessoaFisicaEntity>
-		implements PessoaFisicaDAO<PessoaFisicaEntity> {
+public class OperadoraPlanoSaudeDAOImpl extends
+		AbstractCrudDAO<OperadoraPlanoSaudeEntity> implements
+		OperadoraPlanoSaudeDAO<OperadoraPlanoSaudeEntity> {
 
-	private static Logger logger = Logger.getLogger(PessoaFisicaDAOImpl.class);
+	private static Logger logger = Logger
+			.getLogger(OperadoraPlanoSaudeDAOImpl.class);
 
 	@Override
-	public Class<PessoaFisicaEntity> getEntityClass() {
-		return PessoaFisicaEntity.class;
+	public Class<OperadoraPlanoSaudeEntity> getEntityClass() {
+		return OperadoraPlanoSaudeEntity.class;
 	}
 
-	public List<PessoaFisicaEntity> listaTodos() {
+	public List<OperadoraPlanoSaudeEntity> listaTodos() {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<PessoaFisicaEntity> auxLista = super.getSession()
+			List<OperadoraPlanoSaudeEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
 
 			return auxLista;
@@ -36,12 +38,12 @@ public class PessoaFisicaDAOImpl extends AbstractCrudDAO<PessoaFisicaEntity>
 		}
 	}
 
-	public List<PessoaFisicaEntity> procuraNomeContendo(String query) {
+	public List<OperadoraPlanoSaudeEntity> procuraNomeContendo(String query) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<PessoaFisicaEntity> auxLista = super.getSession()
+			List<OperadoraPlanoSaudeEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
@@ -53,12 +55,12 @@ public class PessoaFisicaDAOImpl extends AbstractCrudDAO<PessoaFisicaEntity>
 		}
 	}
 
-	public List<PessoaFisicaEntity> query(String q) {
+	public List<OperadoraPlanoSaudeEntity> query(String q) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<PessoaFisicaEntity> auxLista = super.getSession()
+			List<OperadoraPlanoSaudeEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + q + "%").list();
 
 			return auxLista;
@@ -70,7 +72,7 @@ public class PessoaFisicaDAOImpl extends AbstractCrudDAO<PessoaFisicaEntity>
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] { "registroAns", "nome" };
 	}
 
 }
