@@ -89,7 +89,7 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 	private List<Usuario> usuarioList;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "id_empresa")
+	@JoinColumn(name = "empresa_id")
 	@Analyzer(definition = "id_empresa_analyzer")
 	@IndexedEmbedded
 	private EmpresaEntity empresa;
