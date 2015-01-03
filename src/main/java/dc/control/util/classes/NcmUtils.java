@@ -1,12 +1,14 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.NcmFormView;
 
-public class NcmValidator {
+public class NcmUtils {
 
-	public static void validaSalvar(NcmFormView subView) throws DotErpException {
+	public static void validateRequiredFields(NcmFormView subView)
+			throws DotErpException {
 		String codigo = subView.getTfCodigo().getValue();
 
 		if (StringUtils.isBlank(codigo)) {
@@ -27,6 +29,10 @@ public class NcmValidator {
 			throw new DotErpException(subView.getTfObservacao(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

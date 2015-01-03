@@ -20,8 +20,8 @@ import dc.control.enums.TipoRegimeEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.EmpresaUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.EmpresaValidator;
 import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
@@ -112,7 +112,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			EmpresaValidator.validaSalvar(this.subView);
+			EmpresaUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

@@ -1,12 +1,13 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.NivelFormacaoFormView;
 
-public class NivelFormacaoValidator {
+public class NivelFormacaoUtils {
 
-	public static void validaSalvar(NivelFormacaoFormView subView)
+	public static void validateRequiredFields(NivelFormacaoFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
@@ -14,6 +15,10 @@ public class NivelFormacaoValidator {
 			throw new DotErpException(subView.getTfNome(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

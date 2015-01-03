@@ -1,13 +1,14 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.OperadoraPlanoSaudeFormView;
 
-public class OperadoraPlanoSaudeValidator {
+public class OperadoraPlanoSaudeUtils {
 
-	public static void validaSalvar(OperadoraPlanoSaudeFormView subView)
-			throws DotErpException {
+	public static void validateRequiredFields(
+			OperadoraPlanoSaudeFormView subView) throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
@@ -21,6 +22,10 @@ public class OperadoraPlanoSaudeValidator {
 			throw new DotErpException(subView.getTfRegistroAns(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

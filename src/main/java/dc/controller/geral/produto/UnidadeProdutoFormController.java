@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.UnidadeProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.UnidadeProdutoValidator;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -48,7 +48,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			UnidadeProdutoValidator.validaSalvar(this.subView);
+			UnidadeProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

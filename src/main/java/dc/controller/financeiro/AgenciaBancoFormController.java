@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.AgenciaBancoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.AgenciaBancoValidator;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.UfEntity;
@@ -100,7 +100,7 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			AgenciaBancoValidator.validaSalvar(this.subView);
+			AgenciaBancoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

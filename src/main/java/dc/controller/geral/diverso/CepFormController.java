@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
+import dc.control.util.classes.CepUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.CepValidator;
 import dc.controller.geral.UfListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.CepEntity;
@@ -110,7 +110,7 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			CepValidator.validaSalvar(this.subView);
+			CepUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
@@ -148,6 +148,8 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			CepUtils.clearFormFields(this.subView);
 		}
 	}
 
@@ -184,6 +186,8 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+		} finally {
+			CepUtils.clearFormFields(this.subView);
 		}
 	}
 
@@ -195,6 +199,8 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+		} finally {
+			CepUtils.clearFormFields(this.subView);
 		}
 	}
 

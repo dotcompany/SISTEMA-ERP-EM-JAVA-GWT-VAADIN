@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.UfUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.UfValidator;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
@@ -119,7 +119,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	protected boolean validaSalvar() {
 		try {
-			UfValidator.validaSalvar(this.subView);
+			UfUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.MunicipioUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.MunicipioValidator;
 import dc.controller.geral.UfListController;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.MunicipioEntity;
@@ -118,7 +118,7 @@ public class MunicipioFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			MunicipioValidator.validaSalvar(this.subView);
+			MunicipioUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

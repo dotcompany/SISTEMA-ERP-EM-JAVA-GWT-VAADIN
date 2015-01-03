@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.OperadoraCartaoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.OperadoraCartaoValidator;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -136,7 +136,7 @@ public class OperadoraCartaoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			OperadoraCartaoValidator.validaSalvar(this.subView);
+			OperadoraCartaoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

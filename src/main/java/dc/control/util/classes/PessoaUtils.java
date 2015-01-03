@@ -1,14 +1,15 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.enums.TipoPessoaEn;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.PessoaFormView;
 
-public class PessoaValidator {
+public class PessoaUtils {
 
-	public static void validaSalvar(PessoaFormView subView)
+	public static void validateRequiredFields(PessoaFormView subView)
 			throws DotErpException {
 		TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) subView.getCbTipoPessoa()
 				.getValue();
@@ -38,6 +39,10 @@ public class PessoaValidator {
 			throw new DotErpException(subView.getTfSite(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

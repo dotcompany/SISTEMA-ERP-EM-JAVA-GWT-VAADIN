@@ -1,4 +1,4 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import java.util.Date;
 
@@ -12,10 +12,11 @@ import dc.entidade.framework.Fpas;
 import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.visao.administrativo.empresa.EmpresaFormView;
+import dc.visao.geral.diverso.CepFormView;
 
-public class EmpresaValidator {
+public class EmpresaUtils {
 
-	public static void validaSalvar(EmpresaFormView subView)
+	public static void validateRequiredFields(EmpresaFormView subView)
 			throws DotErpException {
 		String razaoSocial = subView.getTfRazaoSocial().getValue();
 
@@ -194,6 +195,10 @@ public class EmpresaValidator {
 			throw new DotErpException(subView.getCbMatriz(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

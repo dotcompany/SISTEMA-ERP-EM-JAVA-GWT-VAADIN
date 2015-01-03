@@ -1,14 +1,15 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.UfEntity;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.MunicipioFormView;
 
-public class MunicipioValidator {
+public class MunicipioUtils {
 
-	public static void validaSalvar(MunicipioFormView subView)
+	public static void validateRequiredFields(MunicipioFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
@@ -23,6 +24,10 @@ public class MunicipioValidator {
 			throw new DotErpException(subView.getMocUf(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.EstadoCivilUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.EstadoCivilValidator;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.visao.framework.geral.CRUDFormController;
@@ -96,7 +96,7 @@ public class EstadoCivilFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			EstadoCivilValidator.validaSalvar(this.subView);
+			EstadoCivilUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

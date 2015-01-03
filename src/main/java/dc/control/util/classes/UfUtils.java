@@ -1,14 +1,16 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.util.Validator;
 import dc.visao.geral.UfFormView;
+import dc.visao.geral.diverso.CepFormView;
 
-public class UfValidator {
+public class UfUtils {
 
-	public static void validaSalvar(UfFormView subView) throws DotErpException {
+	public static void validateRequiredFields(UfFormView subView)
+			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
@@ -29,6 +31,10 @@ public class UfValidator {
 			throw new DotErpException(subView.getMocPais(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

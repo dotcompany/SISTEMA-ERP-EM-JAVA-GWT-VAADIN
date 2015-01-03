@@ -15,8 +15,8 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.classes.ColaboradorUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.ColaboradorValidator;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
@@ -108,7 +108,7 @@ public class ColaboradorFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			ColaboradorValidator.validaSalvar(this.subView);
+			ColaboradorUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

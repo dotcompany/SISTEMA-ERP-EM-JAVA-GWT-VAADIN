@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.MarcaProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.MarcaProdutoValidator;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,7 +36,7 @@ public class MarcaProdutoFormController extends CRUDFormController<MarcaEntity> 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			MarcaProdutoValidator.validaSalvar(this.subView);
+			MarcaProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

@@ -22,8 +22,8 @@ import dc.control.enums.TipoSanguineoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
+import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.PessoaValidator;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
@@ -129,7 +129,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	protected boolean validaSalvar() {
 		try {
-			PessoaValidator.validaSalvar(this.subView);
+			PessoaUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

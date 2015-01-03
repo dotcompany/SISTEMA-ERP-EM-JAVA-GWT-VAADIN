@@ -18,8 +18,8 @@ import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.ProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.ProdutoValidator;
 import dc.controller.geral.diverso.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.IcmsCustomizadoListController;
@@ -92,7 +92,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			ProdutoValidator.validaSalvar(this.subView);
+			ProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

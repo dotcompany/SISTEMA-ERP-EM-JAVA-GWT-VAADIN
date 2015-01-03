@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.GrupoProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.GrupoProdutoValidator;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,7 +36,7 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoEntity> 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			GrupoProdutoValidator.validaSalvar(this.subView);
+			GrupoProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

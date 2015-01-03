@@ -1,12 +1,13 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.ColaboradorFormView;
 
-public class ColaboradorValidator {
+public class ColaboradorUtils {
 
-	public static void validaSalvar(ColaboradorFormView subView)
+	public static void validateRequiredFields(ColaboradorFormView subView)
 			throws DotErpException {
 		String matricula = subView.getTfMatricula().getValue();
 
@@ -21,6 +22,10 @@ public class ColaboradorValidator {
 			throw new DotErpException(subView.getTfCategoria(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

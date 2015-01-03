@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
+import dc.control.util.classes.PaisUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.PaisValidator;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.model.business.geral.diverso.PaisBusiness;
 import dc.visao.framework.geral.CRUDFormController;
@@ -96,7 +96,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			PaisValidator.validaSalvar(this.subView);
+			PaisUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

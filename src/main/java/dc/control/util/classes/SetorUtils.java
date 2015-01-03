@@ -1,17 +1,18 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.produto.UnidadeProdutoFormView;
+import dc.visao.geral.diverso.CepFormView;
+import dc.visao.geral.diverso.SetorFormView;
 
-public class UnidadeProdutoValidator {
+public class SetorUtils {
 
-	public static void validaSalvar(UnidadeProdutoFormView subView)
+	public static void validateRequiredFields(SetorFormView subView)
 			throws DotErpException {
-		String nome = subView.getTfSigla().getValue();
+		String nome = subView.getTfNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
-			throw new DotErpException(subView.getTfSigla(),
+			throw new DotErpException(subView.getTfNome(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
@@ -21,6 +22,10 @@ public class UnidadeProdutoValidator {
 			throw new DotErpException(subView.getTfDescricao(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

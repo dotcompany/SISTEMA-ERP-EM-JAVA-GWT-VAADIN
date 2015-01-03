@@ -1,14 +1,15 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.ContaCaixa;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
 
-public class OperadoraCartaoValidator {
+public class OperadoraCartaoUtils {
 
-	public static void validaSalvar(OperadoraCartaoFormView subView)
+	public static void validateRequiredFields(OperadoraCartaoFormView subView)
 			throws DotErpException {
 		ContaCaixa contaCaixa = (ContaCaixa) subView.getMocContaCaixa()
 				.getValue();
@@ -38,6 +39,10 @@ public class OperadoraCartaoValidator {
 			throw new DotErpException(subView.getTfVencimentoAluguel(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

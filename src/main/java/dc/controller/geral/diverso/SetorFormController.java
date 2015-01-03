@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.SetorUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.SetorValidator;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.model.business.geral.diverso.SetorBusiness;
 import dc.servicos.dao.geral.UfDAO;
@@ -90,7 +90,7 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			SetorValidator.validaSalvar(this.subView);
+			SetorUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

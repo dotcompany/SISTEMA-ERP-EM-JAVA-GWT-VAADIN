@@ -1,4 +1,4 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
@@ -6,10 +6,11 @@ import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
+import dc.visao.geral.diverso.CepFormView;
 
-public class AgenciaBancoValidator {
+public class AgenciaBancoUtils {
 
-	public static void validaSalvar(AgenciaBancoFormView subView)
+	public static void validateRequiredFields(AgenciaBancoFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
@@ -66,6 +67,10 @@ public class AgenciaBancoValidator {
 			throw new DotErpException(subView.getCbUf(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

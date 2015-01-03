@@ -1,4 +1,4 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.enums.ClasseEn;
 import dc.control.enums.IatEn;
@@ -15,11 +15,12 @@ import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.ProdutoFormView;
 
-public class ProdutoValidator {
+public class ProdutoUtils {
 
-	public static void validaSalvar(ProdutoFormView subView)
+	public static void validateRequiredFields(ProdutoFormView subView)
 			throws DotErpException {
 		SubGrupoEntity subgrupo = subView.getMocSubGrupoProduto().getValue();
 
@@ -140,6 +141,10 @@ public class ProdutoValidator {
 			throw new DotErpException(subView.getTxtCodigoBalanca(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

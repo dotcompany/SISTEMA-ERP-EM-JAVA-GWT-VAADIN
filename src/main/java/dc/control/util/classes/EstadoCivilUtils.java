@@ -1,12 +1,13 @@
-package dc.control.validator.classe;
+package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.EstadoCivilFormView;
 
-public class EstadoCivilValidator {
+public class EstadoCivilUtils {
 
-	public static void validaSalvar(EstadoCivilFormView subView)
+	public static void validateRequiredFields(EstadoCivilFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 
@@ -21,6 +22,10 @@ public class EstadoCivilValidator {
 			throw new DotErpException(subView.getTfDescricao(),
 					"::DotERP - Não pode ficar em branco");
 		}
+	}
+
+	public static void clearFormFields(CepFormView subView) {
+
 	}
 
 }

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.NcmUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.NcmValidator;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,7 +36,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			NcmValidator.validaSalvar(this.subView);
+			NcmUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {

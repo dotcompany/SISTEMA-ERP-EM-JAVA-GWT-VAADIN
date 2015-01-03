@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
+import dc.control.util.classes.NivelFormacaoUtils;
 import dc.control.validator.DotErpException;
-import dc.control.validator.classe.NivelFormacaoValidator;
 import dc.entidade.geral.NivelFormacaoEntity;
 import dc.model.business.geral.pessoal.NivelFormacaoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
@@ -97,7 +97,7 @@ public class NivelFormacaoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			NivelFormacaoValidator.validaSalvar(this.subView);
+			NivelFormacaoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
