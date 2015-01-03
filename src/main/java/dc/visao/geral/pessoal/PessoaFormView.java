@@ -571,14 +571,14 @@ public class PessoaFormView extends CustomComponent {
 		tsGeral.setImmediate(true);
 		tsGeral.setSizeFull();
 
-		tsGeral.addTab(bvlGeralPessoaFisica(), "Informação geral", null);
-		tsGeral.addTab(bvlGeralPessoaJuridica(), "Informação geral", null);
-		tsGeral.addTab(buildPessoaContatoSubForm(), "Contato", null);
-		tsGeral.addTab(buildPessoaEnderecoSubForm(), "Endereço", null);
-		tsGeral.addTab(bvlCliente(), "Cliente", null);
-		tsGeral.addTab(bvlColaborador(), "Colaborador", null);
-		tsGeral.addTab(bvlFornecedor(), "Fornecedor", null);
-		tsGeral.addTab(bvlTransporte(), "Transporte", null);
+		tsGeral.addTab(bvlGeralPessoaFisica(), 0);
+		tsGeral.addTab(bvlGeralPessoaJuridica(), 1);
+		tsGeral.addTab(buildPessoaContatoSubForm(), 2);
+		tsGeral.addTab(buildPessoaEnderecoSubForm(), 3);
+		tsGeral.addTab(bvlCliente(), 4);
+		tsGeral.addTab(bvlColaborador(), 5);
+		tsGeral.addTab(bvlFornecedor(), 6);
+		tsGeral.addTab(bvlTransporte(), 7);
 
 		mainLayout.addComponent(tsGeral);
 		mainLayout.setExpandRatio(tsGeral, 1);
@@ -597,6 +597,7 @@ public class PessoaFormView extends CustomComponent {
 		vlGeralPessoaFisica.setHeight("100.0%");
 		vlGeralPessoaFisica.setMargin(true);
 		vlGeralPessoaFisica.setSpacing(true);
+		vlGeralPessoaFisica.setCaption("Informação geral");
 
 		//
 		vlGeralPessoaFisica.addComponent(bplGeralPessoaFisica());
@@ -684,6 +685,7 @@ public class PessoaFormView extends CustomComponent {
 		vlGeralPessoaJuridica.setHeight("100.0%");
 		vlGeralPessoaJuridica.setMargin(true);
 		vlGeralPessoaJuridica.setSpacing(true);
+		vlGeralPessoaJuridica.setCaption("Informação geral");
 
 		//
 		vlGeralPessoaJuridica.addComponent(bplGeralPessoaJuridica());
@@ -753,6 +755,7 @@ public class PessoaFormView extends CustomComponent {
 		// vlCliente.setSizeFull();
 		vlCliente.setMargin(true);
 		vlCliente.setSpacing(true);
+		vlCliente.setCaption("Cliente");
 
 		//
 		// vlNfeCabecalho.addComponent(bplNfeCabecalho());
@@ -777,6 +780,7 @@ public class PessoaFormView extends CustomComponent {
 		// vlColaborador.setSizeFull();
 		vlColaborador.setMargin(true);
 		vlColaborador.setSpacing(true);
+		vlColaborador.setCaption("Colaborador");
 
 		//
 		// vlColaborador.addComponent(bplNfeCabecalho());
@@ -801,6 +805,7 @@ public class PessoaFormView extends CustomComponent {
 		// vlFornecedor.setSizeFull();
 		vlFornecedor.setMargin(true);
 		vlFornecedor.setSpacing(true);
+		vlFornecedor.setCaption("Fornecedor");
 
 		//
 		// vlNfeCabecalho.addComponent(bplNfeCabecalho());
@@ -825,6 +830,7 @@ public class PessoaFormView extends CustomComponent {
 		// vlTransporte.setSizeFull();
 		vlTransporte.setMargin(true);
 		vlTransporte.setSpacing(true);
+		vlTransporte.setCaption("Transporte");
 
 		//
 		// vlNfeCabecalho.addComponent(bplNfeCabecalho());
@@ -953,7 +959,7 @@ public class PessoaFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				controller.vceFisicaJuridica(event);
+				controller.vceVisibleTabSheet(event, null);
 			}
 
 		});
@@ -999,7 +1005,7 @@ public class PessoaFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				controller.vceCcft(event, 4);
+				controller.vceVisibleTabSheet(event, 4);
 			}
 
 		});
@@ -1015,7 +1021,7 @@ public class PessoaFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				controller.vceCcft(event, 5);
+				controller.vceVisibleTabSheet(event, 5);
 			}
 
 		});
@@ -1030,7 +1036,7 @@ public class PessoaFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				controller.vceCcft(event, 6);
+				controller.vceVisibleTabSheet(event, 6);
 			}
 
 		});
@@ -1045,7 +1051,7 @@ public class PessoaFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				controller.vceCcft(event, 7);
+				controller.vceVisibleTabSheet(event, 7);
 			}
 
 		});

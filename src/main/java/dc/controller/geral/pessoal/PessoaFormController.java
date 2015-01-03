@@ -698,32 +698,30 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 * 
 	 */
 
-	public void vceFisicaJuridica(ValueChangeEvent event) {
-		TipoPessoaEn p = (TipoPessoaEn) event.getProperty().getValue();
+	public void vceVisibleTabSheet(ValueChangeEvent event, Integer indexTab) {
+		if (indexTab == null) {
+			TipoPessoaEn en = (TipoPessoaEn) event.getProperty().getValue();
 
-		if (p.equals(TipoPessoaEn.F)) {
-			this.subView.getTsGeral().getTab(0).setVisible(Boolean.TRUE);
-			this.subView.getTsGeral().getTab(1).setVisible(Boolean.FALSE);
+			this.subView
+					.getTsGeral()
+					.getTab(0)
+					.setVisible(
+							en.equals(TipoPessoaEn.F) ? Boolean.TRUE
+									: Boolean.FALSE);
+			this.subView
+					.getTsGeral()
+					.getTab(1)
+					.setVisible(
+							en.equals(TipoPessoaEn.J) ? Boolean.TRUE
+									: Boolean.FALSE);
 
-			this.subView.getTsGeral().setSelectedTab(0);
+			this.subView.getTsGeral().setSelectedTab(
+					en.equals(TipoPessoaEn.F) ? 0 : 1);
+		} else {
+			Boolean b = (Boolean) event.getProperty().getValue();
+
+			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
 		}
-
-		if (p.equals(TipoPessoaEn.J)) {
-			this.subView.getTsGeral().getTab(0).setVisible(Boolean.FALSE);
-			this.subView.getTsGeral().getTab(1).setVisible(Boolean.TRUE);
-
-			this.subView.getTsGeral().setSelectedTab(1);
-		}
-	}
-
-	public void vceCcft(ValueChangeEvent event, Integer indexTab) {
-		Boolean b = (Boolean) event.getProperty().getValue();
-
-		this.subView
-				.getTsGeral()
-				.getTab(indexTab)
-				.setVisible(
-						b.equals(Boolean.TRUE) ? Boolean.TRUE : Boolean.FALSE);
 	}
 
 }
