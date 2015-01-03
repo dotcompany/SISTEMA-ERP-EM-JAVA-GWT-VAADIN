@@ -34,8 +34,22 @@ public class TransportadoraFormController extends
 
 	private TransportadoraFormView subView;
 
+	/**
+	 * ENTITY
+	 */
+
+	private TransportadoraEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
+
+	/**
+	 * DAO
+	 */
+
 	@Autowired
-	private TransportadoraDAO transportadoraDAO;
+	private TransportadoraDAO dao;
 
 	@Autowired
 	private PessoaDAO pessoaDAO;
@@ -43,93 +57,12 @@ public class TransportadoraFormController extends
 	@Autowired
 	private ContabilContaDAO contabilContaDAO;
 
-	private TransportadoraEntity currentBean;
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateObject(subView.getCmbPessoa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbPessoa(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCmbContContabil().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbContContabil(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacao(),
-					"Não pode ficar em Branco!");
-			valido = false;
-		}
-
-		return valido;
-	}
-
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new TransportadoraEntity();
-	}
-
-	@Override
-	protected void initSubView() {
-		subView = new TransportadoraFormView();
-
-		DefaultManyToOneComboModel<PessoaEntity> model = new DefaultManyToOneComboModel<PessoaEntity>(
-				PessoaListController.class, this.pessoaDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-		};
-
-		this.subView.getCmbPessoa().setModel(model);
-
-		DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		this.subView.getCmbContContabil().setModel(model1);
-	}
-
-	@Override
-	protected void carregar(Serializable id) {
-		currentBean = transportadoraDAO.find(id);
-
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
-
-	}
-
-	@Override
-	protected void actionSalvar() {
-		currentBean.setPessoa((PessoaEntity) subView.getCmbPessoa().getValue());
-		currentBean.setContaContabil((ContabilContaEntity) subView
-				.getCmbContContabil().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
-		try {
-			transportadoraDAO.saveOrUpdate(currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
+	public TransportadoraFormController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -138,15 +71,8 @@ public class TransportadoraFormController extends
 	}
 
 	@Override
-	protected void remover(List<Serializable> ids) {
-		transportadoraDAO.deleteAllByIds(ids);
-
-		mensagemRemovidoOK();
-	}
-
-	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-
+	protected Component getSubView() {
+		return subView;
 	}
 
 	@Override
@@ -161,14 +87,150 @@ public class TransportadoraFormController extends
 	}
 
 	@Override
-	protected Component getSubView() {
-		return subView;
+	public TransportadoraEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
-	public TransportadoraEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
+	protected void initSubView() {
+		try {
+			this.subView = new TransportadoraFormView(this);
+
+			DefaultManyToOneComboModel<PessoaEntity> model1 = new DefaultManyToOneComboModel<PessoaEntity>(
+					PessoaListController.class, this.pessoaDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
+
+			};
+
+			this.subView.getMocPessoa().setModel(model1);
+
+			DefaultManyToOneComboModel<ContabilContaEntity> model2 = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
+
+			this.subView.getMocContabilConta().setModel(model2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		// if (!Validator.validateObject(subView.getCmbPessoa().getValue())) {
+		// adicionarErroDeValidacao(subView.getCmbPessoa(),
+		// "Não pode ficar em branco");
+		// valido = false;
+		// }
+
+		if (!Validator.validateObject(subView.getMocContabilConta().getValue())) {
+			adicionarErroDeValidacao(subView.getMocContabilConta(),
+					"Não pode ficar em branco");
+
+			valido = false;
+		}
+
+		if (!Validator.validateString(subView.getTaObservacao().getValue())) {
+			adicionarErroDeValidacao(subView.getTaObservacao(),
+					"Não pode ficar em Branco!");
+
+			valido = false;
+		}
+
+		return valido;
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			// entity.setPessoa((PessoaEntity)
+			// subView.getCmbPessoa().getValue());
+			this.entity.setContaContabil((ContabilContaEntity) this.subView
+					.getMocContabilConta().getValue());
+			this.entity
+					.setObservacao(this.subView.getTaObservacao().getValue());
+
+			this.dao.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.dao.find(id);
+
+			this.subView.getTaObservacao()
+					.setValue(this.entity.getObservacao());
+			this.subView.getMocContabilConta().setValue(
+					this.entity.getContaContabil());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new TransportadoraEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.entity = new TransportadoraEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void remover(List<Serializable> ids) {
+		try {
+			this.dao.deleteAllByIds(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 }

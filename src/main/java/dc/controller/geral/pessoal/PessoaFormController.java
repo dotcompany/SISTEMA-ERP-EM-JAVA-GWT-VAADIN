@@ -260,7 +260,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
 
 		this.subView.getTfFantasia().setValue(pj.getFantasia());
-		this.subView.getTfCnpj().setValue(pj.getCnpj());
+		this.subView.getMtfCnpj().setValue(pj.getCnpj());
 		this.subView.getTfInscricaoEstadual().setValue(
 				pj.getInscricaoEstadual());
 		this.subView.getTfInscricaoMunicipal().setValue(
@@ -434,7 +434,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			pj.setPessoa(this.entity);
 
 			pj.setFantasia(this.subView.getTfFantasia().getValue());
-			pj.setCnpj(this.subView.getTfCnpj().getValue());
+			pj.setCnpj(this.subView.getMtfCnpj().getValue());
 			pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
 					.getValue());
 			pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
