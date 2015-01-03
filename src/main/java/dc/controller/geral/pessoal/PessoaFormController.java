@@ -699,8 +699,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 */
 
 	public void vceVisibleTabSheet(ValueChangeEvent event, Integer indexTab) {
-		if (indexTab == null) {
-			TipoPessoaEn en = (TipoPessoaEn) event.getProperty().getValue();
+		Object obj = event.getProperty().getValue();
+
+		if (obj instanceof TipoPessoaEn) {
+			TipoPessoaEn en = (TipoPessoaEn) obj;
 
 			this.subView
 					.getTsGeral()
@@ -717,10 +719,12 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getTsGeral().setSelectedTab(
 					en.equals(TipoPessoaEn.F) ? 0 : 1);
-		} else {
-			Boolean b = (Boolean) event.getProperty().getValue();
+		} else if (obj instanceof Boolean) {
+			Boolean b = (Boolean) obj;
 
 			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
+		} else {
+			System.out.println(":: [instanceof] no type for " + obj.toString());
 		}
 	}
 
