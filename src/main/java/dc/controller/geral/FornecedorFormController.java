@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.pessoal.AtividadeForCliListController;
@@ -29,7 +30,6 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.FornecedorFormView;
 import dc.visao.geral.FornecedorFormView.Localizacao;
-import dc.visao.geral.FornecedorFormView.SimNao;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
@@ -44,10 +44,22 @@ public class FornecedorFormController extends
 
 	private FornecedorFormView subView;
 
-	@Autowired
-	private FornecedorDAO fornecedorDAO;
+	/**
+	 * ENTITY
+	 */
 
-	private FornecedorEntity currentBean;
+	private FornecedorEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
+
+	/**
+	 * DAO
+	 */
+
+	@Autowired
+	private FornecedorDAO dao;
 
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
@@ -61,6 +73,14 @@ public class FornecedorFormController extends
 	@Autowired
 	private PessoaDAO pessoaDAO;
 
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public FornecedorFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	protected String getNome() {
 		return "Fornecedor";
@@ -72,139 +92,115 @@ public class FornecedorFormController extends
 	}
 
 	@Override
-	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
 
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public FornecedorEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-					.getConta().getEmpresa());
-			fornecedorDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.subView = new FornecedorFormView(this);
+
+			DefaultManyToOneComboModel<AtividadeForCliEntity> atividadeForCliModel = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
+					AtividadeForCliListController.class,
+					this.atividadeForCliDAO, super.getMainController());
+
+			this.subView.getMocAtividadeForCli().setModel(atividadeForCliModel);
+
+			DefaultManyToOneComboModel<SituacaoForCliEntity> situacaoForCliModel = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+					SituacaoForCliListController.class, this.situacaoForCliDAO,
+					super.getMainController());
+
+			this.subView.getMocSituacaoForCli().setModel(situacaoForCliModel);
+
+			DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "codigoReduzido";
+				}
+
+			};
+
+			this.subView.getMocContabilConta().setModel(contabilContaModel);
+
+			DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(
+					PessoaListController.class, this.pessoaDAO,
+					super.getMainController());
+
+			this.subView.getMocPessoa().setModel(pessoaModel);
+
+			for (SimNaoEn value : SimNaoEn.values()) {
+				this.subView.getCbSofreRentencao().addItem(value);
+				this.subView.getCbGerarFaturamento().addItem(value);
+				this.subView.getCbOptanteSimples().addItem(value);
+			}
+
+			for (Localizacao value : Localizacao.values()) {
+				this.subView.getCbLocalizacao().addItem(value);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		currentBean = fornecedorDAO.find(id);
-		subView.preencheForm(currentBean);
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
-	protected void initSubView() {
-		subView = new FornecedorFormView();
-
-		carregarCombos();
-	}
-
-	private void carregarCombos() {
-		DefaultManyToOneComboModel<AtividadeForCliEntity> atividadeModel = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
-				AtividadeForCliListController.class, this.atividadeForCliDAO,
-				super.getMainController());
-
-		DefaultManyToOneComboModel<SituacaoForCliEntity> situacaoModel = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
-				SituacaoForCliListController.class, this.situacaoForCliDAO,
-				super.getMainController());
-
-		DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "codigoReduzido";
-			}
-
-		};
-
-		DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(
-				PessoaListController.class, this.pessoaDAO,
-				super.getMainController());
-
-		subView.getCbAtividade().setModel(atividadeModel);
-		subView.getCbSituacao().setModel(situacaoModel);
-		subView.getCbContabilConta().setModel(contabilContaModel);
-		subView.getCbPessoa().setModel(pessoaModel);
-
-		for (SimNao value : SimNao.values()) {
-			subView.getCbSofreRentencao().addItem(value);
-			subView.getCbGerarFaturamento().addItem(value);
-			subView.getCbOptanteSimples().addItem(value);
-		}
-
-		for (Localizacao value : Localizacao.values()) {
-			subView.getCbLocalizacao().addItem(value);
-		}
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new FornecedorEntity();
-	}
-
-	@Override
-	protected void remover(List<Serializable> ids) {
-		fornecedorDAO.deleteAllByIds(ids);
-
-		mensagemRemovidoOK();
-	}
-
-	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateObject(subView.getCbPessoa().getValue())) {
-			adicionarErroDeValidacao(subView.getCbPessoa(),
+		if (!Validator.validateObject(subView.getMocPessoa().getValue())) {
+			adicionarErroDeValidacao(subView.getMocPessoa(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCbAtividade().getValue())) {
-			adicionarErroDeValidacao(subView.getCbAtividade(),
+		if (!Validator.validateObject(subView.getMocAtividadeForCli()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getMocAtividadeForCli(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCbSituacao().getValue())) {
-			adicionarErroDeValidacao(subView.getCbSituacao(),
+		if (!Validator
+				.validateObject(subView.getMocSituacaoForCli().getValue())) {
+			adicionarErroDeValidacao(subView.getMocSituacaoForCli(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getCbContabilConta().getValue())) {
-			adicionarErroDeValidacao(subView.getCbContabilConta(),
+		if (!Validator.validateObject(subView.getMocContabilConta().getValue())) {
+			adicionarErroDeValidacao(subView.getMocContabilConta(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getDtDesde().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDesde(),
+		if (!Validator.validateObject(subView.getPdfDesde().getValue())) {
+			adicionarErroDeValidacao(subView.getPdfDesde(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxContaRemetente().getValue())) {
-			adicionarErroDeValidacao(subView.getTxContaRemetente(),
+		if (!Validator.validateString(subView.getTfContaRemetente().getValue())) {
+			adicionarErroDeValidacao(subView.getTfContaRemetente(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxChequeNominalA().getValue())) {
-			adicionarErroDeValidacao(subView.getTxChequeNominalA(),
+		if (!Validator.validateString(subView.getTfChequeNominalA().getValue())) {
+			adicionarErroDeValidacao(subView.getTfChequeNominalA(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -234,30 +230,30 @@ public class FornecedorFormController extends
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxNumDiasIntervalo()
+		if (!Validator.validateNumber(subView.getTfNumDiasIntervalo()
 				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxNumDiasIntervalo(),
+			adicionarErroDeValidacao(subView.getTfNumDiasIntervalo(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxPrazoMedioEntrega()
+		if (!Validator.validateNumber(subView.getTfPrazoMedioEntrega()
 				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxPrazoMedioEntrega(),
+			adicionarErroDeValidacao(subView.getTfPrazoMedioEntrega(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxNumDiasPrimeiroVenc()
+		if (!Validator.validateNumber(subView.getTfNumDiasPrimeiroVenc()
 				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxNumDiasPrimeiroVenc(),
+			adicionarErroDeValidacao(subView.getTfNumDiasPrimeiroVenc(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxQuantidadesParcelas()
+		if (!Validator.validateNumber(subView.getTfQuantidadesParcelas()
 				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidadesParcelas(),
+			adicionarErroDeValidacao(subView.getTfQuantidadesParcelas(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -266,19 +262,75 @@ public class FornecedorFormController extends
 	}
 
 	@Override
+	protected void actionSalvar() {
+		try {
+			this.subView.preencheBean(this.entity);
+
+			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getConta().getEmpresa());
+
+			this.dao.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.dao.find(id);
+
+			this.subView.preencheForm(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new FornecedorEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.entity = new FornecedorEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void remover(List<Serializable> ids) {
+		try {
+			this.dao.deleteAllByIds(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-
-	}
-
-	@Override
-	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
 
-	@Override
-	public FornecedorEntity getModelBean() {
-		return currentBean;
 	}
 
 }

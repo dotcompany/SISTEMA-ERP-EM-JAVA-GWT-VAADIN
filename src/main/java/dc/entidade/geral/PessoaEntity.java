@@ -169,7 +169,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getEmail() {
@@ -177,7 +177,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = (email == null ? "".trim() : email.toLowerCase().trim());
 	}
 
 	public String getSite() {
@@ -185,7 +185,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setSite(String site) {
-		this.site = site;
+		this.site = (site == null ? "".trim() : site.toLowerCase().trim());
 	}
 
 	public String getCliente() {

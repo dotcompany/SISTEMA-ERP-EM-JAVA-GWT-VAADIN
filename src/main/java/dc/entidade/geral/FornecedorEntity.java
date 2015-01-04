@@ -32,6 +32,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.nfe.NfeCabecalhoEntity;
@@ -58,98 +59,127 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Field
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DESDE")
+	@Field
 	@Caption(value = "Desde")
+	@Column(name = "DESDE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
 	@Field
+	@Caption(value = "Optante do simples nacional")
 	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
-	@Caption(value = "Optante Simples Nacional")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String optanteSimplesNacional;
 
 	@Field
-	@Column(name = "LOCALIZACAO")
 	@Caption(value = "Localização")
+	@Column(name = "LOCALIZACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String localizacao;
 
-	@Field
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption(value = "Data de cadastro")
 	@Column(name = "DATA_CADASTRO")
-	@Caption(value = "Data Cadastro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Field
+	@Caption(value = "Sofre retenção")
 	@Column(name = "SOFRE_RETENCAO")
-	@Caption(value = "Sofre Retenção")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String sofreRetencao;
 
 	@Field
+	@Caption(value = "Cheque nominal à")
 	@Column(name = "CHEQUE_NOMINAL_A")
-	@Caption(value = "Cheque Nominla à")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String chequeNominalA;
 
 	@Field
-	@Column(name = "OBSERVACAO")
 	@Caption(value = "Observação")
+	@Column(name = "OBSERVACAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
+	@Caption(value = "Conta do remetente")
 	@Column(name = "CONTA_REMETENTE")
-	@Caption(value = "Conta Remetente")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaRemetente;
 
 	@Field
+	@Caption(value = "Prazo médio de entrega")
 	@Column(name = "PRAZO_MEDIO_ENTREGA")
-	@Caption(value = "Prazo médio Entrega")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal prazoMedioEntrega;
 
 	@Field
+	@Caption(value = "Gera faturamento")
 	@Column(name = "GERA_FATURAMENTO")
-	@Caption(value = "Gera Faturamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String geraFaturamento;
 
 	@Field
+	@Caption(value = "Número de dias - Primeiro vencimento")
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
-	@Caption(value = "Núm dias Primeiro Vencimento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer numDiasPrimeiroVencimento;
 
 	@Field
+	@Caption(value = "Número de dias - Intervalo")
 	@Column(name = "NUM_DIAS_INTERVALO")
-	@Caption(value = "Num Dias Intervalo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer numDiasIntervalo;
 
 	@Field
+	@Caption(value = "Quantidade de parcelas")
 	@Column(name = "QUANTIDADE_PARCELAS")
-	@Caption(value = "Quantidade Parcelas")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelas;
 
-	@JoinColumn(name = "ID_SITUACAO_FOR_CLI", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private SituacaoForCliEntity situacaoForCli;
+	/**
+	 * REFERENCIA - FK
+	 */
 
-	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private AtividadeForCliEntity atividadeForCli;
-
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@Analyzer(definition = "dc_combo_analyzer")
 	@IndexedEmbedded
+	@Analyzer(definition = "dc_combo_analyzer")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	private PessoaEntity pessoa;
 
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	@ManyToOne
-	private ContabilContaEntity contabilConta;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_SITUACAO_FOR_CLI")
+	private SituacaoForCliEntity situacaoForCli;
 
-	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
-	private List<BemEntity> bemList;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI")
+	private AtividadeForCliEntity atividadeForCli;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_CONTABIL_CONTA")
+	private ContabilContaEntity contabilConta;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
+
+	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
+	private List<BemEntity> bemList;
 
 	/**
 	 * Módulo: NFE
@@ -159,8 +189,25 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	private List<NfeCabecalhoEntity> nfeCabecalhoList;
 
 	/**
-	 * 
+	 * TRANSIENT
 	 */
+
+	@Transient
+	public String getCaption() {
+		Object id = this.id;
+
+		if (id == null) {
+			id = "";
+		}
+
+		String nome = "";
+
+		if (getPessoa() != null && getPessoa().getNome() != null) {
+			nome = getPessoa().getNome();
+		}
+
+		return "[" + id + "] " + nome;
+	}
 
 	/**
 	 * CONSTRUTOR
@@ -173,6 +220,10 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	public FornecedorEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -231,62 +282,10 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.chequeNominalA = chequeNominalA;
 	}
 
-	/**
-	 * @return the situacaoForCli
-	 */
-	public SituacaoForCliEntity getSituacaoForCli() {
-		return situacaoForCli;
-	}
-
-	/**
-	 * @param situacaoForCli
-	 *            the situacaoForCli to set
-	 */
-	public void setSituacaoForCli(SituacaoForCliEntity situacaoForCli) {
-		this.situacaoForCli = situacaoForCli;
-	}
-
-	/**
-	 * @return the pessoa
-	 */
-	public PessoaEntity getPessoa() {
-		return pessoa;
-	}
-
-	/**
-	 * @param pessoa
-	 *            the pessoa to set
-	 */
-	public void setPessoa(PessoaEntity pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	/**
-	 * @return the atividadeForCli
-	 */
-	public AtividadeForCliEntity getAtividadeForCli() {
-		return atividadeForCli;
-	}
-
-	/**
-	 * @param atividadeForCli
-	 *            the atividadeForCli to set
-	 */
-	public void setAtividadeForCli(AtividadeForCliEntity atividadeForCli) {
-		this.atividadeForCli = atividadeForCli;
-	}
-
-	/**
-	 * @return the observacoes
-	 */
 	public String getObservacao() {
 		return observacao;
 	}
 
-	/**
-	 * @param observacoes
-	 *            the observacoes to set
-	 */
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
@@ -306,32 +305,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setPrazoMedioEntrega(BigDecimal prazoMedioEntrega) {
 		this.prazoMedioEntrega = prazoMedioEntrega;
 	}
-
-	public Integer getQuantidadeParcelas() {
-		return quantidadeParcelas;
-	}
-
-	public void setQuantidadeParcelas(Integer quantidadeParcelas) {
-		this.quantidadeParcelas = quantidadeParcelas;
-	}
-
-	public List<BemEntity> getBemList() {
-		return bemList;
-	}
-
-	public void setBemList(List<BemEntity> bemList) {
-		this.bemList = bemList;
-	}
-
-	/*
-	 * @Override public int hashCode() { return
-	 * HashCodeBuilder.reflectionHashCode(this, new String[] {"id"}); }
-	 * 
-	 * @Override public boolean equals(Object object) { if (object instanceof
-	 * Fornecedor == false) return false; if (this == object) return true; final
-	 * Fornecedor other = (Fornecedor) object; return
-	 * EqualsBuilder.reflectionEquals(this, other); }
-	 */
 
 	public String getGeraFaturamento() {
 		return geraFaturamento;
@@ -357,6 +330,38 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.numDiasIntervalo = numDiasIntervalo;
 	}
 
+	public Integer getQuantidadeParcelas() {
+		return quantidadeParcelas;
+	}
+
+	public void setQuantidadeParcelas(Integer quantidadeParcelas) {
+		this.quantidadeParcelas = quantidadeParcelas;
+	}
+
+	public PessoaEntity getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaEntity pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public SituacaoForCliEntity getSituacaoForCli() {
+		return situacaoForCli;
+	}
+
+	public void setSituacaoForCli(SituacaoForCliEntity situacaoForCli) {
+		this.situacaoForCli = situacaoForCli;
+	}
+
+	public AtividadeForCliEntity getAtividadeForCli() {
+		return atividadeForCli;
+	}
+
+	public void setAtividadeForCli(AtividadeForCliEntity atividadeForCli) {
+		this.atividadeForCli = atividadeForCli;
+	}
+
 	public ContabilContaEntity getContabilConta() {
 		return contabilConta;
 	}
@@ -365,9 +370,13 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.contabilConta = contabilConta;
 	}
 
-	/**
-	 * Módulo: NFE
-	 */
+	public List<BemEntity> getBemList() {
+		return bemList;
+	}
+
+	public void setBemList(List<BemEntity> bemList) {
+		this.bemList = bemList;
+	}
 
 	public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
 		return nfeCabecalhoList;
@@ -375,33 +384,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
 		this.nfeCabecalhoList = nfeCabecalhoList;
-	}
-
-	/**
-	 * 
-	 */
-
-	/**
-	 * Metodo transient para exibir nas views. Composto do id + nome da pessoa
-	 * 
-	 * @return
-	 * @author cjalmeida
-	 */
-	@Transient
-	public String getCaption() {
-		Object id = this.id;
-
-		if (id == null) {
-			id = "";
-		}
-
-		String nome = "";
-
-		if (getPessoa() != null && getPessoa().getNome() != null) {
-			nome = getPessoa().getNome();
-		}
-
-		return "[" + id + "] " + nome;
 	}
 
 	/**

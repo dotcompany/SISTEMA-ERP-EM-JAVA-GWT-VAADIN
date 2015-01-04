@@ -151,6 +151,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
