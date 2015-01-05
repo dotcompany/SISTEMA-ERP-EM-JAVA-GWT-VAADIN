@@ -23,7 +23,6 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-
 		textField.setConverter(new BigDecimalConverter("", " %"));
 
 		return textField;
@@ -41,7 +40,6 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-
 		textField.setConverter(new BigDecimalConverter());
 
 		return textField;
@@ -53,7 +51,6 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-
 		textField.setConverter(new BigDecimalConverter("R$ "));
 
 		return textField;
@@ -79,7 +76,8 @@ public final class ComponentUtil {
 		return comboBox;
 	}
 
-	public static <ID, T> LookupComponent<ID, T> buildLookup(String codeCaption, String comboCaption) {
+	public static <ID, T> LookupComponent<ID, T> buildLookup(
+			String codeCaption, String comboCaption) {
 		LookupComponent<ID, T> lookupComponent = new LookupComponent<>();
 		lookupComponent.setCodeCaption(codeCaption);
 		lookupComponent.setComboCaption(comboCaption);
@@ -87,14 +85,14 @@ public final class ComponentUtil {
 
 		return lookupComponent;
 	}
-	
+
 	public static RichTextArea buildRichTextArea(String caption) {
 		RichTextArea richTextArea = new RichTextArea();
 		richTextArea.setNullRepresentation("");
 		richTextArea.setCaption(caption);
 		richTextArea.setImmediate(true);
 		richTextArea.setSizeFull();
-		
+
 		return richTextArea;
 	}
 
@@ -115,10 +113,12 @@ public final class ComponentUtil {
 		data.setSizeFull();
 		// data.setWidth("-1px");
 		// data.setHeight("-1px");
+
 		return data;
 	}
 
-	public static MaskedTextField buildMaskedTextField(String caption, String mask) {
+	public static MaskedTextField buildMaskedTextField(String caption,
+			String mask) {
 		MaskedTextField textField = new MaskedTextField();
 		textField.setMask(mask);
 		textField.setNullRepresentation("");
@@ -158,4 +158,5 @@ public final class ComponentUtil {
 
 		return textField;
 	}
+
 }

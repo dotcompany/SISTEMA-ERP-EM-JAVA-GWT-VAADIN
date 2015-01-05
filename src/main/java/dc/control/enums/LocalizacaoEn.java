@@ -1,27 +1,27 @@
 package dc.control.enums;
 
-public enum IndicadorPrecoEn {
+public enum LocalizacaoEn {
 
-	T("TABELA", "1"),
+	N("NACIONAL", "N"),
 
-	U("ÚLTIMO PEDIDO", "2");
+	I("INTERNACIONAL", "I");
 
 	private String key;
 
 	private String value;
 
-	private IndicadorPrecoEn(String value, String key) {
+	private LocalizacaoEn(String value, String key) {
 		this.key = key;
 		this.value = value;
 	}
 
-	public static IndicadorPrecoEn getEn(String value) {
-		if (value.equals("1")) {
-			return T;
+	public static LocalizacaoEn getEn(String key) {
+		if (key.equals("N")) {
+			return N;
 		}
 
-		if (value.equals("2")) {
-			return U;
+		if (key.equals("I")) {
+			return I;
 		}
 
 		return null;

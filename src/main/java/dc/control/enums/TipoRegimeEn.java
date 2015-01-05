@@ -8,42 +8,42 @@ public enum TipoRegimeEn {
 
 	N("SIMPLES NACIONAL", "3");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoRegimeEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoRegimeEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoRegimeEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static TipoRegimeEn getEn(String value) {
+		if (value.equals("1")) {
 			return R;
 		}
 
-		if (codigo.equals("2")) {
+		if (value.equals("2")) {
 			return P;
 		}
 
-		if (codigo.equals("3")) {
+		if (value.equals("3")) {
 			return N;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

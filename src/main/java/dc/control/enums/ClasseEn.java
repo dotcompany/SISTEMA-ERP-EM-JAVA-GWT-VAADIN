@@ -8,42 +8,42 @@ public enum ClasseEn {
 
 	C("C", "C");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private ClasseEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private ClasseEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static ClasseEn getEn(String codigo) {
-		if (codigo.equals("A")) {
+	public static ClasseEn getEn(String value) {
+		if (value.equals("A")) {
 			return A;
 		}
 
-		if (codigo.equals("B")) {
+		if (value.equals("B")) {
 			return B;
 		}
 
-		if (codigo.equals("C")) {
+		if (value.equals("C")) {
 			return C;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

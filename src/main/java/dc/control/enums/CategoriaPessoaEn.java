@@ -10,46 +10,46 @@ public enum CategoriaPessoaEn {
 
 	T("TRANSPORTADORA", "4");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private CategoriaPessoaEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private CategoriaPessoaEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static CategoriaPessoaEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static CategoriaPessoaEn getEn(String value) {
+		if (value.equals("1")) {
 			return C;
 		}
 
-		if (codigo.equals("2")) {
+		if (value.equals("2")) {
 			return F;
 		}
 
-		if (codigo.equals("3")) {
+		if (value.equals("3")) {
 			return O;
 		}
 
-		if (codigo.equals("4")) {
+		if (value.equals("4")) {
 			return T;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

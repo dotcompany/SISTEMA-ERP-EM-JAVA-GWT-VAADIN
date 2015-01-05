@@ -6,38 +6,38 @@ public enum TipoSindicatoEn {
 
 	E("EMPREGADOS", "E");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoSindicatoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoSindicatoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoSindicatoEn getEn(String codigo) {
-		if (codigo.equals("P")) {
+	public static TipoSindicatoEn getEn(String value) {
+		if (value.equals("P")) {
 			return P;
 		}
 
-		if (codigo.equals("E")) {
+		if (value.equals("E")) {
 			return E;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

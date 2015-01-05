@@ -6,38 +6,38 @@ public enum SexoEn {
 
 	M("MASCULINO", "M");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private SexoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private SexoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static SexoEn getEn(String codigo) {
-		if (codigo.equals("F")) {
+	public static SexoEn getEn(String value) {
+		if (value.equals("F")) {
 			return F;
 		}
 
-		if (codigo.equals("M")) {
+		if (value.equals("M")) {
 			return M;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

@@ -8,42 +8,42 @@ public enum FormaPagamentoEn {
 
 	C("CONTA", "3");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private FormaPagamentoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private FormaPagamentoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static FormaPagamentoEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static FormaPagamentoEn getEn(String value) {
+		if (value.equals("1")) {
 			return D;
 		}
 
-		if (codigo.equals("2")) {
+		if (value.equals("2")) {
 			return Q;
 		}
 
-		if (codigo.equals("3")) {
+		if (value.equals("3")) {
 			return C;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

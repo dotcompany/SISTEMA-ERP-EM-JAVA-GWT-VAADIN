@@ -12,50 +12,50 @@ public enum CnhEn {
 
 	E("E", "E");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private CnhEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private CnhEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static CnhEn getEn(String codigo) {
-		if (codigo.equals("A")) {
+	public static CnhEn getEn(String value) {
+		if (value.equals("A")) {
 			return A;
 		}
 
-		if (codigo.equals("B")) {
+		if (value.equals("B")) {
 			return B;
 		}
 
-		if (codigo.equals("C")) {
+		if (value.equals("C")) {
 			return C;
 		}
 
-		if (codigo.equals("D")) {
+		if (value.equals("D")) {
 			return D;
 		}
 
-		if (codigo.equals("E")) {
+		if (value.equals("E")) {
 			return E;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

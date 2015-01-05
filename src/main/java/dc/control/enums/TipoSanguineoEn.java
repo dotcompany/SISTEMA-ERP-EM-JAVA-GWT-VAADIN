@@ -18,62 +18,62 @@ public enum TipoSanguineoEn {
 
 	ABN("AB-", "AB-");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoSanguineoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoSanguineoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoSanguineoEn getEn(String codigo) {
-		if (codigo.equals("A+")) {
+	public static TipoSanguineoEn getEn(String value) {
+		if (value.equals("A+")) {
 			return APO;
 		}
 
-		if (codigo.equals("A-")) {
+		if (value.equals("A-")) {
 			return ANE;
 		}
 
-		if (codigo.equals("B+")) {
+		if (value.equals("B+")) {
 			return BPO;
 		}
 
-		if (codigo.equals("B-")) {
+		if (value.equals("B-")) {
 			return BNE;
 		}
 
-		if (codigo.equals("O+")) {
+		if (value.equals("O+")) {
 			return OPO;
 		}
 
-		if (codigo.equals("O-")) {
+		if (value.equals("O-")) {
 			return ONE;
 		}
 
-		if (codigo.equals("AB+")) {
+		if (value.equals("AB+")) {
 			return ABP;
 		}
 
-		if (codigo.equals("AB-")) {
+		if (value.equals("AB-")) {
 			return ABN;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

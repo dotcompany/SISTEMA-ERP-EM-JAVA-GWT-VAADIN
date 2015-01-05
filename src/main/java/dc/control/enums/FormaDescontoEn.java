@@ -6,38 +6,38 @@ public enum FormaDescontoEn {
 
 	F("FIM DO PRODUTO", "2");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private FormaDescontoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private FormaDescontoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static FormaDescontoEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static FormaDescontoEn getEn(String value) {
+		if (value.equals("1")) {
 			return P;
 		}
 
-		if (codigo.equals("2")) {
+		if (value.equals("2")) {
 			return F;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

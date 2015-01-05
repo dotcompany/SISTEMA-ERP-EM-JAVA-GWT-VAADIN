@@ -6,38 +6,38 @@ public enum TipoVencimentoEn {
 
 	D("DIÁRIO", "D");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoVencimentoEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoVencimentoEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoVencimentoEn getEn(String codigo) {
-		if (codigo.equals("M")) {
+	public static TipoVencimentoEn getEn(String value) {
+		if (value.equals("M")) {
 			return M;
 		}
 
-		if (codigo.equals("D")) {
+		if (value.equals("D")) {
 			return D;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

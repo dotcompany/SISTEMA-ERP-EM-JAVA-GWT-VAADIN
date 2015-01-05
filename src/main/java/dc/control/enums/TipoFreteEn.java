@@ -10,46 +10,46 @@ public enum TipoFreteEn {
 
 	T("TERCEIROS", "4");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoFreteEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoFreteEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoFreteEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static TipoFreteEn getEn(String value) {
+		if (value.equals("1")) {
 			return E;
 		}
 
-		if (codigo.equals("2")) {
+		if (value.equals("2")) {
 			return D;
 		}
 
-		if (codigo.equals("3")) {
+		if (value.equals("3")) {
 			return S;
 		}
 
-		if (codigo.equals("4")) {
+		if (value.equals("4")) {
 			return T;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

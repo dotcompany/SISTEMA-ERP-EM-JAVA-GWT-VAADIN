@@ -10,46 +10,46 @@ public enum RacaEn {
 
 	I("ÍNDIO", "4");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private RacaEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private RacaEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static RacaEn getEn(String codigo) {
-		if (codigo.equals("1")) {
+	public static RacaEn getEn(String key) {
+		if (key.equals("1")) {
 			return B;
 		}
 
-		if (codigo.equals("2")) {
+		if (key.equals("2")) {
 			return N;
 		}
 
-		if (codigo.equals("3")) {
+		if (key.equals("3")) {
 			return P;
 		}
 
-		if (codigo.equals("4")) {
+		if (key.equals("4")) {
 			return I;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

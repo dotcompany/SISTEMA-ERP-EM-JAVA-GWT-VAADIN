@@ -18,62 +18,62 @@ public enum TipoSpedEn {
 
 	MC("MATERIAL DE USO E CONSUMO", "07");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private TipoSpedEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private TipoSpedEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static TipoSpedEn getEn(String codigo) {
-		if (codigo.equals("00")) {
+	public static TipoSpedEn getEn(String value) {
+		if (value.equals("00")) {
 			return MR;
 		}
 
-		if (codigo.equals("01")) {
+		if (value.equals("01")) {
 			return MP;
 		}
 
-		if (codigo.equals("02")) {
+		if (value.equals("02")) {
 			return EM;
 		}
 
-		if (codigo.equals("03")) {
+		if (value.equals("03")) {
 			return PP;
 		}
 
-		if (codigo.equals("04")) {
+		if (value.equals("04")) {
 			return PA;
 		}
 
-		if (codigo.equals("05")) {
+		if (value.equals("05")) {
 			return SP;
 		}
 
-		if (codigo.equals("06")) {
+		if (value.equals("06")) {
 			return PI;
 		}
 
-		if (codigo.equals("07")) {
+		if (value.equals("07")) {
 			return MC;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }

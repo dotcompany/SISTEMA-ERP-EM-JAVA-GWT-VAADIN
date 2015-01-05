@@ -6,38 +6,38 @@ public enum VendaTipoVendaEn {
 
 	V("VENDA DIRETA", "2");
 
-	private String label;
+	private String key;
 
-	private String codigo;
+	private String value;
 
-	private VendaTipoVendaEn(String label, String codigo) {
-		this.label = label;
-		this.codigo = codigo;
+	private VendaTipoVendaEn(String value, String key) {
+		this.key = key;
+		this.value = value;
 	}
 
-	public static VendaTipoVendaEn getEn(String codigo) {
-		if (codigo.equals("0")) {
+	public static VendaTipoVendaEn getEn(String value) {
+		if (value.equals("0")) {
 			return O;
 		}
 
-		if (codigo.equals("1")) {
+		if (value.equals("1")) {
 			return V;
 		}
 
 		return null;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getKey() {
+		return key;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getValue() {
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return label;
+		return value;
 	}
 
 }
