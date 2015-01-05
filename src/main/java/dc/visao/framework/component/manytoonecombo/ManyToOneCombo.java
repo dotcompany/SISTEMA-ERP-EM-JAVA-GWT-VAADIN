@@ -417,17 +417,22 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	}
 
 	public void setValue(T bean) {
-		ItemValue item = new ItemValue();		
+		ItemValue beanItem = new ItemValue();		
 
 		List<T> resultado = model.getAll();
 		for (T t : resultado) {
-			item = new ItemValue();
+			ItemValue item = new ItemValue();
+			
 			item.setBean(t);
+			if (bean.equals(t)) {
+				beanItem = item;
+				cmbResult.getContainerDataSource().removeItem(item);
+			}
 			cmbResult.getContainerDataSource().addItem(item);
+			
 		}
-		item.setBean(bean);
 		
-		cmbResult.setValue(item);
+		cmbResult.setValue(beanItem);
 	}
 
 	public void addValueChangeListener(ValueChangeListener listener) {
@@ -458,6 +463,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			}
 
 			super.changeVariables(source, variables);
+		}
+		
+		@Override
+		protected void setValue(Object newValue, boolean repaintIsNotNeeded)
+				throws com.vaadin.data.Property.ReadOnlyException {
+			super.setValue(newValue, repaintIsNotNeeded);
 		}
 	};
 
