@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
+@Repository("produtoSubGrupoDAO")
 public class SubGrupoDAO extends AbstractCrudDAO<SubGrupoEntity> {
 
 	@Override

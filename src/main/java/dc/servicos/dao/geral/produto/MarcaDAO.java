@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository
+@Repository("produtoMarcaDAO")
 public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> {
 
 	@Override
