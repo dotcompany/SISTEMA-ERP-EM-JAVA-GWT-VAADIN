@@ -9,39 +9,37 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.UnidadeProdutoUtils;
+import dc.control.util.classes.GrupoProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.model.business.geral.produto.UnidadeProdutoBusiness;
+import dc.entidade.geral.produto.GrupoEntity;
+import dc.model.business.geral.produto.GrupoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.UnidadeProdutoFormView;
+import dc.visao.geral.produto.GrupoProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoFormController extends
-		CRUDFormController<UnidadeProdutoEntity> {
+public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private UnidadeProdutoFormView subView;
+	private GrupoProdutoFormView subView;
 
 	/**
 	 * ENTITY
 	 */
 
-	private UnidadeProdutoEntity entity;
+	private GrupoEntity entity;
 
 	/**
 	 * BUSINESS
 	 */
 
 	@Autowired
-	private UnidadeProdutoBusiness<UnidadeProdutoEntity> business;
+	private GrupoBusiness<GrupoEntity> business;
 
 	/**
 	 * DAO
@@ -51,17 +49,17 @@ public class UnidadeProdutoFormController extends
 	 * CONSTRUTOR
 	 */
 
-	public UnidadeProdutoFormController() {
+	public GrupoFormController() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UnidadeProdutoBusiness<UnidadeProdutoEntity> getBusiness() {
+	public GrupoBusiness<GrupoEntity> getBusiness() {
 		return business;
 	}
 
 	@Override
 	protected String getNome() {
-		return "Unidade do produto";
+		return "Grupo";
 	}
 
 	@Override
@@ -81,16 +79,14 @@ public class UnidadeProdutoFormController extends
 	}
 
 	@Override
-	public UnidadeProdutoEntity getModelBean() {
+	public GrupoEntity getModelBean() {
 		return entity;
 	}
 
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new UnidadeProdutoFormView(this);
-
-			comboPodeFracionar();
+			this.subView = new GrupoProdutoFormView(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +95,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			UnidadeProdutoUtils.validateRequiredFields(this.subView);
+			GrupoProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
@@ -112,13 +108,8 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setSigla(this.subView.getTfSigla().getValue());
-			this.entity.setNome(this.subView.getTfDescricao().getValue());
-
-			SimNaoEn en = SimNaoEn.getEnum(this.subView.getCbPodeFracionar()
-					.getValue().toString());
-
-			this.entity.setPodeFracionar(en);
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -135,11 +126,8 @@ public class UnidadeProdutoFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfSigla().setValue(this.entity.getSigla());
-			this.subView.getTfDescricao().setValue(this.entity.getNome());
-			this.subView.getCbPodeFracionar().setValue(
-					(SimNaoEn.valueOf(this.entity.getPodeFracionar().name()))
-							.toString());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -150,7 +138,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.entity = new UnidadeProdutoEntity();
+			this.entity = new GrupoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -161,7 +149,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.entity = new UnidadeProdutoEntity();
+			this.entity = new GrupoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -190,16 +178,6 @@ public class UnidadeProdutoFormController extends
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		}
-	}
-
-	/**
-	 * COMBOS
-	 */
-
-	public void comboPodeFracionar() {
-		for (SimNaoEn en : SimNaoEn.values()) {
-			this.subView.getCbPodeFracionar().addItem(en);
 		}
 	}
 

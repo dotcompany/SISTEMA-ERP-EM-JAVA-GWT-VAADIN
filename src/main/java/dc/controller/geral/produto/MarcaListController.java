@@ -1,6 +1,5 @@
 package dc.controller.geral.produto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,12 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.MarcaEntity;
-import dc.servicos.dao.geral.produto.MarcaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class MarcaProdutoListController extends CRUDListController<MarcaEntity> {
+public class MarcaListController extends CRUDListController<MarcaEntity> {
 
 	/**
 	 * 
@@ -23,19 +21,34 @@ public class MarcaProdutoListController extends CRUDListController<MarcaEntity> 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private MarcaDAO dao;
+	private MarcaFormController marcaFormController;
 
-	@Autowired
-	private MarcaProdutoFormController marcaProdutoFormController;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public MarcaListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<MarcaEntity> getFormController() {
-		return marcaProdutoFormController;
+		return marcaFormController;
 	}
 
 	@Override
 	public String[] getColunas() {
 		return new String[] { "nome", "descricao" };
+	}
+
+	@Override
+	public Class<? super MarcaEntity> getEntityClass() {
+		return MarcaEntity.class;
+	}
+
+	@Override
+	protected String getTitulo() {
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -45,44 +58,35 @@ public class MarcaProdutoListController extends CRUDListController<MarcaEntity> 
 	}
 
 	@Override
-	public Class<? super MarcaEntity> getEntityClass() {
-		return MarcaEntity.class;
-	}
-
-	@Override
-	protected List<MarcaEntity> pesquisa(String valor) {
-		try {
-			return (List<MarcaEntity>) dao.fullTextSearch(valor);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<MarcaEntity>();
-		}
-	}
-
-	@Override
-	protected String getTitulo() {
-		return super.getTitulo(this);
-	}
-
-	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
-	}
-
-	@Override
 	protected boolean deletaEmCascata() {
 		return false;
 	}
 
 	@Override
-	protected List<MarcaEntity> pesquisaDefault() {
+	protected List<MarcaEntity> pesquisa(String valor) {
 		try {
-			return (List<MarcaEntity>) dao.getAll(getEntityClass());
+			List<MarcaEntity> auxLista = (List<MarcaEntity>) this.marcaFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<MarcaEntity>();
+			return null;
+		}
+	}
+
+	@Override
+	protected List<MarcaEntity> pesquisaDefault() {
+		try {
+			List<MarcaEntity> auxLista = (List<MarcaEntity>) this.marcaFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
 	}
 

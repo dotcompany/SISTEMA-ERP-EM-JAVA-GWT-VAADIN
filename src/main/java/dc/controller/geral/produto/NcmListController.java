@@ -1,6 +1,5 @@
 package dc.controller.geral.produto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.NcmEntity;
-import dc.servicos.dao.geral.produto.NcmDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +21,15 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private NcmDAO dao;
-
-	@Autowired
 	private NcmFormController ncmFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public NcmListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<NcmEntity> getFormController() {
@@ -35,7 +38,17 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo", "nome" };
+		return new String[] { "nome", "descricao" };
+	}
+
+	@Override
+	public Class<? super NcmEntity> getEntityClass() {
+		return NcmEntity.class;
+	}
+
+	@Override
+	protected String getTitulo() {
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -45,44 +58,35 @@ public class NcmListController extends CRUDListController<NcmEntity> {
 	}
 
 	@Override
-	public Class<? super NcmEntity> getEntityClass() {
-		return NcmEntity.class;
-	}
-
-	@Override
-	protected List<NcmEntity> pesquisa(String valor) {
-		try {
-			return (List<NcmEntity>) dao.fullTextSearch(valor);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<NcmEntity>();
-		}
-	}
-
-	@Override
-	protected String getTitulo() {
-		return super.getTitulo(this);
-	}
-
-	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
-	}
-
-	@Override
 	protected boolean deletaEmCascata() {
 		return false;
 	}
 
 	@Override
-	protected List<NcmEntity> pesquisaDefault() {
+	protected List<NcmEntity> pesquisa(String valor) {
 		try {
-			return (List<NcmEntity>) dao.getAll(getEntityClass());
+			List<NcmEntity> auxLista = (List<NcmEntity>) this.ncmFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<NcmEntity>();
+			return null;
+		}
+	}
+
+	@Override
+	protected List<NcmEntity> pesquisaDefault() {
+		try {
+			List<NcmEntity> auxLista = (List<NcmEntity>) this.ncmFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
 	}
 

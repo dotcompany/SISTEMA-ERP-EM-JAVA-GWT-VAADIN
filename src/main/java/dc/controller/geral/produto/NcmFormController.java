@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.control.util.classes.NcmUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.NcmEntity;
-import dc.servicos.dao.geral.produto.NcmDAO;
+import dc.model.business.geral.produto.NcmBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.NcmFormView;
 
@@ -28,10 +28,69 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	private NcmFormView subView;
 
-	private NcmEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private NcmEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private NcmDAO ncmDAO;
+	private NcmBusiness<NcmEntity> business;
+
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public NcmFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public NcmBusiness<NcmEntity> getBusiness() {
+		return business;
+	}
+
+	@Override
+	protected String getNome() {
+		return "NCM";
+	}
+
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public NcmEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new NcmFormView(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected boolean validaSalvar() {
@@ -47,34 +106,32 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	}
 
 	@Override
-	protected void criarNovoBean() {
+	protected void actionSalvar() {
 		try {
-			this.currentBean = new NcmEntity();
+			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
+			this.entity.setNome(this.subView.getTfDescricao().getValue());
+			this.entity
+					.setObservacao(this.subView.getTfObservacao().getValue());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new NcmFormView(this);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.ncmDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfCodigo().setValue(this.currentBean.getCodigo());
-			this.subView.getTfDescricao().setValue(this.currentBean.getNome());
-			this.subView.getTfObservacao().setValue(
-					this.currentBean.getObservacao());
+			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
+			this.subView.getTfDescricao().setValue(this.entity.getNome());
+			this.subView.getTfObservacao()
+					.setValue(this.entity.getObservacao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -83,16 +140,9 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	}
 
 	@Override
-	protected void actionSalvar() {
+	protected void criarNovoBean() {
 		try {
-			this.currentBean.setCodigo(this.subView.getTfCodigo().getValue());
-			this.currentBean.setNome(this.subView.getTfDescricao().getValue());
-			this.currentBean.setObservacao(this.subView.getTfObservacao()
-					.getValue());
-
-			this.ncmDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.entity = new NcmEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -102,18 +152,19 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.entity = new NcmEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	}
-
-	@Override
-	protected String getNome() {
-		return "NCM";
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.ncmDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -125,29 +176,13 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
 
-	}
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
-	public NcmEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
+			mensagemErro(e.getMessage());
+		}
 	}
 
 }

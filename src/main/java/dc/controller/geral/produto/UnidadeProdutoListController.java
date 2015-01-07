@@ -1,6 +1,5 @@
 package dc.controller.geral.produto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -24,14 +22,24 @@ public class UnidadeProdutoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private UnidadeProdutoDAO dao;
-
-	@Autowired
 	private UnidadeProdutoFormController unidadeProdutoFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public UnidadeProdutoListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<UnidadeProdutoEntity> getFormController() {
+		return unidadeProdutoFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "sigla", "nome" };
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
@@ -45,23 +53,6 @@ public class UnidadeProdutoListController extends
 	}
 
 	@Override
-	protected List<UnidadeProdutoEntity> pesquisa(String valor) {
-		try {
-			return (List<UnidadeProdutoEntity>) dao.fullTextSearch(valor);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new ArrayList<UnidadeProdutoEntity>();
-		}
-	}
-
-	@Override
-	protected CRUDFormController<UnidadeProdutoEntity> getFormController() {
-		return unidadeProdutoFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -69,18 +60,34 @@ public class UnidadeProdutoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected List<UnidadeProdutoEntity> pesquisa(String valor) {
+		try {
+			List<UnidadeProdutoEntity> auxLista = (List<UnidadeProdutoEntity>) this.unidadeProdutoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
 	protected List<UnidadeProdutoEntity> pesquisaDefault() {
 		try {
-			return (List<UnidadeProdutoEntity>) dao.getAll(getEntityClass());
+			List<UnidadeProdutoEntity> auxLista = (List<UnidadeProdutoEntity>) this.unidadeProdutoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<UnidadeProdutoEntity>();
+			return null;
 		}
 	}
 

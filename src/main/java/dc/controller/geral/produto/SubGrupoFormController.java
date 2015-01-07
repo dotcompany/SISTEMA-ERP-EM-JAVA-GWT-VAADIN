@@ -9,59 +9,63 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.UnidadeProdutoUtils;
+import dc.control.util.classes.SubGrupoProdutoUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.model.business.geral.produto.UnidadeProdutoBusiness;
+import dc.entidade.geral.produto.GrupoEntity;
+import dc.entidade.geral.produto.SubGrupoEntity;
+import dc.model.business.geral.produto.SubGrupoBusiness;
+import dc.servicos.dao.geral.produto.GrupoDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.UnidadeProdutoFormView;
+import dc.visao.geral.produto.SubGrupoProdutoFormView;
 
 @Controller
 @Scope("prototype")
-public class UnidadeProdutoFormController extends
-		CRUDFormController<UnidadeProdutoEntity> {
+public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private UnidadeProdutoFormView subView;
+	private SubGrupoProdutoFormView subView;
 
 	/**
 	 * ENTITY
 	 */
 
-	private UnidadeProdutoEntity entity;
+	private SubGrupoEntity entity;
 
 	/**
 	 * BUSINESS
 	 */
 
 	@Autowired
-	private UnidadeProdutoBusiness<UnidadeProdutoEntity> business;
+	private SubGrupoBusiness<SubGrupoEntity> business;
 
 	/**
 	 * DAO
 	 */
 
+	@Autowired
+	private GrupoDAO grupoDAO;
+
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public UnidadeProdutoFormController() {
+	public SubGrupoFormController() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UnidadeProdutoBusiness<UnidadeProdutoEntity> getBusiness() {
+	public SubGrupoBusiness<SubGrupoEntity> getBusiness() {
 		return business;
 	}
 
 	@Override
 	protected String getNome() {
-		return "Unidade do produto";
+		return "Subgrupo";
 	}
 
 	@Override
@@ -81,16 +85,20 @@ public class UnidadeProdutoFormController extends
 	}
 
 	@Override
-	public UnidadeProdutoEntity getModelBean() {
+	public SubGrupoEntity getModelBean() {
 		return entity;
 	}
 
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new UnidadeProdutoFormView(this);
+			this.subView = new SubGrupoProdutoFormView(this);
 
-			comboPodeFracionar();
+			DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
+					GrupoListController.class, this.grupoDAO,
+					super.getMainController());
+
+			this.subView.getMocGrupoProduto().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +107,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			UnidadeProdutoUtils.validateRequiredFields(this.subView);
+			SubGrupoProdutoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
@@ -112,13 +120,10 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setSigla(this.subView.getTfSigla().getValue());
-			this.entity.setNome(this.subView.getTfDescricao().getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 
-			SimNaoEn en = SimNaoEn.getEnum(this.subView.getCbPodeFracionar()
-					.getValue().toString());
-
-			this.entity.setPodeFracionar(en);
+			this.entity.setGrupo(this.subView.getMocGrupoProduto().getValue());
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -135,11 +140,17 @@ public class UnidadeProdutoFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfSigla().setValue(this.entity.getSigla());
-			this.subView.getTfDescricao().setValue(this.entity.getNome());
-			this.subView.getCbPodeFracionar().setValue(
-					(SimNaoEn.valueOf(this.entity.getPodeFracionar().name()))
-							.toString());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+
+			// DefaultManyToOneComboModel<GrupoEntity> model = new
+			// DefaultManyToOneComboModel<GrupoEntity>(
+			// GrupoListController.class, this.grupoProdutoDAO,
+			// super.getMainController());
+
+			// this.subView.getMocGrupoProduto().setModel(model);
+
+			this.subView.getMocGrupoProduto().setValue(this.entity.getGrupo());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -150,7 +161,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.entity = new UnidadeProdutoEntity();
+			this.entity = new SubGrupoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -161,7 +172,7 @@ public class UnidadeProdutoFormController extends
 	@Override
 	protected void quandoNovo() {
 		try {
-			this.entity = new UnidadeProdutoEntity();
+			this.entity = new SubGrupoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -190,16 +201,6 @@ public class UnidadeProdutoFormController extends
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		}
-	}
-
-	/**
-	 * COMBOS
-	 */
-
-	public void comboPodeFracionar() {
-		for (SimNaoEn en : SimNaoEn.values()) {
-			this.subView.getCbPodeFracionar().addItem(en);
 		}
 	}
 

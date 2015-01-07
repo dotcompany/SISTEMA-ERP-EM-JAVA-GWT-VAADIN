@@ -141,7 +141,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView = new ProdutoFormView(this);
 
 			DefaultManyToOneComboModel<SubGrupoEntity> modelSubGrupo = new DefaultManyToOneComboModel<SubGrupoEntity>(
-					SubGrupoProdutoListController.class, this.subGrupoDAO,
+					SubGrupoListController.class, this.subGrupoDAO,
 					super.getMainController());
 
 			this.subView.getMocSubGrupo().setModel(modelSubGrupo);
@@ -153,7 +153,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getMocUnidadeProduto().setModel(modelUnidadeProduto);
 
 			DefaultManyToOneComboModel<MarcaEntity> modelMarca = new DefaultManyToOneComboModel<MarcaEntity>(
-					MarcaProdutoListController.class, this.marcaDAO,
+					MarcaListController.class, this.marcaDAO,
 					super.getMainController());
 
 			this.subView.getMocMarca().setModel(modelMarca);
@@ -177,7 +177,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getMocGrupoTributario().setModel(modelGrupoTributario);
 
 			DefaultManyToOneComboModel<GrupoEntity> modelGrupo = new DefaultManyToOneComboModel<GrupoEntity>(
-					GrupoProdutoListController.class, this.grupoDAO,
+					GrupoListController.class, this.grupoDAO,
 					super.getMainController());
 
 			this.subView.getMocGrupo().setModel(modelGrupo);
