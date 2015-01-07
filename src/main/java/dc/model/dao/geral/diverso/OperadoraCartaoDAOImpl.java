@@ -2,6 +2,7 @@ package dc.model.dao.geral.diverso;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
@@ -26,26 +27,13 @@ public class OperadoraCartaoDAOImpl extends
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
 
-			List<OperadoraCartaoEntity> auxLista = super.getSession()
-					.createQuery(sql).list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", query);
 
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
-
-	public List<OperadoraCartaoEntity> procuraNomeContendo(String query) {
-		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-			sql = sql.replace("#", this.getEntityClass().getName());
-
-			List<OperadoraCartaoEntity> auxLista = super.getSession()
-					.createQuery(sql).setParameter("q", "%" + query + "%")
-					.list();
+			List<OperadoraCartaoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -55,13 +43,35 @@ public class OperadoraCartaoDAOImpl extends
 		}
 	}
 
-	public List<OperadoraCartaoEntity> query(String q) {
+	public List<OperadoraCartaoEntity> procuraNomeContendo(String value) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<OperadoraCartaoEntity> auxLista = super.getSession()
-					.createQuery(sql).setParameter("q", "%" + q + "%").list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", value);
+
+			List<OperadoraCartaoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public List<OperadoraCartaoEntity> query(String value) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			value = "%" + value.toLowerCase() + "%";
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("q", value);
+
+			List<OperadoraCartaoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {

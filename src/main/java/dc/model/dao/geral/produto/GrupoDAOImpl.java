@@ -2,6 +2,7 @@ package dc.model.dao.geral.produto;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
@@ -24,25 +25,13 @@ public class GrupoDAOImpl extends AbstractCrudDAO<GrupoEntity> implements
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
 
-			List<GrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", query);
 
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
-
-	public List<GrupoEntity> procuraNomeContendo(String query) {
-		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-			sql = sql.replace("#", this.getEntityClass().getName());
-
-			List<GrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<GrupoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -52,13 +41,35 @@ public class GrupoDAOImpl extends AbstractCrudDAO<GrupoEntity> implements
 		}
 	}
 
-	public List<GrupoEntity> query(String q) {
+	public List<GrupoEntity> procuraNomeContendo(String value) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<GrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + q + "%").list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", value);
+
+			List<GrupoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public List<GrupoEntity> query(String value) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			value = "%" + value.toLowerCase() + "%";
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("q", value);
+
+			List<GrupoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {

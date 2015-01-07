@@ -2,6 +2,7 @@ package dc.model.dao.geral.produto;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
@@ -10,11 +11,10 @@ import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SubGrupoDAOImpl extends AbstractCrudDAO<SubGrupoEntity>
-		implements SubGrupoDAO<SubGrupoEntity> {
+public class SubGrupoDAOImpl extends AbstractCrudDAO<SubGrupoEntity> implements
+		SubGrupoDAO<SubGrupoEntity> {
 
-	private static Logger logger = Logger
-			.getLogger(SubGrupoDAOImpl.class);
+	private static Logger logger = Logger.getLogger(SubGrupoDAOImpl.class);
 
 	@Override
 	public Class<SubGrupoEntity> getEntityClass() {
@@ -25,25 +25,13 @@ public class SubGrupoDAOImpl extends AbstractCrudDAO<SubGrupoEntity>
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
+			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			// + "(ent.id, ent.nome, ent.sigla)");
 
-			List<SubGrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", query);
 
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
-
-	public List<SubGrupoEntity> procuraNomeContendo(String query) {
-		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-			sql = sql.replace("#", this.getEntityClass().getName());
-
-			List<SubGrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			List<SubGrupoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -53,13 +41,35 @@ public class SubGrupoDAOImpl extends AbstractCrudDAO<SubGrupoEntity>
 		}
 	}
 
-	public List<SubGrupoEntity> query(String q) {
+	public List<SubGrupoEntity> procuraNomeContendo(String value) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<SubGrupoEntity> auxLista = super.getSession().createQuery(sql)
-					.setParameter("q", "%" + q + "%").list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", value);
+
+			List<SubGrupoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public List<SubGrupoEntity> query(String value) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			value = "%" + value.toLowerCase() + "%";
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("q", value);
+
+			List<SubGrupoEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {

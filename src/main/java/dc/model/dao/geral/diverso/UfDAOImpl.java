@@ -2,6 +2,7 @@ package dc.model.dao.geral.diverso;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
@@ -27,7 +28,12 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
 			// + "(ent.id, ent.nome, ent.sigla)");
 
-			return getSession().createQuery(sql).list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", query);
+
+			List<UfEntity> auxLista = query.list();
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -35,13 +41,17 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 		}
 	}
 
-	public List<UfEntity> procuraNomeContendo(String query) {
+	public List<UfEntity> procuraNomeContendo(String value) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			return getSession().createQuery(sql)
-					.setParameter("q", "%" + query + "%").list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("nome", value);
+
+			List<UfEntity> auxLista = query.list();
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -49,14 +59,19 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 		}
 	}
 
-	public List<UfEntity> query(String q) {
+	public List<UfEntity> query(String value) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
 			sql = sql.replace("#", getEntityClass().getName());
 
-			q = "%" + q.toLowerCase() + "%";
+			value = "%" + value.toLowerCase() + "%";
 
-			return getSession().createQuery(sql).setParameter("q", q).list();
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("q", value);
+
+			List<UfEntity> auxLista = query.list();
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
