@@ -22,17 +22,17 @@ public class ProdutoUtils {
 
 	public static void validateRequiredFields(ProdutoFormView subView)
 			throws DotErpException {
-		SubGrupoEntity subgrupo = subView.getMocSubGrupoProduto().getValue();
+		SubGrupoEntity subgrupo = subView.getMocSubGrupo().getValue();
 
 		if (ObjectUtils.isBlank(subgrupo)) {
-			throw new DotErpException(subView.getMocSubGrupoProduto(),
+			throw new DotErpException(subView.getMocSubGrupo(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		GrupoEntity grupo = subView.getMocGrupoProduto().getValue();
+		GrupoEntity grupo = subView.getMocGrupo().getValue();
 
 		if (ObjectUtils.isBlank(grupo)) {
-			throw new DotErpException(subView.getMocGrupoProduto(),
+			throw new DotErpException(subView.getMocGrupo(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
@@ -44,10 +44,10 @@ public class ProdutoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		MarcaEntity marca = subView.getMocMarcaProduto().getValue();
+		MarcaEntity marca = subView.getMocMarca().getValue();
 
 		if (ObjectUtils.isBlank(marca)) {
-			throw new DotErpException(subView.getMocMarcaProduto(),
+			throw new DotErpException(subView.getMocMarca(),
 					"::DotERP - Não pode ficar em branco");
 		}
 

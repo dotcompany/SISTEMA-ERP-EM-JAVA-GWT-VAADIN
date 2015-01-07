@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,15 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ProdutoDAO dao;
-
-	@Autowired
 	private ProdutoFormController produtoFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public ProdutoListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<ProdutoEntity> getFormController() {
@@ -38,19 +42,8 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super ProdutoEntity> getEntityClass() {
 		return ProdutoEntity.class;
-	}
-
-	@Override
-	protected List<ProdutoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -59,8 +52,9 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -69,8 +63,31 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	}
 
 	@Override
+	protected List<ProdutoEntity> pesquisa(String valor) {
+		try {
+			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<ProdutoEntity> pesquisaDefault() {
-		return (List<ProdutoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
