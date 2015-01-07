@@ -20,9 +20,10 @@ import dc.visao.ordemservico.SubGrupoFormView;
 
 /** @author Paulo Sérgio */
 
-@Controller
+@Controller("ordemservicoSubGrupoFormController")
 @Scope("prototype")
-public class SubGrupoFormController extends CRUDFormController<SubGrupoOsEntity> {
+public class SubGrupoFormController extends
+		CRUDFormController<SubGrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -93,7 +94,8 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoOsEntity>
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(GrupoListController.class, this.grupoDAO,
+		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(
+				GrupoListController.class, this.grupoDAO,
 				super.getMainController());
 
 		this.subView.getCbGrupo().setModel(grupo);
@@ -112,7 +114,8 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoOsEntity>
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -133,4 +136,5 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoOsEntity>
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+
 }

@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.GrupoFormController;
 import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-@Component
+@Component("ordemservicoGrupoListController")
 @Scope("prototype")
 public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 
@@ -20,14 +19,13 @@ public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 
 	@Autowired
 	GrupoDAO dao;
-	
+
 	@Autowired
 	GrupoFormController formController;
-	
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"nome"};
+		return new String[] { "nome" };
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 	protected List<GrupoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaGrupo";
@@ -64,4 +62,5 @@ public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 	protected boolean deletaEmCascata() {
 		return false;
 	}
+
 }

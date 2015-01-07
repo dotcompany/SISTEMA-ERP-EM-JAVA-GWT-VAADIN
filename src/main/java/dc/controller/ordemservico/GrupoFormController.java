@@ -17,7 +17,7 @@ import dc.visao.ordemservico.GrupoFormView;
 
 /** @author Paulo Sérgio */
 
-@Controller
+@Controller("ordemservicoGrupoFormController")
 @Scope("prototype")
 public class GrupoFormController extends CRUDFormController<GrupoOsEntity> {
 
@@ -94,7 +94,8 @@ public class GrupoFormController extends CRUDFormController<GrupoOsEntity> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -115,4 +116,5 @@ public class GrupoFormController extends CRUDFormController<GrupoOsEntity> {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+
 }

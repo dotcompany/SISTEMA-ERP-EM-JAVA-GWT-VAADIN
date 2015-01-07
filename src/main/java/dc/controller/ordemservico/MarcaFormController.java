@@ -17,7 +17,7 @@ import dc.visao.ordemservico.MarcaFormView;
 
 /** @author Paulo Sérgio */
 
-@Controller
+@Controller("ordemservicoMarcaFormController")
 @Scope("prototype")
 public class MarcaFormController extends CRUDFormController<MarcaOsEntity> {
 
@@ -94,7 +94,8 @@ public class MarcaFormController extends CRUDFormController<MarcaOsEntity> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
@@ -115,4 +116,5 @@ public class MarcaFormController extends CRUDFormController<MarcaOsEntity> {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+
 }

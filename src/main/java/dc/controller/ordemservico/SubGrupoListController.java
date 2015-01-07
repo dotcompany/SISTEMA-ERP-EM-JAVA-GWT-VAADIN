@@ -6,28 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.SubGrupoFormController;
 import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-@Component
+@Component("ordemservicoSubGrupoListController")
 @Scope("prototype")
-public class SubGrupoListController extends CRUDListController<SubGrupoOsEntity> {
+public class SubGrupoListController extends
+		CRUDListController<SubGrupoOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	SubGrupoDAO dao;
-	
+
 	@Autowired
 	SubGrupoFormController formController;
-	
 
-	@Override 
+	@Override
 	public String[] getColunas() {
-		return new String[] {"nome","grupo"};
+		return new String[] { "nome", "grupo" };
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupoOsEntity>
 	protected List<SubGrupoOsEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
 		return "listaSubGrupo";
@@ -54,7 +53,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupoOsEntity>
 	public Class<? super SubGrupoOsEntity> getEntityClass() {
 		return SubGrupoOsEntity.class;
 	}
- 
+
 	@Override
 	protected List<SubGrupoOsEntity> pesquisaDefault() {
 		return dao.getAll(SubGrupoOsEntity.class);
@@ -64,4 +63,5 @@ public class SubGrupoListController extends CRUDListController<SubGrupoOsEntity>
 	protected boolean deletaEmCascata() {
 		return false;
 	}
+
 }
