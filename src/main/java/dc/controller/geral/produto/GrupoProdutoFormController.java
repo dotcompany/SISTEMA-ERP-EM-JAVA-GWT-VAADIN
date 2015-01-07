@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.control.util.classes.GrupoProdutoUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
-import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
+import dc.servicos.dao.geral.produto.GrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.GrupoProdutoFormView;
 
@@ -31,7 +31,7 @@ public class GrupoProdutoFormController extends CRUDFormController<GrupoEntity> 
 	private GrupoEntity currentBean;
 
 	@Autowired
-	private GrupoProdutoDAO grupoProdutoDAO;
+	private GrupoDAO grupoProdutoDAO;
 
 	@Override
 	protected boolean validaSalvar() {

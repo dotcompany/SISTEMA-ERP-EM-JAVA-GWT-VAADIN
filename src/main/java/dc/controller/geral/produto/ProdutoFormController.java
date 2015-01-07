@@ -33,10 +33,10 @@ import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
-import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
-import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
+import dc.servicos.dao.geral.produto.GrupoDAO;
+import dc.servicos.dao.geral.produto.MarcaDAO;
 import dc.servicos.dao.geral.produto.NcmDAO;
-import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
+import dc.servicos.dao.geral.produto.SubGrupoDAO;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
@@ -77,13 +77,13 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	private UnidadeProdutoDAO unidadeProdutoDAO;
 
 	@Autowired
-	private MarcaProdutoDAO marcaDAO;
+	private MarcaDAO marcaDAO;
 
 	@Autowired
-	private SubGrupoProdutoDAO subGrupoDAO;
+	private SubGrupoDAO subGrupoDAO;
 
 	@Autowired
-	private GrupoProdutoDAO grupoDAO;
+	private GrupoDAO grupoDAO;
 
 	@Autowired
 	private NcmDAO ncmDAO;

@@ -14,8 +14,8 @@ import dc.control.util.classes.SubGrupoProdutoUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
-import dc.servicos.dao.geral.produto.GrupoProdutoDAO;
-import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
+import dc.servicos.dao.geral.produto.GrupoDAO;
+import dc.servicos.dao.geral.produto.SubGrupoDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.SubGrupoProdutoFormView;
@@ -35,10 +35,10 @@ public class SubGrupoProdutoFormController extends
 	private SubGrupoEntity currentBean;
 
 	@Autowired
-	private SubGrupoProdutoDAO subGrupoProdutoDAO;
+	private SubGrupoDAO subGrupoProdutoDAO;
 
 	@Autowired
-	private GrupoProdutoDAO grupoProdutoDAO;
+	private GrupoDAO grupoProdutoDAO;
 
 	@Override
 	protected boolean validaSalvar() {

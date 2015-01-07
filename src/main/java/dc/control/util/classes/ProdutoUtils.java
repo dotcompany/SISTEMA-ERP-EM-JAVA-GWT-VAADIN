@@ -143,6 +143,11 @@ public class ProdutoUtils {
 		}
 	}
 
+	public static void validateFieldValue(CepFormView subView)
+			throws DotErpException {
+
+	}
+
 	public static void clearFormFields(CepFormView subView) {
 
 	}

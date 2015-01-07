@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.SubGrupoEntity;
-import dc.servicos.dao.geral.produto.SubGrupoProdutoDAO;
+import dc.servicos.dao.geral.produto.SubGrupoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -24,7 +24,7 @@ public class SubGrupoProdutoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private SubGrupoProdutoDAO dao;
+	private SubGrupoDAO dao;
 
 	@Autowired
 	private SubGrupoProdutoFormController subGrupoProdutoFormController;

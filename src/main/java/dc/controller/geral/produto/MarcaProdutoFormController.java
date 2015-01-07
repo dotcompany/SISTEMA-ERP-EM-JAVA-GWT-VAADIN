@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.control.util.classes.MarcaProdutoUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.MarcaEntity;
-import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
+import dc.servicos.dao.geral.produto.MarcaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.MarcaProdutoFormView;
 
@@ -31,7 +31,7 @@ public class MarcaProdutoFormController extends CRUDFormController<MarcaEntity> 
 	private MarcaEntity currentBean;
 
 	@Autowired
-	private MarcaProdutoDAO marcaProdutoDAO;
+	private MarcaDAO marcaProdutoDAO;
 
 	@Override
 	protected boolean validaSalvar() {

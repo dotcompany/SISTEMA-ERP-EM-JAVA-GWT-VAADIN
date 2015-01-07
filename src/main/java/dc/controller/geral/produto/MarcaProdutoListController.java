@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.MarcaEntity;
-import dc.servicos.dao.geral.produto.MarcaProdutoDAO;
+import dc.servicos.dao.geral.produto.MarcaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class MarcaProdutoListController extends CRUDListController<MarcaEntity> 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private MarcaProdutoDAO dao;
+	private MarcaDAO dao;
 
 	@Autowired
 	private MarcaProdutoFormController marcaProdutoFormController;
