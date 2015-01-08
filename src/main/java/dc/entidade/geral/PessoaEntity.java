@@ -81,7 +81,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CLIENTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cliente = "";
+	private String cliente = "0";
 
 	@Field
 	@Caption()
@@ -193,7 +193,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCliente(String cliente) {
-		this.cliente = (cliente == null ? "".trim() : cliente.toUpperCase()
+		this.cliente = (cliente == null ? "0".trim() : cliente.toUpperCase()
 				.trim());
 	}
 

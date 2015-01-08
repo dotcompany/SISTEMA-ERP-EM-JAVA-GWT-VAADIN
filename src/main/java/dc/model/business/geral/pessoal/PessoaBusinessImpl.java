@@ -186,17 +186,23 @@ public class PessoaBusinessImpl implements Serializable,
 
 			this.dao.saveOrUpdate(entity);
 
-			for (PessoaContatoEntity ent : entity.getPessoaContatoList()) {
-				this.pessoaContatoDAO.saveOrUpdate(ent);
+			if (entity.getPessoaContatoList() != null
+					&& !entity.getPessoaContatoList().isEmpty()) {
+				for (PessoaContatoEntity ent : entity.getPessoaContatoList()) {
+					this.pessoaContatoDAO.saveOrUpdate(ent);
+				}
 			}
 
-			for (PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()) {
-				if (ObjectUtils.isNotBlank(ent.getUf())) {
-					ent.setIdUf(ent.getUf().getId());
-					ent.setSiglaUf(ent.getUf().getSigla());
-				}
+			if (entity.getPessoaEnderecoList() != null
+					&& !entity.getPessoaEnderecoList().isEmpty()) {
+				for (PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()) {
+					if (ObjectUtils.isNotBlank(ent.getUf())) {
+						ent.setIdUf(ent.getUf().getId());
+						ent.setSiglaUf(ent.getUf().getSigla());
+					}
 
-				this.pessoaEnderecoDAO.saveOrUpdate(ent);
+					this.pessoaEnderecoDAO.saveOrUpdate(ent);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

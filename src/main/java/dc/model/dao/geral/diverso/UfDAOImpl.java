@@ -29,7 +29,6 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 			// + "(ent.id, ent.nome, ent.sigla)");
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<UfEntity> auxLista = query.list();
 

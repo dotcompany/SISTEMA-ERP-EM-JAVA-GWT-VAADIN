@@ -127,29 +127,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		return entity;
 	}
 
-	protected boolean validaSalvar() {
-		try {
-			PessoaUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
-	}
-
-	@Override
-	protected void criarNovoBean() {
-		try {
-			this.entity = new PessoaEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
 	@Override
 	protected void initSubView() {
 		try {
@@ -161,17 +138,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getMocEstadoCivil().setModel(model);
 
-			/*
-			 * DefaultManyToOneComboModel<EstadoCivilEntity> model = new
-			 * DefaultManyToOneComboModel<EstadoCivilEntity>(
-			 * EstadoCivilListController.class, this.estadoCivilDAO,
-			 * super.getMainController()) {
-			 * 
-			 * @Override public String getCaptionProperty() { return "nome"; }
-			 * 
-			 * };
-			 */
-
 			carregarTipoRegime();
 			carregarCnh();
 			carregarRaca();
@@ -180,7 +146,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarTipoSanguineo();
 			carregarTipoPessoa();
 			carregarSexo();
-			// carregarCategoriaPessoa();
 
 			// Valores iniciais
 
@@ -191,158 +156,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	@Override
-	protected void carregar(Serializable id) {
+	protected boolean validaSalvar() {
 		try {
-			this.entity = this.business.find(id);
+			PessoaUtils.validateRequiredFields(this.subView);
 
-			// PessoaContato
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness
-					.list(this.entity);
-
-			this.entity.setPessoaContatoList(auxLista1);
-
-			// PessoaEndereco
-
-			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness
-					.list(this.entity);
-
-			this.entity.setPessoaEnderecoList(auxLista2);
-
-			this.subView.getTfNome().setValue(this.entity.getNome());
-
-			this.subView.getCbTipoPessoa()
-					.setValue(this.entity.getTipoPessoa());
-
-			this.subView.getTfEmail().setValue(this.entity.getEmail());
-			this.subView.getTfSite().setValue(this.entity.getSite());
-
-			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
-				this.entity.setPessoaFisica(carregarPessoaFisica());
-			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
-				this.entity.setPessoaJuridica(carregarPessoaJuridica());
-			}
-
-			this.subView.getCkCliente().setValue(
-					this.entity.getCliente().equals("0") ? Boolean.FALSE
-							: Boolean.TRUE);
-			this.subView.getCkColaborador().setValue(
-					this.entity.getColaborador());
-			this.subView.getCkFornecedor()
-					.setValue(this.entity.getFornecedor());
-			this.subView.getCkTransportadora().setValue(
-					this.entity.getTransportadora());
-
-			// PessoaContato
-
-			this.subView.getSfPessoaContato().fillWith(
-					this.entity.getPessoaContatoList());
-
-			// PessoaEndereco
-
-			for (PessoaEnderecoEntity ent : this.entity.getPessoaEnderecoList()) {
-				if (StringUtils.isNotBlank(ent.getSiglaUf())) {
-					UfEntity uf = this.ufBusiness.find(ent.getIdUf());
-
-					ent.setUf(uf);
-				}
-			}
-
-			this.subView.getSfPessoaEndereco().fillWith(
-					this.entity.getPessoaEnderecoList());
-		} catch (Exception e) {
-			e.printStackTrace();
+			return false;
 		}
-	}
-
-	private PessoaJuridicaEntity carregarPessoaJuridica() {
-		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
-
-		this.subView.getTfFantasia().setValue(pj.getFantasia());
-		this.subView.getMtfCnpj().setValue(pj.getCnpj());
-		this.subView.getTfInscricaoEstadual().setValue(
-				pj.getInscricaoEstadual());
-		this.subView.getTfInscricaoMunicipal().setValue(
-				pj.getInscricaoMunicipal());
-		this.subView.getPdfDataConstituicao()
-				.setValue(pj.getDataConstituicao());
-		this.subView.getTfSuframa().setValue(pj.getSuframa());
-
-		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
-
-		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-			this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
-		}
-
-		CrtEn crtEn = pj.getCrt();
-
-		if (ObjectUtils.isNotBlank(crtEn)) {
-			this.subView.getCbCrt().setValue(crtEn);
-		}
-
-		return pj;
-	}
-
-	private PessoaFisicaEntity carregarPessoaFisica() {
-		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
-
-		this.subView.getMtfCpf().setValue(pf.getCpf());
-		this.subView.getPdfDataNascimento().setValue(pf.getDataNascimento());
-		this.subView.getTfNaturalidade().setValue(pf.getNaturalidade());
-		this.subView.getTfNacionalidade().setValue(pf.getNacionalidade());
-		this.subView.getTfNomeMae().setValue(pf.getNomeMae());
-		this.subView.getTfNomePai().setValue(pf.getNomePai());
-		this.subView.getTfNumeroRg().setValue(pf.getRg());
-		this.subView.getTfOrgaoEmissor().setValue(pf.getOrgaoRg());
-		this.subView.getPdfDataEmissaoRg().setValue(pf.getDataEmissaoRg());
-		this.subView.getTfCnh().setValue(pf.getCnhNumero());
-
-		CnhEn cnhEn = pf.getCnh();
-
-		if (ObjectUtils.isNotBlank(cnhEn)) {
-			this.subView.getCbCategoriaCnh().setValue(cnhEn);
-		}
-
-		this.subView.getPdfDataCnhEmissao().setValue(pf.getCnhVencimento());
-		this.subView.getMocEstadoCivil().setValue(pf.getEstadoCivil());
-
-		RacaEn racaEn = pf.getRaca();
-
-		if (ObjectUtils.isNotBlank(racaEn)) {
-			this.subView.getCbRaca().setValue(racaEn);
-		}
-
-		TipoSanguineoEn tipoSanguineoEn = pf.getTipoSangue();
-
-		if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
-			this.subView.getCbTipoSanguineo().setValue(tipoSanguineoEn);
-		}
-
-		this.subView.getTfNumeroReservista().setValue(pf.getReservistaNumero());
-
-		CategoriaReservistaEn categoriaReservistaEn = pf
-				.getReservistaCategoria();
-
-		if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
-			this.subView.getCbCategoriaReservista().setValue(
-					categoriaReservistaEn);
-		}
-
-		SexoEn sexoEn = (SexoEn) this.entity.getPessoaFisica().getSexo();
-
-		if (ObjectUtils.isNotBlank(sexoEn)) {
-			this.subView.getOgSexo().setValue(sexoEn);
-		}
-
-		this.subView.getTfTituloEleitor().setValue(
-				pf.getTituloEleitoralNumero());
-		this.subView.getTfTituloSecao().setConvertedValue(
-				pf.getTituloEleitoralSecao());
-		this.subView.getTfTituloZona().setConvertedValue(
-				pf.getTituloEleitoralZona());
-
-		return pf;
 	}
 
 	@Override
@@ -541,8 +364,188 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	@Override
-	protected void quandoNovo() {
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
 
+			// PessoaContato
+
+			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness
+					.list(this.entity);
+
+			this.entity.setPessoaContatoList(auxLista1);
+
+			// PessoaEndereco
+
+			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness
+					.list(this.entity);
+
+			this.entity.setPessoaEnderecoList(auxLista2);
+
+			this.subView.getTfNome().setValue(this.entity.getNome());
+
+			this.subView.getCbTipoPessoa()
+					.setValue(this.entity.getTipoPessoa());
+
+			this.subView.getTfEmail().setValue(this.entity.getEmail());
+			this.subView.getTfSite().setValue(this.entity.getSite());
+
+			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+				this.entity.setPessoaFisica(carregarPessoaFisica());
+			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+				this.entity.setPessoaJuridica(carregarPessoaJuridica());
+			}
+
+			this.subView.getCkCliente().setValue(
+					this.entity.getCliente().equals("0") ? Boolean.FALSE
+							: Boolean.TRUE);
+
+			this.subView.getCkColaborador().setValue(
+					this.entity.getColaborador());
+
+			this.subView.getCkFornecedor()
+					.setValue(this.entity.getFornecedor());
+
+			this.subView.getCkTransportadora().setValue(
+					this.entity.getTransportadora());
+
+			// PessoaContato
+
+			this.subView.getSfPessoaContato().fillWith(
+					this.entity.getPessoaContatoList());
+
+			// PessoaEndereco
+
+			for (PessoaEnderecoEntity ent : this.entity.getPessoaEnderecoList()) {
+				if (StringUtils.isNotBlank(ent.getSiglaUf())) {
+					UfEntity uf = this.ufBusiness.find(ent.getIdUf());
+
+					ent.setUf(uf);
+				}
+			}
+
+			this.subView.getSfPessoaEndereco().fillWith(
+					this.entity.getPessoaEnderecoList());
+
+			carregarAba();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private PessoaJuridicaEntity carregarPessoaJuridica() {
+		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
+
+		this.subView.getTfFantasia().setValue(pj.getFantasia());
+		this.subView.getMtfCnpj().setValue(pj.getCnpj());
+		this.subView.getTfInscricaoEstadual().setValue(
+				pj.getInscricaoEstadual());
+		this.subView.getTfInscricaoMunicipal().setValue(
+				pj.getInscricaoMunicipal());
+		this.subView.getPdfDataConstituicao()
+				.setValue(pj.getDataConstituicao());
+		this.subView.getTfSuframa().setValue(pj.getSuframa());
+
+		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
+
+		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+			this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
+		}
+
+		CrtEn crtEn = pj.getCrt();
+
+		if (ObjectUtils.isNotBlank(crtEn)) {
+			this.subView.getCbCrt().setValue(crtEn);
+		}
+
+		return pj;
+	}
+
+	private PessoaFisicaEntity carregarPessoaFisica() {
+		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
+
+		this.subView.getMtfCpf().setValue(pf.getCpf());
+		this.subView.getPdfDataNascimento().setValue(pf.getDataNascimento());
+		this.subView.getTfNaturalidade().setValue(pf.getNaturalidade());
+		this.subView.getTfNacionalidade().setValue(pf.getNacionalidade());
+		this.subView.getTfNomeMae().setValue(pf.getNomeMae());
+		this.subView.getTfNomePai().setValue(pf.getNomePai());
+		this.subView.getTfNumeroRg().setValue(pf.getRg());
+		this.subView.getTfOrgaoEmissor().setValue(pf.getOrgaoRg());
+		this.subView.getPdfDataEmissaoRg().setValue(pf.getDataEmissaoRg());
+		this.subView.getTfCnh().setValue(pf.getCnhNumero());
+
+		CnhEn cnhEn = pf.getCnh();
+
+		if (ObjectUtils.isNotBlank(cnhEn)) {
+			this.subView.getCbCategoriaCnh().setValue(cnhEn);
+		}
+
+		this.subView.getPdfDataCnhEmissao().setValue(pf.getCnhVencimento());
+		this.subView.getMocEstadoCivil().setValue(pf.getEstadoCivil());
+
+		RacaEn racaEn = pf.getRaca();
+
+		if (ObjectUtils.isNotBlank(racaEn)) {
+			this.subView.getCbRaca().setValue(racaEn);
+		}
+
+		TipoSanguineoEn tipoSanguineoEn = pf.getTipoSangue();
+
+		if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
+			this.subView.getCbTipoSanguineo().setValue(tipoSanguineoEn);
+		}
+
+		this.subView.getTfNumeroReservista().setValue(pf.getReservistaNumero());
+
+		CategoriaReservistaEn categoriaReservistaEn = pf
+				.getReservistaCategoria();
+
+		if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
+			this.subView.getCbCategoriaReservista().setValue(
+					categoriaReservistaEn);
+		}
+
+		SexoEn sexoEn = (SexoEn) this.entity.getPessoaFisica().getSexo();
+
+		if (ObjectUtils.isNotBlank(sexoEn)) {
+			this.subView.getOgSexo().setValue(sexoEn);
+		}
+
+		this.subView.getTfTituloEleitor().setValue(
+				pf.getTituloEleitoralNumero());
+		this.subView.getTfTituloSecao().setConvertedValue(
+				pf.getTituloEleitoralSecao());
+		this.subView.getTfTituloZona().setConvertedValue(
+				pf.getTituloEleitoralZona());
+
+		return pf;
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new PessoaEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		} finally {
+			carregarAba();
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.entity = new PessoaEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		} finally {
+			carregarAba();
+		}
 	}
 
 	@Override
@@ -560,8 +563,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
+		try {
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
+
+	/**
+	 * 
+	 */
 
 	public PessoaContatoEntity aderirPessoaContato() {
 		try {
@@ -673,6 +686,22 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		for (SexoEn en : SexoEn.values()) {
 			this.subView.getOgSexo().addItem(en);
 		}
+	}
+
+	public void carregarAba() {
+		this.subView
+				.getTsGeral()
+				.getTab(4)
+				.setVisible(
+						this.entity.getCliente().equals("0") ? Boolean.FALSE
+								: Boolean.TRUE);
+
+		this.subView.getTsGeral().getTab(5)
+				.setVisible(this.entity.getColaborador());
+		this.subView.getTsGeral().getTab(6)
+				.setVisible(this.entity.getFornecedor());
+		this.subView.getTsGeral().getTab(7)
+				.setVisible(this.entity.getTransportadora());
 	}
 
 	/**

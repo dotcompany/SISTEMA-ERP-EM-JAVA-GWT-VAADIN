@@ -42,7 +42,7 @@ public class PessoaEnderecoDAOImpl extends
 
 	public List<PessoaEnderecoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.logradouro LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaEnderecoEntity> auxLista = super.getSession()
@@ -59,7 +59,7 @@ public class PessoaEnderecoDAOImpl extends
 
 	public List<PessoaEnderecoEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.logradouro LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<PessoaEnderecoEntity> auxLista = super.getSession()
@@ -74,7 +74,7 @@ public class PessoaEnderecoDAOImpl extends
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome", "email" };
+		return new String[] { "logradouro", "cep" };
 	}
 
 	/**
