@@ -10,13 +10,14 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.OrigemMercadoriaEn;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;
-import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
+import dc.entidade.tributario.IcmsCustomizadoEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
@@ -28,12 +29,12 @@ import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ICMSCustomizadoFormView;
-import dc.visao.tributario.ICMSCustomizadoFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustomizadoEntity> {
+public class IcmsCustomizadoFormController extends
+		CRUDFormController<IcmsCustomizadoEntity> {
 
 	ICMSCustomizadoFormView subView;
 
@@ -86,7 +87,8 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 		currentBean = dao.find((Integer) id);
 		subView.getTxtDescricao().setValue(currentBean.getNome());
 		subView.carregarOrigemMercadoria();
-		subView.getOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(currentBean.getOrigemMercadoria()));
+		subView.getOrigemMercadoria().setValue(
+				currentBean.getOrigemMercadoria());
 
 		List<IcmsCustomizadoDetalheEntity> detalhes = currentBean.getDetalhes();
 
@@ -110,18 +112,22 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	protected void actionSalvar() {
 		try {
 
-			List<IcmsCustomizadoDetalheEntity> detalhes = subView.getDetalhesSubForm().getDados();
+			List<IcmsCustomizadoDetalheEntity> detalhes = subView
+					.getDetalhesSubForm().getDados();
 
 			String descricao = subView.getTxtDescricao().getValue();
-			String origem = "";
+			OrigemMercadoriaEn origem;
 
 			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
-			if (!(Validator.validateObject(subView.getOrigemMercadoria().getValue()))) {
-				throw new ErroValidacaoException("Informe o Campo Origem da Mercadoria");
+			if (!(Validator.validateObject(subView.getOrigemMercadoria()
+					.getValue()))) {
+				throw new ErroValidacaoException(
+						"Informe o Campo Origem da Mercadoria");
 			} else {
-				origem = ((ORIGEM_MERCADORIA) (subView.getOrigemMercadoria().getValue())).getCodigo();
+				origem = (OrigemMercadoriaEn) subView.getOrigemMercadoria()
+						.getValue();
 			}
 
 			currentBean.setNome(subView.getTxtDescricao().getValue());
@@ -181,7 +187,8 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 		try {
 			for (Serializable id : ids) {
 				IcmsCustomizadoEntity icms = dao.find(id);
-				List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO.findByIcms(icms);
+				List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO
+						.findByIcms(icms);
 				for (IcmsCustomizadoDetalheEntity detalhe : detalhes) {
 					detalheDAO.delete(detalhe);
 				}
@@ -214,7 +221,8 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	}
 
 	public BeanItemContainer<CfopEntity> carregarCfop() {
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(
+				CfopEntity.class);
 		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}
@@ -222,7 +230,8 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	}
 
 	public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
-		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(CsosnbEntity.class);
+		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(
+				CsosnbEntity.class);
 		for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
 			container.addBean(obj);
 		}
@@ -230,7 +239,8 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	}
 
 	public BeanItemContainer<CstIcmsbEntity> carregarCstb() {
-		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(CstIcmsbEntity.class);
+		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(
+				CstIcmsbEntity.class);
 		for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
 			container.addBean(obj);
 		}

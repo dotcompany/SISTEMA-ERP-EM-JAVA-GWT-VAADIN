@@ -10,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.control.util.ObjectUtils;
+import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
+import dc.model.dao.geral.produto.GrupoDAO;
 import dc.model.dao.geral.produto.SubGrupoDAO;
 
 /**
@@ -33,6 +36,9 @@ public class SubGrupoBusinessImpl implements Serializable,
 
 	@Autowired
 	private SubGrupoDAO<SubGrupoEntity> dao;
+
+	@Autowired
+	private GrupoDAO<GrupoEntity> grupoDAO;
 
 	/**
 	 * **********************************************
@@ -153,6 +159,11 @@ public class SubGrupoBusinessImpl implements Serializable,
 					+ "] saveOrUpdate");
 
 			SubGrupoEntity ent = (SubGrupoEntity) o;
+
+			if (ObjectUtils.isNotBlank(ent.getGrupo())) {
+				GrupoEntity grupo = this.grupoDAO.find(ent.getGrupo().getId());
+				ent.setGrupo(grupo);
+			}
 
 			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {

@@ -3,9 +3,12 @@ package dc.entidade.tributario;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.OrigemMercadoriaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -38,21 +43,28 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tribut_icms_custom_cab_id_seq")
 	@SequenceGenerator(name = "tribut_icms_custom_cab_id_seq", sequenceName = "tribut_icms_custom_cab_id_seq", allocationSize = 1)
+	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Descrição")
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
-	@Caption("Origem Mercadoria")
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Origem da mercadoria")
 	@Column(name = "origem_mercadoria")
-	private String origemMercadoria;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private OrigemMercadoriaEn origemMercadoria;
 
 	/**
 	 * REFERENCIA - FK
@@ -69,10 +81,6 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * TRANSIENT
 	 */
 
-	@Transient
-	@Caption("Origem")
-	private String origemStr;
-
 	/**
 	 * CONSTRUTOR
 	 */
@@ -81,6 +89,7 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -97,21 +106,13 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.nome = nome;
 	}
 
-	public String getOrigemMercadoria() {
+	public OrigemMercadoriaEn getOrigemMercadoria() {
 		return origemMercadoria;
 	}
 
-	public void setOrigemMercadoria(String origemMercadoria) {
+	public void setOrigemMercadoria(OrigemMercadoriaEn origemMercadoria) {
 		this.origemMercadoria = origemMercadoria;
 	}
-
-	// public Empresa getEmpresa() {
-	// return empresa;
-	// }
-	//
-	// public void setEmpresa(Empresa empresa) {
-	// this.empresa = empresa;
-	// }
 
 	public List<IcmsCustomizadoDetalheEntity> getDetalhes() {
 		return detalhes;
@@ -126,14 +127,13 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 		detalhe.setIcmsCustomizado(this);
 	}
 
-	public String getOrigemStr() {
-		origemStr = origemMercadoria.equals("0") ? "Nacional" : "Estrangeira";
+	/**
+	 * TO STRING
+	 */
 
-		return origemStr;
-	}
-
-	public void setOrigemStr(String origemStr) {
-		this.origemStr = origemStr;
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
