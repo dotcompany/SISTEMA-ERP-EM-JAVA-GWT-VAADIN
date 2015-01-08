@@ -11,7 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.model.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.produto.UnidadeProdutoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class UnidadeProdutoBusinessImpl implements Serializable,
 			.getLogger(UnidadeProdutoBusinessImpl.class);
 
 	@Autowired
-	private ProdutoDAO<UnidadeProdutoEntity> dao;
+	private UnidadeProdutoDAO<UnidadeProdutoEntity> dao;
 
 	/**
 	 * **********************************************

@@ -11,7 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.geral.produto.SubGrupoEntity;
-import dc.model.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.produto.SubGrupoDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class SubGrupoBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(SubGrupoBusinessImpl.class);
 
 	@Autowired
-	private ProdutoDAO<SubGrupoEntity> dao;
+	private SubGrupoDAO<SubGrupoEntity> dao;
 
 	/**
 	 * **********************************************

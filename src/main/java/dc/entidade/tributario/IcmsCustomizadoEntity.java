@@ -54,16 +54,28 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "origem_mercadoria")
 	private String origemMercadoria;
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
+
+	/**
+	 * TRANSIENT
+	 */
+
 	@Transient
 	@Caption("Origem")
 	private String origemStr;
 
-	// @ManyToOne
-	// @JoinColumn(name="id_empresa")
-	// Empresa empresa;
-
-	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public IcmsCustomizadoEntity() {
 		// TODO Auto-generated constructor stub

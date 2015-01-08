@@ -81,7 +81,7 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "subGrupo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "unidadeProduto", cascade = CascadeType.ALL)
 	private List<ProdutoEntity> produtoList;
 
 	/**
