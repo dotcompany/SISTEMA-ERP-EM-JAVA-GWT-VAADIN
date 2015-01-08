@@ -18,7 +18,7 @@ import dc.model.business.geral.produto.SubGrupoBusiness;
 import dc.servicos.dao.geral.produto.GrupoDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.SubGrupoProdutoFormView;
+import dc.visao.geral.produto.SubGrupoFormView;
 
 @Controller
 @Scope("prototype")
@@ -29,7 +29,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private SubGrupoProdutoFormView subView;
+	private SubGrupoFormView subView;
 
 	/**
 	 * ENTITY
@@ -92,7 +92,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new SubGrupoProdutoFormView(this);
+			this.subView = new SubGrupoFormView(this);
 
 			DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
 					GrupoListController.class, this.grupoDAO,

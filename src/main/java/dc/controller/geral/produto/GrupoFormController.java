@@ -15,7 +15,7 @@ import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.model.business.geral.produto.GrupoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.GrupoProdutoFormView;
+import dc.visao.geral.produto.GrupoFormView;
 
 @Controller
 @Scope("prototype")
@@ -26,7 +26,7 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private GrupoProdutoFormView subView;
+	private GrupoFormView subView;
 
 	/**
 	 * ENTITY
@@ -86,7 +86,7 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new GrupoProdutoFormView(this);
+			this.subView = new GrupoFormView(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

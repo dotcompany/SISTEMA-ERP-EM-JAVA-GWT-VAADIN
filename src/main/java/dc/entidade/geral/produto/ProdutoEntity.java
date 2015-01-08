@@ -65,21 +65,21 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "GTIN", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String gtin;
+	private String gtin = "";
 
 	@Field
 	@Caption("Código interno")
 	@Column(name = "CODIGO_INTERNO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoInterno;
+	private String codigoInterno = "";
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	// @Lob
 	@Field
@@ -88,126 +88,126 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
 	@Caption("Descrição Pdv")
 	@Column(name = "DESCRICAO_PDV", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricaoPdv;
+	private String descricaoPdv = "";
 
 	@Field
 	@Caption()
 	@Column(name = "VALOR_COMPRA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorCompra;
+	private BigDecimal valorCompra = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "VALOR_VENDA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorVenda;
+	private BigDecimal valorVenda = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PRECO_VENDA_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal precoVendaMinimo;
+	private BigDecimal precoVendaMinimo = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PRECO_SUGERIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal precoSugerido;
+	private BigDecimal precoSugerido = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "CUSTO_MEDIO_LIQUIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal custoMedioLiquido;
+	private BigDecimal custoMedioLiquido = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PRECO_LUCRO_ZERO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal precoLucroZero;
+	private BigDecimal precoLucroZero = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PRECO_LUCRO_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal precoLucroMinimo;
+	private BigDecimal precoLucroMinimo = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PRECO_LUCRO_MAXIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal precoLucroMaximo;
+	private BigDecimal precoLucroMaximo = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "MARKUP", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal markup;
+	private BigDecimal markup = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "QUANTIDADE_ESTOQUE", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal quantidadeEstoque;
+	private BigDecimal quantidadeEstoque = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "QUANTIDADE_ESTOQUE_ANTERIOR", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal quantidadeEstoqueAnterior;
+	private BigDecimal quantidadeEstoqueAnterior = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "ESTOQUE_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal estoqueMinimo;
+	private BigDecimal estoqueMinimo = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "ESTOQUE_MAXIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal estoqueMaximo;
+	private BigDecimal estoqueMaximo = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "ESTOQUE_IDEAL", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal estoqueIdeal;
+	private BigDecimal estoqueIdeal = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "codigo_lst")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoLst;
+	private String codigoLst = "";
 
 	@Field
 	@Caption()
 	@Column(name = "TOTALIZADOR_PARCIAL", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String totalizadorParcial;
+	private String totalizadorParcial = "";
 
 	@Field
 	@Caption()
@@ -221,49 +221,49 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PESO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal peso;
+	private BigDecimal peso = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal taxaComissao;
+	private BigDecimal taxaComissao = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal pontoPedido;
+	private BigDecimal pontoPedido = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal loteEconomicoCompra;
+	private BigDecimal loteEconomicoCompra = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "aliquota_icms_paf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal aliquotaIcms;
+	private BigDecimal aliquotaIcms = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "aliquota_issqn_paf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal aliquotaIssqn;
+	private BigDecimal aliquotaIssqn = new BigDecimal(0);
 
 	@Field
 	@Caption()
 	@Column(name = "EX_TIPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String exTipi;
+	private String exTipi = "";
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -428,7 +428,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorCompra(BigDecimal valorCompra) {
-		this.valorCompra = valorCompra;
+		this.valorCompra = (valorCompra == null ? new BigDecimal(0)
+				: valorCompra);
 	}
 
 	public BigDecimal getValorVenda() {
@@ -436,7 +437,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setValorVenda(BigDecimal valorVenda) {
-		this.valorVenda = valorVenda;
+		this.valorVenda = (valorVenda == null ? new BigDecimal(0) : valorVenda);
 	}
 
 	public BigDecimal getPrecoVendaMinimo() {
@@ -444,7 +445,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPrecoVendaMinimo(BigDecimal precoVendaMinimo) {
-		this.precoVendaMinimo = precoVendaMinimo;
+		this.precoVendaMinimo = (precoVendaMinimo == null ? new BigDecimal(0)
+				: precoVendaMinimo);
 	}
 
 	public BigDecimal getPrecoSugerido() {
@@ -452,7 +454,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPrecoSugerido(BigDecimal precoSugerido) {
-		this.precoSugerido = precoSugerido;
+		this.precoSugerido = (precoSugerido == null ? new BigDecimal(0)
+				: precoSugerido);
 	}
 
 	public BigDecimal getCustoMedioLiquido() {
@@ -460,7 +463,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCustoMedioLiquido(BigDecimal custoMedioLiquido) {
-		this.custoMedioLiquido = custoMedioLiquido;
+		this.custoMedioLiquido = (custoMedioLiquido == null ? new BigDecimal(0)
+				: custoMedioLiquido);
 	}
 
 	public BigDecimal getPrecoLucroZero() {
@@ -468,7 +472,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPrecoLucroZero(BigDecimal precoLucroZero) {
-		this.precoLucroZero = precoLucroZero;
+		this.precoLucroZero = (precoLucroZero == null ? new BigDecimal(0)
+				: precoLucroZero);
 	}
 
 	public BigDecimal getPrecoLucroMinimo() {
@@ -476,7 +481,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPrecoLucroMinimo(BigDecimal precoLucroMinimo) {
-		this.precoLucroMinimo = precoLucroMinimo;
+		this.precoLucroMinimo = (precoLucroMinimo == null ? new BigDecimal(0)
+				: precoLucroMinimo);
 	}
 
 	public BigDecimal getPrecoLucroMaximo() {
@@ -484,7 +490,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPrecoLucroMaximo(BigDecimal precoLucroMaximo) {
-		this.precoLucroMaximo = precoLucroMaximo;
+		this.precoLucroMaximo = (precoLucroMaximo == null ? new BigDecimal(0)
+				: precoLucroMaximo);
 	}
 
 	public BigDecimal getMarkup() {
@@ -492,7 +499,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setMarkup(BigDecimal markup) {
-		this.markup = markup;
+		this.markup = (markup == null ? new BigDecimal(0) : markup);
 	}
 
 	public BigDecimal getQuantidadeEstoque() {
@@ -500,7 +507,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
+		this.quantidadeEstoque = (quantidadeEstoque == null ? new BigDecimal(0)
+				: quantidadeEstoque);
 	}
 
 	public BigDecimal getQuantidadeEstoqueAnterior() {
@@ -509,7 +517,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setQuantidadeEstoqueAnterior(
 			BigDecimal quantidadeEstoqueAnterior) {
-		this.quantidadeEstoqueAnterior = quantidadeEstoqueAnterior;
+		this.quantidadeEstoqueAnterior = (quantidadeEstoqueAnterior == null ? new BigDecimal(
+				0) : quantidadeEstoqueAnterior);
 	}
 
 	public BigDecimal getEstoqueMinimo() {
@@ -517,7 +526,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setEstoqueMinimo(BigDecimal estoqueMinimo) {
-		this.estoqueMinimo = estoqueMinimo;
+		this.estoqueMinimo = (estoqueMinimo == null ? new BigDecimal(0)
+				: estoqueMinimo);
 	}
 
 	public BigDecimal getEstoqueMaximo() {
@@ -525,7 +535,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setEstoqueMaximo(BigDecimal estoqueMaximo) {
-		this.estoqueMaximo = estoqueMaximo;
+		this.estoqueMaximo = (estoqueMaximo == null ? new BigDecimal(0)
+				: estoqueMaximo);
 	}
 
 	public BigDecimal getEstoqueIdeal() {
@@ -533,7 +544,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setEstoqueIdeal(BigDecimal estoqueIdeal) {
-		this.estoqueIdeal = estoqueIdeal;
+		this.estoqueIdeal = (estoqueIdeal == null ? new BigDecimal(0)
+				: estoqueIdeal);
 	}
 
 	public String getCodigoLst() {
@@ -557,7 +569,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigoBalanca(Integer codigoBalanca) {
-		this.codigoBalanca = codigoBalanca;
+		this.codigoBalanca = (codigoBalanca == null ? new Integer(0)
+				: codigoBalanca);
 	}
 
 	public BigDecimal getPeso() {
@@ -565,7 +578,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPeso(BigDecimal peso) {
-		this.peso = peso;
+		this.peso = (peso == null ? new BigDecimal(0) : peso);
 	}
 
 	public BigDecimal getTaxaComissao() {
@@ -573,7 +586,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTaxaComissao(BigDecimal taxaComissao) {
-		this.taxaComissao = taxaComissao;
+		this.taxaComissao = (taxaComissao == null ? new BigDecimal(0)
+				: taxaComissao);
 	}
 
 	public BigDecimal getPontoPedido() {
@@ -581,7 +595,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setPontoPedido(BigDecimal pontoPedido) {
-		this.pontoPedido = pontoPedido;
+		this.pontoPedido = (pontoPedido == null ? new BigDecimal(0)
+				: pontoPedido);
 	}
 
 	public BigDecimal getLoteEconomicoCompra() {
@@ -589,7 +604,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setLoteEconomicoCompra(BigDecimal loteEconomicoCompra) {
-		this.loteEconomicoCompra = loteEconomicoCompra;
+		this.loteEconomicoCompra = (loteEconomicoCompra == null ? new BigDecimal(
+				0) : loteEconomicoCompra);
 	}
 
 	public BigDecimal getAliquotaIcms() {
@@ -597,7 +613,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setAliquotaIcms(BigDecimal aliquotaIcms) {
-		this.aliquotaIcms = aliquotaIcms;
+		this.aliquotaIcms = (aliquotaIcms == null ? new BigDecimal(0)
+				: aliquotaIcms);
 	}
 
 	public BigDecimal getAliquotaIssqn() {
@@ -605,7 +622,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
-		this.aliquotaIssqn = aliquotaIssqn;
+		this.aliquotaIssqn = (aliquotaIssqn == null ? new BigDecimal(0)
+				: aliquotaIssqn);
 	}
 
 	public String getExTipi() {

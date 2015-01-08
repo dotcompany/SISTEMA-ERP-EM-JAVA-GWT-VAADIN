@@ -1,7 +1,6 @@
 package dc.controller.geral.produto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoSpedEn;
 import dc.control.enums.VendaTipoVendaEn;
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.util.classes.ProdutoUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.geral.diverso.AlmoxarifadoListController;
@@ -40,7 +40,6 @@ import dc.servicos.dao.geral.produto.SubGrupoDAO;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.ProdutoFormView;
@@ -224,221 +223,70 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getMocMarca().setValue(this.entity.getMarca());
 			this.subView.getMocGrupoTributario().setValue(
 					this.entity.getGrupoTributario());
-
-			this.subView.getTxtGtin().setValue(this.entity.getGtin());
-			this.subView.getTxtCodigoInterno().setValue(this.entity.getGtin());
-			this.subView.getTxtNome().setValue(this.entity.getNome());
-			this.subView.getTxtDescricao().setValue(this.entity.getDescricao());
-			this.subView.getTxtDescricaoPdv().setValue(
+			this.subView.getTfGtin().setValue(this.entity.getGtin());
+			this.subView.getTfCodigoInterno().setValue(this.entity.getGtin());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+			this.subView.getTfDescricaoPdv().setValue(
 					this.entity.getDescricaoPdv());
-
-			SimNaoEn inativoEn = this.entity.getInativo();
-
-			if (Validator.validateObject(inativoEn)) {
-				this.subView.getCbInativo().setValue(inativoEn);
-			}
-
-			ClasseEn classeEn = this.entity.getClasse();
-
-			if (Validator.validateObject(classeEn)) {
-				this.subView.getCbClasse().setValue(classeEn);
-			}
-
-			BigDecimal valorCompra = this.entity.getValorCompra();
-
-			if (valorCompra != null) {
-				this.subView.getTxtValorCompra().setConvertedValue(valorCompra);
-			}
-
-			BigDecimal valorVenda = this.entity.getValorVenda();
-
-			if (valorVenda != null) {
-				this.subView.getTxtValorVenda().setConvertedValue(valorVenda);
-			}
-
-			BigDecimal precoVendaMinimo = this.entity.getPrecoVendaMinimo();
-
-			if (valorVenda != null) {
-				this.subView.getTxtValorVendaMinimo().setConvertedValue(
-						precoVendaMinimo);
-			}
-
-			BigDecimal precoSugerido = this.entity.getPrecoSugerido();
-
-			if (precoSugerido != null) {
-				this.subView.getTxtValorSugerido().setConvertedValue(
-						precoSugerido);
-			}
-
-			BigDecimal custoMedioLiquido = this.entity.getCustoMedioLiquido();
-
-			if (custoMedioLiquido != null) {
-				this.subView.getTxtCustoMedioLiquido().setConvertedValue(
-						custoMedioLiquido);
-			}
-
-			BigDecimal precoLucroZero = this.entity.getCustoMedioLiquido();
-
-			if (precoLucroZero != null) {
-				this.subView.getTxtPrecoLucroZero().setConvertedValue(
-						precoLucroZero);
-			}
-
-			BigDecimal precoLucroMinimo = this.entity.getPrecoLucroMinimo();
-
-			if (precoLucroMinimo != null) {
-				this.subView.getTxtPrecoLucroMinimo().setConvertedValue(
-						precoLucroMinimo);
-			}
-
-			BigDecimal precoLucroMaximo = this.entity.getPrecoLucroMaximo();
-
-			if (precoLucroMaximo != null) {
-				this.subView.getTxtPrecoLucroMaximo().setConvertedValue(
-						precoLucroMaximo);
-			}
-
-			BigDecimal markup = this.entity.getMarkup();
-
-			if (markup != null) {
-				this.subView.getTxtMarkup().setConvertedValue(markup);
-			}
-
-			BigDecimal quantidadeEstoque = this.entity.getQuantidadeEstoque();
-
-			if (quantidadeEstoque != null) {
-				this.subView.getTxtQuantidadeEstoque().setConvertedValue(
-						quantidadeEstoque);
-			}
-
-			BigDecimal quantidadeEstoqueAnterior = this.entity
-					.getQuantidadeEstoqueAnterior();
-
-			if (quantidadeEstoqueAnterior != null) {
-				this.subView.getTxtQuantidadeEstoqueAnterior()
-						.setConvertedValue(quantidadeEstoqueAnterior);
-			}
-
-			BigDecimal estoqueIdeal = this.entity.getEstoqueIdeal();
-
-			if (estoqueIdeal != null) {
-				this.subView.getTxtEstoqueIdeal().setConvertedValue(
-						estoqueIdeal);
-			}
-
-			BigDecimal estoqueMinimo = this.entity.getEstoqueMinimo();
-
-			if (estoqueMinimo != null) {
-				this.subView.getTxtEstoqueMinimo().setConvertedValue(
-						estoqueMinimo);
-			}
-
-			BigDecimal estoqueMaximo = this.entity.getEstoqueMaximo();
-
-			if (estoqueMaximo != null) {
-				this.subView.getTxtEstoqueMaximo().setConvertedValue(
-						estoqueMaximo);
-			}
-
-			String lst = this.entity.getCodigoLst();
-
-			if (lst != null) {
-				this.subView.getTxtLst().setValue(lst);
-			}
-
-			String extipi = this.entity.getExTipi();
-
-			if (extipi != null) {
-				this.subView.getTxtExtipi().setValue(extipi);
-			}
-
-			VendaTipoVendaEn tipoVendaEn = this.entity.getTipoVenda();
-
-			if (tipoVendaEn != null) {
-				this.subView.getCbTipoVenda().setValue(tipoVendaEn);
-			}
-
-			IatEn iatEn = this.entity.getIat();
-
-			if (iatEn != null) {
-				this.subView.getCbIat().setValue(iatEn);
-			}
-
-			IpptEn ipptEn = this.entity.getIppt();
-
-			if (ipptEn != null) {
-				this.subView.getCbIppt().setValue(ipptEn);
-			}
-
-			TipoSpedEn tipoSpedEn = this.entity.getTipoSped();
-
-			if (tipoSpedEn != null) {
-				this.subView.getCbTipoItemSped().setValue(tipoSpedEn);
-			}
-
-			String totalizadorParcial = this.entity.getTotalizadorParcial();
-
-			if (totalizadorParcial != null) {
-				this.subView.getTxtTotalizadorParcial().setValue(
-						totalizadorParcial);
-			}
-
-			Integer codigoBalanca = this.entity.getCodigoBalanca();
-
-			if (codigoBalanca != null) {
-				this.subView.getTxtCodigoBalanca().setConvertedValue(
-						codigoBalanca);
-			}
-
-			BigDecimal peso = this.entity.getPeso();
-
-			if (peso != null) {
-				this.subView.getTxtPeso().setConvertedValue(peso);
-			}
-
-			BigDecimal taxaComissao = this.entity.getTaxaComissao();
-
-			if (taxaComissao != null) {
-				this.subView.getTxtTaxaComissao().setConvertedValue(
-						taxaComissao);
-			}
-
-			BigDecimal pontoPedido = this.entity.getPontoPedido();
-
-			if (pontoPedido != null) {
-				this.subView.getTxtPontoPedido().setConvertedValue(pontoPedido);
-			}
-
-			BigDecimal loteEconomicoCompra = this.entity
-					.getLoteEconomicoCompra();
-
-			if (loteEconomicoCompra != null) {
-				this.subView.getTxtLoteEconomicoCompra().setConvertedValue(
-						loteEconomicoCompra);
-			}
-
-			BigDecimal aliquotaIcms = this.entity.getAliquotaIcms();
-
-			if (aliquotaIcms != null) {
-				this.subView.getTxtAliquotaICms().setConvertedValue(
-						aliquotaIcms);
-			}
-
-			BigDecimal aliquotaIssqn = this.entity.getAliquotaIssqn();
-
-			if (aliquotaIssqn != null) {
-				this.subView.getTxtAliquotaIssqn().setConvertedValue(
-						aliquotaIssqn);
-			}
-
+			this.subView.getCbInativo().setValue(this.entity.getInativo());
+			this.subView.getCbClasse().setValue(this.entity.getClasse());
+			this.subView.getTfValorCompra().setConvertedValue(
+					this.entity.getValorCompra());
+			this.subView.getTfValorVenda().setConvertedValue(
+					this.entity.getValorVenda());
+			this.subView.getTfValorVendaMinimo().setConvertedValue(
+					this.entity.getPrecoVendaMinimo());
+			this.subView.getTfValorSugerido().setConvertedValue(
+					this.entity.getPrecoSugerido());
+			this.subView.getTfCustoMedioLiquido().setConvertedValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getTfPrecoLucroZero().setConvertedValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getTfPrecoLucroMinimo().setConvertedValue(
+					this.entity.getPrecoLucroMinimo());
+			this.subView.getTfPrecoLucroMaximo().setConvertedValue(
+					this.entity.getPrecoLucroMaximo());
+			this.subView.getTfMarkup().setConvertedValue(
+					this.entity.getMarkup());
+			this.subView.getTfQuantidadeEstoque().setConvertedValue(
+					this.entity.getQuantidadeEstoque());
+			this.subView.getTfQuantidadeEstoqueAnterior().setConvertedValue(
+					this.entity.getQuantidadeEstoqueAnterior());
+			this.subView.getTfEstoqueIdeal().setConvertedValue(
+					this.entity.getEstoqueIdeal());
+			this.subView.getTfEstoqueMinimo().setConvertedValue(
+					this.entity.getEstoqueMinimo());
+			this.subView.getTfEstoqueMaximo().setConvertedValue(
+					this.entity.getEstoqueMaximo());
+			this.subView.getTfLst().setValue(this.entity.getCodigoLst());
+			this.subView.getTfExtipi().setValue(this.entity.getExTipi());
+			this.subView.getCbTipoVenda().setValue(this.entity.getTipoVenda());
+			this.subView.getCbIat().setValue(this.entity.getIat());
+			this.subView.getCbIppt().setValue(this.entity.getIppt());
+			this.subView.getCbTipoItemSped()
+					.setValue(this.entity.getTipoSped());
+			this.subView.getTfTotalizadorParcial().setValue(
+					this.entity.getTotalizadorParcial());
+			this.subView.getTfCodigoBalanca().setConvertedValue(
+					this.entity.getCodigoBalanca());
+			this.subView.getTfPeso().setConvertedValue(this.entity.getPeso());
+			this.subView.getTfTaxaComissao().setConvertedValue(
+					this.entity.getTaxaComissao());
+			this.subView.getTfPontoPedido().setConvertedValue(
+					this.entity.getPontoPedido());
+			this.subView.getTfLoteEconomicoCompra().setConvertedValue(
+					this.entity.getLoteEconomicoCompra());
+			this.subView.getTfAliquotaIcms().setConvertedValue(
+					this.entity.getAliquotaIcms());
+			this.subView.getTfAliquotaIssqn().setConvertedValue(
+					this.entity.getAliquotaIssqn());
 			this.subView.getMocAlmoxarifado().setValue(
 					this.entity.getAlmoxarifado());
 			this.subView.getMocGrupo().setValue(this.entity.getGrupo());
 			this.subView.getMocNcm().setValue(this.entity.getNcm());
 		} catch (Exception e) {
 			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -456,14 +304,6 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			GrupoTributarioEntity grupoTributario = this.subView
 					.getMocGrupoTributario().getValue();
 
-			// if (!Validator.validateObject(subgrupo)) {
-			// throw new ErroValidacaoException("Informe o SubGrupo");
-			// }
-
-			// if (!Validator.validateObject(unidadeProduto)) {
-			// throw new ErroValidacaoException("Informe a Unidade");
-			// }
-
 			this.entity.setSubGrupo(subgrupo);
 			this.entity.setGrupo(grupo);
 			this.entity.setUnidadeProduto(unidadeProduto);
@@ -472,149 +312,102 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setAlmoxarifado(almoxarifado);
 			this.entity.setGrupoTributario(grupoTributario);
 
-			String gtin = this.subView.getTxtGtin().getValue();
-			this.entity.setGtin(gtin);
-
-			String codigoInterno = this.subView.getTxtCodigoInterno()
-					.getValue();
-			this.entity.setCodigoInterno(codigoInterno);
+			this.entity.setGtin(this.subView.getTfGtin().getValue());
+			this.entity.setCodigoInterno(this.subView.getTfCodigoInterno()
+					.getValue());
 
 			SimNaoEn inativoEn = (SimNaoEn) (this.subView.getCbInativo()
 					.getValue());
-
-			// if (Validator.validateObject(inativoEn)) {
-			// String inativo = (inativoEn).getCodigo();
 			this.entity.setInativo(inativoEn);
-			// }
 
 			ClasseEn classeEn = (ClasseEn) this.subView.getCbClasse()
 					.getValue();
-
-			// if (classeEn != null) {
 			this.entity.setClasse(classeEn);
-			// }
 
-			String nome = this.subView.getTxtNome().getValue();
-			this.entity.setNome(nome);
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+			this.entity.setDescricaoPdv(this.subView.getTfDescricaoPdv()
+					.getValue());
 
-			String descricao = this.subView.getTxtDescricao().getValue();
-			this.entity.setDescricao(descricao);
-
-			String descricaoPdv = this.subView.getTxtDescricaoPdv().getValue();
-			this.entity.setDescricaoPdv(descricaoPdv);
-
-			this.entity.setValorVenda((BigDecimal) this.subView
-					.getTxtValorVenda().getConvertedValue());
-
-			this.entity.setValorCompra((BigDecimal) this.subView
-					.getTxtValorCompra().getConvertedValue());
-
-			this.entity.setPrecoVendaMinimo((BigDecimal) this.subView
-					.getTxtValorVendaMinimo().getConvertedValue());
-
-			this.entity.setPrecoSugerido((BigDecimal) this.subView
-					.getTxtValorSugerido().getConvertedValue());
-
-			this.entity.setCustoMedioLiquido((BigDecimal) this.subView
-					.getTxtCustoMedioLiquido().getConvertedValue());
-
-			this.entity.setPrecoLucroZero((BigDecimal) this.subView
-					.getTxtPrecoLucroZero().getConvertedValue());
-
-			this.entity.setPrecoLucroMinimo((BigDecimal) this.subView
-					.getTxtPrecoLucroMinimo().getConvertedValue());
-
-			this.entity.setPrecoLucroMaximo((BigDecimal) this.subView
-					.getTxtPrecoLucroMaximo().getConvertedValue());
-
-			this.entity.setMarkup((BigDecimal) this.subView.getTxtMarkup()
-					.getConvertedValue());
-
-			this.entity.setQuantidadeEstoque((BigDecimal) this.subView
-					.getTxtQuantidadeEstoque().getConvertedValue());
-
-			this.entity.setQuantidadeEstoqueAnterior((BigDecimal) this.subView
-					.getTxtQuantidadeEstoqueAnterior().getConvertedValue());
-
-			this.entity.setEstoqueIdeal((BigDecimal) this.subView
-					.getTxtEstoqueIdeal().getConvertedValue());
-
-			this.entity.setEstoqueMinimo((BigDecimal) this.subView
-					.getTxtEstoqueMinimo().getConvertedValue());
-
-			this.entity.setEstoqueMaximo((BigDecimal) this.subView
-					.getTxtEstoqueMaximo().getConvertedValue());
-
-			String lst = this.subView.getTxtLst().getValue();
-
-			// if (Validator.validateString(lst)) {
-			this.entity.setCodigoLst(lst);
-			// }
-
-			String extipi = this.subView.getTxtExtipi().getValue();
-
-			// if (Validator.validateString(extipi)) {
-			this.entity.setExTipi(extipi);
-			// }
+			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView
+					.getTfValorVenda().getConvertedValue()));
+			this.entity.setValorCompra(NumberUtils
+					.createBigDecimal(this.subView.getTfValorCompra()
+							.getConvertedValue()));
+			this.entity.setPrecoVendaMinimo(NumberUtils
+					.createBigDecimal(this.subView.getTfValorVendaMinimo()
+							.getConvertedValue()));
+			this.entity.setPrecoSugerido(NumberUtils
+					.createBigDecimal(this.subView.getTfValorSugerido()
+							.getConvertedValue()));
+			this.entity.setCustoMedioLiquido(NumberUtils
+					.createBigDecimal(this.subView.getTfCustoMedioLiquido()
+							.getConvertedValue()));
+			this.entity.setPrecoLucroZero(NumberUtils
+					.createBigDecimal(this.subView.getTfPrecoLucroZero()
+							.getConvertedValue()));
+			this.entity.setPrecoLucroMinimo(NumberUtils
+					.createBigDecimal(this.subView.getTfPrecoLucroMinimo()
+							.getConvertedValue()));
+			this.entity.setPrecoLucroMaximo(NumberUtils
+					.createBigDecimal(this.subView.getTfPrecoLucroMaximo()
+							.getConvertedValue()));
+			this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView
+					.getTfMarkup().getConvertedValue()));
+			this.entity.setQuantidadeEstoque(NumberUtils
+					.createBigDecimal(this.subView.getTfQuantidadeEstoque()
+							.getConvertedValue()));
+			this.entity.setQuantidadeEstoqueAnterior(NumberUtils
+					.createBigDecimal(this.subView
+							.getTfQuantidadeEstoqueAnterior()
+							.getConvertedValue()));
+			this.entity.setEstoqueIdeal(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueIdeal()
+							.getConvertedValue()));
+			this.entity.setEstoqueMinimo(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueMinimo()
+							.getConvertedValue()));
+			this.entity.setEstoqueMaximo(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueMaximo()
+							.getConvertedValue()));
+			this.entity.setCodigoLst(this.subView.getTfLst().getValue());
+			this.entity.setExTipi(this.subView.getTfExtipi().getValue());
 
 			VendaTipoVendaEn tipoVendaEn = (VendaTipoVendaEn) this.subView
 					.getCbTipoVenda().getValue();
-
-			// if (Validator.validateObject(tipoVendaEn)) {
-			// String tipo = enumTipoVenda.getCodigo();
 			this.entity.setTipoVenda(tipoVendaEn);
-			// }
 
 			IatEn iatEn = (IatEn) this.subView.getCbIat().getValue();
-
-			// if (Validator.validateObject(iatEn)) {
-			// String iat = iatEn.getCodigo();
 			this.entity.setIat(iatEn);
-			// }
 
 			IpptEn ipptEn = (IpptEn) this.subView.getCbIppt().getValue();
-
-			// if (Validator.validateObject(ipptEn)) {
-			// String ippt = ipptEn.getCodigo();
 			this.entity.setIppt(ipptEn);
-			// }
 
 			TipoSpedEn tipoSpedEn = (TipoSpedEn) this.subView
 					.getCbTipoItemSped().getValue();
-
-			// if (Validator.validateObject(tipoSpedEn)) {
-			// String sped = tipoSpedEn.getCodigo();
 			this.entity.setTipoSped(tipoSpedEn);
-			// }
 
-			String totalizadorParcial = this.subView.getTxtTotalizadorParcial()
-					.getValue();
-			this.entity.setTotalizadorParcial(totalizadorParcial);
-
-			String codigoBalanca = this.subView.getTxtCodigoBalanca()
-					.getValue();
-
-			// if (Validator.validateString(codigoBalanca)) {
-			this.entity.setCodigoBalanca(new Integer(codigoBalanca));
-			// }
-
-			this.entity.setPeso((BigDecimal) this.subView.getTxtPeso()
-					.getConvertedValue());
-
-			this.entity.setTaxaComissao((BigDecimal) this.subView
-					.getTxtTaxaComissao().getConvertedValue());
-
-			this.entity.setPontoPedido((BigDecimal) this.subView
-					.getTxtPontoPedido().getConvertedValue());
-
-			this.entity.setLoteEconomicoCompra((BigDecimal) this.subView
-					.getTxtLoteEconomicoCompra().getConvertedValue());
-
-			this.entity.setAliquotaIcms((BigDecimal) this.subView
-					.getTxtAliquotaICms().getConvertedValue());
-
-			this.entity.setAliquotaIssqn((BigDecimal) this.subView
-					.getTxtAliquotaIssqn().getConvertedValue());
+			this.entity.setTotalizadorParcial(this.subView
+					.getTfTotalizadorParcial().getValue());
+			this.entity.setCodigoBalanca(NumberUtils.toInt(this.subView
+					.getTfCodigoBalanca().getValue()));
+			this.entity.setPeso(NumberUtils.createBigDecimal(this.subView
+					.getTfPeso().getConvertedValue()));
+			this.entity.setTaxaComissao(NumberUtils
+					.createBigDecimal(this.subView.getTfTaxaComissao()
+							.getConvertedValue()));
+			this.entity.setPontoPedido(NumberUtils
+					.createBigDecimal(this.subView.getTfPontoPedido()
+							.getConvertedValue()));
+			this.entity.setLoteEconomicoCompra(NumberUtils
+					.createBigDecimal(this.subView.getTfLoteEconomicoCompra()
+							.getConvertedValue()));
+			this.entity.setAliquotaIcms(NumberUtils
+					.createBigDecimal(this.subView.getTfAliquotaIcms()
+							.getConvertedValue()));
+			this.entity.setAliquotaIssqn(NumberUtils
+					.createBigDecimal(this.subView.getTfAliquotaIssqn()
+							.getConvertedValue()));
 
 			this.business.saveOrUpdate(this.entity);
 

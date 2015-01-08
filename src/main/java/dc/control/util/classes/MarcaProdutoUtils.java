@@ -3,11 +3,11 @@ package dc.control.util.classes;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.geral.diverso.CepFormView;
-import dc.visao.geral.produto.MarcaProdutoFormView;
+import dc.visao.geral.produto.MarcaFormView;
 
 public class MarcaProdutoUtils {
 
-	public static void validateRequiredFields(MarcaProdutoFormView subView)
+	public static void validateRequiredFields(MarcaFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 

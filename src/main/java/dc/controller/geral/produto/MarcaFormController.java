@@ -15,7 +15,7 @@ import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.model.business.geral.produto.MarcaBusiness;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.produto.MarcaProdutoFormView;
+import dc.visao.geral.produto.MarcaFormView;
 
 @Controller
 @Scope("prototype")
@@ -26,7 +26,7 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private MarcaProdutoFormView subView;
+	private MarcaFormView subView;
 
 	/**
 	 * ENTITY
@@ -86,7 +86,7 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new MarcaProdutoFormView(this);
+			this.subView = new MarcaFormView(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -5,11 +5,11 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.visao.geral.diverso.CepFormView;
-import dc.visao.geral.produto.SubGrupoProdutoFormView;
+import dc.visao.geral.produto.SubGrupoFormView;
 
 public class SubGrupoProdutoUtils {
 
-	public static void validateRequiredFields(SubGrupoProdutoFormView subView)
+	public static void validateRequiredFields(SubGrupoFormView subView)
 			throws DotErpException {
 		String nome = subView.getTfNome().getValue();
 

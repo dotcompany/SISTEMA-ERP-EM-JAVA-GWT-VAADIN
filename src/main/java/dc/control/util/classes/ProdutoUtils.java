@@ -91,17 +91,17 @@ public class ProdutoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String lst = subView.getTxtLst().getValue();
+		String lst = subView.getTfLst().getValue();
 
 		if (StringUtils.isBlank(lst)) {
-			throw new DotErpException(subView.getTxtLst(),
+			throw new DotErpException(subView.getTfLst(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String extipi = subView.getTxtExtipi().getValue();
+		String extipi = subView.getTfExtipi().getValue();
 
 		if (StringUtils.isBlank(extipi)) {
-			throw new DotErpException(subView.getTxtExtipi(),
+			throw new DotErpException(subView.getTfExtipi(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
@@ -135,10 +135,10 @@ public class ProdutoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String codigoBalanca = subView.getTxtCodigoBalanca().getValue();
+		String codigoBalanca = subView.getTfCodigoBalanca().getValue();
 
 		if (StringUtils.isBlank(codigoBalanca)) {
-			throw new DotErpException(subView.getTxtCodigoBalanca(),
+			throw new DotErpException(subView.getTfCodigoBalanca(),
 					"::DotERP - Não pode ficar em branco");
 		}
 	}
