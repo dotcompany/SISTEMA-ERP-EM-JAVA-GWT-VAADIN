@@ -4,7 +4,6 @@ import it.zero11.vaadin.asyncfiltercombobox.AsyncFilterComboBox;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +59,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		buildMainLayout();
 		addCustomButtons(mainLayout);
 		setCompositionRoot(mainLayout);
-
 	}
 
 	private void addCustomButtons(HorizontalLayout layout) {
@@ -80,23 +78,26 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			public void buttonClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 				ItemValue val = (ItemValue) cmbResult.getValue();
+
 				if (val != null && val.getFilter() != null) {
 					model.onCriarNovo(val.getFilter());
 				} else {
 					model.onCriarNovo("");
 				}
-
 			}
+
 		});
 
 		layout.addComponent(btnNew);
 		layout.setComponentAlignment(btnNew, Alignment.BOTTOM_LEFT);
+
 		try {
 			UI.getCurrent()
 					.getPage()
 					.getStyles()
 					.add("#lblNew i { font-size: 12pt; } #lblNew { padding: 5px 1px 3px 4px; float:left; }");
 		} catch (Exception e) {
+
 		}
 
 		Button btnAdvancedSearch = new Button();
@@ -112,16 +113,19 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			public void buttonClick(ClickEvent event) {
 				model.onAdvancedSearch();
 			}
+
 		});
 
 		layout.addComponent(btnAdvancedSearch);
 		layout.setComponentAlignment(btnAdvancedSearch, Alignment.BOTTOM_LEFT);
+
 		try {
 			UI.getCurrent()
 					.getPage()
 					.getStyles()
 					.add("#lblAdvSearch i { font-size: 12pt; } #lblAdvSearch { padding: 5px 1px 3px 4px; float:left;}");
 		} catch (Exception e) {
+
 		}
 	}
 
@@ -130,12 +134,14 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		public FilteredBeanItemContainer() throws IllegalArgumentException {
 			super(ItemValue.class);
+
 			this.addAll(wrapValues(getModel().getAll()));
 		}
 
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
+
 			if (q != null && q.length() >= 3) {
 				removeAllItems();
 
@@ -152,6 +158,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				// Adiciona os itens filtrados
 				if (model != null) {
 					List l = model.getResultado(q);
+
 					if (l != null && l.size() > 0) {
 						addAll(wrapValues(l));
 					}
@@ -162,9 +169,11 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				createItemValue.setType(ITEM_TYPE_CREATE);
 				createItemValue.setCaption("Criar Novo Cadastro: " + q);
 				createItemValue.setFilter(q);
+
 				addItem(createItemValue);
 			} else {
 				removeAllItems();
+
 				addAll(wrapValues(model.getAll()));
 			}
 		}
@@ -173,7 +182,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	@SuppressWarnings("serial")
 	private void setupActions() {
-
 		createItemValue = new ItemValue();
 		createItemValue.setType(ITEM_TYPE_CREATE);
 
@@ -188,6 +196,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				logger.info("value change");
 				selectSpecialItem();
 			}
+
 		});
 
 		cmbResult.addItemSetChangeListener(new ItemSetChangeListener() {
@@ -196,8 +205,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			public void containerItemSetChange(ItemSetChangeEvent event) {
 				// TODO Auto-generated method stub
 				logger.info("item set change");
-
 			}
+
 		});
 
 		cmbResult.addBlurListener(new BlurListener() {
@@ -206,6 +215,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			public void blur(BlurEvent event) {
 				logger.info("blur on combo");
 			}
+
 		});
 
 		btnEdit.addClickListener(new ClickListener() {
@@ -215,8 +225,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				if (getValue() != null)
 					model.onEditar(getValue());
 			}
-		});
 
+		});
 	}
 
 	@SuppressWarnings("serial")
@@ -273,6 +283,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			int result = 1;
 			result = prime * result + getOuterType().hashCode();
 			result = prime * result + ((bean == null) ? 0 : bean.hashCode());
+
 			return result;
 		}
 
@@ -284,7 +295,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
+
 			ItemValue other = (ItemValue) obj;
+
 			if (!getOuterType().equals(other.getOuterType()))
 				return false;
 			if (bean == null) {
@@ -292,6 +305,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					return false;
 			} else if (!bean.equals(other.bean))
 				return false;
+
 			return true;
 		}
 
@@ -303,7 +317,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	@SuppressWarnings("unchecked")
 	protected void selectSpecialItem() {
 		logger.info("select special item...");
+
 		ItemValue val = (ItemValue) cmbResult.getValue();
+
 		if (val == null)
 			return;
 		if (val.getType() == ITEM_TYPE_BEAN)
@@ -318,11 +334,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	private List<ItemValue> wrapValues(List<T> resultado) {
 		List<ItemValue> lst = new ArrayList<>();
+
 		for (T val : resultado) {
 			ItemValue item = new ItemValue();
 			item.setBean(val);
 			lst.add(item);
 		}
+
 		return lst;
 	}
 
@@ -333,13 +351,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		} else {
 			return null;
 		}
-
 	}
 
 	private HorizontalLayout buildMainLayout() {
 		mainLayout = new HorizontalLayout();
 		mainLayout.setImmediate(false);
-		//mainLayout.setWidthUndefined();
+		// mainLayout.setWidthUndefined();
 		mainLayout.setHeight("100%");
 		mainLayout.setMargin(false);
 		mainLayout.setSpacing(true);
@@ -376,6 +393,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		// ButtonHintExtension.addHint("Editar",btnEdit);
 		mainLayout.addComponent(btnEdit);
 		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
+
 		try {
 			UI.getCurrent()
 					.getPage()
@@ -383,8 +401,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
 			UI.getCurrent().getPage().getStyles()
 					.add(".manyToOneCombo{float:left;} ");
-
 		} catch (Exception e) {
+
 		}
 
 		return mainLayout;
@@ -404,8 +422,10 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 	public void setModel(ManyToOneComboModel<T> model) {
 		this.model = model;
+
 		if (model instanceof DefaultManyToOneComboModel) {
 			((DefaultManyToOneComboModel) this.model).setCombo(this);
+
 			if (((DefaultManyToOneComboModel) this.model)
 					.permissionToCreateOrEdit()) {
 				btnEdit.setVisible(false);
@@ -413,25 +433,28 @@ public class ManyToOneCombo<T> extends CustomComponent {
 			}
 
 		}
+
 		setupActions();
 	}
 
 	public void setValue(T bean) {
-		ItemValue beanItem = new ItemValue();		
+		ItemValue beanItem = new ItemValue();
 
 		List<T> resultado = model.getAll();
+
 		for (T t : resultado) {
 			ItemValue item = new ItemValue();
-			
+
 			item.setBean(t);
+
 			if (bean.equals(t)) {
 				beanItem = item;
 				cmbResult.getContainerDataSource().removeItem(item);
 			}
+
 			cmbResult.getContainerDataSource().addItem(item);
-			
 		}
-		
+
 		cmbResult.setValue(beanItem);
 	}
 
@@ -441,9 +464,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		if (valueChangeListeners == null) {
 			valueChangeListeners = new LinkedList<ValueChangeListener>();
 		}
+
 		cmbResult.addValueChangeListener(listener);
 		valueChangeListeners.add(listener);
-
 	}
 
 	public T getItemValueBean(ItemValue item) {
@@ -455,7 +478,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		@Override
 		public void changeVariables(final Object source,
 				final Map<String, Object> variables) {
-
 			String newFilter;
 
 			if ((newFilter = (String) variables.get("filter")) != null) {
@@ -464,12 +486,13 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 			super.changeVariables(source, variables);
 		}
-		
+
 		@Override
 		protected void setValue(Object newValue, boolean repaintIsNotNeeded)
 				throws com.vaadin.data.Property.ReadOnlyException {
 			super.setValue(newValue, repaintIsNotNeeded);
 		}
+
 	};
 
 }
