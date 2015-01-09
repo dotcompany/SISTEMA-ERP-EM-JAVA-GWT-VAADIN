@@ -110,7 +110,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Override
 	protected String getNome() {
-		return "Produto";
+		return "UF";
 	}
 
 	@Override
@@ -209,84 +209,6 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
 			return false;
-		}
-	}
-
-	@Override
-	protected void carregar(Serializable id) {
-		try {
-			this.entity = this.business.find(id);
-
-			this.subView.getMocSubGrupo().setValue(this.entity.getSubGrupo());
-			this.subView.getMocUnidadeProduto().setValue(
-					this.entity.getUnidadeProduto());
-			this.subView.getMocMarca().setValue(this.entity.getMarca());
-			this.subView.getMocGrupoTributario().setValue(
-					this.entity.getGrupoTributario());
-			this.subView.getTfGtin().setValue(this.entity.getGtin());
-			this.subView.getTfCodigoInterno().setValue(this.entity.getGtin());
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
-			this.subView.getTfDescricaoPdv().setValue(
-					this.entity.getDescricaoPdv());
-			this.subView.getCbInativo().setValue(this.entity.getInativo());
-			this.subView.getCbClasse().setValue(this.entity.getClasse());
-			this.subView.getTfValorCompra().setConvertedValue(
-					this.entity.getValorCompra());
-			this.subView.getTfValorVenda().setConvertedValue(
-					this.entity.getValorVenda());
-			this.subView.getTfValorVendaMinimo().setConvertedValue(
-					this.entity.getPrecoVendaMinimo());
-			this.subView.getTfValorSugerido().setConvertedValue(
-					this.entity.getPrecoSugerido());
-			this.subView.getTfCustoMedioLiquido().setConvertedValue(
-					this.entity.getCustoMedioLiquido());
-			this.subView.getTfPrecoLucroZero().setConvertedValue(
-					this.entity.getCustoMedioLiquido());
-			this.subView.getTfPrecoLucroMinimo().setConvertedValue(
-					this.entity.getPrecoLucroMinimo());
-			this.subView.getTfPrecoLucroMaximo().setConvertedValue(
-					this.entity.getPrecoLucroMaximo());
-			this.subView.getTfMarkup().setConvertedValue(
-					this.entity.getMarkup());
-			this.subView.getTfQuantidadeEstoque().setConvertedValue(
-					this.entity.getQuantidadeEstoque());
-			this.subView.getTfQuantidadeEstoqueAnterior().setConvertedValue(
-					this.entity.getQuantidadeEstoqueAnterior());
-			this.subView.getTfEstoqueIdeal().setConvertedValue(
-					this.entity.getEstoqueIdeal());
-			this.subView.getTfEstoqueMinimo().setConvertedValue(
-					this.entity.getEstoqueMinimo());
-			this.subView.getTfEstoqueMaximo().setConvertedValue(
-					this.entity.getEstoqueMaximo());
-			this.subView.getTfLst().setValue(this.entity.getCodigoLst());
-			this.subView.getTfExtipi().setValue(this.entity.getExTipi());
-			this.subView.getCbTipoVenda().setValue(this.entity.getTipoVenda());
-			this.subView.getCbIat().setValue(this.entity.getIat());
-			this.subView.getCbIppt().setValue(this.entity.getIppt());
-			this.subView.getCbTipoItemSped()
-					.setValue(this.entity.getTipoSped());
-			this.subView.getTfTotalizadorParcial().setValue(
-					this.entity.getTotalizadorParcial());
-			this.subView.getTfCodigoBalanca().setConvertedValue(
-					this.entity.getCodigoBalanca());
-			this.subView.getTfPeso().setConvertedValue(this.entity.getPeso());
-			this.subView.getTfTaxaComissao().setConvertedValue(
-					this.entity.getTaxaComissao());
-			this.subView.getTfPontoPedido().setConvertedValue(
-					this.entity.getPontoPedido());
-			this.subView.getTfLoteEconomicoCompra().setConvertedValue(
-					this.entity.getLoteEconomicoCompra());
-			this.subView.getTfAliquotaIcms().setConvertedValue(
-					this.entity.getAliquotaIcms());
-			this.subView.getTfAliquotaIssqn().setConvertedValue(
-					this.entity.getAliquotaIssqn());
-			this.subView.getMocAlmoxarifado().setValue(
-					this.entity.getAlmoxarifado());
-			this.subView.getMocGrupo().setValue(this.entity.getGrupo());
-			this.subView.getMocNcm().setValue(this.entity.getNcm());
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -420,11 +342,91 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	}
 
 	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView.getMocSubGrupo().setValue(this.entity.getSubGrupo());
+			this.subView.getMocUnidadeProduto().setValue(
+					this.entity.getUnidadeProduto());
+			this.subView.getMocMarca().setValue(this.entity.getMarca());
+			this.subView.getMocGrupoTributario().setValue(
+					this.entity.getGrupoTributario());
+			this.subView.getTfGtin().setValue(this.entity.getGtin());
+			this.subView.getTfCodigoInterno().setValue(this.entity.getGtin());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+			this.subView.getTfDescricaoPdv().setValue(
+					this.entity.getDescricaoPdv());
+			this.subView.getCbInativo().setValue(this.entity.getInativo());
+			this.subView.getCbClasse().setValue(this.entity.getClasse());
+			this.subView.getTfValorCompra().setConvertedValue(
+					this.entity.getValorCompra());
+			this.subView.getTfValorVenda().setConvertedValue(
+					this.entity.getValorVenda());
+			this.subView.getTfValorVendaMinimo().setConvertedValue(
+					this.entity.getPrecoVendaMinimo());
+			this.subView.getTfValorSugerido().setConvertedValue(
+					this.entity.getPrecoSugerido());
+			this.subView.getTfCustoMedioLiquido().setConvertedValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getTfPrecoLucroZero().setConvertedValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getTfPrecoLucroMinimo().setConvertedValue(
+					this.entity.getPrecoLucroMinimo());
+			this.subView.getTfPrecoLucroMaximo().setConvertedValue(
+					this.entity.getPrecoLucroMaximo());
+			this.subView.getTfMarkup().setConvertedValue(
+					this.entity.getMarkup());
+			this.subView.getTfQuantidadeEstoque().setConvertedValue(
+					this.entity.getQuantidadeEstoque());
+			this.subView.getTfQuantidadeEstoqueAnterior().setConvertedValue(
+					this.entity.getQuantidadeEstoqueAnterior());
+			this.subView.getTfEstoqueIdeal().setConvertedValue(
+					this.entity.getEstoqueIdeal());
+			this.subView.getTfEstoqueMinimo().setConvertedValue(
+					this.entity.getEstoqueMinimo());
+			this.subView.getTfEstoqueMaximo().setConvertedValue(
+					this.entity.getEstoqueMaximo());
+			this.subView.getTfLst().setValue(this.entity.getCodigoLst());
+			this.subView.getTfExtipi().setValue(this.entity.getExTipi());
+			this.subView.getCbTipoVenda().setValue(this.entity.getTipoVenda());
+			this.subView.getCbIat().setValue(this.entity.getIat());
+			this.subView.getCbIppt().setValue(this.entity.getIppt());
+			this.subView.getCbTipoItemSped()
+					.setValue(this.entity.getTipoSped());
+			this.subView.getTfTotalizadorParcial().setValue(
+					this.entity.getTotalizadorParcial());
+			this.subView.getTfCodigoBalanca().setConvertedValue(
+					this.entity.getCodigoBalanca());
+			this.subView.getTfPeso().setConvertedValue(this.entity.getPeso());
+			this.subView.getTfTaxaComissao().setConvertedValue(
+					this.entity.getTaxaComissao());
+			this.subView.getTfPontoPedido().setConvertedValue(
+					this.entity.getPontoPedido());
+			this.subView.getTfLoteEconomicoCompra().setConvertedValue(
+					this.entity.getLoteEconomicoCompra());
+			this.subView.getTfAliquotaIcms().setConvertedValue(
+					this.entity.getAliquotaIcms());
+			this.subView.getTfAliquotaIssqn().setConvertedValue(
+					this.entity.getAliquotaIssqn());
+			this.subView.getMocAlmoxarifado().setValue(
+					this.entity.getAlmoxarifado());
+			this.subView.getMocGrupo().setValue(this.entity.getGrupo());
+			this.subView.getMocNcm().setValue(this.entity.getNcm());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	protected void criarNovoBean() {
 		try {
 			this.entity = new ProdutoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -434,6 +436,8 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity = new ProdutoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
 	}
 

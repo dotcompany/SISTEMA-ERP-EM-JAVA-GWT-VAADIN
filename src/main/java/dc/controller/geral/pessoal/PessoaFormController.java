@@ -35,8 +35,6 @@ import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
-import dc.model.business.geral.pessoal.PessoaFisicaBusiness;
-import dc.model.business.geral.pessoal.PessoaJuridicaBusiness;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -66,12 +64,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Autowired
 	private PessoaBusiness<PessoaEntity> business;
-
-	@Autowired
-	private PessoaFisicaBusiness<PessoaFisicaEntity> pessoaFisicaBusiness;
-
-	@Autowired
-	private PessoaJuridicaBusiness<PessoaJuridicaEntity> pessoaJuridicaBusiness;
 
 	@Autowired
 	private PessoaContatoBusiness<PessoaContatoEntity> pessoaContatoBusiness;
@@ -179,30 +171,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.entity.setNome(this.subView.getTfNome().getValue());
 			this.entity.setEmail(this.subView.getTfEmail().getValue());
 			this.entity.setSite(this.subView.getTfSite().getValue());
-
-			//
-
-			// Object[] auxLista = this.subView.getOgCategoriaPessoa()
-			// .getItemIds().toArray();
-
-			// for (Object obj : auxLista) {
-			// CategoriaPessoaEn en = (CategoriaPessoaEn) obj;
-			//
-			// if (en.equals(CategoriaPessoaEn.C)) {
-			// this.currentBean
-			// .setCliente(this.subView.getOgCategoriaPessoa()
-			// .isSelected(en) == Boolean.TRUE ? "1" : "0");
-			// } else if (en.equals(CategoriaPessoaEn.F)) {
-			// this.currentBean.setFornecedor(this.subView
-			// .getOgCategoriaPessoa().isSelected(en));
-			// } else if (en.equals(CategoriaPessoaEn.O)) {
-			// this.currentBean.setColaborador(this.subView
-			// .getOgCategoriaPessoa().isSelected(en));
-			// } else if (en.equals(CategoriaPessoaEn.T)) {
-			// this.currentBean.setTransportadora(this.subView
-			// .getOgCategoriaPessoa().isSelected(en));
-			// }
-			// }
 
 			this.entity.setCliente(this.subView.getCkCliente().getValue()
 					.equals(Boolean.TRUE) ? "1" : "0");
@@ -427,7 +395,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getSfPessoaEndereco().fillWith(
 					this.entity.getPessoaEnderecoList());
 
-			carregarAba();
+			visualizarAba();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -531,7 +499,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			carregarAba();
+			visualizarAba();
 		}
 	}
 
@@ -544,7 +512,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			carregarAba();
+			visualizarAba();
 		}
 	}
 
@@ -688,7 +656,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public void carregarAba() {
+	/**
+	 * 
+	 */
+
+	public void visualizarAba() {
 		this.subView
 				.getTsGeral()
 				.getTab(4)

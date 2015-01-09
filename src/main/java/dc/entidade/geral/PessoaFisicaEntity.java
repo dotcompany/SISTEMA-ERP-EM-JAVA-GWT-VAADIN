@@ -154,7 +154,7 @@ public class PessoaFisicaEntity implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_estado_civil")
 	private EstadoCivilEntity estadoCivil;
 

@@ -4,6 +4,7 @@ import dc.control.enums.TipoPessoaEn;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.PessoaFormView;
 
@@ -11,6 +12,13 @@ public class PessoaUtils {
 
 	public static void validateRequiredFields(PessoaFormView subView)
 			throws DotErpException {
+		EstadoCivilEntity estadoCivil = subView.getMocEstadoCivil().getValue();
+
+		if (ObjectUtils.isBlank(estadoCivil)) {
+			throw new DotErpException(subView.getCbTipoPessoa(),
+					"::DotERP - Não pode ficar em branco");
+		}
+
 		TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) subView.getCbTipoPessoa()
 				.getValue();
 

@@ -23,7 +23,7 @@ public class ListUtils {
 	public static boolean isNotNullAndNotEmpty(List auxLista) {
 		boolean b = isNotNull(auxLista);
 
-		if (b) {
+		if (!b) {
 			return b;
 		}
 

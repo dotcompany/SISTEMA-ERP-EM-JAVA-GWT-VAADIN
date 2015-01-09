@@ -116,10 +116,10 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private PessoaFisicaEntity pessoaFisica;
 
-	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, optional = true)
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private PessoaJuridicaEntity pessoaJuridica;
 
 	/**

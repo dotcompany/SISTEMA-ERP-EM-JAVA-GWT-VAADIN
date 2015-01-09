@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.control.enums.TipoPessoaEn;
+import dc.control.util.ListUtils;
 import dc.control.util.ObjectUtils;
 import dc.entidade.geral.PessoaContatoEntity;
 import dc.entidade.geral.PessoaEnderecoEntity;
@@ -166,42 +167,38 @@ public class PessoaBusinessImpl implements Serializable,
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			PessoaEntity entity = (PessoaEntity) o;
+			PessoaEntity ent = (PessoaEntity) o;
 
-			if (entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
-				if (entity.getPessoaJuridica() != null
-						&& entity.getPessoaJuridica().getId() != null) {
-					this.pessoaJuridicaDAO.delete(entity.getPessoaJuridica());
+			if (ent.getTipoPessoa().equals(TipoPessoaEn.F)) {
+				if (ObjectUtils.isNotBlank(ent.getPessoaJuridica())) {
+					this.pessoaJuridicaDAO.delete(ent.getPessoaJuridica());
 				}
 
-				entity.setPessoaJuridica(null);
-			} else if (entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
-				if (entity.getPessoaFisica() != null
-						&& entity.getPessoaFisica().getId() != null) {
-					this.pessoaFisicaDAO.delete(entity.getPessoaFisica());
+				ent.setPessoaJuridica(null);
+			} else if (ent.getTipoPessoa().equals(TipoPessoaEn.J)) {
+				if (ObjectUtils.isNotBlank(ent.getPessoaFisica())) {
+					this.pessoaFisicaDAO.delete(ent.getPessoaFisica());
 				}
 
-				entity.setPessoaFisica(null);
+				ent.setPessoaFisica(null);
 			}
 
-			this.dao.saveOrUpdate(entity);
+			this.dao.saveOrUpdate(ent);
 
-			if (entity.getPessoaContatoList() != null
-					&& !entity.getPessoaContatoList().isEmpty()) {
-				for (PessoaContatoEntity ent : entity.getPessoaContatoList()) {
-					this.pessoaContatoDAO.saveOrUpdate(ent);
+			if (ListUtils.isNotNullAndNotEmpty(ent.getPessoaContatoList())) {
+				for (PessoaContatoEntity ent1 : ent.getPessoaContatoList()) {
+					this.pessoaContatoDAO.saveOrUpdate(ent1);
 				}
 			}
 
-			if (entity.getPessoaEnderecoList() != null
-					&& !entity.getPessoaEnderecoList().isEmpty()) {
-				for (PessoaEnderecoEntity ent : entity.getPessoaEnderecoList()) {
-					if (ObjectUtils.isNotBlank(ent.getUf())) {
-						ent.setIdUf(ent.getUf().getId());
-						ent.setSiglaUf(ent.getUf().getSigla());
+			if (ListUtils.isNotNullAndNotEmpty(ent.getPessoaEnderecoList())) {
+				for (PessoaEnderecoEntity ent1 : ent.getPessoaEnderecoList()) {
+					if (ObjectUtils.isNotBlank(ent1.getUf())) {
+						ent1.setIdUf(ent1.getUf().getId());
+						ent1.setSiglaUf(ent1.getUf().getSigla());
 					}
 
-					this.pessoaEnderecoDAO.saveOrUpdate(ent);
+					this.pessoaEnderecoDAO.saveOrUpdate(ent1);
 				}
 			}
 		} catch (Exception e) {
