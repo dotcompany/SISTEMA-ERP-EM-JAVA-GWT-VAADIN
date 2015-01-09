@@ -110,7 +110,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Override
 	protected String getNome() {
-		return "UF";
+		return "Produto";
 	}
 
 	@Override

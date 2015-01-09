@@ -284,9 +284,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
 					.getValue());
 			pf.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
-					.getTfTituloSecao().getConvertedValue()));
+					.getTfTituloSecao().getValue()));
 			pf.setTituloEleitoralZona(NumberUtils.toInt(this.subView
-					.getTfTituloZona().getConvertedValue()));
+					.getTfTituloZona().getValue()));
 
 			this.entity.setPessoaFisica(pf);
 		} catch (Exception e) {

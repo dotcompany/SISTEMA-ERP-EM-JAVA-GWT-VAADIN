@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -96,10 +95,10 @@ public class PessoaFisicaEntity implements Serializable {
 	private String tituloEleitoralNumero;
 
 	@Column(name = "TITULO_ELEITORAL_ZONA")
-	private Integer tituloEleitoralZona;
+	private Integer tituloEleitoralZona = new Integer(0);
 
 	@Column(name = "TITULO_ELEITORAL_SECAO")
-	private Integer tituloEleitoralSecao;
+	private Integer tituloEleitoralSecao = new Integer(0);
 
 	@Column(name = "RESERVISTA_NUMERO", length = 20)
 	private String reservistaNumero;
@@ -154,7 +153,8 @@ public class PessoaFisicaEntity implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@ManyToOne
+	// (cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_estado_civil")
 	private EstadoCivilEntity estadoCivil;
 
@@ -279,7 +279,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setTituloEleitoralZona(Integer tituloEleitoralZona) {
-		this.tituloEleitoralZona = tituloEleitoralZona;
+		this.tituloEleitoralZona = (tituloEleitoralZona == null ? new Integer(0)
+				: tituloEleitoralZona);
 	}
 
 	public Integer getTituloEleitoralSecao() {
@@ -287,7 +288,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setTituloEleitoralSecao(Integer tituloEleitoralSecao) {
-		this.tituloEleitoralSecao = tituloEleitoralSecao;
+		this.tituloEleitoralSecao = (tituloEleitoralSecao == null ? new Integer(
+				0) : tituloEleitoralSecao);
 	}
 
 	public String getReservistaNumero() {

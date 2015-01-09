@@ -18,6 +18,8 @@ import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.EstadoCivilEntity;
+import dc.model.dao.geral.pessoal.EstadoCivilDAO;
 import dc.model.dao.geral.pessoal.PessoaContatoDAO;
 import dc.model.dao.geral.pessoal.PessoaDAO;
 import dc.model.dao.geral.pessoal.PessoaEnderecoDAO;
@@ -56,6 +58,9 @@ public class PessoaBusinessImpl implements Serializable,
 
 	@Autowired
 	private PessoaEnderecoDAO<PessoaEnderecoEntity> pessoaEnderecoDAO;
+
+	@Autowired
+	private EstadoCivilDAO<EstadoCivilEntity> estadoCivilDAO;
 
 	/**
 	 * **********************************************
@@ -175,6 +180,14 @@ public class PessoaBusinessImpl implements Serializable,
 				}
 
 				ent.setPessoaJuridica(null);
+
+				if (ObjectUtils.isNotBlank(ent.getPessoaFisica()
+						.getEstadoCivil())) {
+					EstadoCivilEntity estadoCivil = this.estadoCivilDAO
+							.find(ent.getPessoaFisica().getEstadoCivil()
+									.getId());
+					ent.getPessoaFisica().setEstadoCivil(estadoCivil);
+				}
 			} else if (ent.getTipoPessoa().equals(TipoPessoaEn.J)) {
 				if (ObjectUtils.isNotBlank(ent.getPessoaFisica())) {
 					this.pessoaFisicaDAO.delete(ent.getPessoaFisica());

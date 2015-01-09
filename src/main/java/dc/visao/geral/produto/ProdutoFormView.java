@@ -763,17 +763,17 @@ public class ProdutoFormView extends CustomComponent {
 		cbInativo = new ComboBox();
 		cbInativo.setCaption("Inativo?");
 		cbInativo.setImmediate(false);
+		cbInativo.setRequired(true);
 		cbInativo.setWidth("100px");
 		cbInativo.setHeight("-1px");
-		// carregarInativo();
 
 		// cbClasse
 		cbClasse = new ComboBox();
 		cbClasse.setCaption("Classe");
 		cbClasse.setImmediate(false);
+		cbClasse.setRequired(true);
 		cbClasse.setWidth("100px");
 		cbClasse.setHeight("-1px");
-		// carregarClasse();
 
 		layout.addComponent(tfGtin, 0, 0);
 		layout.addComponent(tfCodigoInterno, 1, 0);
@@ -814,25 +814,25 @@ public class ProdutoFormView extends CustomComponent {
 		layout.setSpacing(true);
 		layout.setSizeFull();
 
-		tfValorCompra = ComponentUtil.buildCurrencyField("Valor Compra");
+		tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
 		tfValorCompra.setHeight("-1px");
 		tfValorCompra.setWidth("150px");
 
-		tfValorVenda = ComponentUtil.buildCurrencyField("Valor Venda");
+		tfValorVenda = ComponentUtil.buildCurrencyField("Valor de venda");
 		tfValorVenda.setHeight("-1px");
 		tfValorVenda.setWidth("150px");
 
 		tfValorVendaMinimo = ComponentUtil
-				.buildCurrencyField("Valor Venda Minimo");
+				.buildCurrencyField("Valor de venda mínimo");
 		tfValorVendaMinimo.setHeight("-1px");
 		tfValorVendaMinimo.setWidth("150px");
 
-		tfValorSugerido = ComponentUtil.buildCurrencyField("Valor Sugerido");
+		tfValorSugerido = ComponentUtil.buildCurrencyField("Valor sugerido");
 		tfValorSugerido.setHeight("-1px");
 		tfValorSugerido.setWidth("150px");
 
 		tfCustoMedioLiquido = ComponentUtil
-				.buildCurrencyField("Custo Médio Liquido");
+				.buildCurrencyField("Custo médio líquido");
 		tfCustoMedioLiquido.setHeight("-1px");
 		tfCustoMedioLiquido.setWidth("150px");
 
@@ -842,17 +842,18 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(tfValorSugerido, 3, 0);
 		layout.addComponent(tfCustoMedioLiquido, 4, 0);
 
-		tfPrecoLucroZero = ComponentUtil.buildCurrencyField("Preço Lucro Zero");
+		tfPrecoLucroZero = ComponentUtil
+				.buildCurrencyField("Preço de lucro zero");
 		tfPrecoLucroZero.setHeight("-1px");
 		tfPrecoLucroZero.setWidth("150px");
 
 		tfPrecoLucroMinimo = ComponentUtil
-				.buildCurrencyField("Preço Lucro Minimo");
+				.buildCurrencyField("Preço de lucro mínimo");
 		tfPrecoLucroMinimo.setHeight("-1px");
 		tfPrecoLucroMinimo.setWidth("150px");
 
 		tfPrecoLucroMaximo = ComponentUtil
-				.buildCurrencyField("Preço Lucro Máximo");
+				.buildCurrencyField("Preço de lucro máximo");
 		tfPrecoLucroMaximo.setHeight("-1px");
 		tfPrecoLucroMaximo.setWidth("150px");
 
@@ -861,7 +862,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfMarkup.setWidth("150px");
 
 		tfQuantidadeEstoque = ComponentUtil
-				.buildNumberField("Quantidade Estoque");
+				.buildNumberField("Quantidade de estoque");
 		tfQuantidadeEstoque.setHeight("-1px");
 		tfQuantidadeEstoque.setWidth("150px");
 
@@ -872,22 +873,22 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(tfQuantidadeEstoque, 4, 1);
 
 		tfQuantidadeEstoqueAnterior = ComponentUtil
-				.buildNumberField("Qtde Estoque Anterior");
+				.buildNumberField("Qtde de estoque anterior");
 		tfQuantidadeEstoqueAnterior.setHeight("-1px");
 		tfQuantidadeEstoqueAnterior.setHeight("-1px");
 		tfQuantidadeEstoqueAnterior.setWidth("150px");
 
-		tfEstoqueIdeal = ComponentUtil.buildNumberField("Estoque Ideal");
+		tfEstoqueIdeal = ComponentUtil.buildNumberField("Estoque ideal");
 		tfEstoqueIdeal.setHeight("-1px");
 		tfEstoqueIdeal.setHeight("-1px");
 		tfEstoqueIdeal.setWidth("150px");
 
-		tfEstoqueMinimo = ComponentUtil.buildNumberField("Estoque Minimo");
+		tfEstoqueMinimo = ComponentUtil.buildNumberField("Estoque mínimo");
 		tfEstoqueMinimo.setHeight("-1px");
 		tfEstoqueMinimo.setHeight("-1px");
 		tfEstoqueMinimo.setWidth("150px");
 
-		tfEstoqueMaximo = ComponentUtil.buildNumberField("Estoque Máximo");
+		tfEstoqueMaximo = ComponentUtil.buildNumberField("Estoque máximo");
 		tfEstoqueMaximo.setHeight("-1px");
 		tfEstoqueMaximo.setHeight("-1px");
 		tfEstoqueMaximo.setWidth("150px");
@@ -897,7 +898,7 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(tfEstoqueMinimo, 2, 2);
 		layout.addComponent(tfEstoqueMaximo, 3, 2);
 
-		subForms.addTab(layout, "Valores Principais", null);
+		subForms.addTab(layout, "Valores principais", null);
 	}
 
 	public void buildComplementarSubForm() {
@@ -910,33 +911,35 @@ public class ProdutoFormView extends CustomComponent {
 		layout.setSizeFull();
 
 		tfLst = new TextField("LST:");
+		tfLst.setRequired(true);
 		tfLst.setMaxLength(4);
 
 		tfExtipi = new TextField("EXTIPI");
+		tfExtipi.setRequired(true);
 		tfExtipi.setMaxLength(3);
 
-		cbTipoVenda = ComponentUtil.buildComboBox("Tipo venda");
+		cbTipoVenda = ComponentUtil.buildComboBox("Tipo de venda");
+		cbTipoVenda.setRequired(true);
 		cbTipoVenda.setHeight("-1px");
 		cbTipoVenda.setWidth("150px");
-		// carregarTipoVenda();
 
 		cbIat = ComponentUtil.buildComboBox("IAT");
+		cbIat.setRequired(true);
 		cbIat.setHeight("-1px");
 		cbIat.setWidth("150px");
-		// carregarIAT();
 
 		layout.addComponent(tfLst, 0, 0);
 		layout.addComponent(tfExtipi, 1, 0);
 
 		cbIppt = ComponentUtil.buildComboBox("IPPT");
+		cbIppt.setRequired(true);
 		cbIppt.setHeight("-1px");
 		cbIppt.setWidth("150px");
-		// carregarIPPT();
 
-		cbTipoItemSped = ComponentUtil.buildComboBox("Tipo Item SPED");
+		cbTipoItemSped = ComponentUtil.buildComboBox("Tipo do item SPED");
+		cbTipoItemSped.setRequired(true);
 		cbTipoItemSped.setHeight("-1px");
 		cbTipoItemSped.setWidth("150px");
-		// carregarSped();
 
 		layout.addComponent(cbTipoVenda, 2, 0);
 		layout.addComponent(cbIat, 3, 0);
@@ -944,11 +947,12 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(cbTipoItemSped, 5, 0);
 
 		tfTotalizadorParcial = ComponentUtil
-				.buildCurrencyField("Totalizador Parcial");
+				.buildCurrencyField("Totalizador parcial");
 		tfTotalizadorParcial.setHeight("-1px");
 		tfTotalizadorParcial.setWidth("150px");
 
-		tfCodigoBalanca = ComponentUtil.buildNumericField("Código Balança");
+		tfCodigoBalanca = ComponentUtil.buildNumericField("Código da balança");
+		tfCodigoBalanca.setRequired(true);
 		tfCodigoBalanca.setConverter(new IntegerConverter());
 		tfCodigoBalanca.setHeight("-1px");
 		tfCodigoBalanca.setWidth("150px");
@@ -957,7 +961,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfPeso.setHeight("-1px");
 		tfPeso.setWidth("150px");
 
-		tfTaxaComissao = ComponentUtil.buildPercentageField("Taxa Comissão");
+		tfTaxaComissao = ComponentUtil.buildPercentageField("Taxa da comissão");
 		tfTaxaComissao.setHeight("-1px");
 		tfTaxaComissao.setWidth("150px");
 
@@ -966,20 +970,20 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(tfPeso, 2, 1);
 		layout.addComponent(tfTaxaComissao, 3, 1);
 
-		tfPontoPedido = ComponentUtil.buildNumberField("Ponto Pedido");
+		tfPontoPedido = ComponentUtil.buildNumberField("Ponto do pedido");
 		tfPontoPedido.setHeight("-1px");
 		tfPontoPedido.setWidth("150px");
 
 		tfLoteEconomicoCompra = ComponentUtil
-				.buildNumberField("Lote Econômico Compra");
+				.buildNumberField("Lote econômico de compra");
 		tfLoteEconomicoCompra.setHeight("-1px");
 		tfLoteEconomicoCompra.setWidth("150px");
 
-		tfAliquotaIcms = ComponentUtil.buildPercentageField("Aliquota ICMS");
+		tfAliquotaIcms = ComponentUtil.buildPercentageField("Alíquota ICMS");
 		tfAliquotaIcms.setHeight("-1px");
 		tfAliquotaIcms.setWidth("150px");
 
-		tfAliquotaIssqn = ComponentUtil.buildPercentageField("Aliquota ISSQN");
+		tfAliquotaIssqn = ComponentUtil.buildPercentageField("Alíquota ISSQN");
 		tfAliquotaIssqn.setHeight("-1px");
 		tfAliquotaIssqn.setWidth("150px");
 
@@ -988,7 +992,7 @@ public class ProdutoFormView extends CustomComponent {
 		layout.addComponent(tfAliquotaIcms, 2, 2);
 		layout.addComponent(tfAliquotaIssqn, 3, 2);
 
-		subForms.addTab(layout, "Dados Complementares", null);
+		subForms.addTab(layout, "Dados complementares", null);
 	}
 
 	@AutoGenerated

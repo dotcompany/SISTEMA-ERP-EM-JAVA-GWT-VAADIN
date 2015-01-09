@@ -51,8 +51,7 @@ public class PessoaUtils {
 
 	public static void validateFieldValue(PessoaFormView subView)
 			throws DotErpException {
-		String tituloSecao = (String) subView.getTfTituloSecao()
-				.getConvertedValue();
+		String tituloSecao = (String) subView.getTfTituloSecao().getValue();
 
 		if (!NumberUtils.isNumber(tituloSecao)) {
 			throw new DotErpException(subView.getTfTituloSecao(),
@@ -60,7 +59,7 @@ public class PessoaUtils {
 		}
 
 		String tituloEleitoralZona = (String) subView.getTfTituloZona()
-				.getConvertedValue();
+				.getValue();
 
 		if (!NumberUtils.isNumber(tituloEleitoralZona)) {
 			throw new DotErpException(subView.getTfTituloZona(),
