@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.ClasseEn;
@@ -194,6 +195,10 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			carregarTipoSped();
 			carregarIat();
 			carregarIppt();
+
+			// Valores iniciais
+
+			this.subView.getCbTemIcmsCustomizado().setValue(SimNaoEn.N);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -508,6 +513,28 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	public void carregarIppt() {
 		for (IpptEn en : IpptEn.values()) {
 			this.subView.getCbIppt().addItem(en);
+		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public void vceTemIcmsCustomizado(ValueChangeEvent event) {
+		SimNaoEn en = (SimNaoEn) event.getProperty().getValue();
+
+		if (en.equals(SimNaoEn.S)) {
+			this.subView.getGlGeral().removeComponent(
+					this.subView.getMocGrupoTributario());
+			this.subView.getGlGeral().addComponent(
+					this.subView.getMocIcmsCustomizado(), 2, 2);
+		}
+
+		if (en.equals(SimNaoEn.N)) {
+			this.subView.getGlGeral().removeComponent(
+					this.subView.getMocIcmsCustomizado());
+			this.subView.getGlGeral().addComponent(
+					this.subView.getMocGrupoTributario(), 2, 2);
 		}
 	}
 
