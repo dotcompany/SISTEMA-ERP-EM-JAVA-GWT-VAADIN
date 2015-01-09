@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.UnidadeProdutoFormView;
 
 public class UnidadeProdutoUtils {
@@ -24,7 +23,12 @@ public class UnidadeProdutoUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(UnidadeProdutoFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(UnidadeProdutoFormView subView) {
 
 	}
 

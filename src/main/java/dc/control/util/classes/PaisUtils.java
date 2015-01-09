@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.PaisFormView;
 
 public class PaisUtils {
@@ -38,7 +37,12 @@ public class PaisUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(PaisFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(PaisFormView subView) {
 
 	}
 

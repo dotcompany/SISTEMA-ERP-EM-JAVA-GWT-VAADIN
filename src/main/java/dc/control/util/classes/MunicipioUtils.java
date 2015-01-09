@@ -4,7 +4,6 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.UfEntity;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.MunicipioFormView;
 
 public class MunicipioUtils {
@@ -26,7 +25,12 @@ public class MunicipioUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(MunicipioFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(MunicipioFormView subView) {
 
 	}
 

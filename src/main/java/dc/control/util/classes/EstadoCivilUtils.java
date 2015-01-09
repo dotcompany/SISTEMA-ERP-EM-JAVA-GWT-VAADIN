@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.EstadoCivilFormView;
 
 public class EstadoCivilUtils {
@@ -24,7 +23,12 @@ public class EstadoCivilUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(EstadoCivilFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(EstadoCivilFormView subView) {
 
 	}
 

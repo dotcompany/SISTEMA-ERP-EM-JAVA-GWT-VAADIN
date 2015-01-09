@@ -4,7 +4,6 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
 
 public class OperadoraCartaoUtils {
@@ -41,7 +40,12 @@ public class OperadoraCartaoUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(OperadoraCartaoFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(OperadoraCartaoFormView subView) {
 
 	}
 

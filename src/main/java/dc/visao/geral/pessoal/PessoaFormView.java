@@ -1771,7 +1771,8 @@ public class PessoaFormView extends CustomComponent {
 			}
 
 			protected PessoaContatoEntity getNovo() {
-				PessoaContatoEntity detalhe = controller.aderirPessoaContato();
+				PessoaContatoEntity detalhe = controller
+						.adicionarPessoaContato();
 
 				return detalhe;
 			}
@@ -1942,7 +1943,7 @@ public class PessoaFormView extends CustomComponent {
 
 			protected PessoaEnderecoEntity getNovo() {
 				PessoaEnderecoEntity endereco = controller
-						.aderirPessoaEndereco();
+						.adicionarPessoaEndereco();
 
 				return endereco;
 			}

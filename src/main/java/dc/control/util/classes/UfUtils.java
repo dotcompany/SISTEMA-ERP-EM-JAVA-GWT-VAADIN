@@ -5,7 +5,6 @@ import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.util.Validator;
 import dc.visao.geral.UfFormView;
-import dc.visao.geral.diverso.CepFormView;
 
 public class UfUtils {
 
@@ -33,7 +32,12 @@ public class UfUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(UfFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(UfFormView subView) {
 
 	}
 

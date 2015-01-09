@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.ColaboradorFormView;
 
 public class ColaboradorUtils {
@@ -24,7 +23,12 @@ public class ColaboradorUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(ColaboradorFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(ColaboradorFormView subView) {
 
 	}
 

@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.diverso.OperadoraPlanoSaudeFormView;
 
 public class OperadoraPlanoSaudeUtils {
@@ -24,7 +23,12 @@ public class OperadoraPlanoSaudeUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(OperadoraPlanoSaudeFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(OperadoraPlanoSaudeFormView subView) {
 
 	}
 

@@ -16,6 +16,11 @@ public class CepUtils {
 		}
 	}
 
+	public static void validateFieldValue(CepFormView subView)
+			throws DotErpException {
+
+	}
+
 	public static void clearFormFields(CepFormView subView) {
 		// subView.getTfBairro().setValue("");
 		subView.getTfCodigoIbgeMunicipio().setValue(null);

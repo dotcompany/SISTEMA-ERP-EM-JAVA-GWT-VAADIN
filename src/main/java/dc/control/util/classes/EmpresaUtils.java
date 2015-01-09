@@ -12,7 +12,6 @@ import dc.entidade.framework.Fpas;
 import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.visao.administrativo.empresa.EmpresaFormView;
-import dc.visao.geral.diverso.CepFormView;
 
 public class EmpresaUtils {
 
@@ -197,7 +196,12 @@ public class EmpresaUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(EmpresaFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(EmpresaFormView subView) {
 
 	}
 

@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.NivelFormacaoFormView;
 
 public class NivelFormacaoUtils {
@@ -17,7 +16,12 @@ public class NivelFormacaoUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(NivelFormacaoFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(NivelFormacaoFormView subView) {
 
 	}
 

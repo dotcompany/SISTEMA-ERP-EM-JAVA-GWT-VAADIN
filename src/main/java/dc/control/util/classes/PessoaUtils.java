@@ -1,11 +1,11 @@
 package dc.control.util.classes;
 
 import dc.control.enums.TipoPessoaEn;
+import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.pessoal.PessoaFormView;
 
 public class PessoaUtils {
@@ -49,7 +49,26 @@ public class PessoaUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(PessoaFormView subView)
+			throws DotErpException {
+		String tituloSecao = (String) subView.getTfTituloSecao()
+				.getConvertedValue();
+
+		if (!NumberUtils.isNumber(tituloSecao)) {
+			throw new DotErpException(subView.getTfTituloSecao(),
+					"::DotERP - O campo não é um número");
+		}
+
+		String tituloEleitoralZona = (String) subView.getTfTituloZona()
+				.getConvertedValue();
+
+		if (!NumberUtils.isNumber(tituloEleitoralZona)) {
+			throw new DotErpException(subView.getTfTituloZona(),
+					"::DotERP - O campo não é um número");
+		}
+	}
+
+	public static void clearFormFields(PessoaFormView subView) {
 
 	}
 

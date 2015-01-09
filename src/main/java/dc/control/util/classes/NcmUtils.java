@@ -2,7 +2,6 @@ package dc.control.util.classes;
 
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.NcmFormView;
 
 public class NcmUtils {
@@ -31,7 +30,12 @@ public class NcmUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(NcmFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(NcmFormView subView) {
 
 	}
 

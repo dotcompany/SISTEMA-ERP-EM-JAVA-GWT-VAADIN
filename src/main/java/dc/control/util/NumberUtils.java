@@ -108,4 +108,8 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 		return (BigDecimal) obj;
 	}
 
+	public static int toInt(Object obj) {
+		return (int) obj;
+	}
+
 }

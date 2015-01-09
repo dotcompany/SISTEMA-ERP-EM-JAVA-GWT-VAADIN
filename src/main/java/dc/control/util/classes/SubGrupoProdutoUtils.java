@@ -4,7 +4,6 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.SubGrupoFormView;
 
 public class SubGrupoProdutoUtils {
@@ -33,7 +32,12 @@ public class SubGrupoProdutoUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(SubGrupoFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(SubGrupoFormView subView) {
 
 	}
 

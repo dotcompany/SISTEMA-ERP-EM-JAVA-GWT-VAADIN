@@ -20,6 +20,7 @@ import dc.control.enums.TipoPessoaEn;
 import dc.control.enums.TipoRegimeEn;
 import dc.control.enums.TipoSanguineoEn;
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
@@ -151,6 +152,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected boolean validaSalvar() {
 		try {
 			PessoaUtils.validateRequiredFields(this.subView);
+			PessoaUtils.validateFieldValue(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
@@ -211,45 +213,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		}
-	}
-
-	private void salvarPessoaJuridica() {
-		try {
-			PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
-
-			if (pj == null) {
-				pj = new PessoaJuridicaEntity();
-			}
-
-			pj.setPessoa(this.entity);
-
-			pj.setFantasia(this.subView.getTfFantasia().getValue());
-			pj.setCnpj(this.subView.getMtfCnpj().getValue());
-			pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
-					.getValue());
-			pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
-					.getValue());
-			pj.setDataConstituicao(this.subView.getPdfDataConstituicao()
-					.getValue());
-			pj.setSuframa(this.subView.getTfSuframa().getValue());
-
-			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
-					.getCbTipoRegime().getValue();
-
-			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-				pj.setTipoRegime(tipoRegimeEn);
-			}
-
-			CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
-
-			if (ObjectUtils.isNotBlank(crtEn)) {
-				pj.setCrt(crtEn);
-			}
-
-			this.entity.setPessoaJuridica(pj);
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
@@ -320,12 +283,51 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
 					.getValue());
-			pf.setTituloEleitoralSecao((Integer) this.subView
-					.getTfTituloSecao().getConvertedValue());
-			pf.setTituloEleitoralZona((Integer) this.subView.getTfTituloZona()
-					.getConvertedValue());
+			pf.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
+					.getTfTituloSecao().getConvertedValue()));
+			pf.setTituloEleitoralZona(NumberUtils.toInt(this.subView
+					.getTfTituloZona().getConvertedValue()));
 
 			this.entity.setPessoaFisica(pf);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	private void salvarPessoaJuridica() {
+		try {
+			PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
+
+			if (pj == null) {
+				pj = new PessoaJuridicaEntity();
+			}
+
+			pj.setPessoa(this.entity);
+
+			pj.setFantasia(this.subView.getTfFantasia().getValue());
+			pj.setCnpj(this.subView.getMtfCnpj().getValue());
+			pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
+					.getValue());
+			pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
+					.getValue());
+			pj.setDataConstituicao(this.subView.getPdfDataConstituicao()
+					.getValue());
+			pj.setSuframa(this.subView.getTfSuframa().getValue());
+
+			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
+					.getCbTipoRegime().getValue();
+
+			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+				pj.setTipoRegime(tipoRegimeEn);
+			}
+
+			CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
+
+			if (ObjectUtils.isNotBlank(crtEn)) {
+				pj.setCrt(crtEn);
+			}
+
+			this.entity.setPessoaJuridica(pj);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -544,7 +546,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 * 
 	 */
 
-	public PessoaContatoEntity aderirPessoaContato() {
+	public PessoaContatoEntity adicionarPessoaContato() {
 		try {
 			PessoaContatoEntity ent = new PessoaContatoEntity();
 			ent.setPessoa(this.entity);
@@ -574,7 +576,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public PessoaEnderecoEntity aderirPessoaEndereco() {
+	public PessoaEnderecoEntity adicionarPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity ent = new PessoaEnderecoEntity();
 			ent.setPessoa(this.entity);

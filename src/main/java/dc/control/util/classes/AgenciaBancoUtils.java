@@ -6,7 +6,6 @@ import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
-import dc.visao.geral.diverso.CepFormView;
 
 public class AgenciaBancoUtils {
 
@@ -69,7 +68,12 @@ public class AgenciaBancoUtils {
 		}
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void validateFieldValue(AgenciaBancoFormView subView)
+			throws DotErpException {
+
+	}
+
+	public static void clearFormFields(AgenciaBancoFormView subView) {
 
 	}
 

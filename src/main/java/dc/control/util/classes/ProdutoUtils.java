@@ -15,7 +15,6 @@ import dc.entidade.geral.produto.MarcaEntity;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.visao.geral.diverso.CepFormView;
 import dc.visao.geral.produto.ProdutoFormView;
 
 public class ProdutoUtils {
@@ -143,12 +142,12 @@ public class ProdutoUtils {
 		}
 	}
 
-	public static void validateFieldValue(CepFormView subView)
+	public static void validateFieldValue(ProdutoFormView subView)
 			throws DotErpException {
 
 	}
 
-	public static void clearFormFields(CepFormView subView) {
+	public static void clearFormFields(ProdutoFormView subView) {
 
 	}
 
