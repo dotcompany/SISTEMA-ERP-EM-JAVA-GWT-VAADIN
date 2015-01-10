@@ -20,7 +20,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.geral.UfFormController;
 import dc.controller.tributario.IcmsCustomizadoFormController;
 import dc.entidade.geral.UfEntity;
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.visao.framework.component.SubFormComponent;
@@ -43,7 +43,7 @@ public class ICMSCustomizadoFormView extends CustomComponent {
 
 	IcmsCustomizadoFormController controller;
 
-	IcmsCustomizadoEntity currentBean;
+	IcmsCustomizadoCabecalhoEntity currentBean;
 
 	private SubFormComponent<IcmsCustomizadoDetalheEntity, Integer> detalhesSubForm;
 

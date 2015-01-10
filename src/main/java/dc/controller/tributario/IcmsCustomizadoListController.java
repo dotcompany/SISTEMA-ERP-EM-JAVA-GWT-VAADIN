@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("serial")
 public class IcmsCustomizadoListController extends
-		CRUDListController<IcmsCustomizadoEntity> {
+		CRUDListController<IcmsCustomizadoCabecalhoEntity> {
 
 	@Autowired
 	private ContagemEstoqueDAO dao;
@@ -35,8 +35,8 @@ public class IcmsCustomizadoListController extends
 	}
 
 	@Override
-	protected List<IcmsCustomizadoEntity> pesquisa(String valor) {
-		return new ArrayList<IcmsCustomizadoEntity>();
+	protected List<IcmsCustomizadoCabecalhoEntity> pesquisa(String valor) {
+		return new ArrayList<IcmsCustomizadoCabecalhoEntity>();
 	}
 
 	@Override
@@ -45,24 +45,24 @@ public class IcmsCustomizadoListController extends
 	}
 
 	@Override
-	protected CRUDFormController<IcmsCustomizadoEntity> getFormController() {
+	protected CRUDFormController<IcmsCustomizadoCabecalhoEntity> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super IcmsCustomizadoEntity> getEntityClass() {
-		return IcmsCustomizadoEntity.class;
+	public Class<? super IcmsCustomizadoCabecalhoEntity> getEntityClass() {
+		return IcmsCustomizadoCabecalhoEntity.class;
 	}
 
 	@Override
-	protected List<IcmsCustomizadoEntity> pesquisaDefault() {
+	protected List<IcmsCustomizadoCabecalhoEntity> pesquisaDefault() {
 		/*
 		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
 		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
 		 * e.printStackTrace(); }
 		 */
 		//
-		return new ArrayList<IcmsCustomizadoEntity>();
+		return new ArrayList<IcmsCustomizadoCabecalhoEntity>();
 	}
 
 	@Override

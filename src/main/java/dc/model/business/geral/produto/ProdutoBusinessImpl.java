@@ -19,7 +19,7 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.model.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.model.dao.geral.produto.GrupoDAO;
 import dc.model.dao.geral.produto.MarcaDAO;
@@ -70,7 +70,7 @@ public class ProdutoBusinessImpl implements Serializable,
 	private AlmoxarifadoDAO<AlmoxarifadoEntity> almoxarifadoDAO;
 
 	@Autowired
-	private IcmsCustomizadoDAO<IcmsCustomizadoEntity> icmsCustomizadoDAO;
+	private IcmsCustomizadoDAO<IcmsCustomizadoCabecalhoEntity> icmsCustomizadoDAO;
 
 	@Autowired
 	private GrupoTributarioDAO<GrupoTributarioEntity> grupoTributarioDAO;

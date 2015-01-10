@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +34,8 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
+public class IcmsCustomizadoCabecalhoEntity extends
+		AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -74,7 +74,7 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE)
 	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
 
 	/**
@@ -85,7 +85,7 @@ public class IcmsCustomizadoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * CONSTRUTOR
 	 */
 
-	public IcmsCustomizadoEntity() {
+	public IcmsCustomizadoCabecalhoEntity() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -31,7 +31,7 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoDAO;
@@ -164,7 +164,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 			this.subView.getMocAlmoxarifado().setModel(modelAlmoxarifado);
 
-			DefaultManyToOneComboModel<IcmsCustomizadoEntity> modelIcmsCustomizado = new DefaultManyToOneComboModel<IcmsCustomizadoEntity>(
+			DefaultManyToOneComboModel<IcmsCustomizadoCabecalhoEntity> modelIcmsCustomizado = new DefaultManyToOneComboModel<IcmsCustomizadoCabecalhoEntity>(
 					IcmsCustomizadoListController.class,
 					this.icmsCustomizadoDAO, super.getMainController());
 
@@ -351,12 +351,6 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getMocSubGrupo().setValue(this.entity.getSubGrupo());
-			this.subView.getMocUnidadeProduto().setValue(
-					this.entity.getUnidadeProduto());
-			this.subView.getMocMarca().setValue(this.entity.getMarca());
-			this.subView.getMocGrupoTributario().setValue(
-					this.entity.getGrupoTributario());
 			this.subView.getTfGtin().setValue(this.entity.getGtin());
 			this.subView.getTfCodigoInterno().setValue(this.entity.getGtin());
 			this.subView.getTfNome().setValue(this.entity.getNome());
@@ -415,6 +409,13 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					this.entity.getAliquotaIcms());
 			this.subView.getTfAliquotaIssqn().setConvertedValue(
 					this.entity.getAliquotaIssqn());
+
+			this.subView.getMocSubGrupo().setValue(this.entity.getSubGrupo());
+			this.subView.getMocUnidadeProduto().setValue(
+					this.entity.getUnidadeProduto());
+			this.subView.getMocMarca().setValue(this.entity.getMarca());
+			this.subView.getMocGrupoTributario().setValue(
+					this.entity.getGrupoTributario());
 			this.subView.getMocAlmoxarifado().setValue(
 					this.entity.getAlmoxarifado());
 			this.subView.getMocGrupo().setValue(this.entity.getGrupo());

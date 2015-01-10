@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 //@SuppressWarnings("unchecked")
-public class IcmsCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoEntity> {
+public class IcmsCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoCabecalhoEntity> {
 
 	@Override
-	public Class<IcmsCustomizadoEntity> getEntityClass() {
-		return IcmsCustomizadoEntity.class;
+	public Class<IcmsCustomizadoCabecalhoEntity> getEntityClass() {
+		return IcmsCustomizadoCabecalhoEntity.class;
 	}
 
 //	@Override

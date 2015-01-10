@@ -67,7 +67,7 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 
 	@ManyToOne
 	@JoinColumn(name="id_tribut_icms_custom_cab")
-	private IcmsCustomizadoEntity icmsCustomizado;
+	private IcmsCustomizadoCabecalhoEntity icmsCustomizado;
 
 	@Transient
 	UfEntity uf;
@@ -96,11 +96,11 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 		this.uf = uf;
 	}
 
-	public IcmsCustomizadoEntity getIcmsCustomizado() {
+	public IcmsCustomizadoCabecalhoEntity getIcmsCustomizado() {
 		return icmsCustomizado;
 	}
 
-	public void setIcmsCustomizado(IcmsCustomizadoEntity icmsCustomizado) {
+	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
 		this.icmsCustomizado = icmsCustomizado;
 	}
 

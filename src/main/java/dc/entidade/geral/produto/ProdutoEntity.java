@@ -37,6 +37,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 
 @Entity
 @Table(name = "produto")
@@ -61,7 +62,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private Integer id;
 
 	@Field
-	@Caption("Gtin")
+	@Caption("GTIN")
 	@Column(name = "GTIN", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -91,175 +92,175 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String descricao = "";
 
 	@Field
-	@Caption("Descrição Pdv")
+	@Caption("Descrição do PDV")
 	@Column(name = "DESCRICAO_PDV", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricaoPdv = "";
 
 	@Field
-	@Caption()
+	@Caption("Valor da compra")
 	@Column(name = "VALOR_COMPRA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCompra = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Valor da venda")
 	@Column(name = "VALOR_VENDA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorVenda = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Preço de venda mínimo")
 	@Column(name = "PRECO_VENDA_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoVendaMinimo = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Preço sugerido")
 	@Column(name = "PRECO_SUGERIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoSugerido = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Custo médio líquido")
 	@Column(name = "CUSTO_MEDIO_LIQUIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal custoMedioLiquido = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Preço de lucro zero")
 	@Column(name = "PRECO_LUCRO_ZERO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroZero = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Preço de lucro mínimo")
 	@Column(name = "PRECO_LUCRO_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMinimo = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Preço de lucro máximo")
 	@Column(name = "PRECO_LUCRO_MAXIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal precoLucroMaximo = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Markup")
 	@Column(name = "MARKUP", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal markup = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Quantidade de estoque")
 	@Column(name = "QUANTIDADE_ESTOQUE", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidadeEstoque = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Quantidade de estoque anterior")
 	@Column(name = "QUANTIDADE_ESTOQUE_ANTERIOR", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal quantidadeEstoqueAnterior = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Estoque mínimo")
 	@Column(name = "ESTOQUE_MINIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMinimo = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Estoque máximo")
 	@Column(name = "ESTOQUE_MAXIMO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueMaximo = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Estoque ideal")
 	@Column(name = "ESTOQUE_IDEAL", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal estoqueIdeal = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Código LST")
 	@Column(name = "codigo_lst")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoLst = "";
 
 	@Field
-	@Caption()
+	@Caption("Totalizador parcial")
 	@Column(name = "TOTALIZADOR_PARCIAL", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String totalizadorParcial = "";
 
 	@Field
-	@Caption()
+	@Caption("Código da balança")
 	@Column(name = "CODIGO_BALANCA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoBalanca;
+	private Integer codigoBalanca = new Integer(0);
 
 	@Field
-	@Caption()
+	@Caption("Peso")
 	@Column(name = "PESO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal peso = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Porcentagem da comissão")
 	@Column(name = "PORCENTO_COMISSAO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaComissao = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Ponto do pedido")
 	@Column(name = "PONTO_PEDIDO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal pontoPedido = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Lote econômico de compra")
 	@Column(name = "LOTE_ECONOMICO_COMPRA", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal loteEconomicoCompra = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Alíquota ICMS")
 	@Column(name = "aliquota_icms_paf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal aliquotaIcms = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("Alíquota ISSQN")
 	@Column(name = "aliquota_issqn_paf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal aliquotaIssqn = new BigDecimal(0);
 
 	@Field
-	@Caption()
+	@Caption("EXTIPI")
 	@Column(name = "EX_TIPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -267,7 +268,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption()
+	@Caption("Tipo de venda")
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -275,7 +276,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption()
+	@Caption("Inativo")
 	@Column(name = "INATIVO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -283,7 +284,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption()
+	@Caption("Classe")
 	@Column(name = "CLASSE_ABC")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -309,7 +310,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption("Tipo Sped")
+	@Caption("Tipo do item SPED")
 	@Column(name = "tipo_item_sped")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -319,40 +320,45 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Subgrupo")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_sub_grupo", nullable = false)
-	@Caption("Subgrupo")
 	private SubGrupoEntity subGrupo;
 
+	@Caption("Grupo")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_grupo_produto", nullable = false)
-	@Caption("Grupo")
 	private GrupoEntity grupo;
 
+	@Caption("Unidade do produto")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_unidade_produto", nullable = false)
-	@Caption("Grupo")
 	private UnidadeProdutoEntity unidadeProduto;
 
+	@Caption("Marca do produto")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_marca_produto", nullable = false)
-	@Caption("Marca do produto")
 	private MarcaEntity marca;
 
+	@Caption("Almoxarifado")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_almoxarifado", nullable = false)
-	@Caption("Almoxarifado")
 	private AlmoxarifadoEntity almoxarifado;
 
+	@Caption("NCM")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_ncm", nullable = false)
-	@Caption("NCM")
 	private NcmEntity ncm;
 
+	@Caption("Grupo tributário")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_grupo_tributario", nullable = true)
-	@Caption("Grupo tributário")
 	private GrupoTributarioEntity grupoTributario;
+
+	@Caption("ICMS customizado")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_tribut_icms_custom_cab")
+	private IcmsCustomizadoCabecalhoEntity icmsCustomizado;
 
 	/**
 	 * REFERENCIA - LIST
@@ -388,7 +394,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setGtin(String gtin) {
-		this.gtin = gtin;
+		this.gtin = (gtin == null ? "".trim() : gtin);
 	}
 
 	public String getCodigoInterno() {
@@ -396,7 +402,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigoInterno(String codigoInterno) {
-		this.codigoInterno = codigoInterno;
+		this.codigoInterno = (codigoInterno == null ? "".trim() : codigoInterno
+				.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -404,7 +411,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -412,7 +419,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getDescricaoPdv() {
@@ -420,7 +428,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setDescricaoPdv(String descricaoPdv) {
-		this.descricaoPdv = descricaoPdv;
+		this.descricaoPdv = (descricaoPdv == null ? "".trim() : descricaoPdv
+				.toUpperCase().trim());
 	}
 
 	public BigDecimal getValorCompra() {
@@ -553,7 +562,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigoLst(String codigoLst) {
-		this.codigoLst = codigoLst;
+		this.codigoLst = (codigoLst == null ? "".trim() : codigoLst
+				.toUpperCase().trim());
 	}
 
 	public String getTotalizadorParcial() {
@@ -561,7 +571,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setTotalizadorParcial(String totalizadorParcial) {
-		this.totalizadorParcial = totalizadorParcial;
+		this.totalizadorParcial = (totalizadorParcial == null ? "".trim()
+				: totalizadorParcial.toUpperCase().trim());
 	}
 
 	public Integer getCodigoBalanca() {
@@ -631,7 +642,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setExTipi(String exTipi) {
-		this.exTipi = exTipi;
+		this.exTipi = (exTipi == null ? "".trim() : exTipi.toUpperCase().trim());
 	}
 
 	public VendaTipoVendaEn getTipoVenda() {
@@ -736,6 +747,14 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setGrupoTributario(GrupoTributarioEntity grupoTributario) {
 		this.grupoTributario = grupoTributario;
+	}
+
+	public IcmsCustomizadoCabecalhoEntity getIcmsCustomizado() {
+		return icmsCustomizado;
+	}
+
+	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
+		this.icmsCustomizado = icmsCustomizado;
 	}
 
 	/**

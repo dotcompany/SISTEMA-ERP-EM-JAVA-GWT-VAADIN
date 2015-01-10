@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -35,7 +35,7 @@ public class IcmsCustomizadoDetalheDAO extends AbstractCrudDAO<IcmsCustomizadoDe
 	}
 	
 	@Transactional
-	public List<IcmsCustomizadoDetalheEntity> findByIcms(IcmsCustomizadoEntity icms){
+	public List<IcmsCustomizadoDetalheEntity> findByIcms(IcmsCustomizadoCabecalhoEntity icms){
 		
 		List<IcmsCustomizadoDetalheEntity> lista = null;
 		Criteria c = getSession().createCriteria(IcmsCustomizadoDetalheEntity.class);

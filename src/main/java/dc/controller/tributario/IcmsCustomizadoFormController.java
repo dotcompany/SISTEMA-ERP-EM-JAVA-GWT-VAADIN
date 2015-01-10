@@ -17,7 +17,7 @@ import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
-import dc.entidade.tributario.IcmsCustomizadoEntity;
+import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
@@ -34,7 +34,7 @@ import dc.visao.tributario.ICMSCustomizadoFormView;
 @Scope("prototype")
 @SuppressWarnings("serial")
 public class IcmsCustomizadoFormController extends
-		CRUDFormController<IcmsCustomizadoEntity> {
+		CRUDFormController<IcmsCustomizadoCabecalhoEntity> {
 
 	ICMSCustomizadoFormView subView;
 
@@ -47,7 +47,7 @@ public class IcmsCustomizadoFormController extends
 	@Autowired
 	IcmsCustomizadoDetalheDAO detalheDAO;
 
-	IcmsCustomizadoEntity currentBean;
+	IcmsCustomizadoCabecalhoEntity currentBean;
 
 	@Autowired
 	CfopDAO cfopDAO;
@@ -72,7 +72,7 @@ public class IcmsCustomizadoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new IcmsCustomizadoEntity();
+		currentBean = new IcmsCustomizadoCabecalhoEntity();
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class IcmsCustomizadoFormController extends
 
 		try {
 			for (Serializable id : ids) {
-				IcmsCustomizadoEntity icms = dao.find(id);
+				IcmsCustomizadoCabecalhoEntity icms = dao.find(id);
 				List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO
 						.findByIcms(icms);
 				for (IcmsCustomizadoDetalheEntity detalhe : detalhes) {
@@ -248,7 +248,7 @@ public class IcmsCustomizadoFormController extends
 	}
 
 	@Override
-	public IcmsCustomizadoEntity getModelBean() {
+	public IcmsCustomizadoCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
