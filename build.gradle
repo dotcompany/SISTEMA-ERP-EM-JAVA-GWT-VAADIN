@@ -153,13 +153,13 @@ dependencies {
 			exclude module: 'servlet-api'
 		}
 	   
-		compile 'org.slf4j:jcl-over-slf4j:1.7.1'
-		compile 'org.slf4j:slf4j-api:1.7.1'
-		compile 'ch.qos.logback:logback-classic:1.0.1'
-		compile 'ch.qos.logback:logback-core:1.0.1'
+		compile 'org.slf4j:jcl-over-slf4j:1.7.9'
+		compile 'org.slf4j:slf4j-api:1.7.9'
+		compile 'ch.qos.logback:logback-classic:1.1.2'
+		compile 'ch.qos.logback:logback-core:1.1.2'
 		
         // providedCompile 'org.mortbay.jetty:jetty:6.1.26'
-        providedCompile 'org.eclipse.jetty.aggregate:jetty-aggregate-project:8.1.10.v20130312'
+        providedCompile 'org.eclipse.jetty.aggregate:jetty-aggregate-project:8.1.16.v20140903'
         
         // REST
         compile 'com.sun.jersey:jersey-servlet:1.17.1'
