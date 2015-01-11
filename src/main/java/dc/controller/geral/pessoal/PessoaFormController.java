@@ -152,7 +152,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected boolean validaSalvar() {
 		try {
 			PessoaUtils.validateRequiredFields(this.subView);
-			PessoaUtils.validateFieldValue(this.subView);
+			// PessoaUtils.validateFieldValue(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
