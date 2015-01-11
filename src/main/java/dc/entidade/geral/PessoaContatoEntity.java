@@ -90,6 +90,7 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	// @ManyToOne(optional = false)
 	// private Empresa empresa;
 
+	@Caption("Pessoa")
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
