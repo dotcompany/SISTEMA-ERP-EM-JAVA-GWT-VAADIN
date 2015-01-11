@@ -60,93 +60,149 @@ public class PessoaFisicaEntity implements Serializable {
 	@Field
 	@Caption("CPF")
 	@Column(name = "CPF")
-	private String cpf;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cpf = "";
 
 	@Field
 	@Caption("RG")
 	@Column(name = "RG")
-	private String rg;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String rg = "";
 
+	@Field
+	@Caption("RG - Órgão emissor")
 	@Column(name = "ORGAO_RG")
-	private String orgaoRg;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String orgaoRg = "";
 
-	@Column(name = "DATA_EMISSAO_RG")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("RG - Data de emissão")
+	@Column(name = "DATA_EMISSAO_RG")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEmissaoRg;
 
-	@Column(name = "DATA_NASCIMENTO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de nascimento")
+	@Column(name = "DATA_NASCIMENTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataNascimento;
 
-	@Column(name = "NATURALIDADE", length = 100)
-	private String naturalidade;
+	@Field
+	@Caption("Naturalidade")
+	@Column(name = "NATURALIDADE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String naturalidade = "";
 
-	@Column(name = "NACIONALIDADE", length = 100)
-	private String nacionalidade;
+	@Field
+	@Caption("Nacionalidade")
+	@Column(name = "NACIONALIDADE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nacionalidade = "";
 
-	@Column(name = "CNH_NUMERO", length = 20)
-	private String cnhNumero;
+	@Field
+	@Caption("CNH")
+	@Column(name = "CNH_NUMERO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnhNumero = "";
 
-	@Column(name = "CNH_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("CNH - Vencimento")
+	@Column(name = "CNH_VENCIMENTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date cnhVencimento;
 
-	@Column(name = "TITULO_ELEITORAL_NUMERO", length = 20)
-	private String tituloEleitoralNumero;
+	@Field
+	@Caption("Número do título de eleitor")
+	@Column(name = "TITULO_ELEITORAL_NUMERO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String tituloEleitoralNumero = "";
 
+	@Field
+	@Caption("Título de eleitor - Zona")
 	@Column(name = "TITULO_ELEITORAL_ZONA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer tituloEleitoralZona = new Integer(0);
 
+	@Field
+	@Caption("Título de eleitor - Seção")
 	@Column(name = "TITULO_ELEITORAL_SECAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer tituloEleitoralSecao = new Integer(0);
 
-	@Column(name = "RESERVISTA_NUMERO", length = 20)
-	private String reservistaNumero;
+	@Field
+	@Caption("Número da reservista")
+	@Column(name = "RESERVISTA_NUMERO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String reservistaNumero = "";
 
-	@Column(name = "NOME_MAE", length = 100)
-	private String nomeMae;
+	@Field
+	@Caption("Nome da mãe")
+	@Column(name = "NOME_MAE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nomeMae = "";
 
-	@Column(name = "NOME_PAI", length = 100)
-	private String nomePai;
+	@Field
+	@Caption("Nome do pai")
+	@Column(name = "NOME_PAI")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nomePai = "";
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Sexo")
 	@Column(name = "sexo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private SexoEn sexo;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("CNH categoria")
 	@Column(name = "cnh_categoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private CnhEn cnh;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Raça")
 	@Column(name = "raca")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private RacaEn raca;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Tipo de sangue")
 	@Column(name = "tipo_sangue")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private TipoSanguineoEn tipoSangue;
 
+	@Enumerated(EnumType.ORDINAL)
 	@Field
 	@Caption("Reservista categoria")
 	@Column(name = "reservista_categoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.ORDINAL)
 	private CategoriaReservistaEn reservistaCategoria;
 
 	/**
@@ -199,7 +255,7 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		this.cpf = (cpf == null ? "".trim() : cpf.toUpperCase().trim());
 	}
 
 	public String getRg() {
@@ -207,7 +263,7 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setRg(String rg) {
-		this.rg = rg;
+		this.rg = (rg == null ? "".trim() : rg.toUpperCase().trim());
 	}
 
 	public String getOrgaoRg() {
@@ -215,7 +271,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setOrgaoRg(String orgaoRg) {
-		this.orgaoRg = orgaoRg;
+		this.orgaoRg = (orgaoRg == null ? "".trim() : orgaoRg.toUpperCase()
+				.trim());
 	}
 
 	public Date getDataEmissaoRg() {
@@ -239,7 +296,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setNaturalidade(String naturalidade) {
-		this.naturalidade = naturalidade;
+		this.naturalidade = (naturalidade == null ? "".trim() : naturalidade
+				.toUpperCase().trim());
 	}
 
 	public String getNacionalidade() {
@@ -247,7 +305,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
+		this.nacionalidade = (nacionalidade == null ? "".trim() : nacionalidade
+				.toUpperCase().trim());
 	}
 
 	public String getCnhNumero() {
@@ -255,7 +314,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setCnhNumero(String cnhNumero) {
-		this.cnhNumero = cnhNumero;
+		this.cnhNumero = (cnhNumero == null ? "".trim() : cnhNumero
+				.toUpperCase().trim());
 	}
 
 	public Date getCnhVencimento() {
@@ -271,7 +331,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setTituloEleitoralNumero(String tituloEleitoralNumero) {
-		this.tituloEleitoralNumero = tituloEleitoralNumero;
+		this.tituloEleitoralNumero = (tituloEleitoralNumero == null ? "".trim()
+				: tituloEleitoralNumero.toUpperCase().trim());
 	}
 
 	public Integer getTituloEleitoralZona() {
@@ -297,7 +358,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setReservistaNumero(String reservistaNumero) {
-		this.reservistaNumero = reservistaNumero;
+		this.reservistaNumero = (reservistaNumero == null ? "".trim()
+				: reservistaNumero.toUpperCase().trim());
 	}
 
 	public String getNomeMae() {
@@ -305,7 +367,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setNomeMae(String nomeMae) {
-		this.nomeMae = nomeMae;
+		this.nomeMae = (nomeMae == null ? "".trim() : nomeMae.toUpperCase()
+				.trim());
 	}
 
 	public String getNomePai() {
@@ -313,7 +376,8 @@ public class PessoaFisicaEntity implements Serializable {
 	}
 
 	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
+		this.nomePai = (nomePai == null ? "".trim() : nomePai.toUpperCase()
+				.trim());
 	}
 
 	public SexoEn getSexo() {

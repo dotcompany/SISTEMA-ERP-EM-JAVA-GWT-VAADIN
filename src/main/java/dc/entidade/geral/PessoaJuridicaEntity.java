@@ -52,41 +52,63 @@ public class PessoaJuridicaEntity implements Serializable {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("CNPJ")
 	@Column(name = "CNPJ")
-	private String cnpj;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnpj = "";
 
 	@Field
-	@Caption("Fantasia")
+	@Caption("Nome fantasia")
 	@Column(name = "FANTASIA", length = 150)
-	private String fantasia;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fantasia = "";
 
+	@Field
+	@Caption("Inscrição municipal")
 	@Column(name = "INSCRICAO_MUNICIPAL")
-	private String inscricaoMunicipal;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inscricaoMunicipal = "";
 
+	@Field
+	@Caption("Inscrição estadual")
 	@Column(name = "INSCRICAO_ESTADUAL")
-	private String inscricaoEstadual;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inscricaoEstadual = "";
 
-	@Column(name = "DATA_CONSTITUICAO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data da constituição")
+	@Column(name = "DATA_CONSTITUICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataConstituicao;
 
+	@Field
+	@Caption("Suframa")
 	@Column(name = "SUFRAMA", length = 9)
-	private String suframa;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String suframa = "";
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Tipo de regime")
 	@Column(name = "tipo_regime")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private TipoRegimeEn tipoRegime;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("CRT")
 	@Column(name = "crt")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private CrtEn crt;
 
 	/**
@@ -130,7 +152,7 @@ public class PessoaJuridicaEntity implements Serializable {
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = (cnpj == null ? "".trim() : cnpj.toUpperCase().trim());
 	}
 
 	public String getFantasia() {
@@ -138,7 +160,8 @@ public class PessoaJuridicaEntity implements Serializable {
 	}
 
 	public void setFantasia(String fantasia) {
-		this.fantasia = fantasia;
+		this.fantasia = (fantasia == null ? "".trim() : fantasia.toUpperCase()
+				.trim());
 	}
 
 	public String getInscricaoMunicipal() {
@@ -146,7 +169,8 @@ public class PessoaJuridicaEntity implements Serializable {
 	}
 
 	public void setInscricaoMunicipal(String inscricaoMunicipal) {
-		this.inscricaoMunicipal = inscricaoMunicipal;
+		this.inscricaoMunicipal = (inscricaoMunicipal == null ? "".trim()
+				: inscricaoMunicipal.toUpperCase().trim());
 	}
 
 	public String getInscricaoEstadual() {
@@ -154,7 +178,8 @@ public class PessoaJuridicaEntity implements Serializable {
 	}
 
 	public void setInscricaoEstadual(String inscricaoEstadual) {
-		this.inscricaoEstadual = inscricaoEstadual;
+		this.inscricaoEstadual = (inscricaoEstadual == null ? "".trim()
+				: inscricaoEstadual.toUpperCase().trim());
 	}
 
 	public Date getDataConstituicao() {
@@ -170,7 +195,8 @@ public class PessoaJuridicaEntity implements Serializable {
 	}
 
 	public void setSuframa(String suframa) {
-		this.suframa = suframa;
+		this.suframa = (suframa == null ? "".trim() : suframa.toUpperCase()
+				.trim());
 	}
 
 	public TipoRegimeEn getTipoRegime() {
