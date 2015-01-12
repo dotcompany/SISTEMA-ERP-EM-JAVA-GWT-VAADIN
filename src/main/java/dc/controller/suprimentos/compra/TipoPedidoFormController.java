@@ -111,7 +111,7 @@ public class TipoPedidoFormController extends
 		try {
 			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
 			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+			this.entity.setDescricao(this.subView.getTaDescricao().getValue());
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -130,7 +130,7 @@ public class TipoPedidoFormController extends
 
 			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
 			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+			this.subView.getTaDescricao().setValue(this.entity.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
