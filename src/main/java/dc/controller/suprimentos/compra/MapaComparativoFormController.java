@@ -71,7 +71,7 @@ public class MapaComparativoFormController extends
 
 			for (FornecedorCotacaoEntity cotacao : fornecedores) {
 				List<CotacaoDetalheEntity> cotacaoDetalhes = cotacao
-						.getCotacaoDetalhes();
+						.getCotacaoDetalheList();
 
 				PedidoEntity pedidoCompra = null;
 
@@ -93,7 +93,7 @@ public class MapaComparativoFormController extends
 							pedidoCompra.setValorSubtotal(cotacao
 									.getValorSubtotal());
 							pedidoCompra.setFormaPagamento(cotacao
-									.getVendaCondicoesPagamento());
+									.getVendaCondicaoPagamento());
 						}
 
 						PedidoDetalheEntity pedidoDetalhe = new PedidoDetalheEntity();

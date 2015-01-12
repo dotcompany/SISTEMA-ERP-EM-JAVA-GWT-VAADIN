@@ -122,7 +122,7 @@ public class MapaComparativoFormView extends CustomComponent {
 						.getValue();
 				if (oldValue != null) {
 					oldValue.setPrazoEntrega(txtPrazoEntrega.getValue());
-					oldValue.setVendaCondicoesPagamento(txtCondicaoPagamento
+					oldValue.setVendaCondicaoPagamento(txtCondicaoPagamento
 							.getValue());
 					oldValue.setValorSubtotal((BigDecimal) txtSubtotal
 							.getConvertedValue());
@@ -135,10 +135,10 @@ public class MapaComparativoFormView extends CustomComponent {
 
 				if (fornCotacao != null) {
 					fillReqCotacaoDetalhesSubForm(fornCotacao
-							.getCotacaoDetalhes());
+							.getCotacaoDetalheList());
 					txtPrazoEntrega.setValue(fornCotacao.getPrazoEntrega());
 					txtCondicaoPagamento.setValue(fornCotacao
-							.getVendaCondicoesPagamento());
+							.getVendaCondicaoPagamento());
 					txtSubtotal.setConvertedValue(fornCotacao
 							.getValorSubtotal());
 					txtTaxaDesconto.setConvertedValue(fornCotacao

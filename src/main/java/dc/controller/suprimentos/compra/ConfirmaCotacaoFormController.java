@@ -100,7 +100,7 @@ public class ConfirmaCotacaoFormController extends
 
 			COTACOES: for (FornecedorCotacaoEntity fornecedorCotacao : fornecedorCotacaos) {
 				List<CotacaoDetalheEntity> cotacaoDetalhes = fornecedorCotacao
-						.getCotacaoDetalhes();
+						.getCotacaoDetalheList();
 
 				for (CotacaoDetalheEntity cotacaoDetalhe : cotacaoDetalhes) {
 					if (cotacaoDetalhe.getProduto().equals(

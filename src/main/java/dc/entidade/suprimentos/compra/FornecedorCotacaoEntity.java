@@ -23,16 +23,15 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 
-/**
- * The persistent class for the compra_fornecedor_cotacao database table.
- * 
- */
 @Entity
 @Table(name = "compra_fornecedor_cotacao")
 @XmlRootElement
@@ -54,44 +53,144 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Prazo de entrega")
+	@Column(name = "prazo_entrega")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String prazoEntrega = "";
+
+	@Field
+	@Caption("Taxa de desconto")
+	@Column(name = "taxa_desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal taxaDesconto = new BigDecimal(0);
+
+	@Field
+	@Caption("Total")
+	@Column(name = "total")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal total = new BigDecimal(0);
+
+	@Field
+	@Caption("Valor de desconto")
+	@Column(name = "valor_desconto")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDesconto = new BigDecimal(0);
+
+	@Field
+	@Caption("Valor - Subtotal")
+	@Column(name = "valor_subtotal")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorSubtotal = new BigDecimal(0);
+
+	@Field
+	@Caption("Venda - Condições de pagamento")
+	@Column(name = "venda_condicoes_pagamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String vendaCondicaoPagamento = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
 	private FornecedorEntity fornecedor;
-
-	@Column(name = "prazo_entrega")
-	private String prazoEntrega;
-
-	@Column(name = "taxa_desconto")
-	private BigDecimal taxaDesconto;
-
-	private BigDecimal total;
-
-	@Column(name = "valor_desconto")
-	private BigDecimal valorDesconto;
-
-	@Column(name = "valor_subtotal")
-	private BigDecimal valorSubtotal;
-
-	@Column(name = "venda_condicoes_pagamento")
-	private String vendaCondicoesPagamento;
-
-	@OneToMany(mappedBy = "fornecedorCotacao", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.JOIN)
-	private List<CotacaoDetalheEntity> cotacaoDetalhes = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao")
 	private CotacaoEntity cotacao;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	@OneToMany(mappedBy = "fornecedorCotacao", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.JOIN)
+	private List<CotacaoDetalheEntity> cotacaoDetalheList = new ArrayList<>();
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public FornecedorCotacaoEntity() {
+		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getPrazoEntrega() {
+		return prazoEntrega;
+	}
+
+	public void setPrazoEntrega(String prazoEntrega) {
+		this.prazoEntrega = (prazoEntrega == null ? "".trim() : prazoEntrega
+				.toUpperCase().trim());
+	}
+
+	public BigDecimal getTaxaDesconto() {
+		return taxaDesconto;
+	}
+
+	public void setTaxaDesconto(BigDecimal taxaDesconto) {
+		this.taxaDesconto = (taxaDesconto == null ? new BigDecimal(0)
+				: taxaDesconto);
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = (total == null ? new BigDecimal(0) : total);
+	}
+
+	public BigDecimal getValorDesconto() {
+		return valorDesconto;
+	}
+
+	public void setValorDesconto(BigDecimal valorDesconto) {
+		this.valorDesconto = (valorDesconto == null ? new BigDecimal(0)
+				: valorDesconto);
+	}
+
+	public BigDecimal getValorSubtotal() {
+		return valorSubtotal;
+	}
+
+	public void setValorSubtotal(BigDecimal valorSubtotal) {
+		this.valorSubtotal = (valorSubtotal == null ? new BigDecimal(0)
+				: valorSubtotal);
+	}
+
+	public String getVendaCondicaoPagamento() {
+		return vendaCondicaoPagamento;
+	}
+
+	public void setVendaCondicaoPagamento(String vendaCondicaoPagamento) {
+		this.vendaCondicaoPagamento = (vendaCondicaoPagamento == null ? ""
+				.trim() : vendaCondicaoPagamento.toUpperCase().trim());
 	}
 
 	public FornecedorEntity getFornecedor() {
@@ -102,68 +201,21 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.fornecedor = fornecedor;
 	}
 
-	public String getPrazoEntrega() {
-		return this.prazoEntrega;
-	}
-
-	public void setPrazoEntrega(String prazoEntrega) {
-		this.prazoEntrega = prazoEntrega;
-	}
-
-	public BigDecimal getTaxaDesconto() {
-		return this.taxaDesconto;
-	}
-
-	public void setTaxaDesconto(BigDecimal taxaDesconto) {
-		this.taxaDesconto = taxaDesconto;
-	}
-
-	public BigDecimal getTotal() {
-		return this.total;
-	}
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
-
-	public BigDecimal getValorDesconto() {
-		return this.valorDesconto;
-	}
-
-	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
-	}
-
-	public BigDecimal getValorSubtotal() {
-		return this.valorSubtotal;
-	}
-
-	public void setValorSubtotal(BigDecimal valorSubtotal) {
-		this.valorSubtotal = valorSubtotal;
-	}
-
-	public String getVendaCondicoesPagamento() {
-		return this.vendaCondicoesPagamento;
-	}
-
-	public void setVendaCondicoesPagamento(String vendaCondicoesPagamento) {
-		this.vendaCondicoesPagamento = vendaCondicoesPagamento;
-	}
-
-	public List<CotacaoDetalheEntity> getCotacaoDetalhes() {
-		return this.cotacaoDetalhes;
-	}
-
-	public void setCotacaoDetalhes(List<CotacaoDetalheEntity> cotacaoDetalhes) {
-		this.cotacaoDetalhes = cotacaoDetalhes;
-	}
-
 	public CotacaoEntity getCotacao() {
-		return this.cotacao;
+		return cotacao;
 	}
 
 	public void setCotacao(CotacaoEntity cotacao) {
 		this.cotacao = cotacao;
+	}
+
+	public List<CotacaoDetalheEntity> getCotacaoDetalheList() {
+		return cotacaoDetalheList;
+	}
+
+	public void setCotacaoDetalheList(
+			List<CotacaoDetalheEntity> cotacaoDetalheList) {
+		this.cotacaoDetalheList = cotacaoDetalheList;
 	}
 
 	/**

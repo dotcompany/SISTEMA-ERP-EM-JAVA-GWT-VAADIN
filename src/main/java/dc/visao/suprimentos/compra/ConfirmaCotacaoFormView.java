@@ -211,7 +211,7 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 
 				if (oldValue != null) {
 					oldValue.setPrazoEntrega(tfPrazoEntrega.getValue());
-					oldValue.setVendaCondicoesPagamento(tfCondicaoPagamento
+					oldValue.setVendaCondicaoPagamento(tfCondicaoPagamento
 							.getValue());
 					oldValue.setValorSubtotal((BigDecimal) tfSubtotal
 							.getConvertedValue());
@@ -224,10 +224,10 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 
 				if (fornCotacao != null) {
 					fillReqCotacaoDetalhesSubForm(fornCotacao
-							.getCotacaoDetalhes());
+							.getCotacaoDetalheList());
 					tfPrazoEntrega.setValue(fornCotacao.getPrazoEntrega());
 					tfCondicaoPagamento.setValue(fornCotacao
-							.getVendaCondicoesPagamento());
+							.getVendaCondicaoPagamento());
 					tfSubtotal.setConvertedValue(fornCotacao.getValorSubtotal());
 					tfTaxaDesconto.setConvertedValue(fornCotacao
 							.getTaxaDesconto());
