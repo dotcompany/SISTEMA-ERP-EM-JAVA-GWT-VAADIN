@@ -79,10 +79,10 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	@Caption("UF")
 	@ManyToOne
 	@JoinColumn(name = "ID_UF", nullable = false)
-	@Caption("Uf")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private UfEntity uf;
 
 	/**

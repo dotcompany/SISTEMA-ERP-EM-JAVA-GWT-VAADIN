@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "cidade")
@@ -49,26 +50,40 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	/*
-	 * @Basic(optional = false)
-	 * 
-	 * @Column(name = "ESTADO_ID", nullable = false) private int estadoId;
-	 */
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
-	private String nome;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
 
+	@Field
+	@Caption("Código IBGE")
 	@Column(name = "CODIGO_IBGE")
-	private Integer codigoIbge;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer codigoIbge = new Integer(0);
 
-	/*
-	 * Mapeamento Estado-Cidade
+	/**
+	 * REFERENCIA - FK
 	 */
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ESTADO_ID", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
-	private UfEntity estadoId;
+	private UfEntity uf;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public CidadeEntity() {
 
@@ -77,6 +92,10 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public CidadeEntity(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -92,7 +111,7 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public Integer getCodigoIbge() {
@@ -100,15 +119,15 @@ public class CidadeEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setCodigoIbge(Integer codigoIbge) {
-		this.codigoIbge = codigoIbge;
+		this.codigoIbge = (codigoIbge == null ? new Integer(0) : codigoIbge);
 	}
 
-	public UfEntity getEstadoId() {
-		return estadoId;
+	public UfEntity getUf() {
+		return uf;
 	}
 
-	public void setEstadoId(UfEntity estadoId) {
-		this.estadoId = estadoId;
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
 	}
 
 	/**

@@ -42,19 +42,43 @@ public class CnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Código")
 	@Column(name = "CODIGO", length = 10)
-	private String codigo;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo = "";
 
 	@Field
-	@Caption("Denominacao")
+	@Caption("Denominação")
 	@Column(name = "DENOMINACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public CnaeEntity() {
 
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -70,7 +94,7 @@ public class CnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -78,7 +102,7 @@ public class CnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	/**

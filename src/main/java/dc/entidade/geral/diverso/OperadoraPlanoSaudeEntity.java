@@ -57,22 +57,22 @@ public class OperadoraPlanoSaudeEntity extends
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Field
 	@Caption("Registro ANS")
 	@Column(name = "REGISTRO_ANS", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String registroAns;
+	private String registroAns = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
+	@Caption(value = "Conta contábil")
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
-	@Caption(value = "Conta contábil")
 	private ContabilContaEntity contabilConta;
 
 	/**

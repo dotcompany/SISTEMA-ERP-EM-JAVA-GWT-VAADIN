@@ -65,42 +65,42 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String nome;
 
 	@Field
-	@Caption()
+	@Caption("Taxa administrativa")
 	@Column(name = "TAXA_ADM", precision = 14, scale = 0)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaAdm;
 
 	@Field
-	@Caption()
+	@Caption("Taxa administrativa - Débito")
 	@Column(name = "TAXA_ADM_DEBITO", precision = 14, scale = 0)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal taxaAdmDebito;
 
 	@Field
-	@Caption()
+	@Caption("Valor do aluguel pós PIN")
 	@Column(name = "VALOR_ALUGUEL_POS_PIN", precision = 14, scale = 0)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorAluguelPosPin;
 
 	@Field
-	@Caption()
+	@Caption("Vencimento do aluguel")
 	@Column(name = "VENCIMENTO_ALUGUEL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer vencimentoAluguel;
 
 	@Field
-	@Caption()
+	@Caption("Telefone 1")
 	@Column(name = "FONE1")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone1;
 
 	@Field
-	@Caption()
+	@Caption("Telefone 2")
 	@Column(name = "FONE2")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -110,16 +110,16 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	@Caption("Conta da caixa")
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
-	@Caption("Conta da caixa")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContaCaixa contaCaixa;
 
+	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	@Caption("Conta contábil")
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
-	@Caption("Conta contábil")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContabilContaEntity contabilConta;
 
 	/**

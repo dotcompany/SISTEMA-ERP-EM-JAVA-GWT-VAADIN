@@ -55,7 +55,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private Integer codigo = new Integer(0);
 
 	@Field
-	@Caption("Nome En")
+	@Caption("Nome EN")
 	@Column(name = "nome_en", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -90,7 +90,6 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	// @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "pais")
 	private List<UfEntity> ufList;
 
