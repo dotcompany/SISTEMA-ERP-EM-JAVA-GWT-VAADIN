@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.estoque.EstoqueContagemEntity;
-import dc.servicos.dao.suprimentos.estoque.EstoqueContagemDAO;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
+import dc.servicos.dao.suprimentos.estoque.ContagemCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -20,8 +20,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class EstoqueContagemListController extends
-		CRUDListController<EstoqueContagemEntity> {
+public class ContagemListController extends
+		CRUDListController<ContagemCabecalhoEntity> {
 
 	/**
 	 * 
@@ -33,14 +33,14 @@ public class EstoqueContagemListController extends
 	 */
 
 	@Autowired
-	private EstoqueContagemDAO pDAO;
+	private ContagemCabecalhoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
 	 */
 
 	@Autowired
-	private EstoqueContagemFormController pController;
+	private ContagemFormController pController;
 
 	@Override
 	public String[] getColunas() {
@@ -48,8 +48,8 @@ public class EstoqueContagemListController extends
 	}
 
 	@Override
-	public Class<? super EstoqueContagemEntity> getEntityClass() {
-		return EstoqueContagemEntity.class;
+	public Class<? super ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
 	}
 
 	@Override
@@ -58,15 +58,15 @@ public class EstoqueContagemListController extends
 	}
 
 	@Override
-	protected List<EstoqueContagemEntity> pesquisa(String valor) {
-		List<EstoqueContagemEntity> auxLista = this.pDAO
+	protected List<ContagemCabecalhoEntity> pesquisa(String valor) {
+		List<ContagemCabecalhoEntity> auxLista = this.pDAO
 				.procuraNomeContendo(valor);
 
 		return auxLista;
 	}
 
 	@Override
-	protected CRUDFormController<EstoqueContagemEntity> getFormController() {
+	protected CRUDFormController<ContagemCabecalhoEntity> getFormController() {
 		return this.pController;
 	}
 
@@ -82,8 +82,8 @@ public class EstoqueContagemListController extends
 	}
 
 	@Override
-	protected List<EstoqueContagemEntity> pesquisaDefault() {
-		List<EstoqueContagemEntity> auxLista = this.pDAO.listarTodos();
+	protected List<ContagemCabecalhoEntity> pesquisaDefault() {
+		List<ContagemCabecalhoEntity> auxLista = this.pDAO.listarTodos();
 
 		return auxLista;
 	}

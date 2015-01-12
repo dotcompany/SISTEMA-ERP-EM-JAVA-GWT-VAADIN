@@ -75,7 +75,7 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "venda_condicoes_pagamento")
 	private String vendaCondicoesPagamento;
 
-	@OneToMany(mappedBy = "compraFornecedorCotacao", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "fornecedorCotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
 	private List<CotacaoDetalheEntity> cotacaoDetalhes = new ArrayList<>();
 
@@ -156,22 +156,6 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	public void setCotacaoDetalhes(List<CotacaoDetalheEntity> cotacaoDetalhes) {
 		this.cotacaoDetalhes = cotacaoDetalhes;
-	}
-
-	public CotacaoDetalheEntity addCotacaoDetalhe(
-			CotacaoDetalheEntity cotacaoDetalhe) {
-		getCotacaoDetalhes().add(cotacaoDetalhe);
-		cotacaoDetalhe.setCompraFornecedorCotacao(this);
-
-		return cotacaoDetalhe;
-	}
-
-	public CotacaoDetalheEntity removeCotacaoDetalhe(
-			CotacaoDetalheEntity cotacaoDetalhe) {
-		getCotacaoDetalhes().remove(cotacaoDetalhe);
-		cotacaoDetalhe.setCompraFornecedorCotacao(null);
-
-		return cotacaoDetalhe;
 	}
 
 	public CotacaoEntity getCotacao() {

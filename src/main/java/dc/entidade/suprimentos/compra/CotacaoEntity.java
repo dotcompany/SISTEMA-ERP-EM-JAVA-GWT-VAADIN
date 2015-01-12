@@ -32,10 +32,6 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * The persistent class for the compra_cotacao database table.
- * 
- */
 @Entity
 @Table(name = "compra_cotacao")
 @XmlRootElement
@@ -58,27 +54,35 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Field
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_cotacao")
+	@Field
 	@Caption("Data da cotação")
+	@Column(name = "data_cotacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCotacao;
 
 	@Field
-	@Column(name = "descricao")
 	@Caption("Descrição")
+	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
-	@Column(name = "situacao")
 	@Caption("Situação")
+	@Column(name = "situacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String situacao;
+	private String situacao = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
@@ -89,6 +93,10 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = new ArrayList<>();
 
 	/**
+	 * TRANSIENT
+	 */
+
+	/**
 	 * CONSTRUTOR
 	 */
 
@@ -96,12 +104,21 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Date getDataCotacao() {
-		return this.dataCotacao;
+		return dataCotacao;
 	}
 
 	public void setDataCotacao(Date dataCotacao) {
@@ -109,19 +126,21 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getSituacao() {
-		return this.situacao;
+		return situacao;
 	}
 
 	public void setSituacao(String situacao) {
-		this.situacao = situacao;
+		this.situacao = (situacao == null ? "".trim() : situacao.toUpperCase()
+				.trim());
 	}
 
 	public List<FornecedorCotacaoEntity> getCompraFornecedorCotacaos() {

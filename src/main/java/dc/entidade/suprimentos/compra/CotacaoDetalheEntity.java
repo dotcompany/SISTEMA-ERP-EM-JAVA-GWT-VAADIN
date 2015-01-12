@@ -31,10 +31,6 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.produto.ProdutoEntity;
 
-/**
- * The persistent class for the compra_cotacao_detalhe database table.
- * 
- */
 @Entity
 @Table(name = "compra_cotacao_detalhe")
 @XmlRootElement
@@ -58,75 +54,79 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@Field
-	@Column(name = "quantidade")
 	@Caption("Quantidade")
+	@Column(name = "quantidade")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal quantidade;
+	private BigDecimal quantidade = new BigDecimal(0);
 
 	@Field
-	@Column(name = "quantidade_pedida")
 	@Caption("Quantidade pedida")
+	@Column(name = "quantidade_pedida")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal quantidadePedida;
+	private BigDecimal quantidadePedida = new BigDecimal(0);
 
 	@Field
-	@Column(name = "taxa_desconto")
 	@Caption("Taxa de desconto")
+	@Column(name = "taxa_desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal taxaDesconto;
+	private BigDecimal taxaDesconto = new BigDecimal(0);
 
 	@Field
-	@Column(name = "valor_desconto")
 	@Caption("Valor de desconto")
+	@Column(name = "valor_desconto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = new BigDecimal(0);
 
 	@Field
-	@Column(name = "valor_subtotal")
 	@Caption("Valor subtotal")
+	@Column(name = "valor_subtotal")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorSubtotal;
+	private BigDecimal valorSubtotal = new BigDecimal(0);
 
 	@Field
-	@Column(name = "valor_total")
 	@Caption("Valor total")
+	@Column(name = "valor_total")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = new BigDecimal(0);
 
 	@Field
-	@Column(name = "valor_unitario")
 	@Caption("Valor unitário")
+	@Column(name = "valor_unitario")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorUnitario;
+	private BigDecimal valorUnitario = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
 	 */
 
+	@Caption(value = "Produto")
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
-	@Caption(value = "Produto")
 	private ProdutoEntity produto;
 
+	@Caption(value = "Fornecedor - Cotação")
 	@ManyToOne
 	@JoinColumn(name = "id_compra_fornecedor_cotacao")
-	@Caption(value = "Fornecedor - Cotação")
-	private FornecedorCotacaoEntity compraFornecedorCotacao;
+	private FornecedorCotacaoEntity fornecedorCotacao;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "compraCotacaoDetalhe")
+	@OneToMany(mappedBy = "cotacaoDetalhe")
 	@Fetch(FetchMode.SUBSELECT)
-	private List<CotacaoPedidoDetalheEntity> compraCotacaoPedidoDetalhes;
+	private List<CotacaoPedidoDetalheEntity> cotacaoPedidoDetalheList;
+
+	/**
+	 * TRANSIENT
+	 */
 
 	/**
 	 * CONSTRUTOR
@@ -136,6 +136,11 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -149,7 +154,7 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
+		this.quantidade = (quantidade == null ? new BigDecimal(0) : quantidade);
 	}
 
 	public BigDecimal getQuantidadePedida() {
@@ -157,7 +162,8 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setQuantidadePedida(BigDecimal quantidadePedida) {
-		this.quantidadePedida = quantidadePedida;
+		this.quantidadePedida = (quantidadePedida == null ? new BigDecimal(0)
+				: quantidadePedida);
 	}
 
 	public BigDecimal getTaxaDesconto() {
@@ -165,7 +171,8 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTaxaDesconto(BigDecimal taxaDesconto) {
-		this.taxaDesconto = taxaDesconto;
+		this.taxaDesconto = (taxaDesconto == null ? new BigDecimal(0)
+				: taxaDesconto);
 	}
 
 	public BigDecimal getValorDesconto() {
@@ -173,7 +180,8 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
+		this.valorDesconto = (valorDesconto == null ? new BigDecimal(0)
+				: valorDesconto);
 	}
 
 	public BigDecimal getValorSubtotal() {
@@ -181,7 +189,8 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorSubtotal(BigDecimal valorSubtotal) {
-		this.valorSubtotal = valorSubtotal;
+		this.valorSubtotal = (valorSubtotal == null ? new BigDecimal(0)
+				: valorSubtotal);
 	}
 
 	public BigDecimal getValorTotal() {
@@ -189,7 +198,7 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
+		this.valorTotal = (valorTotal == null ? new BigDecimal(0) : valorTotal);
 	}
 
 	public BigDecimal getValorUnitario() {
@@ -197,7 +206,8 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorUnitario(BigDecimal valorUnitario) {
-		this.valorUnitario = valorUnitario;
+		this.valorUnitario = (valorUnitario == null ? new BigDecimal(0)
+				: valorUnitario);
 	}
 
 	public ProdutoEntity getProduto() {
@@ -208,22 +218,21 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.produto = produto;
 	}
 
-	public FornecedorCotacaoEntity getCompraFornecedorCotacao() {
-		return compraFornecedorCotacao;
+	public FornecedorCotacaoEntity getFornecedorCotacao() {
+		return fornecedorCotacao;
 	}
 
-	public void setCompraFornecedorCotacao(
-			FornecedorCotacaoEntity compraFornecedorCotacao) {
-		this.compraFornecedorCotacao = compraFornecedorCotacao;
+	public void setFornecedorCotacao(FornecedorCotacaoEntity fornecedorCotacao) {
+		this.fornecedorCotacao = fornecedorCotacao;
 	}
 
-	public List<CotacaoPedidoDetalheEntity> getCompraCotacaoPedidoDetalhes() {
-		return compraCotacaoPedidoDetalhes;
+	public List<CotacaoPedidoDetalheEntity> getCotacaoPedidoDetalheList() {
+		return cotacaoPedidoDetalheList;
 	}
 
-	public void setCompraCotacaoPedidoDetalhes(
-			List<CotacaoPedidoDetalheEntity> compraCotacaoPedidoDetalhes) {
-		this.compraCotacaoPedidoDetalhes = compraCotacaoPedidoDetalhes;
+	public void setCotacaoPedidoDetalheList(
+			List<CotacaoPedidoDetalheEntity> cotacaoPedidoDetalheList) {
+		this.cotacaoPedidoDetalheList = cotacaoPedidoDetalheList;
 	}
 
 	/**

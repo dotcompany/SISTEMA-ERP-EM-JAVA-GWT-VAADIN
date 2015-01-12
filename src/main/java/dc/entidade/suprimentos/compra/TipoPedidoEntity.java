@@ -13,11 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "compra_tipo_pedido")
@@ -40,17 +42,54 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Código")
-	private String codigo;
+	@Column(name = "codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo = "";
 
+	@Field
 	@Caption("Descrição")
-	private String descricao;
+	@Column(name = "descricao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao = "";
 
+	@Field
 	@Caption("Nome")
-	private String nome;
+	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public TipoPedidoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -62,7 +101,7 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -70,7 +109,8 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -78,7 +118,7 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	/**

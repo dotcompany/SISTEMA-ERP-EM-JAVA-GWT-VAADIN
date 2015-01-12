@@ -17,11 +17,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
@@ -45,26 +47,67 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Acuracidade")
-	BigDecimal acuracidade;
+	@Column(name = "acuracidade")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal acuracidade = new BigDecimal(0);
 
-	@Caption("Divergencia")
-	BigDecimal divergencia;
+	@Field
+	@Caption("Divergência")
+	@Column(name = "divergencia")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal divergencia = new BigDecimal(0);
+
+	@Field
+	@Caption("Quantidade contada")
+	@Column(name = "quantidade_contada")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal quantidadeContada = new BigDecimal(0);
+
+	@Field
+	@Caption("Quantidade no sistema")
+	@Column(name = "quantidade_sistema")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal quantidadeSistema = new BigDecimal(0);
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@ManyToOne
+	@JoinColumn(name = "id_estoque_contagem_cabecalho")
+	private ContagemCabecalhoEntity contagemCabecalho;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private ProdutoEntity produto;
 
-	@Column(name = "quantidade_contada")
-	private BigDecimal quantidadeContada;
+	/**
+	 * REFERENCIA - LIST
+	 */
 
-	@Column(name = "quantidade_sistema")
-	private BigDecimal quantidadeSistema;
+	/**
+	 * TRANSIENT
+	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_estoque_contagem_cabecalho")
-	private ContagemCabecalhoEntity contagem;
+	/**
+	 * CONSTRUTOR
+	 */
 
+	public ContagemDetalheEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -78,7 +121,8 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setAcuracidade(BigDecimal acuracidade) {
-		this.acuracidade = acuracidade;
+		this.acuracidade = (acuracidade == null ? new BigDecimal(0)
+				: acuracidade);
 	}
 
 	public BigDecimal getDivergencia() {
@@ -86,15 +130,34 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setDivergencia(BigDecimal divergencia) {
-		this.divergencia = divergencia;
+		this.divergencia = (divergencia == null ? new BigDecimal(0)
+				: divergencia);
 	}
 
-	public ContagemCabecalhoEntity getContagem() {
-		return contagem;
+	public BigDecimal getQuantidadeContada() {
+		return quantidadeContada;
 	}
 
-	public void setContagem(ContagemCabecalhoEntity contagem) {
-		this.contagem = contagem;
+	public void setQuantidadeContada(BigDecimal quantidadeContada) {
+		this.quantidadeContada = (quantidadeContada == null ? new BigDecimal(0)
+				: quantidadeContada);
+	}
+
+	public BigDecimal getQuantidadeSistema() {
+		return quantidadeSistema;
+	}
+
+	public void setQuantidadeSistema(BigDecimal quantidadeSistema) {
+		this.quantidadeSistema = (quantidadeSistema == null ? new BigDecimal(0)
+				: quantidadeSistema);
+	}
+
+	public ContagemCabecalhoEntity getContagemCabecalho() {
+		return contagemCabecalho;
+	}
+
+	public void setContagemCabecalho(ContagemCabecalhoEntity contagemCabecalho) {
+		this.contagemCabecalho = contagemCabecalho;
 	}
 
 	public ProdutoEntity getProduto() {
@@ -103,22 +166,6 @@ public class ContagemDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setProduto(ProdutoEntity produto) {
 		this.produto = produto;
-	}
-
-	public BigDecimal getQuantidadeContada() {
-		return quantidadeContada;
-	}
-
-	public void setQuantidadeContada(BigDecimal quantidadeContada) {
-		this.quantidadeContada = quantidadeContada;
-	}
-
-	public BigDecimal getQuantidadeSistema() {
-		return quantidadeSistema;
-	}
-
-	public void setQuantidadeSistema(BigDecimal quantidadeSistema) {
-		this.quantidadeSistema = quantidadeSistema;
 	}
 
 	/**

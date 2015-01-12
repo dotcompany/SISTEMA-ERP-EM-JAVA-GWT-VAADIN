@@ -26,17 +26,15 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 
-/**
- * The persistent class for the compra_pedido database table.
- * 
- */
 @Entity
 @Table(name = "compra_pedido")
 @XmlRootElement
@@ -58,113 +56,260 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Base de cálculo ICMS")
 	@Column(name = "base_calculo_icms")
-	private BigDecimal baseCalculoIcms;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal baseCalculoIcms = new BigDecimal(0);
 
+	@Field
+	@Caption("Base de cálculo ICMS ST")
 	@Column(name = "base_calculo_icms_st")
-	private BigDecimal baseCalculoIcmsSt;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal baseCalculoIcmsSt = new BigDecimal(0);
 
+	@Field
 	@Caption("Contato")
-	private String contato;
+	@Column(name = "contato")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String contato = "";
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_pedido")
+	@Field
 	@Caption("Data do pedido")
+	@Column(name = "data_pedido")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataPedido;
 
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data da previsão do pagamento")
 	@Column(name = "data_previsao_pagamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataPrevisaoPagamento;
 
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data prevista da entrega")
 	@Column(name = "data_prevista_entrega")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataPrevistaEntrega;
 
+	@Field
+	@Caption("Dias de intervalo")
 	@Column(name = "dias_intervalo")
-	private Integer diasIntervalo;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer diasIntervalo = new Integer(0);
 
+	@Field
+	@Caption("Dias do primeiro vencimento")
 	@Column(name = "dias_primeiro_vencimento")
-	private Integer diasPrimeiroVencimento;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer diasPrimeiroVencimento = new Integer(0);
 
+	@Field
+	@Caption("Forma de pagamento")
 	@Column(name = "forma_pagamento")
-	private String formaPagamento;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String formaPagamento = "";
 
-	@ManyToOne
-	@JoinColumn(name = "id_fornecedor")
-	@Caption("Fornecedor")
-	private FornecedorEntity fornecedor;
-
+	@Field
+	@Caption("Local da cobrança")
 	@Column(name = "local_cobranca")
-	private String localCobranca;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String localCobranca = "";
 
+	@Field
+	@Caption("Local da entrega")
 	@Column(name = "local_entrega")
-	private String localEntrega;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String localEntrega = "";
 
+	@Field
+	@Caption("Quantidade de parcelas")
 	@Column(name = "quantidade_parcelas")
-	private Integer quantidadeParcelas;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer quantidadeParcela = new Integer(0);
 
+	@Field
+	@Caption("Taxa de desconto")
 	@Column(name = "taxa_desconto")
-	private BigDecimal taxaDesconto;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal taxaDesconto = new BigDecimal(0);
 
+	@Field
+	@Caption("Tipo de frete")
 	@Column(name = "tipo_frete")
-	private String tipoFrete;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String tipoFrete = "";
 
+	@Field
+	@Caption("Valor de desconto")
 	@Column(name = "valor_desconto")
-	private BigDecimal valorDesconto;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDesconto = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor do frete")
 	@Column(name = "valor_frete")
-	private BigDecimal valorFrete;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorFrete = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor do ICMS")
 	@Column(name = "valor_icms")
-	private BigDecimal valorIcms;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcms = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor do ICMS ST")
 	@Column(name = "valor_icms_st")
-	private BigDecimal valorIcmsSt;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcmsSt = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor do IPI")
 	@Column(name = "valor_ipi")
-	private BigDecimal valorIpi;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIpi = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor de outras despesas")
 	@Column(name = "valor_outras_despesas")
-	private BigDecimal valorOutrasDespesas;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorOutraDespesa = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor do seguro")
 	@Column(name = "valor_seguro")
-	private BigDecimal valorSeguro;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorSeguro = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor - Subtotal")
 	@Column(name = "valor_subtotal")
-	private BigDecimal valorSubtotal;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorSubtotal = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor total da NF")
 	@Column(name = "valor_total_nf")
-	private BigDecimal valorTotalNf;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorTotalNf = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor total do pedido")
 	@Column(name = "valor_total_pedido")
-	private BigDecimal valorTotalPedido;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorTotalPedido = new BigDecimal(0);
 
+	@Field
+	@Caption("Valor total dos produtos")
 	@Column(name = "valor_total_produtos")
-	private BigDecimal valorTotalProdutos;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorTotalProduto = new BigDecimal(0);
 
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@Caption("Tipo do pedido")
 	@ManyToOne
 	@JoinColumn(name = "id_compra_tipo_pedido")
-	@Caption("Tipo do pedido")
 	private TipoPedidoEntity tipoPedido;
+
+	@Caption("Fornecedor")
+	@ManyToOne
+	@JoinColumn(name = "id_fornecedor")
+	private FornecedorEntity fornecedor;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<PedidoDetalheEntity> pedidoDetalhes = new ArrayList<>();
+	private List<PedidoDetalheEntity> pedidoDetalhe = new ArrayList<>();
 
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PedidoEntity() {
+
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public BigDecimal getBaseCalculoIcms() {
+		return baseCalculoIcms;
+	}
+
+	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
+		this.baseCalculoIcms = (baseCalculoIcms == null ? new BigDecimal(0)
+				: baseCalculoIcms);
+	}
+
+	public BigDecimal getBaseCalculoIcmsSt() {
+		return baseCalculoIcmsSt;
+	}
+
+	public void setBaseCalculoIcmsSt(BigDecimal baseCalculoIcmsSt) {
+		this.baseCalculoIcmsSt = (baseCalculoIcmsSt == null ? new BigDecimal(0)
+				: baseCalculoIcmsSt);
 	}
 
 	public String getContato() {
-		return this.contato;
+		return contato;
 	}
 
 	public void setContato(String contato) {
-		this.contato = contato;
+		this.contato = (contato == null ? "".trim() : contato.toUpperCase()
+				.trim());
 	}
 
 	public Date getDataPedido() {
-		return this.dataPedido;
+		return dataPedido;
 	}
 
 	public void setDataPedido(Date dataPedido) {
@@ -172,7 +317,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public Date getDataPrevisaoPagamento() {
-		return this.dataPrevisaoPagamento;
+		return dataPrevisaoPagamento;
 	}
 
 	public void setDataPrevisaoPagamento(Date dataPrevisaoPagamento) {
@@ -180,7 +325,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public Date getDataPrevistaEntrega() {
-		return this.dataPrevistaEntrega;
+		return dataPrevistaEntrega;
 	}
 
 	public void setDataPrevistaEntrega(Date dataPrevistaEntrega) {
@@ -188,7 +333,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public Integer getDiasIntervalo() {
-		return this.diasIntervalo;
+		return diasIntervalo;
 	}
 
 	public void setDiasIntervalo(Integer diasIntervalo) {
@@ -196,7 +341,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public Integer getDiasPrimeiroVencimento() {
-		return this.diasPrimeiroVencimento;
+		return diasPrimeiroVencimento;
 	}
 
 	public void setDiasPrimeiroVencimento(Integer diasPrimeiroVencimento) {
@@ -204,11 +349,160 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public String getFormaPagamento() {
-		return this.formaPagamento;
+		return formaPagamento;
 	}
 
 	public void setFormaPagamento(String formaPagamento) {
-		this.formaPagamento = formaPagamento;
+		this.formaPagamento = (formaPagamento == null ? "".trim()
+				: formaPagamento.toUpperCase().trim());
+	}
+
+	public String getLocalCobranca() {
+		return localCobranca;
+	}
+
+	public void setLocalCobranca(String localCobranca) {
+		this.localCobranca = (localCobranca == null ? "".trim() : localCobranca
+				.toUpperCase().trim());
+	}
+
+	public String getLocalEntrega() {
+		return localEntrega;
+	}
+
+	public void setLocalEntrega(String localEntrega) {
+		this.localEntrega = (localEntrega == null ? "".trim() : localEntrega
+				.toUpperCase().trim());
+	}
+
+	public Integer getQuantidadeParcela() {
+		return quantidadeParcela;
+	}
+
+	public void setQuantidadeParcela(Integer quantidadeParcela) {
+		this.quantidadeParcela = quantidadeParcela;
+	}
+
+	public BigDecimal getTaxaDesconto() {
+		return taxaDesconto;
+	}
+
+	public void setTaxaDesconto(BigDecimal taxaDesconto) {
+		this.taxaDesconto = (taxaDesconto == null ? new BigDecimal(0)
+				: taxaDesconto);
+	}
+
+	public String getTipoFrete() {
+		return tipoFrete;
+	}
+
+	public void setTipoFrete(String tipoFrete) {
+		this.tipoFrete = (tipoFrete == null ? "".trim() : tipoFrete
+				.toUpperCase().trim());
+	}
+
+	public BigDecimal getValorDesconto() {
+		return valorDesconto;
+	}
+
+	public void setValorDesconto(BigDecimal valorDesconto) {
+		this.valorDesconto = (valorDesconto == null ? new BigDecimal(0)
+				: valorDesconto);
+	}
+
+	public BigDecimal getValorFrete() {
+		return valorFrete;
+	}
+
+	public void setValorFrete(BigDecimal valorFrete) {
+		this.valorFrete = (valorFrete == null ? new BigDecimal(0) : valorFrete);
+	}
+
+	public BigDecimal getValorIcms() {
+		return valorIcms;
+	}
+
+	public void setValorIcms(BigDecimal valorIcms) {
+		this.valorIcms = (valorIcms == null ? new BigDecimal(0) : valorIcms);
+	}
+
+	public BigDecimal getValorIcmsSt() {
+		return valorIcmsSt;
+	}
+
+	public void setValorIcmsSt(BigDecimal valorIcmsSt) {
+		this.valorIcmsSt = (valorIcmsSt == null ? new BigDecimal(0)
+				: valorIcmsSt);
+	}
+
+	public BigDecimal getValorIpi() {
+		return valorIpi;
+	}
+
+	public void setValorIpi(BigDecimal valorIpi) {
+		this.valorIpi = (valorIpi == null ? new BigDecimal(0) : valorIpi);
+	}
+
+	public BigDecimal getValorOutraDespesa() {
+		return valorOutraDespesa;
+	}
+
+	public void setValorOutraDespesa(BigDecimal valorOutraDespesa) {
+		this.valorOutraDespesa = (valorOutraDespesa == null ? new BigDecimal(0)
+				: valorOutraDespesa);
+	}
+
+	public BigDecimal getValorSeguro() {
+		return valorSeguro;
+	}
+
+	public void setValorSeguro(BigDecimal valorSeguro) {
+		this.valorSeguro = (valorSeguro == null ? new BigDecimal(0)
+				: valorSeguro);
+	}
+
+	public BigDecimal getValorSubtotal() {
+		return valorSubtotal;
+	}
+
+	public void setValorSubtotal(BigDecimal valorSubtotal) {
+		this.valorSubtotal = (valorSubtotal == null ? new BigDecimal(0)
+				: valorSubtotal);
+	}
+
+	public BigDecimal getValorTotalNf() {
+		return valorTotalNf;
+	}
+
+	public void setValorTotalNf(BigDecimal valorTotalNf) {
+		this.valorTotalNf = (valorTotalNf == null ? new BigDecimal(0)
+				: valorTotalNf);
+	}
+
+	public BigDecimal getValorTotalPedido() {
+		return valorTotalPedido;
+	}
+
+	public void setValorTotalPedido(BigDecimal valorTotalPedido) {
+		this.valorTotalPedido = (valorTotalPedido == null ? new BigDecimal(0)
+				: valorTotalPedido);
+	}
+
+	public BigDecimal getValorTotalProduto() {
+		return valorTotalProduto;
+	}
+
+	public void setValorTotalProduto(BigDecimal valorTotalProduto) {
+		this.valorTotalProduto = (valorTotalProduto == null ? new BigDecimal(0)
+				: valorTotalProduto);
+	}
+
+	public TipoPedidoEntity getTipoPedido() {
+		return tipoPedido;
+	}
+
+	public void setTipoPedido(TipoPedidoEntity tipoPedido) {
+		this.tipoPedido = tipoPedido;
 	}
 
 	public FornecedorEntity getFornecedor() {
@@ -219,180 +513,12 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.fornecedor = fornecedor;
 	}
 
-	public String getLocalCobranca() {
-		return this.localCobranca;
-	}
-
-	public void setLocalCobranca(String localCobranca) {
-		this.localCobranca = localCobranca;
-	}
-
-	public String getLocalEntrega() {
-		return this.localEntrega;
-	}
-
-	public void setLocalEntrega(String localEntrega) {
-		this.localEntrega = localEntrega;
-	}
-
-	public Integer getQuantidadeParcelas() {
-		return this.quantidadeParcelas;
-	}
-
-	public void setQuantidadeParcelas(Integer quantidadeParcelas) {
-		this.quantidadeParcelas = quantidadeParcelas;
-	}
-
-	public String getTipoFrete() {
-		return this.tipoFrete;
-	}
-
-	public void setTipoFrete(String tipoFrete) {
-		this.tipoFrete = tipoFrete;
-	}
-
-	public TipoPedidoEntity getTipoPedido() {
-		return this.tipoPedido;
-	}
-
-	public void setTipoPedido(TipoPedidoEntity tipoPedido) {
-		this.tipoPedido = tipoPedido;
-	}
-
-	public List<PedidoDetalheEntity> getPedidoDetalhes() {
-		return this.pedidoDetalhes;
-	}
-
-	public void setPedidoDetalhes(List<PedidoDetalheEntity> compraPedidoDetalhes) {
-		this.pedidoDetalhes = compraPedidoDetalhes;
-	}
-
-	public PedidoDetalheEntity addPedidoDetalhe(
-			PedidoDetalheEntity pedidoDetalhe) {
-		getPedidoDetalhes().add(pedidoDetalhe);
-		pedidoDetalhe.setPedido(this);
-
+	public List<PedidoDetalheEntity> getPedidoDetalhe() {
 		return pedidoDetalhe;
 	}
 
-	public PedidoDetalheEntity removePedidoDetalhe(
-			PedidoDetalheEntity pedidoDetalhe) {
-		getPedidoDetalhes().remove(pedidoDetalhe);
-		pedidoDetalhe.setPedido(null);
-
-		return pedidoDetalhe;
-	}
-
-	public BigDecimal getBaseCalculoIcms() {
-		return baseCalculoIcms;
-	}
-
-	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
-		this.baseCalculoIcms = baseCalculoIcms;
-	}
-
-	public BigDecimal getBaseCalculoIcmsSt() {
-		return baseCalculoIcmsSt;
-	}
-
-	public void setBaseCalculoIcmsSt(BigDecimal baseCalculoIcmsSt) {
-		this.baseCalculoIcmsSt = baseCalculoIcmsSt;
-	}
-
-	public BigDecimal getTaxaDesconto() {
-		return taxaDesconto;
-	}
-
-	public void setTaxaDesconto(BigDecimal taxaDesconto) {
-		this.taxaDesconto = taxaDesconto;
-	}
-
-	public BigDecimal getValorDesconto() {
-		return valorDesconto;
-	}
-
-	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
-	}
-
-	public BigDecimal getValorFrete() {
-		return valorFrete;
-	}
-
-	public void setValorFrete(BigDecimal valorFrete) {
-		this.valorFrete = valorFrete;
-	}
-
-	public BigDecimal getValorIcms() {
-		return valorIcms;
-	}
-
-	public void setValorIcms(BigDecimal valorIcms) {
-		this.valorIcms = valorIcms;
-	}
-
-	public BigDecimal getValorIcmsSt() {
-		return valorIcmsSt;
-	}
-
-	public void setValorIcmsSt(BigDecimal valorIcmsSt) {
-		this.valorIcmsSt = valorIcmsSt;
-	}
-
-	public BigDecimal getValorIpi() {
-		return valorIpi;
-	}
-
-	public void setValorIpi(BigDecimal valorIpi) {
-		this.valorIpi = valorIpi;
-	}
-
-	public BigDecimal getValorOutrasDespesas() {
-		return valorOutrasDespesas;
-	}
-
-	public void setValorOutrasDespesas(BigDecimal valorOutrasDespesas) {
-		this.valorOutrasDespesas = valorOutrasDespesas;
-	}
-
-	public BigDecimal getValorSeguro() {
-		return valorSeguro;
-	}
-
-	public void setValorSeguro(BigDecimal valorSeguro) {
-		this.valorSeguro = valorSeguro;
-	}
-
-	public BigDecimal getValorSubtotal() {
-		return valorSubtotal;
-	}
-
-	public void setValorSubtotal(BigDecimal valorSubtotal) {
-		this.valorSubtotal = valorSubtotal;
-	}
-
-	public BigDecimal getValorTotalNf() {
-		return valorTotalNf;
-	}
-
-	public void setValorTotalNf(BigDecimal valorTotalNf) {
-		this.valorTotalNf = valorTotalNf;
-	}
-
-	public BigDecimal getValorTotalPedido() {
-		return valorTotalPedido;
-	}
-
-	public void setValorTotalPedido(BigDecimal valorTotalPedido) {
-		this.valorTotalPedido = valorTotalPedido;
-	}
-
-	public BigDecimal getValorTotalProdutos() {
-		return valorTotalProdutos;
-	}
-
-	public void setValorTotalProdutos(BigDecimal valorTotalProdutos) {
-		this.valorTotalProdutos = valorTotalProdutos;
+	public void setPedidoDetalhe(List<PedidoDetalheEntity> pedidoDetalhe) {
+		this.pedidoDetalhe = pedidoDetalhe;
 	}
 
 	/**

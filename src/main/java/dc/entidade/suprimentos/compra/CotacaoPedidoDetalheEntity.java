@@ -18,15 +18,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
-/**
- * The persistent class for the compra_cotacao_pedido_detalhe database table.
- * 
- */
 @Entity
 @Table(name = "compra_cotacao_pedido_detalhe")
 @XmlRootElement
@@ -49,24 +48,50 @@ public class CotacaoPedidoDetalheEntity extends
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Quantidade pedida")
 	@Column(name = "quantidade_pedida")
-	private BigDecimal quantidadePedida;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal quantidadePedida = new BigDecimal(0);
 
-	// bi-directional many-to-one association to CotacaoDetalhe
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	@Caption("Cotação - Detalhe")
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao_detalhe")
-	private CotacaoDetalheEntity compraCotacaoDetalhe;
+	private CotacaoDetalheEntity cotacaoDetalhe;
 
-	// bi-directional many-to-one association to PedidoCompra
+	@Caption("Pedido")
 	@ManyToOne
 	@JoinColumn(name = "id_compra_pedido")
-	private PedidoEntity compraPedido;
+	private PedidoEntity pedido;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public CotacaoPedidoDetalheEntity() {
+		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -74,28 +99,28 @@ public class CotacaoPedidoDetalheEntity extends
 	}
 
 	public BigDecimal getQuantidadePedida() {
-		return this.quantidadePedida;
+		return quantidadePedida;
 	}
 
 	public void setQuantidadePedida(BigDecimal quantidadePedida) {
-		this.quantidadePedida = quantidadePedida;
+		this.quantidadePedida = (quantidadePedida == null ? new BigDecimal(0)
+				: quantidadePedida);
 	}
 
-	public CotacaoDetalheEntity getCompraCotacaoDetalhe() {
-		return this.compraCotacaoDetalhe;
+	public CotacaoDetalheEntity getCotacaoDetalhe() {
+		return cotacaoDetalhe;
 	}
 
-	public void setCompraCotacaoDetalhe(
-			CotacaoDetalheEntity compraCotacaoDetalhe) {
-		this.compraCotacaoDetalhe = compraCotacaoDetalhe;
+	public void setCotacaoDetalhe(CotacaoDetalheEntity cotacaoDetalhe) {
+		this.cotacaoDetalhe = cotacaoDetalhe;
 	}
 
-	public PedidoEntity getCompraPedido() {
-		return this.compraPedido;
+	public PedidoEntity getPedido() {
+		return pedido;
 	}
 
-	public void setCompraPedido(PedidoEntity compraPedido) {
-		this.compraPedido = compraPedido;
+	public void setPedido(PedidoEntity pedido) {
+		this.pedido = pedido;
 	}
 
 	/**

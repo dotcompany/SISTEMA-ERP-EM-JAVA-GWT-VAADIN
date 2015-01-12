@@ -1,6 +1,5 @@
 package dc.entidade.suprimentos.estoque;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "estoque_contagem_cabecalho")
@@ -49,26 +50,49 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "ID_EMPRESA", nullable = false) private Empresa
-	 * empresa;
+	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data da contagem")
+	@Column(name = "data_contagem")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataContagem;
+
+	@Field
+	@Caption("Estoque atualizado")
+	@Column(name = "estoque_atualizado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String estoqueAtualizado = "";
+
+	/**
+	 * REFERENCIA - FK
 	 */
 
-	@Caption("Data")
-	@Column(name = "data_contagem")
-	@Temporal(TemporalType.DATE)
-	private Date data;
+	/**
+	 * REFERENCIA - LIST
+	 */
 
-	@Caption("Estoque Atualizado")
-	@Column(name = "estoque_atualizado")
-	private String estoqueAtualizado;
+	@OneToMany(mappedBy = "contagemCabecalho", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ContagemDetalheEntity> contagemDetalhe;
 
-	@OneToMany(mappedBy = "contagem", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@Caption("Detalhe")
-	private List<ContagemDetalheEntity> contagemDetalhes;
+	/**
+	 * TRANSIENT
+	 */
 
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public ContagemCabecalhoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -77,18 +101,12 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.id = id;
 	}
 
-	/*
-	 * public Empresa getEmpresa() { return empresa; }
-	 * 
-	 * public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
-	 */
-
-	public Date getData() {
-		return data;
+	public Date getDataContagem() {
+		return dataContagem;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataContagem(Date dataContagem) {
+		this.dataContagem = dataContagem;
 	}
 
 	public String getEstoqueAtualizado() {
@@ -96,25 +114,16 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 	}
 
 	public void setEstoqueAtualizado(String estoqueAtualizado) {
-		this.estoqueAtualizado = estoqueAtualizado;
+		this.estoqueAtualizado = (estoqueAtualizado == null ? "".trim()
+				: estoqueAtualizado.toUpperCase().trim());
 	}
 
-	public List<ContagemDetalheEntity> getContagemDetalhes() {
-		return contagemDetalhes;
+	public List<ContagemDetalheEntity> getContagemDetalhe() {
+		return contagemDetalhe;
 	}
 
-	public void setContagemDetalhes(List<ContagemDetalheEntity> contagemDetalhes) {
-		this.contagemDetalhes = contagemDetalhes;
-	}
-
-	public ContagemDetalheEntity addContagemDetalhe(
-			ContagemDetalheEntity contagemEstoqueDetalhe) {
-		if (contagemDetalhes == null)
-			contagemDetalhes = new ArrayList();
-		getContagemDetalhes().add(contagemEstoqueDetalhe);
-		contagemEstoqueDetalhe.setContagem(this);
-
-		return contagemEstoqueDetalhe;
+	public void setContagemDetalhe(List<ContagemDetalheEntity> contagemDetalhe) {
+		this.contagemDetalhe = contagemDetalhe;
 	}
 
 	/**

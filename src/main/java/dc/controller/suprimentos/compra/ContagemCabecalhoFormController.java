@@ -23,7 +23,7 @@ import dc.visao.suprimentos.compra.ContagemEstoqueFormView;
 
 @Controller
 @Scope("prototype")
-public class ContagemEstoqueFormController extends
+public class ContagemCabecalhoFormController extends
 		CRUDFormController<ContagemCabecalhoEntity> {
 
 	/**
@@ -73,9 +73,9 @@ public class ContagemEstoqueFormController extends
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
-		subView.getDataContagem().setValue(currentBean.getData());
-		subView.fillContagemEstoqueDetalhesSubForm(currentBean
-				.getContagemDetalhes());
+		subView.getDataContagem().setValue(currentBean.getDataContagem());
+		// subView.fillContagemEstoqueDetalhesSubForm(currentBean
+		// .getContagemDetalhes());
 	}
 
 	public EmpresaEntity empresaAtual() {
@@ -85,7 +85,7 @@ public class ContagemEstoqueFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setData(subView.getDataContagem().getValue());
+			currentBean.setDataContagem(subView.getDataContagem().getValue());
 			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 
@@ -98,8 +98,8 @@ public class ContagemEstoqueFormController extends
 
 	@Override
 	protected void quandoNovo() {
-		subView.fillContagemEstoqueDetalhesSubForm(currentBean
-				.getContagemDetalhes());
+		// subView.fillContagemEstoqueDetalhesSubForm(currentBean
+		// .getContagemDetalhes());
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class ContagemEstoqueFormController extends
 	protected void remover(List<Serializable> ids) {
 		for (Serializable i : ids) {
 			ContagemCabecalhoEntity c = dao.find(i);
-			c.setContagemDetalhes(null);
+			// c.setContagemDetalhes(null);
 		}
 
 		dao.deleteAllByIds(ids);
@@ -134,7 +134,7 @@ public class ContagemEstoqueFormController extends
 
 	public ContagemDetalheEntity novoContagemEstoqueDetalhe() {
 		ContagemDetalheEntity detalhe = new ContagemDetalheEntity();
-		currentBean.addContagemDetalhe(detalhe);
+		// currentBean.addContagemDetalhe(detalhe);
 
 		return detalhe;
 	}

@@ -48,7 +48,7 @@ public class TipoRequisicaoFormController extends
 			currentBean.setCodigo(subView.getTxtCodigo().getValue());
 			currentBean.setNome(subView.getTxtNome().getValue());
 			currentBean.setDescricao(subView.getTxtDescricao().getValue());
-			currentBean.setIdEmpresa(1);
+			currentBean.setEmpresa(1);
 			tipoRequisicaoDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);

@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.FornecedorListController;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
@@ -26,7 +26,8 @@ import dc.visao.suprimentos.compra.ConfirmaCotacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class ConfirmaCotacaoFormController extends CRUDFormController<CotacaoEntity> {
+public class ConfirmaCotacaoFormController extends
+		CRUDFormController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -113,7 +114,7 @@ public class ConfirmaCotacaoFormController extends CRUDFormController<CotacaoEnt
 				CotacaoDetalheEntity cotacaoDetalhe = new CotacaoDetalheEntity();
 				cotacaoDetalhe.setProduto(requisicaoDetalhe.getProduto());
 				cotacaoDetalhe.setQuantidade(requisicaoDetalhe.getQuantidade());
-				fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
+				// fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
 			}
 		}
 	}

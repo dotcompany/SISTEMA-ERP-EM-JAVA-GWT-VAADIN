@@ -14,7 +14,7 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ContagemEstoqueListController extends
+public class ContagemCabecalhoListController extends
 		CRUDListController<ContagemCabecalhoEntity> {
 
 	/**
@@ -26,7 +26,7 @@ public class ContagemEstoqueListController extends
 	private ContagemEstoqueDAO dao;
 
 	@Autowired
-	private ContagemEstoqueFormController formController;
+	private ContagemCabecalhoFormController formController;
 
 	@Override
 	public String[] getColunas() {

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.estoque.EstoqueContagemEntity;
-import dc.servicos.dao.suprimentos.estoque.EstoqueContagemDAO;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
+import dc.servicos.dao.suprimentos.estoque.ContagemCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.estoque.EstoqueContagemFormView;
 
@@ -19,8 +19,8 @@ import dc.visao.suprimentos.estoque.EstoqueContagemFormView;
 
 @Controller
 @Scope("prototype")
-public class EstoqueContagemFormController extends
-		CRUDFormController<EstoqueContagemEntity> {
+public class ContagemFormController extends
+		CRUDFormController<ContagemCabecalhoEntity> {
 
 	/**
 	 * 
@@ -32,17 +32,17 @@ public class EstoqueContagemFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private EstoqueContagemDAO pDAO;
+	private ContagemCabecalhoDAO pDAO;
 
 	/** ENTITIES */
 
-	private EstoqueContagemEntity pEntity;
+	private ContagemCabecalhoEntity pEntity;
 
 	/** CONSTRUTOR */
 
-	public EstoqueContagemFormController() {
+	public ContagemFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new EstoqueContagemEntity();
+			this.pEntity = new ContagemCabecalhoEntity();
 		}
 	}
 
@@ -65,7 +65,7 @@ public class EstoqueContagemFormController extends
 
 			mensagemErro(e.getMessage());
 		} finally {
-			this.pEntity = new EstoqueContagemEntity();
+			this.pEntity = new ContagemCabecalhoEntity();
 		}
 	}
 
@@ -94,7 +94,7 @@ public class EstoqueContagemFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		this.pEntity = new EstoqueContagemEntity();
+		this.pEntity = new ContagemCabecalhoEntity();
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class EstoqueContagemFormController extends
 	}
 
 	@Override
-	public EstoqueContagemEntity getModelBean() {
+	public ContagemCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return pEntity;
 	}

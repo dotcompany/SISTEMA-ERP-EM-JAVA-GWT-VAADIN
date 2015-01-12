@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
+import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
@@ -28,7 +28,8 @@ import dc.visao.suprimentos.compra.MapaComparativoFormView;
 
 @Controller
 @Scope("prototype")
-public class MapaComparativoFormController extends CRUDFormController<CotacaoEntity> {
+public class MapaComparativoFormController extends
+		CRUDFormController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -112,7 +113,7 @@ public class MapaComparativoFormController extends CRUDFormController<CotacaoEnt
 								.getValorSubtotal().subtract(
 										pedidoDetalhe.getValorDesconto()));
 
-						pedidoCompra.addPedidoDetalhe(pedidoDetalhe);
+						// pedidoCompra.addPedidoDetalhe(pedidoDetalhe);
 					}
 				}
 

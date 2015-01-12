@@ -15,11 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "compra_tipo_requisicao")
@@ -43,20 +45,57 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Código")
-	private String codigo;
+	@Column(name = "codigo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigo = "";
 
+	@Field
 	@Caption("Descrição")
-	private String descricao;
+	@Column(name = "descricao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao = "";
+
+	@Field
+	@Caption("Nome")
+	@Column(name = "NOME")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@Column(name = "id_empresa")
-	private Integer idEmpresa;
+	private Integer empresa;
 
-	@Caption("Nome")
-	private String nome;
+	/**
+	 * REFERENCIA - LIST
+	 */
 
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public TipoRequisicaoEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -68,7 +107,7 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -76,15 +115,8 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Integer getIdEmpresa() {
-		return this.idEmpresa;
-	}
-
-	public void setIdEmpresa(Integer idEmpresa) {
-		this.idEmpresa = idEmpresa;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -92,7 +124,15 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
+	}
+
+	public Integer getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Integer empresa) {
+		this.empresa = empresa;
 	}
 
 	/**

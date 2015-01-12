@@ -6,16 +6,17 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.suprimentos.estoque.EstoqueContagemEntity;
+import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class EstoqueContagemDAO extends AbstractCrudDAO<EstoqueContagemEntity> {
+public class ContagemCabecalhoDAO extends
+		AbstractCrudDAO<ContagemCabecalhoEntity> {
 
 	@Override
-	public Class<EstoqueContagemEntity> getEntityClass() {
-		return EstoqueContagemEntity.class;
+	public Class<ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
 	}
 
 	/*
@@ -26,31 +27,31 @@ public class EstoqueContagemDAO extends AbstractCrudDAO<EstoqueContagemEntity> {
 	 */
 
 	@Transactional
-	public List<EstoqueContagemEntity> listarTodos() {
+	public List<ContagemCabecalhoEntity> listarTodos() {
 		try {
-			String sql = "FROM EstoqueContagemEntity ent WHERE (1 = 1)";
+			String sql = "FROM ContagemCabecalhoEntity ent WHERE (1 = 1)";
 
-			List<EstoqueContagemEntity> auxLista = super.getSession()
+			List<ContagemCabecalhoEntity> auxLista = super.getSession()
 					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<EstoqueContagemEntity>();
+			return new ArrayList<ContagemCabecalhoEntity>();
 		}
 	}
 
 	@Transactional
-	public List<EstoqueContagemEntity> procuraNomeContendo(String query) {
+	public List<ContagemCabecalhoEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM EstoqueContagemEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM ContagemCabecalhoEntity ent WHERE (1 = 1) AND ent.nome LIKE :q";
 
-			List<EstoqueContagemEntity> auxLista = super.getSession()
+			List<ContagemCabecalhoEntity> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<EstoqueContagemEntity>();
+			return new ArrayList<ContagemCabecalhoEntity>();
 		}
 	}
 

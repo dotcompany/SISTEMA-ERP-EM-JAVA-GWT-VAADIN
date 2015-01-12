@@ -122,7 +122,7 @@ public class PedidoCompraFormController extends
 		subView.getOptTipoFrete().setValue(currentBean.getTipoFrete());
 		subView.getOptFormaPagto().setValue(currentBean.getFormaPagamento());
 
-		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhes());
+		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class PedidoCompraFormController extends
 
 	@Override
 	protected void quandoNovo() {
-		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhes());
+		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
 	}
 
 	@Override
@@ -165,14 +165,14 @@ public class PedidoCompraFormController extends
 
 	public PedidoDetalheEntity novoPedidoDetalhe() {
 		PedidoDetalheEntity pedidoDetalhe = new PedidoDetalheEntity();
-		currentBean.addPedidoDetalhe(pedidoDetalhe);
+		// currentBean.addPedidoDetalhe(pedidoDetalhe);
 
 		return pedidoDetalhe;
 	}
 
-	public void removerPedidoDetalhe(List<PedidoDetalheEntity> pedidoDetalhes) {
-		for (PedidoDetalheEntity pedidoDetalhe : pedidoDetalhes) {
-			currentBean.removePedidoDetalhe(pedidoDetalhe);
+	public void removerPedidoDetalhe(List<PedidoDetalheEntity> pedidoDetalhe) {
+		for (PedidoDetalheEntity ent : pedidoDetalhe) {
+			// currentBean.removePedidoDetalhe(ent);
 		}
 	}
 
