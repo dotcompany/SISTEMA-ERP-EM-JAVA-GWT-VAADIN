@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
-import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,34 +22,24 @@ public class TipoPedidoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private TipoPedidoDAO dao;
+	private TipoPedidoFormController tipoPedidoFormController;
 
-	@Autowired
-	private TipoPedidoFormController formController;
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "id", "codigo", "nome", "descricao" };
-	}
-
-	@Override
-	protected String getTitulo() {
-		return "Tipo Pedido Compra";
-	}
-
-	@Override
-	protected List<TipoPedidoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
+	public TipoPedidoListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<TipoPedidoEntity> getFormController() {
-		return formController;
+		return tipoPedidoFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "codigo", "nome", "descricao" };
 	}
 
 	@Override
@@ -59,13 +48,47 @@ public class TipoPedidoListController extends
 	}
 
 	@Override
-	protected List<TipoPedidoEntity> pesquisaDefault() {
-		return dao.getAll(TipoPedidoEntity.class);
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected List<TipoPedidoEntity> pesquisa(String valor) {
+		try {
+			List<TipoPedidoEntity> auxLista = (List<TipoPedidoEntity>) this.tipoPedidoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<TipoPedidoEntity> pesquisaDefault() {
+		try {
+			List<TipoPedidoEntity> auxLista = (List<TipoPedidoEntity>) this.tipoPedidoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

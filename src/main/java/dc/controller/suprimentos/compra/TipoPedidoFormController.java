@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.TipoPedidoUtils;
+import dc.control.validator.DotErpException;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
-import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
+import dc.model.business.suprimento.compra.TipoPedidoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimentos.compra.TipoPedidoFormView;
 
@@ -27,14 +29,38 @@ public class TipoPedidoFormController extends
 
 	private TipoPedidoFormView subView;
 
-	@Autowired
-	private TipoPedidoDAO tipoPedidoDAO;
+	/**
+	 * ENTITY
+	 */
 
-	private TipoPedidoEntity currentBean;
+	private TipoPedidoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
+
+	/**
+	 * DAO
+	 */
+
+	@Autowired
+	private TipoPedidoBusiness<TipoPedidoEntity> business;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public TipoPedidoFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TipoPedidoBusiness<TipoPedidoEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
-		return "Tipo Pedido Compra";
+		return "Tipo de pedido";
 	}
 
 	@Override
@@ -43,70 +69,112 @@ public class TipoPedidoFormController extends
 	}
 
 	@Override
-	protected void actionSalvar() {
-		try {
-			currentBean.setCodigo(subView.getTxtCodigo().getValue());
-			currentBean.setNome(subView.getTxtNome().getValue());
-			currentBean.setDescricao(subView.getTxtDescricao().getValue());
-			tipoPedidoDAO.saveOrUpdate(currentBean);
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
 
-			notifiyFrameworkSaveOK(this.currentBean);
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public TipoPedidoEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new TipoPedidoFormView(this);
 		} catch (Exception e) {
-			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		currentBean = tipoPedidoDAO.find(id);
-		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+	protected boolean validaSalvar() {
+		try {
+			TipoPedidoUtils.validateRequiredFields(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
 	}
 
 	@Override
-	protected void initSubView() {
-		subView = new TipoPedidoFormView();
+	protected void actionSalvar() {
+		try {
+			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoPedidoEntity();
-	}
+		try {
+			this.entity = new TipoPedidoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	protected void remover(List<Serializable> ids) {
-		tipoPedidoDAO.deleteAllByIds(ids);
-
-		mensagemRemovidoOK();
-	}
-
-	@Override
-	protected boolean validaSalvar() {
-		return true;
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void quandoNovo() {
+		try {
+			this.entity = new TipoPedidoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void remover(List<Serializable> ids) {
+		try {
+			this.business.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public TipoPedidoEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
 	}
 
 }
