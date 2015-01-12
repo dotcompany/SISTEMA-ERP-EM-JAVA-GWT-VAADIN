@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.classes.NivelFormacaoUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.NivelFormacaoEntity;
+import dc.entidade.geral.pessoal.NivelFormacaoEntity;
 import dc.model.business.geral.pessoal.NivelFormacaoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.NivelFormacaoFormView;

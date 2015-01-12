@@ -13,9 +13,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.patrimonio.BemFormController;
-import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;

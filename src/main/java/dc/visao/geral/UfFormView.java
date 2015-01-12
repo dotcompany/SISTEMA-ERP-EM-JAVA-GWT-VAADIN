@@ -7,7 +7,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.geral.UfFormController;
+import dc.controller.geral.diverso.UfFormController;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 

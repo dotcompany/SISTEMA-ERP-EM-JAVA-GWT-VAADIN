@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

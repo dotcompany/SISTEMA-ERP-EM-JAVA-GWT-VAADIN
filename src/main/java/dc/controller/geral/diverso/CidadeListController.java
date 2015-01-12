@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.diverso;
 
 import java.util.List;
 
@@ -7,15 +7,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.FornecedorEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
+import dc.entidade.geral.diverso.CidadeEntity;
+import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
+/**
+ * 
+ * @author Wesley Jr
+ * **/
+
 @Controller
 @Scope("prototype")
-public class FornecedorListController extends
-		CRUDListController<FornecedorEntity> {
+public class CidadeListController extends CRUDListController<CidadeEntity> {
 
 	/**
 	 * 
@@ -23,20 +27,19 @@ public class FornecedorListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private FornecedorDAO dao;
+	CidadeDAO dao;
 
 	@Autowired
-	private FornecedorFormController fornecedorFormController;
+	CidadeFormController cidadeFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "pessoa", "desde", "optanteSimplesNacional",
-				"localizacao", "dataCadastro", "sofreRetencao" };
+		return new String[] { "nome" };
 	}
 
 	@Override
-	public Class<? super FornecedorEntity> getEntityClass() {
-		return FornecedorEntity.class;
+	public Class<? super CidadeEntity> getEntityClass() {
+		return CidadeEntity.class;
 	}
 
 	@Override
@@ -45,13 +48,13 @@ public class FornecedorListController extends
 	}
 
 	@Override
-	protected List<FornecedorEntity> pesquisa(String valor) {
+	protected List<CidadeEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<FornecedorEntity> getFormController() {
-		return fornecedorFormController;
+	protected CRUDFormController<CidadeEntity> getFormController() {
+		return cidadeFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
@@ -67,10 +70,10 @@ public class FornecedorListController extends
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	protected List<FornecedorEntity> pesquisaDefault() {
-		return (List<FornecedorEntity>) dao.getAll(getEntityClass());
+	protected List<CidadeEntity> pesquisaDefault() {
+		// TODO Auto-generated method stub
+		return (List<CidadeEntity>) dao.getAll(getEntityClass());
 	}
 
 }

@@ -26,7 +26,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.compra.PedidoCompraFormController;
-import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;

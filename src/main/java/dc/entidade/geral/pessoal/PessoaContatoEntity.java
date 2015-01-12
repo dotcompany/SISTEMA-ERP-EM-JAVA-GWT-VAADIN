@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 
@@ -23,6 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "pessoa_contato")
@@ -58,26 +59,36 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome = "";
 
 	@Field
 	@Caption("E-mail")
 	@Column(name = "EMAIL", length = 250)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String email = "";
 
 	@Field
 	@Caption("Telefone comercial")
 	@Column(name = "FONE_COMERCIAL", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String foneComercial = "";
 
 	@Field
 	@Caption("Telefone residencial")
 	@Column(name = "FONE_RESIDENCIAL", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String foneResidencial = "";
 
 	@Field
 	@Caption("Celular")
 	@Column(name = "FONE_CELULAR", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String foneCelular = "";
 
 	/**

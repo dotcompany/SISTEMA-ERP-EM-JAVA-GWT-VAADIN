@@ -15,10 +15,10 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.framework.Papel;
-import dc.entidade.geral.PessoaEntity;
-import dc.entidade.geral.PessoaFisicaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;

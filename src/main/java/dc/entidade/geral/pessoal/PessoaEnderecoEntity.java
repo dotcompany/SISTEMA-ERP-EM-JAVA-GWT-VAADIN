@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 
@@ -25,6 +25,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.UfEntity;
 
 @Entity
 @Table(name = "pessoa_endereco")
@@ -112,42 +113,42 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String fax = "";
 
 	@Field
-	@Caption()
+	@Caption("Principal")
 	@Column(name = "PRINCIPAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean principal = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("Entrega")
 	@Column(name = "ENTREGA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean entrega = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("Cobrança")
 	@Column(name = "COBRANCA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean cobranca = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("Correspondência")
 	@Column(name = "CORRESPONDENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean correspondencia = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("UF sigla")
 	@Column(name = "uf", length = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String siglaUf = "";
 
 	@Field
-	@Caption()
+	@Caption("UF")
 	@Column(name = "id_uf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

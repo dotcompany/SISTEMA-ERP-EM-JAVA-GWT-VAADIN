@@ -8,7 +8,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.pessoal.TransportadoraFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 public class TransportadoraFormView extends CustomComponent {

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.FornecedorListController;
-import dc.entidade.geral.FornecedorEntity;
+import dc.controller.geral.pessoal.FornecedorListController;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;

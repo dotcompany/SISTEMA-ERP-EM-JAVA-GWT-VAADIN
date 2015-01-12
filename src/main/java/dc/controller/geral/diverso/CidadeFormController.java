@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.diverso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.CidadeEntity;
+import dc.entidade.geral.diverso.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.CidadeFormView;

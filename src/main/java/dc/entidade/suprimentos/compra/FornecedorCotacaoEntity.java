@@ -27,7 +27,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 
 /**
  * The persistent class for the compra_fornecedor_cotacao database table.

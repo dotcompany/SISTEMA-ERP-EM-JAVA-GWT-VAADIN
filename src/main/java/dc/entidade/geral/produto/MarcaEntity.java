@@ -58,11 +58,13 @@ public class MarcaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	/**

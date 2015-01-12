@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.BancoEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.geral.UfDAO;
 

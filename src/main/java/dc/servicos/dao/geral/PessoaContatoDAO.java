@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.control.util.ListUtils;
-import dc.entidade.geral.PessoaContatoEntity;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaContatoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

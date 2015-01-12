@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +27,6 @@ import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.diverso.PaisEntity;
 
 @Entity
 @Table(name = "uf")

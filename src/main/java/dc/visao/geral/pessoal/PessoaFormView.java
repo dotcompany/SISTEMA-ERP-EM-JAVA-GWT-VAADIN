@@ -26,11 +26,11 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.pessoal.PessoaFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.PessoaContatoEntity;
-import dc.entidade.geral.PessoaEnderecoEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
+import dc.entidade.geral.pessoal.PessoaContatoEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.visao.framework.component.IntegerConverter;

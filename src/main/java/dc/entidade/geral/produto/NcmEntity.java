@@ -58,20 +58,20 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String codigo;
 
 	@Lob
-	@Field
-	@Caption("Descrição")
 	@Type(type = "text")
 	// @Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Observação")
 	@Type(type = "text")
 	// @Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

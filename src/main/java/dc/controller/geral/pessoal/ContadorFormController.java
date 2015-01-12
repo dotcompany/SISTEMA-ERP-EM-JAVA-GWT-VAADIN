@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;

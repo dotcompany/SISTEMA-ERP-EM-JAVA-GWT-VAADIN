@@ -26,10 +26,10 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.FornecedorEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 
 @Entity
 @Table(name = "contrato_solicitacao_servico")

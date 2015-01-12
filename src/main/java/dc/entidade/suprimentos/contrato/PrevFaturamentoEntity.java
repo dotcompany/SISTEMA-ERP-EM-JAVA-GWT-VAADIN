@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 
 @Entity
 @Table(name = "contrato_prev_faturamento")

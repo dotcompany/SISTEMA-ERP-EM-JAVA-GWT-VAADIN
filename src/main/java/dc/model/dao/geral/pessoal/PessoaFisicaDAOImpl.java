@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.PessoaFisicaEntity;
+import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

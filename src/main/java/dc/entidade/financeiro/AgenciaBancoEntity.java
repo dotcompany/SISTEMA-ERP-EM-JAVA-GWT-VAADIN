@@ -30,7 +30,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 
 @Entity
 @Table(name = "agencia_banco")

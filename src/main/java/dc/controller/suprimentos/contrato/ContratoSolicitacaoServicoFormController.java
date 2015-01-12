@@ -10,14 +10,14 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.FornecedorListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
-import dc.entidade.geral.FornecedorEntity;
+import dc.controller.geral.pessoal.FornecedorListController;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.geral.FornecedorDAO;

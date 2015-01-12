@@ -49,8 +49,6 @@ import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.NivelFormacaoEntity;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.patrimonio.BemEntity;
 

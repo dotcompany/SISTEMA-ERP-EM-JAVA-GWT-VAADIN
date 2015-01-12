@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.control.enums.TipoPessoaEn;
 import dc.control.util.ObjectUtils;
-import dc.entidade.geral.PessoaContatoEntity;
-import dc.entidade.geral.PessoaEnderecoEntity;
-import dc.entidade.geral.PessoaEntity;
-import dc.entidade.geral.PessoaFisicaEntity;
-import dc.entidade.geral.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.PessoaContatoEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaFisicaEntity;
+import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;

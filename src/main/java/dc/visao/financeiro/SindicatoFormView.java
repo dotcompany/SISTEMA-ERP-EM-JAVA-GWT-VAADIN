@@ -10,7 +10,7 @@ import com.vaadin.ui.TextField;
 
 import dc.controller.financeiro.SindicatoFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 public class SindicatoFormView extends CustomComponent {

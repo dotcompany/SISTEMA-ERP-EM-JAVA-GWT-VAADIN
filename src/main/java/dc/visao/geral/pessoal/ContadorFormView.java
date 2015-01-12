@@ -8,7 +8,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.pessoal.ContadorFormController;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
 

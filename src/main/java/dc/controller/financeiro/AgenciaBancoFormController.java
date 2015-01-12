@@ -16,7 +16,7 @@ import dc.control.util.classes.AgenciaBancoUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.BancoEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.geral.UfDAO;

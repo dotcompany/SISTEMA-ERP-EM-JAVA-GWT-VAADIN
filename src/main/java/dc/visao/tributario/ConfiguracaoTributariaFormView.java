@@ -20,7 +20,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.tributario.ConfiguracaoTributariaFormController;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.entidade.geral.tabela.CstPisEntity;

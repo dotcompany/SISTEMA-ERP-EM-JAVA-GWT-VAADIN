@@ -18,7 +18,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.empresa.ParticipacaoSocietariaEntity;
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
 import dc.entidade.administrativo.empresa.SocioEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.administrativo.empresa.DependenteDAO;
 import dc.servicos.dao.administrativo.empresa.ParticipacaoSocietariaDAO;

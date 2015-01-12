@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

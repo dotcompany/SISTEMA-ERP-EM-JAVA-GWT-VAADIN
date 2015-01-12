@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.diverso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,9 +14,8 @@ import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.classes.UfUtils;
 import dc.control.validator.DotErpException;
-import dc.controller.geral.diverso.PaisListController;
-import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;

@@ -28,7 +28,6 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.PessoaEntity;
 
 @Entity
 @Table(name = "transportadora")

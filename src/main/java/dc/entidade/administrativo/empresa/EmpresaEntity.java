@@ -40,8 +40,8 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.EmpresaSeguimento;
-import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.diverso.PaisEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
 @Entity

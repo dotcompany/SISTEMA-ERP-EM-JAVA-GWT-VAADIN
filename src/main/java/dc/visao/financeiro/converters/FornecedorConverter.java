@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.data.util.converter.Converter;
 
-import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 
 public class FornecedorConverter implements Converter<Object, FornecedorEntity> {

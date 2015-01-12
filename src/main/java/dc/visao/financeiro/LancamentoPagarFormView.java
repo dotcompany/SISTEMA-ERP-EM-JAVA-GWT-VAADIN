@@ -32,7 +32,7 @@ import dc.entidade.financeiro.LancamentoPagar;
 import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
-import dc.entidade.geral.FornecedorEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;

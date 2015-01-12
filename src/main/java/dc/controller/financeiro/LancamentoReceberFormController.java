@@ -53,8 +53,8 @@ import dc.entidade.financeiro.LctoReceberNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
@@ -699,7 +699,7 @@ public class LancamentoReceberFormController extends
 
 		PessoaEnderecoEntity enderecoSacado = new PessoaEnderecoEntity();
 
-		dc.entidade.geral.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO
+		dc.entidade.geral.pessoal.PessoaEnderecoEntity endereco = (PessoaEnderecoEntity) enderecoDAO
 				.listaPorPessoa(cliente.getPessoa()).get(0);
 
 		// enderecoSacado.setUf(endereco.getUf());

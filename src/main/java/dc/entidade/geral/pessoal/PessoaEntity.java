@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,7 +31,6 @@ import dc.control.enums.TipoPessoaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "pessoa")
@@ -77,39 +76,39 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String site = "";
 
 	@Field
-	@Caption()
+	@Caption("Cliente")
 	@Column(name = "CLIENTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cliente = "0";
 
 	@Field
-	@Caption()
+	@Caption("Fornecedor")
 	@Column(name = "FORNECEDOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean fornecedor = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("Colaborador")
 	@Column(name = "COLABORADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean colaborador = Boolean.FALSE;
 
 	@Field
-	@Caption()
+	@Caption("Transportadora")
 	@Column(name = "TRANSPORTADORA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean transportadora = Boolean.FALSE;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Tipo")
 	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private TipoPessoaEn tipoPessoa;
 
 	/**

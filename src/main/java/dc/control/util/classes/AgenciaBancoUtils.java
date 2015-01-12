@@ -4,7 +4,7 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.BancoEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
 
 public class AgenciaBancoUtils {

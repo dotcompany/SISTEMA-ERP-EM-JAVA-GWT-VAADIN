@@ -51,20 +51,25 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@Field
-	@Column(name = "descricao")
 	@Caption("Descrição")
+	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Field
+	@Caption("Origem da mercadoria")
 	@Column(name = "ORIGEM_MERCADORIA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String origemMercadoria;
 
+	@Field
+	@Caption("Observação")
+	@Column(name = "observacao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
-
-	// @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	// @ManyToOne(optional = false)
-	// private Empresa empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -77,8 +82,8 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	 * TRANSIENT
 	 */
 
-	@Transient
 	@Caption("Origem da Mercadoria")
+	@Transient
 	private String origemString;
 
 	/**

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.OrigemMercadoriaEn;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;

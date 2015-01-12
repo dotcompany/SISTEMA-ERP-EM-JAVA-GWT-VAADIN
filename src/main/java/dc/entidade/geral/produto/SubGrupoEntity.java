@@ -62,8 +62,8 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Lob
 	@Type(type = "text")
 	@Field
-	@Column(name = "descricao", length = 65535)
 	@Caption(value = "Descrição")
+	@Column(name = "descricao", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
@@ -72,9 +72,9 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
+	@Caption(value = "Grupo")
 	@ManyToOne
 	@JoinColumn(name = "id_grupo", nullable = false)
-	@Caption(value = "Grupo")
 	private GrupoEntity grupo;
 
 	/**

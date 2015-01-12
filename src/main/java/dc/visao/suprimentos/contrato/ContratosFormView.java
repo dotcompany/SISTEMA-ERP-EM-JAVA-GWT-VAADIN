@@ -33,7 +33,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimentos.contrato.ContratoFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.contrato.ContratoEntity;
 import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;

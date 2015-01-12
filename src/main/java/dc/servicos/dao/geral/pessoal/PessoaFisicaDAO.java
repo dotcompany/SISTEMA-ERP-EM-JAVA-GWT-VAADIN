@@ -7,8 +7,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.PessoaEntity;
-import dc.entidade.geral.PessoaFisicaEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalPessoaFisicaDAO")

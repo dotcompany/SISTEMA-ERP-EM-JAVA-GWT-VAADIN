@@ -58,10 +58,11 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String nome;
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Type(type = "text")
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO", length = 65535)
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 

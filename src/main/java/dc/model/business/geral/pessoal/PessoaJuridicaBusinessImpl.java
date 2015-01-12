@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.entidade.geral.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
 import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
 
 /**

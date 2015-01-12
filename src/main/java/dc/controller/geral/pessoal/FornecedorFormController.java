@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,13 +12,10 @@ import com.vaadin.ui.Component;
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.controller.geral.pessoal.AtividadeForCliListController;
-import dc.controller.geral.pessoal.PessoaListController;
-import dc.controller.geral.pessoal.SituacaoForCliListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;

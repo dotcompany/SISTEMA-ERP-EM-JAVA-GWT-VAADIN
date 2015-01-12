@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.control.util.ListUtils;
 import dc.control.util.ObjectUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.PessoaEnderecoEntity;
-import dc.entidade.geral.PessoaEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

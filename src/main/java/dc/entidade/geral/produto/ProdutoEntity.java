@@ -83,9 +83,9 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String nome = "";
 
 	// @Lob
+	@Type(type = "text")
 	@Field
 	@Caption("Descrição")
-	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -291,13 +291,13 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private ClasseEn classe;
 
 	@Enumerated(EnumType.STRING)
+	// @Type(type = "dc.control.enums.IatEn", parameters = @Parameter(name =
+	// "type", value = "dc.control.enums.IatEn"))
 	@Field
 	@Caption("IAT")
 	@Column(name = "iat")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	// @Type(type = "dc.control.enums.IatEn", parameters = @Parameter(name =
-	// "type", value = "dc.control.enums.IatEn"))
 	private IatEn iat;
 
 	@Enumerated(EnumType.STRING)
@@ -753,7 +753,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		return icmsCustomizado;
 	}
 
-	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
+	public void setIcmsCustomizado(
+			IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
 		this.icmsCustomizado = icmsCustomizado;
 	}
 

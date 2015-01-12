@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.PessoaContatoEntity;
+import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;

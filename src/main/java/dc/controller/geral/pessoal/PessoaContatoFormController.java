@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.PessoaContatoEntity;
+import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.PessoaContatoFormView;

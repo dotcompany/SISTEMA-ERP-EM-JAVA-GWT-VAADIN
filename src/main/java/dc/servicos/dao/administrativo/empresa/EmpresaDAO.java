@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
-import dc.entidade.geral.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;

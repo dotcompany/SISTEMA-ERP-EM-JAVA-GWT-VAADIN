@@ -17,9 +17,9 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.WrappedSession;
 
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.Usuario;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")

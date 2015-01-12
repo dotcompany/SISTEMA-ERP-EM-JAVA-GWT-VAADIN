@@ -26,7 +26,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.administrativo.empresa.EmpresaFormController;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.entidade.geral.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.framework.DcConstants;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;

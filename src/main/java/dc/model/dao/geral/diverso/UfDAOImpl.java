@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

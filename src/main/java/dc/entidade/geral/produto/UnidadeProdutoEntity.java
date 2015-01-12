@@ -61,20 +61,20 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String sigla;
 
 	@Lob
+	@Type(type = "text")
 	@Field
 	@Caption("Nome")
-	@Type(type = "text")
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
+	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption("Pode fracionar?")
+	@Caption("Pode fracionar")
 	@Column(name = "PODE_FRACIONAR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private SimNaoEn podeFracionar;
 
 	/**

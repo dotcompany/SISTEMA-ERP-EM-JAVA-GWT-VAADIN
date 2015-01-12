@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
 

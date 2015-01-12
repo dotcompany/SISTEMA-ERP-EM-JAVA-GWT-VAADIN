@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.controller.geral.UfListController;
-import dc.entidade.geral.UfEntity;
+import dc.controller.geral.diverso.UfListController;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.FeriadoDAO;

@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,7 +34,6 @@ import dc.control.enums.SexoEn;
 import dc.control.enums.TipoSanguineoEn;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.pessoal.EstadoCivilEntity;
 
 @Entity
 @Table(name = "pessoa_fisica")
@@ -209,12 +208,13 @@ public class PessoaFisicaEntity implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Estado civil")
 	@ManyToOne
-	// (cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_estado_civil")
 	private EstadoCivilEntity estadoCivil;
 
-	@OneToOne()
+	@Caption("Pessoa")
+	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 

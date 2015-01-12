@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.NivelFormacaoEntity;
+import dc.entidade.geral.pessoal.NivelFormacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**

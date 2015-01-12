@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -33,8 +33,6 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.pessoal.AtividadeForCliEntity;
-import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.patrimonio.BemEntity;
 

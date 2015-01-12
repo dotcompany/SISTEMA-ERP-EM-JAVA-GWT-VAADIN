@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.entidade.geral.UfEntity;
 import dc.entidade.geral.diverso.PaisEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.model.dao.geral.diverso.PaisDAO;
 import dc.model.dao.geral.diverso.UfDAO;
 

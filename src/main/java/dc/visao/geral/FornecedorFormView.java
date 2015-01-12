@@ -12,11 +12,11 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import dc.control.enums.SimNaoEn;
-import dc.controller.geral.FornecedorFormController;
+import dc.controller.geral.pessoal.FornecedorFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.FornecedorEntity;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.IntegerConverter;

@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -115,6 +115,7 @@ public class PessoaJuridicaEntity implements Serializable {
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Pessoa")
 	@OneToOne()
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;

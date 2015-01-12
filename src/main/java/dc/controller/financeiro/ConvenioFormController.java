@@ -11,7 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Convenio;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.financeiro.ConvenioDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.util.Validator;

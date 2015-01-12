@@ -3,7 +3,7 @@ package dc.control.util.classes;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.geral.diverso.MunicipioFormView;
 
 public class MunicipioUtils {

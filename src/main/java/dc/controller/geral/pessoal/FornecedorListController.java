@@ -1,4 +1,4 @@
-package dc.controller.geral;
+package dc.controller.geral.pessoal;
 
 import java.util.List;
 
@@ -7,19 +7,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.CidadeEntity;
-import dc.servicos.dao.geral.CidadeDAO;
+import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr
- * **/
-
 @Controller
 @Scope("prototype")
-public class CidadeListController extends CRUDListController<CidadeEntity> {
+public class FornecedorListController extends
+		CRUDListController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -27,19 +23,20 @@ public class CidadeListController extends CRUDListController<CidadeEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CidadeDAO dao;
+	private FornecedorDAO dao;
 
 	@Autowired
-	CidadeFormController cidadeFormController;
+	private FornecedorFormController fornecedorFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome" };
+		return new String[] { "pessoa", "desde", "optanteSimplesNacional",
+				"localizacao", "dataCadastro", "sofreRetencao" };
 	}
 
 	@Override
-	public Class<? super CidadeEntity> getEntityClass() {
-		return CidadeEntity.class;
+	public Class<? super FornecedorEntity> getEntityClass() {
+		return FornecedorEntity.class;
 	}
 
 	@Override
@@ -48,13 +45,13 @@ public class CidadeListController extends CRUDListController<CidadeEntity> {
 	}
 
 	@Override
-	protected List<CidadeEntity> pesquisa(String valor) {
+	protected List<FornecedorEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<CidadeEntity> getFormController() {
-		return cidadeFormController;
+	protected CRUDFormController<FornecedorEntity> getFormController() {
+		return fornecedorFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
@@ -70,10 +67,10 @@ public class CidadeListController extends CRUDListController<CidadeEntity> {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected List<CidadeEntity> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return (List<CidadeEntity>) dao.getAll(getEntityClass());
+	protected List<FornecedorEntity> pesquisaDefault() {
+		return (List<FornecedorEntity>) dao.getAll(getEntityClass());
 	}
 
 }

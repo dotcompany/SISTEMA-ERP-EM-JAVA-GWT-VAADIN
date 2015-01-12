@@ -10,8 +10,8 @@ import com.vaadin.ui.TextField;
 
 import dc.controller.geral.pessoal.ClienteFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.PessoaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;

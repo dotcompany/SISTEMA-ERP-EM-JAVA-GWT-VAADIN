@@ -17,9 +17,9 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.controller.geral.UfFormController;
+import dc.controller.geral.diverso.UfFormController;
 import dc.controller.tributario.IcmsCustomizadoFormController;
-import dc.entidade.geral.UfEntity;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.servicos.dao.geral.UfDAO;
