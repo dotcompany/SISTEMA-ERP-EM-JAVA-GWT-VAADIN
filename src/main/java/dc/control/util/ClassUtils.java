@@ -1,6 +1,6 @@
 package dc.control.util;
 
-import dc.controller.suprimentos.compra.CotacaoFormController;
+import dc.controller.suprimento.compra.CotacaoFormController;
 import dc.entidade.geral.Usuario;
 import dc.visao.framework.geral.ControllerTask;
 import dc.visao.spring.SecuritySessionProvider;

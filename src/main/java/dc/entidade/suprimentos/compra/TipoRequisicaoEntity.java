@@ -1,7 +1,5 @@
 package dc.entidade.suprimentos.compra;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +17,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
@@ -28,8 +26,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
-		Serializable {
+public class TipoRequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -69,9 +66,6 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 	/**
 	 * REFERENCIA - FK
 	 */
-
-	@Column(name = "id_empresa")
-	private Integer empresa;
 
 	/**
 	 * REFERENCIA - LIST
@@ -125,14 +119,6 @@ public class TipoRequisicaoEntity extends AbstractModel<Integer> implements
 
 	public void setNome(String nome) {
 		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
-	}
-
-	public Integer getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Integer empresa) {
-		this.empresa = empresa;
 	}
 
 	/**

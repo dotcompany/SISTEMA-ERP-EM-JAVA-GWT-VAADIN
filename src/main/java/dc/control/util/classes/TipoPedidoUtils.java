@@ -1,7 +1,7 @@
 package dc.control.util.classes;
 
 import dc.control.validator.DotErpException;
-import dc.visao.suprimentos.compra.TipoPedidoFormView;
+import dc.visao.suprimento.compra.TipoPedidoFormView;
 
 public class TipoPedidoUtils {
 
