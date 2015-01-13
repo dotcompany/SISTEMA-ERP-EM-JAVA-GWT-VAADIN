@@ -29,7 +29,6 @@ public class TipoRequisicaoDAOImpl extends
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<TipoRequisicaoEntity> auxLista = query.list();
 

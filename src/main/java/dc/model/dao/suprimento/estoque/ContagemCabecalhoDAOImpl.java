@@ -29,7 +29,6 @@ public class ContagemCabecalhoDAOImpl extends
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<ContagemCabecalhoEntity> auxLista = query.list();
 

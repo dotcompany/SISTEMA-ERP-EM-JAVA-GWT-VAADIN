@@ -25,11 +25,8 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
-			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
-			// + "(ent.id, ent.nome, ent.sigla)");
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<ProdutoEntity> auxLista = query.list();
 
@@ -80,7 +77,7 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "Gtin", "Código interno", "Nome", "Descrição" };
+		return new String[] { "GTIN", "Código interno", "Nome", "Descrição" };
 	}
 
 }

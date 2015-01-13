@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.classes.ContagemCabecalhoUtils;
 import dc.control.validator.DotErpException;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
+import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
+import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.model.business.suprimento.estoque.ContagemCabecalhoBusiness;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -42,6 +46,9 @@ public class ContagemFormController extends
 
 	@Autowired
 	private ContagemCabecalhoBusiness<ContagemCabecalhoEntity> business;
+
+	@Autowired
+	private ProdutoBusiness<ProdutoEntity> produtoBusiness;
 
 	/**
 	 * DAO
@@ -191,6 +198,56 @@ public class ContagemFormController extends
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public ContagemDetalheEntity adicionarContagemDetalhe() {
+		try {
+			ContagemDetalheEntity ent = new ContagemDetalheEntity();
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public void removerContagemDetalhe(List<ContagemDetalheEntity> values) {
+		try {
+			for (ContagemDetalheEntity ent : values) {
+				// this.pessoaContatoBusiness.delete(ent);
+				// this.entity.getPessoaContatoList().remove(ent);
+			}
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public BeanItemContainer<ProdutoEntity> getProdutoBic() {
+		try {
+			List<ProdutoEntity> auxLista = this.produtoBusiness.findAll();
+
+			BeanItemContainer<ProdutoEntity> bic = new BeanItemContainer<ProdutoEntity>(
+					ProdutoEntity.class, auxLista);
+
+			return bic;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
 	}
 

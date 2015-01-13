@@ -27,11 +27,8 @@ public class OperadoraPlanoSaudeDAOImpl extends
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
-			// sql = sql.replace("-", this.getEntityClass().getSimpleName()
-			// + "(ent.id, ent.nome, ent.sigla)");
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<OperadoraPlanoSaudeEntity> auxLista = query.list();
 

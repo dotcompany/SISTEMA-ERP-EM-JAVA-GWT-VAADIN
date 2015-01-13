@@ -27,7 +27,6 @@ public class TipoPedidoDAOImpl extends AbstractCrudDAO<TipoPedidoEntity>
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("nome", query);
 
 			List<TipoPedidoEntity> auxLista = query.list();
 
