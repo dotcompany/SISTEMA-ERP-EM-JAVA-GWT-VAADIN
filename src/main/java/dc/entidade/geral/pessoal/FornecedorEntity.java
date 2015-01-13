@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +31,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.LocalizacaoEn;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -65,20 +69,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
-	@Field
-	@Caption(value = "Optante do simples nacional")
-	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String optanteSimplesNacional;
-
-	@Field
-	@Caption(value = "Localização")
-	@Column(name = "LOCALIZACAO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String localizacao;
-
 	@Temporal(TemporalType.DATE)
 	@Field
 	@Caption(value = "Data de cadastro")
@@ -86,13 +76,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
-
-	@Field
-	@Caption(value = "Sofre retenção")
-	@Column(name = "SOFRE_RETENCAO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String sofreRetencao;
 
 	@Field
 	@Caption(value = "Cheque nominal à")
@@ -123,13 +106,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	private BigDecimal prazoMedioEntrega;
 
 	@Field
-	@Caption(value = "Gera faturamento")
-	@Column(name = "GERA_FATURAMENTO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String geraFaturamento;
-
-	@Field
 	@Caption(value = "Número de dias - Primeiro vencimento")
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
 	@ComboValue
@@ -149,6 +125,38 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelas;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption(value = "Optante do simples nacional")
+	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn optanteSimplesNacional;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption(value = "Localização")
+	@Column(name = "LOCALIZACAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private LocalizacaoEn localizacao;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption(value = "Sofre retenção")
+	@Column(name = "SOFRE_RETENCAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn sofreRetencao;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption(value = "Gera faturamento")
+	@Column(name = "GERA_FATURAMENTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn geraFaturamento;
 
 	/**
 	 * REFERENCIA - FK
@@ -249,36 +257,12 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.desde = desde;
 	}
 
-	public String getOptanteSimplesNacional() {
-		return optanteSimplesNacional;
-	}
-
-	public void setOptanteSimplesNacional(String optanteSimplesNacional) {
-		this.optanteSimplesNacional = optanteSimplesNacional;
-	}
-
-	public String getLocalizacao() {
-		return localizacao;
-	}
-
-	public void setLocalizacao(String localizacao) {
-		this.localizacao = localizacao;
-	}
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	public String getSofreRetencao() {
-		return sofreRetencao;
-	}
-
-	public void setSofreRetencao(String sofreRetencao) {
-		this.sofreRetencao = sofreRetencao;
 	}
 
 	public String getChequeNominalA() {
@@ -313,14 +297,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.prazoMedioEntrega = prazoMedioEntrega;
 	}
 
-	public String getGeraFaturamento() {
-		return geraFaturamento;
-	}
-
-	public void setGeraFaturamento(String geraFaturamento) {
-		this.geraFaturamento = geraFaturamento;
-	}
-
 	public Integer getNumDiasPrimeiroVencimento() {
 		return numDiasPrimeiroVencimento;
 	}
@@ -343,6 +319,38 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setQuantidadeParcelas(Integer quantidadeParcelas) {
 		this.quantidadeParcelas = quantidadeParcelas;
+	}
+
+	public SimNaoEn getOptanteSimplesNacional() {
+		return optanteSimplesNacional;
+	}
+
+	public void setOptanteSimplesNacional(SimNaoEn optanteSimplesNacional) {
+		this.optanteSimplesNacional = optanteSimplesNacional;
+	}
+
+	public LocalizacaoEn getLocalizacao() {
+		return localizacao;
+	}
+
+	public void setLocalizacao(LocalizacaoEn localizacao) {
+		this.localizacao = localizacao;
+	}
+
+	public SimNaoEn getSofreRetencao() {
+		return sofreRetencao;
+	}
+
+	public void setSofreRetencao(SimNaoEn sofreRetencao) {
+		this.sofreRetencao = sofreRetencao;
+	}
+
+	public SimNaoEn getGeraFaturamento() {
+		return geraFaturamento;
+	}
+
+	public void setGeraFaturamento(SimNaoEn geraFaturamento) {
+		this.geraFaturamento = geraFaturamento;
 	}
 
 	public PessoaEntity getPessoa() {

@@ -122,6 +122,9 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private PessoaJuridicaEntity pessoaJuridica;
 
 	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private ClienteEntity cliente;
+
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private ColaboradorEntity colaborador;
 
 	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
@@ -140,8 +143,8 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
-	private List<ClienteEntity> clienteList;
+	// @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	// private List<ClienteEntity> clienteList;
 
 	/**
 	 * TRANSIENT
@@ -256,6 +259,14 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
+	public ClienteEntity getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteEntity cliente) {
+		this.cliente = cliente;
+	}
+
 	public ColaboradorEntity getColaborador() {
 		return colaborador;
 	}
@@ -297,13 +308,13 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaEnderecoList = pessoaEnderecoList;
 	}
 
-	public List<ClienteEntity> getClienteList() {
-		return clienteList;
-	}
+	// public List<ClienteEntity> getClienteList() {
+	// return clienteList;
+	// }
 
-	public void setClienteList(List<ClienteEntity> clienteList) {
-		this.clienteList = clienteList;
-	}
+	// public void setClienteList(List<ClienteEntity> clienteList) {
+	// this.clienteList = clienteList;
+	// }
 
 	/**
 	 * TO STRING

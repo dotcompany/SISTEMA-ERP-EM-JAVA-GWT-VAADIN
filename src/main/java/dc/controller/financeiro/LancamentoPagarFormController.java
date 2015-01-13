@@ -496,8 +496,8 @@ public class LancamentoPagarFormController extends
 						lancamentoPagar.getIntervaloEntreParcelas());
 			}
 			parcelaPagar.setDataVencimento(primeiroVencimento.getTime());
-			parcelaPagar.setSofreRetencao(lancamentoPagar.getFornecedor()
-					.getSofreRetencao());
+			//parcelaPagar.setSofreRetencao(lancamentoPagar.getFornecedor()
+			//		.getSofreRetencao());
 			parcelaPagar.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);

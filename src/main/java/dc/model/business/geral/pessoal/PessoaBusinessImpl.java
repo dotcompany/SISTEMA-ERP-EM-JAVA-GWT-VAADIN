@@ -221,7 +221,12 @@ public class PessoaBusinessImpl implements Serializable,
 			 */
 
 			if (ent.getTipoCliente().equals("0")) {
+				if (ObjectUtils.isNotBlank(ent.getCliente())
+						&& ObjectUtils.isNotBlank(ent.getCliente().getId())) {
+					this.clienteDAO.delete(ent.getCliente());
+				}
 
+				ent.setCliente(null);
 			}
 
 			if (!ent.getTipoColaborador()) {
@@ -231,13 +236,20 @@ public class PessoaBusinessImpl implements Serializable,
 			}
 
 			if (!ent.getTipoFornecedor()) {
-				this.fornecedorDAO.delete(ent.getFornecedor());
+				if (ObjectUtils.isNotBlank(ent.getFornecedor())
+						&& ObjectUtils.isNotBlank(ent.getFornecedor().getId())) {
+					this.fornecedorDAO.delete(ent.getFornecedor());
+				}
 
 				ent.setFornecedor(null);
 			}
 
 			if (!ent.getTipoTransportadora()) {
-				this.transportadoraDAO.delete(ent.getTransportadora());
+				if (ObjectUtils.isNotBlank(ent.getTransportadora())
+						&& ObjectUtils.isNotBlank(ent.getTransportadora()
+								.getId())) {
+					this.transportadoraDAO.delete(ent.getTransportadora());
+				}
 
 				ent.setTransportadora(null);
 			}

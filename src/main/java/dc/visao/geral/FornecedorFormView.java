@@ -11,7 +11,6 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
-import dc.control.enums.SimNaoEn;
 import dc.controller.geral.pessoal.FornecedorFormController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
@@ -312,18 +311,18 @@ public class FornecedorFormView extends CustomComponent {
 				.setNumDiasPrimeiroVencimento((Integer) tfNumDiasPrimeiroVenc
 						.getConvertedValue());
 		currentBean.setObservacao(taObservacao.getValue());
-		currentBean.setOptanteSimplesNacional(((SimNaoEn) cbOptanteSimples
-				.getValue()).getCodigo());
+		// currentBean.setOptanteSimplesNacional(((SimNaoEn) cbOptanteSimples
+		// .getValue()).getCodigo());
 		currentBean.setPessoa(mocPessoa.getValue());
 		currentBean.setPrazoMedioEntrega((BigDecimal) tfPrazoMedioEntrega
 				.getConvertedValue());
 		currentBean.setQuantidadeParcelas((Integer) tfQuantidadesParcelas
 				.getConvertedValue());
 		currentBean.setSituacaoForCli(mocSituacaoForCli.getValue());
-		currentBean.setSofreRetencao(((SimNaoEn) cbOptanteSimples.getValue())
-				.getCodigo());
-		currentBean.setLocalizacao(((Localizacao) cbLocalizacao.getValue())
-				.getCodigo());
+		// currentBean.setSofreRetencao(((SimNaoEn) cbOptanteSimples.getValue())
+		// .getCodigo());
+		// currentBean.setLocalizacao(((Localizacao) cbLocalizacao.getValue())
+		// .getCodigo());
 
 		if (currentBean.getDataCadastro() == null) {
 			currentBean.setDataCadastro(new Date());
@@ -340,18 +339,18 @@ public class FornecedorFormView extends CustomComponent {
 		tfNumDiasPrimeiroVenc.setConvertedValue(currentBean
 				.getNumDiasPrimeiroVencimento());
 		taObservacao.setValue(currentBean.getObservacao());
-		cbOptanteSimples.setValue(SimNaoEn.getEn(currentBean
-				.getOptanteSimplesNacional()));
+		// cbOptanteSimples.setValue(SimNaoEn.getEn(currentBean
+		// .getOptanteSimplesNacional()));
 		mocPessoa.setValue(currentBean.getPessoa());
 		tfPrazoMedioEntrega.setConvertedValue(currentBean
 				.getPrazoMedioEntrega());
 		tfQuantidadesParcelas.setConvertedValue(currentBean
 				.getQuantidadeParcelas());
 		mocSituacaoForCli.setValue(currentBean.getSituacaoForCli());
-		cbOptanteSimples
-				.setValue(SimNaoEn.getEn(currentBean.getSofreRetencao()));
-		cbLocalizacao.setValue(Localizacao.getLocalizacao(currentBean
-				.getLocalizacao()));
+		// cbOptanteSimples
+		// .setValue(SimNaoEn.getEn(currentBean.getSofreRetencao()));
+		// cbLocalizacao.setValue(Localizacao.getLocalizacao(currentBean
+		// .getLocalizacao()));
 	}
 
 	public enum Localizacao {

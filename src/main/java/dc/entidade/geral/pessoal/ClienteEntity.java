@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -61,15 +61,15 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private Integer id;
 
 	@Field
-	@Column(name = "DESDE")
 	@Caption("Desde")
+	@Column(name = "DESDE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date desde;
 
 	@Field
-	@Column(name = "DATA_CADASTRO")
 	@Caption("Data de cadastro")
+	@Column(name = "DATA_CADASTRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
@@ -77,63 +77,63 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Lob
 	@Type(type = "text")
 	@Field
-	@Column(name = "OBSERVACAO", length = 65535)
 	@Caption("Observação")
+	@Column(name = "OBSERVACAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
-	@Column(name = "CONTA_TOMADOR")
 	@Caption("Conta do tomador")
+	@Column(name = "CONTA_TOMADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaTomador;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "GERA_FINANCEIRO")
 	@Caption("Gera financeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private SimNaoEn gerarFinanceiro;
 
+	@Enumerated(EnumType.STRING)
 	@Field
-	@Column(name = "INDICADOR_PRECO")
 	@Caption("Indicador de preço")
+	@Column(name = "INDICADOR_PRECO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private IndicadorPrecoEn indicadorPreco;
 
 	@Field
-	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
 	@Caption("Porcento de desconto")
+	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal porcentoDesconto;
 
+	@Enumerated(EnumType.STRING)
 	@Field
-	@Column(name = "FORMA_DESCONTO")
 	@Caption("Forma de desconto")
+	@Column(name = "FORMA_DESCONTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private FormaDescontoEn formaDesconto;
 
 	@Field
-	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
 	@Caption("Limite de crédito")
+	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal limiteCredito;
 
+	@Enumerated(EnumType.STRING)
 	@Field
-	@Column(name = "TIPO_FRETE")
 	@Caption("Tipo de frete")
+	@Column(name = "TIPO_FRETE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
 	private TipoFreteEn tipoFrete;
 
 	/**
@@ -141,27 +141,27 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Caption("Pessoa")
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pessoa", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	@Caption("Situação fornecedor / cliente")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_situacao_for_cli", nullable = false)
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_atividade_for_cli", nullable = false)
 	private AtividadeForCliEntity atividadeForCli;
 
 	@Caption("Conta contábil")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_contabil_conta", nullable = true)
 	private ContabilContaEntity contabilConta;
 
 	@Caption("Operação fiscal")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
 	private OperacaoFiscalEntity operacaoFiscal;
 
