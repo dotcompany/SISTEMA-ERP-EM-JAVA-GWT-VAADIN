@@ -123,7 +123,7 @@ public class ContagemFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setDataContagem(this.subView.getDataContagem()
+			this.entity.setDataContagem(this.subView.getPdfDataContagem()
 					.getValue());
 
 			this.business.saveOrUpdate(this.entity);
@@ -141,7 +141,7 @@ public class ContagemFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getDataContagem().setValue(
+			this.subView.getPdfDataContagem().setValue(
 					this.entity.getDataContagem());
 		} catch (Exception e) {
 			e.printStackTrace();
