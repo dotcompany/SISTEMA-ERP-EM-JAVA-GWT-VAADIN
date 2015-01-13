@@ -140,29 +140,29 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Pessoa")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
-	@Caption("Pessoa")
 	private PessoaEntity pessoa;
 
+	@Caption("Situação fornecedor / cliente")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_situacao_for_cli", nullable = false)
-	@Caption("Situação fornecedor / cliente")
 	private SituacaoForCliEntity situacaoForCli;
 
+	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_atividade_for_cli", nullable = false)
-	@Caption("Atividade fornecedor / cliente")
 	private AtividadeForCliEntity atividadeForCli;
 
+	@Caption("Conta contábil")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_contabil_conta", nullable = true)
-	@Caption("Conta contábil")
 	private ContabilContaEntity contabilConta;
 
+	@Caption("Operação fiscal")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
-	@Caption("Operação fiscal")
 	private OperacaoFiscalEntity operacaoFiscal;
 
 	/**

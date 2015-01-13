@@ -10,12 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.control.util.ListUtils;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
 import dc.model.dao.geral.produto.ProdutoDAO;
-import dc.model.dao.suprimento.estoque.ContagemCabecalhoDAO;
 import dc.model.dao.suprimento.estoque.ContagemDetalheDAO;
 
 /**
@@ -26,8 +24,8 @@ import dc.model.dao.suprimento.estoque.ContagemDetalheDAO;
 
 @Service
 @Transactional(readOnly = true)
-public class ContagemCabecalhoBusinessImpl implements Serializable,
-		ContagemCabecalhoBusiness<ContagemCabecalhoEntity> {
+public class ContagemDetalheBusinessImpl implements Serializable,
+		ContagemDetalheBusiness<ContagemDetalheEntity> {
 
 	/**
 	 * 
@@ -35,13 +33,10 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	private static Logger logger = Logger
-			.getLogger(ContagemCabecalhoBusinessImpl.class);
+			.getLogger(ContagemDetalheBusinessImpl.class);
 
 	@Autowired
-	private ContagemCabecalhoDAO<ContagemCabecalhoEntity> dao;
-
-	@Autowired
-	private ContagemDetalheDAO<ContagemDetalheEntity> contagemDetalheDAO;
+	private ContagemDetalheDAO<ContagemDetalheEntity> dao;
 
 	@Autowired
 	private ProdutoDAO<ProdutoEntity> produtoDAO;
@@ -52,9 +47,23 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 
 	@Transactional(readOnly = false)
 	@Override
-	public void delete(ContagemCabecalhoEntity t) throws Exception {
+	public void delete(ContagemDetalheEntity t) throws Exception {
 		// TODO Auto-generated method stub
+		try {
+			System.out
+					.println(":: [" + getClass().getSimpleName() + "] delete");
 
+			ProdutoEntity produto = this.produtoDAO
+					.find(t.getProduto().getId());
+
+			t.setProduto(produto);
+
+			this.dao.delete(t);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional(readOnly = false)
@@ -74,12 +83,12 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public ContagemCabecalhoEntity find(Serializable id) throws Exception {
+	public ContagemDetalheEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
-			ContagemCabecalhoEntity ent = this.dao.find(id);
+			ContagemDetalheEntity ent = this.dao.find(id);
 
 			return ent;
 		} catch (Exception e) {
@@ -90,48 +99,47 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public ContagemCabecalhoEntity find(ContagemCabecalhoEntity t)
+	public ContagemDetalheEntity find(ContagemDetalheEntity t) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> find(String s) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> findAll(ContagemDetalheEntity t)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ContagemCabecalhoEntity> find(String s) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ContagemCabecalhoEntity> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ContagemCabecalhoEntity> findAll(ContagemCabecalhoEntity t)
+	public List<ContagemDetalheEntity> fullTextSearch(String valor)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ContagemCabecalhoEntity> fullTextSearch(String valor)
-			throws Exception {
+	public List<ContagemDetalheEntity> fullTextSearch(String valor, int first,
+			int pageSize, String[] sortingFields, boolean[] sortingStates,
+			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ContagemCabecalhoEntity> fullTextSearch(String valor,
-			int first, int pageSize, String[] sortingFields,
-			boolean[] sortingStates, List<Filter> filters) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ContagemCabecalhoEntity> fullTextSearch(String valor,
+	public List<ContagemDetalheEntity> fullTextSearch(String valor,
 			String[] sortingFields, boolean[] states, List<Filter> filters)
 			throws Exception {
 		// TODO Auto-generated method stub
@@ -146,7 +154,7 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 
 	@Transactional(readOnly = false)
 	@Override
-	public void save(ContagemCabecalhoEntity t) throws Exception {
+	public void save(ContagemDetalheEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -159,19 +167,25 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			ContagemCabecalhoEntity ent = (ContagemCabecalhoEntity) o;
+			this.dao.saveOrUpdate(o);
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			this.dao.saveOrUpdate(ent);
+			throw e;
+		}
+	}
 
-			if (ListUtils.isNotNullAndNotEmpty(ent.getContagemDetalheList())) {
-				for (ContagemDetalheEntity ent1 : ent.getContagemDetalheList()) {
-					ProdutoEntity produto = this.produtoDAO.find(ent1
-							.getProduto().getId());
-					ent1.setProduto(produto);
+	/**
+	 * 
+	 */
 
-					this.contagemDetalheDAO.saveOrUpdate(ent1);
-				}
-			}
+	@Override
+	public List<ContagemDetalheEntity> list(ContagemCabecalhoEntity entity) {
+		// TODO Auto-generated method stub
+		try {
+			List<ContagemDetalheEntity> auxLista = this.dao.list(entity);
+
+			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 

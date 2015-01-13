@@ -156,18 +156,22 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@IndexedEmbedded
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Caption("Pessoa")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	private PessoaEntity pessoa;
 
+	@Caption("Situação fornecedor / cliente")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_SITUACAO_FOR_CLI")
 	private SituacaoForCliEntity situacaoForCli;
 
+	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI")
 	private AtividadeForCliEntity atividadeForCli;
 
+	@Caption("Conta contábil")
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTABIL_CONTA")
 	private ContabilContaEntity contabilConta;

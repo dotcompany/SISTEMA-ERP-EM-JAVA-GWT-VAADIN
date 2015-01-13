@@ -11,6 +11,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.NumberUtils;
 import dc.control.util.classes.ContagemCabecalhoUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.ProdutoEntity;
@@ -18,6 +19,7 @@ import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.model.business.suprimento.estoque.ContagemCabecalhoBusiness;
+import dc.model.business.suprimento.estoque.ContagemDetalheBusiness;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.ContagemFormView;
@@ -46,6 +48,9 @@ public class ContagemFormController extends
 
 	@Autowired
 	private ContagemCabecalhoBusiness<ContagemCabecalhoEntity> business;
+
+	@Autowired
+	private ContagemDetalheBusiness<ContagemDetalheEntity> contagemDetalheBusiness;
 
 	@Autowired
 	private ProdutoBusiness<ProdutoEntity> produtoBusiness;
@@ -107,7 +112,7 @@ public class ContagemFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			ContagemCabecalhoUtils.validateRequiredFields(null);
+			ContagemCabecalhoUtils.validateRequiredFields(this.subView);
 
 			return true;
 		} catch (DotErpException dee) {
@@ -117,21 +122,18 @@ public class ContagemFormController extends
 		}
 	}
 
-	/*
-	 * @Override protected boolean validaSalvar() { boolean valido = true;
-	 * 
-	 * if (!Validator.validateObject(subView.getDataContagem().getValue())) {
-	 * adicionarErroDeValidacao(subView.getDataContagem(),
-	 * "Não pode ficar em branco"); valido = false; }
-	 * 
-	 * return valido; }
-	 */
-
 	@Override
 	protected void actionSalvar() {
 		try {
 			this.entity.setDataContagem(this.subView.getPdfDataContagem()
 					.getValue());
+
+			//
+
+			List<ContagemDetalheEntity> auxLista1 = this.subView
+					.getSfContagemDetalhe().getDados();
+
+			this.entity.setContagemDetalheList(auxLista1);
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -148,8 +150,20 @@ public class ContagemFormController extends
 		try {
 			this.entity = this.business.find(id);
 
+			// ContagemDetalhe
+
+			List<ContagemDetalheEntity> auxLista1 = this.contagemDetalheBusiness
+					.list(this.entity);
+
+			this.entity.setContagemDetalheList(auxLista1);
+
+			//
+
 			this.subView.getPdfDataContagem().setValue(
 					this.entity.getDataContagem());
+
+			this.subView.getSfContagemDetalhe().fillWith(
+					this.entity.getContagemDetalheList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -208,6 +222,9 @@ public class ContagemFormController extends
 	public ContagemDetalheEntity adicionarContagemDetalhe() {
 		try {
 			ContagemDetalheEntity ent = new ContagemDetalheEntity();
+			ent.setContagemCabecalho(this.entity);
+
+			this.entity.getContagemDetalheList().add(ent);
 
 			return ent;
 		} catch (Exception e) {
@@ -220,8 +237,11 @@ public class ContagemFormController extends
 	public void removerContagemDetalhe(List<ContagemDetalheEntity> values) {
 		try {
 			for (ContagemDetalheEntity ent : values) {
-				// this.pessoaContatoBusiness.delete(ent);
-				// this.entity.getPessoaContatoList().remove(ent);
+				if (NumberUtils.isNotBlank(ent.getId())) {
+					this.contagemDetalheBusiness.delete(ent);
+				}
+
+				this.entity.getContagemDetalheList().remove(ent);
 			}
 
 			mensagemRemovidoOK();

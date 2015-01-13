@@ -419,54 +419,54 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
+	@Caption("Setor")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_setor", nullable = false)
-	@Caption("Setor")
 	private SetorEntity setor;
 
+	@Caption("Conta contábil")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_contabil_conta", nullable = true)
-	@Caption("Conta contábil")
 	private ContabilContaEntity contaContabil;
 
+	@Caption("Cargo")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_cargo", nullable = false)
-	@Caption("Cargo")
 	private CargoEntity cargo;
 
+	@Caption("Tipo do colaborador")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_tipo_colaborador", nullable = false)
-	@Caption("Tipo do colaborador")
 	private TipoColaboradorEntity tipoColaborador;
 
+	@Caption("Situação do colaborador")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_situacao_colaborador", nullable = false)
-	@Caption("Situação do colaborador")
 	private SituacaoColaboradorEntity situacaoColaborador;
 
+	@Caption("Nível de formação")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_nivel_formacao", nullable = false)
-	@Caption("Nível de formação")
 	private NivelFormacaoEntity nivelFormacao;
 
+	@Caption("Sindicato")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_sindicato", nullable = false)
-	@Caption("Sindicato")
 	private SindicatoEntity sindicato;
 
+	@Caption("Plano de conta")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_plano_conta", nullable = true)
-	@Caption("Plano de conta")
 	private PlanoConta planoConta;
 
+	@Caption("Conta da caixa")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_conta_caixa", nullable = true)
-	@Caption("Conta da caixa")
 	private ContaCaixa contaCaixa;
 
+	@Caption("Pessoa")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
-	@Caption("Pessoa")
 	private PessoaEntity pessoa;
 
 	/**

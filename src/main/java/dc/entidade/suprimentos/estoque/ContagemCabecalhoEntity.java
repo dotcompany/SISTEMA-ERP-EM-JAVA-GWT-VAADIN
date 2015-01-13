@@ -1,10 +1,10 @@
 package dc.entidade.suprimentos.estoque;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -73,8 +73,10 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "contagemCabecalho", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ContagemDetalheEntity> contagemDetalhe;
+	// @OneToMany(mappedBy = "contagemCabecalho", orphanRemoval = true, cascade
+	// = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "contagemCabecalho", fetch = FetchType.LAZY)
+	private List<ContagemDetalheEntity> contagemDetalheList = new ArrayList<>();
 
 	/**
 	 * TRANSIENT
@@ -118,12 +120,13 @@ public class ContagemCabecalhoEntity extends AbstractMultiEmpresaModel<Integer> 
 				: estoqueAtualizado.toUpperCase().trim());
 	}
 
-	public List<ContagemDetalheEntity> getContagemDetalhe() {
-		return contagemDetalhe;
+	public List<ContagemDetalheEntity> getContagemDetalheList() {
+		return contagemDetalheList;
 	}
 
-	public void setContagemDetalhe(List<ContagemDetalheEntity> contagemDetalhe) {
-		this.contagemDetalhe = contagemDetalhe;
+	public void setContagemDetalheList(
+			List<ContagemDetalheEntity> contagemDetalheList) {
+		this.contagemDetalheList = contagemDetalheList;
 	}
 
 	/**

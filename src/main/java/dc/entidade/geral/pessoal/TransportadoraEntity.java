@@ -52,25 +52,27 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@Lob
-	@Field
-	@Caption("Observacao")
 	@Type(type = "text")
+	@Field
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
-
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private PessoaEntity pessoa;
-
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private ContabilContaEntity contaContabil;
+	private String observacao = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
+
+	@Caption("Pessoa")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	private PessoaEntity pessoa;
+
+	@Caption("Conta contábil")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
+	private ContabilContaEntity contaContabil;
 
 	/**
 	 * REFERENCIA - LIST
@@ -110,7 +112,8 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public PessoaEntity getPessoa() {

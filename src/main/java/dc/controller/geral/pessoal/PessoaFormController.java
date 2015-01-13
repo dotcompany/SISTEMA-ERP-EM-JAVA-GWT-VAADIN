@@ -174,6 +174,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.entity.setEmail(this.subView.getTfEmail().getValue());
 			this.entity.setSite(this.subView.getTfSite().getValue());
 
+			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getEmpresa());
+
+			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+				savePessoaFisica();
+			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+				savePessoaJuridica();
+			}
+
 			this.entity.setCliente(this.subView.getCkCliente().getValue()
 					.equals(Boolean.TRUE) ? "1" : "0");
 			this.entity.setColaborador(this.subView.getCkColaborador()
@@ -182,15 +191,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					.setFornecedor(this.subView.getCkFornecedor().getValue());
 			this.entity.setTransportadora(this.subView.getCkTransportadora()
 					.getValue());
-
-			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
-					.getEmpresa());
-
-			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
-				salvarPessoaFisica();
-			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
-				salvarPessoaJuridica();
-			}
 
 			// PessoaContato
 
@@ -216,121 +216,121 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	private void salvarPessoaFisica() {
-		try {
-			PessoaFisicaEntity pf = this.entity.getPessoaFisica();
+	private void savePessoaFisica() throws Exception {
+		PessoaFisicaEntity pf = (this.entity.getPessoaFisica() == null ? new PessoaFisicaEntity()
+				: this.entity.getPessoaFisica());
 
-			if (pf == null) {
-				pf = new PessoaFisicaEntity();
-			}
+		pf.setPessoa(this.entity);
 
-			pf.setPessoa(this.entity);
+		pf.setCpf(this.subView.getMtfCpf().getValue());
+		pf.setDataNascimento(this.subView.getPdfDataNascimento().getValue());
+		pf.setNaturalidade(this.subView.getTfNaturalidade().getValue());
+		pf.setNacionalidade(this.subView.getTfNacionalidade().getValue());
+		pf.setNomeMae(this.subView.getTfNomeMae().getValue());
+		pf.setNomePai(this.subView.getTfNomePai().getValue());
+		pf.setRg(this.subView.getTfNumeroRg().getValue());
+		pf.setOrgaoRg(this.subView.getTfOrgaoEmissor().getValue());
+		pf.setDataEmissaoRg(this.subView.getPdfDataEmissaoRg().getValue());
+		pf.setCnhNumero(this.subView.getTfCnh().getValue());
 
-			pf.setCpf(this.subView.getMtfCpf().getValue());
-			pf.setDataNascimento(this.subView.getPdfDataNascimento().getValue());
-			pf.setNaturalidade(this.subView.getTfNaturalidade().getValue());
-			pf.setNacionalidade(this.subView.getTfNacionalidade().getValue());
-			pf.setNomeMae(this.subView.getTfNomeMae().getValue());
-			pf.setNomePai(this.subView.getTfNomePai().getValue());
-			pf.setRg(this.subView.getTfNumeroRg().getValue());
-			pf.setOrgaoRg(this.subView.getTfOrgaoEmissor().getValue());
-			pf.setDataEmissaoRg(this.subView.getPdfDataEmissaoRg().getValue());
-			pf.setCnhNumero(this.subView.getTfCnh().getValue());
+		CnhEn cnhEn = (CnhEn) this.subView.getCbCategoriaCnh().getValue();
 
-			CnhEn cnhEn = (CnhEn) this.subView.getCbCategoriaCnh().getValue();
-
-			if (ObjectUtils.isNotBlank(cnhEn)) {
-				pf.setCnh(cnhEn);
-			}
-
-			pf.setCnhVencimento(this.subView.getPdfDataCnhEmissao().getValue());
-
-			EstadoCivilEntity estadoCivil = this.subView.getMocEstadoCivil()
-					.getValue();
-
-			if (ObjectUtils.isNotBlank(estadoCivil)) {
-				pf.setEstadoCivil(estadoCivil);
-			}
-
-			RacaEn racaEn = (RacaEn) this.subView.getCbRaca().getValue();
-
-			if (ObjectUtils.isNotBlank(racaEn)) {
-				pf.setRaca(racaEn);
-			}
-
-			TipoSanguineoEn tipoSanguineoEn = (TipoSanguineoEn) this.subView
-					.getCbTipoSanguineo().getValue();
-
-			if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
-				pf.setTipoSangue(tipoSanguineoEn);
-			}
-
-			pf.setReservistaNumero(this.subView.getTfNumeroReservista()
-					.getValue());
-
-			CategoriaReservistaEn categoriaReservistaEn = (CategoriaReservistaEn) this.subView
-					.getCbCategoriaReservista().getValue();
-
-			if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
-				pf.setReservistaCategoria(categoriaReservistaEn);
-			}
-
-			SexoEn sexoEn = (SexoEn) this.subView.getOgSexo().getValue();
-
-			if (ObjectUtils.isNotBlank(sexoEn)) {
-				pf.setSexo(sexoEn);
-			}
-
-			pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
-					.getValue());
-			pf.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
-					.getTfTituloSecao().getValue()));
-			pf.setTituloEleitoralZona(NumberUtils.toInt(this.subView
-					.getTfTituloZona().getValue()));
-
-			this.entity.setPessoaFisica(pf);
-		} catch (Exception e) {
-			throw e;
+		if (ObjectUtils.isNotBlank(cnhEn)) {
+			pf.setCnh(cnhEn);
 		}
+
+		pf.setCnhVencimento(this.subView.getPdfDataCnhEmissao().getValue());
+
+		EstadoCivilEntity estadoCivil = this.subView.getMocEstadoCivil()
+				.getValue();
+
+		if (ObjectUtils.isNotBlank(estadoCivil)) {
+			pf.setEstadoCivil(estadoCivil);
+		}
+
+		RacaEn racaEn = (RacaEn) this.subView.getCbRaca().getValue();
+
+		if (ObjectUtils.isNotBlank(racaEn)) {
+			pf.setRaca(racaEn);
+		}
+
+		TipoSanguineoEn tipoSanguineoEn = (TipoSanguineoEn) this.subView
+				.getCbTipoSanguineo().getValue();
+
+		if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
+			pf.setTipoSangue(tipoSanguineoEn);
+		}
+
+		pf.setReservistaNumero(this.subView.getTfNumeroReservista().getValue());
+
+		CategoriaReservistaEn categoriaReservistaEn = (CategoriaReservistaEn) this.subView
+				.getCbCategoriaReservista().getValue();
+
+		if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
+			pf.setReservistaCategoria(categoriaReservistaEn);
+		}
+
+		SexoEn sexoEn = (SexoEn) this.subView.getOgSexo().getValue();
+
+		if (ObjectUtils.isNotBlank(sexoEn)) {
+			pf.setSexo(sexoEn);
+		}
+
+		pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
+				.getValue());
+		pf.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
+				.getTfTituloSecao().getValue()));
+		pf.setTituloEleitoralZona(NumberUtils.toInt(this.subView
+				.getTfTituloZona().getValue()));
+
+		this.entity.setPessoaFisica(pf);
 	}
 
-	private void salvarPessoaJuridica() {
-		try {
-			PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
+	private void savePessoaJuridica() throws Exception {
+		PessoaJuridicaEntity pj = (this.entity.getPessoaJuridica() == null ? new PessoaJuridicaEntity()
+				: this.entity.getPessoaJuridica());
 
-			if (pj == null) {
-				pj = new PessoaJuridicaEntity();
-			}
+		pj.setPessoa(this.entity);
 
-			pj.setPessoa(this.entity);
+		pj.setFantasia(this.subView.getTfFantasia().getValue());
+		pj.setCnpj(this.subView.getMtfCnpj().getValue());
+		pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
+				.getValue());
+		pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
+				.getValue());
+		pj.setDataConstituicao(this.subView.getPdfDataConstituicao().getValue());
+		pj.setSuframa(this.subView.getTfSuframa().getValue());
 
-			pj.setFantasia(this.subView.getTfFantasia().getValue());
-			pj.setCnpj(this.subView.getMtfCnpj().getValue());
-			pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
-					.getValue());
-			pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
-					.getValue());
-			pj.setDataConstituicao(this.subView.getPdfDataConstituicao()
-					.getValue());
-			pj.setSuframa(this.subView.getTfSuframa().getValue());
+		TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
+				.getCbTipoRegime().getValue();
 
-			TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
-					.getCbTipoRegime().getValue();
-
-			if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-				pj.setTipoRegime(tipoRegimeEn);
-			}
-
-			CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
-
-			if (ObjectUtils.isNotBlank(crtEn)) {
-				pj.setCrt(crtEn);
-			}
-
-			this.entity.setPessoaJuridica(pj);
-		} catch (Exception e) {
-			throw e;
+		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+			pj.setTipoRegime(tipoRegimeEn);
 		}
+
+		CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
+
+		if (ObjectUtils.isNotBlank(crtEn)) {
+			pj.setCrt(crtEn);
+		}
+
+		this.entity.setPessoaJuridica(pj);
+	}
+
+	private void saveCliente() throws Exception {
+
+	}
+
+	private void saveColaborador() throws Exception {
+
+	}
+
+	private void saveFornecedor() throws Exception {
+
+	}
+
+	private void saveTransportadora() throws Exception {
+
 	}
 
 	@Override
@@ -361,9 +361,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getTfSite().setValue(this.entity.getSite());
 
 			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
-				this.entity.setPessoaFisica(carregarPessoaFisica());
+				this.entity.setPessoaFisica(loadPessoaFisica());
 			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
-				this.entity.setPessoaJuridica(carregarPessoaJuridica());
+				this.entity.setPessoaJuridica(loadPessoaJuridica());
 			}
 
 			this.subView.getCkCliente().setValue(
@@ -403,35 +403,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	private PessoaJuridicaEntity carregarPessoaJuridica() {
-		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
-
-		this.subView.getTfFantasia().setValue(pj.getFantasia());
-		this.subView.getMtfCnpj().setValue(pj.getCnpj());
-		this.subView.getTfInscricaoEstadual().setValue(
-				pj.getInscricaoEstadual());
-		this.subView.getTfInscricaoMunicipal().setValue(
-				pj.getInscricaoMunicipal());
-		this.subView.getPdfDataConstituicao()
-				.setValue(pj.getDataConstituicao());
-		this.subView.getTfSuframa().setValue(pj.getSuframa());
-
-		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
-
-		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-			this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
-		}
-
-		CrtEn crtEn = pj.getCrt();
-
-		if (ObjectUtils.isNotBlank(crtEn)) {
-			this.subView.getCbCrt().setValue(crtEn);
-		}
-
-		return pj;
-	}
-
-	private PessoaFisicaEntity carregarPessoaFisica() {
+	private PessoaFisicaEntity loadPessoaFisica() {
 		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
 
 		this.subView.getMtfCpf().setValue(pf.getCpf());
@@ -490,6 +462,50 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				pf.getTituloEleitoralZona());
 
 		return pf;
+	}
+
+	private PessoaJuridicaEntity loadPessoaJuridica() {
+		PessoaJuridicaEntity pj = this.entity.getPessoaJuridica();
+
+		this.subView.getTfFantasia().setValue(pj.getFantasia());
+		this.subView.getMtfCnpj().setValue(pj.getCnpj());
+		this.subView.getTfInscricaoEstadual().setValue(
+				pj.getInscricaoEstadual());
+		this.subView.getTfInscricaoMunicipal().setValue(
+				pj.getInscricaoMunicipal());
+		this.subView.getPdfDataConstituicao()
+				.setValue(pj.getDataConstituicao());
+		this.subView.getTfSuframa().setValue(pj.getSuframa());
+
+		TipoRegimeEn tipoRegimeEn = pj.getTipoRegime();
+
+		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
+			this.subView.getCbTipoRegime().setValue(tipoRegimeEn);
+		}
+
+		CrtEn crtEn = pj.getCrt();
+
+		if (ObjectUtils.isNotBlank(crtEn)) {
+			this.subView.getCbCrt().setValue(crtEn);
+		}
+
+		return pj;
+	}
+
+	private void loadCliente() throws Exception {
+
+	}
+
+	private void loadColaborador() throws Exception {
+
+	}
+
+	private void loadFornecedor() throws Exception {
+
+	}
+
+	private void loadTransportadora() throws Exception {
+
 	}
 
 	@Override
