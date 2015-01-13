@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +27,6 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -154,11 +154,16 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * REFERENCIA - FK
 	 */
 
-	@IndexedEmbedded
-	@Analyzer(definition = "dc_combo_analyzer")
+	// @IndexedEmbedded
+	// @Analyzer(definition = "dc_combo_analyzer")
+	// @Caption("Pessoa")
+	// @ManyToOne(optional = false, fetch = FetchType.EAGER)
+	// @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	// private PessoaEntity pessoa;
+
 	@Caption("Pessoa")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@OneToOne
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	@Caption("Situação fornecedor / cliente")

@@ -1,6 +1,7 @@
 package dc.controller.geral.pessoal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,27 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
+import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.diverso.UfEntity;
+import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
+import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.PessoaFormView;
@@ -84,6 +92,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	@Autowired
 	private EstadoCivilDAO estadoCivilDAO;
 
+	@Autowired
+	private SituacaoForCliDAO situacaoForCliDAO;
+
+	@Autowired
+	private AtividadeForCliDAO atividadeForCliDAO;
+
+	@Autowired
+	private ContabilContaDAO contabilContaDAO;
+
 	/**
 	 * CONSTRUTOR
 	 */
@@ -127,11 +144,32 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		try {
 			this.subView = new PessoaFormView(this);
 
-			DefaultManyToOneComboModel<EstadoCivilEntity> model = new DefaultManyToOneComboModel<EstadoCivilEntity>(
+			DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
 					EstadoCivilListController.class, this.estadoCivilDAO,
 					super.getMainController());
 
-			this.subView.getMocEstadoCivil().setModel(model);
+			this.subView.getMocEstadoCivil().setModel(modelEstadoCivil);
+
+			DefaultManyToOneComboModel<SituacaoForCliEntity> modelSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+					SituacaoColaboradorListController.class,
+					this.situacaoForCliDAO, super.getMainController());
+
+			this.subView.getMocFornecedorSituacaoForCli().setModel(
+					modelSituacaoForCli);
+
+			DefaultManyToOneComboModel<AtividadeForCliEntity> modelAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
+					AtividadeForCliListController.class,
+					this.atividadeForCliDAO, super.getMainController());
+
+			this.subView.getMocFornecedorAtividadeForCli().setModel(
+					modelAtividadeForCli);
+
+			DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController());
+
+			this.subView.getMocFornecedorContabilConta().setModel(
+					modelContabilConta);
 
 			carregarTipoRegime();
 			carregarCnh();
@@ -191,6 +229,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					.getValue());
 			this.entity.setTipoFornecedor(this.subView.getCkFornecedor()
 					.getValue());
+
+			if (this.entity.getTipoFornecedor()) {
+				saveFornecedor();
+			}
+
 			this.entity.setTipoTransportadora(this.subView
 					.getCkTransportadora().getValue());
 
@@ -330,7 +373,74 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void saveFornecedor() throws Exception {
+		FornecedorEntity ent = (this.entity.getFornecedor() == null ? new FornecedorEntity()
+				: this.entity.getFornecedor());
+		ent.setPessoa(this.entity);
 
+		ent.setSituacaoForCli(this.subView.getMocFornecedorSituacaoForCli()
+				.getValue());
+		ent.setAtividadeForCli(this.subView.getMocFornecedorAtividadeForCli()
+				.getValue());
+		ent.setContabilConta(this.subView.getMocFornecedorContabilConta()
+				.getValue());
+		ent.setDesde(this.subView.getPdfFornecedorDesde().getValue());
+		ent.setContaRemetente(this.subView.getTfFornecedorContaRemetente()
+				.getValue());
+
+		// ent.setGeraFaturamento(this.subView.getCbFornecedorGeraFaturamento()
+		// .getValue());
+
+		// ent.setOptanteSimplesNacional(this.subView
+		// .getCbFornecedorOptanteSimples().getValue());
+
+		// ent.setLocalizacao(this.subView.getCbFornecedorLocalizacao().getValue());
+
+		// ent.setSofreRetencao(this.subView.getCbFornecedorSofreRetencao()
+		// .getValue());
+
+		String prazoMediaEntrega = this.subView
+				.getTfFornecedorPrazoMedioEntrega().getValue();
+
+		if (NumberUtils.isNumber(prazoMediaEntrega)) {
+			ent.setPrazoMedioEntrega(NumberUtils
+					.createBigDecimal(prazoMediaEntrega));
+		} else {
+			ent.setPrazoMedioEntrega(new BigDecimal(0));
+		}
+
+		String numDiasPrimeiroVencimento = this.subView
+				.getTfFornecedorNumDiasPrimeiroVenc().getValue();
+
+		if (NumberUtils.isNumber(numDiasPrimeiroVencimento)) {
+			ent.setNumDiasPrimeiroVencimento(NumberUtils
+					.toInt(numDiasPrimeiroVencimento));
+		} else {
+			ent.setNumDiasPrimeiroVencimento(0);
+		}
+
+		String numDiasIntervalo = this.subView
+				.getTfFornecedorNumDiasIntervalo().getValue();
+
+		if (NumberUtils.isNumber(numDiasIntervalo)) {
+			ent.setNumDiasIntervalo(NumberUtils.toInt(numDiasIntervalo));
+		} else {
+			ent.setNumDiasIntervalo(0);
+		}
+
+		String quantidadeParcelas = this.subView
+				.getTfFornecedorQuantidadeParcelas().getValue();
+
+		if (NumberUtils.isNumber(quantidadeParcelas)) {
+			ent.setQuantidadeParcelas(NumberUtils.toInt(quantidadeParcelas));
+		} else {
+			ent.setQuantidadeParcelas(0);
+		}
+
+		ent.setChequeNominalA(this.subView.getTfFornecedorChequeNominalA()
+				.getValue());
+		ent.setObservacao(this.subView.getTaFornecedorObservacao().getValue());
+
+		this.entity.setFornecedor(ent);
 	}
 
 	private void saveTransportadora() throws Exception {
@@ -388,6 +498,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getCkFornecedor().setValue(
 					this.entity.getTipoFornecedor());
+
+			if (this.entity.getTipoFornecedor()) {
+				loadFornecedor();
+			}
 
 			this.subView.getCkTransportadora().setValue(
 					this.entity.getTipoTransportadora());
@@ -518,7 +632,52 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void loadFornecedor() throws Exception {
+		FornecedorEntity fornecedor = this.entity.getFornecedor();
 
+		SituacaoForCliEntity situacaoForCli = fornecedor.getSituacaoForCli();
+
+		if (ObjectUtils.isNotBlank(situacaoForCli)) {
+			this.subView.getMocFornecedorSituacaoForCli().setValue(
+					situacaoForCli);
+		}
+
+		AtividadeForCliEntity atividadeForCli = fornecedor.getAtividadeForCli();
+
+		if (ObjectUtils.isNotBlank(atividadeForCli)) {
+			this.subView.getMocFornecedorAtividadeForCli().setValue(
+					atividadeForCli);
+		}
+
+		ContabilContaEntity contaContabil = fornecedor.getContabilConta();
+
+		if (ObjectUtils.isNotBlank(contaContabil)) {
+			this.subView.getMocFornecedorContabilConta()
+					.setValue(contaContabil);
+		}
+
+		this.subView.getPdfFornecedorDesde().setValue(fornecedor.getDesde());
+		this.subView.getTfFornecedorContaRemetente().setValue(
+				fornecedor.getContaRemetente());
+		this.subView.getCbFornecedorGeraFaturamento().setValue(
+				fornecedor.getGeraFaturamento());
+		this.subView.getCbFornecedorOptanteSimples().setValue(
+				fornecedor.getOptanteSimplesNacional());
+		this.subView.getCbFornecedorLocalizacao().setValue(
+				fornecedor.getLocalizacao());
+		this.subView.getCbFornecedorSofreRetencao().setValue(
+				fornecedor.getSofreRetencao());
+		this.subView.getTfFornecedorPrazoMedioEntrega().setValue(
+				fornecedor.getPrazoMedioEntrega().toString());
+		this.subView.getTfFornecedorNumDiasPrimeiroVenc().setValue(
+				fornecedor.getNumDiasPrimeiroVencimento().toString());
+		this.subView.getTfFornecedorNumDiasIntervalo().setValue(
+				fornecedor.getNumDiasIntervalo().toString());
+		this.subView.getTfFornecedorQuantidadeParcelas().setValue(
+				fornecedor.getQuantidadeParcelas().toString());
+		this.subView.getTfFornecedorChequeNominalA().setValue(
+				fornecedor.getChequeNominalA());
+		this.subView.getTaFornecedorObservacao().setValue(
+				fornecedor.getObservacao());
 	}
 
 	private void loadTransportadora() throws Exception {

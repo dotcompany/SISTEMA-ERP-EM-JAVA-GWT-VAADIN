@@ -216,13 +216,41 @@ public class PessoaBusinessImpl implements Serializable,
 				ent.setPessoaFisica(null);
 			}
 
+			/**
+			 * 
+			 */
+
+			if (ent.getTipoCliente().equals("0")) {
+
+			}
+
+			if (!ent.getTipoColaborador()) {
+				// this.colaboradorDAO.delete(ent.getColaborador());
+
+				ent.setColaborador(null);
+			}
+
+			if (!ent.getTipoFornecedor()) {
+				this.fornecedorDAO.delete(ent.getFornecedor());
+
+				ent.setFornecedor(null);
+			}
+
 			if (!ent.getTipoTransportadora()) {
 				this.transportadoraDAO.delete(ent.getTransportadora());
 
 				ent.setTransportadora(null);
 			}
 
+			/**
+			 * 
+			 */
+
 			this.dao.saveOrUpdate(ent);
+
+			/**
+			 * 
+			 */
 
 			if (ListUtils.isNotNullAndNotEmpty(ent.getPessoaContatoList())) {
 				for (PessoaContatoEntity ent1 : ent.getPessoaContatoList()) {

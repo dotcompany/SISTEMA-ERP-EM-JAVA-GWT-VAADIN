@@ -122,6 +122,12 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private PessoaJuridicaEntity pessoaJuridica;
 
 	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private ColaboradorEntity colaborador;
+
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private FornecedorEntity fornecedor;
+
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private TransportadoraEntity transportadora;
 
 	/**
@@ -248,6 +254,22 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setPessoaJuridica(PessoaJuridicaEntity pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
+	}
+
+	public ColaboradorEntity getColaborador() {
+		return colaborador;
+	}
+
+	public void setColaborador(ColaboradorEntity colaborador) {
+		this.colaborador = colaborador;
+	}
+
+	public FornecedorEntity getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(FornecedorEntity fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	public TransportadoraEntity getTransportadora() {
