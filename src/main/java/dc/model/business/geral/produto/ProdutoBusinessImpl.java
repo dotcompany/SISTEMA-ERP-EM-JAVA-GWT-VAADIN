@@ -242,4 +242,24 @@ public class ProdutoBusinessImpl implements Serializable,
 		}
 	}
 
+	/**
+	 * 
+	 */
+
+	@Override
+	public List<ProdutoEntity> list() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println(":: [" + getClass().getSimpleName() + "] list");
+
+			List<ProdutoEntity> auxLista = this.dao.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }

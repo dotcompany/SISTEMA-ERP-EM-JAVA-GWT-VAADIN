@@ -238,7 +238,7 @@ public class ContagemFormController extends
 
 	public BeanItemContainer<ProdutoEntity> getProdutoBic() {
 		try {
-			List<ProdutoEntity> auxLista = this.produtoBusiness.findAll();
+			List<ProdutoEntity> auxLista = this.produtoBusiness.list();
 
 			BeanItemContainer<ProdutoEntity> bic = new BeanItemContainer<ProdutoEntity>(
 					ProdutoEntity.class, auxLista);

@@ -80,4 +80,27 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 		return new String[] { "GTIN", "Código interno", "Nome", "Descrição" };
 	}
 
+	/**
+	 * 
+	 */
+
+	public List<ProdutoEntity> list() {
+		try {
+			String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
+			sql = sql.replace("#", this.getEntityClass().getName());
+			sql = sql.replace("-", this.getEntityClass().getSimpleName()
+					+ "(ent.id, ent.nome)");
+
+			Query query = super.getSession().createQuery(sql);
+
+			List<ProdutoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }
