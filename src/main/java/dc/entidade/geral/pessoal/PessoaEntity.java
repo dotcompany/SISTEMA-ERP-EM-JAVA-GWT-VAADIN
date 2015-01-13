@@ -80,28 +80,28 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CLIENTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cliente = "0";
+	private String tipoCliente = "0";
 
 	@Field
 	@Caption("Fornecedor")
 	@Column(name = "FORNECEDOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean fornecedor = Boolean.FALSE;
+	private Boolean tipoFornecedor = Boolean.FALSE;
 
 	@Field
 	@Caption("Colaborador")
 	@Column(name = "COLABORADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean colaborador = Boolean.FALSE;
+	private Boolean tipoColaborador = Boolean.FALSE;
 
 	@Field
 	@Caption("Transportadora")
 	@Column(name = "TRANSPORTADORA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean transportadora = Boolean.FALSE;
+	private Boolean tipoTransportadora = Boolean.FALSE;
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -120,6 +120,9 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private PessoaJuridicaEntity pessoaJuridica;
+
+	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	private TransportadoraEntity transportadora;
 
 	/**
 	 * REFERENCIA - LIST
@@ -187,38 +190,40 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.site = (site == null ? "".trim() : site.toLowerCase().trim());
 	}
 
-	public String getCliente() {
-		return cliente;
+	public String getTipoCliente() {
+		return tipoCliente;
 	}
 
-	public void setCliente(String cliente) {
-		this.cliente = (cliente == null ? "0".trim() : cliente.toUpperCase()
-				.trim());
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = (tipoCliente == null ? "0".trim() : tipoCliente
+				.toUpperCase().trim());
 	}
 
-	public Boolean getFornecedor() {
-		return fornecedor;
+	public Boolean getTipoFornecedor() {
+		return tipoFornecedor;
 	}
 
-	public void setFornecedor(Boolean fornecedor) {
-		this.fornecedor = (fornecedor == null ? Boolean.FALSE : fornecedor);
+	public void setTipoFornecedor(Boolean tipoFornecedor) {
+		this.tipoFornecedor = (tipoFornecedor == null ? Boolean.FALSE
+				: tipoFornecedor);
 	}
 
-	public Boolean getColaborador() {
-		return colaborador;
+	public Boolean getTipoColaborador() {
+		return tipoColaborador;
 	}
 
-	public void setColaborador(Boolean colaborador) {
-		this.colaborador = (colaborador == null ? Boolean.FALSE : colaborador);
+	public void setTipoColaborador(Boolean tipoColaborador) {
+		this.tipoColaborador = (tipoColaborador == null ? Boolean.FALSE
+				: tipoColaborador);
 	}
 
-	public Boolean getTransportadora() {
-		return transportadora;
+	public Boolean getTipoTransportadora() {
+		return tipoTransportadora;
 	}
 
-	public void setTransportadora(Boolean transportadora) {
-		this.transportadora = (transportadora == null ? Boolean.FALSE
-				: transportadora);
+	public void setTipoTransportadora(Boolean tipoTransportadora) {
+		this.tipoTransportadora = (tipoTransportadora == null ? Boolean.FALSE
+				: tipoTransportadora);
 	}
 
 	public TipoPessoaEn getTipoPessoa() {
@@ -243,6 +248,14 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setPessoaJuridica(PessoaJuridicaEntity pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
+	}
+
+	public TransportadoraEntity getTransportadora() {
+		return transportadora;
+	}
+
+	public void setTransportadora(TransportadoraEntity transportadora) {
+		this.transportadora = transportadora;
 	}
 
 	public List<PessoaContatoEntity> getPessoaContatoList() {

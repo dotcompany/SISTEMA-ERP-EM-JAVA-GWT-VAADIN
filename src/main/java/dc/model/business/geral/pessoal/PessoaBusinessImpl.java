@@ -13,18 +13,26 @@ import com.vaadin.data.Container.Filter;
 import dc.control.enums.TipoPessoaEn;
 import dc.control.util.ListUtils;
 import dc.control.util.ObjectUtils;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
+import dc.model.dao.geral.pessoal.ClienteDAO;
+import dc.model.dao.geral.pessoal.ColaboradorDAO;
 import dc.model.dao.geral.pessoal.EstadoCivilDAO;
+import dc.model.dao.geral.pessoal.FornecedorDAO;
 import dc.model.dao.geral.pessoal.PessoaContatoDAO;
 import dc.model.dao.geral.pessoal.PessoaDAO;
 import dc.model.dao.geral.pessoal.PessoaEnderecoDAO;
 import dc.model.dao.geral.pessoal.PessoaFisicaDAO;
 import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
+import dc.model.dao.geral.pessoal.TransportadoraDAO;
 
 /**
  * 
@@ -61,6 +69,18 @@ public class PessoaBusinessImpl implements Serializable,
 
 	@Autowired
 	private EstadoCivilDAO<EstadoCivilEntity> estadoCivilDAO;
+
+	@Autowired
+	private ClienteDAO<ClienteEntity> clienteDAO;
+
+	@Autowired
+	private ColaboradorDAO<ColaboradorEntity> colaboradorDAO;
+
+	@Autowired
+	private FornecedorDAO<FornecedorEntity> fornecedorDAO;
+
+	@Autowired
+	private TransportadoraDAO<TransportadoraEntity> transportadoraDAO;
 
 	/**
 	 * **********************************************
@@ -194,6 +214,12 @@ public class PessoaBusinessImpl implements Serializable,
 				}
 
 				ent.setPessoaFisica(null);
+			}
+
+			if (!ent.getTipoTransportadora()) {
+				this.transportadoraDAO.delete(ent.getTransportadora());
+
+				ent.setTransportadora(null);
 			}
 
 			this.dao.saveOrUpdate(ent);

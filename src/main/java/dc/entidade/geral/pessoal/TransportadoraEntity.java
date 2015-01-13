@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -65,8 +66,8 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Pessoa")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
+	@OneToOne
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
 
 	@Caption("Conta contábil")

@@ -25,6 +25,7 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
+import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
@@ -32,6 +33,7 @@ import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
@@ -183,14 +185,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				savePessoaJuridica();
 			}
 
-			this.entity.setCliente(this.subView.getCkCliente().getValue()
+			this.entity.setTipoCliente(this.subView.getCkCliente().getValue()
 					.equals(Boolean.TRUE) ? "1" : "0");
-			this.entity.setColaborador(this.subView.getCkColaborador()
+			this.entity.setTipoColaborador(this.subView.getCkColaborador()
 					.getValue());
-			this.entity
-					.setFornecedor(this.subView.getCkFornecedor().getValue());
-			this.entity.setTransportadora(this.subView.getCkTransportadora()
+			this.entity.setTipoFornecedor(this.subView.getCkFornecedor()
 					.getValue());
+			this.entity.setTipoTransportadora(this.subView
+					.getCkTransportadora().getValue());
+
+			if (this.entity.getTipoTransportadora()) {
+				saveTransportadora();
+			}
 
 			// PessoaContato
 
@@ -219,7 +225,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private void savePessoaFisica() throws Exception {
 		PessoaFisicaEntity pf = (this.entity.getPessoaFisica() == null ? new PessoaFisicaEntity()
 				: this.entity.getPessoaFisica());
-
 		pf.setPessoa(this.entity);
 
 		pf.setCpf(this.subView.getMtfCpf().getValue());
@@ -289,7 +294,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private void savePessoaJuridica() throws Exception {
 		PessoaJuridicaEntity pj = (this.entity.getPessoaJuridica() == null ? new PessoaJuridicaEntity()
 				: this.entity.getPessoaJuridica());
-
 		pj.setPessoa(this.entity);
 
 		pj.setFantasia(this.subView.getTfFantasia().getValue());
@@ -330,7 +334,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void saveTransportadora() throws Exception {
+		TransportadoraEntity ent = (this.entity.getTransportadora() == null ? new TransportadoraEntity()
+				: this.entity.getTransportadora());
+		ent.setPessoa(this.entity);
 
+		ent.setObservacao(this.subView.getTaTransportadoraObservacao()
+				.getValue());
+		ent.setContaContabil(this.subView.getMocTransportadoraContabilConta()
+				.getValue());
+
+		this.entity.setTransportadora(ent);
 	}
 
 	@Override
@@ -367,17 +380,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			}
 
 			this.subView.getCkCliente().setValue(
-					this.entity.getCliente().equals("0") ? Boolean.FALSE
+					this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
 							: Boolean.TRUE);
 
 			this.subView.getCkColaborador().setValue(
-					this.entity.getColaborador());
+					this.entity.getTipoColaborador());
 
-			this.subView.getCkFornecedor()
-					.setValue(this.entity.getFornecedor());
+			this.subView.getCkFornecedor().setValue(
+					this.entity.getTipoFornecedor());
 
 			this.subView.getCkTransportadora().setValue(
-					this.entity.getTransportadora());
+					this.entity.getTipoTransportadora());
+
+			if (this.entity.getTipoTransportadora()) {
+				loadTransportadora();
+			}
 
 			// PessoaContato
 
@@ -505,7 +522,17 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void loadTransportadora() throws Exception {
+		TransportadoraEntity transportadora = this.entity.getTransportadora();
 
+		this.subView.getTaTransportadoraObservacao().setValue(
+				transportadora.getObservacao());
+
+		ContabilContaEntity contaContabil = transportadora.getContaContabil();
+
+		if (ObjectUtils.isNotBlank(contaContabil)) {
+			this.subView.getMocTransportadoraContabilConta().setValue(
+					contaContabil);
+		}
 	}
 
 	@Override
@@ -683,15 +710,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getTsGeral()
 				.getTab(4)
 				.setVisible(
-						this.entity.getCliente().equals("0") ? Boolean.FALSE
+						this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
 								: Boolean.TRUE);
 
 		this.subView.getTsGeral().getTab(5)
-				.setVisible(this.entity.getColaborador());
+				.setVisible(this.entity.getTipoColaborador());
 		this.subView.getTsGeral().getTab(6)
-				.setVisible(this.entity.getFornecedor());
+				.setVisible(this.entity.getTipoFornecedor());
 		this.subView.getTsGeral().getTab(7)
-				.setVisible(this.entity.getTransportadora());
+				.setVisible(this.entity.getTipoTransportadora());
 	}
 
 	/**

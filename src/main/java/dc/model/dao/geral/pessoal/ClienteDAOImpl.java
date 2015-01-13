@@ -7,28 +7,28 @@ import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
-import dc.entidade.geral.pessoal.NivelFormacaoEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class NivelFormacaoDAOImpl extends AbstractCrudDAO<NivelFormacaoEntity>
-		implements NivelFormacaoDAO<NivelFormacaoEntity> {
+public class ClienteDAOImpl extends AbstractCrudDAO<ClienteEntity> implements
+		ClienteDAO<ClienteEntity> {
 
-	private static Logger logger = Logger.getLogger(NivelFormacaoDAOImpl.class);
+	private static Logger logger = Logger.getLogger(ClienteDAOImpl.class);
 
 	@Override
-	public Class<NivelFormacaoEntity> getEntityClass() {
-		return NivelFormacaoEntity.class;
+	public Class<ClienteEntity> getEntityClass() {
+		return ClienteEntity.class;
 	}
 
-	public List<NivelFormacaoEntity> listaTodos() {
+	public List<ClienteEntity> listaTodos() {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 
-			List<NivelFormacaoEntity> auxLista = query.list();
+			List<ClienteEntity> auxLista = query.list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -38,14 +38,13 @@ public class NivelFormacaoDAOImpl extends AbstractCrudDAO<NivelFormacaoEntity>
 		}
 	}
 
-	public List<NivelFormacaoEntity> procuraNomeContendo(String query) {
+	public List<ClienteEntity> procuraNomeContendo(String query) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<NivelFormacaoEntity> auxLista = super.getSession()
-					.createQuery(sql).setParameter("q", "%" + query + "%")
-					.list();
+			List<ClienteEntity> auxLista = super.getSession().createQuery(sql)
+					.setParameter("q", "%" + query + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -55,13 +54,13 @@ public class NivelFormacaoDAOImpl extends AbstractCrudDAO<NivelFormacaoEntity>
 		}
 	}
 
-	public List<NivelFormacaoEntity> query(String q) {
+	public List<ClienteEntity> query(String q) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
-			List<NivelFormacaoEntity> auxLista = super.getSession()
-					.createQuery(sql).setParameter("q", "%" + q + "%").list();
+			List<ClienteEntity> auxLista = super.getSession().createQuery(sql)
+					.setParameter("q", "%" + q + "%").list();
 
 			return auxLista;
 		} catch (Exception e) {
