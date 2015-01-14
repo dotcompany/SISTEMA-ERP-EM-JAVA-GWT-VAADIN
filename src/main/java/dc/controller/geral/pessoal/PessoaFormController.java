@@ -307,102 +307,103 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void savePessoaFisica() throws Exception {
-		PessoaFisicaEntity pf = (this.entity.getPessoaFisica() == null ? new PessoaFisicaEntity()
+		PessoaFisicaEntity ent = (this.entity.getPessoaFisica() == null ? new PessoaFisicaEntity()
 				: this.entity.getPessoaFisica());
-		pf.setPessoa(this.entity);
+		ent.setPessoa(this.entity);
 
-		pf.setCpf(this.subView.getMtfCpf().getValue());
-		pf.setDataNascimento(this.subView.getPdfDataNascimento().getValue());
-		pf.setNaturalidade(this.subView.getTfNaturalidade().getValue());
-		pf.setNacionalidade(this.subView.getTfNacionalidade().getValue());
-		pf.setNomeMae(this.subView.getTfNomeMae().getValue());
-		pf.setNomePai(this.subView.getTfNomePai().getValue());
-		pf.setRg(this.subView.getTfNumeroRg().getValue());
-		pf.setOrgaoRg(this.subView.getTfOrgaoEmissor().getValue());
-		pf.setDataEmissaoRg(this.subView.getPdfDataEmissaoRg().getValue());
-		pf.setCnhNumero(this.subView.getTfCnh().getValue());
+		ent.setCpf(this.subView.getMtfCpf().getValue());
+		ent.setDataNascimento(this.subView.getPdfDataNascimento().getValue());
+		ent.setNaturalidade(this.subView.getTfNaturalidade().getValue());
+		ent.setNacionalidade(this.subView.getTfNacionalidade().getValue());
+		ent.setNomeMae(this.subView.getTfNomeMae().getValue());
+		ent.setNomePai(this.subView.getTfNomePai().getValue());
+		ent.setRg(this.subView.getTfNumeroRg().getValue());
+		ent.setOrgaoRg(this.subView.getTfOrgaoEmissor().getValue());
+		ent.setDataEmissaoRg(this.subView.getPdfDataEmissaoRg().getValue());
+		ent.setCnhNumero(this.subView.getTfCnh().getValue());
 
 		CnhEn cnhEn = (CnhEn) this.subView.getCbCategoriaCnh().getValue();
 
 		if (ObjectUtils.isNotBlank(cnhEn)) {
-			pf.setCnh(cnhEn);
+			ent.setCnh(cnhEn);
 		}
 
-		pf.setCnhVencimento(this.subView.getPdfDataCnhEmissao().getValue());
+		ent.setCnhVencimento(this.subView.getPdfDataCnhEmissao().getValue());
 
 		EstadoCivilEntity estadoCivil = this.subView.getMocEstadoCivil()
 				.getValue();
 
 		if (ObjectUtils.isNotBlank(estadoCivil)) {
-			pf.setEstadoCivil(estadoCivil);
+			ent.setEstadoCivil(estadoCivil);
 		}
 
 		RacaEn racaEn = (RacaEn) this.subView.getCbRaca().getValue();
 
 		if (ObjectUtils.isNotBlank(racaEn)) {
-			pf.setRaca(racaEn);
+			ent.setRaca(racaEn);
 		}
 
 		TipoSanguineoEn tipoSanguineoEn = (TipoSanguineoEn) this.subView
 				.getCbTipoSanguineo().getValue();
 
 		if (ObjectUtils.isNotBlank(tipoSanguineoEn)) {
-			pf.setTipoSangue(tipoSanguineoEn);
+			ent.setTipoSangue(tipoSanguineoEn);
 		}
 
-		pf.setReservistaNumero(this.subView.getTfNumeroReservista().getValue());
+		ent.setReservistaNumero(this.subView.getTfNumeroReservista().getValue());
 
 		CategoriaReservistaEn categoriaReservistaEn = (CategoriaReservistaEn) this.subView
 				.getCbCategoriaReservista().getValue();
 
 		if (ObjectUtils.isNotBlank(categoriaReservistaEn)) {
-			pf.setReservistaCategoria(categoriaReservistaEn);
+			ent.setReservistaCategoria(categoriaReservistaEn);
 		}
 
 		SexoEn sexoEn = (SexoEn) this.subView.getOgSexo().getValue();
 
 		if (ObjectUtils.isNotBlank(sexoEn)) {
-			pf.setSexo(sexoEn);
+			ent.setSexo(sexoEn);
 		}
 
-		pf.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
+		ent.setTituloEleitoralNumero(this.subView.getTfTituloEleitor()
 				.getValue());
-		pf.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
+		ent.setTituloEleitoralSecao(NumberUtils.toInt(this.subView
 				.getTfTituloSecao().getValue()));
-		pf.setTituloEleitoralZona(NumberUtils.toInt(this.subView
+		ent.setTituloEleitoralZona(NumberUtils.toInt(this.subView
 				.getTfTituloZona().getValue()));
 
-		this.entity.setPessoaFisica(pf);
+		this.entity.setPessoaFisica(ent);
 	}
 
 	private void savePessoaJuridica() throws Exception {
-		PessoaJuridicaEntity pj = (this.entity.getPessoaJuridica() == null ? new PessoaJuridicaEntity()
+		PessoaJuridicaEntity ent = (this.entity.getPessoaJuridica() == null ? new PessoaJuridicaEntity()
 				: this.entity.getPessoaJuridica());
-		pj.setPessoa(this.entity);
+		ent.setPessoa(this.entity);
 
-		pj.setFantasia(this.subView.getTfFantasia().getValue());
-		pj.setCnpj(this.subView.getMtfCnpj().getValue());
-		pj.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
+		ent.setFantasia(this.subView.getTfFantasia().getValue());
+		ent.setCnpj(this.subView.getMtfCnpj().getValue());
+		ent.setInscricaoEstadual(this.subView.getTfInscricaoEstadual()
 				.getValue());
-		pj.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
+		ent.setInscricaoMunicipal(this.subView.getTfInscricaoMunicipal()
 				.getValue());
-		pj.setDataConstituicao(this.subView.getPdfDataConstituicao().getValue());
-		pj.setSuframa(this.subView.getTfSuframa().getValue());
+		ent.setDataConstituicao(this.subView.getPdfDataConstituicao()
+				.getValue());
+		ent.setSuframa(this.subView.getTfSuframa().getValue());
 
 		TipoRegimeEn tipoRegimeEn = (TipoRegimeEn) this.subView
 				.getCbTipoRegime().getValue();
 
 		if (ObjectUtils.isNotBlank(tipoRegimeEn)) {
-			pj.setTipoRegime(tipoRegimeEn);
+			ent.setTipoRegime(tipoRegimeEn);
 		}
 
 		CrtEn crtEn = (CrtEn) this.subView.getCbCrt().getValue();
 
 		if (ObjectUtils.isNotBlank(crtEn)) {
-			pj.setCrt(crtEn);
+			ent.setCrt(crtEn);
 		}
 
-		this.entity.setPessoaJuridica(pj);
+		this.entity.setPessoaJuridica(ent);
 	}
 
 	private void saveCliente() throws Exception {
