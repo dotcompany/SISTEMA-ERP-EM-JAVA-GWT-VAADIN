@@ -81,14 +81,28 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "OBSERVACAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String observacao = "";
 
 	@Field
 	@Caption("Conta do tomador")
 	@Column(name = "CONTA_TOMADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String contaTomador;
+	private String contaTomador = "";
+
+	@Field
+	@Caption("Porcento de desconto")
+	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal porcentoDesconto = new BigDecimal(0);
+
+	@Field
+	@Caption("Limite de crédito")
+	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal limiteCredito = new BigDecimal(0);
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -106,13 +120,6 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private IndicadorPrecoEn indicadorPreco;
 
-	@Field
-	@Caption("Porcento de desconto")
-	@Column(name = "PORCENTO_DESCONTO", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal porcentoDesconto;
-
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Forma de desconto")
@@ -120,13 +127,6 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private FormaDescontoEn formaDesconto;
-
-	@Field
-	@Caption("Limite de crédito")
-	@Column(name = "LIMITE_CREDITO", precision = 11, scale = 2)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal limiteCredito;
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -147,12 +147,12 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Caption("Situação fornecedor / cliente")
 	@ManyToOne
-	@JoinColumn(name = "id_situacao_for_cli", nullable = false)
+	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne
-	@JoinColumn(name = "id_atividade_for_cli", nullable = false)
+	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
 	private AtividadeForCliEntity atividadeForCli;
 
 	@Caption("Conta contábil")
@@ -235,7 +235,8 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public String getContaTomador() {
@@ -243,7 +244,26 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setContaTomador(String contaTomador) {
-		this.contaTomador = contaTomador;
+		this.contaTomador = (contaTomador == null ? "".trim() : contaTomador
+				.toUpperCase().trim());
+	}
+
+	public BigDecimal getPorcentoDesconto() {
+		return porcentoDesconto;
+	}
+
+	public void setPorcentoDesconto(BigDecimal porcentoDesconto) {
+		this.porcentoDesconto = (porcentoDesconto == null ? new BigDecimal(0)
+				: porcentoDesconto);
+	}
+
+	public BigDecimal getLimiteCredito() {
+		return limiteCredito;
+	}
+
+	public void setLimiteCredito(BigDecimal limiteCredito) {
+		this.limiteCredito = (limiteCredito == null ? new BigDecimal(0)
+				: limiteCredito);
 	}
 
 	public SimNaoEn getGerarFinanceiro() {
@@ -262,28 +282,12 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.indicadorPreco = indicadorPreco;
 	}
 
-	public BigDecimal getPorcentoDesconto() {
-		return porcentoDesconto;
-	}
-
-	public void setPorcentoDesconto(BigDecimal porcentoDesconto) {
-		this.porcentoDesconto = porcentoDesconto;
-	}
-
 	public FormaDescontoEn getFormaDesconto() {
 		return formaDesconto;
 	}
 
 	public void setFormaDesconto(FormaDescontoEn formaDesconto) {
 		this.formaDesconto = formaDesconto;
-	}
-
-	public BigDecimal getLimiteCredito() {
-		return limiteCredito;
-	}
-
-	public void setLimiteCredito(BigDecimal limiteCredito) {
-		this.limiteCredito = limiteCredito;
 	}
 
 	public TipoFreteEn getTipoFrete() {
