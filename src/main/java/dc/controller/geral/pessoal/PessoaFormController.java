@@ -16,11 +16,14 @@ import dc.control.enums.CategoriaReservistaEn;
 import dc.control.enums.CnhEn;
 import dc.control.enums.CrtEn;
 import dc.control.enums.FormaDescontoEn;
+import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.IndicadorPrecoEn;
 import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.RacaEn;
 import dc.control.enums.SexoEn;
 import dc.control.enums.SimNaoEn;
+import dc.control.enums.TipoComissaoProdutoEn;
+import dc.control.enums.TipoComissaoServicoEn;
 import dc.control.enums.TipoFreteEn;
 import dc.control.enums.TipoPessoaEn;
 import dc.control.enums.TipoRegimeEn;
@@ -32,19 +35,33 @@ import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.contabilidade.planoconta.PlanoContaListController;
+import dc.controller.financeiro.ContaCaixaListController;
+import dc.controller.financeiro.SindicatoListController;
+import dc.controller.geral.diverso.SetorListController;
+import dc.controller.geral.diverso.UfListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
+import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.financeiro.SindicatoEntity;
+import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
+import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.entidade.geral.pessoal.NivelFormacaoEntity;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
+import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
+import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.model.business.geral.diverso.UfBusiness;
@@ -52,9 +69,18 @@ import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.PlanoContaDAO;
+import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.SindicatoDAO;
+import dc.servicos.dao.geral.NivelFormacaoDAO;
+import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.CargoDAO;
 import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
+import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
+import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -112,6 +138,33 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Autowired
 	private OperacaoFiscalDAO operacaoFiscalDAO;
+
+	@Autowired
+	private TipoColaboradorDAO tipoColaboradorDAO;
+
+	@Autowired
+	private SituacaoColaboradorDAO situacaoColaboradorDAO;
+
+	@Autowired
+	private SindicatoDAO sindicatoDAO;
+
+	@Autowired
+	private NivelFormacaoDAO nivelFormacaoDAO;
+
+	@Autowired
+	private CargoDAO cargoDAO;
+
+	@Autowired
+	private SetorDAO setorDAO;
+
+	@Autowired
+	private UfDAO ufDAO;
+
+	@Autowired
+	private PlanoContaDAO planoContaDAO;
+
+	@Autowired
+	private ContaCaixaDAO contaCaixaDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -185,6 +238,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getMocClienteContaContabil().setModel(
 					modelContabilConta);
+			this.subView.getMocColaboradorContaContabil().setModel(
+					modelContabilConta);
 			this.subView.getMocFornecedorContabilConta().setModel(
 					modelContabilConta);
 			this.subView.getMocTransportadoraContabilConta().setModel(
@@ -196,6 +251,81 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getMocClienteOperacaoFiscal().setModel(
 					modelOperacaoFiscal);
+
+			DefaultManyToOneComboModel<NivelFormacaoEntity> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
+					NivelFormacaoListController.class, this.nivelFormacaoDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
+
+			};
+
+			this.subView.getMocColaboradorNivelFormacao().setModel(
+					modelNivelFormacao);
+
+			DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
+					TipoColaboradorListController.class,
+					this.tipoColaboradorDAO, super.getMainController());
+
+			this.subView.getMocColaboradorTipoColaborador().setModel(
+					modelTipoColaborador);
+
+			DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
+					CargoListController.class, this.cargoDAO,
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
+
+			this.subView.getMocColaboradorCargo().setModel(modelCargo);
+
+			DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
+					SituacaoColaboradorListController.class,
+					this.situacaoColaboradorDAO, super.getMainController());
+
+			this.subView.getMocColaboradorSituacaoColaborador().setModel(
+					modelSituacaoColaborador);
+
+			DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
+					SindicatoListController.class, this.sindicatoDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorSindicato().setModel(modelSindicato);
+
+			DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
+					SetorListController.class, this.setorDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorSetor().setModel(modelSetor);
+
+			DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
+					PlanoContaListController.class, this.planoContaDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorPlanoConta()
+					.setModel(modelPlanoConta);
+
+			DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
+					ContaCaixaListController.class, this.contaCaixaDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorContaCaixa()
+					.setModel(modelContaCaixa);
+
+			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+					UfListController.class, this.ufDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorUf().setModel(modelUf);
+
+			//
 
 			carregarTipoRegime();
 			carregarCnh();
@@ -210,6 +340,15 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarIndicadorPreco();
 			carregarTipoFrete();
 			carregarFormaDesconto();
+
+			carregarDescontoPlanoSaude();
+			carregarFormaPagamento();
+			carregarFgtsOptante();
+			carregarSaiNaRais();
+			carregarPriorizarPgto();
+			carregarComissaoOver();
+			carregarTipoComissaoProduto();
+			carregarTipoComissaoServico();
 
 			carregarSofreRetencao();
 			carregarGerarFaturamento();
@@ -268,6 +407,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.entity.setTipoColaborador(this.subView.getCkColaborador()
 					.getValue());
+
+			if (this.entity.getTipoColaborador()) {
+				saveColaborador();
+			}
+
 			this.entity.setTipoFornecedor(this.subView.getCkFornecedor()
 					.getValue());
 
@@ -465,7 +609,238 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void saveColaborador() throws Exception {
+		ColaboradorEntity ent = (this.entity.getColaborador() == null ? new ColaboradorEntity()
+				: this.entity.getColaborador());
+		ent.setPessoa(this.entity);
 
+		ent.setCtpsDataExpedicao(this.subView
+				.getPdfColaboradorCtpsDataExpedicao().getValue());
+		ent.setCtpsSerie(this.subView.getTfColaboradorCtpsSerie().getValue());
+		ent.setCtpsNumero(this.subView.getTfColaboradorCtpsNumero().getValue());
+		ent.setPisAgenciaDigito(this.subView.getTfColaboradorPisAgenciaDigito()
+				.getValue());
+		ent.setPisAgencia(this.subView.getTfColaboradorPisAgencia().getValue());
+		ent.setPisBanco(this.subView.getTfColaboradorPisBanco().getValue());
+		ent.setPisNumero(this.subView.getTfColaboradorPisNumero().getValue());
+		ent.setPisDataCadastro(this.subView.getPdfColaboradorPisDataCadastro()
+				.getValue());
+		ent.setPagamentoContaDigito(this.subView
+				.getTfColaboradorPagamentoContaDigito().getValue());
+		ent.setPagamentoConta(this.subView.getTfColaboradorPagamentoConta()
+				.getValue());
+		ent.setPagamentoAgenciaDigito(this.subView
+				.getTfColaboradorPagamentoAgenciaDigito().getValue());
+		ent.setPagamentoAgencia(this.subView.getTfColaboradorPagamentoAgencia()
+				.getValue());
+		ent.setPagamentoBanco(this.subView.getTfColaboradorPagamentoBanco()
+				.getValue());
+
+		FormaPagamentoEn formaPagamentoEn = (FormaPagamentoEn) this.subView
+				.getCbColaboradorFormaPagamento().getValue();
+
+		if (ObjectUtils.isNotBlank(formaPagamentoEn)) {
+			ent.setPagamentoForma(formaPagamentoEn);
+		}
+
+		String codigoDemissaoCaged = this.subView
+				.getTfColaboradorCodigoDemissaoCaged().getValue();
+
+		if (NumberUtils.isNumber(codigoDemissaoCaged)) {
+			ent.setCodigoDemissaoCaged(NumberUtils.toInt(codigoDemissaoCaged));
+		}
+
+		String codigoAdmissao = this.subView
+				.getTfColaboradorCodigoAdmissaoCaged().getValue();
+
+		if (NumberUtils.isNumber(codigoAdmissao)) {
+			ent.setCodigoAdmissaoCaged(NumberUtils.toInt(codigoAdmissao));
+		}
+
+		ent.setFgtsDataOpcao(this.subView.getPdfColaboradorFgtsDataOpcao()
+				.getValue());
+
+		SimNaoEn optanteEn = (SimNaoEn) this.subView
+				.getCbColaboradorFgtsOptante().getValue();
+
+		if (ObjectUtils.isNotBlank(optanteEn)) {
+			ent.setFgtsOptante(optanteEn);
+		}
+
+		String codigoDemissaoSefip = this.subView
+				.getTfColaboradorCodigoDemissaoSefip().getValue();
+
+		if (NumberUtils.isNumber(codigoDemissaoSefip)) {
+			ent.setCodigoDemissaoSefip(NumberUtils.toInt(codigoDemissaoSefip));
+		}
+
+		String ocorrenciaSefip = this.subView.getTfColaboradorOcorrenciaSefip()
+				.getValue();
+
+		if (NumberUtils.isNumber(ocorrenciaSefip)) {
+			ent.setOcorrenciaSefip(NumberUtils.toInt(ocorrenciaSefip));
+		}
+
+		ent.setCategoriaSefip(this.subView.getTfColaboradorCategoriaSefip()
+				.getValue());
+
+		String salarioFixo = this.subView.getTfColaboradorSalarioFixo()
+				.getValue();
+
+		if (NumberUtils.isNumber(salarioFixo)) {
+			ent.setSalarioFixo(NumberUtils.createBigDecimal(salarioFixo));
+		}
+
+		String comissaoProduto = this.subView.getTfColaboradorComissaoProduto()
+				.getValue();
+
+		if (NumberUtils.isNumber(comissaoProduto)) {
+			ent.setValorComissaoProduto(NumberUtils
+					.createBigDecimal(comissaoProduto));
+		}
+
+		String comissaoServico = this.subView.getTfColaboradorComissaoServico()
+				.getValue();
+
+		if (NumberUtils.isNumber(comissaoServico)) {
+			ent.setValorComissaoServico(NumberUtils
+					.createBigDecimal(comissaoServico));
+		}
+
+		ent.setExameMedicoVencimento(this.subView
+				.getPdfColaboradorExameMedicoVencimento().getValue());
+		ent.setExameMedicoUltimo(this.subView
+				.getPdfColaboradorExameMedicoUltimo().getValue());
+		ent.setCodigoTurmaPonto(this.subView.getTfColaboradorCodigoTurmaPonto()
+				.getValue());
+
+		SimNaoEn saiRaisEn = (SimNaoEn) this.subView
+				.getCbColaboradorSaiNaRais().getValue();
+
+		if (ObjectUtils.isNotBlank(saiRaisEn)) {
+			ent.setSaiNaRais(saiRaisEn);
+		}
+
+		SimNaoEn descontoPlanoSaudeEn = (SimNaoEn) this.subView
+				.getCbColaboradorDescontoPlanoSaude().getValue();
+
+		if (ObjectUtils.isNotBlank(descontoPlanoSaudeEn)) {
+			ent.setDescontoPlanoSaude(descontoPlanoSaudeEn);
+		}
+
+		ent.setDataDemissao(this.subView.getPdfColaboradorDataDemissao()
+				.getValue());
+		ent.setDataTransferencia(this.subView
+				.getPdfColaboradorDataTransferencia().getValue());
+		ent.setVencimentoFerias(this.subView
+				.getPdfColaboradorDataVencimentoFerias().getValue());
+		ent.setDataAdmissao(this.subView.getPdfColaboradorDataAdmissao()
+				.getValue());
+		ent.setDataCadastro(this.subView.getPdfColaboradorDataCadastro()
+				.getValue());
+		ent.setMatricula(this.subView.getTfColaboradorMatricula().getValue());
+
+		SimNaoEn priorizarComissaoEn = (SimNaoEn) this.subView
+				.getCbColaboradorPriorizarPgto().getValue();
+
+		if (ObjectUtils.isNotBlank(priorizarComissaoEn)) {
+			ent.setPriorizarComissao(priorizarComissaoEn == SimNaoEn.S ? true
+					: false);
+		}
+
+		SimNaoEn comissaoOverEn = (SimNaoEn) this.subView
+				.getCbColaboradorComissaoOver().getValue();
+
+		if (ObjectUtils.isNotBlank(comissaoOverEn)) {
+			ent.setComissaoOver(comissaoOverEn == SimNaoEn.S ? true : false);
+		}
+
+		ent.setTipoComissaoServico((String) this.subView
+				.getOgColaboradorTipoComissaoServico().getValue());
+		ent.setTipoComissaoProduto((String) this.subView
+				.getOgColaboradorTipoComissaoProduto().getValue());
+
+		ent.setObservacao(this.subView.getTaColaboradorObservacao().getValue());
+
+		TipoColaboradorEntity tipoColaborador = this.subView
+				.getMocColaboradorTipoColaborador().getValue();
+
+		if (ObjectUtils.isNotBlank(tipoColaborador)) {
+			ent.setTipoColaborador(tipoColaborador);
+		} else {
+			ent.setTipoColaborador(null);
+		}
+
+		SituacaoColaboradorEntity situacaoColaborador = this.subView
+				.getMocColaboradorSituacaoColaborador().getValue();
+
+		if (ObjectUtils.isNotBlank(situacaoColaborador)) {
+			ent.setSituacaoColaborador(situacaoColaborador);
+		} else {
+			ent.setSituacaoColaborador(null);
+		}
+
+		SindicatoEntity sindicato = this.subView.getMocColaboradorSindicato()
+				.getValue();
+
+		if (ObjectUtils.isNotBlank(sindicato)) {
+			ent.setSindicato(sindicato);
+		} else {
+			ent.setSindicato(null);
+		}
+
+		NivelFormacaoEntity nivelFormacao = this.subView
+				.getMocColaboradorNivelFormacao().getValue();
+
+		if (ObjectUtils.isNotBlank(nivelFormacao)) {
+			ent.setNivelFormacao(nivelFormacao);
+		} else {
+			ent.setNivelFormacao(null);
+		}
+
+		CargoEntity cargo = this.subView.getMocColaboradorCargo().getValue();
+
+		if (ObjectUtils.isNotBlank(cargo)) {
+			ent.setCargo(cargo);
+		} else {
+			ent.setCargo(null);
+		}
+
+		ContabilContaEntity contabilConta = this.subView
+				.getMocColaboradorContaContabil().getValue();
+
+		if (ObjectUtils.isNotBlank(contabilConta)) {
+			ent.setContaContabil(contabilConta);
+		} else {
+			ent.setContaContabil(null);
+		}
+
+		SetorEntity setor = this.subView.getMocColaboradorSetor().getValue();
+
+		if (ObjectUtils.isNotBlank(setor)) {
+			ent.setSetor(setor);
+		} else {
+			ent.setSetor(null);
+		}
+
+		PlanoConta planoConta = this.subView.getMocColaboradorPlanoConta()
+				.getValue();
+
+		if (ObjectUtils.isNotBlank(planoConta)) {
+			ent.setPlanoConta(planoConta);
+		} else {
+			ent.setPlanoConta(null);
+		}
+
+		ContaCaixa contaCaixa = this.subView.getMocColaboradorContaCaixa()
+				.getValue();
+
+		if (ObjectUtils.isNotBlank(contaCaixa)) {
+			ent.setContaCaixa(contaCaixa);
+		} else {
+			ent.setContaCaixa(null);
+		}
+
+		this.entity.setColaborador(ent);
 	}
 
 	private void saveFornecedor() throws Exception {
@@ -605,6 +980,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getCkColaborador().setValue(
 					this.entity.getTipoColaborador());
 
+			if (this.entity.getTipoColaborador()) {
+				loadColaborador();
+			}
+
 			this.subView.getCkFornecedor().setValue(
 					this.entity.getTipoFornecedor());
 
@@ -733,7 +1112,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void loadCliente() throws Exception {
-		ClienteEntity ent = this.entity.getCliente();
+		ClienteEntity ent = (this.entity.getCliente() == null ? new ClienteEntity()
+				: this.entity.getCliente());
 
 		this.subView.getTaClienteObservacao().setValue(ent.getObservacao());
 		this.subView.getTfClienteLimiteCredito().setValue(
@@ -776,11 +1156,219 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void loadColaborador() throws Exception {
+		ColaboradorEntity ent = (this.entity.getColaborador() == null ? new ColaboradorEntity()
+				: this.entity.getColaborador());
 
+		this.subView.getPdfColaboradorCtpsDataExpedicao().setValue(
+				ent.getCtpsDataExpedicao());
+		this.subView.getTfColaboradorCtpsSerie().setValue(ent.getCtpsSerie());
+		this.subView.getTfColaboradorCtpsNumero().setValue(ent.getCtpsNumero());
+		this.subView.getTfColaboradorPisAgenciaDigito().setValue(
+				ent.getPisNumero());
+		this.subView.getTfColaboradorPisAgencia().setValue(ent.getPisAgencia());
+		this.subView.getTfColaboradorPisBanco().setValue(ent.getPisBanco());
+		this.subView.getTfColaboradorPisNumero().setValue(ent.getPisNumero());
+		this.subView.getPdfColaboradorPisDataCadastro().setValue(
+				ent.getPisDataCadastro());
+		this.subView.getTfColaboradorPagamentoContaDigito().setValue(
+				ent.getPagamentoContaDigito());
+		this.subView.getTfColaboradorPagamentoConta().setValue(
+				ent.getPagamentoConta());
+		this.subView.getTfColaboradorPagamentoAgenciaDigito().setValue(
+				ent.getPagamentoAgenciaDigito());
+		this.subView.getTfColaboradorPagamentoAgencia().setValue(
+				ent.getPagamentoAgencia());
+		this.subView.getTfColaboradorPagamentoBanco().setValue(
+				ent.getPagamentoBanco());
+
+		FormaPagamentoEn pagamentoFormaEn = ent.getPagamentoForma();
+
+		if (ObjectUtils.isNotBlank(pagamentoFormaEn)) {
+			this.subView.getCbColaboradorFormaPagamento().setValue(
+					ent.getPagamentoForma());
+		}
+
+		Integer codigoDemissaoCaged = ent.getCodigoDemissaoCaged();
+
+		if (NumberUtils.isNotBlank(codigoDemissaoCaged)) {
+			this.subView.getTfColaboradorCodigoDemissaoCaged().setValue(
+					ent.getCodigoDemissaoCaged().toString());
+		}
+
+		Integer codigoAdmissaoCaged = ent.getCodigoAdmissaoCaged();
+
+		if (NumberUtils.isNotBlank(codigoAdmissaoCaged)) {
+			this.subView.getTfColaboradorCodigoAdmissaoCaged().setValue(
+					ent.getCodigoAdmissaoCaged().toString());
+		}
+
+		this.subView.getPdfColaboradorFgtsDataOpcao().setValue(
+				ent.getFgtsDataOpcao());
+
+		SimNaoEn fgtsOptanteEn = ent.getFgtsOptante();
+
+		if (ObjectUtils.isNotBlank(fgtsOptanteEn)) {
+			this.subView.getCbColaboradorFgtsOptante().setValue(
+					ent.getFgtsOptante());
+		}
+
+		Integer codigoDemissaoSefip = ent.getCodigoDemissaoSefip();
+
+		if (NumberUtils.isNotBlank(codigoDemissaoSefip)) {
+			this.subView.getTfColaboradorCodigoDemissaoSefip().setValue(
+					ent.getCodigoDemissaoSefip().toString());
+		}
+
+		Integer ocorrenciaSefip = ent.getOcorrenciaSefip();
+
+		if (NumberUtils.isNotBlank(ocorrenciaSefip)) {
+			this.subView.getTfColaboradorOcorrenciaSefip().setValue(
+					ent.getOcorrenciaSefip().toString());
+		}
+
+		this.subView.getTfColaboradorCategoriaSefip().setValue(
+				ent.getCategoriaSefip());
+
+		BigDecimal salarioFixo = ent.getSalarioFixo();
+
+		// if (salarioFixo != null) {
+		this.subView.getTfColaboradorSalarioFixo().setConvertedValue(
+				salarioFixo);
+		// }
+
+		BigDecimal comissaoProduto = ent.getValorComissaoProduto();
+
+		// if (comissaoProduto != null) {
+		this.subView.getTfColaboradorComissaoProduto().setConvertedValue(
+				comissaoProduto);
+		// }
+
+		BigDecimal comissaoServico = ent.getValorComissaoServico();
+
+		// if (comissaoServico != null) {
+		this.subView.getTfColaboradorComissaoServico().setConvertedValue(
+				comissaoServico);
+		// }
+
+		this.subView.getPdfColaboradorExameMedicoVencimento().setValue(
+				ent.getExameMedicoVencimento());
+		this.subView.getPdfColaboradorExameMedicoUltimo().setValue(
+				ent.getExameMedicoUltimo());
+		this.subView.getTfColaboradorCodigoTurmaPonto().setValue(
+				ent.getCodigoTurmaPonto());
+
+		SimNaoEn saiNaRaisEn = ent.getSaiNaRais();
+
+		if (ObjectUtils.isNotBlank(saiNaRaisEn)) {
+			this.subView.getCbColaboradorSaiNaRais().setValue(
+					ent.getSaiNaRais());
+		}
+
+		SimNaoEn descontoPlanoSaudeEn = ent.getDescontoPlanoSaude();
+
+		if (ObjectUtils.isNotBlank(descontoPlanoSaudeEn)) {
+			this.subView.getCbColaboradorDescontoPlanoSaude().setValue(
+					ent.getDescontoPlanoSaude());
+		}
+
+		this.subView.getPdfColaboradorDataDemissao().setValue(
+				ent.getDataDemissao());
+		this.subView.getPdfColaboradorDataTransferencia().setValue(
+				ent.getDataTransferencia());
+		this.subView.getPdfColaboradorDataVencimentoFerias().setValue(
+				ent.getVencimentoFerias());
+		this.subView.getPdfColaboradorDataAdmissao().setValue(
+				ent.getDataAdmissao());
+		this.subView.getPdfColaboradorDataCadastro().setValue(
+				ent.getDataCadastro());
+		this.subView.getTfColaboradorMatricula().setValue(ent.getMatricula());
+
+		boolean priorizarComissao = ent.getPriorizarComissao();
+
+		if (ObjectUtils.isNotBlank(priorizarComissao)) {
+			this.subView.getCbColaboradorPriorizarPgto().setValue(
+					priorizarComissao);
+		}
+
+		boolean comissaoOver = ent.getComissaoOver();
+
+		if (ObjectUtils.isNotBlank(comissaoOver)) {
+			this.subView.getCbColaboradorComissaoOver().setValue(comissaoOver);
+		}
+
+		this.subView.getCbColaboradorPgtoComissao().setValue(
+				ent.getPgtoComissaoSera());
+		this.subView.getCbColaboradorLctoComissao().setValue(
+				ent.getLctoComissao());
+		this.subView.getOgColaboradorTipoComissaoServico().setValue(
+				ent.getTipoComissaoServico());
+		this.subView.getOgColaboradorTipoComissaoProduto().setValue(
+				ent.getTipoComissaoProduto());
+		this.subView.getTaColaboradorObservacao().setValue(ent.getObservacao());
+
+		TipoColaboradorEntity tipoColaborador = ent.getTipoColaborador();
+
+		if (ObjectUtils.isNotBlank(tipoColaborador)) {
+			this.subView.getMocColaboradorTipoColaborador().setValue(
+					tipoColaborador);
+		}
+
+		SituacaoColaboradorEntity situacaoColaborador = ent
+				.getSituacaoColaborador();
+
+		if (ObjectUtils.isNotBlank(situacaoColaborador)) {
+			this.subView.getMocColaboradorSituacaoColaborador().setValue(
+					situacaoColaborador);
+		}
+
+		SindicatoEntity sindicato = ent.getSindicato();
+
+		if (ObjectUtils.isNotBlank(sindicato)) {
+			this.subView.getMocColaboradorSindicato().setValue(sindicato);
+		}
+
+		NivelFormacaoEntity nivelFormacao = ent.getNivelFormacao();
+
+		if (ObjectUtils.isNotBlank(nivelFormacao)) {
+			this.subView.getMocColaboradorNivelFormacao().setValue(
+					nivelFormacao);
+		}
+
+		CargoEntity cargo = ent.getCargo();
+
+		if (ObjectUtils.isNotBlank(cargo)) {
+			this.subView.getMocColaboradorCargo().setValue(cargo);
+		}
+
+		ContabilContaEntity contabilConta = ent.getContaContabil();
+
+		if (ObjectUtils.isNotBlank(contabilConta)) {
+			this.subView.getMocColaboradorContaContabil().setValue(
+					contabilConta);
+		}
+
+		SetorEntity setor = ent.getSetor();
+
+		if (ObjectUtils.isNotBlank(setor)) {
+			this.subView.getMocColaboradorSetor().setValue(setor);
+		}
+
+		PlanoConta planoConta = ent.getPlanoConta();
+
+		if (ObjectUtils.isNotBlank(planoConta)) {
+			this.subView.getMocColaboradorPlanoConta().setValue(planoConta);
+		}
+
+		ContaCaixa contaCaixa = ent.getContaCaixa();
+
+		if (ObjectUtils.isNotBlank(contaCaixa)) {
+			this.subView.getMocColaboradorContaCaixa().setValue(contaCaixa);
+		}
 	}
 
 	private void loadFornecedor() throws Exception {
-		FornecedorEntity ent = this.entity.getFornecedor();
+		FornecedorEntity ent = (this.entity.getFornecedor() == null ? new FornecedorEntity()
+				: this.entity.getFornecedor());
 
 		SituacaoForCliEntity situacaoForCli = ent.getSituacaoForCli();
 
@@ -828,7 +1416,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 
 	private void loadTransportadora() throws Exception {
-		TransportadoraEntity ent = this.entity.getTransportadora();
+		TransportadoraEntity ent = (this.entity.getTransportadora() == null ? new TransportadoraEntity()
+				: this.entity.getTransportadora());
 
 		this.subView.getTaTransportadoraObservacao().setValue(
 				ent.getObservacao());
@@ -1030,6 +1619,56 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public void carregarFormaDesconto() {
 		for (FormaDescontoEn en : FormaDescontoEn.values()) {
 			this.subView.getCbClienteFormaDesconto().addItem(en);
+		}
+	}
+
+	//
+
+	public void carregarDescontoPlanoSaude() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbColaboradorDescontoPlanoSaude().addItem(en);
+		}
+	}
+
+	public void carregarSaiNaRais() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbColaboradorSaiNaRais().addItem(en);
+		}
+	}
+
+	public void carregarFgtsOptante() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbColaboradorFgtsOptante().addItem(en);
+		}
+	}
+
+	public void carregarFormaPagamento() {
+		for (FormaPagamentoEn en : FormaPagamentoEn.values()) {
+			this.subView.getCbColaboradorFormaPagamento().addItem(en);
+		}
+	}
+
+	public void carregarPriorizarPgto() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbColaboradorPriorizarPgto().addItem(en);
+		}
+	}
+
+	public void carregarComissaoOver() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbColaboradorComissaoOver().addItem(en);
+		}
+	}
+
+	public void carregarTipoComissaoProduto() {
+		for (TipoComissaoProdutoEn en : TipoComissaoProdutoEn.values()) {
+			this.subView.getOgColaboradorTipoComissaoProduto().addItem(en);
+		}
+	}
+
+	public void carregarTipoComissaoServico() {
+		for (TipoComissaoServicoEn en : TipoComissaoServicoEn.values()) {
+			this.subView.getOgColaboradorTipoComissaoServico().addItem(en);
 		}
 	}
 

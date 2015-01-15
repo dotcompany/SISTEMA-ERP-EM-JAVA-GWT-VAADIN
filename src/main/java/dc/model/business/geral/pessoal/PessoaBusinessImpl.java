@@ -230,7 +230,10 @@ public class PessoaBusinessImpl implements Serializable,
 			}
 
 			if (!ent.getTipoColaborador()) {
-				// this.colaboradorDAO.delete(ent.getColaborador());
+				if (ObjectUtils.isNotBlank(ent.getColaborador())
+						&& ObjectUtils.isNotBlank(ent.getColaborador().getId())) {
+					this.colaboradorDAO.delete(ent.getColaborador());
+				}
 
 				ent.setColaborador(null);
 			}
