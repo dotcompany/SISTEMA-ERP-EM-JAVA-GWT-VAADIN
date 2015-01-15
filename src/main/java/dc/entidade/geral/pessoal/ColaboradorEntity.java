@@ -86,7 +86,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "MATRICULA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String matricula;
+	private String matricula = "";
 
 	@Lob
 	@Type(type = "text")
@@ -95,7 +95,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "FOTO_34")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String foto34;
+	private String foto34 = "";
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -149,35 +149,35 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PAGAMENTO_BANCO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pagamentoBanco;
+	private String pagamentoBanco = "";
 
 	@Field
 	@Caption("Pagamento - Agência")
 	@Column(name = "PAGAMENTO_AGENCIA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pagamentoAgencia;
+	private String pagamentoAgencia = "";
 
 	@Field
 	@Caption("Pagamento - Dígito da agência")
 	@Column(name = "PAGAMENTO_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pagamentoAgenciaDigito;
+	private String pagamentoAgenciaDigito = "";
 
 	@Field
 	@Caption("Pagamento - Conta")
 	@Column(name = "PAGAMENTO_CONTA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pagamentoConta;
+	private String pagamentoConta = "";
 
 	@Field
 	@Caption("Pagamento - Dígito da conta")
 	@Column(name = "PAGAMENTO_CONTA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pagamentoContaDigito;
+	private String pagamentoContaDigito = "";
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -208,42 +208,42 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "PIS_NUMERO", length = 12)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pisNumero;
+	private String pisNumero = "";
 
 	@Field
 	@Caption("PIS - Banco")
 	@Column(name = "PIS_BANCO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pisBanco;
+	private String pisBanco = "";
 
 	@Field
 	@Caption("PIS - Agência")
 	@Column(name = "PIS_AGENCIA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pisAgencia;
+	private String pisAgencia = "";
 
 	@Field
 	@Caption("PIS - Dígito da agência")
 	@Column(name = "PIS_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String pisAgenciaDigito;
+	private String pisAgenciaDigito = "";
 
 	@Field
 	@Caption("CTPS - Número")
 	@Column(name = "CTPS_NUMERO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ctpsNumero;
+	private String ctpsNumero = "";
 
 	@Field
 	@Caption("CTPS - Série")
 	@Column(name = "CTPS_SERIE", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ctpsSerie;
+	private String ctpsSerie = "";
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -258,42 +258,42 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CTPS_UF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ctpsUf;
+	private String ctpsUf = "";
 
 	@Field
 	@Caption("SEFIP - Categoria")
 	@Column(name = "CATEGORIA_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String categoriaSefip;
+	private String categoriaSefip = "";
 
 	@Field
 	@Caption("SEFIP - Ocorrência")
 	@Column(name = "OCORRENCIA_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer ocorrenciaSefip;
+	private Integer ocorrenciaSefip = new Integer(0);
 
 	@Field
 	@Caption("CAGED - Código da admissão")
 	@Column(name = "CODIGO_ADMISSAO_CAGED")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoAdmissaoCaged;
+	private Integer codigoAdmissaoCaged = new Integer(0);
 
 	@Field
 	@Caption("CAGED - Código da demissão")
 	@Column(name = "CODIGO_DEMISSAO_CAGED")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoDemissaoCaged;
+	private Integer codigoDemissaoCaged = new Integer(0);
 
 	@Field
 	@Caption("SEFIP - Código da demissão")
 	@Column(name = "CODIGO_DEMISSAO_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoDemissaoSefip;
+	private Integer codigoDemissaoSefip = new Integer(0);
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -308,7 +308,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO_TURMA_PONTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoTurmaPonto;
+	private String codigoTurmaPonto = "";
 
 	@Lob
 	@Type(type = "text")
@@ -317,42 +317,42 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String observacao = "";
 
 	@Field
 	@Caption("Salário fixo")
 	@Column(name = "salario_fixo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal salarioFixo;
+	private BigDecimal salarioFixo = new BigDecimal(0);
 
 	@Field
 	@Caption("Tipo de comissão do serviço")
 	@Column(name = "tipo_comissao_servico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoComissaoServico;
+	private String tipoComissaoServico = "";
 
 	@Field
 	@Caption("Valor da comissão do serviço")
 	@Column(name = "valor_comissao_servico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorComissaoServico;
+	private BigDecimal valorComissaoServico = new BigDecimal(0);
 
 	@Field
 	@Caption("Tipo de comissão do produto")
 	@Column(name = "tipo_comissao_produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoComissaoProduto;
+	private String tipoComissaoProduto = "";
 
 	@Field
 	@Caption("Valor da comissão do produto")
 	@Column(name = "valor_comissao_produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal valorComissaoProduto;
+	private BigDecimal valorComissaoProduto = new BigDecimal(0);
 
 	@Field
 	@Caption("Priorizar comissão")
@@ -373,14 +373,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "pgto_comissao_sera")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer pgtoComissaoSera;
+	private Integer pgtoComissaoSera = new Integer(0);
 
 	@Field
 	@Caption("Lançamento da comissão")
 	@Column(name = "lcto_comissao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer lctoComissao;
+	private Integer lctoComissao = new Integer(0);
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -576,7 +576,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setMatricula(String matricula) {
-		this.matricula = matricula;
+		this.matricula = (matricula == null ? "".trim() : matricula
+				.toUpperCase().trim());
 	}
 
 	public String getFoto34() {
@@ -584,7 +585,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFoto34(String foto34) {
-		this.foto34 = foto34;
+		this.foto34 = (foto34 == null ? "".trim() : foto34.toUpperCase().trim());
 	}
 
 	public Date getDataCadastro() {
@@ -632,7 +633,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setFgtsConta(Integer fgtsConta) {
-		this.fgtsConta = fgtsConta;
+		this.fgtsConta = (fgtsConta == null ? new Integer(0) : fgtsConta);
 	}
 
 	public String getPagamentoBanco() {
@@ -640,7 +641,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPagamentoBanco(String pagamentoBanco) {
-		this.pagamentoBanco = pagamentoBanco;
+		this.pagamentoBanco = (pagamentoBanco == null ? "".trim()
+				: pagamentoBanco.toUpperCase().trim());
 	}
 
 	public String getPagamentoAgencia() {
@@ -648,7 +650,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPagamentoAgencia(String pagamentoAgencia) {
-		this.pagamentoAgencia = pagamentoAgencia;
+		this.pagamentoAgencia = (pagamentoAgencia == null ? "".trim()
+				: pagamentoAgencia.toUpperCase().trim());
 	}
 
 	public String getPagamentoAgenciaDigito() {
@@ -656,7 +659,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPagamentoAgenciaDigito(String pagamentoAgenciaDigito) {
-		this.pagamentoAgenciaDigito = pagamentoAgenciaDigito;
+		this.pagamentoAgenciaDigito = (pagamentoAgenciaDigito == null ? ""
+				.trim() : pagamentoAgenciaDigito.toUpperCase().trim());
 	}
 
 	public String getPagamentoConta() {
@@ -664,7 +668,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPagamentoConta(String pagamentoConta) {
-		this.pagamentoConta = pagamentoConta;
+		this.pagamentoConta = (pagamentoConta == null ? "".trim()
+				: pagamentoConta.toUpperCase().trim());
 	}
 
 	public String getPagamentoContaDigito() {
@@ -672,7 +677,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPagamentoContaDigito(String pagamentoContaDigito) {
-		this.pagamentoContaDigito = pagamentoContaDigito;
+		this.pagamentoContaDigito = (pagamentoContaDigito == null ? "".trim()
+				: pagamentoContaDigito.toUpperCase().trim());
 	}
 
 	public Date getExameMedicoUltimo() {
@@ -704,7 +710,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPisNumero(String pisNumero) {
-		this.pisNumero = pisNumero;
+		this.pisNumero = (pisNumero == null ? "".trim() : pisNumero
+				.toUpperCase().trim());
 	}
 
 	public String getPisBanco() {
@@ -712,7 +719,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPisBanco(String pisBanco) {
-		this.pisBanco = pisBanco;
+		this.pisBanco = (pisBanco == null ? "".trim() : pisBanco.toUpperCase()
+				.trim());
 	}
 
 	public String getPisAgencia() {
@@ -720,7 +728,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPisAgencia(String pisAgencia) {
-		this.pisAgencia = pisAgencia;
+		this.pisAgencia = (pisAgencia == null ? "".trim() : pisAgencia
+				.toUpperCase().trim());
 	}
 
 	public String getPisAgenciaDigito() {
@@ -728,7 +737,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPisAgenciaDigito(String pisAgenciaDigito) {
-		this.pisAgenciaDigito = pisAgenciaDigito;
+		this.pisAgenciaDigito = (pisAgenciaDigito == null ? "".trim()
+				: pisAgenciaDigito.toUpperCase().trim());
 	}
 
 	public String getCtpsNumero() {
@@ -736,7 +746,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCtpsNumero(String ctpsNumero) {
-		this.ctpsNumero = ctpsNumero;
+		this.ctpsNumero = (ctpsNumero == null ? "".trim() : ctpsNumero
+				.toUpperCase().trim());
 	}
 
 	public String getCtpsSerie() {
@@ -744,7 +755,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCtpsSerie(String ctpsSerie) {
-		this.ctpsSerie = ctpsSerie;
+		this.ctpsSerie = (ctpsSerie == null ? "".trim() : ctpsSerie
+				.toUpperCase().trim());
 	}
 
 	public Date getCtpsDataExpedicao() {
@@ -760,7 +772,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCtpsUf(String ctpsUf) {
-		this.ctpsUf = ctpsUf;
+		this.ctpsUf = (ctpsUf == null ? "".trim() : ctpsUf.toUpperCase().trim());
 	}
 
 	public String getCategoriaSefip() {
@@ -768,7 +780,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCategoriaSefip(String categoriaSefip) {
-		this.categoriaSefip = categoriaSefip;
+		this.categoriaSefip = (categoriaSefip == null ? "".trim()
+				: categoriaSefip.toUpperCase().trim());
 	}
 
 	public Integer getOcorrenciaSefip() {
@@ -776,7 +789,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setOcorrenciaSefip(Integer ocorrenciaSefip) {
-		this.ocorrenciaSefip = ocorrenciaSefip;
+		this.ocorrenciaSefip = (ocorrenciaSefip == null ? new Integer(0)
+				: ocorrenciaSefip);
 	}
 
 	public Integer getCodigoAdmissaoCaged() {
@@ -784,7 +798,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoAdmissaoCaged(Integer codigoAdmissaoCaged) {
-		this.codigoAdmissaoCaged = codigoAdmissaoCaged;
+		this.codigoAdmissaoCaged = (codigoAdmissaoCaged == null ? new Integer(0)
+				: codigoAdmissaoCaged);
 	}
 
 	public Integer getCodigoDemissaoCaged() {
@@ -792,7 +807,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoDemissaoCaged(Integer codigoDemissaoCaged) {
-		this.codigoDemissaoCaged = codigoDemissaoCaged;
+		this.codigoDemissaoCaged = (codigoDemissaoCaged == null ? new Integer(0)
+				: codigoDemissaoCaged);
 	}
 
 	public Integer getCodigoDemissaoSefip() {
@@ -800,7 +816,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoDemissaoSefip(Integer codigoDemissaoSefip) {
-		this.codigoDemissaoSefip = codigoDemissaoSefip;
+		this.codigoDemissaoSefip = (codigoDemissaoSefip == null ? new Integer(0)
+				: codigoDemissaoSefip);
 	}
 
 	public Date getDataDemissao() {
@@ -816,7 +833,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoTurmaPonto(String codigoTurmaPonto) {
-		this.codigoTurmaPonto = codigoTurmaPonto;
+		this.codigoTurmaPonto = (codigoTurmaPonto == null ? "".trim()
+				: codigoTurmaPonto.toUpperCase().trim());
 	}
 
 	public String getObservacao() {
@@ -824,7 +842,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public BigDecimal getSalarioFixo() {
@@ -832,7 +851,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSalarioFixo(BigDecimal salarioFixo) {
-		this.salarioFixo = salarioFixo;
+		this.salarioFixo = (salarioFixo == null ? new BigDecimal(0)
+				: salarioFixo);
 	}
 
 	public String getTipoComissaoServico() {
@@ -840,7 +860,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTipoComissaoServico(String tipoComissaoServico) {
-		this.tipoComissaoServico = tipoComissaoServico;
+		this.tipoComissaoServico = (tipoComissaoServico == null ? "".trim()
+				: tipoComissaoServico.toUpperCase().trim());
 	}
 
 	public BigDecimal getValorComissaoServico() {
@@ -848,7 +869,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorComissaoServico(BigDecimal valorComissaoServico) {
-		this.valorComissaoServico = valorComissaoServico;
+		this.valorComissaoServico = (valorComissaoServico == null ? new BigDecimal(
+				0) : valorComissaoServico);
 	}
 
 	public String getTipoComissaoProduto() {
@@ -856,7 +878,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTipoComissaoProduto(String tipoComissaoProduto) {
-		this.tipoComissaoProduto = tipoComissaoProduto;
+		this.tipoComissaoProduto = (tipoComissaoProduto == null ? "".trim()
+				: tipoComissaoProduto.toUpperCase().trim());
 	}
 
 	public BigDecimal getValorComissaoProduto() {
@@ -864,7 +887,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setValorComissaoProduto(BigDecimal valorComissaoProduto) {
-		this.valorComissaoProduto = valorComissaoProduto;
+		this.valorComissaoProduto = (valorComissaoProduto == null ? new BigDecimal(
+				0) : valorComissaoProduto);
 	}
 
 	public Boolean getPriorizarComissao() {
@@ -888,7 +912,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPgtoComissaoSera(Integer pgtoComissaoSera) {
-		this.pgtoComissaoSera = pgtoComissaoSera;
+		this.pgtoComissaoSera = (pgtoComissaoSera == null ? new Integer(0)
+				: pgtoComissaoSera);
 	}
 
 	public Integer getLctoComissao() {
@@ -896,7 +921,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLctoComissao(Integer lctoComissao) {
-		this.lctoComissao = lctoComissao;
+		this.lctoComissao = (lctoComissao == null ? new Integer(0)
+				: lctoComissao);
 	}
 
 	public SimNaoEn getFgtsOptante() {
