@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -420,52 +419,52 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Setor")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_setor", nullable = false)
 	private SetorEntity setor;
 
 	@Caption("Conta contábil")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_contabil_conta", nullable = true)
 	private ContabilContaEntity contaContabil;
 
 	@Caption("Cargo")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_cargo", nullable = false)
 	private CargoEntity cargo;
 
 	@Caption("Tipo do colaborador")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_tipo_colaborador", nullable = false)
 	private TipoColaboradorEntity tipoColaborador;
 
 	@Caption("Situação do colaborador")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_situacao_colaborador", nullable = false)
 	private SituacaoColaboradorEntity situacaoColaborador;
 
 	@Caption("Nível de formação")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_nivel_formacao", nullable = false)
 	private NivelFormacaoEntity nivelFormacao;
 
 	@Caption("Sindicato")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_sindicato", nullable = false)
 	private SindicatoEntity sindicato;
 
 	@Caption("Plano de conta")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_plano_conta", nullable = true)
 	private PlanoConta planoConta;
 
 	@Caption("Conta da caixa")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_conta_caixa", nullable = true)
 	private ContaCaixa contaCaixa;
 
 	@Caption("Pessoa")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private PessoaEntity pessoa;
 

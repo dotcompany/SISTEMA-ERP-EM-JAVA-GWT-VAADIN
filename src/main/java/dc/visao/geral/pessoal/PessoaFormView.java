@@ -2274,6 +2274,7 @@ public class PessoaFormView extends CustomComponent {
 		tfColaboradorMatricula.setCaption("Matrícula");
 		tfColaboradorMatricula.setNullRepresentation("");
 		tfColaboradorMatricula.setImmediate(false);
+		tfColaboradorMatricula.setRequired(true);
 		tfColaboradorMatricula.setWidth("100px");
 		tfColaboradorMatricula.setHeight("-1px");
 		hlRow3.addComponent(tfColaboradorMatricula);
@@ -2386,6 +2387,7 @@ public class PessoaFormView extends CustomComponent {
 		tfColaboradorCategoriaSefip.setCaption("Categoria SEFIP");
 		tfColaboradorCategoriaSefip.setNullRepresentation("");
 		tfColaboradorCategoriaSefip.setImmediate(false);
+		tfColaboradorCategoriaSefip.setRequired(true);
 		tfColaboradorCategoriaSefip.setWidth("120px");
 		tfColaboradorCategoriaSefip.setHeight("-1px");
 		hlRow5.addComponent(tfColaboradorCategoriaSefip);
@@ -2685,6 +2687,7 @@ public class PessoaFormView extends CustomComponent {
 		cbColaboradorPriorizarPgto = new ComboBox();
 		cbColaboradorPriorizarPgto.setCaption("Priorizar pagamento");
 		cbColaboradorPriorizarPgto.setImmediate(false);
+		cbColaboradorPriorizarPgto.setRequired(true);
 		cbColaboradorPriorizarPgto.setWidth("141px");
 		cbColaboradorPriorizarPgto.setHeight("-1px");
 		hlRow1.addComponent(cbColaboradorPriorizarPgto);
@@ -2693,6 +2696,7 @@ public class PessoaFormView extends CustomComponent {
 		cbColaboradorComissaoOver = new ComboBox();
 		cbColaboradorComissaoOver.setCaption("Pagamento de comissão over");
 		cbColaboradorComissaoOver.setImmediate(false);
+		cbColaboradorComissaoOver.setRequired(true);
 		cbColaboradorComissaoOver.setWidth("141px");
 		cbColaboradorComissaoOver.setHeight("-1px");
 		hlRow1.addComponent(cbColaboradorComissaoOver);
