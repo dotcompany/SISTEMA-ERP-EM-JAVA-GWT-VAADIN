@@ -130,67 +130,51 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataTransferencia;
 
-	@Field
-	@Caption("FGTS optante")
-	@Column(name = "FGTS_OPTANTE")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
-	private SimNaoEn fgtsOptante;
-
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption("FGTS data da opção")
+	@Caption("FGTS - Data da opção")
 	@Column(name = "FGTS_DATA_OPCAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date fgtsDataOpcao;
 
 	@Field
-	@Caption("FGTS conta")
+	@Caption("FGTS - Conta")
 	@Column(name = "FGTS_CONTA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer fgtsConta;
 
 	@Field
-	@Caption("Forma de pagamento")
-	@Column(name = "PAGAMENTO_FORMA")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
-	private FormaPagamentoEn pagamentoForma;
-
-	@Field
-	@Caption("Banco do pagamento")
+	@Caption("Pagamento - Banco")
 	@Column(name = "PAGAMENTO_BANCO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoBanco;
 
 	@Field
-	@Caption("Agência do pagamento")
+	@Caption("Pagamento - Agência")
 	@Column(name = "PAGAMENTO_AGENCIA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoAgencia;
 
 	@Field
-	@Caption()
+	@Caption("Pagamento - Dígito da agência")
 	@Column(name = "PAGAMENTO_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoAgenciaDigito;
 
 	@Field
-	@Caption()
+	@Caption("Pagamento - Conta")
 	@Column(name = "PAGAMENTO_CONTA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pagamentoConta;
 
 	@Field
-	@Caption()
+	@Caption("Pagamento - Dígito da conta")
 	@Column(name = "PAGAMENTO_CONTA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -198,7 +182,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption()
+	@Caption("Último exame médico")
 	@Column(name = "EXAME_MEDICO_ULTIMO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -206,7 +190,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption()
+	@Caption("Exame médico - Vencimento")
 	@Column(name = "EXAME_MEDICO_VENCIMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -214,49 +198,49 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption()
+	@Caption("PIS - Data de cadastro")
 	@Column(name = "PIS_DATA_CADASTRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date pisDataCadastro;
 
 	@Field
-	@Caption()
+	@Caption("PIS - Número")
 	@Column(name = "PIS_NUMERO", length = 12)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisNumero;
 
 	@Field
-	@Caption()
+	@Caption("PIS - Banco")
 	@Column(name = "PIS_BANCO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisBanco;
 
 	@Field
-	@Caption()
+	@Caption("PIS - Agência")
 	@Column(name = "PIS_AGENCIA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisAgencia;
 
 	@Field
-	@Caption()
+	@Caption("PIS - Dígito da agência")
 	@Column(name = "PIS_AGENCIA_DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String pisAgenciaDigito;
 
 	@Field
-	@Caption()
+	@Caption("CTPS - Número")
 	@Column(name = "CTPS_NUMERO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctpsNumero;
 
 	@Field
-	@Caption()
+	@Caption("CTPS - Série")
 	@Column(name = "CTPS_SERIE", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -264,65 +248,49 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption()
+	@Caption("CTPS - Data da expedição")
 	@Column(name = "CTPS_DATA_EXPEDICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date ctpsDataExpedicao;
 
 	@Field
-	@Caption()
+	@Caption("CTPS - UF")
 	@Column(name = "CTPS_UF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ctpsUf;
 
 	@Field
-	@Caption()
-	@Column(name = "DESCONTO_PLANO_SAUDE")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
-	private SimNaoEn descontoPlanoSaude;
-
-	@Field
-	@Caption()
-	@Column(name = "SAI_NA_RAIS")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Enumerated(EnumType.STRING)
-	private SimNaoEn saiNaRais;
-
-	@Field
-	@Caption()
+	@Caption("SEFIP - Categoria")
 	@Column(name = "CATEGORIA_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String categoriaSefip;
 
 	@Field
-	@Caption()
+	@Caption("SEFIP - Ocorrência")
 	@Column(name = "OCORRENCIA_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer ocorrenciaSefip;
 
 	@Field
-	@Caption()
+	@Caption("CAGED - Código da admissão")
 	@Column(name = "CODIGO_ADMISSAO_CAGED")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoAdmissaoCaged;
 
 	@Field
-	@Caption()
+	@Caption("CAGED - Código da demissão")
 	@Column(name = "CODIGO_DEMISSAO_CAGED")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoDemissaoCaged;
 
 	@Field
-	@Caption()
+	@Caption("SEFIP - Código da demissão")
 	@Column(name = "CODIGO_DEMISSAO_SEFIP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -330,7 +298,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Temporal(TemporalType.DATE)
 	@Field
-	@Caption()
+	@Caption("Data de demissão")
 	@Column(name = "DATA_DEMISSAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -346,74 +314,106 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Lob
 	@Type(type = "text")
 	@Field
-	@Caption()
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao;
 
 	@Field
-	@Caption()
+	@Caption("Salário fixo")
 	@Column(name = "salario_fixo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal salarioFixo;
 
 	@Field
-	@Caption()
+	@Caption("Tipo de comissão do serviço")
 	@Column(name = "tipo_comissao_servico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoComissaoServico;
 
 	@Field
-	@Caption()
+	@Caption("Valor da comissão do serviço")
 	@Column(name = "valor_comissao_servico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorComissaoServico;
 
 	@Field
-	@Caption()
+	@Caption("Tipo de comissão do produto")
 	@Column(name = "tipo_comissao_produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoComissaoProduto;
 
 	@Field
-	@Caption()
+	@Caption("Valor da comissão do produto")
 	@Column(name = "valor_comissao_produto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorComissaoProduto;
 
 	@Field
-	@Caption()
+	@Caption("Priorizar comissão")
 	@Column(name = "priorizar_comissao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private boolean priorizarComissao;
+	private Boolean priorizarComissao;
 
 	@Field
-	@Caption()
+	@Caption("Comissão OVER")
 	@Column(name = "comissao_over")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private boolean comissaoOver;
+	private Boolean comissaoOver;
 
 	@Field
-	@Caption()
+	@Caption("Pagamento da comissão será")
 	@Column(name = "pgto_comissao_sera")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer pgtoComissaoSera;
 
 	@Field
-	@Caption()
+	@Caption("Lançamento da comissão")
 	@Column(name = "lcto_comissao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer lctoComissao;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("FGTS - Optante")
+	@Column(name = "FGTS_OPTANTE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn fgtsOptante;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Forma de pagamento")
+	@Column(name = "PAGAMENTO_FORMA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private FormaPagamentoEn pagamentoForma;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Desconto do plano de saúde")
+	@Column(name = "DESCONTO_PLANO_SAUDE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn descontoPlanoSaude;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Sai na RAIS")
+	@Column(name = "SAI_NA_RAIS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn saiNaRais;
 
 	/**
 	 * REFERENCIA - FK
@@ -620,14 +620,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.dataTransferencia = dataTransferencia;
 	}
 
-	public SimNaoEn getFgtsOptante() {
-		return fgtsOptante;
-	}
-
-	public void setFgtsOptante(SimNaoEn fgtsOptante) {
-		this.fgtsOptante = fgtsOptante;
-	}
-
 	public Date getFgtsDataOpcao() {
 		return fgtsDataOpcao;
 	}
@@ -642,14 +634,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setFgtsConta(Integer fgtsConta) {
 		this.fgtsConta = fgtsConta;
-	}
-
-	public FormaPagamentoEn getPagamentoForma() {
-		return pagamentoForma;
-	}
-
-	public void setPagamentoForma(FormaPagamentoEn pagamentoForma) {
-		this.pagamentoForma = pagamentoForma;
 	}
 
 	public String getPagamentoBanco() {
@@ -780,22 +764,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.ctpsUf = ctpsUf;
 	}
 
-	public SimNaoEn getDescontoPlanoSaude() {
-		return descontoPlanoSaude;
-	}
-
-	public void setDescontoPlanoSaude(SimNaoEn descontoPlanoSaude) {
-		this.descontoPlanoSaude = descontoPlanoSaude;
-	}
-
-	public SimNaoEn getSaiNaRais() {
-		return saiNaRais;
-	}
-
-	public void setSaiNaRais(SimNaoEn saiNaRais) {
-		this.saiNaRais = saiNaRais;
-	}
-
 	public String getCategoriaSefip() {
 		return categoriaSefip;
 	}
@@ -900,19 +868,19 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.valorComissaoProduto = valorComissaoProduto;
 	}
 
-	public boolean getPriorizarComissao() {
+	public Boolean getPriorizarComissao() {
 		return priorizarComissao;
 	}
 
-	public void setPriorizarComissao(boolean priorizarComissao) {
+	public void setPriorizarComissao(Boolean priorizarComissao) {
 		this.priorizarComissao = priorizarComissao;
 	}
 
-	public boolean getComissaoOver() {
+	public Boolean getComissaoOver() {
 		return comissaoOver;
 	}
 
-	public void setComissaoOver(boolean comissaoOver) {
+	public void setComissaoOver(Boolean comissaoOver) {
 		this.comissaoOver = comissaoOver;
 	}
 
@@ -930,6 +898,38 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setLctoComissao(Integer lctoComissao) {
 		this.lctoComissao = lctoComissao;
+	}
+
+	public SimNaoEn getFgtsOptante() {
+		return fgtsOptante;
+	}
+
+	public void setFgtsOptante(SimNaoEn fgtsOptante) {
+		this.fgtsOptante = fgtsOptante;
+	}
+
+	public FormaPagamentoEn getPagamentoForma() {
+		return pagamentoForma;
+	}
+
+	public void setPagamentoForma(FormaPagamentoEn pagamentoForma) {
+		this.pagamentoForma = pagamentoForma;
+	}
+
+	public SimNaoEn getDescontoPlanoSaude() {
+		return descontoPlanoSaude;
+	}
+
+	public void setDescontoPlanoSaude(SimNaoEn descontoPlanoSaude) {
+		this.descontoPlanoSaude = descontoPlanoSaude;
+	}
+
+	public SimNaoEn getSaiNaRais() {
+		return saiNaRais;
+	}
+
+	public void setSaiNaRais(SimNaoEn saiNaRais) {
+		this.saiNaRais = saiNaRais;
 	}
 
 	public SetorEntity getSetor() {
