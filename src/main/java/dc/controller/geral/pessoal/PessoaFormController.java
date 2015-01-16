@@ -1232,22 +1232,22 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		BigDecimal salarioFixo = ent.getSalarioFixo();
 
 		// if (salarioFixo != null) {
-		this.subView.getTfColaboradorSalarioFixo().setConvertedValue(
-				salarioFixo);
+		this.subView.getTfColaboradorSalarioFixo().setValue(
+				salarioFixo.toString());
 		// }
 
 		BigDecimal comissaoProduto = ent.getValorComissaoProduto();
 
 		// if (comissaoProduto != null) {
-		this.subView.getTfColaboradorComissaoProduto().setConvertedValue(
-				comissaoProduto);
+		this.subView.getTfColaboradorComissaoProduto().setValue(
+				comissaoProduto.toString());
 		// }
 
 		BigDecimal comissaoServico = ent.getValorComissaoServico();
 
 		// if (comissaoServico != null) {
-		this.subView.getTfColaboradorComissaoServico().setConvertedValue(
-				comissaoServico);
+		this.subView.getTfColaboradorComissaoServico().setValue(
+				comissaoServico.toString());
 		// }
 
 		this.subView.getPdfColaboradorExameMedicoVencimento().setValue(
