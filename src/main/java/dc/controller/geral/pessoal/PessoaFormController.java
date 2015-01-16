@@ -305,12 +305,12 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getMocColaboradorSetor().setModel(modelSetor);
 
-			DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
-					PlanoContaListController.class, this.planoContaDAO,
-					super.getMainController());
+			//DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
+			//		PlanoContaListController.class, this.planoContaDAO,
+			//		super.getMainController());
 
-			this.subView.getMocColaboradorPlanoConta()
-					.setModel(modelPlanoConta);
+			//this.subView.getMocColaboradorPlanoConta()
+			//		.setModel(modelPlanoConta);
 
 			DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
 					ContaCaixaListController.class, this.contaCaixaDAO,
@@ -327,13 +327,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			//
 
+			carregarTipoPessoa();
 			carregarTipoRegime();
 			carregarCnh();
 			carregarRaca();
 			carregarCategoriaReservista();
 			carregarCrt();
 			carregarTipoSanguineo();
-			carregarTipoPessoa();
 			carregarSexo();
 
 			carregarGerarFinanceiro();

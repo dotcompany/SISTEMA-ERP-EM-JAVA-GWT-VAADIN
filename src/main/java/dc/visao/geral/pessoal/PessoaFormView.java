@@ -1997,6 +1997,7 @@ public class PessoaFormView extends CustomComponent {
 		mocClienteOperacaoFiscal.setCaption("Operação fiscal");
 		mocClienteOperacaoFiscal.setImmediate(false);
 		mocClienteOperacaoFiscal.setHeight("-1px");
+		mocClienteOperacaoFiscal.setEnabled(false);
 		hlRow1.addComponent(mocClienteOperacaoFiscal);
 
 		// row 2
@@ -2012,6 +2013,7 @@ public class PessoaFormView extends CustomComponent {
 		pdfClienteDesde = new PopupDateField();
 		pdfClienteDesde.setCaption("Desde");
 		pdfClienteDesde.setImmediate(false);
+		pdfClienteDesde.setRequired(true);
 		pdfClienteDesde.setWidth("100px");
 		pdfClienteDesde.setHeight("-1px");
 		hlRow2.addComponent(pdfClienteDesde);
@@ -2020,6 +2022,7 @@ public class PessoaFormView extends CustomComponent {
 		tfClienteContaTomador = new TextField();
 		tfClienteContaTomador.setCaption("Conta do tomador");
 		tfClienteContaTomador.setImmediate(false);
+		tfClienteContaTomador.setRequired(true);
 		tfClienteContaTomador.setWidth("400px");
 		tfClienteContaTomador.setHeight("-1px");
 		hlRow2.addComponent(tfClienteContaTomador);
@@ -2086,6 +2089,7 @@ public class PessoaFormView extends CustomComponent {
 		tfClienteLimiteCredito = new TextField();
 		tfClienteLimiteCredito.setCaption("Limite de crédito");
 		tfClienteLimiteCredito.setImmediate(false);
+		tfClienteLimiteCredito.setRequired(true);
 		tfClienteLimiteCredito.setWidth("194px");
 		tfClienteLimiteCredito.setHeight("-1px");
 		hlRow4.addComponent(tfClienteLimiteCredito);
@@ -2799,12 +2803,12 @@ public class PessoaFormView extends CustomComponent {
 		hlRow5.addComponent(mocColaboradorContaCaixa);
 
 		// mocColaboradorPlanoConta
-		//mocColaboradorPlanoConta = new ManyToOneCombo<>();
-		//mocColaboradorPlanoConta.setCaption("Plano de conta");
-		//mocColaboradorPlanoConta.setImmediate(false);
-		//mocColaboradorPlanoConta.setWidth("-1px");
-		//mocColaboradorPlanoConta.setHeight("-1px");
-		//hlRow5.addComponent(mocColaboradorPlanoConta);
+		// mocColaboradorPlanoConta = new ManyToOneCombo<>();
+		// mocColaboradorPlanoConta.setCaption("Plano de conta");
+		// mocColaboradorPlanoConta.setImmediate(false);
+		// mocColaboradorPlanoConta.setWidth("-1px");
+		// mocColaboradorPlanoConta.setHeight("-1px");
+		// hlRow5.addComponent(mocColaboradorPlanoConta);
 
 		glColaboradorInformacaoComissao.addComponent(hlRow1);
 		glColaboradorInformacaoComissao.addComponent(hlRow2);
