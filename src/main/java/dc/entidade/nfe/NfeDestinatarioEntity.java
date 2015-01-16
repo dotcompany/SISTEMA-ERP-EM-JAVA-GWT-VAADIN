@@ -61,11 +61,11 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	private String cpfCnpj = "";
 
 	@Field
-	@Column(name = "razao_social")
-	@Caption(value = "Razão social")
+	@Column(name = "nome")
+	@Caption(value = "Nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String razaoSocial = "";
+	private String nome = "";
 
 	@Field
 	@Column(name = "logradouro")
@@ -164,6 +164,20 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email = "";
+	
+	@Field
+	@Column(name = "estrangeiro_identificacao")
+	@Caption(value = "Estrangeiro Identificação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String estrangeiroIdentificacao = "";
+	
+	@Field
+	@Column(name = "indicador_ie")
+	@Caption(value = "Indicador IE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer indicadorIe;
 
 	/**
 	 * REFERENCIA - FK
@@ -210,12 +224,12 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.cpfCnpj = (cpfCnpj == null ? "" : cpfCnpj.toUpperCase().trim());
 	}
 
-	public String getRazaoSocial() {
-		return razaoSocial.trim();
+	public String getNome() {
+		return nome.trim();
 	}
 
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = (razaoSocial == null ? "" : razaoSocial
+	public void setNome(String nome) {
+		this.nome = (nome == null ? "" : nome
 				.toUpperCase().trim());
 	}
 
@@ -335,6 +349,22 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setEmail(String email) {
 		this.email = (email == null ? "" : email.toUpperCase().trim());
+	}
+	
+	public String getEstrangeiroIdentificacao() {
+		return estrangeiroIdentificacao;
+	}
+
+	public void setEstrangeiroIdentificacao(String estrangeiroIdentificacao) {
+		this.estrangeiroIdentificacao = estrangeiroIdentificacao;
+	}
+
+	public Integer getIndicadorIe() {
+		return indicadorIe;
+	}
+
+	public void setIndicadorIe(Integer indicadorIe) {
+		this.indicadorIe = indicadorIe;
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {

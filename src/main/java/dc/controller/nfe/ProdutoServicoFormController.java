@@ -846,8 +846,8 @@ public class ProdutoServicoFormController extends
 			nfeDestinatario.setCep((String) obj);
 
 			break;
-		case "tfRazaoSocialDestinatario":
-			nfeDestinatario.setRazaoSocial((String) obj);
+		case "tfNomeDestinatario":
+			nfeDestinatario.setNome((String) obj);
 
 			break;
 		case "tfCpfCnpjDestinatario":

@@ -461,6 +461,16 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contatoEmail = "";
 
+	@Field
+	@Column(name = "consumidor_operacao")
+	@Caption(value = "Consumidor Operação")
+	private Integer consumidorOperacao;
+	
+	@Field
+	@Column(name = "consumidor_presenca")
+	@Caption(value = "Consumidor Presença")
+	private Integer consumidorPresenca;
+	
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -1023,6 +1033,22 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setStatusNota(String statusNota) {
 		this.statusNota = (statusNota == null ? "0".trim() : statusNota
 				.toUpperCase().trim());
+	}
+	
+	public Integer getConsumidorOperacao() {
+		return consumidorOperacao;
+	}
+
+	public void setConsumidorOperacao(Integer consumidorOperacao) {
+		this.consumidorOperacao = consumidorOperacao;
+	}
+
+	public Integer getConsumidorPresenca() {
+		return consumidorPresenca;
+	}
+
+	public void setConsumidorPresenca(Integer consumidorPresenca) {
+		this.consumidorPresenca = consumidorPresenca;
 	}
 
 	public Integer getUfEmitente() {
