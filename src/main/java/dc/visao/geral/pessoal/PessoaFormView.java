@@ -2791,7 +2791,7 @@ public class PessoaFormView extends CustomComponent {
 		hlRow5.setSpacing(true);
 
 		// mocColaboradorContaCaixa
-		mocColaboradorContaCaixa = new ManyToOneCombo<ContaCaixa>();
+		mocColaboradorContaCaixa = new ManyToOneCombo<>();
 		mocColaboradorContaCaixa.setCaption("Conta da caixa");
 		mocColaboradorContaCaixa.setImmediate(false);
 		mocColaboradorContaCaixa.setWidth("-1px");
@@ -2799,12 +2799,12 @@ public class PessoaFormView extends CustomComponent {
 		hlRow5.addComponent(mocColaboradorContaCaixa);
 
 		// mocColaboradorPlanoConta
-		mocColaboradorPlanoConta = new ManyToOneCombo<PlanoConta>();
-		mocColaboradorPlanoConta.setCaption("Plano de conta");
-		mocColaboradorPlanoConta.setImmediate(false);
-		mocColaboradorPlanoConta.setWidth("-1px");
-		mocColaboradorPlanoConta.setHeight("-1px");
-		hlRow5.addComponent(mocColaboradorPlanoConta);
+		//mocColaboradorPlanoConta = new ManyToOneCombo<>();
+		//mocColaboradorPlanoConta.setCaption("Plano de conta");
+		//mocColaboradorPlanoConta.setImmediate(false);
+		//mocColaboradorPlanoConta.setWidth("-1px");
+		//mocColaboradorPlanoConta.setHeight("-1px");
+		//hlRow5.addComponent(mocColaboradorPlanoConta);
 
 		glColaboradorInformacaoComissao.addComponent(hlRow1);
 		glColaboradorInformacaoComissao.addComponent(hlRow2);
