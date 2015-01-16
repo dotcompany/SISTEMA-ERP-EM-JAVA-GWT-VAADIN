@@ -757,15 +757,11 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "pdfDataEmissao":
-			this.nfeCabecalho.setDataEmissao((Date) obj);
+			this.nfeCabecalho.setDataHoraEmissao((Date) obj);
 
 			break;
 		case "pdfDataEntradaSaida":
-			this.nfeCabecalho.setDataEntradaSaida((Date) obj);
-
-			break;
-		case "pdfHoraEntradaSaida":
-			this.nfeCabecalho.setHoraEntradaSaida((String) obj);
+			this.nfeCabecalho.setDataHoraEntradaSaida((Date) obj);
 
 			break;
 		case "tfTipoOperacao":
