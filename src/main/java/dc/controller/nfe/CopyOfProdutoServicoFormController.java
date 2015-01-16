@@ -357,11 +357,10 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfNumero().setValue(
 				this.nfeCabecalho.getNumero().trim());
 		this.subView.getPdfDataEmissao().setValue(
-				this.nfeCabecalho.getDataEmissao());
+				this.nfeCabecalho.getDataHoraEmissao());
 		this.subView.getPdfDataEntradaSaida().setValue(
-				this.nfeCabecalho.getDataEntradaSaida());
-		this.subView.getTfHoraEntradaSaida().setValue(
-				this.nfeCabecalho.getHoraEntradaSaida());
+				this.nfeCabecalho.getDataHoraEntradaSaida());
+		
 		this.subView.getTfTipoOperacao().setValue(
 				this.nfeCabecalho.getTipoOperacao().trim());
 		// this.subView.getTfTipoEmissao().setValue(
@@ -1245,15 +1244,11 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "pdfDataEmissao":
-			this.nfeCabecalho.setDataEmissao((Date) obj);
+			this.nfeCabecalho.setDataHoraEmissao((Date) obj);
 
 			break;
 		case "pdfDataEntradaSaida":
-			this.nfeCabecalho.setDataEntradaSaida((Date) obj);
-
-			break;
-		case "pdfHoraEntradaSaida":
-			this.nfeCabecalho.setHoraEntradaSaida((String) obj);
+			this.nfeCabecalho.setDataHoraEntradaSaida((Date) obj);
 
 			break;
 		case "tfTipoOperacao":

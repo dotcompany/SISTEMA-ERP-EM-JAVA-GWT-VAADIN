@@ -107,25 +107,23 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	private String numero = "";
 
 	@Field
-	@Column(name = "data_emissao")
-	@Caption(value = "Data de emissão")
+	@Column(name = "data__hora_emissao")
+	@Caption(value = "Data Hora de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataEmissao;
+	private Date dataHoraEmissao;
 
 	@Field
-	@Column(name = "data_entrada_saida")
-	@Caption(value = "Data de entrada / saída")
+	@Column(name = "data_hora_entrada_saida")
+	@Caption(value = "Data Hora de entrada / saída")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataEntradaSaida;
+	private Date dataHoraEntradaSaida;
 
 	@Field
-	@Column(name = "hora_entrada_saida")
-	@Caption(value = "Hora de entrada / saída")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String horaEntradaSaida = "";
+	@Column(name = "local_destino")
+	@Caption(value = "Local Destino")
+	private Integer localDestino;
 
 	@Field
 	@Column(name = "tipo_operacao")
@@ -596,29 +594,28 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.numero = (numero == null ? "".trim() : numero.toUpperCase().trim());
 	}
 
-	public Date getDataEmissao() {
-		return dataEmissao;
+	public Date getDataHoraEmissao() {
+		return dataHoraEmissao;
 	}
 
-	public void setDataEmissao(Date dataEmissao) {
-		this.dataEmissao = dataEmissao;
+	public void setDataHoraEmissao(Date dataHoraEmissao) {
+		this.dataHoraEmissao = dataHoraEmissao;
 	}
 
-	public Date getDataEntradaSaida() {
-		return dataEntradaSaida;
+	public Date getDataHoraEntradaSaida() {
+		return dataHoraEntradaSaida;
 	}
 
-	public void setDataEntradaSaida(Date dataEntradaSaida) {
-		this.dataEntradaSaida = dataEntradaSaida;
+	public void setDataHoraEntradaSaida(Date dataHoraEntradaSaida) {
+		this.dataHoraEntradaSaida = dataHoraEntradaSaida;
 	}
 
-	public String getHoraEntradaSaida() {
-		return horaEntradaSaida;
+	public Integer getLocalDestino() {
+		return localDestino;
 	}
 
-	public void setHoraEntradaSaida(String horaEntradaSaida) {
-		this.horaEntradaSaida = (horaEntradaSaida == null ? "".trim()
-				: horaEntradaSaida.toUpperCase().trim());
+	public void setLocalDestino(Integer localDestino) {
+		this.localDestino = localDestino;
 	}
 
 	public String getTipoOperacao() {
