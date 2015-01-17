@@ -287,14 +287,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
 					CargoListController.class, this.cargoDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
+					super.getMainController());
 
 			this.subView.getMocColaboradorCargo().setModel(modelCargo);
 

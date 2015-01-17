@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.servicos.dao.geral.pessoal.CargoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,15 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CargoDAO dao;
+	private CargoFormController cargoFormController;
 
-	@Autowired
-	CargoFormController cargoFormController;
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public CargoListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	protected CRUDFormController<CargoEntity> getFormController() {
@@ -38,19 +42,8 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
 	public Class<? super CargoEntity> getEntityClass() {
 		return CargoEntity.class;
-	}
-
-	@Override
-	protected List<CargoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -59,8 +52,9 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 	}
 
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -69,8 +63,31 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 	}
 
 	@Override
+	protected List<CargoEntity> pesquisa(String valor) {
+		try {
+			List<CargoEntity> auxLista = (List<CargoEntity>) this.cargoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<CargoEntity> pesquisaDefault() {
-		return (List<CargoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<CargoEntity> auxLista = (List<CargoEntity>) this.cargoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

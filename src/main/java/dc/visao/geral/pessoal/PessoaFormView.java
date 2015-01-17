@@ -2141,7 +2141,7 @@ public class PessoaFormView extends CustomComponent {
 		tsColaborador.setSizeFull();
 
 		tsColaborador.addTab(bvlColaboradorInformacaoGeral(), 0);
-		// tsColaborador.addTab(bvlColaboradorInformacaoComissao(), 1);
+		tsColaborador.addTab(bvlColaboradorInformacaoComissao(), 1);
 
 		//
 		vlColaborador.addComponent(tsColaborador);
@@ -2233,36 +2233,36 @@ public class PessoaFormView extends CustomComponent {
 		hlRow2.setSpacing(true);
 
 		// mocColaboradorNivelFormacao
-		//mocColaboradorNivelFormacao = new ManyToOneCombo<>();
-		//mocColaboradorNivelFormacao.setCaption("Nível de formação");
-		//mocColaboradorNivelFormacao.setImmediate(false);
-		//mocColaboradorNivelFormacao.setWidth("-1px");
-		//mocColaboradorNivelFormacao.setHeight("-1px");
-		//hlRow2.addComponent(mocColaboradorNivelFormacao);
+		mocColaboradorNivelFormacao = new ManyToOneCombo<>();
+		mocColaboradorNivelFormacao.setCaption("Nível de formação");
+		mocColaboradorNivelFormacao.setImmediate(false);
+		mocColaboradorNivelFormacao.setWidth("-1px");
+		mocColaboradorNivelFormacao.setHeight("-1px");
+		hlRow2.addComponent(mocColaboradorNivelFormacao);
 
 		// mocColaboradorCargo
-		//mocColaboradorCargo = new ManyToOneCombo<>();
-		//mocColaboradorCargo.setCaption("Cargo");
-		//mocColaboradorCargo.setImmediate(false);
-		//mocColaboradorCargo.setWidth("-1px");
-		//mocColaboradorCargo.setHeight("-1px");
-		//hlRow2.addComponent(mocColaboradorCargo);
+		// mocColaboradorCargo = new ManyToOneCombo<>();
+		// mocColaboradorCargo.setCaption("Cargo");
+		// mocColaboradorCargo.setImmediate(false);
+		// mocColaboradorCargo.setWidth("-1px");
+		// mocColaboradorCargo.setHeight("-1px");
+		// hlRow2.addComponent(mocColaboradorCargo);
 
 		// mocColaboradorContaContabil
-		//mocColaboradorContaContabil = new ManyToOneCombo<>();
-		//mocColaboradorContaContabil.setCaption("Conta contábil");
-		//mocColaboradorContaContabil.setImmediate(false);
-		//mocColaboradorContaContabil.setWidth("-1px");
-		//mocColaboradorContaContabil.setHeight("-1px");
-		//hlRow2.addComponent(mocColaboradorContaContabil);
+		mocColaboradorContaContabil = new ManyToOneCombo<>();
+		mocColaboradorContaContabil.setCaption("Conta contábil");
+		mocColaboradorContaContabil.setImmediate(false);
+		mocColaboradorContaContabil.setWidth("-1px");
+		mocColaboradorContaContabil.setHeight("-1px");
+		hlRow2.addComponent(mocColaboradorContaContabil);
 
 		// mocColaboradorSetor
-		//mocColaboradorSetor = new ManyToOneCombo<>();
-		//mocColaboradorSetor.setCaption("Setor");
-		//mocColaboradorSetor.setImmediate(false);
-		//mocColaboradorSetor.setWidth("176px");
-		//mocColaboradorSetor.setHeight("-1px");
-		//hlRow2.addComponent(mocColaboradorSetor);
+		mocColaboradorSetor = new ManyToOneCombo<>();
+		mocColaboradorSetor.setCaption("Setor");
+		mocColaboradorSetor.setImmediate(false);
+		mocColaboradorSetor.setWidth("176px");
+		mocColaboradorSetor.setHeight("-1px");
+		hlRow2.addComponent(mocColaboradorSetor);
 
 		// row 3
 		// common part: create layout
@@ -2795,21 +2795,20 @@ public class PessoaFormView extends CustomComponent {
 		hlRow5.setSpacing(true);
 
 		// mocColaboradorContaCaixa
-		// mocColaboradorContaCaixa = new ManyToOneCombo<>();
-		// mocColaboradorContaCaixa.setCaption("Conta da caixa");
-		// mocColaboradorContaCaixa.setImmediate(false);
-		// mocColaboradorContaCaixa.setWidth("-1px");
-		// mocColaboradorContaCaixa.setHeight("-1px");
-		// hlRow5.addComponent(mocColaboradorContaCaixa);
+		mocColaboradorContaCaixa = new ManyToOneCombo<>();
+		mocColaboradorContaCaixa.setCaption("Conta da caixa");
+		mocColaboradorContaCaixa.setImmediate(false);
+		mocColaboradorContaCaixa.setWidth("-1px");
+		mocColaboradorContaCaixa.setHeight("-1px");
+		hlRow5.addComponent(mocColaboradorContaCaixa);
 
 		// mocColaboradorPlanoConta
-		// mocColaboradorPlanoConta = new ManyToOneCombo<>();
-		// mocColaboradorPlanoConta.setCaption("Plano de conta");
-		// mocColaboradorPlanoConta.setImmediate(false);
-		// mocColaboradorPlanoConta.setEnabled(false);
-		// mocColaboradorPlanoConta.setWidth("-1px");
-		// mocColaboradorPlanoConta.setHeight("-1px");
-		// hlRow5.addComponent(mocColaboradorPlanoConta);
+		mocColaboradorPlanoConta = new ManyToOneCombo<>();
+		mocColaboradorPlanoConta.setCaption("Plano de conta");
+		mocColaboradorPlanoConta.setImmediate(false);
+		mocColaboradorPlanoConta.setWidth("-1px");
+		mocColaboradorPlanoConta.setHeight("-1px");
+		hlRow5.addComponent(mocColaboradorPlanoConta);
 
 		glColaboradorInformacaoComissao.addComponent(hlRow1);
 		glColaboradorInformacaoComissao.addComponent(hlRow2);

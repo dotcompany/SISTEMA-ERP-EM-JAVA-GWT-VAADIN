@@ -16,7 +16,7 @@ import dc.control.util.StringUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.tabela.CboEntity;
-import dc.servicos.dao.geral.pessoal.CargoDAO;
+import dc.model.business.geral.pessoal.CargoBusiness;
 import dc.servicos.dao.geral.tabela.CboDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -34,39 +34,62 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	private CargoFormView subView;
 
-	private CargoEntity currentBean;
+	/**
+	 * ENTITY
+	 */
+
+	private CargoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
 
 	@Autowired
-	private CargoDAO cargoDAO;
+	private CargoBusiness<CargoEntity> business;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private CboDAO cboDAO;
 
-	@Override
-	protected boolean validaSalvar() {
-		boolean valido = true;
+	/**
+	 * CONSTRUTOR
+	 */
 
-		String nome = this.subView.getTfNome().getValue();
+	public CargoFormController() {
+		// TODO Auto-generated constructor stub
+	}
 
-		if (!Validator.validateString(nome)) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em Branco!");
-
-			valido = false;
-		}
-
-		return valido;
+	public CargoBusiness<CargoEntity> getBusiness() {
+		return business;
 	}
 
 	@Override
-	protected void criarNovoBean() {
-		try {
-			this.currentBean = new CargoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
+	protected String getNome() {
+		return "Cargo";
+	}
 
-			mensagemErro(e.getMessage());
-		}
+	@Override
+	protected Component getSubView() {
+		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public CargoEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
@@ -85,25 +108,77 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 					super.getMainController());
 
 			this.subView.getMocCbo2002().setModel(modelCbo2);
-			// subView.InitCbs(cboDAO.listaTodos());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
+	protected boolean validaSalvar() {
+		boolean valido = true;
+
+		String nome = this.subView.getTfNome().getValue();
+
+		if (!Validator.validateString(nome)) {
+			adicionarErroDeValidacao(this.subView.getTfNome(),
+					"Não pode ficar em Branco!");
+
+			valido = false;
+		}
+
+		return valido;
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+
+			String salario = this.subView.getTfSalario().getValue();
+
+			if (NumberUtils.isNumber(salario)) {
+				this.entity.setSalario(NumberUtils.createDouble(salario));
+			}
+
+			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
+
+			if (ObjectUtils.isNotBlank(cbo1994)) {
+				this.entity.setCbo1994(cbo1994.getCodigo());
+			} else {
+				this.entity.setCbo1994(null);
+			}
+
+			CboEntity cbo2002 = this.subView.getMocCbo2002().getValue();
+
+			if (ObjectUtils.isNotBlank(cbo2002)) {
+				this.entity.setCbo2002(cbo2002.getCodigo());
+			} else {
+				this.entity.setCbo2002(null);
+			}
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.cargoDAO.find(id);
+			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfDescricao().setValue(
-					this.currentBean.getDescricao());
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 
 			this.subView.getTfSalario().setValue(
-					String.valueOf(this.currentBean.getSalario()));
+					String.valueOf(this.entity.getSalario()));
 
-			String sCbo1994 = this.currentBean.getCbo1994();
+			String sCbo1994 = this.entity.getCbo1994();
 
 			if (StringUtils.isNotBlank(sCbo1994)) {
 				CboEntity cbo1994 = this.cboDAO.find(sCbo1994);
@@ -111,7 +186,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 				this.subView.getMocCbo1994().setValue(cbo1994);
 			}
 
-			String sCbo2002 = this.currentBean.getCbo2002();
+			String sCbo2002 = this.entity.getCbo2002();
 
 			if (StringUtils.isNotBlank(sCbo2002)) {
 				CboEntity cbo2002 = this.cboDAO.find(sCbo2002);
@@ -124,37 +199,9 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	}
 
 	@Override
-	protected void actionSalvar() {
+	protected void criarNovoBean() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setDescricao(this.subView.getTfDescricao()
-					.getValue());
-
-			String salario = this.subView.getTfSalario().getValue();
-
-			if (NumberUtils.isNumber(salario)) {
-				this.currentBean.setSalario(NumberUtils.createDouble(salario));
-			}
-
-			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
-
-			if (ObjectUtils.isNotBlank(cbo1994)) {
-				this.currentBean.setCbo1994(cbo1994.getCodigo());
-			} else {
-				this.currentBean.setCbo1994(null);
-			}
-
-			CboEntity cbo2002 = this.subView.getMocCbo2002().getValue();
-
-			if (ObjectUtils.isNotBlank(cbo2002)) {
-				this.currentBean.setCbo2002(cbo2002.getCodigo());
-			} else {
-				this.currentBean.setCbo2002(null);
-			}
-
-			this.cargoDAO.saveOrUpdate(this.currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.entity = new CargoEntity();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -168,14 +215,9 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	}
 
 	@Override
-	protected String getNome() {
-		return "Cargo";
-	}
-
-	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.cargoDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -185,29 +227,11 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
 
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-
-	@Override
-	protected Component getSubView() {
-		return subView;
-	}
-
-	@Override
-	public CargoEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
