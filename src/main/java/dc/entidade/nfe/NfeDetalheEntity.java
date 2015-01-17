@@ -235,6 +235,13 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String informacoesAdicionais = "";
+	
+	@Field
+	@Column(name = "nve")
+	@Caption(value = "NVE")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nve = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -533,6 +540,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setInformacoesAdicionais(String informacoesAdicionais) {
 		this.informacoesAdicionais = (informacoesAdicionais == null ? ""
 				: informacoesAdicionais.toUpperCase().trim());
+	}
+	
+	public String getNve() {
+		return nve;
+	}
+
+	public void setNve(String nve) {
+		this.nve = nve;
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {

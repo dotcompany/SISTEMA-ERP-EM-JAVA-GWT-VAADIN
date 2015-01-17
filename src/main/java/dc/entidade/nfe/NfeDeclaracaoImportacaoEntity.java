@@ -93,6 +93,31 @@ public class NfeDeclaracaoImportacaoEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoExportador;
+	
+	@Field
+	@Column(name = "via_transporte")
+	@Caption(value = "Via Transporte")
+	private Integer viaTransporte;
+	
+	@Field
+	@Column(name = "forma_intermediacao")
+	@Caption(value = "Forma Intermediação")
+	private Integer formaIntermediacao;
+	
+	@Field
+	@Column(name = "cnpj")
+	@Caption(value = "CNPJ")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cnpj;
+
+	
+	@Field
+	@Column(name = "uf_terceiro")
+	@Caption(value = "UF Terceiro")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String ufTerceiro;
 
 	/**
 	 * REFERENCIA - FK
@@ -182,6 +207,38 @@ public class NfeDeclaracaoImportacaoEntity extends
 
 	public void setNfeDetalhe(Integer nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
+	}
+	
+	public Integer getViaTransporte() {
+		return viaTransporte;
+	}
+
+	public void setViaTransporte(Integer viaTransporte) {
+		this.viaTransporte = viaTransporte;
+	}
+
+	public Integer getFormaIntermediacao() {
+		return formaIntermediacao;
+	}
+
+	public void setFormaIntermediacao(Integer formaIntermediacao) {
+		this.formaIntermediacao = formaIntermediacao;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getUfTerceiro() {
+		return ufTerceiro;
+	}
+
+	public void setUfTerceiro(String ufTerceiro) {
+		this.ufTerceiro = ufTerceiro;
 	}
 
 	/**
