@@ -803,7 +803,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfSuframaDestinatario":
-			nfeDestinatario.setSuframa((String) obj);
+			//nfeDestinatario.setSuframa((String) obj);
 
 			break;
 		case "tfTelefoneDestinatario":

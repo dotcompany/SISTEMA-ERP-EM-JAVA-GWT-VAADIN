@@ -150,13 +150,20 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoEstadual = "";
+	
+	@Field
+	@Column(name = "inscricao_municipal")
+	@Caption(value = "Inscrição Municipal")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String inscricaoMunicipal = "";
 
 	@Field
 	@Column(name = "suframa")
 	@Caption(value = "SUFRAMA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String suframa = "";
+	private Integer suframa;
 
 	@Field
 	@Column(name = "email")
@@ -334,13 +341,22 @@ public class NfeDestinatarioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.inscricaoEstadual = (inscricaoEstadual == null ? ""
 				: inscricaoEstadual.toUpperCase().trim());
 	}
-
-	public String getSuframa() {
-		return suframa.trim();
+	
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal.trim();
 	}
 
-	public void setSuframa(String suframa) {
-		this.suframa = (suframa == null ? "" : suframa.toUpperCase().trim());
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = (inscricaoMunicipal == null ? ""
+				: inscricaoMunicipal.toUpperCase().trim());
+	}
+
+	public Integer getSuframa() {
+		return suframa;
+	}
+
+	public void setSuframa(Integer suframa) {
+		this.suframa = suframa;
 	}
 
 	public String getEmail() {
