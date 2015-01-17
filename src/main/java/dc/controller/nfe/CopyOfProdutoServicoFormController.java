@@ -349,22 +349,22 @@ public class CopyOfProdutoServicoFormController extends
 				this.nfeCabecalho.getNaturezaOperacao().trim());
 		this.subView.getTfChaveAcesso().setValue(
 				this.nfeCabecalho.getChaveAcesso().trim());
-		this.subView.getTfDigitoChaveAcesso().setValue(
-				this.nfeCabecalho.getDigitoChaveAcesso().trim());
+		
+		//this.subView.getTfDigitoChaveAcesso().setValue(this.nfeCabecalho.getDigitoChaveAcesso().trim());
 		
 		//this.subView.getTfCodigoNumerico().setValue(this.nfeCabecalho.getCodigoNumerico());
 		
 		//this.subView.getTfSerie().setValue(this.nfeCabecalho.getSerie());
 		
-		this.subView.getTfNumero().setValue(
-				this.nfeCabecalho.getNumero().trim());
+		//this.subView.getTfNumero().setValue(this.nfeCabecalho.getNumero());
+		//this.subView.getTfTipoOperacao().setValue(this.nfeCabecalho.getTipoOperacao());
+		
 		this.subView.getPdfDataEmissao().setValue(
 				this.nfeCabecalho.getDataHoraEmissao());
 		this.subView.getPdfDataEntradaSaida().setValue(
 				this.nfeCabecalho.getDataHoraEntradaSaida());
 		
-		this.subView.getTfTipoOperacao().setValue(
-				this.nfeCabecalho.getTipoOperacao().trim());
+		
 		// this.subView.getTfTipoEmissao().setValue(
 		// this.nfeCabecalho.getTipoEmissao().trim());
 		// this.subView.getTfFinalidadeEmissao().setValue(
@@ -1230,7 +1230,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfDigitoChaveAcesso":
-			this.nfeCabecalho.setDigitoChaveAcesso((String) obj);
+			//this.nfeCabecalho.setDigitoChaveAcesso((String) obj);
 
 			break;
 		case "tfCodigoNumerico":
@@ -1242,7 +1242,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfNumero":
-			this.nfeCabecalho.setNumero((String) obj);
+			//this.nfeCabecalho.setNumero((String) obj);
 
 			break;
 		case "pdfDataEmissao":
@@ -1254,19 +1254,19 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfTipoOperacao":
-			this.nfeCabecalho.setTipoOperacao((String) obj);
+			//this.nfeCabecalho.setTipoOperacao((String) obj);
 
 			break;
 		case "tfTipoEmissao":
-			this.nfeCabecalho.setTipoEmissao((String) obj);
+			//this.nfeCabecalho.setTipoEmissao((String) obj);
 
 			break;
 		case "tfFinalidadeEmissao":
-			this.nfeCabecalho.setFinalidadeEmissao((String) obj);
+			//this.nfeCabecalho.setFinalidadeEmissao((String) obj);
 
 			break;
 		case "tfFormatoImpressaoDanfe":
-			this.nfeCabecalho.setFormatoImpressaoDanfe((String) obj);
+			//this.nfeCabecalho.setFormatoImpressaoDanfe((String) obj);
 
 			break;
 		case "tfFormaPagamento":

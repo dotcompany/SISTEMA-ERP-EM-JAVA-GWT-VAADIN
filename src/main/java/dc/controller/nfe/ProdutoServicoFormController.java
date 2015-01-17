@@ -741,7 +741,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfDigitoChaveAcesso":
-			this.nfeCabecalho.setDigitoChaveAcesso((String) obj);
+			//this.nfeCabecalho.setDigitoChaveAcesso((String) obj);
 
 			break;
 		case "tfCodigoNumerico":
@@ -753,7 +753,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfNumero":
-			this.nfeCabecalho.setNumero((String) obj);
+			//this.nfeCabecalho.setNumero((String) obj);
 
 			break;
 		case "pdfDataEmissao":
@@ -765,19 +765,19 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfTipoOperacao":
-			this.nfeCabecalho.setTipoOperacao((String) obj);
+			//this.nfeCabecalho.setTipoOperacao((String) obj);
 
 			break;
 		case "tfTipoEmissao":
-			this.nfeCabecalho.setTipoEmissao((String) obj);
+			//this.nfeCabecalho.setTipoEmissao((String) obj);
 
 			break;
 		case "tfFinalidadeEmissao":
-			this.nfeCabecalho.setFinalidadeEmissao((String) obj);
+			//this.nfeCabecalho.setFinalidadeEmissao((String) obj);
 
 			break;
 		case "tfFormatoImpressaoDanfe":
-			this.nfeCabecalho.setFormatoImpressaoDanfe((String) obj);
+			//this.nfeCabecalho.setFormatoImpressaoDanfe((String) obj);
 
 			break;
 		case "tfFormaPagamento":

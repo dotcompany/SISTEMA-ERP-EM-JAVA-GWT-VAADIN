@@ -104,7 +104,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Número")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String numero = "";
+	private Integer numero;
 
 	@Field
 	@Column(name = "data__hora_emissao")
@@ -130,7 +130,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Tipo de operação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoOperacao = "1";
+	private Integer tipoOperacao = 1;
 
 	@Field
 	@Column(name = "codigo_municipio")
@@ -144,14 +144,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Formato de impressão do DANFE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String formatoImpressaoDanfe = "";
+	private Integer formatoImpressaoDanfe;
 
 	@Field
 	@Column(name = "tipo_emissao")
 	@Caption(value = "Tipo de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipoEmissao = "1";
+	private Integer tipoEmissao = 1;
 
 	@Field
 	@Column(name = "chave_acesso")
@@ -165,28 +165,28 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Digíto da chave de acesso")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String digitoChaveAcesso = "";
+	private Integer digitoChaveAcesso;
 
 	@Field
 	@Column(name = "ambiente")
 	@Caption(value = "Ambiente")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String ambiente = "2";
+	private Integer ambiente = 2;
 
 	@Field
 	@Column(name = "finalidade_emissao")
 	@Caption(value = "Finalidade de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String finalidadeEmissao = "1";
+	private Integer finalidadeEmissao = 1;
 
 	@Field
 	@Column(name = "processo_emissao")
 	@Caption(value = "Processo de emissão")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String processoEmissao = "";
+	private Integer processoEmissao;
 
 	@Field
 	@Column(name = "versao_processo_emissao")
@@ -594,12 +594,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.serie = (serie == null ? 252858 : serie);
 	}
 
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = (numero == null ? "".trim() : numero.toUpperCase().trim());
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
 	public Date getDataHoraEmissao() {
@@ -626,13 +626,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.localDestino = localDestino;
 	}
 
-	public String getTipoOperacao() {
+	public Integer getTipoOperacao() {
 		return tipoOperacao;
 	}
 
-	public void setTipoOperacao(String tipoOperacao) {
-		this.tipoOperacao = (tipoOperacao == null ? "1".trim() : tipoOperacao
-				.toUpperCase().trim());
+	public void setTipoOperacao(Integer tipoOperacao) {
+		this.tipoOperacao = (tipoOperacao == null ? 1 : tipoOperacao);
 	}
 
 	public Integer getCodigoMunicipio() {
@@ -640,26 +639,23 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCodigoMunicipio(Integer codigoMunicipio) {
-		this.codigoMunicipio = (codigoMunicipio == null ? 5300108
-				: codigoMunicipio);
+		this.codigoMunicipio = (codigoMunicipio == null ? 5300108 : codigoMunicipio);
 	}
 
-	public String getFormatoImpressaoDanfe() {
+	public Integer getFormatoImpressaoDanfe() {
 		return formatoImpressaoDanfe;
 	}
 
-	public void setFormatoImpressaoDanfe(String formatoImpressaoDanfe) {
-		this.formatoImpressaoDanfe = (formatoImpressaoDanfe == null ? "".trim()
-				: formatoImpressaoDanfe.toUpperCase().trim());
+	public void setFormatoImpressaoDanfe(Integer formatoImpressaoDanfe) {
+		this.formatoImpressaoDanfe = formatoImpressaoDanfe;
 	}
 
-	public String getTipoEmissao() {
+	public Integer getTipoEmissao() {
 		return tipoEmissao;
 	}
 
-	public void setTipoEmissao(String tipoEmissao) {
-		this.tipoEmissao = (tipoEmissao == null ? "1".trim() : tipoEmissao
-				.toUpperCase().trim());
+	public void setTipoEmissao(Integer tipoEmissao) {
+		this.tipoEmissao = (tipoEmissao == null ? 1 : tipoEmissao);
 	}
 
 	public String getChaveAcesso() {
@@ -671,40 +667,36 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase().trim());
 	}
 
-	public String getDigitoChaveAcesso() {
+	public Integer getDigitoChaveAcesso() {
 		return digitoChaveAcesso;
 	}
 
-	public void setDigitoChaveAcesso(String digitoChaveAcesso) {
-		this.digitoChaveAcesso = (digitoChaveAcesso == null ? "".trim()
-				: digitoChaveAcesso.toUpperCase().trim());
+	public void setDigitoChaveAcesso(Integer digitoChaveAcesso) {
+		this.digitoChaveAcesso = digitoChaveAcesso;
 	}
 
-	public String getAmbiente() {
+	public Integer getAmbiente() {
 		return ambiente;
 	}
 
-	public void setAmbiente(String ambiente) {
-		this.ambiente = (ambiente == null ? "2".trim() : ambiente.toUpperCase()
-				.trim());
+	public void setAmbiente(Integer ambiente) {
+		this.ambiente = (ambiente == null ? 2 : ambiente);
 	}
 
-	public String getFinalidadeEmissao() {
+	public Integer getFinalidadeEmissao() {
 		return finalidadeEmissao;
 	}
 
-	public void setFinalidadeEmissao(String finalidadeEmissao) {
-		this.finalidadeEmissao = (finalidadeEmissao == null ? "1".trim()
-				: finalidadeEmissao.toUpperCase().trim());
+	public void setFinalidadeEmissao(Integer finalidadeEmissao) {
+		this.finalidadeEmissao = (finalidadeEmissao == null ? 1	: finalidadeEmissao);
 	}
 
-	public String getProcessoEmissao() {
+	public Integer getProcessoEmissao() {
 		return processoEmissao;
 	}
 
-	public void setProcessoEmissao(String processoEmissao) {
-		this.processoEmissao = (processoEmissao == null ? "".trim()
-				: processoEmissao.toUpperCase().trim());
+	public void setProcessoEmissao(Integer processoEmissao) {
+		this.processoEmissao = processoEmissao;
 	}
 
 	public String getVersaoProcessoEmissao() {

@@ -42,19 +42,18 @@ public class ProdutoServicoViewDTO implements Serializable {
 				nfeCabecalho.getNaturezaOperacao().trim());
 		subView.getTfChaveAcesso().setValue(
 				nfeCabecalho.getChaveAcesso().trim());
-		subView.getTfDigitoChaveAcesso().setValue(
-				nfeCabecalho.getDigitoChaveAcesso().trim());
+		
+		//subView.getTfDigitoChaveAcesso().setValue(nfeCabecalho.getDigitoChaveAcesso().trim());
 		
 		//subView.getTfCodigoNumerico().setValue(nfeCabecalho.getCodigoNumerico());		
 		//subView.getTfSerie().setValue(nfeCabecalho.getSerie());
 		
-		subView.getTfNumero().setValue(nfeCabecalho.getNumero().trim());
+		//subView.getTfNumero().setValue(nfeCabecalho.getNumero().trim());
 		subView.getPdfDataEmissao().setValue(nfeCabecalho.getDataHoraEmissao());
 		subView.getPdfDataEntradaSaida().setValue(
 				nfeCabecalho.getDataHoraEntradaSaida());
 		
-		subView.getTfTipoOperacao().setValue(
-				nfeCabecalho.getTipoOperacao().trim());
+		//subView.getTfTipoOperacao().setValue(nfeCabecalho.getTipoOperacao().trim());
 		// this.subView.getTfTipoEmissao().setValue(
 		// this.nfeCabecalho.getTipoEmissao().trim());
 		// this.subView.getTfFinalidadeEmissao().setValue(
