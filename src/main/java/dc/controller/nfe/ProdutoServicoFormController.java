@@ -745,11 +745,11 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfCodigoNumerico":
-			this.nfeCabecalho.setCodigoNumerico((String) obj);
+			//this.nfeCabecalho.setCodigoNumerico((String) obj);
 
 			break;
 		case "tfSerie":
-			this.nfeCabecalho.setSerie((String) obj);
+			//this.nfeCabecalho.setSerie((String) obj);
 
 			break;
 		case "tfNumero":
@@ -781,7 +781,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfFormaPagamento":
-			this.nfeCabecalho.setIndicadorFormaPagamento((String) obj);
+			//this.nfeCabecalho.setIndicadorFormaPagamento((String) obj);
 
 			break;
 		}

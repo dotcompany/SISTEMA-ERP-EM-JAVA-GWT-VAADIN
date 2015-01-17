@@ -69,7 +69,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Código numérico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigoNumerico = "";
+	private Integer codigoNumerico = 8212021;
 
 	@Field
 	@Column(name = "natureza_operacao")
@@ -83,7 +83,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Indicador da forma de pagamento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String indicadorFormaPagamento = "";
+	private Integer indicadorFormaPagamento;
 
 	@Field
 	@Column(name = "codigo_modelo")
@@ -97,7 +97,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Série")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String serie = "000";
+	private Integer serie = 252858;
 
 	@Field
 	@Column(name = "numero")
@@ -552,13 +552,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getCodigoNumerico() {
+	public Integer getCodigoNumerico() {
 		return codigoNumerico;
 	}
 
-	public void setCodigoNumerico(String codigoNumerico) {
-		this.codigoNumerico = (codigoNumerico == null ? "".trim()
-				: codigoNumerico.toUpperCase().trim());
+	public void setCodigoNumerico(Integer codigoNumerico) {
+		this.codigoNumerico = (codigoNumerico == null ? 8212021 : codigoNumerico);
 	}
 
 	public String getNaturezaOperacao() {
@@ -570,13 +569,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				.trim() : naturezaOperacao.toUpperCase().trim());
 	}
 
-	public String getIndicadorFormaPagamento() {
+	public Integer getIndicadorFormaPagamento() {
 		return indicadorFormaPagamento;
 	}
 
-	public void setIndicadorFormaPagamento(String indicadorFormaPagamento) {
-		this.indicadorFormaPagamento = (indicadorFormaPagamento == null ? ""
-				.trim() : indicadorFormaPagamento.toUpperCase().trim());
+	public void setIndicadorFormaPagamento(Integer indicadorFormaPagamento) {
+		this.indicadorFormaPagamento = indicadorFormaPagamento;
 	}
 
 	public String getCodigoModelo() {
@@ -588,12 +586,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase().trim());
 	}
 
-	public String getSerie() {
+	public Integer getSerie() {
 		return serie;
 	}
 
-	public void setSerie(String serie) {
-		this.serie = (serie == null ? "000".trim() : serie.toUpperCase().trim());
+	public void setSerie(Integer serie) {
+		this.serie = (serie == null ? 252858 : serie);
 	}
 
 	public String getNumero() {

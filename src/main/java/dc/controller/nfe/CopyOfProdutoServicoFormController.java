@@ -351,9 +351,11 @@ public class CopyOfProdutoServicoFormController extends
 				this.nfeCabecalho.getChaveAcesso().trim());
 		this.subView.getTfDigitoChaveAcesso().setValue(
 				this.nfeCabecalho.getDigitoChaveAcesso().trim());
-		this.subView.getTfCodigoNumerico().setValue(
-				this.nfeCabecalho.getCodigoNumerico().trim());
-		this.subView.getTfSerie().setValue(this.nfeCabecalho.getSerie().trim());
+		
+		//this.subView.getTfCodigoNumerico().setValue(this.nfeCabecalho.getCodigoNumerico());
+		
+		//this.subView.getTfSerie().setValue(this.nfeCabecalho.getSerie());
+		
 		this.subView.getTfNumero().setValue(
 				this.nfeCabecalho.getNumero().trim());
 		this.subView.getPdfDataEmissao().setValue(
@@ -1232,11 +1234,11 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfCodigoNumerico":
-			this.nfeCabecalho.setCodigoNumerico((String) obj);
+			//this.nfeCabecalho.setCodigoNumerico((String) obj);
 
 			break;
 		case "tfSerie":
-			this.nfeCabecalho.setSerie((String) obj);
+			//this.nfeCabecalho.setSerie((String) obj);
 
 			break;
 		case "tfNumero":
@@ -1268,7 +1270,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfFormaPagamento":
-			this.nfeCabecalho.setIndicadorFormaPagamento((String) obj);
+			//this.nfeCabecalho.setIndicadorFormaPagamento((String) obj);
 
 			break;
 		}
@@ -1286,7 +1288,7 @@ public class CopyOfProdutoServicoFormController extends
 
 		switch (id) {
 		case "tfEmailDestinatario":
-			nfeDestinatario.setEmail((String) obj);
+			//nfeDestinatario.setEmail((String) obj);
 
 			break;
 		case "tfSuframaDestinatario":
