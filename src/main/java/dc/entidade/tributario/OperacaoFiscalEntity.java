@@ -65,7 +65,7 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao;
 
 	@Field
 	@Caption("Descrição na NF")
@@ -128,12 +128,12 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 		this.cfop = cfop;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getDescricaoNaNF() {

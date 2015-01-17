@@ -24,7 +24,8 @@ import dc.visao.tributario.OperacaoFiscalFormView;
 @Controller
 @Scope("prototype")
 @SuppressWarnings("serial")
-public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscalEntity> {
+public class OperacaoFiscalFormController extends
+		CRUDFormController<OperacaoFiscalEntity> {
 
 	OperacaoFiscalFormView subView;
 
@@ -65,7 +66,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
 		subView.getCfop().setValue(cfopDAO.find(currentBean.getCfop()));
-		subView.getDescricao().setValue(currentBean.getNome());
+		subView.getDescricao().setValue(currentBean.getDescricao());
 		subView.getDescricaoNaNf().setValue(currentBean.getDescricaoNaNF());
 		subView.getObservacao().setValue(currentBean.getObservacao());
 	}
@@ -89,9 +90,10 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 
 			String descricaoNF = subView.getDescricaoNaNf().getValue();
 			if (!(Validator.validateString(descricaoNF)))
-				throw new ErroValidacaoException("Informe o Campo Descrição na NF");
+				throw new ErroValidacaoException(
+						"Informe o Campo Descrição na NF");
 
-			currentBean.setNome(descricao);
+			currentBean.setDescricao(descricao);
 			currentBean.setDescricaoNaNF(descricaoNF);
 			currentBean.setObservacao(subView.getObservacao().getValue());
 			currentBean.setCfop(cfop.getId());
@@ -141,7 +143,8 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	}
 
 	public BeanItemContainer<CfopEntity> carregarCfop() {
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(
+				CfopEntity.class);
 		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}

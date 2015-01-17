@@ -35,8 +35,6 @@ import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.controller.contabilidade.planoconta.PlanoContaListController;
-import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.diverso.UfListController;
@@ -234,7 +232,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
 					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController());
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
 
 			this.subView.getMocClienteContaContabil().setModel(
 					modelContabilConta);
@@ -247,7 +252,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			DefaultManyToOneComboModel<OperacaoFiscalEntity> modelOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
-					super.getMainController());
+					super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
 
 			this.subView.getMocClienteOperacaoFiscal().setModel(
 					modelOperacaoFiscal);
@@ -305,19 +317,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getMocColaboradorSetor().setModel(modelSetor);
 
-			//DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
-			//		PlanoContaListController.class, this.planoContaDAO,
-			//		super.getMainController());
+			// DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new
+			// DefaultManyToOneComboModel<PlanoConta>(
+			// PlanoContaListController.class, this.planoContaDAO,
+			// super.getMainController());
 
-			//this.subView.getMocColaboradorPlanoConta()
-			//		.setModel(modelPlanoConta);
+			// this.subView.getMocColaboradorPlanoConta()
+			// .setModel(modelPlanoConta);
 
-			DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
-					ContaCaixaListController.class, this.contaCaixaDAO,
-					super.getMainController());
+			// DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new
+			// DefaultManyToOneComboModel<ContaCaixa>(
+			// ContaCaixaListController.class, this.contaCaixaDAO,
+			// super.getMainController());
 
-			this.subView.getMocColaboradorContaCaixa()
-					.setModel(modelContaCaixa);
+			// this.subView.getMocColaboradorContaCaixa()
+			// .setModel(modelContaCaixa);
 
 			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
 					UfListController.class, this.ufDAO,

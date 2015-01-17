@@ -9,15 +9,18 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
+import dc.control.util.classes.SeguimentoUtils;
+import dc.control.validator.DotErpException;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.servicos.dao.framework.geral.SeguimentoDAO;
-import dc.servicos.util.Validator;
+import dc.model.business.sistema.SeguimentoBusiness;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.SeguimentoFormView;
 
 @Controller
 @Scope("prototype")
-public class SeguimentoFormController extends CRUDFormController<SeguimentoEntity> {
+public class SeguimentoFormController extends
+		CRUDFormController<SeguimentoEntity> {
 
 	/**
 	 * 
@@ -26,14 +29,38 @@ public class SeguimentoFormController extends CRUDFormController<SeguimentoEntit
 
 	private SeguimentoFormView subView;
 
-	@Autowired
-	private SeguimentoDAO seguimentoDAO;
+	/**
+	 * ENTITY
+	 */
 
-	private SeguimentoEntity currentBean;
+	private SeguimentoEntity entity;
+
+	/**
+	 * BUSINESS
+	 */
+
+	@Autowired
+	private SeguimentoBusiness<SeguimentoEntity> business;
+
+	/**
+	 * DAO
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public SeguimentoFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public SeguimentoBusiness<SeguimentoEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
-		return "Seguimentos";
+		return "Seguimento";
 	}
 
 	@Override
@@ -42,81 +69,116 @@ public class SeguimentoFormController extends CRUDFormController<SeguimentoEntit
 	}
 
 	@Override
-	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public SeguimentoEntity getModelBean() {
+		return entity;
+	}
+
+	@Override
+	protected void initSubView() {
 		try {
-			seguimentoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
+			this.subView = new SeguimentoFormView(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
+	protected boolean validaSalvar() {
+		try {
+			SeguimentoUtils.validateRequiredFields(this.subView);
+
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
+		}
+	}
+
+	@Override
+	protected void actionSalvar() {
+		try {
+			this.entity.setNome(this.subView.getTfNome().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
+
+			this.business.saveOrUpdate(entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
 	protected void carregar(Serializable id) {
-		currentBean = seguimentoDAO.find(id);
-		subView.preencheForm(currentBean);
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView.getTfNome().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
-	protected void initSubView() {
-		subView = new SeguimentoFormView();
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SeguimentoEntity();
+		try {
+			this.entity = new SeguimentoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			this.entity = new SeguimentoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		seguimentoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			this.business.deleteAll(ids);
 
-	@Override
-	protected boolean validaSalvar() {
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxNome(), "Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (!Validator.validateString(subView.getTxDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-	}
-
-	@Override
-	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "seguimentoForm";
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
-	@Override
-	public SeguimentoEntity getModelBean() {
-		return currentBean;
-	}
 }

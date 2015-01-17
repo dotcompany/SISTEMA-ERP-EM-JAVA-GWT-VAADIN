@@ -48,29 +48,32 @@ public class PlanoConta extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Caption(value = "Nome")
+	@Field
+	@Caption("Nome")
 	@Column(name = "NOME")
 	@ComboValue
-	@Field
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
-	@Caption(value = "Data Inclusão")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_INCLUSAO")
 	@Field
+	@Caption("Data da inclusão")
+	@Column(name = "DATA_INCLUSAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInclusao;
 
-	@Caption(value = "Máscara")
-	@Column(name = "MASCARA")
 	@Field
+	@Caption("Máscara")
+	@Column(name = "MASCARA")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String mascara;
 
-	@Caption(value = "Níveis")
-	@Column(name = "NIVEIS")
 	@Field
+	@Caption("Níveis")
+	@Column(name = "NIVEIS")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer niveis;
 
