@@ -51,21 +51,21 @@ public class SituacaoForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	@Field
-	@Column(name = "NOME")
 	@Caption("Nome")
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Lob
 	@Type(type = "text")
-	// @Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Field
-	@Column(name = "DESCRICAO")
 	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	/**
 	 * REFERENCIA - FK

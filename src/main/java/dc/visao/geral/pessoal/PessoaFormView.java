@@ -1603,6 +1603,9 @@ public class PessoaFormView extends CustomComponent {
 		tsGeral.addTab(bvlColaborador(), 5);
 		tsGeral.addTab(bvlFornecedor(), 6);
 		tsGeral.addTab(bvlTransportadora(), 7);
+		tsGeral.addSelectedTabChangeListener(event -> controller.stceSelectTab(
+				event, tsGeral.getTabPosition(tsGeral.getTab(tsGeral
+						.getSelectedTab()))));
 
 		mainLayout.addComponent(tsGeral);
 		mainLayout.setExpandRatio(tsGeral, 1);

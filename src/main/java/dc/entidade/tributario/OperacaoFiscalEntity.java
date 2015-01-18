@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -49,37 +50,33 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	// @ManyToOne
-	// @JoinColumn(name = "ID_EMPRESA", nullable = false)
-	// private Empresa empresa;
-
 	@Field
 	@Caption("CFOP")
 	@Column(name = "cfop")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer cfop;
+	private Integer cfop = new Integer(0);
 
 	@Field
 	@Caption("Descrição")
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
 	@Caption("Descrição na NF")
 	@Column(name = "descricao_na_nf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricaoNaNF;
+	private String descricaoNaNf = "";
 
 	@Field
-	@Caption("Observações")
+	@Caption("Observação")
 	@Column(name = "observacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String observacao = "";
 
 	/**
 	 * REFERENCIA - LIST
@@ -89,15 +86,16 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	private List<ClienteEntity> clienteList;
 
 	/**
-	 * Módulo: NFE
+	 * TRANSIENT
 	 */
 
-	// @OneToMany(mappedBy = "tributOperacaoFiscal", fetch = FetchType.LAZY)
-	// private List<NfeCabecalhoEntity> nfeCabecalhoList;
-
-	/**
-	 * 
-	 */
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return getDescricao();
+	}
 
 	/**
 	 * CONSTRUTOR
@@ -125,7 +123,7 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCfop(Integer cfop) {
-		this.cfop = cfop;
+		this.cfop = (cfop == null ? new Integer(0) : cfop);
 	}
 
 	public String getDescricao() {
@@ -133,15 +131,16 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
-	public String getDescricaoNaNF() {
-		return descricaoNaNF;
+	public String getDescricaoNaNf() {
+		return descricaoNaNf;
 	}
 
-	public void setDescricaoNaNF(String descricaoNaNF) {
-		this.descricaoNaNF = descricaoNaNF;
+	public void setDescricaoNaNf(String descricaoNaNf) {
+		this.descricaoNaNf = descricaoNaNf;
 	}
 
 	public String getObservacao() {
@@ -149,7 +148,8 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public List<ClienteEntity> getClienteList() {
@@ -159,23 +159,6 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setClienteList(List<ClienteEntity> clienteList) {
 		this.clienteList = clienteList;
 	}
-
-	/**
-	 * Módulo: NFE
-	 */
-
-	// public List<NfeCabecalhoEntity> getNfeCabecalhoList() {
-	// return nfeCabecalhoList;
-	// }
-
-	// public void setNfeCabecalhoList(List<NfeCabecalhoEntity>
-	// nfeCabecalhoList) {
-	// this.nfeCabecalhoList = nfeCabecalhoList;
-	// }
-
-	/**
-	 * 
-	 */
 
 	/**
 	 * TO STRING

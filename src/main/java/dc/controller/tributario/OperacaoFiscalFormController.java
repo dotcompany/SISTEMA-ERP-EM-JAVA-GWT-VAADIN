@@ -67,7 +67,7 @@ public class OperacaoFiscalFormController extends
 		currentBean = dao.find((Integer) id);
 		subView.getCfop().setValue(cfopDAO.find(currentBean.getCfop()));
 		subView.getDescricao().setValue(currentBean.getDescricao());
-		subView.getDescricaoNaNf().setValue(currentBean.getDescricaoNaNF());
+		subView.getDescricaoNaNf().setValue(currentBean.getDescricaoNaNf());
 		subView.getObservacao().setValue(currentBean.getObservacao());
 	}
 
@@ -94,7 +94,7 @@ public class OperacaoFiscalFormController extends
 						"Informe o Campo Descrição na NF");
 
 			currentBean.setDescricao(descricao);
-			currentBean.setDescricaoNaNF(descricaoNF);
+			currentBean.setDescricaoNaNf(descricaoNF);
 			currentBean.setObservacao(subView.getObservacao().getValue());
 			currentBean.setCfop(cfop.getId());
 			currentBean.setEmpresa(empresaAtual());
