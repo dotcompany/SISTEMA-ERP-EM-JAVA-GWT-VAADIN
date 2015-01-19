@@ -82,49 +82,49 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "CHEQUE_NOMINAL_A")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String chequeNominalA;
+	private String chequeNominalA = "";
 
 	@Field
 	@Caption(value = "Observação")
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	private String observacao = "";
 
 	@Field
 	@Caption(value = "Conta do remetente")
 	@Column(name = "CONTA_REMETENTE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String contaRemetente;
+	private String contaRemetente = "";
 
 	@Field
 	@Caption(value = "Prazo médio de entrega")
 	@Column(name = "PRAZO_MEDIO_ENTREGA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private BigDecimal prazoMedioEntrega;
+	private BigDecimal prazoMedioEntrega = new BigDecimal(0);
 
 	@Field
 	@Caption(value = "Número de dias - Primeiro vencimento")
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer numDiasPrimeiroVencimento;
+	private Integer numDiasPrimeiroVencimento = new Integer(0);
 
 	@Field
 	@Caption(value = "Número de dias - Intervalo")
 	@Column(name = "NUM_DIAS_INTERVALO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer numDiasIntervalo;
+	private Integer numDiasIntervalo = new Integer(0);
 
 	@Field
 	@Caption(value = "Quantidade de parcelas")
 	@Column(name = "QUANTIDADE_PARCELAS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer quantidadeParcelas;
+	private Integer quantidadeParcelas = new Integer(0);
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -270,7 +270,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setChequeNominalA(String chequeNominalA) {
-		this.chequeNominalA = chequeNominalA;
+		this.chequeNominalA = (chequeNominalA == null ? "".trim()
+				: chequeNominalA.toUpperCase().trim());
 	}
 
 	public String getObservacao() {
@@ -278,7 +279,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+		this.observacao = (observacao == null ? "".trim() : observacao
+				.toUpperCase().trim());
 	}
 
 	public String getContaRemetente() {
@@ -286,7 +288,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setContaRemetente(String contaRemetente) {
-		this.contaRemetente = contaRemetente;
+		this.contaRemetente = (contaRemetente == null ? "".trim()
+				: contaRemetente.toUpperCase().trim());
 	}
 
 	public BigDecimal getPrazoMedioEntrega() {
@@ -294,7 +297,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setPrazoMedioEntrega(BigDecimal prazoMedioEntrega) {
-		this.prazoMedioEntrega = prazoMedioEntrega;
+		this.prazoMedioEntrega = (prazoMedioEntrega == null ? new BigDecimal(0)
+				: prazoMedioEntrega);
 	}
 
 	public Integer getNumDiasPrimeiroVencimento() {
@@ -302,7 +306,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setNumDiasPrimeiroVencimento(Integer numDiasPrimeiroVencimento) {
-		this.numDiasPrimeiroVencimento = numDiasPrimeiroVencimento;
+		this.numDiasPrimeiroVencimento = (numDiasPrimeiroVencimento == null ? new Integer(
+				0) : numDiasPrimeiroVencimento);
 	}
 
 	public Integer getNumDiasIntervalo() {
@@ -310,7 +315,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setNumDiasIntervalo(Integer numDiasIntervalo) {
-		this.numDiasIntervalo = numDiasIntervalo;
+		this.numDiasIntervalo = (numDiasIntervalo == null ? new Integer(0)
+				: numDiasIntervalo);
 	}
 
 	public Integer getQuantidadeParcelas() {
@@ -318,7 +324,8 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setQuantidadeParcelas(Integer quantidadeParcelas) {
-		this.quantidadeParcelas = quantidadeParcelas;
+		this.quantidadeParcelas = (quantidadeParcelas == null ? new Integer(0)
+				: quantidadeParcelas);
 	}
 
 	public SimNaoEn getOptanteSimplesNacional() {

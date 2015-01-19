@@ -36,6 +36,7 @@ import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
@@ -260,6 +261,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getMocColaboradorSituacaoColaborador().setModel(
 					modelColaboradorSituacaoColaborador);
 
+			DefaultManyToOneComboModel<SindicatoEntity> modelColaboradorSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
+					SindicatoListController.class, this.sindicatoDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorSindicato().setModel(
+					modelColaboradorSindicato);
+
 			DefaultManyToOneComboModel<NivelFormacaoEntity> modelColaboradorNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
 					NivelFormacaoListController.class, this.nivelFormacaoDAO,
 					super.getMainController());
@@ -289,17 +297,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			 * 
 			 * this.subView.getMocColaboradorContaContabil().setModel(
 			 * modelContabilConta3);
-			 * 
-			 * 
-			 * DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new
-			 * DefaultManyToOneComboModel<SindicatoEntity>(
-			 * SindicatoListController.class, this.sindicatoDAO,
-			 * super.getMainController());
-			 * 
-			 * this.subView.getMocColaboradorSindicato().setModel(
-			 * modelSindicato);
-			 * 
-			 * 
 			 * 
 			 * DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new
 			 * DefaultManyToOneComboModel<PlanoConta>(
@@ -1333,8 +1330,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		TipoColaboradorEntity tipoColaborador = ent.getTipoColaborador();
 
 		if (ObjectUtils.isNotBlank(tipoColaborador)) {
-			System.out.println("--- tipo col");
-
 			this.subView.getMocColaboradorTipoColaborador().setValue(
 					tipoColaborador);
 		}
@@ -1343,17 +1338,19 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getSituacaoColaborador();
 
 		if (ObjectUtils.isNotBlank(situacaoColaborador)) {
-			System.out.println("--- situacao col");
-
 			this.subView.getMocColaboradorSituacaoColaborador().setValue(
 					situacaoColaborador);
+		}
+
+		SindicatoEntity sindicato = ent.getSindicato();
+
+		if (ObjectUtils.isNotBlank(sindicato)) {
+			this.subView.getMocColaboradorSindicato().setValue(sindicato);
 		}
 
 		NivelFormacaoEntity nivelFormacao = ent.getNivelFormacao();
 
 		if (ObjectUtils.isNotBlank(nivelFormacao)) {
-			System.out.println("--- nivel for");
-
 			this.subView.getMocColaboradorNivelFormacao().setValue(
 					nivelFormacao);
 		}
@@ -1361,47 +1358,30 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		CargoEntity cargo = ent.getCargo();
 
 		if (ObjectUtils.isNotBlank(cargo)) {
-			System.out.println("--- cargo");
-
 			this.subView.getMocColaboradorCargo().setValue(cargo);
 		}
 
 		SetorEntity setor = ent.getSetor();
 
 		if (ObjectUtils.isNotBlank(setor)) {
-			System.out.println("--- setor");
-
 			this.subView.getMocColaboradorSetor().setValue(setor);
 		}
 
 		/*
-		 * 
-		 * 
-		 * SindicatoEntity sindicato = ent.getSindicato();
-		 * 
-		 * if (ObjectUtils.isNotBlank(sindicato)) { //
-		 * this.subView.getMocColaboradorSindicato().setValue(sindicato); }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
 		 * ContabilContaEntity contabilConta = ent.getContaContabil();
 		 * 
-		 * if (ObjectUtils.isNotBlank(contabilConta)) { //
-		 * this.subView.getMocColaboradorContaContabil().setValue( //
+		 * if (ObjectUtils.isNotBlank(contabilConta)) {
+		 * this.subView.getMocColaboradorContaContabil().setValue(
 		 * contabilConta); }
-		 * 
-		 * 
 		 * 
 		 * PlanoConta planoConta = ent.getPlanoConta();
 		 * 
-		 * if (ObjectUtils.isNotBlank(planoConta)) { //
+		 * if (ObjectUtils.isNotBlank(planoConta)) {
 		 * this.subView.getMocColaboradorPlanoConta().setValue(planoConta); }
 		 * 
 		 * ContaCaixa contaCaixa = ent.getContaCaixa();
 		 * 
-		 * if (ObjectUtils.isNotBlank(contaCaixa)) { //
+		 * if (ObjectUtils.isNotBlank(contaCaixa)) {
 		 * this.subView.getMocColaboradorContaCaixa().setValue(contaCaixa); }
 		 */
 	}
