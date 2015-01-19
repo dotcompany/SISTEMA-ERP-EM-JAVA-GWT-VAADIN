@@ -1192,8 +1192,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getSituacaoColaborador();
 
 		if (ObjectUtils.isNotBlank(situacaoColaborador)) {
-			// this.subView.getMocColaboradorSituacaoColaborador().setValue(
-			// situacaoColaborador);
+			this.subView.getMocColaboradorSituacaoColaborador().setValue(
+					situacaoColaborador);
 		}
 
 		SindicatoEntity sindicato = ent.getSindicato();
@@ -1696,6 +1696,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			if (indexTab.equals(5)) {
 				System.out.println(":: load colaborador");
+				
+				this.subView.getCkColaborador().setEnabled(false);
+				this.subView.getTsGeral().getTab(indexTab).setEnabled(false);
+				
+				if(!this.subView.getCkColaborador().isEnabled()){
+					return;
+				}
 
 				DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta3 = new DefaultManyToOneComboModel<ContabilContaEntity>(
 						ContabilContaListController.class,

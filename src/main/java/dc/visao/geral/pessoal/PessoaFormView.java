@@ -2908,6 +2908,7 @@ public class PessoaFormView extends CustomComponent {
 		pdfFornecedorDesde = new PopupDateField();
 		pdfFornecedorDesde.setCaption("Desde");
 		pdfFornecedorDesde.setImmediate(false);
+		pdfFornecedorDesde.setRequired(true);
 		pdfFornecedorDesde.setWidth("100px");
 		pdfFornecedorDesde.setHeight("-1px");
 		hlRow2.addComponent(pdfFornecedorDesde);
@@ -2916,6 +2917,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorContaRemetente = new TextField();
 		tfFornecedorContaRemetente.setCaption("Conta do remetente");
 		tfFornecedorContaRemetente.setImmediate(false);
+		tfFornecedorContaRemetente.setRequired(true);
 		tfFornecedorContaRemetente.setWidth("400px");
 		tfFornecedorContaRemetente.setHeight("-1px");
 		hlRow2.addComponent(tfFornecedorContaRemetente);
@@ -2933,6 +2935,7 @@ public class PessoaFormView extends CustomComponent {
 		cbFornecedorGeraFaturamento = new ComboBox();
 		cbFornecedorGeraFaturamento.setCaption("Gera faturamento");
 		cbFornecedorGeraFaturamento.setImmediate(false);
+		cbFornecedorGeraFaturamento.setRequired(true);
 		cbFornecedorGeraFaturamento.setWidth("100px");
 		cbFornecedorGeraFaturamento.setHeight("-1px");
 		hlRow3.addComponent(cbFornecedorGeraFaturamento);
@@ -2941,6 +2944,7 @@ public class PessoaFormView extends CustomComponent {
 		cbFornecedorOptanteSimples = new ComboBox();
 		cbFornecedorOptanteSimples.setCaption("Optante do simples nacional");
 		cbFornecedorOptanteSimples.setImmediate(false);
+		cbFornecedorOptanteSimples.setRequired(true);
 		cbFornecedorOptanteSimples.setWidth("100px");
 		cbFornecedorOptanteSimples.setHeight("-1px");
 		hlRow3.addComponent(cbFornecedorOptanteSimples);
@@ -2949,6 +2953,7 @@ public class PessoaFormView extends CustomComponent {
 		cbFornecedorLocalizacao = new ComboBox();
 		cbFornecedorLocalizacao.setCaption("Localização");
 		cbFornecedorLocalizacao.setImmediate(false);
+		cbFornecedorLocalizacao.setRequired(true);
 		cbFornecedorLocalizacao.setWidth("100px");
 		cbFornecedorLocalizacao.setHeight("-1px");
 		hlRow3.addComponent(cbFornecedorLocalizacao);
@@ -2966,6 +2971,7 @@ public class PessoaFormView extends CustomComponent {
 		cbFornecedorSofreRetencao = new ComboBox();
 		cbFornecedorSofreRetencao.setCaption("Sofre retenção");
 		cbFornecedorSofreRetencao.setImmediate(false);
+		cbFornecedorSofreRetencao.setRequired(true);
 		cbFornecedorSofreRetencao.setWidth("100px");
 		cbFornecedorSofreRetencao.setHeight("-1px");
 		hlRow4.addComponent(cbFornecedorSofreRetencao);
@@ -2974,6 +2980,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorPrazoMedioEntrega = new TextField();
 		tfFornecedorPrazoMedioEntrega.setCaption("Prazo médio de entrega");
 		tfFornecedorPrazoMedioEntrega.setImmediate(false);
+		tfFornecedorPrazoMedioEntrega.setRequired(true);
 		tfFornecedorPrazoMedioEntrega.setWidth("200px");
 		tfFornecedorPrazoMedioEntrega.setHeight("-1px");
 		hlRow4.addComponent(tfFornecedorPrazoMedioEntrega);
@@ -2983,6 +2990,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorNumDiasPrimeiroVenc
 				.setCaption("Nº de dias - 1º vencimento");
 		tfFornecedorNumDiasPrimeiroVenc.setImmediate(false);
+		tfFornecedorNumDiasPrimeiroVenc.setRequired(true);
 		tfFornecedorNumDiasPrimeiroVenc.setWidth("200px");
 		tfFornecedorNumDiasPrimeiroVenc.setHeight("-1px");
 		hlRow4.addComponent(tfFornecedorNumDiasPrimeiroVenc);
@@ -2991,6 +2999,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorNumDiasIntervalo = new TextField();
 		tfFornecedorNumDiasIntervalo.setCaption("Nº de dias - Intervalo");
 		tfFornecedorNumDiasIntervalo.setImmediate(false);
+		tfFornecedorNumDiasIntervalo.setRequired(true);
 		tfFornecedorNumDiasIntervalo.setWidth("200px");
 		tfFornecedorNumDiasIntervalo.setHeight("-1px");
 		hlRow4.addComponent(tfFornecedorNumDiasIntervalo);
@@ -3008,6 +3017,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorQuantidadeParcelas = new TextField();
 		tfFornecedorQuantidadeParcelas.setCaption("Quantidade de parcelas");
 		tfFornecedorQuantidadeParcelas.setImmediate(false);
+		tfFornecedorQuantidadeParcelas.setRequired(true);
 		tfFornecedorQuantidadeParcelas.setWidth("194px");
 		tfFornecedorQuantidadeParcelas.setHeight("-1px");
 		hlRow5.addComponent(tfFornecedorQuantidadeParcelas);
@@ -3016,6 +3026,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFornecedorChequeNominalA = new TextField();
 		tfFornecedorChequeNominalA.setCaption("Cheque nominal à");
 		tfFornecedorChequeNominalA.setImmediate(false);
+		tfFornecedorChequeNominalA.setRequired(true);
 		tfFornecedorChequeNominalA.setWidth("400px");
 		tfFornecedorChequeNominalA.setHeight("-1px");
 		hlRow5.addComponent(tfFornecedorChequeNominalA);

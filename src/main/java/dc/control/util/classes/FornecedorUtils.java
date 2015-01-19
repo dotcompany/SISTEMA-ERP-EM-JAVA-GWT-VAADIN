@@ -6,7 +6,6 @@ import dc.control.util.DateUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.visao.geral.FornecedorFormView;
@@ -40,13 +39,13 @@ public class FornecedorUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		ContabilContaEntity contabilConta = subView
-				.getMocFornecedorContabilConta().getValue();
+		// ContabilContaEntity contabilConta = subView
+		// .getMocFornecedorContabilConta().getValue();
 
-		if (ObjectUtils.isBlank(contabilConta)) {
-			throw new DotErpException(subView.getMocFornecedorContabilConta(),
-					"::DotERP - Não pode ficar em branco");
-		}
+		// if (ObjectUtils.isBlank(contabilConta)) {
+		// throw new DotErpException(subView.getMocFornecedorContabilConta(),
+		// "::DotERP - Não pode ficar em branco");
+		// }
 
 		Date desde = subView.getPdfFornecedorDesde().getValue();
 

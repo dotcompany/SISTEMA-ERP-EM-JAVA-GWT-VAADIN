@@ -1,9 +1,7 @@
 package dc.control.util.classes;
 
-import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.visao.geral.pessoal.PessoaFormView;
 import dc.visao.geral.pessoal.TransportadoraFormView;
 
@@ -18,14 +16,14 @@ public class TransportadoraUtils {
 			throws DotErpException {
 		System.out.println(":: valida transportadora");
 
-		ContabilContaEntity contabilConta = subView
-				.getMocTransportadoraContabilConta().getValue();
+		// ContabilContaEntity contabilConta = subView
+		// .getMocTransportadoraContabilConta().getValue();
 
-		if (ObjectUtils.isBlank(contabilConta)) {
-			throw new DotErpException(
-					subView.getMocTransportadoraContabilConta(),
-					"::DotERP - Não pode ficar em branco");
-		}
+		// if (ObjectUtils.isBlank(contabilConta)) {
+		// throw new DotErpException(
+		// subView.getMocTransportadoraContabilConta(),
+		// "::DotERP - Não pode ficar em branco");
+		// }
 
 		String observacao = subView.getTaColaboradorObservacao().getValue();
 
