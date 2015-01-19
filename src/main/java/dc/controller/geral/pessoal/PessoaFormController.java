@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 
 import dc.control.enums.CategoriaReservistaEn;
 import dc.control.enums.CnhEn;
@@ -1797,18 +1796,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			// this.subView.getTsGeral().getTab(5).setEnabled(false);
 		} else {
 			System.out.println(":: [instanceof] no type for " + obj.toString());
-		}
-	}
-
-	/**
-	 * 
-	 */
-
-	public void stceSelectTab(SelectedTabChangeEvent stce, Integer indexTab) {
-		try {
-			System.out.println(indexTab);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 

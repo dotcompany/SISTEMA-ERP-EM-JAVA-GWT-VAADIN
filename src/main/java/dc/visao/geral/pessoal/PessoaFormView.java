@@ -1592,9 +1592,10 @@ public class PessoaFormView extends CustomComponent {
 		tsGeral.addTab(bvlColaborador(), 5);
 		tsGeral.addTab(bvlFornecedor(), 6);
 		tsGeral.addTab(bvlTransportadora(), 7);
-		tsGeral.addSelectedTabChangeListener(event -> controller.stceSelectTab(
-				event, tsGeral.getTabPosition(tsGeral.getTab(tsGeral
-						.getSelectedTab()))));
+		// tsGeral.addSelectedTabChangeListener(event ->
+		// controller.stceSelectTab(
+		// event, tsGeral.getTabPosition(tsGeral.getTab(tsGeral
+		// .getSelectedTab()))));
 
 		mainLayout.addComponent(tsGeral);
 		mainLayout.setExpandRatio(tsGeral, 1);
@@ -1729,31 +1730,43 @@ public class PessoaFormView extends CustomComponent {
 		glGeralPessoaFisica.setMargin(true);
 		glGeralPessoaFisica.setSpacing(true);
 
+		// mtfCpf
 		mtfCpf = ComponentUtil.buildMaskedTextField("CPF", "###.###.###-##");
+		glGeralPessoaFisica.addComponent(mtfCpf, 0, 0);
+
+		// pdfDataNascimento
 		pdfDataNascimento = ComponentUtil
 				.buildPopupDateField("Data de nascimento");
 		pdfDataNascimento.setWidth("112px");
-		cbRaca = ComponentUtil.buildComboBox("Raça");
+		glGeralPessoaFisica.addComponent(pdfDataNascimento, 1, 0);
+
+		// mocEstadoCivil
 		mocEstadoCivil = new ManyToOneCombo<>();
 		mocEstadoCivil.setCaption("Estado civil");
-		cbTipoSanguineo = ComponentUtil.buildComboBox("Tipo sanguíneo");
-
-		tfNaturalidade = ComponentUtil.buildTextField("Naturalidade");
-		tfNacionalidade = ComponentUtil.buildTextField("Nacionalidade");
-
-		tfNomePai = ComponentUtil.buildTextField("Nome do pai");
-		tfNomeMae = ComponentUtil.buildTextField("Nome da mãe");
-
-		glGeralPessoaFisica.addComponent(mtfCpf, 0, 0);
-		glGeralPessoaFisica.addComponent(pdfDataNascimento, 1, 0);
 		glGeralPessoaFisica.addComponent(mocEstadoCivil, 2, 0);
+
+		// cbRaca
+		cbRaca = ComponentUtil.buildComboBox("Raça");
 		glGeralPessoaFisica.addComponent(cbRaca, 3, 0);
+
+		// cbTipoSanguineo
+		cbTipoSanguineo = ComponentUtil.buildComboBox("Tipo sanguíneo");
 		glGeralPessoaFisica.addComponent(cbTipoSanguineo, 4, 0);
 
+		// tfNaturalidade
+		tfNaturalidade = ComponentUtil.buildTextField("Naturalidade");
 		glGeralPessoaFisica.addComponent(tfNaturalidade, 0, 1, 1, 1);
+
+		// tfNacionalidade
+		tfNacionalidade = ComponentUtil.buildTextField("Nacionalidade");
 		glGeralPessoaFisica.addComponent(tfNacionalidade, 2, 1, 3, 1);
 
+		// tfNomePai
+		tfNomePai = ComponentUtil.buildTextField("Nome do pai");
 		glGeralPessoaFisica.addComponent(tfNomePai, 0, 2, 1, 2);
+
+		// tfNomeMae
+		tfNomeMae = ComponentUtil.buildTextField("Nome da mãe");
 		glGeralPessoaFisica.addComponent(tfNomeMae, 2, 2, 3, 2);
 
 		GridLayout layoutRG = buildContentRg();
@@ -3130,66 +3143,84 @@ public class PessoaFormView extends CustomComponent {
 	 */
 
 	private GridLayout buildContentTituloEleitor() {
-		GridLayout layoutTitulo = new GridLayout(3, 2);
-		layoutTitulo.setImmediate(false);
-		layoutTitulo.setWidth("100.0%");
-		layoutTitulo.setHeight("-1px");
-		layoutTitulo.setMargin(false);
-		layoutTitulo.setSpacing(true);
+		GridLayout glTituloEleitor = new GridLayout(3, 2);
+		glTituloEleitor.setImmediate(false);
+		glTituloEleitor.setWidth("100.0%");
+		glTituloEleitor.setHeight("-1px");
+		glTituloEleitor.setMargin(false);
+		glTituloEleitor.setSpacing(true);
 
+		// lblTitulo
+		Label lblTitulo = new Label("Título de eleitor");
+		glTituloEleitor.addComponent(lblTitulo, 0, 0, 1, 0);
+
+		// tfTituloEleitor
 		tfTituloEleitor = ComponentUtil.buildTextField("Número");
+		glTituloEleitor.addComponent(tfTituloEleitor, 0, 1);
+
+		// tfTituloZona
 		tfTituloZona = ComponentUtil.buildNumericField("Zona");
-		tfTituloSecao = ComponentUtil.buildNumericField("Seção");
 		tfTituloZona.setConverter(new IntegerConverter());
 		tfTituloZona.setMaxLength(10);
+		glTituloEleitor.addComponent(tfTituloZona, 1, 1);
+
+		// tfTituloSecao
+		tfTituloSecao = ComponentUtil.buildNumericField("Seção");
 		tfTituloSecao.setConverter(new IntegerConverter());
 		tfTituloSecao.setMaxLength(10);
+		glTituloEleitor.addComponent(tfTituloSecao, 2, 1);
 
-		Label lblTitulo = new Label("Título de eleitor");
-		layoutTitulo.addComponent(lblTitulo, 0, 0, 1, 0);
-		layoutTitulo.addComponent(tfTituloEleitor, 0, 1);
-		layoutTitulo.addComponent(tfTituloZona, 1, 1);
-		layoutTitulo.addComponent(tfTituloSecao, 2, 1);
-
-		return layoutTitulo;
+		return glTituloEleitor;
 	}
 
 	private GridLayout buildContentCnh() {
-		GridLayout layoutCnh = new GridLayout(3, 2);
-		layoutCnh.setImmediate(false);
-		layoutCnh.setWidth("100.0%");
-		layoutCnh.setHeight("-1px");
-		layoutCnh.setMargin(false);
-		layoutCnh.setSpacing(true);
+		GridLayout glCnh = new GridLayout(3, 2);
+		glCnh.setImmediate(false);
+		glCnh.setWidth("100.0%");
+		glCnh.setHeight("-1px");
+		glCnh.setMargin(false);
+		glCnh.setSpacing(true);
 
-		tfCnh = ComponentUtil.buildTextField("Número da CNH");
-		pdfDataCnhEmissao = ComponentUtil.buildPopupDateField("Emissão da CNH");
-		cbCategoriaCnh = ComponentUtil.buildComboBox("Categoria da CNH");
+		// lblCnh
 		Label lblCnh = new Label("CNH");
-		layoutCnh.addComponent(lblCnh, 0, 0);
-		layoutCnh.addComponent(tfCnh, 0, 1);
-		layoutCnh.addComponent(cbCategoriaCnh, 1, 1);
-		layoutCnh.addComponent(pdfDataCnhEmissao, 2, 1);
+		glCnh.addComponent(lblCnh, 0, 0);
 
-		return layoutCnh;
+		// tfCnh
+		tfCnh = ComponentUtil.buildTextField("Número da CNH");
+		glCnh.addComponent(tfCnh, 0, 1);
+
+		// cbCategoriaCnh
+		cbCategoriaCnh = ComponentUtil.buildComboBox("Categoria da CNH");
+		glCnh.addComponent(cbCategoriaCnh, 1, 1);
+
+		// pdfDataCnhEmissao
+		pdfDataCnhEmissao = ComponentUtil.buildPopupDateField("Emissão da CNH");
+		glCnh.addComponent(pdfDataCnhEmissao, 2, 1);
+
+		return glCnh;
 	}
 
 	private GridLayout buildContentReservista() {
-		GridLayout layoutReservista = new GridLayout(2, 2);
-		layoutReservista.setImmediate(false);
-		layoutReservista.setWidth("100.0%");
-		layoutReservista.setHeight("-1px");
-		layoutReservista.setMargin(false);
-		layoutReservista.setSpacing(true);
+		GridLayout glReservista = new GridLayout(2, 2);
+		glReservista.setImmediate(false);
+		glReservista.setWidth("100.0%");
+		glReservista.setHeight("-1px");
+		glReservista.setMargin(false);
+		glReservista.setSpacing(true);
 
-		tfNumeroReservista = ComponentUtil.buildTextField("Número");
-		cbCategoriaReservista = ComponentUtil.buildComboBox("Categoria");
+		// lblReservista
 		Label lblReservista = new Label("Reservista");
-		layoutReservista.addComponent(lblReservista, 0, 0);
-		layoutReservista.addComponent(tfNumeroReservista, 0, 1);
-		layoutReservista.addComponent(cbCategoriaReservista, 1, 1);
+		glReservista.addComponent(lblReservista, 0, 0);
 
-		return layoutReservista;
+		// tfNumeroReservista
+		tfNumeroReservista = ComponentUtil.buildTextField("Número");
+		glReservista.addComponent(tfNumeroReservista, 0, 1);
+
+		// cbCategoriaReservista
+		cbCategoriaReservista = ComponentUtil.buildComboBox("Categoria");
+		glReservista.addComponent(cbCategoriaReservista, 1, 1);
+
+		return glReservista;
 	}
 
 	private GridLayout buildContentRg() {
@@ -3200,13 +3231,20 @@ public class PessoaFormView extends CustomComponent {
 		layoutRg.setMargin(false);
 		layoutRg.setSpacing(true);
 
-		tfNumeroRg = ComponentUtil.buildTextField("Número do RG");
-		pdfDataEmissaoRg = ComponentUtil.buildPopupDateField("Emissão do RG");
-		tfOrgaoEmissor = ComponentUtil.buildTextField("Órgão emissor");
+		// lblRg
 		Label lblRg = new Label("RG");
 		layoutRg.addComponent(lblRg, 0, 0);
+
+		// tfNumeroRg
+		tfNumeroRg = ComponentUtil.buildTextField("Número do RG");
 		layoutRg.addComponent(tfNumeroRg, 0, 1);
+
+		// tfOrgaoEmissor
+		tfOrgaoEmissor = ComponentUtil.buildTextField("Órgão emissor");
 		layoutRg.addComponent(tfOrgaoEmissor, 1, 1);
+
+		// pdfDataEmissaoRg
+		pdfDataEmissaoRg = ComponentUtil.buildPopupDateField("Emissão do RG");
 		layoutRg.addComponent(pdfDataEmissaoRg, 2, 1);
 
 		return layoutRg;
@@ -3218,7 +3256,6 @@ public class PessoaFormView extends CustomComponent {
 
 	private SubFormComponent<PessoaContatoEntity, Integer> buildPessoaContatoSubForm() {
 		// common part: create layout
-
 		sfPessoaContato = new SubFormComponent<PessoaContatoEntity, Integer>(
 				PessoaContatoEntity.class, new String[] { "nome", "email",
 						"foneComercial", "foneResidencial", "foneCelular" },
