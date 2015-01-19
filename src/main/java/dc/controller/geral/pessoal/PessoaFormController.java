@@ -1647,6 +1647,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			Boolean b = (Boolean) obj;
 
 			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
+
+			this.subView.getCkColaborador().setEnabled(false);
+			this.subView.getTsGeral().getTab(5).setEnabled(false);
 		} else {
 			System.out.println(":: [instanceof] no type for " + obj.toString());
 		}
@@ -1696,11 +1699,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			if (indexTab.equals(5)) {
 				System.out.println(":: load colaborador");
-				
-				this.subView.getCkColaborador().setEnabled(false);
-				this.subView.getTsGeral().getTab(indexTab).setEnabled(false);
-				
-				if(!this.subView.getCkColaborador().isEnabled()){
+
+				if (!this.subView.getCkColaborador().isEnabled()) {
 					return;
 				}
 
