@@ -47,27 +47,29 @@ public class TipoAdmissaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Código")
 	@Column(name = "CODIGO", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigo;
+	private String codigo = "";
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Lob
-	@Field
-	@Caption("Descricao")
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -106,6 +108,14 @@ public class TipoAdmissaoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -121,14 +131,6 @@ public class TipoAdmissaoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setDescricao(String descricao) {
 		this.descricao = (descricao == null ? "".trim() : descricao
 				.toUpperCase().trim());
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	/**

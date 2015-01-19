@@ -25,10 +25,10 @@ public class TransportadoraUtils {
 		// "::DotERP - Não pode ficar em branco");
 		// }
 
-		String observacao = subView.getTaColaboradorObservacao().getValue();
+		String observacao = subView.getTaTransportadoraObservacao().getValue();
 
 		if (StringUtils.isBlank(observacao)) {
-			throw new DotErpException(subView.getTaColaboradorObservacao(),
+			throw new DotErpException(subView.getTaTransportadoraObservacao(),
 					"::DotERP - Não pode ficar em branco");
 		}
 	}
