@@ -2388,11 +2388,10 @@ public class PessoaFormView extends CustomComponent {
 		hlRow5.setHeight("-1px");
 		hlRow5.setMargin(false);
 		hlRow5.setSpacing(true);
-		// hlRow5.setCaption("lllll");
 
 		// tfColaboradorCategoriaSefip
 		tfColaboradorCategoriaSefip = new TextField();
-		tfColaboradorCategoriaSefip.setCaption("Categoria SEFIP");
+		tfColaboradorCategoriaSefip.setCaption("SEFIP - Categoria");
 		tfColaboradorCategoriaSefip.setNullRepresentation("");
 		tfColaboradorCategoriaSefip.setImmediate(false);
 		tfColaboradorCategoriaSefip.setWidth("120px");
@@ -2401,7 +2400,7 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorOcorrenciaSefip
 		tfColaboradorOcorrenciaSefip = new TextField();
-		tfColaboradorOcorrenciaSefip.setCaption("Ocorrência SEFIP");
+		tfColaboradorOcorrenciaSefip.setCaption("SEFIP - Ocorrência");
 		tfColaboradorOcorrenciaSefip.setNullRepresentation("");
 		tfColaboradorOcorrenciaSefip.setImmediate(false);
 		tfColaboradorOcorrenciaSefip.setWidth("-1px");
@@ -2410,7 +2409,8 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorCodigoDemissaoSefip
 		tfColaboradorCodigoDemissaoSefip = new TextField();
-		tfColaboradorCodigoDemissaoSefip.setCaption("Código de demissão SEFIP");
+		tfColaboradorCodigoDemissaoSefip
+				.setCaption("SEFIP - Código de demissão");
 		tfColaboradorCodigoDemissaoSefip.setNullRepresentation("");
 		tfColaboradorCodigoDemissaoSefip.setImmediate(false);
 		tfColaboradorCodigoDemissaoSefip.setWidth("-1px");
@@ -2444,7 +2444,8 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorCodigoAdmissaoCaged
 		tfColaboradorCodigoAdmissaoCaged = new TextField();
-		tfColaboradorCodigoAdmissaoCaged.setCaption("Código de admissão CAGED");
+		tfColaboradorCodigoAdmissaoCaged
+				.setCaption("CAGED - Código de admissão");
 		tfColaboradorCodigoAdmissaoCaged.setNullRepresentation("");
 		tfColaboradorCodigoAdmissaoCaged.setImmediate(false);
 		tfColaboradorCodigoAdmissaoCaged.setWidth("106px");
@@ -2453,7 +2454,8 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorCodigoDemissaoCaged
 		tfColaboradorCodigoDemissaoCaged = new TextField();
-		tfColaboradorCodigoDemissaoCaged.setCaption("Código de demissão CAGED");
+		tfColaboradorCodigoDemissaoCaged
+				.setCaption("CAGED - Código de demissão");
 		tfColaboradorCodigoDemissaoCaged.setNullRepresentation("");
 		tfColaboradorCodigoDemissaoCaged.setImmediate(false);
 		tfColaboradorCodigoDemissaoCaged.setWidth("-1px");
@@ -2524,7 +2526,7 @@ public class PessoaFormView extends CustomComponent {
 
 		// pdfColaboradorPisDataCadastro
 		pdfColaboradorPisDataCadastro = new PopupDateField();
-		pdfColaboradorPisDataCadastro.setCaption("Data de cadastro do PIS");
+		pdfColaboradorPisDataCadastro.setCaption("PIS - Data de cadastro");
 		pdfColaboradorPisDataCadastro.setImmediate(false);
 		pdfColaboradorPisDataCadastro.setWidth("126px");
 		pdfColaboradorPisDataCadastro.setHeight("-1px");
@@ -2532,7 +2534,7 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorPisNumero
 		tfColaboradorPisNumero = new TextField();
-		tfColaboradorPisNumero.setCaption("Número do PIS");
+		tfColaboradorPisNumero.setCaption("PIS - Número");
 		tfColaboradorPisNumero.setNullRepresentation("");
 		tfColaboradorPisNumero.setImmediate(false);
 		tfColaboradorPisNumero.setWidth("91px");
@@ -2568,7 +2570,7 @@ public class PessoaFormView extends CustomComponent {
 
 		// tfColaboradorCtpsNumero
 		tfColaboradorCtpsNumero = new TextField();
-		tfColaboradorCtpsNumero.setCaption("Número da CTPS");
+		tfColaboradorCtpsNumero.setCaption("CTPS - Número");
 		tfColaboradorCtpsNumero.setNullRepresentation("");
 		tfColaboradorCtpsNumero.setImmediate(false);
 		tfColaboradorCtpsNumero.setWidth("172px");

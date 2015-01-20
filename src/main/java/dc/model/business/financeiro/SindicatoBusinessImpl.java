@@ -1,4 +1,4 @@
-package dc.model.business.geral.diverso;
+package dc.model.business.financeiro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,10 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.entidade.geral.diverso.PaisEntity;
-import dc.entidade.geral.diverso.UfEntity;
-import dc.model.dao.geral.diverso.PaisDAO;
-import dc.model.dao.geral.diverso.UfDAO;
+import dc.entidade.financeiro.SindicatoEntity;
+import dc.model.dao.financeiro.SindicatoDAO;
 
 /**
  * 
@@ -23,20 +21,19 @@ import dc.model.dao.geral.diverso.UfDAO;
 
 @Service
 @Transactional(readOnly = true)
-public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
+public class SindicatoBusinessImpl implements Serializable,
+		SindicatoBusiness<SindicatoEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(UfBusinessImpl.class);
+	private static Logger logger = Logger
+			.getLogger(SindicatoBusinessImpl.class);
 
 	@Autowired
-	private UfDAO<UfEntity> dao;
-
-	@Autowired
-	private PaisDAO<PaisEntity> paisDAO;
+	private SindicatoDAO<SindicatoEntity> dao;
 
 	/**
 	 * **********************************************
@@ -44,7 +41,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 
 	@Transactional(readOnly = false)
 	@Override
-	public void delete(UfEntity t) throws Exception {
+	public void delete(SindicatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -66,12 +63,12 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	}
 
 	@Override
-	public UfEntity find(Serializable id) throws Exception {
+	public SindicatoEntity find(Serializable id) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
-			UfEntity ent = this.dao.find(id);
+			SindicatoEntity ent = this.dao.find(id);
 
 			return ent;
 		} catch (Exception e) {
@@ -82,22 +79,22 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	}
 
 	@Override
-	public UfEntity find(UfEntity t) throws Exception {
+	public SindicatoEntity find(SindicatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> find(String s) throws Exception {
+	public List<SindicatoEntity> find(String s) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> findAll() throws Exception {
+	public List<SindicatoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<UfEntity> auxLista = this.dao.listaTodos();
+			List<SindicatoEntity> auxLista = this.dao.listaTodos();
 
 			return auxLista;
 		} catch (Exception e) {
@@ -108,28 +105,29 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	}
 
 	@Override
-	public List<UfEntity> findAll(UfEntity t) throws Exception {
+	public List<SindicatoEntity> findAll(SindicatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor) throws Exception {
+	public List<SindicatoEntity> fullTextSearch(String valor) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor, int first, int pageSize,
-			String[] sortingFields, boolean[] sortingStates,
+	public List<SindicatoEntity> fullTextSearch(String valor, int first,
+			int pageSize, String[] sortingFields, boolean[] sortingStates,
 			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UfEntity> fullTextSearch(String valor, String[] sortingFields,
-			boolean[] states, List<Filter> filters) throws Exception {
+	public List<SindicatoEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -142,7 +140,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 
 	@Transactional(readOnly = false)
 	@Override
-	public void save(UfEntity t) throws Exception {
+	public void save(SindicatoEntity t) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -155,31 +153,12 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			UfEntity uf = (UfEntity) o;
+			SindicatoEntity ent = (SindicatoEntity) o;
 
-			PaisEntity ent = this.paisDAO.find(uf.getPais().getId());
-
-			uf.setPais(ent);
-
-			this.dao.saveOrUpdate(o);
+			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			throw e;
-		}
-	}
-
-	/**
-	 * 
-	 */
-
-	@Transactional
-	public UfEntity getObject(String sigla) throws Exception {
-		try {
-			UfEntity entity = this.dao.find(sigla);
-
-			return entity;
-		} catch (Exception e) {
 			throw e;
 		}
 	}

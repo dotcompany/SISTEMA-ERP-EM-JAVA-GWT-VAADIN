@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.SindicatoEntity;
-import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SindicatoListController extends CRUDListController<SindicatoEntity> {
+public class SindicatoListController extends
+		CRUDListController<SindicatoEntity> {
 
 	/**
 	 * 
@@ -22,10 +22,20 @@ public class SindicatoListController extends CRUDListController<SindicatoEntity>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private SindicatoDAO dao;
-
-	@Autowired
 	private SindicatoFormController sindicatoFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public SindicatoListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<SindicatoEntity> getFormController() {
+		return sindicatoFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -43,17 +53,6 @@ public class SindicatoListController extends CRUDListController<SindicatoEntity>
 	}
 
 	@Override
-	protected List<SindicatoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	protected CRUDFormController<SindicatoEntity> getFormController() {
-		return sindicatoFormController;
-	}
-
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
-	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
@@ -61,14 +60,35 @@ public class SindicatoListController extends CRUDListController<SindicatoEntity>
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	protected List<SindicatoEntity> pesquisa(String valor) {
+		try {
+			List<SindicatoEntity> auxLista = (List<SindicatoEntity>) this.sindicatoFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
 	protected List<SindicatoEntity> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return (List<SindicatoEntity>) dao.getAll(getEntityClass());
+		try {
+			List<SindicatoEntity> auxLista = (List<SindicatoEntity>) this.sindicatoFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
