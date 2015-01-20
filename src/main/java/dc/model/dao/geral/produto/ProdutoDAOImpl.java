@@ -1,5 +1,6 @@
 package dc.model.dao.geral.produto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -83,6 +84,25 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 	/**
 	 * 
 	 */
+
+	@Override
+	public ProdutoEntity find(Serializable id) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", id);
+
+			ProdutoEntity ent = (ProdutoEntity) query.uniqueResult();
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
 
 	public List<ProdutoEntity> list() {
 		try {
