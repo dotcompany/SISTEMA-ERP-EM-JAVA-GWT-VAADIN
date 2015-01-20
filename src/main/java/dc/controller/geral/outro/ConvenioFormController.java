@@ -10,12 +10,17 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
+import dc.control.util.classes.ConvenioUtils;
+import dc.control.validator.DotErpException;
 import dc.controller.geral.diverso.UfListController;
+import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.ConvenioEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.model.business.geral.outro.ConvenioBusiness;
 import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.util.Validator;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.outro.ConvenioFormView;
@@ -50,6 +55,9 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 	@Autowired
 	private UfDAO ufDAO;
+
+	@Autowired
+	private PessoaDAO pessoaDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -94,11 +102,17 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 		try {
 			this.subView = new ConvenioFormView(this);
 
-			DefaultManyToOneComboModel<UfEntity> model = new DefaultManyToOneComboModel<UfEntity>(
+			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
 					UfListController.class, this.ufDAO,
 					super.getMainController());
 
-			this.subView.getMocUf().setModel(model);
+			this.subView.getMocUf().setModel(modelUf);
+
+			DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(
+					PessoaListController.class, this.pessoaDAO,
+					super.getMainController());
+
+			this.subView.getMocPessoa().setModel(modelPessoa);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,21 +120,15 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			ConvenioUtils.validateRequiredFields(this.subView);
 
-		if (!Validator.validateString(subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTfNome(),
-					"Não pode ficar em branco");
-			valido = false;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTfLogradouro().getValue())) {
-			adicionarErroDeValidacao(subView.getTfLogradouro(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
@@ -138,6 +146,10 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 			this.entity.setTelefone(this.subView.getTfTelefone().getValue());
 			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 			this.entity.setCep(this.subView.getTfCep().getValue());
+
+			PessoaEntity pessoa = this.subView.getMocPessoa().getValue();
+
+			this.entity.setPessoa(pessoa);
 
 			this.business.saveOrUpdate(entity);
 
@@ -164,6 +176,12 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 			this.subView.getTfTelefone().setValue(this.entity.getTelefone());
 			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 			this.subView.getTfCep().setValue(this.entity.getCep());
+
+			PessoaEntity pessoa = this.entity.getPessoa();
+
+			if (ObjectUtils.isNotBlank(pessoa)) {
+				this.subView.getMocPessoa().setValue(pessoa);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
