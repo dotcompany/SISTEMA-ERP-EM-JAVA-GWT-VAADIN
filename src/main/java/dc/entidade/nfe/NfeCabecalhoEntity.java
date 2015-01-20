@@ -471,6 +471,60 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Consumidor Presença")
 	private Integer consumidorPresenca;
 	
+	@Field
+	@Column(name = "valor_icms_desonerado")
+	@Caption(value = "Valor do ICMS Desonerado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcmsDesonerado = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "data_prestacao_servico")
+	@Caption(value = "Data Prestação Serviço")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Date dataPrestacaoServico;
+	
+	@Field
+	@Column(name = "valor_deducao_issqn")
+	@Caption(value = "Valor Dedução ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDeducaoIssqn = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "outras_retencoes_issqn")
+	@Caption(value = "Outras Retenções ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal outrasRetencoesIssqn = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "desconto_incondicionado_issqn")
+	@Caption(value = "Desconto Incondicionado ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal descontoIncondicionadoIssqn = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "desconto_condicionado_issqn")
+	@Caption(value = "Desconto Condicionado ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal descontoCondicionadoIssqn = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "total_retencao_issqn")
+	@Caption(value = "Total Retenção ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal totalRetencaoIssqn = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "regime_especial_tributacao")
+	@Caption(value = "Regime Especial Tributação")
+	private Integer regimeEspecialTributacao;
+	
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -1149,6 +1203,70 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
+	}
+	
+	public BigDecimal getValorIcmsDesonerado() {
+		return valorIcmsDesonerado;
+	}
+
+	public void setValorIcmsDesonerado(BigDecimal valorIcmsDesonerado) {
+		this.valorIcmsDesonerado = (valorIcmsDesonerado == null ? new BigDecimal(0) : valorIcmsDesonerado);
+	}
+	
+	public BigDecimal getValorDeducaoIssqn() {
+		return valorDeducaoIssqn;
+	}
+
+	public void setValorDeducaoIssqn(BigDecimal valorDeducaoIssqn) {
+		this.valorDeducaoIssqn = (valorDeducaoIssqn == null ? new BigDecimal(0) : valorDeducaoIssqn);
+	}
+	
+	public BigDecimal getOutrasRetencoesIssqn() {
+		return outrasRetencoesIssqn;
+	}
+
+	public void setOutrasRetencoesIssqn(BigDecimal outrasRetencoesIssqn) {
+		this.outrasRetencoesIssqn = (outrasRetencoesIssqn == null ? new BigDecimal(0) : outrasRetencoesIssqn);
+	}
+	
+	public BigDecimal getDescontoIncondicionadoIssqn() {
+		return descontoIncondicionadoIssqn;
+	}
+
+	public void setDescontoIncondicionadoIssqn(BigDecimal descontoIncondicionadoIssqn) {
+		this.descontoIncondicionadoIssqn = (descontoIncondicionadoIssqn == null ? new BigDecimal(0) : descontoIncondicionadoIssqn);
+	}
+	
+	public BigDecimal getDescontoCondicionadoIssqn() {
+		return descontoCondicionadoIssqn;
+	}
+
+	public void setDescontoCondicionadoIssqn(BigDecimal descontoCondicionadoIssqn) {
+		this.descontoCondicionadoIssqn = (descontoCondicionadoIssqn == null ? new BigDecimal(0) : descontoCondicionadoIssqn);
+	}
+	
+	public BigDecimal getTotalRetencaoIssqn() {
+		return totalRetencaoIssqn;
+	}
+
+	public void setTotalRetencaoIssqn(BigDecimal totalRetencaoIssqn) {
+		this.totalRetencaoIssqn = (totalRetencaoIssqn == null ? new BigDecimal(0) : totalRetencaoIssqn);
+	}
+	
+	public Date getDataPrestacaoServico() {
+		return dataPrestacaoServico;
+	}
+
+	public void setDataPrestacaoServico(Date dataPrestacaoServico) {
+		this.dataPrestacaoServico = dataPrestacaoServico;
+	}
+
+	public Integer getRegimeEspecialTributacao() {
+		return regimeEspecialTributacao;
+	}
+
+	public void setRegimeEspecialTributacao(Integer regimeEspecialTributacao) {
+		this.regimeEspecialTributacao = regimeEspecialTributacao;
 	}
 
 	/**

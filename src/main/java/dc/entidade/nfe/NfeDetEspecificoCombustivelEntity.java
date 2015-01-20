@@ -37,8 +37,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class NfeDetEspecificoCombustivelEntity extends
-		AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class NfeDetEspecificoCombustivelEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -102,6 +101,13 @@ public class NfeDetEspecificoCombustivelEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorCide = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "percentual_gas_natural")
+	@Caption(value = "Percentual Gás Natural")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal percentualGasNatural = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -202,6 +208,15 @@ public class NfeDetEspecificoCombustivelEntity extends
 
 	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
+	}
+	
+	public BigDecimal getPercentualGasNatural() {
+		return percentualGasNatural;
+	}
+
+	public void setPercentualGasNatural(BigDecimal percentualGasNatural) {
+		this.percentualGasNatural = (percentualGasNatural == null ? new BigDecimal(0)
+				: percentualGasNatural);
 	}
 
 	/**

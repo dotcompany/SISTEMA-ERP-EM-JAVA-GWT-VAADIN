@@ -199,7 +199,7 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Entra total")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String entraTotal = "";
+	private Integer entraTotal;
 
 	@Field
 	@Column(name = "valor_subtotal")
@@ -242,6 +242,41 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nve = "";
+	
+	@Field
+	@Column(name = "numero_fci")
+	@Caption(value = "Número FCI")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numeroFci = "";
+	
+	@Field
+	@Column(name = "numero_recopi")
+	@Caption(value = "Número RECOPI")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numeroRecopi = "";
+	
+	@Field
+	@Column(name = "valor_total_tributos")
+	@Caption(value = "Valor total Tributos")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorTotalTributos = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "percentual_devolvido")
+	@Caption(value = "Percentual Devolvido")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal percentualDevolvido = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_ipi_devolvido")
+	@Caption(value = "Valor IPI Devolvido")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIpiDevolvido = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -489,13 +524,12 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 				0) : valorOutrasDespesas);
 	}
 
-	public String getEntraTotal() {
+	public Integer getEntraTotal() {
 		return entraTotal;
 	}
 
-	public void setEntraTotal(String entraTotal) {
-		this.entraTotal = (entraTotal == null ? "" : entraTotal.toUpperCase()
-				.trim());
+	public void setEntraTotal(Integer entraTotal) {
+		this.entraTotal = entraTotal;
 	}
 
 	public BigDecimal getValorSubtotal() {
@@ -548,6 +582,46 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNve(String nve) {
 		this.nve = nve;
+	}
+	
+	public String getNumeroFci() {
+		return numeroFci;
+	}
+
+	public void setNumeroFci(String numeroFci) {
+		this.numeroFci = numeroFci;
+	}
+	
+	public String getNumeroRecopi() {
+		return numeroRecopi;
+	}
+
+	public void setNumeroRecopi(String numeroRecopi) {
+		this.numeroRecopi = numeroRecopi;
+	}
+	
+	public BigDecimal getValorTotalTributos() {
+		return valorTotalTributos;
+	}
+
+	public void setValorTotalTributos(BigDecimal valorTotalTributos) {
+		this.valorTotalTributos = (valorTotalTributos == null ? new BigDecimal(0) : valorTotalTributos);
+	}
+	
+	public BigDecimal getPercentualDevolvido() {
+		return percentualDevolvido;
+	}
+
+	public void setPercentualDevolvido(BigDecimal percentualDevolvido) {
+		this.percentualDevolvido = (percentualDevolvido == null ? new BigDecimal(0) : percentualDevolvido);
+	}
+	
+	public BigDecimal getValorIpiDevolvido() {
+		return valorIpiDevolvido;
+	}
+
+	public void setValorIpiDevolvido(BigDecimal valorIpiDevolvido) {
+		this.valorIpiDevolvido = (valorIpiDevolvido == null ? new BigDecimal(0) : valorIpiDevolvido);
 	}
 
 	public NfeCabecalhoEntity getNfeCabecalho() {

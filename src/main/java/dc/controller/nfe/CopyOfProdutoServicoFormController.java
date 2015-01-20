@@ -725,8 +725,7 @@ public class CopyOfProdutoServicoFormController extends
 			this.subView.getTfValorOutrasDespesas().setValue(
 					this.nfeCabecalho.getNfeDetalhe().getValorOutrasDespesas()
 							.toString());
-			this.subView.getTfEntraTotal().setValue(
-					this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
+			//this.subView.getTfEntraTotal().setValue(this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
 			this.subView.getTfValorSubtotal().setValue(
 					this.nfeCabecalho.getNfeDetalhe().getValorSubtotal()
 							.toString());
@@ -1459,7 +1458,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfEntraTotal":
-			this.nfeCabecalho.getNfeDetalhe().setEntraTotal((String) obj);
+			//this.nfeCabecalho.getNfeDetalhe().setEntraTotal((String) obj);
 
 			break;
 		case "tfValorSubtotal":
@@ -1842,7 +1841,7 @@ public class CopyOfProdutoServicoFormController extends
 
 			break;
 		case "tfTributacaoIssqn":
-			ndiIssqn.setTributacaoIssqn((String) obj);
+			//ndiIssqn.setTributacaoIssqn((String) obj);
 
 			break;
 		}
@@ -2263,8 +2262,7 @@ public class CopyOfProdutoServicoFormController extends
 		this.subView.getTfValorOutrasDespesas().setValue(
 				this.nfeCabecalho.getNfeDetalhe().getValorOutrasDespesas()
 						.toString());
-		this.subView.getTfEntraTotal().setValue(
-				this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
+		//this.subView.getTfEntraTotal().setValue(this.nfeCabecalho.getNfeDetalhe().getEntraTotal());
 		this.subView.getTfValorSubtotal()
 				.setValue(
 						this.nfeCabecalho.getNfeDetalhe().getValorSubtotal()
@@ -2592,7 +2590,7 @@ public class CopyOfProdutoServicoFormController extends
 			// TODO : Como calcular o valor de outras depesas do item?
 			nfeDetalhe.setValorOutrasDespesas(BigDecimal.ZERO);
 			// TODO : Deve-se preencher com zero ou um? Porque?
-			nfeDetalhe.setEntraTotal("0");
+			//nfeDetalhe.setEntraTotal("0");
 			// nfeDetalhe.setOrigemMercadoria("0");
 			// TODO : De onde devemos pegar essa informação
 			// (nfeDetalhe.setModalidadeBcIcms)?
