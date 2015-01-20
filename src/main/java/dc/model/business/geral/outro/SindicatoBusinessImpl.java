@@ -1,4 +1,4 @@
-package dc.model.business.financeiro;
+package dc.model.business.geral.outro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.entidade.financeiro.SindicatoEntity;
-import dc.model.dao.financeiro.SindicatoDAO;
+import dc.entidade.geral.outro.SindicatoEntity;
+import dc.model.dao.geral.outro.SindicatoDAO;
 
 /**
  * 

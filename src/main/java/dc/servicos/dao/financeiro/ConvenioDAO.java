@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.Convenio;
+import dc.entidade.geral.outro.ConvenioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,21 +23,21 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ConvenioDAO extends AbstractCrudDAO<Convenio>{
+public class ConvenioDAO extends AbstractCrudDAO<ConvenioEntity>{
 
 	@Override
-	public Class<Convenio> getEntityClass() {
-		return Convenio.class;
+	public Class<ConvenioEntity> getEntityClass() {
+		return ConvenioEntity.class;
 	}
 	
 	
 	@Transactional
-	public List<Convenio> listaTodos() {
+	public List<ConvenioEntity> listaTodos() {
 		return getSession().createQuery("from Convenio").list();
 	}
 
 	@Transactional
-	public List<Convenio> procuraNomeContendo(String query) {
+	public List<ConvenioEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Convenio where logradouro like :q").setParameter("q", "%" + query + "%").list();
 	}
 	

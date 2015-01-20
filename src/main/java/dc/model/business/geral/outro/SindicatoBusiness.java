@@ -1,4 +1,4 @@
-package dc.model.business.financeiro;
+package dc.model.business.geral.outro;
 
 import dc.model.business.AbstractBusiness;
 

@@ -1,4 +1,4 @@
-package dc.controller.financeiro;
+package dc.controller.geral.outro;
 
 import java.util.List;
 
@@ -7,14 +7,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.financeiro.SindicatoEntity;
+import dc.entidade.geral.outro.ConvenioEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class SindicatoListController extends
-		CRUDListController<SindicatoEntity> {
+public class ConvenioListController extends CRUDListController<ConvenioEntity> {
 
 	/**
 	 * 
@@ -22,29 +21,29 @@ public class SindicatoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private SindicatoFormController sindicatoFormController;
+	private ConvenioFormController convenioFormController;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public SindicatoListController() {
+	public ConvenioListController() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected CRUDFormController<SindicatoEntity> getFormController() {
-		return sindicatoFormController;
+	protected CRUDFormController<ConvenioEntity> getFormController() {
+		return convenioFormController;
 	}
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "logradouro" };
+		return new String[] { "logradouro", "bairro" };
 	}
 
 	@Override
-	public Class<? super SindicatoEntity> getEntityClass() {
-		return SindicatoEntity.class;
+	public Class<? super ConvenioEntity> getEntityClass() {
+		return ConvenioEntity.class;
 	}
 
 	@Override
@@ -64,9 +63,9 @@ public class SindicatoListController extends
 	}
 
 	@Override
-	protected List<SindicatoEntity> pesquisa(String valor) {
+	protected List<ConvenioEntity> pesquisa(String valor) {
 		try {
-			List<SindicatoEntity> auxLista = (List<SindicatoEntity>) this.sindicatoFormController
+			List<ConvenioEntity> auxLista = (List<ConvenioEntity>) this.convenioFormController
 					.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
@@ -78,9 +77,9 @@ public class SindicatoListController extends
 	}
 
 	@Override
-	protected List<SindicatoEntity> pesquisaDefault() {
+	protected List<ConvenioEntity> pesquisaDefault() {
 		try {
-			List<SindicatoEntity> auxLista = (List<SindicatoEntity>) this.sindicatoFormController
+			List<ConvenioEntity> auxLista = (List<ConvenioEntity>) this.convenioFormController
 					.getBusiness().getAll(getEntityClass());
 
 			return auxLista;

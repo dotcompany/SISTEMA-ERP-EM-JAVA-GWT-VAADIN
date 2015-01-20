@@ -1,4 +1,4 @@
-package dc.controller.financeiro;
+package dc.controller.geral.outro;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,15 +17,15 @@ import dc.control.util.StringUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.diverso.UfListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.diverso.UfEntity;
-import dc.model.business.financeiro.SindicatoBusiness;
+import dc.entidade.geral.outro.SindicatoEntity;
 import dc.model.business.geral.diverso.UfBusiness;
+import dc.model.business.geral.outro.SindicatoBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.UfDAO;
-import dc.visao.financeiro.SindicatoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.geral.outro.SindicatoFormView;
 
 @Controller
 @Scope("prototype")

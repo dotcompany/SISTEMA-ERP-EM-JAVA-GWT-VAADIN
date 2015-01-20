@@ -36,7 +36,6 @@ import dc.control.enums.SimNaoEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
@@ -49,6 +48,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.SetorEntity;
+import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.patrimonio.BemEntity;
 
 @Entity

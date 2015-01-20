@@ -1,4 +1,4 @@
-package dc.entidade.financeiro;
+package dc.entidade.geral.outro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

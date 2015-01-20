@@ -1,4 +1,4 @@
-package dc.model.dao.financeiro;
+package dc.model.dao.geral.outro;
 
 import dc.model.dao.AbstractDAO;
 
