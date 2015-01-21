@@ -39,6 +39,11 @@ public class SeguimentoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<SeguimentoEntity> getEntityClass() {
+		return SeguimentoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SeguimentoEntity t) throws Exception {

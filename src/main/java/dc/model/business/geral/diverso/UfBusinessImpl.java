@@ -42,6 +42,11 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<UfEntity> getEntityClass() {
+		return UfEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(UfEntity t) throws Exception {

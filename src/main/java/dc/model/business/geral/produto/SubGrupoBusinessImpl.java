@@ -44,6 +44,11 @@ public class SubGrupoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<SubGrupoEntity> getEntityClass() {
+		return SubGrupoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SubGrupoEntity t) throws Exception {

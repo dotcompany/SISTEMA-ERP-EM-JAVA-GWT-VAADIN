@@ -191,6 +191,11 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 			valido = false;
 		}
 
+		if(!Validator.validateObject(subView.getComboMenus().getValue())){
+			adicionarErroDeValidacao(subView.getComboMenus(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
 		return valido;
 	}
 

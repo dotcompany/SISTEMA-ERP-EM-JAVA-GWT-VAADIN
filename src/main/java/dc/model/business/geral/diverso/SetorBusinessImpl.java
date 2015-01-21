@@ -38,6 +38,11 @@ public class SetorBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<SetorEntity> getEntityClass() {
+		return SetorEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SetorEntity t) throws Exception {

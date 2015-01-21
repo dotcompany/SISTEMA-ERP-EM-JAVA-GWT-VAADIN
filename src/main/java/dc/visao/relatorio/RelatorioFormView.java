@@ -554,6 +554,7 @@ public class RelatorioFormView extends CustomComponent {
 		comboMenus = new ManyToOneCombo<FmMenu>();
 		comboMenus.setCaption("Menu");
 		comboMenus.setSizeFull();
+		comboMenus.setRequired(true);
 		detalhesLayout.addComponent(comboMenus, 0, 5);
 
 		comboRelatorios = new ManyToOneCombo<Relatorio>();

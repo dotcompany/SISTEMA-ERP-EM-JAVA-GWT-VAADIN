@@ -38,6 +38,11 @@ public class UsuarioBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<UsuarioEntity> getEntityClass() {
+		return UsuarioEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(UsuarioEntity t) throws Exception {
@@ -116,16 +121,17 @@ public class UsuarioBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public List<UsuarioEntity> fullTextSearch(String valor, int first, int pageSize,
-			String[] sortingFields, boolean[] sortingStates,
+	public List<UsuarioEntity> fullTextSearch(String valor, int first,
+			int pageSize, String[] sortingFields, boolean[] sortingStates,
 			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<UsuarioEntity> fullTextSearch(String valor, String[] sortingFields,
-			boolean[] states, List<Filter> filters) throws Exception {
+	public List<UsuarioEntity> fullTextSearch(String valor,
+			String[] sortingFields, boolean[] states, List<Filter> filters)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

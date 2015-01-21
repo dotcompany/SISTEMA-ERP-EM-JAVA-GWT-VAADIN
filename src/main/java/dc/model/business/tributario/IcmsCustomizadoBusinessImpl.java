@@ -39,6 +39,11 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<IcmsCustomizadoCabecalhoEntity> getEntityClass() {
+		return IcmsCustomizadoCabecalhoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(IcmsCustomizadoCabecalhoEntity t) throws Exception {

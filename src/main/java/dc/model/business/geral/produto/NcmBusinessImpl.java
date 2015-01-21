@@ -37,6 +37,11 @@ public class NcmBusinessImpl implements Serializable, NcmBusiness<NcmEntity> {
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<NcmEntity> getEntityClass() {
+		return NcmEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(NcmEntity t) throws Exception {

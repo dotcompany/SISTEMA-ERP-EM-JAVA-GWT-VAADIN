@@ -40,6 +40,11 @@ public class PessoaContatoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<PessoaContatoEntity> getEntityClass() {
+		return PessoaContatoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(PessoaContatoEntity t) throws Exception {

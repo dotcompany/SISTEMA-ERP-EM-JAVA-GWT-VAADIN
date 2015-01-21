@@ -38,6 +38,11 @@ public class ConvenioBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<ConvenioEntity> getEntityClass() {
+		return ConvenioEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ConvenioEntity t) throws Exception {

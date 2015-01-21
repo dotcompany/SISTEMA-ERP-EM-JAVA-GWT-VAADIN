@@ -39,6 +39,12 @@ public class AlmoxarifadoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<AlmoxarifadoEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(AlmoxarifadoEntity t) throws Exception {

@@ -132,4 +132,9 @@ public class NfeDetEspecificoArmamentoBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetEspecificoArmamentoEntity> getEntityClass() {
+		return NfeDetEspecificoArmamentoEntity.class;
+	}
+
 }

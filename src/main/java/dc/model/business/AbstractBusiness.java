@@ -13,6 +13,8 @@ import com.vaadin.data.Container.Filter;
 
 public interface AbstractBusiness<T> {
 
+	public abstract Class<T> getEntityClass();
+
 	public void delete(T t) throws Exception;
 
 	public void deleteAll(List<Serializable> list) throws Exception;

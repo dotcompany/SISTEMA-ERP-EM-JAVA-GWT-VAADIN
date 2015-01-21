@@ -39,6 +39,11 @@ public class UnidadeProdutoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<UnidadeProdutoEntity> getEntityClass() {
+		return UnidadeProdutoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(UnidadeProdutoEntity t) throws Exception {

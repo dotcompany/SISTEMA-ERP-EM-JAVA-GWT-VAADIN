@@ -39,6 +39,11 @@ public class NivelFormacaoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<NivelFormacaoEntity> getEntityClass() {
+		return NivelFormacaoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(NivelFormacaoEntity t) throws Exception {

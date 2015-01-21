@@ -1030,5 +1030,9 @@ div.checkboxPanelOnTheMainScreen span.v-checkbox {
 .v-menubar-submenu-relatorio-bar{
 	border: none !important;
 }
+  
+div.v-customcomponent-error > div div > div.manyToOneCombo{
+	border-bottom-color: red !important;
+}
 
 }

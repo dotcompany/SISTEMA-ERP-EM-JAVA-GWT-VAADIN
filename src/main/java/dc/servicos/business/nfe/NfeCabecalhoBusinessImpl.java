@@ -129,4 +129,9 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeCabecalhoEntity> getEntityClass() {
+		return NfeCabecalhoEntity.class;
+	}
+
 }

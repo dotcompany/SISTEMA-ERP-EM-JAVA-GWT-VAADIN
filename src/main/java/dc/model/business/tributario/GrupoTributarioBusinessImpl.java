@@ -39,6 +39,11 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<GrupoTributarioEntity> getEntityClass() {
+		return GrupoTributarioEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(GrupoTributarioEntity t) throws Exception {

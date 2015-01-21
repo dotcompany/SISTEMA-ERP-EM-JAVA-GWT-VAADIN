@@ -39,6 +39,11 @@ public class OperadoraPlanoSaudeBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<OperadoraPlanoSaudeEntity> getEntityClass() {
+		return OperadoraPlanoSaudeEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(OperadoraPlanoSaudeEntity t) throws Exception {

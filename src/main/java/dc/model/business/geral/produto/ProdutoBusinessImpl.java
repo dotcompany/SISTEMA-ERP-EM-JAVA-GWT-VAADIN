@@ -79,6 +79,11 @@ public class ProdutoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<ProdutoEntity> getEntityClass() {
+		return ProdutoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ProdutoEntity t) throws Exception {

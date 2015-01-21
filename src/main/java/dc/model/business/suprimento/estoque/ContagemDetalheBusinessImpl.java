@@ -45,6 +45,11 @@ public class ContagemDetalheBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<ContagemDetalheEntity> getEntityClass() {
+		return ContagemDetalheEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ContagemDetalheEntity t) throws Exception {

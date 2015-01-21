@@ -39,6 +39,11 @@ public class OperadoraCartaoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<OperadoraCartaoEntity> getEntityClass() {
+		return OperadoraCartaoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(OperadoraCartaoEntity t) throws Exception {
