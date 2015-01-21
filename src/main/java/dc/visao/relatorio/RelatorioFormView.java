@@ -26,9 +26,9 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
-import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
@@ -78,10 +78,10 @@ public class RelatorioFormView extends CustomComponent {
 	private BeanItemContainer<EmpresaEntity> empresaContainer;
 	private EmpresaEntity empresaSelecionado;
 
-	private ManyToOneCombo<Papel> comboPapeis;
+	private ManyToOneCombo<PapelEntity> comboPapeis;
 	private Table tablePapel;
-	private BeanItemContainer<Papel> papelContainer;
-	private Papel papelSelecionado;
+	private BeanItemContainer<PapelEntity> papelContainer;
+	private PapelEntity papelSelecionado;
 
 	private ManyToOneCombo<UsuarioEntity> comboUsuarios;
 	private Table tableUsuarios;
@@ -331,7 +331,7 @@ public class RelatorioFormView extends CustomComponent {
 		hl.setMargin(false);
 		hl.setSpacing(true);
 
-		comboPapeis = new ManyToOneCombo<Papel>();
+		comboPapeis = new ManyToOneCombo<PapelEntity>();
 		comboPapeis.setCaption("Papel");
 		comboPapeis.setWidth("600px");
 		comboPapeis.setHeight("-1px");
@@ -344,7 +344,7 @@ public class RelatorioFormView extends CustomComponent {
 			@Override
 			public void buttonClick(ClickEvent event) {
 
-				Papel papel = (Papel) comboPapeis.getValue();
+				PapelEntity papel = (PapelEntity) comboPapeis.getValue();
 				addPapel(papel);
 			}
 
@@ -386,7 +386,7 @@ public class RelatorioFormView extends CustomComponent {
 
 		tablePapel = new Table();
 		tablePapel.setSizeFull();
-		papelContainer = new BeanItemContainer<>(Papel.class);
+		papelContainer = new BeanItemContainer<>(PapelEntity.class);
 		tablePapel.setContainerDataSource(papelContainer);
 
 		tablePapel.setColumnCollapsingAllowed(true);
@@ -690,7 +690,7 @@ public class RelatorioFormView extends CustomComponent {
 		}
 	}
 
-	public void addPapel(Papel papel) {
+	public void addPapel(PapelEntity papel) {
 		if (papel != null && !papelContainer.containsId(papel.getId())) {
 
 			papelContainer.addItem(papel);
@@ -724,11 +724,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.comboEmpresas = comboEmpresas;
 	}
 
-	public ManyToOneCombo<Papel> getComboPapeis() {
+	public ManyToOneCombo<PapelEntity> getComboPapeis() {
 		return comboPapeis;
 	}
 
-	public void setComboPapeis(ManyToOneCombo<Papel> comboPapeis) {
+	public void setComboPapeis(ManyToOneCombo<PapelEntity> comboPapeis) {
 		this.comboPapeis = comboPapeis;
 	}
 
@@ -756,11 +756,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.empresaContainer = empresaContainer;
 	}
 
-	public BeanItemContainer<Papel> getPapelContainer() {
+	public BeanItemContainer<PapelEntity> getPapelContainer() {
 		return papelContainer;
 	}
 
-	public void setPapelContainer(BeanItemContainer<Papel> papelContainer) {
+	public void setPapelContainer(BeanItemContainer<PapelEntity> papelContainer) {
 		this.papelContainer = papelContainer;
 	}
 

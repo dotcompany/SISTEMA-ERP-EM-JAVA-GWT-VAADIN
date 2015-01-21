@@ -9,26 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.sun.istack.logging.Logger;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.ColaboradorListController;
-import dc.controller.sistema.PapelListController;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
-import dc.entidade.framework.Papel;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.sistema.ContaEmpresa;
+import dc.model.business.administrativo.seguranca.UsuarioBusiness;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.sistema.PapelDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.visao.administrativo.seguranca.UsuarioFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.sistema.UsuarioFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
@@ -42,8 +41,21 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 
 	private UsuarioFormView subView;
 
-	@Autowired
-	private UsuarioDAO usuarioDAO;
+	/**
+	 * ENTITY
+	 */
+
+	private UsuarioEntity entity = new UsuarioEntity();
+
+	/**
+	 * BUSINESS
+	 */
+
+	private UsuarioBusiness<UsuarioEntity> business;
+
+	/**
+	 * DAO
+	 */
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
@@ -54,9 +66,17 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 	@Autowired
 	private PapelDAO papelDAO;
 
-	private UsuarioEntity currentBean = new UsuarioEntity();
+	/**
+	 * CONSTRUTOR
+	 */
 
-	public static Logger logger = Logger.getLogger(UsuarioFormController.class);
+	public UsuarioFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public UsuarioBusiness<UsuarioEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -69,93 +89,60 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 	}
 
 	@Override
-	protected void actionSalvar() {
-		try {
-			ContaEmpresa conta = SecuritySessionProvider.getUsuario()
-					.getConta();
-			currentBean.setConta(conta);
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-					.getEmpresa());
-
-			usuarioDAO.saveOrUpdate(currentBean);
-
-			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (Exception e) {
-			mensagemErro("Problemas ao salvar registro");
-			e.printStackTrace();
-		}
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		currentBean = usuarioDAO.find(id);
-
-		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
-		subView.getBinder().setItemDataSource(getCurrentBean());
-		subView.getComboColaborador().setValue(currentBean.getColaborador());
-		subView.getComboPapeis().setValue(currentBean.getPapel());
+	public boolean isFullSized() {
+		return true;
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
 	@Override
-	protected void quandoNovo() {
-		getCurrentBean().setConfirmado(false);
-		subView.getBinder().discard();
-		subView.getBinder().setItemDataSource(getCurrentBean());
-		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
+	public UsuarioEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new UsuarioFormView(this);
+		try {
+			this.subView = new UsuarioFormView(this);
 
-		ManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(
-				ColaboradorListController.class, colaboradorDAO,
-				this.getMainController()) {
+			ManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(
+					ColaboradorListController.class, this.colaboradorDAO,
+					this.getMainController()) {
 
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
+				@Override
+				public String getCaptionProperty() {
+					return "pessoa.nome";
+				}
 
-		};
+			};
 
-		ManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(
-				PapelListController.class, papelDAO, this.getMainController());
+			this.subView.getComboColaborador().setModel(colaboradorModel);
 
-		subView.getComboPapeis().setModel(papelModel);
-		subView.getComboColaborador().setModel(colaboradorModel);
+			ManyToOneComboModel<PapelEntity> papelModel = new DefaultManyToOneComboModel<PapelEntity>(
+					PapelListController.class, this.papelDAO,
+					this.getMainController());
+
+			this.subView.getComboPapeis().setModel(papelModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new UsuarioEntity();
-		currentBean.setDataCadastro(new Date());
-	}
-
-	@Override
-	protected void remover(List<Serializable> ids) {
-		usuarioDAO.deleteAllByIds(ids);
-
-		mensagemRemovidoOK();
-	}
-
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 		boolean retornoValidacao = true;
 
 		try {
 			subView.getBinder().commit();
+
 			UsuarioEntity u = subView.getBinder().getItemDataSource().getBean();
-			currentBean = u;
+
+			entity = u;
+
 			u.setColaborador(subView.getComboColaborador().getValue());
 			u.setPapel(subView.getComboPapeis().getValue());
 
@@ -190,16 +177,98 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 		return retornoValidacao;
 	}
 
+	@Override
+	protected void actionSalvar() {
+		try {
+			ContaEmpresa conta = SecuritySessionProvider.getUsuario()
+					.getConta();
+
+			this.entity.setConta(conta);
+			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getEmpresa());
+
+			this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro("Problemas ao salvar registro");
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+
+			this.subView
+					.carregaDataCadastro(getCurrentBean().getDataCadastro());
+			this.subView.getBinder().setItemDataSource(getCurrentBean());
+			this.subView.getComboColaborador().setValue(
+					this.entity.getColaborador());
+			this.subView.getComboPapeis().setValue(this.entity.getPapel());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void quandoNovo() {
+		try {
+			getCurrentBean().setConfirmado(false);
+			this.subView.getBinder().discard();
+			this.subView.getBinder().setItemDataSource(getCurrentBean());
+			this.subView
+					.carregaDataCadastro(getCurrentBean().getDataCadastro());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new UsuarioEntity();
+			this.entity.setDataCadastro(new Date());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void remover(List<Serializable> ids) {
+		try {
+			this.business.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
 	public UsuarioEntity getCurrentBean() {
-		return currentBean;
+		return entity;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		// TODO Auto-generated method stub
-		usuarioDAO.deleteAll(objetos);
+		try {
+			// TODO Auto-generated method stub
+			this.business.deleteAll(objetos);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	public void alteraFormBaseadoEmColaborador(ColaboradorEntity colaborador) {
@@ -207,30 +276,20 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 			// dados padrão primeiro cadastro
 			getCurrentBean().setDataCadastro(new Date());
 			PessoaEntity p = colaborador.getPessoa();
-			PessoaFisicaEntity pf = pessoaDAO.getPessoaFisica(p.getId());
+			PessoaFisicaEntity pf = this.pessoaDAO.getPessoaFisica(p.getId());
 
 			if (pf != null) {
-				subView.getLoginTxtField().setValue(pf.getCpf());
+				this.subView.getLoginTxtField().setValue(pf.getCpf());
+
 				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 
 				if (pf.getDataNascimento() != null) {
 					String sDate = sdf.format(pf.getDataNascimento());
-					subView.getSenhaPasswordField().setValue(sDate);
+
+					this.subView.getSenhaPasswordField().setValue(sDate);
 				}
 			}
 		}
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "usuarioForm";
-	}
-
-	@Override
-	public UsuarioEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
 	}
 
 }

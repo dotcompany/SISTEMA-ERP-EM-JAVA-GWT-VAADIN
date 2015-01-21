@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
-import dc.entidade.framework.Papel;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
@@ -120,8 +120,8 @@ public class CriaContaController implements Serializable, ViewController {
 		currentBean = new ContaEmpresa();
 		currentBean.setEmpresa(new EmpresaEntity());
 		UsuarioEntity u = new UsuarioEntity();
-		Papel p = new Papel();
-		p.setId(Papel.MASTER_ID);
+		PapelEntity p = new PapelEntity();
+		p.setId(PapelEntity.MASTER_ID);
 		u.setPapel(p);
 		u.setEmpresa(currentBean.getEmpresa());
 		currentBean.setPrimeiroUsuario(u);

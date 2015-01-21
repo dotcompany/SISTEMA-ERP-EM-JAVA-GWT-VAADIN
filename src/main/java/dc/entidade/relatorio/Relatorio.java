@@ -27,10 +27,10 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
-import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
 
 @Entity
@@ -77,7 +77,7 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_papel", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "papel_id", nullable = false, updatable = false) })
-	private Set<Papel> papeis = new HashSet<>();;
+	private Set<PapelEntity> papeis = new HashSet<>();;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "relatorio_seguimento", joinColumns = { @JoinColumn(name = "relatorio_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "seguimento_id", nullable = false, updatable = false) })
@@ -163,11 +163,11 @@ public class Relatorio extends AbstractModel<Integer> implements Serializable {
 		this.seguimentos = seguimentos;
 	}
 
-	public Set<Papel> getPapeis() {
+	public Set<PapelEntity> getPapeis() {
 		return papeis;
 	}
 
-	public void setPapeis(Set<Papel> papeis) {
+	public void setPapeis(Set<PapelEntity> papeis) {
 		this.papeis = papeis;
 	}
 

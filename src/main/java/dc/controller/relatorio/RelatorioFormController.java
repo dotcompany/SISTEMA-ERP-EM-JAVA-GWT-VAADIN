@@ -19,13 +19,13 @@ import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Component;
 
 import dc.controller.administrativo.empresa.EmpresaListController;
+import dc.controller.administrativo.seguranca.PapelListController;
 import dc.controller.administrativo.seguranca.UsuarioListController;
-import dc.controller.sistema.PapelListController;
 import dc.controller.sistema.SeguimentoListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
-import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
@@ -148,7 +148,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 				return "login";
 			}
 		};
-		DefaultManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(PapelListController.class, this.papelDAO,
+		DefaultManyToOneComboModel<PapelEntity> papelModel = new DefaultManyToOneComboModel<PapelEntity>(PapelListController.class, this.papelDAO,
 				super.getMainController(), true);
 
 		DefaultManyToOneComboModel<EmpresaEntity> empresa = new DefaultManyToOneComboModel<EmpresaEntity>(EmpresaListController.class, this.empresaDAO,

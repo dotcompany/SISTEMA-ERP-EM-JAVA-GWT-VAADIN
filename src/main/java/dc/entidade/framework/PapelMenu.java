@@ -20,6 +20,8 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.entidade.administrativo.seguranca.PapelEntity;
+
 /**
  * 
  * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
@@ -53,7 +55,7 @@ public class PapelMenu implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name = "id_papel")
-	private Papel papel;
+	private PapelEntity papel;
 
 	@Column(name = "PODE_CONSULTAR")
 	private Character podeConsultar;
@@ -77,7 +79,7 @@ public class PapelMenu implements Serializable {
 		this.id = id;
 	}
 
-	public PapelMenu(FmMenu f, Papel p) {
+	public PapelMenu(FmMenu f, PapelEntity p) {
 		this.menu = f;
 		this.papel = p;
 	}
@@ -159,11 +161,11 @@ public class PapelMenu implements Serializable {
 		this.menu = menu;
 	}
 
-	public Papel getPapel() {
+	public PapelEntity getPapel() {
 		return papel;
 	}
 
-	public void setPapel(Papel papel) {
+	public void setPapel(PapelEntity papel) {
 		this.papel = papel;
 	}
 

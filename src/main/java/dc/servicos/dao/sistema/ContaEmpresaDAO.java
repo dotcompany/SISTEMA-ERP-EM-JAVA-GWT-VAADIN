@@ -6,7 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.framework.Papel;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -61,7 +61,7 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 	@Transactional
 	public void save(ContaEmpresa currentBean) {
 		try {
-			Papel p = (Papel) getSession().get(Papel.class, Papel.MASTER_ID);
+			PapelEntity p = (PapelEntity) getSession().get(PapelEntity.class, PapelEntity.MASTER_ID);
 			currentBean.getUsuarioCriador().setPapel(p);
 
 			super.saveOrUpdate(currentBean.getEmpresa());
