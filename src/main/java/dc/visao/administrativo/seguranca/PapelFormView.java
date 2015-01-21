@@ -116,6 +116,11 @@ public class PapelFormView extends CustomComponent {
 		Button adicionaModuloBTN = new Button("Adicionar");
 		adicionaModuloBTN.addClickListener(new Button.ClickListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				FmModulo modulo = (FmModulo) comboModulos.getValue();
@@ -132,6 +137,11 @@ public class PapelFormView extends CustomComponent {
 
 		Button removeMenuBTN = new Button("Remover");
 		removeMenuBTN.addClickListener(new Button.ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -230,11 +240,17 @@ public class PapelFormView extends CustomComponent {
 				true);
 		treeTablePapeisMenu.addValueChangeListener(new ValueChangeListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
-			}
-		});
 
+			}
+
+		});
 	}
 
 	public void populaPapelMenu(List<PapelMenu> pms) {

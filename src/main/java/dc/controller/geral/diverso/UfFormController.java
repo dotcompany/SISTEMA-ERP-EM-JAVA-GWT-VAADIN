@@ -3,6 +3,7 @@ package dc.controller.geral.diverso;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import dc.model.business.geral.diverso.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.UfFormView;
+import dc.visao.geral.diverso.UfFormView;
 
 @Controller
 @Scope("prototype")
@@ -32,6 +33,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	private static final long serialVersionUID = 1L;
 
 	private UfFormView subView;
+
+	private static Logger logger = Logger.getLogger(UfFormController.class);
 
 	/**
 	 * ENTITY
@@ -109,7 +112,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			this.subView.getMocPais().setModel(model);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
@@ -148,7 +151,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -175,7 +178,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 				this.subView.getMocPais().setValue(pais);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
@@ -184,7 +187,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.entity = new UfEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -195,7 +198,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.entity = new UfEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -208,7 +211,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -219,7 +222,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}

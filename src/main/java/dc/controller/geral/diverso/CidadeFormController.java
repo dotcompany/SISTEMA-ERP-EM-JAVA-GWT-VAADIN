@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.CidadeEntity;
 import dc.servicos.dao.geral.CidadeDAO;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.CidadeFormView;
+import dc.visao.geral.diverso.CidadeFormView;
 
 @Controller
 @Scope("prototype")
@@ -43,7 +43,7 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		String nome = subView.getTxtNome().getValue();
+		String nome = subView.getTfNome().getValue();
 		currentBean.setNome(nome);
 
 		try {
@@ -57,7 +57,7 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = cidadeDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		subView.getTfNome().setValue(currentBean.getNome());
 	}
 
 	/*
@@ -93,11 +93,11 @@ public class CidadeFormController extends CRUDFormController<CidadeEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
+		if (subView.getTfNome().getValue() == null
+				|| subView.getTfNome().getValue().isEmpty()) {
 			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
 			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),
+			adicionarErroDeValidacao(subView.getTfNome(),
 					"Não pode ficar em Branco!");
 
 			return false;

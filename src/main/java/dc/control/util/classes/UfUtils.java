@@ -4,7 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.util.Validator;
-import dc.visao.geral.UfFormView;
+import dc.visao.geral.diverso.UfFormView;
 
 public class UfUtils {
 
