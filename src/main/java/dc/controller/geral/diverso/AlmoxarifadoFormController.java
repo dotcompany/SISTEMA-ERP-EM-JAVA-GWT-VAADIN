@@ -3,6 +3,7 @@ package dc.controller.geral.diverso;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.control.util.classes.AlmoxarifadoUtils;
+import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.model.business.geral.diverso.AlmoxarifadoBusiness;
-import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.AlmoxarifadoFormView;
 
@@ -25,6 +27,9 @@ public class AlmoxarifadoFormController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static Logger logger = Logger
+			.getLogger(AlmoxarifadoFormController.class);
 
 	private AlmoxarifadoFormView subView;
 
@@ -88,22 +93,21 @@ public class AlmoxarifadoFormController extends
 		try {
 			this.subView = new AlmoxarifadoFormView(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+			AlmoxarifadoUtils.validateRequiredFields(this.subView);
 
-		if (!Validator.validateString(subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTfNome(),
-					"Não pode ficar em branco");
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-			valido = false;
+			return false;
 		}
-
-		return valido;
 	}
 
 	@Override
@@ -115,7 +119,7 @@ public class AlmoxarifadoFormController extends
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -128,7 +132,7 @@ public class AlmoxarifadoFormController extends
 
 			this.subView.getTfNome().setValue(this.entity.getNome());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
@@ -137,7 +141,7 @@ public class AlmoxarifadoFormController extends
 		try {
 			this.entity = new AlmoxarifadoEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -148,7 +152,7 @@ public class AlmoxarifadoFormController extends
 		try {
 			this.entity = new AlmoxarifadoEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -161,7 +165,7 @@ public class AlmoxarifadoFormController extends
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -169,7 +173,13 @@ public class AlmoxarifadoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
 
+		} catch (Exception e) {
+			logger.error(":: [ERROR]", e);
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 }

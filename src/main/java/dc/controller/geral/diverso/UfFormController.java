@@ -32,9 +32,9 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private UfFormView subView;
-
 	private static Logger logger = Logger.getLogger(UfFormController.class);
+
+	private UfFormView subView;
 
 	/**
 	 * ENTITY
