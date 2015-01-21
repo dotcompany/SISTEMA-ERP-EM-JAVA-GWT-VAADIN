@@ -28,7 +28,8 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class ParametroClienteFormController extends CRUDFormController<ParametroCliente> {
+public class ParametroClienteFormController extends
+		CRUDFormController<ParametroCliente> {
 
 	/**
 	 * 
@@ -51,39 +52,45 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-
 		boolean valido = validaCampos();
 
 		return valido;
 	}
 
 	private boolean validaCampos() {
-
 		boolean valido = true;
 
 		if (!Validator.validateObject(subView.getCmbEmpresa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbEmpresa(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbEmpresa(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getTxtValorEntrada().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtValorEntrada(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtValorEntrada(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtDataEntrada().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDataEntrada(), "Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtDataEntrada(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateObject(subView.getDtVencimentoPromocao().getValue())) {
-			adicionarErroDeValidacao(subView.getDtVencimentoPromocao(), "Não pode ficar em branco");
+		if (!Validator.validateObject(subView.getDtVencimentoPromocao()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getDtVencimentoPromocao(),
+					"Não pode ficar em branco");
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtValorMensPromocional().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtValorMensPromocional(), "Não pode ficar em branco");
+		if (!Validator.validateNumber(subView.getTxtValorMensPromocional()
+				.getValue())) {
+			adicionarErroDeValidacao(subView.getTxtValorMensPromocional(),
+					"Não pode ficar em branco");
 			valido = false;
+
 			/*
 			 * } else if (verificaSeFoiParcelado() &&
 			 * !Validator.validateNumber(subView
@@ -91,8 +98,8 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			 * adicionarErroDeValidacao(subView.getTxIntervaloParcela(),
 			 * "Não pode ficar em branco"); valido = false; }
 			 */
-
 		}
+
 		return valido;
 	}
 
@@ -115,7 +122,6 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new ParametroCliente();
-
 	}
 
 	/*
@@ -133,25 +139,26 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 	@Override
 	protected void initSubView() {
-
 		try {
 			subView = new ParametroClienteFormView(this);
 
-			DefaultManyToOneComboModel<EmpresaEntity> model = new DefaultManyToOneComboModel<EmpresaEntity>(EmpresaListController.class, this.empresaDAO,
+			DefaultManyToOneComboModel<EmpresaEntity> model = new DefaultManyToOneComboModel<EmpresaEntity>(
+					EmpresaListController.class, this.empresaDAO,
 					super.getMainController()) {
+
 				@Override
 				public String getCaptionProperty() {
 					return "nomeFantasia";
 				}
-			};
-			this.subView.getCmbEmpresa().setModel(model);
 
+			};
+
+			this.subView.getCmbEmpresa().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// preencheCombos();
-
 	}
 
 	@Override
@@ -161,43 +168,58 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 		subView.getCmbEmpresa().setValue(currentBean.getEmpresa());
 
 		BigDecimal valorEntrada = currentBean.getValorEntrada();
+
 		if (valorEntrada != null) {
 			subView.getTxtValorEntrada().setConvertedValue(valorEntrada);
 		}
 
 		BigDecimal valorMensPromocional = currentBean.getValorMensPromocional();
+
 		if (valorMensPromocional != null) {
-			subView.getTxtValorMensPromocional().setConvertedValue(valorMensPromocional);
+			subView.getTxtValorMensPromocional().setConvertedValue(
+					valorMensPromocional);
 		}
 
 		String empresaLiberada = currentBean.getEmpresaLiberada();
+
 		if (Validator.validateString(empresaLiberada)) {
-			subView.getCmbEmpresaLiberada().setValue(SIM_NAO.getValor(empresaLiberada));
+			subView.getCmbEmpresaLiberada().setValue(
+					SIM_NAO.getValor(empresaLiberada));
 		}
 
 		String empresaBloqueada = currentBean.getEmpresaBloqueada();
+
 		if (Validator.validateString(empresaBloqueada)) {
-			subView.getCmbEmpresaBloqueada().setValue(SIM_NAO.getValor(empresaBloqueada));
+			subView.getCmbEmpresaBloqueada().setValue(
+					SIM_NAO.getValor(empresaBloqueada));
 		}
 
 		String avisoCorte = currentBean.getMostrandoAviso();
+
 		if (Validator.validateString(avisoCorte)) {
-			subView.getCmbMostrandoAvisoCorte().setValue(SIM_NAO.getValor(avisoCorte));
+			subView.getCmbMostrandoAvisoCorte().setValue(
+					SIM_NAO.getValor(avisoCorte));
 		}
 
 		String tipoFatura = currentBean.getTipoDeFatura();
+
 		if (Validator.validateString(tipoFatura)) {
-			subView.getCmbTipoFatura().setValue(TIPO_FATURA.getTipoFatura(tipoFatura));
+			subView.getCmbTipoFatura().setValue(
+					TIPO_FATURA.getTipoFatura(tipoFatura));
 		}
 
 		String tipoSistema = currentBean.getTipoDeSistema();
+
 		if (Validator.validateString(tipoSistema)) {
-			subView.getCmbTipoSistema().setValue(TIPO_SISTEMA.getTipoSistema(tipoSistema));
+			subView.getCmbTipoSistema().setValue(
+					TIPO_SISTEMA.getTipoSistema(tipoSistema));
 		}
 
 		String empresaBloqueada1 = currentBean.getEmpresaBloqueadaTotal();
+
 		if (Validator.validateString(empresaBloqueada1)) {
-			subView.getCmbEmpresaBloqueada1().setValue(SIM_NAO.getValor(empresaBloqueada1));
+			subView.getCmbEmpresaBloqueada1().setValue(
+					SIM_NAO.getValor(empresaBloqueada1));
 		}
 	}
 
@@ -212,13 +234,16 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 
 			currentBean.setEmpresa(empresa);
 
-			TIPO_SISTEMA enumTipoSistema = (TIPO_SISTEMA) (subView.getCmbTipoSistema().getValue());
+			TIPO_SISTEMA enumTipoSistema = (TIPO_SISTEMA) (subView
+					.getCmbTipoSistema().getValue());
+
 			if (Validator.validateObject(enumTipoSistema)) {
 				String tipoSistema = (enumTipoSistema).getCodigo();
 				currentBean.setTipoDeSistema(tipoSistema);
 			}
 
 			SIM_NAO enumUsaNfe = (SIM_NAO) (subView.getCmbUsaNfe().getValue());
+
 			if (Validator.validateObject(enumUsaNfe)) {
 				String usaNfe = (enumUsaNfe).getCodigo();
 				currentBean.setUsaNfe(usaNfe);
@@ -251,7 +276,9 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			 * subView.getTxtValorMensalidade().getConvertedValue());
 			 */
 
-			TIPO_FATURA enumTipoFatura = (TIPO_FATURA) (subView.getCmbTipoFatura().getValue());
+			TIPO_FATURA enumTipoFatura = (TIPO_FATURA) (subView
+					.getCmbTipoFatura().getValue());
+
 			if (Validator.validateObject(enumTipoFatura)) {
 				String tipoFatura = (enumTipoFatura).getCodigo();
 				currentBean.setTipoDeFatura(tipoFatura);
@@ -260,7 +287,8 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			Date dataEntrada = subView.getDtDataEntrada().getValue();
 			currentBean.setDataEntrada(dataEntrada);
 
-			Date dataVencimentoPromocao = subView.getDtVencimentoPromocao().getValue();
+			Date dataVencimentoPromocao = subView.getDtVencimentoPromocao()
+					.getValue();
 			currentBean.setVencimentoPromocao(dataVencimentoPromocao);
 
 			Date diaVencimento = subView.getDtDiaVencimento().getValue();
@@ -276,13 +304,12 @@ public class ParametroClienteFormController extends CRUDFormController<Parametro
 			currentBean.setNomeResponsavel(nomeResponsavel);
 
 			parametroClienteDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean);
 
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
 
 	/*

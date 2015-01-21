@@ -13,7 +13,13 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class ParametroClienteListController extends CRUDListController<ParametroCliente> {
+public class ParametroClienteListController extends
+		CRUDListController<ParametroCliente> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	ParametroClienteDAO dao;
