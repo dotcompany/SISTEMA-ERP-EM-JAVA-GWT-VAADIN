@@ -137,8 +137,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
 
 			if (NumberUtils.isNumber(codigoIbge)) {
-				this.entity.setCodigoIbge(NumberUtils.toInt(this.subView
-						.getTfCodigoIbge().getValue()));
+				this.entity.setCodigoIbge(NumberUtils.toInt(codigoIbge));
 			} else {
 				this.entity.setCodigoIbge(null);
 			}
@@ -169,7 +168,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			if (NumberUtils.isNotBlank(codigoIbge)) {
 				this.subView.getTfCodigoIbge().setValue(
-						String.valueOf(this.entity.getCodigoIbge()));
+						String.valueOf(codigoIbge));
 			}
 
 			PaisEntity pais = this.entity.getPais();
