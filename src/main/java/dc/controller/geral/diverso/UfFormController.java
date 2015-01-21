@@ -46,9 +46,6 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Autowired
 	private UfBusiness<UfEntity> business;
 
-	// @Autowired
-	// private PaisBusiness<PaisEntity> paisBusiness;
-
 	/**
 	 * DAO
 	 */
@@ -139,6 +136,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 			if (NumberUtils.isNumber(codigoIbge)) {
 				this.entity.setCodigoIbge(NumberUtils.toInt(this.subView
 						.getTfCodigoIbge().getValue()));
+			} else {
+				this.entity.setCodigoIbge(null);
 			}
 
 			PaisEntity pais = this.subView.getMocPais().getValue();
@@ -162,8 +161,13 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			this.subView.getTfNome().setValue(this.entity.getNome());
 			this.subView.getTfSigla().setValue(this.entity.getSigla());
-			this.subView.getTfCodigoIbge().setValue(
-					this.entity.getCodigoIbge().toString());
+
+			Integer codigoIbge = this.entity.getCodigoIbge();
+
+			if (NumberUtils.isNotBlank(codigoIbge)) {
+				this.subView.getTfCodigoIbge().setValue(
+						String.valueOf(this.entity.getCodigoIbge()));
+			}
 
 			PaisEntity pais = this.entity.getPais();
 
