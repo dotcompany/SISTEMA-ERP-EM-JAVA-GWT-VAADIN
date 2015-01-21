@@ -1,5 +1,7 @@
 package dc.entidade.financeiro;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -80,6 +82,13 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "TIPO")
 	private String tipo = "";
+	
+	@Field
+	@Column(name = "limite_credito")
+	@Caption(value = "Limite Crédito")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal limiteCredito = new BigDecimal(0);
 
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
@@ -144,6 +153,15 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setTipo(String tipo) {
 		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+	}
+	
+	public BigDecimal getLimiteCredito() {
+		return limiteCredito;
+	}
+
+	public void setLimiteCredito(BigDecimal limiteCredito) {
+		this.limiteCredito = (limiteCredito == null ? new BigDecimal(0)
+				: limiteCredito);
 	}
 
 	public AgenciaBancoEntity getAgenciaBanco() {

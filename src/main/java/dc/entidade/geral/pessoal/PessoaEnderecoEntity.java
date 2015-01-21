@@ -32,8 +32,7 @@ import dc.entidade.geral.diverso.UfEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -97,20 +96,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIbge = new Integer(0);
-
-	@Field
-	@Caption("Fone")
-	@Column(name = "FONE", length = 14)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String fone = "";
-
-	@Field
-	@Caption()
-	@Column(name = "FAX", length = 14)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String fax = "";
 
 	@Field
 	@Caption("Principal")
@@ -256,22 +241,6 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setMunicipioIbge(Integer municipioIbge) {
 		this.municipioIbge = (municipioIbge == null ? new Integer(0)
 				: municipioIbge);
-	}
-
-	public String getFone() {
-		return fone;
-	}
-
-	public void setFone(String fone) {
-		this.fone = (fone == null ? "".trim() : fone.toUpperCase().trim());
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = (fax == null ? "".trim() : fax.toUpperCase().trim());
 	}
 
 	public Boolean getPrincipal() {
