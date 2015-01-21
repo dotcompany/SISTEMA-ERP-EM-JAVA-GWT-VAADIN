@@ -449,7 +449,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 			if (bean.equals(t)) {
 				beanItem = item;
-				cmbResult.getContainerDataSource().removeItem(item);
 			}
 
 			cmbResult.getContainerDataSource().addItem(item);
@@ -494,5 +493,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		}
 
 	};
+	
+	public void setRequired(Boolean required){
+		cmbResult.setRequired(required);
+	}
+	public boolean isRequired(){
+		return cmbResult.isRequired();
+	}
 
 }
