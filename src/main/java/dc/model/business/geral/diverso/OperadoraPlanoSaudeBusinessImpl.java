@@ -156,4 +156,9 @@ public class OperadoraPlanoSaudeBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<OperadoraPlanoSaudeEntity> getEntityClass() {
+		return OperadoraPlanoSaudeEntity.class;
+	}
+
 }

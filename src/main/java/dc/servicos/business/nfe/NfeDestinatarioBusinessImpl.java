@@ -129,4 +129,9 @@ public class NfeDestinatarioBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDestinatarioEntity> getEntityClass() {
+		return NfeDestinatarioEntity.class;
+	}
+
 }

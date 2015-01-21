@@ -162,4 +162,9 @@ public class MarcaBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<MarcaEntity> getEntityClass() {
+		return MarcaEntity.class;
+	}
+
 }

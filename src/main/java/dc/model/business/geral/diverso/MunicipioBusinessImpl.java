@@ -164,4 +164,9 @@ public class MunicipioBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<MunicipioEntity> getEntityClass() {
+		return MunicipioEntity.class;
+	}
+
 }

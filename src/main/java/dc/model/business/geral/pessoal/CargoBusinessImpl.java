@@ -152,4 +152,9 @@ public class CargoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<CargoEntity> getEntityClass() {
+		return CargoEntity.class;
+	}
+
 }

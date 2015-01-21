@@ -155,4 +155,9 @@ public class TipoRequisicaoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<TipoRequisicaoEntity> getEntityClass() {
+		return TipoRequisicaoEntity.class;
+	}
+
 }

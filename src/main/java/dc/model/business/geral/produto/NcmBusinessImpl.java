@@ -160,4 +160,9 @@ public class NcmBusinessImpl implements Serializable, NcmBusiness<NcmEntity> {
 		}
 	}
 
+	@Override
+	public Class<NcmEntity> getEntityClass() {
+		return NcmEntity.class;
+	}
+
 }

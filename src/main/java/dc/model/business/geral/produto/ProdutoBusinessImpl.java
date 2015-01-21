@@ -262,4 +262,9 @@ public class ProdutoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<ProdutoEntity> getEntityClass() {
+		return ProdutoEntity.class;
+	}
+
 }

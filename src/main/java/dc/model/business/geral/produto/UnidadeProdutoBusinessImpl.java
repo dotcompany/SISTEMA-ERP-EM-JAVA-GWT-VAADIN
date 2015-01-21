@@ -165,4 +165,9 @@ public class UnidadeProdutoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<UnidadeProdutoEntity> getEntityClass() {
+		return UnidadeProdutoEntity.class;
+	}
+
 }

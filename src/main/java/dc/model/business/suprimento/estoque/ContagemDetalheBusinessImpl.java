@@ -193,4 +193,9 @@ public class ContagemDetalheBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<ContagemDetalheEntity> getEntityClass() {
+		return ContagemDetalheEntity.class;
+	}
+
 }

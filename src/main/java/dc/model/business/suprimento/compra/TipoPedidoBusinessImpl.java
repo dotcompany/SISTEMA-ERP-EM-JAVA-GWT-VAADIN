@@ -153,4 +153,9 @@ public class TipoPedidoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<TipoPedidoEntity> getEntityClass() {
+		return TipoPedidoEntity.class;
+	}
+
 }

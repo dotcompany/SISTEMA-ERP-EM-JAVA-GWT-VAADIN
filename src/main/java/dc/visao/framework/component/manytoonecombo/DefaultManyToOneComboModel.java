@@ -109,7 +109,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 			try {
 				return business.fullTextSearch(q);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} 
@@ -119,6 +118,10 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public Class<T> getEntityClass() {
+		if (business != null) {
+			business.getEntityClass();
+		}
+		
 		return dao.getEntityClass();
 	}
 
@@ -278,7 +281,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	}
 
 	public boolean permissionToCreateOrEdit() {
-		// TODO Auto-generated method stub
 		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
 		if (menu.getPermissaoOperacao() == 1) {
 			return true;

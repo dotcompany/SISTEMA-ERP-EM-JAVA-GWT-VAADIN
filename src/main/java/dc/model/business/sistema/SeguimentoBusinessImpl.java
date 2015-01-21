@@ -163,4 +163,10 @@ public class SeguimentoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<SeguimentoEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return SeguimentoEntity.class;
+	}
+
 }

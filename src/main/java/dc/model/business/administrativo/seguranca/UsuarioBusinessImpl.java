@@ -161,4 +161,9 @@ public class UsuarioBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<UsuarioEntity> getEntityClass() {
+		return UsuarioEntity.class;
+	}
+
 }

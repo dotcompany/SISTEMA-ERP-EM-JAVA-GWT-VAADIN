@@ -151,4 +151,9 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 		}
 	}
 
+	@Override
+	public Class<PaisEntity> getEntityClass() {
+		return PaisEntity.class;
+	}
+
 }

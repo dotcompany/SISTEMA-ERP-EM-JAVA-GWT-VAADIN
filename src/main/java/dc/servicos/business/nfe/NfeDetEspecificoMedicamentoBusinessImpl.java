@@ -132,4 +132,9 @@ public class NfeDetEspecificoMedicamentoBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetEspecificoMedicamentoEntity> getEntityClass() {
+		return NfeDetEspecificoMedicamentoEntity.class;
+	}
+
 }

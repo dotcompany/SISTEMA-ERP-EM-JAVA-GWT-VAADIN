@@ -127,4 +127,9 @@ public class NfeDetalheBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetalheEntity> getEntityClass() {
+		return NfeDetalheEntity.class;
+	}
+
 }

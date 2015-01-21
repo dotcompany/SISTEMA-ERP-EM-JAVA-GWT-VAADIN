@@ -174,4 +174,9 @@ public class PessoaEnderecoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<PessoaEnderecoEntity> getEntityClass() {
+		return PessoaEnderecoEntity.class;
+	}
+
 }

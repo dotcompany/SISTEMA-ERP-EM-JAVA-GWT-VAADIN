@@ -155,4 +155,9 @@ public class PessoaFisicaBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<PessoaFisicaEntity> getEntityClass() {
+		return PessoaFisicaEntity.class;
+	}
+
 }

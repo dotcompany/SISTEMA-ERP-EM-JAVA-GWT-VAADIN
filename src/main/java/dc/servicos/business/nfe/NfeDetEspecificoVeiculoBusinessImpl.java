@@ -130,4 +130,9 @@ public class NfeDetEspecificoVeiculoBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetEspecificoVeiculoEntity> getEntityClass() {
+		return NfeDetEspecificoVeiculoEntity.class;
+	}
+
 }

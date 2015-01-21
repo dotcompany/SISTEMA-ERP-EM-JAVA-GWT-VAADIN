@@ -155,4 +155,10 @@ public class AlmoxarifadoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<AlmoxarifadoEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

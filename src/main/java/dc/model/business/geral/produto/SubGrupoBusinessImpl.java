@@ -173,4 +173,9 @@ public class SubGrupoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<SubGrupoEntity> getEntityClass() {
+		return SubGrupoEntity.class;
+	}
+
 }

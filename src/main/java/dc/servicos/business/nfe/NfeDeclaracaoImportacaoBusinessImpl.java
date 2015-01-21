@@ -130,4 +130,9 @@ public class NfeDeclaracaoImportacaoBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDeclaracaoImportacaoEntity> getEntityClass() {
+		return NfeDeclaracaoImportacaoEntity.class;
+	}
+
 }

@@ -150,4 +150,9 @@ public class CepBusinessImpl implements Serializable, CepBusiness<CepEntity> {
 		}
 	}
 
+	@Override
+	public Class<CepEntity> getEntityClass() {
+		return CepEntity.class;
+	}
+
 }

@@ -184,4 +184,9 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 		}
 	}
 
+	@Override
+	public Class<UfEntity> getEntityClass() {
+		return UfEntity.class;
+	}
+
 }

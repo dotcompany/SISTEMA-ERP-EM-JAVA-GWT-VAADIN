@@ -179,4 +179,9 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
+	}
+
 }

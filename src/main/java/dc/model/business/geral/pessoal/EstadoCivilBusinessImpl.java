@@ -155,4 +155,9 @@ public class EstadoCivilBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<EstadoCivilEntity> getEntityClass() {
+		return EstadoCivilEntity.class;
+	}
+
 }

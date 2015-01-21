@@ -155,4 +155,9 @@ public class OperadoraCartaoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<OperadoraCartaoEntity> getEntityClass() {
+		return OperadoraCartaoEntity.class;
+	}
+
 }

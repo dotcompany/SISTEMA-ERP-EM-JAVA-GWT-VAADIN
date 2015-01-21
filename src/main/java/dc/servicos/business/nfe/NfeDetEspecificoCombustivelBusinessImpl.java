@@ -132,4 +132,9 @@ public class NfeDetEspecificoCombustivelBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetEspecificoCombustivelEntity> getEntityClass() {
+		return NfeDetEspecificoCombustivelEntity.class;
+	}
+
 }

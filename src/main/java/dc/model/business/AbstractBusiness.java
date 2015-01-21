@@ -41,5 +41,7 @@ public interface AbstractBusiness<T> {
 	public void save(T t) throws Exception;
 
 	public <E> void saveOrUpdate(final E o) throws Exception;
+	
+	public abstract Class<T> getEntityClass();
 
 }

@@ -165,4 +165,9 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<GrupoTributarioEntity> getEntityClass() {
+		return GrupoTributarioEntity.class;
+	}
+
 }

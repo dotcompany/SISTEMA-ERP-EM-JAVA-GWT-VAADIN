@@ -130,4 +130,9 @@ public class NfeDetalheImpostoCofinsBusinessImpl implements Serializable,
 		return null;
 	}
 
+	@Override
+	public Class<NfeDetalheImpostoCofinsEntity> getEntityClass() {
+		return NfeDetalheImpostoCofinsEntity.class;
+	}
+
 }

@@ -168,4 +168,9 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<IcmsCustomizadoCabecalhoEntity> getEntityClass() {
+		return IcmsCustomizadoCabecalhoEntity.class;
+	}
+
 }

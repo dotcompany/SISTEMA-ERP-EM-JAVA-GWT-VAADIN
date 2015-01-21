@@ -163,4 +163,9 @@ public class SindicatoBusinessImpl implements Serializable,
 		}
 	}
 
+	@Override
+	public Class<SindicatoEntity> getEntityClass() {
+		return SindicatoEntity.class;
+	}
+
 }
