@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.administrativo.seguranca.UsuarioEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class UsuarioListController extends CRUDListController<UsuarioEntity> {
+public class PapelListController extends CRUDListController<PapelEntity> {
 
 	/**
 	 * 
@@ -21,29 +21,29 @@ public class UsuarioListController extends CRUDListController<UsuarioEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private UsuarioFormController usuarioFormController;
+	private PapelFormController papelFormController;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public UsuarioListController() {
+	public PapelListController() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected CRUDFormController<UsuarioEntity> getFormController() {
-		return usuarioFormController;
+	protected CRUDFormController<PapelEntity> getFormController() {
+		return papelFormController;
 	}
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "login" };
+		return new String[] { "nome" };
 	}
 
 	@Override
-	public Class<? super UsuarioEntity> getEntityClass() {
-		return UsuarioEntity.class;
+	public Class<? super PapelEntity> getEntityClass() {
+		return PapelEntity.class;
 	}
 
 	@Override
@@ -63,9 +63,9 @@ public class UsuarioListController extends CRUDListController<UsuarioEntity> {
 	}
 
 	@Override
-	protected List<UsuarioEntity> pesquisa(String valor) {
+	protected List<PapelEntity> pesquisa(String valor) {
 		try {
-			List<UsuarioEntity> auxLista = (List<UsuarioEntity>) this.usuarioFormController
+			List<PapelEntity> auxLista = (List<PapelEntity>) this.papelFormController
 					.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
@@ -77,9 +77,9 @@ public class UsuarioListController extends CRUDListController<UsuarioEntity> {
 	}
 
 	@Override
-	protected List<UsuarioEntity> pesquisaDefault() {
+	protected List<PapelEntity> pesquisaDefault() {
 		try {
-			List<UsuarioEntity> auxLista = (List<UsuarioEntity>) this.usuarioFormController
+			List<PapelEntity> auxLista = (List<PapelEntity>) this.papelFormController
 					.getBusiness().getAll(getEntityClass());
 
 			return auxLista;

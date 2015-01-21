@@ -36,7 +36,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.framework.Papel;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
 
@@ -90,7 +89,7 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "ADMINISTRADOR")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private boolean administrador = false;
+	private Boolean administrador = Boolean.FALSE;
 
 	@Field
 	@Caption("Confirmado")
@@ -116,11 +115,15 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
-	private Papel papel;
+	private PapelEntity papel;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
 			CascadeType.DETACH })
 	private ContaEmpresa conta;
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	/**
 	 * TRANSIENT
@@ -178,12 +181,29 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.dataCadastro = dataCadastro;
 	}
 
-	public boolean getAdministrador() {
+	public Boolean getAdministrador() {
 		return administrador;
 	}
 
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
+	public void setAdministrador(Boolean administrador) {
+		this.administrador = (administrador == null ? Boolean.FALSE
+				: administrador);
+	}
+
+	public boolean isConfirmado() {
+		return confirmado;
+	}
+
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
+	}
+
+	public String getUsernome() {
+		return usernome;
+	}
+
+	public void setUsernome(String usernome) {
+		this.usernome = (usernome == null ? "".trim() : usernome.trim());
 	}
 
 	/** @return the colaborador */
@@ -200,7 +220,7 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	/** @return the papel */
-	public Papel getPapel() {
+	public PapelEntity getPapel() {
 		return papel;
 	}
 
@@ -208,7 +228,7 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * @param papel
 	 *            the papel to set
 	 */
-	public void setPapel(Papel papel) {
+	public void setPapel(PapelEntity papel) {
 		this.papel = papel;
 	}
 
@@ -250,28 +270,12 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 		return true;
 	}
 
-	public boolean isConfirmado() {
-		return confirmado;
-	}
-
-	public void setConfirmado(boolean confirmado) {
-		this.confirmado = confirmado;
-	}
-
 	public ContaEmpresa getConta() {
 		return conta;
 	}
 
 	public void setConta(ContaEmpresa conta) {
 		this.conta = conta;
-	}
-
-	public String getUsernome() {
-		return usernome;
-	}
-
-	public void setUsernome(String usernome) {
-		this.usernome = (usernome == null ? "".trim() : usernome.trim());
 	}
 
 	public Integer getConsultaMultiempresa() {

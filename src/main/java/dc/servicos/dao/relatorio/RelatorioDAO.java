@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
-import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
@@ -99,17 +99,17 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 	}
 
 	@Transactional
-	public void salvar(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
+	public void salvar(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<PapelEntity> papeisView,
 			List<EmpresaEntity> empresasView) {
 		saveOrUpdate(relatorio);
 		criaRelacionamentos(relatorio, usuariosView, seguimentosView, papeisView, empresasView);
 		saveOrUpdate(relatorio);
 	}
 
-	private Relatorio criaRelacionamentos(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
+	private Relatorio criaRelacionamentos(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<PapelEntity> papeisView,
 			List<EmpresaEntity> empresasView) {
 		Set<SeguimentoEntity> seguimentos = new HashSet<>();
-		Set<Papel> papeis = new HashSet<>();
+		Set<PapelEntity> papeis = new HashSet<>();
 		Set<UsuarioEntity> usuarios = new HashSet<>();
 		Set<EmpresaEntity> empresas = new HashSet<>();
 
@@ -121,8 +121,8 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 			seguimentos.add((SeguimentoEntity) sessionFactory.getCurrentSession().get(SeguimentoEntity.class, seguimento.getId()));
 		}
 
-		for (Papel papel : papeisView) {
-			papeis.add((Papel) sessionFactory.getCurrentSession().get(Papel.class, papel.getId()));
+		for (PapelEntity papel : papeisView) {
+			papeis.add((PapelEntity) sessionFactory.getCurrentSession().get(PapelEntity.class, papel.getId()));
 		}
 
 		for (EmpresaEntity empresa : empresasView) {

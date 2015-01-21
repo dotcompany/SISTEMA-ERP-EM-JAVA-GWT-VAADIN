@@ -1,4 +1,4 @@
-package dc.entidade.framework;
+package dc.entidade.administrativo.seguranca;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,9 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -24,50 +26,80 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-
-/** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados. */
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
+import dc.entidade.framework.PapelMenu;
 
 @Entity
 @Table(name = "papel")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Papel extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
+
+	/**
+	 * 
+	 */
 
 	private static final long serialVersionUID = 1L;
 
 	public static final Integer MASTER_ID = 1;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "papel_id_seq")
+	@SequenceGenerator(name = "papel_id_seq", sequenceName = "papel_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
-	private String nome;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome = "";
 
 	@Lob
 	@Type(type = "text")
-	@Column(name = "DESCRICAO")
 	@Field
-	private String descricao;
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String descricao = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
+
+	/**
+	 * REFERENCIA - LIST
+	 */
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	private List<PapelMenu> papelMenus = new ArrayList<PapelMenu>();
+	private List<PapelMenu> papelMenuList = new ArrayList<PapelMenu>();
 
-	public Papel() {
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public PapelEntity() {
+
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -81,7 +113,7 @@ public class Papel extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -89,7 +121,8 @@ public class Papel extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	/*
@@ -110,12 +143,21 @@ public class Papel extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	 * ToStringBuilder.reflectionToString(this); }
 	 */
 
-	public List<PapelMenu> getPapelMenus() {
-		return papelMenus;
+	public List<PapelMenu> getPapelMenuList() {
+		return papelMenuList;
 	}
 
-	public void setPapelMenus(List<PapelMenu> papelMenus) {
-		this.papelMenus = papelMenus;
+	public void setPapelMenuList(List<PapelMenu> papelMenuList) {
+		this.papelMenuList = papelMenuList;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }
