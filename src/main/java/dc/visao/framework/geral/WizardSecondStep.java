@@ -4,7 +4,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.visao.spring.SecuritySessionProvider;
 
 public class WizardSecondStep  extends BaseWizardStep{
@@ -54,7 +54,7 @@ public class WizardSecondStep  extends BaseWizardStep{
 
 	@Override
 	protected void saveConfiguration() {
-		Usuario u = SecuritySessionProvider.getUsuario();
+		UsuarioEntity u = SecuritySessionProvider.getUsuario();
 		Integer contaId = u.getConta().getId();
 		controller.salvarSegundaPergunta(group.getValue(),contaId);
 	}

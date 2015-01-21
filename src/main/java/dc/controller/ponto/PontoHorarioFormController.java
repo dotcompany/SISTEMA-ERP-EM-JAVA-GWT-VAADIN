@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.ponto.PontoHorario;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.ponto.PontoHorarioDAO;
@@ -153,7 +153,7 @@ public class PontoHorarioFormController extends CRUDFormController<PontoHorario>
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 		try {
-			Usuario usuario = SecuritySessionProvider.getUsuario();
+			UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 			EmpresaEntity empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoHorarioDAO.saveOrUpdate(currentBean);

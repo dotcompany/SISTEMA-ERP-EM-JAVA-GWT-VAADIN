@@ -46,9 +46,9 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 import dc.visao.framework.geral.fake.DashboardView;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -261,7 +261,7 @@ public class MainView extends CssLayout implements View {
 						addComponent(profilePic);
 
 						Label userName = new Label("Usuario");
-						Usuario usuario = SecuritySessionProvider.getUsuario();
+						UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 						if (usuario != null) {
 							userName.setValue(usuario.getUsernome());
 							userName.setSizeUndefined();
@@ -419,7 +419,7 @@ public class MainView extends CssLayout implements View {
 				MainController mainController = (MainController) nav
 						.getDisplay();
 
-				Usuario usuario = SecuritySessionProvider.getUsuario();
+				UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 				mainController.getMenuBuilder().buildContent(menu,
 						mainController, usuario,
 						menu.getFmModulo().getId().toString());

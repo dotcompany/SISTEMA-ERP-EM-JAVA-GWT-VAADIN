@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.ged.TipoDocumento;
@@ -121,7 +121,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Documento();
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 		subView.setIdEmpresa(getIDEmpresa());
@@ -129,7 +129,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	}
 
 	public String getIDEmpresa() {
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		return empresa.getId().toString();
 
@@ -300,7 +300,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	private VersaoDocumento verificaVersao(DocumentoArquivo doc) {
 		VersaoDocumento versao = null;
 		String acao = null;
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		ColaboradorEntity colaborador = usuario.getColaborador();
 
 		Documento original = documentoDAO.find(currentBean.getId());
@@ -357,7 +357,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		ColaboradorEntity colaborador = usuario.getColaborador();
 
 		for (Serializable id : ids) {

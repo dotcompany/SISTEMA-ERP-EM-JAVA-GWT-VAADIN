@@ -1,4 +1,4 @@
-package dc.controller.sistema;
+package dc.controller.administrativo.seguranca;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -14,8 +14,9 @@ import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.pessoal.ColaboradorListController;
+import dc.controller.sistema.PapelListController;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.Papel;
-import dc.entidade.geral.Usuario;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
@@ -30,17 +31,9 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.UsuarioFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
- *         que tem todos os controllers da Tela, onde quando extendemos herdamos
- *         os métodos que temos na tela principal. Temos o botão Novo que é para
- *         Criar uma nova Tela, para adicionar informações novas, e dentro temos
- *         o Button Salvar que é para salvar as informações no Banco de Dados
- *         Temos o carregar também que é para pegar as informações que
- *         desejarmos quando formos pesquisar na Tela. */
-
 @Controller
 @Scope("prototype")
-public class UsuarioFormController extends CRUDFormController<Usuario> {
+public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 
 	/**
 	 * 
@@ -61,7 +54,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	@Autowired
 	private PapelDAO papelDAO;
 
-	private Usuario currentBean = new Usuario();
+	private UsuarioEntity currentBean = new UsuarioEntity();
 
 	public static Logger logger = Logger.getLogger(UsuarioFormController.class);
 
@@ -78,26 +71,29 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			ContaEmpresa conta = SecuritySessionProvider.getUsuario().getConta();
+			ContaEmpresa conta = SecuritySessionProvider.getUsuario()
+					.getConta();
 			currentBean.setConta(conta);
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getEmpresa());
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+					.getEmpresa());
+
 			usuarioDAO.saveOrUpdate(currentBean);
+
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro("Problemas ao salvar registro");
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = usuarioDAO.find(id);
+
 		subView.carregaDataCadastro(getCurrentBean().getDataCadastro());
 		subView.getBinder().setItemDataSource(getCurrentBean());
 		subView.getComboColaborador().setValue(currentBean.getColaborador());
 		subView.getComboPapeis().setValue(currentBean.getPapel());
-
 	}
 
 	/*
@@ -116,15 +112,19 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	protected void initSubView() {
 		subView = new UsuarioFormView(this);
 
-		ManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class,
-				colaboradorDAO, this.getMainController()) {
+		ManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(
+				ColaboradorListController.class, colaboradorDAO,
+				this.getMainController()) {
+
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa.nome";
 			}
+
 		};
 
-		ManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(PapelListController.class, papelDAO, this.getMainController());
+		ManyToOneComboModel<Papel> papelModel = new DefaultManyToOneComboModel<Papel>(
+				PapelListController.class, papelDAO, this.getMainController());
 
 		subView.getComboPapeis().setModel(papelModel);
 		subView.getComboColaborador().setModel(colaboradorModel);
@@ -136,13 +136,14 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Usuario();
+		currentBean = new UsuarioEntity();
 		currentBean.setDataCadastro(new Date());
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
 		usuarioDAO.deleteAllByIds(ids);
+
 		mensagemRemovidoOK();
 	}
 
@@ -150,31 +151,37 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	@Override
 	protected boolean validaSalvar() {
 		boolean retornoValidacao = true;
+
 		try {
 			subView.getBinder().commit();
-			Usuario u = subView.getBinder().getItemDataSource().getBean();
+			UsuarioEntity u = subView.getBinder().getItemDataSource().getBean();
 			currentBean = u;
 			u.setColaborador(subView.getComboColaborador().getValue());
 			u.setPapel(subView.getComboPapeis().getValue());
+
 			if (u.getColaborador() == null) {
-				adicionarErroDeValidacao(subView.getComboColaborador(), "O Usuário deve estar associado a um colaborador");
+				adicionarErroDeValidacao(subView.getComboColaborador(),
+						"O Usuário deve estar associado a um colaborador");
 				retornoValidacao = false;
 			}
+
 			if (u.getPapel() == null) {
-				adicionarErroDeValidacao(subView.getComboPapeis(), "O Usuário deve estar associado a um papel");
+				adicionarErroDeValidacao(subView.getComboPapeis(),
+						"O Usuário deve estar associado a um papel");
 				retornoValidacao = false;
 			}
 
 			if (u.getLogin() == null || u.getLogin().isEmpty()) {
-				adicionarErroDeValidacao(subView.getLoginTxtField(), "Não pode ficar em branco");
+				adicionarErroDeValidacao(subView.getLoginTxtField(),
+						"Não pode ficar em branco");
 				retornoValidacao = false;
 			}
 
 			if (u.getSenha() == null || u.getSenha().isEmpty()) {
-				adicionarErroDeValidacao(subView.getSenhaPasswordField(), "Não pode ficar em branco");
+				adicionarErroDeValidacao(subView.getSenhaPasswordField(),
+						"Não pode ficar em branco");
 				retornoValidacao = false;
 			}
-
 		} catch (CommitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -183,7 +190,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 		return retornoValidacao;
 	}
 
-	public Usuario getCurrentBean() {
+	public UsuarioEntity getCurrentBean() {
 		return currentBean;
 	}
 
@@ -191,6 +198,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	protected void removerEmCascata(List<Serializable> objetos) {
 		// TODO Auto-generated method stub
 		usuarioDAO.deleteAll(objetos);
+
 		mensagemRemovidoOK();
 	}
 
@@ -200,17 +208,17 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 			getCurrentBean().setDataCadastro(new Date());
 			PessoaEntity p = colaborador.getPessoa();
 			PessoaFisicaEntity pf = pessoaDAO.getPessoaFisica(p.getId());
+
 			if (pf != null) {
 				subView.getLoginTxtField().setValue(pf.getCpf());
 				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+
 				if (pf.getDataNascimento() != null) {
 					String sDate = sdf.format(pf.getDataNascimento());
 					subView.getSenhaPasswordField().setValue(sDate);
 				}
 			}
-
 		}
-
 	}
 
 	@Override
@@ -220,7 +228,7 @@ public class UsuarioFormController extends CRUDFormController<Usuario> {
 	}
 
 	@Override
-	public Usuario getModelBean() {
+	public UsuarioEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.entidade.ponto.PontoRelogio;
@@ -50,7 +50,7 @@ public class PontoMarcacaoDAO extends AbstractCrudDAO<PontoMarcacao> {
 	}
 
 	@Transactional
-	public PontoMarcacao getPontoMarcacao(Usuario usuario, Calendar dataAtual) {
+	public PontoMarcacao getPontoMarcacao(UsuarioEntity usuario, Calendar dataAtual) {
 		// define o tipo de marcacao
 		Criteria criteria = getSession().createCriteria(PontoMarcacao.class);
 		criteria.add(Restrictions.eq("colaborador", usuario.getColaborador()));

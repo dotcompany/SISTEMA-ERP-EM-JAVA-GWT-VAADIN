@@ -20,8 +20,8 @@ import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 import dc.framework.BlankModuleView;
 import dc.framework.MenuBuilder;
 import dc.framework.ModuleLoader;
@@ -116,7 +116,7 @@ public class MainController implements ViewDisplay,Serializable {
 			if(view instanceof ExternalView){
 				UI.getCurrent().setContent((ExternalView) view);
 			}else {
-				Usuario usuario = SecuritySessionProvider.getUsuario();
+				UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 				if(usuario != null && !usuario.isConfirmado()){
 					navigator.navigateTo("confirmacaoConta");
 				}else if( view instanceof MainView){	
@@ -142,7 +142,7 @@ public class MainController implements ViewDisplay,Serializable {
 		}	
 	}
 
-	private void loadModulesAndRoutes(Usuario u) {
+	private void loadModulesAndRoutes(UsuarioEntity u) {
 		this.modules = moduleLoader.loadModules(u);
 		RoutesBuilder routesBuilder = new RoutesBuilder();
 		HashMap<String, View> routes = new HashMap<String, View>() ;

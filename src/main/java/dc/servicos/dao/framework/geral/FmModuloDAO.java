@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 
 /**
  * 
@@ -104,7 +104,7 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 	}
 
 	@Transactional
-	public List<FmModulo> getModuloLista(Usuario usuario) {
+	public List<FmModulo> getModuloLista(UsuarioEntity usuario) {
 		try {
 			String sql = "FROM FmModulo ent WHERE (1 = 1)";
 

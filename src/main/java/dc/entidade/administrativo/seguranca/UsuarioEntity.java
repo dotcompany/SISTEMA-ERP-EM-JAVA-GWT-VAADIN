@@ -1,4 +1,4 @@
-package dc.entidade.geral;
+package dc.entidade.administrativo.seguranca;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import dc.entidade.sistema.ContaEmpresa;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
+public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable, UserDetails {
 
 	/**
@@ -68,31 +68,43 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "LOGIN")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String login;
+	private String login = "";
 
 	@Field
 	@Caption("Senha")
 	@Column(name = "SENHA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String senha;
+	private String senha = "";
 
-	@Column(name = "DATA_CADASTRO")
 	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de cadastro")
+	@Column(name = "DATA_CADASTRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
+	@Field
+	@Caption("Administrador")
 	@Column(name = "ADMINISTRADOR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private boolean administrador = false;
 
 	@Field
 	@Caption("Confirmado")
 	@Column(name = "CONFIRMADO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private boolean confirmado;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "usernome")
-	private String usernome;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String usernome = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -121,11 +133,11 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	 * CONSTRUTOR
 	 */
 
-	public Usuario() {
+	public UsuarioEntity() {
 
 	}
 
-	public Usuario(Integer id) {
+	public UsuarioEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -147,7 +159,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.login = (login == null ? "".trim() : login.trim());
 	}
 
 	public String getSenha() {
@@ -155,7 +167,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = (senha == null ? "".trim() : senha.trim());
 	}
 
 	public Date getDataCadastro() {
@@ -259,7 +271,7 @@ public class Usuario extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	public void setUsernome(String usernome) {
-		this.usernome = usernome;
+		this.usernome = (usernome == null ? "".trim() : usernome.trim());
 	}
 
 	public Integer getConsultaMultiempresa() {

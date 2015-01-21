@@ -25,7 +25,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.framework.DcConstants;
 import dc.servicos.dao.sistema.PapelDAO;
 import dc.servicos.dao.sistema.UsuarioDAO;
@@ -105,7 +105,7 @@ public class ConfirmacaoContaView extends VerticalLayout implements View {
 	}
 
 	private void buildLoginView(boolean b) {
-		final Usuario usuario = SecuritySessionProvider.getUsuario();
+		final UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		 
         addStyleName("login");
 

@@ -26,10 +26,10 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
@@ -83,10 +83,10 @@ public class RelatorioFormView extends CustomComponent {
 	private BeanItemContainer<Papel> papelContainer;
 	private Papel papelSelecionado;
 
-	private ManyToOneCombo<Usuario> comboUsuarios;
+	private ManyToOneCombo<UsuarioEntity> comboUsuarios;
 	private Table tableUsuarios;
-	private BeanItemContainer<Usuario> usuarioContainer;
-	private Usuario usuarioSelecionado;
+	private BeanItemContainer<UsuarioEntity> usuarioContainer;
+	private UsuarioEntity usuarioSelecionado;
 
 	private Button btnDownload;
 
@@ -235,7 +235,7 @@ public class RelatorioFormView extends CustomComponent {
 		hl.setMargin(false);
 		hl.setSpacing(true);
 
-		comboUsuarios = new ManyToOneCombo<Usuario>();
+		comboUsuarios = new ManyToOneCombo<UsuarioEntity>();
 		comboUsuarios.setCaption("Usuario");
 		comboUsuarios.setWidth("600px");
 		comboUsuarios.setHeight("-1px");
@@ -248,7 +248,7 @@ public class RelatorioFormView extends CustomComponent {
 			@Override
 			public void buttonClick(ClickEvent event) {
 
-				Usuario usuario = (Usuario) comboUsuarios.getValue();
+				UsuarioEntity usuario = (UsuarioEntity) comboUsuarios.getValue();
 				addUsuario(usuario);
 			}
 
@@ -290,7 +290,7 @@ public class RelatorioFormView extends CustomComponent {
 
 		tableUsuarios = new Table();
 		tableUsuarios.setSizeFull();
-		usuarioContainer = new BeanItemContainer<>(Usuario.class);
+		usuarioContainer = new BeanItemContainer<>(UsuarioEntity.class);
 		tableUsuarios.setContainerDataSource(usuarioContainer);
 
 		tableUsuarios.setColumnCollapsingAllowed(true);
@@ -696,7 +696,7 @@ public class RelatorioFormView extends CustomComponent {
 		}
 	}
 
-	public void addUsuario(Usuario usuario) {
+	public void addUsuario(UsuarioEntity usuario) {
 		if (usuario != null && !usuarioContainer.containsId(usuario.getId())) {
 
 			usuarioContainer.addItem(usuario);
@@ -731,11 +731,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.comboPapeis = comboPapeis;
 	}
 
-	public ManyToOneCombo<Usuario> getComboUsuarios() {
+	public ManyToOneCombo<UsuarioEntity> getComboUsuarios() {
 		return comboUsuarios;
 	}
 
-	public void setComboUsuarios(ManyToOneCombo<Usuario> comboUsuarios) {
+	public void setComboUsuarios(ManyToOneCombo<UsuarioEntity> comboUsuarios) {
 		this.comboUsuarios = comboUsuarios;
 	}
 
@@ -763,11 +763,11 @@ public class RelatorioFormView extends CustomComponent {
 		this.papelContainer = papelContainer;
 	}
 
-	public BeanItemContainer<Usuario> getUsuarioContainer() {
+	public BeanItemContainer<UsuarioEntity> getUsuarioContainer() {
 		return usuarioContainer;
 	}
 
-	public void setUsuarioContainer(BeanItemContainer<Usuario> usuarioContainer) {
+	public void setUsuarioContainer(BeanItemContainer<UsuarioEntity> usuarioContainer) {
 		this.usuarioContainer = usuarioContainer;
 	}
 

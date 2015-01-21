@@ -13,10 +13,10 @@ import java.util.Map;
 
 import com.vaadin.ui.Notification;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
-import dc.entidade.geral.Usuario;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
@@ -57,7 +57,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 
-		Usuario u = SecuritySessionProvider.getUsuario();
+		UsuarioEntity u = SecuritySessionProvider.getUsuario();
 
 		if (ctrl instanceof ControllerAcesso) {
 			ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;
@@ -152,7 +152,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		Notification.show("Selecionado Editar");
 		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 
-		Usuario u = SecuritySessionProvider.getUsuario();
+		UsuarioEntity u = SecuritySessionProvider.getUsuario();
 
 		if (ctrl instanceof ControllerAcesso) {
 			ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;
@@ -212,7 +212,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		Notification.show("Selecionado Busca avançada");
 		CRUDListController ctrl = (CRUDListController) mainController.getEntityController(ctrlClass);
 
-		Usuario u = SecuritySessionProvider.getUsuario();
+		UsuarioEntity u = SecuritySessionProvider.getUsuario();
 
 		if (ctrl instanceof ControllerAcesso) {
 			ControllerAcesso ctrlAcesso = (ControllerAcesso) ctrl;

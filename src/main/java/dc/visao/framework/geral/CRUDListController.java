@@ -44,11 +44,11 @@ import com.vaadin.ui.Window;
 import dc.anotacoes.AnotacoesUtil;
 import dc.anotacoes.Caption;
 import dc.control.util.ClassUtils;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
-import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
@@ -824,7 +824,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	private FmModuloDAO mDAO;
 
 	private void permissaoOperacao() {
-		Usuario usuario = ClassUtils.getUsuario();
+		UsuarioEntity usuario = ClassUtils.getUsuario();
 
 		if (!usuario.getLogin().equals(DcConstants.ADMIN_USERNAME)) {
 			List<FmModulo> auxLista = this.mDAO.getModuloLista(usuario);
