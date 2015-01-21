@@ -28,10 +28,10 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.Usuario;
 
 @Entity
 @Table(name = "conta_empresa")
@@ -77,7 +77,7 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 
 	@OneToOne()
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	private Usuario usuarioCriador;
+	private UsuarioEntity usuarioCriador;
 
 	/**
 	 * REFERENCIA - LIST
@@ -86,7 +86,7 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy="conta")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE,
 			org.hibernate.annotations.CascadeType.DETACH })
-	private List<Usuario> usuarioList;
+	private List<UsuarioEntity> usuarioList;
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "empresa_id")
@@ -139,25 +139,25 @@ public class ContaEmpresa extends AbstractModel<Integer> implements
 		this.telefone = telefone;
 	}
 
-	public Usuario getUsuarioCriador() {
+	public UsuarioEntity getUsuarioCriador() {
 		return usuarioCriador;
 	}
 
-	public void setUsuarioCriador(Usuario usuarioCriador) {
+	public void setUsuarioCriador(UsuarioEntity usuarioCriador) {
 		this.usuarioCriador = usuarioCriador;
 	}
 
-	public List<Usuario> getUsuarioList() {
+	public List<UsuarioEntity> getUsuarioList() {
 		return usuarioList;
 	}
 
-	public void setUsuarioList(List<Usuario> usuarioList) {
+	public void setUsuarioList(List<UsuarioEntity> usuarioList) {
 		this.usuarioList = usuarioList;
 	}
 
-	public void setPrimeiroUsuario(Usuario u) {
+	public void setPrimeiroUsuario(UsuarioEntity u) {
 		this.usuarioCriador = u;
-		List<Usuario> usuarioList = new ArrayList<Usuario>();
+		List<UsuarioEntity> usuarioList = new ArrayList<UsuarioEntity>();
 		usuarioList.add(u);
 		this.setUsuarioList(usuarioList);
 	}

@@ -19,14 +19,14 @@ import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Component;
 
 import dc.controller.administrativo.empresa.EmpresaListController;
+import dc.controller.administrativo.seguranca.UsuarioListController;
 import dc.controller.sistema.PapelListController;
 import dc.controller.sistema.SeguimentoListController;
-import dc.controller.sistema.UsuarioListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
@@ -141,7 +141,7 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 		DefaultManyToOneComboModel<SeguimentoEntity> seguimentoModel = new DefaultManyToOneComboModel<SeguimentoEntity>(SeguimentoListController.class,
 				this.seguimentoDAO, super.getMainController(), true);
 
-		DefaultManyToOneComboModel<Usuario> usuarioModel = new DefaultManyToOneComboModel<Usuario>(UsuarioListController.class, this.usuarioDAO,
+		DefaultManyToOneComboModel<UsuarioEntity> usuarioModel = new DefaultManyToOneComboModel<UsuarioEntity>(UsuarioListController.class, this.usuarioDAO,
 				super.getMainController(), true) {
 			@Override
 			public String getCaptionProperty() {

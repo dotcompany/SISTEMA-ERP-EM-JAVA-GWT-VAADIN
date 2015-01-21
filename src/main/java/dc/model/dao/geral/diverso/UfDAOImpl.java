@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
 
@@ -78,6 +79,27 @@ public class UfDAOImpl extends AbstractCrudDAO<UfEntity> implements
 
 	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "sigla" };
+	}
+
+	/**
+	 * 
+	 */
+
+	@Transactional
+	public UfEntity getObject(String sigla) throws Exception {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.sigla = :sigla";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("sigla", sigla);
+
+			UfEntity entity = (UfEntity) query.uniqueResult();
+
+			return entity;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }

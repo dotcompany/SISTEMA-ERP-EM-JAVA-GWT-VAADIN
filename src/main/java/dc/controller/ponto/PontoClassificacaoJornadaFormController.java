@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.ponto.PontoClassificacaoJornada;
 import dc.servicos.dao.ponto.PontoClassificacaoJornadaDAO;
 import dc.servicos.util.Validator;
@@ -81,7 +81,7 @@ public class PontoClassificacaoJornadaFormController extends CRUDFormController<
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 		try {
-			Usuario usuario = SecuritySessionProvider.getUsuario();
+			UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 			EmpresaEntity empresa = usuario.getConta().getEmpresa();
 			currentBean.setEmpresa(empresa);
 			pontoClassificacaoJornadaDAO.saveOrUpdate(currentBean);

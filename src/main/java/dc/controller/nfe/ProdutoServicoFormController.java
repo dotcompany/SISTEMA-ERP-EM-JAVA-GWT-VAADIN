@@ -970,7 +970,7 @@ public class ProdutoServicoFormController extends
 
 			break;
 		case "tfEntraTotal":
-			this.nfeCabecalho.getNfeDetalhe().setEntraTotal((String) obj);
+			//this.nfeCabecalho.getNfeDetalhe().setEntraTotal((String) obj);
 
 			break;
 		case "tfValorSubtotal":
@@ -1514,7 +1514,7 @@ public class ProdutoServicoFormController extends
 			// TODO : Como calcular o valor de outras depesas do item?
 			nfeDetalhe.setValorOutrasDespesas(BigDecimal.ZERO);
 			// TODO : Deve-se preencher com zero ou um? Porque?
-			nfeDetalhe.setEntraTotal("0");
+			//nfeDetalhe.setEntraTotal("0");
 			// nfeDetalhe.setOrigemMercadoria("0");
 			// TODO : De onde devemos pegar essa informação
 			// (nfeDetalhe.setModalidadeBcIcms)?

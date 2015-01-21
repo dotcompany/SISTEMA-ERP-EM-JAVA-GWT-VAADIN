@@ -37,8 +37,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class NfeDetalheImpostoIssqnEntity extends
-		AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class NfeDetalheImpostoIssqnEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -90,11 +89,81 @@ public class NfeDetalheImpostoIssqnEntity extends
 	private Integer itemListaServicos = new Integer(0);
 
 	@Field
-	@Column(name = "tributacao_issqn")
-	@Caption(value = "Tributação do ISSQN")
+	@Column(name = "valor_deducao")
+	@Caption(value = "Valor da Dedução")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tributacaoIssqn = "";
+	private BigDecimal valorDeducao = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_outras_retencoes")
+	@Caption(value = "Valor outras Retenções")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorOutrasRetencoes = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_desconto_incondicionado")
+	@Caption(value = "Valor Desconto Incodicionado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDescontoIncondicionado = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_desconto_condicionado")
+	@Caption(value = "Valor Desconto Codicionado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorDescontoCondicionado = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_retencao_iss")
+	@Caption(value = "Valor Retenção ISS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorRetencaoIss = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "indicador_exigibilidade_iss")
+	@Caption(value = "Indicador Exigibilidade ISS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer indicadorExigibilidadeIss = new Integer(0);
+	
+	@Field
+	@Column(name = "codigo_servico")
+	@Caption(value = "Código Serviço")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String codigoServico = "";
+	
+	@Field
+	@Column(name = "municipio_incidencia")
+	@Caption(value = "Município Incidência")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer municipioIncidencia = new Integer(0);
+	
+	@Field
+	@Column(name = "pais_servico_prestado")
+	@Caption(value = "País Serviço Prestado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer paisServicoPrestado = new Integer(0);
+	
+	@Field
+	@Column(name = "numero_processo")
+	@Caption(value = "Número Processo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String numeroProcesso = "";
+	
+	@Field
+	@Column(name = "indicador_incentivo_fiscal")
+	@Caption(value = "Indicador Incentivo Fiscal")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer indicadorIncentivoFiscal = new Integer(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -173,21 +242,101 @@ public class NfeDetalheImpostoIssqnEntity extends
 				: itemListaServicos);
 	}
 
-	public String getTributacaoIssqn() {
-		return tributacaoIssqn;
-	}
-
-	public void setTributacaoIssqn(String tributacaoIssqn) {
-		this.tributacaoIssqn = (tributacaoIssqn == null ? "" : tributacaoIssqn
-				.toUpperCase().trim());
-	}
-
 	public NfeDetalheEntity getNfeDetalhe() {
 		return nfeDetalhe;
 	}
 
 	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
+	}
+	
+	public BigDecimal getValorDeducao() {
+		return valorDeducao;
+	}
+
+	public void setValorDeducao(BigDecimal valorDeducao) {
+		this.valorDeducao= (valorDeducao == null ? new BigDecimal(0) : valorDeducao);
+	}
+	
+	public BigDecimal getValorOutrasRetencoes() {
+		return valorOutrasRetencoes;
+	}
+
+	public void setValorOutrasRetencoes(BigDecimal valorOutrasRetencoes) {
+		this.valorOutrasRetencoes = (valorOutrasRetencoes == null ? new BigDecimal(0) : valorOutrasRetencoes);
+	}
+	
+	public BigDecimal getValorDescontoIncondicionado() {
+		return valorDescontoIncondicionado;
+	}
+
+	public void setValorDescontoIncondicionado(BigDecimal valorDescontoIncondicionado) {
+		this.valorDescontoIncondicionado = (valorDescontoIncondicionado == null ? new BigDecimal(0) : valorDescontoIncondicionado);
+	}
+	
+	public BigDecimal getValorDescontoCondicionado() {
+		return valorDescontoCondicionado;
+	}
+
+	public void setValorDescontoCondicionado(BigDecimal valorDescontoCondicionado) {
+		this.valorDescontoCondicionado = (valorDescontoCondicionado == null ? new BigDecimal(0) : valorDescontoCondicionado);
+	}
+	
+	public BigDecimal getValorRetencaoIss() {
+		return valorRetencaoIss;
+	}
+
+	public void setValorRetencaoIss(BigDecimal valorRetencaoIss) {
+		this.valorRetencaoIss = (valorRetencaoIss == null ? new BigDecimal(0) : valorRetencaoIss);
+	}
+
+
+	public Integer getIndicadorExigibilidadeIss() {
+		return indicadorExigibilidadeIss;
+	}
+
+	public void setIndicadorExigibilidadeIss(Integer indicadorExigibilidadeIss) {
+		this.indicadorExigibilidadeIss = (indicadorExigibilidadeIss == null ? new Integer(0) : indicadorExigibilidadeIss);
+	}
+	
+	public Integer getMunicipioIncidencia() {
+		return municipioIncidencia;
+	}
+
+	public void setMunicipioIncidencia(Integer municipioIncidencia) {
+		this.municipioIncidencia = (municipioIncidencia == null ? new Integer(0) : municipioIncidencia);
+	}
+	
+	public Integer getPaisServicoPrestado() {
+		return paisServicoPrestado;
+	}
+
+	public void setPaisServicoPrestado(Integer paisServicoPrestado) {
+		this.paisServicoPrestado = (paisServicoPrestado == null ? new Integer(0) : paisServicoPrestado);
+	}
+	
+	public Integer getIndicadorIncentivoFiscal() {
+		return indicadorIncentivoFiscal;
+	}
+
+	public void setIndicadorIncentivoFiscal(Integer indicadorIncentivoFiscal) {
+		this.indicadorIncentivoFiscal = (indicadorIncentivoFiscal == null ? new Integer(0) : indicadorIncentivoFiscal);
+	}
+	
+	public String getCodigoServico() {
+		return codigoServico;
+	}
+
+	public void setCodigoServico(String codigoServico) {
+		this.codigoServico = codigoServico;
+	}
+
+	public String getNumeroProcesso() {
+		return numeroProcesso;
+	}
+
+	public void setNumeroProcesso(String numeroProcesso) {
+		this.numeroProcesso = numeroProcesso;
 	}
 
 	/**

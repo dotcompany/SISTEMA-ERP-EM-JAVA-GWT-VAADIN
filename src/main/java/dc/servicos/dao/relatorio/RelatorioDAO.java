@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.Papel;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.entidade.geral.Usuario;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -35,7 +35,7 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 	}
 
 	@Transactional
-	public List<Relatorio> findRelatoriosByMenuAndUserAndType(FmMenu menu, Usuario usuario, TipoRelatorio tipoRelatorio) {
+	public List<Relatorio> findRelatoriosByMenuAndUserAndType(FmMenu menu, UsuarioEntity usuario, TipoRelatorio tipoRelatorio) {
 
 		if (menu != null && menu.getId() != null) {
 			final Session session = sessionFactory.getCurrentSession();
@@ -99,22 +99,22 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 	}
 
 	@Transactional
-	public void salvar(Relatorio relatorio, List<Usuario> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
+	public void salvar(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
 			List<EmpresaEntity> empresasView) {
 		saveOrUpdate(relatorio);
 		criaRelacionamentos(relatorio, usuariosView, seguimentosView, papeisView, empresasView);
 		saveOrUpdate(relatorio);
 	}
 
-	private Relatorio criaRelacionamentos(Relatorio relatorio, List<Usuario> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
+	private Relatorio criaRelacionamentos(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<Papel> papeisView,
 			List<EmpresaEntity> empresasView) {
 		Set<SeguimentoEntity> seguimentos = new HashSet<>();
 		Set<Papel> papeis = new HashSet<>();
-		Set<Usuario> usuarios = new HashSet<>();
+		Set<UsuarioEntity> usuarios = new HashSet<>();
 		Set<EmpresaEntity> empresas = new HashSet<>();
 
-		for (Usuario usuario : usuariosView) {
-			usuarios.add((Usuario) sessionFactory.getCurrentSession().get(Usuario.class, usuario.getId()));
+		for (UsuarioEntity usuario : usuariosView) {
+			usuarios.add((UsuarioEntity) sessionFactory.getCurrentSession().get(UsuarioEntity.class, usuario.getId()));
 		}
 
 		for (SeguimentoEntity seguimento : seguimentosView) {

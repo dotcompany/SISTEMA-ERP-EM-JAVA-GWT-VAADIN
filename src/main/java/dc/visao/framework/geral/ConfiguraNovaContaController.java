@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
@@ -97,7 +97,7 @@ public class ConfiguraNovaContaController implements Serializable,
 		}
 	}
 
-	public String getNomeUsuario(Usuario usuario) {
+	public String getNomeUsuario(UsuarioEntity usuario) {
 		return userDao.getNomeUsuario(usuario);
 	}
 

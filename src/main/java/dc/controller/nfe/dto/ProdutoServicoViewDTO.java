@@ -159,7 +159,7 @@ public class ProdutoServicoViewDTO implements Serializable {
 				nfeDetalhe.getValorDesconto().toString());
 		subView.getTfValorOutrasDespesas().setValue(
 				nfeDetalhe.getValorOutrasDespesas().toString());
-		subView.getTfEntraTotal().setValue(nfeDetalhe.getEntraTotal());
+		//subView.getTfEntraTotal().setValue(nfeDetalhe.getEntraTotal());
 		subView.getTfValorSubtotal().setValue(
 				nfeDetalhe.getValorSubtotal().toString());
 		subView.getTfValorTotal().setValue(
@@ -383,8 +383,7 @@ public class ProdutoServicoViewDTO implements Serializable {
 				.setValue(entIssqn.getMunicipioIssqn().toString().trim());
 		subView.getNdiIssqnFormView().getTfItemListaServicosIssqn()
 				.setValue(entIssqn.getItemListaServicos().toString().trim());
-		subView.getNdiIssqnFormView().getTfTributacaoIssqn()
-				.setValue(entIssqn.getTributacaoIssqn().trim());
+		//subView.getNdiIssqnFormView().getTfTributacaoIssqn().setValue(entIssqn.getTributacaoIssqn().trim());
 	}
 
 	public static synchronized void setNdiPisSubView(
@@ -567,9 +566,8 @@ public class ProdutoServicoViewDTO implements Serializable {
 				nfeDetalhe.getValorDesconto().toString());
 		subView.getTfValorOutrasDespesas().setValue(
 				nfeDetalhe.getValorOutrasDespesas().toString());
-		subView.getTfEntraTotal().setValue(nfeDetalhe.getEntraTotal());
-		subView.getTfValorSubtotal().setValue(
-				nfeDetalhe.getValorSubtotal().toString());
+		//subView.getTfEntraTotal().setValue(nfeDetalhe.getEntraTotal());
+		subView.getTfValorSubtotal().setValue(nfeDetalhe.getValorSubtotal().toString());
 		subView.getTfValorTotal().setValue(
 				nfeDetalhe.getValorTotal().toString());
 		subView.getTfNumeroPedidoCompra().setValue(
@@ -706,8 +704,7 @@ public class ProdutoServicoViewDTO implements Serializable {
 				.setValue(ndiIssqn.getMunicipioIssqn().toString());
 		subView.getNdiIssqnFormView().getTfItemListaServicosIssqn()
 				.setValue(ndiIssqn.getItemListaServicos().toString());
-		subView.getNdiIssqnFormView().getTfTributacaoIssqn()
-				.setValue(ndiIssqn.getTributacaoIssqn());
+		//subView.getNdiIssqnFormView().getTfTributacaoIssqn().setValue(ndiIssqn.getTributacaoIssqn());
 
 		/**
 		 * 

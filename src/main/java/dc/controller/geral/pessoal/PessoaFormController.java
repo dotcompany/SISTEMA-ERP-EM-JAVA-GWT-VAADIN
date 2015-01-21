@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 
 import dc.control.enums.CategoriaReservistaEn;
 import dc.control.enums.CnhEn;
@@ -36,18 +35,15 @@ import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.contabilidade.ContabilContaListController;
-import dc.controller.contabilidade.PlanoContaListController;
-import dc.controller.financeiro.ContaCaixaListController;
-import dc.controller.financeiro.SindicatoListController;
 import dc.controller.geral.diverso.SetorListController;
-import dc.controller.geral.diverso.UfListController;
+import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.diverso.UfEntity;
+import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
@@ -218,6 +214,140 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			//
 
+			System.out.println(":: load cliente");
+
+			DefaultManyToOneComboModel<SituacaoForCliEntity> modelClienteSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+					SituacaoColaboradorListController.class,
+					this.situacaoForCliDAO, super.getMainController());
+
+			this.subView.getMocClienteSituacao().setModel(
+					modelClienteSituacaoForCli);
+
+			DefaultManyToOneComboModel<AtividadeForCliEntity> modelClienteAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
+					AtividadeForCliListController.class,
+					this.atividadeForCliDAO, super.getMainController());
+
+			this.subView.getMocClienteAtividade().setModel(
+					modelClienteAtividadeForCli);
+
+			DefaultManyToOneComboModel<ContabilContaEntity> modelClienteContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController());
+
+			this.subView.getMocClienteContaContabil().setModel(
+					modelClienteContabilConta);
+
+			DefaultManyToOneComboModel<OperacaoFiscalEntity> modelClienteOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
+					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
+					super.getMainController());
+
+			this.subView.getMocClienteOperacaoFiscal().setModel(
+					modelClienteOperacaoFiscal);
+
+			System.out.println(":: load colaborador");
+
+			DefaultManyToOneComboModel<TipoColaboradorEntity> modelColaboradorTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
+					TipoColaboradorListController.class,
+					this.tipoColaboradorDAO, super.getMainController());
+
+			this.subView.getMocColaboradorTipoColaborador().setModel(
+					modelColaboradorTipoColaborador);
+
+			DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelColaboradorSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
+					SituacaoColaboradorListController.class,
+					this.situacaoColaboradorDAO, super.getMainController());
+
+			this.subView.getMocColaboradorSituacaoColaborador().setModel(
+					modelColaboradorSituacaoColaborador);
+
+			DefaultManyToOneComboModel<SindicatoEntity> modelColaboradorSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
+					SindicatoListController.class, this.sindicatoDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorSindicato().setModel(
+					modelColaboradorSindicato);
+
+			DefaultManyToOneComboModel<NivelFormacaoEntity> modelColaboradorNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
+					NivelFormacaoListController.class, this.nivelFormacaoDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorNivelFormacao().setModel(
+					modelColaboradorNivelFormacao);
+
+			DefaultManyToOneComboModel<CargoEntity> modelColaboradorCargo = new DefaultManyToOneComboModel<CargoEntity>(
+					CargoListController.class, this.cargoDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorCargo().setModel(
+					modelColaboradorCargo);
+
+			DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
+					SetorListController.class, this.setorDAO,
+					super.getMainController());
+
+			this.subView.getMocColaboradorSetor().setModel(modelSetor);
+
+			/*
+			 * DefaultManyToOneComboModel<ContabilContaEntity>
+			 * modelContabilConta3 = new
+			 * DefaultManyToOneComboModel<ContabilContaEntity>(
+			 * ContabilContaListController.class, this.contabilContaDAO,
+			 * super.getMainController());
+			 * 
+			 * this.subView.getMocColaboradorContaContabil().setModel(
+			 * modelContabilConta3);
+			 * 
+			 * DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new
+			 * DefaultManyToOneComboModel<PlanoConta>(
+			 * PlanoContaListController.class, this.planoContaDAO,
+			 * super.getMainController());
+			 * 
+			 * this.subView.getMocColaboradorPlanoConta().setModel(
+			 * modelPlanoConta);
+			 * 
+			 * DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new
+			 * DefaultManyToOneComboModel<ContaCaixa>(
+			 * ContaCaixaListController.class, this.contaCaixaDAO,
+			 * super.getMainController());
+			 * 
+			 * this.subView.getMocColaboradorContaCaixa().setModel(
+			 * modelContaCaixa);
+			 */
+
+			System.out.println(":: load fornecedor");
+
+			DefaultManyToOneComboModel<SituacaoForCliEntity> modelFornecedorSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+					SituacaoColaboradorListController.class,
+					this.situacaoForCliDAO, super.getMainController());
+
+			this.subView.getMocFornecedorSituacaoForCli().setModel(
+					modelFornecedorSituacaoForCli);
+
+			DefaultManyToOneComboModel<AtividadeForCliEntity> modelFornecedorAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
+					AtividadeForCliListController.class,
+					this.atividadeForCliDAO, super.getMainController());
+
+			this.subView.getMocFornecedorAtividadeForCli().setModel(
+					modelFornecedorAtividadeForCli);
+
+			DefaultManyToOneComboModel<ContabilContaEntity> modelFornecedorContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController());
+
+			this.subView.getMocFornecedorContabilConta().setModel(
+					modelFornecedorContabilConta);
+
+			System.out.println(":: load transportadora");
+
+			DefaultManyToOneComboModel<ContabilContaEntity> modelTransportadoraContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
+					ContabilContaListController.class, this.contabilContaDAO,
+					super.getMainController());
+
+			this.subView.getMocTransportadoraContabilConta().setModel(
+					modelTransportadoraContabilConta);
+
+			//
+
 			carregarTipoPessoa();
 			carregarTipoRegime();
 			carregarCnh();
@@ -236,7 +366,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarFormaPagamento();
 			carregarFgtsOptante();
 			carregarSaiNaRais();
-			carregarPriorizarPgto();
+			carregarPriorizarComissao();
 			carregarComissaoOver();
 			carregarTipoComissaoProduto();
 			carregarTipoComissaoServico();
@@ -250,6 +380,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			this.subView.getCbTipoPessoa().setValue(TipoPessoaEn.F);
 			this.subView.getOgSexo().setValue(SexoEn.F);
+
+			this.subView.getCbColaboradorPriorizarComissao().setValue(
+					SimNaoEn.N);
+			this.subView.getCbColaboradorComissaoOver().setValue(SimNaoEn.N);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -631,19 +765,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		ent.setMatricula(this.subView.getTfColaboradorMatricula().getValue());
 
 		SimNaoEn priorizarComissaoEn = (SimNaoEn) this.subView
-				.getCbColaboradorPriorizarPgto().getValue();
+				.getCbColaboradorPriorizarComissao().getValue();
 
-		if (ObjectUtils.isNotBlank(priorizarComissaoEn)) {
-			ent.setPriorizarComissao(priorizarComissaoEn == SimNaoEn.S ? true
-					: false);
-		}
+		ent.setPriorizarComissao(priorizarComissaoEn == SimNaoEn.N ? Boolean.FALSE
+				: Boolean.TRUE);
 
 		SimNaoEn comissaoOverEn = (SimNaoEn) this.subView
 				.getCbColaboradorComissaoOver().getValue();
 
-		if (ObjectUtils.isNotBlank(comissaoOverEn)) {
-			ent.setComissaoOver(comissaoOverEn == SimNaoEn.S ? true : false);
-		}
+		ent.setComissaoOver(comissaoOverEn == SimNaoEn.N ? Boolean.FALSE
+				: Boolean.TRUE);
 
 		ent.setTipoComissaoServico((String) this.subView
 				.getOgColaboradorTipoComissaoServico().getValue());
@@ -864,14 +995,30 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
 							: Boolean.TRUE);
 
+			if (this.entity.getTipoCliente().equals("1")) {
+				loadCliente();
+			}
+
 			this.subView.getCkColaborador().setValue(
 					this.entity.getTipoColaborador());
+
+			if (this.entity.getTipoColaborador()) {
+				loadColaborador();
+			}
 
 			this.subView.getCkFornecedor().setValue(
 					this.entity.getTipoFornecedor());
 
+			if (this.entity.getTipoFornecedor()) {
+				loadFornecedor();
+			}
+
 			this.subView.getCkTransportadora().setValue(
 					this.entity.getTipoTransportadora());
+
+			if (this.entity.getTipoTransportadora()) {
+				loadTransportadora();
+			}
 
 			// PessoaContato
 
@@ -1158,18 +1305,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				ent.getDataCadastro());
 		this.subView.getTfColaboradorMatricula().setValue(ent.getMatricula());
 
-		boolean priorizarComissao = ent.getPriorizarComissao();
+		SimNaoEn priorizarComissao = (ent.getPriorizarComissao() == Boolean.FALSE ? SimNaoEn.N
+				: SimNaoEn.S);
 
-		if (ObjectUtils.isNotBlank(priorizarComissao)) {
-			this.subView.getCbColaboradorPriorizarPgto().setValue(
-					priorizarComissao);
-		}
+		this.subView.getCbColaboradorPriorizarComissao().setValue(
+				priorizarComissao);
 
-		boolean comissaoOver = ent.getComissaoOver();
+		SimNaoEn comissaoOver = (ent.getComissaoOver() == Boolean.FALSE ? SimNaoEn.N
+				: SimNaoEn.S);
 
-		if (ObjectUtils.isNotBlank(comissaoOver)) {
-			this.subView.getCbColaboradorComissaoOver().setValue(comissaoOver);
-		}
+		this.subView.getCbColaboradorComissaoOver().setValue(comissaoOver);
 
 		this.subView.getCbColaboradorPgtoComissao().setValue(
 				ent.getPgtoComissaoSera());
@@ -1192,53 +1337,52 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getSituacaoColaborador();
 
 		if (ObjectUtils.isNotBlank(situacaoColaborador)) {
-			// this.subView.getMocColaboradorSituacaoColaborador().setValue(
-			// situacaoColaborador);
+			this.subView.getMocColaboradorSituacaoColaborador().setValue(
+					situacaoColaborador);
 		}
 
 		SindicatoEntity sindicato = ent.getSindicato();
 
 		if (ObjectUtils.isNotBlank(sindicato)) {
-			// this.subView.getMocColaboradorSindicato().setValue(sindicato);
+			this.subView.getMocColaboradorSindicato().setValue(sindicato);
 		}
 
 		NivelFormacaoEntity nivelFormacao = ent.getNivelFormacao();
 
 		if (ObjectUtils.isNotBlank(nivelFormacao)) {
-			// this.subView.getMocColaboradorNivelFormacao().setValue(
-			// nivelFormacao);
+			this.subView.getMocColaboradorNivelFormacao().setValue(
+					nivelFormacao);
 		}
 
 		CargoEntity cargo = ent.getCargo();
 
 		if (ObjectUtils.isNotBlank(cargo)) {
-			// this.subView.getMocColaboradorCargo().setValue(cargo);
-		}
-
-		ContabilContaEntity contabilConta = ent.getContaContabil();
-
-		if (ObjectUtils.isNotBlank(contabilConta)) {
-			// this.subView.getMocColaboradorContaContabil().setValue(
-			// contabilConta);
+			this.subView.getMocColaboradorCargo().setValue(cargo);
 		}
 
 		SetorEntity setor = ent.getSetor();
 
 		if (ObjectUtils.isNotBlank(setor)) {
-			// this.subView.getMocColaboradorSetor().setValue(setor);
+			this.subView.getMocColaboradorSetor().setValue(setor);
 		}
 
-		PlanoConta planoConta = ent.getPlanoConta();
-
-		if (ObjectUtils.isNotBlank(planoConta)) {
-			// this.subView.getMocColaboradorPlanoConta().setValue(planoConta);
-		}
-
-		ContaCaixa contaCaixa = ent.getContaCaixa();
-
-		if (ObjectUtils.isNotBlank(contaCaixa)) {
-			// this.subView.getMocColaboradorContaCaixa().setValue(contaCaixa);
-		}
+		/*
+		 * ContabilContaEntity contabilConta = ent.getContaContabil();
+		 * 
+		 * if (ObjectUtils.isNotBlank(contabilConta)) {
+		 * this.subView.getMocColaboradorContaContabil().setValue(
+		 * contabilConta); }
+		 * 
+		 * PlanoConta planoConta = ent.getPlanoConta();
+		 * 
+		 * if (ObjectUtils.isNotBlank(planoConta)) {
+		 * this.subView.getMocColaboradorPlanoConta().setValue(planoConta); }
+		 * 
+		 * ContaCaixa contaCaixa = ent.getContaCaixa();
+		 * 
+		 * if (ObjectUtils.isNotBlank(contaCaixa)) {
+		 * this.subView.getMocColaboradorContaCaixa().setValue(contaCaixa); }
+		 */
 	}
 
 	private void loadFornecedor() throws Exception {
@@ -1529,9 +1673,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public void carregarPriorizarPgto() {
+	public void carregarPriorizarComissao() {
 		for (SimNaoEn en : SimNaoEn.values()) {
-			this.subView.getCbColaboradorPriorizarPgto().addItem(en);
+			this.subView.getCbColaboradorPriorizarComissao().addItem(en);
 		}
 	}
 
@@ -1647,168 +1791,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			Boolean b = (Boolean) obj;
 
 			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
+
+			// this.subView.getCkColaborador().setEnabled(false);
+			// this.subView.getTsGeral().getTab(5).setEnabled(false);
 		} else {
 			System.out.println(":: [instanceof] no type for " + obj.toString());
-		}
-	}
-
-	/**
-	 * 
-	 */
-
-	public void stceSelectTab(SelectedTabChangeEvent stce, Integer indexTab) {
-		try {
-			System.out.println(indexTab);
-
-			if (indexTab.equals(4)) {
-				System.out.println(":: load cliente");
-
-				DefaultManyToOneComboModel<SituacaoForCliEntity> modelSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
-						SituacaoColaboradorListController.class,
-						this.situacaoForCliDAO, super.getMainController());
-
-				this.subView.getMocClienteSituacao().setModel(
-						modelSituacaoForCli);
-
-				DefaultManyToOneComboModel<AtividadeForCliEntity> modelAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
-						AtividadeForCliListController.class,
-						this.atividadeForCliDAO, super.getMainController());
-
-				this.subView.getMocClienteAtividade().setModel(
-						modelAtividadeForCli);
-
-				DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-						ContabilContaListController.class,
-						this.contabilContaDAO, super.getMainController());
-
-				this.subView.getMocClienteContaContabil().setModel(
-						modelContabilConta);
-
-				DefaultManyToOneComboModel<OperacaoFiscalEntity> modelOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
-						OperacaoFiscalListController.class,
-						this.operacaoFiscalDAO, super.getMainController());
-
-				this.subView.getMocClienteOperacaoFiscal().setModel(
-						modelOperacaoFiscal);
-
-				loadCliente();
-			}
-
-			if (indexTab.equals(5)) {
-				System.out.println(":: load colaborador");
-
-				DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta3 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-						ContabilContaListController.class,
-						this.contabilContaDAO, super.getMainController());
-
-				this.subView.getMocColaboradorContaContabil().setModel(
-						modelContabilConta3);
-
-				DefaultManyToOneComboModel<NivelFormacaoEntity> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
-						NivelFormacaoListController.class,
-						this.nivelFormacaoDAO, super.getMainController());
-
-				this.subView.getMocColaboradorNivelFormacao().setModel(
-						modelNivelFormacao);
-
-				DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
-						TipoColaboradorListController.class,
-						this.tipoColaboradorDAO, super.getMainController());
-
-				this.subView.getMocColaboradorTipoColaborador().setModel(
-						modelTipoColaborador);
-
-				// DefaultManyToOneComboModel<CargoEntity> modelCargo = new
-				// DefaultManyToOneComboModel<CargoEntity>(
-				// CargoListController.class, this.cargoDAO,
-				// super.getMainController());
-
-				// this.subView.getMocColaboradorCargo().setModel(modelCargo);
-
-				DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
-						SituacaoColaboradorListController.class,
-						this.situacaoColaboradorDAO, super.getMainController());
-
-				this.subView.getMocColaboradorSituacaoColaborador().setModel(
-						modelSituacaoColaborador);
-
-				DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
-						SindicatoListController.class, this.sindicatoDAO,
-						super.getMainController());
-
-				this.subView.getMocColaboradorSindicato().setModel(
-						modelSindicato);
-
-				DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
-						SetorListController.class, this.setorDAO,
-						super.getMainController());
-
-				this.subView.getMocColaboradorSetor().setModel(modelSetor);
-
-				DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
-						PlanoContaListController.class, this.planoContaDAO,
-						super.getMainController());
-
-				this.subView.getMocColaboradorPlanoConta().setModel(
-						modelPlanoConta);
-
-				DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
-						ContaCaixaListController.class, this.contaCaixaDAO,
-						super.getMainController());
-
-				this.subView.getMocColaboradorContaCaixa().setModel(
-						modelContaCaixa);
-
-				DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-						UfListController.class, this.ufDAO,
-						super.getMainController());
-
-				this.subView.getMocColaboradorUf().setModel(modelUf);
-
-				loadColaborador();
-			}
-
-			if (indexTab.equals(6)) {
-				System.out.println(":: load fornecedor");
-
-				DefaultManyToOneComboModel<SituacaoForCliEntity> modelSituacaoForCli1 = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
-						SituacaoColaboradorListController.class,
-						this.situacaoForCliDAO, super.getMainController());
-
-				this.subView.getMocFornecedorSituacaoForCli().setModel(
-						modelSituacaoForCli1);
-
-				DefaultManyToOneComboModel<AtividadeForCliEntity> modelAtividadeForCli1 = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
-						AtividadeForCliListController.class,
-						this.atividadeForCliDAO, super.getMainController());
-
-				this.subView.getMocFornecedorAtividadeForCli().setModel(
-						modelAtividadeForCli1);
-
-				DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta1 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-						ContabilContaListController.class,
-						this.contabilContaDAO, super.getMainController());
-
-				this.subView.getMocFornecedorContabilConta().setModel(
-						modelContabilConta1);
-
-				loadFornecedor();
-			}
-
-			if (indexTab.equals(7)) {
-				System.out.println(":: load transportadora");
-
-				DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta2 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-						ContabilContaListController.class,
-						this.contabilContaDAO, super.getMainController());
-
-				this.subView.getMocTransportadoraContabilConta().setModel(
-						modelContabilConta2);
-
-				loadTransportadora();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 

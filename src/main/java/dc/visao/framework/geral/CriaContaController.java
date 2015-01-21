@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.Papel;
-import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
@@ -93,7 +93,7 @@ public class CriaContaController implements Serializable, ViewController {
 
 	private boolean validaConta() {
 		// TODO Auto-generated method stub
-		Usuario u = usuarioDao.getUsuarioByLogin(currentBean.getEmail());
+		UsuarioEntity u = usuarioDao.getUsuarioByLogin(currentBean.getEmail());
 		ContaEmpresa c = dao.findByEmail(currentBean.getEmail());
 
 		if (u != null || c != null) {
@@ -119,7 +119,7 @@ public class CriaContaController implements Serializable, ViewController {
 		// TODO Auto-generated method stub
 		currentBean = new ContaEmpresa();
 		currentBean.setEmpresa(new EmpresaEntity());
-		Usuario u = new Usuario();
+		UsuarioEntity u = new UsuarioEntity();
 		Papel p = new Papel();
 		p.setId(Papel.MASTER_ID);
 		u.setPapel(p);

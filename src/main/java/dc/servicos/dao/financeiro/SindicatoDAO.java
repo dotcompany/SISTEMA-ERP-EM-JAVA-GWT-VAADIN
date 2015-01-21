@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.SindicatoEntity;
+import dc.entidade.geral.outro.SindicatoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository

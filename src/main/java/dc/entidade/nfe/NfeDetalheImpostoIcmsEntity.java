@@ -40,8 +40,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class NfeDetalheImpostoIcmsEntity extends
-		AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class NfeDetalheImpostoIcmsEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -217,6 +216,34 @@ public class NfeDetalheImpostoIcmsEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ufSt = "";
+	
+	@Field
+	@Column(name = "valor_icms_desonerado")
+	@Caption(value = "Valor do ICMS Desonerado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcmsDesonerado = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_icms_operacao")
+	@Caption(value = "Valor do ICMS Operação")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcmsOperacao = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "percentual_diferimento")
+	@Caption(value = "Percentual Diferimento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal percentualDiferimento = new BigDecimal(0);
+	
+	@Field
+	@Column(name = "valor_icms_diferido")
+	@Caption(value = "Valor do ICMS Diferido")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorIcmsDiferido = new BigDecimal(0);
 
 	/**
 	 * REFERENCIA - FK
@@ -462,6 +489,38 @@ public class NfeDetalheImpostoIcmsEntity extends
 
 	public void setNfeDetalhe(NfeDetalheEntity nfeDetalhe) {
 		this.nfeDetalhe = nfeDetalhe;
+	}
+	
+	public BigDecimal getValorIcmsDesonerado() {
+		return valorIcmsDesonerado;
+	}
+
+	public void setValorIcmsDesonerado(BigDecimal valorIcmsDesonerado) {
+		this.valorIcmsDesonerado = (valorIcmsDesonerado == null ? new BigDecimal(0) : valorIcmsDesonerado);
+	}
+	
+	public BigDecimal getValorIcmsOperacao() {
+		return valorIcmsOperacao;
+	}
+
+	public void setValorIcmsOperacao(BigDecimal valorIcmsOperacao) {
+		this.valorIcmsOperacao = (valorIcmsOperacao == null ? new BigDecimal(0) : valorIcmsOperacao);
+	}
+	
+	public BigDecimal getPercentualDiferimento() {
+		return percentualDiferimento;
+	}
+
+	public void setPercentualDiferimento(BigDecimal percentualDiferimento) {
+		this.percentualDiferimento = (percentualDiferimento == null ? new BigDecimal(0) : percentualDiferimento);
+	}
+	
+	public BigDecimal getValorIcmsDiferido() {
+		return valorIcmsDiferido;
+	}
+
+	public void setValorIcmsDiferido(BigDecimal valorIcmsDiferido) {
+		this.valorIcmsDiferido = (valorIcmsDiferido == null ? new BigDecimal(0) : valorIcmsDiferido);
 	}
 
 	/**

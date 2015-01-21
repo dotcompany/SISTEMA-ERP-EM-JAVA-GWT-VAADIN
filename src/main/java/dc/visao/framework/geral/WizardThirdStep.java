@@ -16,8 +16,8 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 import dc.visao.spring.SecuritySessionProvider;
 
 public class WizardThirdStep extends BaseWizardStep implements Serializable{
@@ -101,7 +101,7 @@ public class WizardThirdStep extends BaseWizardStep implements Serializable{
 
 	@Override
 	protected void saveConfiguration() {
-		Usuario u = SecuritySessionProvider.getUsuario();
+		UsuarioEntity u = SecuritySessionProvider.getUsuario();
 		Integer contaId = u.getConta().getId();
 		List list = getModulosSelecionadosAsList();
 		controller.associaModulos(list,contaId);

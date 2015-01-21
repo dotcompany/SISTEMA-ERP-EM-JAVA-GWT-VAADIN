@@ -1,4 +1,4 @@
-package dc.controller.sistema;
+package dc.controller.administrativo.seguranca;
 
 import java.util.List;
 
@@ -6,24 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.servicos.dao.sistema.UsuarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-/**
- * 
- * @author Wesley Jr /* Nessa classe temos a Extensão da classe principal que é
- *         crudListController Temos alguns métodos que pegamos, temos a
- *         configuração do Título da Tela; O Método do Button pesquisar, pegando
- *         um valor. e também ele pega algumas informações da classe
- *         FormController
- * 
- */
-
 @Controller
 @Scope("prototype")
-public class UsuarioListController extends CRUDListController<Usuario> {
+public class UsuarioListController extends CRUDListController<UsuarioEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	UsuarioDAO dao;
@@ -37,8 +32,8 @@ public class UsuarioListController extends CRUDListController<Usuario> {
 	}
 
 	@Override
-	public Class<? super Usuario> getEntityClass() {
-		return Usuario.class;
+	public Class<? super UsuarioEntity> getEntityClass() {
+		return UsuarioEntity.class;
 	}
 
 	@Override
@@ -47,12 +42,12 @@ public class UsuarioListController extends CRUDListController<Usuario> {
 	}
 
 	@Override
-	protected List<Usuario> pesquisa(String valor) {
+	protected List<UsuarioEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<Usuario> getFormController() {
+	protected CRUDFormController<UsuarioEntity> getFormController() {
 		return usuarioFormController;
 	}
 
@@ -70,9 +65,9 @@ public class UsuarioListController extends CRUDListController<Usuario> {
 	}
 
 	@Override
-	protected List<Usuario> pesquisaDefault() {
+	protected List<UsuarioEntity> pesquisaDefault() {
 		// TODO Auto-generated method stub
-		return (List<Usuario>) dao.getAll(Usuario.class);
+		return (List<UsuarioEntity>) dao.getAll(UsuarioEntity.class);
 	}
 
 }

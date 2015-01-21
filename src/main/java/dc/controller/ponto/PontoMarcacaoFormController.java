@@ -11,7 +11,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.ponto.PontoMarcacao;
 import dc.servicos.dao.ponto.PontoMarcacaoDAO;
 import dc.servicos.dao.sistema.UsuarioDAO;
@@ -75,7 +75,7 @@ public class PontoMarcacaoFormController extends BlankFormController {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Usuario usuario = SecuritySessionProvider.getUsuario();
+				UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 				Calendar dataAtual = Calendar.getInstance();
 
 				// validar

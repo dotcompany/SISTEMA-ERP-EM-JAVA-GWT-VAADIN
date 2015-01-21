@@ -212,8 +212,13 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		try {
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 }

@@ -39,7 +39,7 @@ public class NfeDetalheImpostoIssqnDTO {
 
 			break;
 		case "tfTributacaoIssqn":
-			ndiIssqn.setTributacaoIssqn((String) obj);
+			//ndiIssqn.setTributacaoIssqn((String) obj);
 
 			break;
 		}

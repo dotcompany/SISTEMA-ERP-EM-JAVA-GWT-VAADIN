@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -25,17 +26,6 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
 @Entity
 @Table(name = "conta_caixa")
 @XmlRootElement
@@ -54,12 +44,17 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
+	@Caption("Código")
 	@Column(name = "CODIGO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigo = "";
 
 	@Field
-	@Caption("Digito")
+	@Caption("Dígito")
 	@Column(name = "DIGITO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String digito = "";
 
@@ -71,15 +66,24 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	private String nome = "";
 
 	@Lob
-	@Field
 	@Type(type = "text")
-	@Caption("Descricao")
+	@Field
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
 
+	@Field
+	@Caption("Tipo")
 	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo = "";
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
@@ -89,6 +93,18 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
 	private ContabilContaEntity contabilConta;
 
+	/**
+	 * REFERENCIA - LIST
+	 */
+
+	/**
+	 * TRANSIENT
+	 */
+
+	/**
+	 * CONSTRUTOR
+	 */
+
 	public ContaCaixa() {
 
 	}
@@ -96,6 +112,10 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	public ContaCaixa(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * GETS AND SETS
+	 */
 
 	@Override
 	public Integer getId() {
@@ -111,7 +131,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = (codigo == null ? "" : codigo.toUpperCase());
+		this.codigo = (codigo == null ? "".trim() : codigo.toUpperCase().trim());
 	}
 
 	public String getDigito() {
@@ -119,7 +139,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setDigito(String digito) {
-		this.digito = (digito == null ? "" : digito.toUpperCase());
+		this.digito = (digito == null ? "".trim() : digito.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -127,7 +147,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = (nome == null ? "" : nome.toUpperCase());
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getDescricao() {
@@ -135,7 +155,8 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = (descricao == null ? "" : descricao.toUpperCase());
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getTipo() {
@@ -143,7 +164,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void setTipo(String tipo) {
-		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+		this.tipo = (tipo == null ? "".trim() : tipo.toUpperCase().trim());
 	}
 
 	public AgenciaBancoEntity getAgenciaBanco() {
@@ -162,9 +183,13 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 		this.contabilConta = contabilConta;
 	}
 
+	/**
+	 * TO STRING
+	 */
+
 	@Override
 	public String toString() {
-		return nome;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

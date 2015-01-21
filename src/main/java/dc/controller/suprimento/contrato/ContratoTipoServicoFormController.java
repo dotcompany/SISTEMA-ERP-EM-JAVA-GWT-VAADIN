@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
 import dc.servicos.util.Validator;
@@ -58,7 +58,7 @@ public class ContratoTipoServicoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new TipoServicoEntity();
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 	}

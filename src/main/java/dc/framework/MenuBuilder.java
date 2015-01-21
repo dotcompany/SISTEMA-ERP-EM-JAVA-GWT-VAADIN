@@ -17,10 +17,10 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import dc.controller.adm.dotcompany.ParametroClienteListController;
 import dc.controller.relatorio.RelatorioListController;
 import dc.controller.sistema.SeguimentoListController;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
-import dc.entidade.geral.Usuario;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
 import dc.servicos.dao.sistema.PapelDAO;
 import dc.visao.framework.FmMenuListController;
@@ -55,7 +55,7 @@ public class MenuBuilder implements Serializable {
 	public HorizontalLayout buildMenuPanel(String moduleID, MainController mainController) {
 		logger.info("Building menu for :" + moduleID);
 		HorizontalLayout menuPanel = new HorizontalLayout();
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 
 		final MenuBar menuBar = new MenuBar();
 		menuBar.setAutoOpen(true);
@@ -72,7 +72,7 @@ public class MenuBuilder implements Serializable {
 
 	}
 
-	private void buildMenu(MenuBar bar, String moduleID, HorizontalLayout menuPanel, MainController mainController, Usuario usuario) {
+	private void buildMenu(MenuBar bar, String moduleID, HorizontalLayout menuPanel, MainController mainController, UsuarioEntity usuario) {
 		@SuppressWarnings("unchecked")
 		List<FmMenu> menusDoModulo = new ArrayList<FmMenu>();
 
@@ -87,7 +87,7 @@ public class MenuBuilder implements Serializable {
 	}
 
 	private void buildSecondPass(MenuBar bar, HorizontalLayout menuPanel, List<FmMenu> menusDoModulo,
-			HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, MainController mainController, Usuario u, String moduleID) {
+			HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, MainController mainController, UsuarioEntity u, String moduleID) {
 		java.util.Iterator<FmMenu> it = menusDoModulo.iterator();
 		while (it.hasNext()) {
 			FmMenu m = it.next();
@@ -123,7 +123,7 @@ public class MenuBuilder implements Serializable {
 		return estruturaMenus;
 	}
 
-	private void addChild(HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, FmMenu m, MainController mainController, Usuario u,
+	private void addChild(HashMap<Integer, HashMap<MenuItem, List<MenuItem>>> estruturaMenus, FmMenu m, MainController mainController, UsuarioEntity u,
 			String moduleID) {
 		HashMap<MenuItem, List<MenuItem>> items = estruturaMenus.get(m.getParentId());
 
@@ -146,7 +146,7 @@ public class MenuBuilder implements Serializable {
 
 	}
 
-	private MenuItem createModuleMenuChildItemItem(MenuItem parent, final FmMenu m, final MainController main, final Usuario u, final String moduleID) {
+	private MenuItem createModuleMenuChildItemItem(MenuItem parent, final FmMenu m, final MainController main, final UsuarioEntity u, final String moduleID) {
 		MenuItem item = parent.addItem(m.getCaption(), m.getCommand());
 
 		item.setCommand(new Command() {
@@ -161,7 +161,7 @@ public class MenuBuilder implements Serializable {
 		return item;
 	}
 
-	public void buildContent(FmMenu m, MainController main, Usuario u, String moduleID) {
+	public void buildContent(FmMenu m, MainController main, UsuarioEntity u, String moduleID) {
 		Class<?> c;
 		try {
 			c = Class.forName(m.getControllerClass());

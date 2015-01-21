@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.geral.Usuario;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.servicos.dao.framework.geral.FmModuloDAO;
 import dc.servicos.dao.sistema.ContaEmpresaDAO;
@@ -23,7 +23,7 @@ public class ModuleLoader {
 	@Autowired
 	public ContaEmpresaDAO daoConf;
 
-	public List<FmModulo> loadModules(Usuario usuario) {
+	public List<FmModulo> loadModules(UsuarioEntity usuario) {
 		List<FmModulo> modules = new ArrayList<FmModulo>();
 
 		List<FmModulo> databaseModules = new ArrayList<FmModulo>();

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.ged.TipoDocumento;
 import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
 import dc.servicos.util.Validator;
@@ -57,7 +57,7 @@ public class TipoDocumentoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new TipoDocumento();
-		Usuario usuario = SecuritySessionProvider.getUsuario();
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
 	}

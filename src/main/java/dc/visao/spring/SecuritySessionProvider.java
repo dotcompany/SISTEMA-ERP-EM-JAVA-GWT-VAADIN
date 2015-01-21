@@ -17,7 +17,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.WrappedSession;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 
@@ -41,23 +41,23 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 		}
 	}
 
-	public static Usuario getUsuario() {
+	public static UsuarioEntity getUsuario() {
 		if (ctx != null) {
 			SecuritySessionProvider s = ctx.getBean(SecuritySessionProvider.class);
 			if (s.shouldLoadUserFromSpring()) {
 				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 				if (auth != null) {
 					Object principal = auth.getPrincipal();
-					if (principal instanceof Usuario) {
-						return (Usuario) principal;
-					} else if (auth.getDetails() instanceof Usuario) {
-						return (Usuario) auth.getDetails();
+					if (principal instanceof UsuarioEntity) {
+						return (UsuarioEntity) principal;
+					} else if (auth.getDetails() instanceof UsuarioEntity) {
+						return (UsuarioEntity) auth.getDetails();
 					}
 				} else {
 					return null;
 				}
 			} else {
-				Usuario u = new Usuario();
+				UsuarioEntity u = new UsuarioEntity();
 				u.setAdministrador(true);
 				ColaboradorEntity c = new ColaboradorEntity();
 				PessoaEntity p = new PessoaEntity();
@@ -83,7 +83,7 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 		return Boolean.valueOf(loadFromSpring);
 	}
 
-	public static void putUsuarioInSession(Usuario u, AuthenticationManager manager) {
+	public static void putUsuarioInSession(UsuarioEntity u, AuthenticationManager manager) {
 
 		WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(u.getLogin(), u.getSenha());

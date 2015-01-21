@@ -36,7 +36,6 @@ import dc.control.enums.SimNaoEn;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.SindicatoEntity;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
@@ -49,13 +48,8 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.SetorEntity;
+import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.patrimonio.BemEntity;
-
-/**
- * 
- * @author Wesley Jr
- * 
- */
 
 @Entity
 @Table(name = "colaborador")
@@ -359,14 +353,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "priorizar_comissao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean priorizarComissao;
+	private Boolean priorizarComissao = Boolean.FALSE;
 
 	@Field
 	@Caption("Comissão OVER")
 	@Column(name = "comissao_over")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Boolean comissaoOver;
+	private Boolean comissaoOver = Boolean.FALSE;
 
 	@Field
 	@Caption("Pagamento da comissão será")
@@ -425,12 +419,12 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Caption("Conta contábil")
 	@ManyToOne
-	@JoinColumn(name = "id_contabil_conta", nullable = true)
+	@JoinColumn(name = "id_contabil_conta")
 	private ContabilContaEntity contaContabil;
 
 	@Caption("Cargo")
 	@ManyToOne
-	@JoinColumn(name = "id_cargo", nullable = false)
+	@JoinColumn(name = "id_cargo")
 	private CargoEntity cargo;
 
 	@Caption("Tipo do colaborador")
@@ -450,18 +444,23 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Caption("Sindicato")
 	@ManyToOne
-	@JoinColumn(name = "id_sindicato", nullable = false)
+	@JoinColumn(name = "id_sindicato")
 	private SindicatoEntity sindicato;
 
 	@Caption("Plano de conta")
 	@ManyToOne
-	@JoinColumn(name = "id_plano_conta", nullable = true)
+	@JoinColumn(name = "id_plano_conta")
 	private PlanoConta planoConta;
 
 	@Caption("Conta da caixa")
 	@ManyToOne
-	@JoinColumn(name = "id_conta_caixa", nullable = true)
+	@JoinColumn(name = "id_conta_caixa")
 	private ContaCaixa contaCaixa;
+
+	@Caption("Tipo de admissão")
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_admissao")
+	private TipoAdmissaoEntity tipoAdmissao;
 
 	@Caption("Pessoa")
 	@ManyToOne
@@ -896,7 +895,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setPriorizarComissao(Boolean priorizarComissao) {
-		this.priorizarComissao = priorizarComissao;
+		this.priorizarComissao = (priorizarComissao == null ? Boolean.FALSE
+				: priorizarComissao);
 	}
 
 	public Boolean getComissaoOver() {
@@ -904,7 +904,8 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setComissaoOver(Boolean comissaoOver) {
-		this.comissaoOver = comissaoOver;
+		this.comissaoOver = (comissaoOver == null ? Boolean.FALSE
+				: comissaoOver);
 	}
 
 	public Integer getPgtoComissaoSera() {
@@ -1028,6 +1029,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setContaCaixa(ContaCaixa contaCaixa) {
 		this.contaCaixa = contaCaixa;
+	}
+
+	public TipoAdmissaoEntity getTipoAdmissao() {
+		return tipoAdmissao;
+	}
+
+	public void setTipoAdmissao(TipoAdmissaoEntity tipoAdmissao) {
+		this.tipoAdmissao = tipoAdmissao;
 	}
 
 	public PessoaEntity getPessoa() {

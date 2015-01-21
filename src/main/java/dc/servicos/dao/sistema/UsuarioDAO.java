@@ -9,30 +9,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.geral.Usuario;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
 @Repository
-public class UsuarioDAO extends AbstractCrudDAO<Usuario>{
+public class UsuarioDAO extends AbstractCrudDAO<UsuarioEntity>{
 
 
 	Logger log = LoggerFactory.getLogger(UsuarioDAO.class);
 	
 	@Override
-	public Class<Usuario> getEntityClass() {
-		return Usuario.class;
+	public Class<UsuarioEntity> getEntityClass() {
+		return UsuarioEntity.class;
 	}
 	
 	@Transactional
-	public Usuario getUsuarioByLogin(String login) {
+	public UsuarioEntity getUsuarioByLogin(String login) {
 		log.info("Logando Usuário {}", login);
 		Session s = getSession();
 		log.debug("getSession: OK");
 		
 		log.debug("Procurando Usuário: {}", login);
 		try {
-			List<Usuario> usuarios = s.createCriteria(Usuario.class).add(Restrictions.eq("login", login)).list();
+			List<UsuarioEntity> usuarios = s.createCriteria(UsuarioEntity.class).add(Restrictions.eq("login", login)).list();
 			log.debug("Encontrado {} usuarios", usuarios.size());
 			if(usuarios.size() > 0){
 				return usuarios.get(0);	
@@ -53,8 +53,8 @@ public class UsuarioDAO extends AbstractCrudDAO<Usuario>{
 	}
 
 	@Transactional
-	public String getNomeUsuario(Usuario usuario) {
-		Usuario u =  find(usuario.getId());
+	public String getNomeUsuario(UsuarioEntity usuario) {
+		UsuarioEntity u =  find(usuario.getId());
 		return u.getUsernome();
 	}
 
