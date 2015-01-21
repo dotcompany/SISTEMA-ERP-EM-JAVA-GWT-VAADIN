@@ -176,7 +176,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	@Transactional
 	public UfEntity getObject(String sigla) throws Exception {
 		try {
-			UfEntity entity = this.dao.find(sigla);
+			UfEntity entity = this.dao.getObject(sigla);
 
 			return entity;
 		} catch (Exception e) {

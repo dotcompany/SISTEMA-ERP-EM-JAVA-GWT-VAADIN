@@ -58,7 +58,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "DESCONTO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Double desconto;
+	private Double desconto = new Double(0);
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -73,47 +73,47 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String logradouro;
+	private String logradouro = "";
 
 	@Field
 	@Caption("Número")
 	@Column(name = "NUMERO", length = 10)
-	private String numero;
+	private String numero = "";
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String bairro;
+	private String bairro = "";
 
 	@Field
 	@Caption("Município IBGE")
 	@Column(name = "MUNICIPIO_IBGE")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer municipioIbge;
+	private Integer municipioIbge = new Integer(0);
 
 	@Field
-	@Caption("Uf")
+	@Caption("UF")
 	@Column(name = "UF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String uf;
+	private String siglaUf = "";
 
 	@Field
 	@Caption("Contato")
 	@Column(name = "CONTATO", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String contato;
+	private String contato = "";
 
 	@Field
 	@Caption("Telefone")
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String telefone;
+	private String telefone = "";
 
 	@Temporal(TemporalType.DATE)
 	@Field
@@ -130,42 +130,42 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	private String descricao = "";
 
 	@Field
 	@Caption("CEP")
 	@Column(name = "CEP", length = 8)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cep;
+	private String cep = "";
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 150)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	@Field
 	@Caption("CNPJ")
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String cnpj;
+	private String cnpj = "";
 
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE", length = 150)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String site;
+	private String site = "";
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL", length = 150)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String email;
+	private String email = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -222,7 +222,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDesconto(Double desconto) {
-		this.desconto = desconto;
+		this.desconto = (desconto == null ? new Double(0.0) : desconto);
 	}
 
 	public Date getDataVencimento() {
@@ -238,7 +238,8 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro = (logradouro == null ? "".trim() : logradouro
+				.toUpperCase().trim());
 	}
 
 	public String getNumero() {
@@ -246,7 +247,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = (numero == null ? "".trim() : numero.toUpperCase().trim());
 	}
 
 	public String getBairro() {
@@ -254,7 +255,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = (bairro == null ? "".trim() : bairro.toUpperCase().trim());
 	}
 
 	public Integer getMunicipioIbge() {
@@ -262,15 +263,17 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setMunicipioIbge(Integer municipioIbge) {
-		this.municipioIbge = municipioIbge;
+		this.municipioIbge = (municipioIbge == null ? new Integer(0)
+				: municipioIbge);
 	}
 
-	public String getUf() {
-		return uf;
+	public String getSiglaUf() {
+		return siglaUf;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setSiglaUf(String siglaUf) {
+		this.siglaUf = (siglaUf == null ? "".trim() : siglaUf.toUpperCase()
+				.trim());
 	}
 
 	public String getContato() {
@@ -278,7 +281,8 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setContato(String contato) {
-		this.contato = contato;
+		this.contato = (contato == null ? "".trim() : contato.toUpperCase()
+				.trim());
 	}
 
 	public String getTelefone() {
@@ -286,7 +290,8 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		this.telefone = (telefone == null ? "".trim() : telefone.toUpperCase()
+				.trim());
 	}
 
 	public Date getDataCadastro() {
@@ -302,7 +307,8 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = (descricao == null ? "".trim() : descricao
+				.toUpperCase().trim());
 	}
 
 	public String getCep() {
@@ -310,7 +316,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = (cep == null ? "".trim() : cep.toUpperCase().trim());
 	}
 
 	public String getNome() {
@@ -318,7 +324,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
 	}
 
 	public String getCnpj() {
@@ -326,7 +332,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = (cnpj == null ? "".trim() : cnpj.toUpperCase().trim());
 	}
 
 	public String getSite() {
@@ -334,7 +340,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setSite(String site) {
-		this.site = site;
+		this.site = (site == null ? "".trim() : site.toUpperCase().trim());
 	}
 
 	public String getEmail() {
@@ -342,7 +348,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = (email == null ? "".trim() : email.toUpperCase().trim());
 	}
 
 	public PessoaEntity getPessoa() {

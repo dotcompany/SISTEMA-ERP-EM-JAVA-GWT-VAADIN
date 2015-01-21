@@ -11,6 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
+import dc.control.util.StringUtils;
 import dc.control.util.classes.ConvenioUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.geral.diverso.UfListController;
@@ -18,6 +19,7 @@ import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.ConvenioEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.outro.ConvenioBusiness;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -48,6 +50,9 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 	@Autowired
 	private ConvenioBusiness<ConvenioEntity> business;
+
+	@Autowired
+	private UfBusiness<UfEntity> ufBusiness;
 
 	/**
 	 * DAO
@@ -151,6 +156,10 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 			this.entity.setPessoa(pessoa);
 
+			UfEntity uf = this.subView.getMocUf().getValue();
+
+			this.entity.setSiglaUf(uf.getSigla());
+
 			this.business.saveOrUpdate(entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -181,6 +190,14 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 			if (ObjectUtils.isNotBlank(pessoa)) {
 				this.subView.getMocPessoa().setValue(pessoa);
+			}
+
+			String siglaUf = this.entity.getSiglaUf();
+
+			if (StringUtils.isNotBlank(siglaUf)) {
+				UfEntity uf = this.ufBusiness.getObject(siglaUf);
+
+				this.subView.getMocUf().setValue(uf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
