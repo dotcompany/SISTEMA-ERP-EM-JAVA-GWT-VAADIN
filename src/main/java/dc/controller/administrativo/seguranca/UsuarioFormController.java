@@ -51,6 +51,7 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 	 * BUSINESS
 	 */
 
+	@Autowired
 	private UsuarioBusiness<UsuarioEntity> business;
 
 	/**

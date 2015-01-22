@@ -80,6 +80,11 @@ public class UsuarioFormView extends CustomComponent {
 
 		this.comboColaborador.addValueChangeListener(new ValueChangeListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 
@@ -107,11 +112,9 @@ public class UsuarioFormView extends CustomComponent {
 
 		binder.bind(loginTxtField, "login");
 		binder.bind(senhaPasswordField, "senha");
-
 		binder.bind(checkBoxAdm, "administrador");
 
 		this.dataCadastroDateField.setEnabled(false);
-
 	}
 
 	public BeanFieldGroup<UsuarioEntity> getBinder() {

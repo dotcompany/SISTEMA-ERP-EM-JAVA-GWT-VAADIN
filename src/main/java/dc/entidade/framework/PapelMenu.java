@@ -31,7 +31,8 @@ import dc.entidade.administrativo.seguranca.PapelEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PapelMenu implements Serializable {
+public class PapelMenu extends AbstractMultiEmpresaModel<Integer> implements
+		Serializable {
 
 	/**
 	 * 
@@ -129,6 +130,7 @@ public class PapelMenu implements Serializable {
 	 * GETS AND SETS
 	 */
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
