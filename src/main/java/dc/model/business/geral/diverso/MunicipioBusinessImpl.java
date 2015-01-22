@@ -44,6 +44,11 @@ public class MunicipioBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<MunicipioEntity> getEntityClass() {
+		return MunicipioEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(MunicipioEntity t) throws Exception {
@@ -162,11 +167,6 @@ public class MunicipioBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<MunicipioEntity> getEntityClass() {
-		return MunicipioEntity.class;
 	}
 
 }

@@ -39,6 +39,11 @@ public class TipoRequisicaoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<TipoRequisicaoEntity> getEntityClass() {
+		return TipoRequisicaoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(TipoRequisicaoEntity t) throws Exception {
@@ -153,11 +158,6 @@ public class TipoRequisicaoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<TipoRequisicaoEntity> getEntityClass() {
-		return TipoRequisicaoEntity.class;
 	}
 
 }

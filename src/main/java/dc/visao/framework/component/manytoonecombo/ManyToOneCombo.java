@@ -431,7 +431,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 				btnEdit.setVisible(false);
 				btnNew.setVisible(false);
 			}
-
 		}
 
 		setupActions();
@@ -493,11 +492,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		}
 
 	};
-	
-	public void setRequired(Boolean required){
+
+	public void setRequired(Boolean required) {
 		cmbResult.setRequired(required);
 	}
-	public boolean isRequired(){
+
+	public boolean isRequired() {
 		return cmbResult.isRequired();
 	}
 

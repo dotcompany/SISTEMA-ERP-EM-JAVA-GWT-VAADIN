@@ -39,6 +39,11 @@ public class TipoPedidoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<TipoPedidoEntity> getEntityClass() {
+		return TipoPedidoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(TipoPedidoEntity t) throws Exception {
@@ -151,11 +156,6 @@ public class TipoPedidoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<TipoPedidoEntity> getEntityClass() {
-		return TipoPedidoEntity.class;
 	}
 
 }

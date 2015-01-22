@@ -38,6 +38,11 @@ public class CargoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<CargoEntity> getEntityClass() {
+		return CargoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(CargoEntity t) throws Exception {
@@ -150,11 +155,6 @@ public class CargoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<CargoEntity> getEntityClass() {
-		return CargoEntity.class;
 	}
 
 }

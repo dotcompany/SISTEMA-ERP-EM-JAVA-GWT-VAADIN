@@ -38,6 +38,11 @@ public class PapelBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<PapelEntity> getEntityClass() {
+		return PapelEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(PapelEntity t) throws Exception {

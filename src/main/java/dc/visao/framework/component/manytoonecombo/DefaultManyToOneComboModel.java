@@ -59,10 +59,9 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		this(controllerClass, dao, mainController, false, null);
 	}
 	
-	public DefaultManyToOneComboModel(Class controllerClass,
-			 MainController mainController,
-			Boolean getAll) {
-		this(controllerClass, null, mainController, false, null);
+	public DefaultManyToOneComboModel(Class controllerClass, MainController mainController,
+			Boolean getAll, AbstractBusiness<T> business) {
+		this(controllerClass, null, mainController, false, business);
 	}
 
 	public void setModalSize(int modalSizeType) {

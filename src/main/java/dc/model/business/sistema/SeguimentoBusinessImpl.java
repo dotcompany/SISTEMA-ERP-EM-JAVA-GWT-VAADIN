@@ -39,6 +39,11 @@ public class SeguimentoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<SeguimentoEntity> getEntityClass() {
+		return SeguimentoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SeguimentoEntity t) throws Exception {
@@ -161,12 +166,6 @@ public class SeguimentoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<SeguimentoEntity> getEntityClass() {
-		// TODO Auto-generated method stub
-		return SeguimentoEntity.class;
 	}
 
 }

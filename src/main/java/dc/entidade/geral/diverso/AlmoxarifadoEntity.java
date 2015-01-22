@@ -54,7 +54,7 @@ public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String nome = "";
 
 	/**
 	 * REFERENCIA - FK

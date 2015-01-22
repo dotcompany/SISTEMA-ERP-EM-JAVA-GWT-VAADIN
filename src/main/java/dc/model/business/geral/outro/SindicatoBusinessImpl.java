@@ -39,6 +39,11 @@ public class SindicatoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<SindicatoEntity> getEntityClass() {
+		return SindicatoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SindicatoEntity t) throws Exception {
@@ -161,11 +166,6 @@ public class SindicatoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<SindicatoEntity> getEntityClass() {
-		return SindicatoEntity.class;
 	}
 
 }

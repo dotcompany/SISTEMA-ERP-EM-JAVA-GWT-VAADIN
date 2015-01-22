@@ -3,6 +3,7 @@ package dc.controller.geral.diverso;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import dc.model.business.geral.diverso.UfBusiness;
 import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.geral.UfFormView;
+import dc.visao.geral.diverso.UfFormView;
 
 @Controller
 @Scope("prototype")
@@ -30,6 +31,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static Logger logger = Logger.getLogger(UfFormController.class);
 
 	private UfFormView subView;
 
@@ -45,9 +48,6 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 	@Autowired
 	private UfBusiness<UfEntity> business;
-
-	// @Autowired
-	// private PaisBusiness<PaisEntity> paisBusiness;
 
 	/**
 	 * DAO
@@ -112,7 +112,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			this.subView.getMocPais().setModel(model);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
@@ -137,8 +137,9 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
 
 			if (NumberUtils.isNumber(codigoIbge)) {
-				this.entity.setCodigoIbge(NumberUtils.toInt(this.subView
-						.getTfCodigoIbge().getValue()));
+				this.entity.setCodigoIbge(NumberUtils.toInt(codigoIbge));
+			} else {
+				this.entity.setCodigoIbge(null);
 			}
 
 			PaisEntity pais = this.subView.getMocPais().getValue();
@@ -149,7 +150,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -162,8 +163,13 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			this.subView.getTfNome().setValue(this.entity.getNome());
 			this.subView.getTfSigla().setValue(this.entity.getSigla());
-			this.subView.getTfCodigoIbge().setValue(
-					this.entity.getCodigoIbge().toString());
+
+			Integer codigoIbge = this.entity.getCodigoIbge();
+
+			if (NumberUtils.isNotBlank(codigoIbge)) {
+				this.subView.getTfCodigoIbge().setValue(
+						String.valueOf(codigoIbge));
+			}
 
 			PaisEntity pais = this.entity.getPais();
 
@@ -171,7 +177,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 				this.subView.getMocPais().setValue(pais);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 		}
 	}
 
@@ -180,7 +186,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.entity = new UfEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -191,7 +197,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.entity = new UfEntity();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -204,7 +210,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}
@@ -215,7 +221,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(":: [ERROR]", e);
 
 			mensagemErro(e.getMessage());
 		}

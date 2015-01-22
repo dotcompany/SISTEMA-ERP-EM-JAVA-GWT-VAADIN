@@ -5,34 +5,26 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.administrativo.seguranca.PapelEntity;
-
-/**
- * 
- * @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
- *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
- *         equals, hashCode e o ToString, no nosso novo mapeamento, pegamos e
- *         mudamos, está diferente do mapeamento do T2Ti. * Colocamos também
- *         algumas anotações, na classe e em alguns campos, onde temos as
- *         anotações que é o Field e Caption, o Caption colocamos o nome do
- *         campo que queremos que pesquise na Tela, pegando os dados que estão
- *         salvos no Banco de Dados.
- */
 
 @Entity
 @Table(name = "papel_menu")
@@ -41,13 +33,64 @@ import dc.entidade.administrativo.seguranca.PapelEntity;
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class PapelMenu implements Serializable {
 
+	/**
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "papel_menu_id_seq")
+	@SequenceGenerator(name = "papel_menu_id_seq", sequenceName = "papel_menu_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Pode consultar")
+	@Column(name = "PODE_CONSULTAR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn podeConsultar;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Pode inserir")
+	@Column(name = "PODE_INSERIR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn podeInserir;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Pode alterar")
+	@Column(name = "PODE_ALTERAR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn podeAlterar;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Pode excluir")
+	@Column(name = "PODE_EXCLUIR")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn podeExcluir;
+
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Habilitado")
+	@Column(name = "HABILITADO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn habilitado;
+
+	/**
+	 * REFERENCIA - FK
+	 */
 
 	@ManyToOne()
 	@JoinColumn(name = "id_menu")
@@ -57,22 +100,20 @@ public class PapelMenu implements Serializable {
 	@JoinColumn(name = "id_papel")
 	private PapelEntity papel;
 
-	@Column(name = "PODE_CONSULTAR")
-	private Character podeConsultar;
+	/**
+	 * REFERENCIA - LIST
+	 */
 
-	@Column(name = "PODE_INSERIR")
-	private Character podeInserir;
+	/**
+	 * TRANSIENT
+	 */
 
-	@Column(name = "PODE_ALTERAR")
-	private Character podeAlterar;
-
-	@Column(name = "PODE_EXCLUIR")
-	private Character podeExcluir;
-
-	@Column(name = "HABILITADO")
-	private Character habilitado;
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PapelMenu() {
+
 	}
 
 	public PapelMenu(Integer id) {
@@ -84,6 +125,10 @@ public class PapelMenu implements Serializable {
 		this.papel = p;
 	}
 
+	/**
+	 * GETS AND SETS
+	 */
+
 	public Integer getId() {
 		return id;
 	}
@@ -92,65 +137,44 @@ public class PapelMenu implements Serializable {
 		this.id = id;
 	}
 
-	public Character getPodeConsultar() {
+	public SimNaoEn getPodeConsultar() {
 		return podeConsultar;
 	}
 
-	public void setPodeConsultar(Character podeConsultar) {
+	public void setPodeConsultar(SimNaoEn podeConsultar) {
 		this.podeConsultar = podeConsultar;
 	}
 
-	public Character getPodeInserir() {
+	public SimNaoEn getPodeInserir() {
 		return podeInserir;
 	}
 
-	public void setPodeInserir(Character podeInserir) {
+	public void setPodeInserir(SimNaoEn podeInserir) {
 		this.podeInserir = podeInserir;
 	}
 
-	public Character getPodeAlterar() {
+	public SimNaoEn getPodeAlterar() {
 		return podeAlterar;
 	}
 
-	public void setPodeAlterar(Character podeAlterar) {
+	public void setPodeAlterar(SimNaoEn podeAlterar) {
 		this.podeAlterar = podeAlterar;
 	}
 
-	public Character getPodeExcluir() {
+	public SimNaoEn getPodeExcluir() {
 		return podeExcluir;
 	}
 
-	public void setPodeExcluir(Character podeExcluir) {
+	public void setPodeExcluir(SimNaoEn podeExcluir) {
 		this.podeExcluir = podeExcluir;
 	}
 
-	public Character getHabilitado() {
+	public SimNaoEn getHabilitado() {
 		return habilitado;
 	}
 
-	public void setHabilitado(Character habilitado) {
+	public void setHabilitado(SimNaoEn habilitado) {
 		this.habilitado = habilitado;
-	}
-
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof PapelMenu == false)
-			return false;
-		if (this == object)
-			return true;
-		final PapelMenu other = (PapelMenu) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
 	}
 
 	public FmMenu getMenu() {
@@ -167,6 +191,15 @@ public class PapelMenu implements Serializable {
 
 	public void setPapel(PapelEntity papel) {
 		this.papel = papel;
+	}
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

@@ -38,6 +38,11 @@ public class MarcaBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<MarcaEntity> getEntityClass() {
+		return MarcaEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(MarcaEntity t) throws Exception {
@@ -160,11 +165,6 @@ public class MarcaBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<MarcaEntity> getEntityClass() {
-		return MarcaEntity.class;
 	}
 
 }

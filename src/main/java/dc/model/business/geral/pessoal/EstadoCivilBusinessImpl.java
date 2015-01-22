@@ -39,6 +39,11 @@ public class EstadoCivilBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<EstadoCivilEntity> getEntityClass() {
+		return EstadoCivilEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(EstadoCivilEntity t) throws Exception {
@@ -153,11 +158,6 @@ public class EstadoCivilBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<EstadoCivilEntity> getEntityClass() {
-		return EstadoCivilEntity.class;
 	}
 
 }

@@ -37,6 +37,11 @@ public class CepBusinessImpl implements Serializable, CepBusiness<CepEntity> {
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<CepEntity> getEntityClass() {
+		return CepEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(CepEntity t) throws Exception {
@@ -148,11 +153,6 @@ public class CepBusinessImpl implements Serializable, CepBusiness<CepEntity> {
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<CepEntity> getEntityClass() {
-		return CepEntity.class;
 	}
 
 }

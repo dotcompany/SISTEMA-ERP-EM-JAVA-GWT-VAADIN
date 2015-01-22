@@ -24,6 +24,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.enums.SimNaoEn;
+import dc.control.util.ObjectUtils;
 import dc.controller.administrativo.seguranca.PapelFormController;
 import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.framework.FmMenu;
@@ -116,6 +118,11 @@ public class PapelFormView extends CustomComponent {
 		Button adicionaModuloBTN = new Button("Adicionar");
 		adicionaModuloBTN.addClickListener(new Button.ClickListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				FmModulo modulo = (FmModulo) comboModulos.getValue();
@@ -132,6 +139,11 @@ public class PapelFormView extends CustomComponent {
 
 		Button removeMenuBTN = new Button("Remover");
 		removeMenuBTN.addClickListener(new Button.ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -230,11 +242,17 @@ public class PapelFormView extends CustomComponent {
 				true);
 		treeTablePapeisMenu.addValueChangeListener(new ValueChangeListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(final ValueChangeEvent event) {
-			}
-		});
 
+			}
+
+		});
 	}
 
 	public void populaPapelMenu(List<PapelMenu> pms) {
@@ -326,7 +344,7 @@ public class PapelFormView extends CustomComponent {
 				CustomTableFieldFactory.OBJ_PROPERTY).getValue();
 		PapelMenu pm = new PapelMenu(fm, binder.getItemDataSource().getBean());
 
-		if (pmValue != null) {
+		if (ObjectUtils.isNotBlank(pmValue)) {
 			pm = (PapelMenu) pmValue;
 			pm.setPapel(binder.getItemDataSource().getBean());
 		}
@@ -334,51 +352,51 @@ public class PapelFormView extends CustomComponent {
 		Object pValue = data.getItemProperty(
 				CustomTableFieldFactory.ALTERA_PROPERTY).getValue();
 
-		if (pValue != null) {
+		if (ObjectUtils.isNotBlank(pValue)) {
 			Character altera = (Character) pValue;
-			pm.setPodeAlterar(altera);
+			pm.setPodeAlterar(altera.equals('S') ? SimNaoEn.S : SimNaoEn.N);
 		} else {
-			pm.setPodeAlterar('N');
+			pm.setPodeAlterar(SimNaoEn.N);
 		}
 
 		Object pValue2 = data.getItemProperty(
 				CustomTableFieldFactory.INSERE_PROPERTY).getValue();
 
-		if (pValue2 != null) {
+		if (ObjectUtils.isNotBlank(pValue2)) {
 			Character insere = (Character) pValue2;
-			pm.setPodeInserir(insere);
+			pm.setPodeInserir(insere.equals('S') ? SimNaoEn.S : SimNaoEn.N);
 		} else {
-			pm.setPodeInserir('N');
+			pm.setPodeInserir(SimNaoEn.N);
 		}
 
 		Object pValue3 = data.getItemProperty(
 				CustomTableFieldFactory.CONSULTA_PROPERTY).getValue();
 
-		if (pValue3 != null) {
+		if (ObjectUtils.isNotBlank(pValue3)) {
 			Character consulta = (Character) pValue3;
-			pm.setPodeConsultar(consulta);
+			pm.setPodeConsultar(consulta.equals('S') ? SimNaoEn.S : SimNaoEn.N);
 		} else {
-			pm.setPodeConsultar('N');
+			pm.setPodeConsultar(SimNaoEn.N);
 		}
 
 		Object pValue4 = data.getItemProperty(
 				CustomTableFieldFactory.EXCLUI_PROPERTY).getValue();
 
-		if (pValue4 != null) {
+		if (ObjectUtils.isNotBlank(pValue4)) {
 			Character exclui = (Character) pValue4;
-			pm.setPodeExcluir(exclui);
+			pm.setPodeExcluir(exclui.equals('S') ? SimNaoEn.S : SimNaoEn.N);
 		} else {
-			pm.setPodeExcluir('N');
+			pm.setPodeExcluir(SimNaoEn.N);
 		}
 
 		Object pValue5 = data.getItemProperty(
 				CustomTableFieldFactory.HABILITA_PROPERTY).getValue();
 
-		if (pValue5 != null) {
+		if (ObjectUtils.isNotBlank(pValue5)) {
 			Character habilitado = (Character) pValue5;
-			pm.setHabilitado(habilitado);
+			pm.setHabilitado(habilitado.equals('S') ? SimNaoEn.S : SimNaoEn.N);
 		} else {
-			pm.setHabilitado('N');
+			pm.setHabilitado(SimNaoEn.N);
 		}
 
 		if (!papeisMenu.contains(pm)) {
@@ -446,7 +464,6 @@ public class PapelFormView extends CustomComponent {
 		}
 
 		return modulo;
-
 	}
 
 }

@@ -50,6 +50,11 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<ContagemCabecalhoEntity> getEntityClass() {
+		return ContagemCabecalhoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ContagemCabecalhoEntity t) throws Exception {
@@ -177,11 +182,6 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<ContagemCabecalhoEntity> getEntityClass() {
-		return ContagemCabecalhoEntity.class;
 	}
 
 }

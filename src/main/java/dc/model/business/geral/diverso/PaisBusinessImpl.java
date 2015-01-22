@@ -37,6 +37,11 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<PaisEntity> getEntityClass() {
+		return PaisEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(PaisEntity t) throws Exception {
@@ -149,11 +154,6 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<PaisEntity> getEntityClass() {
-		return PaisEntity.class;
 	}
 
 }

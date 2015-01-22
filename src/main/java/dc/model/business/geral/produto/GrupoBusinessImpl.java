@@ -38,6 +38,11 @@ public class GrupoBusinessImpl implements Serializable,
 	 * **********************************************
 	 */
 
+	@Override
+	public Class<GrupoEntity> getEntityClass() {
+		return GrupoEntity.class;
+	}
+
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(GrupoEntity t) throws Exception {
@@ -160,11 +165,6 @@ public class GrupoBusinessImpl implements Serializable,
 
 			throw e;
 		}
-	}
-
-	@Override
-	public Class<GrupoEntity> getEntityClass() {
-		return GrupoEntity.class;
 	}
 
 }
