@@ -87,9 +87,7 @@ public class UsuarioFormView extends CustomComponent {
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-
 				try {
-
 					if (event.getProperty() != null
 							&& event.getProperty().getValue() != null) {
 						ColaboradorEntity colaborador = comboColaborador
@@ -100,8 +98,8 @@ public class UsuarioFormView extends CustomComponent {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
+
 		});
 
 		this.loginTxtField.setNullRepresentation("");

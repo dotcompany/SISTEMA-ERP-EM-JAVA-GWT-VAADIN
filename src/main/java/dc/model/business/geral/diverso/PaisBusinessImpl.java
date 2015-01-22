@@ -129,8 +129,18 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 
 	@Override
 	public <E> List<E> getAll(Class<E> type) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			System.out
+					.println(":: [" + getClass().getSimpleName() + "] getAll");
+
+			List<E> auxLista = this.dao.getAll(type);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 	@Transactional(readOnly = false)

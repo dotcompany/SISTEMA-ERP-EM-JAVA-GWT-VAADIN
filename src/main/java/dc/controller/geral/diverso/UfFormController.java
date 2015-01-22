@@ -17,8 +17,8 @@ import dc.control.util.classes.UfUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.geral.diverso.UfEntity;
+import dc.model.business.geral.diverso.PaisBusiness;
 import dc.model.business.geral.diverso.UfBusiness;
-import dc.servicos.dao.geral.diverso.PaisDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.UfFormView;
@@ -49,12 +49,15 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Autowired
 	private UfBusiness<UfEntity> business;
 
+	@Autowired
+	private PaisBusiness<PaisEntity> paisBusiness;
+
 	/**
 	 * DAO
 	 */
 
-	@Autowired
-	private PaisDAO paisDAO;
+	// @Autowired
+	// private PaisDAO paisDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -100,8 +103,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 			this.subView = new UfFormView(this);
 
 			DefaultManyToOneComboModel<PaisEntity> model = new DefaultManyToOneComboModel<PaisEntity>(
-					PaisListController.class, this.paisDAO,
-					super.getMainController()) {
+					PaisListController.class, super.getMainController(), null,
+					this.paisBusiness) {
 
 				@Override
 				public String getCaptionProperty() {
