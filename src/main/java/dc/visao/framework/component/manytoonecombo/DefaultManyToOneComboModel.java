@@ -61,7 +61,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	
 	public DefaultManyToOneComboModel(Class controllerClass, MainController mainController,
 			Boolean getAll, AbstractBusiness<T> business) {
-		this(controllerClass, null, mainController, false, business);
+		this(controllerClass, null, mainController, getAll, business);
 	}
 
 	public void setModalSize(int modalSizeType) {
@@ -245,6 +245,15 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public List<T> getAll() {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
+		
+		if(business != null){
+			try {
+				return business.findAll();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
 		return dao.getAllForCombo(this.getEntityClass(),
 				SecuritySessionProvider.getUsuario().getConta().getEmpresa()
