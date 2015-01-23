@@ -631,42 +631,51 @@ public class ProdutoFormView extends CustomComponent {
 
 		mocSubGrupo = new ManyToOneCombo<>();
 		mocSubGrupo.setCaption("Subgrupo");
+		mocSubGrupo.setRequired(true);
+		mocSubGrupo.setImmediate(true);
 		mocSubGrupo.setHeight("-1px");
 		glGeral.addComponent(mocSubGrupo, 0, 0);
 
 		//
 		mocUnidadeProduto = new ManyToOneCombo<>();
 		mocUnidadeProduto.setCaption("Unidade do produto");
-		mocUnidadeProduto.setImmediate(false);
+		mocUnidadeProduto.setRequired(true);
+		mocUnidadeProduto.setImmediate(true);
 		mocUnidadeProduto.setHeight("-1px");
 		glGeral.addComponent(mocUnidadeProduto, 1, 0);
 
 		//
 		mocMarca = new ManyToOneCombo<>();
 		mocMarca.setCaption("Marca");
+		mocMarca.setRequired(true);
+		mocMarca.setImmediate(true);
 		mocMarca.setHeight("-1px");
 		glGeral.addComponent(mocMarca, 0, 1);
 
 		// mocAlmoxarifado
 		mocAlmoxarifado = new ManyToOneCombo<>();
 		mocAlmoxarifado.setCaption("Almoxarifado");
+		mocAlmoxarifado.setRequired(true);
+		mocAlmoxarifado.setImmediate(true);
 		mocAlmoxarifado.setHeight("-1px");
 		glGeral.addComponent(mocAlmoxarifado, 1, 1);
 
 		// mocGrupoTributario
 		mocGrupoTributario = new ManyToOneCombo<>();
 		mocGrupoTributario.setCaption("Grupo tributário");
+		mocGrupoTributario.setImmediate(true);
 
 		// mocIcmsCustomizado
 		mocIcmsCustomizado = new ManyToOneCombo<>();
 		mocIcmsCustomizado.setCaption("ICMS customizado");
+		mocIcmsCustomizado.setImmediate(true);
 
 		// cbIcmsCustomizado
 		cbTemIcmsCustomizado = new ComboBox();
 		cbTemIcmsCustomizado.setCaption("ICMS customizado?");
-		cbTemIcmsCustomizado.setNullSelectionAllowed(false);
 		cbTemIcmsCustomizado.setRequired(true);
 		cbTemIcmsCustomizado.setImmediate(true);
+		cbTemIcmsCustomizado.setNullSelectionAllowed(false);
 		cbTemIcmsCustomizado.setHeight("-1px");
 		cbTemIcmsCustomizado.addValueChangeListener(event -> controller
 				.vceTemIcmsCustomizado(event));
@@ -674,6 +683,8 @@ public class ProdutoFormView extends CustomComponent {
 
 		mocGrupo = new ManyToOneCombo<>();
 		mocGrupo.setCaption("Grupo");
+		mocGrupo.setRequired(true);
+		mocGrupo.setImmediate(true);
 		mocGrupo.setWidth("150px");
 		mocGrupo.setHeight("-1px");
 		glGeral.addComponent(mocGrupo, 1, 2);
@@ -740,7 +751,8 @@ public class ProdutoFormView extends CustomComponent {
 
 		mocNcm = new ManyToOneCombo<>();
 		mocNcm.setCaption("NCM");
-		mocNcm.setImmediate(false);
+		mocNcm.setRequired(true);
+		mocNcm.setImmediate(true);
 		mocNcm.setWidth("250px");
 		mocNcm.setHeight("-1px");
 		glInformacaoGeral.addComponent(mocNcm, 2, 0);
@@ -748,7 +760,7 @@ public class ProdutoFormView extends CustomComponent {
 		// cbInativo
 		cbInativo = new ComboBox();
 		cbInativo.setCaption("Inativo?");
-		cbInativo.setImmediate(false);
+		cbInativo.setImmediate(true);
 		cbInativo.setRequired(true);
 		cbInativo.setWidth("100px");
 		cbInativo.setHeight("-1px");
@@ -757,28 +769,28 @@ public class ProdutoFormView extends CustomComponent {
 		// cbClasse
 		cbClasse = new ComboBox();
 		cbClasse.setCaption("Classe");
-		cbClasse.setImmediate(false);
+		cbClasse.setImmediate(true);
 		cbClasse.setRequired(true);
 		cbClasse.setWidth("100px");
 		cbClasse.setHeight("-1px");
 		glInformacaoGeral.addComponent(cbClasse, 4, 0);
 
 		tfNome = ComponentUtil.buildTextField("Nome");
-		tfNome.setImmediate(false);
+		tfNome.setImmediate(true);
 		tfNome.setWidth("300px");
 		tfNome.setHeight("-1px");
 		glInformacaoGeral.addComponent(tfNome, 0, 1);
 
 		// txtDescricaoPdv
 		tfDescricaoPdv = ComponentUtil.buildTextField("Descrição do PDV");
-		tfDescricaoPdv.setImmediate(false);
+		tfDescricaoPdv.setImmediate(true);
 		tfDescricaoPdv.setWidth("300px");
 		tfDescricaoPdv.setHeight("-1px");
 		glInformacaoGeral.addComponent(tfDescricaoPdv, 1, 1);
 
 		// // txtDescricao
 		tfDescricao = ComponentUtil.buildTextField("Descrição");
-		tfDescricao.setImmediate(false);
+		tfDescricao.setImmediate(true);
 		tfDescricao.setWidth("300px");
 		tfDescricao.setHeight("-1px");
 		glInformacaoGeral.addComponent(tfDescricao, 0, 2);

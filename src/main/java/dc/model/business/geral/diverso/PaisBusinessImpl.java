@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.PaisEntity;
+import dc.model.business.AbstractComboBusiness;
 import dc.model.dao.geral.diverso.PaisDAO;
 
 /**
@@ -96,7 +98,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	@Override
 	public List<PaisEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.listaTodos();
 	}
 
 	@Override
@@ -116,7 +118,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 			int pageSize, String[] sortingFields, boolean[] sortingStates,
 			List<Filter> filters) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.fullTextSearch(valor, sortingFields, sortingStates, filters);
 	}
 
 	@Override
@@ -164,6 +166,24 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<PaisEntity> getAllForComboSelect(Class<PaisEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected, idSelected);
+	}
+
+	@Override
+	public List<PaisEntity> getAllForCombo(Class<PaisEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<PaisEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

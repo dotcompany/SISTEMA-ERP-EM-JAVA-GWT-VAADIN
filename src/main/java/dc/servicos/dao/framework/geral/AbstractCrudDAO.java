@@ -193,6 +193,10 @@ public abstract class AbstractCrudDAO<T> {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
+		if(getAll == null ){
+			getAll = false;
+		}
+
 		if (!getAll && isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
 		}

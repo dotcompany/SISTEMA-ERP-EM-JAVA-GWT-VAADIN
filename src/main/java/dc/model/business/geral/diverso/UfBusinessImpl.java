@@ -135,14 +135,12 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	@Override
 	public List<UfEntity> fullTextSearch(String valor, String[] sortingFields,
 			boolean[] states, List<Filter> filters) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.fullTextSearch(valor, sortingFields, states, filters);
 	}
 
 	@Override
 	public <E> List<E> getAll(Class<E> type) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAll(type);
 	}
 
 	@Transactional(readOnly = false)
