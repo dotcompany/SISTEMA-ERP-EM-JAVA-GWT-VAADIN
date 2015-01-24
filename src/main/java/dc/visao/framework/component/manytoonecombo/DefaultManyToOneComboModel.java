@@ -17,7 +17,8 @@ import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
-import dc.model.business.AbstractBusiness;
+import dc.model.business.AbstractComboBusiness;
+import dc.model.business.AbstractComboBusiness;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
@@ -31,7 +32,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	private MainController mainController;
 	private int modalSize = 1; // Alterado MarcosRibeiro
 	private ManyToOneCombo<T> combo;
-	private AbstractBusiness<T> business;
+	private AbstractComboBusiness<T> business;
 	private Boolean getAll;
 
 	public static final int FULL_SIZE_MODAL = 1;
@@ -45,7 +46,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	public DefaultManyToOneComboModel(Class controllerClass,
 			AbstractCrudDAO<T> dao, MainController mainController,
-			Boolean getAll, AbstractBusiness<T> business) {
+			Boolean getAll, AbstractComboBusiness<T> business) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
@@ -60,8 +61,8 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	}
 	
 	public DefaultManyToOneComboModel(Class controllerClass, MainController mainController,
-			Boolean getAll, AbstractBusiness<T> business) {
-		this(controllerClass, null, mainController, false, business);
+			Boolean getAll, AbstractComboBusiness<T> business) {
+		this(controllerClass, null, mainController, getAll, business);
 	}
 
 	public void setModalSize(int modalSizeType) {
@@ -112,7 +113,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 		if (business != null) {
 			try {
-				return business.fullTextSearch(q);
+				return business.comboTextSearch(q, menu, getAll);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -124,7 +125,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	@Override
 	public Class<T> getEntityClass() {
 		if (business != null) {
-			business.getEntityClass();
+			return business.getEntityClass();
 		}
 		
 		return dao.getEntityClass();
@@ -245,7 +246,18 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public List<T> getAll() {
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
-		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
+		
+		FmMenu menu = mainController.getMenu(this.ctrlClass.getName());
+		if(business != null){
+			try {
+				return business.getAllForCombo(this.getEntityClass(),
+				SecuritySessionProvider.getUsuario().getConta().getEmpresa()
+						.getId(), menu, this.getAll);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return dao.getAllForCombo(this.getEntityClass(),
 				SecuritySessionProvider.getUsuario().getConta().getEmpresa()
 						.getId(), menu, this.getAll);
@@ -286,7 +298,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	}
 
 	public boolean permissionToCreateOrEdit() {
-		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
+		FmMenu menu = mainController.getMenu(this.ctrlClass.getName());
 		if (menu.getPermissaoOperacao() == 1) {
 			return true;
 		} else {
@@ -294,11 +306,11 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		}
 	}
 
-	public AbstractBusiness<T> getBusiness() {
+	public AbstractComboBusiness<T> getBusiness() {
 		return business;
 	}
 
-	public void setBusiness(AbstractBusiness<T> business) {
+	public void setBusiness(AbstractComboBusiness<T> business) {
 		this.business = business;
 	}
 

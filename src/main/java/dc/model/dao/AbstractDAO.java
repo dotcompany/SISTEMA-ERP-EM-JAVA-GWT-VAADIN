@@ -33,6 +33,8 @@ public interface AbstractDAO<T> {
 
 	public List<T> getAllForComboSelect(final Class<T> type, int idEmpresa,
 			FmMenu menu, final String typeSelected, Integer idSelected);
+	
+	public List<T> comboTextSearch(String value, FmMenu menu, Boolean getAll);
 
 	public String[] getDefaultSearchFields();
 

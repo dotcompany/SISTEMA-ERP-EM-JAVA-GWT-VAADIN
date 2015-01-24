@@ -21,6 +21,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.framework.BlankModuleView;
 import dc.framework.MenuBuilder;
@@ -271,7 +272,8 @@ public class MainController implements ViewDisplay,Serializable {
 		return papelDAO;
 	}
 	
-	
-	
+	public FmMenu getMenu(String nomeClasse) {
+		return papelDAO.getMenu(nomeClasse);
+	}
 
 }
