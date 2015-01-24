@@ -32,7 +32,8 @@ import dc.entidade.geral.diverso.UfEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -91,7 +92,7 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer> imp
 	private String cep = "";
 
 	@Field
-	@Caption("Municipio Ibge")
+	@Caption("Municipio IBGE")
 	@Column(name = "MUNICIPIO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
