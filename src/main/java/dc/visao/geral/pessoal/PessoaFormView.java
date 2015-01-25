@@ -3359,13 +3359,11 @@ public class PessoaFormView extends CustomComponent {
 		// common part: create layout
 		String[] atributos = new String[] { "cep", "logradouro", "numero",
 				"complemento", "bairro", "cidade", "uf", "municipioIbge",
-				"fone", "fax", "principal", "entrega", "cobranca",
-				"correspondencia" };
+				"principal", "entrega", "cobranca", "correspondencia" };
 
 		String[] headers = new String[] { "CEP", "Logradouro", "Nº",
 				"Complemento", "Bairro", "Cidade", "UF", "Município IBGE",
-				"Telefone", "Fax", "Principal", "Entrega", "Cobrança",
-				"Correspondência" };
+				"Principal", "Entrega", "Cobrança", "Correspondência" };
 
 		sfPessoaEndereco = new SubFormComponent<PessoaEnderecoEntity, Integer>(
 				PessoaEnderecoEntity.class, atributos, headers) {
@@ -3451,24 +3449,6 @@ public class PessoaFormView extends CustomComponent {
 							cb.setItemCaptionPropertyId("nome");
 
 							return cb;
-						}
-
-						if ("fone".equals(propertyId)) {
-							MaskedTextField mtf = ComponentUtil
-									.buildMaskedTextField("Telefone",
-											"(##) #####-####");
-							mtf.setMaskClientOnly(true);
-
-							return mtf;
-						}
-
-						if ("fax".equals(propertyId)) {
-							MaskedTextField mtf = ComponentUtil
-									.buildMaskedTextField("Fax",
-											"(##) #####-####");
-							mtf.setMaskClientOnly(true);
-
-							return mtf;
 						}
 
 						if ("principal".equals(propertyId)) {
