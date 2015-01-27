@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.comercial.TipoNotaFiscal;
+import dc.entidade.comercial.NotaFiscalTipo;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class TipoNotaFiscalDAO extends AbstractCrudDAO<TipoNotaFiscal> {
+public class NotaFiscalTipoDAO extends AbstractCrudDAO<NotaFiscalTipo> {
 
 	@Override
-	public Class<TipoNotaFiscal> getEntityClass() {
-		return TipoNotaFiscal.class;
+	public Class<NotaFiscalTipo> getEntityClass() {
+		return NotaFiscalTipo.class;
 	}
 
 	protected String[] getDefaultSearchFields() {
@@ -21,11 +21,11 @@ public class TipoNotaFiscalDAO extends AbstractCrudDAO<TipoNotaFiscal> {
 	}
 
 	@Transactional
-	public List<TipoNotaFiscal> listarTodos() {
-		List<TipoNotaFiscal> lista = null;
+	public List<NotaFiscalTipo> listarTodos() {
+		List<NotaFiscalTipo> lista = null;
 
 		try {
-			String sql = "FROM TipoNotaFiscal";
+			String sql = "FROM NotaFiscalTipo";
 			lista = super.getSession().createQuery(sql).list();
 		} catch (Exception e) {
 			e.printStackTrace();

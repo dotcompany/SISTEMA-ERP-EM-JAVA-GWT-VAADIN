@@ -51,8 +51,8 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	Orcamento orcamento;
 
 	@ManyToOne
-	@JoinColumn(name = "id_tipo_nota_fiscal")
-	TipoNotaFiscal tipoNotaFiscal;
+	@JoinColumn(name = "id_nota_fiscal_tipo")
+	NotaFiscalTipo notaFiscalTipo;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
@@ -159,12 +159,12 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 		return detalhe;
 	}
 
-	public TipoNotaFiscal getTipoNotaFiscal() {
-		return tipoNotaFiscal;
+	public NotaFiscalTipo getNotaFiscalTipo() {
+		return notaFiscalTipo;
 	}
 
-	public void setTipoNotaFiscal(TipoNotaFiscal tipoNotaFiscal) {
-		this.tipoNotaFiscal = tipoNotaFiscal;
+	public void setNotaFiscalTipo(NotaFiscalTipo notaFiscalTipo) {
+		this.notaFiscalTipo = notaFiscalTipo;
 	}
 
 	public ClienteEntity getCliente() {
