@@ -97,7 +97,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Série")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer serie = 252858;
+	private String serie = "888";
 
 	@Field
 	@Column(name = "numero")
@@ -640,12 +640,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase().trim());
 	}
 
-	public Integer getSerie() {
+	public String getSerie() {
 		return serie;
 	}
 
-	public void setSerie(Integer serie) {
-		this.serie = (serie == null ? 252858 : serie);
+	public void setSerie(String serie) {
+		this.serie = (serie == null ? "888".trim() : serie.toUpperCase().trim());
 	}
 
 	public Integer getNumero() {
