@@ -121,19 +121,6 @@ public class FornecedorFormController extends
 
 			this.subView.getMocSituacaoForCli().setModel(situacaoForCliModel);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "codigoReduzido";
-				}
-
-			};
-
-			this.subView.getMocContabilConta().setModel(contabilContaModel);
-
 			DefaultManyToOneComboModel<PessoaEntity> pessoaModel = new DefaultManyToOneComboModel<PessoaEntity>(
 					PessoaListController.class, this.pessoaDAO,
 					super.getMainController());
@@ -174,12 +161,6 @@ public class FornecedorFormController extends
 		if (!Validator
 				.validateObject(subView.getMocSituacaoForCli().getValue())) {
 			adicionarErroDeValidacao(subView.getMocSituacaoForCli(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getMocContabilConta().getValue())) {
-			adicionarErroDeValidacao(subView.getMocContabilConta(),
 					"Não pode ficar em branco");
 			valido = false;
 		}

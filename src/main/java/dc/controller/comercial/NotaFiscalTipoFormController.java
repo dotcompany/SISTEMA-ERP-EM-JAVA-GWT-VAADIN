@@ -57,7 +57,7 @@ public class NotaFiscalTipoFormController extends CRUDFormController<NotaFiscalT
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getTxtSerie().setValue(currentBean.getSerie());
-		subView.getTxtUltimoImpresso().setValue(currentBean.getUltimoImpresso().toString());
+		subView.getTxtUltimoNumero().setValue(currentBean.getUltimoNumero().toString());
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class NotaFiscalTipoFormController extends CRUDFormController<NotaFiscalT
 			
 			String serie = subView.getTxtSerie().getValue();
 			
-			String ultimoImpresso = subView.getTxtUltimoImpresso().getValue();
+			String ultimoNumero = subView.getTxtUltimoNumero().getValue();
 
 			if (!Validator.validateString(nome)) {
 				throw new ErroValidacaoException("Informe o Nome!");
@@ -83,8 +83,8 @@ public class NotaFiscalTipoFormController extends CRUDFormController<NotaFiscalT
 			
 
 			
-			if (Validator.validateString(ultimoImpresso))
-				currentBean.setUltimoImpresso(new Integer(ultimoImpresso));
+			if (Validator.validateString(ultimoNumero))
+				currentBean.setUltimoNumero(new Integer(ultimoNumero));
 
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);

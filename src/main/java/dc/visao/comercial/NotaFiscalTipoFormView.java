@@ -28,7 +28,7 @@ public class NotaFiscalTipoFormView extends CustomComponent {
 
 	private TextField txtNome, txtDescricao;
 
-	private TextField  txtUltimoImpresso;
+	private TextField  txtUltimoNumero;
 
 	public NotaFiscalTipoFormView(NotaFiscalTipoFormController controller) {
 		this.controller = controller;
@@ -73,8 +73,8 @@ public class NotaFiscalTipoFormView extends CustomComponent {
 		txtSerie.setMaxLength(3);
 		fields.addComponent(txtSerie, 0, 1);
 
-		txtUltimoImpresso = ComponentUtil.buildNumericField("Último Impresso");
-		fields.addComponent(txtUltimoImpresso, 1, 1);
+		txtUltimoNumero = ComponentUtil.buildNumericField("Último Número");
+		fields.addComponent(txtUltimoNumero, 1, 1);
 
 		return fields;
 
@@ -104,12 +104,12 @@ public class NotaFiscalTipoFormView extends CustomComponent {
 		this.txtDescricao = txtDescricao;
 	}
 
-	public TextField getTxtUltimoImpresso() {
-		return txtUltimoImpresso;
+	public TextField getTxtUltimoNumero() {
+		return txtUltimoNumero;
 	}
 
-	public void setTxtUltimoImpresso(TextField txtUltimoImpresso) {
-		this.txtUltimoImpresso = txtUltimoImpresso;
+	public void setTxtUltimoNumero(TextField txtUltimoNumero) {
+		this.txtUltimoNumero = txtUltimoNumero;
 	}
 
 }

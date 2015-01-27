@@ -184,11 +184,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI")
 	private AtividadeForCliEntity atividadeForCli;
 
-	@Caption("Conta contábil")
-	@ManyToOne
-	@JoinColumn(name = "ID_CONTABIL_CONTA")
-	private ContabilContaEntity contabilConta;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -382,14 +377,6 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setAtividadeForCli(AtividadeForCliEntity atividadeForCli) {
 		this.atividadeForCli = atividadeForCli;
-	}
-
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
 	}
 
 	public List<BemEntity> getBemList() {

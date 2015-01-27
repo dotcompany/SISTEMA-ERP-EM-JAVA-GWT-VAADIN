@@ -131,9 +131,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private AtividadeForCliDAO atividadeForCliDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilContaDAO;
-
-	@Autowired
 	private OperacaoFiscalDAO operacaoFiscalDAO;
 
 	@Autowired
@@ -230,13 +227,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getMocClienteAtividade().setModel(
 					modelClienteAtividadeForCli);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> modelClienteContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController());
-
-			this.subView.getMocClienteContaContabil().setModel(
-					modelClienteContabilConta);
-
 			DefaultManyToOneComboModel<OperacaoFiscalEntity> modelClienteOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
 					super.getMainController());
@@ -330,21 +320,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getMocFornecedorAtividadeForCli().setModel(
 					modelFornecedorAtividadeForCli);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> modelFornecedorContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController());
-
-			this.subView.getMocFornecedorContabilConta().setModel(
-					modelFornecedorContabilConta);
-
 			System.out.println(":: load transportadora");
-
-			DefaultManyToOneComboModel<ContabilContaEntity> modelTransportadoraContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController());
-
-			this.subView.getMocTransportadoraContabilConta().setModel(
-					modelTransportadoraContabilConta);
 
 			//
 
@@ -874,8 +850,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getValue());
 		ent.setAtividadeForCli(this.subView.getMocFornecedorAtividadeForCli()
 				.getValue());
-		ent.setContabilConta(this.subView.getMocFornecedorContabilConta()
-				.getValue());
+		
 		ent.setDesde(this.subView.getPdfFornecedorDesde().getValue());
 		ent.setContaRemetente(this.subView.getTfFornecedorContaRemetente()
 				.getValue());
@@ -1404,13 +1379,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		if (ObjectUtils.isNotBlank(atividadeForCli)) {
 			this.subView.getMocFornecedorAtividadeForCli().setValue(
 					atividadeForCli);
-		}
-
-		ContabilContaEntity contaContabil = ent.getContabilConta();
-
-		if (ObjectUtils.isNotBlank(contaContabil)) {
-			this.subView.getMocFornecedorContabilConta()
-					.setValue(contaContabil);
 		}
 
 		this.subView.getPdfFornecedorDesde().setValue(ent.getDesde());
