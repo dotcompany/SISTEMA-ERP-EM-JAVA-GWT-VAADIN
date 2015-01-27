@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.model.dao.geral.pessoal.PessoaContatoDAO;
@@ -159,6 +160,27 @@ public class PessoaContatoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<PessoaContatoEntity> getAllForComboSelect(
+			Class<PessoaContatoEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<PessoaContatoEntity> getAllForCombo(
+			Class<PessoaContatoEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<PessoaContatoEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 	/**

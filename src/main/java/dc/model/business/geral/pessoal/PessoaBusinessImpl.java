@@ -13,6 +13,7 @@ import com.vaadin.data.Container.Filter;
 import dc.control.enums.TipoPessoaEn;
 import dc.control.util.ListUtils;
 import dc.control.util.ObjectUtils;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
@@ -293,6 +294,25 @@ public class PessoaBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<PessoaEntity> getAllForComboSelect(Class<PessoaEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<PessoaEntity> getAllForCombo(Class<PessoaEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<PessoaEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

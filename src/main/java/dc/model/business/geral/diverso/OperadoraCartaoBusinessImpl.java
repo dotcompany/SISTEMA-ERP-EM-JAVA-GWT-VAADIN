@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.model.dao.geral.diverso.OperadoraCartaoDAO;
 
@@ -158,6 +159,27 @@ public class OperadoraCartaoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<OperadoraCartaoEntity> getAllForComboSelect(
+			Class<OperadoraCartaoEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<OperadoraCartaoEntity> getAllForCombo(
+			Class<OperadoraCartaoEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<OperadoraCartaoEntity> comboTextSearch(String value,
+			FmMenu menu, Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }
