@@ -1,6 +1,7 @@
 package dc.entidade.framework;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,7 +17,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+
+import dc.anotacoes.Caption;
 
 /**
 *
@@ -54,6 +58,13 @@ public class EmpresaProduto implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_produto")
     private int produtoId;
+    
+    @Field
+	@Caption()
+	@Column(name = "quantidade_estoque", precision = 18, scale = 6)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal quantidadeEstoque;
 
     public EmpresaProduto() {
     }
@@ -91,8 +102,16 @@ public class EmpresaProduto implements Serializable {
     public void setProdutoId(int produtoId) {
         this.produtoId = produtoId;
     }
+    
+    public BigDecimal getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
 
-    @Override
+	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
+	@Override
     public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, new String[] {"id"});
     }

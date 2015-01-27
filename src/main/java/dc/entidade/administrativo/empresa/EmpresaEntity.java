@@ -256,6 +256,13 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoCnaePrincipal;
+	
+	@Field
+	@Caption()
+	@Column(name = "tipo_controle_estoque")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String tipoControleEstoque;
 
 	/**
 	 * REFERENCIA - FK
@@ -640,6 +647,14 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	public void setEmpresaSeguimentoList(
 			List<EmpresaSeguimento> empresaSeguimentoList) {
 		this.empresaSeguimentoList = empresaSeguimentoList;
+	}
+	
+	public String getTipoControleEstoque() {
+		return tipoControleEstoque;
+	}
+
+	public void setTipoControleEstoque(String tipoControleEstoque) {
+		this.tipoControleEstoque = tipoControleEstoque;
 	}
 
 	/**

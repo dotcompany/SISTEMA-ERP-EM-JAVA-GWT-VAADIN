@@ -139,6 +139,13 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer idUf;
+	
+	@Field
+	@Caption("fone")
+	@Column(name = "FONE", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String fone = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -292,6 +299,15 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setIdUf(Integer idUf) {
 		this.idUf = idUf;
+	}
+	
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = (fone == null ? "".trim() : fone.toUpperCase().trim());
+		
 	}
 
 	public PessoaEntity getPessoa() {

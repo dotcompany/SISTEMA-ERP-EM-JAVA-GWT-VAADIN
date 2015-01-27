@@ -69,7 +69,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Código numérico")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer codigoNumerico = 8212021;
+	private String codigoNumerico = "";
 
 	@Field
 	@Column(name = "natureza_operacao")
@@ -104,7 +104,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Número")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer numero;
+	private String numero;
 
 	@Field
 	@Column(name = "data__hora_emissao")
@@ -165,7 +165,7 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Digíto da chave de acesso")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer digitoChaveAcesso;
+	private String digitoChaveAcesso = "9";
 
 	@Field
 	@Column(name = "ambiente")
@@ -525,6 +525,13 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Regime Especial Tributação")
 	private Integer regimeEspecialTributacao;
 	
+	@Field
+	@Column(name = "comex_local_despacho")
+	@Caption(value = "Comex Local de Despacho")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String comexLocalDespacho = "";
+	
 	/**
 	 * REFERENCIA - FK
 	 */
@@ -606,12 +613,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public Integer getCodigoNumerico() {
+	public String getCodigoNumerico() {
 		return codigoNumerico;
 	}
 
-	public void setCodigoNumerico(Integer codigoNumerico) {
-		this.codigoNumerico = (codigoNumerico == null ? 8212021 : codigoNumerico);
+	public void setCodigoNumerico(String codigoNumerico) {
+		this.codigoNumerico = (codigoNumerico == null ? "".trim() : codigoNumerico.toUpperCase().trim());
 	}
 
 	public String getNaturezaOperacao() {
@@ -648,11 +655,11 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.serie = (serie == null ? "888".trim() : serie.toUpperCase().trim());
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -721,12 +728,12 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase().trim());
 	}
 
-	public Integer getDigitoChaveAcesso() {
+	public String getDigitoChaveAcesso() {
 		return digitoChaveAcesso;
 	}
 
-	public void setDigitoChaveAcesso(Integer digitoChaveAcesso) {
-		this.digitoChaveAcesso = digitoChaveAcesso;
+	public void setDigitoChaveAcesso(String digitoChaveAcesso) {
+		this.digitoChaveAcesso = (digitoChaveAcesso == null ? "9".trim() : digitoChaveAcesso.toUpperCase().trim());
 	}
 
 	public Integer getAmbiente() {
@@ -1110,6 +1117,14 @@ public class NfeCabecalhoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setAdiantamento(Integer adiantamento) {
 		this.adiantamento = (adiantamento == null ? new Integer(0)
 				: adiantamento);
+	}
+	
+	public String getComexLocalDespacho() {
+		return comexLocalDespacho;
+	}
+
+	public void setComexLocalDespacho(String comexLocalDespacho) {
+		this.comexLocalDespacho = (comexLocalDespacho == null ? "".trim() : comexLocalDespacho.toUpperCase().trim());
 	}
 
 	public OperacaoFiscalEntity getTributOperacaoFiscal() {

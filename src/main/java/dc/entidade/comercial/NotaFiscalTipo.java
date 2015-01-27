@@ -32,14 +32,17 @@ public class NotaFiscalTipo extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Série")
 	String serie;
 	
+	@Caption("Série Scan")
+	String serieScan;
+	
 	@Caption("Nome")
 	String nome;
 	
 	@Caption("Descrição")
 	String descricao;
 	
-	@Column(name="ultimo_impresso")
-	Integer ultimoImpresso;
+	@Column(name="ultimo_numero")
+	Integer ultimoNumero;
 
 	public Integer getId() {
 		return id;
@@ -73,12 +76,20 @@ public class NotaFiscalTipo extends AbstractMultiEmpresaModel<Integer> {
 		this.descricao = descricao;
 	}
 
-	public Integer getUltimoImpresso() {
-		return ultimoImpresso;
+	public String getSerieScan() {
+		return serieScan;
 	}
 
-	public void setUltimoImpresso(Integer ultimoImpresso) {
-		this.ultimoImpresso = ultimoImpresso;
+	public void setSerieScan(String serieScan) {
+		this.serieScan = serieScan;
+	}
+
+	public Integer getUltimoNumero() {
+		return ultimoNumero;
+	}
+
+	public void setUltimoNumero(Integer ultimoNumero) {
+		this.ultimoNumero = ultimoNumero;
 	}
 
 	@Override
