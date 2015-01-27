@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
 import dc.model.dao.suprimento.compra.TipoRequisicaoDAO;
 
@@ -158,6 +159,27 @@ public class TipoRequisicaoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<TipoRequisicaoEntity> getAllForComboSelect(
+			Class<TipoRequisicaoEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<TipoRequisicaoEntity> getAllForCombo(
+			Class<TipoRequisicaoEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<TipoRequisicaoEntity> comboTextSearch(String value,
+			FmMenu menu, Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

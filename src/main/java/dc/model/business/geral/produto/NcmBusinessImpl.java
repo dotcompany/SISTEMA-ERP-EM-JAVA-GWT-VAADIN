@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.model.dao.geral.produto.NcmDAO;
 
@@ -163,6 +164,25 @@ public class NcmBusinessImpl implements Serializable, NcmBusiness<NcmEntity> {
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<NcmEntity> getAllForComboSelect(Class<NcmEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<NcmEntity> getAllForCombo(Class<NcmEntity> type, int idEmpresa,
+			FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<NcmEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

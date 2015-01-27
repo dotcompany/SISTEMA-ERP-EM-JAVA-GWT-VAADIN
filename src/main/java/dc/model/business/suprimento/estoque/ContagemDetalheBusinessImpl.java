@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
@@ -178,6 +179,27 @@ public class ContagemDetalheBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> getAllForComboSelect(
+			Class<ContagemDetalheEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> getAllForCombo(
+			Class<ContagemDetalheEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<ContagemDetalheEntity> comboTextSearch(String value,
+			FmMenu menu, Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 	/**

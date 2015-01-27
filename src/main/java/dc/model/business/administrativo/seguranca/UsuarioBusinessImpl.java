@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
+import dc.entidade.framework.FmMenu;
 import dc.model.dao.administrativo.seguranca.UsuarioDAO;
 
 /**
@@ -165,6 +166,25 @@ public class UsuarioBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<UsuarioEntity> getAllForComboSelect(Class<UsuarioEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<UsuarioEntity> getAllForCombo(Class<UsuarioEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<UsuarioEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

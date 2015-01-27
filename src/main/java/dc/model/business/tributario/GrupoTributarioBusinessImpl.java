@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.model.dao.tributario.GrupoTributarioDAO;
 
@@ -168,6 +169,27 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<GrupoTributarioEntity> getAllForComboSelect(
+			Class<GrupoTributarioEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<GrupoTributarioEntity> getAllForCombo(
+			Class<GrupoTributarioEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<GrupoTributarioEntity> comboTextSearch(String value,
+			FmMenu menu, Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

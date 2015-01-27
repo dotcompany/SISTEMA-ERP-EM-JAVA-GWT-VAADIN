@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.control.util.ObjectUtils;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.model.dao.geral.produto.GrupoDAO;
@@ -176,6 +177,26 @@ public class SubGrupoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<SubGrupoEntity> getAllForComboSelect(
+			Class<SubGrupoEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<SubGrupoEntity> getAllForCombo(Class<SubGrupoEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<SubGrupoEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

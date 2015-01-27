@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.model.dao.geral.produto.MarcaDAO;
 
@@ -165,6 +166,25 @@ public class MarcaBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<MarcaEntity> getAllForComboSelect(Class<MarcaEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<MarcaEntity> getAllForCombo(Class<MarcaEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<MarcaEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

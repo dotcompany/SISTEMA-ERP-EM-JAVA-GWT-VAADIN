@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.control.util.ListUtils;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
@@ -182,6 +183,27 @@ public class ContagemCabecalhoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<ContagemCabecalhoEntity> getAllForComboSelect(
+			Class<ContagemCabecalhoEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<ContagemCabecalhoEntity> getAllForCombo(
+			Class<ContagemCabecalhoEntity> type, int idEmpresa, FmMenu menu,
+			Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<ContagemCabecalhoEntity> comboTextSearch(String value,
+			FmMenu menu, Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

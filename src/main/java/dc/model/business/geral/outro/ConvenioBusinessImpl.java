@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.outro.ConvenioEntity;
 import dc.model.dao.geral.outro.ConvenioDAO;
 
@@ -165,6 +166,26 @@ public class ConvenioBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<ConvenioEntity> getAllForComboSelect(
+			Class<ConvenioEntity> type, int idEmpresa, FmMenu menu,
+			String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<ConvenioEntity> getAllForCombo(Class<ConvenioEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<ConvenioEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

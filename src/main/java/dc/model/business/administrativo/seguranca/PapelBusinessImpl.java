@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.administrativo.seguranca.PapelEntity;
+import dc.entidade.framework.FmMenu;
 import dc.model.dao.administrativo.seguranca.PapelDAO;
 
 /**
@@ -165,6 +166,25 @@ public class PapelBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<PapelEntity> getAllForComboSelect(Class<PapelEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<PapelEntity> getAllForCombo(Class<PapelEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<PapelEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 }

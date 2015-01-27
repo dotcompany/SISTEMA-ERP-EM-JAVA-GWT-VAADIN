@@ -11,6 +11,7 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.control.util.ObjectUtils;
+import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
@@ -245,6 +246,25 @@ public class ProdutoBusinessImpl implements Serializable,
 
 			throw e;
 		}
+	}
+
+	@Override
+	public List<ProdutoEntity> getAllForComboSelect(Class<ProdutoEntity> type,
+			int idEmpresa, FmMenu menu, String typeSelected, Integer idSelected) {
+		return dao.getAllForComboSelect(type, idEmpresa, menu, typeSelected,
+				idSelected);
+	}
+
+	@Override
+	public List<ProdutoEntity> getAllForCombo(Class<ProdutoEntity> type,
+			int idEmpresa, FmMenu menu, Boolean getAll) {
+		return dao.getAllForCombo(type, idEmpresa, menu, getAll);
+	}
+
+	@Override
+	public List<ProdutoEntity> comboTextSearch(String value, FmMenu menu,
+			Boolean getAll) {
+		return dao.comboTextSearch(value, menu, getAll);
 	}
 
 	/**
