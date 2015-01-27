@@ -59,9 +59,6 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	private AtividadeForCliDAO atividadeDAO;
 
 	@Autowired
-	private ContabilContaDAO contaDAO;
-
-	@Autowired
 	private OperacaoFiscalDAO operacaoDAO;
 
 	private ClienteEntity currentBean;
@@ -205,19 +202,6 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 		 * };
 		 */
 
-		DefaultManyToOneComboModel<ContabilContaEntity> modelconta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, this.contaDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "codigoReduzido";
-			}
-
-		};
-
-		this.subView.getMocContaContabil().setModel(modelconta);
-
 		DefaultManyToOneComboModel<OperacaoFiscalEntity> modeloperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 				OperacaoFiscalListController.class, this.operacaoDAO,
 				super.getMainController()) {
@@ -257,13 +241,6 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 						this.currentBean.getOperacaoFiscal());
 			}
 
-			ContabilContaEntity contabilConta = this.currentBean
-					.getContabilConta();
-
-			if (contabilConta != null) {
-				this.subView.getMocContaContabil().setValue(contabilConta);
-			}
-
 			this.subView.getPdfDesde().setValue(this.currentBean.getDesde());
 			this.subView.getTfContaTomador().setValue(
 					this.currentBean.getContaTomador());
@@ -300,14 +277,6 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.currentBean
 					.setAtividadeForCli((AtividadeForCliEntity) this.subView
 							.getMocAtividade().getValue());
-
-			if (this.subView.getMocContaContabil().getValue() != null) {
-				this.currentBean
-						.setContabilConta((ContabilContaEntity) this.subView
-								.getMocContaContabil().getValue());
-			} else {
-				this.currentBean.setContabilConta(null);
-			}
 
 			if (this.subView.getMocOperacaoFiscal().getValue() != null) {
 				this.currentBean

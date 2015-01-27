@@ -135,6 +135,13 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private TipoFreteEn tipoFrete;
+	
+	@Field
+	@Caption(value = "Classificação da Contábil Conta")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -154,11 +161,6 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
 	private AtividadeForCliEntity atividadeForCli;
-
-	@Caption("Conta contábil")
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_conta", nullable = true)
-	private ContabilContaEntity contabilConta;
 
 	@Caption("Operação fiscal")
 	@ManyToOne
@@ -322,20 +324,21 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.atividadeForCli = atividadeForCli;
 	}
 
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
-	}
-
 	public OperacaoFiscalEntity getOperacaoFiscal() {
 		return operacaoFiscal;
 	}
 
 	public void setOperacaoFiscal(OperacaoFiscalEntity operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
+	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? "".trim()
+				: classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	/**

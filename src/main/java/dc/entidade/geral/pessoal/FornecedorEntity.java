@@ -157,6 +157,13 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private SimNaoEn geraFaturamento;
+	
+	@Field
+	@Caption(value = "Classificação da Contábil Conta")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -349,6 +356,15 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public SimNaoEn getGeraFaturamento() {
 		return geraFaturamento;
+	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? "".trim()
+				: classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	public void setGeraFaturamento(SimNaoEn geraFaturamento) {

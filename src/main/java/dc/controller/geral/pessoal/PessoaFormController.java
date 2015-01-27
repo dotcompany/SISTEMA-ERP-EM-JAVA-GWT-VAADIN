@@ -601,8 +601,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		ent.setDesde(this.subView.getPdfClienteDesde().getValue());
 		ent.setSituacaoForCli(this.subView.getMocClienteSituacao().getValue());
 		ent.setAtividadeForCli(this.subView.getMocClienteAtividade().getValue());
-		ent.setContabilConta(this.subView.getMocClienteContaContabil()
-				.getValue());
 		ent.setOperacaoFiscal(this.subView.getMocClienteOperacaoFiscal()
 				.getValue());
 
@@ -1140,12 +1138,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 		if (ObjectUtils.isNotBlank(atividadeForCli)) {
 			this.subView.getMocClienteAtividade().setValue(atividadeForCli);
-		}
-
-		ContabilContaEntity contaContabil = ent.getContabilConta();
-
-		if (ObjectUtils.isNotBlank(contaContabil)) {
-			this.subView.getMocClienteContaContabil().setValue(contaContabil);
 		}
 
 		OperacaoFiscalEntity operacaoFiscal = ent.getOperacaoFiscal();
