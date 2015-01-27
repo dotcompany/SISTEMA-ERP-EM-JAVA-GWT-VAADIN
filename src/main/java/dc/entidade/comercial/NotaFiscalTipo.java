@@ -18,19 +18,16 @@ import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "tipo_nota_fiscal")
+@Table(name = "nota_fiscal_tipo")
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
+public class NotaFiscalTipo extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
-	@SequenceGenerator(name = "tnf", sequenceName = "tipo_nota_fiscal_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "tnf", sequenceName = "nota_fiscal_tipo_id_seq", allocationSize = 1)
 	private Integer id;
-	
-	@Caption("Modelo")
-	String modelo;
 	
 	@Caption("Série")
 	String serie;
@@ -41,11 +38,6 @@ public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Descrição")
 	String descricao;
 	
-	String template;
-	
-	@Column(name="numero_itens")
-	Integer numeroItens;
-	
 	@Column(name="ultimo_impresso")
 	Integer ultimoImpresso;
 
@@ -55,14 +47,6 @@ public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
 	}
 
 	public String getSerie() {
@@ -87,22 +71,6 @@ public class TipoNotaFiscal extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
-	}
-
-	public Integer getNumeroItens() {
-		return numeroItens;
-	}
-
-	public void setNumeroItens(Integer numeroItens) {
-		this.numeroItens = numeroItens;
 	}
 
 	public Integer getUltimoImpresso() {

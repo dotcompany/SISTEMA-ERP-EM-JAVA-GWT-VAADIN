@@ -9,27 +9,27 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.comercial.TipoNotaFiscal;
+import dc.entidade.comercial.NotaFiscalTipo;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
+import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
 import dc.servicos.util.Validator;
-import dc.visao.comercial.TipoNotaFiscalFormView;
+import dc.visao.comercial.NotaFiscalTipoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFiscal> {
+public class NotaFiscalTipoFormController extends CRUDFormController<NotaFiscalTipo> {
 
-	TipoNotaFiscal currentBean;
+	NotaFiscalTipo currentBean;
 
-	TipoNotaFiscalFormView subView;
+	NotaFiscalTipoFormView subView;
 
 	@Autowired
-	TipoNotaFiscalDAO dao;
+	NotaFiscalTipoDAO dao;
 
 	@Override
 	public String getViewIdentifier() {
-		return "tipoNotaForm";
+		return "notaFiscalTipoForm";
 	}
 
 	@Override
@@ -40,13 +40,13 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoNotaFiscal();
+		currentBean = new NotaFiscalTipo();
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TipoNotaFiscalFormView(this);
+		subView = new NotaFiscalTipoFormView(this);
 
 	}
 
@@ -56,10 +56,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getTxtModelo().setValue(currentBean.getModelo());
 		subView.getTxtSerie().setValue(currentBean.getSerie());
-		subView.getTxtTemplate().setValue(currentBean.getTemplate());
-		subView.getTxtNumeroItens().setValue(currentBean.getNumeroItens().toString());
 		subView.getTxtUltimoImpresso().setValue(currentBean.getUltimoImpresso().toString());
 	}
 
@@ -70,10 +67,9 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 			String nome = subView.getTxtNome().getValue();
 			String descricao = subView.getTxtDescricao().getValue();
-			String modelo = subView.getTxtModelo().getValue();
+			
 			String serie = subView.getTxtSerie().getValue();
-			String template = subView.getTxtTemplate().getValue();
-			String numeroItens = subView.getTxtNumeroItens().getValue();
+			
 			String ultimoImpresso = subView.getTxtUltimoImpresso().getValue();
 
 			if (!Validator.validateString(nome)) {
@@ -82,12 +78,11 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 			currentBean.setNome(nome);
 			currentBean.setDescricao(descricao);
-			currentBean.setModelo(modelo);
+			
 			currentBean.setSerie(serie);
-			currentBean.setTemplate(template);
+			
 
-			if (Validator.validateString(numeroItens))
-				currentBean.setNumeroItens(new Integer(numeroItens));
+			
 			if (Validator.validateString(ultimoImpresso))
 				currentBean.setUltimoImpresso(new Integer(ultimoImpresso));
 
@@ -115,7 +110,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 
 	@Override
 	protected String getNome() {
-		return "Tipo de Nota Fiscal";
+		return "Nota Fiscal Tipo";
 	}
 
 	@Override
@@ -132,7 +127,7 @@ public class TipoNotaFiscalFormController extends CRUDFormController<TipoNotaFis
 	}
 
 	@Override
-	public TipoNotaFiscal getModelBean() {
+	public NotaFiscalTipo getModelBean() {
 		return currentBean;
 	}
 

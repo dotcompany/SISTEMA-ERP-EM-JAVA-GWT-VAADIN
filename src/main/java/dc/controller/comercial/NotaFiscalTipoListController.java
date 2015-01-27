@@ -6,54 +6,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.entidade.comercial.TipoNotaFiscal;
-import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
+import dc.entidade.comercial.NotaFiscalTipo;
+import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class TipoNotaFiscalListController extends CRUDListController<TipoNotaFiscal> {
+public class NotaFiscalTipoListController extends CRUDListController<NotaFiscalTipo> {
 
 	@Autowired
-	TipoNotaFiscalDAO dao;
+	NotaFiscalTipoDAO dao;
 
 	@Autowired
-	TipoNotaFiscalFormController formController;
+	NotaFiscalTipoFormController formController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "modelo", "serie", "nome", "descricao" };
+		return new String[] { "serie", "nome", "descricao" };
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Tipo Nota Fiscal";
+		return "Nota Fiscal Tipo";
 	}
 
 	@Override
-	protected CRUDFormController<TipoNotaFiscal> getFormController() {
+	protected CRUDFormController<NotaFiscalTipo> getFormController() {
 		return formController;
 	}
 
 	@Override
-	public Class<? super TipoNotaFiscal> getEntityClass() {
-		return TipoNotaFiscal.class;
+	public Class<? super NotaFiscalTipo> getEntityClass() {
+		return NotaFiscalTipo.class;
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "Tipo Nota Fiscal";
+		return "Nota Fiscal Tipo";
 	}
 
 	@Override
-	protected List<TipoNotaFiscal> pesquisa(String valor) {
+	protected List<NotaFiscalTipo> pesquisa(String valor) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected List<TipoNotaFiscal> pesquisaDefault() {
+	protected List<NotaFiscalTipo> pesquisaDefault() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -14,8 +14,8 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ItemOrcamento;
+import dc.entidade.comercial.NotaFiscalTipo;
 import dc.entidade.comercial.Orcamento;
-import dc.entidade.comercial.TipoNotaFiscal;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.folhapagamento.VendedorEntity;
@@ -24,8 +24,8 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
+import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
 import dc.servicos.dao.comercial.OrcamentoDAO;
-import dc.servicos.dao.comercial.TipoNotaFiscalDAO;
 import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDetalheDAO;
 import dc.servicos.dao.folhapagamento.VendedorDAO;
@@ -65,7 +65,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	CondicaoPagamentoDAO condicaoPagamentoDAO;
 
 	@Autowired
-	TipoNotaFiscalDAO tipoNotaFiscalDAO;
+	NotaFiscalTipoDAO notaFiscalTipoDAO;
 
 	@Autowired
 	ProdutoDAO produtoDAO;
@@ -117,7 +117,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 		subView.getCmbVendedor().setValue(currentBean.getVendedor());
 		subView.getCmbTipoNotaFiscal()
-				.setValue(currentBean.getTipoNotaFiscal());
+				.setValue(currentBean.getNotaFiscalTipo());
 		subView.getCmbCliente().setValue(currentBean.getCliente());
 
 		subView.getDataSaida().setValue(currentBean.getDataSaida());
@@ -174,10 +174,10 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 		try {
 
-			TipoNotaFiscal tipoNotaFiscal = (TipoNotaFiscal) subView
+			NotaFiscalTipo tipoNotaFiscal = (NotaFiscalTipo) subView
 					.getCmbTipoNotaFiscal().getValue();
 			if (!Validator.validateObject(tipoNotaFiscal)) {
-				throw new ErroValidacaoException("Informe Tipo de Nota Fiscal");
+				throw new ErroValidacaoException("Informe Nota Fiscal Tipo");
 			}
 			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente()
 					.getValue();
@@ -202,7 +202,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 					.getValue();
 			currentBean.setOrcamento(orcamento);
 
-			currentBean.setTipoNotaFiscal(tipoNotaFiscal);
+			currentBean.setNotaFiscalTipo(tipoNotaFiscal);
 			currentBean.setCliente(cliente);
 			currentBean.setVendedor(vendedor);
 			currentBean.setCondicaoPagamento(condicao);
@@ -353,10 +353,10 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		return container;
 	}
 
-	public BeanItemContainer<TipoNotaFiscal> carregarTipoNotaFiscal() {
-		BeanItemContainer<TipoNotaFiscal> container = new BeanItemContainer<>(
-				TipoNotaFiscal.class);
-		for (TipoNotaFiscal c : tipoNotaFiscalDAO.listarTodos()) {
+	public BeanItemContainer<NotaFiscalTipo> carregarTipoNotaFiscal() {
+		BeanItemContainer<NotaFiscalTipo> container = new BeanItemContainer<>(
+				NotaFiscalTipo.class);
+		for (NotaFiscalTipo c : notaFiscalTipoDAO.listarTodos()) {
 			container.addBean(c);
 		}
 		return container;
