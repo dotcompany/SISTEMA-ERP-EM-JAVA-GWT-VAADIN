@@ -1038,7 +1038,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getSfPessoaEndereco().fillWith(
 					this.entity.getPessoaEnderecoList());
 
-			visualizarAba();
+			visibleTabSheet();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1464,7 +1464,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			visualizarAba();
+			visibleTabSheet();
 		}
 	}
 
@@ -1477,7 +1477,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		} finally {
-			visualizarAba();
+			visibleTabSheet();
 		}
 	}
 
@@ -1727,7 +1727,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 * 
 	 */
 
-	public void visualizarAba() {
+	public void visibleTabSheet() {
 		this.subView
 				.getTsGeral()
 				.getTab(4)
