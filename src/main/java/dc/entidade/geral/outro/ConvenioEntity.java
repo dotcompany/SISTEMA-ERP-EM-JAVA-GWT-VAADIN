@@ -36,8 +36,7 @@ import dc.entidade.geral.pessoal.PessoaEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -166,6 +165,20 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String email = "";
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
+	
+	@Field
+	@Caption("Cidade")
+	@Column(name = "CIDADE", length = 60)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cidade = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -349,6 +362,23 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setEmail(String email) {
 		this.email = (email == null ? "".trim() : email.toUpperCase().trim());
+	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
+	}
+	
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = (cidade == null ? "".trim() : cidade.toUpperCase().trim());
 	}
 
 	public PessoaEntity getPessoa() {
