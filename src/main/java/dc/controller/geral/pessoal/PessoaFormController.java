@@ -34,7 +34,6 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.util.classes.PessoaUtils;
 import dc.control.validator.DotErpException;
-import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -62,10 +61,10 @@ import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.model.business.geral.diverso.UfBusiness;
+import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -74,7 +73,6 @@ import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
-import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
 import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
@@ -122,7 +120,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 */
 
 	@Autowired
-	private EstadoCivilDAO estadoCivilDAO;
+	private EstadoCivilBusiness<EstadoCivilEntity> estadoCivilBusiness;
 
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
@@ -204,8 +202,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView = new PessoaFormView(this);
 
 			DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
-					EstadoCivilListController.class, this.estadoCivilDAO,
-					super.getMainController());
+					EstadoCivilListController.class, super.getMainController(),
+					null, this.estadoCivilBusiness);
 
 			this.subView.getMocEstadoCivil().setModel(modelEstadoCivil);
 
@@ -848,7 +846,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 				.getValue());
 		ent.setAtividadeForCli(this.subView.getMocFornecedorAtividadeForCli()
 				.getValue());
-		
+
 		ent.setDesde(this.subView.getPdfFornecedorDesde().getValue());
 		ent.setContaRemetente(this.subView.getTfFornecedorContaRemetente()
 				.getValue());

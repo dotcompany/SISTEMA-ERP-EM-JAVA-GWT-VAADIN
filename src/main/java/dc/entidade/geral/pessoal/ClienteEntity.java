@@ -32,7 +32,6 @@ import dc.control.enums.FormaDescontoEn;
 import dc.control.enums.IndicadorPrecoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoFreteEn;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -135,9 +134,9 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private TipoFreteEn tipoFrete;
-	
+
 	@Field
-	@Caption(value = "Classificação da Contábil Conta")
+	@Caption(value = "Classificação da conta contábil")
 	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -331,14 +330,14 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setOperacaoFiscal(OperacaoFiscalEntity operacaoFiscal) {
 		this.operacaoFiscal = operacaoFiscal;
 	}
-	
+
 	public String getClassificacaoContabilConta() {
 		return classificacaoContabilConta;
 	}
 
 	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
-		this.classificacaoContabilConta = (classificacaoContabilConta == null ? "".trim()
-				: classificacaoContabilConta.toUpperCase().trim());
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	/**

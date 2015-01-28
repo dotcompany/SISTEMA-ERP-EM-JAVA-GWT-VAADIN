@@ -35,7 +35,6 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
 @Table(name = "CONTABIL_CONTA")
@@ -169,9 +168,6 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
 	private List<OperadoraCartaoEntity> operadoraCartaoList;
-
-	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
-	private List<ClienteEntity> clienteList;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -359,14 +355,6 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setOperadoraCartaoList(
 			List<OperadoraCartaoEntity> operadoraCartaoList) {
 		this.operadoraCartaoList = operadoraCartaoList;
-	}
-
-	public List<ClienteEntity> getClienteList() {
-		return clienteList;
-	}
-
-	public void setClienteList(List<ClienteEntity> clienteList) {
-		this.clienteList = clienteList;
 	}
 
 	public List<ContaCaixa> getContaCaixaList() {

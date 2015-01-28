@@ -33,7 +33,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.SimNaoEn;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -157,9 +156,9 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private SimNaoEn geraFaturamento;
-	
+
 	@Field
-	@Caption(value = "Classificação da Contábil Conta")
+	@Caption(value = "Classificação da conta contábil")
 	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -357,14 +356,14 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	public SimNaoEn getGeraFaturamento() {
 		return geraFaturamento;
 	}
-	
+
 	public String getClassificacaoContabilConta() {
 		return classificacaoContabilConta;
 	}
 
 	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
-		this.classificacaoContabilConta = (classificacaoContabilConta == null ? "".trim()
-				: classificacaoContabilConta.toUpperCase().trim());
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	public void setGeraFaturamento(SimNaoEn geraFaturamento) {
