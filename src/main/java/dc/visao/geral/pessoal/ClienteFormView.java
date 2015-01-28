@@ -79,8 +79,6 @@ public class ClienteFormView extends CustomComponent {
 
 	private ManyToOneCombo<AtividadeForCliEntity> mocAtividade;
 
-	private ManyToOneCombo<ContabilContaEntity> mocContaContabil;
-
 	private ManyToOneCombo<OperacaoFiscalEntity> mocOperacaoFiscal;
 
 	/**
@@ -189,14 +187,6 @@ public class ClienteFormView extends CustomComponent {
 		mocAtividade.setWidth("383px");
 		mocAtividade.setHeight("-1px");
 		horizontalLayout_2.addComponent(mocAtividade);
-
-		// mocContaContabil
-		mocContaContabil = new ManyToOneCombo<>();
-		mocContaContabil.setCaption("Conta contábil");
-		mocContaContabil.setImmediate(false);
-		mocContaContabil.setWidth("391px");
-		mocContaContabil.setHeight("-1px");
-		horizontalLayout_2.addComponent(mocContaContabil);
 
 		return horizontalLayout_2;
 	}
@@ -559,15 +549,6 @@ public class ClienteFormView extends CustomComponent {
 	public void setMocAtividade(
 			ManyToOneCombo<AtividadeForCliEntity> mocAtividade) {
 		this.mocAtividade = mocAtividade;
-	}
-
-	public ManyToOneCombo<ContabilContaEntity> getMocContaContabil() {
-		return mocContaContabil;
-	}
-
-	public void setMocContaContabil(
-			ManyToOneCombo<ContabilContaEntity> mocContaContabil) {
-		this.mocContaContabil = mocContaContabil;
 	}
 
 	public ManyToOneCombo<OperacaoFiscalEntity> getMocOperacaoFiscal() {

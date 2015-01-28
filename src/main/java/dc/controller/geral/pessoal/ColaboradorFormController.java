@@ -91,9 +91,6 @@ public class ColaboradorFormController extends
 	private CargoDAO cargoDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilContaDAO;
-
-	@Autowired
 	private SetorDAO setorDAO;
 
 	@Autowired
@@ -182,19 +179,6 @@ public class ColaboradorFormController extends
 
 			this.subView.getMocSituacaoColaborador().setModel(
 					modelSituacaoColaborador);
-
-			DefaultManyToOneComboModel<ContabilContaEntity> modelContabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocContaContabil().setModel(modelContabilConta);
 
 			DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
 					SindicatoListController.class, this.sindicatoDAO,
@@ -438,13 +422,6 @@ public class ColaboradorFormController extends
 
 			if (ObjectUtils.isNotBlank(cargo)) {
 				this.subView.getMocCargo().setValue(cargo);
-			}
-
-			ContabilContaEntity contabilConta = this.currentBean
-					.getContaContabil();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.subView.getMocContaContabil().setValue(contabilConta);
 			}
 
 			SetorEntity setor = this.currentBean.getSetor();
@@ -699,15 +676,6 @@ public class ColaboradorFormController extends
 				this.currentBean.setCargo(cargo);
 			} else {
 				this.currentBean.setCargo(null);
-			}
-
-			ContabilContaEntity contabilConta = this.subView
-					.getMocContaContabil().getValue();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.currentBean.setContaContabil(contabilConta);
-			} else {
-				this.currentBean.setContaContabil(null);
 			}
 
 			SetorEntity setor = this.subView.getMocSetor().getValue();

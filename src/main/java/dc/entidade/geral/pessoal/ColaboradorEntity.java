@@ -56,8 +56,7 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -407,6 +406,13 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private SimNaoEn saiNaRais;
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -416,11 +422,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_setor", nullable = false)
 	private SetorEntity setor;
-
-	@Caption("Conta contábil")
-	@ManyToOne
-	@JoinColumn(name = "id_contabil_conta")
-	private ContabilContaEntity contaContabil;
 
 	@Caption("Cargo")
 	@ManyToOne
@@ -957,6 +958,15 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setSaiNaRais(SimNaoEn saiNaRais) {
 		this.saiNaRais = saiNaRais;
 	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
+	}
 
 	public SetorEntity getSetor() {
 		return setor;
@@ -964,14 +974,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setSetor(SetorEntity setor) {
 		this.setor = setor;
-	}
-
-	public ContabilContaEntity getContaContabil() {
-		return contaContabil;
-	}
-
-	public void setContaContabil(ContabilContaEntity contaContabil) {
-		this.contaContabil = contaContabil;
 	}
 
 	public CargoEntity getCargo() {

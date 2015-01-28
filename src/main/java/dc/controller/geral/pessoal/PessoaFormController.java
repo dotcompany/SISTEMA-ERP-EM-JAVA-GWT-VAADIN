@@ -799,15 +799,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			ent.setCargo(null);
 		}
 
-		ContabilContaEntity contabilConta = this.subView
-				.getMocColaboradorContaContabil().getValue();
-
-		if (ObjectUtils.isNotBlank(contabilConta)) {
-			ent.setContaContabil(contabilConta);
-		} else {
-			ent.setContaContabil(null);
-		}
-
 		SetorEntity setor = this.subView.getMocColaboradorSetor().getValue();
 
 		if (ObjectUtils.isNotBlank(setor)) {
