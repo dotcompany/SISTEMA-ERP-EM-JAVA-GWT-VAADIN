@@ -12,6 +12,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.converter.ObjectConverter;
 import dc.controller.geral.produto.ProdutoFormController;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
@@ -841,7 +842,11 @@ public class ProdutoFormView extends CustomComponent {
 		glInformacaoValor.setMargin(true);
 		glInformacaoValor.setSpacing(true);
 
-		tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
+		// tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
+		tfValorCompra = new TextField();
+		tfValorCompra.setCaption("Valor de compra");
+		tfValorCompra.addTextChangeListener(event -> ObjectConverter.vceMask(
+				event, tfValorCompra));
 		tfValorCompra.setHeight("-1px");
 		tfValorCompra.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorCompra, 0, 0);

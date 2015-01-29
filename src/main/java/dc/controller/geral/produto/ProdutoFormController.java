@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
+import dc.control.converter.ObjectConverter;
 import dc.control.enums.ClasseEn;
 import dc.control.enums.IatEn;
 import dc.control.enums.IpptEn;
@@ -259,8 +260,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView
 					.getTfValorVenda().getConvertedValue()));
 			this.entity.setValorCompra(NumberUtils
-					.createBigDecimal(this.subView.getTfValorCompra()
-							.getConvertedValue()));
+					.createBigDecimal(ObjectConverter
+							.removeCurrentMask(this.subView.getTfValorCompra()
+									.getValue())));
 			this.entity.setPrecoVendaMinimo(NumberUtils
 					.createBigDecimal(this.subView.getTfValorVendaMinimo()
 							.getConvertedValue()));
@@ -359,8 +361,8 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					this.entity.getDescricaoPdv());
 			this.subView.getCbInativo().setValue(this.entity.getInativo());
 			this.subView.getCbClasse().setValue(this.entity.getClasse());
-			this.subView.getTfValorCompra().setConvertedValue(
-					this.entity.getValorCompra());
+			this.subView.getTfValorCompra().setValue(
+					this.entity.getValorCompra().toString());
 			this.subView.getTfValorVenda().setConvertedValue(
 					this.entity.getValorVenda());
 			this.subView.getTfValorVendaMinimo().setConvertedValue(
