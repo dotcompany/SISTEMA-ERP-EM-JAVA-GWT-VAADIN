@@ -275,9 +275,10 @@ public class ObjectConverter {
 		boolean hasMask = ((s.indexOf("R$") > -1 || s.indexOf("BRL") > -1));
 
 		if (hasMask) {
-			s = s.replaceAll("R$", "").replaceAll("BRL", "")
-					.replaceAll("[,]", "").replaceAll("[.]", "");
+			s = s.replaceAll("R$", "").replaceAll("BRL", "");
 		}
+
+		s = s.replaceAll("[,]", "").replaceAll("[.]", "");
 
 		s = nf.format(Double.parseDouble(s.trim()) / 100);
 
