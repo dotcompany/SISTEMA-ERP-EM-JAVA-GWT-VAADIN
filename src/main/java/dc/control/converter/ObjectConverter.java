@@ -284,6 +284,14 @@ public class ObjectConverter {
 		t.setValue(s);
 	}
 
+	public synchronized static String addCurrentMask(String value) {
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+
+		value = nf.format(Double.parseDouble(value) / 100);
+
+		return value;
+	}
+
 	public synchronized static String removeCurrentMask(String value) {
 		value = value.replaceAll("R$", "").replaceAll("BRL", "")
 				.replaceAll("[,]", "").replaceAll("[.]", "").trim();

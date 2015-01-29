@@ -362,7 +362,8 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getCbInativo().setValue(this.entity.getInativo());
 			this.subView.getCbClasse().setValue(this.entity.getClasse());
 			this.subView.getTfValorCompra().setValue(
-					this.entity.getValorCompra().toString());
+					ObjectConverter.addCurrentMask(this.entity.getValorCompra()
+							.toString()));
 			this.subView.getTfValorVenda().setConvertedValue(
 					this.entity.getValorVenda());
 			this.subView.getTfValorVendaMinimo().setConvertedValue(
