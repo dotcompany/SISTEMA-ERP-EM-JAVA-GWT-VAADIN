@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.ui.TextField;
 
+import dc.control.util.NumberUtils;
 import dc.control.util.StringUtils;
 
 public class CurrencyConverter {
@@ -14,6 +15,10 @@ public class CurrencyConverter {
 			.getCurrencyInstance();
 
 	public synchronized static String getCurrency(BigDecimal bg) {
+		if (NumberUtils.isBlank(bg)) {
+			bg = new BigDecimal(0);
+		}
+
 		String value = NUMBER_FORMAT.format(bg);
 
 		return value;
@@ -48,10 +53,15 @@ public class CurrencyConverter {
 
 	public static void main(String[] args) {
 		try {
+			BigDecimal bg = null;
 
-			BigDecimal bg = new BigDecimal(0);
+			if (NumberUtils.isBlank(bg)) {
+				bg = new BigDecimal(0);
+			}
 
-			System.out.println(bg);
+			String value1 = NUMBER_FORMAT.format(bg);
+
+			System.out.println(value1);
 
 			String value = "0.980000";
 			value = value.replaceAll("[^0-9]+", "");
