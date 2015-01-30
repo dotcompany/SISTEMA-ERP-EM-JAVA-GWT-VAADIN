@@ -1,12 +1,12 @@
 package dc.controller.administrativo.empresa;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
 import dc.servicos.dao.administrativo.empresa.QuadroSocietarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -14,38 +14,37 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
-public class QuadroSocietarioListController extends CRUDListController<QuadroSocietarioEntity> {
+public class QuadroSocietarioListController extends
+		CRUDListController<QuadroSocietarioEntity> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	QuadroSocietarioDAO dao;
+	private QuadroSocietarioFormController quadroSocietarioFormController;
 
 	@Autowired
-	QuadroSocietarioFormController formController;
+	private QuadroSocietarioDAO dao;
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "dataRegistro", "capitalSocial", "valorQuota", "quantidadeCotas" };
-	}
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected String getTitulo() {
-		return "Quadro Societário";
-	}
-
-	@Override
-	protected List<QuadroSocietarioEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return "listaQuadroSocietario";
+	public QuadroSocietarioListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<QuadroSocietarioEntity> getFormController() {
-		return formController;
+		return quadroSocietarioFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "dataRegistro", "capitalSocial", "valorQuota",
+				"quantidadeCotas" };
 	}
 
 	@Override
@@ -54,13 +53,47 @@ public class QuadroSocietarioListController extends CRUDListController<QuadroSoc
 	}
 
 	@Override
-	protected List<QuadroSocietarioEntity> pesquisaDefault() {
-		return new ArrayList<>();
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	protected List<QuadroSocietarioEntity> pesquisa(String valor) {
+		try {
+			List<QuadroSocietarioEntity> auxLista = (List<QuadroSocietarioEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<QuadroSocietarioEntity> pesquisaDefault() {
+		try {
+			List<QuadroSocietarioEntity> auxLista = (List<QuadroSocietarioEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
 }

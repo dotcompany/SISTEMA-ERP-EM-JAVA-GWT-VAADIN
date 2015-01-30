@@ -1,6 +1,5 @@
 package dc.controller.administrativo.empresa;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,35 +23,28 @@ public class EmpresaCnaeListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private EmpresaCnaeDAO dao;
+	private EmpresaCnaeFormController empresaCnaeFormController;
 
 	@Autowired
-	private EmpresaCnaeFormController formController;
+	private EmpresaCnaeDAO dao;
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "cnae", "principalStr", "ramoAtividade",
-				"objetoSocial" };
-	}
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected String getTitulo() {
-		return super.getTitulo(this);
-	}
-
-	@Override
-	protected List<EmpresaCnaeEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
+	public EmpresaCnaeListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<EmpresaCnaeEntity> getFormController() {
-		return formController;
+		return empresaCnaeFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "cnae", "principal", "ramoAtividade",
+				"objetoSocial" };
 	}
 
 	@Override
@@ -61,14 +53,47 @@ public class EmpresaCnaeListController extends
 	}
 
 	@Override
-	protected List<EmpresaCnaeEntity> pesquisaDefault() {
-		return new ArrayList<>();
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected List<EmpresaCnaeEntity> pesquisa(String valor) {
+		try {
+			List<EmpresaCnaeEntity> auxLista = (List<EmpresaCnaeEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<EmpresaCnaeEntity> pesquisaDefault() {
+		try {
+			List<EmpresaCnaeEntity> auxLista = (List<EmpresaCnaeEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

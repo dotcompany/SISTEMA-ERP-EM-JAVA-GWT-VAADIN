@@ -1,12 +1,12 @@
 package dc.controller.administrativo.empresa;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.servicos.dao.administrativo.empresa.SocioDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -14,38 +14,35 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
 public class SocioListController extends CRUDListController<SocioEntity> {
 
-	@Autowired
-	SocioDAO dao;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SocioFormController formController;
+	private SocioFormController socioFormController;
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "pessoa" };
-	}
+	@Autowired
+	private SocioDAO dao;
 
-	@Override
-	protected String getTitulo() {
-		return "Sócio";
-	}
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected List<SocioEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return "listaQuadroSocietario";
+	public SocioListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<SocioEntity> getFormController() {
-		return formController;
+		return socioFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "pessoa" };
 	}
 
 	@Override
@@ -54,13 +51,47 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 	}
 
 	@Override
-	protected List<SocioEntity> pesquisaDefault() {
-		return new ArrayList<>();
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	protected List<SocioEntity> pesquisa(String valor) {
+		try {
+			List<SocioEntity> auxLista = (List<SocioEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<SocioEntity> pesquisaDefault() {
+		try {
+			List<SocioEntity> auxLista = (List<SocioEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
 }
