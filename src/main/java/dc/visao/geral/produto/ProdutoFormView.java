@@ -12,7 +12,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.control.converter.ObjectConverter;
+import dc.control.converter.CurrencyConverter;
 import dc.controller.geral.produto.ProdutoFormController;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
@@ -845,7 +845,7 @@ public class ProdutoFormView extends CustomComponent {
 		// tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
 		tfValorCompra = new TextField();
 		tfValorCompra.setCaption("Valor de compra");
-		tfValorCompra.addTextChangeListener(event -> ObjectConverter.vceMask(
+		tfValorCompra.addTextChangeListener(event -> CurrencyConverter.vceMask(
 				event, tfValorCompra));
 		tfValorCompra.setHeight("-1px");
 		tfValorCompra.setWidth("150px");
