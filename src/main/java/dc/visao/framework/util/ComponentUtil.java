@@ -12,6 +12,7 @@ import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
+import dc.control.converter.CurrencyConverter;
 import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.LookupComponent;
 
@@ -51,7 +52,9 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-		textField.setConverter(new BigDecimalConverter("R$ "));
+		// textField.setConverter(new BigDecimalConverter("R$ "));
+		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(
+				event, textField));
 
 		return textField;
 	}

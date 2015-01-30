@@ -1,13 +1,9 @@
 package dc.control.converter;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
-import com.vaadin.ui.TextField;
-
-import dc.control.util.StringUtils;
 
 /**
  * Esta classe tem como objetivo converter objetos para a camada de visão como
@@ -258,48 +254,6 @@ public class ObjectConverter {
 		Object obj = event.getProperty().getValue();
 
 		return obj;
-	}
-
-	public synchronized static void vceMask(TextChangeEvent event, TextField t) {
-		String s = event.getText();
-
-		NumberFormat nf = NumberFormat.getCurrencyInstance();
-
-		if (StringUtils.isBlank(s) || s.trim().equals("BRL")) {
-			s = nf.format(new Double(0));
-			t.setValue(s);
-
-			return;
-		}
-
-		boolean hasMask = ((s.indexOf("R$") > -1 || s.indexOf("BRL") > -1));
-
-		if (hasMask) {
-			s = s.replaceAll("R$", "").replaceAll("BRL", "");
-		}
-
-		s = s.replaceAll("[,]", "").replaceAll("[.]", "");
-
-		s = nf.format(Double.parseDouble(s.trim()) / 100);
-
-		t.setValue(s);
-	}
-
-	public synchronized static String addCurrentMask(String value) {
-		NumberFormat nf = NumberFormat.getCurrencyInstance();
-
-		value = nf.format(Double.parseDouble(value) / 100);
-
-		return value;
-	}
-
-	public synchronized static String removeCurrentMask(String value) {
-		value = value.replaceAll("R$", "").replaceAll("BRL", "")
-				.replaceAll("[,]", "").replaceAll("[.]", "").trim();
-
-		value = String.valueOf(Double.parseDouble(value.trim()) / 100);
-
-		return value;
 	}
 
 }

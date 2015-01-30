@@ -2,6 +2,7 @@ package dc.control.converter;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Currency;
 
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.ui.TextField;
@@ -51,6 +52,12 @@ public class CurrencyConverter {
 		t.setValue(value);
 	}
 
+	/**
+	 * 
+	 */
+
+	static Currency currency = Currency.getInstance("BRL");
+
 	public static void main(String[] args) {
 		try {
 			BigDecimal bg = null;
@@ -60,6 +67,8 @@ public class CurrencyConverter {
 			}
 
 			String value1 = NUMBER_FORMAT.format(bg);
+
+			System.out.println(currency.getSymbol());
 
 			System.out.println(value1);
 

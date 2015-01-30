@@ -842,56 +842,83 @@ public class ProdutoFormView extends CustomComponent {
 		glInformacaoValor.setMargin(true);
 		glInformacaoValor.setSpacing(true);
 
-		// tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
-		tfValorCompra = new TextField();
-		tfValorCompra.setCaption("Valor de compra");
-		tfValorCompra.addTextChangeListener(event -> CurrencyConverter.vceMask(
-				event, tfValorCompra));
+		tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
+		// tfValorCompra.setCaption("Valor de compra");
+		// tfValorCompra.addTextChangeListener(event ->
+		// CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfValorCompra.setHeight("-1px");
 		tfValorCompra.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorCompra, 0, 0);
 
 		tfValorVenda = ComponentUtil.buildCurrencyField("Valor de venda");
+		// .setCaption("Valor de venda");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfValorVenda.setHeight("-1px");
 		tfValorVenda.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorVenda, 1, 0);
 
 		tfValorVendaMinimo = ComponentUtil
 				.buildCurrencyField("Valor de venda mínimo");
+		// .setCaption("Valor de venda mínimo");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfValorVendaMinimo.setHeight("-1px");
 		tfValorVendaMinimo.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorVendaMinimo, 2, 0);
 
 		tfValorSugerido = ComponentUtil.buildCurrencyField("Valor sugerido");
+		// .setCaption("Valor sugerido");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfValorSugerido.setHeight("-1px");
 		tfValorSugerido.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorSugerido, 3, 0);
 
 		tfCustoMedioLiquido = ComponentUtil
 				.buildCurrencyField("Custo médio líquido");
+		// .setCaption("Custo médio líquido");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfCustoMedioLiquido.setHeight("-1px");
 		tfCustoMedioLiquido.setWidth("150px");
 		glInformacaoValor.addComponent(tfCustoMedioLiquido, 4, 0);
 
 		tfPrecoLucroZero = ComponentUtil
 				.buildCurrencyField("Preço de lucro zero");
+		// .setCaption("Preço de lucro zero");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfPrecoLucroZero.setHeight("-1px");
 		tfPrecoLucroZero.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroZero, 0, 1);
 
 		tfPrecoLucroMinimo = ComponentUtil
 				.buildCurrencyField("Preço de lucro mínimo");
+		// .setCaption("Preço de lucro mínimo");
+		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfPrecoLucroMinimo.setHeight("-1px");
 		tfPrecoLucroMinimo.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroMinimo, 1, 1);
 
 		tfPrecoLucroMaximo = ComponentUtil
 				.buildCurrencyField("Preço de lucro máximo");
+		// tfPrecoLucroMaximo=new TextField();
+		// tfPrecoLucroMaximo.setCaption("Preço de lucro máximo");
+		// tfPrecoLucroMaximo.addTextChangeListener(event ->
+		// CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfPrecoLucroMaximo.setHeight("-1px");
 		tfPrecoLucroMaximo.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroMaximo, 2, 1);
 
-		tfMarkup = ComponentUtil.buildCurrencyField("Markup");
+		// tfMarkup = ComponentUtil.buildCurrencyField("Markup");
+		tfMarkup = new TextField();
+		tfMarkup.setCaption("Markup");
+		tfMarkup.addTextChangeListener(event -> CurrencyConverter.vceMask(
+				event, tfValorCompra));
 		tfMarkup.setHeight("-1px");
 		tfMarkup.setWidth("150px");
 		glInformacaoValor.addComponent(tfMarkup, 3, 1);
