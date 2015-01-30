@@ -14,7 +14,8 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class MapaComparativoListController extends CRUDListController<CotacaoEntity> {
+public class MapaComparativoListController extends
+		CRUDListController<CotacaoEntity> {
 
 	/**
 	 * 
@@ -22,34 +23,27 @@ public class MapaComparativoListController extends CRUDListController<CotacaoEnt
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CotacaoDAO dao;
+	private MapaComparativoFormController mapaComparativoFormController;
 
 	@Autowired
-	private MapaComparativoFormController formController;
+	private CotacaoDAO dao;
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "dataCotacao", "descricao", "situacao" };
-	}
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected String getTitulo() {
-		return "Mapa Comparativo";
-	}
-
-	@Override
-	protected List<CotacaoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
+	public MapaComparativoListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<CotacaoEntity> getFormController() {
-		return formController;
+		return mapaComparativoFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "dataCotacao", "descricao", "situacao" };
 	}
 
 	@Override
@@ -58,13 +52,47 @@ public class MapaComparativoListController extends CRUDListController<CotacaoEnt
 	}
 
 	@Override
-	protected List<CotacaoEntity> pesquisaDefault() {
-		return dao.getAll(CotacaoEntity.class);
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected List<CotacaoEntity> pesquisa(String valor) {
+		try {
+			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<CotacaoEntity> pesquisaDefault() {
+		try {
+			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

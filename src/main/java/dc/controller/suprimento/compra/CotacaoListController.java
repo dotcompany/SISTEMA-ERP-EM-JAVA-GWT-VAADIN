@@ -22,34 +22,27 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CotacaoDAO dao;
+	private CotacaoFormController cotacaoFormController;
 
 	@Autowired
-	private CotacaoFormController formController;
+	private CotacaoDAO dao;
 
-	@Override
-	public String[] getColunas() {
-		return new String[] { "id", "dataCotacao", "descricao", "situacao" };
-	}
+	/**
+	 * CONSTRUTOR
+	 */
 
-	@Override
-	protected String getTitulo() {
-		return "cotação de Compra";
-	}
-
-	@Override
-	protected List<CotacaoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
+	public CotacaoListController() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected CRUDFormController<CotacaoEntity> getFormController() {
-		return formController;
+		return cotacaoFormController;
+	}
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "id", "dataCotacao", "descricao", "situacao" };
 	}
 
 	@Override
@@ -58,13 +51,47 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 	}
 
 	@Override
-	protected List<CotacaoEntity> pesquisaDefault() {
-		return dao.getAll(CotacaoEntity.class);
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected List<CotacaoEntity> pesquisa(String valor) {
+		try {
+			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<CotacaoEntity> pesquisaDefault() {
+		try {
+			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

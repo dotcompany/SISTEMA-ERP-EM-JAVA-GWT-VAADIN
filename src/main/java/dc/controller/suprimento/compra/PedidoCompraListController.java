@@ -23,15 +23,23 @@ public class PedidoCompraListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private PedidoCompraDAO dao;
+	private PedidoCompraFormController pedidoCompraFormController;
 
 	@Autowired
-	private PedidoCompraFormController formController;
+	private PedidoCompraDAO dao;
 
-	/*
-	 * @Override protected void initReports() { addReport(new
-	 * ReportController()); }
+	/**
+	 * CONSTRUTOR
 	 */
+
+	public PedidoCompraListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<PedidoEntity> getFormController() {
+		return pedidoCompraFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -40,38 +48,52 @@ public class PedidoCompraListController extends
 	}
 
 	@Override
-	protected String getTitulo() {
-		return "Pedido de Compra";
-	}
-
-	@Override
-	protected List<PedidoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	protected CRUDFormController<PedidoEntity> getFormController() {
-		return formController;
-	}
-
-	@Override
 	public Class<? super PedidoEntity> getEntityClass() {
 		return PedidoEntity.class;
 	}
 
 	@Override
-	protected List<PedidoEntity> pesquisaDefault() {
-		return dao.getAll(PedidoEntity.class);
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected List<PedidoEntity> pesquisa(String valor) {
+		try {
+			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<PedidoEntity> pesquisaDefault() {
+		try {
+			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

@@ -26,7 +26,20 @@ public class RequisicaoCompraListController extends
 	private RequisicaoDAO dao;
 
 	@Autowired
-	private RequisicaoCompraFormController formController;
+	private RequisicaoCompraFormController requisicaoCompraFormController;
+
+	/**
+	 * CONSTRUTOR
+	 */
+
+	public RequisicaoCompraListController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected CRUDFormController<RequisicaoEntity> getFormController() {
+		return requisicaoCompraFormController;
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -35,38 +48,52 @@ public class RequisicaoCompraListController extends
 	}
 
 	@Override
-	protected String getTitulo() {
-		return "Requisição de Compra";
-	}
-
-	@Override
-	protected List<RequisicaoEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	protected CRUDFormController<RequisicaoEntity> getFormController() {
-		return formController;
-	}
-
-	@Override
 	public Class<? super RequisicaoEntity> getEntityClass() {
 		return RequisicaoEntity.class;
 	}
 
 	@Override
-	protected List<RequisicaoEntity> pesquisaDefault() {
-		return dao.getAll(RequisicaoEntity.class);
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+
+	@Override
+	protected List<RequisicaoEntity> pesquisa(String valor) {
+		try {
+			List<RequisicaoEntity> auxLista = (List<RequisicaoEntity>) this.dao
+					.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<RequisicaoEntity> pesquisaDefault() {
+		try {
+			List<RequisicaoEntity> auxLista = (List<RequisicaoEntity>) this.dao
+					.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
