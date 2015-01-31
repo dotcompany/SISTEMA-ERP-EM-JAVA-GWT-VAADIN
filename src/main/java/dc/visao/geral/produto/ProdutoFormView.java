@@ -12,7 +12,6 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.control.converter.CurrencyConverter;
 import dc.controller.geral.produto.ProdutoFormController;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.geral.produto.GrupoEntity;
@@ -842,6 +841,7 @@ public class ProdutoFormView extends CustomComponent {
 		glInformacaoValor.setMargin(true);
 		glInformacaoValor.setSpacing(true);
 
+		// tfValorCompra
 		tfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
 		// tfValorCompra.setCaption("Valor de compra");
 		// tfValorCompra.addTextChangeListener(event ->
@@ -851,6 +851,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfValorCompra.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorCompra, 0, 0);
 
+		// tfValorVenda
 		tfValorVenda = ComponentUtil.buildCurrencyField("Valor de venda");
 		// .setCaption("Valor de venda");
 		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
@@ -859,6 +860,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfValorVenda.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorVenda, 1, 0);
 
+		// tfValorVendaMinimo
 		tfValorVendaMinimo = ComponentUtil
 				.buildCurrencyField("Valor de venda mínimo");
 		// .setCaption("Valor de venda mínimo");
@@ -868,6 +870,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfValorVendaMinimo.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorVendaMinimo, 2, 0);
 
+		// tfValorSugerido
 		tfValorSugerido = ComponentUtil.buildCurrencyField("Valor sugerido");
 		// .setCaption("Valor sugerido");
 		// .addTextChangeListener(event -> CurrencyConverter.vceMask(
@@ -876,6 +879,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfValorSugerido.setWidth("150px");
 		glInformacaoValor.addComponent(tfValorSugerido, 3, 0);
 
+		// tfCustoMedioLiquido
 		tfCustoMedioLiquido = ComponentUtil
 				.buildCurrencyField("Custo médio líquido");
 		// .setCaption("Custo médio líquido");
@@ -885,6 +889,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfCustoMedioLiquido.setWidth("150px");
 		glInformacaoValor.addComponent(tfCustoMedioLiquido, 4, 0);
 
+		// tfPrecoLucroZero
 		tfPrecoLucroZero = ComponentUtil
 				.buildCurrencyField("Preço de lucro zero");
 		// .setCaption("Preço de lucro zero");
@@ -894,6 +899,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfPrecoLucroZero.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroZero, 0, 1);
 
+		// tfPrecoLucroMinimo
 		tfPrecoLucroMinimo = ComponentUtil
 				.buildCurrencyField("Preço de lucro mínimo");
 		// .setCaption("Preço de lucro mínimo");
@@ -903,6 +909,7 @@ public class ProdutoFormView extends CustomComponent {
 		tfPrecoLucroMinimo.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroMinimo, 1, 1);
 
+		// tfPrecoLucroMaximo
 		tfPrecoLucroMaximo = ComponentUtil
 				.buildCurrencyField("Preço de lucro máximo");
 		// tfPrecoLucroMaximo=new TextField();
@@ -914,21 +921,24 @@ public class ProdutoFormView extends CustomComponent {
 		tfPrecoLucroMaximo.setWidth("150px");
 		glInformacaoValor.addComponent(tfPrecoLucroMaximo, 2, 1);
 
-		// tfMarkup = ComponentUtil.buildCurrencyField("Markup");
-		tfMarkup = new TextField();
-		tfMarkup.setCaption("Markup");
-		tfMarkup.addTextChangeListener(event -> CurrencyConverter.vceMask(
-				event, tfValorCompra));
+		// tfMarkup
+		tfMarkup = ComponentUtil.buildCurrencyField("Markup");
+		// tfMarkup = new TextField();
+		// tfMarkup.setCaption("Markup");
+		// tfMarkup.addTextChangeListener(event -> CurrencyConverter.vceMask(
+		// event, tfValorCompra));
 		tfMarkup.setHeight("-1px");
 		tfMarkup.setWidth("150px");
 		glInformacaoValor.addComponent(tfMarkup, 3, 1);
 
+		// tfQuantidadeEstoque
 		tfQuantidadeEstoque = ComponentUtil
 				.buildNumberField("Quantidade de estoque");
 		tfQuantidadeEstoque.setHeight("-1px");
 		tfQuantidadeEstoque.setWidth("150px");
 		glInformacaoValor.addComponent(tfQuantidadeEstoque, 4, 1);
 
+		// tfQuantidadeEstoqueAnterior
 		tfQuantidadeEstoqueAnterior = ComponentUtil
 				.buildNumberField("Qtde de estoque anterior");
 		tfQuantidadeEstoqueAnterior.setHeight("-1px");
@@ -936,18 +946,21 @@ public class ProdutoFormView extends CustomComponent {
 		tfQuantidadeEstoqueAnterior.setWidth("150px");
 		glInformacaoValor.addComponent(tfQuantidadeEstoqueAnterior, 0, 2);
 
+		// tfEstoqueIdeal
 		tfEstoqueIdeal = ComponentUtil.buildNumberField("Estoque ideal");
 		tfEstoqueIdeal.setHeight("-1px");
 		tfEstoqueIdeal.setHeight("-1px");
 		tfEstoqueIdeal.setWidth("150px");
 		glInformacaoValor.addComponent(tfEstoqueIdeal, 1, 2);
 
+		// tfEstoqueMinimo
 		tfEstoqueMinimo = ComponentUtil.buildNumberField("Estoque mínimo");
 		tfEstoqueMinimo.setHeight("-1px");
 		tfEstoqueMinimo.setHeight("-1px");
 		tfEstoqueMinimo.setWidth("150px");
 		glInformacaoValor.addComponent(tfEstoqueMinimo, 2, 2);
 
+		// tfEstoqueMaximo
 		tfEstoqueMaximo = ComponentUtil.buildNumberField("Estoque máximo");
 		tfEstoqueMaximo.setHeight("-1px");
 		tfEstoqueMaximo.setHeight("-1px");
