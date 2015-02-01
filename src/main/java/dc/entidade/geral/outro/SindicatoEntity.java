@@ -39,8 +39,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -169,6 +168,13 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String ufSigla = "";
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -177,11 +183,6 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * REFERENCIA - LIST
 	 */
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_contabil_conta", nullable = true)
-	@Caption("Conta contábil")
-	private ContabilContaEntity contabilConta;
 
 	/**
 	 * TRANSIENT
@@ -351,12 +352,13 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer>
 				.trim());
 	}
 
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
 	}
 
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	/**

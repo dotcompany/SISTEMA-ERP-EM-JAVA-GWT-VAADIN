@@ -73,6 +73,13 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	@Field
 	@Caption("Tipo")
@@ -88,10 +95,6 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
 	private AgenciaBancoEntity agenciaBanco;
-
-	@ManyToOne
-	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
-	private ContabilContaEntity contabilConta;
 
 	/**
 	 * REFERENCIA - LIST
@@ -158,6 +161,15 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 		this.descricao = (descricao == null ? "".trim() : descricao
 				.toUpperCase().trim());
 	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
+	}
 
 	public String getTipo() {
 		return tipo;
@@ -173,14 +185,6 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setAgenciaBanco(AgenciaBancoEntity agenciaBanco) {
 		this.agenciaBanco = agenciaBanco;
-	}
-
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
-	}
-
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
 	}
 
 	/**

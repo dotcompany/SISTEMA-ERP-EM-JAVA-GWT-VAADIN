@@ -33,8 +33,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -105,6 +104,13 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone2;
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -115,12 +121,6 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
 	private ContaCaixa contaCaixa;
-
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	@Caption("Conta contábil")
-	@ManyToOne
-	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
-	private ContabilContaEntity contabilConta;
 
 	/**
 	 * REFERENCIA - LIST
@@ -227,13 +227,14 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setContaCaixa(ContaCaixa contaCaixa) {
 		this.contaCaixa = contaCaixa;
 	}
-
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
 	}
 
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	/**

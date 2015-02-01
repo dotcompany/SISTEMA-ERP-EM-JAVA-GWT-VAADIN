@@ -43,9 +43,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 	private ContaCaixaDAO contaCaixaDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilDAO;
-
-	@Autowired
 	private AgenciaBancoDAO agenciaDAO;
 
 	private ContaCaixa currentBean;
@@ -116,16 +113,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 		subView.getCmbAgenciaBanco().setModel(model);
 
-		DefaultManyToOneComboModel<ContabilContaEntity> contaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(ContabilContaListController.class,
-				this.contabilDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		subView.getCmbContabilConta().setModel(contaModel);
-
 	}
 
 	@Override
@@ -138,7 +125,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.subView.getTxtCodigo().setValue(this.currentBean.getCodigo());
 			this.subView.getTxtDigito().setValue(this.currentBean.getDigito());
 
-			this.subView.getCmbContabilConta().setValue(this.currentBean.getContabilConta());
 			this.subView.getCmbAgenciaBanco().setValue(this.currentBean.getAgenciaBanco());
 
 			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
@@ -156,7 +142,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.currentBean.setDigito(this.subView.getTxtDigito().getValue());
 
 			this.currentBean.setAgenciaBanco((AgenciaBancoEntity) this.subView.getCmbAgenciaBanco().getValue());
-			this.currentBean.setContabilConta((ContabilContaEntity) this.subView.getCmbContabilConta().getValue());
 
 			for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {
 				if (en.toString().equals(this.subView.getCmbTipo().getValue().toString())) {

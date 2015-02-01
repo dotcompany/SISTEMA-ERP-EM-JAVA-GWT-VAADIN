@@ -100,9 +100,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private PessoaDAO pessoaDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilContaDAO;
-
-	@Autowired
 	protected SessionFactory sessionFactory;
 
 	@Autowired
@@ -152,15 +149,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 				.getValue();
 		if (!Validator.validateObject(tipoContrato)) {
 			adicionarErroDeValidacao(subView.getCbmTipoContrato(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		ContabilContaEntity contabilConta = (ContabilContaEntity) subView
-				.getCbmContabilConta().getValue();
-
-		if (!Validator.validateObject(contabilConta)) {
-			adicionarErroDeValidacao(subView.getCbmContabilConta(),
 					"Não pode ficar em branco");
 			valido = false;
 		}
@@ -332,17 +320,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 		};
 
-		DefaultManyToOneComboModel<ContabilContaEntity> contabilContaModel = new DefaultManyToOneComboModel<ContabilContaEntity>(
-				ContabilContaListController.class, this.contabilContaDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-
-		};
-
 		DefaultManyToOneComboModel<TipoContratoEntity> tipoContratoModel = new DefaultManyToOneComboModel<TipoContratoEntity>(
 				TipoContratoListController.class, this.tipoContratoDAO,
 				super.getMainController());
@@ -377,7 +354,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		};
 
 		subView.getCbmPessoa().setModel(pessoaModel);
-		subView.getCbmContabilConta().setModel(contabilContaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
 

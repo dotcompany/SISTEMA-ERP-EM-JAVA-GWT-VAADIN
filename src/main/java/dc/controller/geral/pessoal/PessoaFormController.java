@@ -914,8 +914,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 		ent.setObservacao(this.subView.getTaTransportadoraObservacao()
 				.getValue());
-		ent.setContaContabil(this.subView.getMocTransportadoraContabilConta()
-				.getValue());
 
 		this.entity.setTransportadora(ent);
 	}
@@ -1396,12 +1394,6 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		this.subView.getTaTransportadoraObservacao().setValue(
 				ent.getObservacao());
 
-		ContabilContaEntity contaContabil = ent.getContaContabil();
-
-		if (ObjectUtils.isNotBlank(contaContabil)) {
-			this.subView.getMocTransportadoraContabilConta().setValue(
-					contaContabil);
-		}
 	}
 
 	@Override

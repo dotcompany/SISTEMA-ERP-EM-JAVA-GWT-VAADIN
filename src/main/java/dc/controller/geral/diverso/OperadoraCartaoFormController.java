@@ -27,8 +27,7 @@ import dc.visao.geral.diverso.OperadoraCartaoFormView;
 
 @Controller
 @Scope("prototype")
-public class OperadoraCartaoFormController extends
-		CRUDFormController<OperadoraCartaoEntity> {
+public class OperadoraCartaoFormController extends CRUDFormController<OperadoraCartaoEntity> {
 
 	/**
 	 * 
@@ -56,9 +55,6 @@ public class OperadoraCartaoFormController extends
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
-
-	@Autowired
-	private ContabilContaDAO contabilContaDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -116,18 +112,6 @@ public class OperadoraCartaoFormController extends
 
 			this.subView.getMocContaCaixa().setModel(model);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> model1 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocContabilConta().setModel(model1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,15 +142,6 @@ public class OperadoraCartaoFormController extends
 				this.entity.setContaCaixa(null);
 			}
 
-			ContabilContaEntity contabilConta = this.subView
-					.getMocContabilConta().getValue();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.entity.setContabilConta(contabilConta);
-			} else {
-				this.entity.setContaCaixa(null);
-			}
-
 			this.entity.setBandeira(this.subView.getTfBandeira().getValue());
 			this.entity.setNome(this.subView.getTfNome().getValue());
 			this.entity.setFone1(this.subView.getTfTelefone1().getValue());
@@ -189,8 +164,6 @@ public class OperadoraCartaoFormController extends
 
 			this.subView.getMocContaCaixa().setValue(
 					this.entity.getContaCaixa());
-			this.subView.getMocContabilConta().setValue(
-					this.entity.getContabilConta());
 
 			this.subView.getTfBandeira().setValue(this.entity.getBandeira());
 			this.subView.getTfNome().setConvertedValue(this.entity.getNome());

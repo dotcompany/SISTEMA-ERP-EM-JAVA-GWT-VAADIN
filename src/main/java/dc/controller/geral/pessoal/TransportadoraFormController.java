@@ -24,8 +24,7 @@ import dc.visao.geral.pessoal.TransportadoraFormView;
 
 @Controller
 @Scope("prototype")
-public class TransportadoraFormController extends
-		CRUDFormController<TransportadoraEntity> {
+public class TransportadoraFormController extends CRUDFormController<TransportadoraEntity> {
 
 	/**
 	 * 
@@ -53,9 +52,6 @@ public class TransportadoraFormController extends
 
 	@Autowired
 	private PessoaDAO pessoaDAO;
-
-	@Autowired
-	private ContabilContaDAO contabilContaDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -109,18 +105,6 @@ public class TransportadoraFormController extends
 
 			this.subView.getMocPessoa().setModel(model1);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> model2 = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocContabilConta().setModel(model2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,13 +119,6 @@ public class TransportadoraFormController extends
 		// "Não pode ficar em branco");
 		// valido = false;
 		// }
-
-		if (!Validator.validateObject(subView.getMocContabilConta().getValue())) {
-			adicionarErroDeValidacao(subView.getMocContabilConta(),
-					"Não pode ficar em branco");
-
-			valido = false;
-		}
 
 		if (!Validator.validateString(subView.getTaObservacao().getValue())) {
 			adicionarErroDeValidacao(subView.getTaObservacao(),
@@ -158,8 +135,6 @@ public class TransportadoraFormController extends
 		try {
 			// entity.setPessoa((PessoaEntity)
 			// subView.getCmbPessoa().getValue());
-			this.entity.setContaContabil((ContabilContaEntity) this.subView
-					.getMocContabilConta().getValue());
 			this.entity
 					.setObservacao(this.subView.getTaObservacao().getValue());
 
@@ -180,8 +155,6 @@ public class TransportadoraFormController extends
 
 			this.subView.getTaObservacao()
 					.setValue(this.entity.getObservacao());
-			this.subView.getMocContabilConta().setValue(
-					this.entity.getContaContabil());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

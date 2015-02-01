@@ -35,8 +35,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
-		implements Serializable {
+public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -60,6 +59,13 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao = "";
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
@@ -69,11 +75,6 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
-
-	@Caption("Conta contábil")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	private ContabilContaEntity contaContabil;
 
 	/**
 	 * REFERENCIA - LIST
@@ -116,6 +117,15 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 		this.observacao = (observacao == null ? "".trim() : observacao
 				.toUpperCase().trim());
 	}
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
+	}
+
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
+	}
 
 	public PessoaEntity getPessoa() {
 		return pessoa;
@@ -123,14 +133,6 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
-	}
-
-	public ContabilContaEntity getContaContabil() {
-		return contaContabil;
-	}
-
-	public void setContaContabil(ContabilContaEntity contaContabil) {
-		this.contaContabil = contaContabil;
 	}
 
 	/**

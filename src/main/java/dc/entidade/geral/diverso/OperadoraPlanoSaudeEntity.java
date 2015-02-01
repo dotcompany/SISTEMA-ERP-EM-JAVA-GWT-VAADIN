@@ -65,15 +65,17 @@ public class OperadoraPlanoSaudeEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String registroAns = "";
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/**
 	 * REFERENCIA - FK
 	 */
-
-	@Caption(value = "Conta contábil")
-	@ManyToOne
-	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = false)
-	private ContabilContaEntity contabilConta;
 
 	/**
 	 * REFERENCIA - LIST
@@ -146,13 +148,14 @@ public class OperadoraPlanoSaudeEntity extends
 		this.registroAns = (registroAns == null ? "".trim() : registroAns
 				.toUpperCase().trim());
 	}
-
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
+	
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
 	}
 
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	public List<PlanoSaudeEntity> getPlanoSaudeList() {

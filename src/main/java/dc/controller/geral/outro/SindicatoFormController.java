@@ -29,8 +29,7 @@ import dc.visao.geral.outro.SindicatoFormView;
 
 @Controller
 @Scope("prototype")
-public class SindicatoFormController extends
-		CRUDFormController<SindicatoEntity> {
+public class SindicatoFormController extends CRUDFormController<SindicatoEntity> {
 
 	/**
 	 * 
@@ -58,9 +57,6 @@ public class SindicatoFormController extends
 	/**
 	 * DAO
 	 */
-
-	@Autowired
-	private ContabilContaDAO contabilContaDAO;
 
 	@Autowired
 	private UfDAO ufDAO;
@@ -108,19 +104,6 @@ public class SindicatoFormController extends
 		try {
 			this.subView = new SindicatoFormView(this);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> modelcontabilConta = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocContabilConta().setModel(modelcontabilConta);
-
 			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
 					UfListController.class, this.ufDAO,
 					super.getMainController());
@@ -162,11 +145,6 @@ public class SindicatoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			ContabilContaEntity contabilConta = this.subView
-					.getMocContabilConta().getValue();
-
-			this.entity.setContabilConta(contabilConta);
-
 			this.entity.setNome(this.subView.getTfNome().getValue());
 			this.entity
 					.setLogradouro(this.subView.getTfLogradouro().getValue());
@@ -265,12 +243,6 @@ public class SindicatoFormController extends
 			if (NumberUtils.isNotBlank(this.entity.getPisoSalarial())) {
 				this.subView.getTfPisoSalarial().setValue(
 						this.entity.getPisoSalarial().toString());
-			}
-
-			ContabilContaEntity contabilConta = this.entity.getContabilConta();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.subView.getMocContabilConta().setValue(contabilConta);
 			}
 
 			TipoSindicatoEn tipoSindicatoEn = this.entity.getTipoSindicato();

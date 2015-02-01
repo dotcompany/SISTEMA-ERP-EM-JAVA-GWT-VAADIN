@@ -74,6 +74,14 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer codigoEstadual = new Integer(0);
+	
+	@Field
+	@Caption("UF sigla")
+	@Column(name = "uf_sigla", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String ufSigla = "";
+	
 
 	/**
 	 * REFERENCIA - FK
@@ -158,6 +166,15 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setUf(UfEntity uf) {
 		this.uf = uf;
+	}
+	
+	public String getUfSigla() {
+		return ufSigla;
+	}
+
+	public void setUfSigla(String ufSigla) {
+		this.ufSigla = (ufSigla == null ? "".trim() : ufSigla.toUpperCase()
+				.trim());
 	}
 
 	/**

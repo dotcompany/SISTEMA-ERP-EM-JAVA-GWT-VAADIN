@@ -34,6 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.PessoaEntity;
 
 @Entity
@@ -94,6 +95,13 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Dia Faturamento")
 	@Column(name = "DIA_FATURAMENTO", columnDefinition = "bpchar")
 	private Integer diaFaturamento;
+	
+	@Field
+	@Caption(value = "Classificação da conta contábil")
+	@Column(name = "CLASSIFICACAO_CONTABIL_CONTA")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String classificacaoContabilConta = "";
 
 	/*
 	 * @Field
@@ -128,10 +136,6 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private TipoContratoEntity tipoContrato;
-
-	@JoinColumn(name = "ID_CONTABIL_CONTA", referencedColumnName = "ID")
-	@ManyToOne
-	private ContabilContaEntity contabilConta;
 
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -286,12 +290,13 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.tipoContrato = tipoContrato;
 	}
 
-	public ContabilContaEntity getContabilConta() {
-		return contabilConta;
+	public String getClassificacaoContabilConta() {
+		return classificacaoContabilConta;
 	}
 
-	public void setContabilConta(ContabilContaEntity contabilConta) {
-		this.contabilConta = contabilConta;
+	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
+		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
+				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
 	public TemplateEntity getTemplate() {

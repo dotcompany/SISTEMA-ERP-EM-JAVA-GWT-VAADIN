@@ -51,9 +51,6 @@ public class OperadoraPlanoSaudeFormController extends
 	 * DAO
 	 */
 
-	@Autowired
-	private ContabilContaDAO contabilContaDAO;
-
 	/**
 	 * CONSTRUTOR
 	 */
@@ -68,7 +65,7 @@ public class OperadoraPlanoSaudeFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Operadora de plano de saúde";
+		return "Operadora de Plano de Saúde";
 	}
 
 	@Override
@@ -97,18 +94,6 @@ public class OperadoraPlanoSaudeFormController extends
 		try {
 			this.subView = new OperadoraPlanoSaudeFormView(this);
 
-			DefaultManyToOneComboModel<ContabilContaEntity> model = new DefaultManyToOneComboModel<ContabilContaEntity>(
-					ContabilContaListController.class, this.contabilContaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocContabilConta().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,15 +119,6 @@ public class OperadoraPlanoSaudeFormController extends
 			this.entity.setRegistroAns(this.subView.getTfRegistroAns()
 					.getValue());
 
-			ContabilContaEntity contabilConta = this.subView
-					.getMocContabilConta().getValue();
-
-			if (ObjectUtils.isNotBlank(contabilConta)) {
-				this.entity.setContabilConta(contabilConta);
-			} else {
-				this.entity.setContabilConta(null);
-			}
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -162,8 +138,6 @@ public class OperadoraPlanoSaudeFormController extends
 			this.subView.getTfRegistroAns().setValue(
 					this.entity.getRegistroAns());
 
-			this.subView.getMocContabilConta().setValue(
-					this.entity.getContabilConta());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
