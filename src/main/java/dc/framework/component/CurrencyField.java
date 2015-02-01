@@ -52,6 +52,7 @@ public class CurrencyField extends TextField {
 	}
 
 	public String getNoCurrencyValue() {
+		// TODO Auto-generated method stub
 		// System.out.println(":: getNoCurrencyValue()");
 
 		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
@@ -65,6 +66,7 @@ public class CurrencyField extends TextField {
 	}
 
 	public BigDecimal getBigDecimalValue() {
+		// TODO Auto-generated method stub
 		// System.out.println(":: getNoCurrencyValue()");
 
 		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
