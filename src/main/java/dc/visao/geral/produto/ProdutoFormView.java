@@ -912,6 +912,7 @@ public class ProdutoFormView extends CustomComponent {
 		// tfQuantidadeEstoque
 		tfQuantidadeEstoque = ComponentUtil
 				.buildNumberField("Quantidade de estoque");
+		// tfQuantidadeEstoque = new NumberField("Quantidade de estoque");
 		tfQuantidadeEstoque.setHeight("-1px");
 		tfQuantidadeEstoque.setWidth("150px");
 		glInformacaoValor.addComponent(tfQuantidadeEstoque, 4, 1);

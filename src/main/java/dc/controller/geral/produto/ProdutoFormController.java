@@ -299,7 +299,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 			this.entity.setQuantidadeEstoque(NumberUtils
 					.createBigDecimal(this.subView.getTfQuantidadeEstoque()
-							.getConvertedValue()));
+							.getValue()));
 			this.entity.setQuantidadeEstoqueAnterior(NumberUtils
 					.createBigDecimal(this.subView
 							.getTfQuantidadeEstoqueAnterior()
