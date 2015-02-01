@@ -256,31 +256,24 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setDescricaoPdv(this.subView.getTfDescricaoPdv()
 					.getValue());
 
-			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView
-					.getCfValorVenda().getNoCurrencyValue()));
-			this.entity.setValorCompra(NumberUtils
-					.createBigDecimal(this.subView.getCfValorCompra()
-							.getNoCurrencyValue()));
-			this.entity.setPrecoVendaMinimo(NumberUtils
-					.createBigDecimal(this.subView.getCfValorVendaMinimo()
-							.getNoCurrencyValue()));
-			this.entity.setPrecoSugerido(NumberUtils
-					.createBigDecimal(this.subView.getCfValorSugerido()
-							.getNoCurrencyValue()));
-			this.entity.setCustoMedioLiquido(NumberUtils
-					.createBigDecimal(this.subView.getCfCustoMedioLiquido()
-							.getNoCurrencyValue()));
-			this.entity.setPrecoLucroZero(NumberUtils
-					.createBigDecimal(this.subView.getCfPrecoLucroZero()
-							.getNoCurrencyValue()));
-			this.entity.setPrecoLucroMinimo(NumberUtils
-					.createBigDecimal(this.subView.getCfPrecoLucroMinimo()
-							.getNoCurrencyValue()));
-			this.entity.setPrecoLucroMaximo(NumberUtils
-					.createBigDecimal(this.subView.getCfPrecoLucroMaximo()
-							.getNoCurrencyValue()));
-			this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView
-					.getCfMarkup().getNoCurrencyValue()));
+			this.entity.setValorVenda(this.subView.getCfValorVenda()
+					.getBigDecimalValue());
+			this.entity.setValorCompra(this.subView.getCfValorCompra()
+					.getBigDecimalValue());
+			this.entity.setPrecoVendaMinimo(this.subView
+					.getCfValorVendaMinimo().getBigDecimalValue());
+			this.entity.setPrecoSugerido(this.subView.getCfValorSugerido()
+					.getBigDecimalValue());
+			this.entity.setCustoMedioLiquido(this.subView
+					.getCfCustoMedioLiquido().getBigDecimalValue());
+			this.entity.setPrecoLucroZero(this.subView.getCfPrecoLucroZero()
+					.getBigDecimalValue());
+			this.entity.setPrecoLucroMinimo(this.subView
+					.getCfPrecoLucroMinimo().getBigDecimalValue());
+			this.entity.setPrecoLucroMaximo(this.subView
+					.getCfPrecoLucroMaximo().getBigDecimalValue());
+			this.entity.setMarkup(this.subView.getCfMarkup()
+					.getBigDecimalValue());
 
 			this.entity.setCodigoLst(this.subView.getTfLst().getValue());
 			this.entity.setExTipi(this.subView.getTfExtipi().getValue());

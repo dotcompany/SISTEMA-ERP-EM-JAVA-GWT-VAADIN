@@ -34,18 +34,18 @@ public class CurrencyField extends TextField {
 			@Override
 			public void textChange(TextChangeEvent event) {
 				// TODO Auto-generated method stub
-				String value = event.getText();
+				String newValue = event.getText();
 
-				value = value.replaceAll("[^0-9]+", "");
+				newValue = newValue.replaceAll("[^0-9]+", "");
 
-				if (StringUtils.isBlank(value)) {
-					value = NUMBER_FORMAT.format(new Double(0));
+				if (StringUtils.isBlank(newValue)) {
+					newValue = NUMBER_FORMAT.format(new Double(0));
 				} else {
-					value = NUMBER_FORMAT.format(Double.parseDouble(value
+					newValue = NUMBER_FORMAT.format(Double.parseDouble(newValue
 							.trim()) / 100);
 				}
 
-				setValue(value);
+				setValue(newValue);
 			}
 
 		});
@@ -54,16 +54,27 @@ public class CurrencyField extends TextField {
 	public String getNoCurrencyValue() {
 		// System.out.println(":: getNoCurrencyValue()");
 
-		String value = this.getValue().replaceAll("[^\\,0-9]+", "")
+		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
 				.replaceAll(",", ".");
 
-		if (StringUtils.isBlank(value)) {
-			value = "0";
+		if (StringUtils.isBlank(newValue)) {
+			newValue = "0";
 		}
 
-		// setValue(value);
+		return newValue;
+	}
 
-		return value;
+	public BigDecimal getBigDecimalValue() {
+		// System.out.println(":: getNoCurrencyValue()");
+
+		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
+				.replaceAll(",", ".");
+
+		if (StringUtils.isBlank(newValue)) {
+			newValue = "0";
+		}
+
+		return NumberUtils.createBigDecimal(newValue);
 	}
 
 	public void setValue(BigDecimal newValue)
