@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.Component;
 
-import dc.control.converter.CurrencyConverter;
 import dc.control.enums.ClasseEn;
 import dc.control.enums.IatEn;
 import dc.control.enums.IpptEn;
@@ -257,64 +256,31 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setDescricaoPdv(this.subView.getTfDescricaoPdv()
 					.getValue());
 
-			this.entity.setValorVenda(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfValorVenda()
-									.getValue())));
-
+			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView
+					.getCfValorVenda().getNoCurrencyValue()));
 			this.entity.setValorCompra(NumberUtils
-					.createBigDecimal(this.subView.getTfValorCompra()
+					.createBigDecimal(this.subView.getCfValorCompra()
 							.getNoCurrencyValue()));
-
 			this.entity.setPrecoVendaMinimo(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfValorVendaMinimo().getValue())));
+					.createBigDecimal(this.subView.getCfValorVendaMinimo()
+							.getNoCurrencyValue()));
 			this.entity.setPrecoSugerido(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfValorSugerido()
-									.getValue())));
+					.createBigDecimal(this.subView.getCfValorSugerido()
+							.getNoCurrencyValue()));
 			this.entity.setCustoMedioLiquido(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfCustoMedioLiquido().getValue())));
+					.createBigDecimal(this.subView.getCfCustoMedioLiquido()
+							.getNoCurrencyValue()));
 			this.entity.setPrecoLucroZero(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfPrecoLucroZero()
-									.getValue())));
+					.createBigDecimal(this.subView.getCfPrecoLucroZero()
+							.getNoCurrencyValue()));
 			this.entity.setPrecoLucroMinimo(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfPrecoLucroMinimo().getValue())));
+					.createBigDecimal(this.subView.getCfPrecoLucroMinimo()
+							.getNoCurrencyValue()));
 			this.entity.setPrecoLucroMaximo(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfPrecoLucroMaximo().getValue())));
-			this.entity.setMarkup(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfMarkup()
-									.getValue())));
-			this.entity.setQuantidadeEstoque(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfQuantidadeEstoque().getValue())));
-			this.entity.setQuantidadeEstoqueAnterior(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfQuantidadeEstoqueAnterior()
-									.getValue())));
-			this.entity.setEstoqueIdeal(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfEstoqueIdeal()
-									.getValue())));
-			this.entity.setEstoqueMinimo(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfEstoqueMinimo()
-									.getValue())));
-			this.entity.setEstoqueMaximo(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfEstoqueMaximo()
-									.getValue())));
+					.createBigDecimal(this.subView.getCfPrecoLucroMaximo()
+							.getNoCurrencyValue()));
+			this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView
+					.getCfMarkup().getNoCurrencyValue()));
 
 			this.entity.setCodigoLst(this.subView.getTfLst().getValue());
 			this.entity.setExTipi(this.subView.getTfExtipi().getValue());
@@ -338,28 +304,39 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setCodigoBalanca(NumberUtils.toInt(this.subView
 					.getTfCodigoBalanca().getValue()));
 
-			this.entity.setPeso(NumberUtils.createBigDecimal(CurrencyConverter
-					.removeCurrency(this.subView.getTfPeso().getValue())));
+			this.entity.setQuantidadeEstoque(NumberUtils
+					.createBigDecimal(this.subView.getTfQuantidadeEstoque()
+							.getConvertedValue()));
+			this.entity.setQuantidadeEstoqueAnterior(NumberUtils
+					.createBigDecimal(this.subView
+							.getTfQuantidadeEstoqueAnterior()
+							.getConvertedValue()));
+			this.entity.setEstoqueIdeal(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueIdeal()
+							.getConvertedValue()));
+			this.entity.setEstoqueMinimo(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueMinimo()
+							.getConvertedValue()));
+			this.entity.setEstoqueMaximo(NumberUtils
+					.createBigDecimal(this.subView.getTfEstoqueMaximo()
+							.getConvertedValue()));
+			this.entity.setPeso(NumberUtils.createBigDecimal(this.subView
+					.getTfPeso().getConvertedValue()));
 			this.entity.setTaxaComissao(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfTaxaComissao()
-									.getValue())));
+					.createBigDecimal(this.subView.getTfTaxaComissao()
+							.getConvertedValue()));
 			this.entity.setPontoPedido(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfPontoPedido()
-									.getValue())));
+					.createBigDecimal(this.subView.getTfPontoPedido()
+							.getConvertedValue()));
 			this.entity.setLoteEconomicoCompra(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView
-									.getTfLoteEconomicoCompra().getValue())));
+					.createBigDecimal(this.subView.getTfLoteEconomicoCompra()
+							.getConvertedValue()));
 			this.entity.setAliquotaIcms(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfAliquotaIcms()
-									.getValue())));
+					.createBigDecimal(this.subView.getTfAliquotaIcms()
+							.getConvertedValue()));
 			this.entity.setAliquotaIssqn(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfAliquotaIssqn()
-									.getValue())));
+					.createBigDecimal(this.subView.getTfAliquotaIssqn()
+							.getConvertedValue()));
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -385,47 +362,23 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getCbInativo().setValue(this.entity.getInativo());
 			this.subView.getCbClasse().setValue(this.entity.getClasse());
 
-			this.subView.getTfValorCompra().setValue(
+			this.subView.getCfValorCompra().setValue(
 					this.entity.getValorCompra());
-
-			this.subView.getTfValorVenda().setValue(
-					CurrencyConverter.getCurrency(this.entity.getValorVenda()));
-			this.subView.getTfValorVendaMinimo().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getPrecoVendaMinimo()));
-			this.subView.getTfValorSugerido().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getPrecoSugerido()));
-			this.subView.getTfCustoMedioLiquido().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getCustoMedioLiquido()));
-			this.subView.getTfPrecoLucroZero().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getCustoMedioLiquido()));
-			this.subView.getTfPrecoLucroMinimo().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getPrecoLucroMinimo()));
-			this.subView.getTfPrecoLucroMaximo().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getPrecoLucroMaximo()));
-			this.subView.getTfMarkup().setValue(
-					CurrencyConverter.getCurrency(this.entity.getMarkup()));
-			this.subView.getTfQuantidadeEstoque().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getQuantidadeEstoque()));
-			this.subView.getTfQuantidadeEstoqueAnterior().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getQuantidadeEstoqueAnterior()));
-			this.subView.getTfEstoqueIdeal()
-					.setValue(
-							CurrencyConverter.getCurrency(this.entity
-									.getEstoqueIdeal()));
-			this.subView.getTfEstoqueMinimo().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getEstoqueMinimo()));
-			this.subView.getTfEstoqueMaximo().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getEstoqueMaximo()));
+			this.subView.getCfValorVenda()
+					.setValue(this.entity.getValorVenda());
+			this.subView.getCfValorVendaMinimo().setValue(
+					this.entity.getPrecoVendaMinimo());
+			this.subView.getCfValorSugerido().setValue(
+					this.entity.getPrecoSugerido());
+			this.subView.getCfCustoMedioLiquido().setValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getCfPrecoLucroZero().setValue(
+					this.entity.getCustoMedioLiquido());
+			this.subView.getCfPrecoLucroMinimo().setValue(
+					this.entity.getPrecoLucroMinimo());
+			this.subView.getCfPrecoLucroMaximo().setValue(
+					this.entity.getPrecoLucroMaximo());
+			this.subView.getCfMarkup().setValue(this.entity.getMarkup());
 
 			this.subView.getTfLst().setValue(this.entity.getCodigoLst());
 			this.subView.getTfExtipi().setValue(this.entity.getExTipi());
@@ -436,28 +389,30 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					.setValue(this.entity.getTipoSped());
 			this.subView.getTfTotalizadorParcial().setValue(
 					this.entity.getTotalizadorParcial());
+
 			this.subView.getTfCodigoBalanca().setConvertedValue(
 					this.entity.getCodigoBalanca());
-
 			this.subView.getTfPeso().setConvertedValue(this.entity.getPeso());
-			this.subView.getTfTaxaComissao()
-					.setValue(
-							CurrencyConverter.getCurrency(this.entity
-									.getTaxaComissao()));
-			this.subView.getTfPontoPedido()
-					.setValue(
-							CurrencyConverter.getCurrency(this.entity
-									.getPontoPedido()));
-			this.subView.getTfLoteEconomicoCompra().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getLoteEconomicoCompra()));
-			this.subView.getTfAliquotaIcms()
-					.setValue(
-							CurrencyConverter.getCurrency(this.entity
-									.getAliquotaIcms()));
-			this.subView.getTfAliquotaIssqn().setValue(
-					CurrencyConverter.getCurrency(this.entity
-							.getAliquotaIssqn()));
+			this.subView.getTfQuantidadeEstoque().setConvertedValue(
+					this.entity.getQuantidadeEstoque());
+			this.subView.getTfQuantidadeEstoqueAnterior().setConvertedValue(
+					this.entity.getQuantidadeEstoqueAnterior());
+			this.subView.getTfEstoqueIdeal().setConvertedValue(
+					this.entity.getEstoqueIdeal());
+			this.subView.getTfEstoqueMinimo().setConvertedValue(
+					this.entity.getEstoqueMinimo());
+			this.subView.getTfEstoqueMaximo().setConvertedValue(
+					this.entity.getEstoqueMaximo());
+			this.subView.getTfTaxaComissao().setConvertedValue(
+					this.entity.getTaxaComissao());
+			this.subView.getTfPontoPedido().setConvertedValue(
+					this.entity.getPontoPedido());
+			this.subView.getTfLoteEconomicoCompra().setConvertedValue(
+					this.entity.getLoteEconomicoCompra());
+			this.subView.getTfAliquotaIcms().setConvertedValue(
+					this.entity.getAliquotaIcms());
+			this.subView.getTfAliquotaIssqn().setConvertedValue(
+					this.entity.getAliquotaIssqn());
 
 			this.subView.getMocSubGrupo().setValue(this.entity.getSubGrupo());
 			this.subView.getMocUnidadeProduto().setValue(

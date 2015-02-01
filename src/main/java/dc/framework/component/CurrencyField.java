@@ -10,7 +10,7 @@ import com.vaadin.ui.TextField;
 import dc.control.util.NumberUtils;
 import dc.control.util.StringUtils;
 
-public class NumberField extends TextField {
+public class CurrencyField extends TextField {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class NumberField extends TextField {
 	private static NumberFormat NUMBER_FORMAT = NumberFormat
 			.getCurrencyInstance();
 
-	public NumberField(String caption) {
+	public CurrencyField(String caption) {
 		// TODO Auto-generated constructor stub
 		super(caption);
 
