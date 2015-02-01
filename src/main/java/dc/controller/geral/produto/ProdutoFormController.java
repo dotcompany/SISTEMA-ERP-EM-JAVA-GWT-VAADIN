@@ -261,10 +261,11 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					.createBigDecimal(CurrencyConverter
 							.removeCurrency(this.subView.getTfValorVenda()
 									.getValue())));
+
 			this.entity.setValorCompra(NumberUtils
-					.createBigDecimal(CurrencyConverter
-							.removeCurrency(this.subView.getTfValorCompra()
-									.getValue())));
+					.createBigDecimal(this.subView.getTfValorCompra()
+							.getNoCurrencyValue()));
+
 			this.entity.setPrecoVendaMinimo(NumberUtils
 					.createBigDecimal(CurrencyConverter
 							.removeCurrency(this.subView
@@ -384,10 +385,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getCbInativo().setValue(this.entity.getInativo());
 			this.subView.getCbClasse().setValue(this.entity.getClasse());
 
-			this.subView.getTfValorCompra()
-					.setValue(
-							CurrencyConverter.getCurrency(this.entity
-									.getValorCompra()));
+			this.subView.getTfValorCompra().setValue(
+					this.entity.getValorCompra());
+
 			this.subView.getTfValorVenda().setValue(
 					CurrencyConverter.getCurrency(this.entity.getValorVenda()));
 			this.subView.getTfValorVendaMinimo().setValue(
