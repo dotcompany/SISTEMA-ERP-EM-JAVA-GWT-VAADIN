@@ -386,8 +386,10 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getTfCodigoBalanca().setConvertedValue(
 					this.entity.getCodigoBalanca());
 			this.subView.getTfPeso().setConvertedValue(this.entity.getPeso());
-			this.subView.getTfQuantidadeEstoque().setConvertedValue(
+
+			this.subView.getTfQuantidadeEstoque().setValue(
 					this.entity.getQuantidadeEstoque());
+
 			this.subView.getTfQuantidadeEstoqueAnterior().setConvertedValue(
 					this.entity.getQuantidadeEstoqueAnterior());
 			this.subView.getTfEstoqueIdeal().setConvertedValue(

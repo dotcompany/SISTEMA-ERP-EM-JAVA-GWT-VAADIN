@@ -2,19 +2,16 @@ package dc.entidade.contabilidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,12 +26,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.diverso.OperadoraCartaoEntity;
-import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 
 @Entity
 @Table(name = "CONTABIL_CONTA")
@@ -163,11 +157,11 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
-	private List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList;
+	// @OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
+	// private List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList;
 
-	@OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
-	private List<OperadoraCartaoEntity> operadoraCartaoList;
+	// @OneToMany(mappedBy = "contabilConta", cascade = CascadeType.ALL)
+	// private List<OperadoraCartaoEntity> operadoraCartaoList;
 
 	/**
 	 * @autor Gutemberg A. Da Silva
@@ -175,8 +169,8 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	 * @module FINANCEIRO
 	 */
 
-	@OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
-	private List<ContaCaixa> contaCaixaList;
+	// @OneToMany(mappedBy = "contabilConta", fetch = FetchType.LAZY)
+	// private List<ContaCaixa> contaCaixaList;
 
 	/**
 	 * TRANSIENT
@@ -339,31 +333,31 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 		this.contabilConta = contabilConta;
 	}
 
-	public List<OperadoraPlanoSaudeEntity> getOperadoraPlanoSaudeList() {
-		return operadoraPlanoSaudeList;
-	}
+	// public List<OperadoraPlanoSaudeEntity> getOperadoraPlanoSaudeList() {
+	// return operadoraPlanoSaudeList;
+	// }
 
-	public void setOperadoraPlanoSaudeList(
-			List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList) {
-		this.operadoraPlanoSaudeList = operadoraPlanoSaudeList;
-	}
+	// public void setOperadoraPlanoSaudeList(
+	// List<OperadoraPlanoSaudeEntity> operadoraPlanoSaudeList) {
+	// this.operadoraPlanoSaudeList = operadoraPlanoSaudeList;
+	// }
 
-	public List<OperadoraCartaoEntity> getOperadoraCartaoList() {
-		return operadoraCartaoList;
-	}
+	// public List<OperadoraCartaoEntity> getOperadoraCartaoList() {
+	// return operadoraCartaoList;
+	// }
 
-	public void setOperadoraCartaoList(
-			List<OperadoraCartaoEntity> operadoraCartaoList) {
-		this.operadoraCartaoList = operadoraCartaoList;
-	}
+	// public void setOperadoraCartaoList(
+	// List<OperadoraCartaoEntity> operadoraCartaoList) {
+	// this.operadoraCartaoList = operadoraCartaoList;
+	// }
 
-	public List<ContaCaixa> getContaCaixaList() {
-		return contaCaixaList;
-	}
+	// public List<ContaCaixa> getContaCaixaList() {
+	// return contaCaixaList;
+	// }
 
-	public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
-		this.contaCaixaList = contaCaixaList;
-	}
+	// public void setContaCaixaList(List<ContaCaixa> contaCaixaList) {
+	// this.contaCaixaList = contaCaixaList;
+	// }
 
 	/**
 	 * TO STRING
