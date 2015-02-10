@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.3.7";
+	content: "7.3.9";
 }
 
 .v-generated-body {
@@ -6322,6 +6322,6 @@ body .dotcompany.v-app .v-app-loading {
 	border: none !important;
 }
 
-div.v-customcomponent-error > div div > div.manyToOneCombo{
+.dotcompany div.v-customcomponent-error > div div > div.manyToOneCombo {
 	border-bottom-color: red !important;
 }

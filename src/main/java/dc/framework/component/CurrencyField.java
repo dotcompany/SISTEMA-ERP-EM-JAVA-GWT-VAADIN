@@ -2,95 +2,55 @@ package dc.framework.component;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Locale;
 
-import com.vaadin.event.FieldEvents.TextChangeEvent;
-import com.vaadin.event.FieldEvents.TextChangeListener;
-import com.vaadin.ui.TextField;
+import com.vaadin.data.Property;
+import com.vaadin.data.Validator.InvalidValueException;
+import com.vaadin.data.util.converter.Converter;
 
-import dc.control.util.NumberUtils;
-import dc.control.util.StringUtils;
+import by.kod.numberfield.NumberField;
 
-public class CurrencyField extends TextField {
+public class CurrencyField extends NumberField {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static NumberFormat NF = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-	private static NumberFormat NUMBER_FORMAT = NumberFormat
-			.getCurrencyInstance();
-
-	public CurrencyField(String caption) {
-		// TODO Auto-generated constructor stub
-		super(caption);
-
-		this.addTextChangeListener(new TextChangeListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void textChange(TextChangeEvent event) {
-				// TODO Auto-generated method stub
-				String newValue = event.getText();
-
-				newValue = newValue.replaceAll("[^0-9]+", "");
-
-				if (StringUtils.isBlank(newValue)) {
-					newValue = NUMBER_FORMAT.format(new Double(0));
-				} else {
-					newValue = NUMBER_FORMAT.format(Double.parseDouble(newValue
-							.trim()) / 100);
-				}
-
-				setValue(newValue);
-			}
-
-		});
+	public CurrencyField() {
+		this("");
 	}
 
-	public String getNoCurrencyValue() {
-		// TODO Auto-generated method stub
-		// System.out.println(":: getNoCurrencyValue()");
-
-		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
-				.replaceAll(",", ".");
-
-		if (StringUtils.isBlank(newValue)) {
-			newValue = "0";
-		}
-
-		return newValue;
+	public CurrencyField(String caption) {
+		super(caption);
+		this.setDecimalSeparator(',');
+		this.setGroupingSeparator('.');
+		this.setDecimalLength(2);
+	}
+	
+	
+	public void setValue(BigDecimal value)
+			throws com.vaadin.data.Property.ReadOnlyException {
+		setDoubleValue(value.doubleValue());
 	}
 
 	public BigDecimal getBigDecimalValue() {
-		// TODO Auto-generated method stub
-		// System.out.println(":: getNoCurrencyValue()");
-
-		String newValue = this.getValue().replaceAll("[^\\,0-9]+", "")
-				.replaceAll(",", ".");
-
-		if (StringUtils.isBlank(newValue)) {
-			newValue = "0";
-		}
-
-		return NumberUtils.createBigDecimal(newValue);
+		return new BigDecimal(this.getDoubleValue());
 	}
-
-	public void setValue(BigDecimal newValue)
-			throws com.vaadin.data.Property.ReadOnlyException {
-		// TODO Auto-generated method stub
-		// System.out.println(":: setValue(BigDecimal newValue)");
-
-		if (NumberUtils.isBlank(newValue)) {
-			newValue = new BigDecimal(0);
-		}
-
-		String value = NUMBER_FORMAT.format(newValue);
-
-		super.setValue(value);
+	
+	@Override
+	public String getValue() {
+		return NF.format(this.getDoubleValue());
 	}
-
+	
+    protected void setValue(String newFieldValue, boolean repaintIsNotNeeded)
+            throws Property.ReadOnlyException, Converter.ConversionException,
+            InvalidValueException {
+    	
+    	super.setValue(newFieldValue.replace("R$", "").trim(), repaintIsNotNeeded);
+    	
+    	
+    }
 }
