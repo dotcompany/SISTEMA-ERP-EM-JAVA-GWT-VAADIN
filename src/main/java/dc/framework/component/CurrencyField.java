@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import by.kod.numberfield.NumberField;
+
 import com.vaadin.data.Property;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.converter.Converter;
-
-import by.kod.numberfield.NumberField;
+import com.vaadin.event.FieldEvents.FocusEvent;
+import com.vaadin.event.FieldEvents.FocusListener;
 
 public class CurrencyField extends NumberField {
 
@@ -16,8 +18,9 @@ public class CurrencyField extends NumberField {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private static NumberFormat NF = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+	private static NumberFormat NF = NumberFormat
+			.getCurrencyInstance(new Locale("pt", "BR"));
 
 	public CurrencyField() {
 		this("");
@@ -28,9 +31,22 @@ public class CurrencyField extends NumberField {
 		this.setDecimalSeparator(',');
 		this.setGroupingSeparator('.');
 		this.setDecimalLength(2);
+		this.addFocusListener(new FocusListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void focus(FocusEvent event) {
+				CurrencyField field = (CurrencyField) event
+						.getComponent();
+				field.selectAll();
+			}
+		});
 	}
-	
-	
+
 	public void setValue(BigDecimal value)
 			throws com.vaadin.data.Property.ReadOnlyException {
 		setDoubleValue(value.doubleValue());
@@ -39,18 +55,18 @@ public class CurrencyField extends NumberField {
 	public BigDecimal getBigDecimalValue() {
 		return new BigDecimal(this.getDoubleValue());
 	}
-	
+
 	@Override
 	public String getValue() {
 		return NF.format(this.getDoubleValue());
 	}
-	
-    protected void setValue(String newFieldValue, boolean repaintIsNotNeeded)
-            throws Property.ReadOnlyException, Converter.ConversionException,
-            InvalidValueException {
-    	
-    	super.setValue(newFieldValue.replace("R$", "").trim(), repaintIsNotNeeded);
-    	
-    	
-    }
+
+	protected void setValue(String newFieldValue, boolean repaintIsNotNeeded)
+			throws Property.ReadOnlyException, Converter.ConversionException,
+			InvalidValueException {
+
+		super.setValue(newFieldValue.replace("R$", "").trim(),
+				repaintIsNotNeeded);
+
+	}
 }
