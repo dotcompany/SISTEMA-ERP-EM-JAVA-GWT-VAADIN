@@ -116,6 +116,17 @@
 		<url-pattern>/*</url-pattern>		
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>by.kod.numberfield.test.NumberFieldTestUI$Servlet</servlet-name>
+		<servlet-class>by.kod.numberfield.test.NumberFieldTestUI.Servlet</servlet-class>
+		<load-on-startup>-1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>by.kod.numberfield.test.NumberFieldTestUI$Servlet</servlet-name>
+		<url-pattern>/NumberFieldTestUI</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
