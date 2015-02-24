@@ -29,7 +29,6 @@ public class DocumentoArquivo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@Field
 	private Integer id;
 
 	@Column(name = "CAMINHO")

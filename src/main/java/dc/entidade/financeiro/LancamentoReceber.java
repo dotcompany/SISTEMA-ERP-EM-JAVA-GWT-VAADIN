@@ -45,7 +45,6 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@Field
 	private Integer id;
 
 	@Field

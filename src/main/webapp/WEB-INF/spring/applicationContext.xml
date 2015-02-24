@@ -24,7 +24,7 @@
 	<!-- The controllers are autodetected POJOs labeled with the @Controller 
 		annotation. DefaultAnnotationHandlerMapping is driven by these annotations 
 		and is enabled by default with Java 5+: -->
-	<context:component-scan base-package="dc.**.*" />
+	<context:component-scan base-package="dc.*" />
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="org.postgresql.Driver" />

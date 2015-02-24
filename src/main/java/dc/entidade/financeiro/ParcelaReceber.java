@@ -44,7 +44,6 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@Field
 	@Caption(value = "Id")
 	private Integer id;
 

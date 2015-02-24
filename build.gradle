@@ -99,15 +99,15 @@ dependencies {
          
          //compile 'org.vaadin.addons:canvas:2.0'
          compile 'org.vaadin.addons:popupbutton:2.5.0'
-         
         
 		// dependencies		
-		compile 'org.hibernate:hibernate-c3p0:4.2.17.Final'
-		compile 'org.hibernate:hibernate-entitymanager:4.2.17.Final'
+		compile 'org.hibernate:hibernate-core:4.3.8.Final'
+		compile 'org.hibernate:hibernate-c3p0:4.3.8.Final'
+		compile 'org.hibernate:hibernate-entitymanager:4.3.8.Final'
 		compile 'org.hibernate:hibernate-validator:5.0.3.Final'
 		
-		compile 'org.hibernate:hibernate-search:4.4.6.Final'
-		compile 'org.hibernate:hibernate-search-analyzers:4.4.6.Final'
+		compile 'org.hibernate:hibernate-search:5.0.1.Final'
+		compile 'org.hibernate:hibernate-search-analyzers:5.0.0.Alpha1'//'org.hibernate:hibernate-search-analyzers:4.5.3.Final'
 		
 		
 		compile 'com.itextpdf:itextpdf:5.0.6'
@@ -124,26 +124,27 @@ dependencies {
 		compile 'commons-dbcp:commons-dbcp:1.4'
 						
 		compile 'asm:asm:3.3.1'
-		compile 'org.springframework:spring-beans:3.2.13.RELEASE'
-		compile ('org.springframework:spring-context:3.2.13.RELEASE') {
+		compile 'org.springframework:spring-beans:4.1.4.RELEASE'
+		compile ('org.springframework:spring-context:4.1.4.RELEASE') {
 			exclude module: 'commons-logging'
 		}
 		
-		compile 'org.springframework:spring-core:3.2.13.RELEASE'
-		compile 'org.springframework:spring-expression:3.2.13.RELEASE'
-		compile 'org.springframework:spring-orm:3.2.13.RELEASE'
+		compile 'org.springframework:spring-core:4.1.4.RELEASE'
+		compile 'org.springframework:spring-expression:4.1.4.RELEASE'
+		compile 'org.springframework:spring-orm:4.1.4.RELEASE'
 		compile 'org.springframework.data:spring-data-jpa:1.5.1.RELEASE'
-		compile 'org.springframework:spring-jdbc:3.2.13.RELEASE'
-		compile 'org.springframework:spring-tx:3.2.13.RELEASE'
-		compile 'org.springframework:spring-web:3.2.13.RELEASE'
-		compile 'org.springframework:spring-webmvc:3.2.13.RELEASE'
-		compile 'org.springframework:spring-context-support:3.2.13.RELEASE'
+		compile 'org.springframework:spring-jdbc:4.1.4.RELEASE'
+		compile 'org.springframework:spring-tx:4.1.4.RELEASE'
+		compile 'org.springframework:spring-web:4.1.4.RELEASE'
+		compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
+		compile 'org.springframework:spring-context-support:4.1.4.RELEASE'
+		
 		compile 'org.freemarker:freemarker:2.3.21'
 		
 		
-		compile 'org.springframework.security:spring-security-core:3.1.7.RELEASE'
-		compile "org.springframework.security:spring-security-web:3.1.7.RELEASE"
-		compile 'org.springframework.security:spring-security-config:3.1.7.RELEASE'
+		compile 'org.springframework.security:spring-security-core:3.2.5.RELEASE'
+		compile "org.springframework.security:spring-security-web:3.2.5.RELEASE"
+		compile 'org.springframework.security:spring-security-config:3.2.5.RELEASE'
 		
 		
 		// CAPTCHA

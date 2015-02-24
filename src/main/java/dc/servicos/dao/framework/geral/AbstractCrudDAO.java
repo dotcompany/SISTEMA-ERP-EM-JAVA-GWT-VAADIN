@@ -11,10 +11,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TermRangeQuery;
@@ -277,7 +278,7 @@ public abstract class AbstractCrudDAO<T> {
 
 		for (int i = 0; i < sortingFieldsStrings.length; i++) {
 			sortingFields[i] = new SortField(sortingFieldsStrings[i],
-					SortField.STRING, sortStates[i]);
+					SortField.Type.STRING, sortStates[i]);
 		}
 
 		org.apache.lucene.search.Query query = createQuery(value, searchFields,
@@ -473,7 +474,7 @@ public abstract class AbstractCrudDAO<T> {
 			end = sdf.format(endValue) + "000000000";
 		}
 
-		query = new TermRangeQuery(property.toString(), start, end, true, true);
+		query = NumericRangeQuery.newIntRange(property.toString(), Integer.parseInt(start), Integer.parseInt(end), true, true);
 
 		return query;
 	}
@@ -506,7 +507,7 @@ public abstract class AbstractCrudDAO<T> {
 		// query = NumericRangeQuery.newDoubleRange(property.toString(), 8,
 		// Double.parseDouble(start), Double.parseDouble(end), true, true);
 		// } else {
-		query = new TermRangeQuery(property.toString(), start, end, true, true);
+		query = NumericRangeQuery.newIntRange(property.toString(), Integer.parseInt(start), Integer.parseInt(end), true, true);
 		// }
 
 		return query;

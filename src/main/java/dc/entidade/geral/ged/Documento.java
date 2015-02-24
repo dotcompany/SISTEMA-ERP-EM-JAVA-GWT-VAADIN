@@ -41,7 +41,6 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@Field
 	@Caption("Id")
 	private Integer id;
 

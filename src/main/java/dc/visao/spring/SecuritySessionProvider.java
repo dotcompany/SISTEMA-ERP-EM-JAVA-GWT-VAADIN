@@ -3,6 +3,7 @@ package dc.visao.spring;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -12,25 +13,30 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.server.VaadinService;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.WrappedSession;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 
-@org.springframework.stereotype.Component
+@Component
 @Scope("singleton")
 public class SecuritySessionProvider implements ApplicationContextAware {
 
 	@Value("${security.load}")
 	private String loadFromSpring;
 
-	public static Logger logger = Logger.getLogger(SecuritySessionProvider.class);
+	public  Logger logger = Logger.getLogger(SecuritySessionProvider.class);
 
-	public static ApplicationContext ctx;
+	@Autowired
+	public  ApplicationContext ctx;
 
 	@PostConstruct
 	protected void init() {
@@ -42,6 +48,9 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 	}
 
 	public static UsuarioEntity getUsuario() {
+		WebApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(VaadinServlet.getCurrent()
+						.getServletContext());
 		if (ctx != null) {
 			SecuritySessionProvider s = ctx.getBean(SecuritySessionProvider.class);
 			if (s.shouldLoadUserFromSpring()) {
@@ -76,7 +85,7 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		SecuritySessionProvider.ctx = arg0;
+		this.ctx = arg0;
 	}
 
 	public boolean shouldLoadUserFromSpring() {
@@ -102,5 +111,4 @@ public class SecuritySessionProvider implements ApplicationContextAware {
 		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
 	}
-
 }

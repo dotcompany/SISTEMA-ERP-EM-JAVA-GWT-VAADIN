@@ -5,14 +5,13 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.sun.istack.logging.Logger;
 
-@org.springframework.stereotype.Component
-@Scope("singleton")
-public class DCWebApplicationListener implements ApplicationListener<ContextStartedEvent>{
+@Component
+public class DCWebApplicationListener implements ApplicationListener<ContextRefreshedEvent>{
 	
 	@Autowired
 	SearchIndexerDAO dao;
@@ -37,7 +36,7 @@ public class DCWebApplicationListener implements ApplicationListener<ContextStar
 	}
 	
 	@Override
-	public void onApplicationEvent(ContextStartedEvent  arg0) {
+	public void onApplicationEvent(ContextRefreshedEvent  arg0) {
 		// TODO Auto-generated method stub
 		logger.info("applicaticon event...  " + arg0);
 		//dao.loadIndex();

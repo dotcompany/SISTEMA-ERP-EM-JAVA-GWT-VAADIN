@@ -51,7 +51,6 @@ public class PlanoNaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
-	@Field
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
