@@ -18,7 +18,6 @@ import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -731,6 +730,10 @@ public abstract class AbstractCrudDAO<T> {
 		} catch (Exception e) {
 			return new FmMenu();
 		}
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 }

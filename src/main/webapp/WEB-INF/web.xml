@@ -119,7 +119,7 @@
 	<servlet>
 		<servlet-name>by.kod.numberfield.test.NumberFieldTestUI$Servlet</servlet-name>
 		<servlet-class>by.kod.numberfield.test.NumberFieldTestUI.Servlet</servlet-class>
-		<load-on-startup>-1</load-on-startup>
+		<load-on-startup>999</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
