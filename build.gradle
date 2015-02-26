@@ -115,7 +115,7 @@ dependencies {
 		compile 'javax.mail:mail:1.4.7'
 		
 		compile 'mysql:mysql-connector-java:5.1.21'
-		compile 'org.postgresql:postgresql:9.3-1102-jdbc41'
+		compile 'org.postgresql:postgresql:9.4-1200-jdbc41'
          
 		
 		compile 'br.com.caelum.stella:caelum-stella-core:2.0-beta1'
