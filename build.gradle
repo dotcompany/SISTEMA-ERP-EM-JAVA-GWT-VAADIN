@@ -1,6 +1,9 @@
+
+plugins {
+  id "fi.jasoft.plugin.vaadin" version "0.9.7"
+}
 apply plugin: 'eclipse'
 apply plugin: 'eclipse-wtp'
-apply from: 'vaadin.plugin'
 
 version = '0.1-SNAPSHOT'
 
@@ -25,6 +28,8 @@ repositories {
 		url "https://oss.sonatype.org/content/repositories/sourceforge-releases"
 	}
 }
+
+
 	
 vaadin {
     version '7.3.10'
@@ -34,17 +39,18 @@ vaadin {
         logToConsole true
     }
 }
+
 vaadin.gwt.jvmArgs = ['-Xmx1024m', '-Xms256m', '-XX:MaxPermSize=512m']
 vaadin.gwt.strict=false 
+vaadin.plugin.logToConsole=true
  
-tasks.withType(Compile) {
+tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
 dependencies {
-
-		 
 		 compile files('libs/maskedtextfield-0.1.4.jar')
+		 compile files('libs/numberfield7-0.0.1.jar')
 		 compile files('libs/jrimum/jrimum-bopepo-0.2.3-SNAPSHOT.jar')
  		 compile files('libs/jrimum/jrimum-domkee-0.2.3-SNAPSHOT.jar')
  	     compile files('libs/jrimum/jrimum-texgit-0.2.0-SNAPSHOT.jar')
@@ -161,7 +167,7 @@ dependencies {
 		compile 'ch.qos.logback:logback-core:1.1.2'
 		
         // providedCompile 'org.mortbay.jetty:jetty:6.1.26'
-        providedCompile 'org.eclipse.jetty.aggregate:jetty-aggregate-project:8.1.16.v20140903'
+//providedCompile 'org.eclipse.jetty.aggregate:jetty-aggregate-project:8.1.16.v20140903'
         
         // REST
         compile 'com.sun.jersey:jersey-servlet:1.17.1'
@@ -202,5 +208,5 @@ dependencies {
 			exclude group:'com.vaadin'
 		}		
 
-		compile 'org.vaadin.addons:numberfield7:0.0.1'
+	//	compile 'org.vaadin.addons:numberfield7:0.0.1'
 }
