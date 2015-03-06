@@ -4,13 +4,12 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import by.kod.numberfield.NumberField;
-
 import com.vaadin.data.Property;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.event.FieldEvents.FocusEvent;
 import com.vaadin.event.FieldEvents.FocusListener;
+import dc.framework.component.numberfield.NumberField;
 
 public class CurrencyField extends NumberField {
 
