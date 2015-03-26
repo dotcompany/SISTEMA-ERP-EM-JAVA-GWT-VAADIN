@@ -176,20 +176,16 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		}
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
-			// We change the default order of the buttons
-			@Override
-			public ConfirmDialog create(String caption, String message,
-					String okCaption, String cancelCaption) {
-				ConfirmDialog d = super.create(caption, message, okCaption,
-						cancelCaption);
-				d.setStyleName("dc-confirm-dialog");
 
-				d.setWidth("35%");
-				d.setHeight("20%");
-
-				return d;
-			}
-		};
+            @Override
+            public ConfirmDialog create(String caption, String message, String okCaption, String cancelCaption, String notOkCaption) {
+                ConfirmDialog d = super.create(caption, message, okCaption,	cancelCaption, notOkCaption);
+                d.setStyleName("dc-confirm-dialog");
+                d.setWidth("35%");
+                d.setHeight("20%");
+                return d;
+            }
+        };
 
 		ConfirmDialog.setFactory(df);
 

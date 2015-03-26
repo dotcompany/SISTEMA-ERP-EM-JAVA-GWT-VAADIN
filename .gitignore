@@ -32,3 +32,7 @@ c/*
 
 *.prx
 
+dotcompanyerp.iml
+dotcompanyerp.ipr
+dotcompanyerp.iws
+src/main/resources/dc/framework/DCWidgetSet.gwt.xml
