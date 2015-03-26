@@ -4,8 +4,6 @@
 <module>
         <inherits name="com.vaadin.DefaultWidgetSet" />
         <inherits name="org.vaadin.addons.maskedtextfield.MaskedTextFieldWidgetset" />
-        <inherits name="com.vaadin.addon.charts.Widgetset" />
-        <inherits name="com.vaadin.addon.timeline.gwt.TimelineWidgetSet" />
         <inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
         <inherits name="org.vaadin.peter.imagescaler.ImageScalerWidgetset" />
         <inherits name="org.tepi.filtertable.gwt.FilterTableWidgetset" />

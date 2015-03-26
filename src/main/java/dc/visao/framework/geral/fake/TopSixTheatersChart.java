@@ -3,18 +3,14 @@ package dc.visao.framework.geral.fake;
 
 import java.util.ArrayList;
 
-import com.vaadin.addon.charts.Chart;
-import com.vaadin.addon.charts.model.ChartType;
-import com.vaadin.addon.charts.model.DataSeries;
-import com.vaadin.addon.charts.model.DataSeriesItem;
 
 import dc.visao.framework.geral.fake.DataProvider.Movie;
 
 
-public class TopSixTheatersChart extends Chart {
+public class TopSixTheatersChart /*extends Chart*/ {
 
     public TopSixTheatersChart() {
-        // TODO this don't actually visualize top six theaters, but just makes a
+/*        // TODO this don't actually visualize top six theaters, but just makes a
         // pie chart
         super(ChartType.PIE);
 
@@ -32,6 +28,7 @@ public class TopSixTheatersChart extends Chart {
             series.add(new DataSeriesItem(movie.title, movie.score));
         }
         getConfiguration().setSeries(series);
+        */
     }
 
 }

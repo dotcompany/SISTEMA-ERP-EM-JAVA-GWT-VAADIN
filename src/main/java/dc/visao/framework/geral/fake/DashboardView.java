@@ -175,7 +175,7 @@ public class DashboardView extends VerticalLayout implements View {
         addComponent(row);
         setExpandRatio(row, 1.5f);
 
-        row.addComponent(createPanel(new VendasPorLinhaDeProdutoChart()));
+        //row.addComponent(createPanel(new VendasPorLinhaDeProdutoChart()));
 
         TextArea notes = new TextArea("Tarefas");
         notes.setValue("Para hoje :\n� Retomar contato com rede varejista parceira\n� Buscar novas parcerias no setor eletro, com produtos inovadores\n� Retomar contato com clientes com demanda em baixa");
@@ -219,7 +219,7 @@ public class DashboardView extends VerticalLayout implements View {
 
         row.addComponent(createPanel(t));
 
-        row.addComponent(createPanel(new TopSixTheatersChart()));
+        //row.addComponent(createPanel(new TopSixTheatersChart()));
 
     }
 
