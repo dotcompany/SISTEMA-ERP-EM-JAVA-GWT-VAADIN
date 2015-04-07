@@ -301,6 +301,10 @@ public abstract class AbstractCrudDAO<T> {
 			String[] searchFields, FmMenu menu, List<Filter> filters,
 			FullTextSession fullTextSession, Boolean getAll) {
 		org.apache.lucene.search.Query query;
+		
+		if(filters != null && filters.size() > 0){
+			searchFields = new String[0];
+		}
 
 		if (isConsultaMultiEmpresa(getEntityClass(), menu, getAll)) {
 			query = createMultiEmpresaQuery(value, searchFields, menu, filters);
@@ -345,12 +349,22 @@ public abstract class AbstractCrudDAO<T> {
 		if (dc.control.validator.ObjectValidator.validateString(value)) {
 			QueryBuilder qb = getFullTextSession().getSearchFactory()
 					.buildQueryBuilder().forEntity(getEntityClass()).get();
-			org.apache.lucene.search.Query query = qb.keyword().fuzzy()
+					
+			org.apache.lucene.search.Query query = qb.keyword().fuzzy().withEditDistanceUpTo(1)
 					.onFields(searchFields).matching(value).createQuery();
 
-			booleanQuery.add(query, Occur.MUST);
+			booleanQuery.add(query, Occur.SHOULD);
+			for(String search : searchFields){
+				query = qb.keyword().wildcard()
+						.onField(search).matching(value+"*").createQuery();
+
+				booleanQuery.add(query, Occur.SHOULD);
+				
+			}
 		}
 
+		BooleanQuery mustQuery = new BooleanQuery();
+		mustQuery.add(booleanQuery, Occur.MUST);
 		return booleanQuery;
 	}
 

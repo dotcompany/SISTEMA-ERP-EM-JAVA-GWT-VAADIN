@@ -1,6 +1,10 @@
 package dc.framework;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.vaadin.server.AbstractExtension;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
@@ -10,15 +14,22 @@ import dc.visao.framework.geral.CRUDListController;
 public class SearchTextFieldExtension extends AbstractExtension {
 
 	private CRUDListController controller;
+	private ConfigProperties config;
 
 	public SearchTextFieldExtension(CRUDListController controller) {
 		this.controller = controller;
+		WebApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(VaadinServlet.getCurrent()
+						.getServletContext());
+
+		config = (ConfigProperties) ctx
+				.getBean(ConfigProperties.class);
 
 	}
 
 	public void extend(TextField field) {
 		System.out.println("extend..being called");
-		field.setTextChangeTimeout(500);
+		field.setTextChangeTimeout(config.COMBO_DELAYVALUE);
 		super.extend(field);
 		SerchTextFieldServerRPC rpc = new SerchTextFieldServerRPC() {
 

@@ -92,8 +92,6 @@ public class CRUDListView extends CustomComponent implements View {
 		setCompositionRoot(mainLayout);
 		txtPesquisa.setImmediate(true);
 		new SearchTextFieldExtension(controller).extend(txtPesquisa);
-		txtPesquisa.setTextChangeTimeout(800);
-
 	}
 
 	public Button getBtnPesquisa() {
