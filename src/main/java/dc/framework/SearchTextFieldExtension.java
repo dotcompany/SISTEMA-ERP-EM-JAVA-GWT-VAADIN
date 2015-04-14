@@ -7,6 +7,7 @@ import com.vaadin.server.AbstractExtension;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.AbstractTextField.TextChangeEventMode;
 
 import dc.framework.client.SerchTextFieldServerRPC;
 import dc.visao.framework.geral.CRUDListController;
@@ -30,6 +31,7 @@ public class SearchTextFieldExtension extends AbstractExtension {
 	public void extend(TextField field) {
 		System.out.println("extend..being called");
 		field.setTextChangeTimeout(config.COMBO_DELAYVALUE);
+		field.setTextChangeEventMode(TextChangeEventMode.LAZY);
 		super.extend(field);
 		SerchTextFieldServerRPC rpc = new SerchTextFieldServerRPC() {
 
