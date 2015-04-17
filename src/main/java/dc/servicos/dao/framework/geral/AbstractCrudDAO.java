@@ -325,7 +325,7 @@ public abstract class AbstractCrudDAO<T> {
 				getSearchFields(), menu, filters, fullTextSession, null);
 
 		return fullTextSession.createFullTextQuery(query, getEntityClass())
-				.list().size();
+				.getResultSize();
 	}
 
 	private org.apache.lucene.search.Query createSimpleFullTextQuery(

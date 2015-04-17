@@ -59,7 +59,11 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 			List<EmpresaSeguimento> auxLista) {
 		try {
 			for (EmpresaSeguimento ent : auxLista) {
-				super.saveOrUpdate(ent);
+				if(ent.getId() !=null){
+					getSession().merge(ent);
+				}else{
+					super.saveOrUpdate(ent);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ehcache.hibernate.HibernateUtil;
+
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
@@ -181,13 +185,17 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	@Transactional
 	public void saveOrUpdateEmpresa(EmpresaEntity empresa) throws Exception {
 		try {
-			super.saveOrUpdate(empresa);
+			
+			Hibernate.initialize(empresa.getContaEmpresa());
+			Hibernate.initialize(empresa.getContaEmpresa().getUsuarioCriador());
+			Hibernate.initialize(empresa.getContaEmpresa().getUsuarioCriador().getPapel());
+			empresa = (EmpresaEntity) getSession().merge(empresa);
 
 			List<PessoaEnderecoEntity> auxLista = empresa
 					.getPessoaEnderecoList();
 
 			if (auxLista != null && !auxLista.isEmpty()) {
-				this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(auxLista);
+				this.pessoaEnderecoDAO.saveOrUpdatePessoaEnderecoList(auxLista, empresa);
 			}
 
 			List<EmpresaSeguimento> auxLista1 = empresa

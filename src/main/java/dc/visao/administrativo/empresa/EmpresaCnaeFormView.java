@@ -10,6 +10,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.enums.SimNaoEn;
 import dc.controller.administrativo.empresa.EmpresaCnaeFormController;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
@@ -62,8 +63,8 @@ public class EmpresaCnaeFormView extends CustomComponent {
 
 		cmbPrincipal = ComponentUtil.buildComboBox("Principal");
 		cmbPrincipal.setRequired(true);
-		cmbPrincipal.addItem(PRINCIPAL.NAO);
-		cmbPrincipal.addItem(PRINCIPAL.SIM);
+		cmbPrincipal.addItem(SimNaoEn.N);
+		cmbPrincipal.addItem(SimNaoEn.S);
 		fields.addComponent(cmbPrincipal, 0, 1);
 
 		txtRamoAtividade = ComponentUtil.buildTextField("Ramo de Atividade");

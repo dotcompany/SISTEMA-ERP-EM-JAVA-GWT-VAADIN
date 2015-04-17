@@ -303,7 +303,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer contador;
 
-	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false, fetch=FetchType.EAGER)
+	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false, fetch=FetchType.EAGER, orphanRemoval=true)
 	private ContaEmpresa contaEmpresa;
 
 	/**
@@ -621,6 +621,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
 		this.contaEmpresa = contaEmpresa;
+		contaEmpresa.setEmpresa(this);
 	}
 
 	public List<PaisEntity> getPaisList() {

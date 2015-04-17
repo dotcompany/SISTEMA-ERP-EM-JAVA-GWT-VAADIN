@@ -120,7 +120,7 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 
 	@Transactional
 	public void saveOrUpdatePessoaEnderecoList(
-			List<PessoaEnderecoEntity> auxLista) {
+			List<PessoaEnderecoEntity> auxLista, EmpresaEntity empresa) {
 		try {
 			if (ListUtils.isNullOrEmpty(auxLista)) {
 				return;
@@ -132,7 +132,7 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 					ent.setSiglaUf(ent.getUf().getSigla());
 				}
 
-				// ent.setEmpresa(empresa);
+				ent.setEmpresa(empresa);
 
 				// String cep = ent.getCep();
 
@@ -141,7 +141,11 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 				// ent.setCep(cep);
 				// }
 
-				super.saveOrUpdate(ent);
+				if (ent.getId() != null) {
+					getSession().merge(ent);
+				} else {
+					super.saveOrUpdate(ent);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

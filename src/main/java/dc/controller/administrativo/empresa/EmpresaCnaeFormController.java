@@ -16,13 +16,13 @@ import dc.entidade.geral.CnaeEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.geral.CnaeDAO;
+import dc.servicos.util.Validator;
 import dc.visao.administrativo.empresa.EmpresaCnaeFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class EmpresaCnaeFormController extends
-		CRUDFormController<EmpresaCnaeEntity> {
+public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEntity> {
 
 	/**
 	 * 
@@ -47,6 +47,25 @@ public class EmpresaCnaeFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = true;
+
+		if (!Validator.validateObject(subView.getCmbCnae().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbCnae(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getCmbPrincipal().getValue())) {
+			adicionarErroDeValidacao(subView.getCmbPrincipal(), "Não pode ficar em branco");
+			valido = false;
+		}
+		if (!Validator.validateString(subView.getTxtObjetoSocial().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtObjetoSocial(), "Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateString(subView.getTxtRamoAtividade().getValue())) {
+			adicionarErroDeValidacao(subView.getTxtRamoAtividade(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		return valido;
 	}
@@ -76,19 +95,16 @@ public class EmpresaCnaeFormController extends
 
 	@Override
 	protected void actionSalvar() {
-		String msgErro = "Erro ao realizar operação";
-
 		try {
 			CnaeEntity cnae = (CnaeEntity) subView.getCmbCnae().getValue();
 
-			SimNaoEn principalEn = (SimNaoEn) subView.getCmbPrincipal()
-					.getValue();
+			SimNaoEn principalEn = (SimNaoEn) subView.getCmbPrincipal().getValue();
 
 			// String principal = (((PRINCIPAL)
 			// subView.getCmbPrincipal().getValue()).getCodigo());
 			String ramoAtividade = subView.getTxtRamoAtividade().getValue();
 			String objetoSocial = subView.getTxtObjetoSocial().getValue();
-
+/*
 			if (cnae == null) {
 				msgErro = "Informe o CNAE!";
 				throw new ErroValidacaoException(msgErro);
@@ -108,7 +124,7 @@ public class EmpresaCnaeFormController extends
 				msgErro = "Informe Objeto Social!";
 				throw new ErroValidacaoException(msgErro);
 			}
-
+*/
 			currentBean.setEmpresa(empresaAtual());
 			currentBean.setCnae(cnae);
 
@@ -119,8 +135,6 @@ public class EmpresaCnaeFormController extends
 			dao.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

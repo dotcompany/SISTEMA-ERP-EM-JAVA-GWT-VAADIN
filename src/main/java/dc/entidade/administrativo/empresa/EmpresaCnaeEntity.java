@@ -1,6 +1,7 @@
 package dc.entidade.administrativo.empresa;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -76,7 +77,7 @@ public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 	 */
 
 	@Caption("CNAE")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "ID_CNAE", nullable = false)
 	private CnaeEntity cnae;
 

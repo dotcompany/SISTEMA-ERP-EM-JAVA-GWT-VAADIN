@@ -81,9 +81,6 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
 
 	@Autowired
-	private CnaeDAO cnaeDAO;
-
-	@Autowired
 	private SeguimentoDAO seguimentoDAO;
 
 	@Autowired
@@ -111,13 +108,16 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 
 	@Override
 	protected boolean validaSalvar() {
-		try {
-			EmpresaUtils.validateRequiredFields(this.subView);
 
+		List<DotErpException> errors = EmpresaUtils.validateRequiredFields(this.subView);
+
+		if (errors.size() == 0) {
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} else {
 
+			for (DotErpException dee : errors) {
+				adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+			}
 			return false;
 		}
 	}
@@ -145,7 +145,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 				this.currentBean.setFpas(fpas.getId());
 			}
 
-			CnaeEntity cnaePrincipal = (CnaeEntity) this.subView
+			EmpresaCnaeEntity cnaePrincipal = (EmpresaCnaeEntity) this.subView
 					.getCbCnaePrincipal().getValue();
 
 			if (ObjectUtils.isNotBlank(cnaePrincipal)) {
@@ -413,7 +413,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 					.getCodigoCnaePrincipal();
 
 			if (NumberUtils.isNumber(codigoCnaePrincipal)) {
-				CnaeEntity cnae = this.cnaeDAO.find(NumberUtils
+				EmpresaCnaeEntity cnae = this.empresaCnaeDAO.find(NumberUtils
 						.toInt(codigoCnaePrincipal));
 
 				this.subView.getCbCnaePrincipal().setValue(cnae);

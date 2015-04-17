@@ -41,30 +41,10 @@ public class SearchTextField extends TextField {
 				if (filterString == null || filterString.trim().isEmpty()) {
 					txt = " todos os registros";
 				}
-				System.out.println("buscou");
 				controller.doSearch(txt);
 
 			}
 
 		});
 	}
-
-	@Override
-	public void changeVariables(final Object source, final Map<String, Object> variables) {
-		String newFilter;
-
-		if ((newFilter = (String) variables.get("text")) != null) {
-			filterString = newFilter;
-		}
-
-		String txt = filterString;
-		if (filterString == null || filterString.trim().isEmpty()) {
-			txt = " todos os registros";
-		}
-		System.out.println("buscou");
-		controller.doSearch(txt);
-
-		super.changeVariables(source, variables);
-	}
-
 }
