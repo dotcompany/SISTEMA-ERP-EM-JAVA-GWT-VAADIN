@@ -34,6 +34,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermTermination;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
@@ -45,6 +46,7 @@ import com.vaadin.data.util.filter.Compare.Operation;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
 import dc.control.validator.ObjectValidator;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -229,7 +231,14 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	public boolean isConsultaMultiEmpresa(
-			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll) {
+			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll, Boolean onlyAdministrator) {
+		UsuarioEntity usuarioEntity =(UsuarioEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		boolean isAdm = usuarioEntity !=null && usuarioEntity.getAdministrador();
+
+		if(Boolean.TRUE.equals(onlyAdministrator) && !isAdm){
+			return false;
+		}
+		
 		if (getAll != null && getAll) {
 			return false;
 		}
@@ -242,8 +251,13 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	public boolean isConsultaMultiEmpresa(
+			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll) {
+		return isConsultaMultiEmpresa(c, ent, getAll, false);
+	}
+	
+	public boolean isConsultaMultiEmpresa(
 			@SuppressWarnings("rawtypes") Class c, FmMenu ent) {
-		return isConsultaMultiEmpresa(c, ent, false);
+		return isConsultaMultiEmpresa(c, ent, false, false);
 	}
 
 	@Transactional
