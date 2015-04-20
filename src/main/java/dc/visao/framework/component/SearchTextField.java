@@ -1,11 +1,8 @@
 package dc.visao.framework.component;
 
-import java.util.Map;
-
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.server.VaadinServlet;
@@ -39,7 +36,7 @@ public class SearchTextField extends TextField {
 
 				String txt = filterString;
 				if (filterString == null || filterString.trim().isEmpty()) {
-					txt = " todos os registros";
+					txt = "";
 				}
 				controller.doSearch(txt);
 

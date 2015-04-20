@@ -87,6 +87,13 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private FmMenu parent;
+	
+	@Field()
+	@Column(name = "only_superadmin")
+	/**
+	 *  Define se somente o administrador pode visualizar todos os registros da listagem.
+	 */
+	private Boolean superAdministradorOnly = false;
 
 	/** REFERENCIA - LIST */
 
@@ -239,6 +246,15 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 	public void setRelatorios(List<Relatorio> relatorios) {
 		this.relatorios = relatorios;
 	}
+
+	public Boolean getSuperAdministradorOnly() {
+		return superAdministradorOnly;
+	}
+
+	public void setSuperAdministradorOnly(Boolean superAdministradorOnly) {
+		this.superAdministradorOnly = superAdministradorOnly;
+	}
+
 
 	/** HASHCODE E EQUALS */
 

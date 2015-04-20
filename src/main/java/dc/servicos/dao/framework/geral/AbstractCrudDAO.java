@@ -23,6 +23,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -45,7 +46,7 @@ import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Compare.Operation;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
-import dc.control.validator.ObjectValidator;
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -231,33 +232,30 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	public boolean isConsultaMultiEmpresa(
-			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll, Boolean onlyAdministrator) {
+			@SuppressWarnings("rawtypes") Class c, FmMenu menu, Boolean getAll) {
+		
 		UsuarioEntity usuarioEntity =(UsuarioEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		boolean isAdm = usuarioEntity !=null && usuarioEntity.getAdministrador();
+		boolean isAdm = usuarioEntity !=null && (usuarioEntity.getSuperAdministrador() == null ? false : usuarioEntity.getSuperAdministrador());
 
-		if(Boolean.TRUE.equals(onlyAdministrator) && !isAdm){
-			return false;
+		if(Boolean.TRUE.equals(menu.getSuperAdministradorOnly()) && !isAdm){
+			return true;
 		}
 		
 		if (getAll != null && getAll) {
 			return false;
 		}
 
-		if (ent != null) {
-			return isMultiEmpresa(c) && ent.isConsultaMultiempresa();
+		if (menu != null) {
+			return isMultiEmpresa(c) && menu.isConsultaMultiempresa();
 		} else {
 			return isMultiEmpresa(c);
 		}
 	}
 
-	public boolean isConsultaMultiEmpresa(
-			@SuppressWarnings("rawtypes") Class c, FmMenu ent, Boolean getAll) {
-		return isConsultaMultiEmpresa(c, ent, getAll, false);
-	}
 	
 	public boolean isConsultaMultiEmpresa(
 			@SuppressWarnings("rawtypes") Class c, FmMenu ent) {
-		return isConsultaMultiEmpresa(c, ent, false, false);
+		return isConsultaMultiEmpresa(c, ent, false);
 	}
 
 	@Transactional
@@ -581,22 +579,19 @@ public abstract class AbstractCrudDAO<T> {
 			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa().getId();
 
+			String empresaField = "empresa.id";
+			if(getEntityClass().equals(EmpresaEntity.class)){
+				empresaField = "id";
+			}
+			
+			
 			Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer(
 					"id_empresa_analyzer");
 			QueryParser parser = new QueryParser(Version.LUCENE_31,
-					"empresa.id", an2);
+					empresaField, an2);
 			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
 
-			if (ObjectValidator.validateString(value)) {
-				value = value.trim();
-
-				QueryBuilder qb = fullTextSession.getSearchFactory()
-						.buildQueryBuilder().forEntity(getEntityClass()).get();
-				org.apache.lucene.search.Query query = qb.keyword().fuzzy()
-						.onFields(searchFields).matching(value).createQuery();
-				booleanQuery.add(query, Occur.MUST);
-			}
-
+			booleanQuery.add(createFieldQueryByValue(value, searchFields), Occur.MUST);
 			booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -718,11 +713,19 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public int countByEmpresa(Class<T> c, Integer idEmpresa) {
 		List<T> l = sessionFactory.getCurrentSession().createCriteria(c)
-				.add(Restrictions.eq("empresa.id", idEmpresa))
+				.add(createRestrictionEmpresa(c, idEmpresa))
 				.setProjection(Projections.rowCount())
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
 		return Integer.valueOf(l.get(0).toString());
+	}
+
+	private Criterion createRestrictionEmpresa(Class<T> c, Integer idEmpresa) {
+		if(c.equals(EmpresaEntity.class)){
+			return  Restrictions.eq("id", idEmpresa);
+		}
+		
+		return Restrictions.eq("empresa.id", idEmpresa);
 	}
 
 	@Transactional

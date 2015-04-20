@@ -502,7 +502,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			BeanQueryFactory queryFactory = null;
 
 			FmMenu menu = getMenu();
-			if (genericDAO.isConsultaMultiEmpresa(getEntityClass(), menu, false, isOnlyAdministrador())) {
+			if (genericDAO.isConsultaMultiEmpresa(getEntityClass(), menu, false)) {
 				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
 						DCBeanQueryMultiEmpresa.class);
 			} else {
@@ -620,15 +620,6 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 					.mensagemErro(
 							"Ocorreu um erro na busca. Entre em contato com o administrador");
 		}
-	}
-
-	
-	
-	/**
-	 * @return Define se somente o administrador pode visualizar todos os registros da listagem.
-	 */
-	protected Boolean isOnlyAdministrador() {
-		return false;
 	}
 
 	private boolean isConsultaMultiEmpresa() {

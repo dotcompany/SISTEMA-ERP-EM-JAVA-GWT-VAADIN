@@ -73,10 +73,4 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 
 		return (List<EmpresaEntity>) this.dao.getAll(getEntityClass());
 	}
-	
-	@Override
-	protected Boolean isOnlyAdministrador() {
-		return true;
-	}
-
 }

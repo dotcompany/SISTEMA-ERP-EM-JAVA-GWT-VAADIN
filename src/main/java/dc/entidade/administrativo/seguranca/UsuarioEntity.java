@@ -104,6 +104,11 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String usernome = "";
+	
+	@Field
+	@Caption("Super Administrador")
+	@Column(name = "SUPER_ADMINISTRADOR")
+	private Boolean superAdministrador = Boolean.FALSE;
 
 	/**
 	 * REFERENCIA - FK
@@ -294,6 +299,14 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Boolean getSuperAdministrador() {
+		return superAdministrador;
+	}
+
+	public void setSuperAdministrador(Boolean superAdministrador) {
+		this.superAdministrador = superAdministrador;
 	}
 
 }
