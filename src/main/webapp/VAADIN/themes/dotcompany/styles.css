@@ -6326,6 +6326,6 @@ body .dotcompany.v-app .v-app-loading {
 	border-bottom-color: red !important;
 }
 
-.v-datefield-error, .v-filterselect-error{
+.dotcompany .v-datefield-error, .dotcompany .v-filterselect-error {
 	border-bottom-color: red !important;
 }
