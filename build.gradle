@@ -193,9 +193,9 @@ dependencies {
 		compile 'org.freemarker:freemarker:2.3.21'
 		
 		
-		compile 'org.springframework.security:spring-security-core:3.2.7.RELEASE'
-		compile "org.springframework.security:spring-security-web:3.2.7.RELEASE"
-		compile 'org.springframework.security:spring-security-config:3.2.7.RELEASE'
+		compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
+		compile "org.springframework.security:spring-security-web:4.0.1.RELEASE"
+		compile 'org.springframework.security:spring-security-config:4.0.1.RELEASE'
 		
 		
 		// CAPTCHA
