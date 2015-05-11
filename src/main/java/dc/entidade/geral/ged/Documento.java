@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -86,11 +87,15 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DATA_EXCLUSAO")
 	private Date dataExclusao;
 
-
 	@Caption("Tipo Documento")
 	@JoinColumn(name = "ID_GED_TIPO_DOCUMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private TipoDocumento tipoDocumento;
+
+	@Field()
+	@Caption("Template")
+	@Column(name = "template_contrato")
+	private Boolean templateContrato;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_DOCUMENTO")
@@ -173,8 +178,6 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 		return tipoDocumento;
 	}
 
-	
-
 	public List<DocumentoArquivo> getDocumentos() {
 		if (documentos == null) {
 			documentos = new ArrayList<DocumentoArquivo>();
@@ -187,7 +190,6 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 		this.documentos = documentos;
 	}
 
-	
 	@Override
 	public String toString() {
 		return nome;
@@ -197,12 +199,10 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result
-				+ ((palavraChave == null) ? 0 : palavraChave.hashCode());
+		result = prime * result + ((palavraChave == null) ? 0 : palavraChave.hashCode());
 		return result;
 	}
 
@@ -241,7 +241,13 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	public void setTipoDocumento(TipoDocumento value) {
 		this.tipoDocumento = value;
 	}
-	
-	
-	
+
+	public Boolean getTemplateContrato() {
+		return templateContrato;
+	}
+
+	public void setTemplateContrato(Boolean template) {
+		this.templateContrato = template;
+	}
+
 }

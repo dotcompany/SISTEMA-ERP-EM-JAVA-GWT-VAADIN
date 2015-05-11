@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.vaadin.data.Container.Filter;
 import com.vaadin.ui.Notification;
 
+import dc.controller.suprimento.contrato.TemplateListController;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
@@ -20,6 +22,7 @@ import dc.entidade.framework.PapelMenu;
 import dc.model.business.AbstractComboBusiness;
 import dc.model.business.AbstractComboBusiness;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.geral.ged.DocumentoDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
 import dc.visao.framework.geral.MainController;
@@ -34,6 +37,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	private ManyToOneCombo<T> combo;
 	private AbstractComboBusiness<T> business;
 	private Boolean getAll;
+	private List<Filter> filters;
 
 	public static final int FULL_SIZE_MODAL = 1;
 	public static final int MEDIUM_SIZE_MODAL = 2;
@@ -63,6 +67,11 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public DefaultManyToOneComboModel(Class controllerClass, MainController mainController,
 			Boolean getAll, AbstractComboBusiness<T> business) {
 		this(controllerClass, null, mainController, getAll, business);
+	}
+
+	public DefaultManyToOneComboModel(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController,List<Filter> filters) {
+		this(controllerClass, dao, mainController, false, null);
+		this.filters = filters;
 	}
 
 	public void setModalSize(int modalSizeType) {
@@ -118,6 +127,10 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 				e.printStackTrace();
 			}
 		} 
+		
+		if(this.filters != null && !this.filters.isEmpty()){
+			dao.comboFilteredSearch(q, menu, this.getAll, this.filters);
+		}
 		
 		return dao.comboTextSearch(q, menu, getAll);
 	}
@@ -244,8 +257,6 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public List<T> getAll() {
-		// CRUDListController ctrl = (CRUDListController)
-		// mainController.getEntityController(ctrlClass);
 		
 		FmMenu menu = mainController.getMenu(this.ctrlClass.getName());
 		if(business != null){
@@ -258,6 +269,9 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 			}
 		}
 		
+		if (filters != null && !filters.isEmpty()) {
+			return dao.comboFilteredSearch(null, menu, this.getAll, filters);
+		}
 		return dao.getAllForCombo(this.getEntityClass(),
 				SecuritySessionProvider.getUsuario().getConta().getEmpresa()
 						.getId(), menu, this.getAll);
@@ -312,6 +326,14 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	public void setBusiness(AbstractComboBusiness<T> business) {
 		this.business = business;
+	}
+
+	public List<Filter> getFilters() {
+		return filters;
+	}
+
+	public void setFilters(List<Filter> filters) {
+		this.filters = filters;
 	}
 
 }

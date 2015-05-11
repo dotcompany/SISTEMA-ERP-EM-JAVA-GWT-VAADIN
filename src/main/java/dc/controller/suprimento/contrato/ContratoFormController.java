@@ -29,6 +29,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.vaadin.data.Container.Filter;
+import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.FileDownloader;
@@ -39,32 +42,30 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutoListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.diverso.UfEntity;
+import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.contrato.ContratoEntity;
+import dc.entidade.suprimentos.contrato.ContratoProduto;
 import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
 import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
-import dc.entidade.suprimentos.contrato.ContratoProduto;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.ged.DocumentoDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
 import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
-import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -94,7 +95,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private TipoContratoDAO tipoContratoDAO;
 
 	@Autowired
-	private TemplateDAO templateDAO;
+	private DocumentoDAO documentoDAO;
 
 	@Autowired
 	private PessoaDAO pessoaDAO;
@@ -104,9 +105,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Autowired
 	private SolicitacaoServicoDAO solicitacaoServicoDAO;
-
-	@Autowired
-	private TemplateDAO documentoDAO;
 
 	@Autowired
 	private ProdutoDAO produtoDAO;
@@ -333,9 +331,13 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		DefaultManyToOneComboModel<UfEntity> templateUF = new DefaultManyToOneComboModel<UfEntity>(
 				UfListController.class, this.ufDAO, super.getMainController());
 
-		DefaultManyToOneComboModel<TemplateEntity> templateModel = new DefaultManyToOneComboModel<TemplateEntity>(
-				TemplateListController.class, this.templateDAO,
-				super.getMainController());
+		List<Filter> filters  = new ArrayList<Filter>();
+		Compare compareFilter = new Compare.Equal("templateContrato", true);
+		filters.add(compareFilter);
+		
+		DefaultManyToOneComboModel<Documento> templateModel = new DefaultManyToOneComboModel<Documento>(
+				TemplateListController.class, this.documentoDAO,
+				super.getMainController(),  filters);
 
 		/**
 		 * Ajustes para receber os dados de Solicitação de Serviço pegando os
@@ -386,7 +388,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	}
 
 	public StreamResource createResource() {
-		final TemplateEntity documento = (TemplateEntity) subView.getCbmDocumento()
+		final Documento documento = (Documento) subView.getCbmDocumento()
 				.getValue();
 
 		if (documento != null) {
@@ -837,8 +839,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		return ClassUtils.getUrl(this);
 	}
 
-	private static File getFileFromDocumento(TemplateEntity documento) {
-		File arquivo = new File(documento.getArquivo());
+	private static File getFileFromDocumento(Documento documento) {
+		File arquivo  = documento.getDocumentos().get(0).getFile();
 
 		return arquivo;
 	}

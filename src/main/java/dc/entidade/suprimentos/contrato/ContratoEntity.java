@@ -34,6 +34,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.PessoaEntity;
 
 @Entity
@@ -141,9 +142,9 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	private SolicitacaoServicoEntity contratoSolicitacaoServico;
 
 	@Caption(value = "Modelo Documento")
-	@JoinColumn(name = "ID_TEMPLATE", referencedColumnName = "ID")
+	@JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private TemplateEntity template;
+	private Documento documento;
 
 	/**
 	 * 
@@ -296,14 +297,6 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
 		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
 				.trim() : classificacaoContabilConta.toUpperCase().trim());
-	}
-
-	public TemplateEntity getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(TemplateEntity template) {
-		this.template = template;
 	}
 
 	public SolicitacaoServicoEntity getContratoSolicitacaoServico() {
@@ -466,6 +459,14 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
 	}
 
 }

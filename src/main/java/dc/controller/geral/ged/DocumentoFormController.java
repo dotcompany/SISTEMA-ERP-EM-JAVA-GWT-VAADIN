@@ -67,43 +67,47 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		boolean valido = true;
 
 		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateString(subView.getTxtPalavraChave().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtPalavraChave(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getTxtPalavraChave(), "Não pode ficar em branco");
 			valido = false;
 		}
-		TipoDocumento tipoDocumento = (TipoDocumento) subView
-				.getCmbTipoDocumento().getValue();
+		TipoDocumento tipoDocumento = (TipoDocumento) subView.getCmbTipoDocumento().getValue();
 		if (!Validator.validateObject(tipoDocumento)) {
-			adicionarErroDeValidacao(subView.getCmbTipoDocumento(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getCmbTipoDocumento(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (!Validator.validateObject(subView.getDtFimVigencia())) {
-			adicionarErroDeValidacao(subView.getDtFimVigencia(),
-					"Não pode ficar em branco");
+			adicionarErroDeValidacao(subView.getDtFimVigencia(), "Não pode ficar em branco");
 			valido = false;
 		}
 
 		if (subView.getCkbAssinado().getValue()) {
-			File arquivoCertificado = (File) subView.getUpAssinatura()
-					.getValue();
-			if (!Validator.validateObject(arquivoCertificado)
-					|| !arquivoCertificado.exists()) {
-				adicionarErroDeValidacao(subView.getUpArquivo(),
-						"Selecione o arquivo de certificado");
+			File arquivoCertificado = (File) subView.getUpAssinatura().getValue();
+			if (!Validator.validateObject(arquivoCertificado) || !arquivoCertificado.exists()) {
+				adicionarErroDeValidacao(subView.getUpArquivo(), "Selecione o arquivo de certificado");
+			}
+		}
+
+		if (subView.getCkbTemplate().getValue()) {
+			List<String> listArquivos = subView.getListArquivos();
+			for (int i = 0; i < listArquivos.size(); i++) {
+				String file = listArquivos.get(i);
+
+				if(!file.contains(".doc")){
+					adicionarErroDeValidacao(subView.getUpArquivo(), "Os templates de contrato devem ser no formato WORD com a extensão .doc");
+					valido = false;
+					break;
+				}
 			}
 		}
 
@@ -139,9 +143,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	protected void initSubView() {
 		subView = new DocumentoFormView();
 		companyFileHandler = new CompanyFileHandler();
-		DefaultManyToOneComboModel<TipoDocumento> model = new DefaultManyToOneComboModel<TipoDocumento>(
-				TipoDocumentoListController.class, tipoDocumentoDAO,
-				mainController);
+		DefaultManyToOneComboModel<TipoDocumento> model = new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class, tipoDocumentoDAO, mainController);
 		subView.getCmbTipoDocumento().setModel(model);
 
 	}
@@ -156,6 +158,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		subView.getCkbPodeAlterar().setValue(currentBean.getPodeAlterar());
 		subView.getCkbPodeExcluir().setValue(currentBean.getPodeExcluir());
 		subView.getCkbAssinado().setValue(currentBean.getAssinado());
+		subView.getCkbTemplate().setValue(currentBean.getTemplateContrato());
 		subView.setListArquivos(new ArrayList<String>());
 
 		List<DocumentoArquivo> listArquivos = currentBean.getDocumentos();
@@ -166,8 +169,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		for (int i = 0; i < listArquivos.size(); i++) {
 			String arquivo = listArquivos.get(i).getCaminho();
-			subView.atualizaMiniatura(new File(arquivo),
-					new File(arquivo).getName(), "A", (i + 1));
+			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i + 1));
 		}
 
 		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());
@@ -181,10 +183,10 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		currentBean.setPalavraChave(subView.getTxtPalavraChave().getValue());
 		currentBean.setDataFimVigencia(subView.getDtFimVigencia().getValue());
-		currentBean.setTipoDocumento((TipoDocumento) subView
-				.getCmbTipoDocumento().getValue());
+		currentBean.setTipoDocumento((TipoDocumento) subView.getCmbTipoDocumento().getValue());
 		currentBean.setPodeAlterar(subView.getCkbPodeAlterar().getValue());
 		currentBean.setPodeExcluir(subView.getCkbPodeExcluir().getValue());
+		currentBean.setTemplateContrato(subView.getCkbTemplate().getValue());
 		currentBean.setAssinado(false);
 
 		try {
@@ -230,13 +232,9 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 				String customCompanyBaseFolder = "dc-erp";
 				String arqOriginal = file;
 
-				String copyArquivo = homePath + "/" + customCompanyBaseFolder
-						+ "/" + currentBean.getEmpresa().getId() + "/"
-						+ documento.getId() + "/" + file;
+				String copyArquivo = homePath + "/" + customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() + "/" + documento.getId() + "/" + file;
 
-				caminho = homePath + "/" + customCompanyBaseFolder + "/"
-						+ currentBean.getEmpresa().getId() + "/"
-						+ documento.getId() + "/" + hash + getExtensao(file);
+				caminho = homePath + "/" + customCompanyBaseFolder + "/" + currentBean.getEmpresa().getId() + "/" + documento.getId() + "/" + hash + getExtensao(file);
 
 				Util.copyFile(new File(arqOriginal), new File(caminho));
 
@@ -244,12 +242,8 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 				if (arquivo != null && arquivo.exists()) {
 					if (currentBean.getAssinado()) {
-						File certificado = (File) subView.getUpAssinatura()
-								.getValue();
-						byte[] assinatura = Util.geraAssinaturaArquivo(
-								Util.lerBytesArquivo(arquivo), certificado,
-								subView.getPwSenhaCertificado().getValue()
-										.toCharArray());
+						File certificado = (File) subView.getUpAssinatura().getValue();
+						byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, subView.getPwSenhaCertificado().getValue().toCharArray());
 						// usa o array de bytes e salva
 						Util.gravarArquivo(hash, assinatura);
 					}
@@ -303,13 +297,15 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		ColaboradorEntity colaborador = usuario.getColaborador();
 
+		if(colaborador == null){
+			return null;
+		}
 		Documento original = documentoDAO.find(currentBean.getId());
 
 		if (original.getDocumentos().size() > 0) {
 			acao = "A";
 
-			DocumentoArquivo arquivoOriginal = original.getDocumentos()
-					.iterator().next();
+			DocumentoArquivo arquivoOriginal = original.getDocumentos().iterator().next();
 
 			if (!arquivoOriginal.getHash().equals(doc.getHash())) {
 
