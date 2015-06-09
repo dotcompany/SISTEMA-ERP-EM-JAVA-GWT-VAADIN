@@ -164,7 +164,7 @@ dependencies {
 		compile 'javax.mail:mail:1.4.7'
 		
 		compile 'mysql:mysql-connector-java:5.1.21'
-		compile ('org.postgresql:postgresql:9.4-1200-jdbc41') {
+		compile ('org.postgresql:postgresql:9.4-1201-jdbc41') {
             exclude module: 'slf4j-simple'
         }
 		
