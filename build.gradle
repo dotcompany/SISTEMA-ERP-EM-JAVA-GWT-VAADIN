@@ -43,7 +43,7 @@ vaadin {
 }
 
 vaadin.gwt.strict=true
-vaadin.plugin.logToConsole=false
+vaadin.plugin.logToConsole=true
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
@@ -117,23 +117,25 @@ dependencies {
    			exclude module: 'vaadin-themes' //by artifact name
 		}
 
-        //compile 'com.vaadin.addon:vaadin-charts:2.0.0'
+
 
         compile 'com.google.code.gson:gson:2.3.1'
 
-         //compile 'org.vaadin.addons:maskedtextfield:0.1.1'
 
-         //compile 'org.vaadin.addons:canvas:2.0'
 
          compile 'org.vaadin.addons:popupbutton:2.5.0'
 
          //compile 'com.vaadin.addon:vaadin-calendar-cval-2.0:2.0.0'
-
+		 //compile 'org.vaadin.addons:maskedtextfield:0.1.1'
+         //compile 'org.vaadin.addons:canvas:2.0'
+		 //compile 'org.vaadin.addons:imagecarousel:1.0.3'
+		 //compile 'com.vaadin.addon:vaadin-charts:2.0.0'
+		 //	compile 'org.vaadin.addons:numberfield7:0.0.1'
 
 		compile 'com.reveregroup.gwt:gwt-image-loader:1.1.4'
 
 		compile 'org.vaadin.addons:imagescaler:2.0.0'
-		//compile 'org.vaadin.addons:imagecarousel:1.0.3'
+
 
         compile 'org.vaadin.addons:filteringtable:0.9.12.v7'
 		compile 'com.vaadin:vaadin-push:7.4.7'
@@ -141,7 +143,7 @@ dependencies {
 			exclude group:'com.vaadin'
 		}
 
-	    //	compile 'org.vaadin.addons:numberfield7:0.0.1'
+	  
 
         compile 'org.vaadin.addons:imageviewer:0.5.1.v7'
         compile 'org.vaadin.addon:easyuploads:7.4.0'
