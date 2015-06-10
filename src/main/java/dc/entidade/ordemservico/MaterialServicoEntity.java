@@ -18,7 +18,6 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -62,6 +61,9 @@ public class MaterialServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
+
+	@Column(name = "valor_compra_prod")
+	private BigDecimal valorCompra;
 
 	public Integer getId() {
 		return id;
@@ -117,6 +119,14 @@ public class MaterialServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	public BigDecimal getValorCompra() {
+		return valorCompra;
+	}
+
+	public void setValorCompra(BigDecimal valorCompra) {
+		this.valorCompra = valorCompra;
 	}
 	
 }

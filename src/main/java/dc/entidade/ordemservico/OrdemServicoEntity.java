@@ -31,7 +31,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.financeiro.LancamentoPagar;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -565,7 +564,6 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 	public void addParcelaCheque(OrdemServicoEfetivacaoEntity parcela) {
 		parcela.setOrdemServico(this);
-		System.out.println("Id efetivacao ordemServico: "+parcela.getTipoEfetivacao().getId());
 		this.itensOrdemServicoEfetivacao.add(parcela);
 	}
 	public void addParcelaCarne(OrdemServicoEfetivacaoEntity parcela) {

@@ -50,7 +50,7 @@ public class OrdemServicoEfetivacaoEntity extends AbstractMultiEmpresaModel<Inte
 
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_efetivacao", referencedColumnName = "id")
-	private TipoEfetivacaoEntity tipoEfetivacao;
+	private TipoEfetivacaoOsEntity tipoEfetivacao;
 	
 	@Field
 	@Caption("Banco")
@@ -257,11 +257,11 @@ public class OrdemServicoEfetivacaoEntity extends AbstractMultiEmpresaModel<Inte
 		this.ordemParcela = ordemParcela;
 	}
 
-	public TipoEfetivacaoEntity getTipoEfetivacao() {
+	public TipoEfetivacaoOsEntity getTipoEfetivacao() {
 		return tipoEfetivacao;
 	}
 
-	public void setTipoEfetivacao(TipoEfetivacaoEntity tipoEfetivacao) {
+	public void setTipoEfetivacao(TipoEfetivacaoOsEntity tipoEfetivacao) {
 		this.tipoEfetivacao = tipoEfetivacao;
 	}
 

@@ -186,4 +186,18 @@ TipoEfetivacaoOsBusiness<TipoEfetivacaoOsEntity> {
 		return dao.comboTextSearch(value, menu, getAll);
 	}
 
+	@Override
+	public TipoEfetivacaoOsEntity findByCodigo(Integer codigo) throws Exception{
+		try {
+			
+			TipoEfetivacaoOsEntity ent = this.dao.findByCodigo(codigo);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }

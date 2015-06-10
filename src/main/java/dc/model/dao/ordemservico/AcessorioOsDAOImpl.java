@@ -95,7 +95,7 @@ public class AcessorioOsDAOImpl extends AbstractCrudDAO<AcessorioOsEntity> imple
 			sql = sql.replace("#", getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
-			query.setParameter("q", ordemServico.getId());
+			query.setParameter("id", ordemServico.getId());
 
 			List<AcessorioOsEntity> auxLista = query.list();
 		

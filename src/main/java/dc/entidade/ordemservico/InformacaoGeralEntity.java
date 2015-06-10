@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,6 @@ import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -45,8 +45,8 @@ public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@ManyToOne
 	@JoinColumn(name = "id_ordem_servico", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private OrdemServicoEntity ordemServico;
 
 	@Field
@@ -59,28 +59,28 @@ public class InformacaoGeralEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "telefone")
 	private String telefone;
 	
-	@ManyToOne
 	@JoinColumn(name = "id_status", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private StatusOsEntity statusOs;
 
-	@ManyToOne
 	@JoinColumn(name = "id_situacao_servico", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private SituacaoServicoEntity situacaoServico;
 
-	@ManyToOne
 	@JoinColumn(name = "id_tipo_servico", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private TipoServicoOsEntity tipoServico;
 	
-	@ManyToOne
 	@JoinColumn(name = "id_colaborador", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private ColaboradorEntity atendente;
 
-	@ManyToOne
 	@JoinColumn(name = "id_carro", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private CarroEntity carro;
 
-	@ManyToOne
 	@JoinColumn(name = "id_tipo_pgto", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private TipoPagamento tipoPagamento;
 
 	@Field

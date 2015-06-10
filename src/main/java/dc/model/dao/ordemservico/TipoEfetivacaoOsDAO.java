@@ -9,5 +9,5 @@ import dc.model.dao.AbstractDAO;
  * 
  */
 public interface TipoEfetivacaoOsDAO<T> extends AbstractDAO<T> {
-	//TipoEfetivacaoOsEntity findByCodigo(Integer codigo);
+	TipoEfetivacaoOsEntity findByCodigo(Integer codigo);
 }

@@ -29,7 +29,7 @@ LaudoTecnicoDAO<LaudoTecnicoEntity> {
 
 	public List<LaudoTecnicoEntity> listaTodos() {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1)";
+			String sql = "SELECT ent FROM LaudoTecnicoEntity INNER JOIN FETCH ent.ordemServico os WHERE (1 = 1)";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
@@ -61,8 +61,7 @@ LaudoTecnicoDAO<LaudoTecnicoEntity> {
 
 	public LaudoTecnicoEntity findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
-			String sql = "FROM # ent INNER JOIN ent.ordemServico as o WHERE (1 = 1) AND ent.ordemServico.id = :id";
-			sql = sql.replace("#", this.getEntityClass().getName());
+			String sql = "SELECT ent FROM LaudoTecnicoEntity ent INNER JOIN FETCH ent.ordemServico os WHERE (1 = 1) AND ent.ordemServico.id = :id";
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", ordemServico.getId());

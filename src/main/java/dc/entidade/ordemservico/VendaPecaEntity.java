@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,10 +19,8 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
@@ -44,13 +43,15 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "id_ordem_servico", referencedColumnName = "id")
 	private OrdemServicoEntity ordemServico;
 
-	@ManyToOne
-	@JoinColumn(name = "id_vendedor", referencedColumnName = "id")
-	private ColaboradorEntity vendedor;
-
-	@ManyToOne
-	@JoinColumn(name = "id_tecnico", referencedColumnName = "id")
-	private ColaboradorEntity tecnico;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_vendedor", referencedColumnName = "id", nullable = true)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private ColaboradorOsEntity vendedor;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_tecnico", referencedColumnName = "id", nullable = true)
+	@Analyzer(definition = "dc_combo_analyzer")
+	private ColaboradorOsEntity tecnico;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
@@ -103,11 +104,11 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.ordemServico = ordemServico;
 	}
 
-	public ColaboradorEntity getVendedor() {
+	public ColaboradorOsEntity getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(ColaboradorEntity vendedor) {
+	public void setVendedor(ColaboradorOsEntity vendedor) {
 		this.vendedor = vendedor;
 	}
 
@@ -167,11 +168,11 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public ColaboradorEntity getTecnico() {
+	public ColaboradorOsEntity getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(ColaboradorEntity tecnico) {
+	public void setTecnico(ColaboradorOsEntity tecnico) {
 		this.tecnico = tecnico;
 	}
 

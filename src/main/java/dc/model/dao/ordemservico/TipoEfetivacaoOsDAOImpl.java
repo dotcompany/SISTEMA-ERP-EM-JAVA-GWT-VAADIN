@@ -82,24 +82,24 @@ public class TipoEfetivacaoOsDAOImpl extends AbstractCrudDAO<TipoEfetivacaoOsEnt
 		}
 	}
 
-//	public TipoEfetivacaoOsEntity findByCodigo(Integer codigo){
-//		try {
-//			String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
-//			sql = sql.replace("#", this.getEntityClass().getName());
-//
-//			Query query = super.getSession().createQuery(sql);
-//			query.setParameter("id", codigo);
-//
-//			TipoEfetivacaoOsEntity ent =(TipoEfetivacaoOsEntity) query.uniqueResult();
-//
-//			return ent;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//
-//			throw e;
-//		}
-//
-//	}
+	public TipoEfetivacaoOsEntity findByCodigo(Integer codigo){
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.codigo = :codigo";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("codigo", codigo);
+
+			TipoEfetivacaoOsEntity ent =(TipoEfetivacaoOsEntity) query.uniqueResult();
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+
+	}
 
 	public String[] getDefaultSearchFields() {
 		return new String[] { "descricao" };

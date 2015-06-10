@@ -29,8 +29,10 @@ InformacaoGeralDAO<InformacaoGeralEntity> {
 
 	public List<InformacaoGeralEntity> listaTodos() {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1)";
-			sql = sql.replace("#", this.getEntityClass().getName());
+			String sql = "SELECT ent FROM InformacaoGeralEntity ent INNER JOIN ent.ordemServico os INNER JOIN FETCH ent.carro ca "+
+			"LEFT JOIN FETCH ent.statusOs st LEFT JOIN FETCH ent.situacaoServico ss LEFT JOIN FETCH ent.tipoServico tp " +
+			"LEFT JOIN FETCH ent.atendente at LEFT JOIN FETCH ent.tipoPagamento tp "+
+			"WHERE (1 = 1) ";
 
 			Query query = super.getSession().createQuery(sql);
 
@@ -61,8 +63,11 @@ InformacaoGeralDAO<InformacaoGeralEntity> {
 
 	public InformacaoGeralEntity findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
-			String sql = "FROM # ent INNER JOIN ent.ordemServico as o WHERE (1 = 1) AND ent.ordemServico.id = :id";
-			sql = sql.replace("#", this.getEntityClass().getName());
+
+			String sql = "SELECT ent FROM InformacaoGeralEntity ent INNER JOIN ent.ordemServico os INNER JOIN FETCH ent.carro ca "+
+			"LEFT JOIN FETCH ent.statusOs st LEFT JOIN FETCH ent.situacaoServico ss LEFT JOIN FETCH ent.tipoServico tp " +
+			"LEFT JOIN FETCH ent.atendente at LEFT JOIN FETCH ent.tipoPagamento tp "+
+			"WHERE (1 = 1) AND ent.ordemServico.id =:id ";
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", ordemServico.getId());
