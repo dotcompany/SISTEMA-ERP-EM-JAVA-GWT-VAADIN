@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
+import dc.control.util.classes.ordemservico.ServicoOsUtils;
+import dc.control.validator.DotErpException;
 import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.entidade.ordemservico.SubGrupoOsEntity;
-import dc.servicos.dao.ordemservico.GrupoDAO;
-import dc.servicos.dao.ordemservico.ServicoOsDAO;
-import dc.servicos.dao.ordemservico.SubGrupoDAO;
+import dc.model.business.ordemservico.GrupoOsBusiness;
+import dc.model.business.ordemservico.ServicoOsBusiness;
+import dc.model.business.ordemservico.SubGrupoOsBusiness;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
@@ -32,16 +35,29 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 
 	ServicoOsFormView subView;
 
-	@Autowired
-	ServicoOsDAO servicoDAO;
-
-	@Autowired
-	GrupoDAO grupoDAO;
-
-	@Autowired
-	SubGrupoDAO subGrupoDAO;
-
 	private ServicoOsEntity currentBean;
+
+	/**
+	 * BUSINESS
+	 */
+	@Autowired
+	private ServicoOsBusiness<ServicoOsEntity> business;
+
+	@Autowired
+	private GrupoOsBusiness<GrupoOsEntity> businessGrupoOs;
+
+	@Autowired
+	private SubGrupoOsBusiness<SubGrupoOsEntity> businessSubGrupoOs;
+
+	/**
+	 * CONSTRUTOR
+	 */
+	public ServicoOsFormController() {
+	}
+
+	public ServicoOsBusiness<ServicoOsEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -51,6 +67,32 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 	@Override
 	protected Component getSubView() {
 		return subView;
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		return ClassUtils.getUrl(this);
+	}
+
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
+	@Override
+	public ServicoOsEntity getModelBean() {
+		return currentBean;
+	}
+
+	@Override
+	protected void initSubView() {
+		try {
+			this.subView = new ServicoOsFormView(this);
+			preencheCombos();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -90,9 +132,10 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 			valorMinimoServico = formataMoeda(valorMinimoServico);
 			currentBean.setValorMinimoServico(new BigDecimal(valorMinimoServico));
 		}
-		if (subView.getTfGarantiaDia() != null) {
+		if (subView.getTfGarantiaDia() != null && !subView.getTfGarantiaDia().getValue().equals("") ) {
 			currentBean.setGarantiaDia(Integer.parseInt(subView.getTfGarantiaDia().getValue()));
 		}
+
 
 		String retorno = subView.getTfRetorno().getValue();
 		if (Validator.validateString(retorno)) {
@@ -108,9 +151,11 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 			currentBean.setValorPromocional(new BigDecimal(valorPromocional));
 		}
 		currentBean.setVencimentoPromocao(subView.getDtVencimentoPromocao().getValue());
-		currentBean.setObservacao(subView.getTaObservacao().getValue());
+		if(subView.getTaObservacao()!=null && !subView.getTaObservacao().getValue().equals("")){
+			currentBean.setObservacao(subView.getTaObservacao().getValue());
+		}
 		try {
-			servicoDAO.saveOrUpdate(currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,46 +164,49 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = servicoDAO.find(id);
+		try {
+			this.currentBean = this.business.find(id);
+			subView.getTfNome().setValue(currentBean.getNome());
+			subView.getCbGrupo().setValue(currentBean.getGrupo());
+			subView.getCbSubGrupo().setValue(currentBean.getSubGrupo());
+			BigDecimal aliquota = currentBean.getAliquotaIssqn();
+			if (aliquota != null) {
+				subView.getTfAliquotaIssqn().setConvertedValue(aliquota);
+			}
 
-		subView.getTfNome().setValue(currentBean.getNome());
-		subView.getCbGrupo().setValue(currentBean.getGrupo());
-		subView.getCbSubGrupo().setValue(currentBean.getSubGrupo());
-		BigDecimal aliquota = currentBean.getAliquotaIssqn();
-		if (aliquota != null) {
-			subView.getTfAliquotaIssqn().setConvertedValue(aliquota);
-			;
+			BigDecimal horaGasta = currentBean.getHoraGasta();
+			if (horaGasta != null) {
+				subView.getTfHoraGasta().setConvertedValue(horaGasta);
+			}
+			BigDecimal comissaoTecnico = currentBean.getValorComissaoTecnico();
+			if (comissaoTecnico != null) {
+				subView.getTfValorComissaoTecnico().setConvertedValue(comissaoTecnico);
+			}
+			subView.getOptTipoComissaoTecnico().setValue(currentBean.getTipoComissaoTecnico());
+			BigDecimal comissaoVendedor = currentBean.getValorComissaoVendedor();
+			if (comissaoVendedor != null) {
+				subView.getTfValorComissaoVendedor().setConvertedValue(comissaoVendedor);
+			}
+			subView.getOptTipoComissaoVendedor().setValue(currentBean.getTipoComissaoVendedor());
+			BigDecimal valorServico = currentBean.getValorServico();
+			if (valorServico != null) {
+				subView.getTfValorServico().setConvertedValue(valorServico);
+			}
+			BigDecimal valorMinimoServico = currentBean.getValorMinimoServico();
+			if (valorMinimoServico != null) {
+				subView.getTfValorMinimoServico().setConvertedValue(valorMinimoServico);
+			}
+			subView.getTfGarantiaDia().setValue(currentBean.getGarantiaDia().toString());
+			subView.getTfRetorno().setValue(currentBean.getRetorno().toString());
+			BigDecimal valorPromocional = currentBean.getValorPromocional();
+			if (valorPromocional != null) {
+				subView.getTfValorPromocional().setConvertedValue(valorPromocional);
+			}
+			subView.getTaObservacao().setValue(currentBean.getObservacao());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		BigDecimal horaGasta = currentBean.getHoraGasta();
-		if (horaGasta != null) {
-			subView.getTfHoraGasta().setConvertedValue(horaGasta);
-		}
-		BigDecimal comissaoTecnico = currentBean.getValorComissaoTecnico();
-		if (comissaoTecnico != null) {
-			subView.getTfValorComissaoTecnico().setConvertedValue(comissaoTecnico);
-		}
-		subView.getOptTipoComissaoTecnico().setValue(currentBean.getTipoComissaoTecnico());
-		BigDecimal comissaoVendedor = currentBean.getValorComissaoVendedor();
-		if (comissaoVendedor != null) {
-			subView.getTfValorComissaoVendedor().setConvertedValue(comissaoVendedor);
-		}
-		subView.getOptTipoComissaoVendedor().setValue(currentBean.getTipoComissaoVendedor());
-		BigDecimal valorServico = currentBean.getValorServico();
-		if (valorServico != null) {
-			subView.getTfValorServico().setConvertedValue(valorServico);
-		}
-		BigDecimal valorMinimoServico = currentBean.getValorMinimoServico();
-		if (valorMinimoServico != null) {
-			subView.getTfValorMinimoServico().setConvertedValue(valorMinimoServico);
-		}
-		subView.getTfGarantiaDia().setValue(currentBean.getGarantiaDia().toString());
-		subView.getTfRetorno().setValue(currentBean.getRetorno().toString());
-		BigDecimal valorPromocional = currentBean.getValorPromocional();
-		if (valorPromocional != null) {
-			subView.getTfValorPromocional().setConvertedValue(valorPromocional);
-		}
-		subView.getTaObservacao().setValue(currentBean.getObservacao());
 	}
 
 	/*
@@ -169,13 +217,6 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 	@Override
 	protected void quandoNovo() {
 
-	}
-
-	@Override
-	protected void initSubView() {
-		subView = new ServicoOsFormView(this);
-
-		preencheCombos();
 	}
 
 	/*
@@ -189,47 +230,49 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 
 	private void preencheCombos() {
 
-		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(GrupoListController.class, this.grupoDAO,
-				super.getMainController());
+		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(GrupoOsListController.class,
+				super.getMainController(), false, this.businessGrupoOs);
 
 		this.subView.getCbGrupo().setModel(grupo);
 
 	}
 
 	public void getSubgrupo(String classePesquisa, Integer idSelecionado) {
-		DefaultManyToOneComboModelSelect<SubGrupoOsEntity> subGrupo = new DefaultManyToOneComboModelSelect<SubGrupoOsEntity>(SubGrupoListController.class,
-				this.subGrupoDAO, super.getMainController(), classePesquisa, idSelecionado);
+		DefaultManyToOneComboModelSelect<SubGrupoOsEntity> subGrupo = new DefaultManyToOneComboModelSelect<SubGrupoOsEntity>(SubGrupoOsListController.class,
+				this.businessSubGrupoOs, super.getMainController(), classePesquisa, idSelecionado, false);
 
 		this.subView.getCbSubGrupo().setModel(subGrupo);
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		servicoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.business.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
+
 	@Override
 	protected boolean validaSalvar() {
+		try {
+			ServicoOsUtils.validateRequiredFields(this.subView);
 
-		boolean valido = true;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
 
-		if (!Validator.validateString(subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTfNome(), "Não pode ficar em branco");
-			valido = false;
+			return false;
 		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-	}
-
-	@Override
-	public String getViewIdentifier() {
-		return "servicoForm";
 	}
 
 	public String formataMoeda(String valor) {
@@ -242,11 +285,5 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 		String format = "";
 		format = valor.replace(",", ".");
 		return format;
-	}
-
-	@Override
-	public ServicoOsEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
 	}
 }

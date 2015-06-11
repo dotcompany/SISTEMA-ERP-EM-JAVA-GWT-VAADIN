@@ -17,6 +17,8 @@ import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
+import dc.model.business.AbstractComboBusiness;
+import dc.model.dao.AbstractDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
@@ -25,7 +27,8 @@ import dc.visao.spring.SecuritySessionProvider;
 
 public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<T> {
 
-	private AbstractCrudDAO<T> dao;
+	private AbstractDAO<T> dao;
+	private AbstractComboBusiness<T> business;
 	private Class ctrlClass;
 	private String classSelect;
 	private Integer idSelected;
@@ -38,14 +41,24 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 	public static final int MEDIUM_SIZE_MODAL = 2;
 	public static final int SMALL_SIZE_MODAL = 3;
 
-	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractDAO<T> dao, MainController mainController, String classSelect,
 			Integer idSelected) {
 		this(controllerClass, dao, mainController, classSelect, idSelected, false);
 	}
 
-	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractCrudDAO<T> dao, MainController mainController, String classSelect,
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractDAO<T> dao, MainController mainController, String classSelect,
 			Integer idSelected, Boolean getAll) {
 		this.dao = dao;
+		this.ctrlClass = controllerClass;
+		this.mainController = mainController;
+		this.classSelect = classSelect;
+		this.idSelected = idSelected;
+		this.getAll = getAll;
+	}
+
+	public DefaultManyToOneComboModelSelect(Class controllerClass, AbstractComboBusiness<T> business, MainController mainController, String classSelect,
+			Integer idSelected, Boolean getAll) {
+		this.business = business;
 		this.ctrlClass = controllerClass;
 		this.mainController = mainController;
 		this.classSelect = classSelect;
@@ -93,12 +106,12 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 
 		FmMenu menu = ctrl.getMenu();
 
-		return dao.comboTextSearch(q, menu, this.getAll);
+		return business.comboTextSearch(q, menu, this.getAll);
 	}
 
 	@Override
 	public Class<T> getEntityClass() {
-		return dao.getEntityClass();
+		return business.getEntityClass();
 	}
 
 	@Override
@@ -208,9 +221,10 @@ public class DefaultManyToOneComboModelSelect<T> implements ManyToOneComboModel<
 		// CRUDListController ctrl = (CRUDListController)
 		// mainController.getEntityController(ctrlClass);
 
-		FmMenu menu = dao.getMenu(this.ctrlClass.getName());
+		System.out.println("getall dao.getMENUUUUUUUUU");
+		FmMenu menu =null;// dao.getMenu(this.ctrlClass.getName());
 
-		return dao.getAllForComboSelect(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu,
+		return business.getAllForComboSelect(this.getEntityClass(), SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId(), menu,
 				classSelect, idSelected);
 	}
 

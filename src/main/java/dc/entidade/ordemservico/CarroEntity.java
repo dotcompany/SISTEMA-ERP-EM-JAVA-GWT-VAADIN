@@ -4,7 +4,6 @@ package dc.entidade.ordemservico;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,21 +18,17 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
 
 @Entity
 @Table(name = "os_carro")
@@ -100,7 +95,7 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Modelo")
 	@JoinColumn(name = "id_modelo", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private ModeloEntity modelo;
+	private ModeloOsEntity modelo;
 
 	@Caption("Combustível")
 	@JoinColumn(name = "id_combustivel", referencedColumnName = "id")
@@ -153,11 +148,11 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.cor = cor;
 	}
 
-	public ModeloEntity getModelo() {
+	public ModeloOsEntity getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(ModeloEntity modelo) {
+	public void setModelo(ModeloOsEntity modelo) {
 		this.modelo = modelo;
 	}
 
