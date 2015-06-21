@@ -3163,7 +3163,6 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 
 	public void preencheParcelasChequeSubForm(List<OrdemServicoEfetivacaoEntity> ordemServicoEfetivacao) {
-		System.out.println("OrdemServicoEfetivacao.size: "+ordemServicoEfetivacao.size());
 		List<OrdemServicoEfetivacaoEntity> listCheque = new ArrayList<OrdemServicoEfetivacaoEntity>();
 		if(ordemServicoEfetivacao.size() > 0){
 			for(OrdemServicoEfetivacaoEntity os : ordemServicoEfetivacao){

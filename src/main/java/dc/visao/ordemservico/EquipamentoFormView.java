@@ -76,7 +76,7 @@ public class EquipamentoFormView extends CustomComponent {
 		fields.setRows(5);
 		fields.setColumns(3);
 
-		tfFilial= ComponentUtil.buildNumericField("Filial");
+		tfFilial = ComponentUtil.buildNumericField("Filial");
 		fields.addComponent(tfFilial, 0, 1,0,1);
 
 		

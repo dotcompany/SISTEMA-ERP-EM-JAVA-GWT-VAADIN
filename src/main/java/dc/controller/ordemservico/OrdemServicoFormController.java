@@ -251,12 +251,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 						this.currentBean.setValorPeca(new BigDecimal(valorTotalProduto));
 					}
 				}
-				System.out.println("subView.getTfTotalServico(): "+subView.getTfTotalServico());
-				System.out.println("subView.getTfTotalPeca(): "+subView.getTfTotalPeca());
-				System.out.println("subView.getTfTotalServicoGeral(): "+subView.getTfTotalServicoGeral());
-				System.out.println("subView.getTfTotais(): "+subView.getTfTotais());
-				System.out.println("subView.getTfTotais(): "+subView.getTfTotalGeral());
-				System.out.println("subView.getTfTotalProdutoGeral(): "+subView.getTfTotalProdutoGeral());
 				if(subView.getTfTotais()!=null){
 					String valorTotalOs = subView.getTfTotais().getValue();
 					if (Validator.validateString(valorTotalOs)) {
@@ -644,12 +638,9 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 		InformacaoGeralEntity info = new InformacaoGeralEntity();
 		try {
-			System.out.println("this.currentBean.getId(): "+this.currentBean.getId());
 			info = this.businessInformacao.findByOrdemServico(this.currentBean);
 			
 			if (info != null) {
-				System.out.println("info.getId(): "+info.getId());
-				System.out.println("info.getNumeroComanda(): "+info.getNumeroComanda());
 				if(info.getAtendente()!=null){
 					subView.getCbAtendente().setValue(info.getAtendente());
 				}
@@ -1121,8 +1112,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaChequeOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(2);
-System.out.println("TipoEfetivacao toString gerarParcelasChequeOS: "+tipoEfetivacao.toString());
-System.out.println("tipoEfetivacao.getCodigo() gerarParcelasChequeOS: "+tipoEfetivacao.getCodigo());
 
 			Date dataEmissão = new Date();
 			Calendar primeiroVencimento = Calendar.getInstance();
@@ -1966,7 +1955,6 @@ System.out.println("tipoEfetivacao.getCodigo() gerarParcelasChequeOS: "+tipoEfet
 	}
 	
 	public void getCarro(String classePesquisa, Integer idSelecionado){
-		System.out.println("GetCarro");
 		DefaultManyToOneComboModelSelect<CarroEntity> carro = new DefaultManyToOneComboModelSelect<CarroEntity>(CarroListController.class, this.businessCarro,
 		super.getMainController(), classePesquisa, idSelecionado, false) {
 			@Override

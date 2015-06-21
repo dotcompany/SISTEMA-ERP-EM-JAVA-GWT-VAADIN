@@ -222,16 +222,16 @@ public abstract class AbstractCrudDAO<T> {
 
 	@Transactional
 	public List<T> getAllForComboSelect(final Class<T> type, int idEmpresa, FmMenu menu, final String typeSelected, Integer idSelected) {
+		
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
 
-		if (isConsultaMultiEmpresa(getEntityClass(), menu)) {
-			crit.add(Restrictions.eq("empresa.id", idEmpresa));
-		}
-
+		crit.add(Restrictions.eq("empresa.id", idEmpresa));
+		
 		crit.add(Restrictions.eq(typeSelected.toLowerCase() + ".id", idSelected));
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
 
+		
 		return crit.addOrder(Order.asc(order)).list();
 	}
 
