@@ -340,6 +340,17 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			mensagemErro(e.getMessage());
 		}
 	}
+	
+	@Override
+	protected void criarNovoBean() {
+		try {
+			this.entity = new ProdutoEntity();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
 
 	@Override
 	protected void carregar(Serializable id) {
@@ -421,17 +432,6 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.subView.getMocNcm().setValue(this.entity.getNcm());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	protected void criarNovoBean() {
-		try {
-			this.entity = new ProdutoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
 		}
 	}
 
