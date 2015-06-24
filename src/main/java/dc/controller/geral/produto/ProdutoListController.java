@@ -79,6 +79,7 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	@Override
 	protected List<ProdutoEntity> pesquisaDefault() {
 		try {
+			@SuppressWarnings("unchecked")
 			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController
 					.getBusiness().getAll(getEntityClass());
 
