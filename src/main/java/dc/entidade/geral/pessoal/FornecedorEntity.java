@@ -179,6 +179,11 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
+	
+	/*@Caption("Pessoa Eventos")
+	@OneToOne
+	@JoinColumn(name = "id_pessoa_pessoa", insertable = true, updatable = true)
+	private PessoaEventosEntity pessoaEventos;*/
 
 	@Caption("Situação fornecedor / cliente")
 	@ManyToOne(optional = false)
@@ -377,6 +382,14 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
+	
+	/*public PessoaEventosEntity getPessoaEventos() {
+		return pessoaEventos;
+	}
+	
+	public void setPessoaEventos(PessoaEventosEntity pessoaEventos) {
+		this.pessoaEventos = pessoaEventos;
+	}*/
 
 	public SituacaoForCliEntity getSituacaoForCli() {
 		return situacaoForCli;

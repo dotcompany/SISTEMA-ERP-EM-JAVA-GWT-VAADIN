@@ -201,4 +201,18 @@ public class PessoaEnderecoBusinessImpl implements Serializable,
 		}
 	}
 
+	/*@Override
+	public List<PessoaEnderecoEntity> list(PessoaEventosEntity pessoa) {
+		
+		try {
+			List<PessoaEnderecoEntity> auxLista = this.dao.list(pessoa);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}*/
+
 }

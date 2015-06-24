@@ -95,4 +95,23 @@ public class PessoaUtils {
 
 	}
 
+	/*public static void validateRequiredFields(PessoaEventosFormView subView) throws DotErpException {
+		
+		String tituloSecao = (String) subView.getTfTituloSecao().getValue();
+
+		if (!NumberUtils.isNumber(tituloSecao)) {
+			throw new DotErpException(subView.getTfTituloSecao(),
+					"::DotERP - O campo não é um número");
+		}
+
+		String tituloEleitoralZona = (String) subView.getTfTituloZona()
+				.getValue();
+
+		if (!NumberUtils.isNumber(tituloEleitoralZona)) {
+			throw new DotErpException(subView.getTfTituloZona(),
+					"::DotERP - O campo não é um número");
+		}
+		
+	}*/
+
 }

@@ -217,6 +217,11 @@ public class PessoaFisicaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	private PessoaEntity pessoa;
+	
+	/*@Caption("Pessoa Eventos")
+	@OneToOne
+	@JoinColumn(name = "id_pessoa_eventos", insertable = true, updatable = true)
+	private PessoaEventosEntity pessoaEventos;*/
 
 	/**
 	 * REFERENCIA - LIST
@@ -444,5 +449,14 @@ public class PessoaFisicaEntity implements Serializable {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	/*public PessoaEventosEntity getPessoaEventos() {
+		return pessoaEventos;
+	}
+
+	public void setPessoaEventos(PessoaEventosEntity pessoaEventos) {
+		this.pessoaEventos = pessoaEventos;
+		
+	}*/
 
 }

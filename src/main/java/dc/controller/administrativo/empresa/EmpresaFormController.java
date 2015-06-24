@@ -496,6 +496,12 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.currentBean = new EmpresaEntity();
+			
+			if(this.subView.getMocSeguimento() != null ) {
+				
+				
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 

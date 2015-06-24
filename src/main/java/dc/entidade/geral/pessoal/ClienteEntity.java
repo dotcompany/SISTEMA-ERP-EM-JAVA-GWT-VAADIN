@@ -165,6 +165,11 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
 	private OperacaoFiscalEntity operacaoFiscal;
+	
+	/*@Caption("Pessoa Eventos")
+	@OneToOne
+	@JoinColumn(name = "id_pessoa_eventos", insertable = true, updatable = true)
+	private PessoaEventosEntity pessoaEventos;*/
 
 	/**
 	 * REFERENCIA - LIST
@@ -339,6 +344,15 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
 				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
+	
+	/*public PessoaEventosEntity getPessoaEventos() {
+		return pessoaEventos;
+	}
+
+	public void setPessoaEventos(PessoaEventosEntity pessoaEventos) {
+		this.pessoaEventos = pessoaEventos;
+		
+	}*/
 
 	/**
 	 * TO STRING

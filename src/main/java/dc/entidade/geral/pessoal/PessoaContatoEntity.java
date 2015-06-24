@@ -105,6 +105,11 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	private PessoaEntity pessoa;
+	
+	/*@Caption("Pessoa Eventos")
+	@ManyToOne
+	@JoinColumn(name = "id_pessoa_eventos")
+	private PessoaEventosEntity pessoaEventos;*/
 
 	/**
 	 * REFERENCIA - LIST
@@ -198,5 +203,14 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	/*public PessoaEventosEntity getPessoaEventos() {
+		return pessoaEventos;
+	}
 
+	public void setPessoaEventos(PessoaEventosEntity entity) {
+		this.pessoaEventos = pessoaEventos;
+		
+	}
+*/
 }

@@ -138,6 +138,7 @@ public class SeguimentoFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.entity = new SeguimentoEntity();
+	
 		} catch (Exception e) {
 			e.printStackTrace();
 

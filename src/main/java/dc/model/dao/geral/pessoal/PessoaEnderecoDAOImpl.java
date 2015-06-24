@@ -99,4 +99,24 @@ public class PessoaEnderecoDAOImpl extends
 		}
 	}
 
+	/*@Override
+	public List<PessoaEnderecoEntity> list(PessoaEventosEntity pessoa) {
+		
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", pessoa.getId());
+
+			List<PessoaEnderecoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}*/
+
 }

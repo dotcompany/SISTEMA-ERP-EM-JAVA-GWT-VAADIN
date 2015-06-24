@@ -10,5 +10,6 @@ public interface PessoaEnderecoBusiness<T> extends AbstractBusiness<T>,
 		AbstractComboBusiness<T> {
 
 	public List<T> list(PessoaEntity entity);
+	//public List<T> list(PessoaEventosEntity pessoa);
 
 }

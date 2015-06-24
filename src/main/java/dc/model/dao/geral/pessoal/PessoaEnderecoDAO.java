@@ -8,5 +8,6 @@ import dc.model.dao.AbstractDAO;
 public interface PessoaEnderecoDAO<T> extends AbstractDAO<T> {
 
 	public List<T> list(PessoaEntity entity);
+	//public List<T> list(PessoaEventosEntity pessoa);
 
 }
