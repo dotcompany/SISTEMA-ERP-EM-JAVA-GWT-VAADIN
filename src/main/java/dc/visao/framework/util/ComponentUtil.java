@@ -52,7 +52,7 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-		// textField.setConverter(new BigDecimalConverter("R$ "));
+		textField.setConverter(new BigDecimalConverter("R$ "));
 		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(
 				event, textField));
 
