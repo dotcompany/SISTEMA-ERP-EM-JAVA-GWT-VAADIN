@@ -255,25 +255,29 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 			this.entity.setDescricaoPdv(this.subView.getTfDescricaoPdv()
 					.getValue());
+			
+			/**************** INFORMAÇÕES DE VALORES *************************************/
 
-			this.entity.setValorVenda(this.subView.getCfValorVenda()
-					.getBigDecimalValue());
-			this.entity.setValorCompra(this.subView.getCfValorCompra()
-					.getBigDecimalValue());
-			this.entity.setPrecoVendaMinimo(this.subView
-					.getCfValorVendaMinimo().getBigDecimalValue());
-			this.entity.setPrecoSugerido(this.subView.getCfValorSugerido()
-					.getBigDecimalValue());
-			this.entity.setCustoMedioLiquido(this.subView
-					.getCfCustoMedioLiquido().getBigDecimalValue());
-			this.entity.setPrecoLucroZero(this.subView.getCfPrecoLucroZero()
-					.getBigDecimalValue());
-			this.entity.setPrecoLucroMinimo(this.subView
-					.getCfPrecoLucroMinimo().getBigDecimalValue());
-			this.entity.setPrecoLucroMaximo(this.subView
-					.getCfPrecoLucroMaximo().getBigDecimalValue());
-			this.entity.setMarkup(this.subView.getCfMarkup()
-					.getBigDecimalValue());
+			/*this.entity.setValorVenda(this.subView.getCfValorVenda().getBigDecimalValue());
+			this.entity.setValorCompra(this.subView.getCfValorCompra().getBigDecimalValue());
+			this.entity.setPrecoVendaMinimo(this.subView.getCfValorVendaMinimo().getBigDecimalValue());
+			this.entity.setPrecoSugerido(this.subView.getCfValorSugerido().getBigDecimalValue());
+			this.entity.setCustoMedioLiquido(this.subView.getCfCustoMedioLiquido().getBigDecimalValue());
+			this.entity.setPrecoLucroZero(this.subView.getCfPrecoLucroZero().getBigDecimalValue());
+			this.entity.setPrecoLucroMinimo(this.subView.getCfPrecoLucroMinimo().getBigDecimalValue());
+			this.entity.setPrecoLucroMaximo(this.subView.getCfPrecoLucroMaximo().getBigDecimalValue());
+			this.entity.setMarkup(this.subView.getCfMarkup().getBigDecimalValue());*/
+			
+			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getValue()));
+            this.entity.setValorCompra(NumberUtils.createBigDecimal(this.subView.getCfValorCompra().getValue()));
+            this.entity.setPrecoVendaMinimo(NumberUtils.createBigDecimal(this.subView.getCfValorVendaMinimo().getValue()));
+            this.entity.setPrecoSugerido(NumberUtils.createBigDecimal(this.subView.getCfValorSugerido().getValue()));
+            this.entity.setCustoMedioLiquido(NumberUtils.createBigDecimal(this.subView.getCfCustoMedioLiquido().getValue()));
+            this.entity.setPrecoLucroZero(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroZero().getValue()));
+            this.entity.setPrecoLucroMaximo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMaximo().getValue()));
+            this.entity.setPrecoLucroMinimo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMinimo().getValue()));
+            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getValue()));
+	
 
 			this.entity.setCodigoLst(this.subView.getTfLst().getValue());
 			this.entity.setExTipi(this.subView.getTfExtipi().getValue());
