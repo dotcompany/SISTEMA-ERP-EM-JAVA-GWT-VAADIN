@@ -195,6 +195,16 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pessoa = pessoa;
 	}
 
+	/*public PessoaEventosEntity getPessoaEventos() {
+	    return pessoaEventos;
+    }
+
+    public void setPessoaEventos(PessoaEventosEntity entity) {
+	    this.pessoaEventos = pessoaEventos;
+	
+    }*/
+
+	
 	/**
 	 * TO STRING
 	 */
@@ -203,14 +213,6 @@ public class PessoaContatoEntity extends AbstractMultiEmpresaModel<Integer>
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-	
-	/*public PessoaEventosEntity getPessoaEventos() {
-		return pessoaEventos;
-	}
 
-	public void setPessoaEventos(PessoaEventosEntity entity) {
-		this.pessoaEventos = pessoaEventos;
-		
-	}
-*/
+	
 }

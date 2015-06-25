@@ -1,6 +1,7 @@
 package dc.controller.geral.produto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -266,9 +267,29 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setPrecoLucroZero(this.subView.getCfPrecoLucroZero().getBigDecimalValue());
 			this.entity.setPrecoLucroMinimo(this.subView.getCfPrecoLucroMinimo().getBigDecimalValue());
 			this.entity.setPrecoLucroMaximo(this.subView.getCfPrecoLucroMaximo().getBigDecimalValue());
-			this.entity.setMarkup(this.subView.getCfMarkup().getBigDecimalValue());*/
+			this.entity.setMarkup(this.subView.getCfMarkup().getBigDecimalValue());
 			
-			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getValue()));
+			this.entity.setValorVenda((BigDecimal) this.subView.getCfValorVenda().getConvertedValue());
+			this.entity.setValorCompra((BigDecimal) this.subView.getCfValorCompra().getConvertedValue());
+			this.entity.setPrecoVendaMinimo((BigDecimal) this.subView.getCfValorVendaMinimo().getConvertedValue());
+			this.entity.setPrecoSugerido((BigDecimal) this.subView.getCfValorSugerido().getConvertedValue());
+			this.entity.setCustoMedioLiquido((BigDecimal) this.subView.getCfCustoMedioLiquido().getConvertedValue());
+			this.entity.setPrecoLucroZero((BigDecimal) this.subView.getCfPrecoLucroZero().getConvertedValue());
+			this.entity.setPrecoLucroMaximo((BigDecimal) this.subView.getCfPrecoLucroMaximo().getConvertedValue());
+			this.entity.setPrecoLucroMinimo((BigDecimal) this.subView.getCfPrecoLucroMinimo().getConvertedValue());
+			this.entity.setMarkup((BigDecimal) this.subView.getCfMarkup().getConvertedValue());*/
+			
+			this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getConvertedValue()));
+            this.entity.setValorCompra(NumberUtils.createBigDecimal(this.subView.getCfValorCompra().getConvertedValue()));
+            this.entity.setPrecoVendaMinimo(NumberUtils.createBigDecimal(this.subView.getCfValorVendaMinimo().getConvertedValue()));
+            this.entity.setPrecoSugerido(NumberUtils.createBigDecimal(this.subView.getCfValorSugerido().getConvertedValue()));
+            this.entity.setCustoMedioLiquido(NumberUtils.createBigDecimal(this.subView.getCfCustoMedioLiquido().getConvertedValue()));
+            this.entity.setPrecoLucroZero(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroZero().getConvertedValue()));
+            this.entity.setPrecoLucroMaximo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMaximo().getConvertedValue()));
+            this.entity.setPrecoLucroMinimo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMinimo().getConvertedValue()));
+            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getConvertedValue()));
+			
+			/*this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getValue()));
             this.entity.setValorCompra(NumberUtils.createBigDecimal(this.subView.getCfValorCompra().getValue()));
             this.entity.setPrecoVendaMinimo(NumberUtils.createBigDecimal(this.subView.getCfValorVendaMinimo().getValue()));
             this.entity.setPrecoSugerido(NumberUtils.createBigDecimal(this.subView.getCfValorSugerido().getValue()));
@@ -276,7 +297,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
             this.entity.setPrecoLucroZero(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroZero().getValue()));
             this.entity.setPrecoLucroMaximo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMaximo().getValue()));
             this.entity.setPrecoLucroMinimo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMinimo().getValue()));
-            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getValue()));
+            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getValue()));*/
 	
 
 			this.entity.setCodigoLst(this.subView.getTfLst().getValue());
@@ -314,9 +335,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			this.entity.setEstoqueMinimo(NumberUtils
 					.createBigDecimal(this.subView.getTfEstoqueMinimo()
 							.getConvertedValue()));
-			this.entity.setEstoqueMaximo(NumberUtils
-					.createBigDecimal(this.subView.getTfEstoqueMaximo()
-							.getConvertedValue()));
+			this.entity.setEstoqueMaximo(NumberUtils.createBigDecimal(this.subView.getTfEstoqueMaximo().getConvertedValue()));
 			this.entity.setPeso(NumberUtils.createBigDecimal(this.subView
 					.getTfPeso().getConvertedValue()));
 			this.entity.setTaxaComissao(NumberUtils

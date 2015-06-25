@@ -167,7 +167,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private OperacaoFiscalEntity operacaoFiscal;
 	
 	/*@Caption("Pessoa Eventos")
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name = "id_pessoa_eventos", insertable = true, updatable = true)
 	private PessoaEventosEntity pessoaEventos;*/
 
@@ -352,8 +352,8 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setPessoaEventos(PessoaEventosEntity pessoaEventos) {
 		this.pessoaEventos = pessoaEventos;
 		
-	}*/
-
+	}
+*/
 	/**
 	 * TO STRING
 	 */

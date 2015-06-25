@@ -228,15 +228,6 @@ public class PessoaJuridicaEntity implements Serializable {
 	public void setPessoa(PessoaEntity pessoa) {
 		this.pessoa = pessoa;
 	}
-
-	/**
-	 * TO STRING
-	 */
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
 	
 	/*public PessoaEventosEntity getPessoaEventos() {
 		return pessoaEventos;
@@ -246,5 +237,14 @@ public class PessoaJuridicaEntity implements Serializable {
 		this.pessoaEventos = pessoaEventos;
 		
 	}*/
+
+	/**
+	 * TO STRING
+	 */
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

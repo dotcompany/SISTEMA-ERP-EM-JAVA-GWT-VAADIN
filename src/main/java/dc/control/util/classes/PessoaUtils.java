@@ -5,6 +5,7 @@ import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
+import dc.visao.geral.eventos.PessoaEventosFormView;
 import dc.visao.geral.pessoal.PessoaFormView;
 
 public class PessoaUtils {
@@ -95,7 +96,7 @@ public class PessoaUtils {
 
 	}
 
-	/*public static void validateRequiredFields(PessoaEventosFormView subView) throws DotErpException {
+	public static void validateRequiredFields(PessoaEventosFormView subView) throws DotErpException {
 		
 		String tituloSecao = (String) subView.getTfTituloSecao().getValue();
 
@@ -112,6 +113,6 @@ public class PessoaUtils {
 					"::DotERP - O campo não é um número");
 		}
 		
-	}*/
+	}
 
 }

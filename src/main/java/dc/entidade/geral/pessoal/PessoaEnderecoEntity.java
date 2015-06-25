@@ -330,6 +330,15 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
+	
+	/*public PessoaEventosEntity getPessoaEventos() {
+	    return pessoaEventos;
+    }
+
+    public void setPessoaEventos(PessoaEventosEntity entity) {
+	    this.pessoaEventos = pessoaEventos;
+	
+    }*/
 
 	/**
 	 * TO STRING
@@ -340,13 +349,5 @@ public class PessoaEnderecoEntity extends AbstractMultiEmpresaModel<Integer>
 		return ToStringBuilder.reflectionToString(this);
 	}
 	
-	/*public PessoaEventosEntity getPessoaEventos() {
-		return pessoaEventos;
-	}
-
-	public void setPessoaEventos(PessoaEventosEntity entity) {
-		this.pessoaEventos = pessoaEventos;
-		
-	}*/
 
 }
