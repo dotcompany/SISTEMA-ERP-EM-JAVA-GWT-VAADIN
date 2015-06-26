@@ -37,7 +37,6 @@ import dc.control.validator.DotErpException;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.geral.diverso.SetorEntity;

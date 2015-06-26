@@ -13,8 +13,12 @@ import dc.control.enums.TipoSemestre;
 import dc.control.util.ClassUtils;
 import dc.control.util.eventos.ContratoEventosUtil;
 import dc.control.validator.DotErpException;
+import dc.controller.geral.pessoal.TipoColaboradorListController;
+import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
-import dc.model.business.eventos.ContratoBusiness;
+import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
+import dc.servicos.dao.geral.eventos.ContratoEventosDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.ContratoEventosFormView;
 
@@ -26,8 +30,14 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 	
 	private ContratoEventosFormView subView;
 	
+	//@Autowired
+	//private ContratoBusiness<ContratoEventosEntity> business;
+	
 	@Autowired
-	private ContratoBusiness<ContratoEventosEntity> business;
+	private CerimonialEventosDAO cerimonialEventosDAO;
+	
+	@Autowired
+	private ContratoEventosDAO contratoEventosDAO;
 	
 	/**
 	 * ENTITY
@@ -38,6 +48,10 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 	public ContratoEventosFormController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	/*public ContratoBusiness<ContratoEventosEntity> getBusiness() {
+		return business;
+	}*/
 
 	@Override
 	public String getViewIdentifier() {
@@ -88,29 +102,89 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 	@Override
 	protected void initSubView() {
 		
-		/*try {
+		try {
 			this.subView = new ContratoEventosFormView(this);
 			
-			DefaultManyToOneComboModel<CerimonialEntity> modelCerimonial = new DefaultManyToOneComboModel<CerimonialEntity>(
-					CerimonialListController.class, super.getMainController(),
-					null, this.cerimonialBusiness);
+			DefaultManyToOneComboModel<CerimonialEventosEntity> modelCerimonialEventos = new DefaultManyToOneComboModel<CerimonialEventosEntity>(
+					TipoColaboradorListController.class,
+					this.cerimonialEventosDAO, super.getMainController());
 
-			this.subView.getMocNomeCerimonial().setModel(modelCerimonial);*/
+			this.subView.getMocNomeCerimonial().setModel(modelCerimonialEventos);
+			
+			carregarTipoSemestre();
+			
+			// Valores iniciais
 
-
+			this.subView.getCbTipoSemestre().setValue(TipoSemestre.S);
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
 		
+		try {
+			//this.entity = this.business.find(id);
+			
+			this.entity = contratoEventosDAO.find(id);
+			
+			this.subView.getCbTipoSemestre().setValue(this.entity.getTipoSemestre());
+			
+			this.subView.getTxtCurso().setValue(this.entity.getCurso());
+			this.subView.getTxtUnidade().setValue(this.entity.getUnidade());
+			this.subView.getTxtAnoFormatura().setValue(this.entity.getAnoFormatura());
+			
+			this.entity.setQuantidadeFormandos((Integer) this.subView.getTxtQuantidadeFormandos().getConvertedValue());
+			this.entity.setDataContrato(this.subView.getPdfDataContrato().getValue());
+			this.entity.setDataPrimeiroEvento(this.subView.getPdfDataPrimeiroEvento().getValue());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
 	protected void actionSalvar() {
-		// TODO Auto-generated method stub
 		
+		try {
+			//TipoSemestre tipoSemestre = (TipoSemestre) this.subView.getCbTipoSemestre().getValue();
+			
+			TipoSemestre tipoSemestre = (TipoSemestre) this.subView	.getCbTipoSemestre().getValue();
+			this.entity.setTipoSemestre(tipoSemestre);
+
+			//this.entity.setTipoSemestre(tipoSemestre);
+
+			this.entity.setCurso(this.subView.getTxtCurso().getValue());
+			this.entity.setUnidade(this.subView.getTxtUnidade().getValue());
+			this.entity.setAnoFormatura(this.subView.getTxtAnoFormatura().getValue());
+			
+			this.entity.setQuantidadeFormandos((Integer) this.subView.getTxtQuantidadeFormandos().getConvertedValue());
+			this.entity.setDataContrato(this.subView.getPdfDataContrato().getValue());
+			this.entity.setDataPrimeiroEvento(this.subView.getPdfDataPrimeiroEvento().getValue());
+			
+			
+			contratoEventosDAO.saveOrUpdate(this.entity);
+			//this.business.saveOrUpdate(this.entity);
+
+			notifiyFrameworkSaveOK(this.entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
+
+		
+	}
+	
+	public void carregarTipoSemestre() {
+		for (TipoSemestre s : TipoSemestre.values()) {
+			this.subView.getCbTipoSemestre().addItem(s);
+		}
 	}
 
 	@Override
@@ -137,7 +211,8 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 	protected void remover(List<Serializable> ids) {
 		
 		try {
-			this.business.deleteAll(ids);
+			contratoEventosDAO.deleteAll(ids);
+			//this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -167,13 +242,4 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		// TODO Auto-generated method stub
 		return entity;
 	}
-	
-	public void carregarTipoSemestre() {
-		for (TipoSemestre s : TipoSemestre.values()) {
-			this.subView.getCbTipoSemestre().addItem(s);
-		}
-	}
-
-	
-
 }

@@ -1,10 +1,10 @@
 package dc.control.enums;
 
 public enum TipoSemestre {
-	
-	P("PRIMEIRO SEMESTRE", "P"),
 
-	S("SEGUNDO SEMESTRE", "S");
+	P("PRIMEIRO SEMESTRE", "Primeiro Semestre"),
+
+	S("SEGUNDO SEMESTRE", "Segundo Semestre");
 
 	private String key;
 
@@ -15,12 +15,12 @@ public enum TipoSemestre {
 		this.value = value;
 	}
 
-	public static TipoSemestre getSemestre(String value) {
-		if (value.equals("P")) {
+	public static TipoSemestre getEn(String value) {
+		if (value.equals("Primeiro Semestre")) {
 			return P;
 		}
 
-		if (value.equals("S")) {
+		if (value.equals("Segundo Semestre")) {
 			return S;
 		}
 

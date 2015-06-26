@@ -33,7 +33,6 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.SimNaoEn;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;

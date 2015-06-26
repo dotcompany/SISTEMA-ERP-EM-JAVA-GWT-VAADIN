@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +23,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.TipoSemestre;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -93,7 +93,15 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	/*@Caption("Nome Cerimonial")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_nome_cerimonial", nullable = false)
-	private CerimonialEntity nomeCerimonial;*/
+	private CerimonialEventosEntity nomeCerimonial;*/
+	
+	@Enumerated(EnumType.STRING)
+	@Field
+	@Caption("Tipo Semestre")
+	@Column(name = "tipo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private TipoSemestre tipoSemestre;
 
 	
 	
@@ -161,11 +169,19 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.anoFormatura = anoFormatura;
 	}
 
-	/*public CerimonialEntity getNomeCerimonial() {
+	public TipoSemestre getTipoSemestre() {
+		return tipoSemestre;
+	}
+
+	public void setTipoSemestre(TipoSemestre tipoSemestre) {
+		this.tipoSemestre = tipoSemestre;
+	}
+
+	/*public CerimonialEventosEntity getNomeCerimonial() {
 		return nomeCerimonial;
 	}
 
-	public void setNomeCerimonial(CerimonialEntity nomeCerimonial) {
+	public void setNomeCerimonial(CerimonialEventosEntity nomeCerimonial) {
 		this.nomeCerimonial = nomeCerimonial;
 	}*/
 	
