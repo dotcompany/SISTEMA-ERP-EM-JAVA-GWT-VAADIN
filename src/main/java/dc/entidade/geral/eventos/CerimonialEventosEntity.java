@@ -1,16 +1,16 @@
 package dc.entidade.geral.eventos;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +24,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.UfEntity;
 
 @Entity
 @Table(name = "cerimonial_eventos")
@@ -56,29 +57,75 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cnpj = "";
 	
-	@Column(name = "telefone")
+	@Field
+	@Caption("Endereco")
+	@Column(name = "ENDERECO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String endereco = "";
+
+	@Field
+	@Caption("Número")
+	@Column(name = "NUMERO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private Integer numero = new Integer(0);
+
+	@Field
+	@Caption("Complemento")
+	@Column(name = "COMPLEMENTO", length = 100)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String complemento = "";
+
+	@Field
+	@Caption("Bairro")
+	@Column(name = "BAIRRO", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String bairro = "";
+
+	@Field
+	@Caption("Cidade")
+	@Column(name = "CIDADE", length = 50)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cidade = "";
+
+	@Field
+	@Caption("Cep")
+	@Column(name = "CEP", length = 8)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String cep = "";
+
+	@Field
+	@Caption("Telefone")
+	@Column(name = "TELEFONE", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String telefone;
 
-	@Column(name = "celular")
+	@Field
+	@Caption("Celular")
+	@Column(name = "CELULAR", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String celular;
 	
-	@Column(name = "contato")
+	@Field
+	@Caption("Contato")
+	@Column(name = "CONTATO", length = 14)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String contato;
 
-	@Column(name = "cep")
-	private String cep;
-
-	@Column(name = "endereco")
-	private String endereco;
-
-	@Column(name = "bairro")
-	private String bairro;
-
-	@Column(name = "cidade")
-	private String cidade;
-
-	@Column(name = "uf")
-	private String uf;
+	@Field
+	@Caption("UF sigla")
+	@Column(name = "uf", length = 2)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String siglaUf = "";
 	
 	@Field
 	@Caption()
@@ -89,6 +136,11 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	
 	/*@OneToMany(mappedBy = "cerimonialEventos", fetch = FetchType.LAZY)
 	private List<ContratoEventosEntity> contratoEventosList;*/
+	
+	@Caption("UF")
+	@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "id_uf")
+	private UfEntity uf;
 
 	public CerimonialEventosEntity() {
     }
@@ -120,6 +172,14 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	
 	public void setCnpj(String cnpj) {
 		this.cnpj = (cnpj == null ? "".trim() : cnpj.toUpperCase().trim());
+	}
+	
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = (endereco == null ? "".trim() : endereco.toUpperCase().trim());
 	}
 	
 	public String getTelefone() {
@@ -154,12 +214,21 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.cep = (cep == null ? "".trim() : cep.toUpperCase().trim());
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setNumero(Integer numero) {
+		this.numero = (numero == null ? new Integer(0) : numero);
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = (complemento == null ? "".trim() : complemento
+				.toUpperCase().trim());
 	}
 
 	public String getBairro() {
@@ -167,7 +236,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = (bairro == null ? "".trim() : bairro.toUpperCase().trim());
 	}
 
 	public String getCidade() {
@@ -175,23 +244,31 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	}
 
 	public void setCidade(String cidade) {
-		this.cidade = cidade;
+		this.cidade = (cidade == null ? "".trim() : cidade.toUpperCase().trim());
 	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = (email == null ? "".trim() : email.toUpperCase().trim());
+	}
+	
+	public String getSiglaUf() {
+		return siglaUf;
+	}
+
+	public void setSiglaUf(String siglaUf) {
+		this.siglaUf = siglaUf;
+	}
+
+	public UfEntity getUf() {
+		return uf;
+	}
+
+	public void setUf(UfEntity uf) {
+		this.uf = uf;
 	}
 
 	/*public List<ContratoEventosEntity> getContratoEventosList() {
