@@ -1,10 +1,8 @@
 package dc.control.util.eventos;
 
 
-import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
 
@@ -47,12 +45,6 @@ public class CerimonialEventosUtil {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		UfEntity uf = (UfEntity) subView.getCmbUf().getValue();
-
-		if (ObjectUtils.isBlank(uf)) {
-			throw new DotErpException(subView.getCmbUf(),
-					"::DotERP - Não pode ficar em branco");
-		}
 	}
 
 	public static void validateFieldValue(AgenciaBancoFormView subView)

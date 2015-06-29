@@ -9,6 +9,7 @@ import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("contratoEventosDAO")
+@SuppressWarnings("unchecked")
 public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 
 	@Override
@@ -29,7 +30,7 @@ public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "unidade", "curso", "nomeCerimonial"};
+		return new String[] { "unidade", "curso", "dataContrato", "dataPrimeiroEvento" };
 	}
 
 }

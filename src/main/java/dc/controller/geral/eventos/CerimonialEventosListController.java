@@ -42,7 +42,7 @@ public class CerimonialEventosListController extends CRUDListController<Cerimoni
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "cnpj", "endereco", "email" };
+		return new String[] { "nome", "cnpj", "endereco", "email","telefone","celular","contato" };
 	}
 
 	@Override

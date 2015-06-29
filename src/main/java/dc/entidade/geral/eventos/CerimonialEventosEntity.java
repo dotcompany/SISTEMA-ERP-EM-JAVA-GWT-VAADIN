@@ -3,16 +3,14 @@ package dc.entidade.geral.eventos;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -137,9 +135,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	/*@OneToMany(mappedBy = "cerimonialEventos", fetch = FetchType.LAZY)
 	private List<ContratoEventosEntity> contratoEventosList;*/
 	
-	@Caption("UF")
-	@ManyToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "id_uf")
+	@Transient
 	private UfEntity uf;
 
 	public CerimonialEventosEntity() {

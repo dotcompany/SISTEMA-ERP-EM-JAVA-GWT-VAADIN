@@ -11,7 +11,6 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.financeiro.TalonarioCheque;
-import dc.entidade.financeiro.type.StatusChequeType;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 public class ChequeFormView extends CustomComponent {

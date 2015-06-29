@@ -39,7 +39,7 @@ public class ContratoEventosListController extends CRUDListController<ContratoEv
 	@Override
 	public String[] getColunas() {
 		// TODO Auto-generated method stub
-		return new String[] { "unidade", "curso", "nomeCerimonial"};
+		return new String[] { "unidade", "curso", "dataContrato", "dataPrimeiroEvento" };
 
 	}
 

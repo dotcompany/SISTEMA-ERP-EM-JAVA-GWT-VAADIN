@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
+@SuppressWarnings("unchecked")
 @Repository("cerimonialEventosDAO")
 public class CerimonialEventosDAO extends AbstractCrudDAO<CerimonialEventosEntity> {
 
@@ -29,7 +30,7 @@ public class CerimonialEventosDAO extends AbstractCrudDAO<CerimonialEventosEntit
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "cnpj" };
+		return new String[] { "nome", "cnpj", "endereco", "email","telefone","celular","contato" };
 	}
 
 }

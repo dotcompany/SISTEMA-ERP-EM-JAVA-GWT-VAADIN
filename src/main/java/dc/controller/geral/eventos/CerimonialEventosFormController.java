@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
 import dc.control.util.eventos.CerimonialEventosUtil;
 import dc.control.validator.DotErpException;
+import dc.controller.geral.diverso.UfListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
 
@@ -98,7 +98,12 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		try {
 			this.subView = new CerimonialEventosFormView(this);
 			
-			carregarUf();
+			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+					UfListController.class, this.ufDAO, super.getMainController());
+
+			this.subView.getMocUf().setModel(modelUf);
+			
+			//carregarUf();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,10 +137,9 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			this.entity.setContato(this.subView.getTxtContato().getValue());
 			this.entity.setCelular(this.subView.getTfCelular().getValue());
 			
-			UfEntity uf = (UfEntity) this.subView.getCmbUf().getValue();
-
-			this.entity.setSiglaUf(uf.getSigla());
-			this.entity.setUf(uf);
+			/*UfEntity uf = (UfEntity) this.subView.getCmbUf().getValue();
+      		this.entity.setSiglaUf(uf.getSigla());
+			this.entity.setUf(uf);*/
 
 
 
@@ -168,11 +172,10 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			this.subView.getTxtContato().setValue(this.entity.getContato());
 			this.subView.getTfCelular().setValue(this.entity.getCelular());
 			
-			UfEntity uf = this.entity.getUf();
-
+			/*UfEntity uf = this.entity.getUf();
 			if (ObjectUtils.isNotBlank(uf)) {
 				this.subView.getCmbUf().setValue(uf);
-			}
+			}*/
 
 
 
@@ -230,7 +233,7 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		}
 	}
 
-	public void carregarUf() {
+	/*public void carregarUf() {
 		try {
 			List<UfEntity> auxLista = this.ufDAO.listaTodos();
 
@@ -244,7 +247,7 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 
 			throw e;
 		}
-	}
+	}*/
 
 
 	/**

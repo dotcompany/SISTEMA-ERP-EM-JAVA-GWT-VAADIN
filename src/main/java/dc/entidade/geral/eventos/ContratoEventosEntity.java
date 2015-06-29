@@ -98,11 +98,10 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Tipo Semestre")
-	@Column(name = "tipo")
+	@Column(name = "TIPO_SEMESTRE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private TipoSemestre tipoSemestre;
-
 	
 	
 	public ContratoEventosEntity() {

@@ -2,42 +2,54 @@ package dc.control.enums;
 
 public enum TipoSemestre {
 
-	P("PRIMEIRO SEMESTRE", "Primeiro Semestre"),
+	P("PRIMEIRO SEMESTRE", "1"),
 
-	S("SEGUNDO SEMESTRE", "Segundo Semestre");
+	S("SEGUNDO SEMESTRE", "2");
 
-	private String key;
+	private String label;
 
-	private String value;
+	private String codigo;
 
-	private TipoSemestre(String value, String key) {
-		this.key = key;
-		this.value = value;
+	private TipoSemestre(String label, String codigo) {
+		this.label = label;
+		this.codigo = codigo;
 	}
-
-	public static TipoSemestre getEn(String value) {
-		if (value.equals("Primeiro Semestre")) {
+	
+	public static TipoSemestre getEnum(String valor) {
+		if (valor.equals("1")) {
 			return P;
 		}
 
-		if (value.equals("Segundo Semestre")) {
+		if (valor.equals("2")) {
 			return S;
 		}
 
 		return null;
 	}
 
-	public String getKey() {
-		return key;
+	public static TipoSemestre getEn(String value) {
+		if (value.equals("PRIMEIRO SEMESTRE")) {
+			return P;
+		}
+
+		if (value.equals("SEGUNDO SEMESTRE")) {
+			return S;
+		}
+
+		return null;
 	}
 
-	public String getValue() {
-		return value;
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public String getLabel() {
+		return label;
 	}
 
 	@Override
 	public String toString() {
-		return value;
+		return label;
 	}
 
 }

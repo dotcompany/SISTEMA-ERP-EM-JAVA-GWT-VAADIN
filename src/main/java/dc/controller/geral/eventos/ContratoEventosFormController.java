@@ -1,6 +1,7 @@
 package dc.controller.geral.eventos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,11 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoSemestre;
 import dc.control.util.ClassUtils;
+import dc.control.util.ObjectUtils;
 import dc.control.util.eventos.ContratoEventosUtil;
 import dc.control.validator.DotErpException;
 import dc.controller.geral.pessoal.TipoColaboradorListController;
+import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
@@ -105,17 +108,19 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		try {
 			this.subView = new ContratoEventosFormView(this);
 			
+			this.subView.InitCbs(getTipoSemestre());
+			
 			DefaultManyToOneComboModel<CerimonialEventosEntity> modelCerimonialEventos = new DefaultManyToOneComboModel<CerimonialEventosEntity>(
 					TipoColaboradorListController.class,
 					this.cerimonialEventosDAO, super.getMainController());
 
 			this.subView.getMocNomeCerimonial().setModel(modelCerimonialEventos);
 			
-			carregarTipoSemestre();
+			//carregarTipoSemestre();
 			
 			// Valores iniciais
 
-			this.subView.getCbTipoSemestre().setValue(TipoSemestre.S);
+			//this.subView.getCbTipoSemestre().setValue(TipoSemestre.S);
 						
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,6 +135,12 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 			//this.entity = this.business.find(id);
 			
 			this.entity = contratoEventosDAO.find(id);
+			
+			/*CerimonialEventosEntity cerimonial = this.entity.getNomeCerimonial();
+
+			if (ObjectUtils.isNotBlank(cerimonial)) {
+				this.subView.getMocNomeCerimonial().setValue(cerimonial);
+			}*/
 			
 			this.subView.getCbTipoSemestre().setValue(this.entity.getTipoSemestre());
 			
@@ -146,18 +157,38 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		}
 
 	}
+	
+	
+	/** COMBO */
+	public List<String> getTipoSemestre() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (TipoSemestre en : TipoSemestre.values()) {
+				siLista.add(en.ordinal(), en.toString());
+			}
+			
+			return siLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
 
 	@Override
 	protected void actionSalvar() {
 		
 		try {
-			//TipoSemestre tipoSemestre = (TipoSemestre) this.subView.getCbTipoSemestre().getValue();
 			
-			TipoSemestre tipoSemestre = (TipoSemestre) this.subView	.getCbTipoSemestre().getValue();
-			this.entity.setTipoSemestre(tipoSemestre);
-
+			//TipoSemestre tipoSemestre = (TipoSemestre) this.subView	.getCbTipoSemestre().getValue();
 			//this.entity.setTipoSemestre(tipoSemestre);
+			
+			CerimonialEventosEntity cerimonial = (CerimonialEventosEntity) this.subView.getMocNomeCerimonial().getValue();
 
+			//this.entity.setNomeCerimonial(cerimonial);
+			
 			this.entity.setCurso(this.subView.getTxtCurso().getValue());
 			this.entity.setUnidade(this.subView.getTxtUnidade().getValue());
 			this.entity.setAnoFormatura(this.subView.getTxtAnoFormatura().getValue());
@@ -181,11 +212,11 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		
 	}
 	
-	public void carregarTipoSemestre() {
+	/*public void carregarTipoSemestre() {
 		for (TipoSemestre s : TipoSemestre.values()) {
 			this.subView.getCbTipoSemestre().addItem(s);
 		}
-	}
+	}*/
 
 	@Override
 	protected void quandoNovo() {
@@ -243,3 +274,4 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		return entity;
 	}
 }
+
