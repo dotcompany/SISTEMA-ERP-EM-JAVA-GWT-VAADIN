@@ -194,7 +194,7 @@ public class MainView extends CssLayout implements View {
 				// setExpandRatio(content,(float) 91.6);
 				// setExpandRatio(bottomBar,(float) 4.2);
 
-				setExpandRatio(topMenu, (float) 3.2);
+				setExpandRatio(topMenu, (float) 3.5);
 				setExpandRatio(content, (float) 92.8);
 			}
 		};
