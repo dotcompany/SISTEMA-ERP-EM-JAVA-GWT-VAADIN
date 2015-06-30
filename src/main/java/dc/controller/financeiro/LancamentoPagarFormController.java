@@ -115,8 +115,7 @@ public class LancamentoPagarFormController extends
 
 		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
 				.compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			adicionarErroDeValidacao(
-					subView.getNaturezaFinanceiraSubForm(),
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
 					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
 			valido = false;
 
