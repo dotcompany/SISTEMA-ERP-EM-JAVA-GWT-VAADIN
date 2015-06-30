@@ -11,12 +11,9 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.ContaCaixaTipoEnum;
-import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.util.Validator;
@@ -77,23 +74,13 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 	@Override
 	protected void criarNovoBean() {
 		
-		currentBean = new ContaCaixa();
-		
-		/*try {
+		try {
 			this.currentBean = new ContaCaixa();
-
-			this.subView.getTxtNome().setValue(currentBean.getNome());
-			this.subView.getTxtDescricao().setValue(currentBean.getDescricao());
-			this.subView.getTxtCodigo().setValue(currentBean.getCodigo());
-			this.subView.getTxtDigito().setValue(currentBean.getDigito());
-
-			this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta());
-			this.subView.getCmbAgenciaBanco().setValue(currentBean.getAgenciaBanco());
-
-			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -126,8 +113,9 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.subView.getTxtDigito().setValue(this.currentBean.getDigito());
 
 			this.subView.getCmbAgenciaBanco().setValue(this.currentBean.getAgenciaBanco());
+			
+			this.subView.getCmbTipo().setValue(this.currentBean.getTipoConta());
 
-			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,14 +130,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			this.currentBean.setDigito(this.subView.getTxtDigito().getValue());
 
 			this.currentBean.setAgenciaBanco((AgenciaBancoEntity) this.subView.getCmbAgenciaBanco().getValue());
-
-			for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {
-				if (en.toString().equals(this.subView.getCmbTipo().getValue().toString())) {
-					this.currentBean.setTipo(en.name());
-
-					break;
-				}
-			}
 
 			/** Empresa vinda da conta do usuário logado */
 

@@ -28,7 +28,8 @@ public class ConfiguracaoBoletoDAO extends AbstractCrudDAO<ConfiguracaoBoleto> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] {"contaCaixa", "instrucao01", "instrucao02", "mensagem", "localPagamento", "aceite", "layoutRemessa", "especie",
+				"carteira", "codigoConvenio", "codigoCedente", "taxaMulta"};
 	}
 
 	@Transactional

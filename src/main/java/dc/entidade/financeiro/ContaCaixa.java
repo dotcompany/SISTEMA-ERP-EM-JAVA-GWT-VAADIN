@@ -3,6 +3,8 @@ package dc.entidade.financeiro;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilContaEntity;
+import dc.control.enums.ContaCaixaTipoEnum;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -81,12 +83,13 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String classificacaoContabilConta = "";
 
+	@Enumerated(EnumType.STRING)
 	@Field
-	@Caption("Tipo")
+	@Caption("Tipo Conta")
 	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String tipo = "";
+	private ContaCaixaTipoEnum tipoConta;
 
 	/**
 	 * REFERENCIA - FK
@@ -170,13 +173,13 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
 				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
-
-	public String getTipo() {
-		return tipo;
+	
+	public ContaCaixaTipoEnum getTipoConta() {
+		return tipoConta;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = (tipo == null ? "".trim() : tipo.toUpperCase().trim());
+	public void setTipoConta(ContaCaixaTipoEnum tipoConta) {
+		this.tipoConta = tipoConta;
 	}
 
 	public AgenciaBancoEntity getAgenciaBanco() {

@@ -1,5 +1,6 @@
 package dc.entidade.financeiro;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
@@ -27,7 +28,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> {
+public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
