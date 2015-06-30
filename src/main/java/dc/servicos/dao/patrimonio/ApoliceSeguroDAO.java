@@ -55,7 +55,7 @@ public class ApoliceSeguroDAO extends AbstractCrudDAO<ApoliceSeguroEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Número", "Bem", "Seguradora" };
+		return new String[] { "numero", "bem", "seguradora" };
 	}
 
 }

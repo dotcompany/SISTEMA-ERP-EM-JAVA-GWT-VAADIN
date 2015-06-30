@@ -10,6 +10,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.control.converter.RunField;
 import dc.controller.patrimonio.IndiceAtualizacaoFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 /**
  * 
@@ -179,8 +180,7 @@ public class IndiceAtualizacaoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfNome, 0, 1);
 
 		// tfValor
-		tfValor = new TextField();
-		tfValor.setCaption("Valor:");
+		tfValor = ComponentUtil.buildCurrencyField("Valor:");
 		tfValor.setImmediate(false);
 		// tfValor.setWidth("160px");
 		tfValor.setHeight("-1px");
@@ -190,8 +190,7 @@ public class IndiceAtualizacaoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValor, 1, 1);
 
 		// tfValorAlternativo
-		tfValorAlternativo = new TextField();
-		tfValorAlternativo.setCaption("Valor alternativo:");
+		tfValorAlternativo = ComponentUtil.buildCurrencyField("Valor alternativo:");
 		tfValorAlternativo.setImmediate(false);
 		// tfValorAlternativo.setWidth("160px");
 		tfValorAlternativo.setHeight("-1px");

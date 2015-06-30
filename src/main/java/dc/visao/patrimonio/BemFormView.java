@@ -19,6 +19,7 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.patrimonio.EstadoConservacaoEntity;
 import dc.entidade.patrimonio.GrupoBemEntity;
 import dc.entidade.patrimonio.TipoAquisicaoEntity;
+import dc.visao.framework.util.ComponentUtil;
 
 /**
  * 
@@ -628,8 +629,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfChaveNfe, 1, 5);
 
 		// tfValorOriginal
-		tfValorOriginal = new TextField();
-		tfValorOriginal.setCaption("Valor original:");
+		tfValorOriginal = ComponentUtil.buildCurrencyField("Valor original:");
 		tfValorOriginal.setImmediate(false);
 		tfValorOriginal.setWidth("160px");
 		tfValorOriginal.setHeight("-1px");
@@ -638,8 +638,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorOriginal, 2, 5);
 
 		// tfValorCompra
-		tfValorCompra = new TextField();
-		tfValorCompra.setCaption("Valor da compra:");
+		tfValorCompra = ComponentUtil.buildCurrencyField("Valor da compra:");
 		tfValorCompra.setImmediate(false);
 		tfValorCompra.setWidth("160px");
 		tfValorCompra.setHeight("-1px");
@@ -648,8 +647,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorCompra, 0, 6);
 
 		// tfValorAtualizado
-		tfValorAtualizado = new TextField();
-		tfValorAtualizado.setCaption("Valor atualizado:");
+		tfValorAtualizado = ComponentUtil.buildCurrencyField("Valor atualizado:");
 		tfValorAtualizado.setImmediate(false);
 		tfValorAtualizado.setWidth("160px");
 		tfValorAtualizado.setHeight("-1px");
@@ -658,8 +656,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorAtualizado, 1, 6);
 
 		// tfValorBaixa
-		tfValorBaixa = new TextField();
-		tfValorBaixa.setCaption("Valor da baixa:");
+		tfValorBaixa = ComponentUtil.buildCurrencyField("Valor da baixa:");
 		tfValorBaixa.setImmediate(false);
 		tfValorBaixa.setWidth("160px");
 		tfValorBaixa.setHeight("-1px");
@@ -714,8 +711,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfTipoDepreciacao, 1, 8);
 
 		// tfTaxaAnualDepreciacao
-		tfTaxaAnualDepreciacao = new TextField();
-		tfTaxaAnualDepreciacao.setCaption("Taxa anual de depreciação:");
+		tfTaxaAnualDepreciacao = ComponentUtil.buildNumberField("Taxa anual de depreciação:");
 		tfTaxaAnualDepreciacao.setImmediate(false);
 		tfTaxaAnualDepreciacao.setWidth("160px");
 		tfTaxaAnualDepreciacao.setHeight("-1px");
@@ -724,8 +720,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfTaxaAnualDepreciacao, 2, 8);
 
 		// tfTaxaMensalDepreciacao
-		tfTaxaMensalDepreciacao = new TextField();
-		tfTaxaMensalDepreciacao.setCaption("Taxa mensal de depreciação:");
+		tfTaxaMensalDepreciacao = ComponentUtil.buildNumberField("Taxa mensal de depreciação:");
 		tfTaxaMensalDepreciacao.setImmediate(false);
 		tfTaxaMensalDepreciacao.setWidth("160px");
 		tfTaxaMensalDepreciacao.setHeight("-1px");
@@ -734,8 +729,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfTaxaMensalDepreciacao, 0, 9);
 
 		// tfTaxaDepreciacaoAcelerada
-		tfTaxaDepreciacaoAcelerada = new TextField();
-		tfTaxaDepreciacaoAcelerada.setCaption("Taxa de depreciação acelerada:");
+		tfTaxaDepreciacaoAcelerada = ComponentUtil.buildNumberField("Taxa de depreciação acelerada:");
 		tfTaxaDepreciacaoAcelerada.setImmediate(false);
 		tfTaxaDepreciacaoAcelerada.setWidth("160px");
 		tfTaxaDepreciacaoAcelerada.setHeight("-1px");
@@ -744,9 +738,7 @@ public class BemFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfTaxaDepreciacaoAcelerada, 1, 9);
 
 		// tfTaxaDepreciacaoIncentivada
-		tfTaxaDepreciacaoIncentivada = new TextField();
-		tfTaxaDepreciacaoIncentivada
-				.setCaption("Taxa de depreciação incentivada:");
+		tfTaxaDepreciacaoIncentivada = ComponentUtil.buildNumberField("Taxa de depreciação incentivada:");
 		tfTaxaDepreciacaoIncentivada.setImmediate(false);
 		tfTaxaDepreciacaoIncentivada.setWidth("160px");
 		tfTaxaDepreciacaoIncentivada.setHeight("-1px");

@@ -216,12 +216,93 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 		return tabSheet;
 	}
+	
+	/*private SubFormComponent<LctoPagarNtFinanceira, Integer> buildSubFormNaturezaFinanceira() {
+	// common part: create layout
+	String[] atributos = new String[] {  "naturezaFinanceira","dataInclusao", "valor" };
+	String[] headers = new String[] { "Natureza Financeira","Data Inclusão", "Valor" };
+
+	naturezaFinanceiraSubForm = new SubFormComponent<LctoPagarNtFinanceira, Integer>(LctoPagarNtFinanceira.class, atributos, headers) {
+
+		/**
+		 * 
+		 */
+		/*private static final long serialVersionUID = 1L;
+
+		@Override
+		protected TableFieldFactory getFieldFactory() {
+			return new TableFieldFactory() {
+
+				/**
+				 * 
+				 */
+				/*private static final long serialVersionUID = 1L;
+
+				@Override
+				public Field<?> createField(Container container,Object itemId, Object propertyId,Component uiContext) {
+					
+					if ("dataInclusao".equals(propertyId)) {
+						DateField dateField = new DateField();
+						dateField.setSizeFull();
+						return dateField;
+					} 
+					
+					if ("valor".equals(propertyId)) {
+						return ComponentUtil.buildCurrencyField(null);
+						
+					} 
+					
+					if ("naturezaFinanceira".equals(propertyId)) {
+						ComboBox cmb = ComponentUtil.buildComboBox("Natureza Financeira");
+						cmb.removeAllItems();
+						
+						BeanItemContainer<NaturezaFinanceira> bic = controller.getNaturezaFinanceiraBic();
+						cmb.setContainerDataSource(bic);
+						cmb.setItemCaptionPropertyId("nome");
+
+						return cmb;
+
+						/*List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
+						for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
+							cmb.addItem(naturezaFinanceira);
+						}
+
+						return cmb;*/
+					/*}
+					
+
+					return null;
+				}
+
+			};
+		}
+
+		@Override
+		public boolean validateItems(List<LctoPagarNtFinanceira> items) {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		protected LctoPagarNtFinanceira getNovo() {
+			LctoPagarNtFinanceira LlctoPagarNtFinanceira = controller.novoLctoPagarNtFinanceira();
+
+			return LlctoPagarNtFinanceira;
+		}
+
+		@Override
+		protected void getRemoverSelecionados(List<LctoPagarNtFinanceira> values) {
+			// TODO Auto-generated method stub
+			controller.removerLctoPagarNtFinanceira(values);
+		}
+
+	};
+
+	return this.naturezaFinanceiraSubForm;
+}*/
 
 	private Component buildSubFormNaturezaFinanceira() {
-		String[] atributos = new String[] { "naturezaFinanceira",
-				"dataInclusao", "valor" };
-		String[] headers = new String[] { "Natureza Financeira",
-				"Data Inclusão", "Valor" };
+		String[] atributos = new String[] { "naturezaFinanceira","dataInclusao", "valor" };
+		String[] headers = new String[] { "Natureza Financeira","Data Inclusão", "Valor" };
 
 		this.naturezaFinanceiraSubForm = new SubFormComponent<LctoPagarNtFinanceira, Integer>(
 				LctoPagarNtFinanceira.class, atributos, headers) {
@@ -252,8 +333,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 							ComboBox cmb = ComponentUtil.buildComboBox(null);
 							cmb.removeAllItems();
 
-							List<NaturezaFinanceira> naturezaFinanceiras = controller
-									.getNaturezasFinanceiras();
+							List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
 							for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
 								cmb.addItem(naturezaFinanceira);
 							}

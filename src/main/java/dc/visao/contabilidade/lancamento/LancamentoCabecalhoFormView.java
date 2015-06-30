@@ -11,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.contabilidade.lancamento.LancamentoCabecalhoFormController;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class LancamentoCabecalhoFormView extends CustomComponent {
 
@@ -216,8 +217,7 @@ public class LancamentoCabecalhoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfLiberado, 1, 2);
 
 		// tfValor
-		tfValor = new TextField();
-		tfValor.setCaption("Valor:");
+		tfValor = ComponentUtil.buildCurrencyField("Valor");
 		tfValor.setImmediate(false);
 		tfValor.setWidth("175px");
 		tfValor.setHeight("-1px");

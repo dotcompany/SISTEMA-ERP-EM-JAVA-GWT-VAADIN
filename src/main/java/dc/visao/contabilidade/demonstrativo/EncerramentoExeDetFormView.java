@@ -11,6 +11,7 @@ import dc.controller.contabilidade.demonstrativo.EncerramentoExeDetFormControlle
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class EncerramentoExeDetFormView extends CustomComponent {
 
@@ -175,8 +176,7 @@ public class EncerramentoExeDetFormView extends CustomComponent {
 		gridLayout_1.setColumns(2);
 
 		// tfSaldoAnterior;
-		tfSaldoAnterior = new TextField();
-		tfSaldoAnterior.setCaption("Saldo anterior:");
+		tfSaldoAnterior = ComponentUtil.buildCurrencyField("Saldo anterior:");
 		tfSaldoAnterior.setImmediate(false);
 		tfSaldoAnterior.setWidth("175px");
 		tfSaldoAnterior.setHeight("-1px");
@@ -185,8 +185,7 @@ public class EncerramentoExeDetFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfSaldoAnterior, 0, 1);
 
 		// tfValorDebito;
-		tfValorDebito = new TextField();
-		tfValorDebito.setCaption("Valor débito:");
+		tfValorDebito = ComponentUtil.buildCurrencyField("Valor débito:");
 		tfValorDebito.setImmediate(false);
 		tfValorDebito.setWidth("175px");
 		tfValorDebito.setHeight("-1px");
@@ -195,8 +194,7 @@ public class EncerramentoExeDetFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorDebito, 1, 1);
 
 		// tfValorCredito;
-		tfValorCredito = new TextField();
-		tfValorCredito.setCaption("Valor crédito:");
+		tfValorCredito = ComponentUtil.buildCurrencyField("Valor crédito:");
 		tfValorCredito.setImmediate(false);
 		tfValorCredito.setWidth("175px");
 		tfValorCredito.setHeight("-1px");
@@ -205,8 +203,7 @@ public class EncerramentoExeDetFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorCredito, 0, 2);
 
 		// tfSaldo;
-		tfSaldo = new TextField();
-		tfSaldo.setCaption("Saldo:");
+		tfSaldo = ComponentUtil.buildCurrencyField("Saldo:");
 		tfSaldo.setImmediate(false);
 		tfSaldo.setWidth("175px");
 		tfSaldo.setHeight("-1px");

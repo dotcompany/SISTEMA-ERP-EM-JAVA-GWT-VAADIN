@@ -56,7 +56,7 @@ public class LancamentoCabecalhoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Lançamento lote";
+		return "Lançamento Cabeçalho";
 	}
 
 	@Override
