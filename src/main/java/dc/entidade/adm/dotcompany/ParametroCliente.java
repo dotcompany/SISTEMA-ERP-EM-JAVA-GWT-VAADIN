@@ -64,8 +64,8 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	/////////////////////////////////////////////////////////// INFORMAÇÃO //////////////////////////////////////////////////////////////
 
 	@Field
-	@Caption("Tipo de Sistema")
-	@Column(name = "TIPO_DE_SISTEMA")
+	@Caption("Tipo Sistema")
+	@Column(name = "TIPO_SISTEMA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoDeSistema;

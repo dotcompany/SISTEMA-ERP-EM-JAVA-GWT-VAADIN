@@ -25,11 +25,11 @@ public class ParametroClienteListController extends
 	ParametroClienteDAO dao;
 
 	@Autowired
-	ParametroClienteFormController parametroClienteFormController;
+	private ParametroClienteFormController parametroClienteFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "empresa" };
+		return new String[] { "tipoSistema", "vendedor","comissaoVendedor","agente","comissaoAgente"};
 	}
 
 	@Override
@@ -60,12 +60,18 @@ public class ParametroClienteListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected List<ParametroCliente> pesquisaDefault() {
-		return (List<ParametroCliente>) dao.getAll(getEntityClass());
+		return dao.getAll(ParametroCliente.class);
+	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 }

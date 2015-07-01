@@ -1,15 +1,22 @@
 package dc.control.util.eventos;
 
 
+import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.visao.financeiro.AgenciaBancoFormView;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
 
 public class CerimonialEventosUtil {
 
-	public static void validateRequiredFields(CerimonialEventosFormView subView)
-			throws DotErpException {
+	public static void validateRequiredFields(CerimonialEventosFormView subView) throws DotErpException {
+		
+		UfEntity uf = subView.getMocUf().getValue();
+		if (ObjectUtils.isBlank(uf)) {
+			throw new DotErpException(subView.getMocUf(),
+					"::DotERP - Não pode ficar em branco");
+		}
+		
 		String nome = subView.getTxtNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
@@ -47,12 +54,12 @@ public class CerimonialEventosUtil {
 
 	}
 
-	public static void validateFieldValue(AgenciaBancoFormView subView)
+	public static void validateFieldValue(CerimonialEventosFormView subView)
 			throws DotErpException {
 
 	}
 
-	public static void clearFormFields(AgenciaBancoFormView subView) {
+	public static void clearFormFields(CerimonialEventosFormView subView) {
 
 	}
 

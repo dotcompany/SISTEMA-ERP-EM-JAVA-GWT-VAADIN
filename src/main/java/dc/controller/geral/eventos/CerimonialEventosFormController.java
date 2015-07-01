@@ -126,6 +126,12 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 	protected void actionSalvar() {
 		try {
 			
+			UfEntity uf = new UfEntity();
+			if(subView.getMocUf().getValue()!=null){
+				uf = subView.getMocUf().getValue();
+				this.entity.setUf(uf);
+			}
+			
 			this.entity.setNome(this.subView.getTxtNome().getValue());
 			this.entity.setEndereco(this.subView.getTfEndereco().getValue());
 			this.entity.setCnpj(this.subView.getTxtCnpj().getValue());
@@ -136,6 +142,11 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			this.entity.setTelefone(this.subView.getTfTelefone().getValue());
 			this.entity.setContato(this.subView.getTxtContato().getValue());
 			this.entity.setCelular(this.subView.getTfCelular().getValue());
+			this.entity.setEmail(this.subView.getTfEmail().getValue());
+			
+			if (!subView.getTxtNumero().getValue().equals("")) {
+				this.entity.setNumero(Integer.parseInt(subView.getTxtNumero().getValue()));
+			}
 			
 			/*UfEntity uf = (UfEntity) this.subView.getCmbUf().getValue();
       		this.entity.setSiglaUf(uf.getSigla());
@@ -160,7 +171,10 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			//this.entity = this.business.find(id);
 			
 			this.entity = this.cerimonialEventosDAO.find(id);
-
+			
+			if(entity.getUf()!=null){
+				subView.getMocUf().setValue(entity.getUf());
+			}
 			
 			this.subView.getTxtNome().setValue(this.entity.getNome());
 			this.subView.getTfEndereco().setValue(this.entity.getEndereco());
@@ -168,9 +182,15 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			this.subView.getTfCep().setValue(this.entity.getCep());
 			this.subView.getTxtCnpj().setValue(this.entity.getCnpj());
 			this.subView.getTxtComplemento().setValue(this.entity.getComplemento());
+			this.subView.getTfCidade().setValue(this.entity.getCidade());
 			this.subView.getTfTelefone().setValue(this.entity.getTelefone());
 			this.subView.getTxtContato().setValue(this.entity.getContato());
 			this.subView.getTfCelular().setValue(this.entity.getCelular());
+			this.subView.getTfEmail().setValue(this.entity.getEmail());
+			
+			if(entity.getNumero()!=null){
+				subView.getTxtNumero().setValue(entity.getNumero().toString());
+			}
 			
 			/*UfEntity uf = this.entity.getUf();
 			if (ObjectUtils.isNotBlank(uf)) {
