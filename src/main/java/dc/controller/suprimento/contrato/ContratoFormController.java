@@ -31,7 +31,6 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Compare;
-import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.FileDownloader;
@@ -58,7 +57,6 @@ import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
 import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
-import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.ged.DocumentoDAO;
@@ -285,6 +283,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	@Override
 	protected void initSubView() {
 		subView = new ContratosFormView(this);
+		
+		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+				UfListController.class, this.ufDAO, super.getMainController());
+
+		this.subView.getMocUf().setModel(modelUf);
 
 		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
@@ -359,11 +362,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
 
-		List<UfEntity> ufs = templateUF.getAll();
+		/*List<UfEntity> ufs = templateUF.getAll();
 
 		for (UfEntity uf : ufs) {
 			subView.getCmbEstadoObjeto().addItem(uf);
-		}
+		}*/
 
 		subView.getCmbSolicitacaoServico().setModel(
 				contratoSolicitacaoServicoModel);

@@ -31,5 +31,17 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 	
 	protected String[] getDefaultSearchFields() {
 		return new String[] {"tipo", "descricao","contas_receber","contas_pagar"};
+	}
+
+	public List<NaturezaFinanceira> findAll() {
+		try {
+			List<NaturezaFinanceira> auxLista = this.listaTodos();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}	
 }

@@ -10,6 +10,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.contabilidade.demonstrativo.DreDetalheFormController;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class DreDetalheFormView extends CustomComponent {
 
@@ -234,8 +235,7 @@ public class DreDetalheFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfNatureza, 0, 3);
 
 		// tfValor;
-		tfValor = new TextField();
-		tfValor.setCaption("Valor:");
+		tfValor = ComponentUtil.buildCurrencyField("Valor");
 		tfValor.setImmediate(false);
 		tfValor.setWidth("175px");
 		tfValor.setHeight("-1px");

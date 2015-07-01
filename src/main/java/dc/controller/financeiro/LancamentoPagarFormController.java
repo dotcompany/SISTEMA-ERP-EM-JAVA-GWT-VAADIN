@@ -15,6 +15,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -31,6 +32,7 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.model.business.geral.produto.NaturezaFinanceiraBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -83,6 +85,9 @@ public class LancamentoPagarFormController extends
 
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
+	
+	@Autowired
+	private NaturezaFinanceiraBusiness<NaturezaFinanceira> naturezaFinanceiraBusiness;
 
 	@Override
 	protected String getNome() {
@@ -100,23 +105,18 @@ public class LancamentoPagarFormController extends
 
 		boolean valido = true;
 
-		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm()
-				.getDados();
-		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView
-				.getNaturezaFinanceiraSubForm().getDados();
+		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
+		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
-				.compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
 			adicionarErroDeValidacao(subView.getParcelasSubForm(),
 					"Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
 			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
-				.compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			adicionarErroDeValidacao(
-					subView.getNaturezaFinanceiraSubForm(),
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
 					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
 			valido = false;
 
@@ -557,13 +557,59 @@ public class LancamentoPagarFormController extends
 
 	}
 
-	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
-		return naturezaFinanceiraDAO.listaTodos();
-	}
-
 	@Override
 	public LancamentoPagar getModelBean() {
 		return currentBean;
+	}
+
+	public LctoPagarNtFinanceira adicionarLctoPagarNtFinanceira() {
+		try {
+			LctoPagarNtFinanceira ent = new LctoPagarNtFinanceira();
+			ent.setLancamentoPagar(this.currentBean);
+
+			this.currentBean.getLctoPagarNtFinanceiras().add(ent);
+
+			return ent;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	public BeanItemContainer<NaturezaFinanceira> getNaturezaFinanceiraBic() {
+		
+		try {
+			List<NaturezaFinanceira> auxLista = this.naturezaFinanceiraDAO.findAll();
+
+			BeanItemContainer<NaturezaFinanceira> bic = new BeanItemContainer<NaturezaFinanceira>(
+					NaturezaFinanceira.class, auxLista);
+
+			return bic;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	/*public List<NaturezaFinanceira> getNaturezasFinanceiras() {
+		// TODO Auto-generated method stub
+		try {
+			List<NaturezaFinanceira> auxLista = this.naturezaFinanceiraDAO.findAll();
+
+			//BeanItemContainer<NaturezaFinanceira> bic = new BeanItemContainer<NaturezaFinanceira>(NaturezaFinanceira.class, auxLista);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}*/
+	
+	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
+		return naturezaFinanceiraDAO.listaTodos();
 	}
 
 }

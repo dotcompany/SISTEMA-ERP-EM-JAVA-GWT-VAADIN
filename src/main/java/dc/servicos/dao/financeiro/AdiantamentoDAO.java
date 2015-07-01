@@ -41,7 +41,7 @@ public class AdiantamentoDAO extends AbstractCrudDAO<Adiantamento>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"valor", "observacoes"};
+		return new String[] {"dataAdiantamento", "valor", "observacoes"};
 	}
 	
 	@Transactional

@@ -10,6 +10,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.contabilidade.lancamento.LancamentoOrcadoFormController;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class LancamentoOrcadoFormView extends CustomComponent {
 
@@ -275,8 +276,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfAno, 0, 1);
 
 		// tfJaneiro
-		tfJaneiro = new TextField();
-		tfJaneiro.setCaption("Janeiro:");
+		tfJaneiro = ComponentUtil.buildCurrencyField("Janeiro");
 		tfJaneiro.setImmediate(false);
 		tfJaneiro.setWidth("175px");
 		tfJaneiro.setHeight("-1px");
@@ -285,8 +285,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfJaneiro, 1, 1);
 
 		// tfFevereiro
-		tfFevereiro = new TextField();
-		tfFevereiro.setCaption("Fevereiro:");
+		tfFevereiro = ComponentUtil.buildCurrencyField("Fevereiro");
 		tfFevereiro.setImmediate(false);
 		tfFevereiro.setWidth("175px");
 		tfFevereiro.setHeight("-1px");
@@ -295,8 +294,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfFevereiro, 0, 2);
 
 		// tfMarco
-		tfMarco = new TextField();
-		tfMarco.setCaption("Março:");
+		tfMarco = ComponentUtil.buildCurrencyField("Março:");
 		tfMarco.setImmediate(false);
 		tfMarco.setWidth("175px");
 		tfMarco.setHeight("-1px");
@@ -305,8 +303,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfMarco, 1, 2);
 
 		// tfAbril
-		tfAbril = new TextField();
-		tfAbril.setCaption("Abril:");
+		tfAbril = ComponentUtil.buildCurrencyField("Abril:");
 		tfAbril.setImmediate(false);
 		tfAbril.setWidth("175px");
 		tfAbril.setHeight("-1px");
@@ -315,8 +312,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfAbril, 0, 3);
 
 		// tfMaio
-		tfMaio = new TextField();
-		tfMaio.setCaption("Maio:");
+		tfMaio = ComponentUtil.buildCurrencyField("Maio:");
 		tfMaio.setImmediate(false);
 		tfMaio.setWidth("175px");
 		tfMaio.setHeight("-1px");
@@ -325,8 +321,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfMaio, 1, 3);
 
 		// tfJunho
-		tfJunho = new TextField();
-		tfJunho.setCaption("Junho:");
+		tfJunho = ComponentUtil.buildCurrencyField("Junho:");
 		tfJunho.setImmediate(false);
 		tfJunho.setWidth("175px");
 		tfJunho.setHeight("-1px");
@@ -335,8 +330,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfJunho, 0, 4);
 
 		// tfJulho
-		tfJulho = new TextField();
-		tfJulho.setCaption("Julho:");
+		tfJulho = ComponentUtil.buildCurrencyField("Julho:");
 		tfJulho.setImmediate(false);
 		tfJulho.setWidth("175px");
 		tfJulho.setHeight("-1px");
@@ -345,8 +339,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfJulho, 1, 4);
 
 		// tfAgosto
-		tfAgosto = new TextField();
-		tfAgosto.setCaption("Agosto:");
+		tfAgosto = ComponentUtil.buildCurrencyField("Agosto:");
 		tfAgosto.setImmediate(false);
 		tfAgosto.setWidth("175px");
 		tfAgosto.setHeight("-1px");
@@ -355,8 +348,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfAgosto, 0, 5);
 
 		// tfSetembro
-		tfSetembro = new TextField();
-		tfSetembro.setCaption("Setembro:");
+		tfSetembro = ComponentUtil.buildCurrencyField("Setembro:");
 		tfSetembro.setImmediate(false);
 		tfSetembro.setWidth("175px");
 		tfSetembro.setHeight("-1px");
@@ -365,8 +357,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfSetembro, 1, 5);
 
 		// tfOutubro
-		tfOutubro = new TextField();
-		tfOutubro.setCaption("Outubro:");
+		tfOutubro = ComponentUtil.buildCurrencyField("Outubro:");
 		tfOutubro.setImmediate(false);
 		tfOutubro.setWidth("175px");
 		tfOutubro.setHeight("-1px");
@@ -375,8 +366,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfOutubro, 0, 6);
 
 		// tfNovembro
-		tfNovembro = new TextField();
-		tfNovembro.setCaption("Novembro:");
+		tfNovembro = ComponentUtil.buildCurrencyField("Novembro:");
 		tfNovembro.setImmediate(false);
 		tfNovembro.setWidth("175px");
 		tfNovembro.setHeight("-1px");
@@ -385,8 +375,7 @@ public class LancamentoOrcadoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfNovembro, 1, 6);
 
 		// tfDezembro
-		tfDezembro = new TextField();
-		tfDezembro.setCaption("Dezembro:");
+		tfDezembro = ComponentUtil.buildCurrencyField("Dezembro:");
 		tfDezembro.setImmediate(false);
 		tfDezembro.setWidth("175px");
 		tfDezembro.setHeight("-1px");

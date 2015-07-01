@@ -8,6 +8,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.patrimonio.TaxaDepreciacaoFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 /**
  * 
@@ -182,8 +183,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfBem, 1, 1);
 
 		// tfTaxa
-		tfTaxa = new TextField();
-		tfTaxa.setCaption("Taxa:");
+		tfTaxa = ComponentUtil.buildNumberField("Taxa:");
 		tfTaxa.setImmediate(false);
 		tfTaxa.setWidth("160px");
 		tfTaxa.setHeight("-1px");
@@ -192,8 +192,7 @@ public class TaxaDepreciacaoFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfTaxa, 0, 2);
 
 		// tfVida
-		tfVida = new TextField();
-		tfVida.setCaption("Vida:");
+		tfVida = ComponentUtil.buildNumberField("Vida:");
 		tfVida.setImmediate(false);
 		tfVida.setWidth("160px");
 		tfVida.setHeight("-1px");

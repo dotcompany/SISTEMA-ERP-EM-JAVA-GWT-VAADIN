@@ -43,7 +43,7 @@ public class ApoliceSeguroListController extends CRUDListController<ApoliceSegur
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "numero", "bem.nome", "seguradora.nome" };
+		return new String[] { "numero", "bem", "seguradora" };
 	}
 
 	@Override

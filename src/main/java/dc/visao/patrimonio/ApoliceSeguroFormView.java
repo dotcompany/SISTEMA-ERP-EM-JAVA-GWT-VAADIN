@@ -13,6 +13,7 @@ import dc.controller.patrimonio.ApoliceSeguroFormController;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 /**
  * 
@@ -251,8 +252,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		gridLayout_1.addComponent(pdfDataVencimento, 1, 2);
 
 		// tfValorPremio
-		tfValorPremio = new TextField();
-		tfValorPremio.setCaption("Valor do prêmio:");
+		tfValorPremio = ComponentUtil.buildCurrencyField("Valor do prêmio:");
 		tfValorPremio.setImmediate(false);
 		tfValorPremio.setWidth("175px");
 		tfValorPremio.setHeight("-1px");
@@ -262,8 +262,7 @@ public class ApoliceSeguroFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfValorPremio, 0, 3);
 
 		// tfValorSegurado
-		tfValorSegurado = new TextField();
-		tfValorSegurado.setCaption("Valor segurado:");
+		tfValorSegurado = ComponentUtil.buildCurrencyField("Valor segurado:");
 		tfValorSegurado.setImmediate(false);
 		tfValorSegurado.setWidth("175px");
 		tfValorSegurado.setHeight("-1px");

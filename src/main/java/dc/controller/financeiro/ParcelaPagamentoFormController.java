@@ -120,18 +120,26 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 				TipoBaixa tipoBaixa = (TipoBaixa) subView.getCbTipoBaixa().getValue();
 
 				switch (tipoBaixa) {
-				case PARCIAL:
-					subView.getTxValorPago().setEnabled(true);
-					break;
-				case TOTAL:
-					subView.getTxValorPago().setEnabled(false);
-					calculaTotalPago();
+				
+				   case PARCIAL: {
+					      subView.getTxValorPago().setEnabled(true);
+					      break;
+				   }
+				   
+				   case TOTAL: {
+					      subView.getTxValorPago().setEnabled(false);
+					      calculaTotalPago();
 
-					break;
+					      break;
+					      
+				   }				
 
-				default:
-					break;
+				   default: {
+					      break;
+				   }
+				
 				}
+				
 
 			}
 		});
@@ -236,15 +244,20 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	public void calculaTotalPago() {
 		subView.preencheBean(currentBean);
+		
 		ParcelaPagamento pagamento = currentBean;
 		BigDecimal valorJuro = BigDecimal.ZERO;
 		BigDecimal valorMulta = BigDecimal.ZERO;
 		BigDecimal valorDesconto = BigDecimal.ZERO;
+		
 		if (pagamento.getTaxaJuro() != null && pagamento.getDataPagamento() != null) {
+			
 			Calendar dataPagamento = Calendar.getInstance();
 			dataPagamento.setTime(pagamento.getDataPagamento());
+			
 			Calendar dataVencimento = Calendar.getInstance();
 			dataVencimento.setTime(pagamento.getParcelaPagar().getDataVencimento());
+			
 			if (dataVencimento.before(dataPagamento)) {
 				long diasAtraso = (dataPagamento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
 
@@ -255,8 +268,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		pagamento.setValorJuro(valorJuro);
 
 		if (pagamento.getTaxaMulta() != null) {
-			pagamento.setValorMulta(pagamento.getParcelaPagar().getValor().multiply(pagamento.getTaxaMulta())
-					.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			pagamento.setValorMulta(pagamento.getParcelaPagar().getValor().multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			valorMulta = pagamento.getValorMulta();
 		} else {
 			pagamento.setValorMulta(valorMulta);

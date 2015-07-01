@@ -16,22 +16,23 @@
 	<http security="none" pattern="/esqueciMinhaSenha/**" />
 
 	<http entry-point-ref="loginUrlAuthenticationEntryPoint" disable-url-rewriting="false">
-		<intercept-url pattern="/login/*" access="permitAll" />
+		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/alterarSenha*" access="isAnonymous()" />
 		<intercept-url pattern="/UIDL//**" access="permitAll" />
 		<intercept-url pattern="${security.pattern}"
 			access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/APP/**"
 			access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<form-login login-page="/login"/>
 		<logout logout-url="/j_spring_security_logout" />
-
+		
 		<!-- Alterar o valor de "max-sessions" para "1" para evitar logins simultâneos -->
 		<session-management>
 			<concurrency-control max-sessions="10"
 				expired-url="/login/?error=false" />
 		</session-management>
 
-		<custom-filter ref="customFilterLoginCaptcha" position="FORM_LOGIN_FILTER" />
+			<!--<custom-filter ref="customFilterLoginCaptcha" position="FORM_LOGIN_FILTER" />-->
 	</http>
 
 	<beans:bean id="loginUrlAuthenticationEntryPoint"

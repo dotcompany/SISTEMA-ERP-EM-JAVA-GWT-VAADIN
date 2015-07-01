@@ -16,6 +16,7 @@ import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaRefSpedDAO;
+import dc.servicos.util.Validator;
 import dc.visao.contabilidade.ContabilContaFormView;
 import dc.visao.contabilidade.ContabilContaFormView.CodigoEFD;
 import dc.visao.contabilidade.ContabilContaFormView.DemoFluxoCaixa;
@@ -89,7 +90,8 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 
 	@Override
 	protected void initSubView() {
-		subView = new ContabilContaFormView();
+		
+		subView = new ContabilContaFormView(this);
 
 		carregarCombos();
 
@@ -173,6 +175,42 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 	protected boolean validaSalvar() {
 
 		boolean valido = true;
+		
+		if (!Validator.validateObject(subView.getTxClassificacao().getValue())) {
+			adicionarErroDeValidacao(subView.getTxClassificacao(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getTxCodigoReduzido().getValue())) {
+			adicionarErroDeValidacao(subView.getTxCodigoReduzido(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getTxDescricao().getValue())) {
+			adicionarErroDeValidacao(subView.getTxDescricao(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getTxOrdem().getValue())) {
+			adicionarErroDeValidacao(subView.getTxOrdem(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getDtDataInclusao().getValue())) {
+			adicionarErroDeValidacao(subView.getDtDataInclusao(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
+		
+		if (!Validator.validateObject(subView.getCbContabilContaPai().getValue())) {
+			adicionarErroDeValidacao(subView.getCbContabilContaPai(),
+					"Não pode ficar em branco");
+			valido = false;
+		}
 
 		return valido;
 	}

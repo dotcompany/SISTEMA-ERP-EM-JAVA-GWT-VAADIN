@@ -24,6 +24,8 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class AdiantamentoListController extends CRUDListController<Adiantamento> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	AdiantamentoDAO dao;
@@ -33,7 +35,7 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "valor", "onservacoes" };
+		return new String[] { "dataAdiantamento", "valor", "observacoes" };
 	}
 
 	@Override
@@ -48,7 +50,18 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 
 	@Override
 	protected List<Adiantamento> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		
+		try {
+			List<Adiantamento> auxLista = this.dao.procuraNomeContendo(valor);
+			
+
+			return auxLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
@@ -69,7 +82,19 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 
 	@Override
 	protected List<Adiantamento> pesquisaDefault() {
-		return (List<Adiantamento>) dao.getAll(getEntityClass());
+		
+		try {
+			List<Adiantamento> auxLista = this.dao.listaTodos();
+			
+
+			return auxLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+
 	}
 
 	@Override

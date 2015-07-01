@@ -1,5 +1,6 @@
 package dc.entidade.financeiro;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -28,24 +29,31 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> {
+public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID")
 	private Integer id;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INCLUSAO")
 	private Date dataInclusao;
+	
 	@Column(name = "VALOR")
 	private BigDecimal valor;
+	
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private LancamentoPagar lancamentoPagar;
+	
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private NaturezaFinanceira naturezaFinanceira;
+	
 	@JoinColumn(name = "ID_CONTABIL_LANCAMENTO_DET", referencedColumnName = "ID")
 	@ManyToOne
 	private ContabilLancamentoDetalhe contabilLancamentoDetalhe;
@@ -148,5 +156,4 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> {
 			return false;
 		return true;
 	}
-
 }
