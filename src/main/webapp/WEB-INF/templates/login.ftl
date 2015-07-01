@@ -66,14 +66,14 @@ html, body {
                       <div class="v-caption" style="">
                       	<span class="v-captiontext">Usuário</span>
 	                    <span> 
-	                      <input type="text" name="j_username" class="v-textfield v-widget v-textfield-focus" style="height:27px" tabindex="0" autofocus="autofocus">
+	                      <input type="text" name="username" class="v-textfield v-widget v-textfield-focus" style="height:27px" tabindex="0" autofocus="autofocus">
 	                    </span>
     	              </div>
                      
                       <div class="v-caption" style="">
                       	<span class="v-captiontext">Senha</span>
                       	<span style="padding-left:9px">
-	                      	<input type="password" name="j_password" class="v-textfield v-widget" style="height:27px" tabindex="0">
+	                      	<input type="password" name="password" class="v-textfield v-widget" style="height:27px" tabindex="0">
                       	</span>
 	                   </div>
 	                   

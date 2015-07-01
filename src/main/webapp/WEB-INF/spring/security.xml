@@ -15,29 +15,31 @@
 	<http security="none" pattern="/criarconta/**" />
 	<http security="none" pattern="/esqueciMinhaSenha/**" />
 
-	<http entry-point-ref="loginUrlAuthenticationEntryPoint" disable-url-rewriting="false">
-		<intercept-url pattern="/login" access="permitAll" />
+	<http use-expressions="true" auto-config='false'
+		entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<headers disabled="true"/>
+		<csrf disabled="true"/>
+		<intercept-url pattern="/login/*" access="permitAll" />
 		<intercept-url pattern="/alterarSenha*" access="isAnonymous()" />
 		<intercept-url pattern="/UIDL//**" access="permitAll" />
 		<intercept-url pattern="${security.pattern}"
 			access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/APP/**"
 			access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
-		<form-login login-page="/login"/>
 		<logout logout-url="/j_spring_security_logout" />
-		
+
 		<!-- Alterar o valor de "max-sessions" para "1" para evitar logins simultâneos -->
 		<session-management>
 			<concurrency-control max-sessions="10"
 				expired-url="/login/?error=false" />
 		</session-management>
 
-			<!--<custom-filter ref="customFilterLoginCaptcha" position="FORM_LOGIN_FILTER" />-->
+		<custom-filter ref="customFilterLoginCaptcha" position="FORM_LOGIN_FILTER" />
 	</http>
 
 	<beans:bean id="loginUrlAuthenticationEntryPoint"
 		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-		<beans:constructor-arg value="/login"/>
+		<beans:constructor-arg value="/login/"/>
 	</beans:bean>
 
 	<beans:bean id="failureHandler"
