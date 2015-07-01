@@ -67,9 +67,9 @@ dependencies {
     compile files('libs/jrimum/jrimum-vallia-0.2.3-SNAPSHOT.jar')
     compile files('libs/jrimum/log4j-1.2.15.jar')
 
-    compile ('org.slf4j:log4j-over-slf4j:1.7.10')
+    compile ('org.slf4j:log4j-over-slf4j:1.7.12')
 
-    compile('javax.validation:validation-api:1.0.0.GA') {
+    compile('javax.validation:validation-api:1.1.0.Final') {
         artifact {
             name = 'validation-api'
             type = 'jar'
@@ -122,10 +122,10 @@ dependencies {
 
 		compile 'org.vaadin.addons:imagescaler:2.0.0'
 		
-		compile 'org.vaadin.addons:popupbutton:2.5.0'
+		compile 'org.vaadin.addons:popupbutton:2.6.0'
 
 
-        compile 'org.vaadin.addons:filteringtable:0.9.11.v7'
+        compile 'org.vaadin.addons:filteringtable:0.9.12.v7'
 		compile 'com.vaadin:vaadin-push:7.5.0'
 		compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
 			exclude group:'com.vaadin'
@@ -180,7 +180,7 @@ dependencies {
 		compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
 		compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
 		
-		compile 'org.freemarker:freemarker:2.3.21'
+		compile 'org.freemarker:freemarker:2.3.22'
 		
 		compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
 		compile "org.springframework.security:spring-security-web:4.0.1.RELEASE"
@@ -194,8 +194,8 @@ dependencies {
 			exclude module: 'servlet-api'
 		}
 	   
-		compile 'org.slf4j:jcl-over-slf4j:1.7.10'
-		compile 'org.slf4j:slf4j-api:1.7.10'
+		compile 'org.slf4j:jcl-over-slf4j:1.7.12'
+		compile 'org.slf4j:slf4j-api:1.7.12'
 		compile 'ch.qos.logback:logback-classic:1.1.2'
 		compile 'ch.qos.logback:logback-core:1.1.2'
 		

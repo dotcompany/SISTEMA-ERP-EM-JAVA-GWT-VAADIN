@@ -4,13 +4,13 @@
 <module>
         <inherits name="com.vaadin.DefaultWidgetSet" />
         <inherits name="org.vaadin.addons.maskedtextfield.MaskedTextFieldWidgetset" />
-        <inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
         <inherits name="org.vaadin.peter.imagescaler.ImageScalerWidgetset" />
+        <inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
         <inherits name="org.tepi.filtertable.gwt.FilterTableWidgetset" />
         <inherits name="it.zero11.vaadin.asyncfiltercombobox.WidgetSet" />
         <inherits name="org.vaadin.tepi.imageviewer.widgetset.ImageViewerWidgetset" />
         <inherits name="org.vaadin.easyuploads.Widgetset" />
-        <set-property name="user.agent" value="ie8,ie9,gecko1_8,safari,opera,ie10" />
+        <set-property name="user.agent" value="ie8,ie9,gecko1_8,safari,ie10" />
         <source path="client" />
         <source path="shared" />
         <generate-with class="dc.framework.OptimizedConnectorBundleLoaderFactory">
