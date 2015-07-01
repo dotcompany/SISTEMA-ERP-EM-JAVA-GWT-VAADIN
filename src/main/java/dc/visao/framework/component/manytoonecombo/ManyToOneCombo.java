@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.porotype.iconfont.FontAwesome.Icon;
+//import com.porotype.iconfont.FontAwesome.Icon;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Container.ItemSetChangeListener;
@@ -22,6 +22,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
@@ -66,7 +67,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		layout.setSpacing(false);
 		this.btnNew = new Button();
 
-		btnNew.setCaption(Icon.file.toString());
+		btnNew.setIcon(FontAwesome.FILE);
 		btnNew.setHtmlContentAllowed(true);
 		btnNew.setId("lblNew");
 		btnNew.setWidth("22px");
@@ -76,7 +77,6 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// TODO Auto-generated method stub
 				ItemValue val = (ItemValue) cmbResult.getValue();
 
 				if (val != null && val.getFilter() != null) {
@@ -101,7 +101,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		}
 
 		Button btnAdvancedSearch = new Button();
-		btnAdvancedSearch.setCaption(Icon.search.toString());
+		btnAdvancedSearch.setIcon(FontAwesome.SEARCH);
 		btnAdvancedSearch.setHtmlContentAllowed(true);
 		btnAdvancedSearch.setId("lblAdvSearch");
 		btnAdvancedSearch.setWidth("22px");
@@ -200,22 +200,17 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		});
 
 		cmbResult.addItemSetChangeListener(new ItemSetChangeListener() {
-
 			@Override
 			public void containerItemSetChange(ItemSetChangeEvent event) {
-				// TODO Auto-generated method stub
 				logger.info("item set change");
 			}
-
 		});
 
 		cmbResult.addBlurListener(new BlurListener() {
-
 			@Override
 			public void blur(BlurEvent event) {
 				logger.info("blur on combo");
 			}
-
 		});
 
 		btnEdit.addClickListener(new ClickListener() {
@@ -384,7 +379,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		// lblEdit
 		btnEdit = new Button();
-		btnEdit.setCaption(Icon.edit.toString());
+		btnEdit.setIcon(FontAwesome.EDIT);
 		btnEdit.setHtmlContentAllowed(true);
 		btnEdit.setId("lblEdit");
 		btnEdit.setWidth("22px");

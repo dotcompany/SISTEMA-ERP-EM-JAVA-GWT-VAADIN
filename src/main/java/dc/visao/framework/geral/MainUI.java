@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.porotype.iconfont.FontAwesome;
+//import com.porotype.iconfont.FontAwesome;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.DefaultErrorHandler;
 import com.vaadin.server.ErrorHandler;
@@ -43,7 +43,7 @@ public class MainUI extends UI implements ErrorHandler {
 	@Override
 	protected void init(VaadinRequest request) {
 		logger.info("vaadin init called");
-		FontAwesome.load();
+		//TODO FontAwesome.load();
 		contextPath = request.getContextPath();
 		String p = request.getPathInfo();
 		populatePathInfo(p);

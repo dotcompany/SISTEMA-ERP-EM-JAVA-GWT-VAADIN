@@ -109,13 +109,13 @@ dependencies {
    			exclude module: 'javax.persistence'
    		}
    			
-		compile ('org.vaadin.addons:fonticon:7.1.1') {
+		/*compile ('org.vaadin.addons:fonticon:7.1.1') {
 			exclude module: 'vaadin' //by artifact name
    			exclude module: 'vaadin-server' //by artifact name
    			exclude module: 'vaadin-client' //by artifact name
    			exclude module: 'vaadin-client-compiled' //by artifact name
    			exclude module: 'vaadin-themes' //by artifact name
-		}
+		}*/
 
         //compile 'com.vaadin.addon:vaadin-charts:2.0.0'
 
@@ -192,10 +192,9 @@ dependencies {
 		
 		compile 'org.freemarker:freemarker:2.3.21'
 		
-		
-		compile 'org.springframework.security:spring-security-core:3.2.7.RELEASE'
-		compile "org.springframework.security:spring-security-web:3.2.7.RELEASE"
-		compile 'org.springframework.security:spring-security-config:3.2.7.RELEASE'
+		compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
+		compile "org.springframework.security:spring-security-web:4.0.1.RELEASE"
+		compile 'org.springframework.security:spring-security-config:4.0.1.RELEASE'
 		
 		
 		// CAPTCHA

@@ -46,7 +46,11 @@ import dc.entidade.sistema.ContaEmpresa;
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable, UserDetails {
-
+	private static List<GrantedAuthority> grantedAuths = new ArrayList<>();
+	
+	static{
+		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+	}
 	/**
 	 * 
 	 */
@@ -239,9 +243,6 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-
 		return grantedAuths;
 	}
 
