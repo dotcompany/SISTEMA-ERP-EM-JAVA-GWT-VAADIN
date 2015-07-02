@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.controller.geral.diverso.UfListController;
 import dc.entidade.administrativo.empresa.DependenteEntity;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.empresa.ParticipacaoSocietariaEntity;
@@ -29,6 +30,7 @@ import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.administrativo.empresa.SocioFormView;
 import dc.visao.administrativo.empresa.SocioFormView.DIRIGENTE;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -61,7 +63,7 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "EstoqueForm";
+		return "socioForm";
 	}
 
 	@Override
@@ -79,6 +81,16 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 	@Override
 	protected void initSubView() {
 		subView = new SocioFormView(this);
+		
+		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+				UfListController.class, this.ufDAO, super.getMainController());
+
+		this.subView.getCmbUF().setModel(modelUf);
+		
+		DefaultManyToOneComboModel<QuadroSocietarioEntity> modelQuadroSocietario = new DefaultManyToOneComboModel<QuadroSocietarioEntity>(
+				QuadroSocietarioListController.class, this.quadroSocietarioDAO, super.getMainController());
+
+		this.subView.getCmbQuadroSocietario().setModel(modelQuadroSocietario);
 	}
 
 	@Override
@@ -105,10 +117,11 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 			if (Validator.validateObject(currentBean.getBairro())) {
 				subView.getTxtBairro().setValue(currentBean.getBairro());
 			}
-
-			if (Validator.validateObject(currentBean.getUf())) {
+			
+			if(currentBean.getUf()!=null){
 				subView.getCmbUF().setValue(currentBean.getUf());
 			}
+
 
 			if (Validator.validateObject(currentBean.getMunicipio())) {
 				subView.getTxtMunicipio().setValue(currentBean.getMunicipio());
@@ -184,6 +197,12 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 
 		try {
 			QuadroSocietarioEntity quadro = (QuadroSocietarioEntity) subView.getCmbQuadroSocietario().getValue();
+			
+			UfEntity uf = new UfEntity();
+			if(subView.getCmbUF().getValue()!=null){
+				uf = subView.getCmbUF().getValue();
+				this.currentBean.setUf(uf);
+			}
 
 			String nome = subView.getTxtNome().getValue();
 			String cpf = subView.getTxtCpf().getValue();
@@ -194,7 +213,7 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 
 			String bairro = subView.getTxtBairro().getValue();
 			String municipio = subView.getTxtMunicipio().getValue();
-			String uf = (String) subView.getCmbUF().getValue();
+			//String uf = (String) subView.getCmbUF().getValue();
 			String cep = subView.getTxtCep().getValue();
 
 			String fone = subView.getTxtFone().getValue();
@@ -300,10 +319,33 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 	protected void quandoNovo() {
 		try {
 			// subView.filEstoqueDetalhesSubForm(currentBean.getDetalhes());
+			novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	private void novoObjeto(Serializable id) {
+		try {
+			if (id.equals(0) || id == null) {
+				this.currentBean = new SocioEntity();
+
+				// this.subView.getCbIndice().setValue(this.pEntity.getIndice());
+			} else {
+				this.currentBean = this.dao.find(id);
+
+				this.subView.getCmbQuadroSocietario().setValue(this.currentBean.getQuadroSocietario());
+			}
+
+			this.subView.getTxtNome().setValue(this.currentBean.getNome());
+			this.subView.getTxtCpf().setValue(this.currentBean.getCpf().toString());
+			this.subView.getTxtComplemento().setValue(this.currentBean.getComplemento().toString());
+			this.subView.getTxtBairro().setValue(this.currentBean.getBairro().toString());
+			this.subView.getTxtLogradouro().setValue(this.currentBean.getLogradouro().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -325,7 +367,11 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		System.out.println("");
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

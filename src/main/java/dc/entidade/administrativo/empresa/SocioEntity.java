@@ -12,22 +12,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.diverso.UfEntity;
 
 @Entity
 @Table(name = "socio")
@@ -41,25 +41,47 @@ public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "soc", sequenceName = "socio_id_seq", allocationSize = 1)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="id_quadro_societario")
-	QuadroSocietarioEntity quadroSocietario;
+	//@ManyToOne
+	//@JoinColumn(name="id_quadro_societario", nullable = false)
+	//private QuadroSocietarioEntity quadroSocietario;
 	
+	@Caption("Quadro Societario")
+	@OneToOne
+	@JoinColumn(name = "id_quadro_societario", insertable = true, updatable = true)
+	private QuadroSocietarioEntity quadroSocietario;
+	
+	@Field
+	@Caption("Nome")
 	String nome;
 	
+	@Field
+	@Caption("Cpf")
 	String cpf;
 
+	@Field
+	@Caption("Logradouro")
 	String logradouro;
 
+	@Field
+	@Caption("Numero")
 	Integer numero;
 
+	@Field
+	@Caption("Complemento")
 	String complemento;
 
+	@Field
+	@Caption("Bairro")
 	String bairro;
 
+	@Field
+	@Caption("Municipio")
 	String municipio;
 
-	String uf;
+	//String uf;
+	
+	@Transient
+	private UfEntity uf;
 
 	String cep;
 
@@ -165,11 +187,11 @@ public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.municipio = municipio;
 	}
 
-	public String getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 
