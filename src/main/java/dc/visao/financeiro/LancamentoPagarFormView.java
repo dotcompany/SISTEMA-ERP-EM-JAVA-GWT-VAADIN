@@ -300,7 +300,9 @@ public class LancamentoPagarFormView extends CustomComponent {
 	return this.naturezaFinanceiraSubForm;
 }*/
 
-	private Component buildSubFormNaturezaFinanceira() {
+	private SubFormComponent<LctoPagarNtFinanceira, Integer> buildSubFormNaturezaFinanceira() {
+	//private Component buildSubFormNaturezaFinanceira() {
+		
 		String[] atributos = new String[] { "naturezaFinanceira","dataInclusao", "valor" };
 		String[] headers = new String[] { "Natureza Financeira","Data Inclusão", "Valor" };
 

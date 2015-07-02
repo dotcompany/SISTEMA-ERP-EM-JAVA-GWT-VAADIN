@@ -86,8 +86,8 @@ public class LancamentoPagarFormController extends
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
 	
-	@Autowired
-	private NaturezaFinanceiraBusiness<NaturezaFinanceira> naturezaFinanceiraBusiness;
+	//@Autowired
+	//private NaturezaFinanceiraBusiness<NaturezaFinanceira> naturezaFinanceiraBusiness;
 
 	@Override
 	protected String getNome() {
@@ -562,7 +562,7 @@ public class LancamentoPagarFormController extends
 		return currentBean;
 	}
 
-	public LctoPagarNtFinanceira adicionarLctoPagarNtFinanceira() {
+	/*public LctoPagarNtFinanceira adicionarLctoPagarNtFinanceira() {
 		try {
 			LctoPagarNtFinanceira ent = new LctoPagarNtFinanceira();
 			ent.setLancamentoPagar(this.currentBean);
