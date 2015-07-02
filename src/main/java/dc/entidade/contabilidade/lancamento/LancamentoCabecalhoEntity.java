@@ -79,7 +79,7 @@ public class LancamentoCabecalhoEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Tipo")
-	private Character tipo;
+	private String tipo;
 
 	@Field
 	@Column(name = "liberado")
@@ -169,11 +169,11 @@ public class LancamentoCabecalhoEntity extends
 		this.dataInclusao = dataInclusao;
 	}
 
-	public Character getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Character tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = (tipo);
 	}
 

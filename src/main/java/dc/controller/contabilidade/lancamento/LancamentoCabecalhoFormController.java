@@ -71,7 +71,7 @@ public class LancamentoCabecalhoFormController extends
 			Date dataLancamento = this.subView.getPdfDataLancamento()
 					.getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
-			String tipo = this.subView.getTfTipo().getValue();
+			//String tipo = this.subView.getTfTipo().getValue();
 			String liberado = this.subView.getTfLiberado().getValue();
 			//Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
