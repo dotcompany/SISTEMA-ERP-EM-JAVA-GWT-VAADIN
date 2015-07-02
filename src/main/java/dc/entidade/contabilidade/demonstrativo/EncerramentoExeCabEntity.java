@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -62,6 +64,7 @@ public class EncerramentoExeCabEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data do início")
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
 
 	@Field
@@ -69,6 +72,7 @@ public class EncerramentoExeCabEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data do término")
+	@Temporal(TemporalType.DATE)
 	private Date dataFim;
 
 	@Field
@@ -76,6 +80,7 @@ public class EncerramentoExeCabEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data da inclusão")
+	@Temporal(TemporalType.DATE)
 	private Date dataInclusao;
 
 	@Field

@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -72,6 +74,7 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Diário a partir de")
+	@Temporal(TemporalType.DATE)
 	private Date diarioPartirDe;
 
 	@Field

@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.demonstrativo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,18 +72,19 @@ public class DreDetalheFormController extends
 			String formaCalculo = this.subView.getTfFormaCalculo().getValue();
 			String sinal = this.subView.getTfSinal().getValue();
 			String natureza = this.subView.getTfNatureza().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			//Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			DreCabecalhoEntity dreCabecalho = this.subView.getCbDreCabecalho()
 					.getValue();
+			
+			pEntity.setValor((BigDecimal) this.subView.getTfValor().getConvertedValue());
 
 			this.pEntity.setClassificacao(classificacao);
 			this.pEntity.setDescricao(descricao);
 			this.pEntity.setFormaCalculo(formaCalculo);
 			this.pEntity.setSinal(sinal);
 			this.pEntity.setNatureza(natureza);
-			this.pEntity.setValor(valor);
+			//this.pEntity.setValor(valor);
 
 			this.pEntity.setDreCabecalho(dreCabecalho);
 

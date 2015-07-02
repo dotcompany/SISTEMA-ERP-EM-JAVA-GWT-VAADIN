@@ -200,7 +200,7 @@ public class CentroResultadoFormView extends CustomComponent {
 
 	public void preencheBean(CentroResultado currentBean) {
 		currentBean.setDescricao(getTxtDescricao().getValue());
-		currentBean.setSofreRateio(getOptSofreRateio().getValue().toString());
+		//currentBean.setSofreRateio(getOptSofreRateio().getValue().toString());
 		currentBean.setClassificacao(getTxtClassficacao().getValue());
 		// currentBean.setPlanoCentroResultado((PlanoCentroResultado)
 		// getCbPlanoCentroResultado().getValue());
