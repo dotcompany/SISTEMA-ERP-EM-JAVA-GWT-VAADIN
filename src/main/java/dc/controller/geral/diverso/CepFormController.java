@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.StringUtils;
 import dc.control.util.classes.CepUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.CepEntity;
@@ -133,14 +131,20 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			this.entity.setComplemento(complemento);
 			this.entity.setBairro(bairro);
 			this.entity.setMunicipio(municipio);
+			
+			UfEntity uf = new UfEntity();
+			if(subView.getMocUf().getValue()!=null){
+				uf = subView.getMocUf().getValue();
+				this.entity.setUf(uf);
+			}
 
-			UfEntity uf = this.subView.getMocUf().getValue();
+			/*UfEntity uf = this.subView.getMocUf().getValue();
 
 			if (ObjectUtils.isNotBlank(uf)) {
 				this.entity.setUf(uf.getSigla());
 			} else {
 				this.entity.setUf(null);
-			}
+			}*/
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -164,14 +168,18 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 					this.entity.getComplemento());
 			this.subView.getTfBairro().setValue(this.entity.getBairro());
 			this.subView.getTfMunicipio().setValue(this.entity.getMunicipio());
-
-			String sigla = this.entity.getUf();
-
-			if (StringUtils.isNotBlank(sigla)) {
-				UfEntity uf = this.ufDAO.find(sigla);
-
-				this.subView.getMocUf().setValue(uf);
+			
+			if(this.entity.getUf()!=null){
+				this.subView.getMocUf().setValue(this.entity.getUf());
 			}
+
+			//String sigla = this.entity.getUf();
+
+			//if (StringUtils.isNotBlank(sigla)) {
+				//UfEntity uf = this.ufDAO.find(sigla);
+
+				//this.subView.getMocUf().setValue(uf);
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,8 +193,8 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			CepUtils.clearFormFields(this.subView);
+		//} finally {
+			//CepUtils.clearFormFields(this.subView);
 		}
 	}
 
@@ -198,8 +206,8 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			CepUtils.clearFormFields(this.subView);
+		//} finally {
+			//CepUtils.clearFormFields(this.subView);
 		}
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -80,12 +81,15 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String municipio;
 
-	@Field
-	@Caption()
-	@Column(name = "UF")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String uf;
+	//@Field
+	//@Caption()
+	//@Column(name = "UF")
+	//@ComboValue
+	//@Analyzer(definition = "dc_combo_analyzer")
+	//private String uf;
+	
+	@Transient
+	private UfEntity uf;
 
 	@Field
 	@Caption()
@@ -171,11 +175,11 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.municipio = municipio;
 	}
 
-	public String getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 

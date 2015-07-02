@@ -15,7 +15,6 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -32,7 +31,6 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.model.business.geral.produto.NaturezaFinanceiraBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
