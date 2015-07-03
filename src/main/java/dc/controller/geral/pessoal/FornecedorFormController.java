@@ -11,8 +11,6 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
-import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;

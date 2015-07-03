@@ -34,7 +34,7 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Column(name = "SOFRE_RATEIO")
 	@Caption(value = "Sofre Rateio")
-	private String sofreRateio;
+	private Character sofreRateio;
 	
 	@JoinColumn(name = "ID_PLANO_CENTRO_RESULTADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -64,11 +64,11 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 		this.classificacao = classificacao;
 	}
 
-	public String getSofreRateio() {
+	public Character getSofreRateio() {
 		return sofreRateio;
 	}
 
-	public void setSofreRateio(String sofreRateio) {
+	public void setSofreRateio(Character sofreRateio) {
 		this.sofreRateio = sofreRateio;
 	}
 

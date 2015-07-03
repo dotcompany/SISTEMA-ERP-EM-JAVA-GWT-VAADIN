@@ -1,6 +1,7 @@
 package dc.entidade.contabilidade.demonstrativo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -61,28 +62,28 @@ public class EncerramentoExeDetEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Saldo anterior")
-	private Double saldoAnterior = new Double(0.0);
+	private BigDecimal saldoAnterior = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "valor_debito")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Valor do débito")
-	private Double valorDebito = new Double(0.0);
+	private BigDecimal valorDebito = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "valor_credito")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Valor do crédito")
-	private Double valorCredito = new Double(0.0);
+	private BigDecimal valorCredito = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "saldo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Saldo")
-	private Double saldo = new Double(0.0);
+	private BigDecimal saldo = new BigDecimal(0.0);
 
 	/**
 	 * REFERENCIA - FK
@@ -147,38 +148,38 @@ public class EncerramentoExeDetEntity extends
 		this.id = id;
 	}
 
-	public Double getSaldoAnterior() {
+	public BigDecimal getSaldoAnterior() {
 		return saldoAnterior;
 	}
 
-	public void setSaldoAnterior(Double saldoAnterior) {
-		this.saldoAnterior = (saldoAnterior == null ? new Double(0.0)
+	public void setSaldoAnterior(BigDecimal saldoAnterior) {
+		this.saldoAnterior = (saldoAnterior == null ? new BigDecimal(0.0)
 				: saldoAnterior);
 	}
 
-	public Double getValorDebito() {
+	public BigDecimal getValorDebito() {
 		return valorDebito;
 	}
 
-	public void setValorDebito(Double valorDebito) {
-		this.valorDebito = (valorDebito == null ? new Double(0.0) : valorDebito);
+	public void setValorDebito(BigDecimal valorDebito) {
+		this.valorDebito = (valorDebito == null ? new BigDecimal(0.0) : valorDebito);
 	}
 
-	public Double getValorCredito() {
+	public BigDecimal getValorCredito() {
 		return valorCredito;
 	}
 
-	public void setValorCredito(Double valorCredito) {
-		this.valorCredito = (valorCredito == null ? new Double(0.0)
+	public void setValorCredito(BigDecimal valorCredito) {
+		this.valorCredito = (valorCredito == null ? new BigDecimal(0.0)
 				: valorCredito);
 	}
 
-	public Double getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(Double saldo) {
-		this.saldo = (saldo == null ? new Double(0.0) : saldo);
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = (saldo == null ? new BigDecimal(0.0) : saldo);
 	}
 
 	public EncerramentoExeCabEntity getEncerramentoExeCab() {

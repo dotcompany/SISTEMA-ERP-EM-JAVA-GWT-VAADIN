@@ -156,7 +156,7 @@ public class MunicipioFormView extends CustomComponent {
 		// tfCodigoEstadual
 		tfCodigoEstadual = ComponentUtil.buildTextField("Código estadual");
 		tfCodigoEstadual.setImmediate(false);
-		fields.addComponent(tfCodigoEstadual, 2, 1);
+		fields.addComponent(tfCodigoEstadual, 0, 2);
 
 		return fields;
 	}

@@ -16,15 +16,12 @@ import dc.control.enums.IndicadorPrecoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.enums.TipoFreteEn;
 import dc.control.util.ClassUtils;
-import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.tributario.OperacaoFiscalListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -398,6 +395,11 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	public ClienteEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
 	}
 
 }

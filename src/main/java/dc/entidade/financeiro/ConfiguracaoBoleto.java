@@ -80,22 +80,22 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 	@Field
 	@Column(name = "LAYOUT_REMESSA")
 	@Caption(value = "Layout Remessa")
-	private String layoutRemessa;
+	private Character layoutRemessa;
 
 	@Field
 	@Column(name = "ACEITE")
 	@Caption(value = "Aceite")
-	private String aceite;
+	private Character aceite;
 
 	@Field
 	@Column(name = "ESPECIE")
 	@Caption(value = "Espécie")
-	private String especie;
+	private Character especie;
 
 	@Field
 	@Column(name = "CARTEIRA")
 	@Caption(value = "Carteira")
-	private String carteira;
+	private Character carteira;
 
 	@Field
 	@Column(name = "CODIGO_CONVENIO")
@@ -192,35 +192,35 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 		this.localPagamento = localPagamento;
 	}
 
-	public String getLayoutRemessa() {
+	public Character getLayoutRemessa() {
 		return layoutRemessa;
 	}
 
-	public void setLayoutRemessa(String layoutRemessa) {
+	public void setLayoutRemessa(Character layoutRemessa) {
 		this.layoutRemessa = layoutRemessa;
 	}
 
-	public String getAceite() {
+	public Character getAceite() {
 		return aceite;
 	}
 
-	public void setAceite(String aceite) {
+	public void setAceite(Character aceite) {
 		this.aceite = aceite;
 	}
 
-	public String getEspecie() {
+	public Character getEspecie() {
 		return especie;
 	}
 
-	public void setEspecie(String especie) {
+	public void setEspecie(Character especie) {
 		this.especie = especie;
 	}
 
-	public String getCarteira() {
+	public Character getCarteira() {
 		return carteira;
 	}
 
-	public void setCarteira(String carteira) {
+	public void setCarteira(Character carteira) {
 		this.carteira = carteira;
 	}
 

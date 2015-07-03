@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -70,18 +71,19 @@ public class LancamentoCabecalhoFormController extends
 			Date dataLancamento = this.subView.getPdfDataLancamento()
 					.getValue();
 			Date dataInclusao = this.subView.getPdfDataInclusao().getValue();
-			String tipo = this.subView.getTfTipo().getValue();
+			//String tipo = this.subView.getTfTipo().getValue();
 			String liberado = this.subView.getTfLiberado().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			//Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			LoteEntity lote = this.subView.getCbLote().getValue();
+			
+			pEntity.setValor((BigDecimal) this.subView.getTfValor().getConvertedValue());
 
 			this.pEntity.setDataLancamento(dataLancamento);
 			this.pEntity.setDataInclusao(dataInclusao);
-			this.pEntity.setTipo(tipo);
+			//this.pEntity.setTipo(tipo);
 			this.pEntity.setLiberado(liberado);
-			this.pEntity.setValor(valor);
+			//this.pEntity.setValor(valor);
 
 			this.pEntity.setLote(lote);
 
@@ -251,7 +253,7 @@ public class LancamentoCabecalhoFormController extends
 					this.pEntity.getDataLancamento());
 			this.subView.getPdfDataInclusao().setValue(
 					this.pEntity.getDataInclusao());
-			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
+			//this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 			this.subView.getTfLiberado().setValue(this.pEntity.getLiberado());
 			this.subView.getTfValor().setValue(
 					this.pEntity.getValor().toString());

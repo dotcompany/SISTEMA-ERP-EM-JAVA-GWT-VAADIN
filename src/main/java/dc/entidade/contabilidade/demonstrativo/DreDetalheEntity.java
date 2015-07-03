@@ -1,6 +1,7 @@
 package dc.entidade.contabilidade.demonstrativo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -91,11 +92,9 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private String natureza = "";
 
 	@Field
-	@Column(name = "valor")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Valor")
-	private Double valor = new Double(0.0);
+	@Caption("Valor")
+	@Column(name = "VALOR", precision = 14, scale = 0)
+	private BigDecimal valor;
 
 	/**
 	 * REFERENCIA - FK
@@ -194,12 +193,12 @@ public class DreDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.natureza = (natureza == null ? "" : natureza.toUpperCase());
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = (valor == null ? new Double(0.0) : valor);
+	public void setValor(BigDecimal valor) {
+		this.valor = (valor == null ? new BigDecimal(0.0) : valor);
 	}
 
 	public DreCabecalhoEntity getDreCabecalho() {

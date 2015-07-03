@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
-import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
+@Component
 @Controller
 @Scope("prototype")
-public class FornecedorListController extends
-		CRUDListController<FornecedorEntity> {
+public class FornecedorListController extends CRUDListController<FornecedorEntity> {
 
 	/**
 	 * 
@@ -27,6 +27,10 @@ public class FornecedorListController extends
 
 	@Autowired
 	private FornecedorFormController fornecedorFormController;
+	
+	public FornecedorListController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -41,7 +45,7 @@ public class FornecedorListController extends
 
 	@Override
 	protected String getTitulo() {
-		return super.getTitulo(this);
+		return "Fornecedor";
 	}
 
 	@Override
@@ -58,7 +62,7 @@ public class FornecedorListController extends
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
+		return "listaFornecedor";
 	}
 
 	@Override
@@ -71,6 +75,12 @@ public class FornecedorListController extends
 	@Override
 	protected List<FornecedorEntity> pesquisaDefault() {
 		return (List<FornecedorEntity>) dao.getAll(getEntityClass());
+	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 }

@@ -2,7 +2,6 @@ package dc.servicos.dao.administrativo.empresa;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
 import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -16,7 +15,7 @@ public class SocioDAO extends AbstractCrudDAO<SocioEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"numero"};
+		return new String[] {"quadroSocietario", "nome", "cpf", "logradouro", "complemento"};
 	}
 	
 }

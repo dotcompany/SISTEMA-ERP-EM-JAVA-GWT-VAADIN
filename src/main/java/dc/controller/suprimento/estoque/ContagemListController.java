@@ -1,5 +1,6 @@
 package dc.controller.suprimento.estoque;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -73,7 +75,7 @@ public class ContagemListController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return null;
+			return new ArrayList<ContagemCabecalhoEntity>();
 		}
 	}
 
@@ -87,7 +89,7 @@ public class ContagemListController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return null;
+			return new ArrayList<ContagemCabecalhoEntity>();
 		}
 	}
 

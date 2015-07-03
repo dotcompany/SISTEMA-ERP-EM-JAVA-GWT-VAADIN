@@ -9,7 +9,6 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
 import dc.controller.geral.pessoal.ClienteFormController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
@@ -104,15 +103,15 @@ public class ClienteFormView extends CustomComponent {
 		// common part: create layout
 		mainLayout = new GridLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("-1px");
-		mainLayout.setHeight("-1px");
+		mainLayout.setWidth("100%");
+		mainLayout.setHeight("100%");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		mainLayout.setRows(6);
 
 		// top-level component properties
-		setWidth("-1px");
-		setHeight("-1px");
+		setWidth("100.0%");
+		setHeight("100.0%");
 
 		// horizontalLayout_1
 		horizontalLayout_1 = buildHorizontalLayout_1();

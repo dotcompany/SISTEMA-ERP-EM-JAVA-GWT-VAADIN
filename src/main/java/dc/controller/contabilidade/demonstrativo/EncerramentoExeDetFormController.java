@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.demonstrativo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,23 +73,29 @@ public class EncerramentoExeDetFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			Double saldoAnterior = Double.parseDouble(this.subView
+			/*Double saldoAnterior = Double.parseDouble(this.subView
 					.getTfSaldoAnterior().getValue());
 			Double valorDebito = Double.parseDouble(this.subView
 					.getTfValorDebito().getValue());
 			Double valorCredito = Double.parseDouble(this.subView
 					.getTfValorCredito().getValue());
 			Double saldo = Double.parseDouble(this.subView.getTfSaldo()
-					.getValue());
+					.getValue());*/
 
 			EncerramentoExeCabEntity encerramentoExeCab = this.subView
 					.getCbEncerramentoExeCab().getValue();
 			ContaEntity conta = this.subView.getCbConta().getValue();
+			
+			pEntity.setSaldoAnterior((BigDecimal) this.subView.getTfSaldoAnterior().getConvertedValue());
+			pEntity.setValorDebito((BigDecimal) this.subView.getTfValorDebito().getConvertedValue());
+			pEntity.setValorCredito((BigDecimal) this.subView.getTfValorCredito().getConvertedValue());
+			pEntity.setSaldo((BigDecimal) this.subView.getTfSaldo().getConvertedValue());
+			
 
-			this.pEntity.setSaldoAnterior(saldoAnterior);
-			this.pEntity.setValorDebito(valorDebito);
-			this.pEntity.setValorCredito(valorCredito);
-			this.pEntity.setSaldo(saldo);
+			//this.pEntity.setSaldoAnterior(saldoAnterior);
+			//this.pEntity.setValorDebito(valorDebito);
+			//this.pEntity.setValorCredito(valorCredito);
+			//this.pEntity.setSaldo(saldo);
 
 			this.pEntity.setEncerramentoExeCab(encerramentoExeCab);
 			this.pEntity.setConta(conta);

@@ -1,6 +1,7 @@
 package dc.entidade.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -61,6 +64,7 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data do índice")
+	@Temporal(TemporalType.DATE)
 	private Date dataIndice;
 
 	@Field
@@ -68,7 +72,7 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Valor")
-	private Double valor = new Double(0.0);
+	private BigDecimal valor = new BigDecimal(0.0);
 
 	/**
 	 * REFERENCIA - FK
@@ -133,12 +137,12 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.dataIndice = dataIndice;
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = (valor == null ? new Double(0.0) : valor);
+	public void setValor(BigDecimal valor) {
+		this.valor = (valor == null ? new BigDecimal(0.0) : valor);
 		;
 	}
 

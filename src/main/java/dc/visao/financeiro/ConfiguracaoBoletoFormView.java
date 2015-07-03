@@ -125,15 +125,15 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 	}
 
 	public void preencheBean(ConfiguracaoBoleto currentBean) {
-		currentBean.setAceite(((SimNao) cbAceite.getValue()).getCodigo());
-		currentBean.setCarteira(txCarteira.getValue());
+		//currentBean.setAceite(((SimNao) cbAceite.getValue()).getCodigo());
+		//currentBean.setCarteira(txCarteira.getValue());
 		currentBean.setCodigoCedente(txCodigoCedente.getValue());
 		currentBean.setCodigoConvenio(txCodigoConvenio.getValue());
 		currentBean.setContaCaixa(cbContaCaixa.getValue());
-		currentBean.setEspecie(((EspecieCobranca) cbEspecie.getValue()).getCodigo());
+		//currentBean.setEspecie(((EspecieCobranca) cbEspecie.getValue()).getCodigo());
 		currentBean.setInstrucao01(txInstrucao01.getValue());
 		currentBean.setInstrucao02(txInstrucao02.getValue());
-		currentBean.setLayoutRemessa(((LayoutRemessa) cbLayoutRemessa.getValue()).getCodigo());
+		//currentBean.setLayoutRemessa(((LayoutRemessa) cbLayoutRemessa.getValue()).getCodigo());
 		currentBean.setLocalPagamento(txLocalPagamento.getValue());
 		currentBean.setMensagem(txMensagem.getValue());
 		currentBean.setTaxaMulta((BigDecimal) txTaxaMulta.getConvertedValue());
@@ -141,15 +141,15 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 
 	public void preencheForm(ConfiguracaoBoleto currentBean) {
 
-		cbAceite.setValue(SimNao.getSimNao(currentBean.getAceite()));
-		txCarteira.setValue(currentBean.getCarteira());
+		//cbAceite.setValue(SimNao.getSimNao(currentBean.getAceite()));
+		//txCarteira.setValue(currentBean.getCarteira());
 		txCodigoCedente.setValue(currentBean.getCodigoCedente());
 		txCodigoConvenio.setValue(currentBean.getCodigoConvenio());
 		cbContaCaixa.setValue(currentBean.getContaCaixa());
-		cbEspecie.setValue(EspecieCobranca.getEspecieCobranca(currentBean.getEspecie()));
+		//cbEspecie.setValue(EspecieCobranca.getEspecieCobranca(currentBean.getEspecie()));
 		txInstrucao01.setValue(currentBean.getInstrucao01());
 		txInstrucao02.setValue(currentBean.getInstrucao02());
-		cbLayoutRemessa.setValue(LayoutRemessa.getLayoutRemessa(currentBean.getLayoutRemessa()));
+		//cbLayoutRemessa.setValue(LayoutRemessa.getLayoutRemessa(currentBean.getLayoutRemessa()));
 		txLocalPagamento.setValue(currentBean.getLocalPagamento());
 		txMensagem.setValue(currentBean.getMensagem());
 		txTaxaMulta.setConvertedValue(currentBean.getTaxaMulta());

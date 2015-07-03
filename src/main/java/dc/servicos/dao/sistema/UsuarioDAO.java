@@ -58,9 +58,4 @@ public class UsuarioDAO extends AbstractCrudDAO<UsuarioEntity>{
 		return u.getUsernome();
 	}
 
-	
-
-	
-	
 }
-

@@ -12,6 +12,7 @@ import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class LancamentoDetalheFormView extends CustomComponent {
 
@@ -190,13 +191,12 @@ public class LancamentoDetalheFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfDescricaoHistorico, 0, 1);
 
 		// tfValor
-		tfValor = new TextField();
-		tfValor.setCaption("Valor:");
-		tfValor.setImmediate(false);
-		tfValor.setWidth("175px");
-		tfValor.setHeight("-1px");
-		tfValor.setSizeFull();
-		tfValor.setNullRepresentation("");
+		tfValor = ComponentUtil.buildCurrencyField("Valor:");
+		//tfValor.setImmediate(false);
+		//tfValor.setWidth("175px");
+		//tfValor.setHeight("-1px");
+		//tfValor.setSizeFull();
+		//tfValor.setNullRepresentation("");
 		gridLayout_1.addComponent(tfValor, 1, 1);
 
 		// tfTipo

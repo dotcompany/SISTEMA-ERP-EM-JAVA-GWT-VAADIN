@@ -1,6 +1,7 @@
 package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class LancamentoCabecalhoEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Tipo")
-	private String tipo = "";
+	private String tipo;
 
 	@Field
 	@Column(name = "liberado")
@@ -92,7 +93,7 @@ public class LancamentoCabecalhoEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Valor")
-	private Double valor = new Double(0.0);
+	private BigDecimal valor = new BigDecimal(0.0);
 
 	/**
 	 * REFERENCIA - FK
@@ -124,7 +125,7 @@ public class LancamentoCabecalhoEntity extends
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	public String getNome() {
-		return getTipo();
+		return getNome();
 	}
 
 	// public void setNome(String nome) {
@@ -173,7 +174,7 @@ public class LancamentoCabecalhoEntity extends
 	}
 
 	public void setTipo(String tipo) {
-		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
+		this.tipo = (tipo);
 	}
 
 	public String getLiberado() {
@@ -184,12 +185,12 @@ public class LancamentoCabecalhoEntity extends
 		this.liberado = (liberado == null ? "" : liberado.toUpperCase());
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = (valor == null ? new Double(0.0) : valor);
+	public void setValor(BigDecimal valor) {
+		this.valor = (valor == null ? new BigDecimal(0.0) : valor);
 	}
 
 	public LoteEntity getLote() {

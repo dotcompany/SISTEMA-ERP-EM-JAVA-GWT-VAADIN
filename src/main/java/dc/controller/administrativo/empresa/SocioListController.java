@@ -42,7 +42,7 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "pessoa" };
+		return new String[] { "quadroSocietario", "nome", "cpf", "logradouro", "complemento" };
 	}
 
 	@Override
@@ -83,9 +83,8 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 	@Override
 	protected List<SocioEntity> pesquisaDefault() {
 		try {
-			List<SocioEntity> auxLista = (List<SocioEntity>) this.dao
-					.getAll(getEntityClass());
-
+			List<SocioEntity> auxLista = (List<SocioEntity>) this.dao.getAll(getEntityClass());
+			
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();

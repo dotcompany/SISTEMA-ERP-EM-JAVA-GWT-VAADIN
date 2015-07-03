@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -68,13 +69,14 @@ public class IndiceValorFormController extends
 	protected void actionSalvar() {
 		try {
 			Date dataIndice = this.subView.getPdfDataIndice().getValue();
-			Double valor = Double.parseDouble(this.subView.getTfValor()
-					.getValue());
+			//Double valor = Double.parseDouble(this.subView.getTfValor().getValue());
 
 			IndiceEntity indice = this.subView.getCbIndice().getValue();
+			
+			pEntity.setValor((BigDecimal) this.subView.getTfValor().getConvertedValue());
 
 			this.pEntity.setDataIndice(dataIndice);
-			this.pEntity.setValor(valor);
+			//this.pEntity.setValor(valor);
 
 			this.pEntity.setIndice(indice);
 
