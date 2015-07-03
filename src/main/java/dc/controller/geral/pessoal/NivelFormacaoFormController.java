@@ -61,7 +61,7 @@ public class NivelFormacaoFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Estado civil";
+		return "Nível Formação";
 	}
 
 	@Override

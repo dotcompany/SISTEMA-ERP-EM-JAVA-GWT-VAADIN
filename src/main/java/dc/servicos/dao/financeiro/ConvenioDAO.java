@@ -42,7 +42,8 @@ public class ConvenioDAO extends AbstractCrudDAO<ConvenioEntity>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"logradouro", "bairro"};
+		return new String[] {"nome", "logradouro", "bairro","email","telefone","contato",
+				"cnpj","cep"};
 	}
 
 }

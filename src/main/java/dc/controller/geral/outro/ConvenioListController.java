@@ -38,7 +38,8 @@ public class ConvenioListController extends CRUDListController<ConvenioEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "logradouro", "bairro" };
+		return new String[] { "nome", "logradouro", "bairro","email","telefone","contato",
+				"cnpj","cep" };
 	}
 
 	@Override

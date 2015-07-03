@@ -52,8 +52,8 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	private Integer id;
 
 	@Field
-	@Caption("Descrição")
-	@Column(name = "descricao")
+	@Caption("Nome")
+	@Column(name = "nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;

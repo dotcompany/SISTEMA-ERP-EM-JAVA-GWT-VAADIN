@@ -1,7 +1,5 @@
 package dc.servicos.dao.tributario;
 
-import java.io.Serializable;
-
 import org.springframework.stereotype.Repository;
 
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
@@ -25,7 +23,7 @@ public class IcmsCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoCabecalho
 //	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao"};
+		return new String[] {"nome","origemMercadoria"};
 	}
 
 }

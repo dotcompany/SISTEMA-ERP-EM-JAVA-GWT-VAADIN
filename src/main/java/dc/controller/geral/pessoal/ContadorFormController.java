@@ -11,11 +11,13 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.controller.geral.diverso.UfListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ContadorFormView;
 
@@ -72,18 +74,19 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	protected void initSubView() {
 		this.subView = new ContadorFormView(this);
 
-		/*
-		 * DefaultManyToOneComboModel<UF> model1 = new
-		 * DefaultManyToOneComboModel<UF>( UFListController.class, this.ufDAO,
-		 * super.getMainController());
-		 * 
-		 * subView.getCmbUf().setModel(model1);
-		 */
+		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+				UfListController.class, this.ufDAO, super.getMainController());
+
+		this.subView.getMocUf().setModel(modelUf);
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = contadorDAO.find(id);
+		
+		if(currentBean.getUf()!=null){
+			subView.getMocUf().setValue(currentBean.getUf());
+		}
 
 		subView.getTxtLogradouro().setValue(currentBean.getLogradouro());
 		subView.getTxtComplemento().setValue(currentBean.getComplemento());
@@ -118,12 +121,23 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 
 	@Override
 	protected void actionSalvar() {
+		
+		UfEntity uf = new UfEntity();
+		if(subView.getMocUf().getValue()!=null){
+			uf = subView.getMocUf().getValue();
+			this.currentBean.setUf(uf);
+		}
+		
+		currentBean.setInscricaoCrc(subView.getTxtNumeroCRC().getValue());
+		currentBean.setUfCrc(subView.getTxtUfCRC().getValue());
+		currentBean.setNumero(subView.getTxtNumero().getValue());
+		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setLogradouro(subView.getTxtLogradouro().getValue());
+		currentBean.setBairro(subView.getTxtBairro().getValue());
 		currentBean.setComplemento(subView.getTxtComplemento().getValue());
 		currentBean.setCep(subView.getTxtCep().getValue());
 		currentBean.setFone(subView.getTxtTelefone().getValue());
 		currentBean.setFax(subView.getTxtFax().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
 		currentBean.setCnpj(subView.getTxtCnpj().getValue());
 		currentBean.setCpf(subView.getTxtCpf().getValue());
 		currentBean.setSite(subView.getTxtSite().getValue());

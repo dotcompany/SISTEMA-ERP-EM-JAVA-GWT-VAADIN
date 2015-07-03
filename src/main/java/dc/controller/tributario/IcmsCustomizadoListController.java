@@ -26,7 +26,7 @@ public class IcmsCustomizadoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "origemStr" };
+		return new String[] { "nome", "origemMercadoria" };
 	}
 
 	@Override

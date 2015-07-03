@@ -34,7 +34,8 @@ public class ContadorListController extends CRUDListController<ContadorEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "logradouro", "bairro" };
+		return new String[] {"nome", "logradouro", "bairro","complemento","email","fone","fax",
+				"cpf","cnpj","cep"};
 	}
 
 	@Override

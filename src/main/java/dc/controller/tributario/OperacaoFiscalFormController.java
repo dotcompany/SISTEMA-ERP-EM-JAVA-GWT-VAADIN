@@ -143,8 +143,9 @@ public class OperacaoFiscalFormController extends
 	}
 
 	public BeanItemContainer<CfopEntity> carregarCfop() {
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(
-				CfopEntity.class);
+		
+		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
+		
 		for (CfopEntity obj : cfopDAO.listaTodos()) {
 			container.addBean(obj);
 		}

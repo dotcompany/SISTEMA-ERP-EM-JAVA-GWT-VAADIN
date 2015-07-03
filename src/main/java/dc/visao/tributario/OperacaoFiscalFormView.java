@@ -31,7 +31,7 @@ public class OperacaoFiscalFormView extends CustomComponent {
 
 	ComboBox cfop;
 
-	TextField descricao;
+	TextField descricao, txtCfop;
 
 	TextField descricaoNaNf;
 
@@ -57,9 +57,10 @@ public class OperacaoFiscalFormView extends CustomComponent {
 		
 		// calDataRequisicao
 
-		cfop = ComponentUtil.buildComboBox("CFOP");
-		cfop.setRequired(true);
-		cfop.setContainerDataSource(controller.carregarCfop());
+		//cfop = ComponentUtil.buildComboBox("CFOP");
+		//cfop.setRequired(true);
+		//cfop.setContainerDataSource(controller.carregarCfop());
+		txtCfop = ComponentUtil.buildTextField("CFOP");
 		fields.addComponent(cfop, 0, 0);
 
 		descricao = ComponentUtil.buildTextField("Descrição");
@@ -140,4 +141,12 @@ public class OperacaoFiscalFormView extends CustomComponent {
 		this.observacao = observacao;
 	}
 
+	public TextField getTxtCfop() {
+		return txtCfop;
+	}
+
+	public void setTxtCfop(TextField txtCfop) {
+		this.txtCfop = txtCfop;
+	}
+	
 }

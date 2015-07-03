@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -22,6 +23,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.UfEntity;
 
 @Entity
 @Table(name = "contador")
@@ -122,11 +124,14 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIBGE;
 
-	@Field
-	@Caption("UF")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	private String uf;
+	//@Field
+	//@Caption("UF")
+	//@ComboValue
+	//@Analyzer(definition = "dc_combo_analyzer")
+	//private String uf;
+	
+	@Transient
+	private UfEntity uf;
 
 	@Field
 	@Caption("Email")
@@ -295,11 +300,11 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 		this.email = email;
 	}
 
-	public String getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 

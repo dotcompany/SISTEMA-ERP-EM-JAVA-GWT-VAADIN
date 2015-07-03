@@ -55,7 +55,7 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "cfop")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer cfop = new Integer(0);
+	private Integer cfop;
 
 	@Field
 	@Caption("Descrição")
