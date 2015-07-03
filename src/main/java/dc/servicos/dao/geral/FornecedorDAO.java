@@ -20,7 +20,7 @@ public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "pessoa.nome" };
 	}
-
+	
 	@Transactional
 	public List<FornecedorEntity> listarTodos() {
 		try {
@@ -32,6 +32,13 @@ public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 		} catch (Exception e) {
 			return new ArrayList<FornecedorEntity>();
 		}
+	}
+	
+	@Transactional
+	public List<FornecedorEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from FornecedorEntity where observacao like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 
 }

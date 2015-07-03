@@ -11,6 +11,7 @@ import com.vaadin.ui.TextField;
 
 import dc.entidade.geral.tabela.CboEntity;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class CargoFormView extends CustomComponent {
 
@@ -228,8 +229,7 @@ public class CargoFormView extends CustomComponent {
 		horizontalLayout_3.setSpacing(true);
 
 		// tfSalario
-		tfSalario = new TextField();
-		tfSalario.setCaption("Salário");
+		tfSalario = ComponentUtil.buildCurrencyField("Salário");
 		tfSalario.setImmediate(false);
 		tfSalario.setWidth("-1px");
 		tfSalario.setHeight("-1px");

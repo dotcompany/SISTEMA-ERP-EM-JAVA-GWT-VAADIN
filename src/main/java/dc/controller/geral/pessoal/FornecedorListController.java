@@ -4,53 +4,30 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-@Component
 @Controller
 @Scope("prototype")
 public class FornecedorListController extends CRUDListController<FornecedorEntity> {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private FornecedorDAO dao;
-
+	
 	@Autowired
 	private FornecedorFormController fornecedorFormController;
 	
-	public FornecedorListController() {
-		// TODO Auto-generated constructor stub
-	}
+	@Autowired
+	private FornecedorDAO dao;
 
 	@Override
-	public String[] getColunas() {
-		return new String[] { "pessoa", "desde", "optanteSimplesNacional",
-				"localizacao", "dataCadastro", "sofreRetencao" };
-	}
-
-	@Override
-	public Class<? super FornecedorEntity> getEntityClass() {
-		return FornecedorEntity.class;
-	}
-
-	@Override
-	protected String getTitulo() {
-		return "Fornecedor";
-	}
-
-	@Override
-	protected List<FornecedorEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+	public String getViewIdentifier() {
+		// TODO Auto-generated method stub
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -58,29 +35,57 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 		return fornecedorFormController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
-	public String getViewIdentifier() {
+	public String[] getColunas() {
 		// TODO Auto-generated method stub
-		return "listaFornecedor";
+		return new String[] {"desde", "dataCadastro", "contaRemetente","prazoMedioEntrega","quantidadeParcelas"};
+	}
+
+	@Override
+	public Class<? super FornecedorEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return FornecedorEntity.class;
+	}
+
+	@Override
+	protected String getTitulo() {
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected List<FornecedorEntity> pesquisaDefault() {
-		return (List<FornecedorEntity>) dao.getAll(getEntityClass());
+	
+	public FornecedorListController() {
 	}
 	
 	@Override
-	protected void actionRemoverSelecionados() {
-		super.actionRemoverSelecionados();
+	protected List<FornecedorEntity> pesquisa(String valor) {
+		try {
+			
+			List<FornecedorEntity> auxLista = this.dao.procuraNomeContendo(valor);
 
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<FornecedorEntity> pesquisaDefault() {
+		try {
+			
+			List<FornecedorEntity> auxLista = this.dao.listarTodos();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
