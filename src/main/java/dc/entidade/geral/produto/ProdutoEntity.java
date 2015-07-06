@@ -376,10 +376,6 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.id = id;
 	}
 
-	public ProdutoEntity(Integer id, String nome) {
-		this.id = id;
-		this.nome = nome;
-	}
 
 	/**
 	 * GETS AND SETS

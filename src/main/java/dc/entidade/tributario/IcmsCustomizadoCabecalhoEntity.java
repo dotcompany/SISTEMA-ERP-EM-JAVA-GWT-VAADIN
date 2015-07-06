@@ -24,7 +24,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.control.enums.OrigemMercadoriaEn;
+import dc.control.enums.OrigemMercadoria;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -64,7 +64,7 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	@Column(name = "origem_mercadoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private OrigemMercadoriaEn origemMercadoria;
+	private OrigemMercadoria origemMercadoria;
 
 	/**
 	 * REFERENCIA - FK
@@ -106,11 +106,11 @@ public class IcmsCustomizadoCabecalhoEntity extends
 		this.nome = nome;
 	}
 
-	public OrigemMercadoriaEn getOrigemMercadoria() {
+	public OrigemMercadoria getOrigemMercadoria() {
 		return origemMercadoria;
 	}
 
-	public void setOrigemMercadoria(OrigemMercadoriaEn origemMercadoria) {
+	public void setOrigemMercadoria(OrigemMercadoria origemMercadoria) {
 		this.origemMercadoria = origemMercadoria;
 	}
 

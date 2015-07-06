@@ -1,6 +1,7 @@
 package dc.controller.tributario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,14 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.control.enums.OrigemMercadoriaEn;
+import dc.control.enums.OrigemMercadoria;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstIcmsbEntity;
-import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
+import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.CfopDAO;
@@ -78,7 +79,27 @@ public class IcmsCustomizadoFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new ICMSCustomizadoFormView(this);
+		
+		this.subView.InitCbs(getOrigemMercadoria());
 
+	}
+	
+	/** COMBO */
+	public List<String> getOrigemMercadoria() {
+		try {
+			List<String> siLista = new ArrayList<String>();
+
+			for (OrigemMercadoria en : OrigemMercadoria.values()) {
+				siLista.add(en.ordinal(), en.toString());
+			}
+			
+			return siLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
@@ -86,9 +107,10 @@ public class IcmsCustomizadoFormController extends
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
 		subView.getTxtDescricao().setValue(currentBean.getNome());
-		subView.carregarOrigemMercadoria();
 		subView.getOrigemMercadoria().setValue(
 				currentBean.getOrigemMercadoria());
+		
+		this.subView.getOrigemMercadoria().setValue(this.currentBean.getOrigemMercadoria());
 
 		List<IcmsCustomizadoDetalheEntity> detalhes = currentBean.getDetalhes();
 
@@ -111,27 +133,30 @@ public class IcmsCustomizadoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
+			
 
 			List<IcmsCustomizadoDetalheEntity> detalhes = subView
 					.getDetalhesSubForm().getDados();
 
 			String descricao = subView.getTxtDescricao().getValue();
-			OrigemMercadoriaEn origem;
+			OrigemMercadoria origem;
+			
+			OrigemMercadoria ORIGEM = (OrigemMercadoria) (this.subView.getOrigemMercadoria().getValue());
+			this.currentBean.setOrigemMercadoria(ORIGEM);
 
-			if (!(Validator.validateString(descricao)))
+
+			/*if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
-			if (!(Validator.validateObject(subView.getOrigemMercadoria()
-					.getValue()))) {
+			if (!(Validator.validateObject(subView.getOrigemMercadoria().getValue()))) {
 				throw new ErroValidacaoException(
 						"Informe o Campo Origem da Mercadoria");
 			} else {
-				origem = (OrigemMercadoriaEn) subView.getOrigemMercadoria()
-						.getValue();
-			}
+				origem = (OrigemMercadoria) subView.getOrigemMercadoria().getValue();
+			}*/
 
 			currentBean.setNome(subView.getTxtDescricao().getValue());
-			currentBean.setOrigemMercadoria(origem);
+			//currentBean.setOrigemMercadoria(origem);
 			currentBean.setEmpresa(empresaAtual());
 
 			dao.saveOrUpdate(currentBean);
@@ -143,8 +168,8 @@ public class IcmsCustomizadoFormController extends
 				detalheDAO.saveOrUpdate(d);
 			}
 			notifiyFrameworkSaveOK(currentBean);
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
+		//} catch (ErroValidacaoException e) {
+			//mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			mensagemErro("Erro!!");
 			e.printStackTrace();
