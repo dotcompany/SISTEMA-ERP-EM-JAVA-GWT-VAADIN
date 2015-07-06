@@ -12,11 +12,9 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoSemestre;
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
 import dc.control.util.eventos.ContratoEventosUtil;
 import dc.control.validator.DotErpException;
 import dc.controller.geral.pessoal.TipoColaboradorListController;
-import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;

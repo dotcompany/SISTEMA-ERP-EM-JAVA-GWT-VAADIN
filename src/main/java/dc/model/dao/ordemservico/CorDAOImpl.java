@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
  * 
- * @author Paulo Sérgio Ferreira
+ * @author Paulo SÃ©rgio Ferreira
  * 
  */
 @Repository

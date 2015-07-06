@@ -4,7 +4,7 @@ import dc.model.dao.AbstractDAO;
 
 /**
  * 
- * @author Paulo Sérgio Ferreira
+ * @author Paulo SÃ©rgio Ferreira
  * 
  */
 public interface CorDAO<T> extends AbstractDAO<T> {

@@ -65,8 +65,7 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	@Override
 	protected List<ProdutoEntity> pesquisa(String valor) {
 		try {
-			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController
-					.getBusiness().fullTextSearch(valor);
+			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -80,8 +79,7 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	protected List<ProdutoEntity> pesquisaDefault() {
 		try {
 			@SuppressWarnings("unchecked")
-			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController
-					.getBusiness().getAll(getEntityClass());
+			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController.getBusiness().getAll(getEntityClass());
 
 			return auxLista;
 		} catch (Exception e) {

@@ -58,7 +58,7 @@ public final class ComponentUtil {
 
 		return textField;
 	}
-
+	
 	public static TextField buildTextField(String caption) {
 		TextField textField = new TextField();
 		textField.setNullRepresentation("");

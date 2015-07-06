@@ -925,7 +925,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							combobox.removeAllItems();
 
 							combobox.addItem("GENUÍNA");
-							combobox.addItem("NAO GENUÍNA");
+							combobox.addItem("NÃO GENUÍNA");
 
 							return combobox;
 						}else if ("quantidadeProduto".equals(propertyId)) {
@@ -1869,7 +1869,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							combobox.removeAllItems();
 
 							combobox.addItem("GENUÍNA");
-							combobox.addItem("NAO GENUÍNA");
+							combobox.addItem("NÃO GENUÍNA");
 							combobox.setReadOnly(true);
 
 							return combobox;

@@ -42,7 +42,6 @@ import dc.entidade.suprimentos.contrato.HistFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
 import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
-import dc.entidade.suprimentos.contrato.TemplateEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.framework.StringToBigDecimalConverter;
 import dc.visao.framework.component.ComboItemValue;

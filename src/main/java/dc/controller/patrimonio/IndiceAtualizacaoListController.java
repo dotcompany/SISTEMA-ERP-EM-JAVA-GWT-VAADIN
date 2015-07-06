@@ -53,7 +53,7 @@ public class IndiceAtualizacaoListController extends CRUDListController<IndiceAt
 
 	@Override
 	protected String getTitulo() {
-		return "Índice de atualização";
+		return "Índice de Atualização";
 	}
 
 	@Override

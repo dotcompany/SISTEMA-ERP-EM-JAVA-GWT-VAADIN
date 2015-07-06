@@ -49,7 +49,7 @@ public class IndiceAtualizacaoFormController extends CRUDFormController<IndiceAt
 
 	@Override
 	protected String getNome() {
-		return "Índice de atualização";
+		return "Índice de Atualização";
 	}
 
 	@Override

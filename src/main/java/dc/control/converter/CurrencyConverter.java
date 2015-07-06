@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Currency;
 
+import org.springframework.context.i18n.LocaleContextHolder;
+
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.ui.TextField;
 
@@ -24,6 +26,15 @@ public class CurrencyConverter {
 
 		return value;
 	}
+	
+	protected java.util.Locale getFormat(java.util.Locale locale) {
+        if (locale == null) {
+               locale = java.util.Locale.getDefault();
+           }
+
+           return LocaleContextHolder.getLocale();
+   }
+
 
 	public synchronized static String removeCurrency(String value) {
 		value = value.replaceAll("[^\\,0-9]+", "").replaceAll(",", ".");
