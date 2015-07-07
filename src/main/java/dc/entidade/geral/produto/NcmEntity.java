@@ -65,7 +65,7 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao;
 
 	@Lob
 	@Type(type = "text")
@@ -128,12 +128,12 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.observacao = observacao;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public List<ProdutoEntity> getProdutoList() {

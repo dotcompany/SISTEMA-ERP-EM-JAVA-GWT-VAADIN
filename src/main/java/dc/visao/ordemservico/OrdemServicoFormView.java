@@ -990,6 +990,7 @@ public class OrdemServicoFormView extends CustomComponent {
 									BigDecimal q = quantidade.getValue();
 									if(produto!=null){
 										if(q.compareTo(produto.getQuantidadeEstoque()) == 1){
+										//if((produto.getQuantidadeEstoque()) == 1){
 											controller.mensagemErro("Quantidade informada é maior que a estocada");
 											return;
 										}
@@ -1168,6 +1169,7 @@ public class OrdemServicoFormView extends CustomComponent {
 									BigDecimal vu = valorUnitario.getValue();
 									if(produto!=null){
 										if(q.compareTo(produto.getQuantidadeEstoque()) == 1){
+										//	if((produto.getQuantidadeEstoque()) == 1){
 											controller.mensagemErro("Quantidade informada é maior que a estocada");
 											return;
 										}else{

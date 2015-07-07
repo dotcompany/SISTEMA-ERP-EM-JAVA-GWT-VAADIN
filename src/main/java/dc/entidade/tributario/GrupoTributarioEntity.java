@@ -55,7 +55,7 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao;
 
 	@Field
 	@Caption("Origem da mercadoria")
@@ -107,12 +107,12 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getOrigemMercadoria() {

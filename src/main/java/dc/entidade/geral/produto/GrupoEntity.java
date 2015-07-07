@@ -33,8 +33,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
-		Serializable {
+public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -74,7 +73,7 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
 	private List<SubGrupoEntity> subGrupoList;
-
+	
 	/**
 	 * TRANSIENT
 	 */

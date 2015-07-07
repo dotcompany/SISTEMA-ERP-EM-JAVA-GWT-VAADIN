@@ -109,7 +109,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	protected void actionSalvar() {
 		try {
 			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
-			this.entity.setNome(this.subView.getTfDescricao().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 			this.entity
 					.setObservacao(this.subView.getTfObservacao().getValue());
 
@@ -129,7 +129,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 			this.entity = this.business.find(id);
 
 			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
-			this.subView.getTfDescricao().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 			this.subView.getTfObservacao()
 					.setValue(this.entity.getObservacao());
 		} catch (Exception e) {

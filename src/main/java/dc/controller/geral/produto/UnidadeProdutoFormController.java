@@ -113,7 +113,7 @@ public class UnidadeProdutoFormController extends
 	protected void actionSalvar() {
 		try {
 			this.entity.setSigla(this.subView.getTfSigla().getValue());
-			this.entity.setNome(this.subView.getTfDescricao().getValue());
+			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
 
 			SimNaoEn en = SimNaoEn.getEnum(this.subView.getCbPodeFracionar()
 					.getValue().toString());
@@ -136,7 +136,7 @@ public class UnidadeProdutoFormController extends
 			this.entity = this.business.find(id);
 
 			this.subView.getTfSigla().setValue(this.entity.getSigla());
-			this.subView.getTfDescricao().setValue(this.entity.getNome());
+			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 			this.subView.getCbPodeFracionar().setValue(
 					(SimNaoEn.valueOf(this.entity.getPodeFracionar().name()))
 							.toString());

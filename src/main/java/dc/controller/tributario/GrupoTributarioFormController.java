@@ -83,7 +83,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 			}
 
 			currentBean.setEmpresa(empresaAtual());
-			currentBean.setNome(descricao);
+			currentBean.setDescricao(descricao);
 			currentBean.setOrigemMercadoria(origem);
 			currentBean.setObservacao(obs);
 			dao.saveOrUpdate(currentBean);

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ import dc.control.enums.OrigemMercadoria;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "tribut_icms_custom_cab")
@@ -76,6 +78,9 @@ public class IcmsCustomizadoCabecalhoEntity extends
 
 	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE)
 	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
+	
+	@OneToMany(mappedBy = "icmsCustomizado", fetch = FetchType.LAZY)
+	private List<ProdutoEntity> produtoList;
 
 	/**
 	 * TRANSIENT
@@ -125,6 +130,14 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	public void adicionarDetalhe(IcmsCustomizadoDetalheEntity detalhe) {
 		getDetalhes().add(detalhe);
 		detalhe.setIcmsCustomizado(this);
+	}
+
+	public List<ProdutoEntity> getProdutoList() {
+		return produtoList;
+	}
+
+	public void setProdutoList(List<ProdutoEntity> produtoList) {
+		this.produtoList = produtoList;
 	}
 
 	/**

@@ -28,12 +28,12 @@ public class ProdutoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		GrupoEntity grupo = subView.getMocGrupo().getValue();
+		/*GrupoEntity grupo = subView.getMocGrupo().getValue();
 
 		if (ObjectUtils.isBlank(grupo)) {
 			throw new DotErpException(subView.getMocGrupo(),
 					"::DotERP - Não pode ficar em branco");
-		}
+		}*/
 
 		UnidadeProdutoEntity unidadeProduto = subView.getMocUnidadeProduto()
 				.getValue();
@@ -58,12 +58,12 @@ public class ProdutoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		NcmEntity ncm = subView.getMocNcm().getValue();
+		/*NcmEntity ncm = subView.getMocNcm().getValue();
 
 		if (ObjectUtils.isBlank(ncm)) {
 			throw new DotErpException(subView.getMocNcm(),
 					"::DotERP - Não pode ficar em branco");
-		}
+		}*/
 
 		/*
 		 * GrupoTributarioEntity grupoTributario = this.subView

@@ -63,11 +63,11 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Lob
 	@Type(type = "text")
 	@Field
-	@Caption("Nome")
+	@Caption("Descricao")
 	@Column(name = "DESCRICAO", length = 65535)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao;
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -117,12 +117,12 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.sigla = sigla;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public SimNaoEn getPodeFracionar() {
