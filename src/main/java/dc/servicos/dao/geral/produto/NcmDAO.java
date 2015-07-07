@@ -9,6 +9,7 @@ import dc.entidade.geral.produto.NcmEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
 
 	@Override
@@ -29,6 +30,12 @@ public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao" };
+	}
+	
+	@Transactional
+	public List<NcmEntity> query(String q) {
+		q = "%" + q.toLowerCase() +"%";
+		return getSession().createQuery("from NCM where lower(descricao) like :q").setParameter("q", q).list();
 	}
 
 }

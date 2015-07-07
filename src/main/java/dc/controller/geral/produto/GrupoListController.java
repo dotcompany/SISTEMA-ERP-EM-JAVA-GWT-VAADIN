@@ -28,7 +28,6 @@ public class GrupoListController extends CRUDListController<GrupoEntity> {
 	 */
 
 	public GrupoListController() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -79,8 +78,7 @@ public class GrupoListController extends CRUDListController<GrupoEntity> {
 	@Override
 	protected List<GrupoEntity> pesquisaDefault() {
 		try {
-			List<GrupoEntity> auxLista = (List<GrupoEntity>) this.grupoFormController
-					.getBusiness().getAll(getEntityClass());
+			List<GrupoEntity> auxLista = (List<GrupoEntity>) this.grupoFormController.getBusiness().getAll(getEntityClass());
 
 			return auxLista;
 		} catch (Exception e) {

@@ -84,7 +84,6 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
-
 	@OneToMany(mappedBy = "ncm", fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList;
 

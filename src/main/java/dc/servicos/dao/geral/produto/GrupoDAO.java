@@ -9,6 +9,7 @@ import dc.entidade.geral.produto.GrupoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("produtoGrupoDAO")
+@SuppressWarnings("unchecked")
 public class GrupoDAO extends AbstractCrudDAO<GrupoEntity> {
 
 	@Override
@@ -18,17 +19,23 @@ public class GrupoDAO extends AbstractCrudDAO<GrupoEntity> {
 
 	@Transactional
 	public List<GrupoEntity> listaTodos() {
-		return getSession().createQuery("from GrupoProduto").list();
+		return getSession().createQuery("from GrupoEntity").list();
 	}
 
 	@Transactional
 	public List<GrupoEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from GrupoProduto where nome like :q")
+		return getSession().createQuery("from ProdutoGrupo where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
+	}
+	
+	@Transactional
+	public List<GrupoEntity> query(String q) {
+		q = "%" + q.toLowerCase() +"%";
+		return getSession().createQuery("from ProdutoGrupo where lower(nome) like :q").setParameter("q", q).list();
 	}
 
 }

@@ -24,8 +24,11 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 
 	public List<ProdutoEntity> listaTodos() {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1)";
-			sql = sql.replace("#", this.getEntityClass().getName());
+			//String sql = "FROM # ent WHERE (1 = 1)";
+			//sql = sql.replace("#", this.getEntityClass().getName());
+			
+			String sql = "FROM Produto WHERE (1 = 1)";
+			sql = sql.replace("Produto", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 
@@ -41,8 +44,11 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 
 	public List<ProdutoEntity> procuraNomeContendo(String value) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
-			sql = sql.replace("#", this.getEntityClass().getName());
+			//String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			//sql = sql.replace("#", this.getEntityClass().getName());
+			
+			String sql = "FROM Produto WHERE (1 = 1) AND nome LIKE :q";
+			sql = sql.replace("Produto", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("nome", value);
@@ -59,8 +65,11 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 
 	public List<ProdutoEntity> query(String value) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
-			sql = sql.replace("#", getEntityClass().getName());
+			//String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			//sql = sql.replace("#", getEntityClass().getName());
+			
+			String sql = "FROM Produto  WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			sql = sql.replace("Produto", getEntityClass().getName());
 
 			value = "%" + value.toLowerCase() + "%";
 
@@ -88,8 +97,11 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 	@Override
 	public ProdutoEntity find(Serializable id) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
-			sql = sql.replace("#", this.getEntityClass().getName());
+			//String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
+			//sql = sql.replace("#", this.getEntityClass().getName());
+			
+			String sql = "FROM Produto WHERE (1 = 1) AND id = :id";
+			sql = sql.replace("Produto", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);
 			query.setParameter("id", id);
@@ -106,10 +118,14 @@ public class ProdutoDAOImpl extends AbstractCrudDAO<ProdutoEntity> implements
 
 	public List<ProdutoEntity> list() {
 		try {
-			String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
-			sql = sql.replace("#", this.getEntityClass().getName());
-			sql = sql.replace("-", this.getEntityClass().getSimpleName()
-					+ "(ent.id, ent.nome)");
+			//String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
+			//sql = sql.replace("#", this.getEntityClass().getName());
+			//sql = sql.replace("-", this.getEntityClass().getSimpleName()
+			//		+ "(ent.id, ent.nome)");
+			
+			String sql = "SELECT new - FROM Produto WHERE (1 = 1)";
+			sql = sql.replace("Produto", this.getEntityClass().getName());
+			sql = sql.replace("-", this.getEntityClass().getSimpleName()+ "(id, nome)");
 
 			Query query = super.getSession().createQuery(sql);
 

@@ -86,6 +86,8 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 	
 	@Autowired
 	private NcmDAO ncmDAO;
+	
+	private GrupoEntity grupo = new GrupoEntity();
 
 	
 	public ProdutoFormController() {
@@ -152,12 +154,50 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					GrupoTributarioListController.class, this.grupoTributarioDAO, super.getMainController());
 			this.subView.getMocGrupoTributario().setModel(modelGrupoTributario);
 			
+			/*if (subView.getMocGrupo().getValue() != null) {
+				grupo = (GrupoEntity) subView.getMocGrupo().getValue();
+				entity.setGrupo(grupo);
+			} else {
+				mensagemErro("Favor selecionar um cliente.");
+			}*/
+			
+			
 			DefaultManyToOneComboModel<GrupoEntity> modelGrupo = new DefaultManyToOneComboModel<GrupoEntity>(
-					GrupoListController.class, this.grupoDAO, super.getMainController());
-			this.subView.getMocGrupo().setModel(modelGrupo);
+					GrupoListController.class, this.grupoDAO, super.getMainController()) {
 
+				@Override
+				public String getCaptionProperty() {
+					return "nome";
+				}
+
+			};
+
+			this.subView.getMocGrupo().setModel(modelGrupo);
+			
+			//DefaultManyToOneComboModel<GrupoEntity> modelGrupo = new DefaultManyToOneComboModel<GrupoEntity>(
+			//		GrupoListController.class, this.grupoDAO, super.getMainController());
+			//this.subView.getMocGrupo().setModel(modelGrupo);
+
+			//DefaultManyToOneComboModel<NcmEntity> modelNcm = new DefaultManyToOneComboModel<NcmEntity>(
+			//		NcmListController.class, this.ncmDAO, super.getMainController());
+			//this.subView.getMocNcm().setModel(modelNcm);
+			
+			/*NcmEntity modelNcm = new NcmEntity();
+			if(subView.getMocNcm().getValue()!=null){
+				modelNcm = subView.getMocNcm().getValue();
+				this.entity.setNcm(modelNcm);
+			}*/
+			
 			DefaultManyToOneComboModel<NcmEntity> modelNcm = new DefaultManyToOneComboModel<NcmEntity>(
-					NcmListController.class, this.ncmDAO, super.getMainController());
+					NcmListController.class, this.ncmDAO, super.getMainController()) {
+
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
+
 			this.subView.getMocNcm().setModel(modelNcm);
 
 
@@ -280,6 +320,12 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 			
 			AlmoxarifadoEntity almoxarifado = this.subView.getMocAlmoxarifado().getValue();
 			this.entity.setAlmoxarifado(almoxarifado);
+			
+			GrupoEntity modelGrupo = new GrupoEntity();
+			if(subView.getMocGrupo().getValue()!=null){
+				modelGrupo = subView.getMocGrupo().getValue();
+				this.entity.setGrupo(modelGrupo);
+			}
 			
 			GrupoEntity grupo = this.subView.getMocGrupo().getValue();
 			this.entity.setGrupo(grupo);

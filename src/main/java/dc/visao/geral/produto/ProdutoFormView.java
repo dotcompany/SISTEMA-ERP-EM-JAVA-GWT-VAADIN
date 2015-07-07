@@ -248,6 +248,7 @@ public class ProdutoFormView extends CustomComponent {
 		// mocGrupoTributario
 		mocGrupoTributario = new ManyToOneCombo<GrupoTributarioEntity>();
 		mocGrupoTributario.setCaption("Grupo tributário");
+		mocGrupoTributario.setImmediate(true);
 
 		// mocIcmsCustomizado
 		mocIcmsCustomizado = new ManyToOneCombo<IcmsCustomizadoCabecalhoEntity>();
@@ -280,9 +281,8 @@ public class ProdutoFormView extends CustomComponent {
 		cbTemIcmsCustomizado.setHeight("-1px");
 		glGeral.addComponent(cbTemIcmsCustomizado, 0, 2);
 
-		mocGrupo = new ManyToOneCombo<GrupoEntity>();
+		mocGrupo = new ManyToOneCombo<>();
 		mocGrupo.setCaption(" Grupo ");
-		mocGrupo.setRequired(true);
 		mocGrupo.setImmediate(true);
 		mocGrupo.setHeight("-1px");
 		glGeral.addComponent(mocGrupo, 2, 2,3,2);

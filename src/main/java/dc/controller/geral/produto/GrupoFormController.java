@@ -69,7 +69,6 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
 

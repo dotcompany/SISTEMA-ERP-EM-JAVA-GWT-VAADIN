@@ -69,12 +69,11 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
+	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
+	private List<ProdutoEntity> produtoList;
 
 	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
 	private List<SubGrupoEntity> subGrupoList;
-
-	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
-	private List<ProdutoEntity> produtoList;
 
 	/**
 	 * TRANSIENT
