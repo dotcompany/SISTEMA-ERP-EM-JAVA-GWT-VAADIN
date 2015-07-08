@@ -21,7 +21,6 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;

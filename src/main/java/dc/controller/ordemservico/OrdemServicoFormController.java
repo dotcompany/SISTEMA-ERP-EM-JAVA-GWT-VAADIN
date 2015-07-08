@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.UI;
@@ -28,16 +28,9 @@ import dc.control.util.ClassUtils;
 import dc.control.util.classes.ordemservico.OrdemServicoUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.financeiro.TipoPagamentoListController;
-import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.geral.diverso.UfEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
-import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.ordemservico.AcessorioEntity;
 import dc.entidade.ordemservico.AcessorioOsEntity;
 import dc.entidade.ordemservico.CarroEntity;
@@ -46,8 +39,8 @@ import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.entidade.ordemservico.LaudoTecnicoEntity;
 import dc.entidade.ordemservico.MaterialServicoEntity;
 import dc.entidade.ordemservico.ObservacaoEntity;
-import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
 import dc.entidade.ordemservico.OrdemServicoEntity;
+import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
 import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.entidade.ordemservico.SituacaoServicoEntity;
@@ -55,9 +48,15 @@ import dc.entidade.ordemservico.StatusOsEntity;
 import dc.entidade.ordemservico.TipoEfetivacaoOsEntity;
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.entidade.ordemservico.VendaPecaEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.business.geral.pessoal.ClienteBusiness;
 import dc.model.business.geral.pessoal.ColaboradorBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.model.business.ordemservico.AcessorioBusiness;
 import dc.model.business.ordemservico.AcessorioOsBusiness;
 import dc.model.business.ordemservico.CarroBusiness;
@@ -69,17 +68,13 @@ import dc.model.business.ordemservico.ObservacaoBusiness;
 import dc.model.business.ordemservico.OrdemServicoBusiness;
 import dc.model.business.ordemservico.OrdemServicoEfetivacaoBusiness;
 import dc.model.business.ordemservico.ParametroOsBusiness;
+import dc.model.business.ordemservico.ServicoOsBusiness;
 import dc.model.business.ordemservico.SituacaoServicoBusiness;
 import dc.model.business.ordemservico.StatusOsBusiness;
 import dc.model.business.ordemservico.TipoEfetivacaoOsBusiness;
 import dc.model.business.ordemservico.TipoServicoOsBusiness;
 import dc.model.business.ordemservico.VendaPecaBusiness;
-import dc.model.dao.ordemservico.ServicoOsDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
@@ -95,25 +90,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ClienteDAO clienteDAO;
-
-	@Autowired
-	private ColaboradorDAO atendenteDAO;
-
-	@Autowired
-	private ColaboradorDAO colaboradorDAO;
-
-	@Autowired
-	private ServicoOsDAO servicoOsDAO;
-
-	@Autowired
-	private ProdutoDAO produtoDAO;
-
-	@Autowired
 	private TipoPagamentoDAO tipoPagamentoDAO;
-	
-	@Autowired
-	private UfDAO ufDAO;
 
 	private OrdemServicoEntity currentBean;
 	private ParametroOsEntity parametroOs;
@@ -179,6 +156,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	@Autowired
 	private PessoaEnderecoBusiness<PessoaEnderecoEntity> businessPessoaEndereco;
+
+	@Autowired
+	private ServicoOsBusiness<ServicoOsEntity> businessServicoOs;
+
+	@Autowired
+	private ProdutoBusiness<ProdutoEntity> businessProduto;
 
 	/**
 	 * CONSTRUTOR
@@ -538,8 +521,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	}
 
 	private void preencheCombos() {
-		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class, this.clienteDAO,
-				super.getMainController()) {
+		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class,
+				super.getMainController(), false, this.businessCliente) {
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa.nome";
@@ -547,8 +530,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 		};
 		this.subView.getCbCliente().setModel(cliente);
 
-		DefaultManyToOneComboModel<ColaboradorEntity> atendente = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class,
-				this.atendenteDAO, super.getMainController()) {
+		DefaultManyToOneComboModel<ColaboradorEntity> atendente = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class, 
+				super.getMainController(), false, this.businessColaborador) {
 			@Override
 			public String getCaptionProperty() {
 				return "pessoa.nome";
@@ -811,11 +794,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	protected void initSubView() {
 		subView = new OrdemServicoFormView(this);
 		preencheCombos();
-		
-		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-				UfListController.class, this.ufDAO, super.getMainController());
-
-		this.subView.getMocUf().setModel(modelUf);
 		
 		subView.getBtnFinalizar().addClickListener(new ClickListener() {
 			
@@ -1761,7 +1739,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	}
 
 	public List<ServicoOsEntity> buscarServicoOs() {
-		return servicoOsDAO.getAll(ServicoOsEntity.class);
+		try {
+			return businessServicoOs.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<InformacaoGeralEntity> buscarInformacaoGeral() {
@@ -1780,7 +1763,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	public List<ProdutoEntity> buscarProdutos() {
 		
-		return produtoDAO.getAll(ProdutoEntity.class);
+		try {
+			return businessProduto.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<AcessorioEntity> buscarAcessorio() {
