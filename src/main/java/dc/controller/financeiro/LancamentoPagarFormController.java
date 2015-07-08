@@ -22,6 +22,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoVencimentoEn;
+import dc.control.util.classes.financeiro.LancamentoPagarUtils;
+import dc.control.validator.DotErpException;
 import dc.controller.geral.pessoal.FornecedorListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
@@ -31,6 +33,7 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.model.business.financeiro.StatusParcelaBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -55,6 +58,15 @@ public class LancamentoPagarFormController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * BUSINESS
+	 */
+	//@Autowired
+	//private LancamentoPagarBusiness<LancamentoPagar> business;
+	
+	//@Autowired
+	//private StatusParcelaBusiness<StatusParcela> businessStatus;
 
 	private LancamentoPagarFormView subView;
 
@@ -83,9 +95,14 @@ public class LancamentoPagarFormController extends
 
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
-	
-	//@Autowired
-	//private NaturezaFinanceiraBusiness<NaturezaFinanceira> naturezaFinanceiraBusiness;
+
+	// @Autowired
+	// private NaturezaFinanceiraBusiness<NaturezaFinanceira>
+	// naturezaFinanceiraBusiness;
+
+	//public LancamentoPagarBusiness<LancamentoPagar> getBusiness() {
+	//	return business;
+	//}
 
 	@Override
 	protected String getNome() {
@@ -99,33 +116,60 @@ public class LancamentoPagarFormController extends
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 
-		boolean valido = true;
+		try {
+			subView.preencheBean(currentBean);
+			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 
-		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
-		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+			boolean valido = true;
 
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
-			adicionarErroDeValidacao(subView.getParcelasSubForm(),
-					"Os valores informados nas parcelas não batem com o valor a pagar.");
-			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-		}
+			List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm()
+					.getDados();
+			List<LctoPagarNtFinanceira> naturezasFinanceiras = subView
+					.getNaturezaFinanceiraSubForm().getDados();
 
-		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
-					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-			valido = false;
-
-			mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-		}
-
-		if (valido) {
-
+			if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
+					.compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
+				adicionarErroDeValidacao(subView.getParcelasSubForm(),
+						"Os valores informados nas parcelas não batem com o valor a pagar.");
+				valido = false;
+				mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			}
+			
 			setIntervaloParcelaByTipoVencimento();
+			salvarParcelasPagar();
 
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			
+			 if (((BigDecimal)
+			 subView.getTxValorPagar().getConvertedValue()).compareTo
+			 (getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			 adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+			 "Os valores informados nas naturezas financeiras não batem com o valor a pagar."
+			 ); valido = false;
+			 
+			 mensagemErro(
+			 "Os valores informados nas naturezas financeiras não batem com o valor a pagar."
+			 ); }
+			 
+			
+
+			//this.business.saveOrUpdate(this.currentBean);
+			this.lancamentoPagarDAO.saveOrUpdate(this.currentBean);
+
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void salvarParcelasPagar() {
+		StatusParcela statusParcela;
+		try {
+			
+			statusParcela = this.statusParcelaDAO.findBySituacao("01");
+			//statusParcela = this.businessStatus.findByLancamento(this.currentBean);
+			
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
 			} else {
@@ -133,15 +177,9 @@ public class LancamentoPagarFormController extends
 					p.setStatusParcela(statusParcela);
 				}
 
-				try {
-					currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-							.getConta().getEmpresa());
-					lancamentoPagarDAO.saveOrUpdate(currentBean);
-					notifiyFrameworkSaveOK(this.currentBean);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -150,11 +188,18 @@ public class LancamentoPagarFormController extends
 			currentBean.setIntervaloEntreParcelas(30);
 		}
 	}
-
+	
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = lancamentoPagarDAO.find(id);
-		subView.preencheForm(currentBean);
+
+		try {
+			currentBean = this.lancamentoPagarDAO.find(id);
+			//currentBean = this.business.find((Integer) id);
+			subView.preencheForm(currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -281,16 +326,29 @@ public class LancamentoPagarFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		lancamentoPagarDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			//this.business.deleteAll(ids);
+			this.lancamentoPagarDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = validaCampos();
+		try {
+			LancamentoPagarUtils.validateRequiredFields(this.subView);
 
-		return valido;
+			return true;
+		} catch (DotErpException dee) {
+			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+			return false;
+		}
 	}
 
 	private boolean validaCampos() {
@@ -403,7 +461,8 @@ public class LancamentoPagarFormController extends
 				parcelaPagar.setLancamentoPagar(null);
 			}
 
-			lancamentoPagarDAO.delete(lancamentoPagar);
+			remover(ids);
+			//lancamentoPagarDAO.delete(lancamentoPagar);
 
 		}
 		mensagemRemovidoOK();
@@ -424,8 +483,7 @@ public class LancamentoPagarFormController extends
 	public void gerarParcelas() throws Exception {
 
 		if (validaCampos()) {
-			final ContaCaixa contaCaixa = (ContaCaixa) subView
-					.getCbContaCaixa().getValue();
+			final ContaCaixa contaCaixa = (ContaCaixa) subView.getCbContaCaixa().getValue();
 			if (contaCaixa == null || contaCaixa.getId() == null) {
 				throw new Exception(
 						"É necessário informar a conta caixa para previsão das parcelas.");
@@ -494,8 +552,8 @@ public class LancamentoPagarFormController extends
 						lancamentoPagar.getIntervaloEntreParcelas());
 			}
 			parcelaPagar.setDataVencimento(primeiroVencimento.getTime());
-			//parcelaPagar.setSofreRetencao(lancamentoPagar.getFornecedor()
-			//		.getSofreRetencao());
+			// parcelaPagar.setSofreRetencao(lancamentoPagar.getFornecedor()
+			// .getSofreRetencao());
 			parcelaPagar.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
@@ -560,52 +618,43 @@ public class LancamentoPagarFormController extends
 		return currentBean;
 	}
 
-	/*public LctoPagarNtFinanceira adicionarLctoPagarNtFinanceira() {
-		try {
-			LctoPagarNtFinanceira ent = new LctoPagarNtFinanceira();
-			ent.setLancamentoPagar(this.currentBean);
+	/*
+	 * public LctoPagarNtFinanceira adicionarLctoPagarNtFinanceira() { try {
+	 * LctoPagarNtFinanceira ent = new LctoPagarNtFinanceira();
+	 * ent.setLancamentoPagar(this.currentBean);
+	 * 
+	 * this.currentBean.getLctoPagarNtFinanceiras().add(ent);
+	 * 
+	 * return ent; } catch (Exception e) { e.printStackTrace();
+	 * 
+	 * throw e; } }
+	 * 
+	 * public BeanItemContainer<NaturezaFinanceira> getNaturezaFinanceiraBic() {
+	 * 
+	 * try { List<NaturezaFinanceira> auxLista =
+	 * this.naturezaFinanceiraDAO.findAll();
+	 * 
+	 * BeanItemContainer<NaturezaFinanceira> bic = new
+	 * BeanItemContainer<NaturezaFinanceira>( NaturezaFinanceira.class,
+	 * auxLista);
+	 * 
+	 * return bic; } catch (Exception e) { e.printStackTrace();
+	 * 
+	 * return null; } }
+	 * 
+	 * /*public List<NaturezaFinanceira> getNaturezasFinanceiras() { // TODO
+	 * Auto-generated method stub try { List<NaturezaFinanceira> auxLista =
+	 * this.naturezaFinanceiraDAO.findAll();
+	 * 
+	 * //BeanItemContainer<NaturezaFinanceira> bic = new
+	 * BeanItemContainer<NaturezaFinanceira>(NaturezaFinanceira.class,
+	 * auxLista);
+	 * 
+	 * return auxLista; } catch (Exception e) { e.printStackTrace();
+	 * 
+	 * return null; } }
+	 */
 
-			this.currentBean.getLctoPagarNtFinanceiras().add(ent);
-
-			return ent;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
-
-	public BeanItemContainer<NaturezaFinanceira> getNaturezaFinanceiraBic() {
-		
-		try {
-			List<NaturezaFinanceira> auxLista = this.naturezaFinanceiraDAO.findAll();
-
-			BeanItemContainer<NaturezaFinanceira> bic = new BeanItemContainer<NaturezaFinanceira>(
-					NaturezaFinanceira.class, auxLista);
-
-			return bic;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-	}
-
-	/*public List<NaturezaFinanceira> getNaturezasFinanceiras() {
-		// TODO Auto-generated method stub
-		try {
-			List<NaturezaFinanceira> auxLista = this.naturezaFinanceiraDAO.findAll();
-
-			//BeanItemContainer<NaturezaFinanceira> bic = new BeanItemContainer<NaturezaFinanceira>(NaturezaFinanceira.class, auxLista);
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-	}*/
-	
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
 		return naturezaFinanceiraDAO.listaTodos();
 	}

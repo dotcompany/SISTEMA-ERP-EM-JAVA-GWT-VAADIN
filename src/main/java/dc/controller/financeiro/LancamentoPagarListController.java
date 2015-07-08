@@ -21,7 +21,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private LancamentoPagarDAO dao;
+	LancamentoPagarDAO dao;
 
 	@Autowired
 	private LancamentoPagarFormController lancamentoPagarFormController;
@@ -52,23 +52,25 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 		return lancamentoPagarFormController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "listaLancamentoPagars";
+		return "listaLancamentoPagar";
+	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected List<LancamentoPagar> pesquisaDefault() {
-		return (List<LancamentoPagar>) dao.getAll(getEntityClass());
+		return dao.getAll(LancamentoPagar.class);
 	}
 
 }

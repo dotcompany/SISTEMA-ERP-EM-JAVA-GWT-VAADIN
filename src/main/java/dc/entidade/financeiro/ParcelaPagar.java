@@ -117,13 +117,15 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private BigDecimal valorDesconto;
 
 	@Caption(value = "Status Parcela")
-	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_status_parcela", referencedColumnName = "id")
+	//@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private StatusParcela statusParcela;
 
 	@Caption(value = "Lançamento à Pagar")
-	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_lancamento_pagar", referencedColumnName = "id")
+	//@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private LancamentoPagar lancamentoPagar;
 
 	/*
@@ -140,8 +142,8 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private Integer numeroParcela;
 
 	@Caption(value = "Conta Caixa")
-	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ContaCaixa contaCaixa;
 
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)

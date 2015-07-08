@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -90,7 +91,7 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	private String historico;
 
 	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ParcelaPagar parcelaPagar;
 
 	@JoinColumn(name = "ID_FIN_CHEQUE_EMITIDO", referencedColumnName = "ID")
