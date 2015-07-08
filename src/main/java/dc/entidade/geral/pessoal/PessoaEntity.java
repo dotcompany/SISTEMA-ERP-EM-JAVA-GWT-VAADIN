@@ -31,6 +31,7 @@ import dc.control.enums.TipoPessoaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 
 @Entity
 @Table(name = "pessoa")
@@ -307,6 +308,10 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 			List<PessoaEnderecoEntity> pessoaEnderecoList) {
 		this.pessoaEnderecoList = pessoaEnderecoList;
 	}
+	
+	public List<PessoaEnderecoEntity> getItens() {
+		return pessoaEnderecoList;
+	}
 
 	// public List<ClienteEntity> getClienteList() {
 	// return clienteList;
@@ -323,6 +328,19 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	public PessoaEnderecoEntity addPessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
+		getItens().add(pessoaEndereco);
+		pessoaEndereco.setPessoa(this);;
+
+		return pessoaEndereco;
+	}
+	
+	public PessoaEnderecoEntity removePessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
+		getItens().remove(pessoaEndereco);
+		pessoaEndereco.setPessoa(null);
+		return pessoaEndereco;
 	}
 
 }

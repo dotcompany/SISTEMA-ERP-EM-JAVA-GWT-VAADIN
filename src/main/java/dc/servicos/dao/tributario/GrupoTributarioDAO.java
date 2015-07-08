@@ -41,7 +41,7 @@ public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributarioEntity>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"origemMercadoria", "descricao"};
+		return new String[] {"descricao", "observacao", "origemString"};
 	}
 	
 	@Transactional

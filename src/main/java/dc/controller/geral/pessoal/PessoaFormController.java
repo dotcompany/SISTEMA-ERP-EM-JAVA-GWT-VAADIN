@@ -58,6 +58,7 @@ import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
+import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.pessoal.EstadoCivilBusiness;
@@ -68,6 +69,7 @@ import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
@@ -156,6 +158,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
+	
+	@Autowired
+	private PessoaEnderecoDAO pessoaEnderecoDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -924,17 +929,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			// PessoaContato
 
-			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness
-					.list(this.entity);
-
+			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness.list(this.entity);
 			this.entity.setPessoaContatoList(auxLista1);
 
 			// PessoaEndereco
 
-			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness
-					.list(this.entity);
-
+			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness.list(this.entity);
 			this.entity.setPessoaEnderecoList(auxLista2);
+			
+			List<PessoaEnderecoEntity> itens = pessoaEnderecoDAO.findByPessoaEndereco(entity);
+			subView.preencheSubForm(itens);
 
 			this.subView.getTfNome().setValue(this.entity.getNome());
 
@@ -1479,7 +1483,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		}
 	}
 
-	public PessoaEnderecoEntity adicionarPessoaEndereco() {
+	/*public PessoaEnderecoEntity adicionarPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity ent = new PessoaEnderecoEntity();
 			ent.setPessoa(this.entity);
@@ -1492,9 +1496,22 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			throw e;
 		}
+	}*/
+	
+	public PessoaEnderecoEntity adicionarPessoaEndereco() {
+		PessoaEnderecoEntity item = new PessoaEnderecoEntity();
+		entity.addPessoaEndereco(item);
+		return item;
+	}
+	
+	public void removerPessoaEndereco(List<PessoaEnderecoEntity> pessoaEndereco) {
+		for (PessoaEnderecoEntity pessoaEn : pessoaEndereco) {
+			entity.removePessoaEndereco(pessoaEn);
+		}
+		mensagemRemovidoOK();
 	}
 
-	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
+	/*public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
 		try {
 			for (PessoaEnderecoEntity ent : values) {
 				this.pessoaEnderecoBusiness.delete(ent);
@@ -1507,7 +1524,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		}
-	}
+	}*/
 
 	/**
 	 * COMBOS

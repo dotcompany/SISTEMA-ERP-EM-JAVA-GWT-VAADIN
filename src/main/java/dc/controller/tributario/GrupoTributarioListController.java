@@ -25,7 +25,7 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "origemString" };
+		return new String[] { "descricao", "observacao", "origemString" };
 	}
 
 	@Override

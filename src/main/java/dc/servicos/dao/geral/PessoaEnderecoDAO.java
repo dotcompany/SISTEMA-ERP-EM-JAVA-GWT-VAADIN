@@ -153,5 +153,22 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 			throw e;
 		}
 	}
+	
+	@Transactional
+	public List<PessoaEnderecoEntity> findByPessoaEndereco(PessoaEntity pessoa){
+
+		List<PessoaEnderecoEntity> lista = new ArrayList<>();
+
+		try{
+			if(pessoa!=null){
+				lista =  getSession()
+						.createQuery("from PessoaEnderecoEntity i where i.pessoa = :pessoa")
+						.setParameter("pessoa", pessoa).list();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lista;
+	}
 
 }

@@ -72,7 +72,7 @@ public class GrupoTributarioDAOImpl extends
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome" };
+		return new String[] { "descricao", "observacao", "origemString" };
 	}
 
 }
