@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Field;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 
 @Entity
@@ -46,12 +47,12 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_vendedor", referencedColumnName = "id", nullable = true)
 	@Analyzer(definition = "dc_combo_analyzer")
-	private ColaboradorOsEntity vendedor;
+	private ColaboradorEntity vendedor;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tecnico", referencedColumnName = "id", nullable = true)
 	@Analyzer(definition = "dc_combo_analyzer")
-	private ColaboradorOsEntity tecnico;
+	private ColaboradorEntity tecnico;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
@@ -104,11 +105,11 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.ordemServico = ordemServico;
 	}
 
-	public ColaboradorOsEntity getVendedor() {
+	public ColaboradorEntity getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(ColaboradorOsEntity vendedor) {
+	public void setVendedor(ColaboradorEntity vendedor) {
 		this.vendedor = vendedor;
 	}
 
@@ -168,11 +169,11 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public ColaboradorOsEntity getTecnico() {
+	public ColaboradorEntity getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(ColaboradorOsEntity tecnico) {
+	public void setTecnico(ColaboradorEntity tecnico) {
 		this.tecnico = tecnico;
 	}
 

@@ -29,8 +29,8 @@ public class OrcamentoOsItemEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_orcamento")
-	private OrcamentoOsEntity orcamentoOs; 
-	
+	private OrcamentoOsEntity orcamentoOs;
+
 	@Field
 	@Caption("TIPO")
 	@Column(name = "tipo")
@@ -40,7 +40,7 @@ public class OrcamentoOsItemEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("DESCRICAO")
 	@Column(name = "descricao")
 	private String descricao;
-	
+
 	@Field
 	@Caption("QUANTIDADE")
 	@Column(name = "qtd_produto")
@@ -49,18 +49,17 @@ public class OrcamentoOsItemEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "vlr_unitario")
 	private BigDecimal valorUnitario;
 
-	@Column(name="vlr_subtotal")
+	@Column(name = "vlr_subtotal")
 	private BigDecimal valorSubTotal;
-	
-	@Column(name="taxa_desconto")
+
+	@Column(name = "taxa_desconto")
 	private BigDecimal taxaDesconto;
-	
-	@Column(name="vlr_desconto")
+
+	@Column(name = "vlr_desconto")
 	private BigDecimal valorDesconto;
 
 	@Column(name = "vlr_total")
 	private BigDecimal valorTotal;
-
 
 	public Integer getId() {
 		return id;
@@ -141,4 +140,30 @@ public class OrcamentoOsItemEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrcamentoOsItemEntity other = (OrcamentoOsItemEntity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }
