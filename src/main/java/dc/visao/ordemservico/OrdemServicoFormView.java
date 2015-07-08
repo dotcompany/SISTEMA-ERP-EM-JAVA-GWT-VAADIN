@@ -523,13 +523,13 @@ public class OrdemServicoFormView extends CustomComponent {
 	}
 
 	public void buildAbaLaudoTecnico() {
-		GridLayout layout = new GridLayout(3, 3);
+		GridLayout layout = new GridLayout(8, 8);
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		// fields.setHeight("100.0%");
 		layout.setMargin(true);
-		layout.setColumns(3);
-		layout.setRows(3);
+		layout.setColumns(8);
+		layout.setRows(8);
 		layout.setSpacing(true);
 
 		// tfObservacaoLaudoTecnico
@@ -560,6 +560,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
+		layout.setColumns(2);
+		layout.setRows(2);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -826,6 +828,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
+		layout.setColumns(2);
+		layout.setRows(2);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -1226,14 +1230,14 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.setRows(9);
 
 		tfNumOsFabricante = ComponentUtil.buildTextField("Nr. OS Fabricante");
-		gridLayout_1.addComponent(tfNumOsFabricante,0,1);
+		gridLayout_1.addComponent(tfNumOsFabricante,0,1, 0,1);
 
 		tfNumNotaFiscal = ComponentUtil.buildTextField("Nr. da Nota Fiscal");
-		gridLayout_1.addComponent(tfNumNotaFiscal,1,1);
+		gridLayout_1.addComponent(tfNumNotaFiscal,1,1, 1,1);
 
 		// Data próxima revisão
 		pdfDataNotaFiscal = ComponentUtil.buildPopupDateField("Data nota fiscal");
-		gridLayout_1.addComponent(pdfDataNotaFiscal,2,1);
+		gridLayout_1.addComponent(pdfDataNotaFiscal,2,1, 2,1);
 
 		cbEquipamentoGarantia = new ManyToOneCombo<>();
 		cbEquipamentoGarantia.setCaption("Equipamento");
@@ -1267,6 +1271,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
+		layout.setColumns(2);
+		layout.setRows(2);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -1341,13 +1347,13 @@ public class OrdemServicoFormView extends CustomComponent {
 
 	public void buildAbaObservacao() {
 
-		GridLayout gridLayout_1 = new GridLayout(7, 7);
+		GridLayout gridLayout_1 = new GridLayout(8, 8);
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
 		gridLayout_1.setMargin(true);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setColumns(7);
-		gridLayout_1.setRows(7);
+		gridLayout_1.setColumns(8);
+		gridLayout_1.setRows(8);
 
 		// Observação da OS
 		taObservacaoOS = new TextArea();
@@ -1372,13 +1378,13 @@ public class OrdemServicoFormView extends CustomComponent {
 	
 	public void buildAbaFoto() {
 
-		gridLayoutFoto = new GridLayout(5, 4);
+		gridLayoutFoto = new GridLayout(8,8);
 		gridLayoutFoto.setImmediate(false);
 		gridLayoutFoto.setWidth("100.0%");
 		gridLayoutFoto.setMargin(true);
 		gridLayoutFoto.setSpacing(true);
-		gridLayoutFoto.setColumns(5);
-		gridLayoutFoto.setRows(4);
+		gridLayoutFoto.setColumns(8);
+		gridLayoutFoto.setRows(8);
 		
 
 		taObservacaoFoto = ComponentUtil.buildTextArea("Informação geral da foto");
@@ -1418,6 +1424,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		layout.setImmediate(false);
 		layout.setWidth("100.0%");
 		layout.setHeight("100.0%");
+		layout.setColumns(2);
+		layout.setRows(2);
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		layout.setSizeFull();
@@ -1534,97 +1542,97 @@ public class OrdemServicoFormView extends CustomComponent {
 		finForms.setSizeFull();
 		finForms.setImmediate(true);
 
-		GridLayout gridLayout_1 = new GridLayout(6,14);
+		GridLayout gridLayout_1 = new GridLayout(16,16);
 		gridLayout_1.setImmediate(false);
 		gridLayout_1.setWidth("100.0%");
 		gridLayout_1.setMargin(true);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setRows(14);
-		gridLayout_1.setColumns(6);
+		gridLayout_1.setRows(16);
+		gridLayout_1.setColumns(16);
 		
 		// Total de peças
 		lblTotalPeca = new Label();
 		lblTotalPeca.setCaption("Total de peças:");
 		lblTotalPeca.setHeight("-1px");
-		gridLayout_1.addComponent(lblTotalPeca, 0, 1);
+		gridLayout_1.addComponent(lblTotalPeca, 0, 1, 0,1);
 		//tfTotalPeca = ComponentUtil.buildNumberField(null);
 		tfTotalPeca = ComponentUtil.buildCurrencyField(null);
-		gridLayout_1.addComponent(tfTotalPeca, 1, 1);
+		gridLayout_1.addComponent(tfTotalPeca, 1, 1, 1,1);
 
 		// Total lucro de peças
 		lblLucroPeca = new Label();
 		lblLucroPeca.setCaption("Total lucro de peças:");
 		lblLucroPeca.setHeight("-1px");
-		gridLayout_1.addComponent(lblLucroPeca, 0, 2);
+		gridLayout_1.addComponent(lblLucroPeca, 0, 2, 0,2);
 		//tfLucroPeca = ComponentUtil.buildNumberField(null);
 		tfLucroPeca = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfLucroPeca, 1, 2);
+		gridLayout_1.addComponent(tfLucroPeca, 1, 2, 1,2);
 
 		// Total de serviço
 		lblTotalServico = new Label();
 		lblTotalServico.setCaption("Total de serviços:");
 		lblTotalServico.setHeight("-1px");
-		gridLayout_1.addComponent(lblTotalServico, 0, 3);
+		gridLayout_1.addComponent(lblTotalServico, 0, 3, 0,3);
 		//tfTotalServico = ComponentUtil.buildNumberField(null);
 		tfTotalServico = ComponentUtil.buildCurrencyField(null);
-		gridLayout_1.addComponent(tfTotalServico, 1, 3);
+		gridLayout_1.addComponent(tfTotalServico, 1, 3, 1,3);
 
 
 		// Total lucro serviço
 		lblLucroServico = new Label();
 		lblLucroServico.setCaption("Total lucro de serviços:");
 		lblLucroServico.setHeight("-1px");
-		gridLayout_1.addComponent(lblLucroServico, 0, 4);
+		gridLayout_1.addComponent(lblLucroServico, 0, 4, 0,4);
 		//tfLucroServico = ComponentUtil.buildNumberField(null);
 		tfLucroServico = ComponentUtil.buildCurrencyField(null);
-		gridLayout_1.addComponent(tfLucroServico, 1, 4);
+		gridLayout_1.addComponent(tfLucroServico, 1, 4, 1,4);
 
 
 		// comissão paga ao técnico
 		lblComissaoTecnico = new Label();
 		lblComissaoTecnico.setCaption("Comissão paga ao Técnico:");
 		lblComissaoTecnico.setHeight("-1px");
-		gridLayout_1.addComponent(lblComissaoTecnico, 0, 5);
+		gridLayout_1.addComponent(lblComissaoTecnico, 0, 5, 0,5);
 		tfComissaoTecnico = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfComissaoTecnico, 1, 5);
+		gridLayout_1.addComponent(tfComissaoTecnico, 1, 5, 1,5);
 		
 		// Comissão paga ao vendedor
 		lblComissaoVendedor = new Label();
 		lblComissaoVendedor.setCaption("Comissão paga ao vendedor:");
 		lblComissaoVendedor.setHeight("-1px");
-		gridLayout_1.addComponent(lblComissaoVendedor, 0,6);
+		gridLayout_1.addComponent(lblComissaoVendedor, 0,6, 0,6);
 		tfComissaoVendedor = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfComissaoVendedor, 1, 6);
+		gridLayout_1.addComponent(tfComissaoVendedor, 1, 6, 1,6);
 
 		// Comissão paga ao atendente
 		lblComissaoAtendente = new Label();
 		lblComissaoAtendente.setCaption("Comissão paga ao atendente:");
 		lblComissaoAtendente.setHeight("-1px");
-		gridLayout_1.addComponent(lblComissaoAtendente, 0, 7);
+		gridLayout_1.addComponent(lblComissaoAtendente, 0, 7, 0,7);
 		tfComissaoAtendente = ComponentUtil.buildNumberField(null);
-		gridLayout_1.addComponent(tfComissaoAtendente, 1, 7);
+		gridLayout_1.addComponent(tfComissaoAtendente, 1, 7, 1,7);
 
 		// Desconto
         lblDesconto = new Label();
         lblDesconto.setCaption("Desconto:");
         lblDesconto.setHeight("-1px");
-		gridLayout_1.addComponent(lblDesconto, 0, 8);
+		gridLayout_1.addComponent(lblDesconto, 0, 8, 0,8);
 		//tfDesconto = ComponentUtil.buildNumberField(null);
 		tfDesconto = ComponentUtil.buildCurrencyField(null);
-		gridLayout_1.addComponent(tfDesconto, 1, 8);
+		gridLayout_1.addComponent(tfDesconto, 1, 8, 1,8);
 
 		// Lucro parcial de serviço
 		lblLucroParcialServico = new Label();
 		lblLucroParcialServico.setCaption("Lucro parcial do serviço:");
 		lblLucroParcialServico.setHeight("-1px");
-		gridLayout_1.addComponent(lblLucroParcialServico, 0, 9);
+		gridLayout_1.addComponent(lblLucroParcialServico, 0, 9, 0,9);
 		//tfLucroParcialServico = ComponentUtil.buildNumberField(null);
 		tfLucroParcialServico = ComponentUtil.buildCurrencyField(null);
-		gridLayout_1.addComponent(tfLucroParcialServico, 1, 9);
+		gridLayout_1.addComponent(tfLucroParcialServico, 1, 9, 1,9);
 
 		btnEfetivacao = new Button();
 		btnEfetivacao.setCaption("Efetivar OS");
-		gridLayout_1.addComponent(btnEfetivacao, 0, 11);
+		gridLayout_1.addComponent(btnEfetivacao, 0, 11, 0,11);
 
 		finForms.addTab(gridLayout_1, "Informação geral", null);
 		finForms.addTab(buildEntradaServicoFinanceiraSubForm(), "Detalhe do serviço", null);
