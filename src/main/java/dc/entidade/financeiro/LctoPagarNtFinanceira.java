@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilLancamentoDetalhe;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
@@ -46,8 +48,9 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> im
 	@Column(name = "VALOR")
 	private BigDecimal valor;
 	
+	@Caption(value = "Lançamento à Pagar")
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private LancamentoPagar lancamentoPagar;
 	
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")

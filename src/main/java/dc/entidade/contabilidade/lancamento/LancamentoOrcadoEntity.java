@@ -1,6 +1,7 @@
 package dc.entidade.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -61,91 +62,91 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Ano")
-	private String ano = "";
+	private Character ano;
 
 	@Field
 	@Column(name = "janeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Janeiro")
-	private Double janeiro = new Double(0.0);
+	private BigDecimal janeiro = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "fevereiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Fevereiro")
-	private Double fevereiro = new Double(0.0);
+	private BigDecimal fevereiro = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "marco")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Março")
-	private Double marco = new Double(0.0);
+	private BigDecimal marco = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "abril")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Abril")
-	private Double abril = new Double(0.0);
+	private BigDecimal abril = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "Maio")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Maio")
-	private Double maio = new Double(0.0);
+	private BigDecimal maio = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "junho")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Junho")
-	private Double junho = new Double(0.0);
+	private BigDecimal junho = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "julho")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Julho")
-	private Double julho = new Double(0.0);
+	private BigDecimal julho = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "agosto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Agosto")
-	private Double agosto = new Double(0.0);
+	private BigDecimal agosto = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "setembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Setembro")
-	private Double setembro = new Double(0.0);
+	private BigDecimal setembro = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "outubro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Outubro")
-	private Double outubro = new Double(0.0);
+	private BigDecimal outubro = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "novembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Novembro")
-	private Double novembro = new Double(0.0);
+	private BigDecimal novembro = new BigDecimal(0.0);
 
 	@Field
 	@Column(name = "dezembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Dezembro")
-	private Double dezembro = new Double(0.0);
+	private BigDecimal dezembro = new BigDecimal(0.0);
 
 	/**
 	 * REFERENCIA - FK
@@ -173,7 +174,7 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	public String getNome() {
+	public Character getNome() {
 		return getAno();
 	}
 
@@ -202,108 +203,108 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public String getAno() {
+	public Character getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
-		this.ano = (ano == null ? "" : ano.toUpperCase());
+	public void setAno(Character ano) {
+		this.ano = (ano);
 	}
 
-	public Double getJaneiro() {
+	public BigDecimal getJaneiro() {
 		return janeiro;
 	}
 
-	public void setJaneiro(Double janeiro) {
-		this.janeiro = (janeiro == null ? new Double(0.0) : janeiro);
+	public void setJaneiro(BigDecimal janeiro) {
+		this.janeiro = (janeiro == null ? new BigDecimal(0.0) : janeiro);
 	}
 
-	public Double getFevereiro() {
+	public BigDecimal getFevereiro() {
 		return fevereiro;
 	}
 
-	public void setFevereiro(Double fevereiro) {
-		this.fevereiro = (fevereiro == null ? new Double(0.0) : fevereiro);
+	public void setFevereiro(BigDecimal fevereiro) {
+		this.fevereiro = (fevereiro == null ? new BigDecimal(0.0) : fevereiro);
 	}
 
-	public Double getMarco() {
+	public BigDecimal getMarco() {
 		return marco;
 	}
 
-	public void setMarco(Double marco) {
-		this.marco = (marco == null ? new Double(0.0) : marco);
+	public void setMarco(BigDecimal marco) {
+		this.marco = (marco == null ? new BigDecimal(0.0) : marco);
 	}
 
-	public Double getAbril() {
+	public BigDecimal getAbril() {
 		return abril;
 	}
 
-	public void setAbril(Double abril) {
-		this.abril = (abril == null ? new Double(0.0) : abril);
+	public void setAbril(BigDecimal abril) {
+		this.abril = (abril == null ? new BigDecimal(0.0) : abril);
 	}
 
-	public Double getMaio() {
+	public BigDecimal getMaio() {
 		return maio;
 	}
 
-	public void setMaio(Double maio) {
-		this.maio = (maio == null ? new Double(0.0) : maio);
+	public void setMaio(BigDecimal maio) {
+		this.maio = (maio == null ? new BigDecimal(0.0) : maio);
 	}
 
-	public Double getJunho() {
+	public BigDecimal getJunho() {
 		return junho;
 	}
 
-	public void setJunho(Double junho) {
-		this.junho = (junho == null ? new Double(0.0) : junho);
+	public void setJunho(BigDecimal junho) {
+		this.junho = (junho == null ? new BigDecimal(0.0) : junho);
 	}
 
-	public Double getJulho() {
+	public BigDecimal getJulho() {
 		return julho;
 	}
 
-	public void setJulho(Double julho) {
-		this.julho = (julho == null ? new Double(0.0) : julho);
+	public void setJulho(BigDecimal julho) {
+		this.julho = (julho == null ? new BigDecimal(0.0) : julho);
 	}
 
-	public Double getAgosto() {
+	public BigDecimal getAgosto() {
 		return agosto;
 	}
 
-	public void setAgosto(Double agosto) {
-		this.agosto = (agosto == null ? new Double(0.0) : agosto);
+	public void setAgosto(BigDecimal agosto) {
+		this.agosto = (agosto == null ? new BigDecimal(0.0) : agosto);
 	}
 
-	public Double getSetembro() {
+	public BigDecimal getSetembro() {
 		return setembro;
 	}
 
-	public void setSetembro(Double setembro) {
-		this.setembro = (setembro == null ? new Double(0.0) : setembro);
+	public void setSetembro(BigDecimal setembro) {
+		this.setembro = (setembro == null ? new BigDecimal(0.0) : setembro);
 	}
 
-	public Double getOutubro() {
+	public BigDecimal getOutubro() {
 		return outubro;
 	}
 
-	public void setOutubro(Double outubro) {
-		this.outubro = (outubro == null ? new Double(0.0) : outubro);
+	public void setOutubro(BigDecimal outubro) {
+		this.outubro = (outubro == null ? new BigDecimal(0.0) : outubro);
 	}
 
-	public Double getNovembro() {
+	public BigDecimal getNovembro() {
 		return novembro;
 	}
 
-	public void setNovembro(Double novembro) {
-		this.novembro = (novembro == null ? new Double(0.0) : novembro);
+	public void setNovembro(BigDecimal novembro) {
+		this.novembro = (novembro == null ? new BigDecimal(0.0) : novembro);
 	}
 
-	public Double getDezembro() {
+	public BigDecimal getDezembro() {
 		return dezembro;
 	}
 
-	public void setDezembro(Double dezembro) {
-		this.dezembro = (dezembro == null ? new Double(0.0) : dezembro);
+	public void setDezembro(BigDecimal dezembro) {
+		this.dezembro = (dezembro == null ? new BigDecimal(0.0) : dezembro);
 	}
 
 	public ContaEntity getConta() {

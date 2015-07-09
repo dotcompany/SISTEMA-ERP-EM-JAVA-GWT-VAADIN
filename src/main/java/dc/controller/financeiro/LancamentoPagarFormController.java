@@ -33,7 +33,6 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.model.business.financeiro.StatusParcelaBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;

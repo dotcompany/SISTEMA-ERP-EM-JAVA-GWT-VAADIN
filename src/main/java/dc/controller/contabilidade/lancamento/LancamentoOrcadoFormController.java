@@ -1,6 +1,7 @@
 package dc.controller.contabilidade.lancamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.servicos.dao.contabilidade.lancamento.LancamentoOrcadoDAO;
 import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.util.Validator;
 import dc.visao.contabilidade.lancamento.LancamentoOrcadoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -68,46 +70,95 @@ public class LancamentoOrcadoFormController extends
 	protected void actionSalvar() {
 		try {
 			String ano = this.subView.getTfAno().getValue();
-			Double janeiro = Double.parseDouble(this.subView.getTfJaneiro()
-					.getValue());
-			Double fevereiro = Double.parseDouble(this.subView.getTfFevereiro()
-					.getValue());
-			Double marco = Double.parseDouble(this.subView.getTfMarco()
-					.getValue());
-			Double abril = Double.parseDouble(this.subView.getTfAbril()
-					.getValue());
-			Double maio = Double.parseDouble(this.subView.getTfMaio()
-					.getValue());
-			Double junho = Double.parseDouble(this.subView.getTfJunho()
-					.getValue());
-			Double julho = Double.parseDouble(this.subView.getTfJulho()
-					.getValue());
-			Double agosto = Double.parseDouble(this.subView.getTfAgosto()
-					.getValue());
-			Double setembro = Double.parseDouble(this.subView.getTfSetembro()
-					.getValue());
-			Double outubro = Double.parseDouble(this.subView.getTfOutubro()
-					.getValue());
-			Double novembro = Double.parseDouble(this.subView.getTfNovembro()
-					.getValue());
-			Double dezembro = Double.parseDouble(this.subView.getTfDezembro()
-					.getValue());
+			if(subView.getTfJaneiro()!=null){
+				String janeiro = subView.getTfJaneiro().getValue();
+				if (Validator.validateString(janeiro)) {
+					janeiro = formataBigDecimal(janeiro);
+					this.pEntity.setJaneiro(new BigDecimal(janeiro));
+				}
+			}
+			if(subView.getTfFevereiro()!=null){
+				String fevereiro = subView.getTfFevereiro().getValue();
+				if (Validator.validateString(fevereiro)) {
+					fevereiro = formataBigDecimal(fevereiro);
+					this.pEntity.setFevereiro(new BigDecimal(fevereiro));
+				}
+			}
+			if(subView.getTfMarco()!=null){
+				String marco = subView.getTfMarco().getValue();
+				if (Validator.validateString(marco)) {
+					marco = formataBigDecimal(marco);
+					this.pEntity.setMarco(new BigDecimal(marco));
+				}
+			}
+			if(subView.getTfAbril()!=null){
+				String abril = subView.getTfAbril().getValue();
+				if (Validator.validateString(abril)) {
+					abril = formataBigDecimal(abril);
+					this.pEntity.setAbril(new BigDecimal(abril));
+				}
+			}
+			if(subView.getTfMaio()!=null){
+				String maio = subView.getTfMaio().getValue();
+				if (Validator.validateString(maio)) {
+					maio = formataBigDecimal(maio);
+					this.pEntity.setMaio(new BigDecimal(maio));
+				}
+			}
+			if(subView.getTfJunho()!=null){
+				String junho = subView.getTfJunho().getValue();
+				if (Validator.validateString(junho)) {
+					junho = formataBigDecimal(junho);
+					this.pEntity.setJunho(new BigDecimal(junho));
+				}
+			}
+			if(subView.getTfJulho()!=null){
+				String julho = subView.getTfJulho().getValue();
+				if (Validator.validateString(julho)) {
+					julho = formataBigDecimal(julho);
+					this.pEntity.setJulho(new BigDecimal(julho));
+				}
+			}
+			
+			if(subView.getTfAgosto()!=null){
+				String agosto = subView.getTfAgosto().getValue();
+				if (Validator.validateString(agosto)) {
+					agosto = formataBigDecimal(agosto);
+					this.pEntity.setAgosto(new BigDecimal(agosto));
+				}
+			}
+			if(subView.getTfSetembro()!=null){
+				String setembro = subView.getTfSetembro().getValue();
+				if (Validator.validateString(setembro)) {
+					setembro = formataBigDecimal(setembro);
+					this.pEntity.setSetembro(new BigDecimal(setembro));
+				}
+			}
+			if(subView.getTfOutubro()!=null){
+				String outubro = subView.getTfOutubro().getValue();
+				if (Validator.validateString(outubro)) {
+					outubro = formataBigDecimal(outubro);
+					this.pEntity.setOutubro(new BigDecimal(outubro));
+				}
+			}
+			if(subView.getTfNovembro()!=null){
+				String novembro = subView.getTfNovembro().getValue();
+				if (Validator.validateString(novembro)) {
+					novembro = formataBigDecimal(novembro);
+					this.pEntity.setNovembro(new BigDecimal(novembro));
+				}
+			}
+			if(subView.getTfDezembro()!=null){
+				String dezembro = subView.getTfDezembro().getValue();
+				if (Validator.validateString(dezembro)) {
+					dezembro = formataBigDecimal(dezembro);
+					this.pEntity.setDezembro(new BigDecimal(dezembro));
+				}
+			}
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
 
-			this.pEntity.setAno(ano);
-			this.pEntity.setJaneiro(janeiro);
-			this.pEntity.setFevereiro(fevereiro);
-			this.pEntity.setMarco(marco);
-			this.pEntity.setAbril(abril);
-			this.pEntity.setMaio(maio);
-			this.pEntity.setJunho(junho);
-			this.pEntity.setJulho(julho);
-			this.pEntity.setAgosto(agosto);
-			this.pEntity.setSetembro(setembro);
-			this.pEntity.setOutubro(outubro);
-			this.pEntity.setNovembro(novembro);
-			this.pEntity.setDezembro(dezembro);
+			//this.pEntity.setAno(ano);
 
 			this.pEntity.setConta(conta);
 
@@ -121,6 +172,12 @@ public class LancamentoOrcadoFormController extends
 		} finally {
 			novoObjeto(0);
 		}
+	}
+	
+	public String formataBigDecimal(String valor) {
+		String format = "";
+		format = valor.replace(".", "").replace(",", ".");
+		return format;
 	}
 
 	@Override
@@ -363,7 +420,7 @@ public class LancamentoOrcadoFormController extends
 				this.subView.getCbConta().setValue(this.pEntity.getConta());
 			}
 
-			this.subView.getTfAno().setValue(this.pEntity.getAno());
+		    //this.subView.getTfAno().setValue(this.pEntity.getAno());
 			this.subView.getTfJaneiro().setValue(
 					this.pEntity.getJaneiro().toString());
 			this.subView.getTfFevereiro().setValue(

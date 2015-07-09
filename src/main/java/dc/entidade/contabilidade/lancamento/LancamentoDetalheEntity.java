@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
+import dc.entidade.financeiro.type.TipoType;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -71,12 +74,16 @@ public class LancamentoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Valor")
 	private Double valor = new Double(0.0);
 
+	// Nao é esse tipo q foi importado o certo, é porque não sei qual as informações do Tipo de Lancmaneot Cabeçalho é o correto,
+		// pois preciso dos cds do Financeiro para revisar.
+		// Só coloquei esse Tipo para conseguir passar para o proximo validate no banco de Dados.
+	/*@Enumerated(EnumType.STRING)
 	@Field
-	@Column(name = "tipo")
+	@Caption()
+	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Tipo")
-	private String tipo = "";
+	private TipoType tipo;*/
 
 	/**
 	 * REFERENCIA - FK
@@ -166,13 +173,13 @@ public class LancamentoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.valor = (valor == null ? new Double(0.0) : valor);
 	}
 
-	public String getTipo() {
+	/*public TipoType getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = (tipo == null ? "" : tipo.toUpperCase());
-	}
+	public void setTipo(TipoType tipo) {
+		this.tipo = (tipo);
+	}*/
 
 	public ContaEntity getConta() {
 		return conta;

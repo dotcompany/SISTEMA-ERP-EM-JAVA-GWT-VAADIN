@@ -122,6 +122,10 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 		return mainLayout;
 	}
+	
+	public LancamentoReceberFormController getController() {
+		return controller;
+	}
 
 	private GridLayout buildFields() {
 		fields = new GridLayout();

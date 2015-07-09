@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.financeiro.type.TipoType;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -74,12 +77,16 @@ public class LancamentoCabecalhoEntity extends
 	@Caption(value = "Data da inclusão")
 	private Date dataInclusao;
 
+	// Nao é esse tipo q foi importado o certo, é porque não sei qual as informações do Tipo de Lancmaneot Cabeçalho é o correto,
+	// pois preciso dos cds do Financeiro para revisar.
+	// Só coloquei esse Tipo para conseguir passar para o proximo validate no banco de Dados.
+	/*@Enumerated(EnumType.STRING)
 	@Field
-	@Column(name = "tipo")
+	@Caption()
+	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@Caption(value = "Tipo")
-	private String tipo;
+	private TipoType tipo;*/
 
 	@Field
 	@Column(name = "liberado")
@@ -169,13 +176,13 @@ public class LancamentoCabecalhoEntity extends
 		this.dataInclusao = dataInclusao;
 	}
 
-	public String getTipo() {
+	/*public TipoType getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoType tipo) {
 		this.tipo = (tipo);
-	}
+	}*/
 
 	public String getLiberado() {
 		return liberado;

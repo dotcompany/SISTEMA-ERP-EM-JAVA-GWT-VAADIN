@@ -82,7 +82,7 @@ public class LancamentoDetalheFormController extends
 					.getValue();
 			Double valor = Double.parseDouble(this.subView.getTfValor()
 					.getValue());
-			String tipo = this.subView.getTfTipo().getValue();
+			//String tipo = this.subView.getTfTipo().getValue();
 
 			ContaEntity conta = this.subView.getCbConta().getValue();
 			HistoricoEntity historico = this.subView.getCbHistorico()
@@ -92,7 +92,7 @@ public class LancamentoDetalheFormController extends
 
 			this.pEntity.setDescricaoHistorico(descricaoHistorico);
 			this.pEntity.setValor(valor);
-			this.pEntity.setTipo(tipo);
+			//this.pEntity.setTipo(tipo);
 
 			this.pEntity.setConta(conta);
 			this.pEntity.setHistorico(historico);
@@ -286,7 +286,7 @@ public class LancamentoDetalheFormController extends
 					this.pEntity.getDescricaoHistorico());
 			this.subView.getTfValor().setValue(
 					this.pEntity.getValor().toString());
-			this.subView.getTfTipo().setValue(this.pEntity.getTipo());
+			//this.subView.getTfTipo().setValue(this.pEntity.getTipo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

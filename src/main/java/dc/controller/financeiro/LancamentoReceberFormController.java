@@ -175,8 +175,7 @@ public class LancamentoReceberFormController extends
 
 		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm()
 				.getDados();
-		List<LctoReceberNtFinanceira> naturezasanceiras = subView
-				.getNaturezaFinanceiraSubForm().getDados();
+		List<LctoReceberNtFinanceira> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
 		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
 				.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
@@ -634,16 +633,15 @@ public class LancamentoReceberFormController extends
 	}
 
 	private void calculaValorComissao() {
-		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()
-				.getConvertedValue();
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
 
-		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao()
-				.getConvertedValue();
+		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao().getConvertedValue();
 
 		if (valorAReceber != null && taxaComissao != null) {
 			subView.getTxValorComissao().setConvertedValue(
 					valorAReceber.multiply(taxaComissao).divide(
 							BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
 		}
 	}
 
@@ -802,7 +800,7 @@ public class LancamentoReceberFormController extends
 			return configuracao;
 		}
 	}
-
+	
 	@Override
 	public LancamentoReceber getModelBean() {
 		return currentBean;

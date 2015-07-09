@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.financeiro.type.TipoType;
 
 @Entity
 @Table(name = "CONTABIL_LANCAMENTO_CABECALHO")
@@ -34,8 +35,10 @@ public class ContabilLancamentoCabecalho implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DATA_INCLUSAO")
     private Date dataInclusao;
-    @Column(name = "TIPO")
-    private String tipo;
+    
+    //@Column(name = "TIPO")
+    //private TipoType tipo;
+    
     @Column(name = "LIBERADO")
     private String liberado;
     @Column(name = "VALOR")
@@ -74,13 +77,13 @@ public class ContabilLancamentoCabecalho implements Serializable {
         this.dataInclusao = dataInclusao;
     }
 
-    public String getTipo() {
+   /* public TipoType getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoType tipo) {
         this.tipo = tipo;
-    }
+    }*/
 
     public String getLiberado() {
         return liberado;

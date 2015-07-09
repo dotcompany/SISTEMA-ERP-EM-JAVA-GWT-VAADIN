@@ -6,12 +6,21 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+
+import dc.anotacoes.Caption;
+import dc.entidade.financeiro.type.TipoType;
+import dc.entidade.framework.ComboValue;
 
 
 @Entity
@@ -28,8 +37,15 @@ public class ContabilLancamentoDetalhe implements Serializable {
     private String historico;
     @Column(name = "VALOR")
     private BigDecimal valor;
-    @Column(name = "TIPO")
-    private String tipo;
+    
+   /* @Enumerated(EnumType.STRING)
+	@Field
+	@Caption()
+	@Column(name = "TIPO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private TipoType tipo;*/
+    
     @JoinColumn(name = "ID_CONTABIL_LANCAMENTO_CAB", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ContabilLancamentoCabecalho contabilLancamentoCabecalho;
@@ -67,13 +83,13 @@ public class ContabilLancamentoDetalhe implements Serializable {
         this.valor = valor;
     }
 
-    public String getTipo() {
+   /* public TipoType getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoType tipo) {
         this.tipo = tipo;
-    }
+    }*/
 
     public ContabilLancamentoCabecalho getContabilLancamentoCabecalho() {
         return contabilLancamentoCabecalho;
