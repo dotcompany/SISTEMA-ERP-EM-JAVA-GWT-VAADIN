@@ -33,7 +33,6 @@ import dc.control.enums.TipoPessoaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 
 @Entity
 @Table(name = "pessoa")
@@ -140,12 +139,12 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<PessoaContatoEntity> pessoaContatoList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
 
 	// @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
