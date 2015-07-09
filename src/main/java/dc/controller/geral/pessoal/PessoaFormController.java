@@ -58,7 +58,6 @@ import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
-import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.pessoal.EstadoCivilBusiness;
@@ -69,6 +68,7 @@ import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
+import dc.servicos.dao.geral.PessoaContatoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.SetorDAO;
@@ -161,6 +161,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	
 	@Autowired
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	
+	@Autowired
+	private PessoaContatoDAO pessoaContatoDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -430,18 +433,12 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			}
 
 			// PessoaContato
-
-			List<PessoaContatoEntity> auxLista1 = this.subView
-					.getSfPessoaContato().getDados();
-
-			this.entity.setPessoaContatoList(auxLista1);
+			//List<PessoaContatoEntity> auxLista1 = this.subView.getSfPessoaContato().getDados();
+			//this.entity.setPessoaContatoList(auxLista1);
 
 			// PessoaEndereco
-
-			List<PessoaEnderecoEntity> auxLista2 = this.subView
-					.getSfPessoaEndereco().getDados();
-
-			this.entity.setPessoaEnderecoList(auxLista2);
+			//List<PessoaEnderecoEntity> auxLista2 = this.subView.getSfPessoaEndereco().getDados();
+			//this.entity.setPessoaEnderecoList(auxLista2);
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -928,17 +925,16 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.entity = this.business.find(id);
 
 			// PessoaContato
-
-			List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness.list(this.entity);
-			this.entity.setPessoaContatoList(auxLista1);
+			//List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness.list(this.entity);
+			//this.entity.setPessoaContatoList(auxLista1);
+			List<PessoaContatoEntity> item = pessoaContatoDAO.findByPessoaContato(entity);
+			subView.preencheSubFormContato(item);
 
 			// PessoaEndereco
-
-			List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness.list(this.entity);
-			this.entity.setPessoaEnderecoList(auxLista2);
-			
+			//List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness.list(this.entity);
+			//this.entity.setPessoaEnderecoList(auxLista2);			
 			List<PessoaEnderecoEntity> itens = pessoaEnderecoDAO.findByPessoaEndereco(entity);
-			subView.preencheSubForm(itens);
+			subView.preencheSubFormEndereco(itens);
 
 			this.subView.getTfNome().setValue(this.entity.getNome());
 
@@ -1416,6 +1412,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected void quandoNovo() {
 		try {
 			this.entity = new PessoaEntity();
+			
+			subView.preencheSubFormContato(entity.getItensContato());
+			subView.preencheSubFormEndereco(entity.getItens());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -1453,7 +1452,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	 * 
 	 */
 
-	public PessoaContatoEntity adicionarPessoaContato() {
+	/*public PessoaContatoEntity adicionarPessoaContato() {
 		try {
 			PessoaContatoEntity ent = new PessoaContatoEntity();
 			ent.setPessoa(this.entity);
@@ -1481,7 +1480,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			mensagemErro(e.getMessage());
 		}
-	}
+	}*/
 
 	/*public PessoaEnderecoEntity adicionarPessoaEndereco() {
 		try {
@@ -1497,6 +1496,19 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			throw e;
 		}
 	}*/
+	
+	public PessoaContatoEntity adicionarPessoaContato() {
+		PessoaContatoEntity item = new PessoaContatoEntity();
+		entity.addPessoaContato(item);
+		return item;
+	}
+	
+	public void removerPessoaContato(List<PessoaContatoEntity> pessoaContato) {
+		for (PessoaContatoEntity pessoaCon : pessoaContato) {
+			entity.removePessoaContato(pessoaCon);
+		}
+		mensagemRemovidoOK();
+	}
 	
 	public PessoaEnderecoEntity adicionarPessoaEndereco() {
 		PessoaEnderecoEntity item = new PessoaEnderecoEntity();
@@ -1754,6 +1766,10 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 		} else {
 			System.out.println(":: [instanceof] no type for " + obj.toString());
 		}
+	}
+	
+	public List<PessoaEnderecoEntity> getPessoaEndereco() {
+		return pessoaEnderecoDAO.listaTodos();
 	}
 
 }

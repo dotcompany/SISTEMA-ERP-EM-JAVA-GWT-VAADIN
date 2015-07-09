@@ -77,7 +77,7 @@ public class ClienteDAOImpl extends AbstractCrudDAO<ClienteEntity> implements
 	public ClienteEntity findById(ClienteEntity cliente) {
 		try {
 
-			String sql = "SELECT distinct ent FROM # AS ent INNER JOIN ent.pessoa AS p WHERE (1 = 1) AND ent.id = :id";
+			String sql = "SELECT distinct ent FROM # AS ent INNER JOIN FETCH ent.pessoa p LEFT JOIN FETCH p.pessoaEnderecoList AS pe WHERE (1 = 1) AND ent.id = :id";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			Query query = super.getSession().createQuery(sql);

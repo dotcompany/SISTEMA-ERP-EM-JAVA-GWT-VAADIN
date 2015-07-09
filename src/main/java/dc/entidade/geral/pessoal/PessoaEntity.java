@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -138,10 +140,12 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.JOIN)
 	private List<PessoaContatoEntity> pessoaContatoList = new ArrayList<>();
 
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.JOIN)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
 
 	// @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
@@ -309,8 +313,38 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.pessoaEnderecoList = pessoaEnderecoList;
 	}
 	
+	public List<PessoaContatoEntity> getItensContato() {
+		return pessoaContatoList;
+	}
+	
 	public List<PessoaEnderecoEntity> getItens() {
 		return pessoaEnderecoList;
+	}
+	
+	public PessoaContatoEntity addPessoaContato(PessoaContatoEntity pessoaContato) {
+		getItensContato().add(pessoaContato);
+		pessoaContato.setPessoa(this);;
+
+		return pessoaContato;
+	}
+	
+	public PessoaContatoEntity removePessoaContato(PessoaContatoEntity pessoaContato) {
+		getItensContato().remove(pessoaContato);
+		pessoaContato.setPessoa(null);
+		return pessoaContato;
+	}
+	
+	public PessoaEnderecoEntity addPessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
+		getItens().add(pessoaEndereco);
+		pessoaEndereco.setPessoa(this);;
+
+		return pessoaEndereco;
+	}
+	
+	public PessoaEnderecoEntity removePessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
+		getItens().remove(pessoaEndereco);
+		pessoaEndereco.setPessoa(null);
+		return pessoaEndereco;
 	}
 
 	// public List<ClienteEntity> getClienteList() {
@@ -330,17 +364,4 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		return ToStringBuilder.reflectionToString(this);
 	}
 	
-	public PessoaEnderecoEntity addPessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
-		getItens().add(pessoaEndereco);
-		pessoaEndereco.setPessoa(this);;
-
-		return pessoaEndereco;
-	}
-	
-	public PessoaEnderecoEntity removePessoaEndereco(PessoaEnderecoEntity pessoaEndereco) {
-		getItens().remove(pessoaEndereco);
-		pessoaEndereco.setPessoa(null);
-		return pessoaEndereco;
-	}
-
 }

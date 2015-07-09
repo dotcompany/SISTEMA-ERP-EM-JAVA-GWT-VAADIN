@@ -801,10 +801,10 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 		subView = new OrdemServicoFormView(this);
 		preencheCombos();
 		
-		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-				UfListController.class, this.ufDAO, super.getMainController());
+		//DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
+//		UfListController.class, this.ufDAO, super.getMainController());
 				
-		this.subView.getMocUf().setModel(modelUf);
+		//this.subView.getMocUf().setModel(modelUf);
 		
 		subView.getBtnFinalizar().addClickListener(new ClickListener() {
 			

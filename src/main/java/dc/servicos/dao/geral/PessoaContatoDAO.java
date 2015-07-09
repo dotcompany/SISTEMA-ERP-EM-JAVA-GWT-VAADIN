@@ -1,5 +1,6 @@
 package dc.servicos.dao.geral;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -67,6 +68,23 @@ public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
 
 			throw e;
 		}
+	}
+	
+	@Transactional
+	public List<PessoaContatoEntity> findByPessoaContato(PessoaEntity pessoa){
+
+		List<PessoaContatoEntity> lista = new ArrayList<>();
+
+		try{
+			if(pessoa!=null){
+				lista =  getSession()
+						.createQuery("from PessoaContatoEntity i where i.pessoa = :pessoa")
+						.setParameter("pessoa", pessoa).list();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 }
