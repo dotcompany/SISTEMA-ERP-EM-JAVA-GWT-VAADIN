@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+
 //import com.porotype.iconfont.FontAwesome.Icon;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.ItemSetChangeEvent;
@@ -24,6 +25,7 @@ import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -188,6 +190,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
 		cmbResult.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		cmbResult.setItemCaptionPropertyId("caption");
+		cmbResult.setSizeFull();
 
 		cmbResult.addValueChangeListener(new ValueChangeListener() {
 
@@ -373,6 +376,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		// cmbResult.setFilterChangeTimeout(5000);
 
 		cmbResult.setImmediate(true);
+		cmbResult.setFilteringMode(FilteringMode.CONTAINS);
 		cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
@@ -395,7 +399,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					.getStyles()
 					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
 			UI.getCurrent().getPage().getStyles()
-					.add(".manyToOneCombo{float:left;} ");
+					.add(".manyToOneCombo{height: 30px; float:left;} ");
 		} catch (Exception e) {
 
 		}
