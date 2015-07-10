@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.DocumentoOrigem;
-import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -20,8 +20,8 @@ public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem>{
 	
 	
 	@Transactional
-	public List<LancamentoPagar> listLancamentos(DocumentoOrigem documento) {
-		return getSession().createQuery("from LancamentoPagar where documento.id = :bid").setParameter("bid", documento.getId()).list();
+	public List<LancamentoPagarEntity> listLancamentos(DocumentoOrigem documento) {
+		return getSession().createQuery("from LancamentoPagarEntity where documento.id = :bid").setParameter("bid", documento.getId()).list();
 	}
 
 

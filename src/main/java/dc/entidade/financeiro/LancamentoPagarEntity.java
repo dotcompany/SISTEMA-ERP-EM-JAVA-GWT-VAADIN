@@ -1,5 +1,6 @@
 package dc.entidade.financeiro;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +51,7 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
+public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -132,10 +133,10 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoPagarNtFinanceira> LctoPagarNtFinanceiras = new ArrayList<>();
 
-	public LancamentoPagar() {
+	public LancamentoPagarEntity() {
 	}
 
-	public LancamentoPagar(Integer id) {
+	public LancamentoPagarEntity(Integer id) {
 		this.id = id;
 	}
 
@@ -194,11 +195,11 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof LancamentoPagar == false)
+		if (object instanceof LancamentoPagarEntity == false)
 			return false;
 		if (this == object)
 			return true;
-		final LancamentoPagar other = (LancamentoPagar) object;
+		final LancamentoPagarEntity other = (LancamentoPagarEntity) object;
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
 
@@ -292,11 +293,10 @@ public class LancamentoPagar extends AbstractMultiEmpresaModel<Integer> {
 		this.LctoPagarNtFinanceiras.remove(value);
 		value.setLancamentoPagar(null);
 	}
-
-	public LctoPagarNtFinanceira addLctoPagarNtFinanceira() {
-		LctoPagarNtFinanceira lctoPagarNtFinanceira = new LctoPagarNtFinanceira();
-		lctoPagarNtFinanceira.setLancamentoPagar(this);
-		this.LctoPagarNtFinanceiras.add(lctoPagarNtFinanceira);
+	
+	public LctoPagarNtFinanceira addLctoPagarNtFinanceira(LctoPagarNtFinanceira lctoPagarNtFinanceira) {
+		getLctoPagarNtFinanceiras().add(lctoPagarNtFinanceira);
+		lctoPagarNtFinanceira.setLancamentoPagar(this);;
 
 		return lctoPagarNtFinanceira;
 	}

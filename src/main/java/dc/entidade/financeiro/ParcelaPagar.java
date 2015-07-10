@@ -126,7 +126,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "id_lancamento_pagar", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
 	@ManyToOne(fetch = FetchType.EAGER)
-	private LancamentoPagar lancamentoPagar;
+	private LancamentoPagarEntity lancamentoPagar;
 
 	/*
 	 * @Caption(value = "Contrato")
@@ -290,13 +290,13 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	/** @return the lancamentoPagar */
-	public LancamentoPagar getLancamentoPagar() {
+	public LancamentoPagarEntity getLancamentoPagar() {
 		return lancamentoPagar;
 	}
 
 	/** @param lancamentoPagar
 	 *            the lancamentoPagar to set */
-	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
+	public void setLancamentoPagar(LancamentoPagarEntity lancamentoPagar) {
 		this.lancamentoPagar = lancamentoPagar;
 	}
 

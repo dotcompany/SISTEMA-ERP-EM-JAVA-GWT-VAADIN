@@ -141,8 +141,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			valido = false;
 		}
 
-		TipoContratoEntity tipoContrato = (TipoContratoEntity) subView.getCbmTipoContrato()
-				.getValue();
+		TipoContratoEntity tipoContrato = (TipoContratoEntity) subView
+				.getCbmTipoContrato().getValue();
 		if (!Validator.validateObject(tipoContrato)) {
 			adicionarErroDeValidacao(subView.getCbmTipoContrato(),
 					"Não pode ficar em branco");
@@ -283,7 +283,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	@Override
 	protected void initSubView() {
 		subView = new ContratosFormView(this);
-		
+
 		DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
 				UfListController.class, this.ufDAO, super.getMainController());
 
@@ -331,16 +331,17 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 		subView.getCmbProduto().setModel(modelProduto);
 
-		DefaultManyToOneComboModel<UfEntity> templateUF = new DefaultManyToOneComboModel<UfEntity>(
-				UfListController.class, this.ufDAO, super.getMainController());
+		// DefaultManyToOneComboModel<UfEntity> templateUF = new
+		// DefaultManyToOneComboModel<UfEntity>(
+		// UfListController.class, this.ufDAO, super.getMainController());
 
-		List<Filter> filters  = new ArrayList<Filter>();
+		List<Filter> filters = new ArrayList<Filter>();
 		Compare compareFilter = new Compare.Equal("templateContrato", true);
 		filters.add(compareFilter);
-		
+
 		DefaultManyToOneComboModel<Documento> templateModel = new DefaultManyToOneComboModel<Documento>(
 				TemplateListController.class, this.documentoDAO,
-				super.getMainController(),  filters);
+				super.getMainController(), filters);
 
 		/**
 		 * Ajustes para receber os dados de Solicitação de Serviço pegando os
@@ -362,11 +363,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
 		subView.getCbmDocumento().setModel(templateModel);
 
-		/*List<UfEntity> ufs = templateUF.getAll();
-
-		for (UfEntity uf : ufs) {
-			subView.getCmbEstadoObjeto().addItem(uf);
-		}*/
+		/*
+		 * List<UfEntity> ufs = templateUF.getAll();
+		 * 
+		 * for (UfEntity uf : ufs) { subView.getCmbEstadoObjeto().addItem(uf); }
+		 */
 
 		subView.getCmbSolicitacaoServico().setModel(
 				contratoSolicitacaoServicoModel);
@@ -537,26 +538,29 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheContrato(currentBean);
-
-		boolean valido = true;
-
-		List<PrevFaturamentoEntity> contratoPrevFaturamento = subView
-				.getPrevisaoFaturamentoSubForm().getDados();
-
-		if (((BigDecimal) subView.getTxtValor().getConvertedValue())
-				.compareTo(getTotal(contratoPrevFaturamento)) != 0) {
-			adicionarErroDeValidacao(subView.getPrevisaoFaturamentoSubForm(),
-					"Os valores informados nas parcelas não batem com o valor a pagar.");
-			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-		}
-
-		// currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
 
 		try {
+			subView.preencheContrato(currentBean);
+
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getConta().getEmpresa());
+
+			//boolean valido = true;
+
+			List<PrevFaturamentoEntity> contratoPrevFaturamento = subView
+					.getPrevisaoFaturamentoSubForm().getDados();
+
+			if (((BigDecimal) subView.getTxtValor().getConvertedValue())
+					.compareTo(getTotal(contratoPrevFaturamento)) != 0) {
+				adicionarErroDeValidacao(
+						subView.getPrevisaoFaturamentoSubForm(),
+						"Os valores informados nas parcelas não batem com o valor a pagar.");
+				//valido = false;
+				mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			}
+
+			// currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
+
 			contratoDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -843,7 +847,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	}
 
 	private static File getFileFromDocumento(Documento documento) {
-		File arquivo  = documento.getDocumentos().get(0).getFile();
+		File arquivo = documento.getDocumentos().get(0).getFile();
 
 		return arquivo;
 	}

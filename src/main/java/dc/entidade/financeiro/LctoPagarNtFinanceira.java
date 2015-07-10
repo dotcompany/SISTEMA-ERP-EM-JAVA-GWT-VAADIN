@@ -51,7 +51,7 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> im
 	@Caption(value = "Lançamento à Pagar")
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(fetch = FetchType.EAGER)
-	private LancamentoPagar lancamentoPagar;
+	private LancamentoPagarEntity lancamentoPagar;
 	
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -88,11 +88,11 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> im
 		this.valor = valor;
 	}
 
-	public LancamentoPagar getLancamentoPagar() {
+	public LancamentoPagarEntity getLancamentoPagar() {
 		return lancamentoPagar;
 	}
 
-	public void setLancamentoPagar(LancamentoPagar lancamentoPagar) {
+	public void setLancamentoPagar(LancamentoPagarEntity lancamentoPagar) {
 		this.lancamentoPagar = lancamentoPagar;
 	}
 

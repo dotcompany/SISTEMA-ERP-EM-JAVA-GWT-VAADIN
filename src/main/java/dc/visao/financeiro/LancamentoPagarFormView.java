@@ -28,7 +28,7 @@ import dc.control.enums.TipoVencimentoEn;
 import dc.controller.financeiro.LancamentoPagarFormController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
-import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
@@ -332,11 +332,19 @@ public class LancamentoPagarFormView extends CustomComponent {
 						} else if ("valor".equals(propertyId)) {
 							return ComponentUtil.buildCurrencyField(null);
 						} else if ("naturezaFinanceira".equals(propertyId)) {
+							/*ComboBox cmb = ComponentUtil.buildComboBox(null);
+							cmb.removeAllItems();
+							List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFin();
+							for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
+								cmb.addItem(naturezaFinanceira);
+							}
+
+							return cmb;*/
+							
 							ComboBox cmb = ComponentUtil.buildComboBox(null);
 							cmb.removeAllItems();
-
-							List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
-							for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
+							List<LctoPagarNtFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
+							for (LctoPagarNtFinanceira naturezaFinanceira : naturezaFinanceiras) {
 								cmb.addItem(naturezaFinanceira);
 							}
 
@@ -527,7 +535,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 		return parcelasLayout;
 	}
 
-	public void preencheBean(LancamentoPagar currentBean) {
+	public void preencheBean(LancamentoPagarEntity currentBean) {
 		currentBean.setFornecedor((FornecedorEntity) cbFornecedor.getValue());
 		currentBean.setDataLancamento(dtLancamento.getValue());
 		currentBean.setPrimeiroVencimento(dtPrimeiroVencimento.getValue());
@@ -548,7 +556,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 				.getConvertedValue());
 	}
 
-	public void preencheForm(LancamentoPagar currentBean) {
+	public void preencheForm(LancamentoPagarEntity currentBean) {
 		cbFornecedor.setValue(currentBean.getFornecedor());
 		dtLancamento.setValue(currentBean.getDataLancamento());
 		dtPrimeiroVencimento.setValue(currentBean.getPrimeiroVencimento());
@@ -704,6 +712,10 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 	public void setCbTipoVencimento(ComboBox cbTipoVencimento) {
 		this.cbTipoVencimento = cbTipoVencimento;
+	}
+	
+	public void preencheSubForm(List<LctoPagarNtFinanceira> detalhes) {
+		naturezaFinanceiraSubForm.fillWith(detalhes);
 	}
 
 }

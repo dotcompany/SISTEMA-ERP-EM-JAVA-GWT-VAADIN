@@ -78,7 +78,7 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private LancamentoPagar idLancamentoPagar;
+	private LancamentoPagarEntity idLancamentoPagar;
 
 	/**
 	 * REFERENCIA - LIST
@@ -152,11 +152,11 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public LancamentoPagar getIdLancamentoPagar() {
+	public LancamentoPagarEntity getIdLancamentoPagar() {
 		return idLancamentoPagar;
 	}
 
-	public void setIdLancamentoPagar(LancamentoPagar idLancamentoPagar) {
+	public void setIdLancamentoPagar(LancamentoPagarEntity idLancamentoPagar) {
 		this.idLancamentoPagar = idLancamentoPagar;
 	}
 

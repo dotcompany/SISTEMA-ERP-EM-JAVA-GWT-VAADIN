@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
-@Controller
+@Component
 @Scope("prototype")
-public class LancamentoPagarListController extends CRUDListController<LancamentoPagar> {
+public class LancamentoPagarListController extends CRUDListController<LancamentoPagarEntity> {
 
 	/**
 	 * 
@@ -33,8 +33,8 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	}
 
 	@Override
-	public Class<? super LancamentoPagar> getEntityClass() {
-		return LancamentoPagar.class;
+	public Class<? super LancamentoPagarEntity> getEntityClass() {
+		return LancamentoPagarEntity.class;
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	}
 
 	@Override
-	protected List<LancamentoPagar> pesquisa(String valor) {
+	protected List<LancamentoPagarEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<LancamentoPagar> getFormController() {
+	protected CRUDFormController<LancamentoPagarEntity> getFormController() {
 		return lancamentoPagarFormController;
 	}
 
@@ -69,8 +69,8 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	}
 
 	@Override
-	protected List<LancamentoPagar> pesquisaDefault() {
-		return dao.getAll(LancamentoPagar.class);
+	protected List<LancamentoPagarEntity> pesquisaDefault() {
+		return dao.getAll(LancamentoPagarEntity.class);
 	}
 
 }

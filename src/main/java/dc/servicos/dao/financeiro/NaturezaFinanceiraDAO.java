@@ -1,11 +1,15 @@
 package dc.servicos.dao.financeiro;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
+import dc.entidade.ordemservico.OrcamentoOsEntity;
+import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -43,5 +47,21 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 
 			throw e;
 		}
+	}
+	@Transactional
+	public List<NaturezaFinanceira> findByNatureza(LancamentoPagarEntity currentBean) {
+
+			List<NaturezaFinanceira> lista = new ArrayList<>();
+
+			try{
+				if(currentBean!=null){
+					lista =  getSession()
+							.createQuery("from NaturezaFinanceira i where i.lancamentoPagar = :lancamentoPagar")
+							.setParameter("lancamentoPagar", currentBean).list();
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return lista;
 	}	
 }

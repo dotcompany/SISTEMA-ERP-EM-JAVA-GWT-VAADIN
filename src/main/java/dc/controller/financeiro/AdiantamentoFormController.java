@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.Adiantamento;
-import dc.entidade.financeiro.LancamentoPagar;
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.servicos.dao.financeiro.AdiantamentoDAO;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.servicos.util.Validator;
@@ -90,7 +90,7 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 	protected void initSubView() {
 		this.subView = new AdiantamentoFormView();
 
-		DefaultManyToOneComboModel<LancamentoPagar> modelBanco = new DefaultManyToOneComboModel<LancamentoPagar>(LancamentoPagarListController.class,
+		DefaultManyToOneComboModel<LancamentoPagarEntity> modelBanco = new DefaultManyToOneComboModel<LancamentoPagarEntity>(LancamentoPagarListController.class,
 				this.lancamentoPagarDAO, super.getMainController()) {
 			@Override
 			public String getCaptionProperty() {
@@ -134,7 +134,7 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 			valido = false;
 		}
 
-		LancamentoPagar lancamentoPagar = (LancamentoPagar) subView.getCmbLancamentoPagar().getValue();
+		LancamentoPagarEntity lancamentoPagar = (LancamentoPagarEntity) subView.getCmbLancamentoPagar().getValue();
 		if (!Validator.validateObject(lancamentoPagar)) {
 			adicionarErroDeValidacao(subView.getCmbLancamentoPagar(), "Não pode ficar em branco");
 			valido = false;
