@@ -377,6 +377,8 @@ public class ManyToOneCombo<T> extends CustomComponent {
 
 		cmbResult.setImmediate(true);
 		cmbResult.setFilteringMode(FilteringMode.CONTAINS);
+		//cmbResult.setHeight("250px");
+		//cmbResult.setWidth("35px");
 		cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
@@ -398,8 +400,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					.getPage()
 					.getStyles()
 					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
-			UI.getCurrent().getPage().getStyles()
-					.add(".manyToOneCombo{height: 30px; float:left;} ");
+			UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{height: 30px; width: 230px; float:left;} ");
 		} catch (Exception e) {
 
 		}
