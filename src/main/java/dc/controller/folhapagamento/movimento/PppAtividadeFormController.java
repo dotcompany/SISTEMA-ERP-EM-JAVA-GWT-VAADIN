@@ -68,13 +68,13 @@ public class PppAtividadeFormController extends
 	protected void actionSalvar() {
 		try {
 			Date dataInicio = this.subView.getPdfDataInicio().getValue();
-			Date dataTermino = this.subView.getPdfDataTermino().getValue();
+			Date dataFim = this.subView.getPdfDataTermino().getValue();
 			String descricao = this.subView.getTfDescricao().getValue();
 
 			PppEntity ppp = (PppEntity) this.subView.getCbPpp().getValue();
 
 			this.pEntity.setDataInicio(dataInicio);
-			this.pEntity.setDataTermino(dataTermino);
+			this.pEntity.setDataFim(dataFim);
 			this.pEntity.setDescricao(descricao);
 
 			this.pEntity.setPpp(ppp);
@@ -92,7 +92,7 @@ public class PppAtividadeFormController extends
 			this.subView.getPdfDataInicio().setValue(
 					this.pEntity.getDataInicio());
 			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+					this.pEntity.getDataFim());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -109,7 +109,7 @@ public class PppAtividadeFormController extends
 			this.subView.getPdfDataInicio().setValue(
 					this.pEntity.getDataInicio());
 			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+					this.pEntity.getDataFim());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -138,7 +138,7 @@ public class PppAtividadeFormController extends
 			this.subView.getPdfDataInicio().setValue(
 					this.pEntity.getDataInicio());
 			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+					this.pEntity.getDataFim());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());
@@ -172,7 +172,7 @@ public class PppAtividadeFormController extends
 			this.subView.getPdfDataInicio().setValue(
 					this.pEntity.getDataInicio());
 			this.subView.getPdfDataTermino().setValue(
-					this.pEntity.getDataTermino());
+					this.pEntity.getDataFim());
 			this.subView.getTfDescricao().setValue(this.pEntity.getDescricao());
 
 			this.subView.carregarCmbPpp(this.pppListarTodos());

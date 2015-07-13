@@ -52,13 +52,13 @@ public class PppAtividadeEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Column(name = "data_inicio")
 	@Field
-	@Caption("Data de início")
+	@Caption("Data Início")
 	private Date dataInicio;
 
 	@Column(name = "data_fim")
 	@Field
-	@Caption("Data de término")
-	private Date dataTermino;
+	@Caption("Data Fim")
+	private Date dataFim;
 
 	@Column(name = "descricao")
 	@Field
@@ -110,12 +110,12 @@ public class PppAtividadeEntity extends AbstractMultiEmpresaModel<Integer>
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataTermino() {
-		return dataTermino;
+	public Date getDataFim() {
+		return dataFim;
 	}
 
-	public void setDataTermino(Date dataTermino) {
-		this.dataTermino = dataTermino;
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
 
 	public String getDescricao() {

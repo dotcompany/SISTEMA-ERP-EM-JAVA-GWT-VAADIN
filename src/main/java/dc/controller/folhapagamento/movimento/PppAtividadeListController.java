@@ -45,7 +45,7 @@ public class PppAtividadeListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataInicio", "dataTermino", "ppp.observacao" };
+		return new String[] { "dataInicio", "dataFim", "ppp" };
 	}
 
 	@Override

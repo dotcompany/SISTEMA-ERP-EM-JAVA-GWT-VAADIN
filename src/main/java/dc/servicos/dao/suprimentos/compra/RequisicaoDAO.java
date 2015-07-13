@@ -25,7 +25,7 @@ public class RequisicaoDAO extends AbstractCrudDAO<RequisicaoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "codigo", "descricao", "nome" };
+		return new String[] { "dataRequisicao", "observacao", "colaborador","tipoRequisicao" };
 	}
 
 }

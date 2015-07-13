@@ -44,8 +44,8 @@ public class PppCatListController extends CRUDListController<PppCatEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "numeroCat", "dataAfastamento", "dataRegistro",
-				"ppp.observacao" };
+		return new String[] { "numeroCat", "dataAfastamento",
+				"dataRegistro", "ppp" };
 	}
 
 	@Override

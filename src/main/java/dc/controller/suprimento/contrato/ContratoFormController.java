@@ -45,6 +45,7 @@ import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.controller.geral.produto.ProdutoListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.ClienteEntity;
@@ -325,11 +326,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 				TipoContratoListController.class, this.tipoContratoDAO,
 				super.getMainController());
 
-		DefaultManyToOneComboModel<ProdutoEntity> modelProduto = new DefaultManyToOneComboModel<ProdutoEntity>(
+		/*DefaultManyToOneComboModel<ProdutoEntity> modelProduto = new DefaultManyToOneComboModel<ProdutoEntity>(
 				ProdutoListController.class, this.produtoDAO,
 				super.getMainController());
 
-		subView.getCmbProduto().setModel(modelProduto);
+		subView.getCmbProduto().setModel(modelProduto);*/
 
 		// DefaultManyToOneComboModel<UfEntity> templateUF = new
 		// DefaultManyToOneComboModel<UfEntity>(
@@ -864,6 +865,10 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	@Override
 	public ContratoEntity getModelBean() {
 		return currentBean;
+	}
+	
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 }

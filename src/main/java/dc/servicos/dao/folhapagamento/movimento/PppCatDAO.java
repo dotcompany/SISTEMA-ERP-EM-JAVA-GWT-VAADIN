@@ -53,8 +53,8 @@ public class PppCatDAO extends AbstractCrudDAO<PppCatEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Número do cat", "Data do afastamento",
-				"Data do registro", "PPP" };
+		return new String[] { "numeroCat", "dataAfastamento",
+				"dataRegistro", "ppp" };
 	}
 
 }

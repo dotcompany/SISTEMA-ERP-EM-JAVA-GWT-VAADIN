@@ -54,8 +54,8 @@ public class AfastamentoDAO extends AbstractCrudDAO<AfastamentoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Colaborador", "Dias afastado", "Data início",
-				"Data término" };
+		return new String[] { "colaborador", "diasAfastado", "dataInicio",
+				"dataFim" };
 	}
 
 }

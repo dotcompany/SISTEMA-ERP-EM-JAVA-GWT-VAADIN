@@ -44,7 +44,7 @@ public class PppListController extends CRUDListController<PppEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "observacao", "colaborador.matricula" };
+		return new String[] { "observacao", "colaborador" };
 	}
 
 	@Override

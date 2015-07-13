@@ -44,7 +44,7 @@ public class RescisaoListController extends CRUDListController<RescisaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador.matricula", "dataDemissao",
+		return new String[] { "colaborador", "dataDemissao",
 				"dataPagamento", "motivo" };
 	}
 

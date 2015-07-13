@@ -68,6 +68,7 @@ public final class ComponentUtil {
 
 		return textField;
 	}
+	
 
 	public static ComboBox buildComboBox(String caption) {
 		ComboBox comboBox = new ComboBox();

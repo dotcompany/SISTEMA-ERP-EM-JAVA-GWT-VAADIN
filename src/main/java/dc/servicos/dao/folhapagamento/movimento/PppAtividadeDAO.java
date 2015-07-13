@@ -54,7 +54,7 @@ public class PppAtividadeDAO extends AbstractCrudDAO<PppAtividadeEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Data de início", "Data de término", "PPP" };
+		return new String[] { "dataInicio", "dataFim", "ppp" };
 	}
 
 }

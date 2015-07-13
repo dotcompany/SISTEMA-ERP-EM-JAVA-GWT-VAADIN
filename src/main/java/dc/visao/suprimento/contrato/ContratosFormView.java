@@ -32,6 +32,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimento.contrato.ContratoFormController;
+import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.PessoaEntity;
@@ -285,8 +286,6 @@ public class ContratosFormView extends CustomComponent {
 		tabSheet_2 = buildTabSheet_2();
 		mainLayout.addComponent(tabSheet_2);
 		mainLayout.setExpandRatio(tabSheet_2, 1.0f);
-
-		cmbProduto = new ManyToOneCombo<>();
 
 		return mainLayout;
 	}
@@ -668,12 +667,33 @@ public class ContratosFormView extends CustomComponent {
 							Component uiContext) {
 
 						if ("produto.nome".equals(propertyId)) {
+							
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<ProdutoEntity> naturezaContainer = new BeanItemContainer<>(ProdutoEntity.class,
+									controller.buscarProdutos());
+							naturezaContainer.addNestedContainerProperty("descricao");
+							comboBox.setContainerDataSource(naturezaContainer);
+							comboBox.setImmediate(true);
+							comboBox.setSizeFull();
+							comboBox.setStyleName("manyToOneCombo");
+							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.addValueChangeListener(new Property.ValueChangeListener() {
+								@Override
+								public void valueChange(
+										ValueChangeEvent event) {
+									// Will display 'null selected' when
+									// nullPerson is selected.
+									Notification.show(event
+											.getProperty().getValue()
+											+ " selected");
+								}
+							});
 
-							List<ProdutoEntity> list = cmbProduto.getModel()
-									.getAll();
+							return comboBox;
+
+							/*List<ProdutoEntity> list = cmbProduto.getModel().getAll();
 							ComboBox cmbProdutoObjeto = new ComboBox();
-							BeanItemContainer<ComboItemValue> objects = new BeanItemContainer<ComboItemValue>(
-									ComboItemValue.class);
+							BeanItemContainer<ComboItemValue> objects = new BeanItemContainer<ComboItemValue>(ComboItemValue.class);
 
 							for (ProdutoEntity val : list) {
 								ComboItemValue item = new ComboItemValue();
@@ -702,7 +722,7 @@ public class ContratosFormView extends CustomComponent {
 										}
 									});
 
-							return cmbProdutoObjeto;
+							return cmbProdutoObjeto;*/
 
 						} else {
 							return ComponentUtil.buildTextField(null);

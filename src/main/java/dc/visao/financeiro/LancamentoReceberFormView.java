@@ -13,6 +13,7 @@ import org.vaadin.addons.maskedtextfield.NumericField;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
@@ -37,7 +38,7 @@ import dc.controller.financeiro.LancamentoReceberFormController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
-import dc.entidade.financeiro.LctoReceberNtFinanceira;
+import dc.entidade.financeiro.LctoReceberNtFinanceiraEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.geral.pessoal.ClienteEntity;
@@ -79,7 +80,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 	private ComboBox cbTipoVencimento;
 
 	private SubFormComponent<ParcelaReceber, Integer> parcelasSubForm;
-	private SubFormComponent<LctoReceberNtFinanceira, Integer> naturezaFinanceiraSubForm;
+	private SubFormComponent<LctoReceberNtFinanceiraEntity, Integer> naturezaFinanceiraSubForm;
 	private final LancamentoReceberFormController controller;
 	private Button btnGerarParcelas;
 	private Button btnGerarBoleto;
@@ -215,8 +216,8 @@ public class LancamentoReceberFormView extends CustomComponent {
 		String[] headers = new String[] { "Natureza Financeira",
 				"Data Inclusão", "Valor" };
 
-		this.naturezaFinanceiraSubForm = new SubFormComponent<LctoReceberNtFinanceira, Integer>(
-				LctoReceberNtFinanceira.class, atributos, headers) {
+		this.naturezaFinanceiraSubForm = new SubFormComponent<LctoReceberNtFinanceiraEntity, Integer>(
+				LctoReceberNtFinanceiraEntity.class, atributos, headers) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -229,6 +230,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 					 */
 					private static final long serialVersionUID = 1L;
 
+					@SuppressWarnings("serial")
 					@Override
 					public Field<?> createField(Container container,
 							Object itemId, Object propertyId,
@@ -241,16 +243,29 @@ public class LancamentoReceberFormView extends CustomComponent {
 						} else if ("valor".equals(propertyId)) {
 							return ComponentUtil.buildCurrencyField(null);
 						} else if ("naturezaFinanceira".equals(propertyId)) {
-							ComboBox cmb = ComponentUtil.buildComboBox(null);
-							cmb.removeAllItems();
-
-							List<NaturezaFinanceira> naturezaFinanceiras = controller
-									.getNaturezasFinanceiras();
-							for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
-								cmb.addItem(naturezaFinanceira);
-							}
-
-							return cmb;
+							//ComboBox cmb = ComponentUtil.buildComboBox(null);
+							//cmb.removeAllItems();
+							//List<NaturezaFinanceira> naturezaFinanceiras = controller.getNaturezasFinanceiras();
+							//for (NaturezaFinanceira naturezaFinanceira : naturezaFinanceiras) {
+							//	cmb.addItem(naturezaFinanceira);
+							//}
+							//return cmb;							
+							//ComboBox cmb = ComponentUtil.buildComboBox(null);
+							//cmb.removeAllItems();
+							//List<LctoReceberNtFinanceiraEntity> naturezaFinanceiras = controller.getNaturezasFinan();
+							//for (LctoReceberNtFinanceiraEntity naturezaFinanceira : naturezaFinanceiras) {
+							//	cmb.addItem(naturezaFinanceira);
+						//	}
+							//return cmb;
+							
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<NaturezaFinanceira> naturezaContainer = new BeanItemContainer<>(NaturezaFinanceira.class,
+									controller.buscarNaturezas());
+							naturezaContainer.addNestedContainerProperty("descricao");
+							comboBox.setContainerDataSource(naturezaContainer);
+							comboBox.setItemCaptionPropertyId("descricao");
+							return comboBox;
+							
 						}
 
 						else {
@@ -262,20 +277,20 @@ public class LancamentoReceberFormView extends CustomComponent {
 			}
 
 			@Override
-			public boolean validateItems(List<LctoReceberNtFinanceira> items) {
+			public boolean validateItems(List<LctoReceberNtFinanceiraEntity> items) {
 
 				return true;
 			}
 
-			protected LctoReceberNtFinanceira getNovo() {
-				LctoReceberNtFinanceira LlctoReceberNtFinanceira = controller
+			protected LctoReceberNtFinanceiraEntity getNovo() {
+				LctoReceberNtFinanceiraEntity LlctoReceberNtFinanceira = controller
 						.novoLctoReceberNtFinanceira();
 				return LlctoReceberNtFinanceira;
 			}
 
 			@Override
 			protected void getRemoverSelecionados(
-					List<LctoReceberNtFinanceira> values) {
+					List<LctoReceberNtFinanceiraEntity> values) {
 				controller.removerLctoReceberNtFinanceira(values);
 			}
 		};
@@ -615,12 +630,12 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.parcelasSubForm = parcelasSubForm;
 	}
 
-	public SubFormComponent<LctoReceberNtFinanceira, Integer> getNaturezaFinanceiraSubForm() {
+	public SubFormComponent<LctoReceberNtFinanceiraEntity, Integer> getNaturezaFinanceiraSubForm() {
 		return naturezaFinanceiraSubForm;
 	}
 
 	public void setNaturezaFinanceiraSubForm(
-			SubFormComponent<LctoReceberNtFinanceira, Integer> naturezaFinanceiraSubForm) {
+			SubFormComponent<LctoReceberNtFinanceiraEntity, Integer> naturezaFinanceiraSubForm) {
 		this.naturezaFinanceiraSubForm = naturezaFinanceiraSubForm;
 	}
 

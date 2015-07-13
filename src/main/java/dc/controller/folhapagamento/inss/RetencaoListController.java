@@ -43,8 +43,7 @@ public class RetencaoListController extends CRUDListController<RetencaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "inss.competencia", "servico.nome",
-				"valorMensal", "valor13" };
+		return new String[] { "inss", "servico", "valorMensal", "valor13" };
 	}
 
 	@Override

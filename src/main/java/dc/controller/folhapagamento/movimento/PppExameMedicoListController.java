@@ -45,8 +45,7 @@ public class PppExameMedicoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataUltimo", "tipo", "natureza",
-				"ppp.observacao" };
+		return new String[] { "dataUltimo", "tipo", "natureza", "ppp" };
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class PppDAO extends AbstractCrudDAO<PppEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Observação", "Colaborador" };
+		return new String[] { "observacao", "colaborador" };
 	}
 
 }

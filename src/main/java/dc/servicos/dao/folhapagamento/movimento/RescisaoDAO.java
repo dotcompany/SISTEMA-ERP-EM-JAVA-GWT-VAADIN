@@ -53,8 +53,8 @@ public class RescisaoDAO extends AbstractCrudDAO<RescisaoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Colaborador", "Data da demissão",
-				"Data do pagamento", "Motivo" };
+		return new String[] { "colaborador", "dataDemissao",
+				"dataPagamento", "motivo" };
 	}
 
 }

@@ -38,6 +38,7 @@ import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
 import dc.servicos.dao.geral.produto.GrupoDAO;
 import dc.servicos.dao.geral.produto.MarcaDAO;
 import dc.servicos.dao.geral.produto.NcmDAO;
+import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.geral.produto.SubGrupoDAO;
 import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
@@ -87,6 +88,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	@Autowired
 	private NcmDAO ncmDAO;
+	
+	@Autowired
+	private ProdutoDAO produtoDAO;
 
 	private GrupoEntity grupo = new GrupoEntity();
 
@@ -628,6 +632,10 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
 	public ProdutoBusiness<ProdutoEntity> getBusiness() {
 		return business;
+	}
+	
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 }

@@ -49,7 +49,7 @@ import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
-import dc.entidade.financeiro.LctoReceberNtFinanceira;
+import dc.entidade.financeiro.LctoReceberNtFinanceiraEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
@@ -61,6 +61,7 @@ import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
 import dc.servicos.dao.financeiro.LancamentoReceberDAO;
+import dc.servicos.dao.financeiro.LctoReceberNtFinanceiraDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
@@ -135,6 +136,9 @@ public class LancamentoReceberFormController extends
 
 	@Autowired
 	private ClienteDAO clienteDAO;
+	
+	@Autowired
+	private LctoReceberNtFinanceiraDAO lctoFinanceiraDAO;
 
 	@Autowired
 	private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
@@ -175,7 +179,7 @@ public class LancamentoReceberFormController extends
 
 		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm()
 				.getDados();
-		List<LctoReceberNtFinanceira> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+		List<LctoReceberNtFinanceiraEntity> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
 		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
 				.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
@@ -432,7 +436,7 @@ public class LancamentoReceberFormController extends
 	}
 
 	private BigDecimal getTotalNaturezaFinanceira(
-			List<LctoReceberNtFinanceira> naturezasanceiras) {
+			List<LctoReceberNtFinanceiraEntity> naturezasanceiras) {
 		BigDecimal total = BigDecimal.ZERO;
 		if (naturezasanceiras != null) {
 			for (int i = 0; i < naturezasanceiras.size(); i++) {
@@ -446,10 +450,10 @@ public class LancamentoReceberFormController extends
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoReceber lancamentoReceber = (LancamentoReceber) id;
-			List<LctoReceberNtFinanceira> lctoReceberNFinanceiras = lancamentoReceber
+			List<LctoReceberNtFinanceiraEntity> lctoReceberNFinanceiras = lancamentoReceber
 					.getLctoReceberNtFinanceira();
 
-			for (LctoReceberNtFinanceira lctoReceberNFinanceira : lctoReceberNFinanceiras) {
+			for (LctoReceberNtFinanceiraEntity lctoReceberNFinanceira : lctoReceberNFinanceiras) {
 				lctoReceberNFinanceira.setLancamentoReceber(null);
 
 			}
@@ -614,20 +618,31 @@ public class LancamentoReceberFormController extends
 
 	}
 
-	public LctoReceberNtFinanceira novoLctoReceberNtFinanceira() {
-		LctoReceberNtFinanceira lctoReceberNFinanceira = currentBean
+	public LctoReceberNtFinanceiraEntity novoLctoReceberNtFinanceira() {
+		LctoReceberNtFinanceiraEntity lctoReceberNFinanceira = currentBean
 				.addLctoReceberNtFinanceira();
 		return lctoReceberNFinanceira;
 	}
 
 	public void removerLctoReceberNtFinanceira(
-			List<LctoReceberNtFinanceira> values) {
-		for (LctoReceberNtFinanceira value : values) {
+			List<LctoReceberNtFinanceiraEntity> values) {
+		for (LctoReceberNtFinanceiraEntity value : values) {
 			currentBean.removeLctoReceberNtFinanceira(value);
 		}
 
 	}
-
+	
+public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
+		
+		try {
+			return lctoFinanceiraDAO.findByNatureza(currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
 		return naturezaFinanceiraDAO.listaTodos();
 	}
@@ -804,6 +819,10 @@ public class LancamentoReceberFormController extends
 	@Override
 	public LancamentoReceber getModelBean() {
 		return currentBean;
+	}
+	
+	public List<NaturezaFinanceira> buscarNaturezas() {
+		return naturezaFinanceiraDAO.getAll(NaturezaFinanceira.class);
 	}
 
 }

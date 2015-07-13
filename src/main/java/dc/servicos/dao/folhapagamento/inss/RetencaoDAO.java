@@ -53,7 +53,7 @@ public class RetencaoDAO extends AbstractCrudDAO<RetencaoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "INSS", "Serviço", "Valor mensal", "Valor 13" };
+		return new String[] { "inss", "servico", "valorMensal", "valor13" };
 	}
 
 }

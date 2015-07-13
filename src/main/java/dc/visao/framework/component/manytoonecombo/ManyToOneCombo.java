@@ -190,7 +190,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
 		cmbResult.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		cmbResult.setItemCaptionPropertyId("caption");
-		cmbResult.setSizeFull();
+		//cmbResult.setSizeFull();
 
 		cmbResult.addValueChangeListener(new ValueChangeListener() {
 
@@ -379,7 +379,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		cmbResult.setFilteringMode(FilteringMode.CONTAINS);
 		//cmbResult.setHeight("250px");
 		//cmbResult.setWidth("35px");
-		cmbResult.setSizeFull();
+		//cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
 
@@ -400,7 +400,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 					.getPage()
 					.getStyles()
 					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
-			UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{height: 30px; width: 230px; float:left;} ");
+			UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{width:200px; float:left;} ");
 		} catch (Exception e) {
 
 		}

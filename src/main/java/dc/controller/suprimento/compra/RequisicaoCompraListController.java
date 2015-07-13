@@ -43,8 +43,7 @@ public class RequisicaoCompraListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "dataRequisicao",
-				"colaborador.pessoa.nome", "tipoRequisicao.descricao" };
+		return new String[] { "dataRequisicao", "observacao", "colaborador","tipoRequisicao" };
 	}
 
 	@Override

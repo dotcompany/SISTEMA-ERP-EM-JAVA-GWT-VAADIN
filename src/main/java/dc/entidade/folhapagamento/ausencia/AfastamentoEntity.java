@@ -58,7 +58,7 @@ public class AfastamentoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Column(name = "data_fim")
 	@Field
-	@Caption("Data término")
+	@Caption("Data Fim")
 	private Date dataFim;
 
 	@Column(name = "dias_afastado")

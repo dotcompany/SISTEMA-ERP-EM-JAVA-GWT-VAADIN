@@ -38,6 +38,7 @@ import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.servicos.dao.financeiro.LctoPagarNtFinanceiraDAO;
+import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
@@ -97,6 +98,9 @@ public class LancamentoPagarFormController extends
 
 	@Autowired
 	private LctoPagarNtFinanceiraDAO naturezaFinanceiraDAO;
+	
+	@Autowired
+	private NaturezaFinanceiraDAO naturezaFinanDAO;
 
 	@Autowired
 	private DocumentoOrigemDAO documentoOrigemDAO;
@@ -327,7 +331,7 @@ public class LancamentoPagarFormController extends
 			}
 		};
 		this.subView.getCbFornecedor().setModel(model2);
-
+		
 	}
 
 	@Override
@@ -669,13 +673,20 @@ public class LancamentoPagarFormController extends
 		
 		try {
 			
-			DefaultManyToOneComboModel<LctoPagarNtFinanceira> model1 = new DefaultManyToOneComboModel<LctoPagarNtFinanceira>(
-					LctoPagarNtFinanceira.class, this.naturezaFinanceiraDAO,
-					super.getMainController());
+			DefaultManyToOneComboModel<NaturezaFinanceira> natureza = new DefaultManyToOneComboModel<NaturezaFinanceira>(
+					NaturezaFinanceiraListController.class, this.naturezaFinanDAO,
+					super.getMainController()) {
 
-			this.subView.getNaturezaFinanceiraSubForm();
+				@Override
+				public String getCaptionProperty() {
+					return "descricao";
+				}
+
+			};
+
+			this.subView.getCbNaturezaFinanceira().setModel(natureza);
 			
-			return naturezaFinanceiraDAO.findByNaturezaFin(currentBean);
+			return naturezaFinanDAO.findByNatureza(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -692,6 +703,10 @@ public class LancamentoPagarFormController extends
 		}
 		return null;
 		
+	}
+	
+	public List<NaturezaFinanceira> buscarNaturezas() {
+		return naturezaFinanDAO.getAll(NaturezaFinanceira.class);
 	}
 
 }

@@ -44,8 +44,8 @@ public class AfastamentoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador.matricula", "diasAfastado",
-				"dataInicio", "dataFim" };
+		return new String[] { "colaborador", "diasAfastado", "dataInicio",
+				"dataFim" };
 	}
 
 	@Override

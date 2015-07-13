@@ -43,8 +43,7 @@ public class PedidoCompraListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "dataPedido", "tipoPedido.descricao",
-				"fornecedor.pessoa.nome", "contato" };
+		return new String[] {"fornecedor","tipoPedido", "baseCalculoIcms", "baseCalculoIcmsSt", "contato","dataPedido","dataPrevisaoPagamento" };
 	}
 
 	@Override

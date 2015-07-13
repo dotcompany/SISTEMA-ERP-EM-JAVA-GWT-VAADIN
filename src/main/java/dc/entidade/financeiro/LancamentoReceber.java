@@ -114,7 +114,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<LctoReceberNtFinanceira> LctoReceberNtFinanceira = new ArrayList<>();
+	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<>();
 
 	public LancamentoReceber() {
 	}
@@ -236,21 +236,21 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	 * this.parcelaReceber = parcelaReceber; }
 	 */
 
-	public List<LctoReceberNtFinanceira> getLctoReceberNtFinanceira() {
+	public List<LctoReceberNtFinanceiraEntity> getLctoReceberNtFinanceira() {
 		return LctoReceberNtFinanceira;
 	}
 
-	public void setLctoReceberNtFinanceira(List<LctoReceberNtFinanceira> lctoReceberNtFinanceira) {
+	public void setLctoReceberNtFinanceira(List<LctoReceberNtFinanceiraEntity> lctoReceberNtFinanceira) {
 		LctoReceberNtFinanceira = lctoReceberNtFinanceira;
 	}
 
-	public void removeLctoReceberNtFinanceira(LctoReceberNtFinanceira value) {
+	public void removeLctoReceberNtFinanceira(LctoReceberNtFinanceiraEntity value) {
 		this.LctoReceberNtFinanceira.remove(value);
 		value.setLancamentoReceber(null);
 	}
 
-	public LctoReceberNtFinanceira addLctoReceberNtFinanceira() {
-		LctoReceberNtFinanceira lctoReceberNtFinanceira = new LctoReceberNtFinanceira();
+	public LctoReceberNtFinanceiraEntity addLctoReceberNtFinanceira() {
+		LctoReceberNtFinanceiraEntity lctoReceberNtFinanceira = new LctoReceberNtFinanceiraEntity();
 		lctoReceberNtFinanceira.setLancamentoReceber(this);
 		this.LctoReceberNtFinanceira.add(lctoReceberNtFinanceira);
 

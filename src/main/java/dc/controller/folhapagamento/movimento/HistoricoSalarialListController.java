@@ -46,7 +46,7 @@ public class HistoricoSalarialListController extends
 	@Override
 	public String[] getColunas() {
 		return new String[] { "competencia", "salarioAtual",
-				"percentualAumento", "salarioNovo", "colaborador.matricula" };
+				"percentualAumento", "salarioNovo", "colaborador"  };
 	}
 
 	@Override
