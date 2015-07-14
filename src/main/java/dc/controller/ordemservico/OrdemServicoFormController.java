@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Calendar; 
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.vaadin.dialogs.ConfirmDialog;
 
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.UI;
@@ -31,11 +31,6 @@ import dc.controller.financeiro.TipoPagamentoListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
-import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.ordemservico.AcessorioEntity;
 import dc.entidade.ordemservico.AcessorioOsEntity;
 import dc.entidade.ordemservico.CarroEntity;
@@ -44,8 +39,8 @@ import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.entidade.ordemservico.LaudoTecnicoEntity;
 import dc.entidade.ordemservico.MaterialServicoEntity;
 import dc.entidade.ordemservico.ObservacaoEntity;
-import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
 import dc.entidade.ordemservico.OrdemServicoEntity;
+import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
 import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.entidade.ordemservico.SituacaoServicoEntity;
@@ -53,6 +48,11 @@ import dc.entidade.ordemservico.StatusOsEntity;
 import dc.entidade.ordemservico.TipoEfetivacaoOsEntity;
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.entidade.ordemservico.VendaPecaEntity;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.business.geral.pessoal.ClienteBusiness;
 import dc.model.business.geral.pessoal.ColaboradorBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
@@ -75,7 +75,6 @@ import dc.model.business.ordemservico.TipoEfetivacaoOsBusiness;
 import dc.model.business.ordemservico.TipoServicoOsBusiness;
 import dc.model.business.ordemservico.VendaPecaBusiness;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
-import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
@@ -92,9 +91,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	@Autowired
 	private TipoPagamentoDAO tipoPagamentoDAO;
-	
-	@Autowired
-	private UfDAO ufDAO;
 
 	private OrdemServicoEntity currentBean;
 	private ParametroOsEntity parametroOs;
@@ -190,7 +186,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	@Override
 	protected String getNome() {
-		return "Ordem de Serviço";
+		return "Ordem de ServiÃ§o";
 	} 
 
 	@Override
@@ -222,11 +218,13 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				if(subView.getCbCliente().getValue()!=null){
 					cli = subView.getCbCliente().getValue();
 					this.currentBean.setCliente(cli);
-				}
+				} 
 				if(subView.getTfTotalServico()!=null){
 					String valorTotalSevico = subView.getTfTotalServico().getValue();
 					if (Validator.validateString(valorTotalSevico)) {
+						System.out.println("ValorTotalServico Antes FormataBigDecimal: "+valorTotalSevico);
 						valorTotalSevico = formataBigDecimal(valorTotalSevico);
+						System.out.println("ValorTotalServico depois FormataBigDecimal: "+valorTotalSevico);
 						this.currentBean.setValorServico(new BigDecimal(valorTotalSevico));
 					}
 				}
@@ -441,26 +439,26 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	protected void actionSalvarEfetivacao() {
 		boolean valido = true;
 		if (((BigDecimal) subView.getValorTotalChequeOs()).compareTo(getTotalParcelaReceberCheque(parcelasChequeOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCarneOs()).compareTo(getTotalParcelaReceberCarne(parcelasCarneOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCartaoOs()).compareTo(getTotalParcelaReceberCartao(parcelasCartaoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 		}
 		if (((BigDecimal) subView.getValorTotalBoletoOs()).compareTo(getTotalParcelaReceberBoleto(parcelasBoletoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
 		}
 
 		if (valido) {
@@ -701,7 +699,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				subView.preencheEntradaServicoFinanceiraSubForm(currentBean.getItensEntradaServico());
 			}
 		} catch (Exception e) {
-			System.out.println("PROBLEMA AO CARREGAR ENTRADA DE SERVIÇO");
+			System.out.println("PROBLEMA AO CARREGAR ENTRADA DE SERVIÃ‡O");
 			e.printStackTrace();
 		}
 	}
@@ -717,7 +715,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			}
 
 		} catch (Exception e) {
-			System.out.println("PROBLEMA AO CARREGAR VENDA DE PEÇA");
+			System.out.println("PROBLEMA AO CARREGAR VENDA DE PEÃ‡A");
 			e.printStackTrace();
 		}
 	}
@@ -729,7 +727,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				subView.preencheMaterialServicoSubForm(currentBean.getItensMaterialServico());
 			}
 		} catch (Exception e) {
-			System.out.println("PROBLEMA AO CARREGAR MATERIAL DE SERVIÇO");
+			System.out.println("PROBLEMA AO CARREGAR MATERIAL DE SERVIÃ‡O");
 			e.printStackTrace();
 		}
 	}
@@ -741,7 +739,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				subView.preencheAcessorioOsSubForm(currentBean.getItensAcessorioOs());
 			}
 		} catch (Exception e) {
-			System.out.println("PROBLEMA AO CARREGAR ACESSORIOS DE ORDEM DE SERVIÇO");
+			System.out.println("PROBLEMA AO CARREGAR ACESSORIOS DE ORDEM DE SERVIÃ‡O");
 			e.printStackTrace();
 		}
 	}
@@ -799,11 +797,6 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 		subView = new OrdemServicoFormView(this);
 		preencheCombos();
 		
-		//DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-//		UfListController.class, this.ufDAO, super.getMainController());
-				
-		//this.subView.getMocUf().setModel(modelUf);
-		
 		subView.getBtnFinalizar().addClickListener(new ClickListener() {
 			
 			private static final long serialVersionUID = 1L;
@@ -834,7 +827,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					mensagemErro("Antes de gravar, escolha primeiramente a placa do carro, e grave novamente.");
 					return;
 				}
-				subWindow = new Window("Financeiro da Ordem de Serviço");
+				subWindow = new Window("Financeiro da Ordem de ServiÃ§o");
 		        VerticalLayout subContent = new VerticalLayout();
 		        subContent.setMargin(true);
 		        
@@ -842,8 +835,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				
 				if(currentBean.getEfetivada()!=null){
 					if(!currentBean.getEfetivada()){
-						ConfirmDialog.show(MainUI.getCurrent(), "Efetivar Ordem Serviço",
-								"Tem certeza que deseja efetivar esta OS? depois de efetivado não poderá ser alterado.", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Efetivar Ordem ServiÃ§o",
+								"Tem certeza que deseja efetivar esta OS? depois de efetivado nÃ£o poderÃ¡ ser alterado.", "Sim", "NÃ£o",
 								new ConfirmDialog.Listener() {
 									private static final long serialVersionUID = 1L;
 		
@@ -913,8 +906,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			}
 			if(subView.getTfCheque().getValue()!=null){
 				if (parcelasChequeOs != null && !parcelasChequeOs.isEmpty()) {
-					ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-							"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+					ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+							"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 							new ConfirmDialog.Listener() {
 								private static final long serialVersionUID = 1L;
 	
@@ -939,8 +932,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasCartaoOs(parcelasCartaoOs);
 				}else{
 					if(parcelasCartaoOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -963,8 +956,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasCarneOs(parcelasCarneOs);
 				}else{
 					if(parcelasCarneOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -987,8 +980,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasBoletoOs(parcelasBoletoOs);
 				}else{
 					if(parcelasBoletoOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -1011,8 +1004,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasDuplicataOs(parcelasDuplicataOs);
 				}else{
 					if(parcelasDuplicataOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -1036,8 +1029,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasValeOs(parcelasValeOs);
 				}else{
 					if(parcelasValeOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -1060,8 +1053,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasCobrancaBancariaOs(parcelasCobrancaBancariaOs);
 				}else{
 					if(parcelasCobrancaBancariaOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -1084,8 +1077,8 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 					geraParcelasCobrancaCarteiraOs(parcelasCobrancaCarteiraOs);
 				}else{
 					if(parcelasCobrancaCarteiraOs !=null){
-						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-						"As parcelas que foram geradas anteriormente serão excluídas!\nDeseja continuar?", "Sim", "Não",
+						ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoÃ§Ã£o",
+						"As parcelas que foram geradas anteriormente serÃ£o excluÃ­das!\nDeseja continuar?", "Sim", "NÃ£o",
 						new ConfirmDialog.Listener() {
 							private static final long serialVersionUID = 1L;
 
@@ -1111,7 +1104,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(2);
 
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
 
@@ -1140,7 +1133,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaCheque(); i++) {
 				parcelaChequeOs = new OrdemServicoEfetivacaoEntity();
 				parcelaChequeOs.setOrdemParcela(i);
-				parcelaChequeOs.setDataEfetivacao(dataEmissão);
+				parcelaChequeOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaChequeOs.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1179,7 +1172,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcela;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(6);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1203,7 +1196,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaCarne(); i++) {
 				parcela = new OrdemServicoEfetivacaoEntity();
 				parcela.setOrdemParcela(i);
-				parcela.setDataEfetivacao(dataEmissão);
+				parcela.setDataEfetivacao(dataEmissÃ£o);
 				parcela.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1242,7 +1235,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaCartaoOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(3);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1271,7 +1264,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaCartao(); i++) {
 				parcelaCartaoOs = new OrdemServicoEfetivacaoEntity();
 				parcelaCartaoOs.setOrdemParcela(i);
-				parcelaCartaoOs.setDataEfetivacao(dataEmissão);
+				parcelaCartaoOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaCartaoOs.setTipoEfetivacao(tipoEfetivacao);
 
 				if (i >= 0) {
@@ -1310,7 +1303,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcela;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(4);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 	
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1338,7 +1331,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaBoleto(); i++) {
 				parcela = new OrdemServicoEfetivacaoEntity();
 				parcela.setOrdemParcela(i);
-				parcela.setDataEfetivacao(dataEmissão);
+				parcela.setDataEfetivacao(dataEmissÃ£o);
 				parcela.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1377,7 +1370,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaDuplicataOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(5);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 	
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1405,7 +1398,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaDuplicata(); i++) {
 				parcelaDuplicataOs = new OrdemServicoEfetivacaoEntity();
 				parcelaDuplicataOs.setOrdemParcela(i);
-				parcelaDuplicataOs.setDataEfetivacao(dataEmissão);
+				parcelaDuplicataOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaDuplicataOs.setTipoEfetivacao(tipoEfetivacao);
 	
 				if (i >= 0) {
@@ -1445,7 +1438,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaValeOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(7);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 	
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1473,7 +1466,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaVale(); i++) {
 				parcelaValeOs = new OrdemServicoEfetivacaoEntity();
 				parcelaValeOs.setOrdemParcela(i);
-				parcelaValeOs.setDataEfetivacao(dataEmissão);
+				parcelaValeOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaValeOs.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1511,7 +1504,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaCobrancaBancariaOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(8);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 	
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1539,7 +1532,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaCobrancaBancaria(); i++) {
 				parcelaCobrancaBancariaOs = new OrdemServicoEfetivacaoEntity();
 				parcelaCobrancaBancariaOs.setOrdemParcela(i);
-				parcelaCobrancaBancariaOs.setDataEfetivacao(dataEmissão);
+				parcelaCobrancaBancariaOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaCobrancaBancariaOs.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1577,7 +1570,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			OrdemServicoEfetivacaoEntity parcelaCobrancaCarteiraOs;
 			TipoEfetivacaoOsEntity tipoEfetivacao = new TipoEfetivacaoOsEntity();
 			tipoEfetivacao = this.businessTipoEfetivacaoOs.findByCodigo(9);
-			Date dataEmissão = new Date();
+			Date dataEmissÃ£o = new Date();
 	
 			Calendar primeiroVencimento = Calendar.getInstance();
 			primeiroVencimento.setTime(primeiroVencimento.getTime());
@@ -1605,7 +1598,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 			for (int i = 0; i < currentBean.getQuantidadeParcelaCobrancaCarteira(); i++) {
 				parcelaCobrancaCarteiraOs = new OrdemServicoEfetivacaoEntity();
 				parcelaCobrancaCarteiraOs.setOrdemParcela(i);
-				parcelaCobrancaCarteiraOs.setDataEfetivacao(dataEmissão);
+				parcelaCobrancaCarteiraOs.setDataEfetivacao(dataEmissÃ£o);
 				parcelaCobrancaCarteiraOs.setTipoEfetivacao(tipoEfetivacao);
 				if (i >= 0) {
 					primeiroVencimento.add(Calendar.DAY_OF_MONTH, 30);
@@ -1835,6 +1828,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	public String formataBigDecimal(String valor) {
 		String format = "";
 		format = valor.replace(".", "").replace(",", ".");
+		format = format.replace("R$", "");
 		return format;
 	}
 
@@ -1885,7 +1879,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				valorTotal = valorTotal.add(os.getValorTotal());
 			}
 			if(os.getTipoEfetivacao().getCodigo() == 3){
-				tipo = "Cartão";
+				tipo = "CartÃ£o";
 				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
 					quantidade += os.getQuantidade();
 				}else {
@@ -1912,7 +1906,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				valorTotal = valorTotal.add(os.getValorTotal());
 			}
 			if(os.getTipoEfetivacao().getCodigo() == 6){
-				tipo = "Carnê";
+				tipo = "CarnÃª";
 				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
 					quantidade += os.getQuantidade();
 				}else {
@@ -1930,7 +1924,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				valorTotal = valorTotal.add(os.getValorTotal());
 			}
 			if(os.getTipoEfetivacao().getCodigo() == 8){
-				tipo = "Cobrança bancária";
+				tipo = "CobranÃ§a bancÃ¡ria";
 				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
 					quantidade += os.getQuantidade();
 				}else {
@@ -1939,7 +1933,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				valorTotal = valorTotal.add(os.getValorTotal());
 			}
 			if(os.getTipoEfetivacao().getCodigo() == 9){
-				tipo = "Cobrança carteira";
+				tipo = "CobranÃ§a carteira";
 				if(os.getQuantidade()!=null && os.getQuantidade() > 0 ){
 					quantidade += os.getQuantidade();
 				}else {

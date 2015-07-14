@@ -82,7 +82,6 @@ import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.entidade.ordemservico.VendaPecaEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.business.ordemservico.ParametroOsBusiness;
 import dc.servicos.util.Util;
@@ -629,7 +628,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						} else if ("valorOriginal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildNumberField(null);
+							TextField textField = ComponentUtil.buildCurrencyField(null);
 							textField.setEnabled(false);
 							return textField;
 						} else if ("valorCobrado".equals(propertyId)) {
@@ -1361,7 +1360,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		taObservacaoFoto = ComponentUtil.buildTextArea("InformaÃ§Ã£o geral da foto");
 		gridLayoutFoto.addComponent(taObservacaoFoto,0,1,3,1);
 		
-		// upArquivo
+		// upArquivo 
 		upArquivo = new SlowMultiFileUpload() {
 					
 			@Override
@@ -1525,7 +1524,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.addComponent(lblTotalPeca, 0, 1,0,1);
 		
 		// Total de peÃ§as
-		tfTotalPeca = ComponentUtil.buildNumberField(null);
+		tfTotalPeca = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfTotalPeca, 1, 1,1,1);
 
 		lblLucroPeca = new Label();
@@ -1534,7 +1533,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.addComponent(lblLucroPeca, 0, 2,0,2);
 
 		// Total lucro de peÃ§as
-		tfLucroPeca = ComponentUtil.buildNumberField(null);
+		tfLucroPeca = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfLucroPeca, 1, 2,1,2);
 
 		lblTotalServico = new Label();
@@ -1543,7 +1542,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.addComponent(lblTotalServico, 0, 3,0,3);
 		
 		// Total de serviÃ§o
-		tfTotalServico = ComponentUtil.buildNumberField(null);
+		tfTotalServico = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfTotalServico, 1, 3,1,3);
 
 
@@ -1553,7 +1552,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblLucroServico.setHeight("-1px");
 		gridLayout_1.addComponent(lblLucroServico, 0, 4,0,4);
 		
-		tfLucroServico = ComponentUtil.buildNumberField(null);
+		tfLucroServico = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfLucroServico, 1, 4,1,4);
 
 
@@ -1563,7 +1562,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblComissaoTecnico.setHeight("-1px");
 		gridLayout_1.addComponent(lblComissaoTecnico, 0, 5,0,5);
 		
-		tfComissaoTecnico = ComponentUtil.buildNumberField(null);
+		tfComissaoTecnico = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfComissaoTecnico, 1, 5,1,5);
 		
 		// ComissÃ£o paga ao vendedor
@@ -1572,7 +1571,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblComissaoVendedor.setHeight("-1px");
 		gridLayout_1.addComponent(lblComissaoVendedor, 0,6,0,6);
 		
-		tfComissaoVendedor = ComponentUtil.buildNumberField(null);
+		tfComissaoVendedor = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfComissaoVendedor, 1, 6,1,6);
 
 		// ComissÃ£o paga ao atendente
@@ -1581,7 +1580,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblComissaoAtendente.setHeight("-1px");
 		gridLayout_1.addComponent(lblComissaoAtendente, 0, 7,0,7);
 		
-		tfComissaoAtendente = ComponentUtil.buildNumberField(null);
+		tfComissaoAtendente = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfComissaoAtendente, 1, 7,1,7);
 
 		// Desconto
@@ -1590,7 +1589,7 @@ public class OrdemServicoFormView extends CustomComponent {
         lblDesconto.setHeight("-1px");
 		gridLayout_1.addComponent(lblDesconto, 0, 8,0,8);
 
-		tfDesconto = ComponentUtil.buildNumberField(null);
+		tfDesconto = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfDesconto, 1, 8,1,8);
 
 		// Lucro parcial de serviÃ§o
@@ -1599,7 +1598,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblLucroParcialServico.setHeight("-1px");
 		gridLayout_1.addComponent(lblLucroParcialServico, 0, 9,0,9);
 		
-		tfLucroParcialServico = ComponentUtil.buildNumberField(null);
+		tfLucroParcialServico = ComponentUtil.buildCurrencyField(null);
 		gridLayout_1.addComponent(tfLucroParcialServico, 1, 9,1,9);
 
 		btnEfetivacao = new Button();
