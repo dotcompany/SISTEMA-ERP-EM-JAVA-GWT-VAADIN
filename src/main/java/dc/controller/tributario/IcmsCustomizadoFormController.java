@@ -106,7 +106,7 @@ public class IcmsCustomizadoFormController extends
 	protected void carregar(Serializable id) {
 		// TODO Auto-generated method stub
 		currentBean = dao.find((Integer) id);
-		subView.getTxtDescricao().setValue(currentBean.getNome());
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
 		subView.getOrigemMercadoria().setValue(
 				currentBean.getOrigemMercadoria());
 		
@@ -155,7 +155,7 @@ public class IcmsCustomizadoFormController extends
 				origem = (OrigemMercadoria) subView.getOrigemMercadoria().getValue();
 			}*/
 
-			currentBean.setNome(subView.getTxtDescricao().getValue());
+			currentBean.setDescricao(subView.getTxtDescricao().getValue());
 			//currentBean.setOrigemMercadoria(origem);
 			currentBean.setEmpresa(empresaAtual());
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -40,7 +41,7 @@ public class TipoServicoListController extends CRUDListController<TipoServicoOsE
 	
 	@Override
 	public String getViewIdentifier() {
-		return "listaTipoServico";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -61,5 +62,11 @@ public class TipoServicoListController extends CRUDListController<TipoServicoOsE
 	@Override
 	protected boolean deletaEmCascata() {
 		return false;
+	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 }

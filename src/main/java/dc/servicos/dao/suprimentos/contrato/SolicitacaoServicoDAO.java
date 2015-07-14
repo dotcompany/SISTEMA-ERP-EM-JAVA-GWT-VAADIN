@@ -17,10 +17,7 @@ public class SolicitacaoServicoDAO extends
 	@Override
 	protected String[] getDefaultSearchFields() {
 
-		// teste
-		// return null;
-
-		return new String[] { "urgente", "descricao", "statusSolicitacao" };
+		return new String[] {"fornecedor","cliente","setor","colaborador","dataSolicitacao", "urgente", "descricao", "statusSolicitacao" };
 	}
 
 }

@@ -669,14 +669,16 @@ public class ContratosFormView extends CustomComponent {
 						if ("produto.nome".equals(propertyId)) {
 							
 							ComboBox comboBox = ComponentUtil.buildComboBox(null);
-							BeanItemContainer<ProdutoEntity> naturezaContainer = new BeanItemContainer<>(ProdutoEntity.class,
+							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(ProdutoEntity.class,
 									controller.buscarProdutos());
-							naturezaContainer.addNestedContainerProperty("descricao");
-							comboBox.setContainerDataSource(naturezaContainer);
+							
+							produtoContainer.addNestedContainerProperty("nome");
+							comboBox.setContainerDataSource(produtoContainer);
+							comboBox.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 							comboBox.setImmediate(true);
 							comboBox.setSizeFull();
 							comboBox.setStyleName("manyToOneCombo");
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							comboBox.addValueChangeListener(new Property.ValueChangeListener() {
 								@Override
 								public void valueChange(

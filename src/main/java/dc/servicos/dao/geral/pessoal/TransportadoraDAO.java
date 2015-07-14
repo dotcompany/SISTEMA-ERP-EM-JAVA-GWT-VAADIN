@@ -29,7 +29,7 @@ public class TransportadoraDAO extends AbstractCrudDAO<TransportadoraEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "observacao" };
+		return new String[] {"pessoa", "observacao" };
 	}
 
 }

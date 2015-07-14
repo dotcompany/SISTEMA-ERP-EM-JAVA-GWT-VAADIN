@@ -179,6 +179,10 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 				super.getMainController(),false,this.businessCombustivel);
 
 		this.subView.getCbCombustivel().setModel(combustivel);
+		
+		DefaultManyToOneComboModel<ModeloOsEntity> modelo = new DefaultManyToOneComboModel<ModeloOsEntity>(ModeloListController.class,super.getMainController(), false, this.businessModeloOs);
+
+		this.subView.getCbModelo().setModel(modelo);
 
 	}
 

@@ -67,5 +67,11 @@ public class ContratoListController extends CRUDListController<ContratoEntity> {
 	protected List<ContratoEntity> pesquisaDefault() {
 		return (List<ContratoEntity>) dao.getAll(getEntityClass());
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 }

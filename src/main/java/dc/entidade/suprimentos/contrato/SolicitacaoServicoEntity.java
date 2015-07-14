@@ -56,7 +56,7 @@ public class SolicitacaoServicoEntity extends
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_SOLICITACAO")
 	@Field
-	@Caption("Data daSolicitação")
+	@Caption("Data da Solicitação")
 	private Date dataSolicitacao;
 
 	@Field
@@ -71,7 +71,7 @@ public class SolicitacaoServicoEntity extends
 	private String urgente;
 
 	@Field
-	@Caption("StatusSolicitação")
+	@Caption("Status Solicitação")
 	@Column(name = "STATUS_SOLICITACAO")
 	private String statusSolicitacao;
 

@@ -186,6 +186,7 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 			this.subView.getTfTelefone().setValue(this.entity.getTelefone());
 			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 			this.subView.getTfCep().setValue(this.entity.getCep());
+			this.subView.getTfEmail().setValue(this.entity.getEmail());
 
 			PessoaEntity pessoa = this.entity.getPessoa();
 

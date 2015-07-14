@@ -88,5 +88,11 @@ public class AfastamentoListController extends
 
 		return auxLista;
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 }
