@@ -29,7 +29,7 @@ public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "sigla", "descricao" };
+		return new String[] { "sigla", "descricao", "podeFracionar" };
 	}
 
 	@Transactional

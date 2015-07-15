@@ -39,7 +39,7 @@ public class UnidadeProdutoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "sigla", "nome" };
+		return new String[] { "sigla", "descricao", "podeFracionar" };
 	}
 
 	@Override

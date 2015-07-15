@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.servicos.dao.tributario.GrupoTributarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -25,7 +26,7 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "observacao", "origemString" };
+		return new String[] { "descricao", "observacao", "origemMercadoria" };
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class GrupoTributarioListController extends CRUDListController<GrupoTribu
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaGrupoTributario";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

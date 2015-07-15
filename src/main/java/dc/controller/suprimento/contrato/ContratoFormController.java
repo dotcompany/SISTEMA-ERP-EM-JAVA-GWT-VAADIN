@@ -43,9 +43,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
-import dc.controller.geral.produto.ProdutoListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.ClienteEntity;
@@ -220,7 +218,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		currentBean = new ContratoEntity();
 	}
 
-	private void carregarCombos() {
+	/*private void carregarCombos() {
 		/*
 		 * subView.carregaComboContabilConta(contabilContaDAO.getAll(ContabilConta
 		 * .class));
@@ -276,10 +274,10 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		 * iterator.remove(); }
 		 * 
 		 * }
-		 */
+		 
 
 		// subView.carregaComboDocumento(documentos);
-	}
+	}*/
 
 	@Override
 	protected void initSubView() {
@@ -389,7 +387,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 		});
 
-		carregarCombos();
+		//carregarCombos();
 	}
 
 	public StreamResource createResource() {
@@ -572,7 +570,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Override
 	protected void quandoNovo() {
-		carregarCombos();
+		//carregarCombos();
 	}
 
 	@Override

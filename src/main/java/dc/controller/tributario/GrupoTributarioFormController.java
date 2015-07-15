@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.framework.exception.ErroValidacaoException;
@@ -21,8 +22,9 @@ import dc.visao.tributario.GrupoTributarioFormView.ORIGEM_MERCADORIA;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
 public class GrupoTributarioFormController extends CRUDFormController<GrupoTributarioEntity> {
+	
+	private static final long serialVersionUID = 1L;
 
 	GrupoTributarioFormView subView;
 
@@ -31,11 +33,9 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 
 	GrupoTributarioEntity currentBean;
 
-	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
-
 	@Override
 	public String getViewIdentifier() {
-		return "grupoTributarioForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

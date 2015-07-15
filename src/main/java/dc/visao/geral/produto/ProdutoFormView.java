@@ -337,7 +337,7 @@ public class ProdutoFormView extends CustomComponent {
 
 	public GridLayout bglInformacaoGeral() {
 		// common part: create layout
-		glInformacaoGeral = new GridLayout(7, 7);
+		glInformacaoGeral = new GridLayout(8, 5);
 		glInformacaoGeral.setImmediate(false);
 		glInformacaoGeral.setWidth("100.0%");
 		glInformacaoGeral.setHeight("-1px");
@@ -362,25 +362,19 @@ public class ProdutoFormView extends CustomComponent {
 		mocNcm = new ManyToOneCombo<NcmEntity>();
 		mocNcm.setCaption("NCM");
 		mocNcm.setImmediate(true);
-		// mocNcm.setWidth("250px");
-		mocNcm.setHeight("-1px");
 		glInformacaoGeral.addComponent(mocNcm, 2, 0,3,0);
 
 		// cbInativo
 		cbInativo = ComponentUtil.buildComboBox("Inativo?");
 		cbInativo.setImmediate(true);
 		// cbInativo.setRequired(true);
-		// cbInativo.setWidth("100px");
-		cbInativo.setHeight("-1px");
-		glInformacaoGeral.addComponent(cbInativo, 4, 0);
+		glInformacaoGeral.addComponent(cbInativo, 5, 0);
 
 		// cbClasse
 		cbClasse = ComponentUtil.buildComboBox("Classe");
 		cbClasse.setImmediate(true);
 		// cbClasse.setRequired(true);
-		// cbClasse.setWidth("100px");
-		cbClasse.setHeight("-1px");
-		glInformacaoGeral.addComponent(cbClasse, 5, 0);
+		glInformacaoGeral.addComponent(cbClasse, 6, 0);
 
 		tfNome = ComponentUtil.buildTextField("Nome");
 		// tfNome.setImmediate(true);

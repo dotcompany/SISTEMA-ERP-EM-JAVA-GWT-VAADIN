@@ -31,7 +31,7 @@ public class IcmsCustomizadoDetalheDAO extends AbstractCrudDAO<IcmsCustomizadoDe
 //	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao"};
+		return new String[] {"ufDestino","csosnB","cstB"};
 	}
 	
 	@Transactional

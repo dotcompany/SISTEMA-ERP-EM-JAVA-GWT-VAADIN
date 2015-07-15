@@ -1,9 +1,11 @@
 package dc.entidade.tributario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -82,8 +86,9 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "operacaoFiscal", fetch = FetchType.LAZY)
-	private List<ClienteEntity> clienteList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="operacaoFiscal",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ClienteEntity> clienteList = new ArrayList<ClienteEntity>();
 
 	/**
 	 * TRANSIENT

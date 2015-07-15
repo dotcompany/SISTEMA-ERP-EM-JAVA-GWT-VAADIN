@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -26,7 +27,7 @@ public class IcmsCustomizadoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "origemMercadoria" };
+		return new String[] { "descricao", "origemMercadoria" };
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class IcmsCustomizadoListController extends
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaContagemEstoque";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

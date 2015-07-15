@@ -6,6 +6,8 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.visao.framework.util.ComponentUtil;
+
 public class IndiceEconomicoFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
@@ -52,27 +54,18 @@ public class IndiceEconomicoFormView extends CustomComponent {
 		setHeight("100.0%");
 
 		// txtSigla
-		txtSigla = new TextField();
-		txtSigla.setCaption("Sigla");
+		txtSigla = ComponentUtil.buildTextField("Sigla");
 		txtSigla.setImmediate(false);
-		txtSigla.setWidth("-1px");
-		txtSigla.setHeight("-1px");
 		mainLayout.addComponent(txtSigla);
 
 		// txtNome
-		txtNome = new TextField();
-		txtNome.setCaption("Nome");
+		txtNome = ComponentUtil.buildTextField("Nome");
 		txtNome.setImmediate(false);
-		txtNome.setWidth("-1px");
-		txtNome.setHeight("-1px");
 		mainLayout.addComponent(txtNome);
 
 		// txtDescricao
-		txtDescricao = new TextArea();
-		txtDescricao.setCaption("Descrição");
+		txtDescricao = ComponentUtil.buildTextArea("Descrição");
 		txtDescricao.setImmediate(false);
-		txtDescricao.setWidth("260px");
-		txtDescricao.setHeight("-1px");
 		mainLayout.addComponent(txtDescricao);
 
 		return mainLayout;

@@ -180,7 +180,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 					super.getMainController()) {
 				@Override
 				public String getCaptionProperty() {
-					return "nome";
+					return "descricao";
 				}
 			};
 			this.subView.getMocIcmsCustomizado().setModel(modelIcmsCustomizado);

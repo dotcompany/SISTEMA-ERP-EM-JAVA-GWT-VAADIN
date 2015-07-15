@@ -313,7 +313,6 @@ public class LancamentoPagarFormView extends CustomComponent {
 		this.cbNaturezaFinanceira = cbNaturezaFinanceira;
 	}
 
-	@SuppressWarnings("serial")
 	private SubFormComponent<LctoPagarNtFinanceira, Integer> buildSubFormNaturezaFinanceira() {
 	//private Component buildSubFormNaturezaFinanceira() {
 		
