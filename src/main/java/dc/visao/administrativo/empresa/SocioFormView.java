@@ -119,10 +119,10 @@ public class SocioFormView extends CustomComponent {
 		cmbUF = new ManyToOneCombo<>();
 		cmbUF.setCaption("UF");
 		//cmbUF.setContainerDataSource(controller.carregarUFs());
-		fields.addComponent(cmbUF, 2, 2);
+		fields.addComponent(cmbUF, 2, 2, 3,2);
 
 		txtCep = ComponentUtil.buildMaskedTextField("CEP","##.###-###");
-		fields.addComponent(txtCep, 3, 2,4,2);
+		fields.addComponent(txtCep, 4,2);
 
 		txtFone = ComponentUtil.buildMaskedTextField("Fone","(##)####-####");
 		fields.addComponent(txtFone, 0, 3);

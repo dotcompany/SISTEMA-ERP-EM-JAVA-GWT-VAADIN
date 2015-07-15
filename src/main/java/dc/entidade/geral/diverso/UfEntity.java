@@ -1,11 +1,14 @@
 package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -87,8 +92,9 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// @OneToMany(mappedBy = "uf", fetch = FetchType.LAZY)
 	// private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
-	@OneToMany(mappedBy = "uf")
-	private List<AgenciaBancoEntity> agenciaBancoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="uf",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<AgenciaBancoEntity>();
 
 	/**
 	 * TRANSIENT

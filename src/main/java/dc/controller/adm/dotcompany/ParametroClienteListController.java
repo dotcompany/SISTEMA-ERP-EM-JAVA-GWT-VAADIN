@@ -22,14 +22,14 @@ public class ParametroClienteListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ParametroClienteDAO dao;
+	private ParametroClienteDAO dao;
 
 	@Autowired
 	private ParametroClienteFormController parametroClienteFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "tipoSistema", "vendedor","comissaoVendedor","agente","comissaoAgente"};
+		return new String[] { "empresa","valorEntrada","valorMensalidade", "dataEntrada","nomeResponsavel","emailPrincipal"};
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ParametroClienteListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Parametro Cliente";
+		return "Parâmetro Cliente";
 	}
 
 	@Override

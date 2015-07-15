@@ -1,6 +1,7 @@
 package dc.entidade.financeiro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -21,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -172,8 +175,9 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * @module FINANCEIRO
 	 */
 
-	@OneToMany(mappedBy = "agenciaBanco", fetch = FetchType.LAZY)
-	private List<ContaCaixa> contaCaixaList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="agenciaBanco",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ContaCaixa> contaCaixaList = new ArrayList<ContaCaixa>();
 
 	/**
 	 * TRANSIENT

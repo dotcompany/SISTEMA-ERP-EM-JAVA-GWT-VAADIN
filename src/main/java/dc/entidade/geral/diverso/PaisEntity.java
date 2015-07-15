@@ -1,11 +1,14 @@
 package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -90,8 +95,9 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pais")
-	private List<UfEntity> ufList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="pais",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<UfEntity> ufList = new ArrayList<UfEntity>();
 
 	/**
 	 * REFERENCIA - LIST
