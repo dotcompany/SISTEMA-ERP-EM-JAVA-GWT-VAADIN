@@ -1,5 +1,6 @@
 package dc.visao.framework.component.manytoonecombo;
 
+import com.vaadin.data.Property;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -14,7 +15,8 @@ public class ManyToOneComboField<T> extends CustomField<T> {
     private final Class<T> beanType;
 
     public ManyToOneComboField(Class<T> beanType) {
-        this.combo = new ManyToOneCombo<T>();
+        this.combo = new ManyToOneCombo<>();
+        this.combo.addValueChangeListener((listener) -> setValue(this.combo.getValue()));
         this.beanType = beanType;
     }
 
@@ -54,7 +56,8 @@ public class ManyToOneComboField<T> extends CustomField<T> {
     }
 
     @Override
-    protected T getInternalValue() {
-        return this.combo.getValue();
+    public void addValueChangeListener(ValueChangeListener listener) {
+        this.combo.addValueChangeListener(listener);
     }
+
 }
