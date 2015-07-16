@@ -60,6 +60,8 @@ public class DCFieldGroup<T> extends BeanFieldGroup<T> {
                     field.setRequired(false);
                 }
             }
+        } else {
+            field.setRequired(false);
         }
 
 
