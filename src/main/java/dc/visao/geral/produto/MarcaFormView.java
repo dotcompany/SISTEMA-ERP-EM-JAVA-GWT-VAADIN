@@ -107,7 +107,6 @@ public class MarcaFormView extends CustomComponent {
 		tfNome.setImmediate(false);
 		tfNome.setWidth("460px");
 		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
 		horizontalLayout_1.addComponent(tfNome);
 
 		return horizontalLayout_1;
@@ -129,7 +128,6 @@ public class MarcaFormView extends CustomComponent {
 		tfDescricao.setImmediate(false);
 		tfDescricao.setWidth("460px");
 		tfDescricao.setHeight("-1px");
-		tfDescricao.setRequired(true);
 		horizontalLayout_2.addComponent(tfDescricao);
 
 		return horizontalLayout_2;

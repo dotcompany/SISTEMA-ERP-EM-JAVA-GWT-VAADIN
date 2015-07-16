@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -38,6 +40,7 @@ import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "produto")
@@ -59,6 +62,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
+    @NotNull
 	private Integer id;
 
 	@Field
@@ -80,6 +84,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+    @NotNull(message = "Nome obrigatório")
+    @Length(min = 4, message = "O tamanho deve ser no mínimo 4 caracteres")
 	private String nome = "";
 
 	// @Lob
@@ -309,6 +315,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "ippt")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+    @NotNull(message = "IPPT obrigatório")
 	private IpptEn ippt;
 
 	@Enumerated(EnumType.STRING)
@@ -336,6 +343,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Unidade do produto")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_unidade_produto", nullable = false)
+    @NotNull(message = "Unidade do produto é obrigatório")
 	private UnidadeProdutoEntity unidadeProduto;
 
 	@Caption("Marca do produto")

@@ -56,7 +56,6 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Sigla")
 	@Column(name = "SIGLA", length = 10)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String sigla;
 
@@ -73,7 +72,6 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Pode fracionar")
 	@Column(name = "PODE_FRACIONAR")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private SimNaoEn podeFracionar;
 

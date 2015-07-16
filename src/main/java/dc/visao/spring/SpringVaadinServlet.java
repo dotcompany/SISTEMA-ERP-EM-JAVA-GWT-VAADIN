@@ -3,21 +3,10 @@ package dc.visao.spring;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
+import com.vaadin.server.*;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.vaadin.server.CustomizedSystemMessages;
-import com.vaadin.server.DefaultUIProvider;
-import com.vaadin.server.DeploymentConfiguration;
-import com.vaadin.server.ServiceException;
-import com.vaadin.server.SessionInitEvent;
-import com.vaadin.server.SessionInitListener;
-import com.vaadin.server.SystemMessages;
-import com.vaadin.server.SystemMessagesInfo;
-import com.vaadin.server.SystemMessagesProvider;
-import com.vaadin.server.UICreateEvent;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.server.VaadinServletService;
 import com.vaadin.ui.UI;
 
 /**
@@ -86,14 +75,20 @@ public class SpringVaadinServlet extends VaadinServlet {
 
 		service.setSystemMessagesProvider(systemMessagesProvider);
 
-		/*
-		 * service.addSessionDestroyListener(new SessionDestroyListener() {
-		 * 
-		 * @Override public void sessionDestroy(SessionDestroyEvent event) { //
-		 * TODO Auto-generated method stub
-		 * 
-		 * } });
-		 */
+        service.addSessionInitListener(event -> {
+            event.getSession().setErrorHandler(new DefaultErrorHandler(){
+                @Override
+                public void error(ErrorEvent errorEvent) {
+                    try {
+                        super.error(errorEvent);
+                    } finally {
+                        log("GOODBYE WORLD");
+                        event.getSession().close();
+                        VaadinService.getCurrentRequest().getWrappedSession().invalidate();
+                    }
+                }
+            });
+        });
 		return service;
 	}
 

@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -55,6 +56,7 @@ public class MarcaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+    @NotNull(message = "Nome é obrigatório")
 	private String nome;
 
 	@Lob
@@ -65,6 +67,7 @@ public class MarcaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+    @NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	/**

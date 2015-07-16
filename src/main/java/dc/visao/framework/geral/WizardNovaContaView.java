@@ -14,7 +14,6 @@ import org.vaadin.teemu.wizards.event.WizardProgressListener;
 import org.vaadin.teemu.wizards.event.WizardStepActivationEvent;
 import org.vaadin.teemu.wizards.event.WizardStepSetChangedEvent;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Navigator;
 import com.sun.istack.logging.Logger;
 import com.vaadin.navigator.View;
 import com.vaadin.server.Page;

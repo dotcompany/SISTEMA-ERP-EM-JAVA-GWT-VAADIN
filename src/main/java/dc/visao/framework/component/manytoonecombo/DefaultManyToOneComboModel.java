@@ -42,8 +42,9 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public static final int FULL_SIZE_MODAL = 1;
 	public static final int MEDIUM_SIZE_MODAL = 2;
 	public static final int SMALL_SIZE_MODAL = 3;
+    private String captionProperty = "nome";
 
-	public DefaultManyToOneComboModel(Class controllerClass,
+    public DefaultManyToOneComboModel(Class controllerClass,
 			AbstractCrudDAO<T> dao, MainController mainController) {
 		this(controllerClass, dao, mainController, false);
 	}
@@ -146,10 +147,14 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
 	@Override
 	public String getCaptionProperty() {
-		return "nome";
+		return this.captionProperty;
 	}
 
-	public static <T> List<Class<?>> getTypeArguments(Class<T> baseClass,
+    public void setCaptionProperty(String captionProperty) {
+        this.captionProperty = captionProperty;
+    }
+
+    public static <T> List<Class<?>> getTypeArguments(Class<T> baseClass,
 			Class<? extends T> childClass) {
 		Map<Type, Type> resolvedTypes = new HashMap<Type, Type>();
 		Type type = childClass;

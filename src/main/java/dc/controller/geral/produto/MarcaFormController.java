@@ -3,6 +3,10 @@ package dc.controller.geral.produto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItem;
+import dc.visao.framework.DCFieldGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -31,7 +35,6 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	/**
 	 * ENTITY
 	 */
-
 	private MarcaEntity entity;
 
 	/**
@@ -41,7 +44,7 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Autowired
 	private MarcaBusiness<MarcaEntity> business;
 
-	/**
+    /**
 	 * DAO
 	 */
 
@@ -86,8 +89,17 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new MarcaFormView(this);
-		} catch (Exception e) {
+            this.subView = new MarcaFormView(this);
+
+            // Configura o mapeamento Model-View usando o mecanismo de DataBinding do Vaadin 7 e uma classe
+            // especial DCFieldGroup que extende BeanFieldGroup.
+            // Aqui associamos o campo a uma propriedade da entidade. As regras de validação
+            // (requerido, etc.) são buscadas direto das anotações da entitdade.
+            this.fieldGroup = new DCFieldGroup<>(MarcaEntity.class);
+            fieldGroup.bind(this.subView.getTfNome(),"nome");
+            fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+
+        } catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -95,12 +107,11 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			MarcaProdutoUtils.validateRequiredFields(this.subView);
+            // Commit tenta transferir os dados do View para o Model, levando em conta os critérios de validação
+            fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 	}
@@ -108,15 +119,10 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-
 			this.business.saveOrUpdate(this.entity);
-
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 			mensagemErro(e.getMessage());
 		}
 	}
@@ -126,8 +132,10 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.entity);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,18 +144,13 @@ public class MarcaFormController extends CRUDFormController<MarcaEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.entity = new MarcaEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
 
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
 			this.entity = new MarcaEntity();
+
+            // Atribui a entidade nova como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.entity);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -27,6 +27,9 @@
         and is enabled by default with Java 5+: -->
     <context:component-scan base-package="dc.*" />
 
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="org.postgresql.Driver" />
         <property name="jdbcUrl" value="${database.jdbc_url}" />
