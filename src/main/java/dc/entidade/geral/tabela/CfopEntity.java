@@ -25,7 +25,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
  * 
@@ -121,11 +120,11 @@ public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Se
 	          return true;
 	    }
 
-	    if (!(obj instanceof ProdutoEntity)) {
+	    if (!(obj instanceof CfopEntity)) {
 	           return false;
 	    }
 
-	    ProdutoEntity that = (ProdutoEntity) obj;
+	    CfopEntity that = (CfopEntity) obj;
 	    EqualsBuilder eb = new EqualsBuilder();
 	    eb.append(getId(), that.getId());
 	    return eb.isEquals();

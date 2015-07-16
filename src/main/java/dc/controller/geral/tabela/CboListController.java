@@ -38,7 +38,7 @@ public class CboListController extends CRUDListController<CboEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo","codigo1994", "nome", "observacao" };
+		return new String[] { "codigo","nome", "observacao" };
 	}
 
 	@Override

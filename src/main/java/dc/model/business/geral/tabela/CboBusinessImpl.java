@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
@@ -13,6 +14,9 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.tabela.CboEntity;
 import dc.model.dao.geral.tabela.CboDAO;
 
+
+@Service
+@Transactional(readOnly = true)
 public class CboBusinessImpl implements Serializable,CboBusiness<CboEntity> {
 
 /**
