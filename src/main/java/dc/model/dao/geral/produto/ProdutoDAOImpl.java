@@ -1,5 +1,5 @@
-package dc.model.dao.geral.produto;
 
+package dc.model.dao.geral.produto;
 import java.io.Serializable;
 import java.util.List;
 

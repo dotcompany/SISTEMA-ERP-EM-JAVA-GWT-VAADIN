@@ -80,7 +80,7 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="grupoTributario",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="grupoTributario", fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**

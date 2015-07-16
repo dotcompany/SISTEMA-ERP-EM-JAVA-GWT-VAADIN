@@ -84,7 +84,7 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="unidadeProduto",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="unidadeProduto", fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
@@ -148,9 +148,9 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * TO STRING
 	 */
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+//	@Override
+//	public String toString() {
+//		return ToStringBuilder.reflectionToString(this);
+//	}
 
 }

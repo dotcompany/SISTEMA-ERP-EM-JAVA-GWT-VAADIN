@@ -20,7 +20,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -331,38 +333,38 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Caption("Subgrupo")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_sub_grupo", nullable = false)
 	private SubGrupoEntity subGrupo;
 
 	@Caption("Grupo")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_produto_grupo", nullable = false)
 	private GrupoEntity grupo;
 
 	@Caption("Unidade do produto")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_unidade_produto", nullable = false)
     @NotNull(message = "Unidade do produto é obrigatório")
 	private UnidadeProdutoEntity unidadeProduto;
 
 	@Caption("Marca do produto")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private MarcaEntity marca;
 
 	@Caption("Almoxarifado")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_almoxarifado", nullable = false)
 	private AlmoxarifadoEntity almoxarifado;
 
 	@Caption("NCM")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_ncm", nullable = false)
 	private NcmEntity ncm;
 
 	@Caption("Grupo tributário")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_grupo_tributario", nullable = true)
 	private GrupoTributarioEntity grupoTributario;
 
@@ -762,8 +764,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		return icmsCustomizado;
 	}
 
-	public void setIcmsCustomizado(
-			IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
+	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
 		this.icmsCustomizado = icmsCustomizado;
 	}
 
@@ -771,9 +772,36 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * TO STRING
 	 */
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+//	@Override
+//	public String toString() {
+//		return ToStringBuilder.reflectionToString(this);
+//	}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ProdutoEntity)) {
+            return false;
+        }
+
+        ProdutoEntity that = (ProdutoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

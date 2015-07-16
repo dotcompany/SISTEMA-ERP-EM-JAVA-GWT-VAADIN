@@ -83,7 +83,7 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
 	
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="icmsCustomizado",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="icmsCustomizado",orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
