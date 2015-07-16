@@ -1,10 +1,12 @@
 package dc.entidade.geral.pessoal;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,6 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -198,16 +202,19 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * REFERENCIA - LIST
 	 */
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<BemEntity> bemList = new ArrayList<BemEntity>();
 
-	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
-	private List<BemEntity> bemList;
 
 	/**
 	 * Módulo: NFE
 	 */
 
-	@OneToMany(mappedBy = "fornecedor", fetch = FetchType.LAZY)
-	private List<NfeCabecalhoEntity> nfeCabecalhoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<NfeCabecalhoEntity> nfeCabecalhoList =  new ArrayList<NfeCabecalhoEntity>();
 
 	/**
 	 * TRANSIENT

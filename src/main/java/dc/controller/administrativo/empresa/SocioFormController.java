@@ -319,14 +319,14 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 	protected void quandoNovo() {
 		try {
 			// subView.filEstoqueDetalhesSubForm(currentBean.getDetalhes());
-			novoObjeto(0);
+			//novoObjeto(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 	
-	private void novoObjeto(Serializable id) {
+	/*private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
 				this.currentBean = new SocioEntity();
@@ -346,7 +346,7 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	@Override
 	protected Component getSubView() {

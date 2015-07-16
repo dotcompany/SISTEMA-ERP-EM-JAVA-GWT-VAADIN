@@ -99,7 +99,7 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	private String vendedor;
 	
 	@Field
-	@Caption("Comissao Vendedor")
+	@Caption("Comissão Vendedor")
 	@Column(name = "COMISSAO_VENDEDOR", precision = 18, scale = 6)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

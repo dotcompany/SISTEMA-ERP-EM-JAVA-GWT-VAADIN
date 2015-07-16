@@ -261,129 +261,83 @@ public class ConvenioFormView extends CustomComponent {
 		// mocPessoa
 		mocPessoa = new ManyToOneCombo<>();
 		mocPessoa.setCaption("Pessoa");
-		mocPessoa.setWidth("300px");
-		mocPessoa.setHeight("-1px");
 		fields.addComponent(mocPessoa, 0, 0);
 		
 		// txtNome
 		tfNome = ComponentUtil.buildTextField("Nome");
-		tfNome.setImmediate(false);
 		tfNome.setRequired(true);
-		tfNome.setWidth("500px");
-		tfNome.setHeight("-1px");
 		fields.addComponent(tfNome, 0, 1);
 		
 		// txtCnpj
 		tfCnpj = ComponentUtil.buildMaskedTextField("CNPJ", "##.###.###/####-##");
 		tfCnpj.setMaskClientOnly(true);
-		tfCnpj.setImmediate(false);
-		tfCnpj.setWidth("200px");
-		tfCnpj.setHeight("-1px");
 		fields.addComponent(tfCnpj, 1, 1);
 		
 		// txtLogradouro
 		tfLogradouro = ComponentUtil.buildTextField("Logradouro");
-		tfLogradouro.setImmediate(false);
 		tfLogradouro.setRequired(true);
-		tfLogradouro.setWidth("500px");
-		tfLogradouro.setHeight("-1px");
 		fields.addComponent(tfLogradouro, 0, 2);
 		
 		// txtNumero
 		tfNumero = ComponentUtil.buildTextField("Número");
 		tfNumero.setImmediate(false);
-		tfNumero.setWidth("100px");
-		tfNumero.setHeight("-1px");
 		fields.addComponent(tfNumero, 1, 2);
 		
 		// txtBairro
 		tfBairro = ComponentUtil.buildTextField("Bairro");
-		tfBairro.setImmediate(false);
-		tfBairro.setWidth("250px");
-		tfBairro.setHeight("-1px");
+		tfBairro.setWidth("150px");
 		fields.addComponent(tfBairro, 2, 2);
 			
 		// txtMunicipioIBGE
 		tfMunicipioIBGE = ComponentUtil.buildTextField("Municipio IBGE");
-		tfMunicipioIBGE.setImmediate(false);
-		tfMunicipioIBGE.setWidth("200px");
-		tfMunicipioIBGE.setHeight("-1px");
+		tfMunicipioIBGE.setWidth("150px");
 		fields.addComponent(tfMunicipioIBGE, 3, 2);
 		
 		// txtCep
 		tfCep = ComponentUtil.buildMaskedTextField("CEP", "#####-###");
 		tfCep.setMaskClientOnly(true);
-		tfCep.setImmediate(false);
-		tfCep.setWidth("250px");
-		tfCep.setHeight("-1px");
 		fields.addComponent(tfCep, 0, 3);
 		
 		// cmbUF
 		mocUf = new ManyToOneCombo<>();
 		mocUf.setCaption("UF");
-		mocUf.setWidth("120px");
-		mocUf.setHeight("-1px");
 		fields.addComponent(mocUf, 1, 3);
 			
 				
 		// txtDesconto
 		tfDesconto = ComponentUtil.buildTextField("Desconto");
-		tfDesconto.setImmediate(false);
-		tfDesconto.setWidth("-1px");
-		tfDesconto.setHeight("-1px");
 		fields.addComponent(tfDesconto, 0, 4);
 
 		// dnDataVencimento
 		pdfDataVencimento = ComponentUtil.buildPopupDateField("Data Vencimento");
-		pdfDataVencimento.setImmediate(false);
-		pdfDataVencimento.setWidth("200px");
-		pdfDataVencimento.setHeight("-1px");
 		fields.addComponent(pdfDataVencimento, 1, 4);
 		
 		// dnDataCadastro
 		pdfDataCadastro = ComponentUtil.buildPopupDateField("Data Cadastro");
-		pdfDataCadastro.setImmediate(false);
-		pdfDataCadastro.setWidth("200px");
-		pdfDataCadastro.setHeight("-1px");
 		fields.addComponent(pdfDataCadastro, 2, 4);
 
 
 		// txtContato
 		tfContato = ComponentUtil.buildMaskedTextField("Contato", "(##) #####-####");
 		tfContato.setMaskClientOnly(true);
-		tfContato.setImmediate(false);
-		tfContato.setWidth("-1px");
-		tfContato.setHeight("-1px");
 		fields.addComponent(tfContato, 0, 5);
 
 		// txtTelefone
 		tfTelefone = ComponentUtil.buildMaskedTextField("Telefone", "(##) #####-####");
 		tfTelefone.setMaskClientOnly(true);
-		tfTelefone.setImmediate(false);
-		tfTelefone.setWidth("-1px");
-		tfTelefone.setHeight("-1px");
 		fields.addComponent(tfTelefone, 1, 5);
 		
 		// txtEmail
 		tfEmail = ComponentUtil.buildTextField("Email");
-		tfEmail.setImmediate(false);
-		tfEmail.setWidth("300px");
-		tfEmail.setHeight("-1px");
 		fields.addComponent(tfEmail, 0, 6);
 
 		// txtSite
 		tfSite = ComponentUtil.buildTextField("Site");
-		tfSite.setImmediate(false);
-		tfSite.setWidth("300px");
-		tfSite.setHeight("-1px");
 		fields.addComponent(tfSite, 1, 6);
 
 		// txtDescricao
 		tfDescricao = ComponentUtil.buildTextArea("Descrição");
-		tfDescricao.setImmediate(false);
-		tfDescricao.setWidth("540px");
-		tfDescricao.setHeight("-1px");
-		fields.addComponent(tfDescricao, 0, 7);
+		fields.addComponent(tfDescricao, 0, 7 , 3, 7);
 
 		return fields;
 	}

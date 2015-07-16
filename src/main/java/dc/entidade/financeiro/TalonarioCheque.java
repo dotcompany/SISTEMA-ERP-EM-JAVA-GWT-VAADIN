@@ -78,9 +78,10 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	@ManyToOne(optional = false)
 	private Empresa empresa;*/
 
+	@ManyToOne
 	@Caption(value = "Conta Caixa")
-	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	//@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = true)
 	private ContaCaixa contaCaixa;
 
 	public TalonarioCheque() {

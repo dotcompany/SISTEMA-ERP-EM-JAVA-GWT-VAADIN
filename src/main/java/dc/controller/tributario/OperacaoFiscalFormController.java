@@ -10,38 +10,37 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.control.util.ClassUtils;
+import dc.controller.geral.tabela.CfopListController;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.servicos.util.Validator;
+import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.OperacaoFiscalFormView;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
-public class OperacaoFiscalFormController extends
-		CRUDFormController<OperacaoFiscalEntity> {
+public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFiscalEntity> {
+	
+	private static final long serialVersionUID = 1L;
 
 	OperacaoFiscalFormView subView;
 
 	@Autowired
-	OperacaoFiscalDAO dao;
+	private OperacaoFiscalDAO dao;
 
-	OperacaoFiscalEntity currentBean;
+	private OperacaoFiscalEntity currentBean;
 
 	@Autowired
-	CfopDAO cfopDAO;
-
-	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
+	private CfopDAO cfopDAO;
 
 	@Override
 	public String getViewIdentifier() {
-		return "operacaoFiscalForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -59,6 +58,18 @@ public class OperacaoFiscalFormController extends
 	@Override
 	protected void initSubView() {
 		subView = new OperacaoFiscalFormView(this);
+		
+		DefaultManyToOneComboModel<CfopEntity> model = new DefaultManyToOneComboModel<CfopEntity>(
+				CfopListController.class, this.cfopDAO,
+				super.getMainController()) {
+			@Override
+			public String getCaptionProperty() {
+				return "descricao";
+			}
+
+		};
+		
+		this.subView.getCfop().setModel(model);
 	}
 
 	@Override
@@ -69,10 +80,6 @@ public class OperacaoFiscalFormController extends
 		subView.getDescricao().setValue(currentBean.getDescricao());
 		subView.getDescricaoNaNf().setValue(currentBean.getDescricaoNaNf());
 		subView.getObservacao().setValue(currentBean.getObservacao());
-	}
-
-	public EmpresaEntity empresaAtual() {
-		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 	}
 
 	@Override

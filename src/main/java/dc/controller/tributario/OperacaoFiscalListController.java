@@ -25,7 +25,7 @@ public class OperacaoFiscalListController extends CRUDListController<OperacaoFis
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "cfop", "nome" };
+		return new String[] { "cfop", "descricao","descricaoNaNf","observacao" };
 	}
 
 	@Override

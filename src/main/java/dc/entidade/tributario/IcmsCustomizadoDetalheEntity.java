@@ -15,9 +15,12 @@ import javax.persistence.Transient;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
@@ -35,19 +38,31 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 	@SequenceGenerator(name = "trd", sequenceName = "tribut_icms_custom_det_id_seq", allocationSize = 1)
 	private Integer id;
 
+	@Field
+	@Caption(value = "Uf Destino")
 	@Column(name="uf_destino")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String ufDestino;
 
 	@ManyToOne
 	@JoinColumn(name="cfop")
 	private CfopEntity cfop;
 
+	@Field
+	@Caption(value="Csosn B")
 	@Column(name="csosn_b")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String csosnB;
 	
 	@Transient
 	private CsosnbEntity csosn;
 
+	@Field
+	@Caption(value="Cst B")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name="cst_b")
 	private String cstB;
 	
@@ -139,8 +154,6 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 		this.modalidadeBc = modalidadeBc;
 	}
 
-	
-
 	public Integer getAliquota() {
 		return aliquota;
 	}
@@ -180,11 +193,5 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 	public void setCst(CstIcmsbEntity cst) {
 		this.cst = cst;
 	}
-
-	
-	
-	
-	
-	
 
 }

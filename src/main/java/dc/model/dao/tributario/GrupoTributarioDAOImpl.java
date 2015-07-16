@@ -40,7 +40,7 @@ public class GrupoTributarioDAOImpl extends
 
 	public List<GrupoTributarioEntity> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<GrupoTributarioEntity> auxLista = super.getSession()
@@ -57,7 +57,7 @@ public class GrupoTributarioDAOImpl extends
 
 	public List<GrupoTributarioEntity> query(String q) {
 		try {
-			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 			sql = sql.replace("#", this.getEntityClass().getName());
 
 			List<GrupoTributarioEntity> auxLista = super.getSession()

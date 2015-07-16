@@ -29,7 +29,7 @@ public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "codigo", "descricao" };
+		return new String[] { "codigo", "descricao","observacao" };
 	}
 	
 	@Transactional

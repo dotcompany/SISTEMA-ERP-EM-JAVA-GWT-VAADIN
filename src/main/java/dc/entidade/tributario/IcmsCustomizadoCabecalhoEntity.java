@@ -20,12 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.control.enums.OrigemMercadoria;
+import dc.control.enums.OrigemMercadoriaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -54,11 +56,11 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	private Integer id;
 
 	@Field
-	@Caption("Nome")
-	@Column(name = "nome")
+	@Caption("Descrição")
+	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String nome;
+	private String descricao = "";
 
 	@Enumerated(EnumType.STRING)
 	@Field
@@ -66,7 +68,7 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	@Column(name = "origem_mercadoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private OrigemMercadoria origemMercadoria;
+	private OrigemMercadoriaEn origemMercadoria;
 
 	/**
 	 * REFERENCIA - FK
@@ -76,11 +78,13 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="icmsCustomizado",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
 	
-	@OneToMany(mappedBy = "icmsCustomizado", fetch = FetchType.LAZY)
-	private List<ProdutoEntity> produtoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="icmsCustomizado",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
 	 * TRANSIENT
@@ -103,19 +107,19 @@ public class IcmsCustomizadoCabecalhoEntity extends
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public OrigemMercadoria getOrigemMercadoria() {
+	public OrigemMercadoriaEn getOrigemMercadoria() {
 		return origemMercadoria;
 	}
 
-	public void setOrigemMercadoria(OrigemMercadoria origemMercadoria) {
+	public void setOrigemMercadoria(OrigemMercadoriaEn origemMercadoria) {
 		this.origemMercadoria = origemMercadoria;
 	}
 
@@ -130,6 +134,11 @@ public class IcmsCustomizadoCabecalhoEntity extends
 	public void adicionarDetalhe(IcmsCustomizadoDetalheEntity detalhe) {
 		getDetalhes().add(detalhe);
 		detalhe.setIcmsCustomizado(this);
+	}
+	
+	public void removeDetalhe(IcmsCustomizadoDetalheEntity value) {
+		this.detalhes.remove(value);
+		value.setIcmsCustomizado(null);
 	}
 
 	public List<ProdutoEntity> getProdutoList() {

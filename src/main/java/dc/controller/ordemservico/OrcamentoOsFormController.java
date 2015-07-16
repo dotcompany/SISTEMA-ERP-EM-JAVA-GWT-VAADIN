@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.validator.ObjectValidator;
 import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.entidade.ordemservico.OrcamentoOsItemEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.ModeloDAO;
@@ -97,7 +95,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 
 		if (!Validator.validateObject(subView.getTfNome().getValue())) {
 			valido = false;
-			mensagemErro("O campo nome não pode ficar em branco.");
+			mensagemErro("O campo nome nÃ£o pode ficar em branco.");
 		}
 		return valido;
 	}
@@ -153,7 +151,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 
 	@Override
 	protected void quandoNovo() {
-		subView.preencheSubForm(currentBean.getItens());
+//		subView.preencheSubForm(currentBean.getItens());
 	}
 
 	@Override
@@ -190,7 +188,6 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 
 	@Override
 	public OrcamentoOsEntity getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 }

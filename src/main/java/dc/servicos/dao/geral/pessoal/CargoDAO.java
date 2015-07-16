@@ -29,7 +29,7 @@ public class CargoDAO extends AbstractCrudDAO<CargoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "descricao" };
+		return new String[] { "nome", "descricao","salario","cbo1994" ,"cbo2002"};
 	}
 
 	@Transactional

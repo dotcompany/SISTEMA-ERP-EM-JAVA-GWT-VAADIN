@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
-import dc.control.enums.OrigemMercadoria;
-import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.control.enums.OrigemMercadoriaEn;
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.geral.tabela.CsosnbEntity;
@@ -28,90 +28,87 @@ import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
 import dc.servicos.dao.tributario.IcmsCustomizadoDetalheDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.tributario.ICMSCustomizadoFormView;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
-public class IcmsCustomizadoFormController extends
-		CRUDFormController<IcmsCustomizadoCabecalhoEntity> {
-
-	ICMSCustomizadoFormView subView;
-
-	@Autowired
-	IcmsCustomizadoDAO dao;
-
-	@Autowired
-	UfDAO ufDAO;
-
-	@Autowired
-	IcmsCustomizadoDetalheDAO detalheDAO;
-
-	IcmsCustomizadoCabecalhoEntity currentBean;
-
-	@Autowired
-	CfopDAO cfopDAO;
-
-	@Autowired
-	CsosnbDAO csosnbDAO;
-
-	@Autowired
-	CstIcmsbDAO cstbDAO;
-
-	@Override
-	public String getViewIdentifier() {
-		return "icmsCustomizadoForm";
-	}
-
-	@Override
-	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		return valido;
-	}
-
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new IcmsCustomizadoCabecalhoEntity();
-	}
-
-	@Override
-	protected void initSubView() {
-		subView = new ICMSCustomizadoFormView(this);
-		
-		this.subView.InitCbs(getOrigemMercadoria());
-
-	}
+public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustomizadoCabecalhoEntity> {
 	
-	/** COMBO */
-	public List<String> getOrigemMercadoria() {
-		try {
-			List<String> siLista = new ArrayList<String>();
+private static final long serialVersionUID = 1L;
 
-			for (OrigemMercadoria en : OrigemMercadoria.values()) {
-				siLista.add(en.ordinal(), en.toString());
-			}
-			
-			return siLista;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+ICMSCustomizadoFormView subView;
 
-			return null;
+@Autowired
+private IcmsCustomizadoDAO dao;
+
+@Autowired
+private UfDAO ufDAO;
+
+@Autowired
+private IcmsCustomizadoDetalheDAO detalheDAO;
+
+private IcmsCustomizadoCabecalhoEntity currentBean;
+
+@Autowired
+private CfopDAO cfopDAO;
+
+@Autowired
+private CsosnbDAO csosnbDAO;
+
+@Autowired
+private CstIcmsbDAO cstbDAO;
+
+@Override
+public String getViewIdentifier() {
+	return ClassUtils.getUrl(this);
+}
+
+@Override
+protected boolean validaSalvar() {
+	boolean valido = true;
+
+	return valido;
+}
+
+@Override
+protected void criarNovoBean() {
+	currentBean = new IcmsCustomizadoCabecalhoEntity();
+}
+
+@Override
+protected void initSubView() {
+	subView = new ICMSCustomizadoFormView(this);
+	
+	this.subView.InitCbs(getOrigemMercadoria());
+}
+	
+/** COMBO */
+public List<String> getOrigemMercadoria() {
+	try {
+		List<String> siLista = new ArrayList<String>();
+		for (OrigemMercadoriaEn en : OrigemMercadoriaEn.values()) {
+			siLista.add(en.ordinal(), en.toString());
 		}
+			
+		return siLista;
+			
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		return null;
 	}
+}
 
-	@Override
-	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
-		currentBean = dao.find((Integer) id);
-		subView.getTxtDescricao().setValue(currentBean.getNome());
-		subView.getOrigemMercadoria().setValue(
-				currentBean.getOrigemMercadoria());
+@Override
+protected void carregar(Serializable id) {
 		
-		this.subView.getOrigemMercadoria().setValue(this.currentBean.getOrigemMercadoria());
-
+	try {
+		currentBean = this.dao.find((Integer) id);
+		currentBean = dao.find((Integer) id);
+		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		subView.getOrigemMercadoria().setValue(currentBean.getOrigemMercadoria());
+		subView.getDetalheSubForm().fillWith(currentBean.getDetalhes());
+			
 		List<IcmsCustomizadoDetalheEntity> detalhes = currentBean.getDetalhes();
 
 		for (IcmsCustomizadoDetalheEntity d : detalhes) {
@@ -124,39 +121,37 @@ public class IcmsCustomizadoFormController extends
 		}
 
 		subView.preencheSubForm(detalhes);
+			
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
-
-	public EmpresaEntity empresaAtual() {
-		return SecuritySessionProvider.getUsuario().getConta().getEmpresa();
-	}
+		
+}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			
-
 			List<IcmsCustomizadoDetalheEntity> detalhes = subView
-					.getDetalhesSubForm().getDados();
+					.getDetalheSubForm().getDados();
 
 			String descricao = subView.getTxtDescricao().getValue();
-			OrigemMercadoria origem;
 			
-			OrigemMercadoria ORIGEM = (OrigemMercadoria) (this.subView.getOrigemMercadoria().getValue());
+			OrigemMercadoriaEn ORIGEM = (OrigemMercadoriaEn) (this.subView.getOrigemMercadoria().getValue());
 			this.currentBean.setOrigemMercadoria(ORIGEM);
 
 
-			/*if (!(Validator.validateString(descricao)))
+			if (!(Validator.validateString(descricao)))
 				throw new ErroValidacaoException("Informe o Campo Descrição");
 
 			if (!(Validator.validateObject(subView.getOrigemMercadoria().getValue()))) {
 				throw new ErroValidacaoException(
 						"Informe o Campo Origem da Mercadoria");
 			} else {
-				origem = (OrigemMercadoria) subView.getOrigemMercadoria().getValue();
-			}*/
+				ORIGEM = (OrigemMercadoriaEn) subView.getOrigemMercadoria().getValue();
+			}
 
-			currentBean.setNome(subView.getTxtDescricao().getValue());
-			//currentBean.setOrigemMercadoria(origem);
+			currentBean.setDescricao(subView.getTxtDescricao().getValue());
+			currentBean.setOrigemMercadoria(ORIGEM);
 			currentBean.setEmpresa(empresaAtual());
 
 			dao.saveOrUpdate(currentBean);
@@ -168,11 +163,9 @@ public class IcmsCustomizadoFormController extends
 				detalheDAO.saveOrUpdate(d);
 			}
 			notifiyFrameworkSaveOK(currentBean);
-		//} catch (ErroValidacaoException e) {
-			//mensagemErro(e.montaMensagemErro());
-		} catch (Exception e) {
-			mensagemErro("Erro!!");
-			e.printStackTrace();
+			
+		} catch (ErroValidacaoException e) {
+			mensagemErro(e.montaMensagemErro());
 		}
 
 	}
@@ -206,76 +199,71 @@ public class IcmsCustomizadoFormController extends
 		return true;
 	}
 
-	@Override
-	protected void remover(List<Serializable> ids) {
+@Override
+protected void remover(List<Serializable> ids) {
 
-		try {
-			for (Serializable id : ids) {
-				IcmsCustomizadoCabecalhoEntity icms = dao.find(id);
-				List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO
-						.findByIcms(icms);
-				for (IcmsCustomizadoDetalheEntity detalhe : detalhes) {
-					detalheDAO.delete(detalhe);
-				}
+	try {
+		for (Serializable id : ids) {
+			IcmsCustomizadoCabecalhoEntity icms = dao.find(id);
+			List<IcmsCustomizadoDetalheEntity> detalhes = detalheDAO
+					.findByIcms(icms);
+			for (IcmsCustomizadoDetalheEntity detalhe : detalhes) {
+				detalheDAO.delete(detalhe);
 			}
-			dao.deleteAllByIds(ids);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-
-		// TODO Auto-generated method stub
-
+		dao.deleteAllByIds(ids);
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
 
-	public IcmsCustomizadoDetalheEntity novoDetalhe() {
-		IcmsCustomizadoDetalheEntity detalhe = new IcmsCustomizadoDetalheEntity();
-		currentBean.adicionarDetalhe(detalhe);
-		return detalhe;
-	}
+}
 
-	public List<UfEntity> listarUfs() {
-		return ufDAO.listaTodos();
-	}
+public IcmsCustomizadoDetalheEntity novoDetalhe() {
+	IcmsCustomizadoDetalheEntity detalhe = new IcmsCustomizadoDetalheEntity();
+	currentBean.adicionarDetalhe(detalhe);
+	return detalhe;
+}
 
-	public String formataValor(String valor) {
-		String format = "";
-		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
+public List<UfEntity> listarUfs() {
+	return ufDAO.listaTodos();
+}
 
-		replaceAll(",", "").trim();
-		return format;
+public BeanItemContainer<CfopEntity> carregarCfop() {
+	BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(
+			CfopEntity.class);
+	for (CfopEntity obj : cfopDAO.listaTodos()) {
+		container.addBean(obj);
 	}
+	return container;
+}
 
-	public BeanItemContainer<CfopEntity> carregarCfop() {
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(
-				CfopEntity.class);
-		for (CfopEntity obj : cfopDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
+public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
+	BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(
+			CsosnbEntity.class);
+	for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
+		container.addBean(obj);
 	}
+	return container;
+}
 
-	public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
-		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(
-				CsosnbEntity.class);
-		for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
+public BeanItemContainer<CstIcmsbEntity> carregarCstb() {
+	BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(
+			CstIcmsbEntity.class);
+	for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
+		container.addBean(obj);
 	}
+	return container;
+}
+	
+public void removerDetalhe(List<IcmsCustomizadoDetalheEntity> values) {
+	for (IcmsCustomizadoDetalheEntity value : values) {
+		currentBean.removeDetalhe(value);
+	}
+}
 
-	public BeanItemContainer<CstIcmsbEntity> carregarCstb() {
-		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(
-				CstIcmsbEntity.class);
-		for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
-	}
-
-	@Override
-	public IcmsCustomizadoCabecalhoEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return currentBean;
-	}
+@Override
+public IcmsCustomizadoCabecalhoEntity getModelBean() {
+	return currentBean;
+}
 
 }

@@ -38,7 +38,7 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "descricao" };
+		return new String[] { "nome", "descricao","salario","cbo1994" ,"cbo2002" };
 	}
 
 	@Override

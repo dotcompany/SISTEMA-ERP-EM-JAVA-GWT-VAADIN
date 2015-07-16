@@ -1,9 +1,11 @@
 package dc.entidade.tributario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -75,8 +79,9 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "grupoTributario", fetch = FetchType.LAZY)
-	private List<ProdutoEntity> produtoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="grupoTributario",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
 	 * TRANSIENT

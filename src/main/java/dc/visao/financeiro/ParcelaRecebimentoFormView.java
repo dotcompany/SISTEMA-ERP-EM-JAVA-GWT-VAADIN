@@ -147,13 +147,11 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 
 		cbTipoRecebimento = new ManyToOneCombo<TipoRecebimento>();
 		cbTipoRecebimento.setCaption("Tipo Recebimento");
-		fields.addComponent(cbTipoRecebimento, 1, 1);
+		fields.addComponent(cbTipoRecebimento, 1, 1,2,1);
 
 		cbContaCaixa = new ManyToOneCombo<ContaCaixa>();
 		cbContaCaixa.setCaption("Conta Caixa");
-		cbContaCaixa.setHeight("-1px");
-		cbContaCaixa.setWidth("200px");
-		fields.addComponent(cbContaCaixa, 2, 1);
+		fields.addComponent(cbContaCaixa, 3, 1);
 		//
 
 		dtDataVencimento = ComponentUtil.buildPopupDateField("Data Vencimento");

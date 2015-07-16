@@ -35,7 +35,7 @@ public class TransportadoraListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "observacao" };
+		return new String[] {"pessoa", "observacao" };
 	}
 
 	@Override

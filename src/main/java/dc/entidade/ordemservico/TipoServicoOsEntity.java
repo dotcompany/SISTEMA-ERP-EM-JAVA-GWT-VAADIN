@@ -34,7 +34,7 @@ public class TipoServicoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	private Integer id;
 
 	@Field
-	@Caption("DESCRIÇÃO")
+	@Caption("Descrição")
 	@Column(name = "descricao")
 	private String descricao;
 

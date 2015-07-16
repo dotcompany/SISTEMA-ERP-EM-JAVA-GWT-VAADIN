@@ -32,7 +32,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.suprimento.contrato.ContratoFormController;
-import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.pessoal.PessoaEntity;
@@ -45,7 +44,6 @@ import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.framework.StringToBigDecimalConverter;
-import dc.visao.framework.component.ComboItemValue;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -669,14 +667,16 @@ public class ContratosFormView extends CustomComponent {
 						if ("produto.nome".equals(propertyId)) {
 							
 							ComboBox comboBox = ComponentUtil.buildComboBox(null);
-							BeanItemContainer<ProdutoEntity> naturezaContainer = new BeanItemContainer<>(ProdutoEntity.class,
+							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(ProdutoEntity.class,
 									controller.buscarProdutos());
-							naturezaContainer.addNestedContainerProperty("descricao");
-							comboBox.setContainerDataSource(naturezaContainer);
+							
+							produtoContainer.addNestedContainerProperty("nome");
+							comboBox.setContainerDataSource(produtoContainer);
+							comboBox.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 							comboBox.setImmediate(true);
 							comboBox.setSizeFull();
 							comboBox.setStyleName("manyToOneCombo");
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							comboBox.addValueChangeListener(new Property.ValueChangeListener() {
 								@Override
 								public void valueChange(

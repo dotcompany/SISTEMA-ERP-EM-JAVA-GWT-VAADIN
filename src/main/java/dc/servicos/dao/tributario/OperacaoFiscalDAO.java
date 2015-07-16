@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -27,7 +26,7 @@ public class OperacaoFiscalDAO extends AbstractCrudDAO<OperacaoFiscalEntity> {
 //	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"data"};
+		return new String[] {"cfop", "descricao","descricaoNaNf","observacao"};
 	}
 	
 	@Transactional

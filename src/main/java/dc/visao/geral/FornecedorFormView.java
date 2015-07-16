@@ -12,7 +12,6 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import dc.controller.geral.pessoal.FornecedorFormController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
@@ -229,11 +228,11 @@ public class FornecedorFormView extends CustomComponent {
 		mocPessoa.setCaption("Pessoa");
 
 		mocSituacaoForCli = new ManyToOneCombo<>();
-		mainLayout.addComponent(mocSituacaoForCli, 0, 1, 2, 1);
+		mainLayout.addComponent(mocSituacaoForCli, 0, 1, 1, 1);
 		mocSituacaoForCli.setCaption("Situação");
 
 		mocAtividadeForCli = new ManyToOneCombo<>();
-		mainLayout.addComponent(mocAtividadeForCli, 3, 1, 5, 1);
+		mainLayout.addComponent(mocAtividadeForCli, 2, 1, 3, 1);
 		mocAtividadeForCli.setCaption("Atividade");
 
 		pdfDesde = ComponentUtil.buildPopupDateField("Desde");

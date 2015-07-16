@@ -186,7 +186,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	@Override
 	protected String getNome() {
-		return "Ordem de ServiÃ§o";
+		return "Ordem de Serviço";
 	} 
 
 	@Override
@@ -439,26 +439,26 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	protected void actionSalvarEfetivacao() {
 		boolean valido = true;
 		if (((BigDecimal) subView.getValorTotalChequeOs()).compareTo(getTotalParcelaReceberCheque(parcelasChequeOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoChequeSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCarneOs()).compareTo(getTotalParcelaReceberCarne(parcelasCarneOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCarneSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (((BigDecimal) subView.getValorTotalCartaoOs()).compareTo(getTotalParcelaReceberCartao(parcelasCartaoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoCartaoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 		if (((BigDecimal) subView.getValorTotalBoletoOs()).compareTo(getTotalParcelaReceberBoleto(parcelasBoletoOs)) != 0) {
-			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			adicionarErroDeValidacao(subView.getEfetivacaoBoletoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
 			valido = false;
-			mensagemErro("Os valores informados nas parcelas nÃ£o batem com o valor a pagar.");
+			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
 
 		if (valido) {
@@ -699,7 +699,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 				subView.preencheEntradaServicoFinanceiraSubForm(currentBean.getItensEntradaServico());
 			}
 		} catch (Exception e) {
-			System.out.println("PROBLEMA AO CARREGAR ENTRADA DE SERVIÃ‡O");
+			System.out.println("PROBLEMA AO CARREGAR ENTRADA DE SERVIÇO");
 			e.printStackTrace();
 		}
 	}
