@@ -44,8 +44,8 @@ public class ProdutoDAO extends AbstractCrudDAO<ProdutoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "gtin", "codigoInterno", "nome", "descricao",
-				"descricaoPdv" };
+		return new String[] { "subGrupo","unidadeProduto","marca","almoxarifado", "codigoInterno", 
+				"nome", "descricao"};
 	}
 
 }

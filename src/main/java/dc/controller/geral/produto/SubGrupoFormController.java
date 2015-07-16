@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.SubGrupoProdutoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.model.business.geral.produto.SubGrupoBusiness;
 import dc.servicos.dao.geral.produto.GrupoDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.SubGrupoFormView;
@@ -75,7 +75,6 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
 
@@ -99,6 +98,12 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 					super.getMainController());
 
 			this.subView.getMocGrupoProduto().setModel(model);
+			
+			this.fieldGroup = new DCFieldGroup<>(SubGrupoEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,11 +112,10 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			SubGrupoProdutoUtils.validateRequiredFields(this.subView);
+			fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -120,9 +124,6 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-
 			this.entity.setGrupo(this.subView.getMocGrupoProduto().getValue());
 
 			this.business.saveOrUpdate(this.entity);
@@ -140,15 +141,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
-
-			// DefaultManyToOneComboModel<GrupoEntity> model = new
-			// DefaultManyToOneComboModel<GrupoEntity>(
-			// GrupoListController.class, this.grupoProdutoDAO,
-			// super.getMainController());
-
-			// this.subView.getMocGrupoProduto().setModel(model);
+			fieldGroup.setItemDataSource(this.entity);
 
 			this.subView.getMocGrupoProduto().setValue(this.entity.getGrupo());
 		} catch (Exception e) {
@@ -162,17 +155,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new SubGrupoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new SubGrupoEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

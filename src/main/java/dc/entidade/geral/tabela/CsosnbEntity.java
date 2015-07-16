@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -49,26 +50,29 @@ public class CsosnbEntity extends AbstractMultiEmpresaModel<Integer> implements 
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é obrigatório")
 	private String codigo;
 
 	@Field
-	@Caption("Descricao")
-	@Column(name = "DESCRICAO", length = 50)
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
+	@Caption("Observação")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Observação é obrigatório")
 	private String observacao;
 
 	public CsosnbEntity() {

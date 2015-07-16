@@ -93,12 +93,10 @@ public class GrupoFormView extends CustomComponent {
 
 		// tfNome
 		tfNome = ComponentUtil.buildTextField("Nome");
-		tfNome.setRequired(true);
 		fields.addComponent(tfNome, 0,0);
 
 		// tfDescricao
 		tfDescricao = ComponentUtil.buildTextField("Descrição");
-		tfDescricao.setRequired(true);
 		fields.addComponent(tfDescricao, 0, 1);
 
 		return fields;

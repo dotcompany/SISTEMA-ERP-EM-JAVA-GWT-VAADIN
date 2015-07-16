@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,18 +15,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.Length;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.ClasseEn;
@@ -42,7 +40,6 @@ import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "produto")
@@ -369,7 +366,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private GrupoTributarioEntity grupoTributario;
 
 	@Caption("ICMS customizado")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "id_tribut_icms_custom_cab")
 	private IcmsCustomizadoCabecalhoEntity icmsCustomizado;
 

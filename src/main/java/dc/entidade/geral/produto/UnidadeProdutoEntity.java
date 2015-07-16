@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,9 +17,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -59,17 +58,20 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Sigla")
-	@Column(name = "SIGLA", length = 10)
+	@Column(name = "SIGLA")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Sigla é obrigatório")
 	private String sigla;
 
 	@Lob
 	@Type(type = "text")
 	@Field
 	@Caption("Descrição")
-	@Column(name = "DESCRICAO", length = 65535)
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Basic(fetch = javax.persistence.FetchType.LAZY) 
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)

@@ -3,21 +3,17 @@ package dc.controller.geral.produto;
 import java.io.Serializable;
 import java.util.List;
 
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.util.BeanItem;
-import dc.visao.framework.DCFieldGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.MarcaProdutoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.MarcaEntity;
 import dc.model.business.geral.produto.MarcaBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.MarcaFormView;
 
