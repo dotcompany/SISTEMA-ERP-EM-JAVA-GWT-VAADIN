@@ -13,6 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CsosnbFormView;
 
@@ -75,10 +76,7 @@ public class CsosnbFormController extends CRUDFormController<CsosnbEntity> {
 		try {
             this.subView = new CsosnbFormView(this);
 
-            // Configura o mapeamento Model-View usando o mecanismo de DataBinding do Vaadin 7 e uma classe
-            // especial DCFieldGroup que extende BeanFieldGroup.
-            // Aqui associamos o campo a uma propriedade da entidade. As regras de validação
-            // (requerido, etc.) são buscadas direto das anotações da entitdade.
+            this.fieldGroup = new DCFieldGroup<>(CsosnbEntity.class);
             fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
             fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
             fieldGroup.bind(this.subView.getTxtObservacao(),"observacao");

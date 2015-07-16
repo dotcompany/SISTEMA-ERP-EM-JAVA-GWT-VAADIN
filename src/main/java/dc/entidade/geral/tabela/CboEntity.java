@@ -26,7 +26,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
  * 
@@ -53,20 +52,12 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo")
+	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Código é obrigatório")
 	private String codigo;
 	
-	@Field
-	@Caption("Codigo 1994")
-	@Column(name = "CODIGO_1994")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Código 1994 é obrigatório")
-	private String codigo1994;
-
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
@@ -110,14 +101,6 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 		this.codigo = codigo;
 	}
 	
-	public String getCodigo1994() {
-		return codigo1994;
-	}
-
-	public void setCodigo1994(String codigo1994) {
-		this.codigo1994 = codigo1994;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -140,11 +123,11 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 	          return true;
 	    }
 
-	    if (!(obj instanceof ProdutoEntity)) {
+	    if (!(obj instanceof CboEntity)) {
 	           return false;
 	    }
 
-	    ProdutoEntity that = (ProdutoEntity) obj;
+	    CboEntity that = (CboEntity) obj;
 	    EqualsBuilder eb = new EqualsBuilder();
 	    eb.append(getId(), that.getId());
 	    return eb.isEquals();

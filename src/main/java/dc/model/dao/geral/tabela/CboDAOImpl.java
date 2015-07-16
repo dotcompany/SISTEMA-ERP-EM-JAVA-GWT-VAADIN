@@ -3,12 +3,14 @@ package dc.model.dao.geral.tabela;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
+@Repository
 public class CboDAOImpl extends AbstractCrudDAO<CboEntity> implements CboDAO<CboEntity> {
 
 private static Logger logger = Logger.getLogger(CboDAOImpl.class);

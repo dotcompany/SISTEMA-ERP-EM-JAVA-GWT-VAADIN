@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -51,7 +52,7 @@ public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements 
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "CODIGO")
 	@ComboValue
 	@NotNull(message = "Código é obrigatório")
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -59,7 +60,7 @@ public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements 
 
 	@Field
 	@Caption("Descrição")
-	@Column(name = "DESCRICAO", length = 50)
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@NotNull(message = "Descrição é obrigatório")
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -117,8 +118,30 @@ public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	}
 
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CsosnaEntity)) {
+	           return false;
+	    }
+
+	    CsosnaEntity that = (CsosnaEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

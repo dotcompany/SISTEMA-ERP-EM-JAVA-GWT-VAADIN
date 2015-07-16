@@ -89,7 +89,6 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 			
 			this.fieldGroup = new DCFieldGroup<>(CboEntity.class);
 			fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
-			fieldGroup.bind(this.subView.getTxtCodigo1994(),"codigo1994");
             fieldGroup.bind(this.subView.getTxtNome(),"nome");
             fieldGroup.bind(this.subView.getTxtObservacao(),"observacao");
 
